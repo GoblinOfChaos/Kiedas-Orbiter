@@ -7,7 +7,7 @@
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 use std::fs;
-use tauri::Manager;
+use tauri::{AppHandle, Manager, GlobalShortcutManager};
 use std::sync::{Arc, Mutex};
 use serde_json::Value;
 
@@ -1140,6 +1140,50 @@ fn start_notif_autoclose_timer(app_handle: tauri::AppHandle, id: serde_json::Val
     });
 }
 
+#[tauri::command]
+async fn register_hotkey(app: AppHandle, shortcut: String, action: String) -> Result<(), String> {
+    let mut manager = app.global_shortcut_manager();
+    let app_handle = app.clone();
+    
+    // Unregister first to avoid duplicates if called multiple times
+    let _ = manager.unregister(&shortcut);
+    
+    let shortcut_for_reg = shortcut.clone();
+    let shortcut_for_closure = shortcut.clone();
+    let shortcut_for_err = shortcut.clone();
+
+    let registration_result = manager.register(&shortcut_for_reg, move || {
+        eprintln!("[Hotkeys] Triggered: {} -> {}", shortcut_for_closure, action);
+        let app_c = app_handle.clone();
+        let action_c = action.clone();
+        
+        tauri::async_runtime::spawn(async move {
+            match action_c.as_str() {
+                "manual_ocr" => {
+                    let _ = crate::ocr::trigger_manual_ocr(app_c, None).await;
+                }
+                _ => {
+                    eprintln!("[Hotkeys] Unknown action: {}", action_c);
+                }
+            }
+        });
+    });
+
+    match registration_result {
+        Ok(_) => Ok(()),
+        Err(e) => Err(format!("Failed to register hotkey {}: {:?}", shortcut_for_err, e)),
+    }
+}
+
+#[tauri::command]
+async fn unregister_all_hotkeys(app: AppHandle) -> Result<(), String> {
+    let mut manager = app.global_shortcut_manager();
+    match manager.unregister_all() {
+        Ok(_) => Ok(()),
+        Err(e) => Err(format!("{:?}", e)),
+    }
+}
+
 /// Save a JSON settings object to data/user/settings.json.
 #[tauri::command]
 async fn save_settings(settings: Value) -> Result<(), String> {
@@ -1239,6 +1283,7 @@ fn main() {
             crate::ocr::save_debug_screenshot,
             crate::ocr::start_debug_ocr_session,
             crate::ocr::write_ocr_wordlist,
+            crate::ocr::trigger_manual_ocr,
             // --- overlay ---
             show_notification,
             show_relic_overlay,
@@ -1254,6 +1299,8 @@ fn main() {
             save_settings,
             load_settings,
             log_terminal,
+            register_hotkey,
+            unregister_all_hotkeys,
             // --- calibration ---
             toggle_calibration,
         ])

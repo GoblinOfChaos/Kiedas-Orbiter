@@ -266,6 +266,33 @@ export function Tabs({ tabs, activeTab, onChange, className = '', fullWidth = fa
   );
 }
 
+// Select Component
+export function Select({ options, value, onChange, label, className = '' }) {
+  return (
+    <div className={`flex flex-col gap-1 ${className}`}>
+      {label && <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">{label}</span>}
+      <div className="relative">
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full bg-kronos-panel/30 border border-white/5 rounded-xl px-4 py-2 text-sm font-bold appearance-none focus:outline-none focus:glow-border transition-all cursor-pointer text-kronos-text"
+        >
+          {options.map((opt) => (
+            <option key={opt.id} value={opt.id} className="bg-kronos-bg text-kronos-text">
+              {opt.label}
+            </option>
+          ))}
+        </select>
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-kronos-dim">
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Modal Component
 export function Modal({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl' }) {
   useEffect(() => {

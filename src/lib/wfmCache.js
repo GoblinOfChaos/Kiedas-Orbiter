@@ -1,19 +1,32 @@
-/**
- * Warframe Market Cache (v0.4.2)
- * Features: WFM API v2, Throttled fetching, Tiered TTL caching.
- */
+import { fetch as tauriFetch } from '@tauri-apps/api/http';
 
 const CACHE_KEY = 'wfm_price_cache';
 const RATE_LIMIT_MS = 350; // ~3 requests per second
 let lastFetchTime = 0;
+const pendingRequests = new Map();
+let cachedData = null;
+let lastCacheLoad = 0;
 
 /**
- * Tiered TTL logic based on item rarity (Ducats as baseline)
+ * Flat 24-hour TTL for all items as per user preference.
  */
-function getTTL(ducatValue = 0) {
-  if (ducatValue >= 45) return 8 * 60 * 60 * 1000; // 8h for Rares
-  if (ducatValue >= 15) return 24 * 60 * 60 * 1000; // 24h for Uncommons
-  return 72 * 60 * 60 * 1000; // 72h for Commons
+function getTTL() {
+  return 24 * 60 * 60 * 1000; 
+}
+
+function loadCache(force = false) {
+  const now = Date.now();
+  if (!force && cachedData && (now - lastCacheLoad < 1000)) {
+    return cachedData;
+  }
+  try {
+    const data = localStorage.getItem(CACHE_KEY);
+    cachedData = data ? JSON.parse(data) : {};
+    lastCacheLoad = now;
+    return cachedData;
+  } catch {
+    return {};
+  }
 }
 
 export async function getPrice(itemUniqueName, itemName, ducatValue = 0) {
@@ -21,40 +34,77 @@ export async function getPrice(itemUniqueName, itemName, ducatValue = 0) {
 
   const cache = loadCache();
   const cached = cache[itemUniqueName];
-  const ttl = getTTL(ducatValue);
+  const ttl = getTTL();
 
   if (cached && (Date.now() - cached.lastUpdated < ttl)) {
     return cached.plat;
   }
 
-  // Throttling
-  const now = Date.now();
-  const timeSinceLast = now - lastFetchTime;
-  if (timeSinceLast < RATE_LIMIT_MS) {
-    await new Promise(resolve => setTimeout(resolve, RATE_LIMIT_MS - timeSinceLast));
+  // Deduplication: if already fetching this item, wait for it
+  if (pendingRequests.has(itemUniqueName)) {
+    return pendingRequests.get(itemUniqueName);
   }
 
-  const slug = toWfmSlug(itemName);
-  const plat = await fetchWfmPrice(slug);
+  const fetchPromise = (async () => {
+    // Throttling
+    const now = Date.now();
+    const timeSinceLast = now - lastFetchTime;
+    if (timeSinceLast < RATE_LIMIT_MS) {
+      await new Promise(resolve => setTimeout(resolve, RATE_LIMIT_MS - timeSinceLast));
+    }
 
-  if (plat !== null) {
-    saveToCache(itemUniqueName, plat);
-    return plat;
-  }
+    const slug = toWfmSlug(itemName);
+    const plat = await fetchWfmPrice(slug);
 
-  return cached ? cached.plat : 0;
+    if (plat !== null && plat > 0) {
+      saveToCache(itemUniqueName, plat);
+      pendingRequests.delete(itemUniqueName);
+      return plat;
+    }
+
+    pendingRequests.delete(itemUniqueName);
+    return (cached && cached.plat > 0) ? cached.plat : (plat || 0);
+  })();
+
+  pendingRequests.set(itemUniqueName, fetchPromise);
+  return fetchPromise;
 }
 
 /**
  * Bulk fetch prices for a list of items.
- * Useful for Relics page initialization.
+ * Returns only items that were NOT already in the cache or were expired.
  */
 export async function getPricesBatch(items) {
+  const cache = loadCache(true); // Force fresh load for batch
+  const ttl = getTTL();
   const results = {};
+  
+  // Filter items that actually need a network request
+  const needsFetch = items.filter(item => {
+    if (!item.name || item.name.includes('Forma')) return false;
+    const cached = cache[item.uniqueName];
+    return !cached || (Date.now() - cached.lastUpdated >= ttl);
+  });
+
+  // Fill results with current cached values first
   for (const item of items) {
+    if (item.name?.includes('Forma')) {
+      results[item.uniqueName] = 0;
+      continue;
+    }
+    const cached = cache[item.uniqueName];
+    if (cached) results[item.uniqueName] = cached.plat;
+  }
+
+  // If nothing needs fetching, return immediately
+  if (needsFetch.length === 0) return { results, hadNetworkActivity: false };
+
+  // Fetch only what's needed
+  for (const item of needsFetch) {
     results[item.uniqueName] = await getPrice(item.uniqueName, item.name, item.ducats);
   }
-  return results;
+
+  return { results, hadNetworkActivity: true };
 }
 
 function toWfmSlug(itemName) {
@@ -67,52 +117,71 @@ function toWfmSlug(itemName) {
     .replace(/_blueprint_blueprint$/, '_blueprint');
 }
 
+
 async function fetchWfmPrice(slug) {
   lastFetchTime = Date.now();
   try {
-    const url = `https://api.warframe.market/v2/items/${slug}/orders`;
-    const response = await fetch(url, {
+    const url = `https://api.warframe.market/v2/orders/item/${slug}`;
+    const response = await tauriFetch(url, {
+      method: 'GET',
       headers: {
         'Platform': 'pc',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'User-Agent': 'Cephalon-Kronos/0.4.2',
+        'Crossplay': 'true'
       }
     });
 
-    if (!response.ok) {
+    if (response.status < 200 || response.status >= 300) {
       if (response.status === 404) return 0;
       return null;
     }
 
-    const data = await response.json();
-    const orders = data.data?.orders || data.orders; // Handle variations in V2 structure
-    if (!orders) return null;
+    const data = response.data;
+    console.log(`[WFM Cache] Fetched ${slug}:`, data);
+    let orders = null;
+    if (Array.isArray(data.data)) {
+      orders = data.data;
+    } else {
+      orders = data.payload?.orders || data.data?.orders || data.orders;
+    }
+
+    if (!orders || !Array.isArray(orders)) {
+      console.warn(`[WFM Cache] No orders found for ${slug}`);
+      return null;
+    }
 
     // Filter: "sell" orders from active users
-    const sells = orders
-      .filter(o => o.order_type === 'sell' && (o.user.status === 'ingame' || o.user.status === 'online'))
-      .sort((a, b) => a.platinum - b.platinum);
+    let sells = orders.filter(o => 
+      (o.type === 'sell' || o.order_type === 'sell') && 
+      (o.user.status === 'ingame' || o.user.status === 'online')
+    );
 
-    if (sells.length === 0) return 0;
+    // Fallback to offline if no online users found (better than 0P)
+    if (sells.length === 0) {
+      sells = orders.filter(o => (o.type === 'sell' || o.order_type === 'sell'));
+    }
+
+    if (sells.length === 0) {
+      console.warn(`[WFM Cache] No sell orders at all for ${slug}`);
+      return 0;
+    }
+
+    sells.sort((a, b) => a.platinum - b.platinum);
 
     // Use median of top 3 to avoid outliers/bait orders
     const top3 = sells.slice(0, 3);
     const sum = top3.reduce((acc, o) => acc + o.platinum, 0);
-    return Math.round(sum / top3.length);
+    const avg = Math.round(sum / top3.length);
+    console.log(`[WFM Cache] Price for ${slug}: ${avg}P`);
+    return avg;
 
   } catch (err) {
-    console.error(`[WFM API] Fetch Error for ${slug}:`, err);
+    console.error(`[WFM Cache] Error fetching ${slug}:`, err);
     return null;
   }
 }
 
-function loadCache() {
-  try {
-    const data = localStorage.getItem(CACHE_KEY);
-    return data ? JSON.parse(data) : {};
-  } catch {
-    return {};
-  }
-}
 
 function saveToCache(itemUniqueName, plat) {
   const cache = loadCache();

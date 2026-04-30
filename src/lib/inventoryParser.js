@@ -927,25 +927,29 @@ export function parseInventory(raw, exports) {
     else resources.push(obj);
   }
 
-  /**
-   * Helper to resolve relic rewards from manifest or entry
-   */
   const resolveRelicRewards = (entry, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe, ERew) => {
     if (!entry) return [];
+    const mapReward = (r) => {
+      const un = r.type || r.rewardItem;
+      const norm = un ? un.replace('/StoreItems/', '/') : un;
+      const recipe = ERecipe[norm] || ERecipe[un];
+      const itemData = ER[norm] || ER[un] || EW[norm] || EW[un] || EWf[norm] || EWf[un];
+      
+      return {
+        uniqueName: un,
+        name: resolveName(un, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
+        rarity: r.rarity,
+        tier: r.rarity === 'COMMON' ? 0 : (r.rarity === 'UNCOMMON' ? 1 : 2),
+        ducats: recipe?.primeSellingPrice || itemData?.primeSellingPrice || 0
+      };
+    };
+
     if (entry.rewardManifest && ERew[entry.rewardManifest]) {
       const manifest = ERew[entry.rewardManifest];
       const rewardList = Array.isArray(manifest[0]) ? manifest[0] : (Array.isArray(manifest) ? manifest : []);
-      return rewardList.map(r => ({
-        name: resolveName(r.type || r.rewardItem, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
-        rarity: r.rarity,
-        tier: r.rarity === 'COMMON' ? 0 : (r.rarity === 'UNCOMMON' ? 1 : 2)
-      }));
+      return rewardList.map(mapReward);
     } else if (Array.isArray(entry.relicRewards)) {
-      return entry.relicRewards.map(r => ({
-        name: resolveName(r.rewardItem, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
-        rarity: r.rarity,
-        tier: r.rarity === 'COMMON' ? 0 : (r.rarity === 'UNCOMMON' ? 1 : 2)
-      }));
+      return entry.relicRewards.map(mapReward);
     }
     return [];
   };

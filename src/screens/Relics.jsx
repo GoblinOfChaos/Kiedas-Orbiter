@@ -42,10 +42,10 @@ export default function Relics() {
   // Fetch prices for all unique rewards in current relic set
   useEffect(() => {
     if (!relics.length) return
-    
+
     const uniqueRewards = []
     const seen = new Set()
-    
+
     relics.forEach(r => {
       r.rewards?.forEach(rew => {
         if (!seen.has(rew.uniqueName)) {
@@ -56,12 +56,15 @@ export default function Relics() {
     })
 
     if (uniqueRewards.length > 0) {
+      // Set pricing to true immediately so user sees something is happening
+      setIsPricing(true)
       getPricesBatch(uniqueRewards).then(({ results, hadNetworkActivity }) => {
         setPrices(prev => ({ ...prev, ...results }))
         if (hadNetworkActivity) {
-          setIsPricing(true)
-          // Hide after a small delay so user sees it finished
+          // Keep it on for a bit so they see it finished
           setTimeout(() => setIsPricing(false), 2000)
+        } else {
+          setIsPricing(false)
         }
       }).catch(() => setIsPricing(false))
     }
@@ -90,13 +93,13 @@ export default function Relics() {
         ...r,
         plat: prices[r.uniqueName] ?? 0
       }));
-      
+
       const activeLevels = QUALITY_ORDER.filter(q => (relic.refinements && relic.refinements[q] > 0));
       const evRefinement = evRefinementOverride;
-      
+
       const evPlat = getRelicEV(sortedRewards, evRefinement, squadSize, 'plat');
       const evDucats = getRelicEV(sortedRewards, evRefinement, squadSize, 'ducats');
-      
+
       return { ...relic, evPlat, evDucats, sortedRewards, evRefinement };
     });
 
@@ -106,7 +109,7 @@ export default function Relics() {
       if (sortMode === 'ducat') res = b.evDucats - a.evDucats;
       else if (sortMode === 'plat') res = b.evPlat - a.evPlat;
       else res = a.name.localeCompare(b.name);
-      
+
       return sortOrder === 'desc' ? res : -res;
     });
 
@@ -141,13 +144,13 @@ export default function Relics() {
               className="pl-12"
             />
           </div>
-          
+
           <div className="flex items-center gap-2 bg-kronos-panel/30 border border-white/5 p-1 rounded-xl">
-             <div className="px-3 flex items-center gap-2 border-r border-white/5 h-10">
-                <Users size={14} className="text-kronos-dim" />
-                <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">Squad</span>
-             </div>
-             <div className="flex gap-1 px-1">
+            <div className="px-3 flex items-center gap-2 border-r border-white/5 h-10">
+              <Users size={14} className="text-kronos-dim" />
+              <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">Squad</span>
+            </div>
+            <div className="flex gap-1 px-1">
               {[1, 2, 3, 4].map(size => (
                 <button
                   key={size}
@@ -157,15 +160,15 @@ export default function Relics() {
                   {size}
                 </button>
               ))}
-             </div>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 bg-kronos-panel/30 border border-white/5 p-1 rounded-xl">
-             <div className="px-3 flex items-center gap-2 border-r border-white/5 h-10">
-                <Zap size={14} className="text-kronos-dim" />
-                <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">EV Refinement</span>
-             </div>
-             <div className="flex gap-1 px-1">
+            <div className="px-3 flex items-center gap-2 border-r border-white/5 h-10">
+              <Zap size={14} className="text-kronos-dim" />
+              <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">Refinement</span>
+            </div>
+            <div className="flex gap-1 px-1">
               {QUALITY_ORDER.map(q => (
                 <button
                   key={q}
@@ -175,7 +178,7 @@ export default function Relics() {
                   {q.charAt(0)}
                 </button>
               ))}
-             </div>
+            </div>
           </div>
         </div>
 
@@ -212,8 +215,8 @@ export default function Relics() {
                     }}
                     className={`
                       px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans font-black flex items-center gap-1.5
-                      ${isActive 
-                        ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]' 
+                      ${isActive
+                        ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]'
                         : 'text-kronos-dim hover:text-white hover:bg-white/5'
                       }
                     `}
@@ -349,17 +352,19 @@ export default function Relics() {
                                 );
                               })}
                             </div>
-                            
+
                             {/* Expected Value Footer */}
                             <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-between">
-                               <div className="flex items-center gap-1.5" title={`Expected Ducats (${evRefinement}, Squad of ${squadSize})`}>
+                              {era !== 'Requiem' && (
+                                <div className="flex items-center gap-1.5" title={`Expected Ducats (${evRefinement}, Squad of ${squadSize})`}>
                                   <span className="text-[8px] font-black text-kronos-dim uppercase tracking-tighter">EXPECTED DUCATS</span>
                                   <span className="text-[10px] font-black text-blue-400">{Math.round(evDucats)}</span>
-                               </div>
-                               <div className="flex items-center gap-1.5" title={`Expected Platinum (${evRefinement}, Squad of ${squadSize})`}>
-                                  <span className="text-[8px] font-black text-kronos-dim uppercase tracking-tighter">EXPECTED PLAT</span>
-                                  <span className="text-[10px] font-black text-kronos-accent">{Math.round(evPlat)}P</span>
-                               </div>
+                                </div>
+                              )}
+                              <div className="flex items-center gap-1.5" title={`Expected Platinum (${evRefinement}, Squad of ${squadSize})`}>
+                                <span className="text-[8px] font-black text-kronos-dim uppercase tracking-tighter">EXPECTED PLAT</span>
+                                <span className="text-[10px] font-black text-kronos-accent">{Math.round(evPlat)}P</span>
+                              </div>
                             </div>
                           </div>
                         </Card>

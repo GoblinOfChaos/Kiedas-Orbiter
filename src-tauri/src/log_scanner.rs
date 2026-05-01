@@ -237,14 +237,12 @@ impl LogScanner {
 
             // === 5. Endless Mission Continue/Extract ===
             if line.contains("Sending continue dialogue to host with answer") {
-                if line.contains("answer 1") {
-                    if !silent {
-                        println!(
-                            "[LOG_SCANNER] Endless: User chose to CONTINUE. Resetting round state."
-                        );
-                    }
-                    self.reset_round();
+                if !silent {
+                    println!("[LOG_SCANNER] Endless: User chose a dialogue option. Resetting round state and closing overlay.");
                 }
+                self.reset_round();
+                app.emit_all("fissure-reward-closed", ())
+                    .unwrap_or_default();
             }
         }
     }

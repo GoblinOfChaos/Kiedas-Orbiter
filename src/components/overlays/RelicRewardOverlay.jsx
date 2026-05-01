@@ -3,6 +3,7 @@ import { Card } from '../UI'
 import { Loader2 } from 'lucide-react'
 import { listen } from '@tauri-apps/api/event'
 import { invoke } from '@tauri-apps/api/tauri'
+import { getPrice } from '../../lib/wfmCache'
 
 const RELIC_TIMEOUT = 14500
 
@@ -14,6 +15,7 @@ export default function RelicRewardOverlay() {
   const [ocrResults, setOcrResults] = useState({})
   const [isClosing, setIsClosing] = useState(false)
   const [squadSize, setSquadSize] = useState(1)
+  const [prices, setPrices] = useState({})
   const [remaining, setRemaining] = useState(RELIC_TIMEOUT)
   const containerRef = useRef(null)
   const lastTick = useRef(Date.now())
@@ -57,6 +59,78 @@ export default function RelicRewardOverlay() {
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [])
 
+  // Timer & Auto-close logic
+  useEffect(() => {
+    if (!data || isClosing) return
+
+    let raf
+    const tick = () => {
+      const now = Date.now()
+      const delta = now - lastTick.current
+      lastTick.current = now
+
+      setRemaining(prev => {
+        const next = Math.max(0, prev - delta)
+        if (next === 0 && !isClosing) {
+          setIsClosing(true)
+          setTimeout(() => {
+            setData(null)
+            invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(() => {})
+          }, 500)
+        }
+        return next
+      })
+      raf = requestAnimationFrame(tick)
+    }
+
+    lastTick.current = Date.now()
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [data, isClosing])
+
+  // Window Resize logic
+  useEffect(() => {
+    if (!data) return
+    const width = SLOT_WIDTHS[squadSize] || 640
+    
+    // We resize the window to match the squad size
+    // height 260 is enough for the cards including prices and components
+    invoke('resize_overlay_window', { 
+      label: 'overlay-relic', 
+      width: Math.round(width), 
+      height: 280 
+    }).catch(err => console.error('[RelicRewardOverlay] Resize failed:', err))
+  }, [squadSize, !!data])
+
+  // Price fetching logic
+  useEffect(() => {
+    const fetchAllPrices = async () => {
+      const newPrices = { ...prices }
+      let changed = false
+
+      // Check local reward
+      if (localReward && !newPrices[localReward.uniqueName]) {
+        const p = await getPrice(localReward.uniqueName, localReward.name, localReward.ducats)
+        newPrices[localReward.uniqueName] = p
+        changed = true
+      }
+
+      // Check OCR results
+      for (const slotIdx in ocrResults) {
+        const item = ocrResults[slotIdx]?.item
+        if (item && !newPrices[item.uniqueName]) {
+          const p = await getPrice(item.uniqueName, item.confirmed_reward || item.name, item.ducats)
+          newPrices[item.uniqueName] = p
+          changed = true
+        }
+      }
+
+      if (changed) setPrices(newPrices)
+    }
+
+    fetchAllPrices()
+  }, [ocrResults, localReward])
+
   if (!data) return null
 
   const progress = (remaining / RELIC_TIMEOUT) * 100
@@ -82,7 +156,7 @@ export default function RelicRewardOverlay() {
               return (
                 <div key={i} className="flex flex-col">
                   {confirmed
-                    ? <RewardSlot confirmed={confirmed} isLocal={isLocal} />
+                    ? <RewardSlot confirmed={confirmed} isLocal={isLocal} price={prices[confirmed.item?.uniqueName]} />
                     : <LoadingSlot />
                   }
                 </div>
@@ -110,7 +184,7 @@ function LoadingSlot() {
   )
 }
 
-function RewardSlot({ confirmed, isLocal }) {
+function RewardSlot({ confirmed, isLocal, price }) {
   const item = confirmed?.item
   const inv = item?.inventory || {}
   const isForma = inv.isForma
@@ -130,7 +204,7 @@ function RewardSlot({ confirmed, isLocal }) {
         {!isForma && (
           <div className="flex items-center gap-1.5 justify-evenly">
             <PriceBadge label="Ducats" value={`◈ ${item?.ducats ?? 0}`} color="amber" />
-            <PriceBadge label="Plat" value={`${item?.platPrice ?? 0}p`} color="blue" />
+            <PriceBadge label="Plat" value={`${price ?? 0}p`} color="blue" />
           </div>
         )}
       </div>

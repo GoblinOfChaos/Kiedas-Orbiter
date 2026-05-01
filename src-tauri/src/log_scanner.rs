@@ -141,7 +141,7 @@ impl LogScanner {
                             }
                             let relic = parse_relic_path(path);
                             self.squad_relics.push(relic);
-                            self.squad_size = self.squad_relics.len().min(4);
+                            self.squad_size = self.squad_size.max(self.squad_relics.len()).min(4);
                             if !silent {
                                 println!(
                                     "[LOG_SCANNER] Relic detected: {} (Squad: {})",
@@ -256,7 +256,8 @@ impl LogScanner {
 
     fn reset_state(&mut self) {
         self.reset_round();
-        self.squad_size = 1;
+        // NOTE: We do NOT reset squad_size to 1 here.
+        // We want to keep the squad size we detected from lobby/squad member events.
     }
 }
 

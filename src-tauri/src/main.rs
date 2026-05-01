@@ -757,9 +757,10 @@ fn resize_overlay_window(
             let mon_size = monitor.size();
             let mon_w = mon_size.width as f64;
             let mon_h = mon_size.height as f64;
+            let pos = monitor.position();
 
-            let rx = ((mon_w - relic_w_f) / 2.0).round() as i32;
-            let ry = (mon_h - relic_h_f - margin_f).round() as i32;
+            let rx = pos.x + ((mon_w - (width as f64 * scale)) / 2.0).round() as i32;
+            let ry = pos.y + (mon_h - (height as f64 * scale) - (40.0 * scale)).round() as i32;
             eprintln!(
                 "[Relic Overlay] Positioning at bottom of monitor: w={}, h={}, x={}, y={}",
                 mon_w, mon_h, rx, ry
@@ -770,17 +771,20 @@ fn resize_overlay_window(
     };
 
     if height > 0 {
-        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize {
-            width: phys_w, height: phys_h,
-        }));
-
-        let _ = window.set_position(tauri::Position::Physical(
-            tauri::PhysicalPosition { x, y }
-        ));
+        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
+        let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }));
 
         let _ = window.show();
         let _ = window.set_always_on_top(true);
-        // ... rest of the logic ...
+        let _ = window.set_focus();
+
+        // Extra re-assertion after a tiny delay for Windows z-order bugs
+        let w_c = window.clone();
+        std::thread::spawn(move || {
+            std::thread::sleep(std::time::Duration::from_millis(150));
+            let _ = w_c.set_always_on_top(true);
+            let _ = w_c.set_focus();
+        });
 
         // Platform Specific Fixes
         #[cfg(target_os = "macos")]

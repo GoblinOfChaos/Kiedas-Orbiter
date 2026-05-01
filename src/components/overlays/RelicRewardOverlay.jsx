@@ -7,7 +7,12 @@ import { getPrice } from '../../lib/wfmCache'
 
 const RELIC_TIMEOUT = 14500
 
-const SLOT_WIDTHS = { 2: 481, 3: 720, 4: 965 }
+const SLOT_WIDTHS = {
+  1: 260,
+  2: 500,
+  3: 750,
+  4: 1000
+}
 
 export default function RelicRewardOverlay() {
   const [data, setData] = useState(null)
@@ -23,8 +28,9 @@ export default function RelicRewardOverlay() {
   useEffect(() => {
     const subs = []
     subs.push(listen('overlay-update-relics', (e) => {
-      console.log(`[RelicRewardOverlay] EVENT: overlay-update-relics (relics=${e.payload.squad_relics?.length})`)
-      setData(e.payload.squad_relics)
+      const relicsCount = e.payload.squad_relics?.length || 0
+      console.log(`[RelicOverlay] EVENT: overlay-update-relics (count=${relicsCount})`, e.payload)
+      setData(e.payload.squad_relics || [])
       setSquadSize(e.payload.squad_size)
       setOcrResults({})
       setLocalReward(null)
@@ -39,7 +45,7 @@ export default function RelicRewardOverlay() {
       setSquadSize(e.payload.squad_size)
     }))
     subs.push(listen('overlay-update-ocr', (e) => {
-      console.log(`[RelicRewardOverlay] EVENT: overlay-update-ocr (slot=${e.payload.slot}, reward=${e.payload.confirmed_reward})`)
+      console.log(`[RelicOverlay] EVENT: overlay-update-ocr slot=${e.payload.slot} reward=${e.payload.confirmed_reward}`, e.payload)
       const { slot, confirmed_reward, item } = e.payload
       setOcrResults(prev => ({ ...prev, [slot]: { confirmed_reward, item } }))
     }))
@@ -93,13 +99,14 @@ export default function RelicRewardOverlay() {
     if (!data) return
     const width = SLOT_WIDTHS[squadSize] || 640
     
-    // We resize the window to match the squad size
-    // height 260 is enough for the cards including prices and components
-    invoke('resize_overlay_window', { 
-      label: 'overlay-relic', 
-      width: Math.round(width), 
-      height: 280 
-    }).catch(err => console.error('[RelicRewardOverlay] Resize failed:', err))
+    // Small delay to ensure window is ready for resize
+    setTimeout(() => {
+      invoke('resize_overlay_window', { 
+        label: 'overlay-relic', 
+        width: Math.round(width), 
+        height: 380 
+      }).catch(err => console.error('[RelicOverlay] Resize failed:', err))
+    }, 50)
   }, [squadSize, !!data])
 
   // Price fetching logic

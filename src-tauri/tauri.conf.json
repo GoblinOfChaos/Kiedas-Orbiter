@@ -120,8 +120,8 @@
       {
         "label": "overlay-relic",
         "title": "Kronos Overlay",
-        "width": 600,
-        "height": 1,
+        "width": 1000,
+        "height": 380,
         "transparent": true,
         "decorations": false,
         "alwaysOnTop": true,

@@ -840,7 +840,7 @@ async fn play_notification_sound(app_handle: tauri::AppHandle, sound: String) ->
     }
 
     // Resolve from bundled resources (works in both dev and production)
-    let sound_path = app_handle.path_resolver().resolve_resource(&format!("audio/{}", sound));
+    let sound_path = app_handle.path_resolver().resolve_resource(&format!("data/audio/{}", sound));
     
     let path = if let Some(p) = sound_path.filter(|p| p.exists()) {
         p

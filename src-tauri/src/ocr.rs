@@ -1,4 +1,4 @@
-﻿use xcap::Monitor;
+use xcap::Monitor;
 use image::DynamicImage;
 use tauri::{AppHandle, Manager};
 use serde::Serialize;
@@ -45,6 +45,7 @@ fn run_ocr_internal(app: AppHandle, squad_size: usize, is_debug: bool, captured_
     let app_c = app.clone();
     std::thread::spawn(move || {
         let start_time = std::time::Instant::now();
+
         let dynamic_image = if let Some(img) = captured_image {
             eprintln!("[OCR] Using provided debug image");
             img
@@ -54,15 +55,6 @@ fn run_ocr_internal(app: AppHandle, squad_size: usize, is_debug: bool, captured_
             let Ok(image) = monitors[0].capture_image() else { return; };
             DynamicImage::ImageRgba8(image)
         };
-
-        // Wait up to 600ms for overlay (snappier but safe for fade-in)
-        let wait_start = std::time::Instant::now();
-        while wait_start.elapsed().as_millis() < 600 {
-            if let Some(w) = app_c.get_window("overlay-relic") {
-                if w.is_visible().unwrap_or(false) { break; }
-            }
-            std::thread::sleep(std::time::Duration::from_millis(50));
-        }
         
         let coords = get_slot_coords(squad_size);
         let (bin_path, tessdata_path) = get_tesseract_config(&app_c);
@@ -89,7 +81,8 @@ fn run_ocr_internal(app: AppHandle, squad_size: usize, is_debug: bool, captured_
             let slot_crop = dynamic_image.crop_imm(full_slot_x, full_slot_y, full_slot_w, full_slot_h);
             
             // ── PREPROCESS ──
-            let upscaled = slot_crop.resize(full_slot_w * 4, full_slot_h * 4, image::imageops::FilterType::CatmullRom);
+            // Nearest is faster and often better for binary text than CatmullRom
+            let upscaled = slot_crop.resize(full_slot_w * 3, full_slot_h * 3, image::imageops::FilterType::Nearest);
             let mut gray = upscaled.to_luma8();
             for p in gray.pixels_mut() { p[0] = 255 - p[0]; }
             let blurred = image::imageops::blur(&gray, 0.5);
@@ -264,6 +257,10 @@ pub fn write_ocr_wordlist(app: AppHandle, words: Vec<String>) -> Result<(), Stri
     for w in &words {
         let trimmed = w.trim().to_string();
         if !trimmed.is_empty() && seen.insert(trimmed.to_lowercase()) { lines.push(trimmed); }
+    }
+    // Add common non-Prime reward words to the baseline
+    for w in &["PRIME", "BLUEPRINT", "SLIVER", "FRAGMENT", "AYATAN", "AMBER", "CYAN", "REQUIEM", "ADAPTER", "FORMA", "EXILUS", "ARCANE"] {
+        if seen.insert(w.to_lowercase()) { lines.push(w.to_string()); }
     }
     if lines.is_empty() { return Ok(()); }
     let dir = crate::get_data_root().join("data/user");

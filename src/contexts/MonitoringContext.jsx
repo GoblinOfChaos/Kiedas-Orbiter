@@ -535,8 +535,11 @@ export function MonitoringProvider({ children }) {
         } else {
           // Only keep items that can actually appear in relic reward UI
           candidates = (globalRewardPool || []).filter(item => {
+            if (!item || !item.name) return false;
             const n = item.name.toUpperCase();
-            return n.includes('PRIME') || n.includes('BLUEPRINT') || n === 'FORMA BLUEPRINT';
+            return n.includes('PRIME') || n.includes('BLUEPRINT') || n === 'FORMA BLUEPRINT' || 
+                   n.includes('SLIVER') || n.includes('FRAGMENT') || n.includes('AYATAN') || 
+                   n.includes('STAR') || n.includes('REQUIEM') || n.includes('ADAPTER');
           });
         }
 
@@ -595,16 +598,14 @@ export function MonitoringProvider({ children }) {
 
             score = totalWeightedSim / totalWeight;
 
-            // 3. Penalty: zero the score only if the first word is a complete miss.
-            // Also check if candWords[0] appears *inside* an OCR word, which handles
-            // merged tokens like "MIRAGPRIIE" where "MIRAGE" and "PRIME" got glued.
-            const firstName = candWords[0];
-            const ocrContainsName = ocrWords.some(ow =>
-              ow.includes(firstName) ||
-              firstName.includes(ow) ||
-              wordSimilarity(ow, firstName) > 0.6
-            ) || cleanOcrNoSpace.includes(firstName);
-            if (!ocrContainsName && score < 1.0) score = 0;
+            // 3. Penalty: zero the score only if NO significant word is a match.
+            // We check if at least one 'meaningful' word from the candidate exists in OCR.
+            const meaningfulWords = candWords.filter(w => w.length > 3 && w !== 'PRIME' && w !== 'BLUEPRINT');
+            const hasAnyMeaningfulMatch = meaningfulWords.length === 0 || meaningfulWords.some(mw => 
+              ocrWords.some(ow => ow.includes(mw) || mw.includes(ow) || wordSimilarity(ow, mw) > 0.7)
+            );
+
+            if (!hasAnyMeaningfulMatch && score < 0.9) score = 0;
           }
 
           if (score > bestScore) {

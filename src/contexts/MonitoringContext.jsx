@@ -220,6 +220,7 @@ export function MonitoringProvider({ children }) {
   // ── Notification Logic ──────────────────────────────────────────────────────
   useEffect(() => {
     if (!inventoryData) return
+    const position = getSetting('notif_position', 'top-right')
 
     const RANK_CAPS = {
       5: 132000, 4: 99000, 3: 70000, 2: 44000, 1: 22000, 0: 5000,
@@ -243,7 +244,8 @@ export function MonitoringProvider({ children }) {
           invoke('show_notification', {
             title: 'Void Traces Capped',
             message: `You have reached the maximum capacity of ${void_traces_max} Void Traces.`,
-            image: '/IconRelic.png'
+            image: '/IconRelic.png',
+            position
           }).catch(console.error)
           notifiedRef.current.voidTraces = true
         }
@@ -267,7 +269,8 @@ export function MonitoringProvider({ children }) {
             invoke('show_notification', {
               title: 'Syndicate Capped',
               message: `You have reached the maximum standing for your current rank in ${aff.Tag.replace('Syndicate', '')}.`,
-              image: '/IconMastery.png'
+              image: '/IconMastery.png',
+              position
             }).catch(console.error)
             notifiedRef.current.syndicate.add(aff.Tag)
           }
@@ -286,7 +289,8 @@ export function MonitoringProvider({ children }) {
             invoke('show_notification', {
               title: 'Foundry Complete',
               message: `${item.name} is ready to claim!`,
-              image: item.image || '/IconFoundry.png'
+              image: item.image || '/IconFoundry.png',
+              position
             }).catch(console.error)
             notifiedRef.current.foundry.add(item.uniqueName)
           }
@@ -304,7 +308,8 @@ export function MonitoringProvider({ children }) {
             invoke('show_notification', {
               title: 'S-Tier Arbitration Active',
               message: `${resolveNode(current.type, dict, ERg)} on ${resolveNode(current.node, dict, ERg)}`,
-              image: '/IconDashboard.png'
+              image: '/IconDashboard.png',
+              position
             }).catch(console.error)
             notifiedRef.current.arbitration.add(current.ts)
           }
@@ -379,7 +384,8 @@ export function MonitoringProvider({ children }) {
           invoke('show_notification', {
             title: 'Mastery Progress',
             message: `You are ${masteryProgress}% of the way to Mastery Rank ${currentRank + 1}.`,
-            image: '/IconMastery.png'
+            image: '/IconMastery.png',
+            position
           }).catch(console.error)
           notifiedRef.current.mastery[key] = true
         }

@@ -472,7 +472,7 @@ export default function SettingsScreen() {
                   <p className="text-xs text-kronos-dim uppercase">Notify when a top-tier node appears</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'S-Tier Arbitration Active', message: 'Disruption on Ur, Uranus', image: '/IconDashboard.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <button onClick={() => invoke('show_notification', { title: 'S-Tier Arbitration Active', message: 'Disruption on Ur, Uranus', image: '/IconDashboard.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
                   <Toggle checked={notifArbitrationEnabled} onChange={handleSetArbitrationEnabled} />
                 </div>
               </div>
@@ -515,7 +515,7 @@ export default function SettingsScreen() {
                   <p className="text-xs text-kronos-dim uppercase">Alert when items are ready to claim</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'Foundry Complete', message: 'Harrow Prime Neuroptics is ready to claim!', image: '/IconFoundry.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <button onClick={() => invoke('show_notification', { title: 'Foundry Complete', message: 'Harrow Prime Neuroptics is ready to claim!', image: '/IconFoundry.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
                   <Toggle checked={notifFoundryEnabled} onChange={handleSetFoundryEnabled} />
                 </div>
               </div>
@@ -544,7 +544,7 @@ export default function SettingsScreen() {
                   <p className="text-xs text-kronos-dim uppercase">Notify when any syndicate reaches max daily standing</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'Syndicate Capped', message: 'Steel Meridian standing is maxed for this rank.', image: '/IconMastery.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <button onClick={() => invoke('show_notification', { title: 'Syndicate Capped', message: 'Steel Meridian standing is maxed for this rank.', image: '/IconMastery.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
                   <Toggle checked={notifSyndicateEnabled} onChange={handleSetSyndicateEnabled} />
                 </div>
               </div>
@@ -558,7 +558,7 @@ export default function SettingsScreen() {
                   <p className="text-xs text-kronos-dim uppercase">Notify when enemy syndicates of your pledged faction have standing that will be lost</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'Syndicate Standing at Risk', message: 'Opposing syndicates (veil, newloka) have standing, use before its 0', image: '/IconMastery.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <button onClick={() => invoke('show_notification', { title: 'Syndicate Standing at Risk', message: 'Opposing syndicates (veil, newloka) have standing, use before its 0', image: '/IconMastery.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
                   <Toggle checked={notifSyndicateWasteEnabled} onChange={handleSetSyndicateWasteEnabled} />
                 </div>
               </div>
@@ -572,7 +572,7 @@ export default function SettingsScreen() {
                   <p className="text-xs text-kronos-dim uppercase">Notify when void traces reach maximum capacity</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'Void Traces Capped', message: 'You have reached the maximum capacity of 1200 Void Traces.', image: '/IconRelic.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <button onClick={() => invoke('show_notification', { title: 'Void Traces Capped', message: 'You have reached the maximum capacity of 1200 Void Traces.', image: '/IconRelic.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
                   <Toggle checked={notifVoidTracesEnabled} onChange={handleSetVoidTracesEnabled} />
                 </div>
               </div>
@@ -586,7 +586,7 @@ export default function SettingsScreen() {
                   <p className="text-xs text-kronos-dim uppercase">Notify when you reach a set % towards the next rank</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'Mastery Progress', message: `You are 75% of the way to Mastery Rank 30.`, image: '/IconMastery.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <button onClick={() => invoke('show_notification', { title: 'Mastery Progress', message: `You are 75% of the way to Mastery Rank 30.`, image: '/IconMastery.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
                   <Toggle checked={notifMasteryEnabled} onChange={handleSetMasteryEnabled} />
                 </div>
               </div>

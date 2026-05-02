@@ -12,6 +12,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         .map_err(|e| e.to_string())?
         .ok_or("no primary monitor")?;
 
+    let mon_pos  = monitor.position();
     let screen_w = monitor.size().width;
     let screen_h = monitor.size().height;
     let scale    = monitor.scale_factor();
@@ -27,7 +28,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     let phys_h = if label == "overlay-relic" { (140.0 * scale) as u32 } else { screen_h };
     let phys_margin = margin;
 
-    let (x, y) = match label {
+    let (lx, ly) = match label {
         "overlay-tl"    => (phys_margin, phys_margin),
         "overlay-tc"    => (((screen_w as i32 - phys_w as i32) / 2), phys_margin),
         "overlay-relic" => {
@@ -41,6 +42,9 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         }
         _ => (screen_w as i32 - phys_w as i32 - phys_margin, phys_margin), // overlay-tr
     };
+
+    let x = mon_pos.x + lx;
+    let y = mon_pos.y + ly;
 
     // For the relic overlay, sizing is managed exclusively by resize_overlay_window
     // (called from the frontend with the correct squad-aware dimensions).

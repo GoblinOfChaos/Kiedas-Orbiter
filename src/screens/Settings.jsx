@@ -558,7 +558,7 @@ export default function SettingsScreen() {
                   <p className="text-xs text-kronos-dim uppercase">Notify when enemy syndicates of your pledged faction have standing that will be lost</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'Syndicate Standing at Risk', message: 'Enemy syndicates (veil, newloka) have standing that will be lost if you play — spend it first.', image: '/IconMastery.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <button onClick={() => invoke('show_notification', { title: 'Syndicate Standing at Risk', message: 'Opposing syndicates (veil, newloka) have standing, use before its 0', image: '/IconMastery.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
                   <Toggle checked={notifSyndicateWasteEnabled} onChange={handleSetSyndicateWasteEnabled} />
                 </div>
               </div>

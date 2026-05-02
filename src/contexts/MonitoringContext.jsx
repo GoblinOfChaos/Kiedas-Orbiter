@@ -358,7 +358,7 @@ export function MonitoringProvider({ children }) {
           const names = enemiesWithStanding.join(', ')
           invoke('show_notification', {
             title: 'Syndicate Standing at Risk',
-            message: `Enemy syndicate${enemiesWithStanding.length > 1 ? 's' : ''} (${names}) have standing that will be lost if you play — spend it first.`,
+            message: `Opposing syndicate${enemiesWithStanding.length > 1 ? 's' : ''} (${names}) have standing, use before its 0`,
             image: '/IconMastery.png'
           }).catch(console.error)
           notifiedRef.current.syndicateWaste.lastNotify = now

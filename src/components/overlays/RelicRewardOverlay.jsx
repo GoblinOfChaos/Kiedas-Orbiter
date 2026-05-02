@@ -24,6 +24,9 @@ export default function RelicRewardOverlay() {
   const [remaining, setRemaining] = useState(RELIC_TIMEOUT)
   const containerRef = useRef(null)
   const lastTick = useRef(Date.now())
+  const resizeTimerRef = useRef(null)
+  const triggerCount = useRef(0)
+  const [triggerKey, setTriggerKey] = useState(0)
 
   useEffect(() => {
     const subs = []
@@ -37,6 +40,8 @@ export default function RelicRewardOverlay() {
       setIsClosing(false)
       setRemaining(RELIC_TIMEOUT)
       lastTick.current = Date.now()
+      triggerCount.current += 1
+      setTriggerKey(triggerCount.current)
       invoke('show_overlay_window', { label: 'overlay-relic' }).catch(err => console.log(`[RelicRewardOverlay] ERROR: show failed: ${err}`))
     }))
     subs.push(listen('overlay-update-reward', (e) => {
@@ -99,15 +104,17 @@ export default function RelicRewardOverlay() {
     if (!data) return
     const width = SLOT_WIDTHS[squadSize] || 640
     
-    // Small delay to ensure window is ready for resize
-    setTimeout(() => {
+    // Cancel any pending resize before scheduling a new one
+    if (resizeTimerRef.current) clearTimeout(resizeTimerRef.current)
+    resizeTimerRef.current = setTimeout(() => {
+      resizeTimerRef.current = null
       invoke('resize_overlay_window', { 
         label: 'overlay-relic', 
         width: Math.round(width), 
         height: 380 
       }).catch(err => console.error('[RelicOverlay] Resize failed:', err))
     }, 50)
-  }, [squadSize, !!data])
+  }, [squadSize, triggerKey])
 
   // Price fetching logic
   useEffect(() => {

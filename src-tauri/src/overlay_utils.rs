@@ -42,13 +42,17 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         _ => (screen_w as i32 - phys_w as i32 - phys_margin, phys_margin), // overlay-tr
     };
 
-    let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize {
-        width: phys_w, height: phys_h,
-    }));
-
-    let _ = window.set_position(tauri::Position::Physical(
-        tauri::PhysicalPosition { x, y }
-    ));
+    // For the relic overlay, sizing is managed exclusively by resize_overlay_window
+    // (called from the frontend with the correct squad-aware dimensions).
+    // We only set size/position here for non-relic overlays.
+    if label != "overlay-relic" {
+        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize {
+            width: phys_w, height: phys_h,
+        }));
+        let _ = window.set_position(tauri::Position::Physical(
+            tauri::PhysicalPosition { x, y }
+        ));
+    }
 
     let _ = window.show();
     let _ = window.set_always_on_top(true);

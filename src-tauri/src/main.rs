@@ -732,9 +732,10 @@ fn resize_overlay_window(
         .get_window(&label)
         .ok_or_else(|| format!("window '{}' not found", label))?;
 
-    let monitor = window.primary_monitor()
+    let monitor = window.current_monitor()
         .map_err(|e| e.to_string())?
-        .ok_or("no primary monitor")?;
+        .or_else(|| window.primary_monitor().ok().flatten())
+        .ok_or("no monitor found")?;
 
     let screen_w = monitor.size().width;
     let _screen_h = monitor.size().height;
@@ -749,9 +750,6 @@ fn resize_overlay_window(
         "overlay-tl"    => (phys_margin, phys_margin),
         "overlay-tc"    => (((screen_w as i32 - phys_w as i32) / 2), phys_margin),
         "overlay-relic" => {
-            let relic_w_f = width as f64 * scale;
-            let relic_h_f = height as f64 * scale;
-            let margin_f  = 40.0 * scale;
 
             // Use the monitor the window is currently on
             let mon_size = monitor.size();

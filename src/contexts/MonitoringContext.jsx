@@ -256,28 +256,42 @@ export function MonitoringProvider({ children }) {
 
     // 2. Syndicate Rank Capped
     if (getSetting('notif_syndicate_enabled', false)) {
-      const affiliations = inventoryData.Affiliations || []
-      affiliations.forEach(aff => {
-        const rank = aff.Title ?? 0
-        const total = aff.Standing ?? 0
-        const cap = RANK_CAPS[rank] ?? 22000
-        const previousCaps = getCumulativePreviousCaps(rank)
-        const earned = Math.max(0, total - previousCaps)
+      const affiliations = inventoryData.Affiliations || [];
+      const MAIN_SYNDICATE_TAGS = new Set([
+        'SteelMeridianSyndicate', 'PerrinSyndicate', 'ArbitersSyndicate',
+        'CephalonSudaSyndicate', 'RedVeilSyndicate', 'NewLokaSyndicate'
+      ]);
+      const MAX_SYNDICATE_RANK = 5; // Assuming Rank 5 is the absolute max
 
-        if (earned >= cap && cap > 0) {
+      affiliations.forEach(aff => {
+        // Check if it's one of the 6 main syndicates
+        if (!MAIN_SYNDICATE_TAGS.has(aff.Tag)) {
+          return; // Skip if not a main syndicate
+        }
+
+        const rank = aff.Title ?? 0;
+        const total = aff.Standing ?? 0;
+        const cap = RANK_CAPS[rank] ?? 22000; // Cap for the current rank
+        const previousCaps = getCumulativePreviousCaps(rank);
+        const earned = Math.max(0, total - previousCaps);
+
+        // Trigger notification ONLY if it's the MAX rank AND the cap for that rank is met.
+        // Also, ensure we haven't already notified for this syndicate tag.
+        if (rank === MAX_SYNDICATE_RANK && earned >= cap && cap > 0) {
           if (!notifiedRef.current.syndicate.has(aff.Tag)) {
             invoke('show_notification', {
               title: 'Syndicate Capped',
-              message: `You have reached the maximum standing for your current rank in ${aff.Tag.replace('Syndicate', '')}.`,
+              message: `You have reached the maximum standing for ${aff.Tag.replace('Syndicate', '')}.`,
               image: '/IconMastery.png',
               position
-            }).catch(console.error)
-            notifiedRef.current.syndicate.add(aff.Tag)
+            }).catch(console.error);
+            notifiedRef.current.syndicate.add(aff.Tag);
           }
         } else {
-          notifiedRef.current.syndicate.delete(aff.Tag)
+          // If not maxed or not capped, remove from notified set to allow future notifications if they become maxed again
+          notifiedRef.current.syndicate.delete(aff.Tag);
         }
-      })
+      });
     }
 
     // 3. Foundry Completion

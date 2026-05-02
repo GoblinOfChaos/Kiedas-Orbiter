@@ -777,15 +777,19 @@ fn resize_overlay_window(
 
         let _ = window.show();
         let _ = window.set_always_on_top(true);
-        let _ = window.set_focus();
+        let _ = window.set_ignore_cursor_events(true);
+        let _ = window.set_skip_taskbar(true);
 
         // Extra re-assertion after a tiny delay for Windows z-order bugs
-        let w_c = window.clone();
-        std::thread::spawn(move || {
-            std::thread::sleep(std::time::Duration::from_millis(150));
-            let _ = w_c.set_always_on_top(true);
-            let _ = w_c.set_focus();
-        });
+        #[cfg(not(target_os = "linux"))]
+        {
+            let w_c = window.clone();
+            std::thread::spawn(move || {
+                std::thread::sleep(std::time::Duration::from_millis(150));
+                let _ = w_c.set_always_on_top(true);
+                let _ = w_c.set_focus();
+            });
+        }
 
         // Platform Specific Fixes
         #[cfg(target_os = "macos")]
@@ -809,15 +813,9 @@ fn resize_overlay_window(
         let w = window.clone();
         let is_relic = label.as_str() == "overlay-relic";
         tauri::async_runtime::spawn(async move {
-            let ticks = if is_relic { 15 } else { 5 };
-            for ms in [20u64, 40, 60, 80, 100, 120, 140, 160, 180, 200, 250, 300, 350, 400, 450, 500] {
-                tokio::time::sleep(tokio::time::Duration::from_millis(ms)).await;
-                let _ = w.set_always_on_top(true);
-            }
-            for _ in 0..ticks {
-                tokio::time::sleep(tokio::time::Duration::from_millis(1000)).await;
-                let _ = w.set_always_on_top(true);
-            }
+            // Removed repetitive calls to set_always_on_top here.
+            // The initial call after window.show() should be sufficient.
+            // If alwaysOnTop stability issues arise, this part might need re-evaluation.
         });
     } else {
         let _ = window.hide();

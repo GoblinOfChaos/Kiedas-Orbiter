@@ -78,19 +78,19 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
             }
         }
     }
+    
+    // On Linux, calling set_focus() on an always-on-top overlay can cause focus to be stolen.
+    // We skip it here, as alwaysOnTop and skipTaskbar should be sufficient for overlays.
+    #[cfg(not(target_os = "linux"))]
+    {
+        let _ = window.set_focus();
+    }
 
     let w = window.clone();
     let is_relic = label == "overlay-relic";
     tauri::async_runtime::spawn(async move {
-        let ticks = if is_relic { 15 } else { 5 };
-        for ms in [20u64, 40, 60, 80, 100, 120, 140, 160, 180, 200, 250, 300, 350, 400, 450, 500] {
-            tokio::time::sleep(tokio::time::Duration::from_millis(ms)).await;
-            let _ = w.set_always_on_top(true);
-        }
-        for _ in 0..ticks {
-            tokio::time::sleep(tokio::time::Duration::from_millis(1000)).await;
-            let _ = w.set_always_on_top(true);
-        }
+        // Removed repetitive calls to set_always_on_top here.
+        // The initial call after window.show() should be sufficient.
     });
 
     Ok(())

@@ -91,7 +91,7 @@ export function MonitoringProvider({ children }) {
   const [monitorResult, setMonitorResult] = useState('idle') // 'idle' | 'success' | 'error'
   const [autoStart, setAutoStartState] = useState(localStorage.getItem('autoStartMonitoring') === 'true')
   const autoStartRef = useRef(autoStart)
-  
+
   const setAutoStart = useCallback((val) => {
     const v = !!val
     setAutoStartState(v)
@@ -114,7 +114,7 @@ export function MonitoringProvider({ children }) {
     arbitration: new Set(),
     foundry: new Set(),
     syndicate: new Set(),
-    syndicateWaste: { lastNotify: 0, count: 0 },
+    syndicateWaste: { lastNotify: 0 },
     mastery: {},
     checklist: {},
     voidTraces: false
@@ -153,6 +153,28 @@ export function MonitoringProvider({ children }) {
   const ENWRawRewards = useMemo(() => exportData?.ExportNightwave?.rewards || [], [exportData])
   const ExportImages = useMemo(() => exportData?.ExportImages ?? {}, [exportData])
   const ExportTextIcons = useMemo(() => exportData?.ExportTextIcons ?? {}, [exportData])
+
+  // Mastery progress (0-100) computed once and shared between the notification
+  // logic and Mastery.jsx so neither has to recalculate independently.
+  const masteryProgress = useMemo(() => {
+    if (!inventoryData) return 0
+    const currentRank = inventoryData.account?.mastery_rank
+    if (currentRank == null) return 0
+    const getXPForRank = (r) => r <= 0 ? 0 : r <= 30 ? r * r * 2500 : 2250000 + (r - 30) * 147500
+    const getXPNeededFor = (r) => r <= 30 ? (2 * r + 1) * 2500 : 147500
+    const itemCats = ['warframes', 'primary', 'secondary', 'melee', 'kitguns', 'zaws', 'amps',
+      'sentinels', 'companion_weapons', 'moaHeads', 'houndHeads', 'beasts',
+      'archwings', 'archweapons', 'necramechs', 'plexus', 'kdrives']
+    const itemXP = itemCats.reduce((sum, cat) =>
+      sum + (inventoryData[cat] ?? []).reduce((s, i) => s + (i.mastery_xp || 0), 0), 0)
+    const intrinsicXP = (inventoryData.intrinsics ?? []).reduce((s, i) => s + (i.mastery_xp || 0), 0)
+    const sc = inventoryData.starchart ?? {}
+    const totalXP = itemXP + intrinsicXP + (sc.origin_xp ?? 0) + (sc.steel_path_xp ?? 0)
+    const xpAtCurrent = getXPForRank(currentRank)
+    const xpNeeded = getXPNeededFor(currentRank + 1)
+    const xpIntoRank = Math.max(0, totalXP - xpAtCurrent)
+    return xpNeeded > 0 ? Math.min(100, Math.floor((xpIntoRank / xpNeeded) * 100)) : 100
+  }, [inventoryData])
 
   const { EI, nameToImage, uniqueNameToName } = useMemo(() => {
     if (!exportData || !dict) return { EI: {}, nameToImage: {}, uniqueNameToName: {} }
@@ -289,7 +311,81 @@ export function MonitoringProvider({ children }) {
         }
       }
     }
-  }, [inventoryData, arbys, ERg, dict])
+
+    // 5. Syndicate Waste Reminder
+    // Fires when the player's pledged syndicate has enemies with standing > 0.
+    // Playing any mission would drain that enemy standing to zero, wasting it.
+    // The user should spend it on items first.
+    if (getSetting('notif_syndicate_waste_enabled', false)) {
+      const pledgedTag = inventoryData.SupportedSyndicate // e.g. "SteelMeridianSyndicate"
+      const affiliations = inventoryData.Affiliations || []
+
+      // Find the config entry whose AFFILIATION_TAGS value matches the pledged tag
+      const AFFILIATION_TAGS = {
+        steel: 'SteelMeridianSyndicate', perrin: 'PerrinSyndicate',
+        arbiters: 'ArbitersSyndicate', suda: 'CephalonSudaSyndicate',
+        veil: 'RedVeilSyndicate', newloka: 'NewLokaSyndicate',
+      }
+      const pledgedShortTag = Object.entries(AFFILIATION_TAGS).find(([, v]) => v === pledgedTag)?.[0]
+
+      if (pledgedShortTag) {
+        // ES is ExportSyndicates — build enemy tags from alignments
+        const pledgedExportData = ES?.[pledgedTag]
+        const TAG_TO_EXPORT_KEY = {
+          steel: 'SteelMeridianSyndicate', perrin: 'PerrinSyndicate',
+          arbiters: 'ArbitersSyndicate', suda: 'CephalonSudaSyndicate',
+          veil: 'RedVeilSyndicate', newloka: 'NewLokaSyndicate',
+        }
+        const exportKeyToShort = Object.fromEntries(Object.entries(TAG_TO_EXPORT_KEY).map(([k, v]) => [v, k]))
+        const enemyShortTags = pledgedExportData?.alignments
+          ? Object.entries(pledgedExportData.alignments)
+            .filter(([, v]) => v < 0)
+            .map(([k]) => exportKeyToShort[k])
+            .filter(Boolean)
+          : []
+
+        // Check if any enemy syndicate has standing > 0
+        const enemiesWithStanding = enemyShortTags
+          .map(tag => {
+            const affTag = AFFILIATION_TAGS[tag]
+            const aff = affiliations.find(a => a.Tag === affTag)
+            return aff && (aff.Standing ?? 0) > 0 ? tag : null
+          })
+          .filter(Boolean)
+
+        const now = Date.now()
+        if (enemiesWithStanding.length > 0 && now - notifiedRef.current.syndicateWaste.lastNotify > 30 * 60 * 1000) {
+          const names = enemiesWithStanding.join(', ')
+          invoke('show_notification', {
+            title: 'Syndicate Standing at Risk',
+            message: `Enemy syndicate${enemiesWithStanding.length > 1 ? 's' : ''} (${names}) have standing that will be lost if you play — spend it first.`,
+            image: '/IconMastery.png'
+          }).catch(console.error)
+          notifiedRef.current.syndicateWaste.lastNotify = now
+        }
+        if (enemiesWithStanding.length === 0) notifiedRef.current.syndicateWaste.lastNotify = 0
+      }
+    }
+
+    // 6. Mastery Progress
+    // Replicates the XP calculation from Mastery.jsx using the same item data.
+    // Fires once when progress crosses the configured threshold percentage.
+    if (getSetting('notif_mastery_enabled', false)) {
+      const threshold = parseInt(getSetting('notif_mastery_percent', 75))
+      const currentRank = inventoryData.account?.mastery_rank
+      if (currentRank != null) {
+        const key = `${currentRank}_${threshold}`
+        if (masteryProgress >= threshold && !notifiedRef.current.mastery[key]) {
+          invoke('show_notification', {
+            title: 'Mastery Progress',
+            message: `You are ${masteryProgress}% of the way to Mastery Rank ${currentRank + 1}.`,
+            image: '/IconMastery.png'
+          }).catch(console.error)
+          notifiedRef.current.mastery[key] = true
+        }
+      }
+    }
+  }, [inventoryData, arbys, ERg, dict, ES, masteryProgress])
 
   // When the global reward pool is (re-)computed, write a baseline Tesseract wordlist
   // containing every word that can ever appear in a relic reward name.
@@ -537,9 +633,9 @@ export function MonitoringProvider({ children }) {
           candidates = (globalRewardPool || []).filter(item => {
             if (!item || !item.name) return false;
             const n = item.name.toUpperCase();
-            return n.includes('PRIME') || n.includes('BLUEPRINT') || n === 'FORMA BLUEPRINT' || 
-                   n.includes('SLIVER') || n.includes('FRAGMENT') || n.includes('AYATAN') || 
-                   n.includes('STAR') || n.includes('REQUIEM') || n.includes('ADAPTER');
+            return n.includes('PRIME') || n.includes('BLUEPRINT') || n === 'FORMA BLUEPRINT' ||
+              n.includes('SLIVER') || n.includes('FRAGMENT') || n.includes('AYATAN') ||
+              n.includes('STAR') || n.includes('REQUIEM') || n.includes('ADAPTER');
           });
         }
 
@@ -601,7 +697,7 @@ export function MonitoringProvider({ children }) {
             // 3. Penalty: zero the score only if NO significant word is a match.
             // We check if at least one 'meaningful' word from the candidate exists in OCR.
             const meaningfulWords = candWords.filter(w => w.length > 3 && w !== 'PRIME' && w !== 'BLUEPRINT');
-            const hasAnyMeaningfulMatch = meaningfulWords.length === 0 || meaningfulWords.some(mw => 
+            const hasAnyMeaningfulMatch = meaningfulWords.length === 0 || meaningfulWords.some(mw =>
               ocrWords.some(ow => ow.includes(mw) || mw.includes(ow) || wordSimilarity(ow, mw) > 0.7)
             );
 
@@ -621,9 +717,9 @@ export function MonitoringProvider({ children }) {
             event: 'overlay-update-ocr',
             payload: { slot: res.slot, confirmed_reward: bestMatch.name, item: { ...bestMatch, icon: EI[bestMatch.uniqueName], platPrice, inventory } }
           }).catch(() => { });
-          console.log(`[MonitoringContext] Slot ${res.slot} MATCHED: "${ocrText}" -> ${bestMatch.name} (Score: ${bestScore.toFixed(3)})`);
+          if (import.meta.env.DEV) console.log(`[MonitoringContext] Slot ${res.slot} MATCHED: "${ocrText}" -> ${bestMatch.name} (Score: ${bestScore.toFixed(3)})`);
         } else {
-          console.log(`[MonitoringContext] Slot ${res.slot} failed match: "${ocrText}" (Best: ${bestMatch?.name || 'None'}, Score: ${bestScore.toFixed(3)})`);
+          if (import.meta.env.DEV) console.log(`[MonitoringContext] Slot ${res.slot} failed match: "${ocrText}" (Best: ${bestMatch?.name || 'None'}, Score: ${bestScore.toFixed(3)})`);
         }
       }
 
@@ -641,6 +737,7 @@ export function MonitoringProvider({ children }) {
       exportData, spIncursions, arbys, descendiaDescs,
       dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
+      masteryProgress,
       startMonitoring, stopMonitoring, manualRefresh, callApiHelper
     }}>
       {children}

@@ -118,8 +118,9 @@ jobs:
           mkdir -p src-tauri/data/bin
           # Copy the binary
           cp $(which tesseract) src-tauri/data/bin/tesseract
-          # Copy all shared library dependencies (.so files), resolving symlinks to real files
-          ldd $(which tesseract) | grep "=> /" | awk '{print $3}' | xargs -I {} readlink -f {} | xargs -I {} cp -L {} src-tauri/data/bin/
+          # Copy all shared library dependencies (.so files) EXCEPT core system libs like libc,
+          # as bundling them causes major version conflicts on newer/older host distros.
+          ldd $(which tesseract) | grep "=> /" | grep -vE "libc\.so|libm\.so|libdl\.so|libpthread\.so|librt\.so|libgcc_s\.so|libstdc\+\+\.so|libresolv\.so|libutil\.so|libcrypt\.so" | awk '{print $3}' | xargs -I {} readlink -f {} | xargs -I {} cp -L {} src-tauri/data/bin/
           chmod +x src-tauri/data/bin/tesseract
 
       - name: Install and copy Tesseract (macOS)

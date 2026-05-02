@@ -53,11 +53,10 @@ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
       ref={buttonRef}
       onClick={() => setRecording(!recording)}
       onBlur={() => setRecording(false)}
-      className={`h-9 px-4 rounded-lg border text-xs font-mono transition-all ${
-        recording 
-        ? 'border-kronos-accent bg-kronos-accent/20 text-white animate-pulse' 
-        : 'border-white/10 bg-black/20 text-kronos-dim hover:border-white/20'
-      }`}
+      className={`h-9 px-4 rounded-lg border text-xs font-mono transition-all ${recording
+          ? 'border-kronos-accent bg-kronos-accent/20 text-white animate-pulse'
+          : 'border-white/10 bg-black/20 text-kronos-dim hover:border-white/20'
+        }`}
     >
       {recording ? 'Recording...' : (value || placeholder)}
     </button>
@@ -81,7 +80,7 @@ export default function SettingsScreen() {
   const handleUpdateHotkeys = async (newHotkeys) => {
     setHotkeys(newHotkeys)
     await setSetting('hotkeys', newHotkeys)
-    
+
     // Unregister and re-register all with Rust
     try {
       await invoke('unregister_all_hotkeys')
@@ -141,7 +140,7 @@ export default function SettingsScreen() {
     () => getSetting('notif_mastery_enabled', false)
   )
   const [notifMasteryPercent, setNotifMasteryPercent] = useState(
-    () => parseInt(getSetting('notif_mastery_percent', 50))
+    () => parseInt(getSetting('notif_mastery_percent', 75))
   )
 
   const [notifChecklistMinutes, setNotifChecklistMinutes] = useState(
@@ -415,14 +414,14 @@ export default function SettingsScreen() {
                 ))}
               </div>
             </div>
-              <div>
-               <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Notification Sound</p>
-               <div className="grid grid-cols-3 gap-2">
-                 {[
-                   { label: 'None', value: 'none' },
-                   { label: 'Sound 1', value: 'notification1.wav' },
-                   { label: 'Sound 2', value: 'notification2.wav' },
-                 ].map((s) => (
+            <div>
+              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Notification Sound</p>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { label: 'None', value: 'none' },
+                  { label: 'Sound 1', value: 'notification1.wav' },
+                  { label: 'Sound 2', value: 'notification2.wav' },
+                ].map((s) => (
                   <button
                     key={s.value}
                     onClick={() => handleSetSound(s.value)}
@@ -472,7 +471,10 @@ export default function SettingsScreen() {
                   <p className="text-sm font-bold text-kronos-text uppercase">S-Tier Arbitration</p>
                   <p className="text-xs text-kronos-dim uppercase">Notify when a top-tier node appears</p>
                 </div>
-                <Toggle checked={notifArbitrationEnabled} onChange={handleSetArbitrationEnabled} />
+                <div className="flex items-center gap-2">
+                  <button onClick={() => invoke('show_notification', { title: 'S-Tier Arbitration Active', message: 'Disruption on Ur, Uranus', image: '/IconDashboard.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <Toggle checked={notifArbitrationEnabled} onChange={handleSetArbitrationEnabled} />
+                </div>
               </div>
               {notifArbitrationEnabled && (
                 <div className="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-white/5">
@@ -512,7 +514,10 @@ export default function SettingsScreen() {
                   <p className="text-sm font-bold text-kronos-text uppercase">Foundry Completion</p>
                   <p className="text-xs text-kronos-dim uppercase">Alert when items are ready to claim</p>
                 </div>
-                <Toggle checked={notifFoundryEnabled} onChange={handleSetFoundryEnabled} />
+                <div className="flex items-center gap-2">
+                  <button onClick={() => invoke('show_notification', { title: 'Foundry Complete', message: 'Harrow Prime Neuroptics is ready to claim!', image: '/IconFoundry.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <Toggle checked={notifFoundryEnabled} onChange={handleSetFoundryEnabled} />
+                </div>
               </div>
               {notifFoundryEnabled && (
                 <div className="mt-3 pt-3 border-t border-white/5">
@@ -538,7 +543,10 @@ export default function SettingsScreen() {
                   <p className="text-sm font-bold text-kronos-text uppercase">Syndicate Capped</p>
                   <p className="text-xs text-kronos-dim uppercase">Notify when any syndicate reaches max daily standing</p>
                 </div>
-                <Toggle checked={notifSyndicateEnabled} onChange={handleSetSyndicateEnabled} />
+                <div className="flex items-center gap-2">
+                  <button onClick={() => invoke('show_notification', { title: 'Syndicate Capped', message: 'Steel Meridian standing is maxed for this rank.', image: '/IconMastery.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <Toggle checked={notifSyndicateEnabled} onChange={handleSetSyndicateEnabled} />
+                </div>
               </div>
             </div>
 
@@ -547,10 +555,12 @@ export default function SettingsScreen() {
               <div className="flex items-center justify-between mb-2">
                 <div>
                   <p className="text-sm font-bold text-kronos-text uppercase">Syndicate Waste Reminder</p>
-                  <p className="text-xs text-kronos-dim uppercase">Notify when opponent of pledged faction has standing (max 2/day)</p>
-                  <p className="text-[10px] text-kronos-dim mt-1">(see your pledged syndicate in checklist tab)</p>
+                  <p className="text-xs text-kronos-dim uppercase">Notify when enemy syndicates of your pledged faction have standing that will be lost</p>
                 </div>
-                <Toggle checked={notifSyndicateWasteEnabled} onChange={handleSetSyndicateWasteEnabled} />
+                <div className="flex items-center gap-2">
+                  <button onClick={() => invoke('show_notification', { title: 'Syndicate Standing at Risk', message: 'Enemy syndicates (veil, newloka) have standing that will be lost if you play — spend it first.', image: '/IconMastery.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <Toggle checked={notifSyndicateWasteEnabled} onChange={handleSetSyndicateWasteEnabled} />
+                </div>
               </div>
             </div>
 
@@ -561,7 +571,10 @@ export default function SettingsScreen() {
                   <p className="text-sm font-bold text-kronos-text uppercase">Void Traces Capped</p>
                   <p className="text-xs text-kronos-dim uppercase">Notify when void traces reach maximum capacity</p>
                 </div>
-                <Toggle checked={notifVoidTracesEnabled} onChange={handleSetVoidTracesEnabled} />
+                <div className="flex items-center gap-2">
+                  <button onClick={() => invoke('show_notification', { title: 'Void Traces Capped', message: 'You have reached the maximum capacity of 1200 Void Traces.', image: '/IconRelic.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <Toggle checked={notifVoidTracesEnabled} onChange={handleSetVoidTracesEnabled} />
+                </div>
               </div>
             </div>
 
@@ -570,9 +583,12 @@ export default function SettingsScreen() {
               <div className="flex items-center justify-between mb-3">
                 <div>
                   <p className="text-sm font-bold text-kronos-text uppercase">Mastery Progress</p>
-                  <p className="text-xs text-kronos-dim uppercase">Notify when percentage is reached</p>
+                  <p className="text-xs text-kronos-dim uppercase">Notify when you reach a set % towards the next rank</p>
                 </div>
-                <Toggle checked={notifMasteryEnabled} onChange={handleSetMasteryEnabled} />
+                <div className="flex items-center gap-2">
+                  <button onClick={() => invoke('show_notification', { title: 'Mastery Progress', message: `You are 75% of the way to Mastery Rank 30.`, image: '/IconMastery.png' }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
+                  <Toggle checked={notifMasteryEnabled} onChange={handleSetMasteryEnabled} />
+                </div>
               </div>
               {notifMasteryEnabled && (
                 <div className="mt-3 pt-3 border-t border-white/5">
@@ -727,16 +743,16 @@ export default function SettingsScreen() {
                 </div>
 
                 <div className="sm:self-end">
-                   <button
-                     onClick={() => {
-                       const next = hotkeys.filter((_, i) => i !== idx)
-                       handleUpdateHotkeys(next)
-                     }}
-                     className="p-2 text-red-400/50 hover:text-red-400 transition-colors"
-                     title="Remove Hotkey"
-                   >
-                     <X size={18} />
-                   </button>
+                  <button
+                    onClick={() => {
+                      const next = hotkeys.filter((_, i) => i !== idx)
+                      handleUpdateHotkeys(next)
+                    }}
+                    className="p-2 text-red-400/50 hover:text-red-400 transition-colors"
+                    title="Remove Hotkey"
+                  >
+                    <X size={18} />
+                  </button>
                 </div>
               </div>
             ))}
@@ -759,8 +775,8 @@ export default function SettingsScreen() {
         <Card glow className="p-5">
           <div className="flex items-center gap-3 mb-5">
             <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 transition-all duration-500 ${monitorResult === 'success' ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.7)]' :
-                monitorResult === 'error' ? 'bg-red-500   shadow-[0_0_8px_rgba(239,68,68,0.7)]' :
-                  'bg-zinc-600'
+              monitorResult === 'error' ? 'bg-red-500   shadow-[0_0_8px_rgba(239,68,68,0.7)]' :
+                'bg-zinc-600'
               }`} />
             <h2 className="text-xl font-black uppercase tracking-tight">Game Monitoring</h2>
           </div>
@@ -796,11 +812,10 @@ export default function SettingsScreen() {
             <button
               onClick={handleStart}
               disabled={loading || isMonitoring}
-              className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${
-                  isMonitoring 
-                  ? (monitorResult === 'error' 
-                      ? 'bg-amber-500/10 border-amber-500/30 text-amber-500 cursor-not-allowed' 
-                      : 'bg-green-500/10 border-green-500/30 text-green-400 cursor-not-allowed')
+              className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${isMonitoring
+                  ? (monitorResult === 'error'
+                    ? 'bg-amber-500/10 border-amber-500/30 text-amber-500 cursor-not-allowed'
+                    : 'bg-green-500/10 border-green-500/30 text-green-400 cursor-not-allowed')
                   : loading
                     ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
                     : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
@@ -808,7 +823,7 @@ export default function SettingsScreen() {
             >
               {loading
                 ? <span className="flex items-center justify-center gap-2"><RefreshCw size={12} className="animate-spin" /> Starting</span>
-                : isMonitoring 
+                : isMonitoring
                   ? (monitorResult === 'error' ? '● Retrying' : '● Active')
                   : 'Start'
               }
@@ -817,8 +832,8 @@ export default function SettingsScreen() {
               onClick={stopMonitoring}
               disabled={!isMonitoring}
               className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${isMonitoring
-                  ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
-                  : 'bg-kronos-panel/20 border-white/5 text-kronos-dim/40 cursor-not-allowed'
+                ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
+                : 'bg-kronos-panel/20 border-white/5 text-kronos-dim/40 cursor-not-allowed'
                 }`}
             >
               Stop
@@ -827,8 +842,8 @@ export default function SettingsScreen() {
               onClick={manualRefresh}
               disabled={!isMonitoring}
               className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${isMonitoring
-                  ? 'bg-kronos-panel/40 border-white/10 text-kronos-text hover:border-kronos-accent/30 hover:text-kronos-accent'
-                  : 'bg-kronos-panel/20 border-white/5 text-kronos-dim/40 cursor-not-allowed'
+                ? 'bg-kronos-panel/40 border-white/10 text-kronos-text hover:border-kronos-accent/30 hover:text-kronos-accent'
+                : 'bg-kronos-panel/20 border-white/5 text-kronos-dim/40 cursor-not-allowed'
                 }`}
             >
               Manual Refresh

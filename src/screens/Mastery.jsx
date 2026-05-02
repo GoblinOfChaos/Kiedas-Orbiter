@@ -76,7 +76,7 @@ function getXPNeededFor(rank) {
 }
 
 export default function Mastery() {
-  const { inventoryData, isInventoryLoading } = useMonitoring()
+  const { inventoryData, isInventoryLoading, masteryProgress } = useMonitoring()
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [iconsPath, setIconsPath] = useState('');
   const [hideNonMastery, setHideNonMastery] = useState(false)
@@ -216,7 +216,7 @@ export default function Mastery() {
   const xpNeeded = getXPNeededFor(nextRank)
   const xpIntoRank = Math.max(0, totalXP - xpAtCurrent)
   const xpUntilNext = Math.max(0, xpNeeded - xpIntoRank)
-  const progress = xpNeeded > 0 ? Math.min(100, (xpIntoRank / xpNeeded) * 100) : 100;
+  const progress = masteryProgress
   const isRankUpReady = progress >= 100
   const currentTitle = getMRTitle(currentRank)
   const nextTitle = getMRTitle(nextRank)

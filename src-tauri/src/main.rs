@@ -648,7 +648,10 @@ async fn show_relic_overlay(
 ) -> Result<(), String> {
     // Play sound
     let sound = state.notif_sound.lock().unwrap().clone();
-    let _ = play_notification_sound(app_handle.clone(), sound).await;
+    let app = app_handle.clone();
+    tauri::async_runtime::spawn(async move {
+        let _ = play_notification_sound(app, sound).await;
+    });
 
     let app = app_handle.clone();
 
@@ -884,21 +887,18 @@ async fn play_notification_sound(app_handle: tauri::AppHandle, sound: String) ->
             eprintln!("[Audio] Playing via afplay: {}", path_str);
             let _ = std::process::Command::new("afplay")
                 .arg(&path_str)
-                .output();
+                .spawn();
         }
         
         #[cfg(target_os = "linux")]
         {
             eprintln!("[Audio] Playing via native player: {}", path_str);
-            let status = std::process::Command::new("paplay")
-                .arg(&path_str)
-                .status();
-            
-            if status.is_err() || !status.as_ref().map(|s| s.success()).unwrap_or(false) {
-                let _ = std::process::Command::new("aplay")
-                    .arg(&path_str)
-                    .output();
-            }
+            // Spawn a shell to try paplay first, then aplay as fallback, all in background
+            let cmd = format!("paplay '{}' || aplay '{}'", path_str, path_str);
+            let _ = std::process::Command::new("sh")
+                .arg("-c")
+                .arg(cmd)
+                .spawn();
         }
     }).await.ok();
     
@@ -957,7 +957,10 @@ async fn show_notification(
 
     // Play sound
     let sound = state.notif_sound.lock().unwrap().clone();
-    let _ = play_notification_sound(app_handle.clone(), sound).await;
+    let app = app_handle.clone();
+    tauri::async_runtime::spawn(async move {
+        let _ = play_notification_sound(app, sound).await;
+    });
 
     // Emit the notification -- the matching overlay window renders it
     app_handle.emit_all("new-notification", NotificationPayload {

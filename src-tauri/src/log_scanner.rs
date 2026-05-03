@@ -19,6 +19,7 @@ pub struct RelicInfo {
     pub tier: String,
     pub refinement: String,
     pub era: String,
+    pub hex_id: String,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -102,7 +103,7 @@ impl LogScanner {
         }
 
         if line.contains("ExitState: Disconnected")
-            || line.contains("Game [Info]: Set state to Disconnected") || line.contains("ProjectionRewardChoice.lua: Relic reward screen shut down")
+            || line.contains("Game [Info]: Set state to Disconnected")
         {
             if !silent && self.is_fissure {
                 let now = std::time::SystemTime::now()
@@ -121,31 +122,56 @@ impl LogScanner {
             return;
         }
 
+        // === 1.6 Reward Screen Shutdown (Endless Round Reset) ===
+        if line.contains("ProjectionRewardChoice.lua: Relic reward screen shut down") {
+            if !silent {
+                println!("[LOG_SCANNER] Relic reward screen shut down -- resetting round state for next round");
+            }
+            self.reset_round();
+            app.emit_all("fissure-reward-closed", ())
+                .unwrap_or_default();
+            return;
+        }
+
         if self.is_fissure {
             // === 2. Relic Detection ===
             if line.contains("Resloader")
                 && line.contains("/Lotus/Types/Game/Projections/")
                 && line.contains("starting")
             {
+                // Example: Sys [Info]: Resloader 0x000000002E20A710 (/Lotus/Types/Game/Projections/T3VoidProjectionZephyrPrimeABronze) starting
+                let hex_id = if let Some(pos) = line.find("Resloader ") {
+                    let start = pos + 10;
+                    if let Some(end) = line[start..].find(' ') {
+                        &line[start..start + end]
+                    } else {
+                        "unknown"
+                    }
+                } else {
+                    "unknown"
+                };
+
                 if let Some(start) = line.find("(/Lotus") {
                     if let Some(end) = line[start..].find(')') {
                         let path = &line[start + 1..start + end];
-                        // If a new relic appears that we haven't seen and we already
-                        // triggered a round, this means a new endless round started
-                        // (the "continue" dialogue line is host-only and unreliable for
-                        // client players). Reset so the next reward triggers the overlay.
-                        if !self.squad_relics.iter().any(|r| r.unique_name == path) {
+                        
+                        // If we see a hex ID we haven't seen in this round, it's a new relic.
+                        // If we already triggered a reward screen this mission, and a new relic appears,
+                        // it's a definitive signal of a new endless round starting.
+                        if !self.squad_relics.iter().any(|r| r.hex_id == hex_id) {
                             if self.has_triggered_round {
-                                if !silent { println!("[LOG_SCANNER] New relic detected after triggered round -- resetting for new endless round"); }
+                                if !silent { 
+                                    println!("[LOG_SCANNER] New relic hex ({}) detected after triggered round -- resetting for new endless round", hex_id); 
+                                }
                                 self.reset_round();
                             }
-                            let relic = parse_relic_path(path);
+                            let relic = parse_relic_path(path, hex_id);
                             self.squad_relics.push(relic);
                             self.squad_size = self.squad_size.max(self.squad_relics.len()).min(4);
                             if !silent {
                                 println!(
-                                    "[LOG_SCANNER] Relic detected: {} (Squad: {})",
-                                    path, self.squad_size
+                                    "[LOG_SCANNER] Relic detected: {} (Hex: {}, Squad: {})",
+                                    path, hex_id, self.squad_size
                                 );
                             }
                         }
@@ -260,7 +286,7 @@ impl LogScanner {
     }
 }
 
-fn parse_relic_path(path: &str) -> RelicInfo {
+fn parse_relic_path(path: &str, hex_id: &str) -> RelicInfo {
     let tier_code = if path.contains("T1") {
         "Lith"
     } else if path.contains("T2") {
@@ -292,6 +318,7 @@ fn parse_relic_path(path: &str) -> RelicInfo {
         tier: tier_code.to_string(),
         refinement: refinement.to_string(),
         era: tier_code.to_string(),
+        hex_id: hex_id.to_string(),
     }
 }
 

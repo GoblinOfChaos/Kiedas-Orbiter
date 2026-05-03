@@ -330,7 +330,8 @@ pub async fn trigger_manual_ocr(app: AppHandle, squad_size: Option<usize>) -> Re
             unique_name: "MANUAL".to_string(),
             tier: "MANUAL".to_string(),
             refinement: "MANUAL".to_string(),
-            era: "MANUAL".to_string()
+            era: "MANUAL".to_string(),
+            hex_id: "0x0".to_string(),
         });
     }
     
@@ -359,7 +360,7 @@ pub async fn start_debug_ocr_session(app: AppHandle, squad_size: usize) -> Resul
         let dynamic_image = DynamicImage::ImageRgba8(image);
         if let Some(w) = app_c.get_window("overlay-relic") { let _ = w.show(); let _ = w.set_always_on_top(true); }
         let mut mock_relics = Vec::new();
-        for _ in 0..squad_size { mock_relics.push(RelicInfo { unique_name: "DEBUG".to_string(), tier: "DEBUG".to_string(), refinement: "DEBUG".to_string(), era: "DEBUG".to_string() }); }
+        for _ in 0..squad_size { mock_relics.push(RelicInfo { unique_name: "DEBUG".to_string(), tier: "DEBUG".to_string(), refinement: "DEBUG".to_string(), era: "DEBUG".to_string(), hex_id: "0x0".to_string() }); }
         app_c.emit_all("overlay-update-relics", FissureEvent { event_type: "reward_phase".to_string(), squad_relics: mock_relics, local_reward: None, squad_size, void_tier: None }).unwrap_or_default();
         run_ocr_internal(app_c, squad_size, true, Some(dynamic_image));
     });

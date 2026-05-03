@@ -801,8 +801,8 @@ fn resize_overlay_window(
         {
         }
 
-        let w = window.clone();
-        let is_relic = label.as_str() == "overlay-relic";
+        let _w = window.clone();
+        let _is_relic = label.as_str() == "overlay-relic";
         tauri::async_runtime::spawn(async move {
             // Removed repetitive calls to set_always_on_top here.
             // The initial call after window.show() should be sufficient.
@@ -1097,10 +1097,10 @@ async fn simulate_fissure_event(app: tauri::AppHandle) -> Result<(), String> {
     app.emit_all("fissure-relic-phase", FissureEvent {
         event_type: "relic_phase_start".to_string(),
         squad_relics: vec![
-            RelicInfo { unique_name: "/Lotus/Types/Game/Projections/T1VoidProjectionGaussPrimeBBronze".to_string(), tier: "Lith".to_string(), refinement: "Intact".to_string(), era: "Lith".to_string() },
-            RelicInfo { unique_name: "/Lotus/Types/Game/Projections/T2VoidProjectionSevagothPrimeCBronze".to_string(), tier: "Meso".to_string(), refinement: "Intact".to_string(), era: "Meso".to_string() },
-            RelicInfo { unique_name: "/Lotus/Types/Game/Projections/T3VoidProjectionHarrowPrimePBronze".to_string(), tier: "Neo".to_string(), refinement: "Intact".to_string(), era: "Neo".to_string() },
-            RelicInfo { unique_name: "/Lotus/Types/Game/Projections/T4VoidProjectionKhoraPrimeBBronze".to_string(), tier: "Axi".to_string(), refinement: "Intact".to_string(), era: "Axi".to_string() },
+            RelicInfo { unique_name: "/Lotus/Types/Game/Projections/T1VoidProjectionGaussPrimeBBronze".to_string(), tier: "Lith".to_string(), refinement: "Intact".to_string(), era: "Lith".to_string(), hex_id: "0x1".to_string() },
+            RelicInfo { unique_name: "/Lotus/Types/Game/Projections/T2VoidProjectionSevagothPrimeCBronze".to_string(), tier: "Meso".to_string(), refinement: "Intact".to_string(), era: "Meso".to_string(), hex_id: "0x2".to_string() },
+            RelicInfo { unique_name: "/Lotus/Types/Game/Projections/T3VoidProjectionHarrowPrimePBronze".to_string(), tier: "Neo".to_string(), refinement: "Intact".to_string(), era: "Neo".to_string(), hex_id: "0x3".to_string() },
+            RelicInfo { unique_name: "/Lotus/Types/Game/Projections/T4VoidProjectionKhoraPrimeBBronze".to_string(), tier: "Axi".to_string(), refinement: "Intact".to_string(), era: "Axi".to_string(), hex_id: "0x4".to_string() },
         ],
         local_reward: None,
         squad_size: 4,

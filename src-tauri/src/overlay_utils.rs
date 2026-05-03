@@ -81,8 +81,8 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     
 
 
-    let w = window.clone();
-    let is_relic = label == "overlay-relic";
+    let _w = window.clone();
+    let _is_relic = label == "overlay-relic";
     tauri::async_runtime::spawn(async move {
         // Removed repetitive calls to set_always_on_top here.
         // The initial call after window.show() should be sufficient.

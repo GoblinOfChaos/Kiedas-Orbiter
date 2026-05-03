@@ -780,16 +780,7 @@ fn resize_overlay_window(
         let _ = window.set_ignore_cursor_events(true);
         let _ = window.set_skip_taskbar(true);
 
-        // Extra re-assertion after a tiny delay for Windows z-order bugs
-        #[cfg(not(target_os = "linux"))]
-        {
-            let w_c = window.clone();
-            std::thread::spawn(move || {
-                std::thread::sleep(std::time::Duration::from_millis(150));
-                let _ = w_c.set_always_on_top(true);
-                let _ = w_c.set_focus();
-            });
-        }
+
 
         // Platform Specific Fixes
         #[cfg(target_os = "macos")]

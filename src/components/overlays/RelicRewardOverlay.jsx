@@ -217,7 +217,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
         {/* Ducats + Plat badges */}
         {!isForma && (
           <div className="flex items-center gap-1.5 justify-evenly">
-            <PriceBadge label="Ducats" value={`◈ ${item?.ducats ?? 0}`} color="amber" />
+            <PriceBadge label="Ducats" value={`${item?.ducats ?? 0}`} color="amber" />
             <PriceBadge label="Plat" value={`${price ?? 0}p`} color="blue" />
           </div>
         )}
@@ -306,11 +306,11 @@ function Badge({ label, count, isMastered, canMastered = true }) {
 
 function PriceBadge({ label, value, color }) {
   const styles = {
-    amber: 'bg-amber-500/10 border-amber-500/30 text-amber-300',
-    blue: 'bg-blue-500/10 border-blue-500/30 text-blue-300',
+    amber: 'bg-amber-500/5 border-white/5 text-amber-500/50',
+    blue: 'bg-blue-400/20 border-blue-400/50 text-blue-200 shadow-[0_0_10px_rgba(96,165,250,0.3)]',
   }
   return (
-    <div className={`flex items-center gap-1 px-2 py-1 rounded-lg border ${styles[color]}`}>
+    <div className={`flex items-center gap-1 px-2 py-1 rounded-lg border transition-all ${styles[color]}`}>
       <span className="text-[8px] font-black uppercase tracking-wider opacity-70">{label}</span>
       <span className="text-[10px] font-bold">{value}</span>
     </div>

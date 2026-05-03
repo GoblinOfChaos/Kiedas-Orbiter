@@ -75,6 +75,16 @@ function DisclaimerModal() {
       hasStartedRef.current = true
 
       if (!getSetting('disclaimer-accepted')) setShow(true)
+      
+      // Load and register saved hotkeys
+      const savedHotkeys = getSetting('hotkeys', [])
+      for (const hk of savedHotkeys) {
+        if (hk.shortcut && hk.action) {
+          invoke('register_hotkey', { shortcut: hk.shortcut, action: hk.action })
+            .catch(err => console.error(`Failed to register startup hotkey ${hk.shortcut}:`, err))
+        }
+      }
+
       // Auto-start log scanner if fissure overlay was enabled
       const fissureEnabled = getSetting('fissure_overlay_enabled')
       const logPath = getSetting('ee_log_path')

@@ -79,12 +79,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         }
     }
     
-    // On Linux, calling set_focus() on an always-on-top overlay can cause focus to be stolen.
-    // We skip it here, as alwaysOnTop and skipTaskbar should be sufficient for overlays.
-    #[cfg(not(target_os = "linux"))]
-    {
-        let _ = window.set_focus();
-    }
+
 
     let w = window.clone();
     let is_relic = label == "overlay-relic";

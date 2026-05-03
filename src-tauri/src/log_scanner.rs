@@ -102,7 +102,7 @@ impl LogScanner {
         }
 
         if line.contains("ExitState: Disconnected")
-            || line.contains("Game [Info]: Set state to Disconnected")
+            || line.contains("Game [Info]: Set state to Disconnected") || line.contains("ProjectionRewardChoice.lua: Relic reward screen shut down")
         {
             if !silent && self.is_fissure {
                 let now = std::time::SystemTime::now()
@@ -207,32 +207,31 @@ impl LogScanner {
             }
 
             // === 4. Backup Trigger ===
-            if !self.has_triggered_round && line.contains("ProjectionRewardChoice.lua: Got rewards")
+            if !silent && !self.has_triggered_round && line.contains("ProjectionRewardChoice.lua: Got rewards")
             {
                 self.has_triggered_round = true;
-                if !silent {
-                    let now = std::time::SystemTime::now()
-                        .duration_since(std::time::UNIX_EPOCH)
-                        .unwrap()
-                        .as_millis();
-                    println!(
-                        "[{}] [LOG_SCANNER] === BACKUP TRIGGER (Got rewards line) ===",
-                        now
-                    );
-                    let _ = overlay_utils::show_window_internal(app, "overlay-relic");
-                    app.emit_all("scanner-show-overlay", "overlay-relic")
-                        .unwrap_or_default();
-                    app.emit_all(
-                        "scanner-relic-phase-start",
-                        serde_json::json!({ "squad_size": self.squad_size }),
-                    )
+                // The 'if !silent' block is now redundant as the condition is in the outer if.
+                let now = std::time::SystemTime::now()
+                    .duration_since(std::time::UNIX_EPOCH)
+                    .unwrap()
+                    .as_millis();
+                println!(
+                    "[{}] [LOG_SCANNER] === BACKUP TRIGGER (Got rewards line) ===",
+                    now
+                );
+                let _ = overlay_utils::show_window_internal(app, "overlay-relic");
+                app.emit_all("scanner-show-overlay", "overlay-relic")
                     .unwrap_or_default();
-                    let app_c = app.clone();
-                    let sz = self.squad_size;
-                    std::thread::spawn(move || {
-                        crate::ocr::run_ocr_pipeline_with_size(app_c, sz);
-                    });
-                }
+                app.emit_all(
+                    "scanner-relic-phase-start",
+                    serde_json::json!({ "squad_size": self.squad_size }),
+                )
+                .unwrap_or_default();
+                let app_c = app.clone();
+                let sz = self.squad_size;
+                std::thread::spawn(move || {
+                    crate::ocr::run_ocr_pipeline_with_size(app_c, sz);
+                });
             }
 
             // === 5. Endless Mission Continue/Extract ===
@@ -375,7 +374,7 @@ pub fn spawn_log_watcher(app: AppHandle, log_path: PathBuf) -> Result<LogScanner
                 }
             }
 
-            thread::sleep(Duration::from_millis(500));
+            thread::sleep(Duration::from_millis(50));
         }
     });
 

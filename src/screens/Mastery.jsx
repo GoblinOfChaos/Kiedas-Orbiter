@@ -130,10 +130,20 @@ export default function Mastery() {
     } else {
       items = inventoryData[cat] ?? []
     }
-    const mastered = items.filter(i => i.mastered).length
-    const total = items.length
-    const earnedXP = items.reduce((s, i) => s + (i.mastery_xp || 0), 0)
-    return { mastered, total, earnedXP, items, catKey: cat }
+    // Deduplicate by unique_name - mastery is only counted once per item type
+    const uniqueItems = Object.values(
+      items.reduce((acc, item) => {
+        const key = item.unique_name;
+        if (!acc[key] || (item.mastery_xp || 0) > (acc[key].mastery_xp || 0)) {
+          acc[key] = item;
+        }
+        return acc;
+      }, {})
+    );
+    const mastered = uniqueItems.filter(i => i.mastered).length
+    const total = uniqueItems.length
+    const earnedXP = uniqueItems.reduce((s, i) => s + (i.mastery_xp || 0), 0)
+    return { mastered, total, earnedXP, items: uniqueItems, catKey: cat }
   }
 
   const itemCompletion = [

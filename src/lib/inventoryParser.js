@@ -529,6 +529,8 @@ export function parseInventory(raw, exports) {
     const polarizeCount = sourceItem?.Polarized ?? 0;
     
     let mastery_xp, max_mastery_xp, mastered;
+    const baseMasteryAtMax = limit * baseMasteryPerRank;
+
     if (isOverlevelable && hasPolarization) {
       // Polarized overlevelable: base is 30 * baseMasteryPerRank
       const baseXP = 30 * baseMasteryPerRank;
@@ -543,6 +545,12 @@ export function parseInventory(raw, exports) {
       const effectiveMaxRank = 30 + Math.min(polarizeCount * 2, 10);
       max_mastery_xp = baseXP + Math.max(0, effectiveMaxRank - 30) * baseMasteryPerRank;
       mastered = rank >= effectiveMaxRank;
+    } else if (hasPolarization) {
+      // Polarized: once maxed, permanently grants max mastery
+      // Forma resets rank but keeps the mastered status
+      mastery_xp = baseMasteryAtMax;
+      max_mastery_xp = baseMasteryAtMax;
+      mastered = true;
     } else {
       // Normal weapons or un-polarized overlevelable
       mastery_xp = rank * baseMasteryPerRank;

@@ -297,7 +297,7 @@ export default function SettingsScreen() {
 
   const handleCaptureDebugOcr = async () => {
     try {
-      await invoke('start_debug_ocr_session', { squadSize: debugSquadSize })
+      await invoke('start_debug_ocr_session')
     } catch (err) {
       alert(`Debug OCR Failed: ${err}`)
     }
@@ -676,23 +676,12 @@ export default function SettingsScreen() {
             {fissureOverlayEnabled && (
               <div className="flex flex-col gap-3 pt-2">
                 <div className="flex items-center gap-3">
-                  <div className="flex bg-white/5 p-1 rounded-lg border border-white/5">
-                    {[2, 3, 4].map(size => (
-                      <button
-                        key={size}
-                        onClick={() => setDebugSquadSize(size)}
-                        className={`w-8 h-8 rounded flex items-center justify-center text-[10px] font-black transition-all ${debugSquadSize === size ? 'bg-kronos-accent text-white shadow-lg' : 'text-zinc-500 hover:text-white'}`}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
                   <Button variant="ghost" onClick={handleCaptureDebugOcr} className="text-[10px] font-black uppercase py-1 px-4 border-white/5 text-kronos-dim hover:text-white h-10">
-                    Test Relic Recognition (4s)
+                    Test Relic Recognition (Auto-detect)
                   </Button>
                 </div>
                 <p className="text-[10px] text-zinc-500 italic px-1 leading-relaxed">
-                  Select squad size, click test, then switch to your screenshot. The overlay will appear after 4s and capture the screen.
+                  Click test, then switch to Warframe. It will auto-detect 2-4 slots by scanning for rarity icons, then run OCR. Debug images saved to disk.
                 </p>
               </div>
             )}

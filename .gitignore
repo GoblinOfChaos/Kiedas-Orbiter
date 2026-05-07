@@ -33,6 +33,7 @@ src-tauri/data/user/*
 !src-tauri/data/export/masteryicons/
 src-tauri/data/bin/*
 !src-tauri/data/bin/tessdata/
+!src-tauri/data/bin/*.png
 
 # Ignore target and Cargo.lock
 src-tauri/target/

@@ -29,7 +29,39 @@ export default function RelicRewardOverlay() {
   const [triggerKey, setTriggerKey] = useState(0)
 
   useEffect(() => {
+    // 1. Immediately request the cached session data in case the event was missed
+    invoke('get_active_relic_session')
+      .then(cachedData => {
+        if (cachedData) {
+          if (cachedData.squad_relics) {
+            setData(cachedData.squad_relics)
+            setSquadSize(cachedData.squad_size || 1)
+            setRemaining(RELIC_TIMEOUT)
+            lastTick.current = Date.now()
+          }
+          if (cachedData.local_reward) {
+            setLocalReward(cachedData.local_reward)
+            setSquadSize(cachedData.squad_size || 1)
+          }
+        }
+      })
+      .catch(err => console.error('[RelicRewardOverlay] Failed to fetch cached session:', err))
+
     const subs = []
+
+    // Immediate state reset when scanner triggers
+    subs.push(listen('scanner-relic-phase-start', (e) => {
+      console.log(`[RelicOverlay] scanner-relic-phase-start: squad_size=${e.payload.squad_size}`)
+      setSquadSize(e.payload.squad_size)
+      setOcrResults({})
+      setLocalReward(null)
+      setIsClosing(false)
+      setRemaining(RELIC_TIMEOUT)
+      lastTick.current = Date.now()
+      triggerCount.current += 1
+      setTriggerKey(triggerCount.current)
+    }))
+
     subs.push(listen('overlay-update-relics', (e) => {
       const relicsCount = e.payload.squad_relics?.length || 0
       console.log(`[RelicOverlay] EVENT: overlay-update-relics (count=${relicsCount})`, e.payload)
@@ -42,31 +74,35 @@ export default function RelicRewardOverlay() {
       lastTick.current = Date.now()
       triggerCount.current += 1
       setTriggerKey(triggerCount.current)
-      invoke('show_overlay_window', { label: 'overlay-relic' }).catch(err => console.log(`[RelicRewardOverlay] ERROR: show failed: ${err}`))
     }))
+
     subs.push(listen('overlay-update-reward', (e) => {
       console.log(`[RelicRewardOverlay] EVENT: overlay-update-reward (reward=${e.payload.local_reward?.name})`)
       setLocalReward(e.payload.local_reward)
       setSquadSize(e.payload.squad_size)
     }))
+
     subs.push(listen('overlay-update-ocr', (e) => {
       console.log(`[RelicOverlay] EVENT: overlay-update-ocr slot=${e.payload.slot} reward=${e.payload.confirmed_reward}`, e.payload)
       const { slot, confirmed_reward, item } = e.payload
       setOcrResults(prev => ({ ...prev, [slot]: { confirmed_reward, item } }))
     }))
+
     subs.push(listen('overlay-squad-size', (e) => {
       console.log(`[RelicRewardOverlay] EVENT: overlay-squad-size (size=${e.payload.squad_size})`)
       setSquadSize(e.payload.squad_size)
       setData(prev => prev || []) // Ensure data is not null so it renders skeleton
     }))
+
     subs.push(listen('fissure-reward-closed', () => {
       console.log('[RelicRewardOverlay] EVENT: fissure-reward-closed')
       setIsClosing(true)
       setTimeout(() => {
         setData(null)
-        invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(() => {})
+        invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(() => { })
       }, 500)
     }))
+
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [])
 
@@ -86,7 +122,7 @@ export default function RelicRewardOverlay() {
           setIsClosing(true)
           setTimeout(() => {
             setData(null)
-            invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(() => {})
+            invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(() => { })
           }, 500)
         }
         return next
@@ -103,17 +139,16 @@ export default function RelicRewardOverlay() {
   useEffect(() => {
     if (!data) return
     const width = SLOT_WIDTHS[squadSize] || 640
-    
-    // Cancel any pending resize before scheduling a new one
+
     if (resizeTimerRef.current) clearTimeout(resizeTimerRef.current)
     resizeTimerRef.current = setTimeout(() => {
       resizeTimerRef.current = null
-      invoke('resize_overlay_window', { 
-        label: 'overlay-relic', 
-        width: Math.round(width), 
-        height: 380 
+      invoke('resize_overlay_window', {
+        label: 'overlay-relic',
+        width: Math.round(width),
+        height: 380
       }).catch(err => console.error('[RelicOverlay] Resize failed:', err))
-    }, 50)
+    }, 10) // Near-instant resize
   }, [squadSize, triggerKey])
 
   // Price fetching logic
@@ -122,14 +157,12 @@ export default function RelicRewardOverlay() {
       const newPrices = { ...prices }
       let changed = false
 
-      // Check local reward
       if (localReward && !newPrices[localReward.uniqueName]) {
         const p = await getPrice(localReward.uniqueName, localReward.name, localReward.ducats)
         newPrices[localReward.uniqueName] = p
         changed = true
       }
 
-      // Check OCR results
       for (const slotIdx in ocrResults) {
         const item = ocrResults[slotIdx]?.item
         if (item && !newPrices[item.uniqueName]) {
@@ -213,7 +246,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
         <div className="text-[11px] font-black text-white uppercase leading-tight mb-2 text-center tracking-tight">
           {displayName}
         </div>
-        
+
         {/* Ducats + Plat badges */}
         {!isForma && (
           <div className="flex items-center gap-1.5 justify-evenly">
@@ -227,16 +260,14 @@ function RewardSlot({ confirmed, isLocal, price }) {
       <div className="border-t border-white/5" />
 
       {/* Parent Name - Highlighted if the main blueprint is the dropped reward */}
-      <div className={`px-2.5 py-2 mb-1.5 text-center transition-all ${
-        subcomponents.length > 0 && !subcomponents.some(c => c.isDroppedReward)
+      <div className={`px-2.5 py-2 mb-1.5 text-center transition-all ${subcomponents.length > 0 && !subcomponents.some(c => c.isDroppedReward)
           ? 'bg-amber-500/10 shadow-[inner_0_0_15px_rgba(245,158,11,0.1)] border-y border-amber-500/20'
           : ''
-      }`}>
-        <span className={`text-[10px] font-black uppercase tracking-widest ${
-          subcomponents.length > 0 && !subcomponents.some(c => c.isDroppedReward)
+        }`}>
+        <span className={`text-[10px] font-black uppercase tracking-widest ${subcomponents.length > 0 && !subcomponents.some(c => c.isDroppedReward)
             ? 'text-amber-400 drop-shadow-[0_0_5px_rgba(245,158,11,0.5)]'
             : 'text-kronos-dim'
-        }`}>
+          }`}>
           {inv.parentName || displayName}
         </span>
       </div>
@@ -270,16 +301,16 @@ function RewardSlot({ confirmed, isLocal, price }) {
 function Badge({ label, count, isMastered, canMastered = true }) {
   const value = count ?? 0
   const mastered = canMastered && isMastered
-  
+
   let displayValue
   let isActive = false
   let colorClass = ''
-  
+
   if (label === 'Mastered') {
     displayValue = mastered ? 'MASTERED' : 'UNMASTERED'
     isActive = mastered
-    colorClass = isActive 
-      ? 'bg-blue-500/15 border-blue-500/30 text-blue-300' 
+    colorClass = isActive
+      ? 'bg-blue-500/15 border-blue-500/30 text-blue-300'
       : 'bg-white/5 border-white/10 text-zinc-500'
   } else if (label === 'Owned') {
     displayValue = value.toString()
@@ -294,7 +325,7 @@ function Badge({ label, count, isMastered, canMastered = true }) {
       ? 'bg-amber-500/15 border-amber-500/30 text-amber-300'
       : 'bg-white/5 border-white/10 text-zinc-500'
   }
-  
+
   const showLabel = label !== 'Mastered'
   return (
     <div className={`flex items-center justify-center gap-1 px-2 py-1 rounded-lg border text-[9px] font-black uppercase transition-all ${colorClass}`}>
@@ -321,29 +352,28 @@ function ComponentRow({ comp }) {
   const { have = 0, need = 1, bpCount = 0, isResource, isDroppedReward, name } = comp;
   const satisfied = have >= need;
 
-  // Active glow classes if this is the component that dropped
   const rowClasses = isDroppedReward
     ? 'bg-amber-500/10 border-t border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.1)] relative z-10'
-    : satisfied 
-      ? 'bg-green-500/5 border-t border-white/5' 
+    : satisfied
+      ? 'bg-green-500/5 border-t border-white/5'
       : 'bg-black/20 border-t border-white/5';
 
   const dotClasses = isDroppedReward
     ? 'bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.8)]'
-    : satisfied 
-      ? 'bg-green-500' 
+    : satisfied
+      ? 'bg-green-500'
       : 'bg-red-500';
 
   const nameClasses = isDroppedReward
     ? 'text-amber-100 drop-shadow-[0_0_3px_rgba(245,158,11,0.5)]'
-    : satisfied 
-      ? 'text-zinc-200' 
+    : satisfied
+      ? 'text-zinc-200'
       : 'text-zinc-500';
 
   const fractionalClasses = isDroppedReward
     ? 'text-amber-400 drop-shadow-[0_0_3px_rgba(245,158,11,0.5)]'
-    : satisfied 
-      ? 'text-green-400' 
+    : satisfied
+      ? 'text-green-400'
       : 'text-red-400';
 
   return (

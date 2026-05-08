@@ -665,11 +665,11 @@ function renderHeaderStats(inventoryData) {
   if (!inventoryData?.account) return null
   const { credits, platinum, forma, aura_forma, stance_forma, umbra_forma, orokin_reactor, orokin_catalyst } = inventoryData.account
   return (
-    <div className="flex items-center gap-6">
-      <div className="flex flex-col items-end"><span className="text-[10px] text-kronos-dim uppercase font-black tracking-widest leading-none mb-1">Credits</span><span className="text-sm font-bold text-kronos-text leading-none">{credits.toLocaleString()}</span></div>
-      <div className="flex flex-col items-end"><span className="text-[10px] text-kronos-accent uppercase font-black tracking-widest leading-none mb-1">Platinum</span><span className="text-sm font-bold text-kronos-text leading-none">{platinum.toLocaleString()}</span></div>
+    <div className="flex items-center gap-6 ml-auto pr-3">
+      <div className="flex flex-col items-end min-w-[80px]"><span className="text-[10px] text-kronos-dim uppercase font-black tracking-widest leading-none mb-1">Credits</span><span className="text-sm font-bold text-kronos-text leading-none">{credits.toLocaleString()}</span></div>
+      <div className="flex flex-col items-end min-w-[80px]"><span className="text-[10px] text-kronos-accent uppercase font-black tracking-widest leading-none mb-1">Platinum</span><span className="text-sm font-bold text-kronos-text leading-none">{platinum.toLocaleString()}</span></div>
       <div className="h-8 w-px bg-white/10" />
-      <div className="flex flex-col items-end group relative cursor-help">
+      <div className="flex flex-col items-end group relative cursor-help min-w-[60px]">
         <span className="text-[10px] text-kronos-accent uppercase font-black tracking-widest leading-none mb-1">Forma</span><span className="text-sm font-bold text-kronos-text leading-none">{forma + aura_forma + stance_forma + umbra_forma}</span>
         <div className="absolute top-full right-0 mt-2 p-3 bg-kronos-bg border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110] min-w-[140px] glass-panel">
           <div className="space-y-2">
@@ -680,8 +680,8 @@ function renderHeaderStats(inventoryData) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-end"><span className="text-[10px] text-yellow-500 uppercase font-black tracking-widest leading-none mb-1">Reactors</span><span className="text-sm font-bold text-kronos-text leading-none">{orokin_reactor}</span></div>
-      <div className="flex flex-col items-end"><span className="text-[10px] text-blue-400 uppercase font-black tracking-widest leading-none mb-1">Catalysts</span><span className="text-sm font-bold text-kronos-text leading-none">{orokin_catalyst}</span></div>
+      <div className="flex flex-col items-end min-w-[70px]"><span className="text-[10px] text-yellow-500 uppercase font-black tracking-widest leading-none mb-1">Reactors</span><span className="text-sm font-bold text-kronos-text leading-none">{orokin_reactor}</span></div>
+      <div className="flex flex-col items-end min-w-[70px]"><span className="text-[10px] text-blue-400 uppercase font-black tracking-widest leading-none mb-1">Catalysts</span><span className="text-sm font-bold text-kronos-text leading-none">{orokin_catalyst}</span></div>
     </div>
   )
 }

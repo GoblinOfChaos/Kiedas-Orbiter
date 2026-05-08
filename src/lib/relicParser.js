@@ -202,7 +202,34 @@ export function getRelicRewards(relicUniqueName, exportData) {
  * Gets inventory and mastery context for a specific reward item.
  */
 export function getRewardInventoryContext(rewardUniqueName, inventoryData, exportData) {
-  if (!inventoryData) return { stock: 0, subcomponents: [], isForma: false, isResource: false };
+  // Always compute parentName from item name, even without inventory
+  const itemName = resolveDisplayName(rewardUniqueName, exportData);
+  let parentName = itemName;
+  const suffixes = [
+    ' Blueprint', ' Neuroptics', ' Chassis', ' Systems',
+    ' Barrel', ' Receiver', ' Stock', ' Grip', ' String', 
+    ' Limb', ' Blade', ' Hilt', ' Harness', ' Wings',
+    ' Handle', ' Head', ' Link', ' Gauntlet', ' Pouch',
+    ' Stars', ' Cerebrum', ' Carapace', ' Disc', ' Motor', ' Boot'
+  ];
+  let stripped = true;
+  while (stripped) {
+    stripped = false;
+    for (const suffix of suffixes) {
+      if (parentName.endsWith(suffix) || parentName.endsWith(suffix.toUpperCase())) {
+        parentName = parentName.slice(0, -suffix.length);
+        stripped = true;
+      }
+    }
+  }
+
+  if (!inventoryData) return { 
+    stock: 0, 
+    subcomponents: [], 
+    isForma: false, 
+    isResource: false,
+    parentName 
+  };
 
   const ER = exportData.ExportResources || {};
   
@@ -244,29 +271,6 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     for (const [rName, rData] of Object.entries(exportData.ExportRecipes)) {
       if (rData.resultType) {
         bpLookup[rData.resultType] = rName;
-      }
-    }
-  }
-
-  // Determine the display name (e.g. "Xaku Prime Neuroptics Blueprint" or "Zylok Prime Receiver")
-  const itemName = resolveDisplayName(rewardUniqueName, exportData);
-  
-  // Robustly determine Parent Name by stripping suffixes rather than trusting broken export arrays
-  let parentName = itemName;
-  const suffixes = [
-    ' Blueprint', ' Neuroptics', ' Chassis', ' Systems',
-    ' Barrel', ' Receiver', ' Stock', ' Grip', ' String', 
-    ' Limb', ' Blade', ' Hilt', ' Harness', ' Wings',
-    ' Handle', ' Head', ' Link', ' Gauntlet', ' Pouch',
-    ' Stars', ' Cerebrum', ' Carapace', ' Disc', ' Motor', ' Boot'
-  ];
-  let stripped = true;
-  while (stripped) {
-    stripped = false;
-    for (const suffix of suffixes) {
-      if (parentName.endsWith(suffix) || parentName.endsWith(suffix.toUpperCase())) {
-        parentName = parentName.slice(0, -suffix.length);
-        stripped = true;
       }
     }
   }

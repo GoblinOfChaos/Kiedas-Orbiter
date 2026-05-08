@@ -647,7 +647,8 @@ export function MonitoringProvider({ children }) {
       if (!local_reward) return
       const baseItem = fissureStateRef.current.squad_relics.flatMap(r => r.rewards).find(r => r.uniqueName === local_reward) || {}
       const platPrice = await getPrice(local_reward, baseItem.name, baseItem.ducats)
-      const reward = { uniqueName: local_reward, ...baseItem, platPrice }
+      const inventory = getRewardInventoryContext(local_reward, inventoryData, exportData)
+      const reward = { uniqueName: local_reward, ...baseItem, platPrice, inventory }
       invoke('relay_event', { event: 'overlay-update-reward', payload: { local_reward: reward, squad_size } }).catch(() => { })
     }))
 

@@ -748,18 +748,22 @@ export default function Checklist() {
         <div className="mb-6">
           <div className="rounded-lg p-3 border flex items-center justify-between mb-3" style={{ backgroundColor: 'rgba(var(--color-accent-rgb), 0.1)', borderColor: 'rgba(var(--color-accent-rgb), 0.3)' }}>
             <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-kronos-accent" />
-              <span className="text-[14px] font-semibold text-kronos-text">Focus</span>
+              {(() => {
+                const config = SYNDICATE_CONFIG['focus'] || { accent: '#a0a0a0', iconKey: 'focus' }
+                const iconUrl = getIconUrl(config.iconKey)
+                return iconUrl ? (
+                  <TintedIcon src={iconUrl} accent={config.accent} size="w-6 h-6" />
+                ) : null
+              })()}
+              <span className="text-[14px] font-semibold text-kronos-text">Daily Focus</span>
             </div>
+            <span className="text-[14px] font-mono text-kronos-accent">{dailyFocus.toLocaleString()} left</span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
-            {standings.filter(s => s.id === 'focus_total' || s.focusKey).map(standing => {
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+            {standings.filter(s => s.focusKey).map(standing => {
               const { earned } = getStandingData(standing)
               const config = SYNDICATE_CONFIG[standing.color] || { accent: '#a0a0a0' }
               const iconUrl = getIconUrl(config.iconKey)
-              const dailyCap = standing.id === 'focus_total' ? getFocusDailyCap() : 0
-              const cap = standing.id === 'focus_total' ? getFocusDailyCap() : 0
-              const progress = cap > 0 ? Math.min(100, (dailyFocus / cap) * 100) : 0
               return (
                 <div key={standing.id} className="rounded-lg border overflow-hidden flex" style={{ backgroundColor: 'rgba(var(--color-accent-rgb), 0.1)', borderColor: 'rgba(var(--color-accent-rgb), 0.2)' }}>
                   {iconUrl && (
@@ -770,7 +774,7 @@ export default function Checklist() {
                   <div className="flex-1 min-w-0 p-2 flex flex-col gap-1">
                     <span className="text-[12px] font-medium truncate" style={{ color: config.accent }}>{standing.label}</span>
                     <span className="text-[14px] font-mono" style={{ color: config.accent }}>
-                      {standing.id === 'focus_total' ? `${dailyFocus.toLocaleString()} left` : earned.toLocaleString()}
+                      {earned.toLocaleString()}
                     </span>
                   </div>
                 </div>

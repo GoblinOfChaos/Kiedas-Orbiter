@@ -1575,36 +1575,50 @@ export default function Dashboard() {
                   const completionPercentage = Math.max(0, Math.min(100, inv.completion));
                   return (
                     <div key={idx} className="relative group/inv">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest">{inv.node}</span>
-                        <span className="text-[9px] font-mono text-kronos-dim/60 uppercase">{inv.missionType || 'Conflict'}</span>
+                      {/* Node & Planet */}
+                      <div className="text-center mb-1">
+                        <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest">
+                          {inv.node}{inv.planet ? `, ${inv.planet}` : ''}
+                        </span>
                       </div>
 
-                      <div className="space-y-2">
-                        {/* Attacker */}
-                        <div className="flex items-center gap-3">
-                          <div className="w-7 h-7 bg-blue-500/10 rounded flex items-center justify-center p-1 border border-blue-500/20">
-                            <img src={resolveAnyImage(inv.attacker.reward, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-baseline gap-2">
-                              <p className="text-[11px] font-bold text-blue-400 leading-tight truncate">{inv.attacker.rewardText}</p>
-                              <p className="text-[8px] text-kronos-dim uppercase font-black opacity-40">{inv.attacker.faction}</p>
-                            </div>
-                          </div>
+                      {/* Factions */}
+                      <div className="flex justify-between items-center mb-2 px-1">
+                        <div className="flex flex-col">
+                          <span className="text-[10px] font-black text-blue-400 uppercase leading-none">{inv.attacker.faction}</span>
+                        </div>
+                        <div className="flex flex-col items-end">
+                          <span className="text-[10px] font-black text-red-400 uppercase leading-none">{inv.defender.faction}</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-4 px-1">
+                        {/* Attacker Reward */}
+                        <div className="flex-1 flex items-center gap-2 overflow-hidden">
+                          {inv.attacker.reward ? (
+                            <>
+                              <div className="w-6 h-6 flex-shrink-0 flex items-center justify-center">
+                                <img src={resolveAnyImage(inv.attacker.reward, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" />
+                              </div>
+                              <p className="text-[10px] font-bold text-kronos-text leading-tight whitespace-normal break-words">{inv.attacker.rewardText}</p>
+                            </>
+                          ) : (
+                            <div className="h-6" />
+                          )}
                         </div>
 
-                        {/* Defender */}
-                        <div className="flex items-center gap-3">
-                          <div className="w-7 h-7 bg-red-500/10 rounded flex items-center justify-center p-1 border border-red-500/20">
-                            <img src={resolveAnyImage(inv.defender.reward, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-baseline gap-2">
-                              <p className="text-[11px] font-bold text-red-400 leading-tight truncate">{inv.defender.rewardText}</p>
-                              <p className="text-[8px] text-kronos-dim uppercase font-black opacity-40">{inv.defender.faction}</p>
-                            </div>
-                          </div>
+                        {/* Defender Reward */}
+                        <div className="flex-1 flex items-center justify-end gap-2 overflow-hidden text-right">
+                          {inv.defender.reward ? (
+                            <>
+                              <p className="text-[10px] font-bold text-kronos-text leading-tight whitespace-normal break-words">{inv.defender.rewardText}</p>
+                              <div className="w-6 h-6 flex-shrink-0 flex items-center justify-center">
+                                <img src={resolveAnyImage(inv.defender.reward, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" />
+                              </div>
+                            </>
+                          ) : (
+                            <div className="h-6" />
+                          )}
                         </div>
                       </div>
 

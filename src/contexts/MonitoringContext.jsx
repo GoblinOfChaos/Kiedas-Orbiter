@@ -218,9 +218,26 @@ export function MonitoringProvider({ children }) {
     const indexEntry = (e, k, t) => {
       const un = e.uniqueName || e.ItemType || k
       if (!un) return
-      const url = toBrowseWf(e.icon ?? e.texture ?? '')
+      
+      let iconPath = e.icon ?? e.texture
+      let nameKey = e.name ?? e.displayName
+
+      if (t === 'ExportRecipes' && e.resultType) {
+        // For recipes, resolve the name and icon from the result item
+        nameKey = uniqueNameToName[e.resultType] || e.resultType
+        if (!iconPath) {
+          const resultUn = e.resultType
+          iconPath = exportData.ExportImages?.[resultUn] || EI[resultUn]
+          // Strip https://browse.wf/ prefix if it was already resolved
+          if (typeof iconPath === 'string' && iconPath.startsWith('https://browse.wf')) {
+             iconPath = iconPath.replace('https://browse.wf', '')
+          }
+        }
+      }
+
+      const url = toBrowseWf(iconPath ?? '')
       if (url) EI[un] = url
-      const nameKey = e.name ?? e.displayName ?? (t === 'ExportRecipes' ? e.resultType : '')
+      
       uniqueNameToName[un] = nameKey
       const locKey = uniqueNameToName[un]
       if (locKey) {

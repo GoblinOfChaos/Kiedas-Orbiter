@@ -272,9 +272,14 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
         }
       }
 
+      const nodeEntry = ERg[i.Node]
+      const planet = nodeEntry?.systemName ? (dict[nodeEntry.systemName] || dict['/' + nodeEntry.systemName] || splitPascal(nodeEntry.systemName.split('/').at(-1))) : ''
+
       return {
         id: i._id?.$oid || i._id,
         node: resolveNode(i.Node, dict, ERg),
+        planet: planet,
+        missionType: resolveMissionType(i.MissionType || i.AttackerMissionInfo?.missionType || i.DefenderMissionInfo?.missionType, dict, ERg),
         completed: i.Completed,
         completion: pct,
         attacker: {

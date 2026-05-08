@@ -658,10 +658,10 @@ export function MonitoringProvider({ children }) {
       if (is_debug) ocrActiveRef.current = true
       if (!slot_results) return
 
-
-      for (const res of slot_results) {
+      // Process all slots - keep matching sequential, emit events in parallel at end
+      const slotPromises = slot_results.map(async (res) => {
         const ocrText = cleanOcrText(res.text || '');
-        if (ocrText.length < 3) continue;
+        if (ocrText.length < 3) return null;
 
         // Build candidate pool (squad relics if available, else global)
         let candidates = [];
@@ -761,13 +761,19 @@ export function MonitoringProvider({ children }) {
         if (bestMatch && bestScore >= 0.60) {
           const platPrice = await getPrice(bestMatch.uniqueName, bestMatch.name, bestMatch.ducats || 0);
           const inventory = getRewardInventoryContext(bestMatch.uniqueName, inventoryData, exportData);
+          return { slot: res.slot, confirmed_reward: bestMatch.name, item: { ...bestMatch, icon: EI[bestMatch.uniqueName], platPrice, inventory } };
+        }
+        return null;
+      });
+
+      // Wait for all slots to process and emit all events together
+      const results = await Promise.all(slotPromises);
+      for (const result of results) {
+        if (result) {
           invoke('relay_event', {
             event: 'overlay-update-ocr',
-            payload: { slot: res.slot, confirmed_reward: bestMatch.name, item: { ...bestMatch, icon: EI[bestMatch.uniqueName], platPrice, inventory } }
+            payload: result
           }).catch(() => { });
-          if (import.meta.env.DEV) console.log(`[MonitoringContext] Slot ${res.slot} MATCHED: "${ocrText}" -> ${bestMatch.name} (Score: ${bestScore.toFixed(3)})`);
-        } else {
-          if (import.meta.env.DEV) console.log(`[MonitoringContext] Slot ${res.slot} failed match: "${ocrText}" (Best: ${bestMatch?.name || 'None'}, Score: ${bestScore.toFixed(3)})`);
         }
       }
 

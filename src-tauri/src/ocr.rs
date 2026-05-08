@@ -165,12 +165,6 @@ pub fn detect_slot_count_from_icons(app: AppHandle) {
                 &gray_full, strip_x, strip_y, strip_w, strip_h,
             ).to_image();
 
-            // Save debug image of the scan strip
-            let debug_dir = crate::get_data_root().join("data/user/debug_icon_scan");
-            let _ = std::fs::create_dir_all(&debug_dir);
-            let debug_path = debug_dir.join(format!("scan_{:03}.png", attempt));
-            let _ = strip.save(&debug_path);
-
             // ── Match all three rarity templates against the strip ───────────
             let sx = sw / 1920.0;
             let sy = sh / 1080.0;
@@ -685,11 +679,6 @@ pub async fn start_debug_ocr_session(app: AppHandle) -> Result<(), String> {
         }
         
         let strip = image::imageops::crop_imm(&gray_full, strip_x, strip_y, strip_w, strip_h).to_image();
-        
-        // Save debug image
-        let debug_dir = crate::get_data_root().join("data/user/debug_icon_scan");
-        let _ = std::fs::create_dir_all(&debug_dir);
-        let _ = strip.save(debug_dir.join("debug_scan.png"));
         
         // Run detection with lowered threshold for 3-slot detection
         let templates = get_templates();

@@ -14,10 +14,11 @@
  * - Stat scaling: Riven stats are displayed as they would appear at Max Rank.
  * - Stat names are resolved from internal game codes to human-readable strings.
  */
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Search } from 'lucide-react'
 import { PageLayout, Input, Card, Tabs, MonitorState } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
+import BackToTop from '../components/BackToTop'
 
 const TYPE_TABS = [
   { id: 'all', label: 'All' },

@@ -139,9 +139,40 @@ export function Card({ children, className = '', glow = false, ...props }) {
 
 // Page Layout Component
 import { useMonitoring } from '../contexts/MonitoringContext'
+import { ChevronUp } from 'lucide-react'
+
+function BackToTopButton({ scrollRef }) {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
+
+    const handleScroll = () => {
+      setVisible(container.scrollTop > 200)
+    }
+
+    container.addEventListener('scroll', handleScroll)
+    handleScroll()
+    return () => container.removeEventListener('scroll', handleScroll)
+  }, [scrollRef])
+
+  if (!visible) return null
+
+  return (
+    <button
+      onClick={() => scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
+      className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-kronos-accent text-kronos-bg shadow-lg hover:scale-110 transition-transform"
+      title="Back to top"
+    >
+      <ChevronUp size={20} strokeWidth={2.5} />
+    </button>
+  )
+}
 
 export function PageLayout({ title, subtitle, children, extra }) {
   const { lastUpdate } = useMonitoring() || {}
+  const scrollRef = useRef(null)
 
   return (
     <div className="h-full flex flex-col">
@@ -156,9 +187,10 @@ export function PageLayout({ title, subtitle, children, extra }) {
         </div>
       </div>
       {/* Actual page contant below header */}
-      <div className="flex-1 overflow-y-auto px-8 pb-8 pt-4 custom-scrollbar">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 pb-8 pt-4 custom-scrollbar">
         {children}
       </div>
+      <BackToTopButton scrollRef={scrollRef} />
     </div>
   )
 }

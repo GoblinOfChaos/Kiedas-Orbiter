@@ -121,7 +121,7 @@ export default function Notes() {
   useEffect(() => {
     return () => {
       if (activeFileRef.current) {
-        saveIfDirty(activeFileRef.current, latestContentRef.current).catch(() => {})
+        saveIfDirty(activeFileRef.current, latestContentRef.current).catch(() => { })
       }
     }
   }, [saveIfDirty])
@@ -201,16 +201,16 @@ export default function Notes() {
         latestContentRef.current = ''
         activeFileRef.current = null
       }
-      
+
       await invoke('delete_note', { filename: fileToDelete })
       const list = await invoke('list_notes')
       setFiles(list)
-      
+
       if (wasActive) {
         if (list.length > 0) selectFile(list[0])
         else { setActiveFile(null); setContent(''); latestContentRef.current = ''; activeFileRef.current = null }
       }
-    } catch (err) { 
+    } catch (err) {
       console.error('Delete failed:', err)
     }
     finally { setFileToDelete(null) }
@@ -295,6 +295,11 @@ export default function Notes() {
           border-bottom: 1px solid rgba(255,255,255,0.06) !important;
           flex-wrap: wrap !important;
           overflow: hidden !important;
+          border-radius: 0 !important;
+          outline: none !important;
+        }
+        .kronos-editor .mdxeditor-toolbar:focus {
+          outline: none !important;
         }
 
         /* ── Heading/block-type select dropdown (stable class from docs) ── */
@@ -319,9 +324,23 @@ export default function Notes() {
         .kronos-editor .mdxeditor-root-contenteditable {
           color: var(--color-text) !important;
           background: var(--color-bg) !important;
-          /* Let the outer wrapper handle scroll */
-          overflow: visible !important;
-          max-height: none !important;
+          overflow-y: auto !important;
+          max-height: calc(100vh - 280px) !important;
+        }
+        .kronos-editor .mdxeditor-root-contenteditable::-webkit-scrollbar {
+          width: 12px;
+          height: 4px;
+        }
+        .kronos-editor .mdxeditor-root-contenteditable::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .kronos-editor .mdxeditor-root-contenteditable::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+        }
+        .kronos-editor .mdxeditor-root-contenteditable::-webkit-scrollbar-thumb:hover {
+          background: var(--color-accent);
+          box-shadow: 0 0 10px var(--color-accent);
         }
         .kronos-editor .mdxeditor-root-contenteditable p,
         .kronos-editor .mdxeditor-root-contenteditable li,
@@ -474,19 +493,20 @@ export default function Notes() {
                   <div className={`ml-auto text-xs transition-opacity duration-500 ${saving ? 'opacity-100 text-kronos-accent' : 'opacity-0'}`}>Saved</div>
                 </div>
 
-                <div className="rounded-md border border-white/5 overflow-y-auto custom-scrollbar" style={{ height: 'calc(100vh - 200px)' }}>
-                  <MDXEditor
-                    key={activeFile}
-                    markdown={content}
-                    onChange={val => { 
-                      latestContentRef.current = val;
-                      isDirtyRef.current = true;
-                    }}
-                    plugins={plugins}
-                    className="dark-theme dark-editor kronos-editor h-full"
-                    contentEditableClassName="prose-kronos-content"
-                  />
-                </div>
+
+                <MDXEditor
+                  key={activeFile}
+                  markdown={content}
+                  onChange={val => {
+                    latestContentRef.current = val;
+                    isDirtyRef.current = true;
+                  }}
+                  autoFocus={{ defaultSelection: 'end', preventScroll: true }}
+                  plugins={plugins}
+                  className="dark-theme dark-editor kronos-editor"
+                  contentEditableClassName="prose-kronos-content custom-scrollbar"
+                />
+
               </>
             ) : (
               <div className="flex items-center justify-center h-full text-kronos-dim">

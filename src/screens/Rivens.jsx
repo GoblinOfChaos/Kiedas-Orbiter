@@ -64,10 +64,37 @@ export default function Rivens() {
   const veiledCount = allRivens.filter(r => r.veiled).length
   const capacity = inventoryData?.account?.riven_capacity ?? 0
 
+  const renderControlBar = (compact = false) => (
+    <div className="space-y-2">
+      <div className="relative w-full">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={16} />
+        <Input
+          placeholder="Search rivens…"
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          className="pl-9 text-sm"
+        />
+      </div>
+
+      <div className="flex flex-wrap gap-6">
+        <div className="space-y-1">
+          <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Filter by State</p>
+          <Tabs tabs={STATE_TABS} activeTab={activeState} onChange={setActiveState} />
+        </div>
+
+        <div className="space-y-1">
+          <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Filter by Type</p>
+          <Tabs tabs={TYPE_TABS} activeTab={activeType} onChange={setActiveType} />
+        </div>
+      </div>
+    </div>
+  )
+
   return (
     <PageLayout
       title="Riven Mods"
       subtitle={`${unveiledCount} unveiled · ${challengeCount} challenge · ${veiledCount} veiled · ${unveiledCount + challengeCount}/${capacity} capacity`}
+      headerPanel={renderControlBar(true)}
     >
       <div className="space-y-4">
         {/* Search */}

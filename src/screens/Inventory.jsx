@@ -496,8 +496,48 @@ export default function Inventory() {
 
   const tabLabel = INVENTORY_TABS.find(t => t.id === activeTab)?.label ?? activeTab
 
+  const renderControlBar = (compact = false) => (
+    <div className="space-y-2">
+      <div className={compact ? 'flex items-center gap-2' : 'flex gap-3'}>
+        <div className={compact ? 'relative flex-1 min-w-0' : 'relative flex-1 group'}>
+          <Search className={`absolute top-1/2 -translate-y-1/2 text-kronos-dim ${compact ? 'left-3' : 'left-4'} ${compact ? 'text-sm' : ''} group-focus-within:text-kronos-accent transition-colors`} size={compact ? 16 : 20} />
+          <Input 
+            placeholder={`Search ${tabLabel}...`} 
+            value={searchQuery} 
+            onChange={e => setSearchQuery(e.target.value)} 
+            className={compact ? 'pl-9 text-sm' : 'pl-12'} 
+          />
+        </div>
+        <Button 
+          variant="secondary" 
+          onClick={() => setShowFilterSortPanel(v => !v)} 
+          className={`flex items-center gap-1 ${compact ? 'px-2 py-1 text-xs' : ''}`}
+        >
+          <Filter size={compact ? 16 : 20} className={showFilterSortPanel ? 'text-kronos-accent' : ''} />
+          {!compact && <span>Filters</span>}
+        </Button>
+        <Button 
+          variant="secondary" 
+          onClick={() => setShowFoundry(true)} 
+          className={`relative flex items-center gap-1 ${compact ? 'px-2 py-1 text-xs' : ''}`}
+        >
+          <img src="/IconFoundry.png" alt="Foundry" className={compact ? 'w-4 h-4' : 'w-6 h-6 object-contain'} />
+          {!compact && <span>Foundry</span>}
+          {inventoryData?.foundry?.some(i => i.ready) && <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-kronos-bg" />}
+        </Button>
+      </div>
+      {compact && (
+        <Tabs tabs={INVENTORY_TABS} activeTab={activeTab} onChange={(id) => { setActiveTab(id); setCurrentFilters({}); setSortCriteria('name'); setSortDirection('asc') }} />
+      )}
+    </div>
+  )
+
   return (
-    <PageLayout title="Inventory" extra={renderHeaderStats(inventoryData)}>
+    <PageLayout 
+      title="Inventory" 
+      extra={renderHeaderStats(inventoryData)}
+      headerPanel={renderControlBar(true)}
+    >
       <div className="space-y-6">
         <div className="flex gap-3">
           <div className="relative flex-1 group">

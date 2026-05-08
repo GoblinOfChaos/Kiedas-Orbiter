@@ -138,8 +138,102 @@ export default function Relics() {
 
   const qualityTabs = ['All', ...QUALITY_ORDER].map(q => ({ id: q, label: q }))
 
+  const renderControlBar = (compact = false) => (
+    <div className="space-y-2">
+      <div className="flex flex-col md:flex-row gap-2">
+        <div className="relative flex-1">
+          <Search className={`absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim`} size={16} />
+          <Input
+            placeholder="Search relics or rewards…"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            className="pl-9 text-sm"
+          />
+        </div>
+
+        <div className="flex items-center gap-2 bg-kronos-panel/30 border border-white/5 p-1 rounded-xl">
+          <div className="px-2 flex items-center gap-2 border-r border-white/5 h-8">
+            <Users size={12} className="text-kronos-dim" />
+            <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">Squad</span>
+          </div>
+          <div className="flex gap-1 px-1">
+            {[1, 2, 3, 4].map(size => (
+              <button
+                key={size}
+                onClick={() => setSquadSize(size)}
+                className={`w-7 h-7 rounded-lg text-xs font-black transition-all ${squadSize === size ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white'}`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 bg-kronos-panel/30 border border-white/5 p-1 rounded-xl">
+          <div className="px-2 flex items-center gap-2 border-r border-white/5 h-8">
+            <Zap size={12} className="text-kronos-dim" />
+            <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">Refinement</span>
+          </div>
+          <div className="flex gap-1 px-1">
+            {QUALITY_ORDER.map(q => (
+              <button
+                key={q}
+                onClick={() => setEvRefinementOverride(q)}
+                className={`w-7 h-7 rounded-lg text-[10px] font-black uppercase transition-all ${evRefinementOverride === q ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white'}`}
+              >
+                {q.charAt(0)}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-end gap-4">
+        <div className="space-y-1">
+          <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Era</p>
+          <Tabs tabs={eraTabs} activeTab={activeEra} onChange={setActiveEra} />
+        </div>
+
+        <div className="space-y-1">
+          <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Inventory Refinement</p>
+          <Tabs tabs={qualityTabs} activeTab={activeQuality} onChange={setActiveQuality} />
+        </div>
+
+        <div className="space-y-1">
+          <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Sort By</p>
+          <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
+            {[
+              { id: 'name', label: 'Name' },
+              { id: 'ducat', label: 'Ducat' },
+              { id: 'plat', label: 'Plat' }
+            ].map(mode => {
+              const isActive = sortMode === mode.id;
+              return (
+                <button
+                  key={mode.id}
+                  onClick={() => {
+                    if (isActive) {
+                      setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc');
+                    } else {
+                      setSortMode(mode.id);
+                      setSortOrder('desc');
+                    }
+                  }}
+                  className={`px-3 py-1 rounded-lg text-[10px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-black flex items-center gap-1 ${isActive ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white'}`}
+                >
+                  {mode.label}
+                  {isActive && <span className="opacity-60">{sortOrder === 'desc' ? '▼' : '▲'}</span>}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
   return (
-    <PageLayout title="Void Relics">
+    <PageLayout title="Void Relics" headerPanel={renderControlBar(true)}>
       <div className="space-y-4">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">

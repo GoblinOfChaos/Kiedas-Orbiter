@@ -170,21 +170,51 @@ function BackToTopButton({ scrollRef }) {
   )
 }
 
-export function PageLayout({ title, subtitle, children, extra }) {
+export function PageLayout({ title, subtitle, children, extra, headerPanel }) {
   const { lastUpdate } = useMonitoring() || {}
   const scrollRef = useRef(null)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isHeaderHovered, setIsHeaderHovered] = useState(false)
+
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
+
+    const handleScroll = () => {
+      setIsScrolled(container.scrollTop > 80)
+    }
+
+    container.addEventListener('scroll', handleScroll)
+    handleScroll()
+    return () => container.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const showHoverPanel = isScrolled && isHeaderHovered && headerPanel
 
   return (
     <div className="h-full flex flex-col">
       {/* Header stays fixed at the top */}
-      <div className="px-8 pt-8 pb-2 flex-shrink-0">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold uppercase tracking-tight">{title}</h1>
-            {subtitle && <p className="text-kronos-dim mt-1">{subtitle}</p>}
+      <div 
+        className="relative flex-shrink-0 bg-inherit"
+        onMouseEnter={() => setIsHeaderHovered(true)}
+        onMouseLeave={() => setIsHeaderHovered(false)}
+      >
+        <div className="px-8 pt-8 pb-2">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold uppercase tracking-tight">{title}</h1>
+              {subtitle && <p className="text-kronos-dim mt-1">{subtitle}</p>}
+            </div>
+            {extra && <div className="flex items-center gap-4">{extra}</div>}
           </div>
-          {extra && <div className="flex items-center gap-4">{extra}</div>}
         </div>
+        
+        {/* Hover panel */}
+        {showHoverPanel && (
+          <div className="absolute top-full left-0 right-0 z-40 px-8 py-3 border-b border-white/10 shadow-2xl animate-in slide-in-from-top-2 duration-200" style={{ backgroundColor: 'var(--color-bg)' }}>
+            {headerPanel}
+          </div>
+        )}
       </div>
       {/* Actual page contant below header */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 pb-8 pt-4 custom-scrollbar">

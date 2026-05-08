@@ -143,7 +143,7 @@ export default function Dashboard() {
   const {
     exportData, spIncursions, arbys, descendiaDescs,
     dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, arbyTiers,
-    rawInventory, ES, ENWRawRewards, ExportImages,
+    rawInventory, inventoryData, ES, ENWRawRewards, ExportImages,
   } = useMonitoring()
   const [worldstate, setWorldstate] = useState(null)
   const [locationBounties, setLocationBounties] = useState(null)
@@ -624,6 +624,35 @@ export default function Dashboard() {
       return partialMatch ? partialMatch[1] : null
     }
 
+    const isRewardOwned = (ch, cat) => {
+      if (!inventoryData) return false
+      
+      const choiceName = ch.name.replace(/ Incarnon Genesis$/, '').trim()
+
+      const isSameFamily = (itemName, familyName) => {
+        if (!itemName || !familyName) return false
+        const lowerItem = itemName.toLowerCase()
+        const lowerFamily = familyName.toLowerCase()
+        const isComponent = lowerItem.includes(' barrel') || lowerItem.includes(' receiver') || lowerItem.includes(' stock') || lowerItem.includes(' blueprint') || lowerItem.includes(' link') || lowerItem.includes(' lower limb') || lowerItem.includes(' upper limb') || lowerItem.includes(' string') || lowerItem.includes(' grip') || lowerItem.includes(' handle') || lowerItem.includes(' hilt') || lowerItem.includes(' blade')
+        if (isComponent) return false
+        return lowerItem === lowerFamily || lowerItem.startsWith(lowerFamily + ' ')
+      }
+
+      if (cat === 'Normal') {
+        return (inventoryData.warframes || []).some(wf => 
+          wf.owned && isSameFamily(wf.name, choiceName)
+        )
+      }
+
+      if (cat === 'Steel Path') {
+        // Owned if the weapon in inventory has the incarnon adapter installed
+        return (inventoryData.all || []).some(item => 
+          item.is_incarnon && item.owned && isSameFamily(item.name, choiceName)
+        )
+      }
+      return false
+    }
+
     return (
       <div className="space-y-4 mt-2">
         {Object.entries(groups).map(([cat, choices], idx) => (
@@ -632,8 +661,14 @@ export default function Dashboard() {
             <div className="flex flex-wrap justify-center gap-2">
               {choices.map((ch, ci) => {
                 const img = getCircuitImage(ch)
+                const owned = isRewardOwned(ch, cat)
                 return (
-                  <div key={ci} className="bg-black/20 p-3 rounded flex flex-col items-center gap-2 text-center min-h-[90px] w-full sm:w-[calc(50%-8px)] md:w-[calc(33.333%-11px)]">
+                  <div key={ci} className="bg-black/20 p-3 rounded flex flex-col items-center gap-2 text-center min-h-[90px] w-full sm:w-[calc(50%-8px)] md:w-[calc(33.333%-11px)] relative overflow-hidden group">
+                    {owned && (
+                      <div className="absolute top-1 right-1 z-20 bg-blue-500 text-kronos-bg rounded-full p-0.5 shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                        <Check size={10} strokeWidth={4} />
+                      </div>
+                    )}
                     <div className="w-14 h-14 flex items-center justify-center">
                       {img ? (
                         <img

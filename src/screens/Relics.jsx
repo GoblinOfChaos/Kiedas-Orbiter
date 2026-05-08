@@ -113,13 +113,20 @@ export default function Relics() {
       return sortOrder === 'desc' ? res : -res;
     });
 
-    // 3. Group
-    return enriched.reduce((acc, relic) => {
-      const era = relic.era || 'Other'
-      if (!acc[era]) acc[era] = []
-      acc[era].push(relic)
-      return acc
-    }, {})
+    // 3. Group - only by era for name sorting, otherwise no grouping for actual value sorting
+    if (sortMode === 'name') {
+      return enriched.reduce((acc, relic) => {
+        const era = relic.era || 'Other'
+        if (!acc[era]) acc[era] = []
+        acc[era].push(relic)
+        return acc
+      }, {})
+    } else {
+      // For ducats/plat sorting, don't group - just return sorted list with descriptive key
+      const sortLabel = sortMode === 'ducat' ? 'Ducats' : 'Plat';
+      const orderLabel = sortOrder === 'desc' ? 'Descending' : 'Ascending';
+      return { [`Sorted by ${sortLabel} Value (${orderLabel})`]: enriched };
+    }
   }, [baseFiltered, sortMode, prices, squadSize, evRefinementOverride, activeQuality]);
 
   const totalFilteredGroups = baseFiltered.length;
@@ -279,7 +286,9 @@ export default function Relics() {
             <div className="space-y-12 pb-12">
               {Object.entries(grouped).sort(([a], [b]) => ERA_ORDER.indexOf(a) - ERA_ORDER.indexOf(b)).map(([era, eraRelics]) => (
                 <div key={era} className="space-y-4">
-                  <h3 className="font-black text-sm uppercase tracking-[0.2em] text-kronos-accent border-b border-kronos-accent/20 pb-1 ml-1">{era} Era</h3>
+                  <h3 className="font-black text-sm uppercase tracking-[0.2em] text-kronos-accent border-b border-kronos-accent/20 pb-1 ml-1">
+                    {era.startsWith('Sorted by') ? era : `${era} Era`}
+                  </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3">
                     {eraRelics.map((item, idx) => {
                       const refinements = item.refinements || {};

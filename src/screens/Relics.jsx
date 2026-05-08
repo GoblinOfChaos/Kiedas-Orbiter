@@ -123,7 +123,7 @@ export default function Relics() {
       }, {})
     } else {
       // For ducats/plat sorting, don't group - just return sorted list with descriptive key
-      const sortLabel = sortMode === 'ducat' ? 'Ducats' : 'Plat';
+      const sortLabel = sortMode === 'ducat' ? 'Ducats' : 'Platinum';
       const orderLabel = sortOrder === 'desc' ? 'Descending' : 'Ascending';
       return { [`Sorted by ${sortLabel} Value (${orderLabel})`]: enriched };
     }
@@ -204,8 +204,8 @@ export default function Relics() {
           <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
             {[
               { id: 'name', label: 'Name' },
-              { id: 'ducat', label: 'Ducat' },
-              { id: 'plat', label: 'Plat' }
+              { id: 'ducat', label: 'Ducats' },
+              { id: 'plat', label: 'Platinum' }
             ].map(mode => {
               const isActive = sortMode === mode.id;
               return (
@@ -219,7 +219,7 @@ export default function Relics() {
                       setSortOrder('desc');
                     }
                   }}
-                  className={`px-3 py-1 rounded-lg text-[10px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-black flex items-center gap-1 ${isActive ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white'}`}
+                  className={`px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1 ${isActive ? 'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
                 >
                   {mode.label}
                   {isActive && <span className="opacity-60">{sortOrder === 'desc' ? '▼' : '▲'}</span>}
@@ -299,8 +299,8 @@ export default function Relics() {
             <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
               {[
                 { id: 'name', label: 'Name' },
-                { id: 'ducat', label: 'Ducat' },
-                { id: 'plat', label: 'Plat' }
+                { id: 'ducat', label: 'Ducats' },
+                { id: 'plat', label: 'Platinum' }
               ].map(mode => {
                 const isActive = sortMode === mode.id;
                 return (
@@ -314,13 +314,7 @@ export default function Relics() {
                         setSortOrder('desc');
                       }
                     }}
-                    className={`
-                      px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans font-black flex items-center gap-1.5
-                      ${isActive
-                        ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]'
-                        : 'text-kronos-dim hover:text-white hover:bg-white/5'
-                      }
-                    `}
+                    className={`px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1 ${isActive ? 'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
                   >
                     {mode.label}
                     {isActive && (

@@ -173,52 +173,34 @@ function BackToTopButton({ scrollRef }) {
 export function PageLayout({ title, subtitle, children, extra, headerPanel }) {
   const { lastUpdate } = useMonitoring() || {}
   const scrollRef = useRef(null)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isHeaderHovered, setIsHeaderHovered] = useState(false)
-
-  useEffect(() => {
-    const container = scrollRef.current
-    if (!container) return
-
-    const handleScroll = () => {
-      setIsScrolled(container.scrollTop > 80)
-    }
-
-    container.addEventListener('scroll', handleScroll)
-    handleScroll()
-    return () => container.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const showHoverPanel = isScrolled && isHeaderHovered && headerPanel
 
   return (
     <div className="h-full flex flex-col">
-      {/* Header stays fixed at the top */}
-      <div 
-        className="relative flex-shrink-0 bg-inherit"
-        onMouseEnter={() => setIsHeaderHovered(true)}
-        onMouseLeave={() => setIsHeaderHovered(false)}
-      >
-        <div className="px-8 pt-8 pb-2">
+      {/* Fixed Title Section */}
+      <div className="relative flex-shrink-0 bg-inherit">
+        <div className="px-8 pt-8 pb-4">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold uppercase tracking-tight">{title}</h1>
-              {subtitle && <p className="text-kronos-dim mt-1">{subtitle}</p>}
+              {subtitle && <p className="text-kronos-dim mt-1 text-sm font-medium uppercase tracking-wide">{subtitle}</p>}
             </div>
             {extra && <div className="flex items-center gap-4">{extra}</div>}
           </div>
         </div>
-        
-        {/* Hover panel */}
-        {showHoverPanel && (
-          <div className="absolute top-full left-0 right-0 z-40 px-8 py-3 border-b border-white/10 shadow-2xl animate-in slide-in-from-top-2 duration-200" style={{ backgroundColor: 'var(--color-bg)' }}>
+      </div>
+      
+      {/* Scrollable Content Area */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 pb-8 pt-0 custom-scrollbar">
+        {/* Sticky Header Panel */}
+        {headerPanel && (
+          <div className="sticky top-0 z-30 py-4 bg-kronos-bg -mx-8 px-8 border-b border-white/5 mb-6">
             {headerPanel}
           </div>
         )}
-      </div>
-      {/* Actual page contant below header */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 pb-8 pt-4 custom-scrollbar">
-        {children}
+        
+        <div className="relative">
+          {children}
+        </div>
       </div>
       <BackToTopButton scrollRef={scrollRef} />
     </div>

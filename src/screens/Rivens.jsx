@@ -64,28 +64,30 @@ export default function Rivens() {
   const veiledCount = allRivens.filter(r => r.veiled).length
   const capacity = inventoryData?.account?.riven_capacity ?? 0
 
-  const renderControlBar = (compact = false) => (
-    <div className="space-y-2">
-      <div className="relative w-full">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={16} />
-        <Input
-          placeholder="Search rivens…"
-          value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
-          className="pl-9 text-sm"
-        />
+  const renderHeaderPanel = () => (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-4">
+        {/* Search Bar */}
+        <div className="relative flex-1 group">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
+          <Input 
+            placeholder="Search rivens…" 
+            value={searchQuery} 
+            onChange={e => setSearchQuery(e.target.value)} 
+            className="pl-12 bg-black/20 border-white/5 h-[42px]" 
+          />
+        </div>
+
+        {/* State Filter */}
+        <div className="flex-shrink-0">
+          <Tabs tabs={STATE_TABS} activeTab={activeState} onChange={setActiveState} className="h-[42px]" />
+        </div>
       </div>
 
-      <div className="flex flex-wrap gap-6">
-        <div className="space-y-1">
-          <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Filter by State</p>
-          <Tabs tabs={STATE_TABS} activeTab={activeState} onChange={setActiveState} />
-        </div>
-
-        <div className="space-y-1">
-          <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Filter by Type</p>
-          <Tabs tabs={TYPE_TABS} activeTab={activeType} onChange={setActiveType} />
-        </div>
+      {/* Type Filter */}
+      <div className="flex items-center gap-3">
+        <div className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1 flex-shrink-0">Weapon Type:</div>
+        <Tabs tabs={TYPE_TABS} activeTab={activeType} onChange={setActiveType} className="flex-1" />
       </div>
     </div>
   )
@@ -94,35 +96,9 @@ export default function Rivens() {
     <PageLayout
       title="Riven Mods"
       subtitle={`${unveiledCount} unveiled · ${challengeCount} challenge · ${veiledCount} veiled · ${unveiledCount + challengeCount}/${capacity} capacity`}
-      headerPanel={renderControlBar(true)}
+      headerPanel={renderHeaderPanel()}
     >
-      <div className="space-y-4">
-        {/* Search */}
-        <div className="relative w-full">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim" size={20} />
-          <Input
-            placeholder="Search rivens…"
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            className="pl-12"
-          />
-        </div>
-
-        {/* Filters Flex */}
-        <div className="flex flex-wrap gap-8">
-          {/* State tabs */}
-          <div className="space-y-2">
-            <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Filter by State</p>
-            <Tabs tabs={STATE_TABS} activeTab={activeState} onChange={setActiveState} />
-          </div>
-
-          {/* Type tabs */}
-          <div className="space-y-2">
-            <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Filter by Type</p>
-            <Tabs tabs={TYPE_TABS} activeTab={activeType} onChange={setActiveType} />
-          </div>
-        </div>
-
+      <div className="space-y-4 pt-2">
         {isInventoryLoading ? (
           <MonitorState isLoading className="py-20" />
         ) : !inventoryData ? (

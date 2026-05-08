@@ -16,7 +16,7 @@
  * - Displays all four refinement tiers for each relic in a single card.
  */
 import { useState, useEffect, useMemo } from 'react'
-import { Search, AlertCircle, Users, Zap, TrendingUp, Coins } from 'lucide-react'
+import { Search, AlertCircle, Users, Zap, TrendingUp, Coins, ArrowUpDown } from 'lucide-react'
 import { PageLayout, Input, Card, Tabs, MonitorState, Select } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { getRelicEV } from '../lib/relicParser'
@@ -138,30 +138,32 @@ export default function Relics() {
 
   const qualityTabs = ['All', ...QUALITY_ORDER].map(q => ({ id: q, label: q }))
 
-  const renderControlBar = (compact = false) => (
-    <div className="space-y-2">
-      <div className="flex flex-col md:flex-row gap-2">
-        <div className="relative flex-1">
-          <Search className={`absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim`} size={16} />
-          <Input
-            placeholder="Search relics or rewards…"
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            className="pl-9 text-sm"
+  const renderHeaderPanel = () => (
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-wrap items-center gap-3">
+        {/* Search Bar */}
+        <div className="relative flex-1 min-w-[200px] group">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
+          <Input 
+            placeholder="Search relics or rewards…" 
+            value={searchQuery} 
+            onChange={e => setSearchQuery(e.target.value)} 
+            className="pl-12 bg-black/20 border-white/5 h-[42px]" 
           />
         </div>
 
-        <div className="flex items-center gap-2 bg-kronos-panel/30 border border-white/5 p-1 rounded-xl">
-          <div className="px-2 flex items-center gap-2 border-r border-white/5 h-8">
-            <Users size={12} className="text-kronos-dim" />
+        {/* Squad Size */}
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+          <div className="px-2 flex items-center gap-2 border-r border-white/5 h-6">
+            <Users size={14} className="text-kronos-dim" />
             <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">Squad</span>
           </div>
-          <div className="flex gap-1 px-1">
+          <div className="flex gap-1">
             {[1, 2, 3, 4].map(size => (
               <button
                 key={size}
                 onClick={() => setSquadSize(size)}
-                className={`w-7 h-7 rounded-lg text-xs font-black transition-all ${squadSize === size ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white'}`}
+                className={`w-7 h-7 rounded-lg text-xs font-black transition-all ${squadSize === size ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white'}`}
               >
                 {size}
               </button>
@@ -169,17 +171,19 @@ export default function Relics() {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 bg-kronos-panel/30 border border-white/5 p-1 rounded-xl">
-          <div className="px-2 flex items-center gap-2 border-r border-white/5 h-8">
-            <Zap size={12} className="text-kronos-dim" />
-            <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">Refinement</span>
+        {/* Refinement Override (for EV calculation) */}
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+          <div className="px-2 flex items-center gap-2 border-r border-white/5 h-6">
+            <Zap size={14} className="text-kronos-dim" />
+            <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">Target</span>
           </div>
-          <div className="flex gap-1 px-1">
+          <div className="flex gap-1">
             {QUALITY_ORDER.map(q => (
               <button
                 key={q}
                 onClick={() => setEvRefinementOverride(q)}
-                className={`w-7 h-7 rounded-lg text-[10px] font-black uppercase transition-all ${evRefinementOverride === q ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white'}`}
+                className={`w-7 h-7 rounded-lg text-[10px] font-black uppercase transition-all ${evRefinementOverride === q ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white'}`}
+                title={q}
               >
                 {q.charAt(0)}
               </button>
@@ -188,19 +192,22 @@ export default function Relics() {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-end gap-4">
-        <div className="space-y-1">
-          <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Era</p>
+      <div className="flex flex-wrap items-center gap-4">
+        {/* Era Filter */}
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Era:</span>
           <Tabs tabs={eraTabs} activeTab={activeEra} onChange={setActiveEra} />
         </div>
 
-        <div className="space-y-1">
-          <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Inventory Refinement</p>
+        {/* Inventory Quality Filter */}
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Owned:</span>
           <Tabs tabs={qualityTabs} activeTab={activeQuality} onChange={setActiveQuality} />
         </div>
 
-        <div className="space-y-1">
-          <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Sort By</p>
+        {/* Sort Controls */}
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Sort:</span>
           <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
             {[
               { id: 'name', label: 'Name' },
@@ -219,116 +226,39 @@ export default function Relics() {
                       setSortOrder('desc');
                     }
                   }}
-                  className={`px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1 ${isActive ? 'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+                  className={`px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5 ${isActive ? 'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
                 >
                   {mode.label}
-                  {isActive && <span className="opacity-60">{sortOrder === 'desc' ? '▼' : '▲'}</span>}
+                  {isActive && <ArrowUpDown size={12} className={sortOrder === 'desc' ? 'rotate-180' : ''} />}
                 </button>
               );
             })}
           </div>
         </div>
+
+        {/* Void Traces - Aligned Right in the same row */}
+        {inventoryData?.account && (
+          <div className="ml-auto flex items-center gap-3 bg-black/20 px-3 py-1 rounded-xl border border-white/5 h-[34px]">
+            <div className="flex flex-col items-end">
+              <span className="text-[9px] font-black text-kronos-accent uppercase tracking-widest leading-none mb-0.5">Void Traces</span>
+              <span className="text-sm font-black text-kronos-text leading-none">
+                {inventoryData.account.void_traces}
+                <span className="text-kronos-dim text-[10px] ml-1">/ {inventoryData.account.void_traces_max}</span>
+              </span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
 
   return (
-    <PageLayout title="Void Relics" headerPanel={renderControlBar(true)}>
-      <div className="space-y-4">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim" size={20} />
-            <Input
-              placeholder="Search relics or rewards…"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              className="pl-12"
-            />
-          </div>
-
-          <div className="flex items-center gap-2 bg-kronos-panel/30 border border-white/5 p-1 rounded-xl">
-            <div className="px-3 flex items-center gap-2 border-r border-white/5 h-10">
-              <Users size={14} className="text-kronos-dim" />
-              <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">Squad</span>
-            </div>
-            <div className="flex gap-1 px-1">
-              {[1, 2, 3, 4].map(size => (
-                <button
-                  key={size}
-                  onClick={() => setSquadSize(size)}
-                  className={`w-10 h-10 rounded-lg text-xs font-black transition-all ${squadSize === size ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white'}`}
-                >
-                  {size}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 bg-kronos-panel/30 border border-white/5 p-1 rounded-xl">
-            <div className="px-3 flex items-center gap-2 border-r border-white/5 h-10">
-              <Zap size={14} className="text-kronos-dim" />
-              <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">Refinement</span>
-            </div>
-            <div className="flex gap-1 px-1">
-              {QUALITY_ORDER.map(q => (
-                <button
-                  key={q}
-                  onClick={() => setEvRefinementOverride(q)}
-                  className={`w-10 h-10 rounded-lg text-[11px] font-black uppercase transition-all ${evRefinementOverride === q ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white'}`}
-                >
-                  {q.charAt(0)}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-wrap items-end gap-6">
-          <div className="space-y-1">
-            <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Era</p>
-            <Tabs tabs={eraTabs} activeTab={activeEra} onChange={setActiveEra} />
-          </div>
-
-          <div className="space-y-1">
-            <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Inventory Refinement</p>
-            <Tabs tabs={qualityTabs} activeTab={activeQuality} onChange={setActiveQuality} />
-          </div>
-
-          <div className="space-y-1">
-            <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Sort By</p>
-            <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
-              {[
-                { id: 'name', label: 'Name' },
-                { id: 'ducat', label: 'Ducats' },
-                { id: 'plat', label: 'Platinum' }
-              ].map(mode => {
-                const isActive = sortMode === mode.id;
-                return (
-                  <button
-                    key={mode.id}
-                    onClick={() => {
-                      if (isActive) {
-                        setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc');
-                      } else {
-                        setSortMode(mode.id);
-                        setSortOrder('desc');
-                      }
-                    }}
-                    className={`px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1 ${isActive ? 'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
-                  >
-                    {mode.label}
-                    {isActive && (
-                      <span className="opacity-60">
-                        {sortOrder === 'desc' ? '▼' : '▲'}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
+    <PageLayout 
+      title="Void Relics" 
+      subtitle={`Showing ${totalFilteredGroups} relic types · ${totalFilteredItems} total`}
+      headerPanel={renderHeaderPanel()}
+    >
+      <div className="space-y-4 pt-2">
         {isInventoryLoading ? (
           <MonitorState isLoading className="py-20" />
         ) : !inventoryData ? (
@@ -345,9 +275,6 @@ export default function Relics() {
           <>
             <div className="flex justify-between items-end px-1">
               <div className="flex items-center gap-4">
-                <p className="text-sm text-kronos-dim">
-                  Showing {totalFilteredGroups} relic types · {totalFilteredItems} total
-                </p>
                 {isPricing && (
                   <span className="text-[10px] font-black uppercase text-kronos-accent flex items-center gap-2">
                     <div className="flex gap-0.5">
@@ -359,16 +286,6 @@ export default function Relics() {
                   </span>
                 )}
               </div>
-              {inventoryData?.account && (
-                <div className="text-right">
-                  <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest mb-1">Void Traces</p>
-                  <p className="text-sm font-black text-kronos-text">
-                    {inventoryData.account.void_traces}
-                    <span className="text-kronos-dim mx-1">/</span>
-                    <span className="text-kronos-dim text-xs">{inventoryData.account.void_traces_max}</span>
-                  </p>
-                </div>
-              )}
             </div>
 
             <div className="space-y-12 pb-12">

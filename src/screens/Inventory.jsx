@@ -496,106 +496,95 @@ export default function Inventory() {
 
   const tabLabel = INVENTORY_TABS.find(t => t.id === activeTab)?.label ?? activeTab
 
-  const renderControlBar = (compact = false) => (
-    <div className="space-y-2">
-      <div className={compact ? 'flex items-center gap-2' : 'flex gap-3'}>
-        <div className={compact ? 'relative flex-1 min-w-0' : 'relative flex-1 group'}>
-          <Search className={`absolute top-1/2 -translate-y-1/2 text-kronos-dim ${compact ? 'left-3' : 'left-4'} ${compact ? 'text-sm' : ''} group-focus-within:text-kronos-accent transition-colors`} size={compact ? 16 : 20} />
+  const renderHeaderPanel = () => (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-3">
+        {/* Search Bar */}
+        <div className="relative flex-1 group">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
           <Input 
             placeholder={`Search ${tabLabel}...`} 
             value={searchQuery} 
             onChange={e => setSearchQuery(e.target.value)} 
-            className={compact ? 'pl-9 text-sm' : 'pl-12'} 
+            className="pl-12 bg-black/20 border-white/5 focus:bg-black/40 h-[42px]" 
           />
         </div>
-        <Button 
-          variant="secondary" 
-          onClick={() => setShowFilterSortPanel(v => !v)} 
-          className={`flex items-center gap-1 ${compact ? 'px-2 py-1 text-xs' : ''}`}
-        >
-          <Filter size={compact ? 16 : 20} className={showFilterSortPanel ? 'text-kronos-accent' : ''} />
-          {!compact && <span>Filters</span>}
-        </Button>
+        
+        {/* Filter Tags In-line */}
+        {(FILTER_CONFIG[activeTab] ?? []).length > 0 && (
+          <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+            <Filter size={14} className="text-kronos-dim mx-1" />
+            <div className="flex gap-1">
+              {(FILTER_CONFIG[activeTab] ?? []).map(f => (
+                <button 
+                  key={f} 
+                  onClick={() => setCurrentFilters(prev => ({ ...prev, [f]: !prev[f] }))} 
+                  className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all whitespace-nowrap ${currentFilters[f] ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+                >
+                  {f.replace(/_/g, ' ')}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Sort Controls In-line */}
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+           <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Sort:</span>
+           <div className="flex gap-1">
+             {(SORT_CONFIG[activeTab] ?? []).map(c => {
+               const isActive = sortCriteria === c.id;
+               return (
+                 <button 
+                   key={c.id} 
+                   onClick={() => {
+                     if (isActive) {
+                       setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc');
+                     } else {
+                       setSortCriteria(c.id);
+                       setSortDirection('asc');
+                     }
+                   }}
+                   className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all flex items-center gap-1.5 ${isActive ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+                 >
+                   {c.label}
+                   {isActive && <ArrowUpDown size={10} className={sortDirection === 'desc' ? 'rotate-180' : ''} />}
+                 </button>
+               );
+             })}
+           </div>
+        </div>
+
+        {/* Foundry Button */}
         <Button 
           variant="secondary" 
           onClick={() => setShowFoundry(true)} 
-          className={`relative flex items-center gap-1 ${compact ? 'px-2 py-1 text-xs' : ''}`}
+          className="relative flex items-center gap-2 h-[42px] px-4 border-white/5 bg-black/20 hover:bg-black/40"
         >
-          <img src="/IconFoundry.png" alt="Foundry" className={compact ? 'w-4 h-4' : 'w-6 h-6 object-contain'} />
-          {!compact && <span>Foundry</span>}
-          {inventoryData?.foundry?.some(i => i.ready) && <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-kronos-bg" />}
+          <img src="/IconFoundry.png" alt="Foundry" className="w-5 h-5 object-contain" />
+          <span className="text-[11px] font-black uppercase tracking-widest">Foundry</span>
+          {inventoryData?.foundry?.some(i => i.ready) && (
+            <span className="absolute -top-1 -right-1 flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500 border-2 border-kronos-bg"></span>
+            </span>
+          )}
         </Button>
       </div>
-      {compact && (
-        <Tabs tabs={INVENTORY_TABS} activeTab={activeTab} onChange={(id) => { setActiveTab(id); setCurrentFilters({}); setSortCriteria('name'); setSortDirection('asc') }} />
-      )}
+      
+      {/* Category Tabs */}
+      <Tabs tabs={INVENTORY_TABS} activeTab={activeTab} onChange={(id) => { setActiveTab(id); setCurrentFilters({}); setSortCriteria('name'); setSortDirection('asc') }} />
     </div>
   )
 
   return (
     <PageLayout 
       title="Inventory" 
+      subtitle={`Displaying ${visibleItems.length} / ${filteredItems.length} items`}
       extra={renderHeaderStats(inventoryData)}
-      headerPanel={renderControlBar(true)}
+      headerPanel={renderHeaderPanel()}
     >
       <div className="space-y-6">
-        <div className="flex gap-3">
-          <div className="relative flex-1 group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={20} />
-            <Input placeholder={`Search ${tabLabel}...`} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pl-12" />
-          </div>
-            <Button variant="secondary" onClick={() => setShowFilterSortPanel(v => !v)} className="flex items-center gap-1">
-              <Filter size={20} className={showFilterSortPanel ? 'text-kronos-accent' : ''} />
-              <span>Filters</span>
-            </Button>
-            <Button variant="secondary" onClick={() => setShowFoundry(true)} className="relative flex items-center gap-1">
-              <img src="/IconFoundry.png" alt="Foundry" className="w-6 h-6 object-contain" />
-              <span>Foundry</span>
-              {inventoryData?.foundry?.some(i => i.ready) && <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-kronos-bg" />}
-            </Button>
-        </div>
-        {showFilterSortPanel && (
-          <Card glow className="p-4 border-kronos-accent/30 animate-in slide-in-from-top-4 duration-300">
-            <div className="flex flex-row flex-wrap gap-12">
-              <div className="flex-1">
-                <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest mb-3">Filters</p>
-                <div className="flex flex-wrap gap-2">
-                  {(FILTER_CONFIG[activeTab] ?? []).map(f => (
-                    <button 
-                      key={f} 
-                      onClick={() => setCurrentFilters(prev => ({ ...prev, [f]: !prev[f] }))} 
-                      className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all ${currentFilters[f] ? 'bg-kronos-accent text-kronos-bg' : 'bg-white/5 text-kronos-dim hover:text-white'}`}
-                    >
-                      {f.replace(/_/g, ' ')}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className="flex-1 border-l border-white/5 pl-12">
-                <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest mb-3">Sort By</p>
-                <div className="flex flex-wrap gap-2">
-                  {(SORT_CONFIG[activeTab] ?? []).map(c => (
-                    <button 
-                      key={c.id} 
-                      onClick={() => { if (sortCriteria === c.id) setSortDirection(d => d === 'asc' ? 'desc' : 'asc'); else { setSortCriteria(c.id); setSortDirection('asc') } }} 
-                      className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all flex items-center gap-2 ${sortCriteria === c.id ? 'bg-kronos-accent text-kronos-bg' : 'bg-white/5 text-kronos-dim hover:text-white'}`}
-                    >
-                      {c.label}
-                      {sortCriteria === c.id && <ArrowUpDown size={12} className={sortDirection === 'desc' ? 'rotate-180' : ''} />}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </Card>
-        )}
-        <Tabs tabs={INVENTORY_TABS} activeTab={activeTab} onChange={(id) => { setActiveTab(id); setCurrentFilters({}); setSortCriteria('name'); setSortDirection('asc') }} />
-        {inventoryData && (
-          <p className="text-xs text-kronos-dim flex items-center gap-2">
-            Showing {visibleItems.length} of {filteredItems.length} items
-            {isInventoryLoading && <span className="w-3 h-3 border border-kronos-accent/40 border-t-kronos-accent rounded-full animate-spin" />}
-          </p>
-        )}
         {inventoryData === undefined ? (
           <MonitorState isLoading className="py-20" />
         ) : inventoryData === null ? (

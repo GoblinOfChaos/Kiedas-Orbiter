@@ -4,7 +4,7 @@ import { parseInventory } from '../lib/inventoryParser'
 import { parseWorldstate } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName } from '../lib/relicParser'
 import { listen, emit } from '@tauri-apps/api/event'
-import { getPrice } from '../lib/wfmCache'
+import { getPrice, getPricesBatch } from '../lib/wfmCache'
 import { resolveNode } from '../lib/warframeUtils'
 import { getSetting } from '../lib/settings'
 
@@ -130,6 +130,8 @@ export function MonitoringProvider({ children }) {
   const [rawInventory, setRawInventory] = useState(null)
   const [inventoryData, setInventoryData] = useState(undefined)
   const [isInventoryLoading, setIsInventoryLoading] = useState(false)
+  const [marketPrices, setMarketPrices] = useState({})
+  const [isPricing, setIsPricing] = useState(false)
   const [worldState, setWorldState] = useState(null)
   const [statusText, setStatusText] = useState('Initializing…')
   const [spIncursions, setSpIncursions] = useState(null)
@@ -601,6 +603,35 @@ export function MonitoringProvider({ children }) {
 
   const manualRefresh = useCallback(() => callApiHelper(), [callApiHelper])
 
+  // ── Market Price Sync ───────────────────────────────────────────────────────
+  useEffect(() => {
+    if (!inventoryData?.relics?.length) return
+
+    const uniqueRewards = []
+    const seen = new Set()
+
+    inventoryData.relics.forEach(r => {
+      r.rewards?.forEach(rew => {
+        if (!seen.has(rew.uniqueName)) {
+          uniqueRewards.push(rew)
+          seen.add(rew.uniqueName)
+        }
+      })
+    })
+
+    if (uniqueRewards.length > 0) {
+      setIsPricing(true)
+      getPricesBatch(uniqueRewards).then(({ results, hadNetworkActivity }) => {
+        setMarketPrices(prev => ({ ...prev, ...results }))
+        if (hadNetworkActivity) {
+          setTimeout(() => setIsPricing(false), 2000)
+        } else {
+          setIsPricing(false)
+        }
+      }).catch(() => setIsPricing(false))
+    }
+  }, [inventoryData?.relics?.length])
+
   const fissureStateRef = useRef({ squad_relics: [] })
   const ocrActiveRef = useRef(false)
 
@@ -808,7 +839,7 @@ export function MonitoringProvider({ children }) {
       exportData, spIncursions, arbys, descendiaDescs,
       dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
-      masteryProgress,
+      masteryProgress, marketPrices, isPricing,
       startMonitoring, stopMonitoring, manualRefresh, callApiHelper
     }}>
       {children}

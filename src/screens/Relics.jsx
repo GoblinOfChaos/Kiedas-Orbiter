@@ -15,60 +15,26 @@
  * - Filter by Era and refinement status.
  * - Displays all four refinement tiers for each relic in a single card.
  */
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { Search, AlertCircle, Users, Zap, TrendingUp, Coins, ArrowUpDown } from 'lucide-react'
 import { PageLayout, Input, Card, Tabs, MonitorState, Select } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { getRelicEV } from '../lib/relicParser'
-import { getPricesBatch } from '../lib/wfmCache'
 
 const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem']
 const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant']
 
 export default function Relics() {
-  const { inventoryData, isInventoryLoading, exportData } = useMonitoring()
+  const { inventoryData, isInventoryLoading, marketPrices, isPricing } = useMonitoring()
   const [searchQuery, setSearchQuery] = useState('')
   const [activeEra, setActiveEra] = useState('All')
   const [activeQuality, setActiveQuality] = useState('All')
   const [squadSize, setSquadSize] = useState(1)
-  const [prices, setPrices] = useState({})
-  const [isPricing, setIsPricing] = useState(false)
   const [sortMode, setSortMode] = useState('name') // 'name' | 'ducat' | 'plat'
   const [sortOrder, setSortOrder] = useState('desc') // 'asc' | 'desc'
   const [evRefinementOverride, setEvRefinementOverride] = useState('Intact') // quality
 
   const relics = inventoryData?.relics ?? []
-
-  // Fetch prices for all unique rewards in current relic set
-  useEffect(() => {
-    if (!relics.length) return
-
-    const uniqueRewards = []
-    const seen = new Set()
-
-    relics.forEach(r => {
-      r.rewards?.forEach(rew => {
-        if (!seen.has(rew.uniqueName)) {
-          uniqueRewards.push(rew)
-          seen.add(rew.uniqueName)
-        }
-      })
-    })
-
-    if (uniqueRewards.length > 0) {
-      // Set pricing to true immediately so user sees something is happening
-      setIsPricing(true)
-      getPricesBatch(uniqueRewards).then(({ results, hadNetworkActivity }) => {
-        setPrices(prev => ({ ...prev, ...results }))
-        if (hadNetworkActivity) {
-          // Keep it on for a bit so they see it finished
-          setTimeout(() => setIsPricing(false), 2000)
-        } else {
-          setIsPricing(false)
-        }
-      }).catch(() => setIsPricing(false))
-    }
-  }, [relics.length])
 
   const baseFiltered = relics.filter(r => {
     const matchEra = activeEra === 'All' || r.era === activeEra
@@ -91,7 +57,7 @@ export default function Relics() {
     const enriched = baseFiltered.map(relic => {
       const sortedRewards = [...(relic.rewards || [])].sort((a, b) => a.tier - b.tier).map(r => ({
         ...r,
-        plat: prices[r.uniqueName] ?? 0
+        plat: marketPrices[r.uniqueName] ?? 0
       }));
 
       const activeLevels = QUALITY_ORDER.filter(q => (relic.refinements && relic.refinements[q] > 0));
@@ -127,7 +93,7 @@ export default function Relics() {
       const orderLabel = sortOrder === 'desc' ? 'Descending' : 'Ascending';
       return { [`Sorted by ${sortLabel} Value (${orderLabel})`]: enriched };
     }
-  }, [baseFiltered, sortMode, prices, squadSize, evRefinementOverride, activeQuality]);
+  }, [baseFiltered, sortMode, marketPrices, squadSize, evRefinementOverride, activeQuality]);
 
   const totalFilteredGroups = baseFiltered.length;
   const totalFilteredItems = baseFiltered.reduce((s, r) => s + Object.values(r.refinements || {}).reduce((a, b) => a + b, 0), 0);
@@ -342,7 +308,7 @@ export default function Relics() {
                               {sortedRewards.map((reward, ridx) => {
                                 const isMatch = searchQuery && reward.name.toLowerCase().includes(searchQuery.toLowerCase());
                                 const rarityColor = reward.rarity === 'COMMON' ? 'text-gray-400/80' : (reward.rarity === 'UNCOMMON' ? 'text-white/90' : 'text-orange-400');
-                                const plat = prices[reward.uniqueName];
+                                const plat = reward.plat;
                                 return (
                                   <div key={ridx} className="flex items-center justify-between gap-2 min-w-0">
                                     <p className={`text-[10px] font-bold leading-tight truncate uppercase ${rarityColor} group-hover:brightness-110 transition-all flex-1`}>

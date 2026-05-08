@@ -22,8 +22,8 @@ export default function RelicRewardOverlay() {
   const [squadSize, setSquadSize] = useState(1)
   const [prices, setPrices] = useState({})
   const [remaining, setRemaining] = useState(RELIC_TIMEOUT)
+  const [progress, setProgress] = useState(100)
   const containerRef = useRef(null)
-  const lastTick = useRef(Date.now())
   const resizeTimerRef = useRef(null)
   const triggerCount = useRef(0)
   const [triggerKey, setTriggerKey] = useState(0)
@@ -37,7 +37,7 @@ export default function RelicRewardOverlay() {
             setData(cachedData.squad_relics)
             setSquadSize(cachedData.squad_size || 1)
             setRemaining(RELIC_TIMEOUT)
-            lastTick.current = Date.now()
+            setProgress(100)
           }
           if (cachedData.local_reward) {
             setLocalReward(cachedData.local_reward)
@@ -57,7 +57,7 @@ export default function RelicRewardOverlay() {
       setLocalReward(null)
       setIsClosing(false)
       setRemaining(RELIC_TIMEOUT)
-      lastTick.current = Date.now()
+      setProgress(100)
       triggerCount.current += 1
       setTriggerKey(triggerCount.current)
     }))
@@ -71,7 +71,7 @@ export default function RelicRewardOverlay() {
       setLocalReward(null)
       setIsClosing(false)
       setRemaining(RELIC_TIMEOUT)
-      lastTick.current = Date.now()
+      setProgress(100)
       triggerCount.current += 1
       setTriggerKey(triggerCount.current)
     }))
@@ -106,18 +106,14 @@ export default function RelicRewardOverlay() {
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [])
 
-  // Timer & Auto-close logic
+  // Timer & Auto-close logic - use interval instead of RAF for better throttling resilience
   useEffect(() => {
     if (!data || isClosing) return
 
-    let raf
-    const tick = () => {
-      const now = Date.now()
-      const delta = now - lastTick.current
-      lastTick.current = now
-
+    const interval = setInterval(() => {
       setRemaining(prev => {
-        const next = Math.max(0, prev - delta)
+        const next = Math.max(0, prev - 100)
+        setProgress((next / RELIC_TIMEOUT) * 100)
         if (next === 0 && !isClosing) {
           setIsClosing(true)
           setTimeout(() => {
@@ -127,12 +123,9 @@ export default function RelicRewardOverlay() {
         }
         return next
       })
-      raf = requestAnimationFrame(tick)
-    }
+    }, 100)
 
-    lastTick.current = Date.now()
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    return () => clearInterval(interval)
   }, [data, isClosing])
 
   // Window Resize logic
@@ -180,7 +173,6 @@ export default function RelicRewardOverlay() {
 
   if (!data) return null
 
-  const progress = (remaining / RELIC_TIMEOUT) * 100
   const totalWidth = SLOT_WIDTHS[squadSize] || 640
 
   return (
@@ -212,8 +204,12 @@ export default function RelicRewardOverlay() {
           </div>
           <div className="h-1 bg-white/10 overflow-hidden rounded-full mx-1">
             <div
-              className="h-full transition-all duration-100 ease-linear shadow-[0_0_8px_rgba(var(--color-accent-rgb),0.6)]"
-              style={{ width: `${progress}%`, backgroundColor: 'var(--color-accent)' }}
+              className="h-full shadow-[0_0_8px_rgba(var(--color-accent-rgb),0.6)]"
+              style={{ 
+                width: `${progress}%`, 
+                backgroundColor: 'var(--color-accent)',
+                transition: 'width 100ms linear'
+              }}
             />
           </div>
         </Card>

@@ -130,10 +130,14 @@ export default function Mastery() {
     } else {
       items = inventoryData[cat] ?? []
     }
-    // Deduplicate by unique_name - mastery is only counted once per item type
+    // Deduplicate - mastery is only counted once per item type
     const uniqueItems = Object.values(
       items.reduce((acc, item) => {
-        const key = item.unique_name;
+        // Use sanitized name to collapse duplicates (e.g. Grimoire)
+        // Modular items already have the mastery part as their unique_name
+        const isModular = ['kitguns', 'zaws', 'amps', 'moas', 'hounds', 'kdrives'].includes(cat);
+        const key = isModular ? item.unique_name : (item.name || "").trim().toLowerCase();
+        
         if (!acc[key] || (item.mastery_xp || 0) > (acc[key].mastery_xp || 0)) {
           acc[key] = item;
         }

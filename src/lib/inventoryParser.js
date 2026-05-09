@@ -630,15 +630,24 @@ export function parseInventory(raw, exports) {
   const warframes = processCategory(EWf, 'warframes', [EWf], [EWf],
     (e, un) => e.productCategory === 'Suits' && !un.includes('SpaceSuits') && !un.includes('MechSuits'));
 
-  const weaponsRaw = processCategory(EW, 'weapons', [EW], [EW],
-    (e) => !e.sentinel && !e.excludeFromCodex && !['SpaceGuns', 'SpaceMelee', 'SentinelWeapons'].includes(e.productCategory));
+  const weaponsRaw = processCategory(EW, 'weapons', [EW], [EW], (e) => {
+    if (e.sentinel) return false;
+    if (['SpaceGuns', 'SpaceMelee', 'SentinelWeapons'].includes(e.productCategory)) return false;
+    // Include hidden weapons if they are known special variants
+    const name = (e.name || "").toLowerCase();
+    const isSpecial = name.includes('vandal') || name.includes('wraith') || name.includes('prisma') || name.includes('prime');
+    if (e.excludeFromCodex && !isSpecial) return false;
+    return true;
+  });
 
   const primary = [], secondary = [], melee = [], kitguns = [], zaws = [];
   weaponsRaw.forEach(i => {
     const e = EW[i.unique_name];
+    if (!e) return;
+    const name = (e.name || "").toLowerCase();
     const un = i.unique_name;
-    const isKitgun = un.includes('ModularPistol') || un.includes('ModularPrimary');
-    const isZaw = un.includes('ModularMelee');
+    const isKitgun = (un.includes('ModularPistol') || un.includes('ModularPrimary')) && !un.includes('Vandal') && !un.includes('Wraith') && !un.includes('Prisma');
+    const isZaw = un.includes('ModularMelee') && !un.includes('Vandal') && !un.includes('Wraith') && !un.includes('Prisma');
 
     if (isKitgun) {
       // Only include finished assemblies or Chambers (mastery-providing parts)
@@ -652,18 +661,15 @@ export function parseInventory(raw, exports) {
         i.category = 'zaws';
         zaws.push(i);
       }
-    } else if (e.productCategory === 'LongGuns' && e.noise) {
-      // LongGuns: noise field present on real weapons; excludes bayonet-only melee attachments
+    } else if (e.productCategory === 'LongGuns' && (e.noise || name.includes('vandal') || name.includes('wraith') || name.includes('prisma') || name.includes('prime'))) {
       i.category = 'primary';
       i.weapon_type = 'primary';
       primary.push(i);
-    } else if (e.productCategory === 'Pistols' && e.noise) {
-      // Pistols: noise field absent on MOA/companion parts and kubrow antigens/mutagents
+    } else if (e.productCategory === 'Pistols' && (e.noise || name.includes('vandal') || name.includes('wraith') || name.includes('prisma') || name.includes('prime'))) {
       i.category = 'secondary';
       i.weapon_type = 'secondary';
       secondary.push(i);
-    } else if (e.productCategory === 'Melee' && e.damagePerShot) {
-      // Melee: damagePerShot absent on Vinquibus bayonet attachment (which is a primary)
+    } else if (e.productCategory === 'Melee' && (e.damagePerShot || name.includes('vandal') || name.includes('wraith') || name.includes('prisma') || name.includes('prime'))) {
       i.category = 'melee';
       i.weapon_type = 'melee';
       melee.push(i);

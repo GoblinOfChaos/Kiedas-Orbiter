@@ -198,7 +198,7 @@ export function PageLayout({ title, subtitle, children, extra, headerPanel }) {
           </div>
         )}
         
-        <div className="relative">
+        <div className="relative h-full flex flex-col">
           {children}
         </div>
       </div>

@@ -729,7 +729,7 @@ export function parseInventory(raw, exports) {
       const customName = h.ItemName || h.CustomName || h.Details?.Name;
       const ownedCustomName = (customName && !customName.startsWith('/Lotus/') && customName !== baseName) ? customName : '';
       const displayName = ownedCustomName ? `${baseName} (${ownedCustomName})` : baseName;
-      const item = createItem(h.ItemType, 'kdrives', [EW], [EW], h);
+      const item = createItem(deckPart || h.ItemType, 'kdrives', [EW], [EW], h);
       kdrives.push({ ...item, name: displayName, ownedCustomName, image: image || item.image, components, vehicle_type: 'kdrive' });
     });
   }

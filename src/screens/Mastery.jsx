@@ -120,6 +120,15 @@ export default function Mastery() {
       items = inventoryData.houndHeads ?? []
     } else if (cat === 'companion_weapons') {
       items = inventoryData.companion_weapons ?? []
+    } else if (cat === 'companions') {
+      // Merged companion row matching the game's breakdown:
+      // beasts (kubrows/kavats/predasites/vulpaphylas) + MOAs + Hounds + Plexus
+      items = [
+        ...(inventoryData.beasts ?? []),
+        ...(inventoryData.moaHeads ?? []),
+        ...(inventoryData.houndHeads ?? []),
+        ...(inventoryData.plexus ?? []),
+      ]
     } else if (cat === 'robotics') {
       // Display-only aggregate - excluded from totalXP to avoid double-counting
       items = [
@@ -135,9 +144,9 @@ export default function Mastery() {
       items.reduce((acc, item) => {
         // Use sanitized name to collapse duplicates (e.g. Grimoire)
         // Modular items already have the mastery part as their unique_name
-        const isModular = ['kitguns', 'zaws', 'amps', 'moas', 'hounds', 'kdrives'].includes(cat);
+        const isModular = ['kitguns', 'zaws', 'amps', 'moas', 'hounds', 'beasts', 'kdrives'].includes(cat);
         const key = isModular ? item.unique_name : (item.name || "").trim().toLowerCase();
-        
+
         if (!acc[key] || (item.mastery_xp || 0) > (acc[key].mastery_xp || 0)) {
           acc[key] = item;
         }
@@ -160,15 +169,12 @@ export default function Mastery() {
     { label: 'Amp', ...getStats('amps') },
     { label: 'Sentinel', ...getStats('sentinels') },
     { label: 'Sentinel Weapon', ...getStats('companion_weapons') },
-    { label: 'MOA', ...getStats('moas') },
-    { label: 'Hound', ...getStats('hounds') },
-    { label: 'Beast', ...getStats('beasts') },
-    { label: 'Robotic', ...getStats('robotics'), isSummary: true },
+    { label: 'Companions', ...getStats('companions') },
+    // 'Robotic' summary row removed — Companions is now the canonical merged row.
     { label: 'Archwing', ...getStats('archwings') },
     { label: 'Archgun', ...getStats('archgun') },
     { label: 'Archmelee', ...getStats('archmelee') },
     { label: 'Necramech', ...getStats('necramechs') },
-    { label: 'Plexus', ...getStats('plexus') },
     { label: 'K-Drive', ...getStats('kdrives') },
   ]
 

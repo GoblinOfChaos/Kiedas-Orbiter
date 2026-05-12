@@ -486,7 +486,7 @@ export function parseInventory(raw, exports) {
 
   [
     raw.Suits, raw.LongGuns, raw.Pistols, raw.Melee,
-    raw.Sentinels, raw.KubrowPets, raw.MoaPets, raw.SentinelWeapons,
+    raw.Sentinels, raw.KubrowPets, raw.MoaPets, raw.ZanukaPets, raw.SentinelWeapons,
     raw.SpaceMelee, raw.SpaceGuns, raw.MechSuits, raw.OperatorAmps,
     raw.SpaceSuits, raw.Hoverboards
   ].forEach(processList);
@@ -503,7 +503,7 @@ export function parseInventory(raw, exports) {
     const isOverlevelable = getRankLimit(un, category, EM, EA, EW) === 40;
     const hasPolarization = (sourceItem?.Polarized ?? 0) > 0;
     const useCappedXP = isOverlevelable && !hasPolarization;
-    
+
     const xp = useCappedXP ? (xpMap[un] ?? 0) : (sourceItem?.XP ?? xpMap[un] ?? 0);
     const limit = getRankLimit(un, category, EM, EA, EW);
 
@@ -512,9 +512,15 @@ export function parseInventory(raw, exports) {
     let rank = parseInt(fp?.lvl ?? sourceItem?.UpgradeLevel ?? -1, 10);
 
     if (rank === -1) {
-      // For un-polarized overlevelable weapons, cap rank at 30
-      const effectiveLimit = useCappedXP ? 30 : limit;
-      rank = calculateRank(xp, category, un, effectiveLimit);
+      // Cap rank at the actual achievable max for this weapon's forma count.
+      // XPInfo accumulates XP across forma resets, so raw xpMap values can
+      // exceed rank-40 thresholds even for a 1-forma weapon — without this
+      // cap, any polarized weapon with enough accumulated XP shows as rank 40.
+      const formaCount = sourceItem?.Polarized ?? 0;
+      const effectiveMaxRank = isOverlevelable
+        ? (hasPolarization ? 30 + Math.min(formaCount * 2, 10) : 30)
+        : limit;
+      rank = calculateRank(xp, category, un, effectiveMaxRank);
     }
 
     // Mastery XP: rank * (100 for weapons, 200 for heavy)
@@ -524,10 +530,20 @@ export function parseInventory(raw, exports) {
       'sentinels', 'moas', 'hounds', 'beasts', 'robotics', 'plexus', 'kdrives'
     ];
     const baseMasteryPerRank = heavyCategories.includes(category) ? 200 : 100;
+
+    // Modular items (MOAs, Hounds, Zaws, Kitguns, Amps) only grant mastery when Gilded
+    const modularCategories = ['moas', 'hounds', 'zaws', 'kitguns', 'amps'];
+    const isModular = modularCategories.includes(category);
     
+    // Gilding is indicated by: Features bit 0 set, or has CustomName, or Polarized > 0
+    const isGilded = (sourceItem?.Features & 1) || 
+                     (sourceItem?.Polarized > 0) ||
+                     (!!sourceItem?.CustomName && !sourceItem.CustomName.startsWith('/Lotus/'));
+    const grantsMastery = !isModular || isGilded;
+
     // Get polarization count from sourceItem
     const polarizeCount = sourceItem?.Polarized ?? 0;
-    
+
     let mastery_xp, max_mastery_xp, mastered;
     const baseMasteryAtMax = limit * baseMasteryPerRank;
 
@@ -551,11 +567,40 @@ export function parseInventory(raw, exports) {
       mastery_xp = baseMasteryAtMax;
       max_mastery_xp = baseMasteryAtMax;
       mastered = true;
-    } else {
+} else {
       // Normal weapons or un-polarized overlevelable
-      mastery_xp = rank * baseMasteryPerRank;
+      // For companion types:
+      // - Kubrows and Kavats: always give mastery at max rank (no gilding)
+      // - MOAs, Predasites, Vulpaphylas, Hounds: need gilding to give mastery
+      const isKubrow = un.includes('/KubrowPets/') || un.toLowerCase().includes('kubrow');
+      const isKavat = un.includes('/Kavat/') || un.toLowerCase().includes('kavat');
+      const isBeast = category === 'beasts';
+      
+      // Gilding is indicated by having a non-empty Name in Details
+      const hasName = sourceItem?.Details?.Name && sourceItem.Details.Name.length > 0;
+      const isGilded = hasName;
+      
+      const beastRankRaw = sourceItem?.UpgradeLevel;
+      const beastRank = beastRankRaw ? parseInt(beastRankRaw, 10) : rank;
+      const effectiveRank = (isBeast && beastRank > 0) ? beastRank : rank;
+      
+      if (isBeast) {
+        const needsGilding = !isKubrow && !isKavat;
+        
+        if (!needsGilding || isGilded) {
+          // Kubrows/Kavats always give mastery, or others if they have a name (gilded)
+          mastery_xp = effectiveRank * baseMasteryPerRank;
+          mastered = effectiveRank >= limit;
+        } else {
+          // Predasite/Vulpaphyla/Hound not gilded - no mastery
+          mastery_xp = 0;
+          mastered = false;
+        }
+      } else {
+        mastery_xp = grantsMastery ? (effectiveRank * baseMasteryPerRank) : 0;
+        mastered = grantsMastery && (effectiveRank >= limit);
+      }
       max_mastery_xp = limit * baseMasteryPerRank;
-      mastered = rank >= limit;
     }
 
     let baseName = resolveName(un, dict, ...nameTbls);
@@ -596,7 +641,9 @@ export function parseInventory(raw, exports) {
       category,
       xp,
       rank,
-      max_rank: limit,
+      max_rank: isOverlevelable
+        ? (hasPolarization ? 30 + Math.min((sourceItem?.Polarized ?? 0) * 2, 10) : 30)
+        : limit,
       mastery_xp,
       max_mastery_xp,
       owned: !!sourceItem || !!xpMap[un],
@@ -679,15 +726,13 @@ export function parseInventory(raw, exports) {
   const companionsRaw = processCategory(ES, 'companions', [ES], [ES]);
   const sentinels = [], moas = [], hounds = [], beasts = [], robotics = [];
 
-  // Beast Checklist unique names
-  const venariNames = [
-    '/Lotus/Powersuits/Khora/Kavat/KhoraKavatPowerSuit',
-    '/Lotus/Powersuits/Khora/Kavat/KhoraPrimeKavatPowerSuit'
-  ];
-
   companionsRaw.forEach(i => {
     const un = i.unique_name;
     const entry = ES[un];
+
+    // Note: Venari and Venari Prime have productCategory 'SpecialItems' in ES
+    // but the game DOES count them toward Kavat mastery. They are explicitly
+    // added to beasts via the uniqueName check below (lines 750-751).
 
     if (entry?.productCategory === 'Sentinels') {
       const item = { ...i, category: 'sentinels' };
@@ -701,7 +746,10 @@ export function parseInventory(raw, exports) {
       const item = { ...i, category: 'hounds' };
       hounds.push(item);
       robotics.push(item);
-    } else if (entry?.productCategory === 'KubrowPets' || venariNames.includes(un)) {
+    } else if (entry?.productCategory === 'KubrowPets' || [
+      '/Lotus/Powersuits/Khora/Kavat/KhoraKavatPowerSuit',
+      '/Lotus/Powersuits/Khora/Kavat/KhoraPrimeKavatPowerSuit'
+    ].includes(un)) {
       const beast = { ...i, category: 'beasts' };
       // Fix name order: createItem produces "CustomName (BaseName)", we want "BaseName (CustomName)"
       const parenIdx = beast.name.indexOf(' (');
@@ -710,6 +758,17 @@ export function parseInventory(raw, exports) {
         const base = beast.name.slice(parenIdx + 2, -1);
         beast.name = `${base} (${custom})`;
         beast.ownedCustomName = custom;
+      }
+      // Deimos companions (Predasites + Vulpaphylas) require gilding through Son
+      // before mastery is granted — identical rule to Kitguns/Zaws.
+      if (un.includes('/Friendly/Pets/CreaturePets/')) {
+        const rawInst = (ownedItems[un] ?? [])[0];
+        // Gilding is indicated by having a non-empty Name in Details
+        const hasName = rawInst?.Details?.Name && rawInst.Details.Name.length > 0;
+        if (!hasName) {
+          beast.mastery_xp = 0;
+          beast.mastered = false;
+        }
       }
       beasts.push(beast);
     }
@@ -729,7 +788,9 @@ export function parseInventory(raw, exports) {
   if (raw.Hoverboards) {
     raw.Hoverboards.forEach(h => {
       const components = resolveHoverboardComponents(h, dict, EW);
-      const deckPart = h.ModularParts?.[0];
+      // The deck/board is the mastery-granting part — find it by path, not position,
+      // since ModularParts order varies and index 0 may be an engine (e.g. Hothead).
+      const deckPart = (h.ModularParts ?? []).find(p => p.includes('Deck')) ?? h.ModularParts?.[0];
       const baseName = deckPart ? resolveName(deckPart, dict, EW) : 'K-Drive';
       const image = deckPart ? resolveImage(deckPart, EW) : null;
       const customName = h.ItemName || h.CustomName || h.Details?.Name;
@@ -739,6 +800,29 @@ export function parseInventory(raw, exports) {
       kdrives.push({ ...item, name: displayName, ownedCustomName, image: image || item.image, components, vehicle_type: 'kdrive' });
     });
   }
+
+  // Supplement with unowned k-drive board types from EW
+  const ownedDeckPaths = new Set(kdrives.map(k => k.unique_name));
+  Object.keys(EW)
+    .filter(k => k.includes('/Hoverboard/') && k.includes('Deck'))
+    .forEach(deckPath => {
+      if (ownedDeckPaths.has(deckPath)) return;
+      const xp = xpMap[deckPath] ?? 0;
+      const rank = calculateRank(xp, 'kdrives', deckPath);
+      const mastery_xp = rank * 200;
+      kdrives.push({
+        unique_name: deckPath,
+        name: resolveName(deckPath, dict, EW),
+        image: resolveImage(deckPath, EW),
+        category: 'kdrives',
+        xp, rank, mastery_xp,
+        owned: xp > 0,
+        mastered: mastery_xp >= 6000,
+        vehicle_type: 'kdrive',
+        components: [],
+        ownedCustomName: '',
+      });
+    });
 
   const plexus = (raw.XPInfo ?? [])
     .filter(i => i.ItemType?.includes('/RailJack/DefaultHarness'))
@@ -897,6 +981,32 @@ export function parseInventory(raw, exports) {
     }
   });
 
+  // Supplement with any prisms from EW not yet seen in raw.OperatorAmps
+  const siroccoPath = Object.keys(EW).find(k => k.toLowerCase().includes('drifterpistol'));
+  [
+    ...Object.keys(EW).filter(k => k.includes('OperatorAmplif') && k.toLowerCase().includes('barrel')),
+    siroccoPath,
+  ].filter(Boolean).forEach(prismPath => {
+    if (ampMasteryItems[prismPath]) return; // already tracked from owned amps
+    let mName = resolveName(prismPath, dict, EW);
+    if (prismPath.includes('SentAmpTraining')) mName = 'Mote Amp';
+    if (prismPath.toLowerCase().includes('drifterpistol')) mName = 'Sirocco';
+    const xp = xpMap[prismPath] ?? 0;
+    const rank = calculateRank(xp, 'weapons', prismPath);
+    const mastery_xp = rank * 100;
+    ampMasteryItems[prismPath] = {
+      unique_name: prismPath,
+      name: mName,
+      image: resolveImage(prismPath, EW),
+      category: 'amps',
+      xp, rank, mastery_xp,
+      owned: xp > 0,
+      mastered: mastery_xp >= 3000,
+      ownedCustomName: '',
+      components: [],
+    };
+  });
+
   const amps = Object.values(ampMasteryItems);
 
   const arcanes = [], mods = [];
@@ -948,7 +1058,7 @@ export function parseInventory(raw, exports) {
       const norm = un ? un.replace('/StoreItems/', '/') : un;
       const recipe = ERecipe[norm] || ERecipe[un];
       const itemData = ER[norm] || ER[un] || EW[norm] || EW[un] || EWf[norm] || EWf[un];
-      
+
       return {
         uniqueName: un,
         name: resolveName(un, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),

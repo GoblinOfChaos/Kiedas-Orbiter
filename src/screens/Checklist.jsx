@@ -581,13 +581,14 @@ export default function Checklist() {
     }
     if (resetType === 'weekly') {
       const now = new Date()
-      const nextSunday = new Date(now)
-      nextSunday.setUTCDate(nextSunday.getUTCDate() + (7 - nextSunday.getUTCDay()) % 7)
-      nextSunday.setUTCHours(0, 0, 0, 0)
-      if (nextSunday.getTime() <= now.getTime()) {
-        nextSunday.setUTCDate(nextSunday.getUTCDate() + 7)
+      const nextMonday = new Date(now)
+      const daysUntilMonday = (1 - nextMonday.getUTCDay() + 7) % 7
+      nextMonday.setUTCDate(nextMonday.getUTCDate() + daysUntilMonday)
+      nextMonday.setUTCHours(0, 0, 0, 0)
+      if (nextMonday.getTime() <= now.getTime()) {
+        nextMonday.setUTCDate(nextMonday.getUTCDate() + 7)
       }
-      return nextSunday.getTime()
+      return nextMonday.getTime()
     }
     if (resetType === 'biweekly') {
       const now = new Date()

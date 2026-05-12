@@ -12,6 +12,7 @@
 import { AlertTriangle, Github, Box, Globe, Database, Layers, Palette, Terminal, BookOpen } from 'lucide-react'
 import { PageLayout, Card } from '../components/UI'
 import { invoke } from '@tauri-apps/api/tauri'
+import { version } from '../../package.json'
 
 const CREDITS = [
   { name: 'warframe-api-helper', desc: 'Credential extraction from game memory', href: 'https://github.com/Obsidian-Jackal/warframe-api-helper/' },
@@ -45,7 +46,7 @@ export default function About() {
             </div>
             <div>
               <h2 className="text-2xl font-bold">Cephalon Kronos</h2>
-              <p className="text-kronos-dim text-sm">v0.1.0 - Open source Warframe companion</p>
+              <p className="text-kronos-dim text-sm">v{version} - Open source Warframe companion</p>
             </div>
           </div>
           <p className="text-kronos-text/90 mb-4 leading-relaxed text-sm">

@@ -686,6 +686,10 @@ fn hide_overlay_window(
     }
     Ok(())
 }
+#[tauri::command]
+fn set_fissure_ui_scale(scale: u32) {
+    crate::ocr::USER_UI_SCALE.store(scale, std::sync::atomic::Ordering::SeqCst);
+}
 
 #[tauri::command]
 fn relay_event(
@@ -1068,10 +1072,10 @@ async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppSta
     drop(path_lock);
     drop(scanner_lock);
     
-    let handle = match log_scanner::spawn_log_watcher(app, path_buf) {
+    let handle = match log_scanner::spawn_log_watcher(app.clone(), path_buf) {
         Ok(h) => h,
         Err(e) => {
-            crate::log_scanner::stop_scanner();
+            crate::log_scanner::stop_scanner(&app);
             return Err(e);
         }
     };
@@ -1082,10 +1086,10 @@ async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppSta
 }
 
 #[tauri::command]
-async fn stop_log_scanner(state: tauri::State<'_, AppState>) -> Result<(), String> {
+async fn stop_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppState>) -> Result<(), String> {
     let mut scanner_lock = state.log_scanner.lock().unwrap();
     *scanner_lock = None;
-    crate::log_scanner::stop_scanner();
+    crate::log_scanner::stop_scanner(&app);
     Ok(())
 }
 
@@ -1270,6 +1274,7 @@ fn main() {
         .on_window_event(|event| match event.event() {
             tauri::WindowEvent::CloseRequested { api, .. } => {
                 if event.window().label() == "main" {
+                    crate::log_scanner::log_app_stop(&event.window().app_handle());
                     std::process::exit(0);
                 } else {
                     let _ = event.window().hide();
@@ -1279,6 +1284,7 @@ fn main() {
             _ => {}
         })
         .setup(|app| {
+            crate::log_scanner::log_app_start(&app.handle());
             let _ = app.get_window("main").unwrap();
             Ok(())
         })
@@ -1329,6 +1335,7 @@ fn main() {
             log_terminal,
             register_hotkey,
             unregister_all_hotkeys,
+            set_fissure_ui_scale,
             // --- calibration ---
             toggle_calibration,
         ])

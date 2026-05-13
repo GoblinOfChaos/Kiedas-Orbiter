@@ -30,29 +30,20 @@ pub struct LogScanner {
     squad_relics: Vec<RelicInfo>,
     squad_size: usize,
     is_fissure: bool,
-    has_triggered_reward: bool,
-    wait_for_root_types: bool,
+    in_mission: bool,
 }
 
 fn parse_timestamp(line: &str) -> Option<f64> {
-    // Format: "5687.320 Sys" from EE.log
     if let Some(space_idx) = line.find(' ') {
         let prefix = &line[..space_idx];
         if prefix.contains('.') {
             return prefix.parse::<f64>().ok();
         }
     }
-    // Format: "[SystemTime: 1777981758260ms]" from overlay_debug
-    if line.starts_with('[') {
-        if let Some(end) = line.find(']') {
-            let inner = &line[1..end];
-            if let Some(ms_pos) = inner.find("SystemTime: ") {
-                let ms_str = &inner[ms_pos + 11..];
-                if let Some(ms_end) = ms_str.find("ms") {
-                    let ms_num = &ms_str[..ms_end];
-                    return ms_num.parse::<f64>().ok();
-                }
-            }
+    if let Some(ms_pos) = line.find("SystemTime: ") {
+        let start = ms_pos + 12;
+        if let Some(ms_end) = line[start..].find("ms") {
+            return line[start..start + ms_end].parse::<f64>().ok();
         }
     }
     None
@@ -64,153 +55,108 @@ impl LogScanner {
             squad_relics: Vec::new(),
             squad_size: 1,
             is_fissure: false,
-            has_triggered_reward: false,
-            wait_for_root_types: false,
+            in_mission: false,
         }
     }
 
-    pub fn on_line(&mut self, app: &AppHandle, line: &str, _silent: bool) {
+    pub fn on_line(&mut self, app: &AppHandle, line: &str) {
         let ts = parse_timestamp(line).unwrap_or(0.0);
-
         let s = line.trim();
         if s.is_empty() {
             return;
         }
 
-        // === 1. Mission Start/End Detection ===
-        if line.contains("_ActiveMission\"} with MissionInfo") {
+        // === 1. Mission Start ===
+        if s.contains("_ActiveMission\"} with MissionInfo") {
             self.is_fissure = true;
+            self.in_mission = true;
             self.squad_size = 1;
             self.squad_relics.clear();
-            self.has_triggered_reward = false;
-            self.wait_for_root_types = false;
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 1: FISSURE START (LogTS: {}s)", ts));
             return;
         }
 
-        // --- Step 7: Mission Exit ---
-        if line.contains("ExitState: Disconnected") || line.contains("Game [Info]: Set state to Disconnected") {
+        // === 7. Mission Exit ===
+        if s.contains("ExitState: Disconnected") || s.contains("Game [Info]: Set state to Disconnected") {
             self.is_fissure = false;
+            self.in_mission = false;
             self.squad_relics.clear();
-            self.has_triggered_reward = false;
-            self.wait_for_root_types = false;
-            // Stop any in-progress icon scan
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 7: MISSION EXIT (LogTS: {}s)", ts));
             app.emit_all("fissure-reward-closed", ()).unwrap_or_default();
             return;
         }
 
-        // --- Step 2: Relic Pool Detection ---
-        if line.contains("Resloader") && line.contains("/Lotus/Types/Game/Projections/") && line.contains("starting") {
-            if let Some(start) = line.find("(/Lotus") {
-                if let Some(end) = line[start..].find(')') {
-                    let path = &line[start + 1..start + end];
+        // === 2. Relic Pool Detection ===
+        if s.contains("Resloader") && s.contains("/Lotus/Types/Game/Projections/") && s.contains("starting") {
+            if let Some(start) = s.find("(/Lotus") {
+                if let Some(end) = s[start..].find(')') {
+                    let path = &s[start + 1..start + end];
                     crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 2: RELIC POOL - {} (LogTS: {}s)", path, ts));
                     let relic = parse_relic_path(path);
                     self.squad_relics.push(relic);
                     self.is_fissure = true;
+
+                    let state = app.state::<crate::AppState>();
+                    if let Ok(mut cached) = state.active_relic_data.lock() {
+                        *cached = Some(serde_json::json!({
+                            "squad_relics": self.squad_relics,
+                            "squad_size": self.squad_size,
+                        }));
+                    };
                 }
             }
             return;
         }
 
-// --- Step 4: 10 Reactant Trigger ---
-        if line.contains("DVRCAftermathLotus") {
-            if self.has_triggered_reward || self.wait_for_root_types {
+        // === 4. 10 Reactant Trigger ===
+        if s.contains("DVRCAftermathLotus") {
+            if crate::ocr::ICON_SCAN_ACTIVE.load(Ordering::SeqCst) {
                 return;
             }
-            self.wait_for_root_types = true;
-            // Arm the icon scan flag before spawning so the poll loop doesn't
-            // exit on the very first check
             crate::ocr::ICON_SCAN_ACTIVE.store(true, Ordering::SeqCst);
             let app_clone = app.clone();
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 4: 10 REACTANT DETECTED (Starting icon scan) (LogTS: {}s)", ts));
             std::thread::spawn(move || {
-                crate::ocr::detect_slot_count_from_icons(app_clone);
+                crate::ocr::detect_slot_count_from_icons(app_clone, false);
             });
             return;
         }
 
-        // --- Step 5: Reward Screen Closure ---
-        if line.contains("ProjectionRewardChoice.lua: Relic reward screen shut down") {
-            self.has_triggered_reward = false;
-            self.wait_for_root_types = false;
-            // Stop icon scan if it's still polling (reward never appeared or
-            // screen closed before we could detect it)
+        // === 5. Reward Screen Closure ===
+        if s.contains("ProjectionRewardChoice.lua: Relic reward screen shut down") {
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 5: REWARD SCREEN CLOSE (LogTS: {}s)", ts));
             app.emit_all("fissure-reward-closed", ()).unwrap_or_default();
             return;
         }
 
-        // --- Step 6: Endless Mission Handling ---
-        if line.contains("Created /Lotus/Interface/ThemedProjectionManager.swf") {
+        // === 6. Endless Mission Handling ===
+        if s.contains("Created /Lotus/Interface/ThemedProjectionManager.swf") {
+            if !self.in_mission {
+                return;
+            }
+            crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 6: ENDLESS CONTINUE (LogTS: {}s)", ts));
-            self.squad_relics.clear();
-            self.has_triggered_reward = false;
-            self.wait_for_root_types = false;
             return;
         }
-    }
-
-    fn trigger_overlay(&self, app: &AppHandle) {
-        let app_c = app.clone();
-        let sz = self.squad_size;
-        let relics = self.squad_relics.clone();
-
-        if let Some(window) = app.get_window("overlay-relic") {
-            let _ = window.show();
-        }
-        
-        let event_payload = FissureEvent {
-            event_type: "relic_phase_start".to_string(),
-            squad_relics: relics,
-            local_reward: None,
-            squad_size: sz,
-            void_tier: None,
-        };
-
-        // Cache the session data in AppState
-        let state = app.state::<crate::AppState>();
-        if let Ok(mut cached) = state.active_relic_data.lock() {
-            *cached = Some(serde_json::to_value(&event_payload).unwrap_or(serde_json::Value::Null));
-        }
-
-        app.emit_all("scanner-relic-phase-start", serde_json::json!({ "squad_size": sz })).unwrap_or_default();
-        app.emit_all("fissure-relic-phase", &event_payload).unwrap_or_default();
-        
-        crate::ocr::run_ocr_pipeline_with_size(app_c.clone(), sz);
     }
 }
 
 fn parse_relic_path(path: &str) -> RelicInfo {
-    let tier_code = if path.contains("T1") {
-        "Lith"
-    } else if path.contains("T2") {
-        "Meso"
-    } else if path.contains("T3") {
-        "Neo"
-    } else if path.contains("T4") {
-        "Axi"
-    } else if path.contains("T5") {
-        "Requiem"
-    } else {
-        "Unknown"
-    };
+    let tier_code = if path.contains("T1") { "Lith" }
+        else if path.contains("T2") { "Meso" }
+        else if path.contains("T3") { "Neo"  }
+        else if path.contains("T4") { "Axi"  }
+        else if path.contains("T5") { "Requiem" }
+        else { "Unknown" };
 
-    let refinement = if path.ends_with("Bronze") {
-        "Intact"
-    } else if path.ends_with("Silver") {
-        "Exceptional"
-    } else if path.ends_with("Gold") {
-        "Flawless"
-    } else if path.ends_with("Platinum") {
-        "Radiant"
-    } else {
-        "Intact"
-    };
+    let refinement = if path.ends_with("Bronze")   { "Intact"      }
+        else if path.ends_with("Silver")            { "Exceptional" }
+        else if path.ends_with("Gold")              { "Flawless"    }
+        else if path.ends_with("Platinum")          { "Radiant"     }
+        else                                        { "Intact"      };
 
     RelicInfo {
         unique_name: path.to_string(),
@@ -224,9 +170,26 @@ pub struct LogScannerHandle {
     pub running: Arc<AtomicBool>,
 }
 
-pub fn stop_scanner() {
+// ─── Lifecycle helpers — call from main.rs ─────────────────────────────────────
+
+pub fn log_app_start(app: &AppHandle) {
+    crate::logger::log_to_disk(app, "");
+    crate::logger::log_to_disk(app, "══════════════════════════════════════════");
+    crate::logger::log_to_disk(app, "[KRONOS] Application started");
+    crate::logger::log_to_disk(app, "══════════════════════════════════════════");
+}
+
+pub fn log_app_stop(app: &AppHandle) {
+    crate::logger::log_to_disk(app, "[KRONOS] Application shutting down");
+    crate::logger::log_to_disk(app, "══════════════════════════════════════════");
+    crate::logger::log_to_disk(app, "");
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+
+pub fn stop_scanner(app: &AppHandle) {
+    crate::logger::log_to_disk(app, "[LOG SCANNER] stop_scanner called — stopping watcher thread");
     IS_SCANNING.store(false, Ordering::SeqCst);
-    // Also stop any in-flight icon scan
     crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
 }
 
@@ -234,55 +197,132 @@ pub fn is_scanning() -> bool {
     IS_SCANNING.load(Ordering::SeqCst)
 }
 
+// ─── Main watcher ──────────────────────────────────────────────────────────────
+
 pub fn spawn_log_watcher(app: AppHandle, log_path: PathBuf) -> Result<LogScannerHandle, String> {
     if IS_SCANNING.load(Ordering::SeqCst) {
         return Err("Already scanning".to_string());
     }
     IS_SCANNING.store(true, Ordering::SeqCst);
 
+    crate::logger::log_to_disk(&app, &format!(
+        "[LOG SCANNER] Scanner initialised — watching: {}",
+        log_path.display()
+    ));
+
     let app_inner = app.clone();
 
     std::thread::spawn(move || {
         let mut scanner = LogScanner::new();
-        let mut pos = 0u64;
+        let mut remainder = String::new();
+        let mut activity_confirmed = false;
+        let mut error_logged = false;
+        let mut pos;
+
+        // ── Initial Open & Catch-up ──────────────────────────────────────────
+        // Wait for the file to exist, then read the tail for context.
+        loop {
+            if !IS_SCANNING.load(Ordering::SeqCst) { return; }
+            if let Ok(mut file) = File::open(&log_path) {
+                let file_size = file.metadata().map(|m| m.len()).unwrap_or(0);
+                crate::logger::log_to_disk(&app_inner, &format!(
+                    "[LOG SCANNER] EE.log found — size: {} bytes", file_size
+                ));
+
+                // Catch-up: Scan last 50KB to see if we're mid-mission.
+                let catchup_start = file_size.saturating_sub(50_000);
+                if file.seek(SeekFrom::Start(catchup_start)).is_ok() {
+                    let mut catchup_buf = Vec::new();
+                    if file.read_to_end(&mut catchup_buf).is_ok() {
+                        let text = String::from_utf8_lossy(&catchup_buf);
+                        let mut n = 0usize;
+                        for line in text.lines() {
+                            scanner.on_line(&app_inner, line);
+                            n += 1;
+                        }
+                        crate::logger::log_to_disk(&app_inner, &format!(
+                            "[LOG SCANNER] Catch-up complete — processed {} historical lines", n
+                        ));
+                    }
+                }
+                pos = file_size;
+                break;
+            }
+            thread::sleep(Duration::from_millis(1000));
+        }
+
+        // ── Main Polling Loop ────────────────────────────────────────────────
+        // We open the file fresh on every iteration. This is microseconds of 
+        // overhead but makes stale handles structurally impossible on Windows.
         loop {
             if !IS_SCANNING.load(Ordering::SeqCst) {
+                crate::logger::log_to_disk(&app_inner, "[LOG SCANNER] Watcher thread stopping");
                 break;
             }
 
-            let file_result = File::open(&log_path);
-            if let Err(e) = file_result {
-                let msg = format!("[LOG SCANNER] Failed to open log: {}", e);
-                eprintln!("{}", msg);
-                crate::logger::log_to_disk(&app_inner, &msg);
-                thread::sleep(Duration::from_secs(1));
-                continue;
-            }
+            match File::open(&log_path) {
+                Ok(mut file) => {
+                    error_logged = false; // reset error state if we successfully opened
 
-            if let Ok(mut file) = file_result {
-                if let Ok(metadata) = file.metadata() {
-                    let new_len = metadata.len();
+                    if let Ok(current_len) = file.seek(SeekFrom::End(0)) {
+                        if current_len < pos {
+                            crate::logger::log_to_disk(&app_inner, "[LOG SCANNER] EE.log truncated/reset — seeking to start");
+                            pos = 0;
+                            remainder.clear();
+                        }
 
-                    if new_len < pos {
-                        pos = 0;
-                    }
+                        if current_len > pos {
+                            if file.seek(SeekFrom::Start(pos)).is_ok() {
+                                let mut buffer = Vec::new();
+                                if let Ok(bytes_read) = file.read_to_end(&mut buffer) {
+                                    if bytes_read > 0 {
+                                        if !activity_confirmed {
+                                            crate::logger::log_to_disk(&app_inner, "[LOG SCANNER] EE.log activity confirmed — scanner is live");
+                                            activity_confirmed = true;
+                                        }
 
-                    if new_len > pos {
-                        let mut buffer = Vec::new();
-                        if file.seek(SeekFrom::Start(pos)).is_ok() {
-                            if file.read_to_end(&mut buffer).is_ok() && !buffer.is_empty() {
-                                let text = String::from_utf8_lossy(&buffer);
-                                for line in text.lines() {
-                                    scanner.on_line(&app_inner, line, false);
+                                        let raw = String::from_utf8_lossy(&buffer);
+                                        let mut full = if remainder.is_empty() {
+                                            raw.into_owned()
+                                        } else {
+                                            let mut s = std::mem::take(&mut remainder);
+                                            s.push_str(&raw);
+                                            s
+                                        };
+
+                                        // Handle partial lines at the end of the chunk
+                                        if !full.ends_with('\n') {
+                                            if let Some(last_nl) = full.rfind('\n') {
+                                                remainder = full.split_off(last_nl + 1);
+                                            } else {
+                                                remainder = full;
+                                                pos += bytes_read as u64;
+                                                thread::sleep(Duration::from_millis(100));
+                                                continue;
+                                            }
+                                        }
+
+                                        for line in full.lines() {
+                                            scanner.on_line(&app_inner, line);
+                                        }
+                                        pos += bytes_read as u64;
+                                    }
                                 }
                             }
                         }
-                        pos = new_len;
+                    }
+                }
+                Err(e) => {
+                    if !error_logged {
+                        crate::logger::log_to_disk(&app_inner, &format!(
+                            "[LOG SCANNER] EE.log became inaccessible (waiting...): {}", e));
+                        error_logged = true;
+                        activity_confirmed = false;
                     }
                 }
             }
 
-            thread::sleep(Duration::from_millis(50));
+            thread::sleep(Duration::from_millis(100));
         }
     });
 

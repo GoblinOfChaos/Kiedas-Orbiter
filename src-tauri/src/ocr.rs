@@ -1,4 +1,4 @@
-﻿use xcap::Monitor;
+use xcap::Monitor;
 use image::DynamicImage;
 use tauri::{AppHandle, Manager};
 use serde::Serialize;
@@ -13,6 +13,11 @@ pub static ICON_SCAN_ACTIVE: AtomicBool = AtomicBool::new(false);
 
 /// Stores the user's custom UI Scale percentage (e.g. 100 for 1.0, 80 for 0.8)
 pub static USER_UI_SCALE: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(100);
+
+#[tauri::command]
+pub fn set_fissure_ui_scale(scale: u32) {
+    USER_UI_SCALE.store(scale, Ordering::SeqCst);
+}
 
 /// Logs to stderr (dev) and disk (prod). Requires an `AppHandle` reference named `app_c` in scope.
 macro_rules! ocr_log {
@@ -50,8 +55,9 @@ fn get_base_region(squad_size: usize) -> (f64, f64, f64, f64) {
 fn get_slot_coords(squad_size: usize) -> Vec<(f64, f64, f64, f64)> {
     let (bx, by, bw, bh) = get_base_region(squad_size);
     let slot_w = bw / squad_size as f64;
+    let trim_x = 5.0 / 1920.0;
     (0..squad_size).map(|i| {
-        (bx + (i as f64 * slot_w), by, slot_w, bh)
+        (bx + (i as f64 * slot_w) + trim_x, by, slot_w - 2.0 * trim_x, bh)
     }).collect()
 }
 
@@ -121,35 +127,69 @@ const CONFIG_3: &[usize] = &[1, 3, 5];
 const CONFIG_2: &[usize] = &[2, 4];
 
 /// Minimum NCC score for a single slot to be considered "detected".
-/// Can be low because we never evaluate off-position pixels.
-const PER_SLOT_MIN: f32 = 0.65;
+/// Can be high because we never evaluate off-position pixels and use shape masking.
+const PER_SLOT_MIN: f32 = 0.8;
 
 // ── Pre-computed template cache ────────────────────────────────────────────────
 
 /// Template data pre-computed once per scan attempt (after resolution scaling).
 /// Avoids repeating O(template_pixels) arithmetic inside the hot NCC loop.
 struct TemplateData {
-    centered: Vec<f32>, // interleaved RGB channel values minus their mean
-    norm: f32,          // sqrt( sum of squared centered values )
+    centered: Vec<f32>,   // Interleaved RGB values minus their mean (foreground only)
+    fg_indices: Vec<usize>, // Byte offsets into the raw RGB buffer for foreground pixels
+    norm: f32,            // sqrt( sum of squared centered values )
     w: u32,
     h: u32,
 }
 
 fn precompute_template(img: &image::RgbImage) -> Option<TemplateData> {
-    // Treat the RGB image as one long vector of channel intensities
-    let pixels: Vec<f32> = img.pixels().flat_map(|p| [p[0] as f32, p[1] as f32, p[2] as f32]).collect();
-    if pixels.is_empty() { return None; }
-    let mean = pixels.iter().sum::<f32>() / pixels.len() as f32;
-    let centered: Vec<f32> = pixels.iter().map(|&v| v - mean).collect();
-    let norm = centered.iter().map(|v| v * v).sum::<f32>().sqrt();
+    let raw = img.as_raw();
+    if raw.is_empty() { return None; }
+
+    // 1. Identify foreground pixels.
+    // We treat any pixel with significant brightness as part of the "jagged icon" shape.
+    // Background pixels (dark) are ignored to prevent them from diluting the score.
+    let mut fg_indices = Vec::new();
+    for i in (0..raw.len()).step_by(3) {
+        let brightness = raw[i] as f32 * 0.299 + raw[i+1] as f32 * 0.587 + raw[i+2] as f32 * 0.114;
+        if brightness > 15.0 {
+            fg_indices.push(i);
+        }
+    }
+    if fg_indices.is_empty() { return None; }
+
+    // 2. Compute mean of foreground pixels only
+    let mut sum = 0.0f32;
+    for &idx in &fg_indices {
+        sum += raw[idx] as f32 + raw[idx+1] as f32 + raw[idx+2] as f32;
+    }
+    let mean = sum / (fg_indices.len() * 3) as f32;
+
+    // 3. Center and compute norm
+    let mut centered = vec![0.0f32; raw.len()];
+    let mut sum_sq = 0.0f32;
+    for &idx in &fg_indices {
+        let r = raw[idx] as f32 - mean;
+        let g = raw[idx+1] as f32 - mean;
+        let b = raw[idx+2] as f32 - mean;
+        centered[idx] = r;
+        centered[idx+1] = g;
+        centered[idx+2] = b;
+        sum_sq += r*r + g*g + b*b;
+    }
+    let norm = sum_sq.sqrt();
     if norm < 1e-6 { return None; }
-    Some(TemplateData { centered, norm, w: img.width(), h: img.height() })
+
+    Some(TemplateData { centered, fg_indices, norm, w: img.width(), h: img.height() })
 }
 
 // ── Single-position NCC ────────────────────────────────────────────────────────
 
 /// Evaluate RGB NCC of `tmpl` against `strip` with the template centred on
 /// (`cx`, `cy`) in strip-local pixel coordinates.
+/// 
+/// This version is "Shape-Aware": it only correlates pixels identified as 
+/// foreground in the template, making it immune to background noise.
 fn ncc_at(strip: &image::RgbImage, tmpl: &TemplateData, cx: i32, cy: i32) -> f32 {
     let x0 = cx - tmpl.w as i32 / 2;
     let y0 = cy - tmpl.h as i32 / 2;
@@ -160,37 +200,34 @@ fn ncc_at(strip: &image::RgbImage, tmpl: &TemplateData, cx: i32, cy: i32) -> f32
 
     let sw = strip.width() as usize;
     let raw = strip.as_raw();
-    let tw = tmpl.w as usize;
-    let th = tmpl.h as usize;
 
-    let n = (tw * th * 3) as f32;
+    // 1. Calculate mean of the source patch (at foreground locations only)
     let mut p_sum = 0.0f32;
-    for dy in 0..th {
-        let row_start = (y0 as usize + dy) * sw * 3 + x0 as usize * 3;
-        for dx in 0..tw {
-            let px_idx = row_start + dx * 3;
-            p_sum += raw[px_idx] as f32 + raw[px_idx + 1] as f32 + raw[px_idx + 2] as f32;
-        }
+    for &t_idx in &tmpl.fg_indices {
+        let dx = (t_idx / 3) as u32 % tmpl.w;
+        let dy = (t_idx / 3) as u32 / tmpl.w;
+        let p_idx = ((y0 + dy) as usize * sw + (x0 + dx) as usize) * 3;
+        
+        p_sum += raw[p_idx] as f32 + raw[p_idx + 1] as f32 + raw[p_idx + 2] as f32;
     }
-    let p_mean = p_sum / n;
+    let p_mean = p_sum / (tmpl.fg_indices.len() * 3) as f32;
 
+    // 2. Calculate Dot Product and Source Norm
     let mut dot = 0.0f32;
     let mut p_sq = 0.0f32;
-    for dy in 0..th {
-        let row_start = (y0 as usize + dy) * sw * 3 + x0 as usize * 3;
-        let t_row_start = dy * tw * 3;
-        for dx in 0..tw {
-            let px_idx = row_start + dx * 3;
-            let t_idx = t_row_start + dx * 3;
-            
-            let r = raw[px_idx] as f32 - p_mean;
-            let g = raw[px_idx + 1] as f32 - p_mean;
-            let b = raw[px_idx + 2] as f32 - p_mean;
-            
-            dot += r * tmpl.centered[t_idx] + g * tmpl.centered[t_idx + 1] + b * tmpl.centered[t_idx + 2];
-            p_sq += r * r + g * g + b * b;
-        }
+    for &t_idx in &tmpl.fg_indices {
+        let dx = (t_idx / 3) as u32 % tmpl.w;
+        let dy = (t_idx / 3) as u32 / tmpl.w;
+        let p_idx = ((y0 + dy) as usize * sw + (x0 + dx) as usize) * 3;
+
+        let r = raw[p_idx] as f32 - p_mean;
+        let g = raw[p_idx + 1] as f32 - p_mean;
+        let b = raw[p_idx + 2] as f32 - p_mean;
+
+        dot += r * tmpl.centered[t_idx] + g * tmpl.centered[t_idx + 1] + b * tmpl.centered[t_idx + 2];
+        p_sq += r * r + g * g + b * b;
     }
+
     let p_norm = p_sq.sqrt();
     if p_norm < 1e-6 { 0.0 } else { (dot / (tmpl.norm * p_norm)).clamp(-1.0, 1.0) }
 }
@@ -225,6 +262,9 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
         loop {
             if manual && start_time.elapsed().as_secs() >= MANUAL_TIMEOUT_SECS {
                 ocr_log!(&app, "[OCR] Icon scan timed out after {} attempts", attempt);
+                ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
+                if let Some(window) = app.get_window("overlay-relic") { let _ = window.hide(); }
+                app.emit_all("fissure-reward-closed", ()).unwrap_or_default();
                 return;
             }
 
@@ -334,8 +374,8 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
 
             // ── Score each squad-size configuration ────────────────────────────
             //
-            // Each configuration gets a mean NCC score across its expected slots,
-            // plus a count of how many slots individually beat PER_SLOT_MIN.
+            // Each configuration (2, 3, or 4 slots) is scored based on the 
+            // detected icons at its respective anchor points.
             //
             // ELIGIBILITY RULES (Strict):
             // - 4-slot: All 4 anchors must match.
@@ -463,6 +503,83 @@ fn run_ocr_internal(app: AppHandle, squad_size: usize, is_debug: bool, captured_
     run_ocr_with_retry(app, squad_size, is_debug, captured_image, 0);
 }
 
+/// Advanced preprocessing using contrast normalization + edge enhancement.
+/// This gives Tesseract more usable input than pure edge detection.
+fn apply_ocr_preprocessing(slot_crop: &DynamicImage, debug_slot: Option<usize>) -> image::GrayImage {
+    use imageproc::filter::gaussian_blur_f32;
+
+    let (fw, fh) = (slot_crop.width(), slot_crop.height());
+    let upscaled = slot_crop.resize(fw * 3, fh * 3, image::imageops::FilterType::Lanczos3);
+    let gray = upscaled.to_luma8();
+    let (w, h) = gray.dimensions();
+
+    // 1. Compute local contrast using difference from blurred background
+    let large = gaussian_blur_f32(&gray, 30.0);
+
+    // 2. Create contrast-enhanced image
+    let mut enhanced = image::GrayImage::new(w, h);
+    let total_pixels = (w * h) as f32;
+    let bg_mean: f32 = large.pixels().map(|p| p[0] as f32).sum::<f32>() / total_pixels;
+    
+    for y in 0..h {
+        for x in 0..w {
+            let orig = gray.get_pixel(x, y)[0] as f32;
+            let blurred = large.get_pixel(x, y)[0] as f32;
+            let diff = orig - blurred;
+            let normalized = (bg_mean + diff * 3.0).clamp(0.0, 255.0) as u8;
+            enhanced.put_pixel(x, y, image::Luma([normalized]));
+        }
+    }
+
+    // 3. Light smoothing to kill high-frequency noise/artifacts before Otsu
+    let smoothed = gaussian_blur_f32(&enhanced, 0.5);
+
+    // 4. Dynamic Otsu Threshold on smoothed image
+    let mut hist = [0u32; 256];
+    for p in smoothed.pixels() { hist[p[0] as usize] += 1; }
+    let total = total_pixels as f64;
+    let (mut sum, mut sum_b, mut q1, mut max_var) = (0.0f64, 0.0f64, 0.0f64, 0.0f64);
+    for i in 0..256 { sum += i as f64 * hist[i] as f64; }
+    let mut otsu_thresh = 128u8;
+    for i in 0..256 {
+        q1 += hist[i] as f64;
+        if q1 == 0.0 { continue; }
+        let q2 = total - q1;
+        if q2 == 0.0 { break; }
+        sum_b += i as f64 * hist[i] as f64;
+        let m1 = sum_b / q1;
+        let m2 = (sum - sum_b) / q2;
+        let var = q1 * q2 * (m1 - m2).powi(2);
+        if var > max_var { max_var = var; otsu_thresh = i as u8; }
+    }
+
+    let mut binary = image::GrayImage::new(w, h);
+    for y in 0..h {
+        for x in 0..w {
+            let val = smoothed.get_pixel(x, y)[0];
+            binary.put_pixel(x, y, image::Luma([if val < otsu_thresh { 0 } else { 255 }]));
+        }
+    }
+
+    // Normalise polarity: Tesseract expects dark text on light background.
+    // Use edge-based detection: borders are almost always background.
+    let mut edge_black = 0;
+    let mut edge_white = 0;
+    for x in 0..w {
+        if binary.get_pixel(x, 0)[0] == 0 { edge_black += 1; } else { edge_white += 1; }
+        if binary.get_pixel(x, h - 1)[0] == 0 { edge_black += 1; } else { edge_white += 1; }
+    }
+    for y in 0..h {
+        if binary.get_pixel(0, y)[0] == 0 { edge_black += 1; } else { edge_white += 1; }
+        if binary.get_pixel(w - 1, y)[0] == 0 { edge_black += 1; } else { edge_white += 1; }
+    }
+    if edge_black > edge_white {
+        for p in binary.pixels_mut() { p[0] = 255 - p[0]; }
+    }
+
+    binary
+}
+
 fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, captured_image: Option<DynamicImage>, attempt: u8) {
     let app_c = app.clone();
     std::thread::spawn(move || {
@@ -474,6 +591,8 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
             DynamicImage::ImageRgba8(image)
         };
         
+        ocr_log!(&app_c, "[OCR] Starting contrast normalization...");
+
         let coords = get_slot_coords(squad_size);
         let (bin_path, tessdata_path) = get_tesseract_config(&app_c);
         let bin_path_arc = std::sync::Arc::new(bin_path);
@@ -506,13 +625,20 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
             let slot_idx = i;
 
             handles.push(std::thread::spawn(move || {
-                let binary = apply_ocr_preprocessing(&slot_crop);
-                let (uw, uh) = binary.dimensions();
+            let binary = apply_ocr_preprocessing(&slot_crop, Some(slot_idx));
+            let (uw, uh) = binary.dimensions();
+
                 let midpoint = uh / 2;
                 let overlap = (uh as f32 * 0.05) as u32;
                 let dyn_binary = image::DynamicImage::ImageLuma8(binary);
                 let line1 = dyn_binary.crop_imm(0, 0, uw, (midpoint + overlap).min(uh)).to_luma8();
                 let line2 = dyn_binary.crop_imm(0, (midpoint - overlap).max(0), uw, uh - ((midpoint - overlap).max(0))).to_luma8();
+
+                // Save debug images for line1 and line2
+                let debug_dir = crate::get_data_root().join("data/user");
+                if let Some(parent) = debug_dir.parent() { let _ = std::fs::create_dir_all(&debug_dir); }
+                let _ = line1.save(debug_dir.join(format!("ocr_debug_slot{}_line1.png", slot_idx)));
+                let _ = line2.save(debug_dir.join(format!("ocr_debug_slot{}_line2.png", slot_idx)));
 
                 let mut combined_lines = Vec::new();
                 for (_l_idx, line_img) in [(0usize, line1), (1usize, line2)] {
@@ -527,6 +653,8 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
 
                     let mut cmd = Command::new(bin_path_c.to_string_lossy().replace("\\\\?\\", ""));
                     cmd.args(["-", "stdout", "--oem", "1", "--psm", "7", "-l", "warframe"]);
+                    // Strict Whitelist: Include both cases, numbers, spaces and apostrophes.
+                    cmd.args(["-c", "tessedit_char_whitelist=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '"]);
                     cmd.args(["-c", "load_system_dawg=0", "-c", "load_freq_dawg=0", "-c", "tessedit_write_images=false"]);
 
                     if let Some(ref wl) = *wordlist_path_c { if wl.exists() { cmd.args(["--user-words", &wl.to_string_lossy()]); } }
@@ -538,17 +666,64 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
                         if let Some(mut stdin) = child.stdin.take() { let _ = stdin.write_all(&buffer); }
                         if let Ok(output) = child.wait_with_output() {
                             if output.status.success() {
-                                let text = String::from_utf8_lossy(&output.stdout).trim().to_uppercase();
+                                let text = String::from_utf8_lossy(&output.stdout).trim().to_string();
                                 combined_lines.push(text);
+                            } else {
+                                let err = String::from_utf8_lossy(&output.stderr);
+                                ocr_log!(&app_for_thread, "[OCR] Tesseract error: {}", err);
                             }
                         }
                     }
                 }
                 
+/// Strip leading garbage tokens from a Tesseract result.
+///
+/// Warframe item names always start with a proper capitalised word followed
+/// by another valid word. We skip tokens until we find a candidate where:
+///   - no digits, length >= 2, starts uppercase
+///   - AND the immediately following token also looks valid
+/// This filters single-char noise, digit blobs, and short mixed-case artefacts
+/// like "sT" or "Liu" when followed by another garbage token.
+fn clean_ocr_output(raw: &str) -> String {
+    let tokens: Vec<&str> = raw.split_whitespace().collect();
+    if tokens.is_empty() { return String::new(); }
+
+    for i in 0..tokens.len() {
+        let t = tokens[i];
+        if t.len() < 2 { continue; }
+        if t.chars().any(|c| c.is_ascii_digit()) { continue; }
+        if !t.chars().next().map(|c| c.is_uppercase()).unwrap_or(false) { continue; }
+
+        // Accept if this is the last token, or the next token also looks valid.
+        // This rejects "Liu" when followed by "r", but accepts "Forma" followed
+        // by "Blueprint".
+        let accept = if i + 1 < tokens.len() {
+            let next = tokens[i + 1];
+            next.len() >= 2
+                && !next.chars().any(|c| c.is_ascii_digit())
+                && next.chars().next().map(|c| c.is_uppercase()).unwrap_or(false)
+        } else {
+            true
+        };
+
+        if accept {
+            return tokens[i..].join(" ");
+        }
+    }
+
+    raw.to_string()
+}
+
+// ... existing run_ocr_with_retry ...
                 if !combined_lines.is_empty() {
-                    let full_text = combined_lines.join(" ");
-                    ocr_log!(&app_for_thread, "[OCR] Slot {}: \"{}\"", slot_idx + 1, full_text);
-                    Some(full_text)
+                    let raw = combined_lines.join(" ");
+                    let cleaned = clean_ocr_output(&raw);
+                    if raw != cleaned {
+                        ocr_log!(&app_for_thread, "[OCR] Slot {} cleaned: {:?} → {:?}", slot_idx + 1, raw, cleaned);
+                    } else {
+                        ocr_log!(&app_for_thread, "[OCR] Slot {}: {:?}", slot_idx + 1, cleaned);
+                    }
+                    Some(cleaned)
                 } else { None }
             }));
         }
@@ -574,47 +749,6 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
         let _ = app_c.emit_all("overlay-debug-text", serde_json::json!({ "text": combined_text }));
         app_c.emit_all("fissure-ocr-band", OcrBandResult { text: combined_text, slot_results, is_debug }).unwrap_or_default();
     });
-}
-
-/// Core preprocessing logic used by both live OCR and debug screenshots.
-fn apply_ocr_preprocessing(slot_crop: &DynamicImage) -> image::GrayImage {
-    let (fw, fh) = (slot_crop.width(), slot_crop.height());
-    // Upscale 3x is a good balance for Tesseract
-    let upscaled = slot_crop.resize(fw * 3, fh * 3, image::imageops::FilterType::CatmullRom);
-    let mut gray = upscaled.to_luma8();
-    for p in gray.pixels_mut() { p[0] = 255 - p[0]; }
-    let blurred = image::imageops::blur(&gray, 0.5);
-
-    let mut hist = [0u32; 256];
-    for p in blurred.pixels() { hist[p[0] as usize] += 1; }
-    let total = (blurred.width() * blurred.height()) as f64;
-    let (mut sum, mut sum_b, mut q1, mut max_var) = (0.0f64, 0.0f64, 0.0f64, 0.0f64);
-    for i in 0..256usize { sum += i as f64 * hist[i] as f64; }
-    let mut threshold = 128u8;
-    for i in 0..256usize {
-        q1 += hist[i] as f64;
-        if q1 == 0.0 { continue; }
-        let q2 = total - q1;
-        if q2 == 0.0 { break; }
-        sum_b += i as f64 * hist[i] as f64;
-        let m1 = sum_b / q1;
-        let m2 = (sum - sum_b) / q2;
-        let var_between = q1 * q2 * (m1 - m2).powi(2);
-        if var_between > max_var { max_var = var_between; threshold = i as u8; }
-    }
-    let mut binary = blurred.clone();
-    for p in binary.pixels_mut() { p[0] = if p[0] <= threshold { 0 } else { 255 }; }
-    binary
-}
-
-fn preprocess_for_ocr(image: DynamicImage) -> image::GrayImage {
-    let binary = apply_ocr_preprocessing(&image);
-    let pad = 30u32;
-    let (uw, uh) = binary.dimensions();
-    let mut padded = image::GrayImage::new(uw + pad * 2, uh + pad * 2);
-    padded.fill(255);
-    image::imageops::overlay(&mut padded, &binary, pad as i64, pad as i64);
-    padded
 }
 
 #[tauri::command]
@@ -669,10 +803,18 @@ pub async fn save_debug_screenshot(_app: AppHandle) -> Result<String, String> {
     let dynamic_image = DynamicImage::ImageRgba8(image);
     let (bx, by, bw, bh) = get_base_region(4);
     let crop = dynamic_image.crop_imm((bx * dynamic_image.width() as f64) as u32, (by * dynamic_image.height() as f64) as u32, (bw * dynamic_image.width() as f64) as u32, (bh * dynamic_image.height() as f64) as u32);
-    let processed = preprocess_for_ocr(crop);
+    
+    let processed = apply_ocr_preprocessing(&crop, None);
+    
+    let pad = 30u32;
+    let (uw, uh) = processed.dimensions();
+    let mut padded = image::GrayImage::new(uw + pad * 2, uh + pad * 2);
+    padded.fill(255);
+    image::imageops::overlay(&mut padded, &processed, pad as i64, pad as i64);
+
     let dest_path = crate::get_data_root().join("data/user/debug_crop.png");
     if let Some(parent) = dest_path.parent() { std::fs::create_dir_all(parent).map_err(|e| e.to_string())?; }
-    processed.save(&dest_path).map_err(|e| e.to_string())?;
+    padded.save(&dest_path).map_err(|e| e.to_string())?;
     Ok(dest_path.to_string_lossy().to_string())
 }
 
@@ -686,7 +828,6 @@ pub async fn trigger_manual_ocr(app: AppHandle, _squad_size: Option<usize>) -> R
     eprintln!("{}", msg);
     crate::logger::log_to_disk(&app, &msg);
     ICON_SCAN_ACTIVE.store(true, Ordering::SeqCst);
-    if let Some(w) = app.get_window("overlay-relic") { let _ = w.show(); let _ = w.set_always_on_top(true); }
     detect_slot_count_from_icons(app, true);
     Ok(())
 }
@@ -701,7 +842,6 @@ pub async fn start_debug_ocr_session(app: AppHandle) -> Result<(), String> {
     eprintln!("{}", msg);
     crate::logger::log_to_disk(&app, &msg);
     ICON_SCAN_ACTIVE.store(true, Ordering::SeqCst);
-    if let Some(w) = app.get_window("overlay-relic") { let _ = w.show(); let _ = w.set_always_on_top(true); }
     std::thread::sleep(std::time::Duration::from_secs(5));
     detect_slot_count_from_icons(app, true);
     Ok(())

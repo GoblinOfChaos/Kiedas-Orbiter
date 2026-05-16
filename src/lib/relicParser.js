@@ -471,3 +471,95 @@ export function parseRelicName(uniqueName) {
 
   return { era, refinement, name };
 }
+
+/**
+ * Calculates the Levenshtein distance between two strings.
+ */
+export function levenshteinDistance(a, b) {
+  const tmp = [];
+  for (let i = 0; i <= a.length; i++) { tmp[i] = [i]; }
+  for (let j = 0; j <= b.length; j++) { tmp[0][j] = j; }
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      tmp[i][j] = Math.min(
+        tmp[i - 1][j] + 1,
+        tmp[i][j - 1] + 1,
+        tmp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+      );
+    }
+  }
+  return tmp[a.length][b.length];
+}
+
+/**
+ * Performs a fuzzy match of an OCR string against a list of candidate items.
+ * Returns the best matching item if the similarity is above the threshold.
+ */
+export function fuzzyMatchReward(ocrText, candidates, threshold = 0.5) {
+  if (!ocrText || !candidates || candidates.length === 0) return null;
+
+  const clean = (s) => s.toUpperCase().replace(/[^A-Z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  
+  // Use the existing splitPascal helper to dynamically separate merged words
+  const ocrClean = clean(splitPascal(ocrText));
+  
+  if (ocrClean.length < 3) return null;
+
+  const ocrWords = ocrClean.split(' ');
+  let bestMatch = null;
+  let bestScore = -1;
+
+  for (const item of candidates) {
+    if (!item || !item.name) continue;
+
+    const itemClean = clean(item.name);
+    if (!itemClean) continue;
+    const itemWords = itemClean.split(' ');
+
+    // 1. Exact or subset match (high priority)
+    if (ocrClean === itemClean || itemClean.includes(ocrClean) || ocrClean.includes(itemClean)) {
+      return item;
+    }
+
+    // 2. Word-by-word similarity
+    let totalSim = 0;
+    let totalWeight = 0;
+
+    for (let i = 0; i < itemWords.length; i++) {
+      const iw = itemWords[i];
+      let bestWordSim = 0;
+      for (const ow of ocrWords) {
+        // Direct containment check (catches PZEXO -> EXO)
+        if (ow.includes(iw) || iw.includes(ow)) {
+          bestWordSim = Math.max(bestWordSim, 0.9);
+        }
+        // Levenshtein similarity
+        const d = levenshteinDistance(ow, iw);
+        const maxL = Math.max(ow.length, iw.length);
+        const s = 1.0 - (d / maxL);
+        if (s > bestWordSim) bestWordSim = s;
+      }
+
+      const weight = i === 0 ? 2.0 : 1.0; // Boost weight of the first word (item name)
+      totalSim += (bestWordSim * weight);
+      totalWeight += weight;
+    }
+
+    const finalScoreWordBased = totalSim / totalWeight;
+    
+    // Incorporate full-string similarity to penalize length mismatches
+    const fullDist = levenshteinDistance(ocrClean, itemClean);
+    const fullMaxL = Math.max(ocrClean.length, itemClean.length);
+    const fullSim = 1.0 - (fullDist / (fullMaxL || 1));
+    
+    // Combine scores: 70% word-based, 30% full-string
+    const combinedScore = (finalScoreWordBased * 0.7) + (fullSim * 0.3);
+
+    if (combinedScore > bestScore && combinedScore >= threshold) {
+      bestScore = combinedScore;
+      bestMatch = item;
+    }
+  }
+
+  return bestMatch;
+}

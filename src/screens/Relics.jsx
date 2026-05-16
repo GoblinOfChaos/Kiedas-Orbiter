@@ -60,13 +60,21 @@ export default function Relics() {
         plat: marketPrices[r.uniqueName] ?? 0
       }));
 
-      const activeLevels = QUALITY_ORDER.filter(q => (relic.refinements && relic.refinements[q] > 0));
       const evRefinement = evRefinementOverride;
 
       const evPlat = getRelicEV(sortedRewards, evRefinement, squadSize, 'plat');
       const evDucats = getRelicEV(sortedRewards, evRefinement, squadSize, 'ducats');
 
-      return { ...relic, evPlat, evDucats, sortedRewards, evRefinement };
+      // Refinement Gain (Radiant - Intact)
+      const evPlatIntact = getRelicEV(sortedRewards, 'Intact', squadSize, 'plat');
+      const evPlatRadiant = getRelicEV(sortedRewards, 'Radiant', squadSize, 'plat');
+      const evDucatsIntact = getRelicEV(sortedRewards, 'Intact', squadSize, 'ducats');
+      const evDucatsRadiant = getRelicEV(sortedRewards, 'Radiant', squadSize, 'ducats');
+      
+      const platGain = evPlatRadiant - evPlatIntact;
+      const ducatGain = evDucatsRadiant - evDucatsIntact;
+
+      return { ...relic, evPlat, evDucats, platGain, ducatGain, sortedRewards, evRefinement };
     });
 
     // 2. Sort
@@ -74,12 +82,14 @@ export default function Relics() {
       let res = 0;
       if (sortMode === 'ducat') res = b.evDucats - a.evDucats;
       else if (sortMode === 'plat') res = b.evPlat - a.evPlat;
+      else if (sortMode === 'ducat_gain') res = b.ducatGain - a.ducatGain;
+      else if (sortMode === 'plat_gain') res = b.platGain - a.platGain;
       else res = a.name.localeCompare(b.name);
 
       return sortOrder === 'desc' ? res : -res;
     });
 
-    // 3. Group - only by era for name sorting, otherwise no grouping for actual value sorting
+    // 3. Group
     if (sortMode === 'name') {
       return enriched.reduce((acc, relic) => {
         const era = relic.era || 'Other'
@@ -88,10 +98,15 @@ export default function Relics() {
         return acc
       }, {})
     } else {
-      // For ducats/plat sorting, don't group - just return sorted list with descriptive key
-      const sortLabel = sortMode === 'ducat' ? 'Ducats' : 'Platinum';
+      const SORT_LABELS = {
+        ducat: 'Expected Ducats',
+        plat: 'Expected Platinum',
+        ducat_gain: 'Refinement Gain (Ducats)',
+        plat_gain: 'Refinement Gain (Platinum)'
+      };
+      const sortLabel = SORT_LABELS[sortMode] || 'Name';
       const orderLabel = sortOrder === 'desc' ? 'Descending' : 'Ascending';
-      return { [`Sorted by ${sortLabel} Value (${orderLabel})`]: enriched };
+      return { [`Sorted by ${sortLabel} (${orderLabel})`]: enriched };
     }
   }, [baseFiltered, sortMode, marketPrices, squadSize, evRefinementOverride, activeQuality]);
 
@@ -178,7 +193,9 @@ export default function Relics() {
             {[
               { id: 'name', label: 'Name' },
               { id: 'ducat', label: 'Ducats' },
-              { id: 'plat', label: 'Platinum' }
+              { id: 'plat', label: 'Plat' },
+              { id: 'ducat_gain', label: 'Refine (D)' },
+              { id: 'plat_gain', label: 'Refine (P)' }
             ].map(mode => {
               const isActive = sortMode === mode.id;
               return (
@@ -334,18 +351,34 @@ export default function Relics() {
                             </div>
 
                             {/* Expected Value Footer */}
-                            <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-between">
-                              {era !== 'Requiem' && (
-                                <div className="flex items-center gap-1.5" title={`Expected Ducats (${evRefinement}, Squad of ${squadSize})`}>
-                                  <span className="text-[8px] font-black text-kronos-dim uppercase tracking-tighter">EXPECTED DUCATS</span>
-                                  <span className="text-[10px] font-black text-blue-400">{Math.round(evDucats)}</span>
+                            <div className="mt-2 pt-2 border-t border-white/5 flex flex-col gap-1.5">
+                              <div className="flex items-center justify-between">
+                                {era !== 'Requiem' && (
+                                  <div className="flex items-center gap-1.5" title={`Expected Ducats (${evRefinement}, Squad of ${squadSize})`}>
+                                    <span className="text-[8px] font-black text-kronos-dim uppercase tracking-tighter">EXP DUCATS</span>
+                                    <span className="text-[10px] font-black text-blue-400">{Math.round(item.evDucats)}</span>
+                                  </div>
+                                )}
+                                <div className="flex items-center gap-1.5" title={`Expected Platinum (${evRefinement}, Squad of ${squadSize})`}>
+                                  <span className="text-[8px] font-black text-kronos-dim uppercase tracking-tighter">EXP PLAT</span>
+                                  <span className="text-[10px] font-black text-kronos-accent">{Math.round(item.evPlat)}P</span>
+                                </div>
+                              </div>
+
+                              {(sortMode === 'ducat_gain' || sortMode === 'plat_gain') && (
+                                <div className="flex items-center justify-between border-t border-white/5 pt-1.5 mt-0.5">
+                                  <div className="flex items-center gap-1.5" title="Expected Ducat gain from refining to Radiant">
+                                    <span className="text-[8px] font-black text-kronos-accent/70 uppercase tracking-tighter">GAIN (D)</span>
+                                    <span className="text-[10px] font-black text-blue-400">+{Math.round(item.ducatGain)}</span>
+                                  </div>
+                                  <div className="flex items-center gap-1.5" title="Expected Platinum gain from refining to Radiant">
+                                    <span className="text-[8px] font-black text-kronos-accent/70 uppercase tracking-tighter">GAIN (P)</span>
+                                    <span className="text-[10px] font-black text-kronos-accent">+{Math.round(item.platGain)}P</span>
+                                  </div>
                                 </div>
                               )}
-                              <div className="flex items-center gap-1.5" title={`Expected Platinum (${evRefinement}, Squad of ${squadSize})`}>
-                                <span className="text-[8px] font-black text-kronos-dim uppercase tracking-tighter">EXPECTED PLAT</span>
-                                <span className="text-[10px] font-black text-kronos-accent">{Math.round(evPlat)}P</span>
-                              </div>
                             </div>
+
                           </div>
                         </Card>
                       );

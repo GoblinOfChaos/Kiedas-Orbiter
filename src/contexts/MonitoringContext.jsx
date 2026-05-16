@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useRef, useCallback, useEffect, us
 import { invoke } from '@tauri-apps/api/tauri'
 import { parseInventory } from '../lib/inventoryParser'
 import { parseWorldstate } from '../lib/worldstateParser'
-import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName } from '../lib/relicParser'
+import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward } from '../lib/relicParser'
 import { listen, emit } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/wfmCache'
 import { resolveNode } from '../lib/warframeUtils'
@@ -639,25 +639,6 @@ export function MonitoringProvider({ children }) {
     if (!exportData) return
     const subs = []
 
-    const levenshtein = (a, b) => {
-      const tmp = []
-      for (let i = 0; i <= a.length; i++) { tmp[i] = [i] }
-      for (let j = 0; j <= b.length; j++) { tmp[0][j] = j }
-      for (let i = 1; i <= a.length; i++) {
-        for (let j = 1; j <= b.length; j++) {
-          tmp[i][j] = Math.min(tmp[i - 1][j] + 1, tmp[i][j - 1] + 1, tmp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1))
-        }
-      }
-      return tmp[a.length][b.length]
-    }
-
-    const wordSimilarity = (s1, s2) => {
-      if (s1 === s2) return 1.0
-      const dist = levenshtein(s1, s2)
-      const maxLen = Math.max(s1.length, s2.length)
-      return 1.0 - (dist / maxLen)
-    }
-
     subs.push(listen('scanner-relic-phase-start', (e) => {
       const { squad_size } = e.payload
       ocrActiveRef.current = true
@@ -708,8 +689,7 @@ export function MonitoringProvider({ children }) {
 
       // Process all slots - keep matching sequential, emit events in parallel at end
       const slotPromises = slot_results.map(async (res) => {
-        const ocrText = cleanOcrText(res.text || '');
-        if (ocrText.length < 3) return null;
+        if (!res.text || res.text.length < 3) return null;
 
         // Build candidate pool (squad relics if available, else global)
         let candidates = [];
@@ -735,78 +715,9 @@ export function MonitoringProvider({ children }) {
           });
         }
 
-        const cleanOcrNoSpace = ocrText.replace(/\s/g, '');
-        let bestMatch = null;
-        let bestScore = -1;
+        const bestMatch = fuzzyMatchReward(res.text, candidates, 0.60);
 
-        for (const item of candidates) {
-          if (!item || !item.name) continue;
-          const cleanItemName = item.name.toUpperCase().replace(/[^A-Z0-9]/g, ' ')
-          const cleanItemNoSpace = cleanItemName.replace(/\s/g, '');
-
-          let score = 0
-          const ocrWords = ocrText.split(' ').filter(w => w.length > 0)
-          const candWords = cleanItemName.split(' ').filter(w => w.length > 0)
-          if (candWords.length === 0) continue;
-
-          // 1. Direct Subset/Exact checks
-          if (ocrText === cleanItemName || ocrText === cleanItemNoSpace || cleanOcrNoSpace === cleanItemNoSpace) {
-            score = 1.3;
-          } else if (ocrText.includes(cleanItemName) || cleanOcrNoSpace.includes(cleanItemNoSpace)) {
-            score = 1.1;
-          } else {
-            // 2. Glue-Aware Word-by-word matching
-            let totalWeightedSim = 0;
-            let totalWeight = 0;
-
-            for (let i = 0; i < candWords.length; i++) {
-              const cw = candWords[i];
-              let bestWordSim = 0;
-
-              // Check standalone words
-              for (const ow of ocrWords) {
-                const sim = wordSimilarity(ow, cw);
-                if (sim > bestWordSim) bestWordSim = sim;
-              }
-
-              // GLUE CHECK: If the candidate word is stuck to another word (e.g. MIRAGPRIME)
-              // we check the best similarity of any SUBSTRING of the mangled OCR
-              if (bestWordSim < 0.85) {
-                for (const ow of ocrWords) {
-                  if (ow.length > cw.length && ow.includes(cw)) {
-                    bestWordSim = Math.max(bestWordSim, 0.9);
-                  }
-                }
-              }
-
-              let weight = 1.0;
-              if (i === 0) weight = 8.0; // The Name is king
-              else if (cw === 'PRIME') weight = 0.5;
-              else if (cw === 'BLUEPRINT') weight = 0.3;
-
-              totalWeightedSim += (bestWordSim * weight);
-              totalWeight += weight;
-            }
-
-            score = totalWeightedSim / totalWeight;
-
-            // 3. Penalty: zero the score only if NO significant word is a match.
-            // We check if at least one 'meaningful' word from the candidate exists in OCR.
-            const meaningfulWords = candWords.filter(w => w.length > 3 && w !== 'PRIME' && w !== 'BLUEPRINT');
-            const hasAnyMeaningfulMatch = meaningfulWords.length === 0 || meaningfulWords.some(mw =>
-              ocrWords.some(ow => ow.includes(mw) || mw.includes(ow) || wordSimilarity(ow, mw) > 0.8)
-            );
-
-            if (!hasAnyMeaningfulMatch && score < 0.95) score = 0;
-          }
-
-          if (score > bestScore) {
-            bestScore = score;
-            bestMatch = item;
-          }
-        }
-
-        if (bestMatch && bestScore >= 0.60) {
+        if (bestMatch) {
           const platPrice = await getPrice(bestMatch.uniqueName, bestMatch.name, bestMatch.ducats || 0);
           const inventory = getRewardInventoryContext(bestMatch.uniqueName, inventoryData, exportData);
           return { slot: res.slot, confirmed_reward: bestMatch.name, item: { ...bestMatch, icon: EI[bestMatch.uniqueName], platPrice, inventory } };

@@ -687,11 +687,6 @@ fn hide_overlay_window(
     Ok(())
 }
 #[tauri::command]
-fn set_fissure_ui_scale(scale: u32) {
-    crate::ocr::USER_UI_SCALE.store(scale, std::sync::atomic::Ordering::SeqCst);
-}
-
-#[tauri::command]
 fn relay_event(
     app_handle: tauri::AppHandle,
     state: tauri::State<'_, AppState>,
@@ -1335,7 +1330,7 @@ fn main() {
             log_terminal,
             register_hotkey,
             unregister_all_hotkeys,
-            set_fissure_ui_scale,
+            crate::ocr::set_fissure_ui_scale,
             // --- calibration ---
             toggle_calibration,
         ])

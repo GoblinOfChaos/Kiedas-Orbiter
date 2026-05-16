@@ -157,7 +157,6 @@ export default function SettingsScreen() {
   const [fissureUiScale, setFissureUiScale] = useState(
     () => parseInt(getSetting('fissure_ui_scale', 100))
   )
-  const [debugSquadSize, setDebugSquadSize] = useState(4)
 
   // Listen for calibration window close from X button
   useEffect(() => {

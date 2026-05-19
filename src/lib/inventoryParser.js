@@ -1047,15 +1047,82 @@ export function parseInventory(raw, exports) {
     owned: true
   }));
 
-  const resources = [], prime_parts = [];
+  const resources = [], prime_parts = [], primeSets = {};
+
+  // Build owned items map for quick lookup (for prime sets)
+  const primeItemCounts = new Map();
+  for (const item of (raw.MiscItems ?? [])) {
+    const un = item.ItemType ?? '';
+    if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/')) continue;
+    primeItemCounts.set(un, item.ItemCount ?? 1);
+  }
+
+  // Find all prime weapon/warframe recipes and build sets
+  const seenPrimeSets = new Set();
+  for (const [bpKey, recipe] of Object.entries(ERecipe ?? {})) {
+    if (!recipe?.resultType) continue;
+    const resultName = resolveName(recipe.resultType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
+
+    // Check if this is a prime item (but not a component blueprint)
+    if (!/Prime$/i.test(resultName)) continue;
+    if (bpKey.includes('HelmetBlueprint') || bpKey.includes('ChassisBlueprint') ||
+        bpKey.includes('SystemsBlueprint') || bpKey.includes('HarnessBlueprint') ||
+        bpKey.includes('WingsBlueprint') || bpKey.includes('BarrelBlueprint') ||
+        bpKey.includes('ReceiverBlueprint') || bpKey.includes('StockBlueprint') ||
+        bpKey.includes('BladeBlueprint') || bpKey.includes('HandleBlueprint') ||
+        bpKey.includes('LinkBlueprint') || bpKey.includes('NeuropticsBlueprint') ||
+        bpKey.includes('CarapaceBlueprint') || bpKey.includes('CerebrumBlueprint')) continue;
+
+    const baseName = resultName;
+    if (seenPrimeSets.has(baseName)) continue;
+    seenPrimeSets.add(baseName);
+
+    const setParts = [];
+    let ownedCount = 0;
+    let totalCount = 0;
+
+    // Use the result item's image (parent item) not a component's image
+    const parentImage = resolveImage(recipe.resultType, EW, EWf, ER, ES);
+
+    // Add the main item blueprint (always include, even if not owned)
+    const bpQty = primeItemCounts.get(bpKey) ?? 0;
+    setParts.push({ unique_name: bpKey, name: resultName + ' Blueprint', image: parentImage, quantity: bpQty, owned: bpQty > 0 });
+    if (bpQty > 0) ownedCount += bpQty;
+    totalCount += 1;
+
+    // Add prime components from recipe ingredients (exclude resources like orokin cells)
+    const isPrimeComponent = (name) => /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum)/i.test(name);
+    for (const ing of (recipe.ingredients ?? [])) {
+      const ingName = resolveName(ing.ItemType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
+
+      // Skip resources - only include prime components
+      if (!isPrimeComponent(ingName)) continue;
+
+      const ownedQty = primeItemCounts.get(ing.ItemType) ?? 0;
+      setParts.push({ unique_name: ing.ItemType, name: ingName, image: resolveImage(ing.ItemType, EW, ER, ERel), quantity: ownedQty, owned: ownedQty > 0 });
+      if (ownedQty > 0) ownedCount += ownedQty;
+      totalCount += 1;
+    }
+
+    if (setParts.length > 0) {
+      primeSets[baseName] = { name: baseName, parts: setParts, ownedCount, totalCount, image: parentImage };
+      // Also add individual parts to prime_parts array for backwards compatibility
+      setParts.forEach(p => {
+        if (p.owned) prime_parts.push({ ...p, setName: baseName, category: 'prime_parts' });
+      });
+    }
+  }
+
+  // Add non-prime resources
   for (const item of (raw.MiscItems ?? [])) {
     const un = item.ItemType ?? '';
     if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/')) continue;
     const name = resolveName(un, dict, ER, ERel);
     const isPrimePart = /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum)/i.test(name);
-    const obj = { unique_name: un, name, image: resolveImage(un, ER, ERel), category: isPrimePart ? 'prime_parts' : 'resources', quantity: item.ItemCount ?? 1, owned: true };
-    if (isPrimePart) prime_parts.push(obj);
-    else resources.push(obj);
+    if (!isPrimePart) {
+      const obj = { unique_name: un, name, image: resolveImage(un, ER, ERel), category: 'resources', quantity: item.ItemCount ?? 1, owned: true };
+      resources.push(obj);
+    }
   }
 
   const resolveRelicRewards = (entry, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe, ERew) => {
@@ -1497,7 +1564,7 @@ export function parseInventory(raw, exports) {
     companion_weapons,
     vehicles: [...archwings, ...kdrives], // Compatibility
     archwings, kdrives,
-    archweapons, necramechs, amps, mods, arcanes, relics, resources, rivens, prime_parts, intrinsics, starchart, plexus, all,
+    archweapons, necramechs, amps, mods, arcanes, relics, resources, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
     kitgunChambers, zawStrikes, moaHeads, houndHeads,
 
     // ── Craftable Items (all recipes with ingredient checks) ──

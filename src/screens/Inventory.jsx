@@ -22,8 +22,8 @@ const INVENTORY_TABS = [
   { id: 'amps', label: 'Amps' },
   { id: 'arcanes', label: 'Arcanes' },
   { id: 'mods', label: 'Mods' },
-  { id: 'prime_parts', label: 'Prime Parts' },
   { id: 'resources', label: 'Resources' },
+  { id: 'prime_parts', label: 'Prime Sets' },
 ]
 
 const FILTER_CONFIG = {
@@ -38,7 +38,7 @@ const FILTER_CONFIG = {
   amps: ['mastered'],
   arcanes: [],
   mods: [],
-  prime_parts: ['owned', 'mastered'],
+  prime_parts: [],
   resources: [],
 }
 
@@ -54,7 +54,7 @@ const SORT_CONFIG = {
   amps: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
   arcanes: [{ id: 'name', label: 'Name' }, { id: 'rank', label: 'Rank' }, { id: 'quantity', label: 'Count' }],
   mods: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }, { id: 'rank', label: 'Rank' }],
-  prime_parts: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }],
+  prime_parts: [{ id: 'name', label: 'Name' }, { id: 'completion', label: 'Completion' }],
   resources: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }],
 }
 
@@ -449,6 +449,9 @@ export default function Inventory() {
 
   const tabItems = useMemo(() => {
     if (!inventoryData) return []
+    if (activeTab === 'prime_parts') {
+      return Object.values(inventoryData.primeSets ?? {})
+    }
     return inventoryData[activeTab] ?? []
   }, [inventoryData, activeTab])
 
@@ -456,10 +459,15 @@ export default function Inventory() {
     let items = tabItems
     if (searchQuery) {
       const q = searchQuery.toLowerCase()
-      items = items.filter(item => 
-        (item.name ?? '').toLowerCase().includes(q) ||
-        (item.components ?? []).some(comp => comp.toLowerCase().includes(q))
-      )
+      items = items.filter(item => {
+        // Prime sets - search in set name and part names
+        if (activeTab === 'prime_parts') {
+          return (item.name ?? '').toLowerCase().includes(q) ||
+            (item.parts ?? []).some(p => p.name.toLowerCase().includes(q))
+        }
+        return (item.name ?? '').toLowerCase().includes(q) ||
+          (item.components ?? []).some(comp => comp.toLowerCase().includes(q))
+      })
     }
     const filters = FILTER_CONFIG[activeTab] ?? []
     const activeF = filters.filter(f => currentFilters[f])
@@ -482,6 +490,12 @@ export default function Inventory() {
       })
     }
     items = [...items].sort((a, b) => {
+      // Special handling for prime_parts completion sort
+      if (activeTab === 'prime_parts' && sortCriteria === 'completion') {
+        const aComplete = (a.ownedCount ?? 0) / (a.totalCount ?? 1)
+        const bComplete = (b.ownedCount ?? 0) / (b.totalCount ?? 1)
+        return sortDirection === 'asc' ? aComplete - bComplete : bComplete - aComplete
+      }
       let av = a[sortCriteria] ?? ''; let bv = b[sortCriteria] ?? ''
       if (typeof av === 'boolean') av = av ? 1 : 0
       if (typeof bv === 'boolean') bv = bv ? 1 : 0
@@ -592,6 +606,89 @@ export default function Inventory() {
         ) : (
           filteredItems.length === 0 ? (
             <div className="text-center py-20 text-kronos-dim">No items found in {tabLabel.toLowerCase()}.</div>
+          ) : activeTab === 'prime_parts' ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-4">
+              {visibleItems.map((set, idx) => {
+                // Find parent item to check owned/mastered status - search all equipment arrays
+                const searchArrays = [
+                  inventoryData.warframes, inventoryData.primary, inventoryData.secondary,
+                  inventoryData.melee, inventoryData.sentinels, inventoryData.beasts,
+                  inventoryData.moas, inventoryData.hounds, inventoryData.archwings,
+                  inventoryData.necramechs, inventoryData.amps
+                ]
+                const parentItem = searchArrays.flat().find(i =>
+                  i.name === set.name || i.name === set.name + ' Prime'
+                ) ?? { owned: false, mastered: false }
+                const isParentOwned = parentItem.owned
+                const isParentMastered = parentItem.mastered
+
+                // Count unique components owned (presence, not quantity)
+                const uniqueOwned = set.parts.filter(p => p.quantity > 0).length
+                const uniqueTotal = set.parts.length
+                const completion = Math.min(100, uniqueOwned / uniqueTotal * 100)
+                const isComplete = uniqueOwned >= uniqueTotal
+                const bpPart = set.parts.find(p => p.name.includes('Blueprint'))
+                const bpCount = bpPart?.quantity ?? 0
+                const setsPossible = bpCount > 0 && uniqueOwned >= uniqueTotal ? bpCount : 0
+
+                return (
+                  <div key={set.name + idx} className={`rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20 ${isComplete ? 'border-green-500/30' : ''}`}>
+                    {/* Header: image + name + badges */}
+                    <div className={`flex items-center gap-4 px-4 py-5 border-b border-white/5 relative ${isComplete ? 'bg-green-500/5' : ''}`}>
+                      <div className="w-28 h-28 flex items-center justify-center flex-shrink-0">
+                        {set.image
+                          ? <img src={set.image} alt="" className="max-w-full max-h-full object-contain" />
+                          : <div className="w-14 h-14 rounded bg-white/5" />
+                        }
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-start">
+                          <div className="min-w-0 flex-1">
+                            <p className="text-xl font-black text-kronos-text uppercase whitespace-normal leading-tight">{set.name} Set</p>
+                            <span className={`text-[10px] font-black px-2 py-0.5 rounded mt-2 inline-block ${isComplete ? 'bg-green-500/20 text-green-400' : 'bg-kronos-accent/20 text-kronos-accent'}`}>
+                              {setsPossible > 0 ? `${setsPossible} Set${setsPossible > 1 ? 's' : ''}` : `${uniqueOwned}/${uniqueTotal} (${Math.round(completion)}%)`}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-wrap gap-2 mt-4">
+                          {/* Owned Status */}
+                          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${isParentOwned ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : 'bg-white/5 border-white/5 text-kronos-dim'}`}>
+                            <span className="text-[10px] font-black uppercase tracking-wider">{isParentOwned ? 'Owned' : 'Unowned'}</span>
+                          </div>
+
+                          {/* Mastery Status */}
+                          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${isParentMastered ? 'bg-purple-500/10 border-purple-500/30 text-purple-400' : 'bg-white/5 border-white/5 text-kronos-dim'}`}>
+                            <span className="text-[10px] font-black uppercase tracking-wider">{isParentMastered ? 'Mastered' : 'Unmastered'}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Parts grid */}
+                    <div className="grid gap-px border-t border-white/5" style={{ gridTemplateColumns: `repeat(${Math.min(set.parts.length, 6)}, 1fr)` }}>
+                      {set.parts.map((part, pi) => {
+                        const met = part.quantity > 0
+                        const isBlueprint = part.name.includes('Blueprint')
+                        return (
+                          <div key={pi} className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
+                            <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
+                              {part.image
+                                ? <img src={part.image} alt="" className="max-w-full max-h-full object-contain" />
+                                : <div className="w-7 h-7 rounded bg-white/5" />
+                              }
+                              {isBlueprint && <img src="/BlueprintOverlay.png" alt="" className="absolute inset-0 w-full h-full object-contain" />}
+                            </div>
+                            <p className="text-[12px] font-medium text-kronos-dim text-center leading-tight w-full px-1 truncate">{part.name.split(' ').slice(-1)[0]}</p>
+                            {part.quantity > 0 && <span className={`text-[10px] font-black ${part.owned ? 'text-green-400' : 'text-kronos-dim'}`}>×{part.quantity}</span>}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 pb-4">
               {visibleItems.map((item, idx) => {

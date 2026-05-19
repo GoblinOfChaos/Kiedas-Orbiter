@@ -580,17 +580,23 @@ export default function Checklist() {
       return tomorrow.getTime()
     }
     if (resetType === 'weekly') {
+      // Weekly resets every Monday at 00:00 UTC
       const now = new Date()
-      const nextMonday = new Date(now)
-      const daysUntilMonday = (1 - nextMonday.getUTCDay() + 7) % 7
-      nextMonday.setUTCDate(nextMonday.getUTCDate() + daysUntilMonday)
-      nextMonday.setUTCHours(0, 0, 0, 0)
-      if (nextMonday.getTime() <= now.getTime()) {
-        nextMonday.setUTCDate(nextMonday.getUTCDate() + 7)
+      const next = new Date(now)
+      next.setUTCHours(0, 0, 0, 0)
+      // Day 1 = Monday
+      const dayOfWeek = next.getUTCDay()
+      const daysUntilMonday = (7 - dayOfWeek + 1) % 7
+      next.setUTCDate(next.getUTCDate() + daysUntilMonday)
+      // If next Monday is at or before now, push to following Monday
+      // Use < (strictly before) so that exactly at midnight returns current Monday
+      if (next.getTime() < now.getTime()) {
+        next.setUTCDate(next.getUTCDate() + 7)
       }
-      return nextMonday.getTime()
+      return next.getTime()
     }
     if (resetType === 'biweekly') {
+      // Biweekly resets every 2 weeks on Monday at 00:00 UTC
       const now = new Date()
       const next = new Date(now)
       next.setUTCHours(0, 0, 0, 0)
@@ -599,6 +605,7 @@ export default function Checklist() {
       return nextCycle.getTime()
     }
     if (resetType === 'other') {
+      // 8-hour resets
       const now = new Date()
       const next = new Date(now)
       next.setUTCHours(next.getUTCHours() + 8 - (next.getUTCHours() % 8), 0, 0, 0)

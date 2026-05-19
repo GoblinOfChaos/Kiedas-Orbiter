@@ -598,7 +598,14 @@ export function parseInventory(raw, exports) {
         }
       } else {
         mastery_xp = grantsMastery ? (effectiveRank * baseMasteryPerRank) : 0;
-        mastered = grantsMastery && (effectiveRank >= limit);
+
+        // Correct threshold: Affinity XP needed for max rank = limit² * baseXPPerRank
+        const isHeavy = heavyCategories.includes(category);
+        const baseXPPerRank = isHeavy ? 1000 : 500;
+        const affinityThreshold = limit * limit * baseXPPerRank;
+        const lifetimeMastered = xp >= affinityThreshold;
+
+        mastered = grantsMastery && ((sourceItem?.mastered ?? false) || lifetimeMastered);
       }
       max_mastery_xp = limit * baseMasteryPerRank;
     }
@@ -1530,8 +1537,8 @@ export function parseInventory(raw, exports) {
 
       // Also check the processed all array
       all.forEach(item => {
-        if (item.owned && item.uniqueName) {
-          ownedItemCounts[item.uniqueName] = (ownedItemCounts[item.uniqueName] ?? 0) + 1;
+        if (item.owned && item.unique_name) {
+          ownedItemCounts[item.unique_name] = (ownedItemCounts[item.unique_name] ?? 0) + 1;
         }
       });
 
@@ -1588,10 +1595,24 @@ export function parseInventory(raw, exports) {
         ).reduce((sum, i) => sum + (i.quantity ?? 1), 0);
         const fullItemOwned = ownedCount > 0;
 
-        // Check if mastered
-        const masteredEntry = all.find(i => (i.name === baseName || i.name === baseName + " Prime"));
-        const isMastered = masteredEntry?.mastered ?? false;
-        let hasMastery = masteredEntry ? (masteredEntry.category !== 'resources' && masteredEntry.category !== 'mods' && masteredEntry.category !== 'arcanes' && masteredEntry.category !== 'prime_parts') : false;
+        // Check if mastered - also check sentinels, moas, hounds arrays for companions
+        // Use flexible matching: exact match, " Prime" suffix, or contains match
+        const findByName = (arr) => arr?.find(i =>
+          i.name === baseName ||
+          i.name === baseName + " Prime" ||
+          i.name.includes(baseName) ||
+          baseName.includes(i.name)
+        );
+        const masteredEntry = findByName(all)
+          || findByName(sentinels)
+          || findByName(moas)
+          || findByName(hounds)
+          || findByName(beasts);
+
+        // XP is keyed by resultType (item path), not blueprint path (bpKey)
+        const xp = xpMap[recipe.resultType] ?? 0;
+        const isMastered = (masteredEntry?.mastered ?? false) || (xp > 0);
+        let hasMastery = masteredEntry ? (masteredEntry.category !== 'resources' && masteredEntry.category !== 'mods' && masteredEntry.category !== 'arcanes' && masteredEntry.category !== 'prime_parts') : (xp > 0);
 
         // Modular parts mastery fix: only Strikes, Chambers, and Heads provide mastery
         if (hasMastery && (bpKey.includes('Modular') || bpKey.includes('/Ostron/Melee/') || bpKey.includes('/SolarisUnited/') || bpKey.includes('/InfKitGun/'))) {

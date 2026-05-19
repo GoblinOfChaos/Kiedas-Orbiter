@@ -70,7 +70,7 @@ export default function Relics() {
       const evPlatRadiant = getRelicEV(sortedRewards, 'Radiant', squadSize, 'plat');
       const evDucatsIntact = getRelicEV(sortedRewards, 'Intact', squadSize, 'ducats');
       const evDucatsRadiant = getRelicEV(sortedRewards, 'Radiant', squadSize, 'ducats');
-      
+
       const platGain = evPlatRadiant - evPlatIntact;
       const ducatGain = evDucatsRadiant - evDucatsIntact;
 
@@ -125,11 +125,11 @@ export default function Relics() {
         {/* Search Bar */}
         <div className="relative flex-1 min-w-[200px] group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
-          <Input 
-            placeholder="Search relics or rewards…" 
-            value={searchQuery} 
-            onChange={e => setSearchQuery(e.target.value)} 
-            className="pl-12 bg-black/20 border-white/5 h-[42px]" 
+          <Input
+            placeholder="Search relics or rewards…"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            className="pl-12 bg-black/20 border-white/5 h-[42px]"
           />
         </div>
 
@@ -236,8 +236,8 @@ export default function Relics() {
   )
 
   return (
-    <PageLayout 
-      title="Void Relics" 
+    <PageLayout
+      title="Void Relics"
       subtitle={`Showing ${totalFilteredGroups} relic types · ${totalFilteredItems} total`}
       headerPanel={renderHeaderPanel()}
     >
@@ -355,25 +355,25 @@ export default function Relics() {
                               <div className="flex items-center justify-between">
                                 {era !== 'Requiem' && (
                                   <div className="flex items-center gap-1.5" title={`Expected Ducats (${evRefinement}, Squad of ${squadSize})`}>
-                                    <span className="text-[8px] font-black text-kronos-dim uppercase tracking-tighter">EXP DUCATS</span>
-                                    <span className="text-[10px] font-black text-blue-400">{Math.round(item.evDucats)}</span>
+                                    <span className="text-[12px] font-black text-kronos-dim uppercase tracking-tighter">EXP DUCATS</span>
+                                    <span className="text-[12px] font-black text-blue-400">{Math.round(item.evDucats)}</span>
                                   </div>
                                 )}
                                 <div className="flex items-center gap-1.5" title={`Expected Platinum (${evRefinement}, Squad of ${squadSize})`}>
-                                  <span className="text-[8px] font-black text-kronos-dim uppercase tracking-tighter">EXP PLAT</span>
-                                  <span className="text-[10px] font-black text-kronos-accent">{Math.round(item.evPlat)}P</span>
+                                  <span className="text-[12px] font-black text-kronos-dim uppercase tracking-tighter">EXP PLAT</span>
+                                  <span className="text-[12px] font-black text-kronos-accent">{Math.round(item.evPlat)}P</span>
                                 </div>
                               </div>
 
                               {(sortMode === 'ducat_gain' || sortMode === 'plat_gain') && (
                                 <div className="flex items-center justify-between border-t border-white/5 pt-1.5 mt-0.5">
                                   <div className="flex items-center gap-1.5" title="Expected Ducat gain from refining to Radiant">
-                                    <span className="text-[8px] font-black text-kronos-accent/70 uppercase tracking-tighter">GAIN (D)</span>
-                                    <span className="text-[10px] font-black text-blue-400">+{Math.round(item.ducatGain)}</span>
+                                    <span className="text-[12px] font-black text-kronos-accent/70 uppercase tracking-tighter">GAIN (D)</span>
+                                    <span className="text-[12px] font-black text-blue-400">+{Math.round(item.ducatGain)}</span>
                                   </div>
                                   <div className="flex items-center gap-1.5" title="Expected Platinum gain from refining to Radiant">
-                                    <span className="text-[8px] font-black text-kronos-accent/70 uppercase tracking-tighter">GAIN (P)</span>
-                                    <span className="text-[10px] font-black text-kronos-accent">+{Math.round(item.platGain)}P</span>
+                                    <span className="text-[12px] font-black text-kronos-accent/70 uppercase tracking-tighter">GAIN (P)</span>
+                                    <span className="text-[12px] font-black text-kronos-accent">+{Math.round(item.platGain)}P</span>
                                   </div>
                                 </div>
                               )}

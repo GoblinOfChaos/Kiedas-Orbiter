@@ -107,19 +107,79 @@ export async function getPricesBatch(items) {
   return { results, hadNetworkActivity: true };
 }
 
+const WFM_MISSPELLINGS = {
+  'kompressa_prime_receiver': 'kompressa_prime_reciever', // Known WFM misspelling
+};
+
 function toWfmSlug(itemName) {
-  return itemName
+  let slug = itemName
     .toLowerCase()
     .trim()
     .replace(/\s+/g, '_')
+    .replace(/&/g, 'and')
     .replace(/[()]/g, '')
     .replace(/_blueprints$/, '_blueprint')
     .replace(/_blueprint_blueprint$/, '_blueprint');
+
+  // Check for known misspellings (full slug match)
+  if (WFM_MISSPELLINGS[slug]) {
+    slug = WFM_MISSPELLINGS[slug];
+  }
+
+  return slug;
 }
 
 
+function generateSlugVariants(itemName) {
+  const variants = [];
+  const base = itemName
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '_')
+    .replace(/&/g, 'and')
+    .replace(/[()]/g, '')
+    .replace(/_blueprints$/, '_blueprint')
+    .replace(/_blueprint_blueprint$/, '_blueprint');
+
+  variants.push(base);
+
+  // Try without "prime" suffix variations
+  if (base.includes('_prime_')) {
+    const withoutPrime = base.replace('_prime_', '_');
+    variants.push(withoutPrime);
+  }
+
+  // Try with variations for "blueprint" vs "blueprints"
+  if (base.includes('blueprint')) {
+    const withoutS = base.replace('blueprint', 'blueprints');
+    const withS = base.replace('blueprints', 'blueprint');
+    variants.push(withoutS, withS);
+  }
+
+  return [...new Set(variants)];
+}
+
 async function fetchWfmPrice(slug) {
   lastFetchTime = Date.now();
+
+  // Try original slug first
+  let price = await tryFetchPrice(slug);
+  if (price !== null && price > 0) return price;
+
+  // If failed and slug looks like it might have issues, try variants
+  const itemName = slug.replace(/_/g, ' ').replace(/market$/i, '').trim();
+  const variants = generateSlugVariants(itemName);
+
+  for (const variant of variants) {
+    if (variant === slug) continue; // already tried
+    price = await tryFetchPrice(variant);
+    if (price !== null && price > 0) return price;
+  }
+
+  return 0;
+}
+
+async function tryFetchPrice(slug) {
   try {
     const url = `https://api.warframe.market/v2/orders/item/${slug}`;
     const response = await tauriFetch(url, {

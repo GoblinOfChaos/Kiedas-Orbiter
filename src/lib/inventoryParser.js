@@ -1091,7 +1091,7 @@ export function parseInventory(raw, exports) {
     totalCount += 1;
 
     // Add prime components from recipe ingredients (exclude resources like orokin cells)
-    const isPrimeComponent = (name) => /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum)/i.test(name);
+    const isPrimeComponent = (name) => /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum|Guard|Hilt)/i.test(name);
     for (const ing of (recipe.ingredients ?? [])) {
       const ingName = resolveName(ing.ItemType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
 
@@ -1118,7 +1118,7 @@ export function parseInventory(raw, exports) {
     const un = item.ItemType ?? '';
     if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/')) continue;
     const name = resolveName(un, dict, ER, ERel);
-    const isPrimePart = /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum)/i.test(name);
+    const isPrimePart = /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum|Guard|Hilt)/i.test(name);
     if (!isPrimePart) {
       const obj = { unique_name: un, name, image: resolveImage(un, ER, ERel), category: 'resources', quantity: item.ItemCount ?? 1, owned: true };
       resources.push(obj);

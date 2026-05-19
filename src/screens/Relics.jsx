@@ -43,11 +43,13 @@ export default function Relics() {
     const matchQuality = activeQuality === 'All' || (r.refinements && r.refinements[activeQuality] > 0)
     if (!matchQuality) return false
 
-    const search = searchQuery.toLowerCase()
-    if (!search) return true
+    const search = searchQuery.toLowerCase().split(/\s+/).filter(w => w.length > 0);
+    if (search.length === 0) return true
 
-    const matchName = r.name.toLowerCase().includes(search)
-    const matchRewards = r.rewards?.some(rw => rw.name.toLowerCase().includes(search))
+    const matchName = search.every(word => r.name.toLowerCase().includes(word))
+    const matchRewards = r.rewards?.some(rw => 
+      search.every(word => rw.name.toLowerCase().includes(word))
+    )
 
     return matchName || matchRewards
   })
@@ -323,7 +325,10 @@ export default function Relics() {
                           <div className="flex-1 flex flex-col min-w-0 pr-1 pl-1">
                             <div className="flex-1 flex flex-col justify-center gap-0.5">
                               {sortedRewards.map((reward, ridx) => {
-                                const isMatch = searchQuery && reward.name.toLowerCase().includes(searchQuery.toLowerCase());
+                                const rewardLower = reward.name.toLowerCase()
+                                const cleanReward = rewardLower.replace(/[&]/g, '')
+                                const searchWords = searchQuery.toLowerCase().split(/\s+/).filter(w => w.length > 0)
+                                const isMatch = searchWords.length > 0 && searchWords.every(word => rewardLower.includes(word) || cleanReward.includes(word))
                                 const rarityColor = reward.rarity === 'COMMON' ? 'text-gray-400/80' : (reward.rarity === 'UNCOMMON' ? 'text-white/90' : 'text-orange-400');
                                 const plat = reward.plat;
                                 return (

@@ -458,16 +458,16 @@ export default function Inventory() {
   const filteredItems = useMemo(() => {
     let items = tabItems
     if (searchQuery) {
-      const q = searchQuery.toLowerCase()
+      const q = searchQuery.toLowerCase().split(/\s+/).filter(w => w.length > 0);
       items = items.filter(item => {
-        // Prime sets - search in set name and part names
-        if (activeTab === 'prime_parts') {
-          return (item.name ?? '').toLowerCase().includes(q) ||
-            (item.parts ?? []).some(p => p.name.toLowerCase().includes(q))
-        }
-        return (item.name ?? '').toLowerCase().includes(q) ||
-          (item.components ?? []).some(comp => comp.toLowerCase().includes(q))
-      })
+        const itemName = (item.name ?? '').toLowerCase();
+        const components = (item.components ?? []).map(c => c.toLowerCase());
+        
+        // Match if ALL search words exist somewhere in either the name OR components
+        return q.every(word => 
+          itemName.includes(word) || components.some(c => c.includes(word))
+        );
+      });
     }
     const filters = FILTER_CONFIG[activeTab] ?? []
     const activeF = filters.filter(f => currentFilters[f])

@@ -19,6 +19,25 @@ pub fn set_fissure_ui_scale(scale: u32) {
     USER_UI_SCALE.store(scale, Ordering::SeqCst);
 }
 
+pub fn get_target_monitor(app: &AppHandle) -> Option<Monitor> {
+    let state = app.state::<crate::AppState>();
+    let target_idx = *state.target_monitor.lock().unwrap();
+    let monitors = Monitor::all().unwrap_or_default();
+    if monitors.is_empty() {
+        return None;
+    }
+    if let Some(idx) = target_idx {
+        if idx < monitors.len() {
+            return Some(monitors[idx].clone());
+        }
+    }
+    // Fall back to primary monitor
+    let primary = monitors.iter()
+        .find(|m| m.is_primary().unwrap_or(false))
+        .cloned();
+    primary.or_else(|| monitors.first().cloned())
+}
+
 /// Logs to stderr (dev) and disk (prod). Requires an `AppHandle` reference named `app_c` in scope.
 macro_rules! ocr_log {
     ($app:expr, $($arg:tt)*) => {{
@@ -320,11 +339,7 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             }
 
             // ── Screen capture ─────────────────────────────────────────────────
-            let monitors = Monitor::all().unwrap_or_default();
-            if monitors.is_empty() { continue; }
-            let monitor = monitors.iter()
-                .find(|m| m.is_primary().unwrap_or(false))
-                .unwrap_or(&monitors[0]);
+            let Some(monitor) = get_target_monitor(&app) else { continue; };
 
             let screen = match monitor.capture_image() {
                 Ok(s) => s,
@@ -650,9 +665,8 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
     std::thread::spawn(move || {
         let start_time = std::time::Instant::now();
         let dynamic_image = if let Some(img) = captured_image.clone() { img } else {
-            let monitors = Monitor::all().unwrap_or_default();
-            if monitors.is_empty() { return; }
-            let Ok(image) = monitors[0].capture_image() else { return; };
+            let Some(monitor) = get_target_monitor(&app_c) else { return; };
+            let Ok(image) = monitor.capture_image() else { return; };
             DynamicImage::ImageRgba8(image)
         };
         
@@ -870,9 +884,8 @@ fn get_tesseract_config(app: &AppHandle) -> (PathBuf, Option<PathBuf>) {
 #[tauri::command]
 pub async fn save_debug_screenshot(app: AppHandle) -> Result<String, String> {
     tokio::time::sleep(std::time::Duration::from_secs(5)).await;
-    let monitors = Monitor::all().unwrap_or_default();
-    if monitors.is_empty() { return Err("No monitors found".to_string()); }
-    let Ok(image) = monitors[0].capture_image() else { return Err("Capture failed".to_string()); };
+    let Some(monitor) = get_target_monitor(&app) else { return Err("No target monitor resolved".to_string()); };
+    let Ok(image) = monitor.capture_image() else { return Err("Capture failed".to_string()); };
     let dynamic_image = DynamicImage::ImageRgba8(image);
     
     let sw = dynamic_image.width() as f64;

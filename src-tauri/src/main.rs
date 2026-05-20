@@ -24,6 +24,7 @@ pub struct AppState {
     /// Written by `write_ocr_wordlist`, consumed by the OCR pipeline.
     pub ocr_wordlist_path: Arc<Mutex<Option<std::path::PathBuf>>>,
     pub active_relic_data: Arc<Mutex<Option<serde_json::Value>>>,
+    pub target_monitor: Arc<Mutex<Option<usize>>>,
 }
 
 // ─── Path Resolution ──────────────────────────────────────────────────────────
@@ -751,6 +752,25 @@ fn show_overlay_window(
     overlay_utils::show_window_internal(&app_handle, &label)
 }
 
+fn get_overlay_monitor(app_handle: &tauri::AppHandle, window: &tauri::Window) -> Result<tauri::Monitor, String> {
+    let state = app_handle.state::<crate::AppState>();
+    let target_idx = *state.target_monitor.lock().unwrap();
+    let monitors = window.available_monitors()
+        .map_err(|e| e.to_string())?;
+    
+    if let Some(idx) = target_idx {
+        if idx < monitors.len() {
+            return Ok(monitors[idx].clone());
+        }
+    }
+    
+    // Fall back to current monitor or primary monitor
+    window.current_monitor()
+        .map_err(|e| e.to_string())?
+        .or_else(|| window.primary_monitor().ok().flatten())
+        .ok_or_else(|| "no monitor found".to_string())
+}
+
 #[tauri::command]
 fn resize_overlay_window(
     app_handle: tauri::AppHandle,
@@ -762,10 +782,7 @@ fn resize_overlay_window(
         .get_window(&label)
         .ok_or_else(|| format!("window '{}' not found", label))?;
 
-    let monitor = window.current_monitor()
-        .map_err(|e| e.to_string())?
-        .or_else(|| window.primary_monitor().ok().flatten())
-        .ok_or("no monitor found")?;
+    let monitor = get_overlay_monitor(&app_handle, &window)?;
 
     let screen_w = monitor.size().width;
     let _screen_h = monitor.size().height;
@@ -1228,6 +1245,65 @@ async fn load_settings() -> Result<Value, String> {
     serde_json::from_str(&content).map_err(|e| e.to_string())
 }
 
+#[derive(serde::Serialize)]
+struct MonitorInfo {
+    index: usize,
+    name: String,
+    width: u32,
+    height: u32,
+    is_primary: bool,
+}
+
+#[tauri::command]
+async fn get_available_monitors() -> Result<Vec<MonitorInfo>, String> {
+    let monitors = xcap::Monitor::all().map_err(|e| e.to_string())?;
+    let list = monitors.into_iter().enumerate().map(|(idx, m)| {
+        let name = m.name().map(|n| n.to_string()).unwrap_or_else(|_| format!("Monitor {}", idx + 1));
+        let width = m.width().unwrap_or(1920);
+        let height = m.height().unwrap_or(1080);
+        let is_primary = m.is_primary().unwrap_or(false);
+        MonitorInfo {
+            index: idx,
+            name,
+            width,
+            height,
+            is_primary,
+        }
+    }).collect();
+    Ok(list)
+}
+
+#[tauri::command]
+fn set_target_monitor(state: tauri::State<'_, AppState>, monitor: Value) -> Result<(), String> {
+    let mut current = state.target_monitor.lock().unwrap();
+    let new_val = match &monitor {
+        Value::Number(n) => n.as_u64().map(|v| v as usize),
+        Value::String(s) => {
+            if s == "auto" { None } else { s.parse::<usize>().ok() }
+        }
+        _ => None,
+    };
+    *current = new_val;
+    
+    // Also persist to settings file
+    let settings_path = resolve_path("data/user/settings.json");
+    let mut settings: Value = if settings_path.exists() {
+        let content = std::fs::read_to_string(&settings_path).map_err(|e| e.to_string())?;
+        serde_json::from_str(&content).unwrap_or_default()
+    } else {
+        serde_json::json!({})
+    };
+    settings["fissure_target_monitor"] = monitor;
+    let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
+    
+    if let Some(parent) = settings_path.parent() {
+        std::fs::create_dir_all(parent).ok();
+    }
+    std::fs::write(&settings_path, content).map_err(|e| e.to_string())?;
+    
+    Ok(())
+}
+
 // ─── Entry Point ──────────────────────────────────────────────────────────────
 
 fn main() {
@@ -1244,6 +1320,15 @@ fn main() {
     let saved_sound = saved_settings.get("notif_sound")
         .and_then(|v| v.as_str())
         .unwrap_or("notification1.wav");
+
+    let target_monitor_val = saved_settings.get("fissure_target_monitor");
+    let target_monitor_idx = match target_monitor_val {
+        Some(Value::Number(n)) => n.as_u64().map(|v| v as usize),
+        Some(Value::String(s)) => {
+            if s == "auto" { None } else { s.parse::<usize>().ok() }
+        }
+        _ => None,
+    };
     
     // Fix xcap screen capture on Linux inside AppImage:
     // When run from an AppImage, the usual env-var workarounds for WebKit / Mesa
@@ -1265,6 +1350,7 @@ fn main() {
             log_scanner_path: Arc::new(Mutex::new(None)),
             ocr_wordlist_path: Arc::new(Mutex::new(None)),
             active_relic_data: Arc::new(Mutex::new(None)),
+            target_monitor: Arc::new(Mutex::new(target_monitor_idx)),
         })
         .on_window_event(|event| match event.event() {
             tauri::WindowEvent::CloseRequested { api, .. } => {
@@ -1331,6 +1417,8 @@ fn main() {
             register_hotkey,
             unregister_all_hotkeys,
             crate::ocr::set_fissure_ui_scale,
+            get_available_monitors,
+            set_target_monitor,
             // --- calibration ---
             toggle_calibration,
         ])

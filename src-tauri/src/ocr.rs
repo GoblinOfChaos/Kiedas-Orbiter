@@ -43,23 +43,66 @@ pub struct OcrBandResult {
 
 // User-provided coordinates for 1920x1080
 // Rewards are centered - adjust positions accordingly
-fn get_base_region(squad_size: usize) -> (f64, f64, f64, f64) {
-    match squad_size {
-        2 => (719.0 / 1920.0, 409.0 / 1080.0, 481.0 / 1920.0, 51.0 / 1080.0),
-        3 => (600.0 / 1920.0, 409.0 / 1080.0, 720.0 / 1920.0, 51.0 / 1080.0),
-        4 => (478.0 / 1920.0, 409.0 / 1080.0, 965.0 / 1920.0, 51.0 / 1080.0),
-        _ => (839.0 / 1920.0, 409.0 / 1080.0, 241.0 / 1920.0, 51.0 / 1080.0),
-    }
+// Return pixel regions for a given squad size and current UI scale
+fn get_slot_rects(squad_size: usize, active_scale: f64) -> Vec<(u32, u32, u32, u32)> {
+    // Base 1.0 coordinates at 1920x1080 resolution (with corrected first slot typo: 418 -> 478)
+    let base_rects = match squad_size {
+        4 => vec![
+            (478, 412, 235, 48),
+            (721, 412, 235, 48),
+            (965, 412, 235, 48),
+            (1209, 412, 235, 48),
+        ],
+        3 => vec![
+            (600, 412, 235, 48),
+            (842, 412, 235, 48),
+            (1084, 412, 235, 48),
+        ],
+        2 => vec![
+            (721, 412, 235, 48),
+            (965, 412, 235, 48),
+        ],
+        _ => return vec![],
+    };
+
+    // Screen reference anchors for centered UI scaling (1920x1080 reference)
+    let cx = 960.0;
+    let cy = 540.0;
+
+    base_rects
+        .into_iter()
+        .map(|(x, y, w, h)| {
+            // 1. Calculate the center of the reference box
+            let box_cx = x as f64 + w as f64 / 2.0;
+            let box_cy = y as f64 + h as f64 / 2.0;
+
+            // 2. Scale the center point towards the screen center (960, 540)
+            let scaled_box_cx = cx + (box_cx - cx) * active_scale;
+            let scaled_box_cy = cy + (box_cy - cy) * active_scale;
+
+            // 3. Scale the dimensions
+            let scaled_w = w as f64 * active_scale;
+            let scaled_h = h as f64 * active_scale;
+
+            // 4. Reconstruct top-left coordinates
+            let scaled_x = scaled_box_cx - scaled_w / 2.0;
+            let scaled_y = scaled_box_cy - scaled_h / 2.0;
+
+            (
+                scaled_x.round() as u32,
+                scaled_y.round() as u32,
+                scaled_w.round() as u32,
+                scaled_h.round() as u32,
+            )
+        })
+        .collect()
 }
 
-fn get_slot_coords(squad_size: usize) -> Vec<(f64, f64, f64, f64)> {
-    let (bx, by, bw, bh) = get_base_region(squad_size);
-    let slot_w = bw / squad_size as f64;
-    let trim_x = 5.0 / 1920.0;
-    (0..squad_size).map(|i| {
-        (bx + (i as f64 * slot_w) + trim_x, by, slot_w - 2.0 * trim_x, bh)
-    }).collect()
+// Keep signature for compatibility
+fn get_slot_coords(_squad_size: usize) -> Vec<(f64, f64, f64, f64)> {
+    vec![]
 }
+
 
 pub fn run_ocr_pipeline_with_size(app: AppHandle, squad_size: usize) {
     run_ocr_internal(app, squad_size, false, None);
@@ -234,9 +277,9 @@ fn ncc_at(strip: &image::RgbImage, tmpl: &TemplateData, cx: i32, cy: i32) -> f32
 
 // ── Configuration scorer ───────────────────────────────────────────────────────
 
-/// Returns (mean_ncc_across_slots, n_slots_that_beat_PER_SLOT_MIN).
-fn score_config(slot_scores: &[f32; 7], indices: &[usize]) -> (f32, usize) {
-    let above = indices.iter().filter(|&&i| slot_scores[i] >= PER_SLOT_MIN).count();
+/// Returns (mean_ncc_across_slots, n_slots_that_beat_min_score).
+fn score_config(slot_scores: &[f32; 7], indices: &[usize], min_score: f32) -> (f32, usize) {
+    let above = indices.iter().filter(|&&i| slot_scores[i] >= min_score).count();
     let mean  = indices.iter().map(|&i| slot_scores[i]).sum::<f32>() / indices.len() as f32;
     (mean, above)
 }
@@ -297,11 +340,23 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             let sy = sh / 1080.0;
             let active_scale = USER_UI_SCALE.load(Ordering::SeqCst) as f64 / 100.0;
 
-            // ── Strip crop (centered at Y=478 for 1080p) ──────────────────────
-            let strip_x = ((555.0 / 1920.0) * sw) as u32;
-            let strip_y = ((428.0 / 1080.0) * sh) as u32;
-            let strip_w = ((810.0 / 1920.0) * sw).max(1.0) as u32;
-            let strip_h = ((100.0 / 1080.0) * sh).max(1.0) as u32;
+            // ── Strip crop (adjusted for resolution and active UI scale using centered scaling) ─────
+            let base_strip_cx = 960.0;
+            let base_strip_cy = 478.0;
+
+            let scaled_strip_cx = base_strip_cx;
+            let scaled_strip_cy = 540.0 + (base_strip_cy - 540.0) * active_scale;
+
+            let scaled_strip_w = 810.0 * active_scale;
+            let scaled_strip_h = 100.0 * active_scale;
+
+            let scaled_strip_x = scaled_strip_cx - scaled_strip_w / 2.0;
+            let scaled_strip_y = scaled_strip_cy - scaled_strip_h / 2.0;
+
+            let strip_x = ((scaled_strip_x * sx) as u32);
+            let strip_y = ((scaled_strip_y * sy) as u32);
+            let strip_w = ((scaled_strip_w * sx).max(1.0) as u32);
+            let strip_h = ((scaled_strip_h * sy).max(1.0) as u32);
 
             let rgb_full = DynamicImage::ImageRgba8(screen).to_rgb8();
             if strip_x + strip_w > rgb_full.width() || strip_y + strip_h > rgb_full.height() {
@@ -333,7 +388,9 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             let mut slot_scores = [0.0f32; 7];
 
             for (i, &cx_1080p) in CENTERS_1080P.iter().enumerate() {
-                let abs_x = (cx_1080p as f64 * sx).round() as i32;
+                // Scale the horizontal center towards screen center (960) by active_scale
+                let scaled_cx = 960.0 + (cx_1080p as f64 - 960.0) * active_scale;
+                let abs_x = (scaled_cx * sx).round() as i32;
                 let strip_cx = abs_x - strip_x as i32;
 
                 // Save individual debug crops for manual scans
@@ -381,9 +438,17 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             // - 4-slot: All 4 anchors must match.
             // - 3-slot: All 3 anchors must match.
             // - 2-slot: Both anchors must match.
-            let (_score4, valid4) = score_config(&slot_scores, CONFIG_4);
-            let (_score3, valid3) = score_config(&slot_scores, CONFIG_3);
-            let (_score2, valid2) = score_config(&slot_scores, CONFIG_2);
+            let min_score = if active_scale <= 0.65 {
+                0.65
+            } else if active_scale <= 0.85 {
+                0.72
+            } else {
+                0.80
+            };
+
+            let (_score4, valid4) = score_config(&slot_scores, CONFIG_4, min_score);
+            let (_score3, valid3) = score_config(&slot_scores, CONFIG_3, min_score);
+            let (_score2, valid2) = score_config(&slot_scores, CONFIG_2, min_score);
 
             let ok4 = valid4 == 4;
             let ok3 = valid3 == 3;
@@ -593,7 +658,22 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
         
         ocr_log!(&app_c, "[OCR] Starting contrast normalization...");
 
-        let coords = get_slot_coords(squad_size);
+        let active_scale = USER_UI_SCALE.load(Ordering::SeqCst) as f64 / 100.0;
+        let raw_coords = get_slot_rects(squad_size, active_scale);
+        
+        let sw = dynamic_image.width() as f64;
+        let sh = dynamic_image.height() as f64;
+        let sx = sw / 1920.0;
+        let sy = sh / 1080.0;
+        
+        let mut coords = Vec::new();
+        for (fx, fy, fw, fh) in raw_coords {
+            let s_fx = (fx as f64 * sx).round() as u32;
+            let s_fy = (fy as f64 * sy).round() as u32;
+            let s_fw = (fw as f64 * sx).round() as u32;
+            let s_fh = (fh as f64 * sy).round() as u32;
+            coords.push((s_fx, s_fy, s_fw, s_fh));
+        }
         let (bin_path, tessdata_path) = get_tesseract_config(&app_c);
         let bin_path_arc = std::sync::Arc::new(bin_path);
         let tessdata_path_arc = std::sync::Arc::new(tessdata_path);
@@ -607,16 +687,9 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
 
         let mut handles = Vec::new();
 
-        for (i, (x_off, y_off, w, h)) in coords.iter().enumerate() {
-            let sw = dynamic_image.width() as f64;
-            let sh = dynamic_image.height() as f64;
-            let fx = (*x_off * sw) as u32;
-            let fy = (*y_off * sh) as u32;
-            let fw = (*w * sw) as u32;
-            let fh = (*h * sh) as u32;
-
-            if fx + fw > dynamic_image.width() || fy + fh > dynamic_image.height() { continue; }
-            let slot_crop = dynamic_image.crop_imm(fx, fy, fw, fh);
+        for (i, (fx, fy, fw, fh)) in coords.iter().enumerate() {
+            if *fx + *fw > dynamic_image.width() || *fy + *fh > dynamic_image.height() { continue; }
+            let slot_crop = dynamic_image.crop_imm(*fx, *fy, *fw, *fh);
             
             let bin_path_c = std::sync::Arc::clone(&bin_path_arc);
             let tessdata_path_c = std::sync::Arc::clone(&tessdata_path_arc);
@@ -795,14 +868,32 @@ fn get_tesseract_config(app: &AppHandle) -> (PathBuf, Option<PathBuf>) {
 }
 
 #[tauri::command]
-pub async fn save_debug_screenshot(_app: AppHandle) -> Result<String, String> {
+pub async fn save_debug_screenshot(app: AppHandle) -> Result<String, String> {
     tokio::time::sleep(std::time::Duration::from_secs(5)).await;
     let monitors = Monitor::all().unwrap_or_default();
     if monitors.is_empty() { return Err("No monitors found".to_string()); }
     let Ok(image) = monitors[0].capture_image() else { return Err("Capture failed".to_string()); };
     let dynamic_image = DynamicImage::ImageRgba8(image);
-    let (bx, by, bw, bh) = get_base_region(4);
-    let crop = dynamic_image.crop_imm((bx * dynamic_image.width() as f64) as u32, (by * dynamic_image.height() as f64) as u32, (bw * dynamic_image.width() as f64) as u32, (bh * dynamic_image.height() as f64) as u32);
+    
+    let sw = dynamic_image.width() as f64;
+    let sh = dynamic_image.height() as f64;
+    let sx = sw / 1920.0;
+    let sy = sh / 1080.0;
+    
+    let active_scale = USER_UI_SCALE.load(Ordering::SeqCst) as f64 / 100.0;
+    let rects = get_slot_rects(4, active_scale);
+    if rects.is_empty() { return Err("Could not determine OCR regions".to_string()); }
+    let (bx, by, bw, bh) = rects[0];
+    
+    let s_bx = (bx as f64 * sx).round() as u32;
+    let s_by = (by as f64 * sy).round() as u32;
+    let s_bw = (bw as f64 * sx).round() as u32;
+    let s_bh = (bh as f64 * sy).round() as u32;
+    
+    if s_bx + s_bw > dynamic_image.width() || s_by + s_bh > dynamic_image.height() {
+        return Err("OCR region out of bounds for current resolution".to_string());
+    }
+    let crop = dynamic_image.crop_imm(s_bx, s_by, s_bw, s_bh);
     
     let processed = apply_ocr_preprocessing(&crop, None);
     

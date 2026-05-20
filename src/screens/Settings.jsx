@@ -689,21 +689,35 @@ export default function SettingsScreen() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-bold text-kronos-text uppercase">In-Game UI Scale</p>
-                  <p className="text-xs text-kronos-dim uppercase">Set this to match your Warframe 'Menu Scale' setting (e.g. 100 for default)</p>
+                  <p className="text-xs text-kronos-dim uppercase">Set this to match your Warframe 'Menu Scale' setting (e.g. 100% for default)</p>
                 </div>
-                <div className="w-32">
-                  <select
+                <div className="relative w-28">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     value={fissureUiScale}
-                    onChange={(e) => handleSetUiScale(parseInt(e.target.value))}
-                    className="w-full kronos-select"
-                  >
-                    <option value={100}>100</option>
-                    <option value={90}>90</option>
-                    <option value={80}>80</option>
-                    <option value={70}>70</option>
-                    <option value={60}>60</option>
-                    <option value={50}>50</option>
-                  </select>
+                    onChange={(e) => {
+                      // Allow only digits
+                      const val = e.target.value.replace(/\D/g, '')
+                      setFissureUiScale(val)
+                      const parsed = parseInt(val)
+                      if (!isNaN(parsed) && parsed >= 50 && parsed <= 100) {
+                        setSetting('fissure_ui_scale', parsed)
+                        invoke('set_fissure_ui_scale', { scale: parsed }).catch(console.error)
+                      }
+                    }}
+                    onBlur={() => {
+                      let parsed = parseInt(fissureUiScale)
+                      if (isNaN(parsed)) parsed = 100
+                      const clamped = Math.max(50, Math.min(100, parsed))
+                      setFissureUiScale(clamped)
+                      setSetting('fissure_ui_scale', clamped)
+                      invoke('set_fissure_ui_scale', { scale: clamped }).catch(console.error)
+                    }}
+                    className="w-full rounded-lg pl-3 pr-8 py-2 text-right text-xs font-mono font-bold focus:outline-none focus:border-white/20 bg-black/20 border border-white/10 text-white"
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-black text-kronos-dim font-mono pointer-events-none">%</span>
                 </div>
               </div>
             </div>

@@ -227,14 +227,48 @@ function LoadingSlot() {
   )
 }
 
+const FISSURE_BONUS_REWARDS = new Set([
+  'Riven Sliver',
+  'Kuva',
+  'Ayatan Amber Star',
+  'Exilus Weapon Adapter Blueprint',
+])
+
 function RewardSlot({ confirmed, isLocal, price }) {
   const item = confirmed?.item
   const inv = item?.inventory || {}
+  const isRequiem = item?.isRequiem
   const isForma = inv.isForma
   const isResource = inv.isResource
   const subcomponents = inv.subcomponents || []
   const displayName = confirmed.confirmed_reward
+  const isCountLayout = isRequiem || isForma || FISSURE_BONUS_REWARDS.has(displayName)
 
+  if (isCountLayout) {
+    return (
+      <div className="rounded-xl border overflow-hidden flex flex-col mx-1 transition-all border-white/5 bg-black/40 min-h-[180px]">
+        <div className="px-2.5 pt-2.5">
+          <div className="text-[11px] font-black text-white uppercase leading-tight mb-3 text-center tracking-tight">
+            {displayName}
+          </div>
+          {price > 0 && (
+            <div className="flex items-center gap-1.5 justify-evenly mb-2">
+              <PriceBadge label="Plat" value={`${price ?? 0}p`} color="blue" />
+            </div>
+          )}
+        </div>
+        <div className="border-t border-white/5" />
+        <div className="px-2.5 pt-2 pb-2">
+          <div className="flex items-center gap-1.5 justify-evenly">
+            <Badge count={inv.craftedCount} label="Owned" />
+          </div>
+        </div>
+        <div className="flex-1" />
+      </div>
+    )
+  }
+
+  // Normal items — original structure unchanged
   return (
     <div className="rounded-xl border overflow-hidden flex flex-col mx-1 transition-all border-white/5 bg-black/40">
       {/* Reward Name */}
@@ -244,7 +278,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
         </div>
 
         {/* Ducats + Plat badges */}
-        {!isForma && (
+        {(!isForma && !isRequiem) && (
           <div className="flex items-center gap-1.5 justify-evenly">
             <PriceBadge label="Ducats" value={`${item?.ducats ?? 0}`} color="amber" />
             <PriceBadge label="Plat" value={`${price ?? 0}p`} color="blue" />
@@ -256,32 +290,36 @@ function RewardSlot({ confirmed, isLocal, price }) {
       <div className="border-t border-white/5" />
 
       {/* Parent Name - Highlighted if the main blueprint is the dropped reward */}
-      <div className={`px-2.5 py-2 mb-1.5 text-center transition-all ${subcomponents.length > 0 && !subcomponents.some(c => c.isDroppedReward)
-          ? 'bg-amber-500/10 shadow-[inner_0_0_15px_rgba(245,158,11,0.1)] border-y border-amber-500/20'
-          : ''
-        }`}>
-        <span className={`text-[10px] font-black uppercase tracking-widest ${subcomponents.length > 0 && !subcomponents.some(c => c.isDroppedReward)
-            ? 'text-amber-400 drop-shadow-[0_0_5px_rgba(245,158,11,0.5)]'
-            : 'text-kronos-dim'
+      {!isRequiem && (
+        <div className={`px-2.5 py-2 mb-1.5 text-center transition-all ${subcomponents.length > 0 && !subcomponents.some(c => c.isDroppedReward)
+            ? 'bg-amber-500/10 shadow-[inner_0_0_15px_rgba(245,158,11,0.1)] border-y border-amber-500/20'
+            : ''
           }`}>
-          {inv.parentName || displayName}
-        </span>
-      </div>
+          <span className={`text-[10px] font-black uppercase tracking-widest ${subcomponents.length > 0 && !subcomponents.some(c => c.isDroppedReward)
+              ? 'text-amber-400 drop-shadow-[0_0_5px_rgba(245,158,11,0.5)]'
+              : 'text-kronos-dim'
+            }`}>
+            {inv.parentName || displayName}
+          </span>
+        </div>
+      )}
 
       {/* BP + Owned + Mastery badges */}
-      <div className="flex items-center gap-1.5 px-2.5 pb-2 justify-evenly">
-        {!isResource && <Badge count={inv.blueprintCount} label="BP" />}
-        <Badge count={inv.craftedCount} label="Owned" />
-        {(!isForma && !isResource) && (
-          <Badge count={0} label="Mastered" isMastered={inv.isMastered} canMastered={true} />
-        )}
-      </div>
+      {!isRequiem && (
+        <div className="flex items-center gap-1.5 px-2.5 pb-2 justify-evenly">
+          {!isResource && <Badge count={inv.blueprintCount} label="BP" />}
+          <Badge count={inv.craftedCount} label="Owned" />
+          {(!isForma && !isResource) && (
+            <Badge count={0} label="Mastered" isMastered={inv.isMastered} canMastered={true} />
+          )}
+        </div>
+      )}
 
       {/* Divider */}
-      <div className="border-t border-white/5" />
+      {!isRequiem && <div className="border-t border-white/5" />}
 
       {/* Component card a la foundry */}
-      {subcomponents.length > 0 && (
+      {!isRequiem && subcomponents.length > 0 && (
         <div className="bg-black/20">
           <div className="divide-y divide-white/5">
             {subcomponents.map((comp, idx) => (

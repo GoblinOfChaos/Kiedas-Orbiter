@@ -350,17 +350,33 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     };
   }).filter(c => c.need > 0);
 
-  // Now determine the item's own counts
-  const rewardEntry = inventoryData.all?.find(i => i.unique_name === rewardUniqueName)
-      || inventoryData.prime_parts?.find(i => i.unique_name === rewardUniqueName)
-      || inventoryData.mods?.find(i => i.unique_name === rewardUniqueName)
-      || inventoryData.resources?.find(i => i.unique_name === rewardUniqueName);
+  // Now determine the item's own counts - with path normalization for /StoreItems/ prefix
+  const normalizeUN = (s) => s ? s.replace('/StoreItems/', '/').toLowerCase() : '';
+  const rNorm = normalizeUN(rewardUniqueName);
+  const findInInventory = (arr) => arr?.find(i => normalizeUN(i.unique_name) === rNorm);
+  let rewardEntry = findInInventory(inventoryData.all)
+      || findInInventory(inventoryData.prime_parts)
+      || findInInventory(inventoryData.mods)
+      || findInInventory(inventoryData.resources);
+
+  // Fallback: if not found by uniqueName, search by display name (handles synthetic
+  // short uniqueNames from OCR, e.g. "Lohk" → /Lotus/Upgrades/Mods/Requiem/Lohk)
+  if (!rewardEntry && inventoryData.mods) {
+    rewardEntry = inventoryData.mods.find(m => m.name?.toLowerCase() === rewardUniqueName?.toLowerCase());
+  }
       
   const stock = rewardEntry?.quantity ?? 0;
   
-  const craftedEntry = inventoryData.all?.find(i => i.unique_name === actualComponent)
-      || inventoryData.prime_parts?.find(i => i.unique_name === actualComponent)
-      || inventoryData.resources?.find(i => i.unique_name === actualComponent);
+  const aNorm = normalizeUN(actualComponent);
+  const findInInventorySimple = (arr) => arr?.find(i => normalizeUN(i.unique_name) === aNorm);
+  let craftedEntry = findInInventorySimple(inventoryData.all)
+      || findInInventorySimple(inventoryData.prime_parts)
+      || findInInventorySimple(inventoryData.resources);
+
+  // Fallback: search by name in mods (handles short OCR uniqueNames like "Lohk")
+  if (!craftedEntry && inventoryData.mods) {
+    craftedEntry = inventoryData.mods.find(m => m.name?.toLowerCase() === rewardUniqueName?.toLowerCase());
+  }
       
   const craftedCount = craftedEntry?.quantity ?? 0;
   const isMastered = craftedEntry?.mastered ?? false;
@@ -370,9 +386,11 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
   let parentIsMastered = false;
 
   if (parentRecipe && parentRecipeUniqueName) {
-    parentBpCount = inventoryData.prime_parts?.find(i => i.unique_name === parentRecipeUniqueName)?.quantity ?? 0;
-    const pCrafted = inventoryData.all?.find(i => i.unique_name === parentRecipe.resultType)
-                  || inventoryData.prime_parts?.find(i => i.unique_name === parentRecipe.resultType);
+    const pNorm = normalizeUN(parentRecipeUniqueName);
+    parentBpCount = inventoryData.prime_parts?.find(i => normalizeUN(i.unique_name) === pNorm)?.quantity ?? 0;
+    const prNorm = normalizeUN(parentRecipe.resultType);
+    const pCrafted = (inventoryData.all?.find(i => normalizeUN(i.unique_name) === prNorm))
+                  || (inventoryData.prime_parts?.find(i => normalizeUN(i.unique_name) === prNorm));
     parentCraftedCount = pCrafted?.quantity ?? 0;
     parentIsMastered = pCrafted?.mastered ?? false;
   } else {
@@ -425,6 +443,27 @@ export function getRelicEV(rewards, refinement, squadSize = 1, valueKey = 'plat'
     else if (r.rarity === 'RARE') p = chances[2];
     return { val: r[valueKey] || 0, p };
   });
+
+  // Requiem relics have a flat drop table — each of the 8 mods has equal probability (12.5%)
+  if (rewards.length >= 7) {
+    const isRequiem = rewards.every(r => r.rarity === 'COMMON');
+    if (isRequiem) {
+      const flatP = 1 / rewards.length;
+      const itemsFlat = items.map(i => ({ ...i, p: flatP }));
+      // Re-sort by value descending (should already be sorted)
+      itemsFlat.sort((a, b) => b.val - a.val);
+      let ev = 0;
+      let cum = 0;
+      for (let i = 0; i < itemsFlat.length; i++) {
+        const item = itemsFlat[i];
+        const nextCum = 1 - Math.pow(1 - (cum + item.p), squadSize);
+        const probBest = nextCum - (1 - Math.pow(1 - cum, squadSize));
+        ev += item.val * probBest;
+        cum += item.p;
+      }
+      return ev;
+    }
+  }
 
   // Sort by value descending to calculate "probability this is the best item available"
   items.sort((a, b) => b.val - a.val);

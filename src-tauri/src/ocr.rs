@@ -1,5 +1,5 @@
 use xcap::Monitor;
-use image::DynamicImage;
+use image::{DynamicImage, GenericImageView};
 use tauri::{AppHandle, Manager};
 use serde::Serialize;
 use std::process::{Command, Stdio};
@@ -38,7 +38,129 @@ pub fn get_target_monitor(app: &AppHandle) -> Option<Monitor> {
     primary.or_else(|| monitors.first().cloned())
 }
 
-/// Logs to stderr (dev) and disk (prod). Requires an `AppHandle` reference named `app_c` in scope.
+pub fn is_requiem_session(app: &AppHandle) -> bool {
+    let state = app.state::<crate::AppState>();
+    let data = match state.active_relic_data.lock() {
+        Ok(guard) => guard.clone(),
+        Err(_) => return false,
+    };
+    if let Some(val) = data {
+        if let Some(relics) = val.get("squad_relics").and_then(|r| r.as_array()) {
+            for r in relics {
+                if let Some(tier) = r.get("tier").and_then(|t| t.as_str()) {
+                    if tier == "Requiem" {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    false
+}
+
+struct RequiemTemplate {
+    name: &'static str,
+    image: image::RgbaImage,
+}
+
+static REQUIEM_TEMPLATES: std::sync::OnceLock<Vec<RequiemTemplate>> = std::sync::OnceLock::new();
+
+fn get_requiem_templates() -> &'static Vec<RequiemTemplate> {
+    REQUIEM_TEMPLATES.get_or_init(|| {
+        let raw: &[(&str, &[u8])] = &[
+            ("Fass", include_bytes!("../../public/RequiemFass.png")),
+            ("Jahu", include_bytes!("../../public/RequiemJahu.png")),
+            ("Khra", include_bytes!("../../public/RequiemKhra.png")),
+            ("Lohk", include_bytes!("../../public/RequiemLohk.png")),
+            ("Netra", include_bytes!("../../public/RequiemNetra.png")),
+            ("Ris", include_bytes!("../../public/RequiemRis.png")),
+            ("Vome", include_bytes!("../../public/RequiemVome.png")),
+            ("Xata", include_bytes!("../../public/RequiemXata.png")),
+        ];
+        raw.iter()
+            .filter_map(|(name, bytes)| {
+                image::load_from_memory(bytes).ok().map(|img| {
+                    RequiemTemplate {
+                        name,
+                        image: img.to_rgba8(),
+                    }
+                })
+            })
+            .collect()
+    })
+}
+
+fn crop_to_content(img: &image::GrayImage) -> DynamicImage {
+    let (w, h) = img.dimensions();
+
+    let mut max_brightness = 0u8;
+    for y in 0..h {
+        for x in 0..w {
+            max_brightness = max_brightness.max(img.get_pixel(x, y)[0]);
+        }
+    }
+
+    let threshold = (max_brightness as f32 / 2.0).max(60.0) as u8;
+
+    let mut min_x = w;
+    let mut min_y = h;
+    let mut max_x = 0;
+    let mut max_y = 0;
+    let mut found = false;
+
+    for y in 0..h {
+        for x in 0..w {
+            if img.get_pixel(x, y)[0] > threshold {
+                min_x = min_x.min(x);
+                min_y = min_y.min(y);
+                max_x = max_x.max(x);
+                max_y = max_y.max(y);
+                found = true;
+            }
+        }
+    }
+
+    if found && max_x >= min_x && max_y >= min_y {
+        let bw = (max_x - min_x + 1).max(1);
+        let bh = (max_y - min_y + 1).max(1);
+        let sub = img.view(min_x, min_y, bw, bh);
+        DynamicImage::ImageLuma8(sub.to_image())
+    } else {
+        DynamicImage::ImageLuma8(img.clone())
+    }
+}
+
+fn crop_to_content_rgba(img: &image::RgbaImage) -> DynamicImage {
+    let (w, h) = img.dimensions();
+    let mut min_x = w;
+    let mut min_y = h;
+    let mut max_x = 0;
+    let mut max_y = 0;
+    let mut found = false;
+
+    for y in 0..h {
+        for x in 0..w {
+            let alpha = img.get_pixel(x, y)[3];
+            if alpha > 128 {
+                min_x = min_x.min(x);
+                min_y = min_y.min(y);
+                max_x = max_x.max(x);
+                max_y = max_y.max(y);
+                found = true;
+            }
+        }
+    }
+
+    if found && max_x >= min_x && max_y >= min_y {
+        let bw = (max_x - min_x + 1).max(1);
+        let bh = (max_y - min_y + 1).max(1);
+        let sub = img.view(min_x, min_y, bw, bh);
+        DynamicImage::ImageRgba8(sub.to_image())
+    } else {
+        DynamicImage::ImageRgba8(img.clone())
+    }
+}
+
 macro_rules! ocr_log {
     ($app:expr, $($arg:tt)*) => {{
         let msg = format!($($arg)*);
@@ -117,14 +239,132 @@ fn get_slot_rects(squad_size: usize, active_scale: f64) -> Vec<(u32, u32, u32, u
         .collect()
 }
 
-// Keep signature for compatibility
-fn get_slot_coords(_squad_size: usize) -> Vec<(f64, f64, f64, f64)> {
-    vec![]
+fn identify_requiem_mod(app: &AppHandle, slot_crop: &DynamicImage, slot_idx: usize) -> Option<String> {
+    let templates = get_requiem_templates();
+    if templates.is_empty() {
+        return None;
+    }
+
+    let debug_dir = crate::get_data_root().join("data/user");
+    let _ = std::fs::create_dir_all(&debug_dir);
+
+    // Save raw crop for reference
+    let _ = slot_crop.save(debug_dir.join(format!("requiem_debug_slot{}.png", slot_idx)));
+
+    let (cw, ch) = (slot_crop.width(), slot_crop.height());
+    if cw < 4 || ch < 4 {
+        return None;
+    }
+
+    // Use raw red channel — no contrast stretch, mean-subtracted NCC handles it
+    let crop_rgb = slot_crop.to_rgb8();
+    let crop_red = red_channel(&crop_rgb);
+    let crop_resized = image::imageops::resize(&crop_red, cw, ch, image::imageops::FilterType::Lanczos3);
+    let crop_raw = crop_resized.as_raw();
+
+    // Save processed crop for visual verification
+    let _ = crop_resized.save(debug_dir.join(format!("requiem_debug_slot{}_processed.png", slot_idx)));
+
+    let mut results: Vec<(&'static str, f32)> = Vec::new();
+
+    for t in templates {
+        // Raw red channel, no stretch
+        let tpl_rgb = DynamicImage::ImageRgba8(t.image.clone()).to_rgb8();
+        let tpl_red = red_channel(&tpl_rgb);
+        let tpl_resized = image::imageops::resize(&tpl_red, cw, ch, image::imageops::FilterType::Lanczos3);
+        let tpl_raw = tpl_resized.as_raw();
+
+        // Mean-subtracted (Pearson) NCC — single pass, no sliding window
+        let n = (cw * ch) as f64;
+        let t_mean: f64 = tpl_raw.iter().map(|&v| v as f64).sum::<f64>() / n;
+        let p_mean: f64 = crop_raw.iter().map(|&v| v as f64).sum::<f64>() / n;
+
+        let mut dot = 0.0f64;
+        let mut t_sq = 0.0f64;
+        let mut p_sq = 0.0f64;
+        for (tv, pv) in tpl_raw.iter().zip(crop_raw.iter()) {
+            let tc = *tv as f64 - t_mean;
+            let pc = *pv as f64 - p_mean;
+            dot += tc * pc;
+            t_sq += tc * tc;
+            p_sq += pc * pc;
+        }
+        let ncc = (dot / (t_sq.sqrt() * p_sq.sqrt()).max(1e-8)) as f32;
+
+        eprintln!("[OCR] Slot {} Requiem '{}' pearson: {:.3}", slot_idx, t.name, ncc);
+        results.push((t.name, ncc));
+    }
+
+    results.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Equal));
+    let (best_name, best_score) = results.first().copied().unwrap_or(("none", -1.0));
+    let margin = if results.len() > 1 { best_score - results[1].1 } else { 1.0 };
+
+    eprintln!("[OCR] Slot {} requiem best: {} at pearson {:.3}, margin: {:.3}",
+        slot_idx, best_name, best_score, margin);
+
+    if best_score > 0.40 && margin >= 0.010 {
+        Some(best_name.to_string())
+    } else {
+        None
+    }
+}
+
+/// Extract the red channel as a GrayImage (single-channel, 0-255)
+fn red_channel(rgb: &image::RgbImage) -> image::GrayImage {
+    let (w, h) = rgb.dimensions();
+    image::GrayImage::from_fn(w, h, |x, y| {
+        image::Luma([rgb.get_pixel(x, y).0[0]])
+    })
+}
+
+/// Linear contrast stretch: map min→0, max→255
+// Requiem icon positions at 1.0 scale (1920x1080)
+fn get_requiem_rects(squad_size: usize) -> Vec<(u32, u32, u32, u32)> {
+    match squad_size {
+        4 => vec![
+            (569, 315, 55, 55),  // slot 0
+            (811, 315, 55, 55),  // slot 1
+            (1053, 315, 55, 55), // slot 2
+            (1295, 315, 55, 55), // slot 3
+        ],
+        3 => vec![
+            (678, 302, 85, 85),  // slot 0
+            (918, 302, 85, 85),  // slot 1
+            (1163, 302, 85, 85), // slot 2
+        ],
+        _ => vec![],
+    }
+}
+
+/// Returns the requiem icon rect for slot index at given scale.
+fn get_requiem_rect(slot_idx: usize, squad_size: usize, active_scale: f64) -> (u32, u32, u32, u32) {
+    let base_rects = get_requiem_rects(squad_size);
+    if slot_idx >= base_rects.len() {
+        return (0, 0, 0, 0);
+    }
+    let (x, y, w, h) = base_rects[slot_idx];
+
+    let cx = 960.0;
+    let cy = 540.0;
+    let box_cx = x as f64 + w as f64 / 2.0;
+    let box_cy = y as f64 + h as f64 / 2.0;
+
+    let scaled_box_cx = cx + (box_cx - cx) * active_scale;
+    let scaled_box_cy = cy + (box_cy - cy) * active_scale;
+    let scaled_w = w as f64 * active_scale;
+    let scaled_h = h as f64 * active_scale;
+
+    (
+        (scaled_box_cx - scaled_w / 2.0) as u32,
+        (scaled_box_cy - scaled_h / 2.0) as u32,
+        scaled_w as u32,
+        scaled_h as u32,
+    )
 }
 
 
-pub fn run_ocr_pipeline_with_size(app: AppHandle, squad_size: usize) {
-    run_ocr_internal(app, squad_size, false, None);
+pub fn run_ocr_pipeline_with_size(app: AppHandle, squad_size: usize, is_debug: bool) {
+    run_ocr_internal(app, squad_size, is_debug, None);
 }
 
 // ─── Template-based rarity icon detection ─────────────────────────────────────
@@ -368,10 +608,10 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             let scaled_strip_x = scaled_strip_cx - scaled_strip_w / 2.0;
             let scaled_strip_y = scaled_strip_cy - scaled_strip_h / 2.0;
 
-            let strip_x = ((scaled_strip_x * sx) as u32);
-            let strip_y = ((scaled_strip_y * sy) as u32);
-            let strip_w = ((scaled_strip_w * sx).max(1.0) as u32);
-            let strip_h = ((scaled_strip_h * sy).max(1.0) as u32);
+            let strip_x = (scaled_strip_x * sx) as u32;
+            let strip_y = (scaled_strip_y * sy) as u32;
+            let strip_w = (scaled_strip_w * sx).max(1.0) as u32;
+            let strip_h = (scaled_strip_h * sy).max(1.0) as u32;
 
             let rgb_full = DynamicImage::ImageRgba8(screen).to_rgb8();
             if strip_x + strip_w > rgb_full.width() || strip_y + strip_h > rgb_full.height() {
@@ -514,7 +754,7 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             ).unwrap_or_default();
             app.emit_all("fissure-relic-phase", &event_payload).unwrap_or_default();
 
-            run_ocr_pipeline_with_size(app, deduced_size);
+            run_ocr_pipeline_with_size(app, deduced_size, manual);
             return;
         }
     });
@@ -585,7 +825,7 @@ fn run_ocr_internal(app: AppHandle, squad_size: usize, is_debug: bool, captured_
 
 /// Advanced preprocessing using contrast normalization + edge enhancement.
 /// This gives Tesseract more usable input than pure edge detection.
-fn apply_ocr_preprocessing(slot_crop: &DynamicImage, debug_slot: Option<usize>) -> image::GrayImage {
+fn apply_ocr_preprocessing(slot_crop: &DynamicImage, _debug_slot: Option<usize>) -> image::GrayImage {
     use imageproc::filter::gaussian_blur_f32;
 
     let (fw, fh) = (slot_crop.width(), slot_crop.height());
@@ -673,12 +913,38 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
         ocr_log!(&app_c, "[OCR] Starting contrast normalization...");
 
         let active_scale = USER_UI_SCALE.load(Ordering::SeqCst) as f64 / 100.0;
-        let raw_coords = get_slot_rects(squad_size, active_scale);
+        let mut raw_coords = get_slot_rects(squad_size, active_scale);
+        
+        let state = app_c.state::<crate::AppState>();
+let relics: Vec<crate::log_scanner::RelicInfo> = if let Ok(cached) = state.active_relic_data.lock() {
+            if let Some(ref val) = *cached {
+                val.get("squad_relics")
+                    .and_then(|v| serde_json::from_value(v.clone()).ok())
+                    .unwrap_or_default()
+            } else { Vec::new() }
+        } else { Vec::new() };
+
+        let is_requiem = relics.iter().any(|r| r.tier == "Requiem") || is_debug;
+        ocr_log!(&app_c, "[OCR] Squad size: {}, Requiem check: {}", squad_size, is_requiem);
+
+        let mut raw_coords = get_slot_rects(squad_size, active_scale);
+
+        if is_requiem {
+            for slot_idx in 0..squad_size {
+                let req_rect = get_requiem_rect(slot_idx, squad_size, active_scale);
+                ocr_log!(&app_c, "[OCR] Adding Requiem rect for slot {}: {:?}", slot_idx, req_rect);
+                raw_coords.push(req_rect);
+            }
+        }
+        
+        ocr_log!(&app_c, "[OCR] Total regions to scan: {}", raw_coords.len());
         
         let sw = dynamic_image.width() as f64;
         let sh = dynamic_image.height() as f64;
         let sx = sw / 1920.0;
         let sy = sh / 1080.0;
+        
+        let gray_screenshot = std::sync::Arc::new(dynamic_image.to_luma8());
         
         let mut coords = Vec::new();
         for (fx, fy, fw, fh) in raw_coords {
@@ -709,11 +975,27 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
             let tessdata_path_c = std::sync::Arc::clone(&tessdata_path_arc);
             let wordlist_path_c = std::sync::Arc::clone(&wordlist_path_arc);
             let app_for_thread = app_c.clone();
+            let _gray_screen_c = std::sync::Arc::clone(&gray_screenshot);
             let slot_idx = i;
+            let _fx_val = *fx;
+            let _fw_val = *fw;
 
             handles.push(std::thread::spawn(move || {
-            let binary = apply_ocr_preprocessing(&slot_crop, Some(slot_idx));
-            let (uw, uh) = binary.dimensions();
+                // Requiem image slots are appended after the regular OCR text slots.
+                if is_requiem && slot_idx >= squad_size {
+                    let req_slot = slot_idx - squad_size;
+                    ocr_log!(&app_for_thread, "[OCR] Requiem image scan for slot {}", req_slot);
+                    if let Some(mod_name) = identify_requiem_mod(&app_for_thread, &slot_crop, req_slot) {
+                        ocr_log!(&app_for_thread, "[OCR] Requiem mod identified for slot {}: {}", req_slot, mod_name);
+                        return Some((req_slot + 1, format!("Requiem {}", mod_name)));
+                    }
+                    ocr_log!(&app_for_thread, "[OCR] No Requiem mod matched for slot {}", req_slot);
+                    return None;
+                }
+
+                // ── Regular text OCR ──────────────────────────────────────────────
+                let binary = apply_ocr_preprocessing(&slot_crop, Some(slot_idx));
+                let (uw, uh) = binary.dimensions();
 
                 let midpoint = uh / 2;
                 let overlap = (uh as f32 * 0.05) as u32;
@@ -723,7 +1005,7 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
 
                 // Save debug images for line1 and line2
                 let debug_dir = crate::get_data_root().join("data/user");
-                if let Some(parent) = debug_dir.parent() { let _ = std::fs::create_dir_all(&debug_dir); }
+                if let Some(_parent) = debug_dir.parent() { let _ = std::fs::create_dir_all(&debug_dir); }
                 let _ = line1.save(debug_dir.join(format!("ocr_debug_slot{}_line1.png", slot_idx)));
                 let _ = line2.save(debug_dir.join(format!("ocr_debug_slot{}_line2.png", slot_idx)));
 
@@ -810,17 +1092,17 @@ fn clean_ocr_output(raw: &str) -> String {
                     } else {
                         ocr_log!(&app_for_thread, "[OCR] Slot {}: {:?}", slot_idx + 1, cleaned);
                     }
-                    Some(cleaned)
+                    Some((slot_idx + 1, cleaned))
                 } else { None }
             }));
         }
 
         let mut slot_results = Vec::new();
         let mut found_loading = false;
-        for (i, h) in handles.into_iter().enumerate() {
-            if let Ok(Some(text)) = h.join() {
+        for (_i, h) in handles.into_iter().enumerate() {
+            if let Ok(Some((slot, text))) = h.join() {
                 if text.contains("LOADING") { found_loading = true; }
-                slot_results.push(OcrSlotResult { slot: i + 1, text });
+                slot_results.push(OcrSlotResult { slot, text });
             }
         }
 
@@ -887,41 +1169,60 @@ pub async fn save_debug_screenshot(app: AppHandle) -> Result<String, String> {
     let Some(monitor) = get_target_monitor(&app) else { return Err("No target monitor resolved".to_string()); };
     let Ok(image) = monitor.capture_image() else { return Err("Capture failed".to_string()); };
     let dynamic_image = DynamicImage::ImageRgba8(image);
+
+    let active_scale = USER_UI_SCALE.load(Ordering::SeqCst) as f64 / 100.0;
+
+    // Determine regions
+    let state = app.state::<crate::AppState>();
+    let _relics: Vec<crate::log_scanner::RelicInfo> = if let Ok(cached) = state.active_relic_data.lock() {
+        if let Some(ref val) = *cached {
+            let rs: Vec<crate::log_scanner::RelicInfo> = val.get("squad_relics")
+                .and_then(|v| serde_json::from_value(v.clone()).ok())
+                .unwrap_or_default();
+            ocr_log!(&app, "[DEBUG] Found {} relics in cache", rs.len());
+            rs
+        } else { ocr_log!(&app, "[DEBUG] No relics in cache"); Vec::new() }
+    } else { ocr_log!(&app, "[DEBUG] Could not lock relic data"); Vec::new() };
+
+    let mut rects = get_slot_rects(4, active_scale);
+    ocr_log!(&app, "[DEBUG] Adding Requiem regions for debug scan");
+    for slot_idx in 0..4 {
+        rects.push(get_requiem_rect(slot_idx, 4, active_scale));
+    }
     
+    ocr_log!(&app, "[DEBUG] Scanning {} regions", rects.len());
+
+    if rects.is_empty() { return Err("Could not determine OCR regions".to_string()); }
+
+    let mut saved_paths = Vec::new();
     let sw = dynamic_image.width() as f64;
     let sh = dynamic_image.height() as f64;
     let sx = sw / 1920.0;
     let sy = sh / 1080.0;
-    
-    let active_scale = USER_UI_SCALE.load(Ordering::SeqCst) as f64 / 100.0;
-    let rects = get_slot_rects(4, active_scale);
-    if rects.is_empty() { return Err("Could not determine OCR regions".to_string()); }
-    let (bx, by, bw, bh) = rects[0];
-    
-    let s_bx = (bx as f64 * sx).round() as u32;
-    let s_by = (by as f64 * sy).round() as u32;
-    let s_bw = (bw as f64 * sx).round() as u32;
-    let s_bh = (bh as f64 * sy).round() as u32;
-    
-    if s_bx + s_bw > dynamic_image.width() || s_by + s_bh > dynamic_image.height() {
-        return Err("OCR region out of bounds for current resolution".to_string());
+
+    for (i, &(bx, by, bw, bh)) in rects.iter().enumerate() {
+        let s_bx = (bx as f64 * sx).round() as u32;
+        let s_by = (by as f64 * sy).round() as u32;
+        let s_bw = (bw as f64 * sx).round() as u32;
+        let s_bh = (bh as f64 * sy).round() as u32;
+
+        let crop = dynamic_image.crop_imm(s_bx, s_by, s_bw, s_bh);
+        let processed = apply_ocr_preprocessing(&crop, None);
+
+        let pad = 30u32;
+        let (uw, uh) = processed.dimensions();
+        let mut padded = image::GrayImage::new(uw + pad * 2, uh + pad * 2);
+        padded.fill(255);
+        image::imageops::overlay(&mut padded, &processed, pad as i64, pad as i64);
+
+        let dest_path = crate::get_data_root().join(format!("data/user/debug_crop_{}.png", i));
+        if let Some(parent) = dest_path.parent() { std::fs::create_dir_all(parent).map_err(|e| e.to_string())?; }
+        padded.save(&dest_path).map_err(|e| e.to_string())?;
+        saved_paths.push(dest_path.to_string_lossy().to_string());
     }
-    let crop = dynamic_image.crop_imm(s_bx, s_by, s_bw, s_bh);
-    
-    let processed = apply_ocr_preprocessing(&crop, None);
-    
-    let pad = 30u32;
-    let (uw, uh) = processed.dimensions();
-    let mut padded = image::GrayImage::new(uw + pad * 2, uh + pad * 2);
-    padded.fill(255);
-    image::imageops::overlay(&mut padded, &processed, pad as i64, pad as i64);
 
-    let dest_path = crate::get_data_root().join("data/user/debug_crop.png");
-    if let Some(parent) = dest_path.parent() { std::fs::create_dir_all(parent).map_err(|e| e.to_string())?; }
-    padded.save(&dest_path).map_err(|e| e.to_string())?;
-    Ok(dest_path.to_string_lossy().to_string())
+    Ok(saved_paths.join(", "))
 }
-
 #[tauri::command]
 pub async fn trigger_manual_ocr(app: AppHandle, _squad_size: Option<usize>) -> Result<(), String> {
     let now = std::time::SystemTime::now()

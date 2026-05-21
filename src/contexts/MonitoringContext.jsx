@@ -703,6 +703,16 @@ export function MonitoringProvider({ children }) {
                 seen.add(rew.uniqueName);
               }
             });
+            // Add Requiem candidates if a T5 relic is in play
+            if (r.tier === 'Requiem') {
+              ['Fass', 'Jahu', 'Khra', 'Lohk', 'Netra', 'Ris', 'Vome', 'Xata'].forEach(name => {
+                const reqName = `Requiem ${name}`;
+                if (!seen.has(reqName)) {
+                  candidates.push({ uniqueName: reqName, name: reqName, ducats: 0 });
+                  seen.add(reqName);
+                }
+              });
+            }
           }
         } else {
           // Only keep items that can actually appear in relic reward UI
@@ -715,7 +725,17 @@ export function MonitoringProvider({ children }) {
           });
         }
 
-        const bestMatch = fuzzyMatchReward(res.text, candidates, 0.60);
+        const isRequiem = res.text.startsWith('Requiem ');
+        let bestMatch = null;
+        
+        if (isRequiem) {
+          const modName = res.text.replace('Requiem ', '');
+          bestMatch = { uniqueName: modName, name: modName, ducats: 0, isRequiem: true };
+        } else {
+          bestMatch = fuzzyMatchReward(res.text, candidates, 0.60);
+        }
+
+        console.log(`[OCR Debug] Slot ${res.slot} text: "${res.text}" | Match:`, bestMatch);
 
         if (bestMatch) {
           const platPrice = await getPrice(bestMatch.uniqueName, bestMatch.name, bestMatch.ducats || 0);

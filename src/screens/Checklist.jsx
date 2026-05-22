@@ -19,7 +19,7 @@
  * - Auto-resets based on time (daily/weekly).
  */
 import { useState, useEffect, useMemo } from 'react'
-import { Check, Circle, Eye, EyeOff, Bell, BellOff } from 'lucide-react'
+import { Check, Circle, Eye, EyeOff } from 'lucide-react'
 import { PageLayout } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { invoke } from '@tauri-apps/api/tauri'
@@ -271,7 +271,7 @@ const formatTimeLeft = (ms) => {
   return `${minutes}m`
 }
 
-const TaskCard = ({ task, completed, hidden, onToggle, onHide, onToggleNotif, notifEnabled, timeLeft, nextResetTime }) => {
+const TaskCard = ({ task, completed, hidden, onToggle, onHide, timeLeft, nextResetTime }) => {
   const resetLabels = { daily: 'Daily', weekly: 'Weekly', biweekly: 'Biweekly', other: '8h', baro: 'Trader' }
   const getIntervalMs = (resetType) => {
     if (resetType === 'daily') return 24 * 60 * 60 * 1000
@@ -317,16 +317,6 @@ const TaskCard = ({ task, completed, hidden, onToggle, onHide, onToggleNotif, no
       <div className="flex items-center justify-between mt-2">
         <span className="text-[12px] text-kronos-dim">{displayTime}</span>
         <div className="flex items-center gap-1.5">
-          <button
-            onClick={onToggleNotif}
-            className="p-1 rounded hover:bg-white/10"
-            title={notifEnabled ? 'Notifications on' : 'Notifications off'}
-          >
-            {notifEnabled 
-              ? <Bell className="text-kronos-accent" size={14} /> 
-              : <BellOff className="text-kronos-dim" size={14} />
-            }
-          </button>
           <button
             onClick={onHide}
             className="p-1 rounded hover:bg-white/10"
@@ -504,11 +494,6 @@ export default function Checklist() {
       return JSON.parse(localStorage.getItem('checklist_hidden') || '{}')
     } catch { return {} }
   })
-  const [notifMap, setNotifMap] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem('checklist_notif') || '{}')
-    } catch { return {} }
-  })
   const [showHiddenTasks, setShowHiddenTasks] = useState(false)
   const [cdnBase, setCdnBase] = useState('')
 
@@ -532,10 +517,6 @@ export default function Checklist() {
   useEffect(() => {
     localStorage.setItem('checklist_hidden', JSON.stringify(hiddenMap))
   }, [hiddenMap])
-
-  useEffect(() => {
-    localStorage.setItem('checklist_notif', JSON.stringify(notifMap))
-  }, [notifMap])
 
   useEffect(() => {
     invoke('get_cdn_base_url').then(setCdnBase).catch(() => { })
@@ -731,21 +712,17 @@ export default function Checklist() {
   const visibleTasks = allTasks.filter(t => showHiddenTasks || !hiddenMap[t.id])
   const completedTasks = visibleTasks.filter(t => completed[t.id]).length
 
-  // Expose checklist data for notification system
+  // Expose tasks for notification manager
   useEffect(() => {
     window.__checklistTasks = allTasks.map(t => ({
       id: t.id,
       label: t.label,
       reset: t.reset,
       nextResetTime: t.nextResetTime,
-      notifEnabled: notifMap[t.id] || false
     }))
-    window.__checklistNotifMap = notifMap
-    return () => {
-      delete window.__checklistTasks
-      delete window.__checklistNotifMap
-    }
-  }, [allTasks, notifMap])
+    // Don't delete on unmount — the notification manager reads this
+    // even when the Checklist page isn't active.
+  }, [allTasks])
 
   return (
     <>
@@ -856,10 +833,8 @@ export default function Checklist() {
                 task={task}
                 completed={completed[task.id] || false}
                 hidden={hiddenMap[task.id] || false}
-                notifEnabled={notifMap[task.id] || false}
                 onToggle={() => toggleTask(task.id)}
                 onHide={() => toggleHidden(task.id)}
-                onToggleNotif={() => toggleNotif(task.id)}
                 timeLeft={task.timeLeft}
                 nextResetTime={task.nextResetTime}
               />

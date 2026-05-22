@@ -7,6 +7,7 @@ import { listen, emit } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/wfmCache'
 import { resolveNode } from '../lib/warframeUtils'
 import { getSetting } from '../lib/settings'
+import { evaluateNotifications } from '../lib/notificationManager'
 
 const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
 
@@ -110,6 +111,22 @@ function getCurrentArby(arbys, ERg, dict) {
   return best
 }
 
+function getUpcomingArbies(arbys, ERg, dict, arbyTiers, count = 10) {
+  if (!arbys) return []
+  const now = Date.now()
+  const lines = arbys.split('\n').map(l => l.trim()).filter(Boolean)
+  const results = []
+  for (const line of lines) {
+    const entry = parseArbyLine(line, ERg, dict)
+    if (entry && !isNaN(entry.ts) && entry.ts > now) {
+      entry.grade = arbyTiers?.[entry.node] || 'F'
+      results.push(entry)
+      if (results.length >= count) break
+    }
+  }
+  return results
+}
+
 const MonitoringContext = createContext(null)
 
 export function MonitoringProvider({ children }) {
@@ -139,15 +156,7 @@ export function MonitoringProvider({ children }) {
   const [descendiaDescs, setDescendiaDescs] = useState({ penance: {}, missionType: {} })
   const intervalRef = useRef(null)
   const busyRef = useRef(false)
-  const notifiedRef = useRef({
-    arbitration: new Set(),
-    foundry: new Set(),
-    syndicate: new Set(),
-    syndicateWaste: { lastNotify: 0 },
-    mastery: {},
-    checklist: {},
-    voidTraces: false
-  })
+  const notifiedRef = useRef({})
 
   // ── Derived lookup maps ──────────────────────────────────────────────────────
   const dict = useMemo(() => exportData?.['dict.en'] ?? {}, [exportData])
@@ -263,195 +272,99 @@ export function MonitoringProvider({ children }) {
 
   const globalRewardPool = useMemo(() => getAllRelicRewards(exportData), [exportData])
 
-  // ── Notification Logic ──────────────────────────────────────────────────────
+  // ── Notification Manager evaluator ──────────────────────────────────────────
+  const notifInitRef = useRef(false)
+
   useEffect(() => {
-    if (!inventoryData) return
+    const raw = getSetting('notifications', [])
+    if (!Array.isArray(raw) || raw.length === 0) return
+    // Wait for real worldstate data before evaluating
+    if (!worldState) return
+    if (!notifiedRef.current.notifMgr) notifiedRef.current.notifMgr = new Set()
+
     const position = getSetting('notif_position', 'top-right')
 
-    const RANK_CAPS = {
-      5: 132000, 4: 99000, 3: 70000, 2: 44000, 1: 22000, 0: 5000,
-      [-1]: -22000, [-2]: -44000
-    }
-    const getCumulativePreviousCaps = (rank) => {
-      if (rank <= 0) return 0
-      if (rank >= 5) return 5000 + 22000 + 44000 + 70000 + 99000
-      if (rank === 4) return 5000 + 22000 + 44000 + 70000
-      if (rank === 3) return 5000 + 22000 + 44000
-      if (rank === 2) return 5000 + 22000
-      if (rank === 1) return 5000
-      return 0
+    // On first real data, mark everything as seen — no startup flood
+    if (!notifInitRef.current) {
+      notifInitRef.current = true
+      const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES })
+      for (const r of results) {
+        notifiedRef.current.notifMgr.add(`${r.notifId}::${r.title}::${r.message}`)
+      }
+      return
     }
 
-    // 1. Void Traces
-    if (getSetting('notif_void_traces_enabled', false)) {
-      const { void_traces, void_traces_max } = inventoryData.account || {}
-      if (void_traces && void_traces_max && void_traces >= void_traces_max) {
-        if (!notifiedRef.current.voidTraces) {
-          invoke('show_notification', {
-            title: 'Void Traces Capped',
-            message: `You have reached the maximum capacity of ${void_traces_max} Void Traces.`,
-            image: '/IconRelic.png',
-            position
-          }).catch(console.error)
-          notifiedRef.current.voidTraces = true
-        }
-      } else {
-        notifiedRef.current.voidTraces = false
+    const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES })
+
+    // Fire each new notification individually; only the first one plays sound
+    let soundPlayed = false
+    for (const r of results) {
+      const dedupKey = `${r.notifId}::${r.title}::${r.message}`
+      if (!notifiedRef.current.notifMgr.has(dedupKey)) {
+        notifiedRef.current.notifMgr.add(dedupKey)
+        invoke('show_notification', {
+          title: r.title,
+          message: r.message,
+          image: r.image || '',
+          position,
+          no_focus: true,
+          silent: soundPlayed,
+        }).catch(console.error)
+        soundPlayed = true
       }
     }
 
-    // 2. Syndicate Rank Capped
-    if (getSetting('notif_syndicate_enabled', false)) {
-      const affiliations = inventoryData.Affiliations || [];
-      const MAIN_SYNDICATE_TAGS = new Set([
-        'SteelMeridianSyndicate', 'PerrinSyndicate', 'ArbitersSyndicate',
-        'CephalonSudaSyndicate', 'RedVeilSyndicate', 'NewLokaSyndicate'
-      ]);
-      const MAX_SYNDICATE_RANK = 5; // Assuming Rank 5 is the absolute max
-
-      affiliations.forEach(aff => {
-        // Check if it's one of the 6 main syndicates
-        if (!MAIN_SYNDICATE_TAGS.has(aff.Tag)) {
-          return; // Skip if not a main syndicate
-        }
-
-        const rank = aff.Title ?? 0;
-        const total = aff.Standing ?? 0;
-        const cap = RANK_CAPS[rank] ?? 22000; // Cap for the current rank
-        const previousCaps = getCumulativePreviousCaps(rank);
-        const earned = Math.max(0, total - previousCaps);
-
-        // Trigger notification ONLY if it's the MAX rank AND the cap for that rank is met.
-        // Also, ensure we haven't already notified for this syndicate tag.
-        if (rank === MAX_SYNDICATE_RANK && earned >= cap && cap > 0) {
-          if (!notifiedRef.current.syndicate.has(aff.Tag)) {
-            invoke('show_notification', {
-              title: 'Syndicate Capped',
-              message: `You have reached the maximum standing for ${aff.Tag.replace('Syndicate', '')}.`,
-              image: '/IconMastery.png',
-              position
-            }).catch(console.error);
-            notifiedRef.current.syndicate.add(aff.Tag);
-          }
-        } else {
-          // If not maxed or not capped, remove from notified set to allow future notifications if they become maxed again
-          notifiedRef.current.syndicate.delete(aff.Tag);
-        }
-      });
-    }
-
-    // 3. Foundry Completion
-    if (getSetting('notif_foundry_enabled', false)) {
-      const recipes = inventoryData.craftable || []
-      recipes.forEach(item => {
-        if (item.isCrafting && item.remainingTime <= 0) {
-          if (!notifiedRef.current.foundry.has(item.uniqueName)) {
-            invoke('show_notification', {
-              title: 'Foundry Complete',
-              message: `${item.name} is ready to claim!`,
-              image: item.image || '/IconFoundry.png',
-              position
-            }).catch(console.error)
-            notifiedRef.current.foundry.add(item.uniqueName)
-          }
-        }
-      })
-    }
-
-    // 4. S-Tier Arbitration
-    if (getSetting('notif_arbitration_enabled', false) && arbys && Object.keys(ERg).length > 0) {
-      const current = getCurrentArby(arbys, ERg, dict)
-      if (current) {
-        const grade = ARBY_TIERS[current.node] || 'F'
-        if (grade === 'S') {
-          if (!notifiedRef.current.arbitration.has(current.ts)) {
-            invoke('show_notification', {
-              title: 'S-Tier Arbitration Active',
-              message: `${resolveNode(current.type, dict, ERg)} on ${resolveNode(current.node, dict, ERg)}`,
-              image: '/IconDashboard.png',
-              position
-            }).catch(console.error)
-            notifiedRef.current.arbitration.add(current.ts)
-          }
-        }
+    // Reset dedup for notifications that no longer match
+    const activeKeys = new Set(results.map(r => `${r.notifId}::${r.title}::${r.message}`))
+    for (const key of notifiedRef.current.notifMgr) {
+      if (!activeKeys.has(key)) {
+        notifiedRef.current.notifMgr.delete(key)
       }
     }
+  }, [inventoryData, worldState, arbys, ERg, dict, ES])
 
-    // 5. Syndicate Waste Reminder
-    // Fires when the player's pledged syndicate has enemies with standing > 0.
-    // Playing any mission would drain that enemy standing to zero, wasting it.
-    // The user should spend it on items first.
-    if (getSetting('notif_syndicate_waste_enabled', false)) {
-      const pledgedTag = inventoryData.SupportedSyndicate // e.g. "SteelMeridianSyndicate"
-      const affiliations = inventoryData.Affiliations || []
-
-      // Find the config entry whose AFFILIATION_TAGS value matches the pledged tag
-      const AFFILIATION_TAGS = {
-        steel: 'SteelMeridianSyndicate', perrin: 'PerrinSyndicate',
-        arbiters: 'ArbitersSyndicate', suda: 'CephalonSudaSyndicate',
-        veil: 'RedVeilSyndicate', newloka: 'NewLokaSyndicate',
-      }
-      const pledgedShortTag = Object.entries(AFFILIATION_TAGS).find(([, v]) => v === pledgedTag)?.[0]
-
-      if (pledgedShortTag) {
-        // ES is ExportSyndicates — build enemy tags from alignments
-        const pledgedExportData = ES?.[pledgedTag]
-        const TAG_TO_EXPORT_KEY = {
-          steel: 'SteelMeridianSyndicate', perrin: 'PerrinSyndicate',
-          arbiters: 'ArbitersSyndicate', suda: 'CephalonSudaSyndicate',
-          veil: 'RedVeilSyndicate', newloka: 'NewLokaSyndicate',
-        }
-        const exportKeyToShort = Object.fromEntries(Object.entries(TAG_TO_EXPORT_KEY).map(([k, v]) => [v, k]))
-        const enemyShortTags = pledgedExportData?.alignments
-          ? Object.entries(pledgedExportData.alignments)
-            .filter(([, v]) => v < 0)
-            .map(([k]) => exportKeyToShort[k])
-            .filter(Boolean)
-          : []
-
-        // Check if any enemy syndicate has standing > 0
-        const enemiesWithStanding = enemyShortTags
-          .map(tag => {
-            const affTag = AFFILIATION_TAGS[tag]
-            const aff = affiliations.find(a => a.Tag === affTag)
-            return aff && (aff.Standing ?? 0) > 0 ? tag : null
-          })
-          .filter(Boolean)
-
-        const now = Date.now()
-        if (enemiesWithStanding.length > 0 && now - notifiedRef.current.syndicateWaste.lastNotify > 30 * 60 * 1000) {
-          const names = enemiesWithStanding.join(', ')
-          invoke('show_notification', {
-            title: 'Syndicate Standing at Risk',
-            message: `Opposing syndicate${enemiesWithStanding.length > 1 ? 's' : ''} (${names}) have standing, use before its 0`,
-            image: '/IconMastery.png'
-          }).catch(console.error)
-          notifiedRef.current.syndicateWaste.lastNotify = now
-        }
-        if (enemiesWithStanding.length === 0) notifiedRef.current.syndicateWaste.lastNotify = 0
-      }
+  // Wire up helpers for notificationManager.js and populate checklist tasks
+  // (minimal id/label so the dropdown works even before visiting Checklist page)
+  useEffect(() => {
+    window.__KRONOS_NOTIF_HELPERS = { getCurrentArby, getUpcomingArbies, ARBY_TIERS, resolveNode }
+    window.__checklistTasks = [
+      { id: 'baro', label: "Baro Ki'Teer" },
+      { id: 'sortie', label: 'Sortie' },
+      { id: 'foundry', label: 'Check Foundry' },
+      { id: 'syndicates', label: 'Syndicate Standing' },
+      { id: 'focus', label: 'Daily Focus Cap' },
+      { id: 'steel_path', label: 'Steel Path Incursions' },
+      { id: 'acrithis_daily', label: 'Acrithis Daily' },
+      { id: 'ticker', label: "Ticker's Railjack Crew" },
+      { id: 'marie', label: "Marie's Shop" },
+      { id: 'grandmother', label: "Grandmother's Tokens" },
+      { id: 'yonta_daily', label: 'Yonta: Daily Voidplumes' },
+      { id: 'voca', label: 'Loid: Voca' },
+      { id: 'nightwave', label: 'Nightwave Missions' },
+      { id: 'nightwave_spend', label: 'Nightwave Shop' },
+      { id: 'ayatan', label: "Maroo's Ayatan Hunt" },
+      { id: 'clem', label: 'Help Clem' },
+      { id: 'narmer', label: 'Help Kahl: Break Narmer' },
+      { id: 'archon', label: 'Archon Hunt' },
+      { id: 'circuit', label: 'Duviri Circuit' },
+      { id: 'circuit_sp', label: 'Duviri Circuit SP' },
+      { id: 'pulses', label: 'Pulses: Netracell & Archimedea' },
+      { id: 'calendar', label: '1999 Calendar' },
+      { id: 'invigorations', label: 'Helminth Invigoration' },
+      { id: 'descendia', label: 'Descendia' },
+      { id: 'descendia_sp', label: 'Descendia SP' },
+      { id: 'palladino', label: "Palladino's Shop" },
+      { id: 'yonta_weekly', label: 'Yonta: Weekly Shop' },
+      { id: 'acrithis_weekly', label: 'Acrithis Weekly' },
+      { id: 'teshin', label: 'Teshin Shop' },
+      { id: 'bird3', label: 'Bird 3 Shop' },
+      { id: 'nightcap', label: 'Nightcap Shop' },
+    ]
+    return () => {
+      window.__KRONOS_NOTIF_HELPERS = null
+      delete window.__checklistTasks
     }
-
-    // 6. Mastery Progress
-    // Replicates the XP calculation from Mastery.jsx using the same item data.
-    // Fires once when progress crosses the configured threshold percentage.
-    if (getSetting('notif_mastery_enabled', false)) {
-      const threshold = parseInt(getSetting('notif_mastery_percent', 75))
-      const currentRank = inventoryData.account?.mastery_rank
-      if (currentRank != null) {
-        const key = `${currentRank}_${threshold}`
-        if (masteryProgress >= threshold && !notifiedRef.current.mastery[key]) {
-          invoke('show_notification', {
-            title: 'Mastery Progress',
-            message: `You are ${masteryProgress}% of the way to Mastery Rank ${currentRank + 1}.`,
-            image: '/IconMastery.png',
-            position
-          }).catch(console.error)
-          notifiedRef.current.mastery[key] = true
-        }
-      }
-    }
-  }, [inventoryData, arbys, ERg, dict, ES, masteryProgress])
+  }, [])
 
   // When the global reward pool is (re-)computed, write a baseline Tesseract wordlist
   // containing every word that can ever appear in a relic reward name.

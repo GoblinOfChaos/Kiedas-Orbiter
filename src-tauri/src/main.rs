@@ -961,11 +961,15 @@ async fn show_notification(
     image: Option<String>,
     position: Option<String>,
     persistent: Option<bool>,
+    silent: Option<bool>,
+    no_focus: Option<bool>,
 ) -> Result<(), String> {
-    let pos     = position.unwrap_or_else(|| "top-right".to_string());
-    let img     = image.unwrap_or_default();
-    let persist = persistent.unwrap_or(false);
-    let notif_id = id.unwrap_or_else(|| format!("notif-{}", 
+    let pos       = position.unwrap_or_else(|| "top-right".to_string());
+    let img       = image.unwrap_or_default();
+    let persist   = persistent.unwrap_or(false);
+    let silent    = silent.unwrap_or(false);
+    let no_focus  = no_focus.unwrap_or(false);
+    let notif_id  = id.unwrap_or_else(|| format!("notif-{}",
         SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis()
     ));
 
@@ -976,24 +980,27 @@ async fn show_notification(
         _            => "overlay-tr",
     };
 
-    // If the window was previously hidden, wipe any stale JS state first,
-    // then re-show and position it before emitting the event.
-    if let Some(w) = app_handle.get_window(label) {
-        let was_hidden = !w.is_visible().unwrap_or(true);
-        if was_hidden {
-            // Wipe stale toasts for this specific position (not all windows)
-            let _ = w.emit("wipe-state", pos.clone());
+    // Show/reposition the overlay window (unless no_focus is set)
+    if !no_focus {
+        if let Some(w) = app_handle.get_window(label) {
+            let was_hidden = !w.is_visible().unwrap_or(true);
+            if was_hidden {
+                // Wipe stale toasts for this specific position (not all windows)
+                let _ = w.emit("wipe-state", pos.clone());
+            }
+            // Always re-show and position -- window may have moved between calls
+            let _ = show_overlay_window(app_handle.clone(), label.to_string());
         }
-        // Always re-show and position -- window may have moved between calls
-        let _ = show_overlay_window(app_handle.clone(), label.to_string());
     }
 
-    // Play sound
-    let sound = state.notif_sound.lock().unwrap().clone();
-    let app = app_handle.clone();
-    tauri::async_runtime::spawn(async move {
-        let _ = play_notification_sound(app, sound).await;
-    });
+    // Play sound (unless silent)
+    if !silent {
+        let sound = state.notif_sound.lock().unwrap().clone();
+        let app = app_handle.clone();
+        tauri::async_runtime::spawn(async move {
+            let _ = play_notification_sound(app, sound).await;
+        });
+    }
 
     // Emit the notification -- the matching overlay window renders it
     app_handle.emit_all("new-notification", NotificationPayload {
@@ -1367,6 +1374,13 @@ fn main() {
         .setup(|app| {
             crate::log_scanner::log_app_start(&app.handle());
             let _ = app.get_window("main").unwrap();
+            // Position and configure all overlay windows once at startup.
+            // They start visible (tauri.conf.json) so show() is a no-op,
+            // which means no focus steal from show/hide cycles later.
+            let ah = app.handle();
+            for label in &["overlay-tr", "overlay-tl", "overlay-tc", "overlay-relic"] {
+                let _ = show_overlay_window(ah.clone(), label.to_string());
+            }
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

@@ -33,9 +33,11 @@ export default function ToastOverlay({ position }) {
     }
   }, [visibleToasts.length, queue])
 
+  // Collapse window to 1×1 when empty to force a compositor repaint
+  // (clears the cached last-frame ghost on Linux). No show/hide = no focus steal.
   useEffect(() => {
     if (visibleToasts.length === 0 && queue.length === 0) {
-      invoke('hide_overlay_window', { label: myLabel }).catch(() => {})
+      invoke('resize_overlay_window', { label: myLabel, width: 1, height: 1 }).catch(() => {})
     }
   }, [visibleToasts.length, queue.length, myLabel])
 
@@ -88,8 +90,10 @@ export default function ToastOverlay({ position }) {
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [position, removeToast])
 
+  const isEmpty = visibleToasts.length === 0 && queue.length === 0
+
   return (
-    <div ref={containerRef} className="flex flex-col gap-2 items-center p-10 w-[440px] select-none pointer-events-none">
+    <div ref={containerRef} className={`flex flex-col gap-2 items-center p-10 w-[440px] select-none pointer-events-none ${isEmpty ? 'opacity-0' : ''}`}>
       {visibleToasts.map((t, index) => (
         <div key={t.id} className="relative">
           <ToastCard toast={t} onExpire={() => removeToast(t.id)} />

@@ -10,6 +10,7 @@ import { useTheme } from '../contexts/ThemeContext'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { formatLastUpdate } from '../lib/warframeUtils'
 import { PageLayout, Card, Button, Toggle } from '../components/UI'
+import NotificationManager from '../components/NotificationManager'
 
 function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
   const [recording, setRecording] = useState(false)
@@ -493,173 +494,10 @@ export default function SettingsScreen() {
             </div>
           </div>
 
-          {/* Alert toggles */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Arbitration */}
-            <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <p className="text-sm font-bold text-kronos-text uppercase">S-Tier Arbitration</p>
-                  <p className="text-xs text-kronos-dim uppercase">Notify when a top-tier node appears</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'S-Tier Arbitration Active', message: 'Disruption on Ur, Uranus', image: '/IconDashboard.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
-                  <Toggle checked={notifArbitrationEnabled} onChange={handleSetArbitrationEnabled} />
-                </div>
-              </div>
-              {notifArbitrationEnabled && (
-                <div className="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-white/5">
-                  <div>
-                    <p className="text-xs text-kronos-dim uppercase mb-1">Look ahead</p>
-                    <select
-                      value={notifArbitrationHours}
-                      onChange={(e) => handleSetArbitrationHours(parseInt(e.target.value))}
-                      className="w-full kronos-select"
-                    >
-                      <option value={6}>6 hours</option>
-                      <option value={12}>12 hours</option>
-                      <option value={24}>24 hours</option>
-                    </select>
-                  </div>
-                  <div>
-                    <p className="text-xs text-kronos-dim uppercase mb-1">Remind before</p>
-                    <select
-                      value={notifArbitrationRemind}
-                      onChange={(e) => handleSetArbitrationRemind(parseInt(e.target.value))}
-                      className="w-full kronos-select"
-                    >
-                      <option value={15}>15 minutes</option>
-                      <option value={30}>30 minutes</option>
-                      <option value={60}>1 hour</option>
-                      <option value={120}>2 hours</option>
-                    </select>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Foundry */}
-            <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <p className="text-sm font-bold text-kronos-text uppercase">Foundry Completion</p>
-                  <p className="text-xs text-kronos-dim uppercase">Alert when items are ready to claim</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'Foundry Complete', message: 'Harrow Prime Neuroptics is ready to claim!', image: '/IconFoundry.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
-                  <Toggle checked={notifFoundryEnabled} onChange={handleSetFoundryEnabled} />
-                </div>
-              </div>
-              {notifFoundryEnabled && (
-                <div className="mt-3 pt-3 border-t border-white/5">
-                  <p className="text-xs text-kronos-dim uppercase mb-1">Notify when remaining duration is</p>
-                  <select
-                    value={notifFoundryMinutes}
-                    onChange={(e) => handleSetFoundryMinutes(parseInt(e.target.value))}
-                    className="w-full kronos-select"
-                  >
-                    <option value={5}>5 minutes</option>
-                    <option value={15}>15 minutes</option>
-                    <option value={30}>30 minutes</option>
-                    <option value={60}>1 hour</option>
-                  </select>
-                </div>
-              )}
-            </div>
-
-            {/* Syndicate Standing - Capped */}
-            <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <div className="flex items-center justify-between mb-2">
-                <div>
-                  <p className="text-sm font-bold text-kronos-text uppercase">Syndicate Capped</p>
-                  <p className="text-xs text-kronos-dim uppercase">Notify when any syndicate reaches max daily standing</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'Syndicate Capped', message: 'Steel Meridian standing is maxed for this rank.', image: '/IconMastery.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
-                  <Toggle checked={notifSyndicateEnabled} onChange={handleSetSyndicateEnabled} />
-                </div>
-              </div>
-            </div>
-
-            {/* Syndicate Standing - Waste */}
-            <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <div className="flex items-center justify-between mb-2">
-                <div>
-                  <p className="text-sm font-bold text-kronos-text uppercase">Syndicate Waste Reminder</p>
-                  <p className="text-xs text-kronos-dim uppercase">Notify when enemy syndicates of your pledged faction have standing that will be lost</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'Syndicate Standing at Risk', message: 'Opposing syndicates (veil, newloka) have standing, use before its 0', image: '/IconMastery.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
-                  <Toggle checked={notifSyndicateWasteEnabled} onChange={handleSetSyndicateWasteEnabled} />
-                </div>
-              </div>
-            </div>
-
-            {/* Void Traces - Capped */}
-            <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <div className="flex items-center justify-between mb-2">
-                <div>
-                  <p className="text-sm font-bold text-kronos-text uppercase">Void Traces Capped</p>
-                  <p className="text-xs text-kronos-dim uppercase">Notify when void traces reach maximum capacity</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'Void Traces Capped', message: 'You have reached the maximum capacity of 1200 Void Traces.', image: '/IconRelic.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
-                  <Toggle checked={notifVoidTracesEnabled} onChange={handleSetVoidTracesEnabled} />
-                </div>
-              </div>
-            </div>
-
-            {/* Mastery */}
-            <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <p className="text-sm font-bold text-kronos-text uppercase">Mastery Progress</p>
-                  <p className="text-xs text-kronos-dim uppercase">Notify when you reach a set % towards the next rank</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => invoke('show_notification', { title: 'Mastery Progress', message: `You are 75% of the way to Mastery Rank 30.`, image: '/IconMastery.png', position: notifPosition }).catch(console.error)} className="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-white/10 text-kronos-dim hover:text-kronos-accent hover:border-kronos-accent/40 transition-all">Test</button>
-                  <Toggle checked={notifMasteryEnabled} onChange={handleSetMasteryEnabled} />
-                </div>
-              </div>
-              {notifMasteryEnabled && (
-                <div className="mt-3 pt-3 border-t border-white/5">
-                  <p className="text-xs text-kronos-dim uppercase mb-1">Notify at</p>
-                  <select
-                    value={notifMasteryPercent}
-                    onChange={(e) => handleSetMasteryPercent(parseInt(e.target.value))}
-                    className="w-full kronos-select"
-                  >
-                    <option value={50}>50%</option>
-                    <option value={75}>75%</option>
-                    <option value={90}>90%</option>
-                    <option value={99}>99%</option>
-                  </select>
-                </div>
-              )}
-            </div>
-
-            {/* Checklist Task Reminders */}
-            <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <p className="text-sm font-bold text-kronos-text uppercase">Task Reminders</p>
-                  <p className="text-xs text-kronos-dim uppercase">Notify before checklist tasks reset</p>
-                </div>
-              </div>
-              <div className="mt-3 pt-3 border-t border-white/5">
-                <p className="text-xs text-kronos-dim uppercase mb-1">Notify before reset</p>
-                <select
-                  value={notifChecklistMinutes}
-                  onChange={(e) => handleSetChecklistMinutes(parseInt(e.target.value))}
-                  className="w-full kronos-select"
-                >
-                  <option value={15}>15 minutes</option>
-                  <option value={30}>30 minutes</option>
-                  <option value={60}>1 hour</option>
-                  <option value={120}>2 hours</option>
-                </select>
-              </div>
-            </div>
+          {/* Notification Manager */}
+          <div className="mt-5 pt-4 border-t border-white/5">
+            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Notification Triggers</p>
+            <NotificationManager />
           </div>
         </Card>
 

@@ -5,8 +5,9 @@ import { Palette, Bell, Clock, AlertTriangle, Star, CheckCircle, Settings as Set
 import { open as openDialog } from '@tauri-apps/api/dialog'
 import { invoke } from '@tauri-apps/api/tauri'
 import { listen } from '@tauri-apps/api/event'
-import { checkUpdate, installUpdate } from '@tauri-apps/api/updater'
+import { installUpdate } from '@tauri-apps/api/updater'
 import { getVersion } from '@tauri-apps/api/app'
+import { useUpdate } from '../contexts/UpdateContext'
 import { getSetting, setSetting } from '../lib/settings'
 import { useTheme } from '../contexts/ThemeContext'
 import { useMonitoring } from '../contexts/MonitoringContext'
@@ -106,29 +107,13 @@ export default function SettingsScreen() {
     () => getSetting('update_on_startup', true)
   )
 
-  // Updater state
-  const [updateState, setUpdateState] = useState({ status: 'idle', manifest: null, error: null })
-
-  const handleCheckUpdate = async () => {
-    setUpdateState({ status: 'checking', manifest: null, error: null })
-    try {
-      const result = await checkUpdate()
-      if (result.shouldUpdate && result.manifest) {
-        setUpdateState({ status: 'available', manifest: result.manifest, error: null })
-      } else {
-        setUpdateState({ status: 'up-to-date', manifest: null, error: null })
-      }
-    } catch (err) {
-      setUpdateState({ status: 'error', manifest: null, error: err?.message ?? String(err) })
-    }
-  }
+  const { updateState, checkForUpdates } = useUpdate()
 
   const handleInstallUpdate = async () => {
-    setUpdateState(s => ({ ...s, status: 'installing' }))
     try {
       await installUpdate()
     } catch (err) {
-      setUpdateState({ status: 'error', manifest: null, error: err?.message ?? String(err) })
+      console.error('Install update failed:', err)
     }
   }
 
@@ -258,11 +243,7 @@ export default function SettingsScreen() {
     const savedMonitor = getSetting('fissure_target_monitor', 'auto')
     invoke('set_target_monitor', { monitor: savedMonitor }).catch(console.error)
 
-    // Auto-check for updates on startup
-    const autoCheck = getSetting('update_on_startup', true)
-    if (autoCheck) {
-      handleCheckUpdate()
-    }
+    // Auto-check is handled by UpdateProvider
   }, [])
 
   const handleSetTargetMonitor = async (val) => {
@@ -869,7 +850,7 @@ export default function SettingsScreen() {
 
             <div className="flex gap-2 pt-2">
               <button
-                onClick={handleCheckUpdate}
+                onClick={checkForUpdates}
                 disabled={updateState.status === 'checking' || updateState.status === 'installing'}
                 className={`py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${
                   updateState.status === 'checking' || updateState.status === 'installing'

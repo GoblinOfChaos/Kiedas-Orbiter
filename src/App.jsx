@@ -3,6 +3,7 @@ import { useMonitoring } from './contexts/MonitoringContext'
 import { formatLastUpdate } from './lib/warframeUtils'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { MonitoringProvider } from './contexts/MonitoringContext'
+import { UpdateProvider, useUpdate } from './contexts/UpdateContext'
 import { Tooltip } from './components/UI'
 import { AlertTriangle } from 'lucide-react'
 import { invoke } from '@tauri-apps/api/tauri'
@@ -155,6 +156,7 @@ function DisclaimerModal() {
 function AppContent() {
   const [activeTab, setActiveTab] = useState('dashboard')
   const { lastUpdate, monitorResult, isMonitoring } = useMonitoring()
+  const { updateState } = useUpdate()
   const [isScannerRunning, setIsScannerRunning] = useState(false)
 
   useEffect(() => {
@@ -199,6 +201,9 @@ function AppContent() {
               const isActive = activeTab === item.id
               return (
                 <div key={item.id} className="relative">
+                  {item.id === 'settings' && updateState.status === 'available' && (
+                    <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full z-10 shadow-[0_0_6px_rgba(239,68,68,0.8)]" />
+                  )}
                   <Tooltip content={item.label}>
                     <button
                       id={item.id === 'settings' ? 'nav-settings' : undefined}
@@ -305,8 +310,10 @@ export default function App() {
   return (
     <ThemeProvider>
       <MonitoringProvider>
-        <DisclaimerModal />
-        <AppContent />
+        <UpdateProvider>
+          <DisclaimerModal />
+          <AppContent />
+        </UpdateProvider>
       </MonitoringProvider>
     </ThemeProvider>
   )

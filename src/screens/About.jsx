@@ -9,7 +9,7 @@
  * (warframe-items, browse.wf, etc.), and a critical warning about the
  * ban risk associated with memory-based extraction.
  */
-import { AlertTriangle, Github, Box, Globe, Database, Layers, Palette, Terminal, BookOpen } from 'lucide-react'
+import { AlertTriangle, Github, MessageCircle, Box, Globe, Database, Layers, Palette, Terminal, BookOpen } from 'lucide-react'
 import { PageLayout, Card } from '../components/UI'
 import { invoke } from '@tauri-apps/api/tauri'
 import { version } from '../../package.json'
@@ -52,13 +52,22 @@ export default function About() {
           <p className="text-kronos-text/90 mb-4 leading-relaxed text-sm">
             Track your inventory, relics, rivens and mastery alongside a live worldstate with timers, fissures, arbitrations and more.
           </p>
-           <button
-             onClick={() => handleOpenLink('https://github.com/glowseeker/cephalon-kronos')}
-             className="inline-flex items-center gap-2 text-kronos-accent hover:text-kronos-accent-secondary transition-colors text-sm font-medium cursor-pointer"
-           >
-             <Github size={18} />
-             View on GitHub
-           </button>
+           <div className="flex gap-3">
+             <button
+               onClick={() => handleOpenLink('https://github.com/glowseeker/cephalon-kronos')}
+               className="inline-flex items-center gap-2 text-kronos-accent hover:text-kronos-accent-secondary transition-colors text-sm font-medium cursor-pointer"
+             >
+               <Github size={18} />
+               GitHub
+             </button>
+             <button
+               onClick={() => handleOpenLink('https://discord.gg/9GjkZ9aXwy')}
+               className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition-colors text-sm font-medium cursor-pointer"
+             >
+               <MessageCircle size={18} />
+               Discord
+             </button>
+           </div>
         </Card>
 
         {/* Credits */}

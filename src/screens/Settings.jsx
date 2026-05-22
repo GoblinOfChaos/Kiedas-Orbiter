@@ -5,6 +5,8 @@ import { Palette, Bell, Clock, AlertTriangle, Star, CheckCircle, Settings as Set
 import { open as openDialog } from '@tauri-apps/api/dialog'
 import { invoke } from '@tauri-apps/api/tauri'
 import { listen } from '@tauri-apps/api/event'
+import { checkUpdate, installUpdate } from '@tauri-apps/api/updater'
+import { getVersion } from '@tauri-apps/api/app'
 import { getSetting, setSetting } from '../lib/settings'
 import { useTheme } from '../contexts/ThemeContext'
 import { useMonitoring } from '../contexts/MonitoringContext'
@@ -98,6 +100,42 @@ export default function SettingsScreen() {
   const HOTKEY_ACTIONS = [
     { id: 'manual_ocr', label: 'Manual Relic Recognition (OCR)' }
   ]
+
+  const [version, setVersion] = useState('')
+  const [updateOnStartup, setUpdateOnStartup] = useState(
+    () => getSetting('update_on_startup', true)
+  )
+
+  // Updater state
+  const [updateState, setUpdateState] = useState({ status: 'idle', manifest: null, error: null })
+
+  const handleCheckUpdate = async () => {
+    setUpdateState({ status: 'checking', manifest: null, error: null })
+    try {
+      const result = await checkUpdate()
+      if (result.shouldUpdate && result.manifest) {
+        setUpdateState({ status: 'available', manifest: result.manifest, error: null })
+      } else {
+        setUpdateState({ status: 'up-to-date', manifest: null, error: null })
+      }
+    } catch (err) {
+      setUpdateState({ status: 'error', manifest: null, error: err?.message ?? String(err) })
+    }
+  }
+
+  const handleInstallUpdate = async () => {
+    setUpdateState(s => ({ ...s, status: 'installing' }))
+    try {
+      await installUpdate()
+    } catch (err) {
+      setUpdateState({ status: 'error', manifest: null, error: err?.message ?? String(err) })
+    }
+  }
+
+  const handleSetUpdateOnStartup = async (val) => {
+    setUpdateOnStartup(val)
+    await setSetting('update_on_startup', val)
+  }
 
   // ... rest of the component ...
 
@@ -202,6 +240,7 @@ export default function SettingsScreen() {
   }
 
   useEffect(() => {
+    getVersion().then(setVersion).catch(() => setVersion('?'))
     // Sync current sound to Rust backend on mount
     const savedSound = getSetting('notif_sound', 'notification1.wav')
     invoke('set_notification_sound', { sound: savedSound }).catch(console.error)
@@ -218,6 +257,12 @@ export default function SettingsScreen() {
     // Sync current target monitor to Rust backend on mount
     const savedMonitor = getSetting('fissure_target_monitor', 'auto')
     invoke('set_target_monitor', { monitor: savedMonitor }).catch(console.error)
+
+    // Auto-check for updates on startup
+    const autoCheck = getSetting('update_on_startup', true)
+    if (autoCheck) {
+      handleCheckUpdate()
+    }
   }, [])
 
   const handleSetTargetMonitor = async (val) => {
@@ -767,6 +812,82 @@ export default function SettingsScreen() {
             >
               Manual Refresh
             </button>
+          </div>
+        </Card>
+
+        {/* Updates */}
+        <Card glow className="p-5">
+          <div className="flex items-center gap-3 mb-5">
+            <RefreshCw className="text-kronos-accent" size={24} />
+            <h2 className="text-xl font-black uppercase tracking-tight">Updates</h2>
+          </div>
+
+          <div className="bg-kronos-panel/30 rounded-xl p-4 border border-white/5 space-y-3">
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">
+                Version {version}
+              </p>
+              <Toggle
+                checked={updateOnStartup}
+                onChange={handleSetUpdateOnStartup}
+                label="Check on startup"
+              />
+            </div>
+
+            {updateState.status === 'idle' && (
+              <p className="text-xs text-kronos-dim">Click below to check for a new version.</p>
+            )}
+            {updateState.status === 'checking' && (
+              <p className="text-xs text-kronos-accent font-mono flex items-center gap-2">
+                <RefreshCw size={12} className="animate-spin" /> Checking for updates...
+              </p>
+            )}
+            {updateState.status === 'available' && updateState.manifest && (
+              <div className="space-y-2">
+                <p className="text-xs text-green-400 font-mono font-bold">
+                  Update available: {updateState.manifest.version}
+                </p>
+                <p className="text-[10px] text-kronos-dim font-mono leading-relaxed max-h-20 overflow-y-auto">
+                  {updateState.manifest.body || 'No release notes available.'}
+                </p>
+                <p className="text-[10px] text-zinc-600 font-mono">
+                  Released: {new Date(updateState.manifest.date).toLocaleDateString()}
+                </p>
+              </div>
+            )}
+            {updateState.status === 'up-to-date' && (
+              <p className="text-xs text-green-400 font-mono">You have the latest version.</p>
+            )}
+            {updateState.status === 'installing' && (
+              <p className="text-xs text-kronos-accent font-mono flex items-center gap-2">
+                <RefreshCw size={12} className="animate-spin" /> Installing update...
+              </p>
+            )}
+            {updateState.status === 'error' && (
+              <p className="text-xs text-red-400 font-mono">Error: {updateState.error}</p>
+            )}
+
+            <div className="flex gap-2 pt-2">
+              <button
+                onClick={handleCheckUpdate}
+                disabled={updateState.status === 'checking' || updateState.status === 'installing'}
+                className={`py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${
+                  updateState.status === 'checking' || updateState.status === 'installing'
+                    ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
+                    : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
+                }`}
+              >
+                {updateState.status === 'checking' ? 'Checking...' : 'Check for Updates'}
+              </button>
+              {updateState.status === 'available' && (
+                <button
+                  onClick={handleInstallUpdate}
+                  className="py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border bg-green-500/20 border-green-500/40 text-green-400 hover:bg-green-500/30"
+                >
+                  Install Update
+                </button>
+              )}
+            </div>
           </div>
         </Card>
 

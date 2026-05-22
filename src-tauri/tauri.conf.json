@@ -36,12 +36,19 @@
       "http": {
         "all": true,
         "request": true,
-        "scope": ["https://api.warframe.market/*"]
+        "scope": [
+          "https://api.warframe.market/*",
+          "https://github.com/glowseeker/cephalon-kronos/*"
+        ]
       }
     },
     "bundle": {
       "active": true,
-      "targets": ["nsis", "dmg", "appimage"],
+      "targets": [
+        "nsis",
+        "dmg",
+        "appimage"
+      ],
       "identifier": "com.glowseeker.cephalonkronos",
       "icon": [
         "icons/32x32.png",
@@ -57,6 +64,14 @@
         "data/export/*",
         "data/audio/*"
       ]
+    },
+    "updater": {
+      "active": true,
+      "dialog": true,
+      "endpoints": [
+        "https://github.com/glowseeker/cephalon-kronos/releases/latest/download/updater.json"
+      ],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEY0MENFRTlENTZBMzgxRjIKUldUeWdhTlduZTRNOU1FWXlhbnhSdGNPcm9ZMXkxZFhVb3lBZGU4MitqUEhWRFNDNG5wcjN1dkYK"
     },
     "security": {
       "csp": null

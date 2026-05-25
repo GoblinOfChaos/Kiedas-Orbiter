@@ -32,9 +32,13 @@ src-tauri/data/user/*
 !src-tauri/data/export/maps/
 !src-tauri/data/export/masteryicons/
 src-tauri/data/bin/*
-!src-tauri/data/bin/tessdata/
 !src-tauri/data/bin/*.png
 
 # Ignore target and Cargo.lock
 src-tauri/target/
 src-tauri/Cargo.lock
+
+# C++ build artifacts
+build_int/
+build_warframe_helper.ps1
+*.obj

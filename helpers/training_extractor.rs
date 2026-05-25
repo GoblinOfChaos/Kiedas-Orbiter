@@ -105,7 +105,7 @@ fn process_image(img_path: &Path, out_dir: &Path) -> Result<(), Box<dyn std::err
             }
         }
 
-        // Normalise polarity: Tesseract expects dark text on light background.
+        // Normalise polarity: OCR expects dark text on light background.
         // Use edge-based detection: borders are almost always background.
         let mut edge_black = 0;
         let mut edge_white = 0;

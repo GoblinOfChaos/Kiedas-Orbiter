@@ -106,7 +106,7 @@ fn save_processed_row(
         }
     }
 
-    // Normalise polarity: Tesseract expects dark text on light background.
+    // Normalise polarity: OCR expects dark text on light background.
     // Use edge-based detection: borders are almost always background.
     let (bw, bh) = binary.dimensions();
     let mut edge_black = 0;

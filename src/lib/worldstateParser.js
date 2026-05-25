@@ -30,6 +30,67 @@ import {
   splitPascal
 } from './warframeUtils'
 
+// ─── Descendia mapping tables (fallback when dict lookup fails) ───────────────
+const DESCENDIA_MISSION_TYPES = {
+  DT_BREAK_TARGETS: 'Destroy Hologlobes',
+  DT_LOOT_CREATURES: 'Gruzzling Plunder',
+  DT_ALCHEMY: 'Alchemy',
+  DT_INTERCEPTION: 'Mobile Interception',
+  DT_INFESTED_SALVAGE: 'Infested Salvage',
+  DT_SABOTAGE_HIVE: 'Hive',
+  DT_PROTOFRAME: 'Protoframe Room',
+  DT_CAPTURE: 'Capture',
+  DT_MIMICS: 'Plunder Roulette',
+  DT_COLLECTION: 'Void Flood',
+  DT_BOSS: 'Assassination',
+  DT_EXTERMINATE: 'Exterminate',
+  DT_NETRACELLS: 'Targeted Elimination',
+  DT_SABOTAGE_DEFENSE: 'Defense',
+  DT_DEFENSE: 'Defense of a Protoframe',
+  DT_EXCAVATION: 'Excavation',
+  DT_PRESURE_GAUGE: 'Volatile',
+  DT_UNIQUE: 'Unique',
+  DT_LOOT: 'Loot',
+  DT_RACE: 'Race',
+}
+
+const DESCENDIA_PENANCES = {
+  NC_SlipAndSlide: 'Frictionless without Enemies',
+  BasicLootCreatures: 'Gruzzling Plunder',
+  MineField: 'Minefield',
+  SlipAndSlide: 'Frictionless',
+  Escapist: 'Sneaky Retreats',
+  VoidAberration: 'Vampyric Liminus',
+  Wisp: 'Marie',
+  FireAndIce: 'Eximus Cabal: Fire & Ice',
+  BasicMimics: 'Plunder Roulette',
+  NC_MineField: 'Minefield without Enemies',
+  Octopede: 'The Fragmented Boss',
+  PoisonGas: 'Chemical Warfare',
+  GlassMaker: 'Glassmaker Cephalites',
+  Harrow: 'Lyon',
+  Darkness: 'Sol Banished',
+  SpicyKnife: 'Bomb Defusal',
+  JumpSmash: 'Head Stompers',
+  Manics: 'Manic Mania',
+  CollectionBasic: 'Void Flood',
+  GiantRealm: 'Gigantism',
+  Devil: 'Roathe',
+  HardShell: 'Hardshell',
+  UnseenFoes: 'Unseen Foes',
+  NarmerPhobia: 'Narmer Phobia',
+  VeryToxic: 'Very Toxic',
+  SecuritySpin: 'Security Spin',
+  NC_SecuritySpin: 'Security Spin',
+  BlitzLeech: 'Blitz Leech',
+  BasicLoot: 'Basic Loot',
+  BasicRace: 'Basic Race',
+  NC_Darkness: 'Sol Banished',
+  FieryTrailRollers: 'Fiery Trail Rollers',
+  InfestedBoyband: 'Infested Boyband',
+  Horse: 'Horse Combat Only',
+}
+
 // ─── Environment Cycle Parsers ────────────────────────────────────────────────
 //
 // Each open-world area cycles between two states on a fixed timer.
@@ -398,12 +459,16 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
       randSeed: d.RandSeed,
       stages: (d.Challenges || []).map(c => {
         const levelName = (c.Level || '').split('/').at(-1)?.replace(/\.level$/i, '') || ''
+        const rawType = c.Type
+        const rawPenance = c.Challenge
+        const resolvedType = resolveMissionType(rawType, dict, ERg)
+        const resolvedPenance = resolveNode(rawPenance, dict, ERg)
         return {
           index: c.Index,
-          missionType: resolveMissionType(c.Type, dict, ERg),
-          missionTypeRaw: c.Type,
-          penance: resolveNode(c.Challenge, dict, ERg),
-          penanceRaw: c.Challenge,
+          missionType: (resolvedType !== rawType) ? resolvedType : (DESCENDIA_MISSION_TYPES[rawType] || rawType),
+          missionTypeRaw: rawType,
+          penance: (resolvedPenance !== rawPenance) ? resolvedPenance : (DESCENDIA_PENANCES[rawPenance] || rawPenance),
+          penanceRaw: rawPenance,
           arena: levelName,
           level: resolveNode(c.Level, dict, ERg),
           specs: c.Specs || [],

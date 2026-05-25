@@ -41,6 +41,7 @@ import {
   resolveChallenge,
   resolveChallengeDesc,
   resolveChallengeFlavour,
+  resolveItemName,
   timeRemaining,
   timeSince
 } from '../lib/warframeUtils'
@@ -141,7 +142,7 @@ function GradeBadge({ grade, className = "" }) {
 // ── Main component ─────────────────────────────────────────────────────────────
 export default function Dashboard() {
   const {
-    exportData, spIncursions, arbys, descendiaDescs,
+    exportData, spIncursions, arbys, descendiaDescs, archonModifiers,
     dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, arbyTiers,
     rawInventory, inventoryData, ES, ENWRawRewards, ExportImages,
   } = useMonitoring()
@@ -934,7 +935,6 @@ export default function Dashboard() {
                     <p className="text-[10px] font-bold text-kronos-accent uppercase">Marie&apos;s Sanctuary</p>
                     <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
                   </div>
-                  <span className="text-[8px] font-black text-kronos-accent bg-kronos-accent/15 px-1.5 py-0.5 rounded flex-shrink-0">CP</span>
                 </div>
               )
             }
@@ -946,7 +946,6 @@ export default function Dashboard() {
                     <p className="text-[10px] font-bold text-kronos-accent uppercase">Lyon&apos;s Sanctuary</p>
                     <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
                   </div>
-                  <span className="text-[8px] font-black text-kronos-accent bg-kronos-accent/15 px-1.5 py-0.5 rounded flex-shrink-0">CP</span>
                 </div>
               )
             }
@@ -958,7 +957,6 @@ export default function Dashboard() {
                     <p className="text-[10px] font-bold text-kronos-accent uppercase">Roathe&apos;s Oblivion</p>
                     <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
                   </div>
-                  <span className="text-[8px] font-black text-kronos-accent bg-kronos-accent/15 px-1.5 py-0.5 rounded flex-shrink-0">CP</span>
                 </div>
               )
             }
@@ -966,8 +964,8 @@ export default function Dashboard() {
             return (
               <div key={s.index} className="p-1.5 rounded bg-kronos-panel/30 flex items-center gap-1.5">
                 <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
-                <div className="relative group/desc flex-1 min-w-0 p-1 rounded bg-kronos-panel/40 cursor-help">
-                  <p className="text-[10px] font-bold text-kronos-text uppercase truncate">{s.missionType}</p>
+                <div className={`relative group/desc flex-1 min-w-0 p-1 rounded bg-kronos-panel/40 ${missionDesc ? 'cursor-help' : ''}`}>
+                  <p className="text-[10px] font-bold text-kronos-text uppercase">{s.missionType}</p>
                   {missionDesc && (
                     <div className="absolute left-0 bottom-full mb-1 w-64 p-3 bg-kronos-panel rounded-lg text-[11px] opacity-0 group-hover/desc:opacity-100 transition-opacity z-50 shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/5 pointer-events-none">
                       <p className="text-kronos-accent font-bold mb-1">{s.missionType}</p>
@@ -975,8 +973,8 @@ export default function Dashboard() {
                     </div>
                   )}
                 </div>
-                <div className="relative group/desc2 flex-1 min-w-0 p-1 rounded bg-kronos-panel/20 cursor-help">
-                  <p className="text-[10px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                <div className={`relative group/desc2 flex-1 min-w-0 p-1 rounded bg-kronos-panel/20 ${penanceDesc ? 'cursor-help' : ''}`}>
+                  <p className="text-[10px] text-kronos-dim uppercase">{s.penance}</p>
                   {penanceDesc && (
                     <div className="absolute right-0 bottom-full mb-1 w-64 p-3 bg-kronos-panel rounded-lg text-[11px] opacity-0 group-hover/desc2:opacity-100 transition-opacity z-50 shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/5 pointer-events-none">
                       <p className="text-kronos-accent font-bold mb-1">{s.penance}</p>
@@ -1495,6 +1493,19 @@ export default function Dashboard() {
                   </div>
                 ))}
               </div>
+                  {archonModifiers && (
+                    <div className="mt-2 pt-2 border-t border-kronos-divider/30">
+                      <p className="text-xs font-bold text-kronos-accent mb-1 uppercase tracking-wide">Elite Alert Modifiers</p>
+                      <p className="text-xs text-kronos-text">
+                        <span className="text-kronos-dim">Frame: </span>
+                        <span className="text-kronos-text">{resolveItemName(archonModifiers.suitType, dict, uniqueNameToName)}</span>
+                      </p>
+                      <p className="text-xs text-kronos-text mt-0.5">
+                        <span className="text-kronos-dim">Weapons: </span>
+                        <span className="text-kronos-text">{(archonModifiers.wepTypes || []).map(w => resolveItemName(w, dict, uniqueNameToName)).join(', ')}</span>
+                      </p>
+                    </div>
+                  )}
               <p className="text-xs text-kronos-dim mt-2 text-right">{timeRemaining(worldstate.archonHunt.expiry)}</p>
             </Card>
           )}

@@ -154,6 +154,7 @@ export function MonitoringProvider({ children }) {
   const [spIncursions, setSpIncursions] = useState(null)
   const [arbys, setArbys] = useState(null)
   const [descendiaDescs, setDescendiaDescs] = useState({ penance: {}, missionType: {} })
+  const [archonModifiers, setArchonModifiers] = useState(null)
   const intervalRef = useRef(null)
   const busyRef = useRef(false)
   const notifiedRef = useRef({})
@@ -555,21 +556,6 @@ export function MonitoringProvider({ children }) {
       fissureStateRef.current.squad_relics = resolved
       invoke('relay_event', { event: 'overlay-update-relics', payload: { squad_relics: resolved, squad_size } }).catch(() => { })
 
-      // Build the Tesseract wordlist from all words appearing in the reward pool.
-      // With squad relics known we have at most 24 candidates -- a tiny, precise
-      // vocabulary that dramatically narrows what Tesseract considers valid output.
-      const wordSet = new Set()
-      for (const relic of resolved) {
-        for (const rew of (relic.rewards || [])) {
-          const name = (rew.name || '').trim()
-          if (name) name.split(/\s+/).forEach(w => { if (w.length > 1) wordSet.add(w) })
-        }
-      }
-      if (wordSet.size > 0) {
-        invoke('write_ocr_wordlist', { words: [...wordSet] }).catch(err =>
-          console.log(`[MonitoringContext] write_ocr_wordlist failed: ${err}`)
-        )
-      }
     }))
 
     subs.push(listen('fissure-reward-phase', async (e) => {
@@ -663,12 +649,16 @@ export function MonitoringProvider({ children }) {
       ocrActiveRef.current = false
     }))
 
+    subs.push(listen('archon-hunt-modifiers', (e) => {
+      setArchonModifiers(e.payload)
+    }))
+
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [exportData, inventoryData, globalRewardPool, EI])
 
   return (
     <MonitoringContext.Provider value={{
-      exportData, spIncursions, arbys, descendiaDescs,
+      exportData, spIncursions, arbys, descendiaDescs, archonModifiers,
       dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
       masteryProgress, marketPrices, isPricing,

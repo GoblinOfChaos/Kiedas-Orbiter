@@ -366,19 +366,7 @@ export function MonitoringProvider({ children }) {
     }
   }, [])
 
-  // When the global reward pool is (re-)computed, write a baseline Tesseract wordlist
-  // containing every word that can ever appear in a relic reward name.
-  useEffect(() => {
-    if (!globalRewardPool || globalRewardPool.length === 0) return
-    const wordSet = new Set()
-    for (const item of globalRewardPool) {
-      const name = (item.name || '').trim()
-      if (name) name.split(/\s+/).forEach(w => { if (w.length > 1) wordSet.add(w) })
-    }
-    if (wordSet.size > 0) {
-      invoke('write_ocr_wordlist', { words: [...wordSet] }).catch(() => { })
-    }
-  }, [globalRewardPool])
+
 
   const applyRaw = useCallback((raw, ts, exports = exportData) => {
     if (!raw) return

@@ -60,7 +60,6 @@
       ],
       "resources": [
         "data/bin/*",
-        "data/bin/tessdata/*",
         "data/export/*",
         "data/audio/*"
       ]
@@ -142,6 +141,36 @@
         "alwaysOnTop": true,
         "resizable": true,
         "visible": true,
+        "skipTaskbar": true,
+        "url": "/?overlay=true",
+        "acceptFirstMouse": true,
+        "focus": false
+      },
+      {
+        "label": "overlay-riven-current",
+        "title": "Kronos Overlay",
+        "width": 360,
+        "height": 260,
+        "transparent": true,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "resizable": true,
+        "visible": false,
+        "skipTaskbar": true,
+        "url": "/?overlay=true",
+        "acceptFirstMouse": true,
+        "focus": false
+      },
+      {
+        "label": "overlay-riven-new",
+        "title": "Kronos Overlay",
+        "width": 360,
+        "height": 260,
+        "transparent": true,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "resizable": true,
+        "visible": false,
         "skipTaskbar": true,
         "url": "/?overlay=true",
         "acceptFirstMouse": true,

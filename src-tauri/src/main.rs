@@ -13,6 +13,7 @@ use serde_json::Value;
 
 mod log_scanner;
 mod ocr;
+mod ocr_engine;
 mod overlay_utils;
 mod logger;
 
@@ -20,9 +21,6 @@ pub struct AppState {
     pub notif_sound: Arc<Mutex<String>>,
     pub log_scanner: Arc<Mutex<Option<log_scanner::LogScannerHandle>>>,
     pub log_scanner_path: Arc<Mutex<Option<String>>>,
-    /// Path to the eng.user-words file written for the current session.
-    /// Written by `write_ocr_wordlist`, consumed by the OCR pipeline.
-    pub ocr_wordlist_path: Arc<Mutex<Option<std::path::PathBuf>>>,
     pub active_relic_data: Arc<Mutex<Option<serde_json::Value>>>,
     pub target_monitor: Arc<Mutex<Option<usize>>>,
 }
@@ -214,6 +212,43 @@ async fn check_exports() -> Result<String, String> {
     }
 
     Ok(format!("Updated {} files", updated_count))
+}
+
+/// Download PP-OCRv5 models for ocr-rs if not already cached.
+#[tauri::command]
+async fn check_ocr_models() -> Result<String, String> {
+    let models_dir = crate::ocr_engine::models_dir();
+    if !models_dir.exists() {
+        std::fs::create_dir_all(&models_dir).map_err(|e| e.to_string())?;
+    }
+    let rec_path = models_dir.join("PP-OCRv5_mobile_rec.mnn");
+    let keys_path = models_dir.join("ppocr_keys_v5.txt");
+    let mut downloaded = 0u32;
+    let client = reqwest::Client::new();
+    let base = "https://raw.githubusercontent.com/zibo-chen/rust-paddle-ocr/main/models";
+    let det_path = models_dir.join("PP-OCRv5_mobile_det.mnn");
+    if !det_path.exists() {
+        let url = format!("{}/PP-OCRv5_mobile_det.mnn", base);
+        download_file(&client, &url, &det_path).await.map_err(|e| {
+            format!("Failed to download PP-OCRv5 detection model: {}", e)
+        })?;
+        downloaded += 1;
+    }
+    if !rec_path.exists() {
+        let url = format!("{}/PP-OCRv5_mobile_rec.mnn", base);
+        download_file(&client, &url, &rec_path).await.map_err(|e| {
+            format!("Failed to download PP-OCRv5 recognition model: {}", e)
+        })?;
+        downloaded += 1;
+    }
+    if !keys_path.exists() {
+        let url = format!("{}/ppocr_keys_v5.txt", base);
+        download_file(&client, &url, &keys_path).await.map_err(|e| {
+            format!("Failed to download PP-OCRv5 charset: {}", e)
+        })?;
+        downloaded += 1;
+    }
+    Ok(format!("Downloaded {} OCR model files", downloaded))
 }
 
 /// Read a cached TXT file from data/export/ and return its contents as a string.
@@ -1374,6 +1409,14 @@ fn main() {
         .setup(|app| {
             crate::log_scanner::log_app_start(&app.handle());
             let _ = app.get_window("main").unwrap();
+            let ah = app.handle();
+            // Download PP-OCRv5 models in background (needed by ocr_engine)
+            tauri::async_runtime::spawn(async move {
+                match check_ocr_models().await {
+                    Ok(msg) => eprintln!("[OCR MODELS] {}", msg),
+                    Err(e) => eprintln!("[OCR MODELS] Download failed: {}", e),
+                }
+            });
             // Position and configure all overlay windows once at startup.
             // They start visible (tauri.conf.json) so show() is a no-op,
             // which means no focus steal from show/hide cycles later.
@@ -1388,6 +1431,7 @@ fn main() {
             load_cached_inventory,
             call_api_helper,
             check_exports,
+            check_ocr_models,
             check_media_assets,
             load_all_exports,
             load_txt_file,
@@ -1410,7 +1454,6 @@ fn main() {
             simulate_fissure_event,
             crate::ocr::save_debug_screenshot,
             crate::ocr::start_debug_ocr_session,
-            crate::ocr::write_ocr_wordlist,
             crate::ocr::trigger_manual_ocr,
             // --- overlay ---
             show_notification,

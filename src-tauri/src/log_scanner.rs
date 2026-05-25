@@ -1,10 +1,8 @@
-use std::fs::File;
-use std::io::{Read, Seek, SeekFrom};
+use std::collections::HashSet;
+use std::io::Read;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
-use std::thread;
-use std::time::Duration;
 use tauri::{AppHandle, Manager};
 
 static IS_SCANNING: AtomicBool = AtomicBool::new(false);
@@ -26,11 +24,22 @@ pub struct FissureEvent {
     pub void_tier: Option<String>,
 }
 
+#[derive(PartialEq)]
+enum RivenState {
+    Idle,
+    ScreenOpen,
+    AwaitingConfirm1,
+    Wait4s,
+    AwaitingConfirm2,
+}
+
 pub struct LogScanner {
     squad_relics: Vec<RelicInfo>,
     squad_size: usize,
     is_fissure: bool,
     in_mission: bool,
+    riven_state: RivenState,
+    squad_channels: HashSet<String>,
 }
 
 fn parse_timestamp(line: &str) -> Option<f64> {
@@ -49,6 +58,7 @@ fn parse_timestamp(line: &str) -> Option<f64> {
     None
 }
 
+/// Check if a line matches one of the riven menu close patterns (numeric values ignored).
 impl LogScanner {
     pub fn new() -> Self {
         Self {
@@ -56,6 +66,8 @@ impl LogScanner {
             squad_size: 1,
             is_fissure: false,
             in_mission: false,
+            riven_state: RivenState::Idle,
+            squad_channels: HashSet::new(),
         }
     }
 
@@ -110,14 +122,14 @@ impl LogScanner {
             return;
         }
 
-        // === 4. 10 Reactant Trigger ===
-        if s.contains("DVRCAftermathLotus") {
+        // === 4. Reward Screen Trigger ===
+        if s.contains("Relic rewards initialized") || s.contains("ProjectionRewardChoice.lua: Got rewards") {
             if crate::ocr::ICON_SCAN_ACTIVE.load(Ordering::SeqCst) {
                 return;
             }
             crate::ocr::ICON_SCAN_ACTIVE.store(true, Ordering::SeqCst);
             let app_clone = app.clone();
-            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 4: 10 REACTANT DETECTED (Starting icon scan) (LogTS: {}s)", ts));
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 4: REWARD SCREEN DETECTED (Starting icon scan) (LogTS: {}s)", ts));
             std::thread::spawn(move || {
                 crate::ocr::detect_slot_count_from_icons(app_clone, false);
             });
@@ -140,6 +152,146 @@ impl LogScanner {
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 6: ENDLESS CONTINUE (LogTS: {}s)", ts));
             return;
+        }
+
+        // ─── Riven linked in chat ───────────────────────────────────────────
+        if s.contains("ThemedDetailedPurchaseDialog.lua: PopulateInfo->")
+            && s.contains("/Lotus/StoreItems/Upgrades/Mods/Randomized")
+        {
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven linked in chat opened (LogTS: {}s)", ts));
+            app.emit_all("riven-linked-open", ()).unwrap_or_default();
+            return;
+        }
+        if s.contains("ThemedDetailedPurchaseDialog.lua: DBG: HudVis") {
+            app.emit_all("riven-linked-closed", ()).unwrap_or_default();
+            return;
+        }
+
+        // ─── Riven reroll menu state machine ───────────────────────────────
+        if s.contains("OmegaRerollSelection.lua: Diorama setup") {
+            self.riven_state = RivenState::ScreenOpen;
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll screen opened (LogTS: {}s)", ts));
+            app.emit_all("riven-screen-open", ()).unwrap_or_default();
+            return;
+        }
+
+        // Track dialog lifecycle
+        if s.contains("Dialog.lua: Dialog::CreateOkCancel(description=") {
+            match self.riven_state {
+                RivenState::ScreenOpen => {
+                    self.riven_state = RivenState::AwaitingConfirm1;
+                }
+                RivenState::Wait4s => {
+                    self.riven_state = RivenState::AwaitingConfirm2;
+                }
+                _ => {}
+            }
+            return;
+        }
+
+        if s.contains("Dialog.lua: SendResult_MENU_CANCEL()") || s.contains("Dialog.lua: Dialog::SendResult(5)") {
+            // Dialog cancelled - go back to previous state
+            match self.riven_state {
+                RivenState::AwaitingConfirm1 => {
+                    self.riven_state = RivenState::ScreenOpen;
+                }
+                RivenState::AwaitingConfirm2 => {
+                    // If second dialog cancelled, the whole menu might be closing
+                    self.riven_state = RivenState::ScreenOpen;
+                }
+                _ => {}
+            }
+            return;
+        }
+
+        if s.contains("Dialog.lua: SendResult_MENU_SELECT()") || s.contains("Dialog.lua: Dialog::SendResult(4)") {
+            match self.riven_state {
+                RivenState::AwaitingConfirm1 => {
+                    self.riven_state = RivenState::Wait4s;
+                    crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll confirmed, waiting for second dialog (LogTS: {}s)", ts));
+                    app.emit_all("riven-reroll", ()).unwrap_or_default();
+                }
+                RivenState::AwaitingConfirm2 => {
+                    self.riven_state = RivenState::ScreenOpen;
+                    crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven new selection confirmed (LogTS: {}s)", ts));
+                    app.emit_all("riven-reroll-confirmed", ()).unwrap_or_default();
+                }
+                _ => {}
+            }
+            return;
+        }
+
+        // ─── Riven close detection ────────────────────────────────────────
+        if s.contains("CancelJobs batchcount 0") {
+            self.riven_state = RivenState::Idle;
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll menu closed (CancelJobs) (LogTS: {}s)", ts));
+            app.emit_all("riven-screen-closed", ()).unwrap_or_default();
+            return;
+        }
+        if s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false") {
+            self.riven_state = RivenState::Idle;
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven overlays closed (ClearAgents) (LogTS: {}s)", ts));
+            app.emit_all("riven-screen-closed", ()).unwrap_or_default();
+            app.emit_all("riven-linked-closed", ()).unwrap_or_default();
+            return;
+        }
+
+        // ─── Archon Hunt Elite Alert modifiers ────────────────────────────
+        if s.contains("Background.lua: EliteAlert: generated boosts for") {
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Archon Hunt elite alert modifiers detected (LogTS: {}s)", ts));
+            let mut suit_type = String::new();
+            let mut wep_types: Vec<String> = Vec::new();
+            if let Some(suit_start) = s.find("suitType=") {
+                let after = &s[suit_start + 9..];
+                if let Some(end) = after.find(' ') {
+                    suit_type = after[..end].to_string();
+                } else {
+                    suit_type = after.to_string();
+                }
+            }
+            if let Some(wep_start) = s.find("wepTypes=") {
+                let after = &s[wep_start + 9..];
+                for path in after.split(',') {
+                    let p = path.trim().trim_end_matches(',');
+                    if !p.is_empty() && p != "," {
+                        wep_types.push(p.to_string());
+                    }
+                }
+            }
+            app.emit_all("archon-hunt-modifiers", serde_json::json!({
+                "suitType": suit_type,
+                "wepTypes": wep_types,
+            })).unwrap_or_default();
+            return;
+        }
+
+        // ─── Chat squad channel tracking ───────────────────────────────────
+        if let Some(hash_start) = s.find("IRC out: JOIN #") {
+            let hash = &s[hash_start + 14..]; // skip "IRC out: JOIN #"
+            let hash = hash.trim();
+            self.squad_channels.insert(hash.to_string());
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Squad channel joined: #{} (LogTS: {}s)", hash, ts));
+            return;
+        }
+
+        if s.contains("ChatRedux.lua: Chat: Filters for") && s.contains(":") {
+            // Extract channel name
+            if let Some(filters_start) = s.find("Filters for") {
+                let after = &s[filters_start + 11..];
+                if let Some(colon) = after.find(':') {
+                    let channel = after[..colon].trim();
+                    // Skip public channels
+                    let is_public = channel.contains("G_EN_") || channel.contains("R_EN_")
+                        || channel.contains("Q_EN_") || channel.contains("T_EN_");
+                    if !is_public && self.squad_channels.contains(channel) {
+                        crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Chat incoming message (squad channel: {}) (LogTS: {}s)", channel, ts));
+                        app.emit_all("chat-incoming-message", serde_json::json!({
+                            "channel": channel,
+                        })).unwrap_or_default();
+                        return;
+                    }
+                }
+            }
         }
     }
 }
@@ -191,139 +343,155 @@ pub fn stop_scanner(app: &AppHandle) {
     crate::logger::log_to_disk(app, "[LOG SCANNER] stop_scanner called — stopping watcher thread");
     IS_SCANNING.store(false, Ordering::SeqCst);
     crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
+    // Kill any orphaned helper so the blocking read_exact unblocks
+    let _ = std::process::Command::new("taskkill")
+        .args(["/f", "/im", "warframe-api-helper.exe"])
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::null())
+        .status();
 }
 
 pub fn is_scanning() -> bool {
     IS_SCANNING.load(Ordering::SeqCst)
 }
 
-// ─── Main watcher ──────────────────────────────────────────────────────────────
+// ─── Memory watcher ────────────────────────────────────────────────────────────
 
-pub fn spawn_log_watcher(app: AppHandle, log_path: PathBuf) -> Result<LogScannerHandle, String> {
+fn line_hash(s: &str) -> u64 {
+    let mut hash: u64 = 0xcbf29ce484222325;
+    for &b in s.as_bytes() {
+        hash ^= b as u64;
+        hash = hash.wrapping_mul(0x100000001b3);
+    }
+    hash
+}
+
+pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogScannerHandle, String> {
     if IS_SCANNING.load(Ordering::SeqCst) {
         return Err("Already scanning".to_string());
     }
-    IS_SCANNING.store(true, Ordering::SeqCst);
 
-    crate::logger::log_to_disk(&app, &format!(
-        "[LOG SCANNER] Scanner initialised — watching: {}",
-        log_path.display()
-    ));
+    let bin_name = format!("warframe-api-helper{}", std::env::consts::EXE_SUFFIX);
+    let relative = format!("data/bin/{}", bin_name);
+
+    let writable = crate::get_data_root().join(&relative);
+    let helper_path = if writable.exists() {
+        writable
+    } else if let Some(bundled) = app.path_resolver().resolve_resource(&relative) {
+        if bundled.exists() { bundled } else { return Err("warframe-api-helper not found".to_string()); }
+    } else {
+        return Err("warframe-api-helper not found".to_string());
+    };
+
+    IS_SCANNING.store(true, Ordering::SeqCst);
 
     let app_inner = app.clone();
 
     std::thread::spawn(move || {
         let mut scanner = LogScanner::new();
-        let mut remainder = String::new();
-        let mut activity_confirmed = false;
-        let mut error_logged = false;
-        let mut pos;
+        let mut seen_set: std::collections::HashSet<u64> = std::collections::HashSet::new();
+        let mut logged_waiting = false;
 
-        // ── Initial Open & Catch-up ──────────────────────────────────────────
-        // Wait for the file to exist, then read the tail for context.
-        loop {
-            if !IS_SCANNING.load(Ordering::SeqCst) { return; }
-            if let Ok(mut file) = File::open(&log_path) {
-                let file_size = file.metadata().map(|m| m.len()).unwrap_or(0);
-                crate::logger::log_to_disk(&app_inner, &format!(
-                    "[LOG SCANNER] EE.log found — size: {} bytes", file_size
-                ));
-
-                // Catch-up: Scan last 50KB to see if we're mid-mission.
-                let catchup_start = file_size.saturating_sub(50_000);
-                if file.seek(SeekFrom::Start(catchup_start)).is_ok() {
-                    let mut catchup_buf = Vec::new();
-                    if file.read_to_end(&mut catchup_buf).is_ok() {
-                        let text = String::from_utf8_lossy(&catchup_buf);
-                        let mut n = 0usize;
-                        for line in text.lines() {
-                            scanner.on_line(&app_inner, line);
-                            n += 1;
-                        }
-                        crate::logger::log_to_disk(&app_inner, &format!(
-                            "[LOG SCANNER] Catch-up complete — processed {} historical lines", n
-                        ));
-                    }
-                }
-                pos = file_size;
-                break;
-            }
-            thread::sleep(Duration::from_millis(1000));
-        }
-
-        // ── Main Polling Loop ────────────────────────────────────────────────
-        // We open the file fresh on every iteration. This is microseconds of 
-        // overhead but makes stale handles structurally impossible on Windows.
         loop {
             if !IS_SCANNING.load(Ordering::SeqCst) {
-                crate::logger::log_to_disk(&app_inner, "[LOG SCANNER] Watcher thread stopping");
                 break;
             }
 
-            match File::open(&log_path) {
-                Ok(mut file) => {
-                    error_logged = false; // reset error state if we successfully opened
-
-                    if let Ok(current_len) = file.seek(SeekFrom::End(0)) {
-                        if current_len < pos {
-                            crate::logger::log_to_disk(&app_inner, "[LOG SCANNER] EE.log truncated/reset — seeking to start");
-                            pos = 0;
-                            remainder.clear();
-                        }
-
-                        if current_len > pos {
-                            if file.seek(SeekFrom::Start(pos)).is_ok() {
-                                let mut buffer = Vec::new();
-                                if let Ok(bytes_read) = file.read_to_end(&mut buffer) {
-                                    if bytes_read > 0 {
-                                        if !activity_confirmed {
-                                            crate::logger::log_to_disk(&app_inner, "[LOG SCANNER] EE.log activity confirmed — scanner is live");
-                                            activity_confirmed = true;
-                                        }
-
-                                        let raw = String::from_utf8_lossy(&buffer);
-                                        let mut full = if remainder.is_empty() {
-                                            raw.into_owned()
-                                        } else {
-                                            let mut s = std::mem::take(&mut remainder);
-                                            s.push_str(&raw);
-                                            s
-                                        };
-
-                                        // Handle partial lines at the end of the chunk
-                                        if !full.ends_with('\n') {
-                                            if let Some(last_nl) = full.rfind('\n') {
-                                                remainder = full.split_off(last_nl + 1);
-                                            } else {
-                                                remainder = full;
-                                                pos += bytes_read as u64;
-                                                thread::sleep(Duration::from_millis(100));
-                                                continue;
-                                            }
-                                        }
-
-                                        for line in full.lines() {
-                                            scanner.on_line(&app_inner, line);
-                                        }
-                                        pos += bytes_read as u64;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+            let mut cmd = std::process::Command::new(&helper_path);
+            cmd.arg("--read-log-buffer")
+               .stdout(std::process::Stdio::piped())
+               .stderr(std::process::Stdio::piped());
+            #[cfg(windows)]
+            {
+                use std::os::windows::process::CommandExt;
+                const CREATE_NO_WINDOW: u32 = 0x08000000;
+                cmd.creation_flags(CREATE_NO_WINDOW);
+            }
+            let mut child = match cmd.spawn()
+            {
+                Ok(c) => c,
                 Err(e) => {
-                    if !error_logged {
-                        crate::logger::log_to_disk(&app_inner, &format!(
-                            "[LOG SCANNER] EE.log became inaccessible (waiting...): {}", e));
-                        error_logged = true;
-                        activity_confirmed = false;
+                    crate::logger::log_to_disk(&app_inner, &format!(
+                        "[MEMORY WATCHER] Failed to spawn helper (will retry): {}", e
+                    ));
+                    std::thread::sleep(std::time::Duration::from_secs(5));
+                    continue;
+                }
+            };
+
+            crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Helper started");
+
+            let mut reader = match child.stdout.take() {
+                Some(s) => std::io::BufReader::new(s),
+                None => continue,
+            };
+            let mut buf = Vec::new();
+            let mut first_data = true;
+
+            loop {
+                if !IS_SCANNING.load(Ordering::SeqCst) {
+                    let _ = child.kill();
+                    break;
+                }
+
+                let mut len_buf = [0u8; 4];
+                if reader.read_exact(&mut len_buf).is_err() {
+                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Helper stream ended, restarting...");
+                    break;
+                }
+                let data_len = u32::from_le_bytes(len_buf) as usize;
+
+                if data_len == 0 {
+                    if !logged_waiting {
+                        crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Waiting for Warframe process...");
+                        logged_waiting = true;
                     }
+                    continue;
+                }
+
+                buf.resize(data_len, 0);
+                if reader.read_exact(&mut buf).is_err() {
+                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Read error, restarting helper...");
+                    break;
+                }
+
+                if first_data {
+                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Hooked into Warframe RAM! Backfill — populating dedup set, suppressing events.");
+                    first_data = false;
+                    let text = String::from_utf8_lossy(&buf);
+                    for line in text.split('\n') {
+                        let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
+                        if line.is_empty() { continue; }
+                        if !line.starts_with(|c: char| c.is_ascii_digit()) { continue; }
+                        let hash = line_hash(line);
+                        seen_set.insert(hash);
+                        // Static info events (archon modifiers) should fire immediately
+                        if line.contains("EliteAlert: generated boosts for") {
+                            scanner.on_line(&app_inner, line);
+                        }
+                    }
+                    continue;
+                }
+
+                let text = String::from_utf8_lossy(&buf);
+                for line in text.split('\n') {
+                    let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
+                    if line.is_empty() {
+                        continue;
+                    }
+                    if !line.starts_with(|c: char| c.is_ascii_digit()) {
+                        continue;
+                    }
+                    let hash = line_hash(line);
+                    if !seen_set.insert(hash) {
+                        continue;
+                    }
+                    scanner.on_line(&app_inner, line);
                 }
             }
-
-            thread::sleep(Duration::from_millis(100));
         }
+
+        IS_SCANNING.store(false, Ordering::SeqCst);
     });
 
     Ok(LogScannerHandle {

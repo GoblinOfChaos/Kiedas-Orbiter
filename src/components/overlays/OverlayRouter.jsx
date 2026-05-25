@@ -3,6 +3,7 @@ import { appWindow } from '@tauri-apps/api/window'
 import ToastOverlay from './ToastOverlay'
 
 const RelicRewardOverlay = lazy(() => import('./RelicRewardOverlay'))
+const RivenOverlay = lazy(() => import('./RivenOverlay'))
 
 const LABEL_TO_POS = {
   'overlay-tr': 'top-right',
@@ -21,6 +22,14 @@ export default function OverlayRouter() {
     return (
       <Suspense fallback={null}>
         <RelicRewardOverlay />
+      </Suspense>
+    )
+  }
+
+  if (label === 'overlay-riven-current' || label === 'overlay-riven-new') {
+    return (
+      <Suspense fallback={null}>
+        <RivenOverlay />
       </Suspense>
     )
   }

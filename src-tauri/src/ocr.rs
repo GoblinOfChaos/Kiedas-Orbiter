@@ -2,14 +2,113 @@ use xcap::Monitor;
 use image::{DynamicImage, GenericImageView};
 use tauri::{AppHandle, Manager};
 use serde::Serialize;
-use std::process::{Command, Stdio};
-use std::io::Write;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 /// Set to true by log_scanner when 10-reactant fires, false when reward screen
 /// closes or mission exits. The icon poll loop checks this each iteration.
 pub static ICON_SCAN_ACTIVE: AtomicBool = AtomicBool::new(false);
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub enum RivenCardPosition {
+    Left,
+    Middle,
+    Right,
+    Linked,
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+pub struct RivenOcrResult {
+    pub text: String,
+}
+
+/// Card bounds at 1920×1080: (x1, y1, x2, y2) → stored as (x1, y1, w, h)
+const RIVEN_CARD_BOUNDS: [(f64, f64, f64, f64); 4] = [
+    (486.0, 506.0, 225.0, 325.0),  // Left   (486,506 → 711,831)
+    (815.0, 468.0, 292.0, 414.0),  // Middle (815,468 → 1107,882)
+    (1210.0, 511.0, 223.0, 311.0), // Right  (1210,511 → 1433,822)
+    (840.0, 376.0, 234.0, 328.0),  // Linked (840,376 → 1074,704)
+];
+
+impl RivenCardPosition {
+    fn bounds_1080p(&self) -> (f64, f64, f64, f64) {
+        match self {
+            RivenCardPosition::Left   => RIVEN_CARD_BOUNDS[0],
+            RivenCardPosition::Middle => RIVEN_CARD_BOUNDS[1],
+            RivenCardPosition::Right  => RIVEN_CARD_BOUNDS[2],
+            RivenCardPosition::Linked => RIVEN_CARD_BOUNDS[3],
+        }
+    }
+}
+
+fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPosition) -> Result<RivenOcrResult, String> {
+    let sw = full.width() as f64;
+    let sh = full.height() as f64;
+    let sx = sw / 1920.0;
+    let sy = sh / 1080.0;
+
+    let (bx, by, bw, bh) = position.bounds_1080p();
+    let cx = (bx * sx).round() as u32;
+    let cy = (by * sy).round() as u32;
+    let cw = (bw * sx).round() as u32;
+    let ch = (bh * sy).round() as u32;
+
+    if cx + cw > full.width() || cy + ch > full.height() {
+        return Err("Card bounds out of screen".to_string());
+    }
+
+    let crop = full.crop_imm(cx, cy, cw, ch);
+    let debug_dir = crate::get_data_root().join("data/user");
+    let _ = std::fs::create_dir_all(&debug_dir);
+    let _ = crop.save(debug_dir.join(format!("riven_ocr_{:?}.png", position)));
+
+    // Grayscale + contrast stretch
+    let gray = crop.to_luma8();
+    let (w, h) = gray.dimensions();
+    let mut min = 255u8;
+    let mut max = 0u8;
+    for p in gray.pixels() {
+        if p[0] < min { min = p[0]; }
+        if p[0] > max { max = p[0]; }
+    }
+    let range = (max as f32 - min as f32).max(1.0);
+    let mut stretched = image::GrayImage::new(w, h);
+    for (x, y, p) in gray.enumerate_pixels() {
+        let v = ((p[0] as f32 - min as f32) / range * 255.0) as u8;
+        stretched.put_pixel(x, y, image::Luma([v]));
+    }
+
+    // Upscale 3x for better OCR accuracy
+    let upscaled = image::imageops::resize(&stretched, w * 3, h * 3, image::imageops::FilterType::CatmullRom);
+    let dyn_img = DynamicImage::ImageLuma8(upscaled);
+
+    // Full detection + recognition pipeline
+    let boxes = crate::ocr_engine::recognize_image(&dyn_img);
+    crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Found {} text regions", boxes.len()));
+
+    let results: Vec<String> = boxes.into_iter().map(|(text, _)| text).collect();
+    let combined = results.join(" | ");
+    crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Card {:?}: {:?}", position, combined));
+
+    Ok(RivenOcrResult { text: combined })
+}
+
+#[tauri::command]
+pub fn ocr_riven_card(app: AppHandle, position: RivenCardPosition) -> Result<RivenOcrResult, String> {
+    let Some(monitor) = get_target_monitor(&app) else {
+        return Err("No target monitor".to_string());
+    };
+    let Ok(image) = monitor.capture_image() else {
+        return Err("Capture failed".to_string());
+    };
+    ocr_card_image(&app, DynamicImage::ImageRgba8(image), position)
+}
+
+#[tauri::command]
+pub fn ocr_riven_card_from_file(app: AppHandle, path: String, position: RivenCardPosition) -> Result<RivenOcrResult, String> {
+    let img = image::open(&path).map_err(|e| format!("Failed to load image: {}", e))?;
+    ocr_card_image(&app, img, position)
+}
 
 /// Stores the user's custom UI Scale percentage (e.g. 100 for 1.0, 80 for 0.8)
 pub static USER_UI_SCALE: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(100);
@@ -239,7 +338,7 @@ fn get_slot_rects(squad_size: usize, active_scale: f64) -> Vec<(u32, u32, u32, u
         .collect()
 }
 
-fn identify_requiem_mod(app: &AppHandle, slot_crop: &DynamicImage, slot_idx: usize) -> Option<String> {
+fn identify_requiem_mod(_app: &AppHandle, slot_crop: &DynamicImage, slot_idx: usize) -> Option<String> {
     let templates = get_requiem_templates();
     if templates.is_empty() {
         return None;
@@ -760,71 +859,12 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
     });
 }
 
-// ─── ncc_scan (kept for any future callers) ────────────────────────────────────
-//
-// This is the original full-strip sweep. It is no longer called by
-// detect_slot_count_from_icons but is preserved in case it's useful elsewhere.
-#[allow(dead_code)]
-fn ncc_scan(strip: &image::GrayImage, template: &image::GrayImage, threshold: f32, step: u32) -> Vec<(u32, u32, f32)> {
-    let (sw, sh) = strip.dimensions();
-    let (tw, th) = template.dimensions();
-    if tw > sw || th > sh { return vec![]; }
-
-    let t_pixels: Vec<f32> = template.pixels().map(|p| p[0] as f32).collect();
-    let t_mean = t_pixels.iter().sum::<f32>() / t_pixels.len() as f32;
-    let t_centered: Vec<f32> = t_pixels.iter().map(|&v| v - t_mean).collect();
-    let t_norm = t_centered.iter().map(|v| v * v).sum::<f32>().sqrt();
-    if t_norm < 1e-6 { return vec![]; }
-
-    let s_pixels = strip.as_raw();
-    let x_count = sw - tw + 1;
-    let y_count = sh - th + 1;
-    let mut peaks = Vec::new();
-
-    let tw_usize = tw as usize;
-    let th_usize = th as usize;
-    let sw_usize = sw as usize;
-
-    for y in (0..y_count as usize).step_by(step as usize) {
-        for x in (0..x_count as usize).step_by(step as usize) {
-            let mut p_sum = 0.0f32;
-            for dy in 0..th_usize {
-                let row_offset = (y + dy) * sw_usize;
-                for dx in 0..tw_usize {
-                    p_sum += s_pixels[row_offset + x + dx] as f32;
-                }
-            }
-            let p_mean = p_sum / (tw * th) as f32;
-
-            let mut dot = 0.0f32;
-            let mut p_sq = 0.0f32;
-            for dy in 0..th_usize {
-                let row_offset = (y + dy) * sw_usize;
-                let t_row_offset = dy * tw_usize;
-                for dx in 0..tw_usize {
-                    let pc = s_pixels[row_offset + x + dx] as f32 - p_mean;
-                    dot += pc * t_centered[t_row_offset + dx];
-                    p_sq += pc * pc;
-                }
-            }
-            let p_norm = p_sq.sqrt();
-            if p_norm > 1e-6 {
-                let score = dot / (t_norm * p_norm);
-                if score >= threshold {
-                    peaks.push((x as u32, y as u32, score));
-                }
-            }
-        }
-    }
-    peaks
-}
-
 fn run_ocr_internal(app: AppHandle, squad_size: usize, is_debug: bool, captured_image: Option<DynamicImage>) {
     run_ocr_with_retry(app, squad_size, is_debug, captured_image, 0);
 }
 
 /// Advanced preprocessing using contrast normalization + edge enhancement.
-/// This gives Tesseract more usable input than pure edge detection.
+    /// This gives the OCR engine more usable input than pure edge detection.
 fn apply_ocr_preprocessing(slot_crop: &DynamicImage, _debug_slot: Option<usize>) -> image::GrayImage {
     use imageproc::filter::gaussian_blur_f32;
 
@@ -881,7 +921,7 @@ fn apply_ocr_preprocessing(slot_crop: &DynamicImage, _debug_slot: Option<usize>)
         }
     }
 
-    // Normalise polarity: Tesseract expects dark text on light background.
+    // Normalise polarity: OCR expects dark text on light background.
     // Use edge-based detection: borders are almost always background.
     let mut edge_black = 0;
     let mut edge_white = 0;
@@ -913,10 +953,9 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
         ocr_log!(&app_c, "[OCR] Starting contrast normalization...");
 
         let active_scale = USER_UI_SCALE.load(Ordering::SeqCst) as f64 / 100.0;
-        let mut raw_coords = get_slot_rects(squad_size, active_scale);
-        
+
         let state = app_c.state::<crate::AppState>();
-let relics: Vec<crate::log_scanner::RelicInfo> = if let Ok(cached) = state.active_relic_data.lock() {
+        let relics: Vec<crate::log_scanner::RelicInfo> = if let Ok(cached) = state.active_relic_data.lock() {
             if let Some(ref val) = *cached {
                 val.get("squad_relics")
                     .and_then(|v| serde_json::from_value(v.clone()).ok())
@@ -954,31 +993,15 @@ let relics: Vec<crate::log_scanner::RelicInfo> = if let Ok(cached) = state.activ
             let s_fh = (fh as f64 * sy).round() as u32;
             coords.push((s_fx, s_fy, s_fw, s_fh));
         }
-        let (bin_path, tessdata_path) = get_tesseract_config(&app_c);
-        let bin_path_arc = std::sync::Arc::new(bin_path);
-        let tessdata_path_arc = std::sync::Arc::new(tessdata_path);
-
-        let wordlist_path: Option<std::path::PathBuf> = {
-            let state = app_c.state::<crate::AppState>();
-            let path = state.ocr_wordlist_path.lock().unwrap().clone();
-            path
-        };
-        let wordlist_path_arc = std::sync::Arc::new(wordlist_path);
-
         let mut handles = Vec::new();
 
         for (i, (fx, fy, fw, fh)) in coords.iter().enumerate() {
             if *fx + *fw > dynamic_image.width() || *fy + *fh > dynamic_image.height() { continue; }
             let slot_crop = dynamic_image.crop_imm(*fx, *fy, *fw, *fh);
             
-            let bin_path_c = std::sync::Arc::clone(&bin_path_arc);
-            let tessdata_path_c = std::sync::Arc::clone(&tessdata_path_arc);
-            let wordlist_path_c = std::sync::Arc::clone(&wordlist_path_arc);
             let app_for_thread = app_c.clone();
             let _gray_screen_c = std::sync::Arc::clone(&gray_screenshot);
             let slot_idx = i;
-            let _fx_val = *fx;
-            let _fw_val = *fw;
 
             handles.push(std::thread::spawn(move || {
                 // Requiem image slots are appended after the regular OCR text slots.
@@ -1011,63 +1034,37 @@ let relics: Vec<crate::log_scanner::RelicInfo> = if let Ok(cached) = state.activ
 
                 let mut combined_lines = Vec::new();
                 for (_l_idx, line_img) in [(0usize, line1), (1usize, line2)] {
-                    let pad = 30u32;
-                    let (lw, lh) = (line_img.width(), line_img.height());
-                    let mut padded = image::GrayImage::new(lw + pad * 2, lh + pad * 2);
-                    padded.fill(255);
-                    image::imageops::overlay(&mut padded, &line_img, pad as i64, pad as i64);
-
-                    let mut buffer = Vec::new();
-                    let _ = padded.write_to(&mut std::io::Cursor::new(&mut buffer), image::ImageFormat::Pnm);
-
-                    let mut cmd = Command::new(bin_path_c.to_string_lossy().replace("\\\\?\\", ""));
-                    cmd.args(["-", "stdout", "--oem", "1", "--psm", "7", "-l", "warframe"]);
-                    // Strict Whitelist: Include both cases, numbers, spaces and apostrophes.
-                    cmd.args(["-c", "tessedit_char_whitelist=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '"]);
-                    cmd.args(["-c", "load_system_dawg=0", "-c", "load_freq_dawg=0", "-c", "tessedit_write_images=false"]);
-
-                    if let Some(ref wl) = *wordlist_path_c { if wl.exists() { cmd.args(["--user-words", &wl.to_string_lossy()]); } }
-                    if let Some(ref tp) = *tessdata_path_c { cmd.env("TESSDATA_PREFIX", tp.to_string_lossy().replace("\\\\?\\", "")); }
-
-                    #[cfg(windows)] { use std::os::windows::process::CommandExt; cmd.creation_flags(0x08000000); }
-
-                    if let Ok(mut child) = cmd.stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::piped()).spawn() {
-                        if let Some(mut stdin) = child.stdin.take() { let _ = stdin.write_all(&buffer); }
-                        if let Ok(output) = child.wait_with_output() {
-                            if output.status.success() {
-                                let text = String::from_utf8_lossy(&output.stdout).trim().to_string();
-                                combined_lines.push(text);
-                            } else {
-                                let err = String::from_utf8_lossy(&output.stderr);
-                                ocr_log!(&app_for_thread, "[OCR] Tesseract error: {}", err);
-                            }
-                        }
+                    let text = crate::ocr_engine::recognize(&line_img);
+                    if !text.is_empty() {
+                        combined_lines.push(text);
                     }
                 }
                 
-/// Strip leading garbage tokens from a Tesseract result.
-///
-/// Warframe item names always start with a proper capitalised word followed
-/// by another valid word. We skip tokens until we find a candidate where:
-///   - no digits, length >= 2, starts uppercase
-///   - AND the immediately following token also looks valid
-/// This filters single-char noise, digit blobs, and short mixed-case artefacts
-/// like "sT" or "Liu" when followed by another garbage token.
+/// Strip leading non-alphanumeric junk from a token (e.g. "-Forma" → "Forma").
+fn strip_prefix_junk(s: &str) -> &str {
+    let mut start = 0;
+    for (i, c) in s.char_indices() {
+        if c.is_alphanumeric() {
+            start = i;
+            break;
+        }
+    }
+    &s[start..]
+}
+
 fn clean_ocr_output(raw: &str) -> String {
     let tokens: Vec<&str> = raw.split_whitespace().collect();
     if tokens.is_empty() { return String::new(); }
 
     for i in 0..tokens.len() {
-        let t = tokens[i];
+        let t = strip_prefix_junk(tokens[i]);
         if t.len() < 2 { continue; }
         if t.chars().any(|c| c.is_ascii_digit()) { continue; }
         if !t.chars().next().map(|c| c.is_uppercase()).unwrap_or(false) { continue; }
 
         // Accept if this is the last token, or the next token also looks valid.
-        // This rejects "Liu" when followed by "r", but accepts "Forma" followed
-        // by "Blueprint".
         let accept = if i + 1 < tokens.len() {
-            let next = tokens[i + 1];
+            let next = strip_prefix_junk(tokens[i + 1]);
             next.len() >= 2
                 && !next.chars().any(|c| c.is_ascii_digit())
                 && next.chars().next().map(|c| c.is_uppercase()).unwrap_or(false)
@@ -1076,7 +1073,13 @@ fn clean_ocr_output(raw: &str) -> String {
         };
 
         if accept {
-            return tokens[i..].join(" ");
+            // Reconstruct with original tokens (some may have junk prefixes to preserve)
+            let mut result = String::new();
+            for j in i..tokens.len() {
+                if j > i { result.push(' '); }
+                result.push_str(strip_prefix_junk(tokens[j]));
+            }
+            return result;
         }
     }
 
@@ -1118,49 +1121,6 @@ fn clean_ocr_output(raw: &str) -> String {
         let _ = app_c.emit_all("overlay-debug-text", serde_json::json!({ "text": combined_text }));
         app_c.emit_all("fissure-ocr-band", OcrBandResult { text: combined_text, slot_results, is_debug }).unwrap_or_default();
     });
-}
-
-#[tauri::command]
-pub fn write_ocr_wordlist(app: AppHandle, words: Vec<String>) -> Result<(), String> {
-    let state = app.state::<crate::AppState>();
-    let mut seen = std::collections::HashSet::new();
-    let mut lines = Vec::new();
-    for w in &words {
-        let trimmed = w.trim().to_string();
-        if !trimmed.is_empty() && seen.insert(trimmed.to_lowercase()) { lines.push(trimmed); }
-    }
-    // Add common non-Prime reward words to the baseline
-    for w in &["PRIME", "BLUEPRINT", "SLIVER", "FRAGMENT", "AYATAN", "AMBER", "CYAN", "REQUIEM", "ADAPTER", "FORMA", "EXILUS", "ARCANE"] {
-        if seen.insert(w.to_lowercase()) { lines.push(w.to_string()); }
-    }
-    if lines.is_empty() { return Ok(()); }
-    let dir = crate::get_data_root().join("data/user");
-    std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
-    let path = dir.join("ocr_wordlist.txt");
-    std::fs::write(&path, lines.join("\n")).map_err(|e| e.to_string())?;
-    *state.ocr_wordlist_path.lock().unwrap() = Some(path);
-    Ok(())
-}
-
-fn get_tesseract_config(app: &AppHandle) -> (PathBuf, Option<PathBuf>) {
-    #[cfg(windows)] let bin_name = "tesseract.exe";
-    #[cfg(target_os = "macos")] let bin_name = if cfg!(target_arch = "aarch64") { "tesseract-macos-arm64" } else { "tesseract-macos-x64" };
-    #[cfg(not(any(windows, target_os = "macos")))] let bin_name = "tesseract";
-
-    if let Some(bundled) = app.path_resolver().resolve_resource(format!("data/bin/{}", bin_name)) {
-        if bundled.exists() {
-            let tessdata = bundled.parent().map(|p| p.join("tessdata"));
-            return (bundled, tessdata);
-        }
-    }
-    #[cfg(not(windows))] {
-        let system = PathBuf::from("/usr/bin/tesseract");
-        if system.exists() {
-            let tessdata = app.path_resolver().resolve_resource("data/bin/tessdata");
-            return (system, tessdata);
-        }
-    }
-    (PathBuf::from(bin_name), None)
 }
 
 #[tauri::command]

@@ -1,6 +1,6 @@
 // Remove duplicate - using App.jsx version instead
 import { useState, useEffect, useRef } from 'react'
-import { Palette, Bell, Clock, AlertTriangle, Star, CheckCircle, Settings as SettingsIcon, Zap, Save, RefreshCw, Play, X, FolderOpen, Scan, Keyboard, MousePointer } from 'lucide-react'
+import { Palette, Bell, RefreshCw, X, FolderOpen, Keyboard } from 'lucide-react'
 
 import { open as openDialog } from '@tauri-apps/api/dialog'
 import { invoke } from '@tauri-apps/api/tauri'
@@ -58,8 +58,8 @@ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
       onClick={() => setRecording(!recording)}
       onBlur={() => setRecording(false)}
       className={`h-9 px-4 rounded-lg border text-xs font-mono transition-all ${recording
-          ? 'border-kronos-accent bg-kronos-accent/20 text-white animate-pulse'
-          : 'border-white/10 bg-black/20 text-kronos-dim hover:border-white/20'
+        ? 'border-kronos-accent bg-kronos-accent/20 text-white animate-pulse'
+        : 'border-white/10 bg-black/20 text-kronos-dim hover:border-white/20'
         }`}
     >
       {recording ? 'Recording...' : (value || placeholder)}
@@ -99,7 +99,8 @@ export default function SettingsScreen() {
   }
 
   const HOTKEY_ACTIONS = [
-    { id: 'manual_ocr', label: 'Manual Relic Recognition (OCR)' }
+    { id: 'manual_ocr', label: 'Manual Relic Recognition (OCR)' },
+
   ]
 
   const [version, setVersion] = useState('')
@@ -353,14 +354,6 @@ export default function SettingsScreen() {
     }
   }
 
-  const handleCaptureDebugOcr = async () => {
-    try {
-      await invoke('start_debug_ocr_session')
-    } catch (err) {
-      alert(`Debug OCR Failed: ${err}`)
-    }
-  }
-
   const handleTestNotification = (position, delay = 0) => {
     setTimeout(() => {
       invoke('show_notification', {
@@ -371,22 +364,12 @@ export default function SettingsScreen() {
     }, delay)
   }
 
-  const handleTestRelic = () => {
-    invoke('show_relic_overlay', {
-      rewards: [
-        { name: 'Glaive Prime BP', rarity: 'Rare', price: 120, owned: 0, image: 'https://browse.wf/Lotus/Interface/Icons/Store/GlaivePrime.png' },
-        { name: 'Braton Prime Stock', rarity: 'Common', price: 2, owned: 12, image: 'https://browse.wf/Lotus/Interface/Icons/Store/BratonPrime.png' },
-        { name: 'Lex Prime Receiver', rarity: 'Uncommon', price: 15, owned: 3, image: 'https://browse.wf/Lotus/Interface/Icons/Store/LexPrime.png' },
-        { name: 'Forma Blueprint', rarity: 'Uncommon', price: 0, owned: 45, image: 'https://browse.wf/Lotus/Interface/Icons/Store/Forma.png' },
-      ]
-    }).catch(console.error)
-  }
-
-  const handleHideOverlay = () => {
-    invoke('hide_overlay_window', { label: 'overlay-tr' }).catch(console.error)
-    invoke('hide_overlay_window', { label: 'overlay-tl' }).catch(console.error)
-    invoke('hide_overlay_window', { label: 'overlay-tc' }).catch(console.error)
-    invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(console.error)
+  const handleCaptureDebugOcr = async () => {
+    try {
+      await invoke('start_debug_ocr_session')
+    } catch (err) {
+      alert(`Debug OCR Failed: ${err}`)
+    }
   }
 
   const handleToggleCalibrate = async () => {
@@ -446,17 +429,17 @@ export default function SettingsScreen() {
           </div>
         </Card>
 
-        {/* Notifications (Placeholder for Overlay System) */}
+        {/* Notifications & Overlays */}
         <Card glow className="p-5">
           <div className="flex items-center gap-2 mb-5">
             <Bell className="text-kronos-accent" size={24} />
-            <h2 className="text-xl font-semibold uppercase tracking-tight">App Notifications</h2>
+            <h2 className="text-xl font-semibold uppercase tracking-tight">Notifications & Overlays</h2>
           </div>
 
           {/* Position & Sound - side by side on wide, stacked on narrow */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
             <div>
-              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Notification Position</p>
+              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Toast notification position</p>
               <div className="grid grid-cols-3 gap-2">
                 {['top-left', 'top-center', 'top-right'].map((pos) => (
                   <button
@@ -495,9 +478,9 @@ export default function SettingsScreen() {
             </div>
           </div>
 
-          {/* Test buttons - always available */}
+          {/* Test buttons */}
           <div className="mb-5 pt-4 border-t border-white/5">
-            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Test Notifications</p>
+            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Test Buttons</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               <button
                 onClick={() => handleTestNotification(notifPosition)}
@@ -509,7 +492,13 @@ export default function SettingsScreen() {
                 onClick={() => handleTestNotification(notifPosition, 5000)}
                 className="py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20"
               >
-                test notification in 5 seconds
+                Test notification in 5 seconds
+              </button>
+              <button
+                onClick={handleCaptureDebugOcr}
+                className="py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20"
+              >
+                Test relic overlay
               </button>
               <button
                 onClick={handleToggleCalibrate}
@@ -520,43 +509,30 @@ export default function SettingsScreen() {
             </div>
           </div>
 
-          {/* Notification Manager */}
-          <div className="mt-5 pt-4 border-t border-white/5">
-            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Notification Triggers</p>
-            <NotificationManager />
-          </div>
-        </Card>
-
-        {/* Fissure Relic Overlay */}
-        <Card glow className="p-5">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <div className="flex items-center gap-3">
-              <Scan className="text-kronos-accent" size={28} />
-              <h2 className="text-xl font-black uppercase tracking-tight">Fissure Rewards Overlay</h2>
-            </div>
-            <div className="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-xl border border-white/5">
-              <span className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">Enable Scanner</span>
-              <Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />
-            </div>
-          </div>
-
-          <div className="space-y-4">
+          {/* EE.log Path + Enable Scanner */}
+          <div className="mb-4 pt-4 border-t border-white/5">
+            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">EE.log scanning</p>
             <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <p className="text-xs text-kronos-dim uppercase mb-2 font-bold tracking-wider">EE.log Path Configuration</p>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={eeLogPath}
-                  readOnly
-                  placeholder="Select your Warframe EE.log file..."
-                  className="flex-1 glass-panel rounded-lg px-4 py-2 text-xs font-mono focus:outline-none focus:glow-border"
-                />
-                <Button variant="secondary" onClick={handleBrowseLog} className="px-3">
-                  <FolderOpen size={16} className="mr-2" />
-                  Browse
-                </Button>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <div className="flex-1 flex gap-2">
+                  <input
+                    type="text"
+                    value={eeLogPath}
+                    readOnly
+                    placeholder="Select your Warframe EE.log file..."
+                    className="flex-1 glass-panel rounded-lg px-4 py-2 text-xs font-mono focus:outline-none focus:glow-border"
+                  />
+                  <Button variant="secondary" onClick={handleBrowseLog} className="px-3">
+                    <FolderOpen size={16} className="mr-2" />
+                    Browse
+                  </Button>
+                </div>
+                <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl border border-white/5 shrink-0">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">Enable Scanner</span>
+                  <Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />
+                </div>
               </div>
-              <div className="mt-4 flex flex-col sm:flex-row gap-6 text-[10px] text-zinc-500 uppercase leading-relaxed font-bold">
+              <div className="mt-3 flex flex-col sm:flex-row gap-4 text-[10px] text-zinc-500 uppercase leading-relaxed font-bold">
                 <div>
                   <p className="text-zinc-400 mb-1 tracking-widest">Common Windows Path:</p>
                   <p className="font-mono text-kronos-accent/70">AppData\Local\Warframe\EE.log</p>
@@ -567,7 +543,10 @@ export default function SettingsScreen() {
                 </div>
               </div>
             </div>
+          </div>
 
+          {/* UI Scale & Game Monitor */}
+          <div className="mb-4 space-y-3">
             <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
               <div className="flex items-center justify-between">
                 <div>
@@ -581,7 +560,6 @@ export default function SettingsScreen() {
                     pattern="[0-9]*"
                     value={fissureUiScale}
                     onChange={(e) => {
-                      // Allow only digits
                       const val = e.target.value.replace(/\D/g, '')
                       setFissureUiScale(val)
                       const parsed = parseInt(val)
@@ -610,14 +588,14 @@ export default function SettingsScreen() {
                   <p className="text-sm font-bold text-kronos-text uppercase">Target Game Monitor</p>
                   <p className="text-xs text-kronos-dim uppercase">Select the monitor where your Warframe game runs</p>
                 </div>
-                <div className="w-48">
+                <div className="flex items-center gap-1.5">
                   <select
                     value={fissureTargetMonitor}
                     onChange={(e) => {
                       const val = e.target.value
                       handleSetTargetMonitor(val === 'auto' ? 'auto' : parseInt(val))
                     }}
-                    className="w-full kronos-select text-xs font-mono font-bold bg-black/20 border-white/10 text-white rounded-lg px-2 py-1.5 focus:outline-none"
+                    className="w-40 kronos-select text-xs font-mono font-bold bg-black/20 border-white/10 text-white rounded-lg px-2 py-1.5 focus:outline-none"
                   >
                     <option value="auto">Auto (Primary)</option>
                     {availableMonitors.map((mon) => (
@@ -626,21 +604,22 @@ export default function SettingsScreen() {
                       </option>
                     ))}
                   </select>
+                  <button
+                    onClick={() => invoke('get_available_monitors').then(setAvailableMonitors).catch(console.error)}
+                    className="p-1.5 rounded-lg bg-black/20 border border-white/10 text-kronos-dim hover:text-white transition-colors"
+                    title="Refresh monitor list"
+                  >
+                    <RefreshCw size={14} />
+                  </button>
                 </div>
               </div>
             </div>
-            {fissureOverlayEnabled && (
-              <div className="flex flex-col gap-3 pt-2">
-                <div className="flex items-center gap-3">
-                  <Button variant="ghost" onClick={handleCaptureDebugOcr} className="text-[10px] font-black uppercase py-1 px-4 border-white/5 text-kronos-dim hover:text-white h-10">
-                    Test Relic Recognition (Auto-detect)
-                  </Button>
-                </div>
-                <p className="text-[10px] text-zinc-500 italic px-1 leading-relaxed">
-                  Click test, then switch to Warframe. It will auto-detect 2-4 slots by scanning for rarity icons, then run OCR. Debug images saved to disk.
-                </p>
-              </div>
-            )}
+          </div>
+
+          {/* Notification Triggers */}
+          <div className="pt-4 border-t border-white/5">
+            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Notification Triggers</p>
+            <NotificationManager />
           </div>
         </Card>
 
@@ -758,12 +737,12 @@ export default function SettingsScreen() {
               onClick={handleStart}
               disabled={loading || isMonitoring}
               className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${isMonitoring
-                  ? (monitorResult === 'error'
-                    ? 'bg-amber-500/10 border-amber-500/30 text-amber-500 cursor-not-allowed'
-                    : 'bg-green-500/10 border-green-500/30 text-green-400 cursor-not-allowed')
-                  : loading
-                    ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
-                    : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
+                ? (monitorResult === 'error'
+                  ? 'bg-amber-500/10 border-amber-500/30 text-amber-500 cursor-not-allowed'
+                  : 'bg-green-500/10 border-green-500/30 text-green-400 cursor-not-allowed')
+                : loading
+                  ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
+                  : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
                 }`}
             >
               {loading
@@ -852,11 +831,10 @@ export default function SettingsScreen() {
               <button
                 onClick={checkForUpdates}
                 disabled={updateState.status === 'checking' || updateState.status === 'installing'}
-                className={`py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${
-                  updateState.status === 'checking' || updateState.status === 'installing'
-                    ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
-                    : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
-                }`}
+                className={`py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${updateState.status === 'checking' || updateState.status === 'installing'
+                  ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
+                  : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
+                  }`}
               >
                 {updateState.status === 'checking' ? 'Checking...' : 'Check for Updates'}
               </button>

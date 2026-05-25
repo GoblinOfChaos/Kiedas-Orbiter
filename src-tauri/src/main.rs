@@ -787,25 +787,6 @@ fn show_overlay_window(
     overlay_utils::show_window_internal(&app_handle, &label)
 }
 
-fn get_overlay_monitor(app_handle: &tauri::AppHandle, window: &tauri::Window) -> Result<tauri::Monitor, String> {
-    let state = app_handle.state::<crate::AppState>();
-    let target_idx = *state.target_monitor.lock().unwrap();
-    let monitors = window.available_monitors()
-        .map_err(|e| e.to_string())?;
-    
-    if let Some(idx) = target_idx {
-        if idx < monitors.len() {
-            return Ok(monitors[idx].clone());
-        }
-    }
-    
-    // Fall back to current monitor or primary monitor
-    window.current_monitor()
-        .map_err(|e| e.to_string())?
-        .or_else(|| window.primary_monitor().ok().flatten())
-        .ok_or_else(|| "no monitor found".to_string())
-}
-
 #[tauri::command]
 fn resize_overlay_window(
     app_handle: tauri::AppHandle,
@@ -817,38 +798,54 @@ fn resize_overlay_window(
         .get_window(&label)
         .ok_or_else(|| format!("window '{}' not found", label))?;
 
-    let monitor = get_overlay_monitor(&app_handle, &window)?;
+    let monitor = overlay_utils::get_overlay_monitor(&app_handle, &window)?;
 
     let screen_w = monitor.size().width;
-    let _screen_h = monitor.size().height;
+    let screen_h = monitor.size().height;
     let scale    = monitor.scale_factor();
     let margin   = (16.0 * scale) as i32;
 
     let phys_w = (width as f64 * scale) as u32;
     let phys_h = (height as f64 * scale) as u32;
     let phys_margin = margin;
+    let mon_pos = monitor.position();
 
-    let (x, y) = match label.as_str() {
+    let (lx, ly) = match label.as_str() {
         "overlay-tl"    => (phys_margin, phys_margin),
         "overlay-tc"    => (((screen_w as i32 - phys_w as i32) / 2), phys_margin),
+        "overlay-riven-current" => {
+            let lx = phys_margin;
+            let ly = ((screen_h as i32 - phys_h as i32) / 2);
+            crate::logger::log_to_disk(&app_handle, &format!(
+                "[RIVEN] resize current: screen={}x{} win={}x{} margin={} -> lx={} ly={} mon_at=({},{})",
+                screen_w, screen_h, phys_w, phys_h, phys_margin, lx, ly, mon_pos.x, mon_pos.y));
+            (lx, ly)
+        }
+        "overlay-riven-new" => {
+            let lx = (screen_w as i32 - phys_w as i32 - phys_margin);
+            let ly = ((screen_h as i32 - phys_h as i32) / 2);
+            crate::logger::log_to_disk(&app_handle, &format!(
+                "[RIVEN] resize new: screen={}x{} win={}x{} margin={} -> lx={} ly={} mon_at=({},{})",
+                screen_w, screen_h, phys_w, phys_h, phys_margin, lx, ly, mon_pos.x, mon_pos.y));
+            (lx, ly)
+        }
         "overlay-relic" => {
+            let mon_w = monitor.size().width as f64;
+            let mon_h = monitor.size().height as f64;
 
-            // Use the monitor the window is currently on
-            let mon_size = monitor.size();
-            let mon_w = mon_size.width as f64;
-            let mon_h = mon_size.height as f64;
-            let pos = monitor.position();
-
-            let rx = pos.x + ((mon_w - (width as f64 * scale)) / 2.0).round() as i32;
-            let ry = pos.y + (mon_h - (height as f64 * scale) - (40.0 * scale)).round() as i32;
+            let lx = ((mon_w - (width as f64 * scale)) / 2.0).round() as i32;
+            let ly = (mon_h - (height as f64 * scale) - (40.0 * scale)).round() as i32;
             eprintln!(
-                "[Relic Overlay] Positioning at bottom of monitor: w={}, h={}, x={}, y={}",
-                mon_w, mon_h, rx, ry
+                "[Relic Overlay] Positioning at bottom of monitor: w={}, h={}, lx={}, ly={}",
+                mon_w, mon_h, lx, ly
             );
-            (rx, ry)
+            (lx, ly)
         }
         _ => (screen_w as i32 - phys_w as i32 - phys_margin, phys_margin),
     };
+
+    let x = mon_pos.x + lx;
+    let y = mon_pos.y + ly;
 
     if height > 0 {
         let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
@@ -1126,7 +1123,7 @@ async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppSta
     drop(path_lock);
     drop(scanner_lock);
     
-    let handle = match log_scanner::spawn_log_watcher(app.clone(), path_buf) {
+    let handle = match log_scanner::spawn_memory_watcher(app.clone(), path_buf) {
         Ok(h) => h,
         Err(e) => {
             crate::log_scanner::stop_scanner(&app);
@@ -1242,6 +1239,29 @@ async fn register_hotkey(app: AppHandle, shortcut: String, action: String) -> Re
                 "manual_ocr" => {
                     let _ = crate::ocr::trigger_manual_ocr(app_c, None).await;
                 }
+                pos @ ("ocr_riven_left" | "ocr_riven_middle" | "ocr_riven_right" | "ocr_riven_linked") => {
+                    let position = match pos {
+                        "ocr_riven_left"   => crate::ocr::RivenCardPosition::Left,
+                        "ocr_riven_middle" => crate::ocr::RivenCardPosition::Middle,
+                        "ocr_riven_right"  => crate::ocr::RivenCardPosition::Right,
+                        _                  => crate::ocr::RivenCardPosition::Linked,
+                    };
+                    let pos_name = format!("{:?}", position);
+                    match crate::ocr::ocr_riven_card(app_c.clone(), position) {
+                        Ok(result) => {
+                            let debug_path = format!("data/user/riven_ocr_{}.png", pos_name);
+                            let msg = if result.text.is_empty() {
+                                format!("[{}] No text found — check {} for what was captured", pos_name, debug_path)
+                            } else {
+                                format!("[{}] {}", pos_name, result.text)
+                            };
+                            let _ = app_c.emit_all("riven-ocr-result", &msg);
+                        }
+                        Err(e) => {
+                            let _ = app_c.emit_all("riven-ocr-result", &format!("[{}] Error: {}", pos_name, e));
+                        }
+                    }
+                }
                 _ => {
                     eprintln!("[Hotkeys] Unknown action: {}", action_c);
                 }
@@ -1294,6 +1314,90 @@ struct MonitorInfo {
     width: u32,
     height: u32,
     is_primary: bool,
+}
+
+#[derive(serde::Serialize)]
+struct WarframeWindowRect {
+    x: i32,
+    y: i32,
+    width: u32,
+    height: u32,
+}
+
+/// Find the Warframe window rect by running the helper with --get-window-rect.
+#[tauri::command]
+async fn get_warframe_window_rect() -> Result<Option<WarframeWindowRect>, String> {
+    let bin_name = format!("warframe-api-helper{}", std::env::consts::EXE_SUFFIX);
+    let relative = format!("data/bin/{}", bin_name);
+    let helper_path = crate::get_data_root().join(&relative);
+    if !helper_path.exists() {
+        return Err("warframe-api-helper not found".to_string());
+    }
+
+    let output = std::process::Command::new(&helper_path)
+        .arg("--get-window-rect")
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::null())
+        .output()
+        .map_err(|e| e.to_string())?;
+
+    let stdout = String::from_utf8_lossy(&output.stdout).trim().to_string();
+    if stdout == "not found" || stdout.is_empty() {
+        return Ok(None);
+    }
+
+    let parts: Vec<&str> = stdout.split_whitespace().collect();
+    if parts.len() < 4 {
+        return Ok(None);
+    }
+
+    let x = parts[0].parse::<i32>().map_err(|_| "bad x".to_string())?;
+    let y = parts[1].parse::<i32>().map_err(|_| "bad y".to_string())?;
+    let w = parts[2].parse::<u32>().map_err(|_| "bad w".to_string())?;
+    let h = parts[3].parse::<u32>().map_err(|_| "bad h".to_string())?;
+
+    Ok(Some(WarframeWindowRect { x, y, width: w, height: h }))
+}
+
+/// Auto-detect which monitor Warframe is on and set target_monitor to it.
+#[tauri::command]
+async fn auto_detect_warframe_monitor(state: tauri::State<'_, AppState>) -> Result<Option<usize>, String> {
+    let rect = match get_warframe_window_rect().await? {
+        Some(r) => r,
+        None => return Ok(None),
+    };
+
+    let cx = rect.x + rect.width as i32 / 2;
+    let cy = rect.y + rect.height as i32 / 2;
+
+    let monitors = xcap::Monitor::all().map_err(|e| e.to_string())?;
+    for (idx, m) in monitors.iter().enumerate() {
+        let mx = m.x().unwrap_or(0) as i32;
+        let my = m.y().unwrap_or(0) as i32;
+        let mw = m.width().unwrap_or(1920) as i32;
+        let mh = m.height().unwrap_or(1080) as i32;
+        if cx >= mx && cx < mx + mw && cy >= my && cy < my + mh {
+            // Persist to state and settings
+            *state.target_monitor.lock().unwrap() = Some(idx);
+            let settings_path = crate::resolve_path("data/user/settings.json");
+            let mut settings: serde_json::Value = if settings_path.exists() {
+                std::fs::read_to_string(&settings_path)
+                    .ok()
+                    .and_then(|s| serde_json::from_str(&s).ok())
+                    .unwrap_or_default()
+            } else {
+                serde_json::json!({})
+            };
+            settings["fissure_target_monitor"] = serde_json::json!(idx);
+            if let Some(parent) = settings_path.parent() {
+                std::fs::create_dir_all(parent).ok();
+            }
+            let _ = std::fs::write(&settings_path, serde_json::to_string_pretty(&settings).unwrap());
+            return Ok(Some(idx));
+        }
+    }
+
+    Ok(None)
 }
 
 #[tauri::command]
@@ -1390,13 +1494,13 @@ fn main() {
             notif_sound: Arc::new(Mutex::new(saved_sound.to_string())),
             log_scanner: Arc::new(Mutex::new(None)),
             log_scanner_path: Arc::new(Mutex::new(None)),
-            ocr_wordlist_path: Arc::new(Mutex::new(None)),
             active_relic_data: Arc::new(Mutex::new(None)),
             target_monitor: Arc::new(Mutex::new(target_monitor_idx)),
         })
         .on_window_event(|event| match event.event() {
             tauri::WindowEvent::CloseRequested { api, .. } => {
                 if event.window().label() == "main" {
+                    crate::log_scanner::stop_scanner(&event.window().app_handle());
                     crate::log_scanner::log_app_stop(&event.window().app_handle());
                     std::process::exit(0);
                 } else {
@@ -1420,7 +1524,6 @@ fn main() {
             // Position and configure all overlay windows once at startup.
             // They start visible (tauri.conf.json) so show() is a no-op,
             // which means no focus steal from show/hide cycles later.
-            let ah = app.handle();
             for label in &["overlay-tr", "overlay-tl", "overlay-tc", "overlay-relic"] {
                 let _ = show_overlay_window(ah.clone(), label.to_string());
             }
@@ -1474,8 +1577,12 @@ fn main() {
             register_hotkey,
             unregister_all_hotkeys,
             crate::ocr::set_fissure_ui_scale,
+            crate::ocr::ocr_riven_card,
+            crate::ocr::ocr_riven_card_from_file,
             get_available_monitors,
             set_target_monitor,
+            get_warframe_window_rect,
+            auto_detect_warframe_monitor,
             // --- calibration ---
             toggle_calibration,
         ])

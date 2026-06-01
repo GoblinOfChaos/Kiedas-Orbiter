@@ -37,7 +37,7 @@ importers:
         version: 4.0.1
       warframe-public-export-plus:
         specifier: latest
-        version: 0.5.100
+        version: 0.6.2
     devDependencies:
       '@tauri-apps/cli':
         specifier: 1.6.3
@@ -1271,6 +1271,7 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@vitejs/plugin-react@4.7.0':
     resolution: {integrity: sha512-gUu9hwfWvvEDBBmgtAowQCojwZmJ5mcLn3aufeCsitijs3+f2NsrPtlAWIR6OPiqljl96GVCUbLe0HyqIpVaoA==}
@@ -2408,8 +2409,8 @@ packages:
   w3c-keyname@2.2.8:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
 
-  warframe-public-export-plus@0.5.100:
-    resolution: {integrity: sha512-WQAxD+wxhOKdFXWL6pD3dbnnMGAZQXgrVx6JLKCVQAr7nchE9dAGXJ84P+gI/ab5BECtIwDuZ5cT8dwPSjDIHg==}
+  warframe-public-export-plus@0.6.2:
+    resolution: {integrity: sha512-eyfJJ4H9dtN03vGTvHwDBJh5Gr6lC/OCN7K8GdSjT0MlyuwwglyYw8gvQU9lwkS3kNY2eClhG86Xe3Y625KbYg==}
 
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
@@ -5481,7 +5482,7 @@ snapshots:
 
   w3c-keyname@2.2.8: {}
 
-  warframe-public-export-plus@0.5.100: {}
+  warframe-public-export-plus@0.6.2: {}
 
   web-namespaces@2.0.1: {}
 

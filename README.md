@@ -50,12 +50,6 @@ sudo apt install -y pkg-config build-essential libgtk-3-dev libwebkit2gtk-4.0-de
 
 For other distros, install the equivalent packages for your package manager.
 
-### Optional: OCR support (Tesseract)
-
-* **Linux**: `sudo apt install tesseract-ocr`
-* **macOS**: `brew install tesseract dylibbundler`
-* **Windows**: Install Tesseract (e.g. `choco install tesseract`) or place `tesseract.exe` and DLLs in `src-tauri/data/bin/`
-
 ### Build
 
 ```bash

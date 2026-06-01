@@ -5,7 +5,9 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use tauri::{AppHandle, Manager};
 
-static IS_SCANNING: AtomicBool = AtomicBool::new(false);
+pub static IS_SCANNING: AtomicBool = AtomicBool::new(false);
+// 0 = idle, 1 = waiting for process, 2 = hooked/active
+pub static SCANNER_STATUS: std::sync::atomic::AtomicU8 = std::sync::atomic::AtomicU8::new(0);
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct RelicInfo {
@@ -40,6 +42,7 @@ pub struct LogScanner {
     in_mission: bool,
     riven_state: RivenState,
     squad_channels: HashSet<String>,
+    expecting_archon_boosts: bool,
 }
 
 fn parse_timestamp(line: &str) -> Option<f64> {
@@ -68,6 +71,7 @@ impl LogScanner {
             in_mission: false,
             riven_state: RivenState::Idle,
             squad_channels: HashSet::new(),
+            expecting_archon_boosts: false,
         }
     }
 
@@ -237,8 +241,8 @@ impl LogScanner {
         }
 
         // ─── Archon Hunt Elite Alert modifiers ────────────────────────────
-        if s.contains("Background.lua: EliteAlert: generated boosts for") {
-            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Archon Hunt elite alert modifiers detected (LogTS: {}s)", ts));
+        if self.expecting_archon_boosts && (s.contains("suitType=") || s.contains("wepTypes=")) {
+            self.expecting_archon_boosts = false;
             let mut suit_type = String::new();
             let mut wep_types: Vec<String> = Vec::new();
             if let Some(suit_start) = s.find("suitType=") {
@@ -262,6 +266,40 @@ impl LogScanner {
                 "suitType": suit_type,
                 "wepTypes": wep_types,
             })).unwrap_or_default();
+            return;
+        }
+
+        if s.contains("Background.lua: EliteAlert: generated boosts for") {
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Archon Hunt elite alert modifiers detected (LogTS: {}s)", ts));
+            
+            // Check if modifiers are on the same line
+            if s.contains("suitType=") {
+                let mut suit_type = String::new();
+                let mut wep_types: Vec<String> = Vec::new();
+                if let Some(suit_start) = s.find("suitType=") {
+                    let after = &s[suit_start + 9..];
+                    if let Some(end) = after.find(' ') {
+                        suit_type = after[..end].to_string();
+                    } else {
+                        suit_type = after.to_string();
+                    }
+                }
+                if let Some(wep_start) = s.find("wepTypes=") {
+                    let after = &s[wep_start + 9..];
+                    for path in after.split(',') {
+                        let p = path.trim().trim_end_matches(',');
+                        if !p.is_empty() && p != "," {
+                            wep_types.push(p.to_string());
+                        }
+                    }
+                }
+                app.emit_all("archon-hunt-modifiers", serde_json::json!({
+                    "suitType": suit_type,
+                    "wepTypes": wep_types,
+                })).unwrap_or_default();
+            } else {
+                self.expecting_archon_boosts = true;
+            }
             return;
         }
 
@@ -342,6 +380,7 @@ pub fn log_app_stop(app: &AppHandle) {
 pub fn stop_scanner(app: &AppHandle) {
     crate::logger::log_to_disk(app, "[LOG SCANNER] stop_scanner called — stopping watcher thread");
     IS_SCANNING.store(false, Ordering::SeqCst);
+    SCANNER_STATUS.store(0, Ordering::SeqCst);
     crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
     // Kill any orphaned helper so the blocking read_exact unblocks
     let _ = std::process::Command::new("taskkill")
@@ -353,6 +392,15 @@ pub fn stop_scanner(app: &AppHandle) {
 
 pub fn is_scanning() -> bool {
     IS_SCANNING.load(Ordering::SeqCst)
+}
+
+#[tauri::command]
+pub fn get_scanner_status() -> String {
+    match SCANNER_STATUS.load(Ordering::SeqCst) {
+        1 => "waiting".to_string(),
+        2 => "active".to_string(),
+        _ => "idle".to_string(),
+    }
 }
 
 // ─── Memory watcher ────────────────────────────────────────────────────────────
@@ -445,8 +493,12 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     if !logged_waiting {
                         crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Waiting for Warframe process...");
                         logged_waiting = true;
+                        SCANNER_STATUS.store(1, Ordering::SeqCst);
                     }
-                    continue;
+                    // Kill helper so it restarts and re-hooks if Warframe was launched
+                    let _ = child.kill();
+                    std::thread::sleep(std::time::Duration::from_secs(3));
+                    break;
                 }
 
                 buf.resize(data_len, 0);
@@ -457,6 +509,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
 
                 if first_data {
                     crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Hooked into Warframe RAM! Backfill — populating dedup set, suppressing events.");
+                    SCANNER_STATUS.store(2, Ordering::SeqCst);
                     first_data = false;
                     let text = String::from_utf8_lossy(&buf);
                     for line in text.split('\n') {

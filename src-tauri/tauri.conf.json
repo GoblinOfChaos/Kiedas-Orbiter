@@ -60,8 +60,7 @@
       ],
       "resources": [
         "data/bin/*",
-        "data/export/*",
-        "data/audio/*"
+        "data/assets/**/*"
       ]
     },
     "updater": {

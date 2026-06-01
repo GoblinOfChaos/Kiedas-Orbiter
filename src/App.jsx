@@ -6,7 +6,7 @@ import { MonitoringProvider } from './contexts/MonitoringContext'
 import { UpdateProvider, useUpdate } from './contexts/UpdateContext'
 import { Tooltip } from './components/UI'
 import { AlertTriangle } from 'lucide-react'
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 import { loadSettings, getSetting, setSetting } from './lib/settings'
 
 // Screens (lazy-loaded, main window only)
@@ -20,21 +20,23 @@ const SettingsScreen = lazy(() => import('./screens/Settings'))
 const About = lazy(() => import('./screens/About'))
 const Rivens = lazy(() => import('./screens/Rivens'))
 const Relics = lazy(() => import('./screens/Relics'))
+const Mods = lazy(() => import('./screens/Mods'))
 
 // Overlay (separate window, no monitoring context needed)
 const OverlayRouter = lazy(() => import('./components/overlays/OverlayRouter'))
 
 const NAV_ITEMS = [
-  { id: 'dashboard', icon: '/IconDashboard.png', label: 'Dashboard' },
-  { id: 'inventory', icon: '/IconInventory.png', label: 'Inventory' },
-  { id: 'rivens', icon: '/IconRiven.png', label: 'Rivens' },
-  { id: 'relics', icon: '/IconRelic.png', label: 'Relics' },
-  { id: 'mastery', icon: '/IconMastery.png', label: 'Mastery' },
-  { id: 'notes', icon: '/IconNotes.png', label: 'Notes' },
-  { id: 'maps', icon: '/IconMap.png', label: 'Maps' },
-  { id: 'checklist', icon: '/IconChecklist.png', label: 'Checklist' },
-  { id: 'settings', icon: '/IconSettings.png', label: 'Settings' },
-  { id: 'about', icon: '/IconInfo.png', label: 'About' },
+  { id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },
+  { id: 'inventory', icon: 'IconInventory.png', label: 'Inventory' },
+  { id: 'mods', icon: 'Mods.png', label: 'Mods' },
+  { id: 'rivens', icon: 'IconRiven.png', label: 'Rivens' },
+  { id: 'relics', icon: 'IconRelic.png', label: 'Relics' },
+  { id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },
+  { id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
+  { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
+  { id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
+  { id: 'settings', icon: 'IconSettings.png', label: 'Settings' },
+  { id: 'about', icon: 'IconInfo.png', label: 'About' },
 ]
 
 // ─── Overlay window ───────────────────────────────────────────────────────────
@@ -155,26 +157,33 @@ function DisclaimerModal() {
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState('dashboard')
+  const [uiPath, setUiPath] = useState('')
   const { lastUpdate, monitorResult, isMonitoring } = useMonitoring()
   const { updateState } = useUpdate()
-  const [isScannerRunning, setIsScannerRunning] = useState(false)
+  const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
 
   useEffect(() => {
-    // Poll fissure scanner status every 2s so sidebar dot stays in sync
-    // unconditionally - polling even when off ensures the dot goes grey immediately
+    invoke('get_ui_path').then(setUiPath).catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    // Poll scanner status every 2s so sidebar dot stays in sync
     const checkScanner = () => {
-      invoke('is_scanning').then(setIsScannerRunning).catch(() => setIsScannerRunning(false))
+      invoke('get_scanner_status').then(setScannerStatus).catch(() => setScannerStatus('idle'))
     }
-    checkScanner() // immediate first check
+    checkScanner()
     const iv = setInterval(checkScanner, 2000)
     return () => clearInterval(iv)
   }, [])
+
+  const uiIcon = (name) => uiPath ? convertFileSrc(`${uiPath}/${name}`) : ''
 
   const screens = {
     dashboard: <Dashboard />,
     inventory: <Inventory />,
     rivens: <Rivens />,
     relics: <Relics />,
+    mods: <Mods />,
     mastery: <Mastery />,
     notes: <Notes />,
     maps: <Maps />,
@@ -190,7 +199,7 @@ function AppContent() {
         {/* Logo */}
         <div className="mb-4 flex-shrink-0">
           <div className="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden">
-            <img src="/IconKronos.png" alt="Cephalon Kronos" className="w-full h-full object-contain" />
+            <img src={uiIcon('IconKronos.png')} alt="Cephalon Kronos" className="w-full h-full object-contain" />
           </div>
         </div>
 
@@ -220,8 +229,8 @@ function AppContent() {
                         className="w-7 h-7 flex-shrink-0 transition-colors duration-200"
                         style={{
                           backgroundColor: isActive ? 'var(--color-accent, #5590ab)' : 'currentColor',
-                          maskImage: `url(${item.icon})`,
-                          WebkitMaskImage: `url(${item.icon})`,
+                          maskImage: `url(${uiIcon(item.icon)})`,
+                          WebkitMaskImage: `url(${uiIcon(item.icon)})`,
                           maskSize: 'contain',
                           WebkitMaskSize: 'contain',
                           maskRepeat: 'no-repeat',
@@ -260,11 +269,17 @@ function AppContent() {
           {/* Scanner dot */}
           <div
             className={`w-3 h-3 rounded-full transition-all duration-300 relative group
-              ${isScannerRunning ? 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]' : 'bg-gray-700'}
+              ${
+                scannerStatus === 'active'  ? 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]' :
+                scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.6)] animate-pulse' :
+                'bg-gray-700'
+              }
             `}
           >
             <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent">
-              {isScannerRunning ? 'Scanner Active' : 'Scanner Idle'}
+              {scannerStatus === 'active'  ? 'Scanner Active' :
+               scannerStatus === 'waiting' ? 'Waiting for Warframe...' :
+               'Scanner Idle'}
             </div>
           </div>
         </div>

@@ -1,0 +1,3299 @@
+{
+  "/Lotus/Upgrades/Mods/Railjack/Abilities/CrewShipAttackAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipAttackAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 10,
+    "levelStats": [
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      },
+      {
+        "stats": [
+          "Fires a volley of homing missiles."
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Abilities/CrewShipAttractorAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipAttractorAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Vortex that absorbs incoming fire and detonates, releasing damage."
+        ]
+      },
+      {
+        "stats": [
+          "Vortex that absorbs incoming fire and detonates, releasing damage."
+        ]
+      },
+      {
+        "stats": [
+          "Vortex that absorbs incoming fire and detonates, releasing damage."
+        ]
+      },
+      {
+        "stats": [
+          "Vortex that absorbs incoming fire and detonates, releasing damage."
+        ]
+      },
+      {
+        "stats": [
+          "Vortex that absorbs incoming fire and detonates, releasing damage."
+        ]
+      },
+      {
+        "stats": [
+          "Vortex that absorbs incoming fire and detonates, releasing damage."
+        ]
+      },
+      {
+        "stats": [
+          "Vortex that absorbs incoming fire and detonates, releasing damage."
+        ]
+      },
+      {
+        "stats": [
+          "Vortex that absorbs incoming fire and detonates, releasing damage."
+        ]
+      },
+      {
+        "stats": [
+          "Vortex that absorbs incoming fire and detonates, releasing damage."
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Abilities/CrewShipBlackHoleAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipBlackHoleAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 10,
+    "levelStats": [
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      },
+      {
+        "stats": [
+          "A black hole that draws in enemies, dealing damage."
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Abilities/CrewShipEMPAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipEMPAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 10,
+    "levelStats": [
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      },
+      {
+        "stats": [
+          "Electro-Magnetic Pulse that damages enemies and disables them temporarily."
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Abilities/CrewShipFlaresAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipFlaresAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 3,
+    "levelStats": [
+      {
+        "stats": [
+          "Flares that distract enemy guided projectiles."
+        ]
+      },
+      {
+        "stats": [
+          "Flares that distract enemy guided projectiles."
+        ]
+      },
+      {
+        "stats": [
+          "Flares that distract enemy guided projectiles."
+        ]
+      },
+      {
+        "stats": [
+          "Flares that distract enemy guided projectiles."
+        ]
+      },
+      {
+        "stats": [
+          "Flares that distract enemy guided projectiles."
+        ]
+      },
+      {
+        "stats": [
+          "Flares that distract enemy guided projectiles."
+        ]
+      },
+      {
+        "stats": [
+          "Flares that distract enemy guided projectiles."
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Abilities/CrewShipPhoenixAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipPhoenixAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 10,
+    "levelStats": [
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      },
+      {
+        "stats": [
+          "Wreathes the Railjack in fire, increasing Turret Damage and Speed."
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Abilities/CrewShipRamAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipRamAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 10,
+    "levelStats": [
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      },
+      {
+        "stats": [
+          "Railjack Ram that deals damage to anything it touches when moving forward."
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Abilities/CrewShipTetherAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipTetherAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Ensnares enemies, increasing vulnerability to Railjack weaponry."
+        ]
+      },
+      {
+        "stats": [
+          "Ensnares enemies, increasing vulnerability to Railjack weaponry."
+        ]
+      },
+      {
+        "stats": [
+          "Ensnares enemies, increasing vulnerability to Railjack weaponry."
+        ]
+      },
+      {
+        "stats": [
+          "Ensnares enemies, increasing vulnerability to Railjack weaponry."
+        ]
+      },
+      {
+        "stats": [
+          "Ensnares enemies, increasing vulnerability to Railjack weaponry."
+        ]
+      },
+      {
+        "stats": [
+          "Ensnares enemies, increasing vulnerability to Railjack weaponry."
+        ]
+      },
+      {
+        "stats": [
+          "Ensnares enemies, increasing vulnerability to Railjack weaponry."
+        ]
+      },
+      {
+        "stats": [
+          "Ensnares enemies, increasing vulnerability to Railjack weaponry."
+        ]
+      },
+      {
+        "stats": [
+          "Ensnares enemies, increasing vulnerability to Railjack weaponry."
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Abilities/CrewShipThumperAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipThumperAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Delivers a barrage of explosions across a large area."
+        ]
+      },
+      {
+        "stats": [
+          "Delivers a barrage of explosions across a large area."
+        ]
+      },
+      {
+        "stats": [
+          "Delivers a barrage of explosions across a large area."
+        ]
+      },
+      {
+        "stats": [
+          "Delivers a barrage of explosions across a large area."
+        ]
+      },
+      {
+        "stats": [
+          "Delivers a barrage of explosions across a large area."
+        ]
+      },
+      {
+        "stats": [
+          "Delivers a barrage of explosions across a large area."
+        ]
+      },
+      {
+        "stats": [
+          "Delivers a barrage of explosions across a large area."
+        ]
+      },
+      {
+        "stats": [
+          "Delivers a barrage of explosions across a large area."
+        ]
+      },
+      {
+        "stats": [
+          "Delivers a barrage of explosions across a large area."
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/BaseChemReductionAura": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/BaseFrostReductionAura": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 0,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/BaseHealthBoost": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/BaseIncendiaryReductionAura": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/BaseIonicReductionAura": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/BaseMaxArmor": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/BaseMaxShield": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/BaseShieldRecharge": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/BaseShieldRedirectionMod": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 0,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/LavanEngineerMatrix": {
+    "name": "/Lotus/Language/Railjack/RJModEngineerMatrixTitle",
+    "polarity": "AP_TACTIC",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+3.75% Forge Capacity",
+          "<LOWER_IS_BETTER>-2.5% Forge Cooldown",
+          "+2.5% Elemental Resistance",
+          "+3% Turret Heat Capacity "
+        ]
+      },
+      {
+        "stats": [
+          "+7.5% Forge Capacity",
+          "<LOWER_IS_BETTER>-5% Forge Cooldown",
+          "+5% Elemental Resistance",
+          "+6% Turret Heat Capacity "
+        ]
+      },
+      {
+        "stats": [
+          "+11.25% Forge Capacity",
+          "<LOWER_IS_BETTER>-7.5% Forge Cooldown",
+          "+7.5% Elemental Resistance",
+          "+9% Turret Heat Capacity "
+        ]
+      },
+      {
+        "stats": [
+          "+15% Forge Capacity",
+          "<LOWER_IS_BETTER>-10% Forge Cooldown",
+          "+10% Elemental Resistance",
+          "+12% Turret Heat Capacity "
+        ]
+      },
+      {
+        "stats": [
+          "+18.75% Forge Capacity",
+          "<LOWER_IS_BETTER>-12.5% Forge Cooldown",
+          "+12.5% Elemental Resistance",
+          "+15% Turret Heat Capacity "
+        ]
+      },
+      {
+        "stats": [
+          "+22.5% Forge Capacity",
+          "<LOWER_IS_BETTER>-15% Forge Cooldown",
+          "+15% Elemental Resistance",
+          "+18% Turret Heat Capacity "
+        ]
+      },
+      {
+        "stats": [
+          "+26.25% Forge Capacity",
+          "<LOWER_IS_BETTER>-17.5% Forge Cooldown",
+          "+17.5% Elemental Resistance",
+          "+21% Turret Heat Capacity "
+        ]
+      },
+      {
+        "stats": [
+          "+30% Forge Capacity",
+          "<LOWER_IS_BETTER>-20% Forge Cooldown",
+          "+20% Elemental Resistance",
+          "+24% Turret Heat Capacity "
+        ]
+      },
+      {
+        "stats": [
+          "+33.75% Forge Capacity",
+          "<LOWER_IS_BETTER>-22.5% Forge Cooldown",
+          "+22.5% Elemental Resistance",
+          "+27% Turret Heat Capacity "
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/LavanMaxShieldOnKill": {
+    "name": "/Lotus/Language/Railjack/RJModMaxShieldOnKillName",
+    "polarity": "AP_DEFENSE",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 6,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+1.5% Maximum Shields per enemy killed for 10s (Maximum 10 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+3% Maximum Shields per enemy killed for 10s (Maximum 10 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+4.5% Maximum Shields per enemy killed for 10s (Maximum 10 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+6% Maximum Shields per enemy killed for 10s (Maximum 10 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+7.5% Maximum Shields per enemy killed for 10s (Maximum 10 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+9% Maximum Shields per enemy killed for 10s (Maximum 10 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+10.5% Maximum Shields per enemy killed for 10s (Maximum 10 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+12% Maximum Shields per enemy killed for 10s (Maximum 10 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+13.5% Maximum Shields per enemy killed for 10s (Maximum 10 stacks)"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/LavanShieldOnCrit": {
+    "name": "/Lotus/Language/Railjack/RJModShieldOnCritName",
+    "polarity": "AP_DEFENSE",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 6,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "ON CRITICAL HIT:\r\nReplenish 0.5% of Shields"
+        ]
+      },
+      {
+        "stats": [
+          "ON CRITICAL HIT:\r\nReplenish 1% of Shields"
+        ]
+      },
+      {
+        "stats": [
+          "ON CRITICAL HIT:\r\nReplenish 1.5% of Shields"
+        ]
+      },
+      {
+        "stats": [
+          "ON CRITICAL HIT:\r\nReplenish 2% of Shields"
+        ]
+      },
+      {
+        "stats": [
+          "ON CRITICAL HIT:\r\nReplenish 2.5% of Shields"
+        ]
+      },
+      {
+        "stats": [
+          "ON CRITICAL HIT:\r\nReplenish 3% of Shields"
+        ]
+      },
+      {
+        "stats": [
+          "ON CRITICAL HIT:\r\nReplenish 3.5% of Shields"
+        ]
+      },
+      {
+        "stats": [
+          "ON CRITICAL HIT:\r\nReplenish 4% of Shields"
+        ]
+      },
+      {
+        "stats": [
+          "ON CRITICAL HIT:\r\nReplenish 4.5% of Shields"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Engineering/VidarDefensiveMatrix": {
+    "name": "/Lotus/Language/Railjack/RJModDefensiveMatrixTitle",
+    "polarity": "AP_DEFENSE",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+3.75% Hull and Armor",
+          "+4.25% Max Shields and Shield Recharge"
+        ]
+      },
+      {
+        "stats": [
+          "+7.5% Hull and Armor",
+          "+8.5% Max Shields and Shield Recharge"
+        ]
+      },
+      {
+        "stats": [
+          "+11.25% Hull and Armor",
+          "+12.75% Max Shields and Shield Recharge"
+        ]
+      },
+      {
+        "stats": [
+          "+15% Hull and Armor",
+          "+17% Max Shields and Shield Recharge"
+        ]
+      },
+      {
+        "stats": [
+          "+18.75% Hull and Armor",
+          "+21.25% Max Shields and Shield Recharge"
+        ]
+      },
+      {
+        "stats": [
+          "+22.5% Hull and Armor",
+          "+25.5% Max Shields and Shield Recharge"
+        ]
+      },
+      {
+        "stats": [
+          "+26.25% Hull and Armor",
+          "+29.75% Max Shields and Shield Recharge"
+        ]
+      },
+      {
+        "stats": [
+          "+30% Hull and Armor",
+          "+34% Max Shields and Shield Recharge"
+        ]
+      },
+      {
+        "stats": [
+          "+33.75% Hull and Armor",
+          "+38.25% Max Shields and Shield Recharge"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseCorpusFactionDamage": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseDesperateMeasures": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseGrineerFactionDamage": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseGunnerWeaponCritChance": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseGunnerWeaponCritDamage": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseGunnerWeaponDamage": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseGunnerWeaponHeat": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseMaxOrdnanceMunitions": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseOrdnanceDamage": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseProtectiveShots": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseReduceArmorWeaponDamage": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseReducedOrdnanceReload": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseSuperWeaponDamage": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/BaseWeaponFluxBoost": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/LavanBypassShieldOrdnance": {
+    "name": "/Lotus/Language/Railjack/RJModBypassShieldOrdnanceName",
+    "polarity": "AP_ATTACK",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 4,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+8.5% chance for Ordnance to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+17% chance for Ordnance to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+25.5% chance for Ordnance to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+34% chance for Ordnance to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+42.5% chance for Ordnance to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+51% chance for Ordnance to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+59.5% chance for Ordnance to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+68% chance for Ordnance to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+76.5% chance for Ordnance to ignore enemy Shields"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/LavanCritBypassShieldTurret": {
+    "name": "/Lotus/Language/Railjack/RJModCritBypassShieldTurretName",
+    "polarity": "AP_ATTACK",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 4,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+8.5% chance for Turret Critical Hits to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+17% chance for Turret Critical Hits to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+25.5% chance for Turret Critical Hits to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+34% chance for Turret Critical Hits to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+42.5% chance for Turret Critical Hits to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+51% chance for Turret Critical Hits to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+59.5% chance for Turret Critical Hits to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+68% chance for Turret Critical Hits to ignore enemy Shields"
+        ]
+      },
+      {
+        "stats": [
+          "+76.5% chance for Turret Critical Hits to ignore enemy Shields"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/LavanDamageOnKill": {
+    "name": "/Lotus/Language/Railjack/RJModDamageOnKillName",
+    "polarity": "AP_ATTACK",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 10,
+    "fusionLimit": 10,
+    "levelStats": [
+      {
+        "stats": [
+          "+2.5% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+5% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+7.5% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+10% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+12.5% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+15% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+17.5% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+20% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+22.5% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+25% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+27.5% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+30% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+32.5% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      },
+      {
+        "stats": [
+          "+35% Turret Damage per enemy destroyed, for 8s (Maximum 5 stacks)"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/LavanFastOrdnanceLock": {
+    "name": "/Lotus/Language/Railjack/RJModFastOrdnanceLockTitle",
+    "polarity": "AP_TACTIC",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "-12.5% Ordnance Lock-On Time"
+        ]
+      },
+      {
+        "stats": [
+          "-25% Ordnance Lock-On Time"
+        ]
+      },
+      {
+        "stats": [
+          "-37.5% Ordnance Lock-On Time"
+        ]
+      },
+      {
+        "stats": [
+          "-50% Ordnance Lock-On Time"
+        ]
+      },
+      {
+        "stats": [
+          "-62.5% Ordnance Lock-On Time"
+        ]
+      },
+      {
+        "stats": [
+          "-75% Ordnance Lock-On Time"
+        ]
+      },
+      {
+        "stats": [
+          "-87.5% Ordnance Lock-On Time"
+        ]
+      },
+      {
+        "stats": [
+          "-100% Ordnance Lock-On Time"
+        ]
+      },
+      {
+        "stats": [
+          "-112.5% Ordnance Lock-On Time"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/LavanFreeOrdnanceAmmo": {
+    "name": "/Lotus/Language/Railjack/RJModFreeOrdnanceAmmoTitle",
+    "polarity": "AP_TACTIC",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Ordnance weapons have a +10% chance to not consume Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "Ordnance weapons have a +20% chance to not consume Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "Ordnance weapons have a +30% chance to not consume Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "Ordnance weapons have a +40% chance to not consume Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "Ordnance weapons have a +50% chance to not consume Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "Ordnance weapons have a +60% chance to not consume Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "Ordnance weapons have a +70% chance to not consume Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "Ordnance weapons have a +80% chance to not consume Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "Ordnance weapons have a +90% chance to not consume Munitions"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/LavanMaxOrdnanceMunitions": {
+    "name": "/Lotus/Language/Railjack/RJModOverloaderTitle",
+    "polarity": "AP_TACTIC",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 3,
+    "levelStats": [
+      {
+        "stats": [
+          "+12% Maximum Ordnance Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "+25% Maximum Ordnance Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "+37% Maximum Ordnance Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "+50% Maximum Ordnance Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "+62% Maximum Ordnance Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "+75% Maximum Ordnance Munitions"
+        ]
+      },
+      {
+        "stats": [
+          "+87% Maximum Ordnance Munitions"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/LavanOrdnanceDamage": {
+    "name": "/Lotus/Language/Railjack/RJModOrdnanceDamageTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 6,
+    "fusionLimit": 10,
+    "levelStats": [
+      {
+        "stats": [
+          "+9.1% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+18.2% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+27.3% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+36.4% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+45.5% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+54.5% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+63.6% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+72.7% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+81.8% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+90.9% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+100% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+109.1% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+118.2% Ordnance Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+127.3% Ordnance Damage"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/LavanOrdnanceSpeed": {
+    "name": "/Lotus/Language/Railjack/RJModOrdnanceSpeedTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 4,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+10% Ordnance Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+20% Ordnance Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+30% Ordnance Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+40% Ordnance Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+50% Ordnance Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+60% Ordnance Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+70% Ordnance Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+80% Ordnance Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+90% Ordnance Projectile Speed"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/LavanProtectiveShots": {
+    "name": "/Lotus/Language/Railjack/RJModProtectiveShots",
+    "polarity": "AP_ATTACK",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+5% Turret Damage when Shields are above 75%"
+        ]
+      },
+      {
+        "stats": [
+          "+10% Turret Damage when Shields are above 75%"
+        ]
+      },
+      {
+        "stats": [
+          "+15% Turret Damage when Shields are above 75%"
+        ]
+      },
+      {
+        "stats": [
+          "+20% Turret Damage when Shields are above 75%"
+        ]
+      },
+      {
+        "stats": [
+          "+25% Turret Damage when Shields are above 75%"
+        ]
+      },
+      {
+        "stats": [
+          "+30% Turret Damage when Shields are above 75%"
+        ]
+      },
+      {
+        "stats": [
+          "+30% Turret Damage when Shields are above 75%"
+        ]
+      },
+      {
+        "stats": [
+          "+30% Turret Damage when Shields are above 75%"
+        ]
+      },
+      {
+        "stats": [
+          "+30% Turret Damage when Shields are above 75%"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/LavanReducedOrdnanceReload": {
+    "name": "/Lotus/Language/Railjack/RJModOrdnanceReloadSpeedTitle",
+    "polarity": "AP_TACTIC",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 6,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "-7% Ordnance Reload Time"
+        ]
+      },
+      {
+        "stats": [
+          "-14% Ordnance Reload Time"
+        ]
+      },
+      {
+        "stats": [
+          "-21% Ordnance Reload Time"
+        ]
+      },
+      {
+        "stats": [
+          "-28% Ordnance Reload Time"
+        ]
+      },
+      {
+        "stats": [
+          "-35% Ordnance Reload Time"
+        ]
+      },
+      {
+        "stats": [
+          "-42% Ordnance Reload Time"
+        ]
+      },
+      {
+        "stats": [
+          "-49% Ordnance Reload Time"
+        ]
+      },
+      {
+        "stats": [
+          "-56% Ordnance Reload Time"
+        ]
+      },
+      {
+        "stats": [
+          "-63% Ordnance Reload Time"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/VidarCorpusKiller": {
+    "name": "/Lotus/Language/Railjack/RJModVidarCorpusKillerTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 4,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "x1.05 Turret Damage vs Corpus"
+        ]
+      },
+      {
+        "stats": [
+          "x1.09 Turret Damage vs Corpus"
+        ]
+      },
+      {
+        "stats": [
+          "x1.14 Turret Damage vs Corpus"
+        ]
+      },
+      {
+        "stats": [
+          "x1.18 Turret Damage vs Corpus"
+        ]
+      },
+      {
+        "stats": [
+          "x1.23 Turret Damage vs Corpus"
+        ]
+      },
+      {
+        "stats": [
+          "x1.27 Turret Damage vs Corpus"
+        ]
+      },
+      {
+        "stats": [
+          "x1.32 Turret Damage vs Corpus"
+        ]
+      },
+      {
+        "stats": [
+          "x1.36 Turret Damage vs Corpus"
+        ]
+      },
+      {
+        "stats": [
+          "x1.41 Turret Damage vs Corpus"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/VidarGrineerKiller": {
+    "name": "/Lotus/Language/Railjack/RJModVidarGrineerKillerTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 4,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "x1.05 Turret Damage vs Grineer"
+        ]
+      },
+      {
+        "stats": [
+          "x1.09 Turret Damage vs Grineer"
+        ]
+      },
+      {
+        "stats": [
+          "x1.14 Turret Damage vs Grineer"
+        ]
+      },
+      {
+        "stats": [
+          "x1.18 Turret Damage vs Grineer"
+        ]
+      },
+      {
+        "stats": [
+          "x1.23 Turret Damage vs Grineer"
+        ]
+      },
+      {
+        "stats": [
+          "x1.27 Turret Damage vs Grineer"
+        ]
+      },
+      {
+        "stats": [
+          "x1.32 Turret Damage vs Grineer"
+        ]
+      },
+      {
+        "stats": [
+          "x1.36 Turret Damage vs Grineer"
+        ]
+      },
+      {
+        "stats": [
+          "x1.41 Turret Damage vs Grineer"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/VidarGunnerWeaponCritChance": {
+    "name": "/Lotus/Language/Railjack/RJModGunPlusCritChanceTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 6,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+8.3% Turret Critical Chance"
+        ]
+      },
+      {
+        "stats": [
+          "+16.7% Turret Critical Chance"
+        ]
+      },
+      {
+        "stats": [
+          "+25% Turret Critical Chance"
+        ]
+      },
+      {
+        "stats": [
+          "+33.3% Turret Critical Chance"
+        ]
+      },
+      {
+        "stats": [
+          "+41.7% Turret Critical Chance"
+        ]
+      },
+      {
+        "stats": [
+          "+50% Turret Critical Chance"
+        ]
+      },
+      {
+        "stats": [
+          "+58.3% Turret Critical Chance"
+        ]
+      },
+      {
+        "stats": [
+          "+66.7% Turret Critical Chance"
+        ]
+      },
+      {
+        "stats": [
+          "+75% Turret Critical Chance"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/VidarGunnerWeaponCritDamage": {
+    "name": "/Lotus/Language/Railjack/RJModGunPlusCritDamageTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 10,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+8.3% Turret Critical Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+16.7% Turret Critical Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+25% Turret Critical Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+33.3% Turret Critical Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+41.7% Turret Critical Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+50% Turret Critical Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+58.3% Turret Critical Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+66.7% Turret Critical Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+75% Turret Critical Damage"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/VidarGunnerWeaponDamage": {
+    "name": "/Lotus/Language/Railjack/RJModGunPlusDamageTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 10,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+12.5% Turret Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+25% Turret Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+37.5% Turret Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+50% Turret Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+62.5% Turret Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+75% Turret Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+87.5% Turret Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+100% Turret Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+112.5% Turret Damage"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/VidarOffensiveMatrix": {
+    "name": "/Lotus/Language/Railjack/RJModOffensiveMatrixTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+2% Turret Damage while 100% Hull\r\n20% chance to Reflect 4% Damage while over 80% Shields\r\n+1% Battle Mod Efficiency"
+        ]
+      },
+      {
+        "stats": [
+          "+5% Turret Damage while 100% Hull\r\n20% chance to Reflect 8% Damage while over 80% Shields\r\n+2% Battle Mod Efficiency"
+        ]
+      },
+      {
+        "stats": [
+          "+7% Turret Damage while 100% Hull\r\n20% chance to Reflect 12% Damage while over 80% Shields\r\n+3% Battle Mod Efficiency"
+        ]
+      },
+      {
+        "stats": [
+          "+10% Turret Damage while 100% Hull\r\n20% chance to Reflect 17% Damage while over 80% Shields\r\n+4% Battle Mod Efficiency"
+        ]
+      },
+      {
+        "stats": [
+          "+12% Turret Damage while 100% Hull\r\n20% chance to Reflect 21% Damage while over 80% Shields\r\n+4% Battle Mod Efficiency"
+        ]
+      },
+      {
+        "stats": [
+          "+15% Turret Damage while 100% Hull\r\n20% chance to Reflect 25% Damage while over 80% Shields\r\n+6% Battle Mod Efficiency"
+        ]
+      },
+      {
+        "stats": [
+          "+17% Turret Damage while 100% Hull\r\n20% chance to Reflect 29% Damage while over 80% Shields\r\n+7% Battle Mod Efficiency"
+        ]
+      },
+      {
+        "stats": [
+          "+20% Turret Damage while 100% Hull\r\n20% chance to Reflect 34% Damage while over 80% Shields\r\n+8% Battle Mod Efficiency"
+        ]
+      },
+      {
+        "stats": [
+          "+22% Turret Damage while 100% Hull\r\n20% chance to Reflect 38% Damage while over 80% Shields\r\n+9% Battle Mod Efficiency"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/VidarSentientKiller": {
+    "name": "/Lotus/Language/Railjack/RJModVidarSentientKillerTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 6,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "x1.05 Turret Damage vs Sentients"
+        ]
+      },
+      {
+        "stats": [
+          "x1.09 Turret Damage vs Sentients"
+        ]
+      },
+      {
+        "stats": [
+          "x1.14 Turret Damage vs Sentients"
+        ]
+      },
+      {
+        "stats": [
+          "x1.18 Turret Damage vs Sentients"
+        ]
+      },
+      {
+        "stats": [
+          "x1.23 Turret Damage vs Sentients"
+        ]
+      },
+      {
+        "stats": [
+          "x1.27 Turret Damage vs Sentients"
+        ]
+      },
+      {
+        "stats": [
+          "x1.32 Turret Damage vs Sentients"
+        ]
+      },
+      {
+        "stats": [
+          "x1.36 Turret Damage vs Sentients"
+        ]
+      },
+      {
+        "stats": [
+          "x1.41 Turret Damage vs Sentients"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/VidarTurretRangeAndSpeed": {
+    "name": "/Lotus/Language/Railjack/RJModTurretRangeAndSpeedTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 6,
+    "fusionLimit": 10,
+    "levelStats": [
+      {
+        "stats": [
+          "+2.3% Turret Range",
+          "+5% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+4.6% Turret Range",
+          "+10% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+6.9% Turret Range",
+          "+15% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+9.2% Turret Range",
+          "+20% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+11.5% Turret Range",
+          "+25% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+13.8% Turret Range",
+          "+30% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+16.1% Turret Range",
+          "+35% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+18.4% Turret Range",
+          "+40% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+20.7% Turret Range",
+          "+45% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+23% Turret Range",
+          "+50% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+25.3% Turret Range",
+          "+55% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+27.6% Turret Range",
+          "+60% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+29.9% Turret Range",
+          "+65% Turret Projectile Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+32.2% Turret Range",
+          "+70% Turret Projectile Speed"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/ZektiFreeSuperWeaponAmmo": {
+    "name": "/Lotus/Language/Railjack/RJModFreeSuperWeaponAmmoTitle",
+    "polarity": "AP_TACTIC",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Forward Artillery has a +10% chance to not consume Dome Charges"
+        ]
+      },
+      {
+        "stats": [
+          "Forward Artillery has a +20% chance to not consume Dome Charges"
+        ]
+      },
+      {
+        "stats": [
+          "Forward Artillery has a +30% chance to not consume Dome Charges"
+        ]
+      },
+      {
+        "stats": [
+          "Forward Artillery has a +40% chance to not consume Dome Charges"
+        ]
+      },
+      {
+        "stats": [
+          "Forward Artillery has a +50% chance to not consume Dome Charges"
+        ]
+      },
+      {
+        "stats": [
+          "Forward Artillery has a +60% chance to not consume Dome Charges"
+        ]
+      },
+      {
+        "stats": [
+          "Forward Artillery has a +70% chance to not consume Dome Charges"
+        ]
+      },
+      {
+        "stats": [
+          "Forward Artillery has a +80% chance to not consume Dome Charges"
+        ]
+      },
+      {
+        "stats": [
+          "Forward Artillery has a +90% chance to not consume Dome Charges"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Gunnery/ZektiSuperWeaponDamage": {
+    "name": "/Lotus/Language/Railjack/RJModSuperWeaponDamageTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 6,
+    "fusionLimit": 10,
+    "levelStats": [
+      {
+        "stats": [
+          "+9.1% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+18.2% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+27.3% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+36.4% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+45.5% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+54.5% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+63.6% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+72.7% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+81.8% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+90.9% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+100% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+109.1% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+118.2% Forward Artillery Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+127.3% Forward Artillery Damage"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/BaseArchwingArmorAura": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/BaseArchwingDamageAura": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/BaseArchwingShieldAura": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/BaseArchwingSpeedAura": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/BaseBoostSpeed": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/BaseCrewshipSpeedDamageAura": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/BaseDodge": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/BaseEmpPowerCap": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/BaseShieldBoost": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 5,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/BaseSpeed": {
+    "name": "/Lotus/Language/Items/EmptyArtifact",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 10,
+    "excludeFromCodex": true
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/LavanHijackMatrixAura": {
+    "name": "/Lotus/Language/Railjack/RJModHijackMatrixTitle",
+    "polarity": "AP_ATTACK",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+2% Archwing Speed and Damage\r\n+4% Archwing Shield and Armor\r\n+7% Captured Crewship Speed and Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+5% Archwing Speed and Damage\r\n+8% Archwing Shield and Armor\r\n+15% Captured Crewship Speed and Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+7% Archwing Speed and Damage\r\n+12% Archwing Shield and Armor\r\n+22% Captured Crewship Speed and Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+10% Archwing Speed and Damage\r\n+16% Archwing Shield and Armor\r\n+30% Captured Crewship Speed and Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+12% Archwing Speed and Damage\r\n+19% Archwing Shield and Armor\r\n+37% Captured Crewship Speed and Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+15% Archwing Speed and Damage\r\n+24% Archwing Shield and Armor\r\n+45% Captured Crewship Speed and Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+17% Archwing Speed and Damage\r\n+28% Archwing Shield and Armor\r\n+52% Captured Crewship Speed and Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+20% Archwing Speed and Damage\r\n+32% Archwing Shield and Armor\r\n+60% Captured Crewship Speed and Damage"
+        ]
+      },
+      {
+        "stats": [
+          "+22% Archwing Speed and Damage\r\n+36% Archwing Shield and Armor\r\n+67% Captured Crewship Speed and Damage"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/LavanMultiToolPower": {
+    "name": "/Lotus/Language/Railjack/RJModLavanMultiToolPowerTitle",
+    "polarity": "AP_TACTIC",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 2,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "-6.8% Omni Revolite Consumption"
+        ]
+      },
+      {
+        "stats": [
+          "-13.5% Omni Revolite Consumption"
+        ]
+      },
+      {
+        "stats": [
+          "-20.3% Omni Revolite Consumption"
+        ]
+      },
+      {
+        "stats": [
+          "-27% Omni Revolite Consumption"
+        ]
+      },
+      {
+        "stats": [
+          "-33.8% Omni Revolite Consumption"
+        ]
+      },
+      {
+        "stats": [
+          "-40.5% Omni Revolite Consumption"
+        ]
+      },
+      {
+        "stats": [
+          "-47.3% Omni Revolite Consumption"
+        ]
+      },
+      {
+        "stats": [
+          "-54% Omni Revolite Consumption"
+        ]
+      },
+      {
+        "stats": [
+          "-60.8% Omni Revolite Consumption"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/ZektiBoostSpeed": {
+    "name": "/Lotus/Language/Railjack/RJModBoostSpeedTitle",
+    "polarity": "AP_DEFENSE",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 4,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+7.5% Railjack Boost Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+15% Railjack Boost Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+22.5% Railjack Boost Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+30% Railjack Boost Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+37.5% Railjack Boost Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+45% Railjack Boost Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+52.5% Railjack Boost Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+60% Railjack Boost Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+67.5% Railjack Boost Speed"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/ZektiNonCombatSpeed": {
+    "name": "/Lotus/Language/Railjack/RJModNonCombatSpeedTitle",
+    "polarity": "AP_TACTIC",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 4,
+    "fusionLimit": 10,
+    "levelStats": [
+      {
+        "stats": [
+          "+10% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+20% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+30% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+40% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+50% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+60% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+70% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+80% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+90% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+100% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+110% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+110% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+110% Railjack Speed when no enemies within 3000m"
+        ]
+      },
+      {
+        "stats": [
+          "+110% Railjack Speed when no enemies within 3000m"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/ZektiSiegeMatrixAura": {
+    "name": "/Lotus/Language/Railjack/RJModSiegeMatrixTitle",
+    "polarity": "AP_TACTIC",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": -2,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "<LOWER_IS_BETTER>-2% Breach Chance\r\n+2% Shield Recharge during Breach\r\n+30% Armor when below 6% Hull"
+        ]
+      },
+      {
+        "stats": [
+          "<LOWER_IS_BETTER>-4% Breach Chance\r\n+5% Shield Recharge during Breach\r\n+30% Armor when below 12% Hull"
+        ]
+      },
+      {
+        "stats": [
+          "<LOWER_IS_BETTER>-6% Breach Chance\r\n+7% Shield Recharge during Breach\r\n+30% Armor when below 18% Hull"
+        ]
+      },
+      {
+        "stats": [
+          "<LOWER_IS_BETTER>-8% Breach Chance\r\n+10% Shield Recharge during Breach\r\n+30% Armor when below 24% Hull"
+        ]
+      },
+      {
+        "stats": [
+          "<LOWER_IS_BETTER>-9% Breach Chance\r\n+12% Shield Recharge during Breach\r\n+30% Armor when below 29% Hull"
+        ]
+      },
+      {
+        "stats": [
+          "<LOWER_IS_BETTER>-12% Breach Chance\r\n+15% Shield Recharge during Breach\r\n+30% Armor when below 36% Hull"
+        ]
+      },
+      {
+        "stats": [
+          "<LOWER_IS_BETTER>-14% Breach Chance\r\n+17% Shield Recharge during Breach\r\n+30% Armor when below 42% Hull"
+        ]
+      },
+      {
+        "stats": [
+          "<LOWER_IS_BETTER>-16% Breach Chance\r\n+20% Shield Recharge during Breach\r\n+30% Armor when below 48% Hull"
+        ]
+      },
+      {
+        "stats": [
+          "<LOWER_IS_BETTER>-18% Breach Chance\r\n+22% Shield Recharge during Breach\r\n+30% Armor when below 53% Hull"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Piloting/ZektiSpeed": {
+    "name": "/Lotus/Language/Railjack/RJModSpeedTitle",
+    "polarity": "AP_DEFENSE",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 6,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "+4.3% Railjack Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+8.5% Railjack Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+12.8% Railjack Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+17% Railjack Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+21.3% Railjack Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+25.5% Railjack Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+29.7% Railjack Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+34% Railjack Speed"
+        ]
+      },
+      {
+        "stats": [
+          "+38.3% Railjack Speed"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Tactical/BreachRepair": {
+    "name": "/Lotus/Language/Railjack/RJModBreachRepairTitle",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Temporarily stall Hull Breach for 20s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Temporarily stall Hull Breach for 25s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Temporarily stall Hull Breach for 30s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Temporarily stall Hull Breach for 35s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Temporarily stall Hull Breach for 40s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Temporarily stall Hull Breach for 45s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Temporarily stall Hull Breach for 50s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Temporarily stall Hull Breach for 55s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Temporarily stall Hull Breach for 55s\r\nCooldown: 300s"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Tactical/CrewShipAfterBurnersAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipAfterBurnersAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 10,
+    "levelStats": [
+      {
+        "stats": [
+          "+12% Speed and Boost Speed for 5s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+15% Speed and Boost Speed for 5s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+17% Speed and Boost Speed for 5s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+20% Speed and Boost Speed for 6s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+23% Speed and Boost Speed for 7s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+25% Speed and Boost Speed for 8s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+28% Speed and Boost Speed for 9s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+30% Speed and Boost Speed for 10s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+33% Speed and Boost Speed for 11s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+35% Speed and Boost Speed for 12s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+38% Speed and Boost Speed for 13s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+38% Speed and Boost Speed for 13s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+38% Speed and Boost Speed for 13s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "+38% Speed and Boost Speed for 13s\r\nCooldown: 240s"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Tactical/CrewShipBattleCraftingAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipBattleCraftingAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Reduce Forge Cooldown by 30s\r\nCooldown: 480s"
+        ]
+      },
+      {
+        "stats": [
+          "Reduce Forge Cooldown by 35s\r\nCooldown: 480s"
+        ]
+      },
+      {
+        "stats": [
+          "Reduce Forge Cooldown by 40s\r\nCooldown: 480s"
+        ]
+      },
+      {
+        "stats": [
+          "Reduce Forge Cooldown by 60s\r\nCooldown: 480s"
+        ]
+      },
+      {
+        "stats": [
+          "Reduce Forge Cooldown by 80s\r\nCooldown: 480s"
+        ]
+      },
+      {
+        "stats": [
+          "Reduce Forge Cooldown by 100s\r\nCooldown: 480s"
+        ]
+      },
+      {
+        "stats": [
+          "Reduce Forge Cooldown by 110s\r\nCooldown: 480s"
+        ]
+      },
+      {
+        "stats": [
+          "Reduce Forge Cooldown by 120s\r\nCooldown: 480s"
+        ]
+      },
+      {
+        "stats": [
+          "Reduce Forge Cooldown by 120s\r\nCooldown: 480s"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Tactical/CrewShipDeathBlossomAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipDeathBlossomAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Turret Cooldowns removed for 10s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Turret Cooldowns removed for 15s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Turret Cooldowns removed for 17s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Turret Cooldowns removed for 20s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Turret Cooldowns removed for 23s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Turret Cooldowns removed for 25s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Turret Cooldowns removed for 27s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Turret Cooldowns removed for 30s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Turret Cooldowns removed for 30s\r\nCooldown: 300s"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Tactical/CrewShipMassRecallAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipMassRecallAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Recall all Crew Members to the Railjack and Heal them for 25%\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Recall all Crew Members to the Railjack and Heal them for 35%\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Recall all Crew Members to the Railjack and Heal them for 45%\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Recall all Crew Members to the Railjack and Heal them for 55%\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Recall all Crew Members to the Railjack and Heal them for 65%\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Recall all Crew Members to the Railjack and Heal them for 75%\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Recall all Crew Members to the Railjack and Heal them for 85%\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Recall all Crew Members to the Railjack and Heal them for 100%\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Recall all Crew Members to the Railjack and Heal them for 100%\r\nCooldown: 240s"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Tactical/CrewShipQuadDamageAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipQuadDamageAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Boost Turret Damage by 20% for 16s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Boost Turret Damage by 30% for 18s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Boost Turret Damage by 50% for 20s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Boost Turret Damage by 55% for 22s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Boost Turret Damage by 60% for 24s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Boost Turret Damage by 65% for 26s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Boost Turret Damage by 70% for 28s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Boost Turret Damage by 75% for 30s\r\nCooldown: 240s"
+        ]
+      },
+      {
+        "stats": [
+          "Boost Turret Damage by 75% for 30s\r\nCooldown: 240s"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Tactical/CrewShipRenewAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipRenewAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "RARE",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Heal all Railjack squad members by 50%.\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Heal all Railjack squad members by 55%.\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Heal all Railjack squad members by 60%.\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Heal all Railjack squad members by 65%.\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Heal all Railjack squad members by 70%.\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Heal all Railjack squad members by 75%.\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Heal all Railjack squad members by 80%.\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Heal all Railjack squad members by 100%.\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Heal all Railjack squad members by 100%.\r\nCooldown: 300s"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Tactical/CrewShipStasisAbilityCard": {
+    "name": "/Lotus/Language/Railjack/CrewShipStasisAbility",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "UNCOMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Freeze all Enemy Boarding Parties for 10s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Freeze all Enemy Boarding Parties for 15s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Freeze all Enemy Boarding Parties for 20s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Freeze all Enemy Boarding Parties for 25s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Freeze all Enemy Boarding Parties for 30s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Freeze all Enemy Boarding Parties for 35s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Freeze all Enemy Boarding Parties for 40s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Freeze all Enemy Boarding Parties for 45s\r\nCooldown: 300s"
+        ]
+      },
+      {
+        "stats": [
+          "Freeze all Enemy Boarding Parties for 45s\r\nCooldown: 300s"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Tactical/FireExtinguish": {
+    "name": "/Lotus/Language/Railjack/RJModFireExtinguishTitle",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Extinguish 1 fire\r\nCooldown: <LOWER_IS_BETTER>300s"
+        ]
+      },
+      {
+        "stats": [
+          "Extinguish 1 fire\r\nCooldown: <LOWER_IS_BETTER>290s"
+        ]
+      },
+      {
+        "stats": [
+          "Extinguish 1 fire\r\nCooldown: <LOWER_IS_BETTER>275s"
+        ]
+      },
+      {
+        "stats": [
+          "Extinguish 1 fire\r\nCooldown: <LOWER_IS_BETTER>260s"
+        ]
+      },
+      {
+        "stats": [
+          "Extinguish 1 fire\r\nCooldown: <LOWER_IS_BETTER>245s"
+        ]
+      },
+      {
+        "stats": [
+          "Extinguish 1 fire\r\nCooldown: <LOWER_IS_BETTER>230s"
+        ]
+      },
+      {
+        "stats": [
+          "Extinguish 1 fire\r\nCooldown: <LOWER_IS_BETTER>215s"
+        ]
+      },
+      {
+        "stats": [
+          "Extinguish 1 fire\r\nCooldown: <LOWER_IS_BETTER>200s"
+        ]
+      },
+      {
+        "stats": [
+          "Extinguish 1 fire\r\nCooldown: <LOWER_IS_BETTER>200s"
+        ]
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Mods/Railjack/Tactical/VoidCloak": {
+    "name": "/Lotus/Language/Railjack/RJModVoidCloakTitle",
+    "polarity": "AP_UNIVERSAL",
+    "rarity": "COMMON",
+    "codexSecret": false,
+    "baseDrain": 0,
+    "fusionLimit": 5,
+    "levelStats": [
+      {
+        "stats": [
+          "Cloak from Enemies for 10s\r\nEngine Speed reduced to 5%\r\nCooldown: 120s"
+        ]
+      },
+      {
+        "stats": [
+          "Cloak from Enemies for 15s\r\nEngine Speed reduced to 10%\r\nCooldown: 120s"
+        ]
+      },
+      {
+        "stats": [
+          "Cloak from Enemies for 20s\r\nEngine Speed reduced to 15%\r\nCooldown: 120s"
+        ]
+      },
+      {
+        "stats": [
+          "Cloak from Enemies for 25s\r\nEngine Speed reduced to 20%\r\nCooldown: 120s"
+        ]
+      },
+      {
+        "stats": [
+          "Cloak from Enemies for 30s\r\nEngine Speed reduced to 25%\r\nCooldown: 120s"
+        ]
+      },
+      {
+        "stats": [
+          "Cloak from Enemies for 35s\r\nEngine Speed reduced to 30%\r\nCooldown: 120s"
+        ]
+      },
+      {
+        "stats": [
+          "Cloak from Enemies for 40s\r\nEngine Speed reduced to 35%\r\nCooldown: 120s"
+        ]
+      },
+      {
+        "stats": [
+          "Cloak from Enemies for 50s\r\nEngine Speed reduced to 50%\r\nCooldown: 120s"
+        ]
+      },
+      {
+        "stats": [
+          "Cloak from Enemies for 50s\r\nEngine Speed reduced to 50%\r\nCooldown: 120s"
+        ]
+      }
+    ]
+  }
+}

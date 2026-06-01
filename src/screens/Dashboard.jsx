@@ -32,7 +32,7 @@ import {
   Settings, Check, MoreHorizontal, Trophy, Star
 } from 'lucide-react'
 import { useMonitoring } from '../contexts/MonitoringContext'
-import { invoke } from '@tauri-apps/api/tauri'
+import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
 import {
   resolveNode,
   resolveMissionType,
@@ -156,6 +156,7 @@ export default function Dashboard() {
   const [bountyTab, setBountyTab] = useState('holdfasts')
   const [showBaroModal, setShowBaroModal] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
+  const [iconsPath, setIconsPath] = useState('')
   const [calendarDate, setCalendarDate] = useState(new Date(1999, 11, 1)) // Default to Dec 1999
   const [selected1999Month, setSelected1999Month] = useState(0)
   const [selected1999Day, setSelected1999Day] = useState(-1)
@@ -167,6 +168,8 @@ export default function Dashboard() {
     } catch { return [] }
   })
   const [descendiaTab, setDescendiaTab] = useState('normal')
+
+  useEffect(() => { invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => {}) }, [])
 
   useEffect(() => {
     localStorage.setItem('dashboard_hidden_cards', JSON.stringify(hiddenCards))
@@ -1077,13 +1080,16 @@ export default function Dashboard() {
   const renderBaro = () => {
     const vt = worldstate?.voidTrader
     if (!vt) return null
+    const baroIcon = iconsPath ? convertFileSrc(`${iconsPath}/BaroKiTeerFlat.png`) : null
 
     return (
       <Card glow className="p-3">
-        <CardHeader
-          icon={ShoppingBag}
-          title="Baro Ki'Teer"
-          action={vt.active && vt.inventory?.length > 0 ? (
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            {baroIcon ? <img src={baroIcon} className="w-5 h-5 object-contain" alt="" /> : <ShoppingBag size={16} className="text-kronos-accent flex-shrink-0" />}
+            <p className="font-bold text-sm uppercase">Baro Ki'Teer</p>
+          </div>
+          {vt.active && vt.inventory?.length > 0 ? (
             <button
               onClick={() => setShowBaroModal(true)}
               className="text-[10px] bg-kronos-accent/20 text-kronos-accent font-bold px-2 py-0.5 rounded uppercase hover:bg-kronos-accent/30 transition-colors"
@@ -1091,7 +1097,7 @@ export default function Dashboard() {
               Inventory
             </button>
           ) : null}
-        />
+        </div>
         <div className="bg-kronos-panel/40 rounded p-2">
           <p className="text-sm font-bold text-kronos-text uppercase">{vt.node}</p>
           <p className="text-xs text-kronos-dim mt-0.5 font-mono">
@@ -1415,9 +1421,13 @@ export default function Dashboard() {
             const deal = worldstate.dailyDeals[0];
             const left = Math.max(0, deal.total - deal.sold);
             const isSoldOut = left === 0;
+            const darvoIcon = iconsPath ? convertFileSrc(`${iconsPath}/DarvoIcon.png`) : null;
             return (
               <Card glow className="p-3">
-                <CardHeader icon={DollarSign} title="Darvo's Deal" />
+                <div className="flex items-center gap-2 mb-2">
+                  {darvoIcon ? <img src={darvoIcon} className="w-5 h-5 object-contain" alt="" /> : <DollarSign size={16} className="text-kronos-accent flex-shrink-0" />}
+                  <p className="font-bold text-sm uppercase">Darvo's Deal</p>
+                </div>
                 <div className="flex gap-4 items-start">
                   <div className="w-14 h-14 bg-kronos-panel/40 rounded flex items-center justify-center p-1 border border-kronos-panel flex-shrink-0">
                     <img

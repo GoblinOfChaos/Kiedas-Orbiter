@@ -28,9 +28,9 @@ src-tauri/data/export/*
 src-tauri/data/user/*
 !src-tauri/data/user/.placeholder
 
-# But allow graphic assets and API helper
-!src-tauri/data/export/maps/
-!src-tauri/data/export/masteryicons/
+# Card images are extracted from Warframe cache at runtime (140+ MB)
+src-tauri/data/assets/card-images/
+
 src-tauri/data/bin/*
 !src-tauri/data/bin/*.png
 

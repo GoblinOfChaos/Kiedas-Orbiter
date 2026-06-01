@@ -9,19 +9,25 @@
  * (warframe-items, browse.wf, etc.), and a critical warning about the
  * ban risk associated with memory-based extraction.
  */
-import { AlertTriangle, Github, MessageCircle, Box, Globe, Database, Layers, Palette, Terminal, BookOpen } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { AlertTriangle, Github, MessageCircle } from 'lucide-react'
 import { PageLayout, Card } from '../components/UI'
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 import { version } from '../../package.json'
 
 const CREDITS = [
-  { name: 'warframe-api-helper', desc: 'Credential extraction from game memory', href: 'https://github.com/Obsidian-Jackal/warframe-api-helper/' },
-  { name: 'browse.wf', desc: 'Worldstate, bounty cycle, arbitration and incursion data', href: 'https://browse.wf' },
-  { name: 'warframe-public-export-plus', desc: 'Data exports for the game', href: 'https://github.com/calamity-inc/warframe-public-export-plus' },
-  { name: 'Warframe Checklist', desc: 'Inspiration for the checklist feature', href: 'https://warframetools.com/Task-Checklist/' },
+  { name: 'calamity-inc/warframe-public-export-plus', desc: 'Game data exports', href: 'https://github.com/calamity-inc/warframe-public-export-plus' },
+  { name: 'WFCD/warframe-items', desc: 'Item database', href: 'https://github.com/WFCD/warframe-items' },
+  { name: 'browse.wf', desc: 'Worldstate API & assets', href: 'https://browse.wf' },
+  { name: 'warframe-market-data', desc: 'Market pricing data', href: 'https://api.warframe.market' },
+  { name: 'Obsidian-Jackal/warframe-api-helper', desc: 'Session token extraction', href: 'https://github.com/Obsidian-Jackal/warframe-api-helper' },
+  { name: 'warframetools.com', desc: 'Checklist inspiration', href: 'https://warframetools.com/Task-Checklist/' },
 ]
 
 export default function About() {
+  const [uiPath, setUiPath] = useState('')
+  useEffect(() => { invoke('get_ui_path').then(setUiPath).catch(() => {}) }, [])
+
   const handleOpenLink = async (url) => {
     try {
       await invoke('open_url', { url })
@@ -39,7 +45,7 @@ export default function About() {
           <div className="flex items-center gap-4 mb-4">
             <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
               <img
-                src="/IconKronos.png"
+                src={uiPath ? convertFileSrc(`${uiPath}/IconKronos.png`) : ''}
                 alt="Cephalon Kronos"
                 className="w-full h-full object-contain"
               />

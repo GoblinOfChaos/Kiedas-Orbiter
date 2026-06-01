@@ -6,6 +6,7 @@ export default defineConfig({
   // Allow JSON imports (needed for warframe-public-export-plus/dict.en.json)
   json: { stringify: false },
   clearScreen: false,
+  publicDir: false,
   server: {
     port: 1420,
     strictPort: true,

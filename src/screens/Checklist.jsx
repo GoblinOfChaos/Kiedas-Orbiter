@@ -22,7 +22,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { Check, Circle, Eye, EyeOff } from 'lucide-react'
 import { PageLayout } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 
 const tasks = [
   { id: 'baro', label: 'Baro Ki\'Teer', reset: 'baro' },
@@ -483,6 +483,9 @@ export default function Checklist() {
   const supportedSyndicate = inventoryData?.SupportedSyndicate || null
   const SYNDICATE_CONFIG = useMemo(() => buildSyndicateConfig(ES), [ES])
   const [hoveredTag, setHoveredTag] = useState(null)
+  const [uiPath, setUiPath] = useState('')
+
+  useEffect(() => { invoke('get_ui_path').then(setUiPath).catch(() => {}) }, [])
 
   const [completed, setCompleted] = useState(() => {
     try {
@@ -618,8 +621,8 @@ export default function Checklist() {
   }
 
   const getLocalIconUrl = (iconKey, localIcon) => {
-    if (!localIcon) return null
-    return '/' + localIcon
+    if (!localIcon || !uiPath) return null
+    return convertFileSrc(`${uiPath}/${localIcon}`)
   }
 
   const getAffiliation = (tagKey) => {

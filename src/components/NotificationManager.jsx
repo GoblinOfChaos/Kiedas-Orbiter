@@ -136,6 +136,9 @@ function NotificationRow({ notif, def, onDelete, onToggle, onConfigChange, onMul
                 </div>
               )}
               {col.type === 'checklist-tasks' && <ChecklistTaskSelect notif={notif} col={col} onMultiSelect={onMultiSelect} />}
+              {(!col.type || col.type === 'info') && (
+                <span className="text-[10px] text-kronos-dim italic">{col.label}</span>
+              )}
             </div>
           ))}
         </div>

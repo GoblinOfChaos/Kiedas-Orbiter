@@ -3,18 +3,24 @@ const TRIGGER_DEFINITIONS = [
     id: 'fissure',
     label: 'Void Fissure',
     columns: [
-      { key: 'difficulties', label: 'Difficulty', type: 'multi-select', options: [
-        { value: 'normal', label: 'Normal' },
-        { value: 'steel_path', label: 'Steel Path' },
-      ]},
-      { key: 'tiers', label: 'Tiers', type: 'multi-select', options: [
-        'Lith', 'Meso', 'Neo', 'Axi', 'Requiem', 'Omnia',
-      ].map(v => ({ value: v, label: v }))},
-      { key: 'missionTypes', label: 'Mission Types', type: 'multi-select', options: [
-        'Exterminate', 'Capture', 'Survival', 'Defense', 'Interception',
-        'Sabotage', 'Rescue', 'Spy', 'Mobile Defense', 'Disruption',
-        'Void Flood', 'Void Cascade', 'Void Armageddon',
-      ].map(v => ({ value: v, label: v }))},
+      {
+        key: 'difficulties', label: 'Difficulty', type: 'multi-select', options: [
+          { value: 'normal', label: 'Normal' },
+          { value: 'steel_path', label: 'Steel Path' },
+        ]
+      },
+      {
+        key: 'tiers', label: 'Tiers', type: 'multi-select', options: [
+          'Lith', 'Meso', 'Neo', 'Axi', 'Requiem', 'Omnia',
+        ].map(v => ({ value: v, label: v }))
+      },
+      {
+        key: 'missionTypes', label: 'Mission Types', type: 'multi-select', options: [
+          'Exterminate', 'Capture', 'Survival', 'Defense', 'Interception',
+          'Sabotage', 'Rescue', 'Spy', 'Mobile Defense', 'Disruption',
+          'Void Flood', 'Void Cascade', 'Void Armageddon',
+        ].map(v => ({ value: v, label: v }))
+      },
     ],
     defaultConfig: { difficulties: ['normal', 'steel_path'], tiers: [], missionTypes: [] },
   },
@@ -22,14 +28,16 @@ const TRIGGER_DEFINITIONS = [
     id: 'arbitration',
     label: 'Arbitration',
     columns: [
-      { key: 'grades', label: 'Grade', type: 'multi-select', options: [
-        { value: 'S', label: 'S-Tier' },
-        { value: 'A', label: 'A-Tier' },
-        { value: 'B', label: 'B-Tier' },
-        { value: 'C', label: 'C-Tier' },
-        { value: 'D', label: 'D-Tier' },
-        { value: 'F', label: 'F-Tier' },
-      ]},
+      {
+        key: 'grades', label: 'Grade', type: 'multi-select', options: [
+          { value: 'S', label: 'S-Tier' },
+          { value: 'A', label: 'A-Tier' },
+          { value: 'B', label: 'B-Tier' },
+          { value: 'C', label: 'C-Tier' },
+          { value: 'D', label: 'D-Tier' },
+          { value: 'F', label: 'F-Tier' },
+        ]
+      },
       { key: 'advance', label: 'Alert before (min)', type: 'number', default: 30 },
     ],
     defaultConfig: { grades: ['S'], advance: 30 },
@@ -38,6 +46,14 @@ const TRIGGER_DEFINITIONS = [
     id: 'void_traces',
     label: 'Void Traces Capped',
     columns: [],
+    defaultConfig: {},
+  },
+  {
+    id: 'chat',
+    label: 'Incoming Messages',
+    columns: [
+      { key: '', label: 'Will only show notifications when Warframe is not focused.' },
+    ],
     defaultConfig: {},
   },
   {

@@ -75,9 +75,15 @@ export default function Maps() {
   const [markerPathText, setMarkerPathText] = useState('')
   const [markerNotesEdit, setMarkerNotesEdit] = useState('')
   const [pendingConfigId, setPendingConfigId] = useState(null)
-  const [contextMenu, setContextMenu] = useState(null)
+  const [contextMenu, setContextMenuState] = useState(null)
+  const setContextMenu = useCallback((val) => {
+    contextMenuRef.current = val
+    setContextMenuState(val)
+  }, [])
 
   const xfRef = useRef({ x: 0, y: 0, scale: 1 })
+  const autoPathRef = useRef(false)
+  const contextMenuRef = useRef(null)
   const imgRef = useRef(null)
   const wrapRef = useRef(null)
   const transformRef = useRef(null)
@@ -100,7 +106,7 @@ export default function Maps() {
     if (!transformRef.current) return
     const { x, y, scale } = xfRef.current
     transformRef.current.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${scale})`
-    
+
     const invScale = 1 / scale
     const markers = transformRef.current.querySelectorAll('.map-marker-container')
     for (let i = 0; i < markers.length; i++) {
@@ -157,7 +163,7 @@ export default function Maps() {
 
   const onWheel = useCallback((e) => {
     e.preventDefault()
-    
+
     // Support trackpad panning
     if (!e.ctrlKey && e.deltaMode === 0 && (Math.abs(e.deltaX) > 0 || Math.abs(e.deltaY) < 40)) {
       const { x, y, scale } = xfRef.current
@@ -185,7 +191,7 @@ export default function Maps() {
 
   const onPointerDown = useCallback((e) => {
     if (e.button !== 0 && e.button !== 1) return
-    if (contextMenu) setContextMenu(null)
+    if (contextMenuRef.current) { setContextMenu(null); return }
     if (e.target.closest('[data-marker-id]') || e.target.closest('[data-float-panel]')) return
     // Cancel any running inertia so the user can grab a moving map cleanly
     if (inertiaRaf.current) { cancelAnimationFrame(inertiaRaf.current); inertiaRaf.current = null }
@@ -332,16 +338,31 @@ export default function Maps() {
     return max + 1
   }, [])
 
+  const [autoPath, setAutoPath] = useState(false)
+  const toggleAutoPath = useCallback(() => {
+    autoPathRef.current = !autoPathRef.current
+    setAutoPath(autoPathRef.current)
+  }, [])
+
   const addMarkerToConfig = useCallback((configId, x, y) => {
-    const config = configsForCurrentMap.find(c => c.id === configId)
-    if (!config) return null
-    const num = getNextLabelNum(config.markers)
-    const newMarker = { id: genId(), label: `#${num}`, x, y, color: COLORS[(num - 1) % COLORS.length], icon: 'MapPin', notes: '' }
-    updateConfigs(configsForCurrentMap.map(c =>
-      c.id === configId ? { ...c, markers: [...c.markers, newMarker] } : c
-    ))
-    return newMarker
-  }, [configsForCurrentMap, updateConfigs, getNextLabelNum])
+    setAllConfigs(prev => {
+      const configs = prev[activeTab] || []
+      const config = configs.find(c => c.id === configId)
+      if (!config) return prev
+      const num = getNextLabelNum(config.markers)
+      const newMarker = { id: genId(), label: `#${num}`, x, y, color: COLORS[(num - 1) % COLORS.length], icon: 'MapPin', notes: '' }
+      let paths = config.paths
+      if (autoPathRef.current && config.markers.length > 0) {
+        const prev = config.markers[config.markers.length - 1]
+        paths = [...paths, { id: genId(), fromMarkerId: prev.id, toMarkerId: newMarker.id, color: newMarker.color }]
+      }
+      const updated = configs.map(c =>
+        c.id === configId ? { ...c, markers: [...c.markers, newMarker], paths } : c
+      )
+      saveMapConfigs({ ...prev, [activeTab]: updated })
+      return { ...prev, [activeTab]: updated }
+    })
+  }, [activeTab, getNextLabelNum])
 
   const updateMarker = useCallback((configId, markerId, updates) => {
     updateConfigs(configsForCurrentMap.map(c =>
@@ -435,9 +456,15 @@ export default function Maps() {
               </div>
 
               {mode === 'addMarker' && pendingConfigId && (
-                <div className="absolute top-16 left-1/2 -translate-x-1/2 z-10 bg-kronos-accent/90 backdrop-blur px-4 py-2 rounded-lg text-sm text-kronos-bg font-bold shadow-lg flex items-center gap-2">
+                <div className="absolute top-16 left-1/2 -translate-x-1/2 z-10 bg-kronos-accent px-4 py-2 rounded-lg text-sm text-kronos-bg font-bold shadow-lg flex items-center gap-2">
                   <Crosshair size={16} /> Adding markers to &ldquo;{configsForCurrentMap.find(c => c.id === pendingConfigId)?.name || '...'}&rdquo;
-                  <button onClick={() => { setMode('view'); setPendingConfigId(null) }} className="ml-2 p-0.5 hover:bg-white/20 rounded"><X size={16} /></button>
+                  <button
+                    onClick={toggleAutoPath}
+                    className={`flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold transition-colors ${autoPath ? 'bg-kronos-bg/90 text-kronos-accent' : 'bg-black/20 text-kronos-bg/70 hover:bg-black/30'}`}
+                    title="Auto-connect each new marker to the previous one">
+                    <Link2 size={12} /> Auto-path
+                  </button>
+                  <button onClick={() => { setMode('view'); setPendingConfigId(null) }} className="ml-1 p-0.5 hover:bg-white/20 rounded"><X size={16} /></button>
                 </div>
               )}
 
@@ -507,7 +534,7 @@ export default function Maps() {
                                 className="flex items-center justify-between px-2 py-1.5 rounded bg-white/5 hover:bg-white/10 transition-colors text-xs text-kronos-text"
                               >
                                 <span className="font-bold flex items-center gap-2">
-                                  <div className="w-2 h-2 rounded-full" style={{backgroundColor: otherMarker.color}}></div>
+                                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: otherMarker.color }}></div>
                                   {otherMarker.label}
                                 </span>
                                 {hasPath && <Check size={14} className="text-kronos-accent" />}
@@ -600,75 +627,75 @@ export default function Maps() {
                       )}
                     </svg>
                     {imageLoaded && configsForCurrentMap.filter(c => c.enabled).map(config =>
-                        config.markers.map(marker => {
-                          const isSelected = selectedMarker?.id === marker.id && selectedMarker?.configId === config.id
-                          const IconComp = ICONS[marker.icon] || MapPin
-                          return (
-                            <div key={marker.id}
-                              className="map-marker-container"
-                              data-marker-id={marker.id}
-                              style={{
-                                position: 'absolute', left: `${marker.x * 100}%`, top: `${marker.y * 100}%`,
-                                transform: `translate(-50%, -50%) scale(${1 / xfRef.current.scale})`,
-                                pointerEvents: 'auto',
-                                cursor: 'pointer',
-                                zIndex: 10,
-                              }}
-                              onPointerDown={(e) => {
-                                if (e.button !== 0) return
-                                e.stopPropagation()
-                                const el = e.currentTarget
-                                el.setPointerCapture(e.pointerId)
-                                const startX = e.clientX, startY = e.clientY
-                                const startPctX = parseFloat(el.style.left)
-                                const startPctY = parseFloat(el.style.top)
-                                let didMove = false
-                                const rect = imgRef.current?.getBoundingClientRect()
-                                const imgW = rect?.width || 1
-                                const imgH = rect?.height || 1
-  
-                                const onMove = (ev) => {
-                                  const dx = (ev.clientX - startX) / imgW * 100
-                                  const dy = (ev.clientY - startY) / imgH * 100
-                                  if (Math.abs(ev.clientX - startX) > 2 || Math.abs(ev.clientY - startY) > 2) didMove = true
-                                  el.style.left = `${Math.max(0, Math.min(100, startPctX + dx))}%`
-                                  el.style.top = `${Math.max(0, Math.min(100, startPctY + dy))}%`
+                      config.markers.map(marker => {
+                        const isSelected = selectedMarker?.id === marker.id && selectedMarker?.configId === config.id
+                        const IconComp = ICONS[marker.icon] || MapPin
+                        return (
+                          <div key={marker.id}
+                            className="map-marker-container"
+                            data-marker-id={marker.id}
+                            style={{
+                              position: 'absolute', left: `${marker.x * 100}%`, top: `${marker.y * 100}%`,
+                              transform: `translate(-50%, -50%) scale(${1 / xfRef.current.scale})`,
+                              pointerEvents: mode === 'addMarker' && pendingConfigId ? 'none' : 'auto',
+                              cursor: 'pointer',
+                              zIndex: 10,
+                            }}
+                            onPointerDown={(e) => {
+                              if (e.button !== 0) return
+                              e.stopPropagation()
+                              const el = e.currentTarget
+                              el.setPointerCapture(e.pointerId)
+                              const startX = e.clientX, startY = e.clientY
+                              const startPctX = parseFloat(el.style.left)
+                              const startPctY = parseFloat(el.style.top)
+                              let didMove = false
+                              const rect = imgRef.current?.getBoundingClientRect()
+                              const imgW = rect?.width || 1
+                              const imgH = rect?.height || 1
+
+                              const onMove = (ev) => {
+                                const dx = (ev.clientX - startX) / imgW * 100
+                                const dy = (ev.clientY - startY) / imgH * 100
+                                if (Math.abs(ev.clientX - startX) > 2 || Math.abs(ev.clientY - startY) > 2) didMove = true
+                                el.style.left = `${Math.max(0, Math.min(100, startPctX + dx))}%`
+                                el.style.top = `${Math.max(0, Math.min(100, startPctY + dy))}%`
+                              }
+                              const onUp = () => {
+                                el.releasePointerCapture(e.pointerId)
+                                el.removeEventListener('pointermove', onMove)
+                                el.removeEventListener('pointerup', onUp)
+                                if (!didMove) {
+                                  selectMarkerHandler(config.id, marker)
+                                } else {
+                                  const nx = parseFloat(el.style.left) / 100
+                                  const ny = parseFloat(el.style.top) / 100
+                                  updateMarker(config.id, marker.id, { x: nx, y: ny })
                                 }
-                                const onUp = () => {
-                                  el.releasePointerCapture(e.pointerId)
-                                  el.removeEventListener('pointermove', onMove)
-                                  el.removeEventListener('pointerup', onUp)
-                                  if (!didMove) {
-                                    selectMarkerHandler(config.id, marker)
-                                  } else {
-                                    const nx = parseFloat(el.style.left) / 100
-                                    const ny = parseFloat(el.style.top) / 100
-                                    updateMarker(config.id, marker.id, { x: nx, y: ny })
-                                  }
-                                }
-                                el.addEventListener('pointermove', onMove)
-                                el.addEventListener('pointerup', onUp)
-                              }}
-                            >
-                              <div className={`relative ${isSelected ? 'scale-125' : 'group-hover:scale-110'} transition-transform`}>
-                                <IconComp size={24} color={marker.color} fill={marker.color} fillOpacity="0.25" strokeWidth="2" />
-                              </div>
-                              <div className="absolute left-1/2 -translate-x-1/2 top-full mt-0.5 whitespace-nowrap pointer-events-none">
-                                <span className="text-xs font-bold uppercase tracking-wider bg-kronos-bg/80 backdrop-blur px-1.5 py-0.5 rounded border border-white/10 text-kronos-text">
-                                  {marker.label}
-                                </span>
-                              </div>
-                              {marker.notes && (
-                                <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 whitespace-nowrap pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20">
-                                  <div className="bg-kronos-bg/95 backdrop-blur border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-kronos-text max-w-[200px] whitespace-normal shadow-xl">
-                                    {marker.notes}
-                                  </div>
-                                </div>
-                              )}
+                              }
+                              el.addEventListener('pointermove', onMove)
+                              el.addEventListener('pointerup', onUp)
+                            }}
+                          >
+                            <div className={`relative ${isSelected ? 'scale-125' : 'group-hover:scale-110'} transition-transform`}>
+                              <IconComp size={24} color={marker.color} fill={marker.color} fillOpacity="0.25" strokeWidth="2" />
                             </div>
-                          )
-                        })
-                      )}
+                            <div className="absolute left-1/2 -translate-x-1/2 top-full mt-0.5 whitespace-nowrap">
+                              <span className="text-xs font-bold uppercase tracking-wider bg-kronos-bg/80 backdrop-blur px-1.5 py-0.5 rounded border border-white/10 text-kronos-text cursor-grab active:cursor-grabbing select-none">
+                                {marker.label}
+                              </span>
+                            </div>
+                            {marker.notes && (
+                              <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 whitespace-nowrap pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20">
+                                <div className="bg-kronos-bg/95 backdrop-blur border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-kronos-text max-w-[200px] whitespace-normal shadow-xl">
+                                  {marker.notes}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )
+                      })
+                    )}
                   </div>
                 </div>
               </div>
@@ -795,22 +822,22 @@ export default function Maps() {
       )}
 
       {contextMenu && (
-        <div 
+        <div
           className="fixed inset-0 z-50 pointer-events-none"
           onClick={() => setContextMenu(null)}
           onPointerDown={() => setContextMenu(null)}
           onContextMenu={(e) => { e.preventDefault(); setContextMenu(null) }}
         >
-          <div 
+          <div
             className="absolute bg-kronos-panel border border-white/10 rounded-lg shadow-2xl py-1 w-48 pointer-events-auto"
-            style={{ 
-              left: Math.min(contextMenu.x, window.innerWidth - 192), 
-              top: Math.min(contextMenu.y, window.innerHeight - 80) 
+            style={{
+              left: Math.min(contextMenu.x, window.innerWidth - 192),
+              top: Math.min(contextMenu.y, window.innerHeight - 80)
             }}
             onClick={(e) => e.stopPropagation()}
             onPointerDown={(e) => e.stopPropagation()}
           >
-            <button 
+            <button
               className="w-full text-left px-3 py-2 text-sm text-kronos-text hover:bg-white/10 transition-colors flex items-center gap-2 font-bold"
               onClick={() => {
                 addMarkerToConfig(contextMenu.configId, contextMenu.nx, contextMenu.ny)

@@ -35,10 +35,7 @@ src-tauri/data/bin/*
 !src-tauri/data/bin/*.png
 !src-tauri/data/bin/pricer-models/
 !src-tauri/data/bin/pricer-models/**
-!src-tauri/data/bin/ocr-models/
-!src-tauri/data/bin/ocr-models/**
 !src-tauri/data/bin/warframe-api-helper*
-!src-tauri/data/bin/Warframe-Exporter-CLI*
 
 # Ignore target and Cargo.lock
 src-tauri/target/

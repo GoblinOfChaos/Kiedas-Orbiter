@@ -9,6 +9,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { Search, Filter, ArrowUpDown, AlertCircle, Check, Box, Zap, Gem, Clock, X, Hammer, Package } from 'lucide-react'
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
+import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
 
 const INVENTORY_TABS = [
   { id: 'all', label: 'All' },
@@ -21,7 +22,6 @@ const INVENTORY_TABS = [
   { id: 'necramechs', label: 'Necramechs' },
   { id: 'amps', label: 'Amps' },
   { id: 'arcanes', label: 'Arcanes' },
-  { id: 'mods', label: 'Mods' },
   { id: 'resources', label: 'Resources' },
   { id: 'prime_parts', label: 'Prime Sets' },
 ]
@@ -444,6 +444,10 @@ export default function Inventory() {
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
   const [showFoundry, setShowFoundry] = useState(false)
   const [foundryFilters, setFoundryFilters] = useState({ crafting: true, ready: false, owned: false, unmastered: false })
+  const [framesPath, setFramesPath] = useState('')
+  const [uiPath, setUiPath] = useState('')
+  useEffect(() => { invoke('get_mod_frames_path').then(p => setFramesPath(p)).catch(() => {}) }, [])
+  useEffect(() => { invoke('get_ui_path').then(p => setUiPath(p)).catch(() => {}) }, [])
 
   useEffect(() => { setVisibleCount(ITEMS_PER_PAGE) }, [activeTab, searchQuery, currentFilters])
 
@@ -507,6 +511,78 @@ export default function Inventory() {
   }, [tabItems, searchQuery, currentFilters, activeTab, sortCriteria, sortDirection])
 
   const visibleItems = useMemo(() => filteredItems.slice(0, visibleCount), [filteredItems, visibleCount])
+
+  const modBgMap = {
+    'Normal Common': 'BronzeBackground.png',
+    'Normal Uncommon': 'SilverBackground.png',
+    'Normal Rare': 'GoldBackground.png',
+    'Normal Legendary': 'LegendaryBackground.png',
+    'Galvanized': 'GalvanizedBackground.png',
+    'Riven': 'SilverBackground.png',
+    'Amalgam': 'AmalgamBackground.png',
+    'Peculiar': 'LegendaryBackground.png',
+    'Plexus Common': 'BronzeBackground.png',
+    'Plexus Uncommon': 'SilverBackground.png',
+    'Plexus Rare': 'GoldBackground.png',
+    'Archon': 'Background.png',
+    'Requiem': 'Background.png',
+    'Antivirus': 'Background.png',
+    'Potency': 'Background.png',
+    'Tome': 'Background.png',
+  }
+  const modFrameTopMap = {
+    'Normal Common': 'BronzeFrameTop.png',
+    'Normal Uncommon': 'SilverFrameTop.png',
+    'Normal Rare': 'GoldFrameTop.png',
+    'Normal Legendary': 'LegendaryFrameTop.png',
+    'Galvanized': 'GalvanizedFrameTop.png',
+    'Riven': 'RivenFrameTop.png',
+    'Amalgam': 'AmalgamFrameTop.png',
+    'Peculiar': 'PeculiarFrameTop.png',
+    'Plexus Common': 'AvionicModsFrameTopBronze.png',
+    'Plexus Uncommon': 'AvionicModsFrameTopSilver.png',
+    'Plexus Rare': 'AvionicModsFrameTopGold.png',
+    'Archon': null,
+    'Requiem': null,
+    'Antivirus': null,
+    'Potency': null,
+    'Tektolyst': null,
+    'Tome': null,
+  }
+  const modFrameBotMap = {
+    'Normal Common': 'BronzeFrameBottom.png',
+    'Normal Uncommon': 'SilverFrameBottom.png',
+    'Normal Rare': 'GoldFrameBottom.png',
+    'Normal Legendary': 'LegendaryFrameBottom.png',
+    'Galvanized': 'GalvanizedFrameBottom.png',
+    'Riven': 'RivenFrameBottom.png',
+    'Amalgam': 'AmalgamFrameBottom.png',
+    'Peculiar': 'PeculiarFrameBottom.png',
+    'Plexus Common': 'AvionicModsFrameBottomBronze.png',
+    'Plexus Uncommon': 'AvionicModsFrameBottomSilver.png',
+    'Plexus Rare': 'AvionicModsFrameBottomGold.png',
+    'Archon': null,
+    'Requiem': null,
+    'Antivirus': null,
+    'Potency': null,
+    'Tektolyst': null,
+    'Tome': null,
+  }
+  const modBg = (mf, item) => {
+    if (!framesPath) return ''
+    if (mf === 'Tektolyst') {
+      const modName = item?.name
+      if (modName) {
+        const src = convertFileSrc(`${framesPath}/${mf}/${modName.replace(/\s+/g, '')}.png`)
+        return src
+      }
+      return ''
+    }
+    return framesPath && modBgMap[mf] ? convertFileSrc(`${framesPath}/${mf}/${modBgMap[mf]}`) : ''
+  }
+  const modFrameTop = (mf) => framesPath && modFrameTopMap[mf] ? convertFileSrc(`${framesPath}/${mf}/${modFrameTopMap[mf]}`) : ''
+  const modFrameBot = (mf) => framesPath && modFrameBotMap[mf] ? convertFileSrc(`${framesPath}/${mf}/${modFrameBotMap[mf]}`) : ''
+  const isModFrame = (item) => item.category === 'mods' && framesPath && (modBgMap[item.modFrame] || item.modFrame === 'Tektolyst')
 
   const tabLabel = INVENTORY_TABS.find(t => t.id === activeTab)?.label ?? activeTab
 
@@ -575,7 +651,7 @@ export default function Inventory() {
           onClick={() => setShowFoundry(true)} 
           className="relative flex items-center gap-2 h-[42px] px-4 border-white/5 bg-black/20 hover:bg-black/40"
         >
-          <img src="/IconFoundry.png" alt="Foundry" className="w-5 h-5 object-contain" />
+          <img src={uiPath ? convertFileSrc(`${uiPath}/IconFoundry.png`) : ''} alt="Foundry" className="w-5 h-5 object-contain" />
           <span className="text-[11px] font-black uppercase tracking-widest">Foundry</span>
           {inventoryData?.foundry?.some(i => i.ready) && (
             <span className="absolute -top-1 -right-1 flex h-3 w-3">
@@ -677,7 +753,7 @@ export default function Inventory() {
                                 ? <img src={part.image} alt="" className="max-w-full max-h-full object-contain" />
                                 : <div className="w-7 h-7 rounded bg-white/5" />
                               }
-                              {isBlueprint && <img src="/BlueprintOverlay.png" alt="" className="absolute inset-0 w-full h-full object-contain" />}
+                              {isBlueprint && <img src={uiPath ? convertFileSrc(`${uiPath}/BlueprintOverlay.png`) : ''} alt="" className="absolute inset-0 w-full h-full object-contain" />}
                             </div>
                             <p className="text-[12px] font-medium text-kronos-dim text-center leading-tight w-full px-1 truncate">{part.name.split(' ').slice(-1)[0]}</p>
                             {part.quantity > 0 && <span className={`text-[10px] font-black ${part.owned ? 'text-green-400' : 'text-kronos-dim'}`}>×{part.quantity}</span>}
@@ -699,16 +775,34 @@ export default function Inventory() {
                   <Card key={item.unique_name + idx} glow={!isUnowned} className={`relative p-0 overflow-hidden flex h-40 group transition-all duration-300 ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
 
                     {/* Image column */}
-                    <div className="w-32 bg-kronos-panel/30 flex-shrink-0 p-3 flex items-center justify-center relative overflow-hidden border-r border-white/5">
-                      <Box className="text-kronos-panel absolute w-20 h-20 opacity-10" />
-                      {item.image && <img src={item.image} alt="" className={`max-w-full max-h-full object-contain relative z-10 transition-all duration-500 group-hover:scale-110 ${isUnowned ? 'grayscale opacity-40' : ''}`} loading="lazy" />}
-                      
-                      {/* Forma badge - Top Left and Larger */}
-                      {!isUnowned && item.formas > 0 && (
-                        <div className="absolute top-2 left-2 z-20 flex items-center gap-0.5 bg-kronos-accent text-kronos-bg px-2 py-0.5 rounded shadow-lg border border-white/20 backdrop-blur-sm">
-                          <span className="text-[11px] font-black">{item.formas}</span>
-                          <span className="text-[9px]">★</span>
-                        </div>
+                    <div className={`w-32 flex-shrink-0 relative overflow-hidden border-r border-white/5 flex items-center justify-center ${isModFrame(item) ? '' : 'bg-kronos-panel/30 p-3'}`}>
+                      {isModFrame(item) ? (
+                        <>
+                          <div className="absolute inset-0" style={{ backgroundImage: `url(${modBg(item.modFrame, item)})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                          {modFrameTop(item.modFrame) && <img src={modFrameTop(item.modFrame)} className="absolute top-0 left-0 w-full pointer-events-none" alt="" style={{ objectFit: 'cover', objectPosition: 'top' }} />}
+                          {modFrameBot(item.modFrame) && <img src={modFrameBot(item.modFrame)} className="absolute bottom-0 left-0 w-full pointer-events-none" alt="" style={{ objectFit: 'cover', objectPosition: 'bottom' }} />}
+                          <div className={`relative z-10 flex flex-col items-center justify-center w-full h-full ${isUnowned ? 'grayscale opacity-40' : ''}`}>
+                            {item.image && <img src={item.image} className="max-w-[60%] max-h-[60%] object-contain" alt="" loading="lazy" />}
+                            {item.rank > 0 && item.max_rank > 0 && (
+                              <span className="text-[8px] font-black text-white mt-0.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">R{item.rank}</span>
+                            )}
+                          </div>
+                          {item.quantity > 1 && (
+                            <div className="absolute top-1 right-1 z-20 text-[9px] font-black text-kronos-accent bg-black/60 px-1 rounded shadow">×{item.quantity}</div>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <Box className="text-kronos-panel absolute w-20 h-20 opacity-10" />
+                          {item.image && <img src={item.image} alt="" className={`max-w-full max-h-full object-contain relative z-10 transition-all duration-500 group-hover:scale-110 ${isUnowned ? 'grayscale opacity-40' : ''}`} loading="lazy" />}
+                          
+                          {!isUnowned && item.formas > 0 && (
+                            <div className="absolute top-2 left-2 z-20 flex items-center gap-0.5 bg-kronos-accent text-kronos-bg px-2 py-0.5 rounded shadow-lg border border-white/20 backdrop-blur-sm">
+                              <span className="text-[11px] font-black">{item.formas}</span>
+                              <span className="text-[9px]">★</span>
+                            </div>
+                          )}
+                        </>
                       )}
                     </div>
 
@@ -718,7 +812,7 @@ export default function Inventory() {
                       {/* Top: category label + name */}
                       <div className="min-w-0">
                         <span className="text-[9px] font-black text-kronos-accent uppercase tracking-widest block truncate leading-none mb-1">
-                          {item.weapon_type || item.vehicle_type || (isPrimePart ? 'Prime Part' : item.category?.replace(/_/g, ' '))}
+                          {item.category === 'mods' ? (item.rarity || 'Mod') : (item.weapon_type || item.vehicle_type || (isPrimePart ? 'Prime Part' : item.category?.replace(/_/g, ' ')))}
                         </span>
                         <h4 className="font-bold text-sm uppercase truncate text-kronos-text leading-tight mt-0.5" title={item.name}>
                           {item.name}

@@ -425,6 +425,94 @@ function resolveRelicRewards(entry, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear,
  * plus account-level stats.  Consumed by Inventory.jsx, Mastery.jsx,
  * Relics.jsx, Rivens.jsx, and Dashboard.jsx.
  */
+function detectModFrame(un, rarity, modName) {
+  if (!un) return 'Normal Common';
+  const r = (rarity ?? '').toLowerCase();
+  const u = (un ?? '').toLowerCase();
+  const n = (modName ?? '').toLowerCase();
+  const check = (str) => u.includes(str.toLowerCase()) || n.includes(str.toLowerCase())
+  if (check('Galvanized')) return 'Galvanized';
+  if (check('Amalgam')) return 'Amalgam';
+  if (check('Peculiar')) return 'Peculiar';
+  if (u.includes('/immortal/antivirus')) return 'Antivirus';
+  // Requiem: path contains /Immortal/ but NOT Antivirus
+  if (u.includes('/immortal/') && !u.includes('/immortal/antivirus')) return 'Requiem';
+  if (check('Archon')) return 'Archon';
+  if (check('Grimoire')) return 'Tome';
+  if (check('Tome')) return 'Tome';
+  if (u.includes('/railjack/')) {
+    if (r === 'uncommon') return 'Plexus Uncommon';
+    if (r === 'rare') return 'Plexus Rare';
+    return 'Plexus Common';
+  }
+  if (u.includes('/dataspike/potency/') || check('Potency')) return 'Potency';
+  if (u.toLowerCase().includes('/antiques/') || u.toLowerCase().includes('/antique/') || check('Tektolyst')) return 'Tektolyst';
+  if (r === 'uncommon') return 'Normal Uncommon';
+  if (r === 'rare') return 'Normal Rare';
+  if (r === 'legendary') return 'Normal Legendary';
+  return 'Normal Common';
+}
+
+const TYPE_TO_EXPORT_CATEGORY = {
+  WARFRAME: 'Warframe', PRIMARY: 'Primary', SECONDARY: 'Secondary',
+  MELEE: 'Melee', STANCE: 'Stance', AURA: 'Aura', PARAZON: 'Parazon',
+  SENTINEL: 'Sentinels', KAVAT: 'Beasts', KUBROW: 'Beasts', 'HELMINTH CHARGER': 'Beasts',
+  'ARCH-GUN': 'Archgun', 'ARCH-MELEE': 'Archmelee', ARCHWING: 'Archgun',
+}
+
+const TYPE_TO_CATEGORY = {
+  Rifle: 'Rifle', Shotgun: 'Shotgun', Primary: 'Primary', Bows: 'Bows',
+  Pistol: 'Pistol', Secondary: 'Secondary',
+  Melee: 'Melee', Sword: 'Sword', Glaive: 'Glaive', Heavy: 'Heavy', NoFire: 'Melee',
+  Warframe: 'Warframe', Avatar: 'Warframe', Necramech: 'Vehicles', Necromech: 'Vehicles',
+  Sentinel: 'Sentinel', Sentinels: 'Sentinel',
+  Kubrow: 'Beasts', Kavat: 'Beasts',
+  Beast: 'Beasts', Beasts: 'Beasts',
+  Stance: 'Stance',
+  Aura: 'Aura',
+  Exilus: 'Exilus',
+  Railjack: 'Railjack', Avionic: 'Railjack',
+  Archwing: 'Archgun', Archgun: 'Archgun',
+  Archmelee: 'Archmelee',
+  Parazon: 'Parazon', Hack: 'Parazon', DataSpike: 'Parazon', Nemesis: 'Parazon',
+  Augment: 'Augment',
+  Antique: 'Antique', Antiques: 'Antique', Immortal: 'Antique',
+  KDrive: 'Vehicles', Vehicles: 'Vehicles', Hoverboard: 'Vehicles',
+}
+
+function extractModCategory(exportType, un, entry) {
+  // Try path-based detection first for more specific categories
+  if (un) {
+    // Check for Kubrow/Kavat deeper in path (these have SENTINEL export type)
+    if (un.includes('/Kubrow/') || un.includes('/Kavat/')) return 'Beasts'
+    // All mods under /Immortal/ are Parazon mods (Requiem + Antivirus)
+    if (un.includes('/Immortal/')) return 'Parazon'
+    // Archwing melee needs explicit check before /Mods/Archwing/ matches Archwing→Archgun
+    if (un.includes('/Archwing/Melee/')) return 'Archmelee'
+    // Exilus mods
+    if (un.includes('ExilusMod')) return 'Exilus'
+    // Augment mods/cards
+    if (un.includes('AugmentCard') || un.includes('AugmentMod')) return 'Augment'
+    // Killswitch mods
+    if (un.includes('Killswitch')) return 'Peculiar'
+    // Beast stance mods — path-based before STANCE fallback
+    if (un.includes('/Pets/BeastWeapons/')) return 'Beasts'
+    const m2 = un.match(/\/Mods\/(?:Sets|PvPMods)\/([^/]+)/)
+    if (m2 && TYPE_TO_CATEGORY[m2[1]]) return TYPE_TO_CATEGORY[m2[1]]
+    const m = un.match(/\/Mods\/([^/]+)/)
+    if (m && TYPE_TO_CATEGORY[m[1]]) return TYPE_TO_CATEGORY[m[1]]
+  }
+  // Check compatName for beast-vs-sentinel distinction
+  if (entry?.compatName === 'BEAST') return 'Beasts'
+  // Fall back to export type mapping
+  if (exportType && exportType !== '---' && TYPE_TO_EXPORT_CATEGORY[exportType]) {
+    return TYPE_TO_EXPORT_CATEGORY[exportType]
+  }
+  // AP_TACTIC polarity means Exilus slot mods (last resort — don't override explicit type/checks)
+  if (entry?.polarity === 'AP_TACTIC') return 'Exilus'
+  return null
+}
+
 export function parseInventory(raw, exports) {
   if (!raw || typeof raw !== 'object' || !exports) return { all: [] };
   const dict = exports['dict.en'] ?? {};
@@ -454,6 +542,31 @@ export function parseInventory(raw, exports) {
   const EW = toMap(exports.ExportWeapons, 'ExportWeapons');
   const ES = toMap(exports.ExportSentinels, 'ExportSentinels');
   const EM = toMap(exports.ExportUpgrades, 'ExportUpgrades');
+  // Merge Railjack avionics into EM
+  if (exports.ExportAvionics) {
+    const avMap = toMap(exports.ExportAvionics, 'ExportAvionics');
+    for (const [un, entry] of Object.entries(avMap)) {
+      if (!EM[un]) EM[un] = entry;
+    }
+  }
+  // If a patched ExportUpgrades file is available (with levelStats, modSet), merge its entries
+  if (exports.ExportUpgradesFixed) {
+    const fixedMap = toMap(exports.ExportUpgradesFixed, 'ExportUpgradesFixed');
+    for (const [un, entry] of Object.entries(fixedMap)) {
+      if (EM[un]) {
+        if (entry.levelStats && !EM[un].levelStats) EM[un].levelStats = entry.levelStats;
+        if (entry.modSet && !EM[un].modSet) EM[un].modSet = entry.modSet;
+      }
+    }
+  }
+  // Same for patched ExportAvionics
+  if (exports.ExportAvionicsFixed) {
+    for (const [un, entry] of Object.entries(exports.ExportAvionicsFixed)) {
+      if (EM[un] && entry.levelStats && !EM[un].levelStats) {
+        EM[un].levelStats = entry.levelStats;
+      }
+    }
+  }
   const EA = toMap(exports.ExportArcanes, 'ExportArcanes');
   const ER = toMap(exports.ExportResources, 'ExportResources');
   const ERel = toMap(exports.ExportRelics, 'ExportRelics');
@@ -534,11 +647,11 @@ export function parseInventory(raw, exports) {
     // Modular items (MOAs, Hounds, Zaws, Kitguns, Amps) only grant mastery when Gilded
     const modularCategories = ['moas', 'hounds', 'zaws', 'kitguns', 'amps'];
     const isModular = modularCategories.includes(category);
-    
+
     // Gilding is indicated by: Features bit 0 set, or has CustomName, or Polarized > 0
-    const isGilded = (sourceItem?.Features & 1) || 
-                     (sourceItem?.Polarized > 0) ||
-                     (!!sourceItem?.CustomName && !sourceItem.CustomName.startsWith('/Lotus/'));
+    const isGilded = (sourceItem?.Features & 1) ||
+      (sourceItem?.Polarized > 0) ||
+      (!!sourceItem?.CustomName && !sourceItem.CustomName.startsWith('/Lotus/'));
     const grantsMastery = !isModular || isGilded;
 
     // Get polarization count from sourceItem
@@ -567,7 +680,7 @@ export function parseInventory(raw, exports) {
       mastery_xp = baseMasteryAtMax;
       max_mastery_xp = baseMasteryAtMax;
       mastered = true;
-} else {
+    } else {
       // Normal weapons or un-polarized overlevelable
       // For companion types:
       // - Kubrows and Kavats: always give mastery at max rank (no gilding)
@@ -575,18 +688,18 @@ export function parseInventory(raw, exports) {
       const isKubrow = un.includes('/KubrowPets/') || un.toLowerCase().includes('kubrow');
       const isKavat = un.includes('/Kavat/') || un.toLowerCase().includes('kavat');
       const isBeast = category === 'beasts';
-      
+
       // Gilding is indicated by having a non-empty Name in Details
       const hasName = sourceItem?.Details?.Name && sourceItem.Details.Name.length > 0;
       const isGilded = hasName;
-      
+
       const beastRankRaw = sourceItem?.UpgradeLevel;
       const beastRank = beastRankRaw ? parseInt(beastRankRaw, 10) : rank;
       const effectiveRank = (isBeast && beastRank > 0) ? beastRank : rank;
-      
+
       if (isBeast) {
         const needsGilding = !isKubrow && !isKavat;
-        
+
         if (!needsGilding || isGilded) {
           // Kubrows/Kavats always give mastery, or others if they have a name (gilded)
           mastery_xp = effectiveRank * baseMasteryPerRank;
@@ -1034,7 +1147,29 @@ export function parseInventory(raw, exports) {
         owned: true,
       });
     } else {
-      mods.push(createItem(un, 'mods', [EM], [EM], u));
+      const mod = createItem(un, 'mods', [EM], [EM], u);
+      const entry = EM[un];
+      mod.rarity = entry?.rarity ?? '';
+      mod.polarity = entry?.polarity ?? null;
+      mod.modFrame = detectModFrame(un, mod.rarity, mod.name);
+      const descLoctag = entry?.description ?? '';
+      const rawDesc = descLoctag ? (dict[descLoctag] || dict['/' + descLoctag] || '') : '';
+      mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').trim() : '';
+      mod.levelStats = entry?.levelStats ?? null;
+      mod.category = extractModCategory(entry?.type, un, entry);
+      mod.baseDrain = entry?.baseDrain ?? null;
+      mod.icon = entry?.icon ?? null;
+      let modSet = entry?.modSet;
+      if (!modSet && exports.ExportUpgradesFixed) {
+        const fe = exports.ExportUpgradesFixed[un];
+        if (fe?.modSet) modSet = fe.modSet;
+      }
+      if (!modSet) {
+        const m = un.match(/\/Lotus\/Upgrades\/Mods\/Sets\/([^/]+)\//);
+        if (m) modSet = `/Lotus/Upgrades/Mods/Sets/${m[1]}/${m[1]}SetMod`;
+      }
+      mod.modSet = modSet ?? null;
+      mods.push(mod);
     }
   });
 
@@ -1066,12 +1201,12 @@ export function parseInventory(raw, exports) {
     // Check if this is a prime item (but not a component blueprint)
     if (!/Prime$/i.test(resultName)) continue;
     if (bpKey.includes('HelmetBlueprint') || bpKey.includes('ChassisBlueprint') ||
-        bpKey.includes('SystemsBlueprint') || bpKey.includes('HarnessBlueprint') ||
-        bpKey.includes('WingsBlueprint') || bpKey.includes('BarrelBlueprint') ||
-        bpKey.includes('ReceiverBlueprint') || bpKey.includes('StockBlueprint') ||
-        bpKey.includes('BladeBlueprint') || bpKey.includes('HandleBlueprint') ||
-        bpKey.includes('LinkBlueprint') || bpKey.includes('NeuropticsBlueprint') ||
-        bpKey.includes('CarapaceBlueprint') || bpKey.includes('CerebrumBlueprint')) continue;
+      bpKey.includes('SystemsBlueprint') || bpKey.includes('HarnessBlueprint') ||
+      bpKey.includes('WingsBlueprint') || bpKey.includes('BarrelBlueprint') ||
+      bpKey.includes('ReceiverBlueprint') || bpKey.includes('StockBlueprint') ||
+      bpKey.includes('BladeBlueprint') || bpKey.includes('HandleBlueprint') ||
+      bpKey.includes('LinkBlueprint') || bpKey.includes('NeuropticsBlueprint') ||
+      bpKey.includes('CarapaceBlueprint') || bpKey.includes('CerebrumBlueprint')) continue;
 
     const baseName = resultName;
     if (seenPrimeSets.has(baseName)) continue;
@@ -1502,7 +1637,7 @@ export function parseInventory(raw, exports) {
       };
     });
 
-  const all = [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...mods, ...arcanes, ...consumables, ...resources, ...rivens, ...prime_parts, ...intrinsics, ...plexus];
+  const all = [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...rivens, ...prime_parts, ...plexus];
 
   const playerLevel = raw.PlayerLevel ?? 0;
   const rivenBin = raw.RandomModBin ?? { Slots: 0, Extra: 0 };

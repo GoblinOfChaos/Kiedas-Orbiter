@@ -11,6 +11,7 @@ use tauri::{AppHandle, Manager, GlobalShortcutManager};
 use std::sync::{Arc, Mutex};
 use serde_json::Value;
 
+
 mod log_scanner;
 mod ocr;
 mod ocr_engine;
@@ -26,7 +27,7 @@ pub struct AppState {
     pub target_monitor: Arc<Mutex<Option<usize>>>,
 }
 
-// ─── Path Resolution ──────────────────────────────────────────────────────────
+// --- Path Resolution ---
 //
 // In dev builds, paths are resolved relative to the Cargo manifest directory so
 // that assets sit alongside the source tree.  In release builds they're resolved
@@ -49,7 +50,7 @@ fn get_app_root() -> PathBuf {
 }
 
 /// Returns the writable data root.
-/// Portable on all platforms — data always lives next to the app.
+/// Portable on all platforms -- data always lives next to the app.
 /// - AppImage: directory containing the .AppImage file
 /// - macOS .app: directory containing the .app bundle
 /// - Everything else: directory containing the binary
@@ -94,7 +95,7 @@ fn log_terminal(message: String) {
     eprintln!("[JS] {}", message);
 }
 
-// ─── Export Management ────────────────────────────────────────────────────────
+// --- Export Management ---
 //
 // JSON exports come from the warframe-public-export-plus mirror on GitHub and
 // are cached in data/export/.  They're refreshed every 24 hours.
@@ -110,6 +111,7 @@ const EXPORT_FILES: &[&str] = &[
     "ExportWeapons.json",
     "ExportSentinels.json",
     "ExportUpgrades.json",
+    "ExportAvionics.json",
     "ExportArcanes.json",
     "ExportResources.json",
     "ExportRelics.json",
@@ -137,7 +139,7 @@ const TXT_FILES: &[(&str, &str)] = &[
     ("sp-incursions.txt", "https://browse.wf/sp-incursions.txt"),
 ];
 
-// ─── Shared Download Helper ───────────────────────────────────────────────────
+// --- Shared Download Helper ---
 
 /// Download a file from `url` and write it to `dest`.
 /// Returns `Ok(true)` on success, or an error string on failure.
@@ -162,7 +164,7 @@ fn file_age_secs(path: &std::path::Path) -> u64 {
         .unwrap_or(u64::MAX)
 }
 
-// ─── Tauri Commands ───────────────────────────────────────────────────────────
+// --- Tauri Commands ---
 //
 // All functions marked `#[tauri::command]` are callable from the frontend via
 // `invoke('command_name', args)`.  See MonitoringContext.jsx for the primary
@@ -303,7 +305,7 @@ async fn load_txt_file(app_handle: tauri::AppHandle, name: String) -> Result<Str
     Ok(String::new())
 }
 
-// ─── Inventory Management ─────────────────────────────────────────────────────
+// --- Inventory Management ---
 //
 // Inventory data is obtained by running the bundled warframe-api-helper binary,
 // which authenticates with Warframe's servers using the local game session.
@@ -428,7 +430,7 @@ async fn load_all_exports(app_handle: tauri::AppHandle) -> Result<Value, String>
     Ok(Value::Object(result))
 }
 
-// ─── Notes Management ─────────────────────────────────────────────────────────
+// --- Notes Management ---
 //
 // Notes are stored as individual Markdown files under data/user/notes/.
 // The Notes screen calls these commands directly via Tauri invoke.
@@ -567,7 +569,7 @@ async fn open_data_folder() -> Result<(), String> {
     Ok(())
 }
 
-// ─── Media Assets ─────────────────────────────────────────────────────────────
+// --- Media Assets ---
 //
 // Map images and mastery rank icons are downloaded on demand from the GitHub
 // repo and cached permanently (no re-download once present).
@@ -603,8 +605,8 @@ async fn check_media_assets(app_handle: tauri::AppHandle) -> Result<String, Stri
     // Updated to point to glowseeker GitHub namespace:
     let base_url = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/main/src-tauri/data/export";
 
-    // Download open-world maps
-    let maps_dir = resolve_path("data/export/maps");
+    // Download open-world maps to assets (used by Maps screen)
+    let maps_dir = resolve_path("data/assets/maps");
     if !maps_dir.exists() {
         fs::create_dir_all(&maps_dir).map_err(|e| e.to_string())?;
     }
@@ -633,8 +635,8 @@ async fn check_media_assets(app_handle: tauri::AppHandle) -> Result<String, Stri
         }
     }
 
-    // Download mastery rank icons (ranks 0-40)
-    let icons_dir = resolve_path("data/export/masteryicons");
+    // Download mastery rank icons to assets (used by Mastery screen)
+    let icons_dir = resolve_path("data/assets/mastery-icons");
     if !icons_dir.exists() {
         fs::create_dir_all(&icons_dir).map_err(|e| e.to_string())?;
     }
@@ -676,27 +678,298 @@ async fn check_media_assets(app_handle: tauri::AppHandle) -> Result<String, Stri
 /// Used by the Mastery screen to construct file:// image URLs.
 #[tauri::command]
 fn get_mastery_icons_path() -> String {
-    resolve_path("data/export/masteryicons").to_string_lossy().to_string()
+    resolve_path("data/assets/mastery-icons").to_string_lossy().to_string()
 }
 
 /// Return the absolute path to the maps directory.
 /// Used by the Maps screen to construct file:// image URLs.
 #[tauri::command]
 fn get_maps_path() -> String {
-    resolve_path("data/export/maps").to_string_lossy().to_string()
+    resolve_path("data/assets/maps").to_string_lossy().to_string()
 }
 
 /// Return the absolute path to the assets directory.
 /// Used to display decorative images in the UI.
 #[tauri::command]
 fn get_assets_path() -> String {
-    resolve_path("data/export/assets").to_string_lossy().to_string()
+    resolve_path("data/assets").to_string_lossy().to_string()
+}
+
+/// Return the absolute path to the mod frame images directory.
+#[tauri::command]
+fn get_mod_frames_path() -> String {
+    resolve_path("data/assets/mod-frames").to_string_lossy().to_string()
+}
+
+/// Return the absolute path to the icons directory.
+#[tauri::command]
+fn get_icons_path() -> String {
+    resolve_path("data/assets/ui").to_string_lossy().to_string()
+}
+
+/// Return the absolute path to the UI assets directory (faction icons, nav icons, etc.).
+#[tauri::command]
+fn get_ui_path() -> String {
+    resolve_path("data/assets/ui").to_string_lossy().to_string()
 }
 
 /// Return the Warframe image CDN base URL for loading syndicate/focus icons.
 #[tauri::command]
 fn get_cdn_base_url() -> String {
     "https://browse.wf".to_string()
+}
+
+// --- Card Images Extraction ---
+//
+// Card images are extracted from the local Warframe game cache using the
+// bundled Warframe-Exporter-CLI tool.  The user must have Warframe installed
+// with a populated cache (i.e. they've run the game at least once).
+
+/// Return the absolute path to the card images directory.
+#[tauri::command]
+fn get_card_images_path() -> String {
+    resolve_path("data/assets/card-images").to_string_lossy().to_string()
+}
+
+/// Read a file from the data root as raw bytes. Used by the frontend to
+/// bypass CORS restrictions on the asset protocol when processing images via canvas.
+#[tauri::command]
+fn read_file_bytes(relative: String) -> Result<Vec<u8>, String> {
+    let path = resolve_path(&relative);
+    fs::read(&path).map_err(|e| e.to_string())
+}
+
+/// Decode a PNG, set all pixels to fully opaque (alpha = 255) so the full scene
+/// (foreground subject + background) is visible in a single layer. In-memory only -- no disk writes.
+#[tauri::command]
+fn invert_alpha_png(path: String) -> Result<Vec<u8>, String> {
+    let img = image::open(&path)
+        .map_err(|e| format!("Failed to open image {}: {}", path, e))?;
+    let mut rgba = img.to_rgba8();
+    for pixel in rgba.pixels_mut() {
+        pixel[3] = 255;
+    }
+    let mut bytes = Vec::new();
+    rgba.write_to(&mut std::io::Cursor::new(&mut bytes), image::ImageFormat::Png)
+        .map_err(|e| format!("Failed to encode PNG: {}", e))?;
+    Ok(bytes)
+}
+
+/// Auto-detect the Warframe cache directory by checking Steam registry.
+/// Returns the cache path on success or an error if not found.
+#[tauri::command]
+fn detect_warframe_cache() -> Result<String, String> {
+    detect_cache_inner().ok_or_else(|| {
+        "Could not find Warframe cache. Please set the path manually in Settings.".to_string()
+    })
+}
+
+fn detect_cache_inner() -> Option<String> {
+    #[cfg(target_os = "windows")]
+    {
+        use winreg::enums::*;
+        use winreg::RegKey;
+
+        // Try Steam registry
+        if let Ok(hkcu) = RegKey::predef(HKEY_CURRENT_USER)
+            .open_subkey(r"Software\Valve\Steam")
+        {
+            if let Ok(steam_path) = hkcu.get_value::<String, _>("SteamPath") {
+                // SteamPath uses forward slashes
+                let steam_path = steam_path.replace('/', r"\");
+                let candidate = format!(r"{}\steamapps\common\Warframe\Cache.Windows", steam_path);
+                let path = Path::new(&candidate);
+                if path.exists() {
+                    return Some(candidate);
+                }
+                // Also try libraryfolders.vdf for alternate install dirs
+                let library_path = format!(r"{}\steamapps\libraryfolders.vdf", steam_path);
+                if let Ok(content) = std::fs::read_to_string(&library_path) {
+                    for line in content.lines() {
+                        if let Some(path_part) = line.split('"').nth(3) {
+                            let path_part = path_part.replace(r"\\", r"\");
+                            let alt = format!(r"{}\steamapps\common\Warframe\Cache.Windows", path_part.trim());
+                            if Path::new(&alt).exists() {
+                                return Some(alt);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Fallback: try common locations
+        let drives = ["C:", "D:", "E:", "F:"];
+        for drive in &drives {
+            let candidate = format!(r"{}\Program Files (x86)\Steam\steamapps\common\Warframe\Cache.Windows", drive);
+            if Path::new(&candidate).exists() {
+                return Some(candidate);
+            }
+        }
+
+        // Last resort: try to find the running Warframe process path via WMIC
+        if let Ok(output) = std::process::Command::new("wmic")
+            .args(["process", "where", "name=\"Warframe.x64.exe\"", "get", "ExecutablePath"])
+            .output()
+        {
+            if output.status.success() {
+                let stdout = String::from_utf8_lossy(&output.stdout);
+                for line in stdout.lines() {
+                    let trimmed = line.trim();
+                    if !trimmed.is_empty() && !trimmed.eq_ignore_ascii_case("ExecutablePath") {
+                        let exe_path = Path::new(trimmed);
+                        if let Some(parent) = exe_path.parent() {
+                            let candidate = parent.join("Cache.Windows");
+                            if candidate.exists() {
+                                return Some(candidate.to_string_lossy().to_string());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[cfg(target_os = "linux")]
+    {
+        // Steam on Linux: try common install paths
+        if let Ok(home) = std::env::var("HOME") {
+            let candidates = [
+                format!("{}/.steam/steam/steamapps/common/Warframe/Cache.Windows", home),
+                format!("{}/.local/share/Steam/steamapps/common/Warframe/Cache.Windows", home),
+                format!("{}/snap/steam/common/.local/share/Steam/steamapps/common/Warframe/Cache.Windows", home),
+            ];
+            for c in &candidates {
+                if Path::new(c).exists() {
+                    return Some(c.clone());
+                }
+            }
+        }
+
+        // Fallback: try to find the running Warframe process via /proc
+        if let Ok(pids) = std::fs::read_dir("/proc") {
+            for entry in pids.flatten() {
+                let pid = entry.file_name();
+                let pid_str = pid.to_string_lossy();
+                if !pid_str.chars().all(|c| c.is_ascii_digit()) { continue; }
+                let exe_path = Path::new("/proc").join(&pid).join("exe");
+                if let Ok(target) = std::fs::read_link(&exe_path) {
+                    let target_str = target.to_string_lossy();
+                    if target_str.contains("Warframe") || target_str.contains("warframe") {
+                        if let Some(parent) = target.parent() {
+                            let candidate = parent.join("Cache.Windows");
+                            if candidate.exists() {
+                                return Some(candidate.to_string_lossy().to_string());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    None
+}
+
+/// Extract card images from the Warframe cache using the bundled CLI.
+/// Skips if already extracted (output dir has PNG files).
+/// Returns the number of files present after extraction.
+#[tauri::command]
+async fn extract_card_images(app_handle: tauri::AppHandle, cache_path: String) -> Result<u32, String> {
+    extract_card_images_inner(&app_handle, &cache_path)
+}
+
+fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) -> Result<u32, String> {
+    let output_dir = resolve_path("data/assets/card-images");
+
+    // Skip if already extracted
+    if output_dir.exists() && walk_dir_count(&output_dir) > 0 {
+        return Ok(walk_dir_count(&output_dir));
+    }
+
+    // Locate the CLI binary
+    let bin_name = format!("Warframe-Exporter-CLI{}", std::env::consts::EXE_SUFFIX);
+    let relative_bin = format!("data/bin/{}", bin_name);
+    let writable_bin = resolve_path(&relative_bin);
+    let bundled_bin = resolve_bundled_path(app_handle, &relative_bin);
+    let bin_path = if writable_bin.exists() {
+        writable_bin
+    } else if let Some(b) = bundled_bin.clone().filter(|p| p.exists()) {
+        b
+    } else {
+        return Err(format!(
+            "Warframe-Exporter-CLI not found. Writable: {:?}, Bundled: {:?}",
+            writable_bin, bundled_bin
+        ));
+    };
+
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        if let Ok(meta) = std::fs::metadata(&bin_path) {
+            let mut perms = meta.permissions();
+            perms.set_mode(0o755);
+            let _ = std::fs::set_permissions(&bin_path, perms);
+        }
+    }
+
+    // Ensure output directory exists
+    std::fs::create_dir_all(&output_dir).map_err(|e| e.to_string())?;
+
+    // Build the CLI command
+    let mut cmd = std::process::Command::new(&bin_path);
+
+    // On Linux, AppImage may need FUSE -- force extract-and-run as fallback
+    #[cfg(target_os = "linux")]
+    {
+        cmd.env("APPIMAGE_EXTRACT_AND_RUN", "1");
+    }
+
+    cmd.arg("--cache-dir")
+       .arg(cache_path)
+       .arg("--game")
+       .arg("Warframe")
+       .arg("--extract-textures")
+       .arg("--package")
+       .arg("Texture")
+       .arg("--texture-format")
+       .arg("PNG")
+       .arg("--internal-path")
+       .arg("/Lotus/Interface/Cards/Images/")
+       .arg("--output-path")
+       .arg(&output_dir);
+
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        const CREATE_NO_WINDOW: u32 = 0x08000000;
+        cmd.creation_flags(CREATE_NO_WINDOW);
+    }
+
+    let output = cmd.output()
+        .map_err(|e| format!("Failed to launch Warframe-Exporter-CLI: {e}"))?;
+
+    if !output.status.success() {
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        return Err(format!("Warframe-Exporter-CLI failed: {stderr}"));
+    }
+
+    // Count extracted files
+    Ok(walk_dir_count(&output_dir))
+}
+
+fn walk_dir_count(dir: &Path) -> u32 {
+    let mut count = 0u32;
+    if let Ok(entries) = std::fs::read_dir(dir) {
+        for entry in entries.flatten() {
+            if entry.file_type().map(|t| t.is_dir()).unwrap_or(false) {
+                count += walk_dir_count(&entry.path());
+            } else if entry.file_name().to_string_lossy().ends_with(".png") {
+                count += 1;
+            }
+        }
+    }
+    count
 }
 
 #[derive(Clone, serde::Serialize)]
@@ -847,15 +1120,15 @@ fn resize_overlay_window(
         "overlay-tc"    => (((screen_w as i32 - phys_w as i32) / 2), phys_margin),
         "overlay-riven-current" => {
             let lx = phys_margin;
-            let ly = ((screen_h as i32 - phys_h as i32) / 2);
+            let ly = (screen_h as i32 - phys_h as i32) / 2;
             crate::logger::log_to_disk(&app_handle, &format!(
                 "[RIVEN] resize current: screen={}x{} win={}x{} margin={} -> lx={} ly={} mon_at=({},{})",
                 screen_w, screen_h, phys_w, phys_h, phys_margin, lx, ly, mon_pos.x, mon_pos.y));
             (lx, ly)
         }
         "overlay-riven-new" => {
-            let lx = (screen_w as i32 - phys_w as i32 - phys_margin);
-            let ly = ((screen_h as i32 - phys_h as i32) / 2);
+            let lx = screen_w as i32 - phys_w as i32 - phys_margin;
+            let ly = (screen_h as i32 - phys_h as i32) / 2;
             crate::logger::log_to_disk(&app_handle, &format!(
                 "[RIVEN] resize new: screen={}x{} win={}x{} margin={} -> lx={} ly={} mon_at=({},{})",
                 screen_w, screen_h, phys_w, phys_h, phys_margin, lx, ly, mon_pos.x, mon_pos.y));
@@ -942,7 +1215,7 @@ async fn play_notification_sound(app_handle: tauri::AppHandle, sound: String) ->
     }
 
     // Resolve from bundled resources (works in both dev and production)
-    let sound_path = app_handle.path_resolver().resolve_resource(&format!("data/audio/{}", sound));
+    let sound_path = app_handle.path_resolver().resolve_resource(&format!("data/assets/audio/{}", sound));
     
     let path = if let Some(p) = sound_path.filter(|p| p.exists()) {
         p
@@ -1129,7 +1402,7 @@ async fn open_url(app_handle: tauri::AppHandle, url: String) -> Result<(), Strin
         .map_err(|e| e.to_string())
 }
 
-// ─── Log Scanner Commands ───────────────────────────────────────────────────
+// --- Log Scanner Commands ---
 
 #[tauri::command]
 async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppState>, path: String) -> Result<(), String> {
@@ -1283,7 +1556,7 @@ async fn register_hotkey(app: AppHandle, shortcut: String, action: String) -> Re
                         Ok(result) => {
                             let debug_path = format!("data/user/riven_ocr_{}.png", pos_name);
                             let msg = if result.text.is_empty() {
-                                format!("[{}] No text found — check {} for what was captured", pos_name, debug_path)
+                                format!("[{}] No text found -- check {} for what was captured", pos_name, debug_path)
                             } else {
                                 format!("[{}] {}", pos_name, result.text)
                             };
@@ -1482,6 +1755,16 @@ fn set_target_monitor(state: tauri::State<'_, AppState>, monitor: Value) -> Resu
     Ok(())
 }
 
+#[tauri::command]
+fn is_warframe_focused() -> bool {
+    if let Ok(window) = active_win_pos_rs::get_active_window() {
+        let name = window.app_name.to_lowercase();
+        let title = window.title.to_lowercase();
+        return name.contains("warframe") || title.contains("warframe");
+    }
+    false
+}
+
 /// Estimate the platinum price of a riven using the pricing model.
 /// Returns None if the model isn't loaded (e.g. no pricer-models present).
 #[tauri::command]
@@ -1489,7 +1772,7 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
     pricer::estimate_price(&input)
 }
 
-// ─── Entry Point ──────────────────────────────────────────────────────────────
+// --- Entry Point ---
 
 fn main() {
     // Clear old debug log on startup so it doesn't grow infinitely
@@ -1528,7 +1811,7 @@ fn main() {
             std::env::set_var("GDK_BACKEND", "x11");
         }
     }
-    tauri::Builder::default()
+    let app = tauri::Builder::default()
         .manage(AppState {
             notif_sound: Arc::new(Mutex::new(saved_sound.to_string())),
             log_scanner: Arc::new(Mutex::new(None)),
@@ -1596,7 +1879,17 @@ fn main() {
             get_maps_path,
             get_assets_path,
             get_cdn_base_url,
+            get_mod_frames_path,
+            get_icons_path,
+            get_ui_path,
+            // --- card images ---
+            get_card_images_path,
+            read_file_bytes,
+            invert_alpha_png,
+            detect_warframe_cache,
+            extract_card_images,
             // --- log scanner ---
+            crate::log_scanner::get_scanner_status,
             start_log_scanner,
             stop_log_scanner,
             validate_log_path,
@@ -1631,9 +1924,21 @@ fn main() {
             set_target_monitor,
             get_warframe_window_rect,
             auto_detect_warframe_monitor,
+            is_warframe_focused,
             // --- calibration ---
             toggle_calibration,
         ])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .build(tauri::generate_context!())
+        .expect("error while building tauri application");
+
+    // Extract card images synchronously before the event loop starts,
+    // so file watcher (dev mode) doesn't catch writes and restart.
+    if let Some(cache_path) = detect_cache_inner() {
+        match extract_card_images_inner(&app.handle(), &cache_path) {
+            Ok(count) => eprintln!("[CARD IMAGES] Extracted {} images", count),
+            Err(e) => eprintln!("[CARD IMAGES] Extraction failed: {}", e),
+        }
+    }
+
+    app.run(|_app_handle, _event| {});
 }

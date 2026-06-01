@@ -401,6 +401,23 @@ export function MonitoringProvider({ children }) {
           invoke('load_txt_file', { name: 'descendia.txt' }),
         ])
 
+        // Temporary: use patched exports with levelStats until upstream ships them
+        try {
+          const assetsPath = await invoke('get_assets_path');
+          const { convertFileSrc } = await import('@tauri-apps/api/tauri');
+          const fixedFiles = [
+            ['ExportUpgrades_fixed.json', 'ExportUpgradesFixed'],
+            ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'],
+          ];
+          for (const [fname, key] of fixedFiles) {
+            const url = convertFileSrc(`${assetsPath}/data/${fname}`);
+            const resp = await fetch(url);
+            if (resp.ok) {
+              exports[key] = await resp.json();
+            }
+          }
+        } catch {}
+
         setExportData(exports)
         setSpIncursions(spiText || '')
         setArbys(arbText || '')

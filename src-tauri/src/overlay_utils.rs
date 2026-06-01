@@ -64,14 +64,14 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         }
         "overlay-riven-current" => {
             let rx = phys_margin;
-            let ry = ((screen_h as i32 - phys_h as i32) / 2);
+            let ry = (screen_h as i32 - phys_h as i32) / 2;
             eprintln!("[RIVEN] show_window_internal current: screen_w={} screen_h={} phys_w={} phys_h={} phys_margin={} -> lx={} ly={} mon_pos=({},{})",
                 screen_w, screen_h, phys_w, phys_h, phys_margin, rx, ry, mon_pos.x, mon_pos.y);
             (rx, ry)
         }
         "overlay-riven-new" => {
-            let rx = (screen_w as i32 - phys_w as i32 - phys_margin);
-            let ry = ((screen_h as i32 - phys_h as i32) / 2);
+            let rx = screen_w as i32 - phys_w as i32 - phys_margin;
+            let ry = (screen_h as i32 - phys_h as i32) / 2;
             eprintln!("[RIVEN] show_window_internal new: screen_w={} screen_h={} phys_w={} phys_h={} phys_margin={} -> lx={} ly={} mon_pos=({},{})",
                 screen_w, screen_h, phys_w, phys_h, phys_margin, rx, ry, mon_pos.x, mon_pos.y);
             (rx, ry)

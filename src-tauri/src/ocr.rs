@@ -1,8 +1,7 @@
 use xcap::Monitor;
-use image::{DynamicImage, GenericImageView};
+use image::DynamicImage;
 use tauri::{AppHandle, Manager};
 use serde::Serialize;
-use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 /// Set to true by log_scanner when 10-reactant fires, false when reward screen
@@ -39,6 +38,42 @@ impl RivenCardPosition {
             RivenCardPosition::Linked => RIVEN_CARD_BOUNDS[3],
         }
     }
+}
+
+fn find_text_lines(gray: &image::GrayImage) -> Vec<(u32, u32)> {
+    let (w, h) = gray.dimensions();
+    let mut row_scores = Vec::with_capacity(h as usize);
+    for y in 0..h {
+        let mut dark_pixels = 0u32;
+        for x in 0..w {
+            if gray.get_pixel(x, y)[0] < 128 {
+                dark_pixels += 1;
+            }
+        }
+        row_scores.push(dark_pixels);
+    }
+
+    let threshold = (w as f32 * 0.15).round() as u32;
+    let mut lines = Vec::new();
+    let mut in_line = false;
+    let mut line_start = 0u32;
+    for y in 0..h {
+        let is_text = row_scores[y as usize] >= threshold;
+        if is_text && !in_line {
+            in_line = true;
+            line_start = y;
+        } else if !is_text && in_line {
+            in_line = false;
+            let line_end = y;
+            if line_end - line_start >= 8 {
+                lines.push((line_start, line_end));
+            }
+        }
+    }
+    if in_line && h - line_start >= 8 {
+        lines.push((line_start, h));
+    }
+    lines
 }
 
 fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPosition) -> Result<RivenOcrResult, String> {
@@ -78,15 +113,27 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
         stretched.put_pixel(x, y, image::Luma([v]));
     }
 
-    // Upscale 3x for better OCR accuracy
-    let upscaled = image::imageops::resize(&stretched, w * 3, h * 3, image::imageops::FilterType::CatmullRom);
-    let dyn_img = DynamicImage::ImageLuma8(upscaled);
+    // Invert — after contrast stretch, light text on dark card becomes dark text on light bg
+    image::imageops::invert(&mut stretched);
 
-    // Full detection + recognition pipeline
-    let boxes = crate::ocr_engine::recognize_image(&dyn_img);
-    crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Found {} text regions", boxes.len()));
+    // Find text lines via horizontal projection (fast — counts dark pixels per row)
+    let lines = find_text_lines(&stretched);
+    let dyn_stretched = DynamicImage::ImageLuma8(stretched);
+    crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Found {} text lines", lines.len()));
 
-    let results: Vec<String> = boxes.into_iter().map(|(text, _)| text).collect();
+    // Recognize each line individually with RecModel (fast — no detection model)
+    let mut results = Vec::new();
+    for (i, &(y0, y1)) in lines.iter().enumerate() {
+        let line_h = y1 - y0;
+        if line_h < 3 { continue; }
+        let line_crop = dyn_stretched.clone().crop_imm(0, y0, w, line_h).to_luma8();
+        let text = crate::ocr_engine::recognize(&line_crop);
+        if !text.is_empty() {
+            results.push(text);
+            let _ = DynamicImage::ImageLuma8(line_crop).save(debug_dir.join(format!("riven_ocr_{:?}_line{}.png", position, i)));
+        }
+    }
+
     let combined = results.join(" | ");
     crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Card {:?}: {:?}", position, combined));
 
@@ -167,14 +214,14 @@ static REQUIEM_TEMPLATES: std::sync::OnceLock<Vec<RequiemTemplate>> = std::sync:
 fn get_requiem_templates() -> &'static Vec<RequiemTemplate> {
     REQUIEM_TEMPLATES.get_or_init(|| {
         let raw: &[(&str, &[u8])] = &[
-            ("Fass", include_bytes!("../../public/RequiemFass.png")),
-            ("Jahu", include_bytes!("../../public/RequiemJahu.png")),
-            ("Khra", include_bytes!("../../public/RequiemKhra.png")),
-            ("Lohk", include_bytes!("../../public/RequiemLohk.png")),
-            ("Netra", include_bytes!("../../public/RequiemNetra.png")),
-            ("Ris", include_bytes!("../../public/RequiemRis.png")),
-            ("Vome", include_bytes!("../../public/RequiemVome.png")),
-            ("Xata", include_bytes!("../../public/RequiemXata.png")),
+            ("Fass", include_bytes!("../data/assets/ocr/RequiemFass.png")),
+            ("Jahu", include_bytes!("../data/assets/ocr/RequiemJahu.png")),
+            ("Khra", include_bytes!("../data/assets/ocr/RequiemKhra.png")),
+            ("Lohk", include_bytes!("../data/assets/ocr/RequiemLohk.png")),
+            ("Netra", include_bytes!("../data/assets/ocr/RequiemNetra.png")),
+            ("Ris", include_bytes!("../data/assets/ocr/RequiemRis.png")),
+            ("Vome", include_bytes!("../data/assets/ocr/RequiemVome.png")),
+            ("Xata", include_bytes!("../data/assets/ocr/RequiemXata.png")),
         ];
         raw.iter()
             .filter_map(|(name, bytes)| {
@@ -187,77 +234,6 @@ fn get_requiem_templates() -> &'static Vec<RequiemTemplate> {
             })
             .collect()
     })
-}
-
-fn crop_to_content(img: &image::GrayImage) -> DynamicImage {
-    let (w, h) = img.dimensions();
-
-    let mut max_brightness = 0u8;
-    for y in 0..h {
-        for x in 0..w {
-            max_brightness = max_brightness.max(img.get_pixel(x, y)[0]);
-        }
-    }
-
-    let threshold = (max_brightness as f32 / 2.0).max(60.0) as u8;
-
-    let mut min_x = w;
-    let mut min_y = h;
-    let mut max_x = 0;
-    let mut max_y = 0;
-    let mut found = false;
-
-    for y in 0..h {
-        for x in 0..w {
-            if img.get_pixel(x, y)[0] > threshold {
-                min_x = min_x.min(x);
-                min_y = min_y.min(y);
-                max_x = max_x.max(x);
-                max_y = max_y.max(y);
-                found = true;
-            }
-        }
-    }
-
-    if found && max_x >= min_x && max_y >= min_y {
-        let bw = (max_x - min_x + 1).max(1);
-        let bh = (max_y - min_y + 1).max(1);
-        let sub = img.view(min_x, min_y, bw, bh);
-        DynamicImage::ImageLuma8(sub.to_image())
-    } else {
-        DynamicImage::ImageLuma8(img.clone())
-    }
-}
-
-fn crop_to_content_rgba(img: &image::RgbaImage) -> DynamicImage {
-    let (w, h) = img.dimensions();
-    let mut min_x = w;
-    let mut min_y = h;
-    let mut max_x = 0;
-    let mut max_y = 0;
-    let mut found = false;
-
-    for y in 0..h {
-        for x in 0..w {
-            let alpha = img.get_pixel(x, y)[3];
-            if alpha > 128 {
-                min_x = min_x.min(x);
-                min_y = min_y.min(y);
-                max_x = max_x.max(x);
-                max_y = max_y.max(y);
-                found = true;
-            }
-        }
-    }
-
-    if found && max_x >= min_x && max_y >= min_y {
-        let bw = (max_x - min_x + 1).max(1);
-        let bh = (max_y - min_y + 1).max(1);
-        let sub = img.view(min_x, min_y, bw, bh);
-        DynamicImage::ImageRgba8(sub.to_image())
-    } else {
-        DynamicImage::ImageRgba8(img.clone())
-    }
 }
 
 macro_rules! ocr_log {
@@ -478,9 +454,9 @@ static RARITY_TEMPLATES: std::sync::OnceLock<Vec<image::RgbImage>> =
 fn get_templates() -> &'static Vec<image::RgbImage> {
     RARITY_TEMPLATES.get_or_init(|| {
         let raw: &[&[u8]] = &[
-            include_bytes!("../data/bin/rarity_rare.png"),
-            include_bytes!("../data/bin/rarity_uncommon.png"),
-            include_bytes!("../data/bin/rarity_common.png"),
+            include_bytes!("../data/assets/ocr/rarity_rare.png"),
+            include_bytes!("../data/assets/ocr/rarity_uncommon.png"),
+            include_bytes!("../data/assets/ocr/rarity_common.png"),
         ];
         raw.iter()
             .filter_map(|bytes| image::load_from_memory(bytes).ok().map(|i| i.to_rgb8()))
@@ -526,10 +502,6 @@ const CENTERS_1080P: [i32; 7] = [595, 717, 838, 960, 1080, 1202, 1323];
 const CONFIG_4: &[usize] = &[0, 2, 4, 6];
 const CONFIG_3: &[usize] = &[1, 3, 5];
 const CONFIG_2: &[usize] = &[2, 4];
-
-/// Minimum NCC score for a single slot to be considered "detected".
-/// Can be high because we never evaluate off-position pixels and use shape masking.
-const PER_SLOT_MIN: f32 = 0.8;
 
 // ── Pre-computed template cache ────────────────────────────────────────────────
 

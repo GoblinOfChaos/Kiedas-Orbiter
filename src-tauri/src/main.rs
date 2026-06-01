@@ -16,6 +16,7 @@ mod ocr;
 mod ocr_engine;
 mod overlay_utils;
 mod logger;
+mod pricer;
 
 pub struct AppState {
     pub notif_sound: Arc<Mutex<String>>,
@@ -212,6 +213,37 @@ async fn check_exports() -> Result<String, String> {
     }
 
     Ok(format!("Updated {} files", updated_count))
+}
+
+/// Download the riven pricing ONNX model and vocab files if not already cached.
+#[tauri::command]
+async fn check_pricer_models() -> Result<String, String> {
+    let models_dir = crate::pricer::get_models_dir();
+    if !models_dir.exists() {
+        std::fs::create_dir_all(&models_dir).map_err(|e| e.to_string())?;
+    }
+    let base = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/main/src-tauri/data/bin/pricer-models";
+    let files = &[
+        "price_model.onnx",
+        "weapon_vocab.json",
+        "attr_vocab.json",
+        "items_data.json",
+        "attribute_name_shortcuts.json",
+        "effect_to_url_name.json",
+    ];
+    let client = reqwest::Client::new();
+    let mut downloaded = 0u32;
+    for file in files {
+        let path = models_dir.join(file);
+        if !path.exists() {
+            let url = format!("{}/{}", base, file);
+            download_file(&client, &url, &path).await.map_err(|e| {
+                format!("Failed to download pricer model {}: {}", file, e)
+            })?;
+            downloaded += 1;
+        }
+    }
+    Ok(format!("Downloaded {} pricer model files", downloaded))
 }
 
 /// Download PP-OCRv5 models for ocr-rs if not already cached.
@@ -1450,6 +1482,13 @@ fn set_target_monitor(state: tauri::State<'_, AppState>, monitor: Value) -> Resu
     Ok(())
 }
 
+/// Estimate the platinum price of a riven using the pricing model.
+/// Returns None if the model isn't loaded (e.g. no pricer-models present).
+#[tauri::command]
+fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
+    pricer::estimate_price(&input)
+}
+
 // ─── Entry Point ──────────────────────────────────────────────────────────────
 
 fn main() {
@@ -1521,6 +1560,13 @@ fn main() {
                     Err(e) => eprintln!("[OCR MODELS] Download failed: {}", e),
                 }
             });
+            // Download riven pricing model in background (needed by pricer)
+            tauri::async_runtime::spawn(async move {
+                match check_pricer_models().await {
+                    Ok(msg) => eprintln!("[PRICER MODELS] {}", msg),
+                    Err(e) => eprintln!("[PRICER MODELS] Download failed: {}", e),
+                }
+            });
             // Position and configure all overlay windows once at startup.
             // They start visible (tauri.conf.json) so show() is a no-op,
             // which means no focus steal from show/hide cycles later.
@@ -1535,6 +1581,7 @@ fn main() {
             call_api_helper,
             check_exports,
             check_ocr_models,
+            check_pricer_models,
             check_media_assets,
             load_all_exports,
             load_txt_file,
@@ -1579,6 +1626,7 @@ fn main() {
             crate::ocr::set_fissure_ui_scale,
             crate::ocr::ocr_riven_card,
             crate::ocr::ocr_riven_card_from_file,
+            estimate_riven_price,
             get_available_monitors,
             set_target_monitor,
             get_warframe_window_rect,

@@ -653,6 +653,30 @@ export function MonitoringProvider({ children }) {
       setArchonModifiers(e.payload)
     }))
 
+    subs.push(listen('chat-incoming-message', async (e) => {
+      const channel = e.payload?.channel || 'Unknown'
+      try {
+        const raw = getSetting('notifications', [])
+        const chatNotif = raw.find(n => n.trigger === 'chat' && n.enabled)
+        if (chatNotif) {
+          const isFocused = await invoke('is_warframe_focused')
+          if (!isFocused) {
+            const position = getSetting('notif_position', 'top-right')
+            invoke('show_notification', {
+              title: 'New Chat Message',
+              message: `New message from ${channel}`,
+              image: '',
+              position,
+              no_focus: true,
+              silent: false,
+            }).catch(console.error)
+          }
+        }
+      } catch (err) {
+        console.error('Failed to check focus:', err)
+      }
+    }))
+
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [exportData, inventoryData, globalRewardPool, EI])
 

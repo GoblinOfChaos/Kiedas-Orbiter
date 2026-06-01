@@ -73,7 +73,7 @@ export default function SettingsScreen() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [isCalibrationOpen, setIsCalibrationOpen] = useState(false)
-  const [isScannerRunning, setIsScannerRunning] = useState(false)
+  const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
 
   // ... existing states ...
 
@@ -199,11 +199,13 @@ export default function SettingsScreen() {
   useEffect(() => {
     let interval
     if (fissureOverlayEnabled) {
-      interval = setInterval(() => {
-        invoke('is_scanning').then(setIsScannerRunning).catch(() => setIsScannerRunning(false))
-      }, 2000)
+      const poll = () => {
+        invoke('get_scanner_status').then(setScannerStatus).catch(() => setScannerStatus('idle'))
+      }
+      poll()
+      interval = setInterval(poll, 2000)
     } else {
-      setIsScannerRunning(false)
+      setScannerStatus('idle')
     }
     return () => clearInterval(interval)
   }, [fissureOverlayEnabled])
@@ -541,6 +543,25 @@ export default function SettingsScreen() {
                   <p className="text-zinc-400 mb-1 tracking-widest">Common Linux Path:</p>
                   <p className="font-mono text-kronos-accent/70">steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log</p>
                 </div>
+              </div>
+              <div className="mt-2 flex items-center gap-2">
+                {scannerStatus === 'waiting' && (
+                  <RefreshCw size={10} className="text-yellow-400 animate-spin" />
+                )}
+                <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-500 ${
+                  scannerStatus === 'active'  ? 'bg-blue-400 shadow-[0_0_6px_rgba(96,165,250,0.8)]' :
+                  scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_6px_rgba(250,204,21,0.8)] animate-pulse' :
+                  'bg-zinc-600'
+                }`} />
+                <span className={`text-[10px] font-black uppercase tracking-widest ${
+                  scannerStatus === 'active'  ? 'text-blue-400' :
+                  scannerStatus === 'waiting' ? 'text-yellow-400' :
+                  'text-zinc-500'
+                }`}>
+                  {scannerStatus === 'active'  ? 'Hooked into Warframe — scanner running' :
+                   scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :
+                   'Scanner offline'}
+                </span>
               </div>
             </div>
           </div>

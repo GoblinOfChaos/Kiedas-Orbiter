@@ -394,31 +394,6 @@ function resolveHoverboardComponents(sourceItem, dict, EW) {
 // ─── Relic Reward Resolution ──────────────────────────────────────────────────
 
 /**
- * Extract the reward list from a relic's export entry.
- * Tries two formats that DE has used at different times:
- *  - entry.rewardManifest  (points into ExportRewards)
- *  - entry.relicRewards    (inline array on the entry itself)
- * Returns an array of { name, rarity, tier } objects, or [] if nothing is found.
- */
-function resolveRelicRewards(entry, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe, ERew) {
-  if (!entry) return [];
-  const mapReward = (r) => ({
-    name: resolveName(r.type || r.rewardItem, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
-    rarity: r.rarity,
-    tier: r.rarity === 'COMMON' ? 0 : (r.rarity === 'UNCOMMON' ? 1 : 2)
-  });
-  if (entry.rewardManifest && ERew[entry.rewardManifest]) {
-    const manifest = ERew[entry.rewardManifest];
-    const rewardList = Array.isArray(manifest[0]) ? manifest[0] : (Array.isArray(manifest) ? manifest : []);
-    return rewardList.map(mapReward);
-  }
-  if (Array.isArray(entry.relicRewards)) {
-    return entry.relicRewards.map(mapReward);
-  }
-  return [];
-}
-
-/**
  * Main export.  Receives the raw inventory JSON (from warframe-api-helper via
  * main.rs) and the full exports bundle (from load_all_exports via main.rs).
  * Returns a single structured object with named arrays for every item category
@@ -562,8 +537,22 @@ export function parseInventory(raw, exports) {
   // Same for patched ExportAvionics
   if (exports.ExportAvionicsFixed) {
     for (const [un, entry] of Object.entries(exports.ExportAvionicsFixed)) {
-      if (EM[un] && entry.levelStats && !EM[un].levelStats) {
-        EM[un].levelStats = entry.levelStats;
+      if (EM[un]) {
+        if (entry.levelStats && !EM[un].levelStats) {
+          EM[un].levelStats = entry.levelStats;
+        }
+        if (entry.icon) {
+          EM[un].icon = entry.icon;
+        }
+      }
+    }
+  }
+  // Manual icon overrides for mods whose export data lacks an icon field
+  // (e.g. Railjack avionics, some Antivirus/Immortal variants)
+  if (exports.ModIconMap) {
+    for (const [un, iconPath] of Object.entries(exports.ModIconMap)) {
+      if (EM[un] && !EM[un].icon) {
+        EM[un].icon = iconPath;
       }
     }
   }
@@ -1159,6 +1148,15 @@ export function parseInventory(raw, exports) {
       mod.category = extractModCategory(entry?.type, un, entry);
       mod.baseDrain = entry?.baseDrain ?? null;
       mod.icon = entry?.icon ?? null;
+      if (!mod.icon && exports.PeelyPixMap?.[un]) {
+        mod.icon = exports.PeelyPixMap[un];
+      }
+      if (exports.PeelyPixNames?.[un]) {
+        const ppn = exports.PeelyPixNames[un];
+        mod.name = ppn.name;
+        mod.description = ppn.description;
+        mod._isSticker = true;
+      }
       let modSet = entry?.modSet;
       if (!modSet && exports.ExportUpgradesFixed) {
         const fe = exports.ExportUpgradesFixed[un];
@@ -1681,7 +1679,7 @@ export function parseInventory(raw, exports) {
       forma: formaCount,
       aura_forma: auraFormaCount,
       stance_forma: stanceFormaCount,
-      umbra_forma: stanceFormaCount,
+      umbra_forma: umbraFormaCount,
       orokin_reactor: reactorCount,
       orokin_catalyst: catalystCount,
       nightwave_standing: nightwaveStanding,

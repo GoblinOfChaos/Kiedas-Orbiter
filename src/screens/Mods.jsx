@@ -1,8 +1,9 @@
 import { useState, useMemo, useEffect } from 'react'
-import { Search, ArrowUpDown } from 'lucide-react'
+import { Search, ArrowUpDown, Layers } from 'lucide-react'
 import { PageLayout, Input, Button, Tabs } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
+import { getPrice, getPricesBatch } from '../lib/wfmCache'
 import ModCard from '../components/ModCard'
 
 const CARD_WIDTH = 200
@@ -13,6 +14,7 @@ const SORT_OPTIONS = [
   { id: 'rank', label: 'Rank' },
   { id: 'quantity', label: 'Count' },
   { id: 'rarity', label: 'Rarity' },
+  { id: 'value', label: 'Value (Maxed)' },
 ]
 
 const SORT_ARROW = { asc: ' ▲', desc: ' ▼' }
@@ -53,34 +55,59 @@ function extractModCategory(un) {
 }
 
 export default function Mods() {
-  const { inventoryData, isInventoryLoading, ExportTextIcons } = useMonitoring()
+  const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress } = useMonitoring()
   const [framesPath, setFramesPath] = useState('')
   const [iconsPath, setIconsPath] = useState('')
-  const [cardImagesPath, setCardImagesPath] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [sortCriteria, setSortCriteria] = useState('name')
   const [sortDirection, setSortDirection] = useState('asc')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [maxRankOnly, setMaxRankOnly] = useState(false)
   const [visibleCount, setVisibleCount] = useState(60)
-
-  useEffect(() => { invoke('get_mod_frames_path').then(p => setFramesPath(p)).catch(() => { }) }, [])
-  useEffect(() => { invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { }) }, [])
-  useEffect(() => { invoke('get_card_images_path').then(p => setCardImagesPath(p)).catch(() => { }) }, [])
-  useEffect(() => { setVisibleCount(60) }, [searchQuery, selectedCategory, maxRankOnly])
-
-
-
+  const [modPrices, setModPrices] = useState(null)
   const mods = inventoryData?.mods ?? []
 
-  const typeOptions = useMemo(() => CATEGORIES, [])
+  useEffect(() => {
+    invoke('get_mod_frames_path').then(p => setFramesPath(p)).catch(() => { })
+  }, [])
+
+  useEffect(() => {
+    invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { })
+  }, [])
+
+  // Batch-fetch mod prices when Value sort is selected
+  useEffect(() => {
+    if (sortCriteria !== 'value' || !mods.length) return
+    const items = mods.map(m => ({ uniqueName: m.unique_name, name: m.name, maxRank: m.max_rank ?? null }))
+    const seen = new Set()
+    const unique = items.filter(i => { if (seen.has(i.uniqueName)) return false; seen.add(i.uniqueName); return true })
+    // 1. Show cached prices immediately
+    try {
+      const cache = JSON.parse(localStorage.getItem('wfm_price_cache') || '{}')
+      const ttl = 24 * 60 * 60 * 1000
+      const cached = {}
+      for (const item of unique) {
+        const entry = cache[item.uniqueName]
+        if (entry && (Date.now() - entry.lastUpdated < ttl)) {
+          cached[item.uniqueName] = entry.plat
+        }
+      }
+      if (Object.keys(cached).length > 0) setModPrices(cached)
+    } catch {}
+    // 2. Background-fetch missing/expired prices
+    getPricesBatch(unique).then(({ results }) => setModPrices(results)).catch(() => {})
+  }, [sortCriteria, mods.length]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    setVisibleCount(60)
+  }, [searchQuery, selectedCategory, maxRankOnly])
 
   const filtered = useMemo(() => {
     let items = mods
 
     if (searchQuery) {
       const q = searchQuery.toLowerCase().split(/\s+/).filter(w => w.length > 0)
-      items = items.filter(m => q.every(w => (m.name ?? '').toLowerCase().includes(w)))
+      items = items.filter(m => q.every(w => (m.name ?? '').toLowerCase().includes(w) || (m.description ?? '').toLowerCase().includes(w)))
     }
     if (selectedCategory !== 'All') {
       items = items.filter(m => m.category === selectedCategory)
@@ -95,6 +122,9 @@ export default function Mods() {
         const order = ['common', 'uncommon', 'rare', 'legendary']
         av = order.indexOf((a.rarity ?? '').toLowerCase())
         bv = order.indexOf((b.rarity ?? '').toLowerCase())
+      } else if (sortCriteria === 'value') {
+        av = modPrices?.[a.unique_name] ?? 0
+        bv = modPrices?.[b.unique_name] ?? 0
       } else {
         av = (a[sortCriteria] ?? '')
         bv = (b[sortCriteria] ?? '')
@@ -132,11 +162,10 @@ export default function Mods() {
         <Tabs tabs={[{ id: 'max', label: 'Max Rank' }]} activeTab={maxRankOnly ? 'max' : ''} onChange={() => setMaxRankOnly(v => !v)} className="h-[42px]" />
       </div>
 
-      {/* Category filter */}
       <div className="flex items-center gap-3">
         <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1 flex-shrink-0">Category:</span>
         <div className="flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
-          {typeOptions.map(t => {
+          {CATEGORIES.map(t => {
             const iconUrl = t === 'All'
               ? (iconsPath ? convertFileSrc(`${iconsPath}/Categories/All.png`) : null)
               : (iconsPath ? convertFileSrc(`${iconsPath}/Categories/${t}.png`) : null)
@@ -165,8 +194,37 @@ export default function Mods() {
       subtitle={`${filtered.length} total · ${uniqueMods} unique · ${dupCount} duplicate`}
       headerPanel={renderHeaderPanel()}
     >
-      {/* Mod grid */}
-      {isInventoryLoading ? (
+      {fixProgress.checking || (fixProgress.phase && fixProgress.phase !== 'done') ? (
+        fixProgress.phase ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-4">
+            <Layers className="w-12 h-12 text-kronos-accent animate-pulse" />
+            <div className="w-full max-w-md">
+              <div className="flex justify-between text-xs text-kronos-dim mb-1">
+                <span>
+                  {fixProgress.phase === 'extracting' ? 'Extracting card images…' :
+                   fixProgress.phase === 'fixing' ? 'Processing card images…' :
+                   fixProgress.phase === 'compositing' ? 'Compositing overlays…' :
+                   'Preparing card images…'}
+                </span>
+                <span>{fixProgress.current} / {fixProgress.total}</span>
+              </div>
+              <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-kronos-accent rounded-full transition-all duration-300"
+                  style={{ width: `${(fixProgress.current / fixProgress.total) * 100}%` }}
+                />
+              </div>
+              {fixProgress.current_file && (
+                <p className="text-[10px] text-kronos-dim/50 mt-1 truncate max-w-md">{fixProgress.current_file}</p>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center py-20">
+            <div className="w-8 h-8 border-2 border-kronos-accent/20 border-t-kronos-accent rounded-full animate-spin" />
+          </div>
+        )
+      ) : isInventoryLoading ? (
         <div className="flex items-center justify-center py-20">
           <div className="w-8 h-8 border-2 border-kronos-accent/20 border-t-kronos-accent rounded-full animate-spin" />
         </div>
@@ -185,7 +243,16 @@ export default function Mods() {
             }}
           >
             {visible.map((mod, i) => (
-              <ModCard key={mod.unique_name + i} mod={mod} framesPath={framesPath} iconsPath={iconsPath} cardImagesPath={cardImagesPath} width={CARD_WIDTH} exportTextIcons={ExportTextIcons} />
+              <ModCard
+                key={`${mod.unique_name}_${mod.rank}_${i}`}
+                mod={mod}
+                framesPath={framesPath}
+                iconsPath={iconsPath}
+                cardImagesPath={cardImagesPath}
+                width={CARD_WIDTH}
+                exportTextIcons={ExportTextIcons}
+                platValue={sortCriteria === 'value' ? (modPrices?.[mod.unique_name] ?? 0) : 0}
+              />
             ))}
           </div>
           {visibleCount < filtered.length && (
@@ -200,4 +267,3 @@ export default function Mods() {
     </PageLayout>
   )
 }
-

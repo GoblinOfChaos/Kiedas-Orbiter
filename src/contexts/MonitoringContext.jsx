@@ -33,13 +33,6 @@ function toMap(data, key) {
   return arr || {}
 }
 
-const cleanOcrText = (s) => s
-  .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // strip diacritics: É→E, Ï→I, etc.
-  .toUpperCase()
-  .replace(/[^A-Z0-9 ]/g, '')
-  .replace(/\s+/g, ' ')
-  .trim();
-
 const ARBY_TIERS = {
   SolNode450: "S",
   SolNode106: "S",
@@ -158,6 +151,9 @@ export function MonitoringProvider({ children }) {
   const intervalRef = useRef(null)
   const busyRef = useRef(false)
   const notifiedRef = useRef({})
+  const [cardImagesPath, setCardImagesPath] = useState('')
+  const [fixProgress, setFixProgress] = useState({ checking: true })
+  const cardInitStarted = useRef(false)
 
   // ── Derived lookup maps ──────────────────────────────────────────────────────
   const dict = useMemo(() => exportData?.['dict.en'] ?? {}, [exportData])
@@ -408,6 +404,9 @@ export function MonitoringProvider({ children }) {
           const fixedFiles = [
             ['ExportUpgrades_fixed.json', 'ExportUpgradesFixed'],
             ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'],
+            ['mod-icon-map.json', 'ModIconMap'],
+          ['peely-pix-map.json', 'PeelyPixMap'],
+          ['peely-pix-names.json', 'PeelyPixNames'],
           ];
           for (const [fname, key] of fixedFiles) {
             const url = convertFileSrc(`${assetsPath}/data/${fname}`);
@@ -697,13 +696,40 @@ export function MonitoringProvider({ children }) {
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [exportData, inventoryData, globalRewardPool, EI])
 
+  // ── Card image pipeline (extract → fix → composite) ─────────────────
+  // Single consolidated Tauri command with unified progress events.
+  useEffect(() => {
+    if (cardInitStarted.current) return
+    if (!inventoryData?.mods?.length) return
+    cardInitStarted.current = true
+
+    let unlisten;
+    (async () => {
+      unlisten = await listen('card-progress', (e) => {
+        setFixProgress(e.payload);
+      });
+
+      const cachePath = await invoke('detect_warframe_cache').catch(() => null)
+      if (cachePath) {
+        setFixProgress({ phase: 'extracting', current: 0, total: 1, current_file: '' })
+        const p = await invoke('ensure_card_images', { cachePath })
+        setCardImagesPath(p)
+      } else {
+        setFixProgress({ phase: 'done', current: 1, total: 1, current_file: '' })
+      }
+    })();
+
+    return () => { if (unlisten) unlisten() }
+  }, [inventoryData?.mods?.length])
+
   return (
     <MonitoringContext.Provider value={{
       exportData, spIncursions, arbys, descendiaDescs, archonModifiers,
       dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
       masteryProgress, marketPrices, isPricing,
-      startMonitoring, stopMonitoring, manualRefresh, callApiHelper
+      startMonitoring, stopMonitoring, manualRefresh, callApiHelper,
+      cardImagesPath, fixProgress,
     }}>
       {children}
     </MonitoringContext.Provider>

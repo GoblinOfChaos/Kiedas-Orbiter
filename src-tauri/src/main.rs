@@ -8,6 +8,7 @@ use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 use std::fs;
 use tauri::{AppHandle, Manager, GlobalShortcutManager};
+use std::io::Cursor;
 use std::sync::{Arc, Mutex};
 use serde_json::Value;
 
@@ -739,20 +740,242 @@ fn read_file_bytes(relative: String) -> Result<Vec<u8>, String> {
     fs::read(&path).map_err(|e| e.to_string())
 }
 
-/// Decode a PNG, set all pixels to fully opaque (alpha = 255) so the full scene
-/// (foreground subject + background) is visible in a single layer. In-memory only -- no disk writes.
+// ─── Card image pre-processing ───────────────────────────────────────────────
+
+#[derive(Clone, serde::Serialize)]
+struct CardProgress { phase: String, current: usize, total: usize, current_file: String }
+
+/// Consolidated card-image pipeline: extract → fix → composite, with
+/// unified progress events so the frontend only calls a single command.
 #[tauri::command]
-fn invert_alpha_png(path: String) -> Result<Vec<u8>, String> {
-    let img = image::open(&path)
-        .map_err(|e| format!("Failed to open image {}: {}", path, e))?;
+async fn ensure_card_images(
+    app_handle: tauri::AppHandle,
+    window: tauri::Window,
+    cache_path: String,
+) -> Result<String, String> {
+    let card_root = resolve_path("data/assets/card-images");
+    std::fs::create_dir_all(&card_root).map_err(|e| e.to_string())?;
+
+    // 1. Extract
+    let _ = window.emit("card-progress", CardProgress {
+        phase: "extracting".into(),
+        current: 0, total: 1, current_file: String::new(),
+    });
+    extract_card_images_inner(&app_handle, &cache_path)
+        .map_err(|e| format!("Extraction failed: {e}"))?;
+    let _ = window.emit("card-progress", CardProgress {
+        phase: "extracting".into(),
+        current: 1, total: 1, current_file: String::new(),
+    });
+
+    // 2. Fix (spawn_blocking so it doesn't block the async runtime)
+    let fix_root = card_root.clone();
+    let fix_win = window.clone();
+    tokio::task::spawn_blocking(move || {
+        let manifest_path = fix_root.join(".fix-manifest.json");
+
+        let mut processed: std::collections::HashSet<String> =
+            std::fs::read_to_string(&manifest_path).ok()
+                .and_then(|b| serde_json::from_str::<Vec<String>>(&b).ok())
+                .map(|v| v.into_iter().collect())
+                .unwrap_or_default();
+
+        let mut pending: Vec<std::path::PathBuf> = Vec::new();
+        let mut stack = vec![fix_root.to_path_buf()];
+        while let Some(dir) = stack.pop() {
+            let Ok(rd) = std::fs::read_dir(&dir) else { continue };
+            for e in rd.flatten() {
+                let p = e.path();
+                if p.is_dir() { stack.push(p); }
+                else if p.extension().map_or(false, |x| x.eq_ignore_ascii_case("png")) {
+                    if let Ok(rel) = p.strip_prefix(&fix_root) {
+                        let key = rel.to_string_lossy().replace('\\', "/");
+                        if key.starts_with("Lotus/Interface/Icons/") { continue; }
+                        if !processed.contains(&key) { pending.push(p); }
+                    }
+                }
+            }
+        }
+
+        let total = pending.len();
+        let _ = fix_win.emit("card-progress", CardProgress {
+            phase: "fixing".into(), current: 0, total,
+            current_file: String::new(),
+        });
+
+        for (i, file) in pending.iter().enumerate() {
+            if i % 10 == 0 {
+                let _ = fix_win.emit("card-progress", CardProgress {
+                    phase: "fixing".into(), current: i, total,
+                    current_file: file.file_name()
+                        .map(|n| n.to_string_lossy().into_owned())
+                        .unwrap_or_default(),
+                });
+            }
+            if let Err(e) = make_fully_opaque(file) {
+                eprintln!("ensure_card_images: skip corrupt {:?}: {e}", file);
+            }
+            if let Ok(rel) = file.strip_prefix(&fix_root) {
+                processed.insert(rel.to_string_lossy().replace('\\', "/"));
+            }
+        }
+
+        if !pending.is_empty() {
+            let mut list: Vec<&String> = processed.iter().collect();
+            list.sort();
+            let _ = std::fs::write(&manifest_path, serde_json::to_string(&list).unwrap());
+        }
+
+        let _ = fix_win.emit("card-progress", CardProgress {
+            phase: "fixing".into(), current: total, total,
+            current_file: String::new(),
+        });
+    }).await.map_err(|e| format!("Fix task failed: {e}"))?;
+
+    // 3. Composite
+    composite_card_overlays_inner(&card_root);
+
+    let _ = window.emit("card-progress", CardProgress {
+        phase: "done".into(), current: 1, total: 1, current_file: String::new(),
+    });
+
+    Ok(card_root.to_string_lossy().to_string())
+}
+
+/// Fast check: returns the number of PNGs NOT yet in the manifest.
+/// If 0, the frontend can skip the fix overlay entirely.
+#[tauri::command]
+fn count_unfixed_card_images(path: String) -> usize {
+    let root = std::path::Path::new(&path);
+    if !root.exists() { return 0; }
+
+    let manifest_path = root.join(".fix-manifest.json");
+    let processed: std::collections::HashSet<String> =
+        std::fs::read_to_string(&manifest_path).ok()
+            .and_then(|body| serde_json::from_str::<Vec<String>>(&body).ok())
+            .map(|v| v.into_iter().collect())
+            .unwrap_or_default();
+
+    let mut count = 0;
+    let mut stack = vec![root.to_path_buf()];
+    while let Some(dir) = stack.pop() {
+        let Ok(rd) = std::fs::read_dir(&dir) else { continue };
+        for e in rd.flatten() {
+            let p = e.path();
+            if p.is_dir() { stack.push(p); }
+            else if p.extension().map_or(false, |x| x.eq_ignore_ascii_case("png")) {
+                if let Ok(rel) = p.strip_prefix(root) {
+                    let key = rel.to_string_lossy().replace('\\', "/");
+                    // Skip files under Lotus/Interface/Icons/ — these are
+                    // UI icons (Antivirus, ImmortalRunes, etc.) that must
+                    // keep their original transparency.
+                    if key.starts_with("Lotus/Interface/Icons/") { continue; }
+                    if !processed.contains(&key) { count += 1; }
+                }
+            }
+        }
+    }
+    count
+}
+
+
+
+/// Set alpha=255 on every pixel of a PNG in-place.
+fn make_fully_opaque(path: &std::path::Path)
+    -> Result<(), Box<dyn std::error::Error + Send + Sync>>
+{
+    let bytes = std::fs::read(path)?;
+    let img = image::load_from_memory(&bytes)?;
     let mut rgba = img.to_rgba8();
+
     for pixel in rgba.pixels_mut() {
         pixel[3] = 255;
     }
-    let mut bytes = Vec::new();
-    rgba.write_to(&mut std::io::Cursor::new(&mut bytes), image::ImageFormat::Png)
-        .map_err(|e| format!("Failed to encode PNG: {}", e))?;
-    Ok(bytes)
+
+    let mut out = Vec::with_capacity(bytes.len());
+    rgba.write_to(&mut Cursor::new(&mut out), image::ImageFormat::Png)?;
+    std::fs::write(path, out)?;
+    Ok(())
+}
+
+/// Composite an overlay icon onto a card image (in-place).
+/// The overlay is scaled down and centered on the card with alpha blending.
+fn composite_overlay(card_path: &std::path::Path, overlay_path: &std::path::Path)
+    -> Result<(), Box<dyn std::error::Error + Send + Sync>>
+{
+    let card_bytes = std::fs::read(card_path)?;
+    let mut card_img = image::load_from_memory(&card_bytes)?.to_rgba8();
+
+    let ov_bytes = std::fs::read(overlay_path)?;
+    let ov_img = image::load_from_memory(&ov_bytes)?.to_rgba8();
+
+    // Scale the overlay to 80% of the card's shorter dimension
+    let card_min = card_img.width().min(card_img.height());
+    let ov_max = ov_img.width().max(ov_img.height());
+    let scale = (card_min as f64 * 0.8 / ov_max as f64).min(1.0);
+    let ov_w = (ov_img.width() as f64 * scale).round() as u32;
+    let ov_h = (ov_img.height() as f64 * scale).round() as u32;
+    let mut ov_scaled = image::imageops::resize(&ov_img, ov_w.max(1), ov_h.max(1),
+        image::imageops::Lanczos3);
+
+    // Reduce overlay opacity to 50% before compositing
+    for pixel in ov_scaled.pixels_mut() {
+        pixel[3] = pixel[3] / 2;
+    }
+
+    // Center the scaled overlay on the card
+    let x = (card_img.width().saturating_sub(ov_scaled.width())) / 2;
+    let y = (card_img.height().saturating_sub(ov_scaled.height())) / 2;
+
+    image::imageops::overlay(&mut card_img, &ov_scaled, x as i64, y as i64);
+
+    let mut out = Vec::with_capacity(card_bytes.len());
+    card_img.write_to(&mut std::io::Cursor::new(&mut out), image::ImageFormat::Png)?;
+    std::fs::write(card_path, out)?;
+    Ok(())
+}
+
+/// Read the overlay map and composite each overlay onto its card image.
+/// Tracks already-composited cards in .overlay-manifest.json so it is
+/// idempotent — subsequent calls skip cards already processed.
+fn composite_card_overlays_inner(card_root: &std::path::Path) {
+    let overlay_map_path = card_root.join("../data/card-overlay-map.json");
+    let Ok(body) = std::fs::read_to_string(&overlay_map_path) else { return };
+    let Ok(map) = serde_json::from_str::<std::collections::HashMap<String, String>>(&body) else { return };
+
+    let manifest_path = card_root.join(".overlay-manifest.json");
+    let mut done: std::collections::HashSet<String> = std::fs::read_to_string(&manifest_path).ok()
+        .and_then(|b| serde_json::from_str::<Vec<String>>(&b).ok())
+        .map(|v| v.into_iter().collect())
+        .unwrap_or_default();
+
+    for (card_rel, overlay_rel) in &map {
+        let key = card_rel.clone();
+        if done.contains(&key) { continue; }
+        let card_path = card_root.join(card_rel);
+        let overlay_path = card_root.join(overlay_rel);
+        if card_path.exists() && overlay_path.exists() {
+            if let Err(e) = composite_overlay(&card_path, &overlay_path) {
+                eprintln!("composite_overlay {}: {e}", card_rel);
+            }
+        }
+        done.insert(key);
+    }
+
+    if !map.is_empty() {
+        let mut list: Vec<&String> = done.iter().collect();
+        list.sort();
+        let _ = std::fs::write(&manifest_path, serde_json::to_string(&list).unwrap());
+    }
+}
+
+/// Backward-compat single-image fix — used by the old ModCard flow; kept alive
+/// in case some frontend still references it. New code uses the batch path.
+#[tauri::command]
+fn invert_alpha_png(path: String) -> Result<Vec<u8>, String> {
+    let p = std::path::Path::new(&path);
+    let _ = make_fully_opaque(p);
+    std::fs::read(p).map_err(|e| format!("Failed to read PNG: {}", e))
 }
 
 /// Auto-detect the Warframe cache directory by checking Steam registry.
@@ -868,24 +1091,55 @@ fn detect_cache_inner() -> Option<String> {
         }
     }
 
+    #[cfg(target_os = "macos")]
+    {
+        // Steam on macOS via CrossOver/Whisky or native Steam
+        if let Ok(home) = std::env::var("HOME") {
+            let candidates = [
+                // Native Steam (if Warframe were supported)
+                format!("{}/Library/Application Support/Steam/steamapps/common/Warframe/Cache.Windows", home),
+                // CrossOver default bottle
+                format!("{}/Library/Application Support/CrossOver/Bottles/Steam/drive_c/Program Files (x86)/Steam/steamapps/common/Warframe/Cache.Windows", home),
+                // Whisky bottles
+                format!("{}/Library/Containers/com.isaacmarovitz.Whisky/Bottles/Steam/drive_c/Program Files (x86)/Steam/steamapps/common/Warframe/Cache.Windows", home),
+            ];
+            for c in &candidates {
+                if Path::new(c).exists() {
+                    return Some(c);
+                }
+            }
+        }
+
+        // Fallback: try to find Warframe process via `mdfind` or `pgrep`
+        if let Ok(output) = std::process::Command::new("pgrep")
+            .args(["-fl", "Warframe"])
+            .output()
+        {
+            if output.status.success() {
+                let stdout = String::from_utf8_lossy(&output.stdout);
+                for line in stdout.lines() {
+                    if let Some(exe_path) = line.split_whitespace().nth(1) {
+                        let exe_path = Path::new(exe_path);
+                        if let Some(parent) = exe_path.parent() {
+                            let candidate = parent.join("Cache.Windows");
+                            if candidate.exists() {
+                                return Some(candidate.to_string_lossy().to_string());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     None
 }
 
 /// Extract card images from the Warframe cache using the bundled CLI.
 /// Skips if already extracted (output dir has PNG files).
-/// Returns the number of files present after extraction.
-#[tauri::command]
-async fn extract_card_images(app_handle: tauri::AppHandle, cache_path: String) -> Result<u32, String> {
-    extract_card_images_inner(&app_handle, &cache_path)
-}
-
 fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) -> Result<u32, String> {
     let output_dir = resolve_path("data/assets/card-images");
-
-    // Skip if already extracted
-    if output_dir.exists() && walk_dir_count(&output_dir) > 0 {
-        return Ok(walk_dir_count(&output_dir));
-    }
+    std::fs::create_dir_all(&output_dir).map_err(|e| e.to_string())?;
 
     // Locate the CLI binary
     let bin_name = format!("Warframe-Exporter-CLI{}", std::env::consts::EXE_SUFFIX);
@@ -913,49 +1167,106 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
         }
     }
 
-    // Ensure output directory exists
-    std::fs::create_dir_all(&output_dir).map_err(|e| e.to_string())?;
+    // Only do the main Cards/Images extraction if the output directory
+    // is empty (first run or after a clean).
+    if walk_dir_count(&output_dir) == 0 {
+        let mut cmd = std::process::Command::new(&bin_path);
 
-    // Build the CLI command
-    let mut cmd = std::process::Command::new(&bin_path);
+        #[cfg(target_os = "linux")]
+        {
+            cmd.env("APPIMAGE_EXTRACT_AND_RUN", "1");
+        }
 
-    // On Linux, AppImage may need FUSE -- force extract-and-run as fallback
-    #[cfg(target_os = "linux")]
-    {
-        cmd.env("APPIMAGE_EXTRACT_AND_RUN", "1");
+        cmd.arg("--cache-dir")
+           .arg(cache_path)
+           .arg("--game")
+           .arg("Warframe")
+           .arg("--extract-textures")
+           .arg("--package")
+           .arg("Texture")
+            .arg("--texture-format")
+            .arg("PNG")
+            .arg("--internal-path")
+            .arg("/Lotus/Interface/Cards/Images/")
+            .arg("--output-path")
+            .arg(&output_dir);
+
+        #[cfg(windows)]
+        {
+            use std::os::windows::process::CommandExt;
+            const CREATE_NO_WINDOW: u32 = 0x08000000;
+            cmd.creation_flags(CREATE_NO_WINDOW);
+        }
+
+        let output = cmd.output().map_err(|e| format!("Failed to launch Warframe-Exporter-CLI: {e}"))?;
+        if !output.status.success() {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            return Err(format!("Warframe-Exporter-CLI failed: {stderr}"));
+        }
     }
 
-    cmd.arg("--cache-dir")
-       .arg(cache_path)
-       .arg("--game")
-       .arg("Warframe")
-       .arg("--extract-textures")
-       .arg("--package")
-       .arg("Texture")
-       .arg("--texture-format")
-       .arg("PNG")
-       .arg("--internal-path")
-       .arg("/Lotus/Interface/Cards/Images/")
-       .arg("--output-path")
-       .arg(&output_dir);
+    let mut extracted = walk_dir_count(&output_dir);
 
-    #[cfg(windows)]
-    {
-        use std::os::windows::process::CommandExt;
-        const CREATE_NO_WINDOW: u32 = 0x08000000;
-        cmd.creation_flags(CREATE_NO_WINDOW);
+    // Antivirus / Requiem / Tome cards: the game ships them as UI icons
+    // (/Lotus/Interface/Icons/...) rather than card textures, so the
+    // Card pass above produces nothing for those paths. Re-run the
+    // exporter targeting the well-known UI icon subfolders and drop the
+    // results into the same card-images tree so the frontend can find
+    // them under its expected paths.
+    //
+    // Always check each UI icon path individually — they may not have
+    // been extracted on a previous run (e.g. if the early-return guard
+    // was in place before this restructuring).
+    let ui_icon_paths = [
+        "/Lotus/Interface/Icons/Antivirus/",
+        "/Lotus/Interface/Icons/ImmortalRunes/",
+        "/Lotus/Interface/Icons/Tomes/",
+        "/Lotus/Interface/Icons/RailjackSystemMods/",
+        "/Lotus/Interface/Icons/Stickers/",
+    ];
+    for internal_path in ui_icon_paths.iter() {
+        let ui_dir = output_dir.join(internal_path.trim_start_matches('/'));
+        // If the directory exists but the files may have been alpha-fixed
+        // by a previous run, wipe them so the extraction puts fresh copies.
+        // We use a sentinel file (<dir>/.fresh) to know if we already did this.
+        let sentinel = ui_dir.join(".fresh");
+        if ui_dir.exists() && walk_dir_count(&ui_dir) > 0 && !sentinel.exists() {
+            let _ = std::fs::remove_dir_all(&ui_dir);
+        }
+        if ui_dir.exists() && walk_dir_count(&ui_dir) > 0 {
+            continue;
+        }
+        std::fs::create_dir_all(&ui_dir).ok();
+        let _ = std::fs::write(&sentinel, b"1");
+        let mut ui_cmd = std::process::Command::new(&bin_path);
+        #[cfg(target_os = "linux")]
+        {
+            ui_cmd.env("APPIMAGE_EXTRACT_AND_RUN", "1");
+        }
+        ui_cmd.arg("--cache-dir")
+              .arg(cache_path)
+              .arg("--game")
+              .arg("Warframe")
+              .arg("--extract-textures")
+              .arg("--package")
+              .arg("Texture")
+              .arg("--texture-format")
+              .arg("PNG")
+              .arg("--internal-path")
+              .arg(internal_path)
+              .arg("--output-path")
+              .arg(&output_dir);
+        #[cfg(windows)]
+        {
+            use std::os::windows::process::CommandExt;
+            const CREATE_NO_WINDOW: u32 = 0x08000000;
+            ui_cmd.creation_flags(CREATE_NO_WINDOW);
+        }
+        let _ = ui_cmd.output();
+        extracted = walk_dir_count(&output_dir);
     }
 
-    let output = cmd.output()
-        .map_err(|e| format!("Failed to launch Warframe-Exporter-CLI: {e}"))?;
-
-    if !output.status.success() {
-        let stderr = String::from_utf8_lossy(&output.stderr);
-        return Err(format!("Warframe-Exporter-CLI failed: {stderr}"));
-    }
-
-    // Count extracted files
-    Ok(walk_dir_count(&output_dir))
+    Ok(extracted)
 }
 
 fn walk_dir_count(dir: &Path) -> u32 {
@@ -1886,8 +2197,9 @@ fn main() {
             get_card_images_path,
             read_file_bytes,
             invert_alpha_png,
+            count_unfixed_card_images,
+            ensure_card_images,
             detect_warframe_cache,
-            extract_card_images,
             // --- log scanner ---
             crate::log_scanner::get_scanner_status,
             start_log_scanner,

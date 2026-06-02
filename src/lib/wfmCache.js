@@ -29,7 +29,7 @@ function loadCache(force = false) {
   }
 }
 
-export async function getPrice(itemUniqueName, itemName, ducatValue = 0) {
+export async function getPrice(itemUniqueName, itemName, ducatValue = 0, maxRank = null) {
   if (!itemName || itemName.includes('Forma')) return 0;
 
   const cache = loadCache();
@@ -54,7 +54,7 @@ export async function getPrice(itemUniqueName, itemName, ducatValue = 0) {
     }
 
     const slug = toWfmSlug(itemName);
-    const plat = await fetchWfmPrice(slug);
+    const plat = await fetchWfmPrice(slug, maxRank);
 
     if (plat !== null && plat > 0) {
       saveToCache(itemUniqueName, plat);
@@ -101,7 +101,7 @@ export async function getPricesBatch(items) {
 
   // Fetch only what's needed
   for (const item of needsFetch) {
-    results[item.uniqueName] = await getPrice(item.uniqueName, item.name, item.ducats);
+    results[item.uniqueName] = await getPrice(item.uniqueName, item.name, item.ducats, item.maxRank);
   }
 
   return { results, hadNetworkActivity: true };
@@ -159,11 +159,11 @@ function generateSlugVariants(itemName) {
   return [...new Set(variants)];
 }
 
-async function fetchWfmPrice(slug) {
+async function fetchWfmPrice(slug, maxRank = null) {
   lastFetchTime = Date.now();
 
   // Try original slug first
-  let price = await tryFetchPrice(slug);
+  let price = await tryFetchPrice(slug, maxRank);
   if (price !== null && price > 0) return price;
 
   // If failed and slug looks like it might have issues, try variants
@@ -179,7 +179,7 @@ async function fetchWfmPrice(slug) {
   return 0;
 }
 
-async function tryFetchPrice(slug) {
+async function tryFetchPrice(slug, maxRank = null) {
   try {
     const url = `https://api.warframe.market/v2/orders/item/${slug}`;
     const response = await tauriFetch(url, {
@@ -198,7 +198,6 @@ async function tryFetchPrice(slug) {
     }
 
     const data = response.data;
-    console.log(`[WFM Cache] Fetched ${slug}:`, data);
     let orders = null;
     if (Array.isArray(data.data)) {
       orders = data.data;
@@ -211,29 +210,27 @@ async function tryFetchPrice(slug) {
       return null;
     }
 
-    // Filter: "sell" orders from active users
-    let sells = orders.filter(o => 
-      (o.type === 'sell' || o.order_type === 'sell') && 
-      (o.user.status === 'ingame' || o.user.status === 'online')
-    );
-
-    // Fallback to offline if no online users found (better than 0P)
-    if (sells.length === 0) {
-      sells = orders.filter(o => (o.type === 'sell' || o.order_type === 'sell'));
-    }
+    // Start with all sell orders
+    let sells = orders.filter(o => (o.type === 'sell' || o.order_type === 'sell'));
 
     if (sells.length === 0) {
       console.warn(`[WFM Cache] No sell orders at all for ${slug}`);
       return 0;
     }
 
+    // Filter by max rank (only for ranked items like mods)
+    if (maxRank != null) {
+      const ranked = sells.filter(o => o.rank === maxRank);
+      if (ranked.length > 0) sells = ranked;
+    }
+
     sells.sort((a, b) => a.platinum - b.platinum);
 
-    // Use median of top 3 to avoid outliers/bait orders
-    const top3 = sells.slice(0, 3);
-    const sum = top3.reduce((acc, o) => acc + o.platinum, 0);
-    const avg = Math.round(sum / top3.length);
-    console.log(`[WFM Cache] Price for ${slug}: ${avg}P`);
+    // Use median of top 5 cheapest to smooth outliers
+    const count = Math.min(5, sells.length);
+    const top = sells.slice(0, count);
+    const sum = top.reduce((acc, o) => acc + o.platinum, 0);
+    const avg = Math.round(sum / count);
     return avg;
 
   } catch (err) {

@@ -1,9 +1,9 @@
-// Remove duplicate - using App.jsx version instead
 import { useState, useEffect, useRef } from 'react'
-import { Palette, Bell, RefreshCw, X, FolderOpen, Keyboard } from 'lucide-react'
+import { Palette, Bell, RefreshCw, X, FolderOpen, Keyboard, MousePointer } from 'lucide-react'
 
 import { open as openDialog } from '@tauri-apps/api/dialog'
 import { invoke } from '@tauri-apps/api/tauri'
+import { convertFileSrc } from '@tauri-apps/api/tauri'
 import { listen } from '@tauri-apps/api/event'
 import { installUpdate } from '@tauri-apps/api/updater'
 import { getVersion } from '@tauri-apps/api/app'
@@ -68,14 +68,12 @@ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
 }
 
 export default function SettingsScreen() {
-  const { theme, setTheme, themes } = useTheme()
+  const { theme, setTheme, themes, cursorStyle, setCursorStyle, cursorTint, setCursorTint } = useTheme()
   const { isMonitoring, startMonitoring, stopMonitoring, manualRefresh, lastUpdate, statusText, autoStart, setAutoStart, monitorResult } = useMonitoring()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [isCalibrationOpen, setIsCalibrationOpen] = useState(false)
   const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
-
-  // ... existing states ...
 
   const [hotkeys, setHotkeys] = useState(
     () => getSetting('hotkeys', [{ action: 'manual_ocr', shortcut: '' }])
@@ -123,8 +121,6 @@ export default function SettingsScreen() {
     await setSetting('update_on_startup', val)
   }
 
-  // ... rest of the component ...
-
   // Notification settings
   const [notifPosition, setNotifPosition] = useState(
     () => getSetting('notif_position', 'top-right')
@@ -136,6 +132,44 @@ export default function SettingsScreen() {
   const [notifArbitrationEnabled, setNotifArbitrationEnabled] = useState(
     () => getSetting('notif_arbitration_enabled', false)
   )
+
+  const [uiPath, setUiPath] = useState('')
+  useEffect(() => { invoke('get_ui_path').then(setUiPath).catch(() => {}) }, [])
+
+  const [tintedCursors, setTintedCursors] = useState({})
+  useEffect(() => {
+    if (!uiPath || !cursorTint) { setTintedCursors({}); return }
+    const build = async () => {
+      const result = {}
+      for (const name of ['CursorDefault', 'CursorRetro']) {
+        try {
+          const src = convertFileSrc(`${uiPath}/${name}.png`)
+          const resp = await fetch(src)
+          const blob = await resp.blob()
+          const img = await createImageBitmap(blob)
+          const scale = 24 / Math.max(img.width, img.height)
+          const w = Math.round(img.width * scale) || 1
+          const h = Math.round(img.height * scale) || 1
+          const canvas = document.createElement('canvas')
+          canvas.width = w
+          canvas.height = h
+          const ctx = canvas.getContext('2d')
+          ctx.drawImage(img, 0, 0, w, h)
+          const accent = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim() || '#00aaff'
+          ctx.globalCompositeOperation = 'multiply'
+          ctx.fillStyle = accent
+          ctx.fillRect(0, 0, w, h)
+          ctx.globalCompositeOperation = 'destination-in'
+          ctx.drawImage(img, 0, 0, w, h)
+          result[name] = canvas.toDataURL()
+        } catch {
+          // fallback — leave undefined
+        }
+      }
+      setTintedCursors(result)
+    }
+    build()
+  }, [cursorTint, uiPath, theme])
   const [notifArbitrationHours, setNotifArbitrationHours] = useState(
     () => parseInt(getSetting('notif_arbitration_hours', 24))
   )
@@ -383,12 +417,6 @@ export default function SettingsScreen() {
     }
   }
 
-  const handleToggleCalibrateClose = () => {
-    invoke('toggle_calibration').then(async () => {
-      setIsCalibrationOpen(false)
-    }).catch(console.error)
-  }
-
   return (
     <PageLayout title="Settings">
       <div className="space-y-6">
@@ -428,6 +456,53 @@ export default function SettingsScreen() {
                 </span>
               </button>
             ))}
+          </div>
+        </Card>
+
+        {/* Cursor Selector */}
+        <Card glow className="p-4">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <MousePointer className="text-kronos-accent" size={20} />
+              <h2 className="text-lg font-semibold uppercase tracking-tight">Cursor</h2>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            {['system', 'default', 'retro'].map((cs) => (
+              <button
+                key={cs}
+                onClick={() => setCursorStyle(cs)}
+                className={`relative p-2 rounded-lg border transition-all duration-200 flex flex-col items-center gap-1.5 ${cursorStyle === cs
+                  ? 'border-white ring-2 ring-white/30'
+                  : 'border-white/5 hover:border-white/20'
+                }`}
+              >
+                <div className="w-10 h-10 flex items-center justify-center bg-black/20 rounded-lg relative overflow-hidden">
+                  {cs === 'system' ? (
+                    <MousePointer size={18} className="text-kronos-dim" />
+                  ) : uiPath ? (
+                    <>
+                      <img
+                        src={cursorTint && tintedCursors[cs === 'default' ? 'CursorDefault' : 'CursorRetro']
+                          ? tintedCursors[cs === 'default' ? 'CursorDefault' : 'CursorRetro']
+                          : cs === 'default' ? convertFileSrc(`${uiPath}/CursorDefault.png`) : convertFileSrc(`${uiPath}/CursorRetro.png`)
+                        }
+                        alt={cs}
+                        className="max-w-[70%] max-h-[70%] object-contain relative z-10"
+                      />
+                    </>
+                  ) : null}
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-tight text-kronos-text">{cs}</span>
+              </button>
+            ))}
+            <div className="flex items-center gap-2 ml-4">
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked={cursorTint} onChange={e => setCursorTint(e.target.checked)} className="sr-only peer" />
+                <div className="w-9 h-5 bg-white/10 rounded-full peer peer-checked:bg-kronos-accent/30 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all" />
+              </label>
+              <span className="text-xs font-black uppercase text-kronos-dim tracking-tight">Tint with theme</span>
+            </div>
           </div>
         </Card>
 

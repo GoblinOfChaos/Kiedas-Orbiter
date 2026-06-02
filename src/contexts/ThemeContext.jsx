@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, useRef } from 'react'
 import { emit, listen } from '@tauri-apps/api/event'
 import { appWindow } from '@tauri-apps/api/window'
+import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 import { loadSettings, getSetting, setSetting } from '../lib/settings'
 
 const ThemeContext = createContext()
@@ -24,30 +25,121 @@ export const THEMES = [
 
 export function ThemeProvider({ children }) {
   const [loaded, setLoaded] = useState(false)
-  const [theme, setThemeState] = useState('vitruvian') // Start with default, update after load
+  const [theme, setThemeState] = useState('vitruvian')
+  const [cursorStyle, setCursorStyleState] = useState('system')
+  const [cursorTint, setCursorTintState] = useState(false)
+  const [uiPath, setUiPath] = useState('')
   
   const themeRef = useRef('vitruvian')
+  const cursorStyleRef = useRef('system')
+  const cursorTintRef = useRef(false)
   
-  // Load settings and set theme on mount
+  // Load settings and fetch ui path on mount
   useEffect(() => {
-    loadSettings().then(() => {
+    Promise.all([
+      loadSettings(),
+      invoke('get_ui_path').then(setUiPath).catch(() => {}),
+    ]).then(() => {
       const saved = getSetting('kronos-theme', 'vitruvian')
       setThemeState(saved)
       themeRef.current = saved
       document.documentElement.setAttribute('data-theme', saved)
+
+      const cs = getSetting('cursor-style', 'system')
+      setCursorStyleState(cs)
+      cursorStyleRef.current = cs
+
+      const ct = getSetting('cursor-tint', false) === true
+      setCursorTintState(ct)
+      cursorTintRef.current = ct
+
       setLoaded(true)
     }).catch(err => {
       console.error('Failed to load settings:', err)
       setLoaded(true)
     })
   }, [])
-  
+
+  // Apply cursor to ALL elements (no fallbacks) via injected <style>, with optional tint
+  const cursorApplyId = useRef(0)
+
   useEffect(() => {
-    if (!loaded) return // Don't save until loaded
+    if (!loaded) return
+
+    const oldStyle = document.getElementById('kronos-cursor-style')
+    if (oldStyle) oldStyle.remove()
+    document.documentElement.classList.remove('kronos-custom-cursor')
+    document.body.style.cursor = ''
+
+    if (cursorStyle === 'system') return
+
+    const src = convertFileSrc(`${uiPath}/${cursorStyle === 'default' ? 'CursorDefault' : 'CursorRetro'}.png`)
+
+    const id = ++cursorApplyId.current
+    const applyCursor = async () => {
+      try {
+        const resp = await fetch(src)
+        const blob = await resp.blob()
+        const img = await createImageBitmap(blob)
+        const scale = 24 / Math.max(img.width, img.height)
+        const w = Math.round(img.width * scale) || 1
+        const h = Math.round(img.height * scale) || 1
+        const canvas = document.createElement('canvas')
+        canvas.width = w
+        canvas.height = h
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(img, 0, 0, w, h)
+
+        if (cursorTint) {
+          const accent = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim() || '#00aaff'
+          ctx.globalCompositeOperation = 'multiply'
+          ctx.fillStyle = accent
+          ctx.fillRect(0, 0, w, h)
+          ctx.globalCompositeOperation = 'destination-in'
+          ctx.drawImage(img, 0, 0, w, h)
+        }
+
+        if (id !== cursorApplyId.current) return
+
+        const finalUrl = canvas.toDataURL()
+        const style = document.createElement('style')
+        style.id = 'kronos-cursor-style'
+        style.textContent = `html.kronos-custom-cursor, html.kronos-custom-cursor * { cursor: url('${finalUrl}'), auto !important; }`
+        document.head.appendChild(style)
+        document.documentElement.classList.add('kronos-custom-cursor')
+      } catch {
+        if (id !== cursorApplyId.current) return
+        const style = document.createElement('style')
+        style.id = 'kronos-cursor-style'
+        style.textContent = `html.kronos-custom-cursor, html.kronos-custom-cursor * { cursor: url('${src}'), auto !important; }`
+        document.head.appendChild(style)
+        document.documentElement.classList.add('kronos-custom-cursor')
+      }
+    }
+
+    applyCursor()
+  }, [cursorStyle, cursorTint, uiPath, loaded, theme])
+
+  // (theme, cursor, and cursorTint persistence effects below)
+
+  useEffect(() => {
+    if (!loaded) return
     themeRef.current = theme
     document.documentElement.setAttribute('data-theme', theme)
-    setSetting('kronos-theme', theme) // Persist theme change
+    setSetting('kronos-theme', theme)
   }, [theme, loaded])
+
+  useEffect(() => {
+    if (!loaded) return
+    cursorStyleRef.current = cursorStyle
+    setSetting('cursor-style', cursorStyle)
+  }, [cursorStyle, loaded])
+
+  useEffect(() => {
+    if (!loaded) return
+    cursorTintRef.current = cursorTint
+    setSetting('cursor-tint', cursorTint)
+  }, [cursorTint, loaded])
 
   const setTheme = (newTheme, remote = false) => {
     if (newTheme === themeRef.current) return
@@ -57,11 +149,20 @@ export function ThemeProvider({ children }) {
     }
   }
 
-  // Set up listeners once on mount
+  const setCursorStyle = (val) => {
+    if (val === cursorStyleRef.current) return
+    setCursorStyleState(val)
+  }
+
+  const setCursorTint = (val) => {
+    if (val === cursorTintRef.current) return
+    setCursorTintState(val)
+  }
+
+  // Set up listeners
   useEffect(() => {
     const unlistens = []
 
-    // 1. Listen for theme changes from other windows
     listen('theme-changed', (event) => {
       if (event.payload !== themeRef.current) {
         setTheme(event.payload, true)
@@ -71,12 +172,10 @@ export function ThemeProvider({ children }) {
     const isMain = appWindow.label === 'main'
     
     if (isMain) {
-      // 2. Main window responds to sync requests
       listen('request-theme', () => {
         emit('theme-changed', themeRef.current)
       }).then(un => unlistens.push(un))
     } else {
-      // 3. Overlay windows request current theme on start
       emit('request-theme', {})
     }
 
@@ -86,7 +185,7 @@ export function ThemeProvider({ children }) {
   }, [])
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, themes: THEMES }}>
+    <ThemeContext.Provider value={{ theme, setTheme, themes: THEMES, cursorStyle, setCursorStyle, cursorTint, setCursorTint }}>
       {children}
     </ThemeContext.Provider>
   )

@@ -154,7 +154,22 @@ jobs:
       - name: Prepare Tauri Binaries Directory
         shell: bash
         run: mkdir -p src-tauri/data/bin
- 
+  
+      - name: Download Warframe-Exporter-CLI (Windows)
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          curl -L "https://github.com/Puxtril/Warframe-Exporter/releases/download/v2.14/Warframe-Exporter-CLI_Windows.exe" \
+            -o src-tauri/data/bin/Warframe-Exporter-CLI.exe
+
+      - name: Download Warframe-Exporter-CLI (Linux)
+        if: matrix.platform == 'ubuntu-22.04'
+        shell: bash
+        run: |
+          curl -L "https://github.com/Puxtril/Warframe-Exporter/releases/download/v2.14/Warframe-Exporter-CLI_Linux.AppImage" \
+            -o src-tauri/data/bin/Warframe-Exporter-CLI
+          chmod +x src-tauri/data/bin/Warframe-Exporter-CLI
+
       - name: Copy Helper Binary (Unix)
         if: matrix.platform != 'windows-latest'
         run: cp helper-src/bin/warframe-api-helper src-tauri/data/bin/warframe-api-helper

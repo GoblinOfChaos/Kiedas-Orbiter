@@ -6,7 +6,8 @@
  * filtering (e.g., "Owned + Unmastered").
  */
 import { useState, useMemo, useEffect } from 'react'
-import { Search, Filter, ArrowUpDown, AlertCircle, Check, Box, Zap, Gem, Clock, X, Hammer, Package } from 'lucide-react'
+import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X } from 'lucide-react'
+import { getPricesBatch } from '../lib/wfmCache'
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
@@ -38,7 +39,7 @@ const FILTER_CONFIG = {
   amps: ['mastered'],
   arcanes: [],
   mods: [],
-  prime_parts: [],
+  prime_parts: ['owned', 'mastered'],
   resources: [],
 }
 
@@ -446,15 +447,58 @@ export default function Inventory() {
   const [foundryFilters, setFoundryFilters] = useState({ crafting: true, ready: false, owned: false, unmastered: false })
   const [framesPath, setFramesPath] = useState('')
   const [uiPath, setUiPath] = useState('')
+  const [primePrices, setPrimePrices] = useState(null)
   useEffect(() => { invoke('get_mod_frames_path').then(p => setFramesPath(p)).catch(() => {}) }, [])
   useEffect(() => { invoke('get_ui_path').then(p => setUiPath(p)).catch(() => {}) }, [])
 
   useEffect(() => { setVisibleCount(ITEMS_PER_PAGE) }, [activeTab, searchQuery, currentFilters])
 
+  // Batch-fetch prime part prices when viewing Prime Sets tab
+  useEffect(() => {
+    if (activeTab !== 'prime_parts' || !inventoryData?.primeSets) return
+    const items = []
+    const seen = new Set()
+    for (const set of Object.values(inventoryData.primeSets)) {
+      for (const part of (set.parts ?? [])) {
+        if (!seen.has(part.unique_name)) {
+          items.push({ uniqueName: part.unique_name, name: part.name })
+          seen.add(part.unique_name)
+        }
+      }
+    }
+    if (items.length > 0) {
+      // Show cached prices immediately
+      try {
+        const cache = JSON.parse(localStorage.getItem('wfm_price_cache') || '{}')
+        const ttl = 24 * 60 * 60 * 1000
+        const cached = {}
+        for (const item of items) {
+          const entry = cache[item.uniqueName]
+          if (entry && (Date.now() - entry.lastUpdated < ttl)) {
+            cached[item.uniqueName] = entry.plat
+          }
+        }
+        if (Object.keys(cached).length > 0) setPrimePrices(cached)
+      } catch {}
+      getPricesBatch(items).then(({ results }) => setPrimePrices(results)).catch(() => {})
+    }
+  }, [activeTab, inventoryData?.primeSets])
+
   const tabItems = useMemo(() => {
     if (!inventoryData) return []
     if (activeTab === 'prime_parts') {
-      return Object.values(inventoryData.primeSets ?? {})
+      const searchArrays = [
+        inventoryData.warframes, inventoryData.primary, inventoryData.secondary,
+        inventoryData.melee, inventoryData.sentinels, inventoryData.beasts,
+        inventoryData.moas, inventoryData.hounds, inventoryData.archwings,
+        inventoryData.necramechs, inventoryData.amps
+      ]
+      return Object.values(inventoryData.primeSets ?? {}).map(set => {
+        const parent = searchArrays.flat().find(i =>
+          i.name === set.name || i.name === set.name + ' Prime'
+        ) ?? {}
+        return { ...set, owned: parent.owned ?? false, mastered: parent.mastered ?? false }
+      })
     }
     return inventoryData[activeTab] ?? []
   }, [inventoryData, activeTab])
@@ -685,18 +729,8 @@ export default function Inventory() {
           ) : activeTab === 'prime_parts' ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-4">
               {visibleItems.map((set, idx) => {
-                // Find parent item to check owned/mastered status - search all equipment arrays
-                const searchArrays = [
-                  inventoryData.warframes, inventoryData.primary, inventoryData.secondary,
-                  inventoryData.melee, inventoryData.sentinels, inventoryData.beasts,
-                  inventoryData.moas, inventoryData.hounds, inventoryData.archwings,
-                  inventoryData.necramechs, inventoryData.amps
-                ]
-                const parentItem = searchArrays.flat().find(i =>
-                  i.name === set.name || i.name === set.name + ' Prime'
-                ) ?? { owned: false, mastered: false }
-                const isParentOwned = parentItem.owned
-                const isParentMastered = parentItem.mastered
+                const isParentOwned = set.owned
+                const isParentMastered = set.mastered
 
                 // Count unique components owned (presence, not quantity)
                 const uniqueOwned = set.parts.filter(p => p.quantity > 0).length
@@ -706,9 +740,15 @@ export default function Inventory() {
                 const bpPart = set.parts.find(p => p.name.includes('Blueprint'))
                 const bpCount = bpPart?.quantity ?? 0
                 const setsPossible = bpCount > 0 && uniqueOwned >= uniqueTotal ? bpCount : 0
+                const setValue = set.parts.reduce((sum, p) => sum + (primePrices?.[p.unique_name] ?? 0), 0)
 
                 return (
-                  <div key={set.name + idx} className={`rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20 ${isComplete ? 'border-green-500/30' : ''}`}>
+                  <div key={set.name + idx} className={`relative rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20 ${isComplete ? 'border-green-500/30' : ''}`}>
+                    {setValue > 0 && (
+                      <span className="absolute top-2 right-2 z-10 text-[11px] font-bold px-2 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
+                        {setValue}p
+                      </span>
+                    )}
                     {/* Header: image + name + badges */}
                     <div className={`flex items-center gap-4 px-4 py-5 border-b border-white/5 relative ${isComplete ? 'bg-green-500/5' : ''}`}>
                       <div className="w-28 h-28 flex items-center justify-center flex-shrink-0">
@@ -721,9 +761,11 @@ export default function Inventory() {
                         <div className="flex justify-between items-start">
                           <div className="min-w-0 flex-1">
                             <p className="text-xl font-black text-kronos-text uppercase whitespace-normal leading-tight">{set.name} Set</p>
-                            <span className={`text-[10px] font-black px-2 py-0.5 rounded mt-2 inline-block ${isComplete ? 'bg-green-500/20 text-green-400' : 'bg-kronos-accent/20 text-kronos-accent'}`}>
-                              {setsPossible > 0 ? `${setsPossible} Set${setsPossible > 1 ? 's' : ''}` : `${uniqueOwned}/${uniqueTotal} (${Math.round(completion)}%)`}
-                            </span>
+                            <div className="flex items-center gap-2 mt-2">
+                              <span className={`text-[10px] font-black px-2 py-0.5 rounded inline-block ${isComplete ? 'bg-green-500/20 text-green-400' : 'bg-kronos-accent/20 text-kronos-accent'}`}>
+                                {setsPossible > 0 ? `${setsPossible} Set${setsPossible > 1 ? 's' : ''}` : `${uniqueOwned}/${uniqueTotal} (${Math.round(completion)}%)`}
+                              </span>
+                            </div>
                           </div>
                         </div>
 
@@ -746,8 +788,12 @@ export default function Inventory() {
                       {set.parts.map((part, pi) => {
                         const met = part.quantity > 0
                         const isBlueprint = part.name.includes('Blueprint')
+                        const partPrice = primePrices?.[part.unique_name] ?? 0
                         return (
                           <div key={pi} className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
+                            {partPrice > 0 && (
+                              <span className="absolute top-0.5 right-0.5 text-[9px] font-bold px-1 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">{partPrice}p</span>
+                            )}
                             <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
                               {part.image
                                 ? <img src={part.image} alt="" className="max-w-full max-h-full object-contain" />

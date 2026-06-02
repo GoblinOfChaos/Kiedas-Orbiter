@@ -383,11 +383,23 @@ pub fn stop_scanner(app: &AppHandle) {
     SCANNER_STATUS.store(0, Ordering::SeqCst);
     crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
     // Kill any orphaned helper so the blocking read_exact unblocks
-    let _ = std::process::Command::new("taskkill")
-        .args(["/f", "/im", "warframe-api-helper.exe"])
-        .stdout(std::process::Stdio::null())
-        .stderr(std::process::Stdio::null())
-        .status();
+    #[cfg(windows)]
+    {
+        let _ = std::process::Command::new("taskkill")
+            .args(["/f", "/im", "warframe-api-helper.exe"])
+            .stdout(std::process::Stdio::null())
+            .stderr(std::process::Stdio::null())
+            .status();
+    }
+    #[cfg(not(windows))]
+    {
+        // macOS and Linux
+        let _ = std::process::Command::new("pkill")
+            .args(["-f", "warframe-api-helper"])
+            .stdout(std::process::Stdio::null())
+            .stderr(std::process::Stdio::null())
+            .status();
+    }
 }
 
 pub fn is_scanning() -> bool {

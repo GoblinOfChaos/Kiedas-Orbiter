@@ -2170,8 +2170,9 @@ fn main() {
                 }
             });
             // Position and configure all overlay windows once at startup.
-            // They start visible (tauri.conf.json) so show() is a no-op,
-            // which means no focus steal from show/hide cycles later.
+            // They start hidden (tauri.conf.json) so show() in show_window_internal
+            // makes them visible only after the webview has loaded transparent content,
+            // avoiding the first-frame black flash on Linux.
             for label in &["overlay-tr", "overlay-tl", "overlay-tc", "overlay-relic"] {
                 let _ = show_overlay_window(ah.clone(), label.to_string());
             }

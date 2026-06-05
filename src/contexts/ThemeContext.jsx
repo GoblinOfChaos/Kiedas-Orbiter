@@ -73,13 +73,14 @@ export function ThemeProvider({ children }) {
 
     if (cursorStyle === 'system') return
 
-    const src = convertFileSrc(`${uiPath}/${cursorStyle === 'default' ? 'CursorDefault' : 'CursorRetro'}.png`)
+    const cursorFile = cursorStyle === 'default' ? 'CursorDefault' : 'CursorRetro'
+    const src = convertFileSrc(`${uiPath}/${cursorFile}.png`)
 
     const id = ++cursorApplyId.current
     const applyCursor = async () => {
       try {
-        const resp = await fetch(src)
-        const blob = await resp.blob()
+        const bytes = await invoke('read_file_bytes', { relative: `data/assets/ui/${cursorFile}.png` })
+        const blob = new Blob([new Uint8Array(bytes)])
         const img = await createImageBitmap(blob)
         const scale = 24 / Math.max(img.width, img.height)
         const w = Math.round(img.width * scale) || 1

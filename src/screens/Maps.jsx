@@ -96,6 +96,8 @@ export default function Maps() {
   const velocityRef = useRef({ x: 0, y: 0 })
   const lastMoveTime = useRef(0)
   const inertiaRaf = useRef(null)
+  const pointerMoveHandler = useRef(null)
+  const pointerUpHandler = useRef(null)
 
   useEffect(() => {
     invoke('get_maps_path').then(setMapsPath).catch(console.error)
@@ -164,8 +166,8 @@ export default function Maps() {
   const onWheel = useCallback((e) => {
     e.preventDefault()
 
-    // Support trackpad panning
-    if (!e.ctrlKey && e.deltaMode === 0 && (Math.abs(e.deltaX) > 0 || Math.abs(e.deltaY) < 40)) {
+    // Support trackpad panning (non-zero deltaX = horizontal swipe, tiny deltaY = smooth scroll)
+    if (!e.ctrlKey && ((e.deltaX !== 0) || (e.deltaMode === 0 && Math.abs(e.deltaY) < 5))) {
       const { x, y, scale } = xfRef.current
       xfRef.current = clamp({ x: x - e.deltaX, y: y - e.deltaY, scale })
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
@@ -189,51 +191,12 @@ export default function Maps() {
     rafRef.current = requestAnimationFrame(applyTransform)
   }, [applyTransform, clamp])
 
-  const onPointerDown = useCallback((e) => {
-    if (e.button !== 0 && e.button !== 1) return
-    if (contextMenuRef.current) { setContextMenu(null); return }
-    if (e.target.closest('[data-marker-id]') || e.target.closest('[data-float-panel]')) return
-    // Cancel any running inertia so the user can grab a moving map cleanly
-    if (inertiaRaf.current) { cancelAnimationFrame(inertiaRaf.current); inertiaRaf.current = null }
-    velocityRef.current = { x: 0, y: 0 }
-    panning.current = true
-    lastPos.current = { x: e.clientX, y: e.clientY }
-    lastMoveTime.current = performance.now()
-    pointerStart.current = { x: e.clientX, y: e.clientY, moved: false }
-    wrapRef.current.setPointerCapture(e.pointerId)
-    wrapRef.current.style.cursor = 'grabbing'
-  }, [])
-
-  const onPointerMove = useCallback((e) => {
-    if (!panning.current) return
-    const dx = e.clientX - lastPos.current.x
-    const dy = e.clientY - lastPos.current.y
-    if (Math.abs(e.clientX - pointerStart.current.x) > 3 || Math.abs(e.clientY - pointerStart.current.y) > 3) {
-      pointerStart.current.moved = true
-    }
-    // Track velocity for inertia (exponential moving average over ~16ms frames)
-    const now = performance.now()
-    const dt = now - lastMoveTime.current
-    if (dt > 0 && dt < 64) {
-      const alpha = 0.6
-      velocityRef.current = {
-        x: velocityRef.current.x * (1 - alpha) + (dx / dt * 16) * alpha,
-        y: velocityRef.current.y * (1 - alpha) + (dy / dt * 16) * alpha,
-      }
-    }
-    lastMoveTime.current = now
-    lastPos.current = { x: e.clientX, y: e.clientY }
-    const { x, y, scale } = xfRef.current
-    xfRef.current = clamp({ x: x + dx, y: y + dy, scale })
-    if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    rafRef.current = requestAnimationFrame(applyTransform)
-  }, [applyTransform, clamp])
-
   const stopPan = useCallback((e) => {
     if (!panning.current) return
     panning.current = false
-    wrapRef.current.style.cursor = 'grab'
-    try { wrapRef.current.releasePointerCapture(e.pointerId) } catch { }
+    if (wrapRef.current) wrapRef.current.style.cursor = 'grab'
+    if (pointerMoveHandler.current) { document.removeEventListener('mousemove', pointerMoveHandler.current); document.removeEventListener('pointermove', pointerMoveHandler.current); pointerMoveHandler.current = null }
+    if (pointerUpHandler.current) { document.removeEventListener('mouseup', pointerUpHandler.current); document.removeEventListener('pointerup', pointerUpHandler.current); document.removeEventListener('pointercancel', pointerUpHandler.current); pointerUpHandler.current = null }
 
     if (performance.now() - lastMoveTime.current > 50) {
       velocityRef.current = { x: 0, y: 0 }
@@ -268,6 +231,55 @@ export default function Maps() {
       inertiaRaf.current = requestAnimationFrame(startInertia)
     }
   }, [mode, pendingConfigId, applyTransform, clamp])
+
+  const onPointerDown = useCallback((e) => {
+    if (e.button !== 0 && e.button !== 1) return
+    if (contextMenuRef.current) { setContextMenu(null); return }
+    if (e.target.closest('[data-marker-id]') || e.target.closest('[data-float-panel]')) return
+    if (panning.current) return
+    e.preventDefault()
+    if (inertiaRaf.current) { cancelAnimationFrame(inertiaRaf.current); inertiaRaf.current = null }
+    velocityRef.current = { x: 0, y: 0 }
+    panning.current = true
+    lastPos.current = { x: e.clientX, y: e.clientY }
+    lastMoveTime.current = performance.now()
+    pointerStart.current = { x: e.clientX, y: e.clientY, moved: false }
+    if (wrapRef.current) wrapRef.current.style.cursor = 'grabbing'
+
+    const onMove = (ev) => {
+      if (!panning.current) return
+      const dx = ev.clientX - lastPos.current.x
+      const dy = ev.clientY - lastPos.current.y
+      if (Math.abs(ev.clientX - pointerStart.current.x) > 3 || Math.abs(ev.clientY - pointerStart.current.y) > 3) {
+        pointerStart.current.moved = true
+      }
+      const now = performance.now()
+      const dt = now - lastMoveTime.current
+      if (dt > 0 && dt < 64) {
+        const alpha = 0.6
+        velocityRef.current = {
+          x: velocityRef.current.x * (1 - alpha) + (dx / dt * 16) * alpha,
+          y: velocityRef.current.y * (1 - alpha) + (dy / dt * 16) * alpha,
+        }
+      }
+      lastMoveTime.current = now
+      lastPos.current = { x: ev.clientX, y: ev.clientY }
+      const { x, y, scale } = xfRef.current
+      xfRef.current = clamp({ x: x + dx, y: y + dy, scale })
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      rafRef.current = requestAnimationFrame(applyTransform)
+    }
+    const onUp = (ev) => stopPan(ev)
+
+    pointerMoveHandler.current = onMove
+    pointerUpHandler.current = onUp
+
+    document.addEventListener('pointermove', onMove)
+    document.addEventListener('pointerup', onUp)
+    document.addEventListener('pointercancel', onUp)
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseup', onUp)
+  }, [applyTransform, clamp, stopPan])
 
   useEffect(() => {
     const el = wrapRef.current
@@ -460,7 +472,7 @@ export default function Maps() {
                   <Crosshair size={16} /> Adding markers to &ldquo;{configsForCurrentMap.find(c => c.id === pendingConfigId)?.name || '...'}&rdquo;
                   <button
                     onClick={toggleAutoPath}
-                    className={`flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold transition-colors ${autoPath ? 'bg-kronos-bg/90 text-kronos-accent' : 'bg-black/20 text-kronos-bg/70 hover:bg-black/30'}`}
+                    className={`flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold transition-colors ${autoPath ? 'bg-white/20 text-white' : 'bg-black/20 text-kronos-bg/70 hover:bg-black/30'}`}
                     title="Auto-connect each new marker to the previous one">
                     <Link2 size={12} /> Auto-path
                   </button>
@@ -586,9 +598,7 @@ export default function Maps() {
               <div ref={wrapRef} className="w-full h-full overflow-hidden"
                 style={{ cursor: mode === 'addMarker' && pendingConfigId ? 'crosshair' : 'grab', position: 'relative', userSelect: 'none', touchAction: 'none' }}
                 onPointerDown={onPointerDown}
-                onPointerMove={onPointerMove}
-                onPointerUp={stopPan}
-                onPointerCancel={stopPan}
+                onMouseDown={onPointerDown}
                 onContextMenu={onContextMenu}
               >
                 <div ref={transformRef} style={{
@@ -811,8 +821,19 @@ export default function Maps() {
               <Button variant="ghost" className="flex-1 text-xs" onClick={() => setDeleteConfirm(null)}>Cancel</Button>
               <Button variant="primary" className="flex-1 text-xs bg-red-500/20 text-red-500 hover:bg-red-500 hover:text-white border-red-500/50"
                 onClick={() => {
-                  if (deleteConfirm.type === 'config') deleteConfig(deleteConfirm.id)
+                  const deletedId = deleteConfirm.id
+                  if (deleteConfirm.type === 'config') deleteConfig(deletedId)
                   setDeleteConfirm(null)
+                  if (pendingConfigId === deletedId) {
+                    setMode('view')
+                    setPendingConfigId(null)
+                  }
+                  if (selectedMarker) {
+                    const deletedConfig = configsForCurrentMap.find(c => c.id === deletedId)
+                    if (deletedConfig?.markers.some(m => m.id === selectedMarker.id)) {
+                      closeMarkerPanel()
+                    }
+                  }
                 }}>
                 <Trash size={12} className="mr-1" /> Delete
               </Button>

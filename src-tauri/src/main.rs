@@ -1096,7 +1096,7 @@ fn detect_cache_inner() -> Option<String> {
             ];
             for c in &candidates {
                 if Path::new(c).exists() {
-                    return Some(c);
+                    return Some(c.clone());
                 }
             }
         }
@@ -1135,7 +1135,9 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
     // Locate the CLI binary
     let bin_name = format!("Warframe-Exporter-CLI{}", std::env::consts::EXE_SUFFIX);
     let relative_bin = format!("data/bin/{}", bin_name);
+    #[allow(unused_mut)]
     let mut writable_bin = resolve_path(&relative_bin);
+    #[allow(unused_mut)]
     let mut bundled_bin = resolve_bundled_path(app_handle, &relative_bin);
 
     #[cfg(target_os = "linux")]

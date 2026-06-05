@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { appWindow } from '@tauri-apps/api/window'
+import { getCurrentWindow } from '@tauri-apps/api/window'
 import { listen } from '@tauri-apps/api/event'
-import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
+import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import { Sword, RefreshCw } from 'lucide-react'
 
 const RIVEN_W = 360
@@ -81,7 +81,7 @@ function parseRivenOcr(text) {
 }
 
 export default function RivenOverlay() {
-  const label = appWindow.label
+  const label = getCurrentWindow().label
   const isNew = label === 'overlay-riven-new'
   const [visible, setVisible] = useState(false)
   const [refreshTick, setRefreshTick] = useState(0)

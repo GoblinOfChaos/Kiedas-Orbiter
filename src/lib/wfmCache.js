@@ -1,4 +1,4 @@
-import { fetch as tauriFetch } from '@tauri-apps/api/http';
+import { fetch as tauriFetch } from '@tauri-apps/plugin-http';
 
 const CACHE_KEY = 'wfm_price_cache';
 const RATE_LIMIT_MS = 350; // ~3 requests per second

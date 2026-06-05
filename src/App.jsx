@@ -6,8 +6,8 @@ import { MonitoringProvider } from './contexts/MonitoringContext'
 import { UpdateProvider, useUpdate } from './contexts/UpdateContext'
 import { Tooltip } from './components/UI'
 import { AlertTriangle, FolderOpen } from 'lucide-react'
-import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
-import { open as openDialog } from '@tauri-apps/api/dialog'
+import { invoke, convertFileSrc } from '@tauri-apps/api/core'
+import { open as openDialog } from '@tauri-apps/plugin-dialog'
 import { loadSettings, getSetting, setSetting } from './lib/settings'
 
 // Screens (lazy-loaded, main window only)

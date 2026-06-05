@@ -1,6 +1,6 @@
 use tauri::{AppHandle, Manager};
 
-pub fn get_overlay_monitor(app_handle: &AppHandle, window: &tauri::Window) -> Result<tauri::Monitor, String> {
+pub fn get_overlay_monitor(app_handle: &AppHandle, window: &tauri::WebviewWindow) -> Result<tauri::Monitor, String> {
     let state = app_handle.state::<crate::AppState>();
     let target_idx = *state.target_monitor.lock().unwrap();
     let monitors = window.available_monitors()
@@ -28,7 +28,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
 
     
     let window = app_handle
-        .get_window(label)
+        .get_webview_window(label)
         .ok_or_else(|| format!("window '{}' not found", label))?;
     
     let monitor = get_overlay_monitor(app_handle, &window)?;
@@ -103,6 +103,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     #[cfg(target_os = "macos")]
     {
         use cocoa::appkit::{NSWindow, NSWindowCollectionBehavior};
+        use tauri::WebviewWindowExt;
         if let Ok(ns_window) = window.ns_window() {
             let id = ns_window as cocoa::base::id;
             unsafe {

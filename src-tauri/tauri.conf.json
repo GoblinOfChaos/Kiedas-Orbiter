@@ -1,85 +1,15 @@
 {
+  "productName": "Cephalon Kronos",
+  "version": "../package.json",
+  "identifier": "com.glowseeker.cephalonkronos",
   "build": {
     "beforeDevCommand": "pnpm dev",
     "beforeBuildCommand": "pnpm build",
-    "devPath": "http://localhost:1420",
-    "distDir": "../dist",
-    "withGlobalTauri": false
+    "devUrl": "http://localhost:1420",
+    "frontendDist": "../dist"
   },
-  "package": {
-    "productName": "Cephalon Kronos",
-    "version": "../package.json"
-  },
-  "tauri": {
-    "allowlist": {
-      "all": false,
-      "notification": {
-        "all": true
-      },
-      "dialog": {
-        "all": true,
-        "open": true
-      },
-      "protocol": {
-        "asset": true,
-        "assetScope": [
-          "**"
-        ]
-      },
-      "shell": {
-        "all": false,
-        "open": true
-      },
-      "globalShortcut": {
-        "all": true
-      },
-      "http": {
-        "all": true,
-        "request": true,
-        "scope": [
-          "https://api.warframe.market/*",
-          "https://github.com/glowseeker/cephalon-kronos/*"
-        ]
-      }
-    },
-    "bundle": {
-      "active": true,
-      "targets": [
-        "nsis",
-        "dmg",
-        "appimage"
-      ],
-      "identifier": "com.glowseeker.cephalonkronos",
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico",
-        "icons/icon.png"
-      ],
-      "resources": [
-        "data/assets/mod-frames/**/*",
-        "data/assets/mastery-icons/**/*",
-        "data/assets/maps/**/*",
-        "data/assets/ui/**/*",
-        "data/assets/ocr/**/*",
-        "data/assets/data/**/*",
-        "data/assets/audio/**/*",
-        "data/bin/*"
-      ]
-    },
-    "updater": {
-      "active": true,
-      "dialog": true,
-      "endpoints": [
-        "https://github.com/glowseeker/cephalon-kronos/releases/latest/download/updater.json"
-      ],
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEY0MENFRTlENTZBMzgxRjIKUldUeWdhTlduZTRNOU1FWXlhbnhSdGNPcm9ZMXkxZFhVb3lBZGU4MitqUEhWRFNDNG5wcjN1dkYK"
-    },
-    "security": {
-      "csp": null
-    },
+  "app": {
+    "withGlobalTauri": false,
     "windows": [
       {
         "label": "main",
@@ -191,6 +121,45 @@
         "visible": false,
         "url": "/?calibration=true"
       }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "nsis",
+      "dmg",
+      "appimage"
+    ],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico",
+      "icons/icon.png"
+    ],
+    "resources": [
+      "data/assets/mod-frames/**/*",
+      "data/assets/mastery-icons/**/*",
+      "data/assets/maps/**/*",
+      "data/assets/ui/**/*",
+      "data/assets/ocr/**/*",
+      "data/assets/data/**/*",
+      "data/assets/audio/**/*",
+      "data/bin/*"
     ]
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "dialog": true,
+      "endpoints": [
+        "https://github.com/glowseeker/cephalon-kronos/releases/latest/download/updater.json"
+      ],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEY0MENFRTlENTZBMzgxRjIKUldUeWdhTlduZTRNOU1FWXlhbnhSdGNPcm9ZMXkxZFhVb3lBZGU4MitqUEhWRFNDNG5wcjN1dkYK"
+    }
   }
 }

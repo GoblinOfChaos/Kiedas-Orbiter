@@ -1,6 +1,6 @@
 use xcap::Monitor;
 use image::DynamicImage;
-use tauri::{AppHandle, Manager};
+use tauri::{AppHandle, Emitter, Manager};
 use serde::Serialize;
 use std::sync::atomic::{AtomicBool, Ordering};
 
@@ -636,8 +636,8 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             if manual && start_time.elapsed().as_secs() >= MANUAL_TIMEOUT_SECS {
                 ocr_log!(&app, "[OCR] Icon scan timed out after {} attempts", attempt);
                 ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
-                if let Some(window) = app.get_window("overlay-relic") { let _ = window.hide(); }
-                app.emit_all("fissure-reward-closed", ()).unwrap_or_default();
+                if let Some(window) = app.get_webview_window("overlay-relic") { let _ = window.hide(); }
+                app.emit("fissure-reward-closed", ()).unwrap_or_default();
                 return;
             }
 
@@ -801,7 +801,7 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             );
 
             ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
-            if let Some(window) = app.get_window("overlay-relic") { let _ = window.show(); }
+            if let Some(window) = app.get_webview_window("overlay-relic") { let _ = window.show(); }
 
             let state = app.state::<crate::AppState>();
             let relics: Vec<crate::log_scanner::RelicInfo> =
@@ -820,10 +820,10 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
                 squad_size: deduced_size,
                 void_tier: None,
             };
-            app.emit_all("scanner-relic-phase-start",
+            app.emit("scanner-relic-phase-start",
                 serde_json::json!({ "squad_size": deduced_size })
             ).unwrap_or_default();
-            app.emit_all("fissure-relic-phase", &event_payload).unwrap_or_default();
+            app.emit("fissure-relic-phase", &event_payload).unwrap_or_default();
 
             run_ocr_pipeline_with_size(app, deduced_size, manual);
             return;
@@ -1090,8 +1090,8 @@ fn clean_ocr_output(raw: &str) -> String {
 
         let combined_text = slot_results.iter().map(|r| r.text.clone()).collect::<Vec<_>>().join(" | ");
         ocr_log!(&app_c, "[OCR] [Attempt {}] Total pipeline time: {}ms", attempt + 1, start_time.elapsed().as_millis());
-        let _ = app_c.emit_all("overlay-debug-text", serde_json::json!({ "text": combined_text }));
-        app_c.emit_all("fissure-ocr-band", OcrBandResult { text: combined_text, slot_results, is_debug }).unwrap_or_default();
+        let _ = app_c.emit("overlay-debug-text", serde_json::json!({ "text": combined_text }));
+        app_c.emit("fissure-ocr-band", OcrBandResult { text: combined_text, slot_results, is_debug }).unwrap_or_default();
     });
 }
 

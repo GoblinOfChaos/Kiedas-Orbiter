@@ -1,0 +1,35 @@
+{
+  "identifier": "default",
+  "description": "Default capabilities for all windows",
+  "windows": ["main", "overlay-*", "calibration"],
+  "permissions": [
+    "core:default",
+    "core:window:default",
+    "core:window:allow-close",
+    "core:window:allow-hide",
+    "core:window:allow-show",
+    "core:window:allow-set-size",
+    "core:window:allow-set-position",
+    "core:window:allow-set-always-on-top",
+    "core:window:allow-set-focus",
+    "core:window:allow-set-skip-taskbar",
+    "core:window:allow-set-ignore-cursor-events",
+    "core:event:default",
+    "core:event:allow-emit",
+    "core:event:allow-listen",
+    "dialog:default",
+    "http:default",
+    {
+      "identifier": "http:default",
+      "allow": [
+        { "url": "https://api.warframe.market/*" },
+        { "url": "https://github.com/glowseeker/cephalon-kronos/*" },
+        { "url": "https://oracle.browse.wf/*" }
+      ]
+    },
+    "global-shortcut:default",
+    "notification:default",
+    "shell:allow-open",
+    "updater:default"
+  ]
+}

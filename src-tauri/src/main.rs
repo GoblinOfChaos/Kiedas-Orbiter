@@ -7,7 +7,7 @@
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 use std::fs;
-use tauri::{AppHandle, Manager, GlobalShortcutManager};
+use tauri::{AppHandle, Manager, Emitter};
 use std::io::Cursor;
 use std::sync::{Arc, Mutex};
 use serde_json::Value;
@@ -87,7 +87,7 @@ fn resolve_path(relative: &str) -> PathBuf {
 /// Build an absolute path from a path relative to the bundled app root.
 /// Used as fallback when writable data root doesn't have the file yet (e.g. AppImage first run).
 fn resolve_bundled_path(app_handle: &tauri::AppHandle, relative: &str) -> Option<PathBuf> {
-    app_handle.path_resolver().resolve_resource(relative)
+    app_handle.path().resolve(relative, tauri::path::BaseDirectory::Resource).ok()
 }
 
 /// Simple command to proxy frontend logs to the terminal/stdout.
@@ -741,7 +741,7 @@ struct CardProgress { phase: String, current: usize, total: usize, current_file:
 #[tauri::command]
 async fn ensure_card_images(
     app_handle: tauri::AppHandle,
-    window: tauri::Window,
+    window: tauri::WebviewWindow,
     cache_path: String,
 ) -> Result<String, String> {
     let card_root = resolve_path("data/assets/card-images");
@@ -1328,7 +1328,7 @@ async fn show_relic_overlay(
     // Longer delay - window needs time to actually appear and JS to be ready
     tokio::time::sleep(std::time::Duration::from_millis(300)).await;
 
-    app.emit_all("show-relic-rewards", payload)
+    app.emit("show-relic-rewards", payload)
         .map_err(|e| e.to_string())?;
 
     // (Rust-side timer for relics removed on Linux, now handled by start_notif_autoclose_timer from frontend)
@@ -1341,7 +1341,7 @@ fn hide_overlay_window(
     app_handle: tauri::AppHandle,
     label: String,
 ) -> Result<(), String> {
-    if let Some(w) = app_handle.get_window(&label) {
+    if let Some(w) = app_handle.get_webview_window(&label) {
         let _ = w.hide();
     }
     Ok(())
@@ -1368,7 +1368,7 @@ fn relay_event(
          *cached = None;
     }
 
-    app_handle.emit_all(&event, payload).map_err(|e| e.to_string())
+    app_handle.emit(&event, payload).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -1419,7 +1419,7 @@ fn resize_overlay_window(
     height: u32,
 ) -> Result<(), String> {
     let window = app_handle
-        .get_window(&label)
+        .get_webview_window(&label)
         .ok_or_else(|| format!("window '{}' not found", label))?;
 
     let monitor = overlay_utils::get_overlay_monitor(&app_handle, &window)?;
@@ -1522,7 +1522,7 @@ fn set_ignore_cursor_events(
     ignore: bool,
 ) -> Result<(), String> {
     let window = app_handle
-        .get_window(&label)
+        .get_webview_window(&label)
         .ok_or_else(|| format!("window '{}' not found", label))?;
     window.set_ignore_cursor_events(ignore).map_err(|e| e.to_string())
 }
@@ -1534,7 +1534,7 @@ async fn play_notification_sound(app_handle: tauri::AppHandle, sound: String) ->
     }
 
     // Resolve from bundled resources (works in both dev and production)
-    let sound_path = app_handle.path_resolver().resolve_resource(&format!("data/assets/audio/{}", sound));
+    let sound_path = app_handle.path().resolve(format!("data/assets/audio/{}", sound), tauri::path::BaseDirectory::Resource).ok();
     
     let path = if let Some(p) = sound_path.filter(|p| p.exists()) {
         p
@@ -1596,7 +1596,7 @@ async fn play_notification_sound(app_handle: tauri::AppHandle, sound: String) ->
 
 #[tauri::command]
 async fn toggle_calibration(app_handle: tauri::AppHandle) -> Result<bool, String> {
-    let w = app_handle.get_window("calibration").ok_or("not found")?;
+    let w = app_handle.get_webview_window("calibration").ok_or("not found")?;
     let visible = w.is_visible().map_err(|e| e.to_string())?;
     if visible { w.hide().map_err(|e| e.to_string())?; }
     else        { w.show().map_err(|e| e.to_string())?; }
@@ -1638,7 +1638,7 @@ async fn show_notification(
 
     // Show/reposition the overlay window (unless no_focus is set)
     if !no_focus {
-        if let Some(w) = app_handle.get_window(label) {
+        if let Some(w) = app_handle.get_webview_window(label) {
             let was_hidden = !w.is_visible().unwrap_or(true);
             if was_hidden {
                 // Wipe stale toasts for this specific position (not all windows)
@@ -1659,7 +1659,7 @@ async fn show_notification(
     }
 
     // Emit the notification -- the matching overlay window renders it
-    app_handle.emit_all("new-notification", NotificationPayload {
+    app_handle.emit("new-notification", NotificationPayload {
         id: notif_id,
         title,
         message,
@@ -1717,7 +1717,7 @@ async fn open_url(app_handle: tauri::AppHandle, url: String) -> Result<(), Strin
     }
 
     // Fallback
-    tauri::api::shell::open(&app_handle.shell_scope(), url, None)
+    tauri_plugin_shell::ShellExt::shell(&app_handle).open(url, None)
         .map_err(|e| e.to_string())
 }
 
@@ -1801,7 +1801,7 @@ async fn simulate_fissure_event(app: tauri::AppHandle) -> Result<(), String> {
     use tokio::time::{sleep, Duration};
 
     // 1. Relic Phase
-    app.emit_all("fissure-relic-phase", FissureEvent {
+    app.emit("fissure-relic-phase", FissureEvent {
         event_type: "relic_phase_start".to_string(),
         squad_relics: vec![
             RelicInfo { unique_name: "/Lotus/Types/Game/Projections/T1VoidProjectionGaussPrimeBBronze".to_string(), tier: "Lith".to_string(), refinement: "Intact".to_string(), era: "Lith".to_string() },
@@ -1817,7 +1817,7 @@ async fn simulate_fissure_event(app: tauri::AppHandle) -> Result<(), String> {
     sleep(Duration::from_millis(500)).await;
 
     // 2. Reward Phase
-    app.emit_all("fissure-reward-phase", FissureEvent {
+    app.emit("fissure-reward-phase", FissureEvent {
         event_type: "reward_phase".to_string(),
         squad_relics: vec![],
         local_reward: Some("/Lotus/StoreItems/Types/Recipes/Weapons/BroncoPrimeBlueprint".to_string()),
@@ -1837,27 +1837,26 @@ fn start_notif_autoclose_timer(app_handle: tauri::AppHandle, id: serde_json::Val
     };
     std::thread::spawn(move || {
         std::thread::sleep(std::time::Duration::from_secs(seconds));
-        let _ = app_handle.emit_all("expire-notification", id_str);
+        let _ = app_handle.emit("expire-notification", id_str);
     });
 }
 
 #[tauri::command]
 async fn register_hotkey(app: AppHandle, shortcut: String, action: String) -> Result<(), String> {
-    let mut manager = app.global_shortcut_manager();
-    let app_handle = app.clone();
-    
-    // Unregister first to avoid duplicates if called multiple times
-    let _ = manager.unregister(&shortcut);
-    
-    let shortcut_for_reg = shortcut.clone();
-    let shortcut_for_closure = shortcut.clone();
+    use tauri_plugin_global_shortcut::{GlobalShortcutExt, ShortcutState};
     let shortcut_for_err = shortcut.clone();
+    let action_clone = action.clone();
+    let shortcut_str = shortcut.clone();
 
-    let registration_result = manager.register(&shortcut_for_reg, move || {
-        eprintln!("[Hotkeys] Triggered: {} -> {}", shortcut_for_closure, action);
-        let app_c = app_handle.clone();
-        let action_c = action.clone();
-        
+    // Unregister first to avoid duplicates if called multiple times
+    let _ = app.global_shortcut().unregister(shortcut.as_str());
+
+    let registration_result = app.global_shortcut().on_shortcut(shortcut.as_str(), move |app_c, _sc, event| {
+        if event.state() != ShortcutState::Pressed { return; }
+        eprintln!("[Hotkeys] Triggered: {} -> {}", shortcut_str, action_clone);
+        let app_c = app_c.clone();
+        let action_c = action_clone.clone();
+
         tauri::async_runtime::spawn(async move {
             match action_c.as_str() {
                 "manual_ocr" => {
@@ -1879,10 +1878,10 @@ async fn register_hotkey(app: AppHandle, shortcut: String, action: String) -> Re
                             } else {
                                 format!("[{}] {}", pos_name, result.text)
                             };
-                            let _ = app_c.emit_all("riven-ocr-result", &msg);
+                            let _ = app_c.emit("riven-ocr-result", &msg);
                         }
                         Err(e) => {
-                            let _ = app_c.emit_all("riven-ocr-result", &format!("[{}] Error: {}", pos_name, e));
+                            let _ = app_c.emit("riven-ocr-result", &format!("[{}] Error: {}", pos_name, e));
                         }
                     }
                 }
@@ -1901,11 +1900,8 @@ async fn register_hotkey(app: AppHandle, shortcut: String, action: String) -> Re
 
 #[tauri::command]
 async fn unregister_all_hotkeys(app: AppHandle) -> Result<(), String> {
-    let mut manager = app.global_shortcut_manager();
-    match manager.unregister_all() {
-        Ok(_) => Ok(()),
-        Err(e) => Err(format!("{:?}", e)),
-    }
+    use tauri_plugin_global_shortcut::GlobalShortcutExt;
+    app.global_shortcut().unregister_all().map_err(|e| format!("{:?}", e))
 }
 
 /// Save a JSON settings object to data/user/settings.json.
@@ -2138,6 +2134,7 @@ fn main() {
         }
     }
     let app = tauri::Builder::default()
+        .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .manage(AppState {
             notif_sound: Arc::new(Mutex::new(saved_sound.to_string())),
             log_scanner: Arc::new(Mutex::new(None)),
@@ -2145,14 +2142,14 @@ fn main() {
             active_relic_data: Arc::new(Mutex::new(None)),
             target_monitor: Arc::new(Mutex::new(target_monitor_idx)),
         })
-        .on_window_event(|event| match event.event() {
+        .on_window_event(|window, event| match event {
             tauri::WindowEvent::CloseRequested { api, .. } => {
-                if event.window().label() == "main" {
-                    crate::log_scanner::stop_scanner(&event.window().app_handle());
-                    crate::log_scanner::log_app_stop(&event.window().app_handle());
+                if window.label() == "main" {
+                    crate::log_scanner::stop_scanner(&window.app_handle());
+                    crate::log_scanner::log_app_stop(&window.app_handle());
                     std::process::exit(0);
                 } else {
-                    let _ = event.window().hide();
+                    let _ = window.hide();
                     api.prevent_close();
                 }
             }
@@ -2160,7 +2157,7 @@ fn main() {
         })
         .setup(|app| {
             crate::log_scanner::log_app_start(&app.handle());
-            let _ = app.get_window("main").unwrap();
+            let _ = app.get_webview_window("main").unwrap();
             let ah = app.handle();
             // Extract bundled assets from inside the AppImage to the writable data root
             extract_bundled_assets(&ah);

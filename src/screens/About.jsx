@@ -12,7 +12,7 @@
 import { useState, useEffect } from 'react'
 import { AlertTriangle, Github, MessageCircle } from 'lucide-react'
 import { PageLayout, Card } from '../components/UI'
-import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
+import { invoke, convertFileSrc } from '@tauri-apps/api/core'
 import { version } from '../../package.json'
 
 const CREDITS = [

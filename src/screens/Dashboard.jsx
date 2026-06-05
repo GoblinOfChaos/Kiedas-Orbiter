@@ -32,7 +32,7 @@ import {
   Settings, Check, MoreHorizontal, Trophy, Star
 } from 'lucide-react'
 import { useMonitoring } from '../contexts/MonitoringContext'
-import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
+import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import {
   resolveNode,
   resolveMissionType,

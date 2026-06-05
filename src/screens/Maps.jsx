@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback, useState } from 'react'
 import { PageLayout, Card, Tabs, Modal, Button, Input } from '../components/UI'
-import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
+import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import { Plus, Trash, Link2, Crosshair, Eye, EyeOff, Edit3, X, MapPin, Layers, Check, Navigation, Skull, Shield, Star, Diamond } from 'lucide-react'
 
 const ICONS = {

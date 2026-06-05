@@ -18,7 +18,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { FileText, Plus, Trash, Edit2, Check, X } from 'lucide-react'
 import { PageLayout, Card, Button } from '../components/UI'
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 import { MDXEditor } from '@mdxeditor/editor'
 import {
   headingsPlugin, listsPlugin, quotePlugin, thematicBreakPlugin,

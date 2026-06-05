@@ -3,7 +3,7 @@ use std::io::Read;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
-use tauri::{AppHandle, Manager};
+use tauri::{AppHandle, Emitter, Manager};
 
 pub static IS_SCANNING: AtomicBool = AtomicBool::new(false);
 // 0 = idle, 1 = waiting for process, 2 = hooked/active
@@ -100,7 +100,7 @@ impl LogScanner {
             self.squad_relics.clear();
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 7: MISSION EXIT (LogTS: {}s)", ts));
-            app.emit_all("fissure-reward-closed", ()).unwrap_or_default();
+            app.emit("fissure-reward-closed", ()).unwrap_or_default();
             return;
         }
 
@@ -144,7 +144,7 @@ impl LogScanner {
         if s.contains("ProjectionRewardChoice.lua: Relic reward screen shut down") {
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 5: REWARD SCREEN CLOSE (LogTS: {}s)", ts));
-            app.emit_all("fissure-reward-closed", ()).unwrap_or_default();
+            app.emit("fissure-reward-closed", ()).unwrap_or_default();
             return;
         }
 
@@ -163,11 +163,11 @@ impl LogScanner {
             && s.contains("/Lotus/StoreItems/Upgrades/Mods/Randomized")
         {
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven linked in chat opened (LogTS: {}s)", ts));
-            app.emit_all("riven-linked-open", ()).unwrap_or_default();
+            app.emit("riven-linked-open", ()).unwrap_or_default();
             return;
         }
         if s.contains("ThemedDetailedPurchaseDialog.lua: DBG: HudVis") {
-            app.emit_all("riven-linked-closed", ()).unwrap_or_default();
+            app.emit("riven-linked-closed", ()).unwrap_or_default();
             return;
         }
 
@@ -175,7 +175,7 @@ impl LogScanner {
         if s.contains("OmegaRerollSelection.lua: Diorama setup") {
             self.riven_state = RivenState::ScreenOpen;
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll screen opened (LogTS: {}s)", ts));
-            app.emit_all("riven-screen-open", ()).unwrap_or_default();
+            app.emit("riven-screen-open", ()).unwrap_or_default();
             return;
         }
 
@@ -213,12 +213,12 @@ impl LogScanner {
                 RivenState::AwaitingConfirm1 => {
                     self.riven_state = RivenState::Wait4s;
                     crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll confirmed, waiting for second dialog (LogTS: {}s)", ts));
-                    app.emit_all("riven-reroll", ()).unwrap_or_default();
+                    app.emit("riven-reroll", ()).unwrap_or_default();
                 }
                 RivenState::AwaitingConfirm2 => {
                     self.riven_state = RivenState::ScreenOpen;
                     crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven new selection confirmed (LogTS: {}s)", ts));
-                    app.emit_all("riven-reroll-confirmed", ()).unwrap_or_default();
+                    app.emit("riven-reroll-confirmed", ()).unwrap_or_default();
                 }
                 _ => {}
             }
@@ -229,14 +229,14 @@ impl LogScanner {
         if s.contains("CancelJobs batchcount 0") {
             self.riven_state = RivenState::Idle;
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll menu closed (CancelJobs) (LogTS: {}s)", ts));
-            app.emit_all("riven-screen-closed", ()).unwrap_or_default();
+            app.emit("riven-screen-closed", ()).unwrap_or_default();
             return;
         }
         if s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false") {
             self.riven_state = RivenState::Idle;
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven overlays closed (ClearAgents) (LogTS: {}s)", ts));
-            app.emit_all("riven-screen-closed", ()).unwrap_or_default();
-            app.emit_all("riven-linked-closed", ()).unwrap_or_default();
+            app.emit("riven-screen-closed", ()).unwrap_or_default();
+            app.emit("riven-linked-closed", ()).unwrap_or_default();
             return;
         }
 
@@ -262,7 +262,7 @@ impl LogScanner {
                     }
                 }
             }
-            app.emit_all("archon-hunt-modifiers", serde_json::json!({
+            app.emit("archon-hunt-modifiers", serde_json::json!({
                 "suitType": suit_type,
                 "wepTypes": wep_types,
             })).unwrap_or_default();
@@ -293,7 +293,7 @@ impl LogScanner {
                         }
                     }
                 }
-                app.emit_all("archon-hunt-modifiers", serde_json::json!({
+                app.emit("archon-hunt-modifiers", serde_json::json!({
                     "suitType": suit_type,
                     "wepTypes": wep_types,
                 })).unwrap_or_default();
@@ -323,7 +323,7 @@ impl LogScanner {
                         || channel.contains("Q_EN_") || channel.contains("T_EN_");
                     if !is_public && self.squad_channels.contains(channel) {
                         crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Chat incoming message (squad channel: {}) (LogTS: {}s)", channel, ts));
-                        app.emit_all("chat-incoming-message", serde_json::json!({
+                        app.emit("chat-incoming-message", serde_json::json!({
                             "channel": channel,
                         })).unwrap_or_default();
                         return;
@@ -490,7 +490,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
     let writable = crate::get_data_root().join(&relative);
     let helper_path = if writable.exists() {
         writable
-    } else if let Some(bundled) = app.path_resolver().resolve_resource(&relative) {
+    } else if let Some(bundled) = app.path().resolve(&relative, tauri::path::BaseDirectory::Resource).ok() {
         if bundled.exists() { bundled } else { return Err("warframe-api-helper not found".to_string()); }
     } else {
         return Err("warframe-api-helper not found".to_string());

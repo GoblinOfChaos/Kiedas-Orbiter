@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react'
-import { appWindow } from '@tauri-apps/api/window'
+import { getCurrentWindow } from '@tauri-apps/api/window'
 import ToastOverlay from './ToastOverlay'
 
 const RelicRewardOverlay = lazy(() => import('./RelicRewardOverlay'))
@@ -12,7 +12,7 @@ const LABEL_TO_POS = {
 }
 
 export default function OverlayRouter() {
-  const label = appWindow.label
+  const label = getCurrentWindow().label
 
   if (LABEL_TO_POS[label]) {
     return <ToastOverlay position={LABEL_TO_POS[label]} />

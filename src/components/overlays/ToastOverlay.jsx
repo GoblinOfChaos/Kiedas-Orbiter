@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { listen } from '@tauri-apps/api/event'
-import { invoke } from '@tauri-apps/api/tauri'
-import { appWindow } from '@tauri-apps/api/window'
+import { invoke } from '@tauri-apps/api/core'
+import { getCurrentWindow } from '@tauri-apps/api/window'
 import { Bell } from 'lucide-react'
 
 const TOAST_MS = 5000
@@ -15,7 +15,7 @@ export default function ToastOverlay({ position }) {
   const [visibleToasts, setVisibleToasts] = useState([])
   const [queue, setQueue] = useState([])
   const containerRef = useRef(null)
-  const myLabel = appWindow.label
+  const myLabel = getCurrentWindow().label
 
   const removeToast = useCallback((id) => {
     setVisibleToasts(prev => prev.filter(t => t.id !== id))

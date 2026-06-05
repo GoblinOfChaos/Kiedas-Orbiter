@@ -9,7 +9,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X } from 'lucide-react'
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
-import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
+import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 
 const INVENTORY_TABS = [
   { id: 'all', label: 'All' },

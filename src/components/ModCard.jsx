@@ -1,4 +1,4 @@
-import { convertFileSrc } from '@tauri-apps/api/tauri'
+import { convertFileSrc } from '@tauri-apps/api/core'
 import { Box } from 'lucide-react'
 import { useState, useMemo, memo } from 'react'
 

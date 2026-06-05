@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useRef, useCallback, useEffect, useMemo } from 'react'
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { parseWorldstate } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward } from '../lib/relicParser'

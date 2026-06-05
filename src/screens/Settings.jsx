@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { Palette, Bell, RefreshCw, X, FolderOpen, Keyboard, MousePointer } from 'lucide-react'
 
-import { open as openDialog } from '@tauri-apps/api/dialog'
-import { invoke } from '@tauri-apps/api/tauri'
-import { convertFileSrc } from '@tauri-apps/api/tauri'
+import { open as openDialog } from '@tauri-apps/plugin-dialog'
+import { invoke } from '@tauri-apps/api/core'
+import { convertFileSrc } from '@tauri-apps/api/core'
 import { listen } from '@tauri-apps/api/event'
-import { installUpdate } from '@tauri-apps/api/updater'
 import { getVersion } from '@tauri-apps/api/app'
 import { useUpdate } from '../contexts/UpdateContext'
 import { getSetting, setSetting } from '../lib/settings'
@@ -106,11 +105,11 @@ export default function SettingsScreen() {
     () => getSetting('update_on_startup', true)
   )
 
-  const { updateState, checkForUpdates } = useUpdate()
+  const { updateState, checkForUpdates, installLatestUpdate } = useUpdate()
 
   const handleInstallUpdate = async () => {
     try {
-      await installUpdate()
+      await installLatestUpdate()
     } catch (err) {
       console.error('Install update failed:', err)
     }

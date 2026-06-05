@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Card } from '../UI'
 import { Loader2 } from 'lucide-react'
 import { listen } from '@tauri-apps/api/event'
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 import { getPrice } from '../../lib/wfmCache'
 
 const RELIC_TIMEOUT = 14500

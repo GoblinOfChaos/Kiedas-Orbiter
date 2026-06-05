@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useRef } from 'react'
 import { emit, listen } from '@tauri-apps/api/event'
-import { appWindow } from '@tauri-apps/api/window'
-import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
+import { getCurrentWindow } from '@tauri-apps/api/window'
+import { invoke, convertFileSrc } from '@tauri-apps/api/core'
 import { loadSettings, getSetting, setSetting } from '../lib/settings'
 
 const ThemeContext = createContext()
@@ -170,7 +170,7 @@ export function ThemeProvider({ children }) {
       }
     }).then(un => unlistens.push(un))
 
-    const isMain = appWindow.label === 'main'
+    const isMain = getCurrentWindow().label === 'main'
     
     if (isMain) {
       listen('request-theme', () => {

@@ -22,7 +22,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { Check, Circle, Eye, EyeOff } from 'lucide-react'
 import { PageLayout } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
-import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
+import { invoke, convertFileSrc } from '@tauri-apps/api/core'
 
 const tasks = [
   { id: 'baro', label: 'Baro Ki\'Teer', reset: 'baro' },

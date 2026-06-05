@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { Search, ArrowUpDown, Layers } from 'lucide-react'
 import { PageLayout, Input, Button, Tabs, MonitorState } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
-import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
+import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import ModCard from '../components/ModCard'
 
 const CARD_WIDTH = 200

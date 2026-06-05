@@ -21,7 +21,7 @@ import { useState, useEffect } from 'react'
 import { PageLayout, Card, MonitorState } from '../components/UI'
 import { Trophy, X, Check, Circle } from 'lucide-react'
 import { useMonitoring } from '../contexts/MonitoringContext'
-import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
+import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 
 // Each MR1–30 rank costs a flat 75,000 XP. Cumulative at MR30 = 2,250,000.
 // Legendary ranks (MR31+) each cost 147,500 XP.

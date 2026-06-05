@@ -45,3 +45,6 @@ src-tauri/Cargo.lock
 build_int/
 build_warframe_helper.ps1
 *.obj
+
+# Tauri v2 generated schemas (auto-generated, do not commit)
+src-tauri/gen/

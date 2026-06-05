@@ -7,7 +7,6 @@
  */
 import { useState, useMemo, useEffect } from 'react'
 import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X } from 'lucide-react'
-import { getPricesBatch } from '../lib/wfmCache'
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
@@ -22,25 +21,23 @@ const INVENTORY_TABS = [
   { id: 'vehicles', label: 'Vehicles' },
   { id: 'necramechs', label: 'Necramechs' },
   { id: 'amps', label: 'Amps' },
-  { id: 'arcanes', label: 'Arcanes' },
   { id: 'resources', label: 'Resources' },
   { id: 'prime_parts', label: 'Prime Sets' },
 ]
 
 const FILTER_CONFIG = {
-  all: ['mastered', 'unmastered'],
-  warframes: ['mastered', 'subsumed'],
-  weapons: ['mastered', 'primary', 'secondary', 'melee', 'incarnon'],
-  companions: ['mastered'],
-  companion_weapons: ['mastered'],
-  archweapons: ['mastered'],
-  vehicles: ['mastered', 'archwing', 'kdrive'],
-  necramechs: ['mastered'],
-  amps: ['mastered'],
-  arcanes: [],
-  mods: [],
+  all: ['owned', 'mastered', 'unmastered'],
+  warframes: ['owned', 'mastered', 'subsumed'],
+  weapons: ['owned', 'mastered', 'primary', 'secondary', 'melee', 'incarnon'],
+  companions: ['owned', 'mastered'],
+  companion_weapons: ['owned', 'mastered'],
+  archweapons: ['owned', 'mastered'],
+  vehicles: ['owned', 'mastered', 'archwing', 'kdrive'],
+  necramechs: ['owned', 'mastered'],
+  amps: ['owned', 'mastered'],
+  mods: ['owned'],
   prime_parts: ['owned', 'mastered'],
-  resources: [],
+  resources: ['owned'],
 }
 
 const SORT_CONFIG = {
@@ -53,9 +50,8 @@ const SORT_CONFIG = {
   vehicles: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
   necramechs: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
   amps: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
-  arcanes: [{ id: 'name', label: 'Name' }, { id: 'rank', label: 'Rank' }, { id: 'quantity', label: 'Count' }],
   mods: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }, { id: 'rank', label: 'Rank' }],
-  prime_parts: [{ id: 'name', label: 'Name' }, { id: 'completion', label: 'Completion' }],
+  prime_parts: [{ id: 'name', label: 'Name' }, { id: 'completion', label: 'Completion' }, { id: 'value', label: 'Value' }],
   resources: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }],
 }
 
@@ -247,7 +243,7 @@ function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFound
                   {filteredCrafting.length > 0 && (
                     <div>
                       <h4 className="text-[10px] font-black text-orange-400 uppercase tracking-widest mb-3">Currently Crafting</h4>
-                      <div className="space-y-2">
+                      <div className={`grid gap-3 ${isMedium ? 'grid-cols-2' : 'grid-cols-1'}`}>
                         {filteredCrafting.map((item, idx) => {
                           const duration = item.startTime ? (item.finishTime - item.startTime) : (item.buildTime || 12 * 3600);
                           const now = Date.now() / 1000;
@@ -255,21 +251,21 @@ function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFound
                           const progress = Math.min(100, Math.max(0, (elapsed / duration) * 100));
                           const timeLeft = Math.max(0, item.finishTime - now);
                           return (
-                            <div key={item.unique_name + idx} className="flex gap-3 items-center bg-kronos-panel/30 p-2 rounded-lg border border-orange-500/20">
-                              <div className="w-11 h-11 flex items-center justify-center flex-shrink-0">
+                            <div key={item.unique_name + idx} className="flex gap-4 items-center bg-kronos-panel/30 p-3 rounded-lg border border-orange-500/20">
+                              <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
                                 {item.image && <img src={item.image} alt="" className="max-w-full max-h-full object-contain" />}
                               </div>
                               <div className="flex-1 min-w-0">
-                                <div className="flex justify-between items-center mb-1">
-                                  <span className="text-[10px] font-bold text-kronos-text truncate">{item.name}</span>
+                                <div className="flex justify-between items-center mb-1.5">
+                                  <span className="text-sm font-bold text-kronos-text">{item.name}</span>
                                   {item.ready ? (
-                                    <span className="text-[9px] font-black text-green-500 uppercase flex items-center gap-1"><Check size={10} /> READY</span>
+                                    <span className="text-[11px] font-black text-green-500 uppercase flex items-center gap-1"><Check size={14} /> READY</span>
                                   ) : (
-                                    <span className="text-[9px] font-mono text-orange-400">{formatFoundryTime(timeLeft)}</span>
+                                    <span className="text-[11px] font-mono text-orange-400">{formatFoundryTime(timeLeft)}</span>
                                   )}
                                 </div>
                                 {!item.ready && (
-                                  <div className="w-full bg-black/40 h-1.5 rounded-full overflow-hidden">
+                                  <div className="w-full bg-black/40 h-2 rounded-full overflow-hidden">
                                     <div className="h-full bg-orange-500 transition-all" style={{ width: `${progress}%` }} />
                                   </div>
                                 )}
@@ -290,7 +286,7 @@ function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFound
                     <div className="text-center py-12 text-kronos-dim text-sm italic">No blueprints match your filters.</div>
                   ) : (
                     <>
-                      <div className={`grid gap-4 ${isLarge ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                      <div className="grid gap-4 grid-cols-1">
                         {filteredCraftable.slice(0, visibleCount).map((item, idx) => (
                           <div key={item.uniqueName + idx} className={`rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20`}>
                             {/* Header: BP image + name + badges */}
@@ -435,7 +431,7 @@ function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFound
   )
 }
 export default function Inventory() {
-  const { inventoryData, isInventoryLoading } = useMonitoring()
+  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading } = useMonitoring()
   const [activeTab, setActiveTab] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [showFilterSortPanel, setShowFilterSortPanel] = useState(false)
@@ -447,42 +443,12 @@ export default function Inventory() {
   const [foundryFilters, setFoundryFilters] = useState({ crafting: true, ready: false, owned: false, unmastered: false })
   const [framesPath, setFramesPath] = useState('')
   const [uiPath, setUiPath] = useState('')
-  const [primePrices, setPrimePrices] = useState(null)
-  useEffect(() => { invoke('get_mod_frames_path').then(p => setFramesPath(p)).catch(() => {}) }, [])
-  useEffect(() => { invoke('get_ui_path').then(p => setUiPath(p)).catch(() => {}) }, [])
+  useEffect(() => { invoke('get_mod_frames_path').then(p => setFramesPath(p)).catch(() => { }) }, [])
+  useEffect(() => { invoke('get_ui_path').then(p => setUiPath(p)).catch(() => { }) }, [])
 
   useEffect(() => { setVisibleCount(ITEMS_PER_PAGE) }, [activeTab, searchQuery, currentFilters])
 
-  // Batch-fetch prime part prices when viewing Prime Sets tab
-  useEffect(() => {
-    if (activeTab !== 'prime_parts' || !inventoryData?.primeSets) return
-    const items = []
-    const seen = new Set()
-    for (const set of Object.values(inventoryData.primeSets)) {
-      for (const part of (set.parts ?? [])) {
-        if (!seen.has(part.unique_name)) {
-          items.push({ uniqueName: part.unique_name, name: part.name })
-          seen.add(part.unique_name)
-        }
-      }
-    }
-    if (items.length > 0) {
-      // Show cached prices immediately
-      try {
-        const cache = JSON.parse(localStorage.getItem('wfm_price_cache') || '{}')
-        const ttl = 24 * 60 * 60 * 1000
-        const cached = {}
-        for (const item of items) {
-          const entry = cache[item.uniqueName]
-          if (entry && (Date.now() - entry.lastUpdated < ttl)) {
-            cached[item.uniqueName] = entry.plat
-          }
-        }
-        if (Object.keys(cached).length > 0) setPrimePrices(cached)
-      } catch {}
-      getPricesBatch(items).then(({ results }) => setPrimePrices(results)).catch(() => {})
-    }
-  }, [activeTab, inventoryData?.primeSets])
+  const primePrices = activeTab === 'prime_parts' ? allPrices : null
 
   const tabItems = useMemo(() => {
     if (!inventoryData) return []
@@ -493,7 +459,9 @@ export default function Inventory() {
         inventoryData.moas, inventoryData.hounds, inventoryData.archwings,
         inventoryData.necramechs, inventoryData.amps
       ]
-      return Object.values(inventoryData.primeSets ?? {}).map(set => {
+      return Object.values(inventoryData.primeSets ?? {}).filter(set =>
+        set.parts.some(p => p.quantity > 0)
+      ).map(set => {
         const parent = searchArrays.flat().find(i =>
           i.name === set.name || i.name === set.name + ' Prime'
         ) ?? {}
@@ -510,9 +478,9 @@ export default function Inventory() {
       items = items.filter(item => {
         const itemName = (item.name ?? '').toLowerCase();
         const components = (item.components ?? []).map(c => c.toLowerCase());
-        
+
         // Match if ALL search words exist somewhere in either the name OR components
-        return q.every(word => 
+        return q.every(word =>
           itemName.includes(word) || components.some(c => c.includes(word))
         );
       });
@@ -543,6 +511,11 @@ export default function Inventory() {
         const aComplete = (a.ownedCount ?? 0) / (a.totalCount ?? 1)
         const bComplete = (b.ownedCount ?? 0) / (b.totalCount ?? 1)
         return sortDirection === 'asc' ? aComplete - bComplete : bComplete - aComplete
+      }
+      if (activeTab === 'prime_parts' && sortCriteria === 'value') {
+        const aVal = (a.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0)
+        const bVal = (b.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0)
+        return sortDirection === 'asc' ? aVal - bVal : bVal - aVal
       }
       let av = a[sortCriteria] ?? ''; let bv = b[sortCriteria] ?? ''
       if (typeof av === 'boolean') av = av ? 1 : 0
@@ -636,23 +609,23 @@ export default function Inventory() {
         {/* Search Bar */}
         <div className="relative flex-1 group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
-          <Input 
-            placeholder={`Search ${tabLabel}...`} 
-            value={searchQuery} 
-            onChange={e => setSearchQuery(e.target.value)} 
-            className="pl-12 bg-black/20 border-white/5 focus:bg-black/40 h-[42px]" 
+          <Input
+            placeholder={`Search ${tabLabel}...`}
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            className="pl-12 bg-black/20 border-white/5 focus:bg-black/40 h-[42px]"
           />
         </div>
-        
+
         {/* Filter Tags In-line */}
         {(FILTER_CONFIG[activeTab] ?? []).length > 0 && (
           <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
             <Filter size={14} className="text-kronos-dim mx-1" />
             <div className="flex gap-1">
               {(FILTER_CONFIG[activeTab] ?? []).map(f => (
-                <button 
-                  key={f} 
-                  onClick={() => setCurrentFilters(prev => ({ ...prev, [f]: !prev[f] }))} 
+                <button
+                  key={f}
+                  onClick={() => setCurrentFilters(prev => ({ ...prev, [f]: !prev[f] }))}
                   className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all whitespace-nowrap ${currentFilters[f] ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
                 >
                   {f.replace(/_/g, ' ')}
@@ -664,35 +637,35 @@ export default function Inventory() {
 
         {/* Sort Controls In-line */}
         <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
-           <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Sort:</span>
-           <div className="flex gap-1">
-             {(SORT_CONFIG[activeTab] ?? []).map(c => {
-               const isActive = sortCriteria === c.id;
-               return (
-                 <button 
-                   key={c.id} 
-                   onClick={() => {
-                     if (isActive) {
-                       setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc');
-                     } else {
-                       setSortCriteria(c.id);
-                       setSortDirection('asc');
-                     }
-                   }}
-                   className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all flex items-center gap-1.5 ${isActive ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
-                 >
-                   {c.label}
-                   {isActive && <ArrowUpDown size={10} className={sortDirection === 'desc' ? 'rotate-180' : ''} />}
-                 </button>
-               );
-             })}
-           </div>
+          <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Sort:</span>
+          <div className="flex gap-1">
+            {(SORT_CONFIG[activeTab] ?? []).map(c => {
+              const isActive = sortCriteria === c.id;
+              return (
+                <button
+                  key={c.id}
+                  onClick={() => {
+                    if (isActive) {
+                      setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc');
+                    } else {
+                      setSortCriteria(c.id);
+                      setSortDirection('asc');
+                    }
+                  }}
+                  className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all flex items-center gap-1.5 ${isActive ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+                >
+                  {c.label}
+                  {isActive && <ArrowUpDown size={10} className={sortDirection === 'desc' ? 'rotate-180' : ''} />}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Foundry Button */}
-        <Button 
-          variant="secondary" 
-          onClick={() => setShowFoundry(true)} 
+        <Button
+          variant="secondary"
+          onClick={() => setShowFoundry(true)}
           className="relative flex items-center gap-2 h-[42px] px-4 border-white/5 bg-black/20 hover:bg-black/40"
         >
           <img src={uiPath ? convertFileSrc(`${uiPath}/IconFoundry.png`) : ''} alt="Foundry" className="w-5 h-5 object-contain" />
@@ -705,15 +678,15 @@ export default function Inventory() {
           )}
         </Button>
       </div>
-      
+
       {/* Category Tabs */}
       <Tabs tabs={INVENTORY_TABS} activeTab={activeTab} onChange={(id) => { setActiveTab(id); setCurrentFilters({}); setSortCriteria('name'); setSortDirection('asc') }} />
     </div>
   )
 
   return (
-    <PageLayout 
-      title="Inventory" 
+    <PageLayout
+      title="Inventory"
       subtitle={`Displaying ${visibleItems.length} / ${filteredItems.length} items`}
       extra={renderHeaderStats(inventoryData)}
       headerPanel={renderHeaderPanel()}
@@ -727,7 +700,18 @@ export default function Inventory() {
           filteredItems.length === 0 ? (
             <div className="text-center py-20 text-kronos-dim">No items found in {tabLabel.toLowerCase()}.</div>
           ) : activeTab === 'prime_parts' ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-4">
+            <>
+              {primePrices === null && (
+                <div className="flex items-center gap-2 pb-2 px-1">
+                  <div className="flex gap-0.5">
+                    <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  </div>
+                  <span className="text-[10px] font-black uppercase text-kronos-accent">Fetching prices...</span>
+                </div>
+              )}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-4">
               {visibleItems.map((set, idx) => {
                 const isParentOwned = set.owned
                 const isParentMastered = set.mastered
@@ -744,10 +728,10 @@ export default function Inventory() {
 
                 return (
                   <div key={set.name + idx} className={`relative rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20 ${isComplete ? 'border-green-500/30' : ''}`}>
-                    {setValue > 0 && (
-                      <span className="absolute top-2 right-2 z-10 text-[11px] font-bold px-2 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
-                        {setValue}p
-                      </span>
+                    {primePrices === null ? (
+                      <span className="absolute top-4 right-4 z-10 inline-block w-6 h-3 bg-white/20 rounded animate-pulse" />
+                    ) : setValue > 0 && (
+                      <span className="absolute top-4 right-4 z-10 text-[11px] font-bold px-2 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">{setValue}p</span>
                     )}
                     {/* Header: image + name + badges */}
                     <div className={`flex items-center gap-4 px-4 py-5 border-b border-white/5 relative ${isComplete ? 'bg-green-500/5' : ''}`}>
@@ -784,33 +768,41 @@ export default function Inventory() {
                     </div>
 
                     {/* Parts grid */}
-                    <div className="grid gap-px border-t border-white/5" style={{ gridTemplateColumns: `repeat(${Math.min(set.parts.length, 6)}, 1fr)` }}>
-                      {set.parts.map((part, pi) => {
-                        const met = part.quantity > 0
-                        const isBlueprint = part.name.includes('Blueprint')
-                        const partPrice = primePrices?.[part.unique_name] ?? 0
-                        return (
-                          <div key={pi} className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
-                            {partPrice > 0 && (
-                              <span className="absolute top-0.5 right-0.5 text-[9px] font-bold px-1 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">{partPrice}p</span>
-                            )}
-                            <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
-                              {part.image
-                                ? <img src={part.image} alt="" className="max-w-full max-h-full object-contain" />
-                                : <div className="w-7 h-7 rounded bg-white/5" />
-                              }
-                              {isBlueprint && <img src={uiPath ? convertFileSrc(`${uiPath}/BlueprintOverlay.png`) : ''} alt="" className="absolute inset-0 w-full h-full object-contain" />}
-                            </div>
-                            <p className="text-[12px] font-medium text-kronos-dim text-center leading-tight w-full px-1 truncate">{part.name.split(' ').slice(-1)[0]}</p>
-                            {part.quantity > 0 && <span className={`text-[10px] font-black ${part.owned ? 'text-green-400' : 'text-kronos-dim'}`}>×{part.quantity}</span>}
-                          </div>
-                        )
-                      })}
-                    </div>
+                    {(() => {
+                      const ownedParts = set.parts.filter(p => p.quantity > 0)
+                      return (
+                        <div className="grid gap-px border-t border-white/5" style={{ gridTemplateColumns: `repeat(${Math.min(set.parts.length, 6)}, 1fr)` }}>
+                          {set.parts.map((part, pi) => {
+                            const met = part.quantity > 0
+                            const isBlueprint = part.name.includes('Blueprint')
+                            const partPrice = primePrices?.[part.unique_name] ?? 0
+                            return (
+                              <div key={pi} className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
+                                {primePrices === null ? (
+                                  <span className="absolute top-2 right-2 animate-pulse bg-white/10 rounded px-1 py-0.5 inline-block w-4 h-2" />
+                                ) : partPrice > 0 && (
+                                  <span className="absolute top-2 right-2 text-[9px] font-bold px-1 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">{partPrice}p</span>
+                                )}
+                                <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
+                                  {part.image
+                                    ? <img src={part.image} alt="" className="max-w-full max-h-full object-contain" />
+                                    : <div className="w-7 h-7 rounded bg-white/5" />
+                                  }
+                                  {isBlueprint && <img src={uiPath ? convertFileSrc(`${uiPath}/BlueprintOverlay.png`) : ''} alt="" className="absolute inset-0 w-full h-full object-contain" />}
+                                </div>
+                                <p className="text-[12px] font-medium text-kronos-dim text-center leading-tight w-full px-1 truncate">{part.name.split(' ').slice(-1)[0]}</p>
+                                {part.quantity > 0 && <span className={`text-[10px] font-black ${part.owned ? 'text-green-400' : 'text-kronos-dim'}`}>×{part.quantity}</span>}
+                              </div>
+                            )
+                          })}
+                        </div>
+                      )
+                    })()}
                   </div>
                 )
               })}
             </div>
+            </>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 pb-4">
               {visibleItems.map((item, idx) => {
@@ -841,7 +833,7 @@ export default function Inventory() {
                         <>
                           <Box className="text-kronos-panel absolute w-20 h-20 opacity-10" />
                           {item.image && <img src={item.image} alt="" className={`max-w-full max-h-full object-contain relative z-10 transition-all duration-500 group-hover:scale-110 ${isUnowned ? 'grayscale opacity-40' : ''}`} loading="lazy" />}
-                          
+
                           {!isUnowned && item.formas > 0 && (
                             <div className="absolute top-2 left-2 z-20 flex items-center gap-0.5 bg-kronos-accent text-kronos-bg px-2 py-0.5 rounded shadow-lg border border-white/20 backdrop-blur-sm">
                               <span className="text-[11px] font-black">{item.formas}</span>

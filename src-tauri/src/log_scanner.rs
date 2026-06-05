@@ -426,6 +426,59 @@ fn line_hash(s: &str) -> u64 {
     hash
 }
 
+fn is_warframe_running() -> bool {
+    #[cfg(target_os = "windows")]
+    {
+        use std::os::windows::process::CommandExt;
+        if let Ok(output) = std::process::Command::new("tasklist")
+            .args(["/FI", "IMAGENAME eq Warframe.x64.exe", "/NH"])
+            .creation_flags(0x08000000)
+            .output()
+        {
+            let stdout = String::from_utf8_lossy(&output.stdout);
+            if stdout.contains("Warframe.x64.exe") {
+                return true;
+            }
+        }
+        false
+    }
+    #[cfg(target_os = "linux")]
+    {
+        if let Ok(pids) = std::fs::read_dir("/proc") {
+            for entry in pids.flatten() {
+                let pid = entry.file_name();
+                if !pid.to_string_lossy().chars().all(|c| c.is_ascii_digit()) { continue; }
+                let comm_path = std::path::Path::new("/proc").join(&pid).join("comm");
+                if let Ok(comm) = std::fs::read_to_string(&comm_path) {
+                    if comm.contains("Warframe") || comm.contains("warframe.exe") || comm.contains("warframe") {
+                        return true;
+                    }
+                }
+                let cmd_path = std::path::Path::new("/proc").join(&pid).join("cmdline");
+                if let Ok(cmd) = std::fs::read_to_string(&cmd_path) {
+                    if cmd.contains("Warframe") || cmd.contains("warframe.exe") || cmd.contains("warframe") {
+                        return true;
+                    }
+                }
+            }
+        }
+        false
+    }
+    #[cfg(target_os = "macos")]
+    {
+        if let Ok(output) = std::process::Command::new("pgrep")
+            .arg("-f")
+            .arg("Warframe")
+            .output()
+        {
+            if output.status.success() {
+                return true;
+            }
+        }
+        false
+    }
+}
+
 pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogScannerHandle, String> {
     if IS_SCANNING.load(Ordering::SeqCst) {
         return Err("Already scanning".to_string());
@@ -455,6 +508,16 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
         loop {
             if !IS_SCANNING.load(Ordering::SeqCst) {
                 break;
+            }
+            
+            if !is_warframe_running() {
+                if !logged_waiting {
+                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Waiting for Warframe process...");
+                    logged_waiting = true;
+                    SCANNER_STATUS.store(1, Ordering::SeqCst);
+                }
+                std::thread::sleep(std::time::Duration::from_secs(10));
+                continue;
             }
 
             let mut cmd = std::process::Command::new(&helper_path);
@@ -509,7 +572,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     }
                     // Kill helper so it restarts and re-hooks if Warframe was launched
                     let _ = child.kill();
-                    std::thread::sleep(std::time::Duration::from_secs(3));
+                    std::thread::sleep(std::time::Duration::from_secs(10));
                     break;
                 }
 
@@ -554,6 +617,9 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     scanner.on_line(&app_inner, line);
                 }
             }
+            
+            // Sleep before restarting the helper to prevent CPU spinning when it crashes or exits immediately
+            std::thread::sleep(std::time::Duration::from_secs(10));
         }
 
         IS_SCANNING.store(false, Ordering::SeqCst);

@@ -79,13 +79,6 @@ export async function getPricesBatch(items) {
   const ttl = getTTL();
   const results = {};
   
-  // Filter items that actually need a network request
-  const needsFetch = items.filter(item => {
-    if (!item.name || item.name.includes('Forma')) return false;
-    const cached = cache[item.uniqueName];
-    return !cached || (Date.now() - cached.lastUpdated >= ttl);
-  });
-
   // Fill results with current cached values first
   for (const item of items) {
     if (item.name?.includes('Forma')) {
@@ -96,12 +89,24 @@ export async function getPricesBatch(items) {
     if (cached) results[item.uniqueName] = cached.plat;
   }
 
+  // Filter items that actually need a network request
+  const needsFetch = items.filter(item => {
+    if (!item.name || item.name.includes('Forma')) return false;
+    const cached = cache[item.uniqueName];
+    return !cached || (Date.now() - cached.lastUpdated >= ttl);
+  });
+
   // If nothing needs fetching, return immediately
   if (needsFetch.length === 0) return { results, hadNetworkActivity: false };
 
-  // Fetch only what's needed
-  for (const item of needsFetch) {
-    results[item.uniqueName] = await getPrice(item.uniqueName, item.name, item.ducats, item.maxRank);
+  // Fetch in parallel batches to finish faster while respecting rate limits
+  const BATCH_SIZE = 10;
+  for (let i = 0; i < needsFetch.length; i += BATCH_SIZE) {
+    const batch = needsFetch.slice(i, i + BATCH_SIZE);
+    await Promise.all(batch.map(item =>
+      getPrice(item.uniqueName, item.name, item.ducats, item.maxRank)
+        .then(price => { results[item.uniqueName] = price; })
+    ));
   }
 
   return { results, hadNetworkActivity: true };

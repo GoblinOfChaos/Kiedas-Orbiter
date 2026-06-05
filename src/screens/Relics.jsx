@@ -267,7 +267,7 @@ export default function Relics() {
                       <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                       <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                     </div>
-                    Updating Market Cache
+                    Fetching prices...
                   </span>
                 )}
               </div>

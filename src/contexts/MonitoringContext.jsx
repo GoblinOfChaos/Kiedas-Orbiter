@@ -140,8 +140,33 @@ export function MonitoringProvider({ children }) {
   const [rawInventory, setRawInventory] = useState(null)
   const [inventoryData, setInventoryData] = useState(undefined)
   const [isInventoryLoading, setIsInventoryLoading] = useState(false)
-  const [marketPrices, setMarketPrices] = useState({})
+  const [marketPrices, setMarketPrices] = useState(() => {
+    try {
+      const data = localStorage.getItem('wfm_price_cache');
+      if (!data) return {};
+      const cache = JSON.parse(data);
+      const prices = {};
+      for (const [key, val] of Object.entries(cache)) {
+        if (val && typeof val.plat === 'number') prices[key] = val.plat;
+      }
+      return prices;
+    } catch { return {} }
+  })
   const [isPricing, setIsPricing] = useState(false)
+  const [allPrices, setAllPrices] = useState(() => {
+    try {
+      const data = localStorage.getItem('wfm_price_cache');
+      if (!data) return {};
+      const cache = JSON.parse(data);
+      const prices = {};
+      for (const [key, val] of Object.entries(cache)) {
+        if (val && typeof val.plat === 'number') prices[key] = val.plat;
+      }
+      return prices;
+    } catch { return {} }
+  })
+  const [isPriceLoading, setIsPriceLoading] = useState(false)
+  const [priceLastUpdated, setPriceLastUpdated] = useState(localStorage.getItem('wfm_price_last_updated') || null)
   const [worldState, setWorldState] = useState(null)
   const [statusText, setStatusText] = useState('Initializing…')
   const [spIncursions, setSpIncursions] = useState(null)
@@ -399,8 +424,6 @@ export function MonitoringProvider({ children }) {
 
         // Temporary: use patched exports with levelStats until upstream ships them
         try {
-          const assetsPath = await invoke('get_assets_path');
-          const { convertFileSrc } = await import('@tauri-apps/api/tauri');
           const fixedFiles = [
             ['ExportUpgrades_fixed.json', 'ExportUpgradesFixed'],
             ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'],
@@ -409,10 +432,10 @@ export function MonitoringProvider({ children }) {
           ['peely-pix-names.json', 'PeelyPixNames'],
           ];
           for (const [fname, key] of fixedFiles) {
-            const url = convertFileSrc(`${assetsPath}/data/${fname}`);
-            const resp = await fetch(url);
-            if (resp.ok) {
-              exports[key] = await resp.json();
+            const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${fname}` }).catch(() => null);
+            if (bytes) {
+              const text = new TextDecoder().decode(new Uint8Array(bytes));
+              exports[key] = JSON.parse(text);
             }
           }
         } catch {}
@@ -549,6 +572,68 @@ export function MonitoringProvider({ children }) {
       }).catch(() => setIsPricing(false))
     }
   }, [inventoryData?.relics?.length])
+
+  // ── Pre-fetch mod & prime part prices after inventory loads ────────────────
+  useEffect(() => {
+    if (!inventoryData) return
+    const items = []
+    const seen = new Set()
+    for (const m of (inventoryData.mods ?? [])) {
+      if (!seen.has(m.unique_name)) {
+        items.push({ uniqueName: m.unique_name, name: m.name, maxRank: m.max_rank ?? null })
+        seen.add(m.unique_name)
+      }
+    }
+    for (const set of Object.values(inventoryData.primeSets ?? {})) {
+      for (const part of (set.parts ?? [])) {
+        if (!seen.has(part.unique_name)) {
+          items.push({ uniqueName: part.unique_name, name: part.name })
+          seen.add(part.unique_name)
+        }
+      }
+    }
+    if (items.length > 0) {
+      setIsPriceLoading(true)
+      getPricesBatch(items).then(({ results, hadNetworkActivity }) => {
+        setAllPrices(results)
+        setIsPriceLoading(false)
+        const now = Date.now()
+        setPriceLastUpdated(now)
+        localStorage.setItem('wfm_price_last_updated', String(now))
+      }).catch(() => { setAllPrices({}); setIsPriceLoading(false) })
+    }
+  }, [inventoryData])
+
+  const refreshPrices = useCallback(() => {
+    localStorage.removeItem('wfm_price_cache')
+    if (!inventoryData) return
+    const items = []
+    const seen = new Set()
+    for (const m of (inventoryData.mods ?? [])) {
+      if (!seen.has(m.unique_name)) {
+        items.push({ uniqueName: m.unique_name, name: m.name, maxRank: m.max_rank ?? null })
+        seen.add(m.unique_name)
+      }
+    }
+    for (const set of Object.values(inventoryData.primeSets ?? {})) {
+      for (const part of (set.parts ?? [])) {
+        if (!seen.has(part.unique_name)) {
+          items.push({ uniqueName: part.unique_name, name: part.name })
+          seen.add(part.unique_name)
+        }
+      }
+    }
+    if (items.length > 0) {
+      setIsPriceLoading(true)
+      getPricesBatch(items).then(({ results }) => {
+        setAllPrices(results)
+        setIsPriceLoading(false)
+        const now = Date.now()
+        setPriceLastUpdated(now)
+        localStorage.setItem('wfm_price_last_updated', String(now))
+      }).catch(() => { setAllPrices({}); setIsPriceLoading(false) })
+    }
+  }, [inventoryData])
 
   const fissureStateRef = useRef({ squad_relics: [] })
   const ocrActiveRef = useRef(false)
@@ -696,11 +781,30 @@ export function MonitoringProvider({ children }) {
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [exportData, inventoryData, globalRewardPool, EI])
 
+  // Re-run card image pipeline when called (e.g. after user sets cache path in Settings)
+  const retryCardImages = useCallback(async () => {
+    cardInitStarted.current = true
+    setFixProgress({ checking: true })
+
+    const savedPath = getSetting('warframe_cache_path', '')
+    const cachePath = savedPath || await invoke('detect_warframe_cache').catch(() => null)
+    if (cachePath && inventoryData?.mods?.length) {
+      setFixProgress({ phase: 'extracting', current: 0, total: 1, current_file: '' })
+      const p = await invoke('ensure_card_images', { cachePath })
+      setCardImagesPath(p)
+    } else {
+      setFixProgress({ phase: 'done', current: 1, total: 1, current_file: '' })
+    }
+  }, [inventoryData])
+
   // ── Card image pipeline (extract → fix → composite) ─────────────────
   // Single consolidated Tauri command with unified progress events.
   useEffect(() => {
     if (cardInitStarted.current) return
-    if (!inventoryData?.mods?.length) return
+    if (!inventoryData?.mods?.length) {
+      setFixProgress({ phase: 'done', current: 1, total: 1, current_file: '' })
+      return
+    }
     cardInitStarted.current = true
 
     let unlisten;
@@ -709,7 +813,8 @@ export function MonitoringProvider({ children }) {
         setFixProgress(e.payload);
       });
 
-      const cachePath = await invoke('detect_warframe_cache').catch(() => null)
+      const savedPath = getSetting('warframe_cache_path', '')
+      const cachePath = savedPath || await invoke('detect_warframe_cache').catch(() => null)
       if (cachePath) {
         setFixProgress({ phase: 'extracting', current: 0, total: 1, current_file: '' })
         const p = await invoke('ensure_card_images', { cachePath })
@@ -727,9 +832,9 @@ export function MonitoringProvider({ children }) {
       exportData, spIncursions, arbys, descendiaDescs, archonModifiers,
       dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
-      masteryProgress, marketPrices, isPricing,
+      masteryProgress, marketPrices, isPricing, allPrices, isPriceLoading, priceLastUpdated, refreshPrices,
       startMonitoring, stopMonitoring, manualRefresh, callApiHelper,
-      cardImagesPath, fixProgress,
+      cardImagesPath, fixProgress, retryCardImages,
     }}>
       {children}
     </MonitoringContext.Provider>

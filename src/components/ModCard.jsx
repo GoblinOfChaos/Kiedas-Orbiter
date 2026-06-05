@@ -4,8 +4,8 @@ import { useState, useMemo, memo } from 'react'
 
 const CUSTOM = new Set(['Requiem', 'Tome', 'Antivirus', 'Potency', 'Tektolyst'])
 const NO_SIDE = new Set(['Amalgam', 'Peculiar'])
-const CARD_RATIO = 287 / 409
-const CANVAS_W = 287
+const CARD_RATIO = 290 / 409
+const CANVAS_W = 290
 const CANVAS_H = 409
 
 const TIER_COLORS = {
@@ -26,6 +26,7 @@ const TIER_COLORS = {
   'Antivirus': '#2ECC71',
   'Potency': '#C2185B',
   'Tektolyst': '#A0522D',
+  'Arcanes': '#E67E22',
 }
 
 const TEKTOLYST_TEXT_COLORS = {
@@ -190,13 +191,14 @@ function u(base, folder, file) {
 }
 
 function Img({ src, className, style }) {
-  return src ? <img src={src} className={className} style={style} alt="" onError={e => e.target.style.display = 'none'} /> : null
+  return src ? <img src={src} className={className} style={{ ...style, opacity: 0, transition: 'opacity 0.15s' }} alt="" onLoad={e => e.target.style.opacity = 1} onError={e => e.target.style.display = 'none'} /> : null
 }
 
 function SafeImg({ src, className, style, alt, onError }) {
   const [error, setError] = useState(false)
+  const [loaded, setLoaded] = useState(false)
   if (!src || error) return null
-  return <img src={src} className={className} style={style} alt={alt || ''} onError={() => { setError(true); onError?.() }} />
+  return <img src={src} className={className} style={{ ...style, opacity: loaded ? 1 : 0, transition: 'opacity 0.15s' }} alt={alt || ''} onLoad={() => setLoaded(true)} onError={() => { setError(true); onError?.() }} />
 }
 
 const RankPips = memo(function RankPips({ modFrame, rank, maxRank, framesPath, pipColorGroup, cardWidth }) {
@@ -238,7 +240,7 @@ const Charges = memo(function Charges({ modFrame, rank, maxRank, framesPath, car
   )
 })
 
-const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPath, width = 180, exportTextIcons, platValue }) {
+const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPath, width = 180, exportTextIcons, platValue, pricesLoading = false }) {
   const isSticker = mod._isSticker
   const mf = mod.modFrame || 'Normal Common'
   const custom = CUSTOM.has(mf)
@@ -267,34 +269,13 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
     ? convertFileSrc(`${cardImagesPath}${iconPath}`)
     : null
   const [localImageFailed, setLocalImageFailed] = useState(false)
-  const [tilt, setTilt] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = (e.clientX - rect.left) / rect.width
-    const y = (e.clientY - rect.top) / rect.height
-    setTilt({ x: (x - 0.5) * 2, y: (y - 0.5) * 2 })
-  }
-
-  const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 })
-    setIsHovered(false)
-  }
-
-  const tiltStyle = isHovered
-    ? { transform: `perspective(600px) rotateX(${-tilt.y * 15}deg) rotateY(${tilt.x * 15}deg) scale(1.12)`, transition: 'transform 0.05s linear' }
-    : { transform: 'none', transition: 'transform 0.3s ease-out' }
-  const finalSrc = (!localImageFailed && cardImageSrc) || cdnFallback
+  const finalSrc = (mf === 'Requiem' && cdnFallback) || (!localImageFailed && cardImageSrc) || cdnFallback
 
   if (isSticker) {
     const stickerSrc = finalSrc
     const stickerHasImage = stickerSrc && !localImageFailed
     return (
-      <div className="relative flex-shrink-0 select-none cursor-pointer" style={{ width, aspectRatio: String(CARD_RATIO), ...tiltStyle }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={handleMouseLeave}>
+      <div className="relative flex-shrink-0 select-none" style={{ width, aspectRatio: String(CARD_RATIO) }}>
         <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-start pt-[18%] z-1">
           {stickerHasImage && (
             <SafeImg src={stickerSrc} className="w-[55%] h-auto object-contain" onError={() => setLocalImageFailed(true)} />
@@ -310,7 +291,9 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
             )}
           </div>
         </div>
-        {platValue > 0 && (
+        {pricesLoading ? (
+          <span className="absolute top-1 right-1 z-10 animate-pulse bg-white/10 rounded px-1.5 py-0.5 inline-block w-6 h-3" />
+        ) : platValue > 0 && (
           <span className="absolute top-1 right-1 z-10 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
             {platValue}p
           </span>
@@ -332,7 +315,8 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
 
   const f = (file) => u(framesPath, mf, `${file}.png`)
   const tektolystBg = mf === 'Tektolyst' && mod.name ? f(mod.name.replace(/\s+/g, '')) : null
-  const bg = tektolystBg || f('Background')
+  const arcaneBg = mf === 'Arcanes' && mod.rarity ? f(`Arcane${mod.rarity.charAt(0).toUpperCase()}${mod.rarity.slice(1)}`) : null
+  const bg = arcaneBg || tektolystBg || f('Background')
   const ft = custom ? null : f('FrameTop')
   const fb = custom ? null : f('FrameBottom')
   const sl = custom || NO_SIDE.has(mf) ? null : f('SideLight')
@@ -350,17 +334,43 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
     return '';
   })()
   const cat = mod.category || ''
-  const displayCompleteLine = mod.max_rank > 0 && rank >= mod.max_rank && (mf === 'Tektolyst' || !custom)
+  const displayCompleteLine = mod.max_rank > 0 && rank >= mod.max_rank && mf !== 'Arcanes' && (mf === 'Tektolyst' || !custom)
   const completeLine = displayCompleteLine ? u(framesPath, mf, mf === 'Tektolyst' ? `RankCompleteLine${tektolystGroup}.png` : 'RankCompleteLine.png') : null
   const hasDesc = desc && desc.length > 0
   const contentBottom = mf === 'Requiem' ? 80 : mf === 'Antivirus' ? 110 : mf === 'Potency' ? 45 : mf === 'Tektolyst' ? 55 + (hasDesc ? 25 : 0) : 45 + (hasDesc ? 25 : 0)
 
   return (
-    <div className="relative flex-shrink-0 select-none cursor-pointer" style={{ width, aspectRatio: String(CARD_RATIO), ...tiltStyle }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}>
-      <Img src={bg} className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 1 }} />
+    <div className="relative flex-shrink-0 select-none" style={{ width, aspectRatio: String(CARD_RATIO) }}>
+      <Img src={bg} className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 1, objectPosition: mf === 'Arcanes' ? '50% 20%' : '50% 50%' }} />
+
+      {mod.quantity > 1 && mf === 'Arcanes' && (
+        <span className="absolute font-black pointer-events-none z-20 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]"
+          style={{
+            top: `${35 * cardScale}px`,
+            left: `${8 * cardScale}px`,
+            color,
+            fontSize: `${11 * cardScale}px`,
+            textShadow: '0 1px 3px rgba(0,0,0,0.9)'
+          }}>
+          x{mod.quantity}
+        </span>
+      )}
+
+      {mod.quantity > 1 && mf !== 'Arcanes' && bk && (
+        <>
+          <Img src={bk} className="absolute inset-0 w-full h-full object-contain pointer-events-none" style={{ transform: 'scaleX(-1)', zIndex: 6 }} />
+          <span className="absolute font-black pointer-events-none" style={{
+            top: `${66.5 / CANVAS_H * 100}%`,
+            left: `${34 / CANVAS_W * 100}%`,
+            zIndex: 7,
+            color: color,
+            textShadow: '0 1px 3px rgba(0,0,0,0.9)',
+            fontSize: `${9 * cardScale}px`
+          }}>
+            {mod.quantity}
+          </span>
+        </>
+      )}
 
       {mf === 'Antivirus' ? (
         <div className="absolute" style={{
@@ -387,6 +397,40 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
               </p>
             )}
           </div>
+        </div>
+      ) : mf === 'Arcanes' ? (
+        <div className="absolute" style={{
+          top: 10, left: `0%`, right: `0%`, bottom: 0, zIndex: 2,
+          display: 'flex', flexDirection: 'column', alignItems: 'center'
+        }}>
+          <div style={{ flex: '4 0 0' }} />
+          <div className="flex items-start justify-center" style={{ width: '65%', flex: '0 0 auto' }}>
+            {finalSrc ? (
+              <SafeImg src={finalSrc} className="w-full h-auto object-contain" onError={() => setLocalImageFailed(true)} />
+            ) : null}
+          </div>
+          <div style={{ flex: '3 0 0' }} />
+          <div className="text-center" style={{ flex: '0 0 auto', width: '100%' }}>
+            <p className="font-bold leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'Outfit, sans-serif', color, fontSize: `${13 * cardScale}px` }}>
+              {mod.name}
+            </p>
+            {hasDesc && (
+              <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color + 'CC', fontSize: `${10 * cardScale}px` }}>
+                {renderDesc(desc, color + 'CC', iconsPath, tagIconMap)}
+              </p>
+            )}
+            {mod.max_rank > 0 && (
+              <>
+                <p className="font-semibold uppercase tracking-wider mt-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'Outfit, sans-serif', color: color + '99', fontSize: `${10 * cardScale}px` }}>
+                  {mod.arcaneType || cat}
+                </p>
+                <div className="flex justify-center mt-0.5" style={{ transform: 'scale(1.5)', transformOrigin: 'center' }}>
+                  <RankPips modFrame={mf} rank={rank} maxRank={mod.max_rank} framesPath={framesPath} cardWidth={width} />
+                </div>
+              </>
+            )}
+          </div>
+          <div style={{ flex: '1 0 0' }} />
         </div>
       ) : (
         <div className="absolute flex flex-col" style={{
@@ -426,7 +470,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
         </div>
       )}
 
-      {!custom && <>
+      {!custom && mf !== 'Arcanes' && <>
         <Img src={sl} className="absolute inset-0 w-full h-full object-contain pointer-events-none" style={{ zIndex: 3 }} />
         <Img src={sl} className="absolute inset-0 w-full h-full object-contain pointer-events-none" style={{ zIndex: 3, transform: 'scaleX(-1)' }} />
         <Img src={ft} className="absolute inset-0 w-full h-full object-contain pointer-events-none" style={{ zIndex: 3 }} />
@@ -463,23 +507,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
         </span>
       )}
 
-      {mod.quantity > 1 && bk && (
-        <>
-          <Img src={bk} className="absolute inset-0 w-full h-full object-contain pointer-events-none" style={{ transform: 'scaleX(-1)', zIndex: 6 }} />
-          <span className="absolute font-black pointer-events-none" style={{
-            top: `${66.5 / CANVAS_H * 100}%`,
-            left: `${34 / CANVAS_W * 100}%`,
-            zIndex: 7,
-            color: color,
-            textShadow: '0 1px 3px rgba(0,0,0,0.9)',
-            fontSize: `${9 * cardScale}px`
-          }}>
-            {mod.quantity}
-          </span>
-        </>
-      )}
-
-      {cat && (
+      {cat && mf !== 'Arcanes' && (
         <div className="absolute text-center pointer-events-none" style={{ left: 0, right: 0, bottom: mf === 'Antivirus' ? `${55 / CANVAS_H * 100}%` : mf === 'Potency' ? `${26 / CANVAS_H * 100}%` : mf === 'Tektolyst' ? `${48 / CANVAS_H * 100}%` : `${38 / CANVAS_H * 100}%`, zIndex: 4 }}>
           <p className="font-semibold uppercase tracking-wider drop-shadow-[0_1px_1px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'Outfit, sans-serif', color: mf === 'Potency' ? '#FFD700' : color + '99', fontSize: `${11 * cardScale}px` }}>
             {cat}
@@ -489,13 +517,15 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
 
       <Img src={completeLine} className="absolute inset-0 w-full h-full object-contain pointer-events-none" style={{ zIndex: 4 }} />
 
-      {platValue > 0 && (
+      {pricesLoading ? (
+        <span className="absolute top-1 right-1 z-10 animate-pulse bg-white/10 rounded px-1.5 py-0.5 inline-block w-6 h-3" />
+      ) : platValue > 0 && (
         <span className="absolute top-1 right-1 z-10 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
           {platValue}p
         </span>
       )}
 
-      {mod.max_rank > 0 && !custom && (
+      {mod.max_rank > 0 && !custom && mf !== 'Arcanes' && (
         <div className="absolute inset-x-0 flex items-center justify-center pointer-events-none" style={{ bottom: '0%', zIndex: 5 }}>
           <RankPips modFrame={mf} rank={rank} maxRank={mod.max_rank} framesPath={framesPath} cardWidth={width} />
         </div>

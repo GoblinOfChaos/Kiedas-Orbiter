@@ -488,6 +488,222 @@ function extractModCategory(exportType, un, entry) {
   return null
 }
 
+function resolveArcaneDesc(levelStats, dict) {
+  if (!levelStats || !Array.isArray(levelStats) || !levelStats.length) return ''
+  const rankEntry = levelStats[levelStats.length - 1]
+  if (!Array.isArray(rankEntry)) return ''
+  const parts = rankEntry.map(statObj => {
+    if (!statObj?.tag || !dict) return ''
+    const tmpl = dict[statObj.tag] || dict['/' + statObj.tag] || ''
+    if (!tmpl) return ''
+    return tmpl.replace(/\|([^|]+)\|/g, (_, key) => {
+      const val = statObj.sub?.[key]
+      if (!val) return `|${key}|`
+      if (typeof val === 'string') return dict[val] || dict['/' + val] || val
+      if (val?.tag) {
+        const vt = dict[val.tag] || dict['/' + val.tag] || ''
+        if (vt) return vt.replace(/\|([^|]+)\|/g, (__, k) => val.sub?.[k] || `|${k}|`)
+      }
+      return String(val)
+    })
+  }).filter(Boolean)
+  return parts.join('; ')
+}
+
+const ARCANE_CATEGORY_FOLDER = {
+  Antiques: 'Antique',
+  OperatorAmps: 'Amp',
+  OperatorArmour: 'Operator',
+  Operator: 'Operator',
+  Melee: 'Melee',
+  Defensive: 'Warframe',
+  Support: 'Warframe',
+}
+
+const ARCANE_DISPLAY_NAME_CATEGORY = {
+  'akimbo slip shot': 'Secondary',
+  'arcane acceleration': 'Warframe',
+  'arcane aegis': 'Warframe',
+  'arcane agility': 'Warframe',
+  'arcane arachne': 'Warframe',
+  'arcane avenger': 'Warframe',
+  'arcane awakening': 'Warframe',
+  'arcane barrier': 'Warframe',
+  'arcane battery': 'Warframe',
+  'arcane bellicose': 'Warframe',
+  'arcane blade charger': 'Warframe',
+  'arcane blessing': 'Warframe',
+  'arcane bodyguard': 'Warframe',
+  'arcane camisado': 'Warframe',
+  'arcane circumvent': 'Warframe',
+  'arcane concentration': 'Warframe',
+  'arcane consequence': 'Warframe',
+  'arcane crepuscular': 'Warframe',
+  'arcane deflection': 'Warframe',
+  'arcane double back': 'Warframe',
+  'arcane energize': 'Warframe',
+  'arcane eruption': 'Warframe',
+  'arcane escapist': 'Warframe',
+  'arcane expertise': 'Warframe',
+  'arcane fury': 'Warframe',
+  'arcane grace': 'Warframe',
+  'arcane guardian': 'Warframe',
+  'arcane healing': 'Warframe',
+  'arcane hot shot': 'Warframe',
+  'arcane ice': 'Warframe',
+  'arcane ice storm': 'Warframe',
+  'arcane impetus': 'Warframe',
+  'arcane intention': 'Warframe',
+  'arcane momentum': 'Warframe',
+  'arcane nullifier': 'Warframe',
+  'arcane persistence': 'Warframe',
+  'arcane phantasm': 'Warframe',
+  'arcane pistoleer': 'Warframe',
+  'arcane power ramp': 'Warframe',
+  'arcane precision': 'Warframe',
+  'arcane primary charger': 'Warframe',
+  'arcane pulse': 'Warframe',
+  'arcane rage': 'Warframe',
+  'arcane reaper': 'Warframe',
+  'arcane resistance': 'Warframe',
+  'arcane rise': 'Warframe',
+  'arcane steadfast': 'Warframe',
+  'arcane strike': 'Warframe',
+  'arcane tanker': 'Warframe',
+  'arcane tempo': 'Warframe',
+  'arcane trickery': 'Warframe',
+  'arcane truculence': 'Warframe',
+  'arcane ultimatum': 'Warframe',
+  'arcane universal fallout': 'Warframe',
+  'arcane velocity': 'Warframe',
+  'arcane victory': 'Warframe',
+  'arcane warmth': 'Warframe',
+  'cascadia accuracy': 'Secondary',
+  'cascadia empowered': 'Secondary',
+  'cascadia flare': 'Secondary',
+  'cascadia overcharge': 'Secondary',
+  'conjunction voltage': 'Secondary',
+  'emergence dissipate': 'Operator',
+  'emergence renewed': 'Operator',
+  'emergence savior': 'Operator',
+  'eternal eradicate': 'Amp',
+  'eternal logistics': 'Amp',
+  'eternal onslaught': 'Amp',
+  'exodia brave': 'Zaw',
+  'exodia contagion': 'Zaw',
+  'exodia epidemic': 'Zaw',
+  'exodia force': 'Zaw',
+  'exodia hunt': 'Zaw',
+  'exodia might': 'Zaw',
+  'exodia triumph': 'Zaw',
+  'exodia valor': 'Zaw',
+  'fractalized reset': 'Primary',
+  'longbow sharpshot': 'Primary',
+  'magus accelerant': 'Operator',
+  'magus aggress': 'Operator',
+  'magus anomaly': 'Operator',
+  'magus cadence': 'Operator',
+  'magus cloud': 'Operator',
+  'magus destruct': 'Operator',
+  'magus drive': 'Operator',
+  'magus elevate': 'Operator',
+  'magus firewall': 'Operator',
+  'magus glitch': 'Operator',
+  'magus husk': 'Operator',
+  'magus lockdown': 'Operator',
+  'magus melt': 'Operator',
+  'magus nourish': 'Operator',
+  'magus overload': 'Operator',
+  'magus repair': 'Operator',
+  'magus replenish': 'Operator',
+  'magus revert': 'Operator',
+  'magus vigor': 'Operator',
+  'melee afflictions': 'Melee',
+  'melee animosity': 'Melee',
+  'melee careen': 'Melee',
+  'melee crescendo': 'Melee',
+  'melee doughty': 'Melee',
+  'melee duplicate': 'Melee',
+  'melee exposure': 'Melee',
+  'melee fortification': 'Melee',
+  'melee influence': 'Melee',
+  'melee retaliation': 'Melee',
+  'melee vortex': 'Melee',
+  'molt augmented': 'Warframe',
+  'molt efficiency': 'Warframe',
+  'molt reconstruct': 'Warframe',
+  'molt vigor': 'Warframe',
+  'pax bolt': 'Kitgun',
+  'pax charge': 'Kitgun',
+  'pax seeker': 'Kitgun',
+  'pax soar': 'Kitgun',
+  'primary blight': 'Primary',
+  'primary bulwark': 'Primary',
+  'primary crux': 'Primary',
+  'primary deadhead': 'Primary',
+  'primary debilitate': 'Primary',
+  'primary dexterity': 'Primary',
+  'primary exhilarate': 'Primary',
+  'primary frostbite': 'Primary',
+  'primary merciless': 'Primary',
+  'primary obstruct': 'Primary',
+  'primary overcharge': 'Primary',
+  'primary plated round': 'Primary',
+  'residual boils': 'Kitgun',
+  'residual malodor': 'Kitgun',
+  'residual shock': 'Kitgun',
+  'residual viremia': 'Kitgun',
+  'secondary deadhead': 'Secondary',
+  'secondary dexterity': 'Secondary',
+  'secondary encumber': 'Secondary',
+  'secondary enervate': 'Secondary',
+  'secondary fortifier': 'Secondary',
+  'secondary irradiate': 'Secondary',
+  'secondary kinship': 'Secondary',
+  'secondary merciless': 'Secondary',
+  'secondary outburst': 'Secondary',
+  'secondary shiver': 'Secondary',
+  'secondary surge': 'Secondary',
+  'shotgun vendetta': 'Primary',
+  'theorem contagion': 'Warframe',
+  'theorem demulcent': 'Warframe',
+  'theorem infection': 'Warframe',
+  'virtuos forge': 'Amp',
+  'virtuos fury': 'Amp',
+  'virtuos ghost': 'Amp',
+  'virtuos null': 'Amp',
+  'virtuos shadow': 'Amp',
+  'virtuos spike': 'Amp',
+  'virtuos strike': 'Amp',
+  'virtuos surge': 'Amp',
+  'virtuos tempo': 'Amp',
+  'virtuos trojan': 'Amp',
+  'zid-an asheir': 'Antique',
+  'zid-an haras': 'Antique',
+  'zid-an osbok': 'Antique',
+  'zid-an sek-eel': 'Antique',
+  'zid-an uskos': 'Antique',
+}
+
+function detectArcaneCategory(un, name) {
+  if (!un) return 'Arcanes'
+  const normalizedName = (name ?? '').toLowerCase()
+  if (ARCANE_DISPLAY_NAME_CATEGORY[normalizedName]) return ARCANE_DISPLAY_NAME_CATEGORY[normalizedName]
+  const m = un.match(/\/CosmeticEnhancers\/([^/]+)/)
+  if (!m) return 'Arcanes'
+  const folder = m[1]
+  if (ARCANE_CATEGORY_FOLDER[folder]) return ARCANE_CATEGORY_FOLDER[folder]
+  if (normalizedName.startsWith('primary ')) return 'Primary'
+  if (normalizedName.startsWith('secondary ')) return 'Secondary'
+  if (normalizedName.startsWith('melee ')) return 'Melee'
+  if (normalizedName.startsWith('pax ') || normalizedName.startsWith('residual ')) return 'Kitgun'
+  if (normalizedName.startsWith('exodia ')) return 'Zaw'
+  if (normalizedName.startsWith('magus ') || normalizedName.startsWith('emergence ')) return 'Operator'
+  if (normalizedName.startsWith('virtuos ') || normalizedName.startsWith('eternal ')) return 'Amp'
+  if (normalizedName.startsWith('zid-an ') || normalizedName.startsWith('arcane ') || normalizedName.startsWith('molt ') || normalizedName.startsWith('theorem ')) return 'Warframe'
+  return folder
+}
+
 export function parseInventory(raw, exports) {
   if (!raw || typeof raw !== 'object' || !exports) return { all: [] };
   const dict = exports['dict.en'] ?? {};
@@ -1124,16 +1340,29 @@ export function parseInventory(raw, exports) {
   [...rawUpgrades, ...upgrades].forEach(u => {
     const un = u.ItemType;
     if (!un || un.includes('Randomized') || un.includes('RandomMod')) return;
-    const isArcane = un.includes('CosmeticEnhancers') || un.includes('/Arcane/') || un.toLowerCase().includes('arcane');
+    const isArcane = (un.includes('CosmeticEnhancers') && !un.includes('CosmeticEnhancers/Peculiars')) || un.includes('/Arcane/') || un.toLowerCase().includes('arcane');
     if (isArcane) {
+      const arcEntry = EA[un]
+      const arcFP = u.UpgradeFingerprint ? parseFP(u.UpgradeFingerprint) : null
+      const arcRank = arcFP?.lvl ?? 0
+      const arcRankLimit = arcEntry?.levelStats?.length ? arcEntry.levelStats.length - 1 : 5
+      const arcDesc = resolveArcaneDesc(arcEntry?.levelStats, dict)
+      const arcCat = detectArcaneCategory(un, resolveName(un, dict, EA, EM) || nameFromPath(un))
       arcanes.push({
         unique_name: un,
         name: resolveName(un, dict, EA, EM) || nameFromPath(un),
         image: resolveImage(un, EA, EM),
-        category: 'arcanes',
+        category: 'Arcanes',
+        arcaneType: arcCat,
         quantity: u.ItemCount ?? 1,
-        rank: u.UpgradeLevel ?? 0,
+        rank: arcRank,
+        max_rank: arcRankLimit,
         owned: true,
+        rarity: (arcEntry?.rarity || '').toLowerCase(),
+        icon: arcEntry?.icon ?? null,
+        modFrame: 'Arcanes',
+        description: arcDesc,
+        levelStats: arcEntry?.levelStats ?? null,
       });
     } else {
       const mod = createItem(un, 'mods', [EM], [EM], u);
@@ -1635,7 +1864,7 @@ export function parseInventory(raw, exports) {
       };
     });
 
-  const all = [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...rivens, ...prime_parts, ...plexus];
+  const all = [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...rivens, ...prime_parts];
 
   const playerLevel = raw.PlayerLevel ?? 0;
   const rivenBin = raw.RandomModBin ?? { Slots: 0, Extra: 0 };

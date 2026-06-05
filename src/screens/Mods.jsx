@@ -1,9 +1,8 @@
 import { useState, useMemo, useEffect } from 'react'
 import { Search, ArrowUpDown, Layers } from 'lucide-react'
-import { PageLayout, Input, Button, Tabs } from '../components/UI'
+import { PageLayout, Input, Button, Tabs, MonitorState } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { convertFileSrc, invoke } from '@tauri-apps/api/tauri'
-import { getPrice, getPricesBatch } from '../lib/wfmCache'
 import ModCard from '../components/ModCard'
 
 const CARD_WIDTH = 200
@@ -23,7 +22,7 @@ const CATEGORIES = [
   'All', 'Warframe', 'Primary', 'Secondary', 'Melee',
   'Sentinels', 'Beasts', 'Stance', 'Aura', 'Exilus',
   'Railjack', 'Archgun', 'Archmelee', 'Parazon',
-  'Augment', 'Antique', 'Vehicles',
+  'Augment', 'Antique', 'Vehicles', 'Arcanes',
 ]
 
 const TYPE_TO_CATEGORY = {
@@ -55,7 +54,7 @@ function extractModCategory(un) {
 }
 
 export default function Mods() {
-  const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress } = useMonitoring()
+  const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading } = useMonitoring()
   const [framesPath, setFramesPath] = useState('')
   const [iconsPath, setIconsPath] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
@@ -64,8 +63,9 @@ export default function Mods() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [maxRankOnly, setMaxRankOnly] = useState(false)
   const [visibleCount, setVisibleCount] = useState(60)
-  const [modPrices, setModPrices] = useState(null)
-  const mods = inventoryData?.mods ?? []
+  const mods = [...(inventoryData?.mods ?? []), ...(inventoryData?.arcanes ?? [])]
+  const modPrices = sortCriteria === 'value' ? allPrices : null
+  const loadingPrices = sortCriteria === 'value' && isPriceLoading
 
   useEffect(() => {
     invoke('get_mod_frames_path').then(p => setFramesPath(p)).catch(() => { })
@@ -74,29 +74,6 @@ export default function Mods() {
   useEffect(() => {
     invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { })
   }, [])
-
-  // Batch-fetch mod prices when Value sort is selected
-  useEffect(() => {
-    if (sortCriteria !== 'value' || !mods.length) return
-    const items = mods.map(m => ({ uniqueName: m.unique_name, name: m.name, maxRank: m.max_rank ?? null }))
-    const seen = new Set()
-    const unique = items.filter(i => { if (seen.has(i.uniqueName)) return false; seen.add(i.uniqueName); return true })
-    // 1. Show cached prices immediately
-    try {
-      const cache = JSON.parse(localStorage.getItem('wfm_price_cache') || '{}')
-      const ttl = 24 * 60 * 60 * 1000
-      const cached = {}
-      for (const item of unique) {
-        const entry = cache[item.uniqueName]
-        if (entry && (Date.now() - entry.lastUpdated < ttl)) {
-          cached[item.uniqueName] = entry.plat
-        }
-      }
-      if (Object.keys(cached).length > 0) setModPrices(cached)
-    } catch {}
-    // 2. Background-fetch missing/expired prices
-    getPricesBatch(unique).then(({ results }) => setModPrices(results)).catch(() => {})
-  }, [sortCriteria, mods.length]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setVisibleCount(60)
@@ -107,7 +84,10 @@ export default function Mods() {
 
     if (searchQuery) {
       const q = searchQuery.toLowerCase().split(/\s+/).filter(w => w.length > 0)
-      items = items.filter(m => q.every(w => (m.name ?? '').toLowerCase().includes(w) || (m.description ?? '').toLowerCase().includes(w)))
+      items = items.filter(m => {
+        const descText = (m.description ?? '') + ' ' + (m.levelStats?.flatMap(ls => ls.stats).join(' ') ?? '') + ' ' + (m.arcaneType ?? '')
+        return q.every(w => (m.name ?? '').toLowerCase().includes(w) || descText.toLowerCase().includes(w))
+      })
     }
     if (selectedCategory !== 'All') {
       items = items.filter(m => m.category === selectedCategory)
@@ -194,17 +174,17 @@ export default function Mods() {
       subtitle={`${filtered.length} total · ${uniqueMods} unique · ${dupCount} duplicate`}
       headerPanel={renderHeaderPanel()}
     >
-      {fixProgress.checking || (fixProgress.phase && fixProgress.phase !== 'done') ? (
+      {inventoryData && (fixProgress.checking || (fixProgress.phase && fixProgress.phase !== 'done')) ? (
         fixProgress.phase ? (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
             <Layers className="w-12 h-12 text-kronos-accent animate-pulse" />
             <div className="w-full max-w-md">
               <div className="flex justify-between text-xs text-kronos-dim mb-1">
                 <span>
-                  {fixProgress.phase === 'extracting' ? 'Extracting card images…' :
-                   fixProgress.phase === 'fixing' ? 'Processing card images…' :
-                   fixProgress.phase === 'compositing' ? 'Compositing overlays…' :
-                   'Preparing card images…'}
+                  {fixProgress.phase === 'extracting' ? 'Extracting mod images…' :
+                    fixProgress.phase === 'fixing' ? 'Processing mod images…' :
+                      fixProgress.phase === 'compositing' ? 'Compositing mod images…' :
+                        'Preparing mod images…'}
                 </span>
                 <span>{fixProgress.current} / {fixProgress.total}</span>
               </div>
@@ -228,12 +208,26 @@ export default function Mods() {
         <div className="flex items-center justify-center py-20">
           <div className="w-8 h-8 border-2 border-kronos-accent/20 border-t-kronos-accent rounded-full animate-spin" />
         </div>
-      ) : inventoryData === null ? (
-        <div className="text-center py-20 text-kronos-dim">No inventory data available.</div>
+      ) : !inventoryData ? (
+        <MonitorState className="py-20" />
+      ) : !framesPath ? (
+        <div className="flex items-center justify-center py-20">
+          <div className="w-8 h-8 border-2 border-kronos-accent/20 border-t-kronos-accent rounded-full animate-spin" />
+        </div>
       ) : visible.length === 0 ? (
         <div className="text-center py-20 text-kronos-dim italic">No mods match your filters.</div>
       ) : (
         <>
+          {loadingPrices && (
+            <div className="flex items-center gap-2 pb-2 px-1">
+              <div className="flex gap-0.5">
+                <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+              </div>
+              <span className="text-[10px] font-black uppercase text-kronos-accent">Fetching prices...</span>
+            </div>
+          )}
           <div
             className="grid pb-4"
             style={{
@@ -252,6 +246,7 @@ export default function Mods() {
                 width={CARD_WIDTH}
                 exportTextIcons={ExportTextIcons}
                 platValue={sortCriteria === 'value' ? (modPrices?.[mod.unique_name] ?? 0) : 0}
+                pricesLoading={sortCriteria === 'value' && loadingPrices}
               />
             ))}
           </div>

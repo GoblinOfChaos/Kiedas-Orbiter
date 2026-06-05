@@ -57,6 +57,7 @@ export default function Mods() {
   const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading } = useMonitoring()
   const [framesPath, setFramesPath] = useState('')
   const [iconsPath, setIconsPath] = useState('')
+
   const [searchQuery, setSearchQuery] = useState('')
   const [sortCriteria, setSortCriteria] = useState('name')
   const [sortDirection, setSortDirection] = useState('asc')
@@ -146,9 +147,9 @@ export default function Mods() {
         <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1 flex-shrink-0">Category:</span>
         <div className="flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
           {CATEGORIES.map(t => {
-            const iconUrl = t === 'All'
-              ? (iconsPath ? convertFileSrc(`${iconsPath}/Categories/All.png`) : null)
-              : (iconsPath ? convertFileSrc(`${iconsPath}/Categories/${t}.png`) : null)
+            const iconUrl = iconsPath
+              ? convertFileSrc(`${iconsPath}/Categories/${t}.png`)
+              : null
             return (
               <button
                 key={t}

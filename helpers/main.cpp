@@ -502,7 +502,7 @@ static void getWindowRectMode()
     // bridge, but native Wayland windows won't be visible to Xlib —
     // returns "not found" in that case.
     int pos_x = 0, pos_y = 0;
-    auto pid_str = std::to_string(proc->pid);
+    auto pid_str = std::to_string(proc->id);
     Display* dpy = XOpenDisplay(nullptr);
     if (!dpy)
     {
@@ -511,7 +511,7 @@ static void getWindowRectMode()
     }
 
     // Use XQueryTree to walk the window tree, checking _NET_WM_PID
-    Atom net_wm_pid = XInternAtom(dpy, "_NET_WM_PID", True);
+    ::Atom net_wm_pid = XInternAtom(dpy, "_NET_WM_PID", True);
     if (net_wm_pid == None)
     {
         XCloseDisplay(dpy);
@@ -519,11 +519,11 @@ static void getWindowRectMode()
         return;
     }
 
-    Window root = DefaultRootWindow(dpy);
-    Window found = None;
-    auto findWindow = [&](Window win, auto& self_ref) -> void {
+    ::Window root = DefaultRootWindow(dpy);
+    ::Window found = None;
+    auto findWindow = [&](::Window win, auto& self_ref) -> void {
         if (found) return;
-        Atom type;
+        ::Atom type;
         int fmt;
         unsigned long nitems, bytes_after;
         unsigned char* prop = nullptr;
@@ -533,8 +533,8 @@ static void getWindowRectMode()
         {
             if (fmt == 32 && nitems > 0)
             {
-                pid_t win_pid = *reinterpret_cast<pid_t*>(prop);
-                if (win_pid == proc->pid)
+                ::pid_t win_pid = *reinterpret_cast<::pid_t*>(prop);
+                if (win_pid == proc->id)
                 {
                     XWindowAttributes attr;
                     if (XGetWindowAttributes(dpy, win, &attr)
@@ -547,7 +547,7 @@ static void getWindowRectMode()
             XFree(prop);
         }
 
-        Window parent, *children;
+        ::Window parent, *children;
         unsigned int nchildren;
         if (XQueryTree(dpy, win, &root, &parent, &children, &nchildren))
         {
@@ -562,8 +562,8 @@ static void getWindowRectMode()
     {
         XWindowAttributes attr;
         XGetWindowAttributes(dpy, found, &attr);
-        Window child;
-        XTranslateCoordinates(dpy, found, root, 0, 0, &pos_x, &pos_y, &child);
+        ::Window child_win;
+        XTranslateCoordinates(dpy, found, root, 0, 0, &pos_x, &pos_y, &child_win);
         XCloseDisplay(dpy);
         std::cout << pos_x << " " << pos_y << " "
                   << attr.width << " " << attr.height << std::endl;

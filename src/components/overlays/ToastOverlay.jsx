@@ -35,9 +35,17 @@ export default function ToastOverlay({ position }) {
 
   // Collapse window to 1×1 when empty to force a compositor repaint
   // (clears the cached last-frame ghost on Linux). No show/hide = no focus steal.
+  const hadContent = useRef(false)
   useEffect(() => {
     if (visibleToasts.length === 0 && queue.length === 0) {
-      invoke('resize_overlay_window', { label: myLabel, width: 1, height: 1 }).catch(() => {})
+      // Only collapse the window if it previously had content.
+      // On first mount (empty), skipping this avoids triggering show() on the
+      // dynamically-created window before any notification has been requested.
+      if (hadContent.current) {
+        invoke('resize_overlay_window', { label: myLabel, width: 1, height: 1 }).catch(() => { })
+      }
+    } else {
+      hadContent.current = true
     }
   }, [visibleToasts.length, queue.length, myLabel])
 
@@ -61,7 +69,7 @@ export default function ToastOverlay({ position }) {
 
   useEffect(() => {
     const subs = []
-    
+
     subs.push(listen('new-notification', (e) => {
       const { position: notifPos = 'top-right', title = '', message = '', image = '' } = e.payload
       if (notifPos !== position) return
@@ -167,12 +175,12 @@ function ToastCard({ toast, onExpire }) {
         </div>
       </div>
       <div className="h-1 rounded-full bg-white/10 overflow-hidden mt-1">
-        <div 
-          className="h-full rounded-full transition-all duration-75 shadow-[0_0_8px_rgba(var(--color-accent-rgb),0.5)]" 
-          style={{ 
+        <div
+          className="h-full rounded-full transition-all duration-75 shadow-[0_0_8px_rgba(var(--color-accent-rgb),0.5)]"
+          style={{
             width: `${progress}%`,
             backgroundColor: 'var(--color-accent)'
-          }} 
+          }}
         />
       </div>
     </div>

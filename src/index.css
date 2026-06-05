@@ -209,7 +209,7 @@
 
   .custom-scrollbar::-webkit-scrollbar {
     height: 4px;
-    width: 12px;
+    width: 4px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
@@ -217,15 +217,12 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    /* Subtle grey by default */
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(var(--color-accent-rgb), 0.35);
     border-radius: 10px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    /* Changes to your theme on hover */
-    background: var(--color-accent);
-    box-shadow: 0 0 10px var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.7);
   }
 
   /* Thin variant for the sidebar nav — 4px wide, same theme */
@@ -239,19 +236,18 @@
   }
 
   .nav-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(var(--color-accent-rgb), 0.35);
     border-radius: 10px;
   }
 
   .nav-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: var(--color-accent);
-    box-shadow: 0 0 10px var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.7);
   }
 
   /* Firefox */
   .nav-scrollbar {
-    scrollbar-width: auto;
-    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--color-accent-rgb), 0.35) transparent;
   }
 
   @keyframes shimmer {
@@ -275,6 +271,7 @@
       opacity: 0;
       transform: translateY(10px) scale(0.98);
     }
+
     to {
       opacity: 1;
       transform: translateY(0) scale(1);
@@ -286,6 +283,7 @@
       opacity: 1;
       transform: scale(1);
     }
+
     to {
       opacity: 0;
       transform: scale(0.95);
@@ -297,6 +295,7 @@
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -316,8 +315,12 @@
   }
 
   /* ── Legacy fallback aliases ───────────────────────────────────────── */
-  .notif-slide-top, .notif-slide-in-right, .notif-slide-right,
-  .notif-slide-in-left, .notif-slide-left, .notif-slide-bottom {
+  .notif-slide-top,
+  .notif-slide-in-right,
+  .notif-slide-right,
+  .notif-slide-in-left,
+  .notif-slide-left,
+  .notif-slide-bottom {
     animation: notif-enter 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
@@ -338,7 +341,7 @@
     font-size: 13px !important;
     font-weight: 500 !important;
     min-height: 42px;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   .kronos-select:hover {
@@ -348,7 +351,7 @@
   .kronos-select:focus {
     outline: none;
     border-color: var(--color-accent) !important;
-    box-shadow: 0 0 0 2px rgba(85, 144, 171, 0.25), inset 0 1px 2px rgba(0,0,0,0.2) !important;
+    box-shadow: 0 0 0 2px rgba(85, 144, 171, 0.25), inset 0 1px 2px rgba(0, 0, 0, 0.2) !important;
   }
 
   /* Native dropdown options - use CSS variables for theme support */

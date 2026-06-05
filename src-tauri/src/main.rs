@@ -1418,100 +1418,14 @@ fn resize_overlay_window(
     width: u32,
     height: u32,
 ) -> Result<(), String> {
-    let window = app_handle
-        .get_webview_window(&label)
-        .ok_or_else(|| format!("window '{}' not found", label))?;
+    overlay_utils::resize_overlay_window(&app_handle, &label, width as f64, height as f64)
+}
 
-    let monitor = overlay_utils::get_overlay_monitor(&app_handle, &window)?;
-
-    let screen_w = monitor.size().width;
-    let screen_h = monitor.size().height;
-    let scale    = monitor.scale_factor();
-    let margin   = (16.0 * scale) as i32;
-
-    let phys_w = (width as f64 * scale) as u32;
-    let phys_h = (height as f64 * scale) as u32;
-    let phys_margin = margin;
-    let mon_pos = monitor.position();
-
-    let (lx, ly) = match label.as_str() {
-        "overlay-tl"    => (phys_margin, phys_margin),
-        "overlay-tc"    => (((screen_w as i32 - phys_w as i32) / 2), phys_margin),
-        "overlay-riven-current" => {
-            let lx = phys_margin;
-            let ly = (screen_h as i32 - phys_h as i32) / 2;
-            crate::logger::log_to_disk(&app_handle, &format!(
-                "[RIVEN] resize current: screen={}x{} win={}x{} margin={} -> lx={} ly={} mon_at=({},{})",
-                screen_w, screen_h, phys_w, phys_h, phys_margin, lx, ly, mon_pos.x, mon_pos.y));
-            (lx, ly)
-        }
-        "overlay-riven-new" => {
-            let lx = screen_w as i32 - phys_w as i32 - phys_margin;
-            let ly = (screen_h as i32 - phys_h as i32) / 2;
-            crate::logger::log_to_disk(&app_handle, &format!(
-                "[RIVEN] resize new: screen={}x{} win={}x{} margin={} -> lx={} ly={} mon_at=({},{})",
-                screen_w, screen_h, phys_w, phys_h, phys_margin, lx, ly, mon_pos.x, mon_pos.y));
-            (lx, ly)
-        }
-        "overlay-relic" => {
-            let mon_w = monitor.size().width as f64;
-            let mon_h = monitor.size().height as f64;
-
-            let lx = ((mon_w - (width as f64 * scale)) / 2.0).round() as i32;
-            let ly = (mon_h - (height as f64 * scale) - (40.0 * scale)).round() as i32;
-            eprintln!(
-                "[Relic Overlay] Positioning at bottom of monitor: w={}, h={}, lx={}, ly={}",
-                mon_w, mon_h, lx, ly
-            );
-            (lx, ly)
-        }
-        _ => (screen_w as i32 - phys_w as i32 - phys_margin, phys_margin),
-    };
-
-    let x = mon_pos.x + lx;
-    let y = mon_pos.y + ly;
-
-    if height > 0 {
-        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
-        let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }));
-
-        let _ = window.show();
-        let _ = window.set_always_on_top(true);
-        let _ = window.set_ignore_cursor_events(true);
-        let _ = window.set_skip_taskbar(true);
-
-
-
-        // Platform Specific Fixes
-        #[cfg(target_os = "macos")]
-        {
-            use cocoa::appkit::{NSWindow, NSWindowCollectionBehavior};
-            if let Ok(ns_window) = window.ns_window() {
-                let id = ns_window as cocoa::base::id;
-                unsafe {
-                    id.setLevel_(8);
-                    id.setCollectionBehavior_(
-                        NSWindowCollectionBehavior::NSWindowCollectionBehaviorCanJoinAllSpaces |
-                        NSWindowCollectionBehavior::NSWindowCollectionBehaviorFullScreenAuxiliary
-                    );
-                }
-            }
-        }
-        #[cfg(target_os = "windows")]
-        {
-        }
-
-        let _w = window.clone();
-        let _is_relic = label.as_str() == "overlay-relic";
-        tauri::async_runtime::spawn(async move {
-            // Removed repetitive calls to set_always_on_top here.
-            // The initial call after window.show() should be sufficient.
-            // If alwaysOnTop stability issues arise, this part might need re-evaluation.
-        });
-    } else {
-        let _ = window.hide();
-    }
-
+#[tauri::command]
+fn raise_overlay(window: tauri::WebviewWindow) -> Result<(), String> {
+    let _ = window.set_always_on_top(true);
+    let _ = window.show();
+    let _ = window.set_focus();
     Ok(())
 }
 
@@ -1582,12 +1496,29 @@ async fn play_notification_sound(app_handle: tauri::AppHandle, sound: String) ->
         #[cfg(target_os = "linux")]
         {
             eprintln!("[Audio] Playing via native player: {}", path_str);
-            // Spawn a shell to try paplay first, then aplay as fallback, all in background
-            let cmd = format!("paplay '{}' || aplay '{}'", path_str, path_str);
-            let _ = std::process::Command::new("sh")
-                .arg("-c")
-                .arg(cmd)
-                .spawn();
+            let played = std::process::Command::new("pw-play")
+                .arg(&path_str)
+                .stdout(std::process::Stdio::null())
+                .stderr(std::process::Stdio::null())
+                .status()
+                .map(|s| s.success())
+                .unwrap_or(false);
+            if !played {
+                let played2 = std::process::Command::new("paplay")
+                    .arg(&path_str)
+                    .stdout(std::process::Stdio::null())
+                    .stderr(std::process::Stdio::null())
+                    .status()
+                    .map(|s| s.success())
+                    .unwrap_or(false);
+                if !played2 {
+                    let _ = std::process::Command::new("aplay")
+                        .arg(&path_str)
+                        .stdout(std::process::Stdio::null())
+                        .stderr(std::process::Stdio::null())
+                        .spawn();
+                }
+            }
         }
     }).await.ok();
     
@@ -1636,17 +1567,19 @@ async fn show_notification(
         _            => "overlay-tr",
     };
 
-    // Show/reposition the overlay window (unless no_focus is set)
+    // Show/reposition the overlay window (unless no_focus is set).
+    // Note: get_webview_window is NOT used as a guard here — windows are created
+    // dynamically by show_window_internal so they may not exist yet on first call.
     if !no_focus {
+        // Wipe stale toasts if window already exists and was hidden
         if let Some(w) = app_handle.get_webview_window(label) {
             let was_hidden = !w.is_visible().unwrap_or(true);
             if was_hidden {
-                // Wipe stale toasts for this specific position (not all windows)
                 let _ = w.emit("wipe-state", pos.clone());
             }
-            // Always re-show and position -- window may have moved between calls
-            let _ = show_overlay_window(app_handle.clone(), label.to_string());
         }
+        // Always call — creates the window if it doesn't exist yet
+        let _ = show_overlay_window(app_handle.clone(), label.to_string());
     }
 
     // Play sound (unless silent)
@@ -1659,6 +1592,9 @@ async fn show_notification(
     }
 
     // Emit the notification -- the matching overlay window renders it
+    // Small delay lets the webview finish mounting before receiving the event
+    tokio::time::sleep(std::time::Duration::from_millis(150)).await;
+
     app_handle.emit("new-notification", NotificationPayload {
         id: notif_id,
         title,
@@ -1717,7 +1653,7 @@ async fn open_url(app_handle: tauri::AppHandle, url: String) -> Result<(), Strin
     }
 
     // Fallback
-    tauri_plugin_shell::ShellExt::shell(&app_handle).open(url, None)
+    tauri_plugin_opener::open_url(url, None::<&str>)
         .map_err(|e| e.to_string())
 }
 
@@ -1740,6 +1676,16 @@ async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppSta
     
     if is_same {
         return Ok(());
+    }
+
+    // Properly stop any existing scanner before spawning a new one,
+    // so IS_SCANNING is cleared and spawn_memory_watcher won't reject us
+    if scanner_lock.is_some() {
+        drop(scanner_lock);
+        drop(path_lock);
+        crate::log_scanner::stop_scanner(&app);
+        scanner_lock = state.log_scanner.lock().unwrap();
+        path_lock = state.log_scanner_path.lock().unwrap();
     }
     
     *scanner_lock = None;
@@ -2089,13 +2035,17 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
 
 // --- Entry Point ---
 
-fn main() {
+ fn main() {
     #[cfg(target_os = "linux")]
     {
-        // Disable WebKit compositing to work around EGL/GBM display creation
-        // failures on systems with mismatched GL stacks (common with AppImages
-        // built on older CI runner images).
+        webkit2gtk_nvidia_quirk::apply_workaround_with_options(Default::default());
         std::env::set_var("WEBKIT_DISABLE_COMPOSITING_MODE", "1");
+        // Force X11 backend unconditionally — X11 is required for:
+        //   1. Raw XMoveWindow to position transparent (ARGB visual) windows
+        //   2. _NET_WM_STATE_ABOVE for reliable always-on-top
+        // Both break under the Wayland backend (compositor controls placement).
+        // KDE always provides XWayland, so this is safe.
+        std::env::set_var("GDK_BACKEND", "x11");
     }
     // Clear old debug log on startup so it doesn't grow infinitely
     let log_path = resolve_path("data/user/overlay_debug.log");
@@ -2124,17 +2074,12 @@ fn main() {
     // When run from an AppImage, the usual env-var workarounds for WebKit / Mesa
     // are not set automatically.  Set them here so xcap always gets a working
     // software-renderer path and GDK_BACKEND is forced to X11.
-    #[cfg(target_os = "linux")]
-    {
-        std::env::set_var("LIBGL_ALWAYS_SOFTWARE", "1");
-        std::env::set_var("WEBKIT_DISABLE_COMPOSITING_MODE", "1");
-        // Only set GDK_BACKEND if not already overridden by the user
-        if std::env::var("GDK_BACKEND").is_err() {
-            std::env::set_var("GDK_BACKEND", "x11");
-        }
-    }
+    // Linux env vars set above at process start
     let app = tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
+        .plugin(tauri_plugin_shell::init())
+        .plugin(tauri_plugin_opener::init())
         .manage(AppState {
             notif_sound: Arc::new(Mutex::new(saved_sound.to_string())),
             log_scanner: Arc::new(Mutex::new(None)),
@@ -2157,8 +2102,11 @@ fn main() {
         })
         .setup(|app| {
             crate::log_scanner::log_app_start(&app.handle());
-            let _ = app.get_webview_window("main").unwrap();
-            let ah = app.handle();
+            let ah = app.handle().clone();
+            if let Some(main_win) = app.get_webview_window("main") {
+                let _ = main_win.show();
+                let _ = main_win.set_focus();
+            }
             // Extract bundled assets from inside the AppImage to the writable data root
             extract_bundled_assets(&ah);
             // Download PP-OCRv5 models in background (needed by ocr_engine)
@@ -2179,9 +2127,8 @@ fn main() {
             // They start hidden (tauri.conf.json) so show() in show_window_internal
             // makes them visible only after the webview has loaded transparent content,
             // avoiding the first-frame black flash on Linux.
-            for label in &["overlay-tr", "overlay-tl", "overlay-tc", "overlay-relic"] {
-                let _ = show_overlay_window(ah.clone(), label.to_string());
-            }
+            // Overlays start hidden (tauri.conf.json visible=false).
+            // Shown on-demand by show_overlay_window. Pre-showing races webview load on Linux.
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
@@ -2231,6 +2178,7 @@ fn main() {
             show_overlay_window,
             hide_overlay_window,
             resize_overlay_window,
+            raise_overlay,
             set_ignore_cursor_events,
             play_notification_sound,
             set_notification_sound,

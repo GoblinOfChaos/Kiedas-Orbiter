@@ -19,97 +19,8 @@
         "width": 1200,
         "height": 800,
         "minWidth": 900,
-        "minHeight": 500
-      },
-      {
-        "label": "overlay-tr",
-        "title": "Kronos Overlay",
-        "width": 320,
-        "height": 1,
-        "transparent": true,
-        "decorations": false,
-        "alwaysOnTop": true,
-        "resizable": true,
-        "visible": false,
-        "skipTaskbar": true,
-        "url": "/?overlay=true",
-        "acceptFirstMouse": true,
-        "focus": false
-      },
-      {
-        "label": "overlay-tl",
-        "title": "Kronos Overlay",
-        "width": 320,
-        "height": 1,
-        "transparent": true,
-        "decorations": false,
-        "alwaysOnTop": true,
-        "resizable": true,
-        "visible": false,
-        "skipTaskbar": true,
-        "url": "/?overlay=true",
-        "acceptFirstMouse": true,
-        "focus": false
-      },
-      {
-        "label": "overlay-tc",
-        "title": "Kronos Overlay",
-        "width": 320,
-        "height": 1,
-        "transparent": true,
-        "decorations": false,
-        "alwaysOnTop": true,
-        "resizable": true,
-        "visible": false,
-        "skipTaskbar": true,
-        "url": "/?overlay=true",
-        "acceptFirstMouse": true,
-        "focus": false
-      },
-      {
-        "label": "overlay-relic",
-        "title": "Kronos Overlay",
-        "width": 1000,
-        "height": 380,
-        "transparent": true,
-        "decorations": false,
-        "alwaysOnTop": true,
-        "resizable": true,
-        "visible": false,
-        "skipTaskbar": true,
-        "url": "/?overlay=true",
-        "acceptFirstMouse": true,
-        "focus": false
-      },
-      {
-        "label": "overlay-riven-current",
-        "title": "Kronos Overlay",
-        "width": 360,
-        "height": 260,
-        "transparent": true,
-        "decorations": false,
-        "alwaysOnTop": true,
-        "resizable": true,
-        "visible": false,
-        "skipTaskbar": true,
-        "url": "/?overlay=true",
-        "acceptFirstMouse": true,
-        "focus": false
-      },
-      {
-        "label": "overlay-riven-new",
-        "title": "Kronos Overlay",
-        "width": 360,
-        "height": 260,
-        "transparent": true,
-        "decorations": false,
-        "alwaysOnTop": true,
-        "resizable": true,
-        "visible": false,
-        "skipTaskbar": true,
-        "url": "/?overlay=true",
-        "acceptFirstMouse": true,
-        "focus": false
+        "minHeight": 500,
+        "visible": false
       },
       {
         "label": "calibration",
@@ -120,10 +31,94 @@
         "resizable": true,
         "visible": false,
         "url": "/?calibration=true"
+      },
+      {
+        "label": "overlay-tl",
+        "url": "/?overlay=true",
+        "width": 440,
+        "height": 1,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false
+      },
+      {
+        "label": "overlay-tc",
+        "url": "/?overlay=true",
+        "width": 440,
+        "height": 1,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false
+      },
+      {
+        "label": "overlay-tr",
+        "url": "/?overlay=true",
+        "width": 440,
+        "height": 1,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false
+      },
+      {
+        "label": "overlay-riven-current",
+        "url": "/?overlay=true",
+        "width": 360,
+        "height": 260,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false
+      },
+      {
+        "label": "overlay-riven-new",
+        "url": "/?overlay=true",
+        "width": 360,
+        "height": 260,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false
+      },
+      {
+        "label": "overlay-relic",
+        "url": "/?overlay=true",
+        "width": 640,
+        "height": 140,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false
       }
     ],
     "security": {
-      "csp": null
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": [
+          "**"
+        ]
+      }
     }
   },
   "bundle": {

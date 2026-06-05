@@ -564,6 +564,16 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 }
                 let data_len = u32::from_le_bytes(len_buf) as usize;
 
+                // Sanity check: prevent OOM from corrupt length values.
+                // EE.log lines are typically <4 KB; 1 MB is a generous limit.
+                if data_len > 1_048_576 {
+                    crate::logger::log_to_disk(&app_inner, &format!(
+                        "[MEMORY WATCHER] Corrupt data length {}, restarting helper...", data_len
+                    ));
+                    let _ = child.kill();
+                    break;
+                }
+
                 if data_len == 0 {
                     if !logged_waiting {
                         crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Waiting for Warframe process...");

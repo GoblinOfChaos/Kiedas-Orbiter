@@ -339,8 +339,17 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const hasDesc = desc && desc.length > 0
   const contentBottom = mf === 'Requiem' ? 80 : mf === 'Antivirus' ? 110 : mf === 'Potency' ? 45 : mf === 'Tektolyst' ? 55 + (hasDesc ? 25 : 0) : 45 + (hasDesc ? 25 : 0)
 
+  const [hovered, setHovered] = useState(false)
+
   return (
-    <div className="relative flex-shrink-0 select-none" style={{ width, aspectRatio: String(CARD_RATIO) }}>
+    <div className="relative flex-shrink-0 select-none" style={{
+      width,
+      aspectRatio: String(CARD_RATIO),
+      transform: hovered ? 'scale(1.06)' : 'scale(1)',
+      transition: 'transform 0.2s ease-out',
+    }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}>
       <Img src={bg} className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 1, objectPosition: mf === 'Arcanes' ? '50% 20%' : '50% 50%' }} />
 
       {mod.quantity > 1 && mf === 'Arcanes' && (
@@ -392,8 +401,8 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
               {mod.name}
             </p>
             {hasDesc && (
-              <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color + 'CC', fontSize: `${11 * cardScale}px` }}>
-                {renderDesc(desc, color + 'CC', iconsPath, tagIconMap)}
+              <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color, fontSize: `${11 * cardScale}px` }}>
+                {renderDesc(desc, color, iconsPath, tagIconMap)}
               </p>
             )}
           </div>
@@ -415,13 +424,13 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
               {mod.name}
             </p>
             {hasDesc && (
-              <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color + 'CC', fontSize: `${10 * cardScale}px` }}>
-                {renderDesc(desc, color + 'CC', iconsPath, tagIconMap)}
+              <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color, fontSize: `${10 * cardScale}px` }}>
+                {renderDesc(desc, color, iconsPath, tagIconMap)}
               </p>
             )}
             {mod.max_rank > 0 && (
               <>
-                <p className="font-semibold uppercase tracking-wider mt-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'Outfit, sans-serif', color: color + '99', fontSize: `${10 * cardScale}px` }}>
+                <p className="font-semibold uppercase tracking-wider mt-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'Outfit, sans-serif', color: color, fontSize: `${10 * cardScale}px` }}>
                   {mod.arcaneType || cat}
                 </p>
                 <div className="flex justify-center mt-0.5" style={{ transform: 'scale(1.5)', transformOrigin: 'center' }}>
@@ -462,8 +471,8 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
               {mod.name}
             </p>
             {hasDesc && (
-              <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color + 'CC', fontSize: `${11 * cardScale}px` }}>
-                {renderDesc(desc, color + 'CC', iconsPath, tagIconMap)}
+              <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color, fontSize: `${11 * cardScale}px` }}>
+                {renderDesc(desc, color, iconsPath, tagIconMap)}
               </p>
             )}
           </div>
@@ -509,7 +518,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
 
       {cat && mf !== 'Arcanes' && (
         <div className="absolute text-center pointer-events-none" style={{ left: 0, right: 0, bottom: mf === 'Antivirus' ? `${55 / CANVAS_H * 100}%` : mf === 'Potency' ? `${26 / CANVAS_H * 100}%` : mf === 'Tektolyst' ? `${48 / CANVAS_H * 100}%` : `${38 / CANVAS_H * 100}%`, zIndex: 4 }}>
-          <p className="font-semibold uppercase tracking-wider drop-shadow-[0_1px_1px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'Outfit, sans-serif', color: mf === 'Potency' ? '#FFD700' : color + '99', fontSize: `${11 * cardScale}px` }}>
+          <p className="font-semibold uppercase tracking-wider drop-shadow-[0_1px_1px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'Outfit, sans-serif', color: mf === 'Potency' ? '#FFD700' : color, fontSize: `${11 * cardScale}px` }}>
             {cat}
           </p>
         </div>

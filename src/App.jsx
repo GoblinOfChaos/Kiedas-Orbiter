@@ -271,7 +271,7 @@ function AppContent() {
         </div>
 
         {/* Nav items */}
-        <div className="flex-1 w-full overflow-y-auto py-2 nav-scrollbar">
+        <div className="flex-1 w-full overflow-y-auto py-2 custom-scrollbar">
           <div className="flex flex-col gap-6 items-center min-h-min pb-4">
             {NAV_ITEMS.map((item) => {
               const isActive = activeTab === item.id

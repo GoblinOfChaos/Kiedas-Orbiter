@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Card } from '../UI'
 import { Loader2 } from 'lucide-react'
 import { listen } from '@tauri-apps/api/event'
@@ -23,10 +23,51 @@ export default function RelicRewardOverlay() {
   const [prices, setPrices] = useState({})
   const [remaining, setRemaining] = useState(RELIC_TIMEOUT)
   const [progress, setProgress] = useState(100)
+  const [windowVisible, setWindowVisible] = useState(false)
   const containerRef = useRef(null)
   const resizeTimerRef = useRef(null)
   const triggerCount = useRef(0)
   const [triggerKey, setTriggerKey] = useState(0)
+
+  const showWindow = useCallback(async () => {
+    console.log('[RelicOverlay] showWindow called, windowVisible =', windowVisible)
+    if (!windowVisible) {
+      try {
+        await invoke('show_overlay_window', { label: 'overlay-relic' })
+        console.log('[RelicOverlay] show_overlay_window success')
+        setWindowVisible(true)
+      } catch (err) {
+        console.error('[RelicOverlay] show_overlay_window error:', err)
+      }
+    }
+  }, [windowVisible])
+
+  const hideWindow = useCallback(async () => {
+    console.log('[RelicOverlay] hideWindow called, windowVisible =', windowVisible)
+    if (windowVisible) {
+      try {
+        await invoke('hide_overlay_window', { label: 'overlay-relic' })
+        console.log('[RelicOverlay] hide_overlay_window success')
+        setWindowVisible(false)
+      } catch (err) {
+        console.error('[RelicOverlay] hide_overlay_window error:', err)
+      }
+    }
+  }, [windowVisible])
+
+  // Force-show the window on mount (idempotent — the overlay is hidden by default)
+  useEffect(() => {
+    const init = async () => {
+      try {
+        await invoke('show_overlay_window', { label: 'overlay-relic' })
+        console.log('[RelicOverlay] Window shown on mount')
+        setWindowVisible(true)
+      } catch (err) {
+        console.error('[RelicOverlay] show on mount failed:', err)
+      }
+    }
+    init()
+  }, [])
 
   useEffect(() => {
     // 1. Immediately request the cached session data in case the event was missed
@@ -38,6 +79,7 @@ export default function RelicRewardOverlay() {
             setSquadSize(cachedData.squad_size || 1)
             setRemaining(RELIC_TIMEOUT)
             setProgress(100)
+            showWindow()
           }
           if (cachedData.local_reward) {
             setLocalReward(cachedData.local_reward)
@@ -51,7 +93,7 @@ export default function RelicRewardOverlay() {
 
     // Immediate state reset when scanner triggers
     subs.push(listen('scanner-relic-phase-start', (e) => {
-      console.log(`[RelicOverlay] scanner-relic-phase-start: squad_size=${e.payload.squad_size}`)
+      console.log(`[RelicOverlay] received event scanner-relic-phase-start: squad_size=${e.payload.squad_size}`)
       setSquadSize(e.payload.squad_size)
       setOcrResults({})
       setLocalReward(null)
@@ -60,11 +102,12 @@ export default function RelicRewardOverlay() {
       setProgress(100)
       triggerCount.current += 1
       setTriggerKey(triggerCount.current)
+      showWindow()
     }))
 
     subs.push(listen('overlay-update-relics', (e) => {
       const relicsCount = e.payload.squad_relics?.length || 0
-      console.log(`[RelicOverlay] EVENT: overlay-update-relics (count=${relicsCount})`, e.payload)
+      console.log(`[RelicOverlay] received event overlay-update-relics (count=${relicsCount})`, e.payload)
       setData(e.payload.squad_relics || [])
       setSquadSize(e.payload.squad_size)
       setOcrResults({})
@@ -74,6 +117,7 @@ export default function RelicRewardOverlay() {
       setProgress(100)
       triggerCount.current += 1
       setTriggerKey(triggerCount.current)
+      showWindow()
     }))
 
     subs.push(listen('overlay-update-reward', (e) => {
@@ -95,11 +139,11 @@ export default function RelicRewardOverlay() {
     }))
 
     subs.push(listen('fissure-reward-closed', () => {
-      console.log('[RelicRewardOverlay] EVENT: fissure-reward-closed')
+      console.log('[RelicRewardOverlay] received event fissure-reward-closed')
       setIsClosing(true)
       setTimeout(() => {
         setData(null)
-        invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(() => { })
+        hideWindow()
       }, 500)
     }))
 
@@ -118,7 +162,7 @@ export default function RelicRewardOverlay() {
           setIsClosing(true)
           setTimeout(() => {
             setData(null)
-            invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(() => { })
+            hideWindow()
           }, 500)
         }
         return next

@@ -382,25 +382,34 @@ export default function Notes() {
 
         /* ── Diff/source wrapper (stable class from docs) ── */
         .kronos-editor .mdxeditor-diff-source-wrapper {
-          overflow: visible !important;
-          max-height: none !important;
+          overflow-y: auto !important;
+          max-height: calc(100vh - 280px) !important;
         }
-        .kronos-editor .mdxeditor-source-editor,
-        .kronos-editor .mdxeditor-diff-editor {
-          overflow: visible !important;
+        .kronos-editor .mdxeditor-diff-source-wrapper::-webkit-scrollbar {
+          width: 12px;
+          height: 4px;
+        }
+        .kronos-editor .mdxeditor-diff-source-wrapper::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .kronos-editor .mdxeditor-diff-source-wrapper::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+        }
+        .kronos-editor .mdxeditor-diff-source-wrapper::-webkit-scrollbar-thumb:hover {
+          background: var(--color-accent);
+          box-shadow: 0 0 10px var(--color-accent);
         }
 
         /* ── CodeMirror (source/diff mode) ── */
         .kronos-editor .cm-editor {
           background: var(--color-bg) !important;
           color: var(--color-text) !important;
-          overflow: visible !important;
-          max-height: none !important;
         }
         .kronos-editor .cm-scroller {
           font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace !important;
           font-size: 13px !important;
-          overflow: visible !important;
+          overflow-y: auto !important;
         }
         .kronos-editor .cm-gutters {
           background: var(--color-panel) !important;

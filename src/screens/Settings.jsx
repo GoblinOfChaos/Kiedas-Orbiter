@@ -69,7 +69,7 @@ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
 
 export default function SettingsScreen() {
   const { theme, setTheme, themes, cursorStyle, setCursorStyle, cursorTint, setCursorTint } = useTheme()
-  const { isMonitoring, startMonitoring, stopMonitoring, manualRefresh, lastUpdate, statusText, autoStart, setAutoStart, monitorResult } = useMonitoring()
+  const { isMonitoring, startMonitoring, stopMonitoring, manualRefresh, lastUpdate, statusText, autoStart, setAutoStart, monitorResult, refreshPrices, isPriceLoading, priceLastUpdated, retryCardImages } = useMonitoring()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [isCalibrationOpen, setIsCalibrationOpen] = useState(false)
@@ -134,7 +134,7 @@ export default function SettingsScreen() {
   )
 
   const [uiPath, setUiPath] = useState('')
-  useEffect(() => { invoke('get_ui_path').then(setUiPath).catch(() => {}) }, [])
+  useEffect(() => { invoke('get_ui_path').then(setUiPath).catch(() => { }) }, [])
 
   const [tintedCursors, setTintedCursors] = useState({})
   useEffect(() => {
@@ -212,6 +212,9 @@ export default function SettingsScreen() {
   )
   const [eeLogPath, setEeLogPath] = useState(
     () => getSetting('ee_log_path', '')
+  )
+  const [warframeCachePath, setWarframeCachePath] = useState(
+    () => getSetting('warframe_cache_path', '')
   )
   const [fissureUiScale, setFissureUiScale] = useState(
     () => parseInt(getSetting('fissure_ui_scale', 100))
@@ -390,6 +393,19 @@ export default function SettingsScreen() {
     }
   }
 
+  const handleBrowseCache = async () => {
+    try {
+      const selected = await openDialog({ directory: true, multiple: false })
+      if (selected) {
+        setWarframeCachePath(selected)
+        await setSetting('warframe_cache_path', selected)
+        retryCardImages()
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   const handleTestNotification = (position, delay = 0) => {
     setTimeout(() => {
       invoke('show_notification', {
@@ -475,7 +491,7 @@ export default function SettingsScreen() {
                 className={`relative p-2 rounded-lg border transition-all duration-200 flex flex-col items-center gap-1.5 ${cursorStyle === cs
                   ? 'border-white ring-2 ring-white/30'
                   : 'border-white/5 hover:border-white/20'
-                }`}
+                  }`}
               >
                 <div className="w-10 h-10 flex items-center justify-center bg-black/20 rounded-lg relative overflow-hidden">
                   {cs === 'system' ? (
@@ -623,20 +639,50 @@ export default function SettingsScreen() {
                 {scannerStatus === 'waiting' && (
                   <RefreshCw size={10} className="text-yellow-400 animate-spin" />
                 )}
-                <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-500 ${
-                  scannerStatus === 'active'  ? 'bg-blue-400 shadow-[0_0_6px_rgba(96,165,250,0.8)]' :
-                  scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_6px_rgba(250,204,21,0.8)] animate-pulse' :
-                  'bg-zinc-600'
-                }`} />
-                <span className={`text-[10px] font-black uppercase tracking-widest ${
-                  scannerStatus === 'active'  ? 'text-blue-400' :
-                  scannerStatus === 'waiting' ? 'text-yellow-400' :
-                  'text-zinc-500'
-                }`}>
-                  {scannerStatus === 'active'  ? 'Hooked into Warframe — scanner running' :
-                   scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :
-                   'Scanner offline'}
+                <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-500 ${scannerStatus === 'active' ? 'bg-blue-400 shadow-[0_0_6px_rgba(96,165,250,0.8)]' :
+                    scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_6px_rgba(250,204,21,0.8)] animate-pulse' :
+                      'bg-zinc-600'
+                  }`} />
+                <span className={`text-[10px] font-black uppercase tracking-widest ${scannerStatus === 'active' ? 'text-blue-400' :
+                    scannerStatus === 'waiting' ? 'text-yellow-400' :
+                      'text-zinc-500'
+                  }`}>
+                  {scannerStatus === 'active' ? 'Hooked into Warframe — scanner running' :
+                    scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :
+                      'Scanner offline'}
                 </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Warframe Cache Path */}
+          <div className="mb-4 pt-4 border-t border-white/5">
+            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Card images extraction</p>
+            <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <div className="flex-1 flex gap-2">
+                  <input
+                    type="text"
+                    value={warframeCachePath}
+                    readOnly
+                    placeholder="Select your Warframe Cache.Windows folder..."
+                    className="flex-1 glass-panel rounded-lg px-4 py-2 text-xs font-mono focus:outline-none focus:glow-border"
+                  />
+                  <Button variant="secondary" onClick={handleBrowseCache} className="px-3">
+                    <FolderOpen size={16} className="mr-2" />
+                    Browse
+                  </Button>
+                </div>
+              </div>
+              <div className="mt-3 flex flex-col sm:flex-row gap-4 text-[10px] text-zinc-500 uppercase leading-relaxed font-bold">
+                <div>
+                  <p className="text-zinc-400 mb-1 tracking-widest">Common Windows Path:</p>
+                  <p className="font-mono text-kronos-accent/70">steamapps\common\Warframe\Cache.Windows</p>
+                </div>
+                <div>
+                  <p className="text-zinc-400 mb-1 tracking-widest">Common Linux Path:</p>
+                  <p className="font-mono text-kronos-accent/70">.steam/steam/steamapps/common/Warframe/Cache.Windows</p>
+                </div>
               </div>
             </div>
           </div>
@@ -871,77 +917,118 @@ export default function SettingsScreen() {
           </div>
         </Card>
 
-        {/* Updates */}
+        {/* Updates & Price Cache */}
         <Card glow className="p-5">
-          <div className="flex items-center gap-3 mb-5">
-            <RefreshCw className="text-kronos-accent" size={24} />
-            <h2 className="text-xl font-black uppercase tracking-tight">Updates</h2>
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* App Updates */}
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <RefreshCw className="text-kronos-accent" size={24} />
+                <h2 className="text-xl font-black uppercase tracking-tight">Updates</h2>
+              </div>
 
-          <div className="bg-kronos-panel/30 rounded-xl p-4 border border-white/5 space-y-3">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">
-                Version {version}
-              </p>
-              <Toggle
-                checked={updateOnStartup}
-                onChange={handleSetUpdateOnStartup}
-                label="Check on startup"
-              />
+              <div className="bg-kronos-panel/30 rounded-xl p-4 border border-white/5 space-y-3">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">
+                    Version {version}
+                  </p>
+                  <Toggle
+                    checked={updateOnStartup}
+                    onChange={handleSetUpdateOnStartup}
+                    label="Check on startup"
+                  />
+                </div>
+
+                {updateState.status === 'idle' && (
+                  <p className="text-xs text-kronos-dim">Click below to check for a new version.</p>
+                )}
+                {updateState.status === 'checking' && (
+                  <p className="text-xs text-kronos-accent font-mono flex items-center gap-2">
+                    <RefreshCw size={12} className="animate-spin" /> Checking for updates...
+                  </p>
+                )}
+                {updateState.status === 'available' && updateState.manifest && (
+                  <div className="space-y-2">
+                    <p className="text-xs text-green-400 font-mono font-bold">
+                      Update available: {updateState.manifest.version}
+                    </p>
+                    <p className="text-[10px] text-kronos-dim font-mono leading-relaxed max-h-20 overflow-y-auto">
+                      {updateState.manifest.body || 'No release notes available.'}
+                    </p>
+                    <p className="text-[10px] text-zinc-600 font-mono">
+                      Released: {new Date(updateState.manifest.date).toLocaleDateString()}
+                    </p>
+                  </div>
+                )}
+                {updateState.status === 'up-to-date' && (
+                  <p className="text-xs text-green-400 font-mono">You have the latest version.</p>
+                )}
+                {updateState.status === 'installing' && (
+                  <p className="text-xs text-kronos-accent font-mono flex items-center gap-2">
+                    <RefreshCw size={12} className="animate-spin" /> Installing update...
+                  </p>
+                )}
+                {updateState.status === 'error' && (
+                  <p className="text-xs text-red-400 font-mono">Error: {updateState.error}</p>
+                )}
+
+                <div className="flex gap-2 pt-2">
+                  <button
+                    onClick={checkForUpdates}
+                    disabled={updateState.status === 'checking' || updateState.status === 'installing'}
+                    className={`py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${updateState.status === 'checking' || updateState.status === 'installing'
+                      ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
+                      : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
+                      }`}
+                  >
+                    {updateState.status === 'checking' ? 'Checking...' : 'Check for Updates'}
+                  </button>
+                  {updateState.status === 'available' && (
+                    <button
+                      onClick={handleInstallUpdate}
+                      className="py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border bg-green-500/20 border-green-500/40 text-green-400 hover:bg-green-500/30"
+                    >
+                      Install Update
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
 
-            {updateState.status === 'idle' && (
-              <p className="text-xs text-kronos-dim">Click below to check for a new version.</p>
-            )}
-            {updateState.status === 'checking' && (
-              <p className="text-xs text-kronos-accent font-mono flex items-center gap-2">
-                <RefreshCw size={12} className="animate-spin" /> Checking for updates...
-              </p>
-            )}
-            {updateState.status === 'available' && updateState.manifest && (
-              <div className="space-y-2">
-                <p className="text-xs text-green-400 font-mono font-bold">
-                  Update available: {updateState.manifest.version}
-                </p>
-                <p className="text-[10px] text-kronos-dim font-mono leading-relaxed max-h-20 overflow-y-auto">
-                  {updateState.manifest.body || 'No release notes available.'}
-                </p>
-                <p className="text-[10px] text-zinc-600 font-mono">
-                  Released: {new Date(updateState.manifest.date).toLocaleDateString()}
-                </p>
+            {/* Price Cache */}
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <RefreshCw className="text-kronos-accent" size={24} />
+                <h2 className="text-xl font-black uppercase tracking-tight">Price Cache</h2>
               </div>
-            )}
-            {updateState.status === 'up-to-date' && (
-              <p className="text-xs text-green-400 font-mono">You have the latest version.</p>
-            )}
-            {updateState.status === 'installing' && (
-              <p className="text-xs text-kronos-accent font-mono flex items-center gap-2">
-                <RefreshCw size={12} className="animate-spin" /> Installing update...
-              </p>
-            )}
-            {updateState.status === 'error' && (
-              <p className="text-xs text-red-400 font-mono">Error: {updateState.error}</p>
-            )}
 
-            <div className="flex gap-2 pt-2">
-              <button
-                onClick={checkForUpdates}
-                disabled={updateState.status === 'checking' || updateState.status === 'installing'}
-                className={`py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${updateState.status === 'checking' || updateState.status === 'installing'
-                  ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
-                  : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
-                  }`}
-              >
-                {updateState.status === 'checking' ? 'Checking...' : 'Check for Updates'}
-              </button>
-              {updateState.status === 'available' && (
-                <button
-                  onClick={handleInstallUpdate}
-                  className="py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border bg-green-500/20 border-green-500/40 text-green-400 hover:bg-green-500/30"
-                >
-                  Install Update
-                </button>
-              )}
+              <div className="bg-kronos-panel/30 rounded-xl p-4 border border-white/5 space-y-3">
+                <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">
+                  Market Prices
+                </p>
+                <p className="text-xs text-kronos-dim">
+                  Plat values for mods and prime parts are cached locally with a 24-hour TTL.
+                </p>
+                {priceLastUpdated ? (
+                  <p className="text-[10px] text-zinc-600 font-mono">
+                    Last fetched: {new Date(Number(priceLastUpdated)).toLocaleString()}
+                  </p>
+                ) : (
+                  <p className="text-[10px] text-zinc-600 font-mono">Not fetched yet.</p>
+                )}
+                <div className="flex gap-2 pt-2">
+                  <button
+                    onClick={refreshPrices}
+                    disabled={isPriceLoading}
+                    className={`py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${!isPriceLoading
+                      ? 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
+                      : 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
+                      }`}
+                  >
+                    {isPriceLoading ? 'Fetching...' : 'Refresh Prices'}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </Card>

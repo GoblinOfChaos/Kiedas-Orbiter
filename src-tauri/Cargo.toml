@@ -1,6 +1,6 @@
 [package]
 name = "cephalon-kronos"
-version = "0.5.2"
+version = "0.6.0"
 description = "A cross-platform desktop companion for Warframe"
 authors = ["glowseeker"]
 license = ""

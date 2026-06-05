@@ -5,8 +5,9 @@ import { ThemeProvider } from './contexts/ThemeContext'
 import { MonitoringProvider } from './contexts/MonitoringContext'
 import { UpdateProvider, useUpdate } from './contexts/UpdateContext'
 import { Tooltip } from './components/UI'
-import { AlertTriangle } from 'lucide-react'
+import { AlertTriangle, FolderOpen } from 'lucide-react'
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
+import { open as openDialog } from '@tauri-apps/api/dialog'
 import { loadSettings, getSetting, setSetting } from './lib/settings'
 
 // Screens (lazy-loaded, main window only)
@@ -62,13 +63,15 @@ function OverlayApp() {
   )
 }
 
-// ─── First-run Disclaimer Modal ────────────────────────────────────────────────
-// Shown exactly once on first launch; acceptance stored in localStorage.
+// ─── First-run Setup Screen ─────────────────────────────────────────────────
+// Single onboarding with optional path selectors + mandatory disclaimer.
 
-function DisclaimerModal() {
+function SetupScreen() {
   const [show, setShow] = useState(false)
   const [checked, setChecked] = useState(false)
   const [ready, setReady] = useState(false)
+  const [cachePath, setCachePath] = useState('')
+  const [logPath, setLogPath] = useState('')
   const hasStartedRef = useRef(false)
 
   useEffect(() => {
@@ -77,9 +80,12 @@ function DisclaimerModal() {
       if (hasStartedRef.current) return
       hasStartedRef.current = true
 
-      if (!getSetting('disclaimer-accepted')) setShow(true)
-      
-      // Load and register saved hotkeys
+      if (!getSetting('disclaimer-accepted')) {
+        setShow(true)
+        setCachePath(getSetting('warframe_cache_path', ''))
+        setLogPath(getSetting('ee_log_path', ''))
+      }
+
       const savedHotkeys = getSetting('hotkeys', [])
       for (const hk of savedHotkeys) {
         if (hk.shortcut && hk.action) {
@@ -88,22 +94,45 @@ function DisclaimerModal() {
         }
       }
 
-      // Auto-start log scanner if fissure overlay was enabled
       const fissureEnabled = getSetting('fissure_overlay_enabled')
-      const logPath = getSetting('ee_log_path')
-      if (fissureEnabled && logPath) {
-        invoke('start_log_scanner', { path: logPath }).catch(console.error)
+      const savedLogPath = getSetting('ee_log_path')
+      if (fissureEnabled && savedLogPath) {
+        invoke('start_log_scanner', { path: savedLogPath }).catch(console.error)
       }
       setReady(true)
     })
   }, [])
 
-  const accept = async () => {
-    console.log('Accept clicked, checked:', checked)
+  const handleBrowseLog = async () => {
+    try {
+      const selected = await openDialog({
+        multiple: false,
+        filters: [{ name: 'Game Log', extensions: ['log'] }]
+      })
+      if (selected) {
+        setLogPath(selected)
+        await setSetting('ee_log_path', selected)
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleBrowseCache = async () => {
+    try {
+      const selected = await openDialog({ directory: true, multiple: false })
+      if (selected) {
+        setCachePath(selected)
+        await setSetting('warframe_cache_path', selected)
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const finish = async () => {
     if (!checked) return
-    console.log('Saving disclaimer...')
     await setSetting('disclaimer-accepted', 'true')
-    console.log('Saved, closing...')
     setShow(false)
   }
 
@@ -111,41 +140,62 @@ function DisclaimerModal() {
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm">
-      <div className="bg-kronos-bg border border-red-500/40 rounded-2xl p-8 max-w-lg w-full mx-4 shadow-2xl">
-        <div className="flex items-start gap-3 mb-4">
-          <AlertTriangle className="text-red-500 flex-shrink-0 mt-0.5" size={24} />
-          <h2 className="text-lg font-black uppercase tracking-tight text-red-400">Important Disclaimer</h2>
-        </div>
-        <p className="text-sm text-kronos-text/90 mb-3 leading-relaxed">
-          This app uses{' '}
-           <button
-                onClick={() => { invoke('open_url', { url: 'https://github.com/Obsidian-Jackal/warframe-api-helper' }).catch(err => console.error('Link error:', err)) }}
-             className="text-kronos-accent hover:underline cursor-pointer"
-           >
-             warframe-api-helper
-           </button>
-          {' '}to extract your session tokens from game memory.
-        </p>
-        <ul className="text-xs text-kronos-text/80 space-y-1 mb-3 list-disc list-inside">
-          <li>I am not the developer of the software linked above.</li>
-          <li>Digital Extremes has not approved this application.</li>
-        </ul>
-        <p className="text-red-400 font-medium text-xs mb-1">Use at your own risk - potential ban risk always exists.</p>
-        <p className="text-kronos-dim text-xs mb-6">The app never modifies game files or memory, only reads authentication tokens.</p>
-        <label className="flex items-start gap-3 cursor-pointer mb-6">
-          <div
-            onClick={() => setChecked(v => !v)}
-            className={`w-5 h-5 flex-shrink-0 rounded border-2 flex items-center justify-center transition-all mt-0.5 ${checked ? 'bg-kronos-accent border-kronos-accent' : 'border-white/20 hover:border-white/40'}`}
-          >
-            {checked && <span className="text-kronos-bg text-xs font-black">✓</span>}
+      <div className="bg-kronos-bg border border-kronos-accent/20 rounded-2xl p-8 max-w-xl w-full mx-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+        <h2 className="text-lg font-black uppercase tracking-tight text-kronos-accent mb-2">Welcome to Cephalon Kronos</h2>
+        <p className="text-xs text-kronos-dim mb-6">Let's get you set up. These paths are optional; you can configure them later in Settings.</p>
+
+        {/* Cache path */}
+        <div className="mb-4">
+          <p className="text-sm font-black uppercase tracking-widest text-kronos-text/80 mb-2">Game Assets<span className="text-kronos-dim font-normal normal-case tracking-normal">(optional)</span></p>
+          <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
+            <div className="flex gap-2">
+              <input type="text" value={cachePath} readOnly placeholder="Select Cache.Windows folder..."
+                className="flex-1 glass-panel rounded-lg px-4 py-2 text-xs font-mono focus:outline-none focus:glow-border" />
+              <button onClick={handleBrowseCache}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all bg-kronos-accent/10 text-kronos-accent hover:bg-kronos-accent/20 border border-kronos-accent/20 shrink-0">
+                <FolderOpen size={14} /> Browse
+              </button>
+            </div>
+            <p className="mt-2 text-[10px] text-kronos-dim leading-relaxed">Point to your Warframe Cache.Windows folder to use game assets. Skipping this uses a fallback.</p>
           </div>
-          <span className="text-sm text-kronos-text/90">I understand and accept the risks described above.</span>
-        </label>
-        <button
-          onClick={accept}
-          disabled={!checked}
-          className={`w-full py-3 rounded-xl font-black uppercase tracking-wider text-sm transition-all ${checked ? 'bg-kronos-accent text-kronos-bg hover:brightness-110' : 'bg-white/5 text-kronos-dim cursor-not-allowed'}`}
-        >
+        </div>
+
+        {/* Log path */}
+        <div className="mb-4">
+          <p className="text-sm font-black uppercase tracking-widest text-kronos-text/80 mb-2">EE.log Path <span className="text-kronos-dim font-normal normal-case tracking-normal">(optional)</span></p>
+          <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
+            <div className="flex gap-2">
+              <input type="text" value={logPath} readOnly placeholder="Select your Warframe EE.log file..."
+                className="flex-1 glass-panel rounded-lg px-4 py-2 text-xs font-mono focus:outline-none focus:glow-border" />
+              <button onClick={handleBrowseLog}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all bg-kronos-accent/10 text-kronos-accent hover:bg-kronos-accent/20 border border-kronos-accent/20 shrink-0">
+                <FolderOpen size={14} /> Browse
+              </button>
+            </div>
+            <p className="mt-2 text-[10px] text-kronos-dim leading-relaxed">Required for fissure overlays and the in-game scanner. Pick the EE.log file from your Warframe installation.</p>
+          </div>
+        </div>
+
+        {/* Disclaimer */}
+        <div className="border-t border-white/5 pt-4">
+          <div className="flex items-start gap-3 mb-3">
+            <AlertTriangle className="text-red-500 flex-shrink-0 mt-0.5" size={20} />
+            <div>
+              <p className="text-sm font-black uppercase tracking-tight text-red-400">Disclaimer</p>
+              <p className="text-xs text-kronos-text/70 mt-1">This app uses warframe-api-helper to read session tokens from game memory. Digital Extremes has not approved this application.</p>
+            </div>
+          </div>
+          <label className="flex items-start gap-3 cursor-pointer mb-4">
+            <div onClick={() => setChecked(v => !v)}
+              className={`w-5 h-5 flex-shrink-0 rounded border-2 flex items-center justify-center transition-all mt-0.5 ${checked ? 'bg-kronos-accent border-kronos-accent' : 'border-white/20 hover:border-white/40'}`}>
+              {checked && <span className="text-kronos-bg text-xs font-black">✓</span>}
+            </div>
+            <span className="text-xs text-kronos-text/90">I understand and accept the risks described above.</span>
+          </label>
+        </div>
+
+        <button onClick={finish} disabled={!checked}
+          className={`w-full py-3 rounded-xl font-black uppercase tracking-wider text-sm transition-all ${checked ? 'bg-kronos-accent text-kronos-bg hover:brightness-110' : 'bg-white/5 text-kronos-dim cursor-not-allowed'}`}>
           Continue
         </button>
       </div>
@@ -158,13 +208,30 @@ function DisclaimerModal() {
 function AppContent() {
   const [activeTab, setActiveTab] = useState('dashboard')
   const [uiPath, setUiPath] = useState('')
+  const [iconCache, setIconCache] = useState({})
   const { lastUpdate, monitorResult, isMonitoring } = useMonitoring()
   const { updateState } = useUpdate()
   const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
 
   useEffect(() => {
-    invoke('get_ui_path').then(setUiPath).catch(() => {})
+    invoke('get_ui_path').then(setUiPath).catch(() => { })
   }, [])
+
+  useEffect(() => {
+    if (!uiPath) return
+    const names = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
+    Promise.all(names.map(async (name) => {
+      try {
+        const bytes = await invoke('read_file_bytes', { relative: `data/assets/ui/${name}` })
+        const blob = new Blob([new Uint8Array(bytes)])
+        return [name, await new Promise(r => { const f = new FileReader(); f.onload = () => r(f.result); f.onerror = () => r(null); f.readAsDataURL(blob) })]
+      } catch { return [name, null] }
+    })).then(entries => {
+      const map = {}
+      for (const [name, url] of entries) if (url) map[name] = url
+      setIconCache(map)
+    })
+  }, [uiPath])
 
   useEffect(() => {
     // Poll scanner status every 2s so sidebar dot stays in sync
@@ -176,7 +243,7 @@ function AppContent() {
     return () => clearInterval(iv)
   }, [])
 
-  const uiIcon = (name) => uiPath ? convertFileSrc(`${uiPath}/${name}`) : ''
+  const uiIcon = (name) => iconCache[name] || (uiPath ? convertFileSrc(`${uiPath}/${name}`) : '')
 
   const screens = {
     dashboard: <Dashboard />,
@@ -269,17 +336,16 @@ function AppContent() {
           {/* Scanner dot */}
           <div
             className={`w-3 h-3 rounded-full transition-all duration-300 relative group
-              ${
-                scannerStatus === 'active'  ? 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]' :
+              ${scannerStatus === 'active' ? 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]' :
                 scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.6)] animate-pulse' :
-                'bg-gray-700'
+                  'bg-gray-700'
               }
             `}
           >
             <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent">
-              {scannerStatus === 'active'  ? 'Scanner Active' :
-               scannerStatus === 'waiting' ? 'Waiting for Warframe...' :
-               'Scanner Idle'}
+              {scannerStatus === 'active' ? 'Scanner Active' :
+                scannerStatus === 'waiting' ? 'Waiting for Warframe...' :
+                  'Scanner Idle'}
             </div>
           </div>
         </div>
@@ -326,7 +392,7 @@ export default function App() {
     <ThemeProvider>
       <MonitoringProvider>
         <UpdateProvider>
-          <DisclaimerModal />
+          <SetupScreen />
           <AppContent />
         </UpdateProvider>
       </MonitoringProvider>

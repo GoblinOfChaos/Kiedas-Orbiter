@@ -2094,6 +2094,13 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
 // --- Entry Point ---
 
 fn main() {
+    #[cfg(target_os = "linux")]
+    {
+        // Disable WebKit compositing to work around EGL/GBM display creation
+        // failures on systems with mismatched GL stacks (common with AppImages
+        // built on older CI runner images).
+        std::env::set_var("WEBKIT_DISABLE_COMPOSITING_MODE", "1");
+    }
     // Clear old debug log on startup so it doesn't grow infinitely
     let log_path = resolve_path("data/user/overlay_debug.log");
     let _ = std::fs::write(&log_path, "");

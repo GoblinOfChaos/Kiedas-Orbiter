@@ -16,17 +16,16 @@ import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 import { version } from '../../package.json'
 
 const CREDITS = [
-  { name: 'calamity-inc/warframe-public-export-plus', desc: 'Game data exports', href: 'https://github.com/calamity-inc/warframe-public-export-plus' },
-  { name: 'WFCD/warframe-items', desc: 'Item database', href: 'https://github.com/WFCD/warframe-items' },
-  { name: 'browse.wf', desc: 'Worldstate API & assets', href: 'https://browse.wf' },
-  { name: 'warframe-market-data', desc: 'Market pricing data', href: 'https://api.warframe.market' },
-  { name: 'Obsidian-Jackal/warframe-api-helper', desc: 'Session token extraction', href: 'https://github.com/Obsidian-Jackal/warframe-api-helper' },
+  { name: 'calamity-inc', desc: 'browse.wf & warframe-public-export-plus', href: 'https://github.com/calamity-inc' },
+  { name: 'warframe.market', desc: 'Market pricing data', href: 'https://warframe.market' },
+  { name: 'warframe-api-helper', desc: 'Template for session token extraction', href: 'https://github.com/Sainan/warframe-api-helper' },
   { name: 'warframetools.com', desc: 'Checklist inspiration', href: 'https://warframetools.com/Task-Checklist/' },
+  { name: 'Warframe Wiki', desc: 'Game information reference', href: 'https://wiki.warframe.com' },
 ]
 
 export default function About() {
   const [uiPath, setUiPath] = useState('')
-  useEffect(() => { invoke('get_ui_path').then(setUiPath).catch(() => {}) }, [])
+  useEffect(() => { invoke('get_ui_path').then(setUiPath).catch(() => { }) }, [])
 
   const handleOpenLink = async (url) => {
     try {
@@ -58,22 +57,22 @@ export default function About() {
           <p className="text-kronos-text/90 mb-4 leading-relaxed text-sm">
             Track your inventory, relics, rivens and mastery alongside a live worldstate with timers, fissures, arbitrations and more.
           </p>
-           <div className="flex gap-3">
-             <button
-               onClick={() => handleOpenLink('https://github.com/glowseeker/cephalon-kronos')}
-               className="inline-flex items-center gap-2 text-kronos-accent hover:text-kronos-accent-secondary transition-colors text-sm font-medium cursor-pointer"
-             >
-               <Github size={18} />
-               GitHub
-             </button>
-             <button
-               onClick={() => handleOpenLink('https://discord.gg/9GjkZ9aXwy')}
-               className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition-colors text-sm font-medium cursor-pointer"
-             >
-               <MessageCircle size={18} />
-               Discord
-             </button>
-           </div>
+          <div className="flex gap-3">
+            <button
+              onClick={() => handleOpenLink('https://github.com/glowseeker/cephalon-kronos')}
+              className="inline-flex items-center gap-2 text-kronos-accent hover:text-kronos-accent-secondary transition-colors text-sm font-medium cursor-pointer"
+            >
+              <Github size={18} />
+              GitHub
+            </button>
+            <button
+              onClick={() => handleOpenLink('https://discord.gg/9GjkZ9aXwy')}
+              className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition-colors text-sm font-medium cursor-pointer"
+            >
+              <MessageCircle size={18} />
+              Discord
+            </button>
+          </div>
         </Card>
 
         {/* Credits */}
@@ -84,12 +83,12 @@ export default function About() {
               <li key={name} className="flex items-start gap-2 text-sm">
                 <span className="text-kronos-accent font-bold flex-shrink-0">•</span>
                 <span>
-                 <button
-                   onClick={() => handleOpenLink(href)}
-                   className="font-bold text-kronos-accent hover:underline cursor-pointer"
-                 >
-                   {name}
-                 </button>
+                  <button
+                    onClick={() => handleOpenLink(href)}
+                    className="font-bold text-kronos-accent hover:underline cursor-pointer"
+                  >
+                    {name}
+                  </button>
                   <span className="text-kronos-dim ml-1.5">- {desc}</span>
                 </span>
               </li>
@@ -104,21 +103,20 @@ export default function About() {
             <div>
               <h3 className="text-base font-semibold text-red-400 mb-2">Important Disclaimer</h3>
               <p className="text-kronos-text/90 text-sm leading-relaxed mb-2">
-                This app uses{' '}
-                 <button
-                   onClick={() => handleOpenLink('https://github.com/Obsidian-Jackal/warframe-api-helper')}
-                   className="text-kronos-accent hover:underline cursor-pointer"
-                 >
-                   warframe-api-helper
-                 </button>
-                {' '}to extract your session tokens from game memory.
+                This app uses an expanded version of{' '}
+                <button
+                  onClick={() => handleOpenLink('https://github.com/Sainan/warframe-api-helper')}
+                  className="text-kronos-accent hover:underline cursor-pointer"
+                >
+                  warframe-api-helper
+                </button>
+                {' '} to extract sessions tokens and tail game logs.
               </p>
               <ul className="text-kronos-text/80 text-xs space-y-0.5 mb-2 list-disc list-inside">
-                <li>I am not the developer of the software linked above.</li>
-                <li>Digital Extremes has not approved this application.</li>
+                <li>Digital Extremes has not explicitly approved this application and has no affiliation with it.</li>
+                <li>The app merely reads memory; it never modifies it or game files.</li>
               </ul>
-              <p className="text-red-400 font-medium text-xs">Use at your own risk - potential ban risk always exists.</p>
-              <p className="text-kronos-dim text-xs mt-1">The app never modifies game files or memory, only reads authentication tokens.</p>
+              <p className="text-red-400 font-medium text-xs">Use at your own risk.</p>
             </div>
           </div>
         </Card>

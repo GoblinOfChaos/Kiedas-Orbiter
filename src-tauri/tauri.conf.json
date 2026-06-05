@@ -59,8 +59,14 @@
         "icons/icon.png"
       ],
       "resources": [
-        "data/bin/*",
-        "data/assets/**/*"
+        "data/assets/mod-frames/**/*",
+        "data/assets/mastery-icons/**/*",
+        "data/assets/maps/**/*",
+        "data/assets/ui/**/*",
+        "data/assets/ocr/**/*",
+        "data/assets/data/**/*",
+        "data/assets/audio/**/*",
+        "data/bin/*"
       ]
     },
     "updater": {

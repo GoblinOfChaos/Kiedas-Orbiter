@@ -597,33 +597,39 @@ const RANK_NAMES: &[&str] = &[
     "Master", "MiddleMaster", "GrandMaster"
 ];
 
+include!(concat!(env!("OUT_DIR"), "/bundled_assets.rs"));
+
+fn extract_bundled_assets(app_handle: &tauri::AppHandle) {
+    // Copy bundled asset files from inside the AppImage to the writable
+    // data root.  Runs once at startup so resolve_path finds everything.
+    for rel in BUNDLED_ASSET_FILES {
+        let dest = resolve_path(rel);
+        if dest.exists() {
+            continue;
+        }
+        if let Some(parent) = dest.parent() {
+            let _ = fs::create_dir_all(parent);
+        }
+        if let Some(bundled) = resolve_bundled_path(app_handle, rel) {
+            if bundled.exists() {
+                let _ = fs::copy(&bundled, &dest);
+            }
+        }
+    }
+}
+
 /// Download any map or mastery icon assets that aren't already cached.
 /// Called by MonitoringContext on startup.  Failures are non-fatal per asset.
 #[tauri::command]
-async fn check_media_assets(app_handle: tauri::AppHandle) -> Result<String, String> {
+async fn check_media_assets() -> Result<String, String> {
     let client = reqwest::Client::new();
     let mut downloaded = 0u32;
-    // Updated to point to glowseeker GitHub namespace:
     let base_url = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/main/src-tauri/data/export";
 
     // Download open-world maps to assets (used by Maps screen)
     let maps_dir = resolve_path("data/assets/maps");
     if !maps_dir.exists() {
         fs::create_dir_all(&maps_dir).map_err(|e| e.to_string())?;
-    }
-    // Copy from bundled if not in writable location
-    if let Some(bundled_maps) = resolve_bundled_path(&app_handle, "data/export/maps") {
-        if bundled_maps.exists() {
-            if let Ok(entries) = fs::read_dir(&bundled_maps) {
-                for entry in entries.flatten() {
-                    let file_name = entry.file_name();
-                    let dest = maps_dir.join(&file_name);
-                    if !dest.exists() {
-                        let _ = fs::copy(entry.path(), &dest);
-                    }
-                }
-            }
-        }
     }
     
     for map in MAP_FILES {
@@ -640,21 +646,6 @@ async fn check_media_assets(app_handle: tauri::AppHandle) -> Result<String, Stri
     let icons_dir = resolve_path("data/assets/mastery-icons");
     if !icons_dir.exists() {
         fs::create_dir_all(&icons_dir).map_err(|e| e.to_string())?;
-    }
-    
-    // Copy from bundled if not in writable location
-    if let Some(bundled_icons) = resolve_bundled_path(&app_handle, "data/export/masteryicons") {
-        if bundled_icons.exists() {
-            if let Ok(entries) = fs::read_dir(&bundled_icons) {
-                for entry in entries.flatten() {
-                    let file_name = entry.file_name();
-                    let dest = icons_dir.join(&file_name);
-                    if !dest.exists() {
-                        let _ = fs::copy(entry.path(), &dest);
-                    }
-                }
-            }
-        }
     }
     
     for rank in 0..=40 {
@@ -1144,8 +1135,22 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
     // Locate the CLI binary
     let bin_name = format!("Warframe-Exporter-CLI{}", std::env::consts::EXE_SUFFIX);
     let relative_bin = format!("data/bin/{}", bin_name);
-    let writable_bin = resolve_path(&relative_bin);
-    let bundled_bin = resolve_bundled_path(app_handle, &relative_bin);
+    let mut writable_bin = resolve_path(&relative_bin);
+    let mut bundled_bin = resolve_bundled_path(app_handle, &relative_bin);
+
+    #[cfg(target_os = "linux")]
+    {
+        let appimage_name = "data/bin/Warframe-Exporter-CLI_Linux.AppImage";
+        if !writable_bin.exists() {
+            let alt = resolve_path(appimage_name);
+            if alt.exists() { writable_bin = alt; }
+        }
+        if bundled_bin.as_ref().map_or(true, |p| !p.exists()) {
+            let alt = resolve_bundled_path(app_handle, appimage_name);
+            if let Some(ref p) = alt { if p.exists() { bundled_bin = alt; } }
+        }
+    }
+
     let bin_path = if writable_bin.exists() {
         writable_bin
     } else if let Some(b) = bundled_bin.clone().filter(|p| p.exists()) {
@@ -1223,6 +1228,7 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
         "/Lotus/Interface/Icons/Tomes/",
         "/Lotus/Interface/Icons/RailjackSystemMods/",
         "/Lotus/Interface/Icons/Stickers/",
+        "/Lotus/Interface/Icons/CosmeticEnhancers/",
     ];
     for internal_path in ui_icon_paths.iter() {
         let ui_dir = output_dir.join(internal_path.trim_start_matches('/'));
@@ -2147,6 +2153,8 @@ fn main() {
             crate::log_scanner::log_app_start(&app.handle());
             let _ = app.get_window("main").unwrap();
             let ah = app.handle();
+            // Extract bundled assets from inside the AppImage to the writable data root
+            extract_bundled_assets(&ah);
             // Download PP-OCRv5 models in background (needed by ocr_engine)
             tauri::async_runtime::spawn(async move {
                 match check_ocr_models().await {

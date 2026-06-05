@@ -38,7 +38,7 @@ fn walk_dir(base: &std::path::Path, root: &std::path::Path, dir: &std::path::Pat
                 walk_dir(base, root, &path, files);
             } else if path.is_file() {
                 let rel = path.strip_prefix(base).unwrap();
-                files.push(rel.to_string_lossy().to_string());
+                files.push(rel.to_string_lossy().to_string().replace('\\', "/"));
             }
         }
     }

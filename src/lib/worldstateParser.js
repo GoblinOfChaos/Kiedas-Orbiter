@@ -620,7 +620,7 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
       return {
         category: isHard ? 'Steel Path' : 'Normal',
         choices: (c.Choices || []).map(choice => ({
-          name: resolveItemName(choice, dict, uniqueNameToName),
+          name: resolveItemName(choice, dict, uniqueNameToName).replace(/\s+And\s+/g, ' & '),
           uniqueName: choice
         }))
       }

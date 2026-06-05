@@ -624,7 +624,8 @@ export default function Dashboard() {
       if (byUnique) return byUnique
       const byName = nameToImage[ch.name.toLowerCase()]
       if (byName) return byName
-      const partialMatch = Object.entries(nameToImage).find(([k]) => k.includes(ch.name.toLowerCase().replace(/\s+/g, '')))
+      const normalize = (s) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]/g, '')
+      const partialMatch = Object.entries(nameToImage).find(([k]) => normalize(k).includes(normalize(ch.name)))
       return partialMatch ? partialMatch[1] : null
     }
 

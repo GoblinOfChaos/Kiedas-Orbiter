@@ -93,9 +93,6 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
     }
 
     let crop = full.crop_imm(cx, cy, cw, ch);
-    let debug_dir = crate::get_data_root().join("data/user");
-    let _ = std::fs::create_dir_all(&debug_dir);
-    let _ = crop.save(debug_dir.join(format!("riven_ocr_{:?}.png", position)));
 
     // Grayscale + contrast stretch
     let gray = crop.to_luma8();
@@ -123,14 +120,13 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
 
     // Recognize each line individually with RecModel (fast — no detection model)
     let mut results = Vec::new();
-    for (i, &(y0, y1)) in lines.iter().enumerate() {
+    for &(y0, y1) in &lines {
         let line_h = y1 - y0;
         if line_h < 3 { continue; }
         let line_crop = dyn_stretched.clone().crop_imm(0, y0, w, line_h).to_luma8();
         let text = crate::ocr_engine::recognize(&line_crop);
         if !text.is_empty() {
             results.push(text);
-            let _ = DynamicImage::ImageLuma8(line_crop).save(debug_dir.join(format!("riven_ocr_{:?}_line{}.png", position, i)));
         }
     }
 
@@ -182,26 +178,6 @@ pub fn get_target_monitor(app: &AppHandle) -> Option<Monitor> {
         .find(|m| m.is_primary().unwrap_or(false))
         .cloned();
     primary.or_else(|| monitors.first().cloned())
-}
-
-pub fn is_requiem_session(app: &AppHandle) -> bool {
-    let state = app.state::<crate::AppState>();
-    let data = match state.active_relic_data.lock() {
-        Ok(guard) => guard.clone(),
-        Err(_) => return false,
-    };
-    if let Some(val) = data {
-        if let Some(relics) = val.get("squad_relics").and_then(|r| r.as_array()) {
-            for r in relics {
-                if let Some(tier) = r.get("tier").and_then(|t| t.as_str()) {
-                    if tier == "Requiem" {
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-    false
 }
 
 struct RequiemTemplate {
@@ -320,12 +296,6 @@ fn identify_requiem_mod(_app: &AppHandle, slot_crop: &DynamicImage, slot_idx: us
         return None;
     }
 
-    let debug_dir = crate::get_data_root().join("data/user");
-    let _ = std::fs::create_dir_all(&debug_dir);
-
-    // Save raw crop for reference
-    let _ = slot_crop.save(debug_dir.join(format!("requiem_debug_slot{}.png", slot_idx)));
-
     let (cw, ch) = (slot_crop.width(), slot_crop.height());
     if cw < 4 || ch < 4 {
         return None;
@@ -336,9 +306,6 @@ fn identify_requiem_mod(_app: &AppHandle, slot_crop: &DynamicImage, slot_idx: us
     let crop_red = red_channel(&crop_rgb);
     let crop_resized = image::imageops::resize(&crop_red, cw, ch, image::imageops::FilterType::Lanczos3);
     let crop_raw = crop_resized.as_raw();
-
-    // Save processed crop for visual verification
-    let _ = crop_resized.save(debug_dir.join(format!("requiem_debug_slot{}_processed.png", slot_idx)));
 
     let mut results: Vec<(&'static str, f32)> = Vec::new();
 
@@ -998,12 +965,6 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
                 let line1 = dyn_binary.crop_imm(0, 0, uw, (midpoint + overlap).min(uh)).to_luma8();
                 let line2 = dyn_binary.crop_imm(0, (midpoint - overlap).max(0), uw, uh - ((midpoint - overlap).max(0))).to_luma8();
 
-                // Save debug images for line1 and line2
-                let debug_dir = crate::get_data_root().join("data/user");
-                if let Some(_parent) = debug_dir.parent() { let _ = std::fs::create_dir_all(&debug_dir); }
-                let _ = line1.save(debug_dir.join(format!("ocr_debug_slot{}_line1.png", slot_idx)));
-                let _ = line2.save(debug_dir.join(format!("ocr_debug_slot{}_line2.png", slot_idx)));
-
                 let mut combined_lines = Vec::new();
                 for (_l_idx, line_img) in [(0usize, line1), (1usize, line2)] {
                     let text = crate::ocr_engine::recognize(&line_img);
@@ -1090,7 +1051,6 @@ fn clean_ocr_output(raw: &str) -> String {
 
         let combined_text = slot_results.iter().map(|r| r.text.clone()).collect::<Vec<_>>().join(" | ");
         ocr_log!(&app_c, "[OCR] [Attempt {}] Total pipeline time: {}ms", attempt + 1, start_time.elapsed().as_millis());
-        let _ = app_c.emit("overlay-debug-text", serde_json::json!({ "text": combined_text }));
         app_c.emit("fissure-ocr-band", OcrBandResult { text: combined_text, slot_results, is_debug }).unwrap_or_default();
     });
 }

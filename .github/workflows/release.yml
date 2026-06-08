@@ -47,7 +47,6 @@ jobs:
             libgtk-3-dev \
             libwebkit2gtk-4.1-dev \
             libjavascriptcoregtk-4.1-dev \
-            libappindicator3-dev \
             librsvg2-dev \
             patchelf \
             clang \
@@ -77,47 +76,6 @@ jobs:
         shell: bash
         run: |
           bash helpers/build_win.sh
-
-      - name: Build and Bundle Portable Tesseract (Linux)
-        if: matrix.platform == 'ubuntu-22.04'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y tesseract-ocr
-          mkdir -p src-tauri/data/bin
-          # Copy the binary
-          cp $(which tesseract) src-tauri/data/bin/tesseract
-          # Copy all shared library dependencies (.so files) EXCEPT core system libs like libc,
-          # as bundling them causes major version conflicts on newer/older host distros.
-          ldd $(which tesseract) | grep "=> /" | grep -vE "libc\.so|libm\.so|libdl\.so|libpthread\.so|librt\.so|libgcc_s\.so|libstdc\+\+\.so|libresolv\.so|libutil\.so|libcrypt\.so" | awk '{print $3}' | xargs -I {} readlink -f {} | xargs -I {} cp -L {} src-tauri/data/bin/
-          chmod +x src-tauri/data/bin/tesseract
-
-      - name: Install and copy Tesseract (macOS)
-        if: matrix.platform == 'macos-latest'
-        run: |
-          brew install tesseract dylibbundler
-          mkdir -p src-tauri/data/bin
-          cp $(which tesseract) src-tauri/data/bin/tesseract
-          chmod +x src-tauri/data/bin/tesseract
-          dylibbundler -b -x src-tauri/data/bin/tesseract -d src-tauri/data/bin/ -p @executable_path/
-
-      - name: Build and Bundle Portable Tesseract (Windows)
-        if: matrix.platform == 'windows-latest'
-        shell: bash
-        run: |
-          # 1. Install Tesseract via Chocolatey
-          choco install tesseract -y
-          
-          # 2. Get the installation path (usually C:\Program Files\Tesseract-OCR)
-          TESS_PATH="/c/Program Files/Tesseract-OCR"
-          
-          # 3. Copy the executable and all DLLs to your bin folder
-          mkdir -p src-tauri/data/bin
-          cp "$TESS_PATH/tesseract.exe" src-tauri/data/bin/
-          cp "$TESS_PATH"/*.dll src-tauri/data/bin/
-          
-          # 4. Copy the English data file
-          mkdir -p src-tauri/data/bin/tessdata
-          cp "$TESS_PATH/tessdata/eng.traineddata" src-tauri/data/bin/tessdata/
 
       - name: Prepare Tauri Binaries Directory
         shell: bash

@@ -961,15 +961,6 @@ fn composite_card_overlays_inner(card_root: &std::path::Path) {
     }
 }
 
-/// Backward-compat single-image fix — used by the old ModCard flow; kept alive
-/// in case some frontend still references it. New code uses the batch path.
-#[tauri::command]
-fn invert_alpha_png(path: String) -> Result<Vec<u8>, String> {
-    let p = std::path::Path::new(&path);
-    let _ = make_fully_opaque(p);
-    std::fs::read(p).map_err(|e| format!("Failed to read PNG: {}", e))
-}
-
 /// Auto-detect the Warframe cache directory by checking Steam registry.
 /// Returns the cache path on success or an error if not found.
 #[tauri::command]
@@ -1136,23 +1127,24 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
     // Locate the CLI binary
     let bin_name = format!("Warframe-Exporter-CLI{}", std::env::consts::EXE_SUFFIX);
     let relative_bin = format!("data/bin/{}", bin_name);
-    #[allow(unused_mut)]
-    let mut writable_bin = resolve_path(&relative_bin);
-    #[allow(unused_mut)]
-    let mut bundled_bin = resolve_bundled_path(app_handle, &relative_bin);
+    let writable_bin = resolve_path(&relative_bin);
+    let bundled_bin = resolve_bundled_path(app_handle, &relative_bin);
 
     #[cfg(target_os = "linux")]
-    {
+    let (writable_bin, bundled_bin) = {
         let appimage_name = "data/bin/Warframe-Exporter-CLI_Linux.AppImage";
-        if !writable_bin.exists() {
-            let alt = resolve_path(appimage_name);
-            if alt.exists() { writable_bin = alt; }
-        }
-        if bundled_bin.as_ref().map_or(true, |p| !p.exists()) {
-            let alt = resolve_bundled_path(app_handle, appimage_name);
-            if let Some(ref p) = alt { if p.exists() { bundled_bin = alt; } }
-        }
-    }
+        let wb = if !writable_bin.exists() {
+            resolve_path(appimage_name)
+        } else {
+            writable_bin
+        };
+        let bb = if bundled_bin.as_ref().map_or(true, |p| !p.exists()) {
+            resolve_bundled_path(app_handle, appimage_name)
+        } else {
+            bundled_bin
+        };
+        (wb, bb)
+    };
 
     let bin_path = if writable_bin.exists() {
         writable_bin
@@ -1183,27 +1175,8 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
         #[cfg(target_os = "linux")]
         {
             cmd.env("APPIMAGE_EXTRACT_AND_RUN", "1");
-        }
-
-        cmd.arg("--cache-dir")
-           .arg(cache_path)
-           .arg("--game")
-           .arg("Warframe")
-           .arg("--extract-textures")
-           .arg("--package")
-           .arg("Texture")
-            .arg("--texture-format")
-            .arg("PNG")
-            .arg("--internal-path")
-            .arg("/Lotus/Interface/Cards/Images/")
-            .arg("--output-path")
-            .arg(&output_dir);
-
-        #[cfg(windows)]
-        {
-            use std::os::windows::process::CommandExt;
-            const CREATE_NO_WINDOW: u32 = 0x08000000;
-            cmd.creation_flags(CREATE_NO_WINDOW);
+            cmd.env_remove("APPDIR");
+            cmd.env_remove("APPIMAGE");
         }
 
         let output = cmd.output().map_err(|e| format!("Failed to launch Warframe-Exporter-CLI: {e}"))?;
@@ -1251,6 +1224,8 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
         #[cfg(target_os = "linux")]
         {
             ui_cmd.env("APPIMAGE_EXTRACT_AND_RUN", "1");
+            ui_cmd.env_remove("APPDIR");
+            ui_cmd.env_remove("APPIMAGE");
         }
         ui_cmd.arg("--cache-dir")
               .arg(cache_path)
@@ -1609,7 +1584,7 @@ async fn show_notification(
 }
 
 #[tauri::command]
-async fn open_url(app_handle: tauri::AppHandle, url: String) -> Result<(), String> {
+async fn open_url(_app_handle: tauri::AppHandle, url: String) -> Result<(), String> {
     #[cfg(target_os = "linux")]
     {
         use std::process::Command;
@@ -2164,7 +2139,6 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
             // --- card images ---
             get_card_images_path,
             read_file_bytes,
-            invert_alpha_png,
             count_unfixed_card_images,
             ensure_card_images,
             detect_warframe_cache,

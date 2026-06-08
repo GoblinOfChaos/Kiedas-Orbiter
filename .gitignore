@@ -26,7 +26,7 @@ dist-ssr
 # Ignore everything inside the data directory
 src-tauri/data/export/*
 src-tauri/data/user/*
-!src-tauri/data/user/.placeholder
+!src-tauri/data/user/placeholder
 
 # Card images are extracted from Warframe cache at runtime (140+ MB)
 src-tauri/data/assets/card-images/

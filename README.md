@@ -43,8 +43,8 @@ This application is **not** affiliated with Digital Extremes. It utilizes a memo
 **Linux** (Debian/Ubuntu) requires these system packages:
 
 ```bash
-sudo apt install -y pkg-config build-essential libgtk-3-dev libwebkit2gtk-4.0-dev \
-  libappindicator3-dev librsvg2-dev patchelf clang lld libasound2-dev libssl-dev \
+sudo apt install -y pkg-config build-essential libgtk-3-dev libwebkit2gtk-4.1-dev \
+  librsvg2-dev patchelf clang lld libasound2-dev libssl-dev \
   libdbus-1-dev libpango1.0-dev libcairo2-dev libarchive-dev libicu-dev libcap-dev
 ```
 

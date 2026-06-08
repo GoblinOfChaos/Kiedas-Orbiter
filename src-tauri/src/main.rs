@@ -2035,6 +2035,17 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
  fn main() {
     #[cfg(target_os = "linux")]
     {
+        // Raise file descriptor limit — WebKit + software rendering (GDK_BACKEND=x11
+        // + WEBKIT_DISABLE_COMPOSITING_MODE) uses significantly more SHM segments.
+        // The default 1024 isn't enough; give ourselves plenty of headroom.
+        unsafe {
+            let mut lim: libc::rlimit = std::mem::zeroed();
+            if libc::getrlimit(libc::RLIMIT_NOFILE, &mut lim) == 0 {
+                lim.rlim_cur = 65536u64.min(lim.rlim_max);
+                libc::setrlimit(libc::RLIMIT_NOFILE, &lim);
+            }
+        }
+
         webkit2gtk_nvidia_quirk::apply_workaround_with_options(Default::default());
         // The quirk crate may not detect the Nvidia driver inside AppImage
         // environments. Set DMABUF disable as a hard fallback.

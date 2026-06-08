@@ -210,11 +210,17 @@ async function tryFetchPrice(slug, maxRank = null) {
     }
 
     const data = response.data;
+    if (!data) {
+      console.warn(`[WFM Cache] Empty response for ${slug}`);
+      return null;
+    }
     let orders = null;
     if (Array.isArray(data.data)) {
       orders = data.data;
-    } else {
-      orders = data.payload?.orders || data.data?.orders || data.orders;
+    } else if (data.payload?.orders) {
+      orders = data.payload.orders;
+    } else if (data.orders) {
+      orders = data.orders;
     }
 
     if (!orders || !Array.isArray(orders)) {

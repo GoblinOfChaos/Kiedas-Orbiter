@@ -44,6 +44,7 @@ ndarray = "0.17.2"
 gtk = "0.18"
 gdkx11 = "0.18"
 glib = "0.18"
+libc = "0.2"
 
 [target.'cfg(windows)'.dependencies]
 winreg = "0.52"

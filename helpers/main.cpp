@@ -13,7 +13,7 @@
 #ifdef _WIN32
 #include <io.h>
 #include <fcntl.h>
-#else
+#elif defined(__linux__)
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #endif
@@ -470,7 +470,7 @@ static void getWindowRectMode()
 
 #ifdef _WIN32
     struct EnumCtx { DWORD pid; HWND hwnd; };
-    EnumCtx ctx{ proc->pid, nullptr };
+    EnumCtx ctx{ static_cast<DWORD>(proc->id), nullptr };
 
     EnumWindows([](HWND hwnd, LPARAM lParam) -> BOOL {
         auto& ctx = *reinterpret_cast<EnumCtx*>(lParam);
@@ -496,7 +496,7 @@ static void getWindowRectMode()
     {
         std::cout << "not found" << std::endl;
     }
-#else
+#elif defined(__linux__)
     // Linux: use Xlib to find window by PID. Works on X11 (both native
     // apps and Wine/Proton windows). On Wayland, XWayland may provide a
     // bridge, but native Wayland windows won't be visible to Xlib —
@@ -573,7 +573,10 @@ static void getWindowRectMode()
         XCloseDisplay(dpy);
         std::cout << "not found" << std::endl;
     }
-    return;
+#else
+    // macOS: no X11, skip
+    (void)proc;
+    std::cout << "not found" << std::endl;
 #endif
 }
 

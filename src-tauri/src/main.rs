@@ -225,7 +225,8 @@ async fn check_pricer_models() -> Result<String, String> {
     if !models_dir.exists() {
         std::fs::create_dir_all(&models_dir).map_err(|e| e.to_string())?;
     }
-    let base = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/main/src-tauri/data/bin/pricer-models";
+    let version = env!("CARGO_PKG_VERSION");
+    let base = format!("https://raw.githubusercontent.com/glowseeker/cephalon-kronos/v{}/src-tauri/data/bin/pricer-models", version);
     let files = &[
         "price_model.onnx",
         "weapon_vocab.json",
@@ -2039,6 +2040,11 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
     #[cfg(target_os = "linux")]
     {
         webkit2gtk_nvidia_quirk::apply_workaround_with_options(Default::default());
+        // The quirk crate may not detect the Nvidia driver inside AppImage
+        // environments. Set DMABUF disable as a hard fallback.
+        if std::env::var("WEBKIT_DISABLE_DMABUF_RENDERER").is_err() {
+            std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
+        }
         std::env::set_var("WEBKIT_DISABLE_COMPOSITING_MODE", "1");
         // Force X11 backend unconditionally — X11 is required for:
         //   1. Raw XMoveWindow to position transparent (ARGB visual) windows

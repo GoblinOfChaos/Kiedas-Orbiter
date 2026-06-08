@@ -55,19 +55,9 @@ export default function RelicRewardOverlay() {
     }
   }, [windowVisible])
 
-  // Force-show the window on mount (idempotent — the overlay is hidden by default)
-  useEffect(() => {
-    const init = async () => {
-      try {
-        await invoke('show_overlay_window', { label: 'overlay-relic' })
-        console.log('[RelicOverlay] Window shown on mount')
-        setWindowVisible(true)
-      } catch (err) {
-        console.error('[RelicOverlay] show on mount failed:', err)
-      }
-    }
-    init()
-  }, [])
+  // The overlay is shown by the OCR pipeline via scanner-relic-phase-start event.
+  // No need to force-show on mount — that would show the overlay even outside
+  // a fissure mission.
 
   useEffect(() => {
     // 1. Immediately request the cached session data in case the event was missed

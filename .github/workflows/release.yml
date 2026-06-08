@@ -17,14 +17,9 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Checkout API helper
+      - name: Checkout repository (with submodules)
         uses: actions/checkout@v4
         with:
-          repository: Obsidian-Jackal/warframe-api-helper
-          path: helper-src
           submodules: recursive
 
       - name: Install Node.js
@@ -67,48 +62,20 @@ jobs:
 
       - name: Build API Helper (Linux)
         if: matrix.platform == 'ubuntu-22.04'
-        working-directory: helper-src
         run: |
-          SOUP_DIR="Soup/soup"
-          BIN_DIR="bin/int"
-          mkdir -p "$BIN_DIR" bin
-          for f in "$SOUP_DIR"/*.cpp; do
-            clang++ -std=c++20 -fno-rtti -O3 -fPIE -ffunction-sections -fdata-sections -DSOUP_STANDALONE -c "$f" -o "$BIN_DIR/$(basename "${f%.cpp}").o" -I"$SOUP_DIR"
-          done
-          ar rcs libsoup.a "$BIN_DIR"/*.o
-          clang++ -std=c++20 -fno-rtti -O3 -fPIE -ffunction-sections -fdata-sections -DSOUP_STANDALONE -fuse-ld=lld -Wl,--gc-sections,--icf=safe -c main.cpp -o "$BIN_DIR/main.o" -I"$SOUP_DIR"
-          clang++ -std=c++20 -fno-rtti -O3 -fPIE -fuse-ld=lld -Wl,--gc-sections,--icf=safe "$BIN_DIR/main.o" libsoup.a -lstdc++ -pthread -lm -ldl -lresolv -lstdc++fs -o bin/warframe-api-helper
-          strip bin/warframe-api-helper
+          bash helpers/build_linux.sh
+          strip src-tauri/data/bin/warframe-api-helper
 
       - name: Build API Helper (macOS)
         if: matrix.platform == 'macos-latest'
-        working-directory: helper-src
         run: |
-          SOUP_DIR="Soup/soup"
-          BIN_DIR="bin/int"
-          mkdir -p "$BIN_DIR" bin
-          for f in "$SOUP_DIR"/*.cpp; do
-            clang++ -std=c++20 -fno-rtti -O3 -fPIE -ffunction-sections -fdata-sections -DSOUP_STANDALONE -c "$f" -o "$BIN_DIR/$(basename "${f%.cpp}").o" -I"$SOUP_DIR"
-          done
-          ar rcs libsoup.a "$BIN_DIR"/*.o
-          clang++ -std=c++20 -fno-rtti -O3 -fPIE -ffunction-sections -fdata-sections -DSOUP_STANDALONE -c main.cpp -o "$BIN_DIR/main.o" -I"$SOUP_DIR"
-          clang++ -std=c++20 -fno-rtti -O3 -fPIE -Wl,-dead_strip "$BIN_DIR/main.o" libsoup.a -lc++ -pthread -o bin/warframe-api-helper
-          strip bin/warframe-api-helper
+          bash helpers/build_macos.sh
 
       - name: Build API Helper (Windows)
         if: matrix.platform == 'windows-latest'
-        working-directory: helper-src
         shell: bash
         run: |
-          SOUP_DIR="Soup/soup"
-          BIN_DIR="bin/int"
-          mkdir -p "$BIN_DIR" bin
-          for f in "$SOUP_DIR"/*.cpp; do
-            clang++ -std=c++20 -fno-rtti -O3 -ffunction-sections -fdata-sections -DSOUP_STANDALONE -D_WIN32_WINNT=0x0601 -c "$f" -o "$BIN_DIR/$(basename "${f%.cpp}").o" -I"$SOUP_DIR"
-          done
-          ar rcs libsoup.a "$BIN_DIR"/*.o
-          clang++ -std=c++20 -fno-rtti -O3 -ffunction-sections -fdata-sections -DSOUP_STANDALONE -D_WIN32_WINNT=0x0601 -c main.cpp -o "$BIN_DIR/main.o" -I"$SOUP_DIR"
-          clang++ -std=c++20 -fno-rtti -O3 -Wl,--gc-sections "$BIN_DIR/main.o" libsoup.a -static-libgcc -static-libstdc++ -liphlpapi -ldnsapi -lbcrypt -lsetupapi -lgdi32 -lhid -lws2_32 -lwsock32 -o bin/warframe-api-helper.exe
+          bash helpers/build_win.sh
 
       - name: Build and Bundle Portable Tesseract (Linux)
         if: matrix.platform == 'ubuntu-22.04'
@@ -169,15 +136,6 @@ jobs:
           curl -L "https://github.com/Puxtril/Warframe-Exporter/releases/download/v2.14/Warframe-Exporter-CLI_Linux.AppImage" \
             -o src-tauri/data/bin/Warframe-Exporter-CLI
           chmod +x src-tauri/data/bin/Warframe-Exporter-CLI
-
-      - name: Copy Helper Binary (Unix)
-        if: matrix.platform != 'windows-latest'
-        run: cp helper-src/bin/warframe-api-helper src-tauri/data/bin/warframe-api-helper
-
-      - name: Copy Helper Binary (Windows)
-        if: matrix.platform == 'windows-latest'
-        shell: bash
-        run: cp helper-src/bin/warframe-api-helper.exe src-tauri/data/bin/warframe-api-helper.exe
 
       - name: Install frontend dependencies
         run: pnpm install

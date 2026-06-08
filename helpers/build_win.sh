@@ -7,7 +7,7 @@ clean=false
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-SOUP_DIR="${SOUP_DIR:-$HOME/dev/soup}"
+SOUP_DIR="${SOUP_DIR:-$(cd "$SCRIPT_DIR/../lib/soup" && pwd)}"
 SOUP_SRC="$SOUP_DIR/soup"
 MAIN_FILE="$SCRIPT_DIR/main.cpp"
 OUT_DIR="$REPO_DIR/build_int_win"

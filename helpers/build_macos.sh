@@ -10,7 +10,7 @@ REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 SOUP_DIR="${SOUP_DIR:-$(cd "$SCRIPT_DIR/../lib/soup" && pwd)}"
 SOUP_SRC="$SOUP_DIR/soup"
 MAIN_FILE="$SCRIPT_DIR/main.cpp"
-OUT_DIR="$REPO_DIR/build_int_linux"
+OUT_DIR="$REPO_DIR/build_int_macos"
 EXE_DIR="$REPO_DIR/src-tauri/data/bin"
 
 if $clean; then
@@ -22,7 +22,7 @@ fi
 mkdir -p "$OUT_DIR" "$EXE_DIR"
 
 CXXFLAGS=(
-    -std=c++20 -fno-rtti -O2 -ffunction-sections -fdata-sections
+    -std=c++20 -fno-rtti -O3 -fPIE -ffunction-sections -fdata-sections
     -DSOUP_STANDALONE
 )
 
@@ -49,8 +49,8 @@ echo "  main.cpp"
 clang++ "${CXXFLAGS[@]}" -c "$MAIN_FILE" -o "$OUT_DIR/main.o" -I"$SOUP_DIR" -I"$SOUP_SRC"
 
 echo "Linking..."
-LIBS=(-lX11 -lpthread -lresolv)
-clang++ -O2 "${LIBS[@]}" "$OUT_DIR"/*.o -o "$OUT_DIR/warframe-api-helper"
+LIBS=(-lc++ -pthread)
+clang++ -O3 -fPIE -Wl,-dead_strip "${LIBS[@]}" "$OUT_DIR"/*.o -o "$OUT_DIR/warframe-api-helper"
 
 cp "$OUT_DIR/warframe-api-helper" "$EXE_DIR/warframe-api-helper"
-echo "SUCCESS: $EXE_DIR/warframe-api-helper ($(stat -c%s "$EXE_DIR/warframe-api-helper" 2>/dev/null || stat -f%z "$EXE_DIR/warframe-api-helper" 2>/dev/null) bytes)"
+echo "SUCCESS: $EXE_DIR/warframe-api-helper ($(stat -f%z "$EXE_DIR/warframe-api-helper" 2>/dev/null || stat -c%s "$EXE_DIR/warframe-api-helper" 2>/dev/null) bytes)"

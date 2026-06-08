@@ -44,6 +44,9 @@ src-tauri/Cargo.lock
 # C++ build artifacts
 build_int/
 build_warframe_helper.ps1
+
+# Soup submodule content (git tracks it via .gitmodules, no need to index)
+lib/soup/
 *.obj
 
 # Tauri v2 generated schemas (auto-generated, do not commit)

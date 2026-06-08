@@ -161,6 +161,13 @@ function generateSlugVariants(itemName) {
     variants.push(withoutS, withS);
   }
 
+  // WFM v2 expects prime component slugs to end with _blueprint
+  // (e.g. ash_prime_chassis_blueprint), but the readable name is
+  // "Ash Prime Chassis" (no "Blueprint" in it), so add the suffix.
+  if (!base.includes('blueprint')) {
+    variants.push(base + '_blueprint');
+  }
+
   return [...new Set(variants)];
 }
 

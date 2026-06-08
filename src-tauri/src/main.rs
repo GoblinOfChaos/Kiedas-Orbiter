@@ -1179,6 +1179,27 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
             cmd.env_remove("APPIMAGE");
         }
 
+        cmd.arg("--cache-dir")
+           .arg(cache_path)
+           .arg("--game")
+           .arg("Warframe")
+           .arg("--extract-textures")
+           .arg("--package")
+           .arg("Texture")
+           .arg("--texture-format")
+           .arg("PNG")
+           .arg("--internal-path")
+           .arg("/Lotus/Interface/Cards/Images/")
+           .arg("--output-path")
+           .arg(&output_dir);
+
+        #[cfg(windows)]
+        {
+            use std::os::windows::process::CommandExt;
+            const CREATE_NO_WINDOW: u32 = 0x08000000;
+            cmd.creation_flags(CREATE_NO_WINDOW);
+        }
+
         let output = cmd.output().map_err(|e| format!("Failed to launch Warframe-Exporter-CLI: {e}"))?;
         if !output.status.success() {
             let stderr = String::from_utf8_lossy(&output.stderr);
@@ -2060,6 +2081,7 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_shell::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_opener::init())
         .manage(AppState {
             notif_sound: Arc::new(Mutex::new(saved_sound.to_string())),

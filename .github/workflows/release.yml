@@ -93,8 +93,21 @@ jobs:
         shell: bash
         run: |
           curl -L "https://github.com/Puxtril/Warframe-Exporter/releases/download/v2.14/Warframe-Exporter-CLI_Linux.AppImage" \
-            -o src-tauri/data/bin/Warframe-Exporter-CLI
-          chmod +x src-tauri/data/bin/Warframe-Exporter-CLI
+            -o /tmp/Warframe-Exporter-CLI.AppImage
+          chmod +x /tmp/Warframe-Exporter-CLI.AppImage
+          # Extract the AppImage so we bundle a plain ELF (avoid nested AppImage issues)
+          /tmp/Warframe-Exporter-CLI.AppImage --appimage-extract > /dev/null 2>&1
+          # Find the actual binary inside the extracted squashfs
+          BIN=$(find squashfs-root -type f -executable 2>/dev/null | head -1)
+          if [ -n "$BIN" ]; then
+            cp "$BIN" src-tauri/data/bin/Warframe-Exporter-CLI
+            chmod +x src-tauri/data/bin/Warframe-Exporter-CLI
+          else
+            # Fallback: if extraction didn't work, use the AppImage as-is
+            cp /tmp/Warframe-Exporter-CLI.AppImage src-tauri/data/bin/Warframe-Exporter-CLI
+            chmod +x src-tauri/data/bin/Warframe-Exporter-CLI
+          fi
+          rm -rf squashfs-root /tmp/Warframe-Exporter-CLI.AppImage
 
       - name: Install frontend dependencies
         run: pnpm install

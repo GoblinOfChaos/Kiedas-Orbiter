@@ -410,10 +410,9 @@ pub fn resize_overlay_window(
         let phys_w = (width * scale) as u32;
         let phys_h = (height * scale) as u32;
 
-        let was_visible = window.is_visible().unwrap_or(false);
-
         #[cfg(target_os = "linux")]
         {
+            let was_visible = window.is_visible().unwrap_or(false);
             if let Some((xdisplay, xid)) = get_x11_ids(&window) {
                 apply_x11_overlay_hints(xdisplay, xid, was_visible);
             }

@@ -191,14 +191,14 @@ function u(base, folder, file) {
 }
 
 function Img({ src, className, style }) {
-  return src ? <img src={src} className={className} style={{ ...style, opacity: 0, transition: 'opacity 0.15s' }} alt="" onLoad={e => e.target.style.opacity = 1} onError={e => e.target.style.display = 'none'} /> : null
+  return src ? <img src={src} className={className} style={{ ...style, opacity: 0, transition: 'opacity 0.15s' }} alt="" loading="lazy" onLoad={e => e.target.style.opacity = 1} onError={e => e.target.style.display = 'none'} /> : null
 }
 
 function SafeImg({ src, className, style, alt, onError }) {
   const [error, setError] = useState(false)
   const [loaded, setLoaded] = useState(false)
   if (!src || error) return null
-  return <img src={src} className={className} style={{ ...style, opacity: loaded ? 1 : 0, transition: 'opacity 0.15s' }} alt={alt || ''} onLoad={() => setLoaded(true)} onError={() => { setError(true); onError?.() }} />
+  return <img src={src} className={className} style={{ ...style, opacity: loaded ? 1 : 0, transition: 'opacity 0.15s' }} alt={alt || ''} loading="lazy" onLoad={() => setLoaded(true)} onError={() => { setError(true); onError?.() }} />
 }
 
 const RankPips = memo(function RankPips({ modFrame, rank, maxRank, framesPath, pipColorGroup, cardWidth }) {

@@ -127,7 +127,7 @@ impl LogScanner {
         }
 
         // === 4. Reward Screen Trigger ===
-        if s.contains("Relic rewards initialized") || s.contains("ProjectionRewardChoice.lua: Got rewards") {
+        if (s.contains("Relic rewards initialized") || s.contains("ProjectionRewardChoice.lua: Got rewards")) && self.is_fissure {
             if crate::ocr::ICON_SCAN_ACTIVE.load(Ordering::SeqCst) {
                 return;
             }
@@ -560,6 +560,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 let mut len_buf = [0u8; 4];
                 if reader.read_exact(&mut len_buf).is_err() {
                     crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Helper stream ended, restarting...");
+                    let _ = child.kill();
                     break;
                 }
                 let data_len = u32::from_le_bytes(len_buf) as usize;
@@ -589,6 +590,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 buf.resize(data_len, 0);
                 if reader.read_exact(&mut buf).is_err() {
                     crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Read error, restarting helper...");
+                    let _ = child.kill();
                     break;
                 }
 

@@ -431,7 +431,7 @@ function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFound
   )
 }
 export default function Inventory() {
-  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading } = useMonitoring()
+  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress } = useMonitoring()
   const [activeTab, setActiveTab] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [showFilterSortPanel, setShowFilterSortPanel] = useState(false)
@@ -513,8 +513,8 @@ export default function Inventory() {
         return sortDirection === 'asc' ? aComplete - bComplete : bComplete - aComplete
       }
       if (activeTab === 'prime_parts' && sortCriteria === 'value') {
-        const aVal = (a.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0)
-        const bVal = (b.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0)
+        const aVal = primePrices?.[a.setPath] ?? (a.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0)
+        const bVal = primePrices?.[b.setPath] ?? (b.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0)
         return sortDirection === 'asc' ? aVal - bVal : bVal - aVal
       }
       let av = a[sortCriteria] ?? ''; let bv = b[sortCriteria] ?? ''
@@ -701,7 +701,15 @@ export default function Inventory() {
             <div className="text-center py-20 text-kronos-dim">No items found in {tabLabel.toLowerCase()}.</div>
           ) : activeTab === 'prime_parts' ? (
             <>
-              {primePrices === null && (
+              {priceFetchProgress && (
+                <div className="flex items-center gap-2 pb-2 px-1">
+                  <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <span className="text-[10px] font-black uppercase text-kronos-accent">Fetching plat values {priceFetchProgress.current} of {priceFetchProgress.total}...</span>
+                </div>
+              )}
+              {isPriceLoading && !priceFetchProgress && (
                 <div className="flex items-center gap-2 pb-2 px-1">
                   <div className="flex gap-0.5">
                     <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
@@ -716,20 +724,19 @@ export default function Inventory() {
                 const isParentOwned = set.owned
                 const isParentMastered = set.mastered
 
-                // Count unique components owned (presence, not quantity)
-                const uniqueOwned = set.parts.filter(p => p.quantity > 0).length
+                const uniqueOwned = set.parts.filter(p => p.quantity >= (p.need ?? 1)).length
                 const uniqueTotal = set.parts.length
                 const completion = Math.min(100, uniqueOwned / uniqueTotal * 100)
                 const isComplete = uniqueOwned >= uniqueTotal
                 const bpPart = set.parts.find(p => p.name.includes('Blueprint'))
                 const bpCount = bpPart?.quantity ?? 0
                 const setsPossible = bpCount > 0 && uniqueOwned >= uniqueTotal ? bpCount : 0
-                const setValue = set.parts.reduce((sum, p) => sum + (primePrices?.[p.unique_name] ?? 0), 0)
+                const setValue = primePrices?.[set.setPath] ?? set.parts.reduce((sum, p) => sum + ((primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1)), 0)
 
                 return (
                   <div key={set.name + idx} className={`relative rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20 ${isComplete ? 'border-green-500/30' : ''}`}>
-                    {primePrices === null ? (
-                      <span className="absolute top-4 right-4 z-10 inline-block w-6 h-3 bg-white/20 rounded animate-pulse" />
+                    {isPriceLoading ? (
+                      <span className="absolute top-4 right-4 z-10 inline-block w-6 h-3 bg-white/10 rounded animate-pulse" />
                     ) : setValue > 0 && (
                       <span className="absolute top-4 right-4 z-10 text-[11px] font-bold px-2 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">{setValue}p</span>
                     )}
@@ -769,19 +776,19 @@ export default function Inventory() {
 
                     {/* Parts grid */}
                     {(() => {
-                      const ownedParts = set.parts.filter(p => p.quantity > 0)
                       return (
                         <div className="grid gap-px border-t border-white/5" style={{ gridTemplateColumns: `repeat(${Math.min(set.parts.length, 6)}, 1fr)` }}>
                           {set.parts.map((part, pi) => {
-                            const met = part.quantity > 0
+                            const need = part.need ?? 1
+                            const met = part.quantity >= need
                             const isBlueprint = part.name.includes('Blueprint')
                             const partPrice = primePrices?.[part.unique_name] ?? 0
                             return (
                               <div key={pi} className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
-                                {primePrices === null ? (
+                                {isPriceLoading ? (
                                   <span className="absolute top-2 right-2 animate-pulse bg-white/10 rounded px-1 py-0.5 inline-block w-4 h-2" />
                                 ) : partPrice > 0 && (
-                                  <span className="absolute top-2 right-2 text-[9px] font-bold px-1 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">{partPrice}p</span>
+                                  <span className="absolute top-2 right-2 text-[9px] font-bold px-1 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">{need > 1 ? `${partPrice * need}p (${partPrice}p ea)` : `${partPrice}p`}</span>
                                 )}
                                 <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
                                   {part.image
@@ -789,9 +796,12 @@ export default function Inventory() {
                                     : <div className="w-7 h-7 rounded bg-white/5" />
                                   }
                                   {isBlueprint && <img src={uiPath ? convertFileSrc(`${uiPath}/BlueprintOverlay.png`) : ''} alt="" className="absolute inset-0 w-full h-full object-contain" />}
+                                  {part.need > 1 && (
+                                    <span className="absolute -bottom-0.5 -right-0.5 text-[8px] font-black bg-black/70 text-kronos-accent px-1 py-0.5 rounded leading-none">×{part.need}</span>
+                                  )}
                                 </div>
                                 <p className="text-[12px] font-medium text-kronos-dim text-center leading-tight w-full px-1 truncate">{part.name.split(' ').slice(-1)[0]}</p>
-                                {part.quantity > 0 && <span className={`text-[10px] font-black ${part.owned ? 'text-green-400' : 'text-kronos-dim'}`}>×{part.quantity}</span>}
+                                {part.quantity > 0 && <span className={`text-[10px] font-black ${met ? 'text-green-400' : 'text-red-400'}`}>{need > 1 ? `${part.quantity}/${need}` : `×${part.quantity}`}</span>}
                               </div>
                             )
                           })}

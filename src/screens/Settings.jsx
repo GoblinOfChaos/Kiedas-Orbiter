@@ -68,7 +68,7 @@ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
 
 export default function SettingsScreen() {
   const { theme, setTheme, themes, cursorStyle, setCursorStyle, cursorTint, setCursorTint } = useTheme()
-  const { isMonitoring, startMonitoring, stopMonitoring, manualRefresh, lastUpdate, statusText, autoStart, setAutoStart, monitorResult, refreshPrices, isPriceLoading, priceLastUpdated, retryCardImages } = useMonitoring()
+  const { isMonitoring, startMonitoring, stopMonitoring, manualRefresh, lastUpdate, statusText, autoStart, setAutoStart, monitorResult, refreshPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, retryCardImages } = useMonitoring()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [isCalibrationOpen, setIsCalibrationOpen] = useState(false)
@@ -1015,7 +1015,7 @@ export default function SettingsScreen() {
                 ) : (
                   <p className="text-[10px] text-zinc-600 font-mono">Not fetched yet.</p>
                 )}
-                <div className="flex gap-2 pt-2">
+                <div className="flex gap-2 pt-2 items-center">
                   <button
                     onClick={refreshPrices}
                     disabled={isPriceLoading}
@@ -1026,6 +1026,9 @@ export default function SettingsScreen() {
                   >
                     {isPriceLoading ? 'Fetching...' : 'Refresh Prices'}
                   </button>
+                  {priceFetchProgress && (
+                    <span className="text-[10px] font-mono text-kronos-accent/60">{priceFetchProgress.current} / {priceFetchProgress.total}</span>
+                  )}
                 </div>
               </div>
             </div>

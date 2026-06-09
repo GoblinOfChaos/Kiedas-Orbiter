@@ -5,11 +5,33 @@ import { parseWorldstate } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward } from '../lib/relicParser'
 import { listen, emit } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/wfmCache'
+import { resolveResource } from '@tauri-apps/api/path'
+import { convertFileSrc } from '@tauri-apps/api/core'
 import { resolveNode } from '../lib/warframeUtils'
 import { getSetting } from '../lib/settings'
 import { evaluateNotifications } from '../lib/notificationManager'
+import { getCurrentWindow } from '@tauri-apps/api/window'
 
 const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
+
+async function playNotificationSound(sound) {
+  if (sound === 'none') return
+
+  // THE KILLSWITCH: Stop executing if this instance is running inside an overlay window
+  if (getCurrentWindow().label !== 'main') return
+
+  try {
+    const resourcePath = await resolveResource(`data/assets/audio/${sound}`)
+    console.log('[Audio] resolved path:', resourcePath)
+    const assetUrl = convertFileSrc(resourcePath)
+    const audio = new Audio(assetUrl)
+    audio.play()
+      .then(() => console.log('[Audio] successfully played:', sound))
+      .catch(err => console.error('[Audio] play blocked:', err))
+  } catch (e) {
+    console.error('[Audio] Could not resolve sound path:', e)
+  }
+}
 
 // ── Pure helper: array/object → keyed map ─────────────────────────────────────
 function toMap(data, key) {
@@ -140,19 +162,6 @@ export function MonitoringProvider({ children }) {
   const [rawInventory, setRawInventory] = useState(null)
   const [inventoryData, setInventoryData] = useState(undefined)
   const [isInventoryLoading, setIsInventoryLoading] = useState(false)
-  const [marketPrices, setMarketPrices] = useState(() => {
-    try {
-      const data = localStorage.getItem('wfm_price_cache');
-      if (!data) return {};
-      const cache = JSON.parse(data);
-      const prices = {};
-      for (const [key, val] of Object.entries(cache)) {
-        if (val && typeof val.plat === 'number') prices[key] = val.plat;
-      }
-      return prices;
-    } catch { return {} }
-  })
-  const [isPricing, setIsPricing] = useState(false)
   const [allPrices, setAllPrices] = useState(() => {
     try {
       const data = localStorage.getItem('wfm_price_cache');
@@ -166,6 +175,7 @@ export function MonitoringProvider({ children }) {
     } catch { return {} }
   })
   const [isPriceLoading, setIsPriceLoading] = useState(false)
+  const [priceFetchProgress, setPriceFetchProgress] = useState(null)
   const [priceLastUpdated, setPriceLastUpdated] = useState(localStorage.getItem('wfm_price_last_updated') || null)
   const [worldState, setWorldState] = useState(null)
   const [statusText, setStatusText] = useState('Initializing…')
@@ -176,6 +186,7 @@ export function MonitoringProvider({ children }) {
   const intervalRef = useRef(null)
   const busyRef = useRef(false)
   const notifiedRef = useRef({})
+  const priceFetchRef = useRef(false)
   const [cardImagesPath, setCardImagesPath] = useState('')
   const [fixProgress, setFixProgress] = useState({ checking: true })
   const cardInitStarted = useRef(false)
@@ -251,7 +262,7 @@ export function MonitoringProvider({ children }) {
     const indexEntry = (e, k, t) => {
       const un = e.uniqueName || e.ItemType || k
       if (!un) return
-      
+
       let iconPath = e.icon ?? e.texture
       let nameKey = e.name ?? e.displayName
 
@@ -263,14 +274,14 @@ export function MonitoringProvider({ children }) {
           iconPath = exportData.ExportImages?.[resultUn] || EI[resultUn]
           // Strip https://browse.wf/ prefix if it was already resolved
           if (typeof iconPath === 'string' && iconPath.startsWith('https://browse.wf')) {
-             iconPath = iconPath.replace('https://browse.wf', '')
+            iconPath = iconPath.replace('https://browse.wf', '')
           }
         }
       }
 
       const url = toBrowseWf(iconPath ?? '')
       if (url) EI[un] = url
-      
+
       uniqueNameToName[un] = nameKey
       const locKey = uniqueNameToName[un]
       if (locKey) {
@@ -293,6 +304,22 @@ export function MonitoringProvider({ children }) {
   }, [exportData, dict])
 
   const globalRewardPool = useMemo(() => getAllRelicRewards(exportData), [exportData])
+
+  // Audio unlock (bypass autoplay policy)
+  useEffect(() => {
+    const unlockAudio = () => {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)()
+      ctx.suspend().then(() => console.log('[Audio] Unlocked')).catch(e => console.warn('[Audio] unlock failed', e))
+      window.removeEventListener('click', unlockAudio)
+      window.removeEventListener('keydown', unlockAudio)
+    }
+    window.addEventListener('click', unlockAudio)
+    window.addEventListener('keydown', unlockAudio)
+    return () => {
+      window.removeEventListener('click', unlockAudio)
+      window.removeEventListener('keydown', unlockAudio)
+    }
+  }, [])
 
   // ── Notification Manager evaluator ──────────────────────────────────────────
   const notifInitRef = useRef(false)
@@ -318,21 +345,22 @@ export function MonitoringProvider({ children }) {
 
     const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES })
 
-    // Fire each new notification individually; only the first one plays sound
-    let soundPlayed = false
+    // Fire each new notification individually; play sound in main window first
     for (const r of results) {
       const dedupKey = `${r.notifId}::${r.title}::${r.message}`
       if (!notifiedRef.current.notifMgr.has(dedupKey)) {
         notifiedRef.current.notifMgr.add(dedupKey)
+        // Play audio in main window (never throttled) before showing notification
+        const sound = getSetting('notif_sound', 'notification1.wav')
+        playNotificationSound(sound)
         invoke('show_notification', {
           title: r.title,
           message: r.message,
           image: r.image || '',
           position,
           no_focus: true,
-          silent: soundPlayed,
+          silent: true, // Sound already played from main window
         }).catch(console.error)
-        soundPlayed = true
       }
     }
 
@@ -349,6 +377,8 @@ export function MonitoringProvider({ children }) {
   // (minimal id/label so the dropdown works even before visiting Checklist page)
   useEffect(() => {
     window.__KRONOS_NOTIF_HELPERS = { getCurrentArby, getUpcomingArbies, ARBY_TIERS, resolveNode }
+    // Store notification sound for frontend audio playback
+    window.__kronos_notif_sound = getSetting('notif_sound', 'notification1.wav')
     window.__checklistTasks = [
       { id: 'baro', label: "Baro Ki'Teer" },
       { id: 'sortie', label: 'Sortie' },
@@ -428,8 +458,8 @@ export function MonitoringProvider({ children }) {
             ['ExportUpgrades_fixed.json', 'ExportUpgradesFixed'],
             ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'],
             ['mod-icon-map.json', 'ModIconMap'],
-          ['peely-pix-map.json', 'PeelyPixMap'],
-          ['peely-pix-names.json', 'PeelyPixNames'],
+            ['peely-pix-map.json', 'PeelyPixMap'],
+            ['peely-pix-names.json', 'PeelyPixNames'],
           ];
           for (const [fname, key] of fixedFiles) {
             const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${fname}` }).catch(() => null);
@@ -438,7 +468,7 @@ export function MonitoringProvider({ children }) {
               exports[key] = JSON.parse(text);
             }
           }
-        } catch {}
+        } catch { }
 
         setExportData(exports)
         setSpIncursions(spiText || '')
@@ -544,40 +574,14 @@ export function MonitoringProvider({ children }) {
 
   const manualRefresh = useCallback(() => callApiHelper(), [callApiHelper])
 
-  // ── Market Price Sync ───────────────────────────────────────────────────────
-  useEffect(() => {
-    if (!inventoryData?.relics?.length) return
-
-    const uniqueRewards = []
-    const seen = new Set()
-
-    inventoryData.relics.forEach(r => {
-      r.rewards?.forEach(rew => {
-        if (!seen.has(rew.uniqueName)) {
-          uniqueRewards.push(rew)
-          seen.add(rew.uniqueName)
-        }
-      })
-    })
-
-    if (uniqueRewards.length > 0) {
-      setIsPricing(true)
-      getPricesBatch(uniqueRewards).then(({ results, hadNetworkActivity }) => {
-        setMarketPrices(prev => ({ ...prev, ...results }))
-        if (hadNetworkActivity) {
-          setTimeout(() => setIsPricing(false), 2000)
-        } else {
-          setIsPricing(false)
-        }
-      }).catch(() => setIsPricing(false))
-    }
-  }, [inventoryData?.relics?.length])
-
-  // ── Pre-fetch mod & prime part prices after inventory loads ────────────────
+  // ── Pre-fetch prices after inventory loads ─────────────────────
   useEffect(() => {
     if (!inventoryData) return
+    if (priceFetchRef.current) return
+    priceFetchRef.current = true
     const items = []
     const seen = new Set()
+
     for (const m of (inventoryData.mods ?? [])) {
       if (!seen.has(m.unique_name)) {
         items.push({ uniqueName: m.unique_name, name: m.name, maxRank: m.max_rank ?? null })
@@ -591,22 +595,44 @@ export function MonitoringProvider({ children }) {
           seen.add(part.unique_name)
         }
       }
+      if (set.setPath && !seen.has(set.setPath)) {
+        items.push({ uniqueName: set.setPath, name: `${set.name} Set` })
+        seen.add(set.setPath)
+      }
+    }
+
+    // Include relic rewards in the same batch
+    for (const r of (inventoryData.relics ?? [])) {
+      for (const rew of (r.rewards ?? [])) {
+        if (!seen.has(rew.uniqueName)) {
+          items.push({ uniqueName: rew.uniqueName, name: rew.name })
+          seen.add(rew.uniqueName)
+        }
+      }
     }
     if (items.length > 0) {
       setIsPriceLoading(true)
-      getPricesBatch(items).then(({ results, hadNetworkActivity }) => {
+      setPriceFetchProgress({ current: 0, total: items.filter(i => i.name && !i.name.includes('Forma')).length })
+      const onProgress = (p) => setPriceFetchProgress(p)
+      getPricesBatch(items, onProgress).then(({ results, hadNetworkActivity }) => {
         setAllPrices(results)
         setIsPriceLoading(false)
+        setPriceFetchProgress(null)
+        priceFetchRef.current = false
         const now = Date.now()
         setPriceLastUpdated(now)
         localStorage.setItem('wfm_price_last_updated', String(now))
-      }).catch(() => { setAllPrices({}); setIsPriceLoading(false) })
+      }).catch(() => { setAllPrices({}); setIsPriceLoading(false); setPriceFetchProgress(null); priceFetchRef.current = false })
+    } else {
+      priceFetchRef.current = false
     }
   }, [inventoryData])
 
   const refreshPrices = useCallback(() => {
+    if (priceFetchRef.current) return
+    priceFetchRef.current = true
     localStorage.removeItem('wfm_price_cache')
-    if (!inventoryData) return
+    if (!inventoryData) { priceFetchRef.current = false; return }
     const items = []
     const seen = new Set()
     for (const m of (inventoryData.mods ?? [])) {
@@ -618,25 +644,38 @@ export function MonitoringProvider({ children }) {
     for (const set of Object.values(inventoryData.primeSets ?? {})) {
       for (const part of (set.parts ?? [])) {
         if (!seen.has(part.unique_name)) {
+          console.log(`[WFM] Adding part for fetch: "${part.name}" → unique_name="${part.unique_name}"`)
           items.push({ uniqueName: part.unique_name, name: part.name })
           seen.add(part.unique_name)
         }
       }
+      if (set.setPath && !seen.has(set.setPath)) {
+        console.log(`[WFM] Adding set for fetch: "${set.name} Set" → unique_name="${set.setPath}"`)
+        items.push({ uniqueName: set.setPath, name: `${set.name} Set` })
+        seen.add(set.setPath)
+      }
     }
     if (items.length > 0) {
       setIsPriceLoading(true)
-      getPricesBatch(items).then(({ results }) => {
+      setPriceFetchProgress({ current: 0, total: items.filter(i => i.name && !i.name.includes('Forma')).length })
+      const onProgress = (p) => setPriceFetchProgress(p)
+      getPricesBatch(items, onProgress).then(({ results }) => {
         setAllPrices(results)
         setIsPriceLoading(false)
+        setPriceFetchProgress(null)
+        priceFetchRef.current = false
         const now = Date.now()
         setPriceLastUpdated(now)
         localStorage.setItem('wfm_price_last_updated', String(now))
-      }).catch(() => { setAllPrices({}); setIsPriceLoading(false) })
+      }).catch(() => { setAllPrices({}); setIsPriceLoading(false); setPriceFetchProgress(null); priceFetchRef.current = false })
+    } else {
+      priceFetchRef.current = false
     }
   }, [inventoryData])
 
   const fissureStateRef = useRef({ squad_relics: [] })
   const ocrActiveRef = useRef(false)
+  const relicSoundPlayed = useRef(false)
 
   useEffect(() => {
     if (!exportData) return
@@ -645,6 +684,7 @@ export function MonitoringProvider({ children }) {
     subs.push(listen('scanner-relic-phase-start', (e) => {
       const { squad_size } = e.payload
       ocrActiveRef.current = true
+      relicSoundPlayed.current = false // Reset for new session
       invoke('show_overlay_window', { label: 'overlay-relic' }).catch(() => { })
       invoke('relay_event', { event: 'overlay-squad-size', payload: { squad_size } }).catch(() => { })
     }))
@@ -655,6 +695,12 @@ export function MonitoringProvider({ children }) {
         ...r, ...parseRelicName(r.unique_name), rewards: getRelicRewards(r.unique_name, exportData)
       }))
       fissureStateRef.current.squad_relics = resolved
+      // Play relic sound once per session from main window
+      if (!relicSoundPlayed.current) {
+        relicSoundPlayed.current = true
+        const sound = getSetting('notif_sound', 'notification1.wav')
+        playNotificationSound(sound)
+      }
       invoke('relay_event', { event: 'overlay-update-relics', payload: { squad_relics: resolved, squad_size } }).catch(() => { })
 
     }))
@@ -682,7 +728,7 @@ export function MonitoringProvider({ children }) {
         // Build candidate pool (squad relics if available, else global)
         let candidates = [];
         const currentRelics = fissureStateRef.current.squad_relics || [];
-        if (currentRelics.length > 0 && !is_debug) {
+        if (currentRelics.length > 0) {
           const seen = new Set();
           for (const r of currentRelics) {
             if (r.rewards) r.rewards.forEach(rew => {
@@ -715,15 +761,13 @@ export function MonitoringProvider({ children }) {
 
         const isRequiem = res.text.startsWith('Requiem ');
         let bestMatch = null;
-        
+
         if (isRequiem) {
           const modName = res.text.replace('Requiem ', '');
           bestMatch = { uniqueName: modName, name: modName, ducats: 0, isRequiem: true };
         } else {
           bestMatch = fuzzyMatchReward(res.text, candidates, 0.60);
         }
-
-        console.log(`[OCR Debug] Slot ${res.slot} text: "${res.text}" | Match:`, bestMatch);
 
         if (bestMatch) {
           const platPrice = await getPrice(bestMatch.uniqueName, bestMatch.name, bestMatch.ducats || 0);
@@ -763,13 +807,15 @@ export function MonitoringProvider({ children }) {
           const isFocused = await invoke('is_warframe_focused')
           if (!isFocused) {
             const position = getSetting('notif_position', 'top-right')
+            const sound = getSetting('notif_sound', 'notification1.wav')
+            playNotificationSound(sound)
             invoke('show_notification', {
               title: 'New Chat Message',
               message: `New message from ${channel}`,
               image: '',
               position,
               no_focus: true,
-              silent: false,
+              silent: true,
             }).catch(console.error)
           }
         }
@@ -832,7 +878,7 @@ export function MonitoringProvider({ children }) {
       exportData, spIncursions, arbys, descendiaDescs, archonModifiers,
       dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
-      masteryProgress, marketPrices, isPricing, allPrices, isPriceLoading, priceLastUpdated, refreshPrices,
+      masteryProgress, allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices,
       startMonitoring, stopMonitoring, manualRefresh, callApiHelper,
       cardImagesPath, fixProgress, retryCardImages,
     }}>

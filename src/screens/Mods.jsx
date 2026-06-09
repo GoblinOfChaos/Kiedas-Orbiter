@@ -54,7 +54,7 @@ function extractModCategory(un) {
 }
 
 export default function Mods() {
-  const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading } = useMonitoring()
+  const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading, priceFetchProgress } = useMonitoring()
   const [framesPath, setFramesPath] = useState('')
   const [iconsPath, setIconsPath] = useState('')
 
@@ -63,10 +63,11 @@ export default function Mods() {
   const [sortDirection, setSortDirection] = useState('asc')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [maxRankOnly, setMaxRankOnly] = useState(false)
+  const [hideConclave, setHideConclave] = useState(false)
   const [visibleCount, setVisibleCount] = useState(60)
   const mods = [...(inventoryData?.mods ?? []), ...(inventoryData?.arcanes ?? [])]
-  const modPrices = sortCriteria === 'value' ? allPrices : null
-  const loadingPrices = sortCriteria === 'value' && isPriceLoading
+  const modPrices = allPrices
+  const loadingPrices = isPriceLoading
 
   useEffect(() => {
     invoke('get_mod_frames_path').then(p => setFramesPath(p)).catch(() => { })
@@ -78,7 +79,7 @@ export default function Mods() {
 
   useEffect(() => {
     setVisibleCount(60)
-  }, [searchQuery, selectedCategory, maxRankOnly])
+  }, [searchQuery, selectedCategory, maxRankOnly, hideConclave])
 
   const filtered = useMemo(() => {
     let items = mods
@@ -95,6 +96,9 @@ export default function Mods() {
     }
     if (maxRankOnly) {
       items = items.filter(m => m.rank >= m.max_rank)
+    }
+    if (hideConclave) {
+      items = items.filter(m => !m.unique_name?.includes('/PvPMods/'))
     }
 
     const sorted = [...items].sort((a, b) => {
@@ -141,6 +145,7 @@ export default function Mods() {
         <Tabs tabs={SORT_OPTIONS.map(o => ({ ...o, label: o.label + (sortCriteria === o.id ? SORT_ARROW[sortDirection] : '') }))} activeTab={sortCriteria} onChange={handleSortChange} className="h-[42px]" />
 
         <Tabs tabs={[{ id: 'max', label: 'Max Rank' }]} activeTab={maxRankOnly ? 'max' : ''} onChange={() => setMaxRankOnly(v => !v)} className="h-[42px]" />
+        <Tabs tabs={[{ id: 'conclave', label: 'Hide Conclave' }]} activeTab={hideConclave ? 'conclave' : ''} onChange={() => setHideConclave(v => !v)} className="h-[42px]" />
       </div>
 
       <div className="flex items-center gap-3">
@@ -219,7 +224,15 @@ export default function Mods() {
         <div className="text-center py-20 text-kronos-dim italic">No mods match your filters.</div>
       ) : (
         <>
-          {loadingPrices && (
+          {priceFetchProgress && (
+            <div className="flex items-center gap-2 pb-2 px-1">
+              <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+              <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+              <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+              <span className="text-[10px] font-black uppercase text-kronos-accent">Fetching plat values {priceFetchProgress.current} of {priceFetchProgress.total}...</span>
+            </div>
+          )}
+          {loadingPrices && !priceFetchProgress && (
             <div className="flex items-center gap-2 pb-2 px-1">
               <div className="flex gap-0.5">
                 <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
@@ -246,8 +259,8 @@ export default function Mods() {
                 cardImagesPath={cardImagesPath}
                 width={CARD_WIDTH}
                 exportTextIcons={ExportTextIcons}
-                platValue={sortCriteria === 'value' ? (modPrices?.[mod.unique_name] ?? 0) : 0}
-                pricesLoading={sortCriteria === 'value' && loadingPrices}
+                platValue={modPrices?.[mod.unique_name] ?? 0}
+                pricesLoading={loadingPrices}
               />
             ))}
           </div>

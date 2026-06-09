@@ -406,6 +406,7 @@ function detectModFrame(un, rarity, modName) {
   const u = (un ?? '').toLowerCase();
   const n = (modName ?? '').toLowerCase();
   const check = (str) => u.includes(str.toLowerCase()) || n.includes(str.toLowerCase())
+  if (u.includes('/fusers/')) return 'Fuser';
   if (check('Galvanized')) return 'Galvanized';
   if (check('Amalgam')) return 'Amalgam';
   if (check('Peculiar')) return 'Peculiar';
@@ -1340,6 +1341,12 @@ export function parseInventory(raw, exports) {
   [...rawUpgrades, ...upgrades].forEach(u => {
     const un = u.ItemType;
     if (!un || un.includes('Randomized') || un.includes('RandomMod')) return;
+
+    // Skip mods that were removed from the game but still sit in inventories
+    const REMOVED_MOD = new Set([
+      'Swift Deth', 'Tn Cross Attack', 'Boom Stick',
+    ]);
+    if (REMOVED_MOD.has(resolveName(un, dict, EA, EM) || nameFromPath(un))) return;
     const isArcane = (un.includes('CosmeticEnhancers') && !un.includes('CosmeticEnhancers/Peculiars')) || un.includes('/Arcane/') || un.toLowerCase().includes('arcane');
     if (isArcane) {
       const arcEntry = EA[un]
@@ -1370,6 +1377,7 @@ export function parseInventory(raw, exports) {
       mod.rarity = entry?.rarity ?? '';
       mod.polarity = entry?.polarity ?? null;
       mod.modFrame = detectModFrame(un, mod.rarity, mod.name);
+      if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
       const descLoctag = entry?.description ?? '';
       const rawDesc = descLoctag ? (dict[descLoctag] || dict['/' + descLoctag] || '') : '';
       mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').trim() : '';
@@ -1461,13 +1469,13 @@ export function parseInventory(raw, exports) {
       if (!isPrimeComponent(ingName)) continue;
 
       const ownedQty = primeItemCounts.get(ing.ItemType) ?? 0;
-      setParts.push({ unique_name: ing.ItemType, name: ingName, image: resolveImage(ing.ItemType, EW, ER, ERel), quantity: ownedQty, owned: ownedQty > 0 });
+      setParts.push({ unique_name: ing.ItemType, name: ingName, image: resolveImage(ing.ItemType, EW, ER, ERel), quantity: ownedQty, owned: ownedQty > 0, need: ing.ItemCount ?? 1 });
       if (ownedQty > 0) ownedCount += ownedQty;
       totalCount += 1;
     }
 
     if (setParts.length > 0) {
-      primeSets[baseName] = { name: baseName, parts: setParts, ownedCount, totalCount, image: parentImage };
+      primeSets[baseName] = { name: baseName, parts: setParts, ownedCount, totalCount, image: parentImage, setPath: recipe.resultType };
       // Also add individual parts to prime_parts array for backwards compatibility
       setParts.forEach(p => {
         if (p.owned) prime_parts.push({ ...p, setName: baseName, category: 'prime_parts' });

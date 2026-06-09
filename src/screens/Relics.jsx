@@ -25,7 +25,7 @@ const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem']
 const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant']
 
 export default function Relics() {
-  const { inventoryData, isInventoryLoading, marketPrices, isPricing } = useMonitoring()
+  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress } = useMonitoring()
   const [searchQuery, setSearchQuery] = useState('')
   const [activeEra, setActiveEra] = useState('All')
   const [activeQuality, setActiveQuality] = useState('All')
@@ -59,7 +59,7 @@ export default function Relics() {
     const enriched = baseFiltered.map(relic => {
       const sortedRewards = [...(relic.rewards || [])].sort((a, b) => a.tier - b.tier).map(r => ({
         ...r,
-        plat: marketPrices[r.uniqueName] ?? 0
+        plat: allPrices[r.uniqueName] ?? 0
       }));
 
       const evRefinement = evRefinementOverride;
@@ -110,7 +110,7 @@ export default function Relics() {
       const orderLabel = sortOrder === 'desc' ? 'Descending' : 'Ascending';
       return { [`Sorted by ${sortLabel} (${orderLabel})`]: enriched };
     }
-  }, [baseFiltered, sortMode, marketPrices, squadSize, evRefinementOverride, activeQuality]);
+  }, [baseFiltered, sortMode, allPrices, squadSize, evRefinementOverride, activeQuality]);
 
   const totalFilteredGroups = baseFiltered.length;
   const totalFilteredItems = baseFiltered.reduce((s, r) => s + Object.values(r.refinements || {}).reduce((a, b) => a + b, 0), 0);
@@ -260,7 +260,17 @@ export default function Relics() {
           <>
             <div className="flex justify-between items-end px-1">
               <div className="flex items-center gap-4">
-                {isPricing && (
+                {isPriceLoading && priceFetchProgress && (
+                  <span className="text-[10px] font-black uppercase text-kronos-accent flex items-center gap-2">
+                    <div className="flex gap-0.5">
+                      <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                    Fetching plat values {priceFetchProgress.current} of {priceFetchProgress.total}...
+                  </span>
+                )}
+                {isPriceLoading && !priceFetchProgress && (
                   <span className="text-[10px] font-black uppercase text-kronos-accent flex items-center gap-2">
                     <div className="flex gap-0.5">
                       <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
@@ -270,7 +280,8 @@ export default function Relics() {
                     Fetching prices...
                   </span>
                 )}
-              </div>
+
+            </div>
             </div>
 
             <div className="space-y-12 pb-12">

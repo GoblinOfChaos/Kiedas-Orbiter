@@ -287,6 +287,9 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         .get_webview_window(label)
         .ok_or_else(|| format!("window '{}' not found", label))?;
 
+
+    let already_visible = window.is_visible().unwrap_or(false);
+
     // Install AOT keeper once per window
     {
         let mut installed = AOT_KEEPER_INSTALLED.lock().unwrap();
@@ -370,7 +373,9 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     #[cfg(not(target_os = "linux"))]
     {
         let _ = force_position_tauri(&window, pos.x, pos.y);
-        window.show().map_err(|e| format!("show() failed: {e}"))?;
+        if !already_visible {
+            window.show().map_err(|e| format!("show() failed: {e}"))?;
+        }
     }
 
     window.set_always_on_top(true)
@@ -425,6 +430,8 @@ pub fn resize_overlay_window(
         let phys_w = (width * scale) as u32;
         let phys_h = (height * scale) as u32;
 
+
+        
         #[cfg(target_os = "linux")]
         {
             let was_visible = window.is_visible().unwrap_or(false);

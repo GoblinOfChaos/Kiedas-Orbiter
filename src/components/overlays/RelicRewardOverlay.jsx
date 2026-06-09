@@ -29,16 +29,16 @@ export default function RelicRewardOverlay() {
   const triggerCount = useRef(0)
   const [triggerKey, setTriggerKey] = useState(0)
 
-  const showWindow = useCallback(async () => {
-    console.log('[RelicOverlay] showWindow called, windowVisible =', windowVisible)
+  const showWindow = useCallback(async (fromRust = false) => {
     if (!windowVisible) {
-      try {
-        await invoke('show_overlay_window', { label: 'overlay-relic' })
-        console.log('[RelicOverlay] show_overlay_window success')
-        setWindowVisible(true)
-      } catch (err) {
-        console.error('[RelicOverlay] show_overlay_window error:', err)
+      if (!fromRust) {
+        try {
+          await invoke('show_overlay_window', { label: 'overlay-relic' })
+        } catch (err) {
+          console.error('[RelicOverlay] show_overlay_window error:', err)
+        }
       }
+      setWindowVisible(true)
     }
   }, [windowVisible])
 
@@ -92,7 +92,7 @@ export default function RelicRewardOverlay() {
       setProgress(100)
       triggerCount.current += 1
       setTriggerKey(triggerCount.current)
-      showWindow()
+      showWindow(true)
     }))
 
     subs.push(listen('overlay-update-relics', (e) => {

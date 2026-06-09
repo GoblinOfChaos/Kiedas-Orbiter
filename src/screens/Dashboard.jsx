@@ -169,7 +169,7 @@ export default function Dashboard() {
   })
   const [descendiaTab, setDescendiaTab] = useState('normal')
 
-  useEffect(() => { invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => {}) }, [])
+  useEffect(() => { invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { }) }, [])
 
   useEffect(() => {
     localStorage.setItem('dashboard_hidden_cards', JSON.stringify(hiddenCards))
@@ -194,7 +194,7 @@ export default function Dashboard() {
       }).sort((a, b) => a.day - b.day)
 
       const seasonMonths = [...new Set(allDays.map(d => d.monthName))]
-      
+
       const firstEventIdx = allDays.findIndex(d => d.events?.length > 0)
       if (firstEventIdx !== -1) {
         setSelected1999Day(firstEventIdx)
@@ -213,7 +213,7 @@ export default function Dashboard() {
           setSelected1999Month(0)
         }
       }
-      
+
       setInitialized1999(true)
     }
   }, [worldstate, initialized1999])
@@ -631,7 +631,7 @@ export default function Dashboard() {
 
     const isRewardOwned = (ch, cat) => {
       if (!inventoryData) return false
-      
+
       const choiceName = ch.name.replace(/ Incarnon Genesis$/, '').trim()
 
       const isSameFamily = (itemName, familyName) => {
@@ -644,14 +644,14 @@ export default function Dashboard() {
       }
 
       if (cat === 'Normal') {
-        return (inventoryData.warframes || []).some(wf => 
+        return (inventoryData.warframes || []).some(wf =>
           wf.owned && isSameFamily(wf.name, choiceName)
         )
       }
 
       if (cat === 'Steel Path') {
         // Owned if the weapon in inventory has the incarnon adapter installed
-        return (inventoryData.all || []).some(item => 
+        return (inventoryData.all || []).some(item =>
           item.is_incarnon && item.owned && isSameFamily(item.name, choiceName)
         )
       }
@@ -1504,19 +1504,19 @@ export default function Dashboard() {
                   </div>
                 ))}
               </div>
-                  {archonModifiers && (
-                    <div className="mt-2 pt-2 border-t border-kronos-divider/30">
-                      <p className="text-xs font-bold text-kronos-accent mb-1 uppercase tracking-wide">Elite Alert Modifiers</p>
-                      <p className="text-xs text-kronos-text">
-                        <span className="text-kronos-dim">Frame: </span>
-                        <span className="text-kronos-text">{resolveItemName(archonModifiers.suitType, dict, uniqueNameToName)}</span>
-                      </p>
-                      <p className="text-xs text-kronos-text mt-0.5">
-                        <span className="text-kronos-dim">Weapons: </span>
-                        <span className="text-kronos-text">{(archonModifiers.wepTypes || []).map(w => resolveItemName(w, dict, uniqueNameToName)).join(', ')}</span>
-                      </p>
-                    </div>
-                  )}
+              {archonModifiers && (
+                <div className="mt-2 pt-2 border-t border-kronos-divider/30">
+                  <p className="text-xs font-bold text-kronos-accent mb-1 uppercase tracking-wide">Elite Alert Modifiers</p>
+                  <p className="text-xs text-kronos-text">
+                    <span className="text-kronos-dim">Frame: </span>
+                    <span className="text-kronos-text">{resolveItemName(archonModifiers.suitType, dict, uniqueNameToName)}</span>
+                  </p>
+                  <p className="text-xs text-kronos-text mt-0.5">
+                    <span className="text-kronos-dim">Weapons: </span>
+                    <span className="text-kronos-text">{(archonModifiers.wepTypes || []).map(w => resolveItemName(w, dict, uniqueNameToName)).join(', ')}</span>
+                  </p>
+                </div>
+              )}
               <p className="text-xs text-kronos-dim mt-2 text-right">{timeRemaining(worldstate.archonHunt.expiry)}</p>
             </Card>
           )}
@@ -1646,16 +1646,16 @@ export default function Dashboard() {
 
                       {/* Tug of war bar */}
                       <div className="mt-3 h-1 bg-white/5 rounded-full overflow-hidden flex border border-white/5">
-                        <div 
-                          className="h-full bg-blue-500 transition-all duration-500" 
-                          style={{ width: `${completionPercentage}%` }} 
+                        <div
+                          className="h-full bg-blue-500 transition-all duration-500"
+                          style={{ width: `${completionPercentage}%` }}
                         />
-                        <div 
-                          className="h-full bg-red-500 transition-all duration-500" 
-                          style={{ width: `${100 - completionPercentage}%` }} 
+                        <div
+                          className="h-full bg-red-500 transition-all duration-500"
+                          style={{ width: `${100 - completionPercentage}%` }}
                         />
                       </div>
-                      
+
                       {idx < 4 && <div className="absolute -bottom-3 left-0 right-0 h-px bg-white/5" />}
                     </div>
                   );
@@ -1672,12 +1672,12 @@ export default function Dashboard() {
                 {worldstate.news.slice(0, 3).map((item, idx) => (
                   <div key={idx} className="text-xs">
                     {item.link ? (
-                       <button
-                         onClick={() => { invoke('open_url', { url: item.link }).catch(console.error) }}
-                         className="font-bold hover:text-kronos-accent transition-colors block leading-tight text-left w-full cursor-pointer"
-                       >
-                         {item.message}
-                       </button>
+                      <button
+                        onClick={() => { invoke('open_url', { url: item.link }).catch(console.error) }}
+                        className="font-bold hover:text-kronos-accent transition-colors block leading-tight text-left w-full cursor-pointer"
+                      >
+                        {item.message}
+                      </button>
                     ) : (
                       <p className="font-bold leading-tight">{item.message}</p>
                     )}

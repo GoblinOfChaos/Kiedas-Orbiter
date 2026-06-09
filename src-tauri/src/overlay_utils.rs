@@ -272,6 +272,7 @@ fn set_transient_for(window: &WebviewWindow, parent: &WebviewWindow) {
     }
 }
 
+#[cfg(target_os = "linux")]
 fn force_position_tauri(window: &WebviewWindow, x: i32, y: i32) -> Result<(), String> {
     window
         .set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }))
@@ -313,9 +314,17 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
 
     eprintln!("[OVERLAY] target pos=({},{})", pos.x, pos.y);
 
+    #[allow(unused_assignments)]
+    let mut main_had_focus = false;
+
     #[cfg(target_os = "linux")]
     {
         let was_visible = window.is_visible().unwrap_or(false);
+
+        // Keep track of which window had focus before we show the overlay
+        main_had_focus = app_handle.get_webview_window("main")
+            .and_then(|w| w.is_focused().ok())
+            .unwrap_or(false);
 
         // Transient for main window so WM always stacks overlay above it
         if let Some(main_win) = app_handle.get_webview_window("main") {
@@ -373,6 +382,13 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         .map_err(|e| format!("set_skip_taskbar failed: {e}"))?;
 
     apply_platform_patches(&window)?;
+
+    // Restore main window focus if it was focused before showing overlay
+    if main_had_focus {
+        if let Some(main_win) = app_handle.get_webview_window("main") {
+            let _ = main_win.set_focus();
+        }
+    }
 
     let pos_after = window.outer_position()
         .map(|p| format!("({},{})", p.x, p.y))

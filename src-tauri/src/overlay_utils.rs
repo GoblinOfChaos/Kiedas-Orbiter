@@ -272,7 +272,6 @@ fn set_transient_for(window: &WebviewWindow, parent: &WebviewWindow) {
     }
 }
 
-#[cfg(target_os = "linux")]
 fn force_position_tauri(window: &WebviewWindow, x: i32, y: i32) -> Result<(), String> {
     window
         .set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }))

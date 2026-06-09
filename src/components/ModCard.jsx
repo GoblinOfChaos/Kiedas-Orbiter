@@ -302,6 +302,31 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
     )
   }
 
+  if (mod.unique_name?.includes('/Fusers/')) {
+    const fuserImg = iconsPath ? convertFileSrc(`${iconsPath}/LegendaryCoreModImage.png`) : null
+    return (
+      <div className="relative flex-shrink-0 select-none" style={{ width, aspectRatio: String(CARD_RATIO) }}>
+        {fuserImg && (
+          <div className="absolute inset-0 flex items-center justify-center p-[12%]">
+            <SafeImg src={fuserImg} className="w-full h-full object-contain" />
+          </div>
+        )}
+        <div className="absolute bottom-[6%] left-0 right-0 text-center px-3">
+          <p className="font-bold leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'Outfit, sans-serif', color: '#FFD700', fontSize: `${14 * cardScale}px` }}>
+            Legendary Fusion Core
+          </p>
+        </div>
+        {pricesLoading ? (
+          <span className="absolute top-1 right-1 z-10 animate-pulse bg-white/10 rounded px-1.5 py-0.5 inline-block w-6 h-3" />
+        ) : platValue > 0 && (
+          <span className="absolute top-1 right-1 z-10 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
+            {platValue}p
+          </span>
+        )}
+      </div>
+    )
+  }
+
   if (!framesPath) {
     return (
       <div className="rounded-xl border border-white/5 bg-kronos-panel/20 p-3 flex items-center gap-3" style={{ width, minHeight: width * 1.4 }}>
@@ -320,7 +345,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const ft = custom ? null : f('FrameTop')
   const fb = custom ? null : f('FrameBottom')
   const sl = custom || NO_SIDE.has(mf) ? null : f('SideLight')
-  const bk = custom && mf !== 'Requiem' && mf !== 'Antivirus' && mf !== 'Potency' ? null : f('RightBacker')
+  const bk = custom && mf !== 'Requiem' && mf !== 'Antivirus' && mf !== 'Potency' ? null : (mod.baseDrain === 0 ? null : f('RightBacker'))
   const lt = custom ? null : f('LowerTab')
   const cl = custom ? null : f('CornerLights')
 
@@ -468,6 +493,9 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
           </div>
           <div className="flex-shrink-0 text-center" style={{ padding: `${4 * cardScale}px ${4 * cardScale}px ${2 * cardScale}px` }}>
             <p className="font-bold leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'Outfit, sans-serif', color, fontSize: `${15 * cardScale}px` }}>
+              {iconsPath && mod.unique_name?.includes('/PvPMods/') && (
+                <SafeImg src={convertFileSrc(`${iconsPath}/Categories/Conclave.png`)} className="inline-block w-4 h-4 align-middle mr-1" />
+              )}
               {mod.name}
             </p>
             {hasDesc && (

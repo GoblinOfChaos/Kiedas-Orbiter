@@ -14,10 +14,11 @@
  * - Stat scaling: Riven stats are displayed as they would appear at Max Rank.
  * - Stat names are resolved from internal game codes to human-readable strings.
  */
-import { useState, useRef } from 'react'
-import { Search } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { Search, Filter } from 'lucide-react'
 import { PageLayout, Input, Card, Tabs, MonitorState } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
+import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import BackToTop from '../components/BackToTop'
 
 const TYPE_TABS = [
@@ -44,6 +45,11 @@ export default function Rivens() {
   const [searchQuery, setSearchQuery] = useState('')
   const [activeType, setActiveType] = useState('all')
   const [activeState, setActiveState] = useState('all')
+  const [iconsPath, setIconsPath] = useState('')
+
+  useEffect(() => {
+    invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { })
+  }, [])
 
   const allRivens = inventoryData?.rivens ?? []
 
@@ -79,15 +85,29 @@ export default function Rivens() {
         </div>
 
         {/* State Filter */}
-        <div className="flex-shrink-0">
-          <Tabs tabs={STATE_TABS} activeTab={activeState} onChange={setActiveState} className="h-[42px]" />
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+          <Filter size={14} className="text-kronos-dim mx-1" />
+          <div className="flex gap-1">
+            {STATE_TABS.map(t => (
+              <button
+                key={t.id}
+                onClick={() => setActiveState(t.id)}
+                className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all whitespace-nowrap ${activeState === t.id ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Type Filter */}
       <div className="flex items-center gap-3">
-        <div className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1 flex-shrink-0">Weapon Type:</div>
-        <Tabs tabs={TYPE_TABS} activeTab={activeType} onChange={setActiveType} className="flex-1" />
+        <Tabs tabs={TYPE_TABS.map(t => {
+          const iconMap = { rifle: 'Primary', pistol: 'Secondary' }
+          const iconName = iconMap[t.id] || t.label
+          return { ...t, icon: iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null }
+        })} activeTab={activeType} onChange={setActiveType} className="flex-1" />
       </div>
     </div>
   )

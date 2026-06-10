@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { Search, ArrowUpDown, Layers } from 'lucide-react'
+import { Search, ArrowUpDown, Filter, Layers } from 'lucide-react'
 import { PageLayout, Input, Button, Tabs, MonitorState } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
@@ -15,8 +15,6 @@ const SORT_OPTIONS = [
   { id: 'rarity', label: 'Rarity' },
   { id: 'value', label: 'Value (Maxed)' },
 ]
-
-const SORT_ARROW = { asc: ' ▲', desc: ' ▼' }
 
 const CATEGORIES = [
   'All', 'Warframe', 'Primary', 'Secondary', 'Melee',
@@ -142,14 +140,47 @@ export default function Mods() {
           <Input placeholder="Search mods..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pl-12 bg-black/20 border-white/5 h-[42px]" />
         </div>
 
-        <Tabs tabs={SORT_OPTIONS.map(o => ({ ...o, label: o.label + (sortCriteria === o.id ? SORT_ARROW[sortDirection] : '') }))} activeTab={sortCriteria} onChange={handleSortChange} className="h-[42px]" />
+        {/* Sort Controls */}
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+          <ArrowUpDown size={12} className="text-kronos-accent mx-1" />
+          <div className="flex gap-1">
+            {SORT_OPTIONS.map(c => {
+              const isActive = sortCriteria === c.id;
+              return (
+                <button
+                  key={c.id}
+                  onClick={() => handleSortChange(c.id)}
+                  className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all flex items-center gap-1.5 ${isActive ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+                >
+                  {c.label}
+                  {isActive && <ArrowUpDown size={10} className={sortDirection === 'desc' ? 'rotate-180' : ''} />}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-        <Tabs tabs={[{ id: 'max', label: 'Max Rank' }]} activeTab={maxRankOnly ? 'max' : ''} onChange={() => setMaxRankOnly(v => !v)} className="h-[42px]" />
-        <Tabs tabs={[{ id: 'conclave', label: 'Hide Conclave' }]} activeTab={hideConclave ? 'conclave' : ''} onChange={() => setHideConclave(v => !v)} className="h-[42px]" />
+        {/* Filters (Max Rank + Hide Conclave) */}
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+          <Filter size={14} className="text-kronos-dim mx-1" />
+          <div className="flex gap-1">
+            <button
+              onClick={() => setMaxRankOnly(v => !v)}
+              className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${maxRankOnly ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+            >
+              Max Rank
+            </button>
+            <button
+              onClick={() => setHideConclave(v => !v)}
+              className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${hideConclave ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+            >
+              Hide Conclave
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="flex items-center gap-3">
-        <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1 flex-shrink-0">Category:</span>
         <div className="flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
           {CATEGORIES.map(t => {
             const iconUrl = iconsPath
@@ -159,7 +190,7 @@ export default function Mods() {
               <button
                 key={t}
                 onClick={() => setSelectedCategory(t)}
-                className={`px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5 ${selectedCategory === t
+                className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5 ${selectedCategory === t
                   ? 'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]'
                   : 'text-kronos-dim hover:text-white hover:bg-white/5'
                   }`}

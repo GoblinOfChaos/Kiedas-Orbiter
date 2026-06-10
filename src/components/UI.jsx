@@ -290,22 +290,23 @@ export function Tabs({ tabs, activeTab, onChange, className = '', fullWidth = fa
     <div
       className={`flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5 ${className}`}
     >
-      {tabs.map((tab) => (
-        <button
-          key={tab.id}
-          onClick={() => onChange(tab.id)}
-          className={`
-            px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans
-            ${fullWidth ? 'flex-1' : ''}
-            ${(Array.isArray(activeTab) ? activeTab.includes(tab.id) : activeTab === tab.id)
-              ? 'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]'
-              : 'text-kronos-dim hover:text-white hover:bg-white/5'
-            }
-          `}
-        >
-          {tab.label}
-        </button>
-      ))}
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => onChange(tab.id)}
+              className={`
+                px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5
+                ${fullWidth ? 'flex-1' : ''}
+                ${(Array.isArray(activeTab) ? activeTab.includes(tab.id) : activeTab === tab.id)
+                  ? 'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]'
+                  : 'text-kronos-dim hover:text-white hover:bg-white/5'
+                }
+              `}
+            >
+              {tab.icon && <img src={tab.icon} className="w-4 h-4 object-contain" alt="" />}
+              {tab.label}
+            </button>
+          ))}
     </div>
   );
 }

@@ -6,7 +6,7 @@
  * filtering (e.g., "Owned + Unmastered").
  */
 import { useState, useMemo, useEffect } from 'react'
-import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X } from 'lucide-react'
+import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers } from 'lucide-react'
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
@@ -19,7 +19,6 @@ const INVENTORY_TABS = [
   { id: 'companion_weapons', label: 'Companion Weapons' },
   { id: 'archweapons', label: 'Archweapons' },
   { id: 'vehicles', label: 'Vehicles' },
-  { id: 'necramechs', label: 'Necramechs' },
   { id: 'amps', label: 'Amps' },
   { id: 'resources', label: 'Resources' },
   { id: 'prime_parts', label: 'Prime Sets' },
@@ -32,8 +31,7 @@ const FILTER_CONFIG = {
   companions: ['owned', 'mastered'],
   companion_weapons: ['owned', 'mastered'],
   archweapons: ['owned', 'mastered'],
-  vehicles: ['owned', 'mastered', 'archwing', 'kdrive'],
-  necramechs: ['owned', 'mastered'],
+  vehicles: ['owned', 'mastered', 'archwing', 'kdrive', 'necramech'],
   amps: ['owned', 'mastered'],
   mods: ['owned'],
   prime_parts: ['owned', 'mastered'],
@@ -48,7 +46,6 @@ const SORT_CONFIG = {
   companion_weapons: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
   archweapons: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
   vehicles: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
-  necramechs: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
   amps: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
   mods: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }, { id: 'rank', label: 'Rank' }],
   prime_parts: [{ id: 'name', label: 'Name' }, { id: 'completion', label: 'Completion' }, { id: 'value', label: 'Value' }],
@@ -443,8 +440,10 @@ export default function Inventory() {
   const [foundryFilters, setFoundryFilters] = useState({ crafting: true, ready: false, owned: false, unmastered: false })
   const [framesPath, setFramesPath] = useState('')
   const [uiPath, setUiPath] = useState('')
+  const [iconsPath, setIconsPath] = useState('')
   useEffect(() => { invoke('get_mod_frames_path').then(p => setFramesPath(p)).catch(() => { }) }, [])
   useEffect(() => { invoke('get_ui_path').then(p => setUiPath(p)).catch(() => { }) }, [])
+  useEffect(() => { invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { }) }, [])
 
   useEffect(() => { setVisibleCount(ITEMS_PER_PAGE) }, [activeTab, searchQuery, currentFilters])
 
@@ -467,6 +466,11 @@ export default function Inventory() {
         ) ?? {}
         return { ...set, owned: parent.owned ?? false, mastered: parent.mastered ?? false }
       })
+    }
+    if (activeTab === 'vehicles') {
+      const vehicles = inventoryData.vehicles ?? []
+      const necramechs = (inventoryData.necramechs ?? []).map(n => ({ ...n, is_necramech: true }))
+      return [...vehicles, ...necramechs]
     }
     return inventoryData[activeTab] ?? []
   }, [inventoryData, activeTab])
@@ -501,6 +505,7 @@ export default function Inventory() {
           if (f === 'melee' && item.weapon_type !== 'melee') return false
           if (f === 'archwing' && item.vehicle_type !== 'archwing') return false
           if (f === 'kdrive' && item.vehicle_type !== 'kdrive') return false
+          if (f === 'necramech' && !item.is_necramech) return false
         }
         return true
       })
@@ -637,7 +642,7 @@ export default function Inventory() {
 
         {/* Sort Controls In-line */}
         <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
-          <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Sort:</span>
+          <ArrowUpDown size={12} className="text-kronos-accent mx-1" />
           <div className="flex gap-1">
             {(SORT_CONFIG[activeTab] ?? []).map(c => {
               const isActive = sortCriteria === c.id;
@@ -680,7 +685,11 @@ export default function Inventory() {
       </div>
 
       {/* Category Tabs */}
-      <Tabs tabs={INVENTORY_TABS} activeTab={activeTab} onChange={(id) => { setActiveTab(id); setCurrentFilters({}); setSortCriteria('name'); setSortDirection('asc') }} />
+      <Tabs tabs={INVENTORY_TABS.map(t => {
+        const iconMap = { warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', prime_parts: 'PrimeParts' }
+        const iconName = iconMap[t.id] || t.label
+        return { ...t, icon: iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null }
+      })} activeTab={activeTab} onChange={(id) => { setActiveTab(id); setCurrentFilters({}); setSortCriteria('name'); setSortDirection('asc') }} />
     </div>
   )
 

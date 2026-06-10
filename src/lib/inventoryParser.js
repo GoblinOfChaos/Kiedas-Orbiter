@@ -1344,7 +1344,7 @@ export function parseInventory(raw, exports) {
 
     // Skip mods that were removed from the game but still sit in inventories
     const REMOVED_MOD = new Set([
-      'Swift Deth', 'Tn Cross Attack', 'Boom Stick',
+      'Swift Deth', 'Tn Cross Attack', 'Boom Stick', 'Warrior',
     ]);
     if (REMOVED_MOD.has(resolveName(un, dict, EA, EM) || nameFromPath(un))) return;
     const isArcane = (un.includes('CosmeticEnhancers') && !un.includes('CosmeticEnhancers/Peculiars')) || un.includes('/Arcane/') || un.toLowerCase().includes('arcane');
@@ -1404,6 +1404,9 @@ export function parseInventory(raw, exports) {
         if (m) modSet = `/Lotus/Upgrades/Mods/Sets/${m[1]}/${m[1]}SetMod`;
       }
       mod.modSet = modSet ?? null;
+      if (!mod.description && (mod.name === 'Scan Aquatic Lifeforms' || un.includes('/LocateCreaturesMod'))) {
+        mod.description = 'Reveals hotspots within 100m and applies Luminous Dye to fish within 40m.';
+      }
       mods.push(mod);
     }
   });

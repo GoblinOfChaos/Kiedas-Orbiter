@@ -697,7 +697,7 @@ export default function Inventory() {
     <PageLayout
       title="Inventory"
       subtitle={`Displaying ${visibleItems.length} / ${filteredItems.length} items`}
-      extra={renderHeaderStats(inventoryData)}
+      extra={renderHeaderStats(inventoryData, iconsPath)}
       headerPanel={renderHeaderPanel()}
     >
       <div className="space-y-6">
@@ -938,27 +938,59 @@ export default function Inventory() {
   )
 }
 
-function renderHeaderStats(inventoryData) {
+function renderHeaderStats(inventoryData, iconsPath) {
   if (!inventoryData?.account) return null
   const { credits, platinum, forma, aura_forma, stance_forma, umbra_forma, orokin_reactor, orokin_catalyst } = inventoryData.account
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null
   return (
     <div className="flex items-center gap-6 ml-auto pr-3">
-      <div className="flex flex-col items-end min-w-[80px]"><span className="text-[10px] text-kronos-dim uppercase font-black tracking-widest leading-none mb-1">Credits</span><span className="text-sm font-bold text-kronos-text leading-none">{credits.toLocaleString()}</span></div>
-      <div className="flex flex-col items-end min-w-[80px]"><span className="text-[10px] text-kronos-accent uppercase font-black tracking-widest leading-none mb-1">Platinum</span><span className="text-sm font-bold text-kronos-text leading-none">{platinum.toLocaleString()}</span></div>
+      <div className="flex flex-col items-end min-w-[80px]">
+        <span className="flex items-center gap-1 text-[10px] text-kronos-dim uppercase font-black tracking-widest leading-none mb-1">
+          {iconSrc('Credits') && <img src={iconSrc('Credits')} className="w-3.5 h-3.5 object-contain" alt="" />}
+          Credits
+        </span>
+        <span className="text-sm font-bold text-kronos-text leading-none">{credits.toLocaleString()}</span>
+      </div>
+      <div className="flex flex-col items-end min-w-[80px]">
+        <span className="flex items-center gap-1 text-[10px] text-kronos-accent uppercase font-black tracking-widest leading-none mb-1">
+          {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3.5 h-3.5 object-contain" alt="" />}
+          Platinum
+        </span>
+        <span className="text-sm font-bold text-kronos-text leading-none">{platinum.toLocaleString()}</span>
+      </div>
       <div className="h-8 w-px bg-white/10" />
       <div className="flex flex-col items-end group relative cursor-help min-w-[60px]">
-        <span className="text-[10px] text-kronos-accent uppercase font-black tracking-widest leading-none mb-1">Forma</span><span className="text-sm font-bold text-kronos-text leading-none">{forma + aura_forma + stance_forma + umbra_forma}</span>
+        <span className="flex items-center gap-1 text-[10px] text-kronos-accent uppercase font-black tracking-widest leading-none mb-1">
+          {iconSrc('Forma') && <img src={iconSrc('Forma')} className="w-3.5 h-3.5 object-contain" alt="" />}
+          Forma
+        </span>
+        <span className="text-sm font-bold text-kronos-text leading-none">{forma + aura_forma + stance_forma + umbra_forma}</span>
         <div className="absolute top-full right-0 mt-2 p-3 bg-kronos-bg border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110] min-w-[140px] glass-panel">
           <div className="space-y-2">
-            <div className="flex justify-between gap-4"><span className="text-[10px] text-kronos-dim uppercase font-bold">Standard</span><span className="text-xs font-bold text-kronos-text">{forma}</span></div>
-            {aura_forma > 0 && <div className="flex justify-between gap-4"><span className="text-[10px] text-blue-300 uppercase font-bold">Aura</span><span className="text-xs font-bold text-kronos-text">{aura_forma}</span></div>}
-            {stance_forma > 0 && <div className="flex justify-between gap-4"><span className="text-[10px] text-green-300 uppercase font-bold">Stance</span><span className="text-xs font-bold text-kronos-text">{stance_forma}</span></div>}
-            {umbra_forma > 0 && <div className="flex justify-between gap-4"><span className="text-[10px] text-purple-400 uppercase font-bold">Umbra</span><span className="text-xs font-bold text-kronos-text">{umbra_forma}</span></div>}
+            <div className="flex justify-between gap-4">
+              <span className="flex items-center gap-1 text-[10px] text-kronos-dim uppercase font-bold">{iconSrc('Forma') && <img src={iconSrc('Forma')} className="w-3 h-3 object-contain" alt="" />}Standard</span>
+              <span className="text-xs font-bold text-kronos-text">{forma}</span>
+            </div>
+            {aura_forma > 0 && <div className="flex justify-between gap-4"><span className="flex items-center gap-1 text-[10px] text-blue-300 uppercase font-bold">{iconSrc('FormaUmbra') && <img src={iconSrc('FormaUmbra')} className="w-3 h-3 object-contain" alt="" />}Aura</span><span className="text-xs font-bold text-kronos-text">{aura_forma}</span></div>}
+            {stance_forma > 0 && <div className="flex justify-between gap-4"><span className="flex items-center gap-1 text-[10px] text-green-300 uppercase font-bold">{iconSrc('FormaStance') && <img src={iconSrc('FormaStance')} className="w-3 h-3 object-contain" alt="" />}Stance</span><span className="text-xs font-bold text-kronos-text">{stance_forma}</span></div>}
+            {umbra_forma > 0 && <div className="flex justify-between gap-4"><span className="flex items-center gap-1 text-[10px] text-purple-400 uppercase font-bold">{iconSrc('OmegaForma') && <img src={iconSrc('OmegaForma')} className="w-3 h-3 object-contain" alt="" />}Umbra</span><span className="text-xs font-bold text-kronos-text">{umbra_forma}</span></div>}
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-end min-w-[70px]"><span className="text-[10px] text-yellow-500 uppercase font-black tracking-widest leading-none mb-1">Reactors</span><span className="text-sm font-bold text-kronos-text leading-none">{orokin_reactor}</span></div>
-      <div className="flex flex-col items-end min-w-[70px]"><span className="text-[10px] text-blue-400 uppercase font-black tracking-widest leading-none mb-1">Catalysts</span><span className="text-sm font-bold text-kronos-text leading-none">{orokin_catalyst}</span></div>
+      <div className="flex flex-col items-end min-w-[70px]">
+        <span className="flex items-center gap-1 text-[10px] text-yellow-500 uppercase font-black tracking-widest leading-none mb-1">
+          {iconSrc('Reactor') && <img src={iconSrc('Reactor')} className="w-3.5 h-3.5 object-contain" alt="" />}
+          Reactors
+        </span>
+        <span className="text-sm font-bold text-kronos-text leading-none">{orokin_reactor}</span>
+      </div>
+      <div className="flex flex-col items-end min-w-[70px]">
+        <span className="flex items-center gap-1 text-[10px] text-blue-400 uppercase font-black tracking-widest leading-none mb-1">
+          {iconSrc('Catalyst') && <img src={iconSrc('Catalyst')} className="w-3.5 h-3.5 object-contain" alt="" />}
+          Catalysts
+        </span>
+        <span className="text-sm font-bold text-kronos-text leading-none">{orokin_catalyst}</span>
+      </div>
     </div>
   )
 }

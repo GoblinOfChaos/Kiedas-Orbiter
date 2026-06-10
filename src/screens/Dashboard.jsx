@@ -1131,9 +1131,11 @@ export default function Dashboard() {
                 <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.item}>{item.item}</p>
                 <div className="flex items-center gap-3 mt-1">
                   <span className="text-[10px] flex items-center gap-1 font-bold text-yellow-400">
+                    {iconSrc('Ducats') && <img src={iconSrc('Ducats')} className="w-3.5 h-3.5 object-contain" alt="" />}
                     {item.ducats} <span className="text-kronos-dim text-[8px] uppercase">Ducats</span>
                   </span>
                   <span className="text-[10px] flex items-center gap-1 font-bold text-blue-400">
+                    {iconSrc('Credits') && <img src={iconSrc('Credits')} className="w-3.5 h-3.5 object-contain" alt="" />}
                     {item.credits.toLocaleString()} <span className="text-kronos-dim text-[8px] uppercase">Credits</span>
                   </span>
                 </div>
@@ -1448,7 +1450,10 @@ export default function Dashboard() {
                     <div className="flex items-center gap-1.5 mt-1">
                       <span className="text-sm text-kronos-dim line-through decoration-red-500/50">{deal.originalPrice}</span>
                       <span className="text-sm text-kronos-accent font-black">{deal.salePrice}</span>
-                      <span className="text-sm font-bold text-kronos-text">Platinum</span>
+                      <span className="flex items-center gap-1 text-sm font-bold text-kronos-text">
+                        {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-4 h-4 object-contain" alt="" />}
+                        Platinum
+                      </span>
                       <span className="text-sm text-kronos-dim">(-{deal.discount}%)</span>
                     </div>
 

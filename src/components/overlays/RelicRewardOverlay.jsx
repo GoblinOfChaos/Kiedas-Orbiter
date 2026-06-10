@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Card } from '../UI'
 import { Loader2 } from 'lucide-react'
 import { listen } from '@tauri-apps/api/event'
-import { invoke } from '@tauri-apps/api/core'
+import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import { getPrice } from '../../lib/marketEngine'
 
 const RELIC_TIMEOUT = 14500
@@ -269,6 +269,9 @@ const FISSURE_BONUS_REWARDS = new Set([
 ])
 
 function RewardSlot({ confirmed, isLocal, price }) {
+  const [iconsPath, setIconsPath] = useState('')
+  useEffect(() => { invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { }) }, [])
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null
   const item = confirmed?.item
   const inv = item?.inventory || {}
   const isRequiem = item?.isRequiem
@@ -287,7 +290,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
           </div>
           {price > 0 && (
             <div className="flex items-center gap-1.5 justify-evenly mb-2">
-              <PriceBadge label="Plat" value={`${price ?? 0}p`} color="blue" />
+              <PriceBadge label="Plat" value={`${price ?? 0}p`} color="blue" iconSrc={iconSrc('Platinum')} />
             </div>
           )}
         </div>
@@ -314,8 +317,8 @@ function RewardSlot({ confirmed, isLocal, price }) {
         {/* Ducats + Plat badges */}
         {(!isForma && !isRequiem) && (
           <div className="flex items-center gap-1.5 justify-evenly">
-            <PriceBadge label="Ducats" value={`${item?.ducats ?? 0}`} color="amber" />
-            <PriceBadge label="Plat" value={`${price ?? 0}p`} color="blue" />
+            <PriceBadge label="Ducats" value={`${item?.ducats ?? 0}`} color="amber" iconSrc={iconSrc('Ducats')} />
+            <PriceBadge label="Plat" value={`${price ?? 0}p`} color="blue" iconSrc={iconSrc('Platinum')} />
           </div>
         )}
       </div>
@@ -403,13 +406,14 @@ function Badge({ label, count, isMastered, canMastered = true }) {
   )
 }
 
-function PriceBadge({ label, value, color }) {
+function PriceBadge({ label, value, color, iconSrc }) {
   const styles = {
     amber: 'bg-amber-500/5 border-white/5 text-amber-500/50',
     blue: 'bg-blue-400/20 border-blue-400/50 text-blue-200 shadow-[0_0_10px_rgba(96,165,250,0.3)]',
   }
   return (
     <div className={`flex items-center gap-1 px-2 py-1 rounded-lg border transition-all ${styles[color]}`}>
+      {iconSrc && <img src={iconSrc} className="w-3.5 h-3.5 object-contain" alt="" />}
       <span className="text-[8px] font-black uppercase tracking-wider opacity-70">{label}</span>
       <span className="text-[10px] font-bold">{value}</span>
     </div>

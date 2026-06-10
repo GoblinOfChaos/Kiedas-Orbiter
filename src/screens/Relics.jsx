@@ -206,11 +206,11 @@ export default function Relics() {
           <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Sort:</span>
           <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
             {[
-              { id: 'name', label: 'Name' },
-              { id: 'ducat', label: 'Ducats' },
-              { id: 'plat', label: 'Plat' },
-              { id: 'ducat_gain', label: 'Refine (D)' },
-              { id: 'plat_gain', label: 'Refine (P)' }
+              { id: 'name', label: 'Name', icon: null },
+              { id: 'ducat', label: 'Ducats', icon: iconSrc('Ducats') },
+              { id: 'plat', label: 'Plat', icon: iconSrc('Platinum') },
+              { id: 'ducat_gain', label: 'Refine (D)', icon: iconSrc('Ducats') },
+              { id: 'plat_gain', label: 'Refine (P)', icon: iconSrc('Platinum') }
             ].map(mode => {
               const isActive = sortMode === mode.id;
               return (
@@ -226,6 +226,7 @@ export default function Relics() {
                   }}
                   className={`px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5 ${isActive ? 'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
                 >
+                  {mode.icon && <img src={mode.icon} className="w-3.5 h-3.5 object-contain" alt="" />}
                   {mode.label}
                   {isActive && <ArrowUpDown size={12} className={sortOrder === 'desc' ? 'rotate-180' : ''} />}
                 </button>
@@ -370,12 +371,14 @@ export default function Relics() {
                                     </p>
                                     <div className="flex items-center gap-2 flex-shrink-0">
                                       {reward.ducats > 0 && (
-                                        <span className="text-[9px] font-bold text-blue-400 transition-colors tabular-nums">
+                                        <span className="flex items-center gap-0.5 text-[9px] font-bold text-blue-400 transition-colors tabular-nums">
+                                          {iconSrc('Ducats') && <img src={iconSrc('Ducats')} className="w-3 h-3 object-contain" alt="" />}
                                           {reward.ducats}
                                         </span>
                                       )}
                                       {plat > 0 && (
-                                        <span className="text-[9px] font-black text-kronos-accent transition-colors tabular-nums">
+                                        <span className="flex items-center gap-0.5 text-[9px] font-black text-kronos-accent transition-colors tabular-nums">
+                                          {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3 h-3 object-contain" alt="" />}
                                           {plat}P
                                         </span>
                                       )}
@@ -390,11 +393,13 @@ export default function Relics() {
                               <div className="flex items-center justify-between">
                                 {era !== 'Requiem' && (
                                   <div className="flex items-center gap-1.5" title={`Expected Ducats (${evRefinement}, Squad of ${squadSize})`}>
+                                    {iconSrc('Ducats') && <img src={iconSrc('Ducats')} className="w-3.5 h-3.5 object-contain" alt="" />}
                                     <span className="text-[12px] font-black text-kronos-dim uppercase tracking-tighter">EXP DUCATS</span>
                                     <span className="text-[12px] font-black text-blue-400">{Math.round(item.evDucats)}</span>
                                   </div>
                                 )}
                                 <div className="flex items-center gap-1.5" title={`Expected Platinum (${evRefinement}, Squad of ${squadSize})`}>
+                                  {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3.5 h-3.5 object-contain" alt="" />}
                                   <span className="text-[12px] font-black text-kronos-dim uppercase tracking-tighter">EXP PLAT</span>
                                   <span className="text-[12px] font-black text-kronos-accent">{Math.round(item.evPlat)}P</span>
                                 </div>
@@ -403,10 +408,12 @@ export default function Relics() {
                               {(sortMode === 'ducat_gain' || sortMode === 'plat_gain') && (
                                 <div className="flex items-center justify-between border-t border-white/5 pt-1.5 mt-0.5">
                                   <div className="flex items-center gap-1.5" title="Expected Ducat gain from refining to Radiant">
+                                    {iconSrc('Ducats') && <img src={iconSrc('Ducats')} className="w-3.5 h-3.5 object-contain" alt="" />}
                                     <span className="text-[12px] font-black text-kronos-accent/70 uppercase tracking-tighter">GAIN (D)</span>
                                     <span className="text-[12px] font-black text-blue-400">+{Math.round(item.ducatGain)}</span>
                                   </div>
                                   <div className="flex items-center gap-1.5" title="Expected Platinum gain from refining to Radiant">
+                                    {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3.5 h-3.5 object-contain" alt="" />}
                                     <span className="text-[12px] font-black text-kronos-accent/70 uppercase tracking-tighter">GAIN (P)</span>
                                     <span className="text-[12px] font-black text-kronos-accent">+{Math.round(item.platGain)}P</span>
                                   </div>

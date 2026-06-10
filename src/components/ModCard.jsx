@@ -247,6 +247,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const color = mf === 'Tektolyst' ? (TEKTOLYST_TEXT_COLORS[mod.name] || TIER_COLORS[mf] || '#FFFFFF') : (TIER_COLORS[mf] || '#FFFFFF')
   const tektolystGroup = mf === 'Tektolyst' ? (TEKTOLYST_COLOR_GROUPS[mod.name] || 'Silver') : null
   const cardScale = width / 180
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null
 
   const tagIconMap = useMemo(() => {
     if (!exportTextIcons) return {};
@@ -294,9 +295,10 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
         {pricesLoading ? (
           <span className="absolute top-1 right-1 z-10 animate-pulse bg-white/10 rounded px-1.5 py-0.5 inline-block w-6 h-3" />
         ) : platValue > 0 && (
-          <span className="absolute top-1 right-1 z-10 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
-            {platValue}p
-          </span>
+<span className="absolute top-1 right-1 z-10 flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
+          {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3 h-3 object-contain" alt="" />}
+          {platValue}p
+        </span>
         )}
       </div>
     )
@@ -319,9 +321,10 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
         {pricesLoading ? (
           <span className="absolute top-1 right-1 z-10 animate-pulse bg-white/10 rounded px-1.5 py-0.5 inline-block w-6 h-3" />
         ) : platValue > 0 && (
-          <span className="absolute top-1 right-1 z-10 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
-            {platValue}p
-          </span>
+<span className="absolute top-1 right-1 z-10 flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
+          {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3 h-3 object-contain" alt="" />}
+          {platValue}p
+        </span>
         )}
       </div>
     )
@@ -557,7 +560,8 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
       {pricesLoading ? (
         <span className="absolute top-1 right-1 z-10 animate-pulse bg-white/10 rounded px-1.5 py-0.5 inline-block w-6 h-3" />
       ) : platValue > 0 && (
-        <span className="absolute top-1 right-1 z-10 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
+        <span className="absolute top-1 right-1 z-10 flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
+          {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3 h-3 object-contain" alt="" />}
           {platValue}p
         </span>
       )}

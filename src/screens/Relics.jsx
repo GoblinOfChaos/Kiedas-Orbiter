@@ -35,8 +35,10 @@ export default function Relics() {
   const [sortOrder, setSortOrder] = useState('desc') // 'asc' | 'desc'
   const [evRefinementOverride, setEvRefinementOverride] = useState('Intact') // quality
   const [uiPath, setUiPath] = useState('')
+  const [iconsPath, setIconsPath] = useState('')
 
   useEffect(() => { invoke('get_ui_path').then(p => setUiPath(p)).catch(() => { }) }, [])
+  useEffect(() => { invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { }) }, [])
 
   const relics = inventoryData?.relics ?? []
 
@@ -120,9 +122,15 @@ export default function Relics() {
   const totalFilteredGroups = baseFiltered.length;
   const totalFilteredItems = baseFiltered.reduce((s, r) => s + Object.values(r.refinements || {}).reduce((a, b) => a + b, 0), 0);
 
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null
+
   const eraTabs = ['All', ...ERA_ORDER, 'Other']
     .filter(e => e === 'All' || relics.some(r => r.era === e))
-    .map(e => ({ id: e, label: e }))
+    .map(e => ({
+      id: e,
+      label: e,
+      icon: e !== 'All' && e !== 'Other' ? iconSrc(e) : null
+    }))
 
   const qualityTabs = ['All', ...QUALITY_ORDER].map(q => ({ id: q, label: q }))
 

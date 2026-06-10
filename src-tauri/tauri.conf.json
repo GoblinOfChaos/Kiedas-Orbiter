@@ -143,8 +143,7 @@
       "data/assets/ui/**/*",
       "data/assets/ocr/**/*",
       "data/assets/data/**/*",
-      "data/assets/audio/**/*",
-      "data/bin/*"
+      "data/assets/audio/**/*"
     ]
   },
   "plugins": {

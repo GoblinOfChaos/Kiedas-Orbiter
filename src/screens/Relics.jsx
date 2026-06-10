@@ -15,10 +15,11 @@
  * - Filter by Era and refinement status.
  * - Displays all four refinement tiers for each relic in a single card.
  */
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Search, AlertCircle, Users, Zap, TrendingUp, Coins, ArrowUpDown } from 'lucide-react'
 import { PageLayout, Input, Card, Tabs, MonitorState, Select } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
+import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import { getRelicEV } from '../lib/relicParser'
 
 const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem']
@@ -33,6 +34,9 @@ export default function Relics() {
   const [sortMode, setSortMode] = useState('name') // 'name' | 'ducat' | 'plat'
   const [sortOrder, setSortOrder] = useState('desc') // 'asc' | 'desc'
   const [evRefinementOverride, setEvRefinementOverride] = useState('Intact') // quality
+  const [uiPath, setUiPath] = useState('')
+
+  useEffect(() => { invoke('get_ui_path').then(p => setUiPath(p)).catch(() => { }) }, [])
 
   const relics = inventoryData?.relics ?? []
 
@@ -75,8 +79,9 @@ export default function Relics() {
 
       const platGain = evPlatRadiant - evPlatIntact;
       const ducatGain = evDucatsRadiant - evDucatsIntact;
+      const relicPlat = allPrices[relic.unique_name] ?? 0;
 
-      return { ...relic, evPlat, evDucats, platGain, ducatGain, sortedRewards, evRefinement };
+      return { ...relic, evPlat, evDucats, platGain, ducatGain, relicPlat, sortedRewards, evRefinement };
     });
 
     // 2. Sort
@@ -224,6 +229,7 @@ export default function Relics() {
         {/* Void Traces - Aligned Right in the same row */}
         {inventoryData?.account && (
           <div className="ml-auto flex items-center gap-3 bg-black/20 px-3 py-1 rounded-xl border border-white/5 h-[34px]">
+            {uiPath && <img src={convertFileSrc(`${uiPath}/VoidTear.png`)} alt="" className="w-5 h-5 object-contain" />}
             <div className="flex flex-col items-end">
               <span className="text-[9px] font-black text-kronos-accent uppercase tracking-widest leading-none mb-0.5">Void Traces</span>
               <span className="text-sm font-black text-kronos-text leading-none">
@@ -304,7 +310,7 @@ export default function Relics() {
                         countLabel = ['Intact', 'Exceptional', 'Flawless', 'Radiant'].map(q => refinements[q] || 0).join(' | ');
                       }
 
-                      const { sortedRewards, evPlat, evDucats, evRefinement } = item;
+                      const { sortedRewards, evPlat, evDucats, evRefinement, relicPlat } = item;
 
                       return (
                         <Card
@@ -327,6 +333,11 @@ export default function Relics() {
                             <p className="font-black text-[9px] uppercase text-kronos-dim mt-1 whitespace-nowrap">
                               {countLabel}
                             </p>
+                            {relicPlat > 0 && (
+                              <p className="font-black text-[9px] text-kronos-accent mt-0.5 whitespace-nowrap">
+                                {relicPlat}P
+                              </p>
+                            )}
                           </div>
 
                           {/* Divider (Minimal) */}

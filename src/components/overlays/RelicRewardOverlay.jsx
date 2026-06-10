@@ -3,7 +3,7 @@ import { Card } from '../UI'
 import { Loader2 } from 'lucide-react'
 import { listen } from '@tauri-apps/api/event'
 import { invoke } from '@tauri-apps/api/core'
-import { getPrice } from '../../lib/wfmCache'
+import { getPrice } from '../../lib/marketEngine'
 
 const RELIC_TIMEOUT = 14500
 

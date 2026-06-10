@@ -4,7 +4,7 @@ import { parseInventory } from '../lib/inventoryParser'
 import { parseWorldstate } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward } from '../lib/relicParser'
 import { listen, emit } from '@tauri-apps/api/event'
-import { getPrice, getPricesBatch } from '../lib/wfmCache'
+import { getPrice, getPricesBatch } from '../lib/marketEngine'
 import { resolveResource } from '@tauri-apps/api/path'
 import { convertFileSrc } from '@tauri-apps/api/core'
 import { resolveNode } from '../lib/warframeUtils'
@@ -588,6 +588,12 @@ export function MonitoringProvider({ children }) {
         seen.add(m.unique_name)
       }
     }
+    for (const a of (inventoryData.arcanes ?? [])) {
+      if (!seen.has(a.unique_name)) {
+        items.push({ uniqueName: a.unique_name, name: a.name })
+        seen.add(a.unique_name)
+      }
+    }
     for (const set of Object.values(inventoryData.primeSets ?? {})) {
       for (const part of (set.parts ?? [])) {
         if (!seen.has(part.unique_name)) {
@@ -601,8 +607,12 @@ export function MonitoringProvider({ children }) {
       }
     }
 
-    // Include relic rewards in the same batch
+    // Include relics and their rewards in the same batch
     for (const r of (inventoryData.relics ?? [])) {
+      if (r.unique_name && !seen.has(r.unique_name)) {
+        items.push({ uniqueName: r.unique_name, name: r.name })
+        seen.add(r.unique_name)
+      }
       for (const rew of (r.rewards ?? [])) {
         if (!seen.has(rew.uniqueName)) {
           items.push({ uniqueName: rew.uniqueName, name: rew.name })
@@ -612,7 +622,7 @@ export function MonitoringProvider({ children }) {
     }
     if (items.length > 0) {
       setIsPriceLoading(true)
-      setPriceFetchProgress({ current: 0, total: items.filter(i => i.name && !i.name.includes('Forma')).length })
+      setPriceFetchProgress({ current: 0, total: items.filter(i => i.name && !/\bForma\b/.test(i.name)).length })
       const onProgress = (p) => setPriceFetchProgress(p)
       getPricesBatch(items, onProgress).then(({ results, hadNetworkActivity }) => {
         setAllPrices(results)
@@ -641,6 +651,12 @@ export function MonitoringProvider({ children }) {
         seen.add(m.unique_name)
       }
     }
+    for (const a of (inventoryData.arcanes ?? [])) {
+      if (!seen.has(a.unique_name)) {
+        items.push({ uniqueName: a.unique_name, name: a.name })
+        seen.add(a.unique_name)
+      }
+    }
     for (const set of Object.values(inventoryData.primeSets ?? {})) {
       for (const part of (set.parts ?? [])) {
         if (!seen.has(part.unique_name)) {
@@ -655,9 +671,21 @@ export function MonitoringProvider({ children }) {
         seen.add(set.setPath)
       }
     }
+    for (const r of (inventoryData.relics ?? [])) {
+      if (r.unique_name && !seen.has(r.unique_name)) {
+        items.push({ uniqueName: r.unique_name, name: r.name })
+        seen.add(r.unique_name)
+      }
+      for (const rew of (r.rewards ?? [])) {
+        if (!seen.has(rew.uniqueName)) {
+          items.push({ uniqueName: rew.uniqueName, name: rew.name })
+          seen.add(rew.uniqueName)
+        }
+      }
+    }
     if (items.length > 0) {
       setIsPriceLoading(true)
-      setPriceFetchProgress({ current: 0, total: items.filter(i => i.name && !i.name.includes('Forma')).length })
+      setPriceFetchProgress({ current: 0, total: items.filter(i => i.name && !/\bForma\b/.test(i.name)).length })
       const onProgress = (p) => setPriceFetchProgress(p)
       getPricesBatch(items, onProgress).then(({ results }) => {
         setAllPrices(results)

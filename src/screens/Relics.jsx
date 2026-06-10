@@ -51,7 +51,7 @@ export default function Relics() {
     if (search.length === 0) return true
 
     const matchName = search.every(word => r.name.toLowerCase().includes(word))
-    const matchRewards = r.rewards?.some(rw => 
+    const matchRewards = r.rewards?.some(rw =>
       search.every(word => rw.name.toLowerCase().includes(word))
     )
 
@@ -229,7 +229,7 @@ export default function Relics() {
         {/* Void Traces - Aligned Right in the same row */}
         {inventoryData?.account && (
           <div className="ml-auto flex items-center gap-3 bg-black/20 px-3 py-1 rounded-xl border border-white/5 h-[34px]">
-            {uiPath && <img src={convertFileSrc(`${uiPath}/VoidTear.png`)} alt="" className="w-5 h-5 object-contain" />}
+            {uiPath && <img src={convertFileSrc(`${uiPath}/VoidTraces.png`)} alt="" className="w-7 h-7 object-contain" />}
             <div className="flex flex-col items-end">
               <span className="text-[9px] font-black text-kronos-accent uppercase tracking-widest leading-none mb-0.5">Void Traces</span>
               <span className="text-sm font-black text-kronos-text leading-none">
@@ -287,7 +287,7 @@ export default function Relics() {
                   </span>
                 )}
 
-            </div>
+              </div>
             </div>
 
             <div className="space-y-12 pb-12">

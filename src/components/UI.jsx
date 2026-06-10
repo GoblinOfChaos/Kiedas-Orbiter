@@ -225,11 +225,15 @@ export function EmptyState({ icon: Icon, title, description }) {
 // Card Header Component
 // Renders the standard icon + title row at the top of a Card.
 // Pass `action` to render an optional right-side element (button, badge, etc.)
-export function CardHeader({ icon: Icon, title, action }) {
+export function CardHeader({ icon: Icon, imageSrc, title, action }) {
   return (
     <div className={`flex items-center ${action ? 'justify-between' : 'gap-2'} mb-2`}>
       <div className="flex items-center gap-2">
-        {Icon && <Icon size={16} className="text-kronos-accent flex-shrink-0" />}
+        {imageSrc ? (
+          <img src={imageSrc} className="w-5 h-5 object-contain flex-shrink-0" alt="" />
+        ) : Icon ? (
+          <Icon size={20} className="text-kronos-accent flex-shrink-0" />
+        ) : null}
         <p className="font-bold text-sm uppercase">{title}</p>
       </div>
       {action && <div className="flex-shrink-0">{action}</div>}
@@ -295,7 +299,7 @@ export function Tabs({ tabs, activeTab, onChange, className = '', fullWidth = fa
               key={tab.id}
               onClick={() => onChange(tab.id)}
               className={`
-                px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5
+                px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center justify-center gap-1.5
                 ${fullWidth ? 'flex-1' : ''}
                 ${(Array.isArray(activeTab) ? activeTab.includes(tab.id) : activeTab === tab.id)
                   ? 'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]'
@@ -303,7 +307,7 @@ export function Tabs({ tabs, activeTab, onChange, className = '', fullWidth = fa
                 }
               `}
             >
-              {tab.icon && <img src={tab.icon} className="w-4 h-4 object-contain" alt="" />}
+              {tab.icon && <img src={tab.icon} className="w-5 h-5 object-contain" alt="" />}
               {tab.label}
             </button>
           ))}

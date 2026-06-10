@@ -43,7 +43,8 @@ src-tauri/Cargo.lock
 
 # C++ build artifacts
 build_int/
-build_warframe_helper.ps1
+build_int_win/
+build_int_linux/
 
 # Soup submodule content (git tracks it via .gitmodules, no need to index)
 lib/soup/

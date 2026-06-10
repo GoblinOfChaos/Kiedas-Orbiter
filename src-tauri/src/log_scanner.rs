@@ -385,8 +385,11 @@ pub fn stop_scanner(app: &AppHandle) {
     // Kill any orphaned helper so the blocking read_exact unblocks
     #[cfg(windows)]
     {
+        use std::os::windows::process::CommandExt;
+        const CREATE_NO_WINDOW: u32 = 0x08000000;
         let _ = std::process::Command::new("taskkill")
             .args(["/f", "/im", "warframe-api-helper.exe"])
+            .creation_flags(CREATE_NO_WINDOW)
             .stdout(std::process::Stdio::null())
             .stderr(std::process::Stdio::null())
             .status();

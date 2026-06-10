@@ -57,7 +57,7 @@ $CXX "${CXXFLAGS[@]}" -c "$SCRIPT_DIR/inet_ntop_win.cpp" -o "$OUT_DIR/inet_ntop_
 
 echo "Linking..."
 LDFLAGS=(-O2 -Wl,--gc-sections)
-LIBS=(-static-libgcc -static-libstdc++ -Wl,-Bstatic -lwinpthread -Wl,-Bdynamic -lws2_32 -lwsock32 -lwinhttp -lcrypt32 -liphlpapi -ldnsapi -lbcrypt -lgdi32 -lhid -lsetupapi)
+LIBS=(-static -lwinpthread -lws2_32 -lwsock32 -lwinhttp -lcrypt32 -liphlpapi -ldnsapi -lbcrypt -lgdi32 -lhid -lsetupapi)
 $CXX "${LDFLAGS[@]}" "$OUT_DIR"/*.o "${LIBS[@]}" -o "$OUT_DIR/warframe-api-helper.exe"
 
 cp "$OUT_DIR/warframe-api-helper.exe" "$EXE_DIR/warframe-api-helper.exe"

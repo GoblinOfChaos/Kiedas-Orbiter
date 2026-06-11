@@ -1,7 +1,7 @@
 {
   "identifier": "default",
   "description": "Default capabilities for all windows",
-  "windows": ["main", "overlay-*", "calibration"],
+  "windows": ["main", "overlay-*"],
   "permissions": [
     "core:default",
     "core:window:default",

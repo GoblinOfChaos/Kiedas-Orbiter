@@ -1522,15 +1522,6 @@ async fn play_notification_sound(app_handle: tauri::AppHandle, sound: String) ->
     Ok(())
 }
 
-#[tauri::command]
-async fn toggle_calibration(app_handle: tauri::AppHandle) -> Result<bool, String> {
-    let w = app_handle.get_webview_window("calibration").ok_or("not found")?;
-    let visible = w.is_visible().map_err(|e| e.to_string())?;
-    if visible { w.hide().map_err(|e| e.to_string())?; }
-    else        { w.show().map_err(|e| e.to_string())?; }
-    Ok(!visible)
-}
-
 
 /// Show a notification toast. Routes to the correct overlay window by position.
 /// Emits 'new-notification' globally; the matching window picks it up.
@@ -2214,8 +2205,6 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
             get_warframe_window_rect,
             auto_detect_warframe_monitor,
             is_warframe_focused,
-            // --- calibration ---
-            toggle_calibration,
         ])
         .build(tauri::generate_context!())
         .expect("error while building tauri application");

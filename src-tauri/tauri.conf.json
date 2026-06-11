@@ -23,16 +23,6 @@
         "visible": false
       },
       {
-        "label": "calibration",
-        "title": "Kronos Overlay",
-        "width": 600,
-        "height": 400,
-        "decorations": true,
-        "resizable": true,
-        "visible": false,
-        "url": "/?calibration=true"
-      },
-      {
         "label": "overlay-tl",
         "url": "/?overlay=true",
         "width": 440,

@@ -71,7 +71,6 @@ export default function SettingsScreen() {
   const { isMonitoring, startMonitoring, stopMonitoring, manualRefresh, lastUpdate, statusText, autoStart, setAutoStart, monitorResult, refreshPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, retryCardImages } = useMonitoring()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [isCalibrationOpen, setIsCalibrationOpen] = useState(false)
   const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
 
   const [hotkeys, setHotkeys] = useState(
@@ -222,14 +221,6 @@ export default function SettingsScreen() {
     () => getSetting('fissure_target_monitor', 'auto')
   )
   const [availableMonitors, setAvailableMonitors] = useState([])
-
-  // Listen for calibration window close from X button
-  useEffect(() => {
-    const unlisten = listen('calibration-closed', () => {
-      setIsCalibrationOpen(false)
-    })
-    return () => { unlisten.then(f => f()) }
-  }, [])
 
   // Poll scanner status
   useEffect(() => {
@@ -430,15 +421,6 @@ export default function SettingsScreen() {
     }
   }
 
-  const handleToggleCalibrate = async () => {
-    try {
-      const isOpen = await invoke('toggle_calibration')
-      setIsCalibrationOpen(isOpen)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
   return (
     <PageLayout title="Settings">
       <div className="space-y-6">
@@ -598,12 +580,6 @@ export default function SettingsScreen() {
                 className="py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20"
               >
                 Test relic overlay
-              </button>
-              <button
-                onClick={handleToggleCalibrate}
-                className="py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20"
-              >
-                Linux Calibration (KDE)
               </button>
             </div>
           </div>

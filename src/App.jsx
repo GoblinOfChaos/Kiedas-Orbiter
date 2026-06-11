@@ -370,20 +370,11 @@ function AppContent() {
 export default function App() {
   const params = new URLSearchParams(window.location.search)
   const isOverlay = params.get('overlay') === 'true'
-  const isCalibration = params.get('calibration') === 'true'
 
   if (isOverlay) {
     return (
       <ThemeProvider>
         <OverlayApp />
-      </ThemeProvider>
-    )
-  }
-
-  if (isCalibration) {
-    return (
-      <ThemeProvider>
-        <CalibrationWindow />
       </ThemeProvider>
     )
   }
@@ -400,30 +391,4 @@ export default function App() {
   )
 }
 
-// ─── Calibration Window ───────────────────────────────────────────────────────
 
-function CalibrationWindow() {
-  return (
-    <main className="h-screen w-screen p-6 bg-kronos-bg flex flex-col items-center justify-center text-center overflow-hidden">
-      <h2 className="text-xl font-black text-kronos-text mb-4 tracking-tight">Linux Overlay Settings</h2>
-      <div className="w-full max-w-full space-y-4 text-xs text-kronos-dim font-bold tracking-widest overflow-y-auto custom-scrollbar px-2">
-
-        <div className="text-left space-y-2 bg-black/30 p-5 rounded-xl border border-white/5 shadow-2xl">
-          <p className="text-[10px] text-kronos-accent font-black">KDE Plasma Window Rules:</p>
-          <ul className="list-disc list-inside space-y-1.5 opacity-90">
-            <li>Open <span className="text-white">System Settings → Window Management → Window Rules</span></li>
-            <li>Click <span className="text-white">Add New...</span></li>
-            <li className="ml-4 mt-2">Click the <span className="text-kronos-accent">Magnifying Glass</span> icon and select the Overlay window</li>
-            <li className="ml-4 border-t border-white/10 pt-2">Match these settings:</li>
-            <li className="ml-6"><span className="text-yellow-400">Windows Title: "Kronos Overlay" (exact match)</span></li>
-            <li className="ml-6"><span className="text-yellow-400">No Title and Frame: Yes (Force)</span></li>
-            <li className="ml-6"><span className="text-yellow-400">Layer: On-Screen Display (Force)</span></li>
-            <li>Click <span className="text-white">OK</span> then <span className="text-white">Apply</span></li>
-          </ul>
-        </div>
-
-        <p className="text-[10px] opacity-40 italic">This calibration enables notifications to appear over fullscreen games.</p>
-      </div>
-    </main>
-  )
-}

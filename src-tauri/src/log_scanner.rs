@@ -226,18 +226,22 @@ impl LogScanner {
         }
 
         // ─── Riven close detection ────────────────────────────────────────
-        if s.contains("CancelJobs batchcount 0") {
-            self.riven_state = RivenState::Idle;
-            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll menu closed (CancelJobs) (LogTS: {}s)", ts));
-            app.emit("riven-screen-closed", ()).unwrap_or_default();
-            return;
-        }
-        if s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false") {
-            self.riven_state = RivenState::Idle;
-            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven overlays closed (ClearAgents) (LogTS: {}s)", ts));
-            app.emit("riven-screen-closed", ()).unwrap_or_default();
-            app.emit("riven-linked-closed", ()).unwrap_or_default();
-            return;
+        // These triggers (CancelJobs, ClearAgents) fire for many unrelated game events,
+        // so only act on them when the riven reroll screen is actually open.
+        if self.riven_state != RivenState::Idle {
+            if s.contains("CancelJobs batchcount 0") {
+                self.riven_state = RivenState::Idle;
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll menu closed (CancelJobs) (LogTS: {}s)", ts));
+                app.emit("riven-screen-closed", ()).unwrap_or_default();
+                return;
+            }
+            if s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false") {
+                self.riven_state = RivenState::Idle;
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven overlays closed (ClearAgents) (LogTS: {}s)", ts));
+                app.emit("riven-screen-closed", ()).unwrap_or_default();
+                app.emit("riven-linked-closed", ()).unwrap_or_default();
+                return;
+            }
         }
 
         // ─── Archon Hunt Elite Alert modifiers ────────────────────────────
@@ -633,8 +637,12 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 }
             }
             
-            // Sleep before restarting the helper to prevent CPU spinning when it crashes or exits immediately
-            std::thread::sleep(std::time::Duration::from_secs(10));
+            // Sleep before restarting the helper to prevent CPU spinning when it crashes or exits
+            // immediately. Skip this delay if IS_SCANNING was cleared externally (user toggled
+            // the scanner off) so re-enabling it feels instant.
+            if IS_SCANNING.load(Ordering::SeqCst) {
+                std::thread::sleep(std::time::Duration::from_secs(10));
+            }
         }
 
         IS_SCANNING.store(false, Ordering::SeqCst);

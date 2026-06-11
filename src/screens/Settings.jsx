@@ -361,8 +361,15 @@ export default function SettingsScreen() {
   const handleSetFissureEnabled = async (val) => {
     setFissureOverlayEnabled(val)
     await setSetting('fissure_overlay_enabled', val)
-    if (val && eeLogPath) {
-      invoke('start_log_scanner', { path: eeLogPath }).catch(console.error)
+    if (val) {
+      // Always stop first to clear any stale IS_SCANNING state from a previous session,
+      // otherwise spawn_memory_watcher returns "Already scanning" if the flag is stuck.
+      await invoke('stop_log_scanner').catch(console.error)
+      if (eeLogPath) {
+        invoke('start_log_scanner', { path: eeLogPath }).catch(console.error)
+      } else {
+        console.warn('Cannot start scanner: no EE.log path configured')
+      }
     } else {
       invoke('stop_log_scanner').catch(console.error)
     }
@@ -639,12 +646,12 @@ export default function SettingsScreen() {
                   <RefreshCw size={10} className="text-yellow-400 animate-spin" />
                 )}
                 <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-500 ${scannerStatus === 'active' ? 'bg-blue-400 shadow-[0_0_6px_rgba(96,165,250,0.8)]' :
-                    scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_6px_rgba(250,204,21,0.8)] animate-pulse' :
-                      'bg-zinc-600'
+                  scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_6px_rgba(250,204,21,0.8)] animate-pulse' :
+                    'bg-zinc-600'
                   }`} />
                 <span className={`text-[10px] font-black uppercase tracking-widest ${scannerStatus === 'active' ? 'text-blue-400' :
-                    scannerStatus === 'waiting' ? 'text-yellow-400' :
-                      'text-zinc-500'
+                  scannerStatus === 'waiting' ? 'text-yellow-400' :
+                    'text-zinc-500'
                   }`}>
                   {scannerStatus === 'active' ? 'Hooked into Warframe — scanner running' :
                     scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :

@@ -169,8 +169,6 @@ export default function Dashboard() {
   })
   const [descendiaTab, setDescendiaTab] = useState('normal')
 
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null
-
   useEffect(() => { invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { }) }, [])
 
   useEffect(() => {
@@ -311,14 +309,14 @@ export default function Dashboard() {
     { id: 'temporal', label: 'Temporal' },
   ]
 
-  const bountyTabs = useMemo(() => [
-    { id: 'holdfasts', label: 'Holdfasts', icon: iconSrc('MiniMapZariman') },
-    { id: 'cavia', label: 'Cavia', icon: iconSrc('MiniMapCaviaHubSyndicate') },
-    { id: 'hex', label: 'Hex', icon: iconSrc('MiniMapMarkersJobBoard') },
-    { id: 'cetus', label: 'Cetus', icon: iconSrc('MiniMapEidolonCetusElder') },
-    { id: 'deimos', label: 'Deimos', icon: iconSrc('MiniMapDeimosGrandmother') },
-    { id: 'vallis', label: 'Vallis', icon: iconSrc('MiniMapHubFortuna') },
-  ], [iconsPath])
+  const bountyTabs = [
+    { id: 'holdfasts', label: 'Holdfasts' },
+    { id: 'cavia', label: 'Cavia' },
+    { id: 'hex', label: 'Hex' },
+    { id: 'cetus', label: 'Cetus' },
+    { id: 'deimos', label: 'Deimos' },
+    { id: 'vallis', label: 'Vallis' },
+  ]
 
   const renderBounties = () => {
     if (!locationBounties || !bountyCycle) {
@@ -1054,13 +1052,13 @@ export default function Dashboard() {
   const renderAlerts = () => {
     if (!worldstate?.alerts?.length) return (
       <Card glow className="p-3">
-        <CardHeader imageSrc={iconSrc('Alert')} title="Alerts" />
+        <CardHeader icon={Bell} title="Alerts" />
         <p className="text-xs text-kronos-dim italic text-center py-4">No active alerts…</p>
       </Card>
     )
     return (
       <Card glow className="p-3">
-        <CardHeader imageSrc={iconSrc('Alert')} title="Alerts" />
+        <CardHeader icon={Bell} title="Alerts" />
         <div className="space-y-1.5">
           {worldstate.alerts.map((a, idx) => (
             <div key={idx} className="bg-kronos-panel/40 rounded p-2 border border-transparent hover:border-kronos-accent/20 transition-all">
@@ -1131,11 +1129,9 @@ export default function Dashboard() {
                 <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.item}>{item.item}</p>
                 <div className="flex items-center gap-3 mt-1">
                   <span className="text-[10px] flex items-center gap-1 font-bold text-yellow-400">
-                    {iconSrc('Ducats') && <img src={iconSrc('Ducats')} className="w-3.5 h-3.5 object-contain" alt="" />}
                     {item.ducats} <span className="text-kronos-dim text-[8px] uppercase">Ducats</span>
                   </span>
                   <span className="text-[10px] flex items-center gap-1 font-bold text-blue-400">
-                    {iconSrc('Credits') && <img src={iconSrc('Credits')} className="w-3.5 h-3.5 object-contain" alt="" />}
                     {item.credits.toLocaleString()} <span className="text-kronos-dim text-[8px] uppercase">Credits</span>
                   </span>
                 </div>
@@ -1151,7 +1147,7 @@ export default function Dashboard() {
     if (!worldstate?.events?.length && !worldstate?.globalBoosters?.length) return null
     return (
       <Card glow className="p-3 border-kronos-accent/30">
-        <CardHeader imageSrc={iconSrc('EventNotificationIcon')} title="Events" />
+        <CardHeader icon={Activity} title="Events" />
         <div className="space-y-2.5">
           {/* Global Boosters */}
           {worldstate?.globalBoosters?.map((b, idx) => (
@@ -1341,7 +1337,7 @@ export default function Dashboard() {
         {isVisible('bounty') && (
           <div className="lg:col-span-3">
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('MiniMapBountySource')} title="Bounties" />
+              <CardHeader icon={Shield} title="Bounties" />
               <Tabs tabs={bountyTabs} activeTab={bountyTab} onChange={setBountyTab} className="mb-2" fullWidth />
               {renderBounties()}
             </Card>
@@ -1352,7 +1348,7 @@ export default function Dashboard() {
         {isVisible('nightwave') && (
           <div className="lg:col-span-3">
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('NightwaveIconSimple')} title="Nightwave" />
+              <CardHeader icon={Moon} title="Nightwave" />
               {renderNightwave()}
             </Card>
           </div>
@@ -1365,7 +1361,7 @@ export default function Dashboard() {
           {/* World Timers */}
           {isVisible('timers') && timers.length > 0 && (
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('DailyTimerIcon')} title="World Timers" />
+              <CardHeader icon={Clock} title="World Timers" />
               <div className="grid grid-cols-2 gap-2">
                 {timers.map(({ label, data, getState }) => (
                   <div key={label} className="bg-kronos-panel/40 rounded p-2 flex flex-col gap-0.5">
@@ -1383,7 +1379,7 @@ export default function Dashboard() {
           {/* Arbitration */}
           {isVisible('arb') && (
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('EliteAlertIconSimple')} title="Arbitration" />
+              <CardHeader icon={Coins} title="Arbitration" />
               {currentArby ? (
                 <div className="space-y-2">
                   <div className="bg-kronos-panel/40 rounded p-2 flex justify-between items-start gap-4">
@@ -1450,10 +1446,7 @@ export default function Dashboard() {
                     <div className="flex items-center gap-1.5 mt-1">
                       <span className="text-sm text-kronos-dim line-through decoration-red-500/50">{deal.originalPrice}</span>
                       <span className="text-sm text-kronos-accent font-black">{deal.salePrice}</span>
-                      <span className="flex items-center gap-1 text-sm font-bold text-kronos-text">
-                        {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-4 h-4 object-contain" alt="" />}
-                        Platinum
-                      </span>
+                      <span className="text-sm font-bold text-kronos-text">Platinum</span>
                       <span className="text-sm text-kronos-dim">(-{deal.discount}%)</span>
                     </div>
 
@@ -1476,7 +1469,7 @@ export default function Dashboard() {
           {/* SP Incursions */}
           {isVisible('inf') && (
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('Difficulty2')} title="SP Incursions" />
+              <CardHeader icon={Zap} title="SP Incursions" />
               {isVisible('inf') && renderSPIncursions()}
             </Card>
           )}
@@ -1484,7 +1477,7 @@ export default function Dashboard() {
           {/* Sortie */}
           {isVisible('sortie') && worldstate?.sortie && (
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('Sortie')} title="Sortie" />
+              <CardHeader icon={Target} title="Sortie" />
               <p className="text-sm font-bold text-kronos-accent mb-2 uppercase">{worldstate.sortie.boss}</p>
               <div className="space-y-1.5">
                 {worldstate.sortie.variants.map((v, idx) => (
@@ -1501,13 +1494,8 @@ export default function Dashboard() {
           {/* Archon Hunt */}
           {isVisible('hunt') && worldstate?.archonHunt && (
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('FactionNarmer')} title="Archon Hunt" />
-              <div className="flex items-center gap-2 mb-2">
-                {iconSrc(`Archon${worldstate.archonHunt.boss.replace(/[^a-zA-Z0-9]/g, '')}Icon`) && (
-                  <img src={iconSrc(`Archon${worldstate.archonHunt.boss.replace(/[^a-zA-Z0-9]/g, '')}Icon`)} className="w-5 h-5 object-contain" alt="" />
-                )}
-                <p className="text-sm font-bold text-red-400 uppercase">{worldstate.archonHunt.boss}</p>
-              </div>
+              <CardHeader icon={AlertCircle} title="Archon Hunt" />
+              <p className="text-sm font-bold text-red-400 mb-2 uppercase">{worldstate.archonHunt.boss}</p>
               <div className="space-y-1.5">
                 {worldstate.archonHunt.missions.map((m, idx) => (
                   <div key={idx} className="bg-kronos-panel/40 rounded p-2">
@@ -1536,7 +1524,7 @@ export default function Dashboard() {
           {/* Archimedea */}
           {isVisible('arch') && (
             <Card glow className="p-3 border-kronos-accent/30">
-              <CardHeader imageSrc={iconSrc('ConquestHardModeIcon')} title="Archimedea" />
+              <CardHeader icon={Activity} title="Archimedea" />
               <Tabs tabs={archimedeaTabs} activeTab={archimedeaTab} onChange={setArchimedeaTab} className="mb-2" fullWidth />
               {renderArchimedea()}
             </Card>
@@ -1546,7 +1534,7 @@ export default function Dashboard() {
           {isVisible('desc') && (
             <Card glow className="p-3">
               <CardHeader
-                imageSrc={iconSrc('MiniMapRoathe')}
+                icon={LayoutDashboard}
                 title="Descendia"
                 action={
                   <button
@@ -1568,7 +1556,7 @@ export default function Dashboard() {
           {/* Duviri Circuit */}
           {isVisible('circuit') && (
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('DuviriMiniMapThrax')} title="The Circuit" />
+              <CardHeader icon={Sparkles} title="The Circuit" />
               {renderCircuit()}
             </Card>
           )}
@@ -1576,7 +1564,7 @@ export default function Dashboard() {
           {/* 1999 Calendar */}
           {isVisible('1999') && (
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('RetroTaskbarCalendarLg')} title="1999 Calendar" />
+              <CardHeader icon={Calendar} title="1999 Calendar" />
               {render1999()}
             </Card>
           )}
@@ -1584,7 +1572,7 @@ export default function Dashboard() {
           {/* Void Fissures */}
           {isVisible('fiss') && (
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('VoidTearIcon')} title="Void Fissures" />
+              <CardHeader icon={Package} title="Void Fissures" />
               <Tabs tabs={fissureTabs} activeTab={fissureTab} onChange={setFissureTab} className="mb-2" fullWidth />
               <div className="space-y-1">
                 {visibleFissures.map((f, idx) => (
@@ -1603,72 +1591,75 @@ export default function Dashboard() {
           {/* Invasions */}
           {isVisible('inv') && worldstate?.invasions?.length > 0 && (
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('Invasion')} title="Invasions" />
-              <div className="space-y-6 mt-4">
+              <CardHeader icon={Swords} title="Invasions" />
+              <div className="space-y-4 mt-4">
                 {worldstate.invasions.filter(i => !i.completed).slice(0, 5).map((inv, idx) => {
                   const completionPercentage = Math.max(0, Math.min(100, inv.completion));
+
                   return (
                     <div key={idx} className="relative group/inv">
-                      {/* Node & Planet */}
-                      <div className="text-center mb-1">
-                        <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest">
-                          {inv.node}{inv.planet ? `, ${inv.planet}` : ''}
+
+                      {/* Line 1: Factions & Node */}
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-[10px] font-bold text-blue-400 uppercase w-[30%] text-left truncate tracking-wider">
+                          {inv.attacker.faction}
+                        </span>
+                        <div className="w-[40%] text-center truncate">
+                          <span className="text-[10px] font-bold text-white/90 tracking-wide">{inv.node}</span>
+                          {inv.planet && <span className="text-[10px] text-white/50 ml-1 uppercase">• {inv.planet}</span>}
+                        </div>
+                        <span className="text-[10px] font-bold text-red-400 uppercase w-[30%] text-right truncate tracking-wider">
+                          {inv.defender.faction}
                         </span>
                       </div>
 
-                      {/* Factions */}
-                      <div className="flex justify-between items-center mb-2 px-1">
-                        <div className="flex flex-col">
-                          <span className="text-[10px] font-black text-blue-400 uppercase leading-none">{inv.attacker.faction}</span>
-                        </div>
-                        <div className="flex flex-col items-end">
-                          <span className="text-[10px] font-black text-red-400 uppercase leading-none">{inv.defender.faction}</span>
-                        </div>
+                      {/* Line 2: Reward Titles */}
+                      <div className="flex justify-between mb-1">
+                        <span className="text-[12px] text-white/80 w-1/2 text-left truncate pr-2" title={inv.attacker.rewardText}>
+                          {inv.attacker.rewardText || '\u00A0'}
+                        </span>
+                        <span className="text-[12px] text-white/80 w-1/2 text-right truncate pl-2" title={inv.defender.rewardText}>
+                          {inv.defender.rewardText || '\u00A0'}
+                        </span>
                       </div>
 
-                      <div className="flex items-center gap-4 px-1">
-                        {/* Attacker Reward */}
-                        <div className="flex-1 flex items-center gap-2 overflow-hidden">
-                          {inv.attacker.reward ? (
-                            <>
-                              <div className="w-6 h-6 flex-shrink-0 flex items-center justify-center">
-                                <img src={resolveAnyImage(inv.attacker.reward, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" />
-                              </div>
-                              <p className="text-[10px] font-bold text-kronos-text leading-tight whitespace-normal break-words">{inv.attacker.rewardText}</p>
-                            </>
-                          ) : (
-                            <div className="h-6" />
+                      {/* Line 3: Icons & Progress Bar */}
+                      <div className="flex items-center gap-3">
+                        {/* Attacker Icon */}
+                        <div className="w-11 h-11 flex-shrink-0 flex items-center justify-center">
+                          {inv.attacker.reward && (
+                            <img
+                              src={resolveAnyImage(inv.attacker.reward, EI, nameToImage)}
+                              alt=""
+                            />
                           )}
                         </div>
 
-                        {/* Defender Reward */}
-                        <div className="flex-1 flex items-center justify-end gap-2 overflow-hidden text-right">
-                          {inv.defender.reward ? (
-                            <>
-                              <p className="text-[10px] font-bold text-kronos-text leading-tight whitespace-normal break-words">{inv.defender.rewardText}</p>
-                              <div className="w-6 h-6 flex-shrink-0 flex items-center justify-center">
-                                <img src={resolveAnyImage(inv.defender.reward, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" />
-                              </div>
-                            </>
-                          ) : (
-                            <div className="h-6" />
+                        {/* Progress Bar */}
+                        <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden flex border border-white/10 shadow-inner">
+                          <div
+                            className="h-full bg-blue-500 transition-all duration-500"
+                            style={{ width: `${completionPercentage}%` }}
+                          />
+                          <div
+                            className="h-full bg-red-500 transition-all duration-500"
+                            style={{ width: `${100 - completionPercentage}%` }}
+                          />
+                        </div>
+
+                        {/* Defender Icon */}
+                        <div className="w-11 h-11 flex-shrink-0 flex items-center justify-center">
+                          {inv.defender.reward && (
+                            <img
+                              src={resolveAnyImage(inv.defender.reward, EI, nameToImage)}
+                              alt=""
+                            />
                           )}
                         </div>
                       </div>
 
-                      {/* Tug of war bar */}
-                      <div className="mt-3 h-1 bg-white/5 rounded-full overflow-hidden flex border border-white/5">
-                        <div
-                          className="h-full bg-blue-500 transition-all duration-500"
-                          style={{ width: `${completionPercentage}%` }}
-                        />
-                        <div
-                          className="h-full bg-red-500 transition-all duration-500"
-                          style={{ width: `${100 - completionPercentage}%` }}
-                        />
-                      </div>
-
-                      {idx < 4 && <div className="absolute -bottom-3 left-0 right-0 h-px bg-white/5" />}
+                      {/* Divider */}
+                      {idx < 4 && <div className="mt-3 h-px bg-white/5 w-full" />}
                     </div>
                   );
                 })}
@@ -1679,7 +1670,7 @@ export default function Dashboard() {
           {/* Latest News */}
           {isVisible('news') && worldstate?.news && (
             <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('News')} title="Latest News" />
+              <CardHeader icon={Newspaper} title="Latest News" />
               <div className="space-y-2">
                 {worldstate.news.slice(0, 3).map((item, idx) => (
                   <div key={idx} className="text-xs">

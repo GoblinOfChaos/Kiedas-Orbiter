@@ -1,9 +1,11 @@
 use std::sync::Mutex;
 use tauri::{AppHandle, Manager, PhysicalPosition, WebviewWindow};
 
+use active_win_pos_rs;
+
 static AOT_KEEPER_INSTALLED: Mutex<Vec<String>> = Mutex::new(Vec::new());
 
-pub fn get_overlay_monitor(app_handle: &AppHandle) -> Result<tauri::Monitor, String> {
+pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri::Monitor, String> {
     let state = app_handle.state::<crate::AppState>();
     let target_idx = *state.target_monitor.lock().unwrap();
 
@@ -15,7 +17,7 @@ pub fn get_overlay_monitor(app_handle: &AppHandle) -> Result<tauri::Monitor, Str
         .available_monitors()
         .map_err(|e| e.to_string())?;
 
-    eprintln!("[OVERLAY] get_overlay_monitor: target_idx={:?} monitors={}", target_idx, monitors.len());
+    eprintln!("[OVERLAY] get_overlay_monitor: target_idx={:?} label={} monitors={}", target_idx, label, monitors.len());
 
     if let Some(idx) = target_idx {
         if idx < monitors.len() {
@@ -23,11 +25,50 @@ pub fn get_overlay_monitor(app_handle: &AppHandle) -> Result<tauri::Monitor, Str
         }
     }
 
-    main_window
-        .current_monitor()
-        .map_err(|e| e.to_string())?
-        .or_else(|| main_window.primary_monitor().ok().flatten())
-        .ok_or_else(|| "no monitor found".to_string())
+    let is_notification = matches!(label, "overlay-tl" | "overlay-tr" | "overlay-tc");
+
+    if is_notification {
+        if let Ok(mon) = get_focused_monitor(app_handle) {
+            return Ok(mon);
+        }
+        main_window
+            .primary_monitor()
+            .map_err(|e| e.to_string())?
+            .ok_or_else(|| "no monitor found".to_string())
+    } else {
+        main_window
+            .current_monitor()
+            .map_err(|e| e.to_string())?
+            .or_else(|| main_window.primary_monitor().ok().flatten())
+            .ok_or_else(|| "no monitor found".to_string())
+    }
+}
+
+fn get_focused_monitor(app_handle: &AppHandle) -> Result<tauri::Monitor, String> {
+    let main_window = app_handle
+        .get_webview_window("main")
+        .ok_or_else(|| "main window not found".to_string())?;
+
+    if let Ok(active) = active_win_pos_rs::get_active_window() {
+        let cx = active.position.x as i32 + active.position.width as i32 / 2;
+        let cy = active.position.y as i32 + active.position.height as i32 / 2;
+
+        let monitors = main_window
+            .available_monitors()
+            .map_err(|e| e.to_string())?;
+
+        for mon in &monitors {
+            let pos = mon.position();
+            let size = mon.size();
+            if cx >= pos.x && cx < pos.x + size.width as i32 &&
+               cy >= pos.y && cy < pos.y + size.height as i32
+            {
+                return Ok(mon.clone());
+            }
+        }
+    }
+
+    Err("could not determine focused monitor".to_string())
 }
 
 fn calculate_position(
@@ -288,6 +329,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         .ok_or_else(|| format!("window '{}' not found", label))?;
 
 
+    #[cfg_attr(target_os = "linux", allow(unused_variables))]
     let already_visible = window.is_visible().unwrap_or(false);
 
     // Install AOT keeper once per window
@@ -310,7 +352,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         }
     }
 
-    let monitor = get_overlay_monitor(app_handle)?;
+    let monitor = get_overlay_monitor(app_handle, label)?;
     let (w, h) = overlay_size(label);
     let pos = calculate_position(label, &monitor, w, h);
 
@@ -328,9 +370,14 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
             .and_then(|w| w.is_focused().ok())
             .unwrap_or(false);
 
-        // Transient for main window so WM always stacks overlay above it
-        if let Some(main_win) = app_handle.get_webview_window("main") {
-            set_transient_for(&window, &main_win);
+        // Transient for main window so WM always stacks overlay above it.
+        // Only for notification overlays — relic/riven overlays should not
+        // bring the main window to the foreground when shown.
+        let is_notification = matches!(label, "overlay-tl" | "overlay-tr" | "overlay-tc");
+        if is_notification {
+            if let Some(main_win) = app_handle.get_webview_window("main") {
+                set_transient_for(&window, &main_win);
+            }
         }
 
         // --- Override Redirect ---
@@ -424,7 +471,7 @@ pub fn resize_overlay_window(
         .ok_or_else(|| format!("window '{}' not found", label))?;
 
     if height > 40.0 {
-        let monitor = get_overlay_monitor(app_handle)?;
+        let monitor = get_overlay_monitor(app_handle, label)?;
         let pos = calculate_position(label, &monitor, width, height);
         let scale = monitor.scale_factor();
         let phys_w = (width * scale) as u32;

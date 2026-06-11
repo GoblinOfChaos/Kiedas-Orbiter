@@ -220,6 +220,9 @@ export default function SettingsScreen() {
   const [fissureTargetMonitor, setFissureTargetMonitor] = useState(
     () => getSetting('fissure_target_monitor', 'auto')
   )
+  const [autoMonitor, setAutoMonitor] = useState(
+    () => getSetting('fissure_target_monitor', 'auto') === 'auto'
+  )
   const [availableMonitors, setAvailableMonitors] = useState([])
 
   // Poll scanner status
@@ -280,6 +283,18 @@ export default function SettingsScreen() {
     setFissureTargetMonitor(val)
     await setSetting('fissure_target_monitor', val)
     await invoke('set_target_monitor', { monitor: val }).catch(console.error)
+  }
+
+  const handleAutoMonitorToggle = async (enabled) => {
+    setAutoMonitor(enabled)
+    if (enabled) {
+      await handleSetTargetMonitor('auto')
+    } else {
+      const first = availableMonitors[0]
+      if (first) {
+        await handleSetTargetMonitor(first.index)
+      }
+    }
   }
 
   const handleSetSound = async (sound) => {
@@ -669,7 +684,7 @@ export default function SettingsScreen() {
             </div>
           </div>
 
-          {/* UI Scale & Game Monitor */}
+          {/* UI Scale & Notification Monitor */}
           <div className="mb-4 space-y-3">
             <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
               <div className="flex items-center justify-between">
@@ -707,21 +722,23 @@ export default function SettingsScreen() {
               </div>
             </div>
             <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-bold text-kronos-text uppercase">Target Game Monitor</p>
-                  <p className="text-xs text-kronos-dim uppercase">Select the monitor where your Warframe game runs</p>
-                </div>
-                <div className="flex items-center gap-1.5">
+              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Notification Display Monitor</p>
+              <div className="flex items-center justify-between gap-3">
+                <label className="flex items-center gap-2 cursor-pointer shrink-0">
+                  <Toggle checked={autoMonitor} onChange={handleAutoMonitorToggle} />
+                  <span className="text-xs font-bold uppercase text-kronos-text whitespace-nowrap">Auto: Show on focused monitor</span>
+                </label>
+                <div className={`flex items-center gap-1.5 transition-opacity ${autoMonitor ? 'opacity-40 pointer-events-none' : ''}`}>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-kronos-dim whitespace-nowrap">Show on this monitor:</span>
                   <select
                     value={fissureTargetMonitor}
+                    disabled={autoMonitor}
                     onChange={(e) => {
                       const val = e.target.value
                       handleSetTargetMonitor(val === 'auto' ? 'auto' : parseInt(val))
                     }}
-                    className="w-40 kronos-select text-xs font-mono font-bold bg-black/20 border-white/10 text-white rounded-lg px-2 py-1.5 focus:outline-none"
+                    className="w-40 kronos-select text-xs font-mono font-bold bg-black/20 border-white/10 text-white rounded-lg px-2 py-1.5 focus:outline-none disabled:opacity-40"
                   >
-                    <option value="auto">Auto (Primary)</option>
                     {availableMonitors.map((mon) => (
                       <option key={mon.index} value={mon.index}>
                         {mon.name} ({mon.width}x{mon.height}){mon.is_primary ? ' [Primary]' : ''}

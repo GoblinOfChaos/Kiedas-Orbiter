@@ -2043,7 +2043,6 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
         if std::env::var("WEBKIT_DISABLE_DMABUF_RENDERER").is_err() {
             std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
         }
-        std::env::set_var("WEBKIT_DISABLE_COMPOSITING_MODE", "1");
         // Force X11 backend unconditionally — X11 is required for:
         //   1. Raw XMoveWindow to position transparent (ARGB visual) windows
         //   2. _NET_WM_STATE_ABOVE for reliable always-on-top

@@ -813,7 +813,7 @@ export default function Checklist() {
         <div className="mb-6">
           <div className="rounded-lg p-3 border flex items-center justify-between mb-3" style={{ backgroundColor: 'rgba(var(--color-accent-rgb), 0.1)', borderColor: 'rgba(var(--color-accent-rgb), 0.3)' }}>
             <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-kronos-accent" />
+              {uiPath && <img src={convertFileSrc(`${uiPath}/RetroChallenge.png`)} alt="" className="w-6 h-6 object-contain flex-shrink-0" />}
               <span className="text-[14px] font-semibold text-kronos-text">Tasks</span>
             </div>
             <div className="flex items-center gap-3">

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Palette, Bell, RefreshCw, X, FolderOpen, Keyboard, MousePointer } from 'lucide-react'
+import { Palette, Bell, RefreshCw, X, FolderOpen, Keyboard, MousePointer, AlignStartVertical, AlignEndVertical, AlignVerticalJustifyStart, VolumeX, Play } from 'lucide-react'
 
 import { open as openDialog } from '@tauri-apps/plugin-dialog'
 import { invoke } from '@tauri-apps/api/core'
@@ -541,11 +541,14 @@ export default function SettingsScreen() {
                   <button
                     key={pos}
                     onClick={() => handleSetPosition(pos)}
-                    className={`py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all ${notifPosition === pos
+                    className={`py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${notifPosition === pos
                       ? 'bg-kronos-accent/20 border-kronos-accent text-kronos-accent'
                       : 'bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20'
                       }`}
                   >
+                    {pos === 'top-left' && <AlignStartVertical size={14} />}
+                    {pos === 'top-center' && <AlignVerticalJustifyStart size={14} />}
+                    {pos === 'top-right' && <AlignEndVertical size={14} />}
                     {pos.replace('top-', '').replace('-', ' ')}
                   </button>
                 ))}
@@ -554,22 +557,23 @@ export default function SettingsScreen() {
             <div>
               <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Notification Sound</p>
               <div className="grid grid-cols-3 gap-2">
-                {[
-                  { label: 'None', value: 'none' },
-                  { label: 'Sound 1', value: 'notification1.wav' },
-                  { label: 'Sound 2', value: 'notification2.wav' },
-                ].map((s) => (
-                  <button
-                    key={s.value}
-                    onClick={() => handleSetSound(s.value)}
-                    className={`py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all ${notifSound === s.value
-                      ? 'bg-kronos-accent/20 border-kronos-accent text-kronos-accent'
-                      : 'bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20'
-                      }`}
-                  >
-                    {s.label}
-                  </button>
-                ))}
+                  {[
+                    { label: 'None', value: 'none', icon: VolumeX },
+                    { label: 'Sound 1', value: 'notification1.wav', icon: Play },
+                    { label: 'Sound 2', value: 'notification2.wav', icon: Play },
+                  ].map((s) => (
+                    <button
+                      key={s.value}
+                      onClick={() => handleSetSound(s.value)}
+                      className={`py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${notifSound === s.value
+                        ? 'bg-kronos-accent/20 border-kronos-accent text-kronos-accent'
+                        : 'bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20'
+                        }`}
+                    >
+                      <s.icon size={14} />
+                      {s.label}
+                    </button>
+                  ))}
               </div>
             </div>
           </div>
@@ -654,7 +658,7 @@ export default function SettingsScreen() {
 
           {/* Warframe Cache Path */}
           <div className="mb-4 pt-4 border-t border-white/5">
-            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Card images extraction</p>
+            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Game Assets Extraction (for Mods)</p>
             <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                 <div className="flex-1 flex gap-2">
@@ -729,7 +733,7 @@ export default function SettingsScreen() {
                   <span className="text-xs font-bold uppercase text-kronos-text whitespace-nowrap">Auto: Show on focused monitor</span>
                 </label>
                 <div className={`flex items-center gap-1.5 transition-opacity ${autoMonitor ? 'opacity-40 pointer-events-none' : ''}`}>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-kronos-dim whitespace-nowrap">Show on this monitor:</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-kronos-dim whitespace-nowrap">Always show on this monitor:</span>
                   <select
                     value={fissureTargetMonitor}
                     disabled={autoMonitor}

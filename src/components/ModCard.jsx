@@ -141,7 +141,8 @@ const POLARITY_FILES = {
 
 function renderDesc(text, textColor, iconsPath, tagIconMap) {
   if (!text) return null;
-  const parts = text.split(/(<[A-Z_]+>)/);
+  const normalized = text.replace(/\r\n/g, '\n');
+  const parts = normalized.split(/(<[A-Z_]+>)/);
   const elements = [];
   let currentColor = null;
   let currentTag = null;
@@ -149,7 +150,10 @@ function renderDesc(text, textColor, iconsPath, tagIconMap) {
     const p = parts[i];
     if (p.startsWith('<') && p.endsWith('>')) {
       const tagName = p.slice(1, -1);
-      if (tagName.startsWith('DT_')) {
+      if (tagName === 'LINE_SEPARATOR') {
+        currentColor = null;
+        currentTag = null;
+      } else if (tagName.startsWith('DT_')) {
         currentTag = tagName;
         currentColor = DT_COLORS[tagName] || (tagName.endsWith('_COLOR') ? DT_COLORS[tagName.replace('_COLOR', '')] : null) || textColor;
       } else {
@@ -160,28 +164,34 @@ function renderDesc(text, textColor, iconsPath, tagIconMap) {
         currentColor = null;
         currentTag = null;
       }
-    } else if (p) {
-      if (currentColor) {
-        const iconFile = currentTag ? (tagIconMap?.[currentTag] || (() => {
-          const clean = currentTag.replace(/^DT_/, '').replace(/_COLOR$/, '');
-          return clean.charAt(0) + clean.slice(1).toLowerCase() + 'Symbol.png';
-        })()) : null;
-        const spaceIdx = p.indexOf(' ');
-        const word = spaceIdx >= 0 ? p.slice(0, spaceIdx) : p;
-        const rest = spaceIdx >= 0 ? p.slice(spaceIdx) : '';
-        elements.push(
-          <span key={elements.length} style={{ color: currentColor, display: 'inline-flex', alignItems: 'center', gap: '1px' }}>
-            {iconFile && iconsPath ? <img src={u(iconsPath, '', iconFile)} style={{ width: '11px', height: '11px', flexShrink: 0 }} alt="" onError={e => e.target.style.display = 'none'} /> : null}
-            <span>{word}</span>
-          </span>
-        );
-        if (rest) elements.push(<span key={elements.length + 1000} style={{ color: textColor }}>{rest}</span>);
-        currentColor = null;
-        currentTag = null;
-      } else {
-        elements.push(<span key={elements.length} style={{ color: textColor }}>{p}</span>);
+      } else if (p) {
+        const lines = p.split('\n');
+        for (let li = 0; li < lines.length; li++) {
+          if (li > 0) elements.push(<br key={`${elements.length}-br`} />);
+          const line = lines[li];
+          if (!line) continue;
+          if (currentColor) {
+            const iconFile = currentTag ? (tagIconMap?.[currentTag] || (() => {
+              const clean = currentTag.replace(/^DT_/, '').replace(/_COLOR$/, '');
+              return clean.charAt(0) + clean.slice(1).toLowerCase() + 'Symbol.png';
+            })()) : null;
+            const spaceIdx = line.indexOf(' ');
+            const word = spaceIdx >= 0 ? line.slice(0, spaceIdx) : line;
+            const rest = spaceIdx >= 0 ? line.slice(spaceIdx) : '';
+            elements.push(
+              <span key={`${elements.length}-color`} style={{ color: currentColor, display: 'inline-flex', alignItems: 'center', gap: '1px' }}>
+                {iconFile && iconsPath ? <img src={u(iconsPath, '', iconFile)} style={{ width: '11px', height: '11px', flexShrink: 0 }} alt="" onError={e => e.target.style.display = 'none'} /> : null}
+                <span>{word}</span>
+              </span>
+            );
+            if (rest) elements.push(<span key={`${elements.length}-rest`} style={{ color: textColor }}>{rest}</span>);
+            currentColor = null;
+            currentTag = null;
+          } else {
+            elements.push(<span key={`${elements.length}-text`} style={{ color: textColor }}>{line}</span>);
+          }
+        }
       }
-    }
   }
   return elements.length ? elements : text;
 }
@@ -357,7 +367,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
     if (mod.description && mod.description.length > 0) return mod.description;
     if (mod.levelStats && Array.isArray(mod.levelStats)) {
       const max = mod.levelStats[mod.levelStats.length - 1];
-      if (max && Array.isArray(max.stats)) return max.stats.join(', ');
+      if (max && Array.isArray(max.stats)) return max.stats.map(s => s.replace(/<LINE_SEPARATOR>[\r\n]*/g, '')).join('\n');
     }
     return '';
   })()

@@ -768,7 +768,8 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             );
 
             ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
-            if let Some(window) = app.get_webview_window("overlay-relic") { let _ = window.show(); }
+            // show_window_internal is called by the frontend on scanner-relic-phase-start,
+            // so we don't show() here — avoids flash at (0,0) before positioning.
 
             let state = app.state::<crate::AppState>();
             let relics: Vec<crate::log_scanner::RelicInfo> =

@@ -107,7 +107,7 @@ export default function RelicRewardOverlay() {
       setProgress(100)
       triggerCount.current += 1
       setTriggerKey(triggerCount.current)
-      showWindow()
+      showWindow(true)
     }))
 
     subs.push(listen('overlay-update-reward', (e) => {

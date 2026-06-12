@@ -1577,7 +1577,7 @@ export function parseInventory(raw, exports) {
   const rivens = [
     ...(raw.RawUpgrades ?? []).filter(u => u.ItemType?.includes('Randomized') || u.ItemType?.includes('RandomMod')).map(u => ({
       unique_name: u.ItemType, image: null, category: 'rivens', weapon_type: rivenWeaponType(u.ItemType),
-      name: `Veiled ${splitPascal(rivenWeaponType(u.ItemType))} Riven`, veiled: true, owned: true, quantity: u.ItemCount ?? 1
+      name: `Veiled ${splitPascal(rivenWeaponType(u.ItemType)).replace(/^\w/, c => c.toUpperCase())} Riven`, veiled: true, owned: true, quantity: u.ItemCount ?? 1
     })),
     ...(raw.Upgrades ?? []).filter(u => u.ItemType?.includes('Randomized')).map(u => {
       const fp = parseFP(u.UpgradeFingerprint);
@@ -1724,6 +1724,8 @@ export function parseInventory(raw, exports) {
         rivenFullName = `${weaponName} Riven (Challenge)`;
       }
 
+      const rivenEntry = EM[u.ItemType];
+
       return {
         unique_name: u.ItemType,
         image: resolveImage(weaponUn, EW),
@@ -1733,9 +1735,11 @@ export function parseInventory(raw, exports) {
         veiled: false,
         rank: parseInt(fp.lvl || u.UpgradeLevel || 0, 10),
         rerolls: fp.rerolls ?? u.RerollCount ?? 0,
+        polarity: fp.pol ?? rivenEntry?.polarity ?? null,
         stats,
         challenge: challengeText,
-        owned: true
+        owned: true,
+        mr: fp.lvlReq ?? EW[weaponUn]?.masteryReq ?? 0
       };
     })
   ];

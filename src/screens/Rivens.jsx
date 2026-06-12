@@ -20,6 +20,7 @@ import { PageLayout, Input, Card, Tabs, MonitorState } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import BackToTop from '../components/BackToTop'
+import RivenCard from '../components/RivenCard'
 
 const TYPE_TABS = [
   { id: 'all', label: 'All' },
@@ -46,9 +47,11 @@ export default function Rivens() {
   const [activeType, setActiveType] = useState('all')
   const [activeState, setActiveState] = useState('all')
   const [iconsPath, setIconsPath] = useState('')
+  const [framesPath, setFramesPath] = useState('')
 
   useEffect(() => {
     invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { })
+    invoke('get_mod_frames_path').then(p => setFramesPath(p)).catch(() => { })
   }, [])
 
   const allRivens = inventoryData?.rivens ?? []
@@ -123,6 +126,8 @@ export default function Rivens() {
           <MonitorState isLoading className="py-20" />
         ) : !inventoryData ? (
           <MonitorState className="py-20" />
+        ) : !framesPath ? (
+          <MonitorState isLoading className="py-20" />
         ) : filtered.length === 0 ? (
           <Card glow>
             <div className="text-center py-12">
@@ -130,64 +135,13 @@ export default function Rivens() {
             </div>
           </Card>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 pb-8">
+          <div className="grid pb-4" style={{
+            gridTemplateColumns: 'repeat(auto-fill, 200px)',
+            gap: '50px',
+            justifyContent: 'center',
+          }}>
             {filtered.map((riven, idx) => (
-              <Card key={idx} glow={!riven.veiled} className="relative p-0 overflow-hidden flex h-full min-h-[13rem] group border-kronos-panel/40">
-                {/* Left: Image */}
-                <div className="w-32 bg-kronos-panel/30 flex-shrink-0 p-2 flex items-center justify-center relative overflow-hidden border-r border-white/5">
-                  <img
-                    src={riven.image || 'https://browse.wf/Lotus/Interface/Cards/Images/OmegaModIndistinctUnveiled.png'}
-                    alt=""
-                    className="w-full h-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                </div>
-
-                {/* Right: Info */}
-                <div className="flex-1 p-3 flex flex-col justify-center min-w-0">
-                  <div className="flex justify-between items-start gap-2 mb-1">
-                    <h4 className="font-black text-sm uppercase leading-tight truncate text-kronos-text" title={riven.name}>
-                      {riven.name}
-                    </h4>
-                  </div>
-
-                  <p className="text-xs text-kronos-accent font-bold uppercase tracking-widest mb-2">
-                    {riven.weapon_type} Riven
-                  </p>
-
-                  {!riven.veiled && (
-                    <div className="flex justify-between text-xs font-bold uppercase text-kronos-dim mb-2 border-b border-white/5 pb-1">
-                      <span>Rank {riven.rank}/8</span>
-                      {riven.rerolls > 0 && <span>{riven.rerolls} Rolls</span>}
-                    </div>
-                  )}
-
-                  {riven.veiled && riven.quantity > 1 && (
-                    <div className="mb-2">
-                      <span className="text-xs text-kronos-accent font-black uppercase">{riven.quantity} In Stock</span>
-                    </div>
-                  )}
-
-                  {riven.challenge && (
-                    <div className="mb-2 px-1">
-                      <p className="text-xs text-kronos-text/80 leading-snug italic">{riven.challenge}</p>
-                    </div>
-                  )}
-
-                  {riven.stats?.length > 0 && (
-                    <div className="space-y-0.5">
-                      {riven.stats.map((stat, si) => (
-                        <div key={si} className="flex justify-between text-xs font-bold uppercase tracking-tighter leading-tight">
-                          <span className="text-kronos-dim truncate mr-2">{stat.tag}</span>
-                          <span className={stat.positive ? 'text-green-400' : 'text-red-400'}>
-                            {stat.value > 0 ? '+' : ''}{stat.value}{stat.isPercent ? '%' : ''}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </Card>
+              <RivenCard key={idx} riven={riven} framesPath={framesPath} iconsPath={iconsPath} width={200} />
             ))}
           </div>
         )}

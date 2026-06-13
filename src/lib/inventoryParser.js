@@ -1489,11 +1489,11 @@ export function parseInventory(raw, exports) {
   // Add non-prime resources
   for (const item of (raw.MiscItems ?? [])) {
     const un = item.ItemType ?? '';
-    if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/')) continue;
-    const name = resolveName(un, dict, ER, ERel);
+    if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/') || un.includes('OroFusexOrnament')) continue;
+    const name = resolveName(un, dict, ER, ERel, EW, ES);
     const isPrimePart = /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum|Guard|Hilt)/i.test(name);
     if (!isPrimePart) {
-      const obj = { unique_name: un, name, image: resolveImage(un, ER, ERel), category: 'resources', quantity: item.ItemCount ?? 1, owned: true };
+      const obj = { unique_name: un, name, image: resolveImage(un, ER, ERel, EW, ES), category: 'resources', quantity: item.ItemCount ?? 1, owned: true };
       resources.push(obj);
     }
   }
@@ -1895,6 +1895,9 @@ export function parseInventory(raw, exports) {
   const reactorCount = miscItems.find(i => i.ItemType === '/Lotus/Types/Items/MiscItems/OrokinReactor')?.ItemCount ?? 0;
   const catalystCount = miscItems.find(i => i.ItemType === '/Lotus/Types/Items/MiscItems/OrokinCatalyst')?.ItemCount ?? 0;
 
+  const cyanStarCount = miscItems.find(i => i.ItemType === '/Lotus/Types/Items/FusionTreasures/OroFusexOrnamentA')?.ItemCount ?? 0;
+  const amberStarCount = miscItems.find(i => i.ItemType === '/Lotus/Types/Items/FusionTreasures/OroFusexOrnamentB')?.ItemCount ?? 0;
+
   // Nightwave standing - find the current season affiliation
   let nightwaveStanding = 0
   let nightwaveTitle = 0
@@ -1927,7 +1930,8 @@ export function parseInventory(raw, exports) {
       orokin_reactor: reactorCount,
       orokin_catalyst: catalystCount,
       nightwave_standing: nightwaveStanding,
-      nightwave_title: nightwaveTitle
+      nightwave_title: nightwaveTitle,
+      endo: raw.FusionPoints ?? 0,
     },
     Affiliations: raw.Affiliations ?? [],
     SupportedSyndicate: raw.SupportedSyndicate ?? null,
@@ -1943,6 +1947,16 @@ export function parseInventory(raw, exports) {
     archwings, kdrives,
     archweapons, necramechs, amps, mods, arcanes, relics, resources, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
     kitgunChambers, zawStrikes, moaHeads, houndHeads,
+
+    // ── Ayatan / Endo ──
+    fusionTreasures: raw.FusionTreasures ?? [],
+    amberStarCount,
+    cyanStarCount,
+
+    // ── Collectibles ──
+    collectibleSeries: raw.CollectibleSeries ?? [],
+    loreFragmentScans: raw.LoreFragmentScans ?? [],
+    discoveredMarkers: raw.DiscoveredMarkers ?? [],
 
     // ── Craftable Items (all recipes with ingredient checks) ──
     craftable: (() => {

@@ -191,14 +191,12 @@ export function PageLayout({ title, subtitle, children, extra, headerPanel }) {
       
       {/* Scrollable Content Area */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 pb-8 pt-0 custom-scrollbar">
-        {/* Sticky Header Panel */}
-        {headerPanel && (
-          <div className="sticky top-0 z-30 py-4 bg-kronos-bg -mx-8 px-8 border-b border-white/5 mb-6">
-            {headerPanel}
-          </div>
-        )}
-        
-        <div className="relative h-full flex flex-col">
+        <div className="relative min-h-full flex flex-col">
+          {headerPanel && (
+            <div className="sticky top-0 z-30 py-4 bg-kronos-bg -mx-8 px-8 border-b border-white/5 mb-6">
+              {headerPanel}
+            </div>
+          )}
           {children}
         </div>
       </div>

@@ -22,6 +22,7 @@ const INVENTORY_TABS = [
   { id: 'amps', label: 'Amps' },
   { id: 'resources', label: 'Resources' },
   { id: 'prime_parts', label: 'Prime Sets' },
+  { id: 'ayatan', label: 'Ayatan' },
 ]
 
 const FILTER_CONFIG = {
@@ -36,6 +37,7 @@ const FILTER_CONFIG = {
   mods: ['owned'],
   prime_parts: ['owned', 'mastered'],
   resources: ['owned'],
+  ayatan: ['socketed', 'unsocketed'],
 }
 
 const SORT_CONFIG = {
@@ -50,6 +52,7 @@ const SORT_CONFIG = {
   mods: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }, { id: 'rank', label: 'Rank' }],
   prime_parts: [{ id: 'name', label: 'Name' }, { id: 'completion', label: 'Completion' }, { id: 'value', label: 'Value' }],
   resources: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }],
+  ayatan: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }],
 }
 
 const ITEMS_PER_PAGE = 48
@@ -472,8 +475,87 @@ export default function Inventory() {
       const necramechs = (inventoryData.necramechs ?? []).map(n => ({ ...n, is_necramech: true }))
       return [...vehicles, ...necramechs]
     }
+    if (activeTab === 'ayatan') {
+      const ALL_SCULPTURES = [
+        { key: '/Lotus/Types/Items/FusionTreasures/OroFusexA', name: 'Ayatan Sah Sculpture', amber: 1, cyan: 2, filledEndo: 1500, baseEndo: 300 },
+        { key: '/Lotus/Types/Items/FusionTreasures/OroFusexB', name: 'Ayatan Ayr Sculpture', amber: 0, cyan: 3, filledEndo: 1425, baseEndo: 325 },
+        { key: '/Lotus/Types/Items/FusionTreasures/OroFusexC', name: 'Ayatan Orta Sculpture', amber: 1, cyan: 3, filledEndo: 2700, baseEndo: 650 },
+        { key: '/Lotus/Types/Items/FusionTreasures/OroFusexD', name: 'Ayatan Vaya Sculpture', amber: 1, cyan: 2, filledEndo: 1800, baseEndo: 400 },
+        { key: '/Lotus/Types/Items/FusionTreasures/OroFusexE', name: 'Ayatan Piv Sculpture', amber: 1, cyan: 2, filledEndo: 1725, baseEndo: 375 },
+        { key: '/Lotus/Types/Items/FusionTreasures/OroFusexF', name: 'Ayatan Anasa Sculpture', amber: 2, cyan: 2, filledEndo: 3450, baseEndo: 2000 },
+        { key: '/Lotus/Types/Items/FusionTreasures/OroFusexG', name: 'Ayatan Valana Sculpture', amber: 1, cyan: 2, filledEndo: 1575, baseEndo: 325 },
+        { key: '/Lotus/Types/Items/FusionTreasures/OroFusexH', name: 'Ayatan Zambuka Sculpture', amber: 1, cyan: 2, filledEndo: 2600, baseEndo: 450 },
+        { key: '/Lotus/Types/Items/FusionTreasures/OroFusexI', name: 'Ayatan Chattraka Sculpture', amber: 1, cyan: 2, filledEndo: 2600, baseEndo: 450 },
+        { key: '/Lotus/Types/Items/FusionTreasures/OroFusexJ', name: 'Ayatan Hemakara Sculpture', amber: 1, cyan: 2, filledEndo: 2600, baseEndo: 450 },
+        { key: '/Lotus/Types/Items/FusionTreasures/OroFusexEntrati', name: 'Ayatan Kitha Sculpture', amber: 1, cyan: 4, filledEndo: 3000, baseEndo: 450 },
+      ]
+      const optimalEndo = Math.max(...ALL_SCULPTURES.map(s => s.filledEndo))
+      const leaf = (path) => path.split('/').pop()
+      const grouped = {}
+      for (const ft of (inventoryData.fusionTreasures ?? [])) {
+        const key = ft.ItemType
+        if (!grouped[key]) grouped[key] = { ItemCount: 0, Sockets: 0 }
+        grouped[key].ItemCount += ft.ItemCount ?? 1
+        grouped[key].Sockets += ft.Sockets ?? 0
+      }
+      const amberTotal = inventoryData.amberStarCount ?? 0
+      const cyanTotal = inventoryData.cyanStarCount ?? 0
+      const sculpturesWithCount = ALL_SCULPTURES.map(s => ({ ...s, quantity: (grouped[s.key]?.ItemCount ?? 0) }))
+      const sortedByGain = [...sculpturesWithCount].sort((a, b) => {
+        const gainA = a.filledEndo - a.baseEndo
+        const gainB = b.filledEndo - b.baseEndo
+        const effA = a.amber > 0 ? gainA / a.amber : gainA / 0.5
+        const effB = b.amber > 0 ? gainB / b.amber : gainB / 0.5
+        return effB - effA
+      })
+      let remAmber = amberTotal, remCyan = cyanTotal
+      let maxEndoFromFill = 0
+      const fillBreakdown = []
+      for (const s of sortedByGain) {
+        const maxByAmber = s.amber > 0 ? Math.floor(remAmber / s.amber) : Infinity
+        const maxByCyan = s.cyan > 0 ? Math.floor(remCyan / s.cyan) : Infinity
+        const canFill = Math.min(s.quantity, maxByAmber, maxByCyan)
+        if (canFill > 0) {
+          maxEndoFromFill += canFill * s.filledEndo
+          remAmber -= canFill * s.amber
+          remCyan -= canFill * s.cyan
+          fillBreakdown.push({ name: s.name.replace('Ayatan ', '').replace(' Sculpture', ''), count: canFill })
+        }
+      }
+      const maxEndoTotal = maxEndoFromFill + remAmber * 100 + remCyan * 50
+      const fillSummary = fillBreakdown.map(f => `${f.count}× ${f.name}`).join(', ')
+      const items = [
+        {
+          unique_name: 'stars', name: 'Ayatan Stars',
+          image: '',
+          category: 'ayatan', isStars: true, owned: true,
+          amberCount: amberTotal,
+          cyanCount: cyanTotal,
+          maxEndoTotal,
+          fillSummary,
+        },
+        ...ALL_SCULPTURES.map(s => {
+          const g = grouped[s.key]
+          const imgFile = `${leaf(s.key)}.png`
+          return {
+            unique_name: s.key,
+            name: s.name,
+            image: uiPath ? convertFileSrc(`${uiPath}/${imgFile}`) : '',
+            category: 'ayatan',
+            quantity: g?.ItemCount ?? 0,
+            sockets: g?.Sockets ?? 0,
+            owned: (g?.ItemCount ?? 0) > 0,
+            amberSlots: s.amber,
+            cyanSlots: s.cyan,
+            filledEndo: s.filledEndo,
+            isOptimal: s.filledEndo === optimalEndo,
+          }
+        }),
+      ]
+      return items
+    }
     return inventoryData[activeTab] ?? []
-  }, [inventoryData, activeTab])
+  }, [inventoryData, activeTab, uiPath])
 
   const filteredItems = useMemo(() => {
     let items = tabItems
@@ -506,11 +588,16 @@ export default function Inventory() {
           if (f === 'archwing' && item.vehicle_type !== 'archwing') return false
           if (f === 'kdrive' && item.vehicle_type !== 'kdrive') return false
           if (f === 'necramech' && !item.is_necramech) return false
+          if (f === 'socketed' && item.sockets <= 0) return false
+          if (f === 'unsocketed' && item.sockets > 0) return false
         }
         return true
       })
     }
     items = [...items].sort((a, b) => {
+      // Ayatan stars card always first
+      if (a.isStars) return -1
+      if (b.isStars) return 1
       // Special handling for prime_parts completion sort
       if (activeTab === 'prime_parts' && sortCriteria === 'completion') {
         const aComplete = (a.ownedCount ?? 0) / (a.totalCount ?? 1)
@@ -686,7 +773,7 @@ export default function Inventory() {
 
       {/* Category Tabs */}
       <Tabs tabs={INVENTORY_TABS.map(t => {
-        const iconMap = { warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', prime_parts: 'PrimeParts' }
+        const iconMap = { warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', prime_parts: 'PrimeParts', ayatan: 'Ayatan' }
         const iconName = iconMap[t.id] || t.label
         return { ...t, icon: iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null }
       })} activeTab={activeTab} onChange={(id) => { setActiveTab(id); setCurrentFilters({}); setSortCriteria('name'); setSortDirection('asc') }} />
@@ -700,7 +787,7 @@ export default function Inventory() {
       extra={renderHeaderStats(inventoryData, iconsPath)}
       headerPanel={renderHeaderPanel()}
     >
-      <div className="space-y-6">
+      <div className="flex flex-col gap-6 flex-1 min-h-0">
         {inventoryData === undefined ? (
           <MonitorState isLoading className="py-20" />
         ) : inventoryData === null ? (
@@ -729,99 +816,164 @@ export default function Inventory() {
                 </div>
               )}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-4">
-              {visibleItems.map((set, idx) => {
-                const isParentOwned = set.owned
-                const isParentMastered = set.mastered
+                {visibleItems.map((set, idx) => {
+                  const isParentOwned = set.owned
+                  const isParentMastered = set.mastered
 
-                const uniqueOwned = set.parts.filter(p => p.quantity >= (p.need ?? 1)).length
-                const uniqueTotal = set.parts.length
-                const completion = Math.min(100, uniqueOwned / uniqueTotal * 100)
-                const isComplete = uniqueOwned >= uniqueTotal
-                const bpPart = set.parts.find(p => p.name.includes('Blueprint'))
-                const bpCount = bpPart?.quantity ?? 0
-                const setsPossible = bpCount > 0 && uniqueOwned >= uniqueTotal ? bpCount : 0
-                const setValue = primePrices?.[set.setPath] ?? set.parts.reduce((sum, p) => sum + ((primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1)), 0)
+                  const uniqueOwned = set.parts.filter(p => p.quantity >= (p.need ?? 1)).length
+                  const uniqueTotal = set.parts.length
+                  const completion = Math.min(100, uniqueOwned / uniqueTotal * 100)
+                  const isComplete = uniqueOwned >= uniqueTotal
+                  const bpPart = set.parts.find(p => p.name.includes('Blueprint'))
+                  const bpCount = bpPart?.quantity ?? 0
+                  const setsPossible = bpCount > 0 && uniqueOwned >= uniqueTotal ? bpCount : 0
+                  const setValue = primePrices?.[set.setPath] ?? set.parts.reduce((sum, p) => sum + ((primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1)), 0)
 
-                return (
-                  <div key={set.name + idx} className={`relative rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20 ${isComplete ? 'border-green-500/30' : ''}`}>
-                    {isPriceLoading ? (
-                      <span className="absolute top-4 right-4 z-10 inline-block w-6 h-3 bg-white/10 rounded animate-pulse" />
-                    ) : setValue > 0 && (
-                      <span className="absolute top-4 right-4 z-10 text-[11px] font-bold px-2 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">{setValue}p</span>
-                    )}
-                    {/* Header: image + name + badges */}
-                    <div className={`flex items-center gap-4 px-4 py-5 border-b border-white/5 relative ${isComplete ? 'bg-green-500/5' : ''}`}>
-                      <div className="w-28 h-28 flex items-center justify-center flex-shrink-0">
-                        {set.image
-                          ? <img src={set.image} alt="" className="max-w-full max-h-full object-contain" />
-                          : <div className="w-14 h-14 rounded bg-white/5" />
-                        }
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex justify-between items-start">
-                          <div className="min-w-0 flex-1">
-                            <p className="text-xl font-black text-kronos-text uppercase whitespace-normal leading-tight">{set.name} Set</p>
-                            <div className="flex items-center gap-2 mt-2">
-                              <span className={`text-[10px] font-black px-2 py-0.5 rounded inline-block ${isComplete ? 'bg-green-500/20 text-green-400' : 'bg-kronos-accent/20 text-kronos-accent'}`}>
-                                {setsPossible > 0 ? `${setsPossible} Set${setsPossible > 1 ? 's' : ''}` : `${uniqueOwned}/${uniqueTotal} (${Math.round(completion)}%)`}
-                              </span>
+                  return (
+                    <div key={set.name + idx} className={`relative rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20 ${isComplete ? 'border-green-500/30' : ''}`}>
+                      {isPriceLoading ? (
+                        <span className="absolute top-4 right-4 z-10 inline-block w-6 h-3 bg-white/10 rounded animate-pulse" />
+                      ) : setValue > 0 && (
+                        <span className="absolute top-4 right-4 z-10 text-[11px] font-bold px-2 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">{setValue}p</span>
+                      )}
+                      {/* Header: image + name + badges */}
+                      <div className={`flex items-center gap-4 px-4 py-5 border-b border-white/5 relative ${isComplete ? 'bg-green-500/5' : ''}`}>
+                        <div className="w-28 h-28 flex items-center justify-center flex-shrink-0">
+                          {set.image
+                            ? <img src={set.image} alt="" className="max-w-full max-h-full object-contain" />
+                            : <div className="w-14 h-14 rounded bg-white/5" />
+                          }
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-start">
+                            <div className="min-w-0 flex-1">
+                              <p className="text-xl font-black text-kronos-text uppercase whitespace-normal leading-tight">{set.name} Set</p>
+                              <div className="flex items-center gap-2 mt-2">
+                                <span className={`text-[10px] font-black px-2 py-0.5 rounded inline-block ${isComplete ? 'bg-green-500/20 text-green-400' : 'bg-kronos-accent/20 text-kronos-accent'}`}>
+                                  {setsPossible > 0 ? `${setsPossible} Set${setsPossible > 1 ? 's' : ''}` : `${uniqueOwned}/${uniqueTotal} (${Math.round(completion)}%)`}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-wrap gap-2 mt-4">
+                            {/* Owned Status */}
+                            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${isParentOwned ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : 'bg-white/5 border-white/5 text-kronos-dim'}`}>
+                              <span className="text-[10px] font-black uppercase tracking-wider">{isParentOwned ? 'Owned' : 'Unowned'}</span>
+                            </div>
+
+                            {/* Mastery Status */}
+                            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${isParentMastered ? 'bg-purple-500/10 border-purple-500/30 text-purple-400' : 'bg-white/5 border-white/5 text-kronos-dim'}`}>
+                              <span className="text-[10px] font-black uppercase tracking-wider">{isParentMastered ? 'Mastered' : 'Unmastered'}</span>
                             </div>
                           </div>
                         </div>
+                      </div>
 
-                        <div className="flex flex-wrap gap-2 mt-4">
-                          {/* Owned Status */}
-                          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${isParentOwned ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : 'bg-white/5 border-white/5 text-kronos-dim'}`}>
-                            <span className="text-[10px] font-black uppercase tracking-wider">{isParentOwned ? 'Owned' : 'Unowned'}</span>
+                      {/* Parts grid */}
+                      {(() => {
+                        return (
+                          <div className="grid gap-px border-t border-white/5" style={{ gridTemplateColumns: `repeat(${Math.min(set.parts.length, 6)}, 1fr)` }}>
+                            {set.parts.map((part, pi) => {
+                              const need = part.need ?? 1
+                              const met = part.quantity >= need
+                              const isBlueprint = part.name.includes('Blueprint')
+                              const partPrice = primePrices?.[part.unique_name] ?? 0
+                              return (
+                                <div key={pi} className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
+                                  {isPriceLoading ? (
+                                    <span className="absolute top-2 right-2 animate-pulse bg-white/10 rounded px-1 py-0.5 inline-block w-4 h-2" />
+                                  ) : partPrice > 0 && (
+                                    <span className="absolute top-2 right-2 text-[9px] font-bold px-1 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">{need > 1 ? `${partPrice * need}p (${partPrice}p ea)` : `${partPrice}p`}</span>
+                                  )}
+                                  <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
+                                    {part.image
+                                      ? <img src={part.image} alt="" className="max-w-full max-h-full object-contain" />
+                                      : <div className="w-7 h-7 rounded bg-white/5" />
+                                    }
+                                    {isBlueprint && <img src={uiPath ? convertFileSrc(`${uiPath}/BlueprintOverlay.png`) : ''} alt="" className="absolute inset-0 w-full h-full object-contain" />}
+                                    {part.need > 1 && (
+                                      <span className="absolute -bottom-0.5 -right-0.5 text-[8px] font-black bg-black/70 text-kronos-accent px-1 py-0.5 rounded leading-none">×{part.need}</span>
+                                    )}
+                                  </div>
+                                  <p className="text-[12px] font-medium text-kronos-dim text-center leading-tight w-full px-1 truncate">{part.name.split(' ').slice(-1)[0]}</p>
+                                  {part.quantity > 0 && <span className={`text-[10px] font-black ${met ? 'text-green-400' : 'text-red-400'}`}>{need > 1 ? `${part.quantity}/${need}` : `×${part.quantity}`}</span>}
+                                </div>
+                              )
+                            })}
                           </div>
-
-                          {/* Mastery Status */}
-                          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${isParentMastered ? 'bg-purple-500/10 border-purple-500/30 text-purple-400' : 'bg-white/5 border-white/5 text-kronos-dim'}`}>
-                            <span className="text-[10px] font-black uppercase tracking-wider">{isParentMastered ? 'Mastered' : 'Unmastered'}</span>
+                        )
+                      })()}
+                    </div>
+                  )
+                })}
+              </div>
+            </>
+          ) : activeTab === 'ayatan' ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-4">
+              {visibleItems.map((item, idx) => {
+                if (item.isStars) {
+                  const starImg = (name) => uiPath ? convertFileSrc(`${uiPath}/${name}.png`) : ''
+                  return (
+                    <div key="stars" className="group relative rounded-xl border border-white/5 overflow-hidden bg-gradient-to-br from-yellow-500/5 to-cyan-500/5 h-32 cursor-default">
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-5 transition-opacity duration-200 group-hover:opacity-0">
+                        <div className="flex gap-6 items-center">
+                          <div className="flex flex-col items-center gap-1">
+                            <img src={starImg('OroFusexOrnamentB')} className="w-8 h-8 object-contain" alt="" />
+                            <span className="text-sm font-black text-yellow-400">{item.amberCount.toLocaleString()}</span>
+                          </div>
+                          <div className="flex flex-col items-center gap-1">
+                            <img src={starImg('OroFusexOrnamentA')} className="w-8 h-8 object-contain" alt="" />
+                            <span className="text-sm font-black text-cyan-400">{item.cyanCount.toLocaleString()}</span>
                           </div>
                         </div>
+                        <p className="text-[10px] font-black text-kronos-dim uppercase tracking-widest">Ayatan Stars</p>
+                        <p className="text-xs font-black text-kronos-text text-center">~{item.maxEndoTotal.toLocaleString()} endo max</p>
+                      </div>
+                      {item.fillSummary && (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center p-5 transition-opacity duration-200 opacity-0 group-hover:opacity-100">
+                          <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest mb-2">Optimal Fill Order</p>
+                          <p className="text-xs font-medium text-kronos-text text-center leading-relaxed">{item.fillSummary}</p>
+                        </div>
+                      )}
+                    </div>
+                  )
+                }
+                return (
+                  <div key={item.unique_name + idx} className={`relative rounded-xl border overflow-hidden bg-kronos-panel/20 flex items-stretch h-32 ${item.quantity > 0 ? 'border-white/5' : 'border-white/5 border-dashed opacity-60'}`}>
+                    {item.isOptimal && (
+                      <div className="absolute top-2 right-2 z-10 px-2 py-0.5 bg-yellow-500 text-black text-[9px] font-black uppercase tracking-wider rounded shadow-lg">
+                        Optimal
+                      </div>
+                    )}
+                    <div className="w-24 flex-shrink-0 flex items-center justify-center p-3">
+                      {item.image ? (
+                        <img src={item.image} alt="" className="max-w-full max-h-full object-contain" />
+                      ) : (
+                        <div className="w-12 h-12 flex items-center justify-center bg-kronos-panel/30 rounded-lg">
+                          <img src={uiPath ? convertFileSrc(`${uiPath}/Ayatan.png`) : ''} alt="" className="max-w-[60%] max-h-[60%] object-contain opacity-30" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex flex-col justify-center gap-1 py-3 pr-4 min-w-0 flex-1">
+                      <p className="text-sm font-black text-kronos-text uppercase leading-tight truncate">{item.name.replace('Ayatan ', '').replace(' Sculpture', '')}</p>
+                      <p className="text-base font-bold text-kronos-text leading-tight">{item.quantity > 0 ? `×${item.quantity}` : 'None owned'}</p>
+                      <p className={`text-[11px] font-black ${item.sockets > 0 ? 'text-green-400' : 'text-kronos-dim'}`}>
+                        {item.sockets} filled · {(item.quantity * item.filledEndo).toLocaleString()} endo
+                      </p>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        {Array.from({ length: item.amberSlots }).map((_, i) => (
+                          <img key={`a-${i}`} src={uiPath ? convertFileSrc(`${uiPath}/OroFusexOrnamentB.png`) : ''} className="w-4 h-4 object-contain" alt="" />
+                        ))}
+                        {Array.from({ length: item.cyanSlots }).map((_, i) => (
+                          <img key={`c-${i}`} src={uiPath ? convertFileSrc(`${uiPath}/OroFusexOrnamentA.png`) : ''} className="w-4 h-4 object-contain" alt="" />
+                        ))}
                       </div>
                     </div>
-
-                    {/* Parts grid */}
-                    {(() => {
-                      return (
-                        <div className="grid gap-px border-t border-white/5" style={{ gridTemplateColumns: `repeat(${Math.min(set.parts.length, 6)}, 1fr)` }}>
-                          {set.parts.map((part, pi) => {
-                            const need = part.need ?? 1
-                            const met = part.quantity >= need
-                            const isBlueprint = part.name.includes('Blueprint')
-                            const partPrice = primePrices?.[part.unique_name] ?? 0
-                            return (
-                              <div key={pi} className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
-                                {isPriceLoading ? (
-                                  <span className="absolute top-2 right-2 animate-pulse bg-white/10 rounded px-1 py-0.5 inline-block w-4 h-2" />
-                                ) : partPrice > 0 && (
-                                  <span className="absolute top-2 right-2 text-[9px] font-bold px-1 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">{need > 1 ? `${partPrice * need}p (${partPrice}p ea)` : `${partPrice}p`}</span>
-                                )}
-                                <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
-                                  {part.image
-                                    ? <img src={part.image} alt="" className="max-w-full max-h-full object-contain" />
-                                    : <div className="w-7 h-7 rounded bg-white/5" />
-                                  }
-                                  {isBlueprint && <img src={uiPath ? convertFileSrc(`${uiPath}/BlueprintOverlay.png`) : ''} alt="" className="absolute inset-0 w-full h-full object-contain" />}
-                                  {part.need > 1 && (
-                                    <span className="absolute -bottom-0.5 -right-0.5 text-[8px] font-black bg-black/70 text-kronos-accent px-1 py-0.5 rounded leading-none">×{part.need}</span>
-                                  )}
-                                </div>
-                                <p className="text-[12px] font-medium text-kronos-dim text-center leading-tight w-full px-1 truncate">{part.name.split(' ').slice(-1)[0]}</p>
-                                {part.quantity > 0 && <span className={`text-[10px] font-black ${met ? 'text-green-400' : 'text-red-400'}`}>{need > 1 ? `${part.quantity}/${need}` : `×${part.quantity}`}</span>}
-                              </div>
-                            )
-                          })}
-                        </div>
-                      )
-                    })()}
                   </div>
                 )
               })}
             </div>
-            </>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 pb-4">
               {visibleItems.map((item, idx) => {
@@ -940,57 +1092,41 @@ export default function Inventory() {
 
 function renderHeaderStats(inventoryData, iconsPath) {
   if (!inventoryData?.account) return null
-  const { credits, platinum, forma, aura_forma, stance_forma, umbra_forma, orokin_reactor, orokin_catalyst } = inventoryData.account
+  const { credits, platinum, forma, aura_forma, stance_forma, umbra_forma, orokin_reactor, orokin_catalyst, endo } = inventoryData.account
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null
+  const StatWidget = ({ icon, label, value, accent = 'text-kronos-dim', tooltip = null }) => (
+    <div className="flex items-stretch gap-1.5 min-w-[50px] relative group">
+      {icon && <img src={icon} className="w-[30px] object-contain flex-shrink-0 self-stretch" alt="" />}
+      <div className="flex flex-col justify-between py-[1px] min-w-0">
+        <span className={`text-[10px] ${accent} uppercase font-black tracking-widest leading-tight`}>{label}</span>
+        <span className="text-sm font-bold text-kronos-text leading-tight">{value}</span>
+      </div>
+      {tooltip}
+    </div>
+  )
   return (
-    <div className="flex items-center gap-6 ml-auto pr-3">
-      <div className="flex flex-col items-end min-w-[80px]">
-        <span className="flex items-center gap-1 text-[10px] text-kronos-dim uppercase font-black tracking-widest leading-none mb-1">
-          {iconSrc('Credits') && <img src={iconSrc('Credits')} className="w-3.5 h-3.5 object-contain" alt="" />}
-          Credits
-        </span>
-        <span className="text-sm font-bold text-kronos-text leading-none">{credits.toLocaleString()}</span>
-      </div>
-      <div className="flex flex-col items-end min-w-[80px]">
-        <span className="flex items-center gap-1 text-[10px] text-kronos-accent uppercase font-black tracking-widest leading-none mb-1">
-          {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3.5 h-3.5 object-contain" alt="" />}
-          Platinum
-        </span>
-        <span className="text-sm font-bold text-kronos-text leading-none">{platinum.toLocaleString()}</span>
-      </div>
+    <div className="flex items-center gap-5 ml-auto pr-3">
+      <StatWidget icon={iconSrc('Credits')} label="Credits" value={credits.toLocaleString()} />
+      <StatWidget icon={iconSrc('Platinum')} label="Platinum" value={platinum.toLocaleString()} accent="text-kronos-accent" />
+      <StatWidget icon={iconSrc('EndoIconRenderLarge')} label="Endo" value={endo.toLocaleString()} accent="text-orange-400" />
       <div className="h-8 w-px bg-white/10" />
-      <div className="flex flex-col items-end group relative cursor-help min-w-[60px]">
-        <span className="flex items-center gap-1 text-[10px] text-kronos-accent uppercase font-black tracking-widest leading-none mb-1">
-          {iconSrc('Forma') && <img src={iconSrc('Forma')} className="w-3.5 h-3.5 object-contain" alt="" />}
-          Forma
-        </span>
-        <span className="text-sm font-bold text-kronos-text leading-none">{forma + aura_forma + stance_forma + umbra_forma}</span>
-        <div className="absolute top-full right-0 mt-2 p-3 bg-kronos-bg border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110] min-w-[140px] glass-panel">
-          <div className="space-y-2">
-            <div className="flex justify-between gap-4">
-              <span className="flex items-center gap-1 text-[10px] text-kronos-dim uppercase font-bold">{iconSrc('Forma') && <img src={iconSrc('Forma')} className="w-3 h-3 object-contain" alt="" />}Standard</span>
-              <span className="text-xs font-bold text-kronos-text">{forma}</span>
+      <StatWidget icon={iconSrc('Forma')} label="Forma" value={forma + aura_forma + stance_forma + umbra_forma} accent="text-kronos-accent"
+        tooltip={
+          <div className="absolute top-full right-0 mt-2 p-3 bg-kronos-bg border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110] min-w-[180px] glass-panel">
+            <div className="space-y-3">
+              <div className="flex justify-between items-center gap-3">
+                <span className="flex items-center gap-2 text-[15px] text-kronos-dim uppercase font-bold whitespace-nowrap">{iconSrc('Forma') && <img src={iconSrc('Forma')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}Standard</span>
+                <span className="text-[15px] font-bold text-kronos-text tabular-nums">{forma}</span>
+              </div>
+              {aura_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-blue-300 uppercase font-bold whitespace-nowrap">{iconSrc('FormaUmbra') && <img src={iconSrc('FormaUmbra')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}Aura</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{aura_forma}</span></div>}
+              {stance_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-green-300 uppercase font-bold whitespace-nowrap">{iconSrc('FormaStance') && <img src={iconSrc('FormaStance')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}Stance</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{stance_forma}</span></div>}
+              {umbra_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-purple-400 uppercase font-bold whitespace-nowrap">{iconSrc('OmegaForma') && <img src={iconSrc('OmegaForma')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}Umbra</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{umbra_forma}</span></div>}
             </div>
-            {aura_forma > 0 && <div className="flex justify-between gap-4"><span className="flex items-center gap-1 text-[10px] text-blue-300 uppercase font-bold">{iconSrc('FormaUmbra') && <img src={iconSrc('FormaUmbra')} className="w-3 h-3 object-contain" alt="" />}Aura</span><span className="text-xs font-bold text-kronos-text">{aura_forma}</span></div>}
-            {stance_forma > 0 && <div className="flex justify-between gap-4"><span className="flex items-center gap-1 text-[10px] text-green-300 uppercase font-bold">{iconSrc('FormaStance') && <img src={iconSrc('FormaStance')} className="w-3 h-3 object-contain" alt="" />}Stance</span><span className="text-xs font-bold text-kronos-text">{stance_forma}</span></div>}
-            {umbra_forma > 0 && <div className="flex justify-between gap-4"><span className="flex items-center gap-1 text-[10px] text-purple-400 uppercase font-bold">{iconSrc('OmegaForma') && <img src={iconSrc('OmegaForma')} className="w-3 h-3 object-contain" alt="" />}Umbra</span><span className="text-xs font-bold text-kronos-text">{umbra_forma}</span></div>}
           </div>
-        </div>
-      </div>
-      <div className="flex flex-col items-end min-w-[70px]">
-        <span className="flex items-center gap-1 text-[10px] text-yellow-500 uppercase font-black tracking-widest leading-none mb-1">
-          {iconSrc('Reactor') && <img src={iconSrc('Reactor')} className="w-3.5 h-3.5 object-contain" alt="" />}
-          Reactors
-        </span>
-        <span className="text-sm font-bold text-kronos-text leading-none">{orokin_reactor}</span>
-      </div>
-      <div className="flex flex-col items-end min-w-[70px]">
-        <span className="flex items-center gap-1 text-[10px] text-blue-400 uppercase font-black tracking-widest leading-none mb-1">
-          {iconSrc('Catalyst') && <img src={iconSrc('Catalyst')} className="w-3.5 h-3.5 object-contain" alt="" />}
-          Catalysts
-        </span>
-        <span className="text-sm font-bold text-kronos-text leading-none">{orokin_catalyst}</span>
-      </div>
+        }
+      />
+      <StatWidget icon={iconSrc('Reactor')} label="Reactors" value={orokin_reactor} accent="text-yellow-500" />
+      <StatWidget icon={iconSrc('Catalyst')} label="Catalysts" value={orokin_catalyst} accent="text-blue-400" />
     </div>
   )
 }

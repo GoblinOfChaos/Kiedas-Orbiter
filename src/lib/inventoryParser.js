@@ -306,6 +306,14 @@ function _resolveNameInternal(un, dict, depth, ...tables) {
     }
   }
 
+  // Check for lore/fragment names in dict (e.g. /Lotus/Language/Fragments/{leaf}[Name])
+  if (un.includes('/Fragments/')) {
+    const leaf = un.split('/').pop();
+    const fragName = dict['/Lotus/Language/Fragments/' + leaf + 'Name']
+      || dict['/Lotus/Language/Fragments/' + leaf];
+    if (fragName) return cleanName(fragName);
+  }
+
   return cleanName(nameFromPath(un));
 }
 

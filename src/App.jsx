@@ -22,6 +22,7 @@ const About = lazy(() => import('./screens/About'))
 const Rivens = lazy(() => import('./screens/Rivens'))
 const Relics = lazy(() => import('./screens/Relics'))
 const Mods = lazy(() => import('./screens/Mods'))
+const Collectibles = lazy(() => import('./screens/Collectibles'))
 
 // Overlay (separate window, no monitoring context needed)
 const OverlayRouter = lazy(() => import('./components/overlays/OverlayRouter'))
@@ -35,6 +36,7 @@ const NAV_ITEMS = [
   { id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },
   { id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
   { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
+  { id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
   { id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
   { id: 'settings', icon: 'IconSettings.png', label: 'Settings' },
   { id: 'about', icon: 'IconInfo.png', label: 'About' },
@@ -254,6 +256,7 @@ function AppContent() {
     mastery: <Mastery />,
     notes: <Notes />,
     maps: <Maps />,
+    collectibles: <Collectibles />,
     checklist: <Checklist />,
     settings: <SettingsScreen />,
     about: <About />,

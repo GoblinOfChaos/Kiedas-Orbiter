@@ -31,6 +31,7 @@ fn get_pricer() -> Option<&'static RivenPricer> {
         let attr_vocab_path = dir.join("attr_vocab.json");
         let items_path = dir.join("items_data.json");
         let shortcuts_path = dir.join("attribute_name_shortcuts.json");
+        let effect_map_path = dir.join("effect_to_url_name.json");
 
         if !onnx_path.exists() || !weapon_vocab_path.exists() || !attr_vocab_path.exists() {
             return None;
@@ -55,6 +56,10 @@ fn get_pricer() -> Option<&'static RivenPricer> {
         let shortcuts: HashMap<String, String> = serde_json::from_reader(
             std::fs::File::open(&shortcuts_path).ok()?
         ).ok()?;
+
+        let effect_map: HashMap<String, String> = serde_json::from_reader(
+            std::fs::File::open(&effect_map_path).ok()?
+        ).unwrap_or_default();
 
         // Build weapon_name -> url_name map from items_data
         let mut weapon_name_to_url = HashMap::new();
@@ -83,6 +88,12 @@ fn get_pricer() -> Option<&'static RivenPricer> {
             .map(|(_, v)| (v.clone(), v.clone())).collect();
         for (k, v) in identity {
             attr_shortcuts.entry(k).or_insert(v);
+        }
+
+        // Merge effect -> url_name map for OCR display name normalization
+        // e.g. "critical chance" -> "critical_chance"
+        for (display_name, url_name) in &effect_map {
+            attr_shortcuts.entry(display_name.to_lowercase()).or_insert(url_name.clone());
         }
 
         Some(RivenPricer {

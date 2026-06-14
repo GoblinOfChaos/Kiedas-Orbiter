@@ -140,7 +140,7 @@
       "data/assets/ocr/**/*",
       "data/assets/data/**/*",
       "data/assets/audio/**/*",
-      "data/bin/pricer-models/**"
+      "data/bin/pricer-models"
     ]
   },
   "plugins": {

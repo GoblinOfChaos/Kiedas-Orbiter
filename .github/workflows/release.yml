@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-22.04, windows-latest]
+        platform: [macos-latest, ubuntu-24.04, windows-latest]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -38,7 +38,7 @@ jobs:
           toolchain: stable
 
       - name: Install dependencies (Ubuntu)
-        if: matrix.platform == 'ubuntu-22.04'
+        if: matrix.platform == 'ubuntu-24.04'
         run: |
           sudo apt-get update || sudo apt-get update
           sudo apt-get install -y --fix-missing \
@@ -58,10 +58,11 @@ jobs:
             libcairo2-dev \
             libarchive-dev \
             libicu-dev \
-            libcap-dev
+            libcap-dev \
+            libayatana-appindicator3-dev
 
       - name: Build API Helper (Linux)
-        if: matrix.platform == 'ubuntu-22.04'
+        if: matrix.platform == 'ubuntu-24.04'
         run: |
           bash helpers/build_linux.sh
           strip src-tauri/data/bin/warframe-api-helper
@@ -89,7 +90,7 @@ jobs:
             -o src-tauri/data/bin/Warframe-Exporter-CLI.exe
 
       - name: Download Warframe-Exporter-CLI (Linux)
-        if: matrix.platform == 'ubuntu-22.04'
+        if: matrix.platform == 'ubuntu-24.04'
         shell: bash
         run: |
           curl -L "https://github.com/Puxtril/Warframe-Exporter/releases/download/v2.14/Warframe-Exporter-CLI_Linux.AppImage" \

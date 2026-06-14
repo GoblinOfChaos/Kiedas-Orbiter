@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::{Mutex, OnceLock};
-use ort::session::Session;
+use tract_onnx::prelude::*;
 
 static PRICER: OnceLock<Option<RivenPricer>> = OnceLock::new();
 
@@ -33,8 +33,10 @@ struct WeaponRankData {
     price_distribution: Vec<(f64, f64)>, // sorted (price, frequency)
 }
 
+type TractModel = SimplePlan<TypedFact, Box<dyn TypedOp>, Graph<TypedFact, Box<dyn TypedOp>>>;
+
 pub struct RivenPricer {
-    session: Mutex<ort::session::Session>,
+    model: Mutex<TractModel>,
     weapon_vocab: HashMap<String, i32>,
     attr_vocab: HashMap<String, i32>,
     weapon_name_to_url: HashMap<String, String>,
@@ -72,7 +74,6 @@ fn parse_price_distribution(val: &serde_json::Value) -> Vec<(f64, f64)> {
     pairs
 }
 
-/// Lazily initialized pricer singleton (ONNX session + vocabs + rankings).
 pub fn init() {
     get_pricer();
 }
@@ -94,8 +95,16 @@ fn get_pricer() -> Option<&'static RivenPricer> {
             return None;
         }
 
-        let session = Session::builder().ok()?
-            .commit_from_file(onnx_path.to_string_lossy().as_ref())
+        // Load model with tract — pure Rust, no CRT issues on any platform
+        let model = tract_onnx::onnx()
+            .model_for_path(&onnx_path)
+            .map_err(|e| { eprintln!("[PRICER] model_for_path failed: {:?}", e); e })
+            .ok()?
+            .into_optimized()
+            .map_err(|e| { eprintln!("[PRICER] into_optimized failed: {:?}", e); e })
+            .ok()?
+            .into_runnable()
+            .map_err(|e| { eprintln!("[PRICER] into_runnable failed: {:?}", e); e })
             .ok()?;
 
         let weapon_vocab: Vec<String> = serde_json::from_reader(
@@ -118,7 +127,6 @@ fn get_pricer() -> Option<&'static RivenPricer> {
             std::fs::File::open(&effect_map_path).ok()?
         ).unwrap_or_default();
 
-        // Build weapon_name -> url_name map from items_data
         let mut weapon_name_to_url = HashMap::new();
         for (_key, val) in &items_data {
             if let (Some(item_name), Some(url_name)) = (
@@ -130,7 +138,6 @@ fn get_pricer() -> Option<&'static RivenPricer> {
             }
         }
 
-        // Build weapon_map:
         let weapon_map: HashMap<String, i32> = weapon_vocab.into_iter().enumerate()
             .map(|(i, s)| (s, i as i32)).collect();
         let mask_index = *weapon_map.get("<NONE>").unwrap_or(&0);
@@ -148,9 +155,6 @@ fn get_pricer() -> Option<&'static RivenPricer> {
             attr_shortcuts.entry(display_name.to_lowercase()).or_insert(url_name.clone());
         }
 
-        // Load weapon rankings (keys are display names like "Arca Plasmor", not url_names)
-        // We insert entries for both the lowered display name AND the url_name so lookups
-        // by either format succeed.
         let weapon_rankings: HashMap<String, WeaponRankData> = {
             let file = std::fs::File::open(&ranking_path);
             match file {
@@ -163,7 +167,6 @@ fn get_pricer() -> Option<&'static RivenPricer> {
                         let expected_value = val.get("expected_value")?.as_f64()?;
                         let dist = parse_price_distribution(val.get("price_distribution")?);
                         let item_lower = key.to_lowercase();
-                        // Find matching url_name in items_data for alias
                         for (_k, iv) in &items_data {
                             if let (Some(iname), Some(url_name)) = (
                                 iv.get("item_name").and_then(|v| v.as_str()),
@@ -187,7 +190,7 @@ fn get_pricer() -> Option<&'static RivenPricer> {
 
         eprintln!("[PRICER INIT] weapon_rankings loaded: {} entries", weapon_rankings.len());
         Some(RivenPricer {
-            session: Mutex::new(session),
+            model: Mutex::new(model),
             weapon_vocab: weapon_map,
             attr_vocab: attr_map,
             weapon_name_to_url,
@@ -199,24 +202,20 @@ fn get_pricer() -> Option<&'static RivenPricer> {
     .as_ref()
 }
 
-/// Estimate platinum price. Returns None if pricer not initialized.
 pub fn estimate_price(input: &RivenInput) -> Option<f32> {
     let pricer = get_pricer()?;
     run_inference(pricer, input).map(|(price, _)| price)
 }
 
-/// Full estimate: price + grade + reroll EV. Returns None if pricer not initialized.
 pub fn estimate_full(input: &RivenInput) -> Option<RivenFullEstimate> {
     let pricer = get_pricer()?;
     let (price, _) = run_inference(pricer, input)?;
 
-    // Resolve weapon url_name
     let key = input.weapon_name.to_lowercase();
     let url_name = pricer.weapon_name_to_url.get(&key)
         .map(|s| s.as_str())
         .unwrap_or(&key);
 
-    // Look up weapon ranking data
     let rank_entry = pricer.weapon_rankings.get(url_name);
     eprintln!("[PRICER] weapon='{}' url='{}' rank_found={}", input.weapon_name, url_name, rank_entry.is_some());
     let rank_data = rank_entry;
@@ -224,7 +223,6 @@ pub fn estimate_full(input: &RivenInput) -> Option<RivenFullEstimate> {
     let expected_value = rank_data.map(|r| r.expected_value as f32).unwrap_or(price);
     let weapon_rank = rank_data.map(|r| r.rank);
 
-    // Calculate grade from price distribution
     let mut cdf_percentile = 50.0;
     let grade = if let Some(rd) = rank_data {
         let dist = &rd.price_distribution;
@@ -248,10 +246,7 @@ pub fn estimate_full(input: &RivenInput) -> Option<RivenFullEstimate> {
         String::from("N/A")
     };
 
-    // Probability a random reroll is ≤ current price (stagnant)
     let probability_stagnant = cdf_percentile / 100.0;
-
-    // Reroll EV: expected value of a random reroll = average of the distribution
     let expected_on_reroll = expected_value;
 
     Some(RivenFullEstimate {
@@ -266,7 +261,6 @@ pub fn estimate_full(input: &RivenInput) -> Option<RivenFullEstimate> {
     })
 }
 
-/// Batch estimate: accept multiple inputs, return one result per input.
 pub fn estimate_full_batch(inputs: &[RivenInput]) -> Vec<Option<RivenFullEstimate>> {
     let _pricer = get_pricer();
     let results: Vec<Option<RivenFullEstimate>> = inputs.iter().map(|i| {
@@ -276,7 +270,6 @@ pub fn estimate_full_batch(inputs: &[RivenInput]) -> Vec<Option<RivenFullEstimat
     results
 }
 
-/// Internal: runs ONNX inference, returns (price, log_price)
 fn run_inference(pricer: &RivenPricer, input: &RivenInput) -> Option<(f32, f32)> {
     let key = input.weapon_name.to_lowercase();
     let url_name = pricer.weapon_name_to_url.get(&key)
@@ -300,30 +293,29 @@ fn run_inference(pricer: &RivenPricer, input: &RivenInput) -> Option<(f32, f32)>
 
     let re_rolled: f32 = if input.re_rolls > 0 { 1.0 } else { 0.0 };
 
-    use ort::inputs;
-    let weapon_tensor = ort::value::Value::from_array(
-        ndarray::array![[weapon_idx]]
-    ).ok()?;
-    let re_rolled_tensor = ort::value::Value::from_array(
-        ndarray::array![[re_rolled]]
-    ).ok()?;
-    let attrs_tensor = ort::value::Value::from_array(
-        ndarray::array![[attr_indices[0], attr_indices[1], attr_indices[2], attr_indices[3]]]
-    ).ok()?;
+    // Build input tensors for tract
+    // weapon_idx: shape [1, 1] int32
+    let weapon_tensor: Tensor = tract_ndarray::arr2(&[[weapon_idx]])
+        .into_tensor();
+    // re_rolled: shape [1, 1] f32
+    let re_rolled_tensor: Tensor = tract_ndarray::arr2(&[[re_rolled]])
+        .into_tensor();
+    // attr_indices: shape [1, 4] int32
+    let attr_tensor: Tensor = tract_ndarray::arr2(&[[
+        attr_indices[0], attr_indices[1], attr_indices[2], attr_indices[3]
+    ]]).into_tensor();
 
-    let mut session_guard = pricer.session.lock().ok()?;
-    let outputs = session_guard.run(
-        inputs! {
-            "weapon_idx" => weapon_tensor,
-            "re_rolled" => re_rolled_tensor,
-            "attr_indices" => attrs_tensor,
-        }
-    ).ok()?;
+    let model_guard = pricer.model.lock().ok()?;
 
-    let (_shape, data) = outputs["output"]
-        .try_extract_tensor::<f32>()
-        .ok()?;
+    // tract takes inputs positionally in the order the ONNX model declares them:
+    // weapon_idx, re_rolled, attr_indices
+    let outputs = model_guard.run(tvec![
+        weapon_tensor.into(),
+        re_rolled_tensor.into(),
+        attr_tensor.into(),
+    ]).ok()?;
 
-    let log_price = data[0];
+    let output = outputs[0].to_array_view::<f32>().ok()?;
+    let log_price = output[[0, 0]];
     Some((log_price.exp() - 1.0, log_price))
 }

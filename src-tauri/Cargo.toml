@@ -40,15 +40,17 @@ image = "0.25"
 imageproc = "0.25"
 chrono = "0.4"
 ocr-rs = "2.2"
-ort = "2.0.0-rc.12"
 active-win-pos-rs = "0.10.1"
-ndarray = "0.17.2"
+
+# tract: pure-Rust ONNX inference, replaces ort.
+# No prebuilt C++ runtime means no CRT mismatch with ocr-rs on Windows,
+# no glibc version requirement on Linux, and no load-dynamic hang on any platform.
+tract-onnx = "0.21"
+
 [patch.crates-io]
 alloc-no-stdlib = { git = "https://github.com/dropbox/rust-alloc-no-stdlib.git", rev = "6032b6a9b20e03737135c55a0270ccffcc1438ef" }
 alloc-stdlib = { git = "https://github.com/dropbox/rust-alloc-no-stdlib.git", rev = "6032b6a9b20e03737135c55a0270ccffcc1438ef" }
 brotli-decompressor = { git = "https://github.com/dropbox/rust-brotli-decompressor.git", tag = "5.0.1", version = "=5.0.1" }
-
-
 
 [target.'cfg(target_os = "linux")'.dependencies]
 gtk = "0.18"

@@ -226,8 +226,7 @@ async fn check_pricer_models() -> Result<String, String> {
     if !models_dir.exists() {
         std::fs::create_dir_all(&models_dir).map_err(|e| e.to_string())?;
     }
-    let version = env!("CARGO_PKG_VERSION");
-    let base = format!("https://raw.githubusercontent.com/glowseeker/cephalon-kronos/v{}/src-tauri/data/bin/pricer-models", version);
+    let base = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/main/src-tauri/data/bin/pricer-models";
     let files = &[
         "price_model.onnx",
         "weapon_vocab.json",
@@ -235,6 +234,8 @@ async fn check_pricer_models() -> Result<String, String> {
         "items_data.json",
         "attribute_name_shortcuts.json",
         "effect_to_url_name.json",
+        "weapon_ranking_information.json",
+        "global_price_freq.json",
     ];
     let client = reqwest::Client::new();
     let mut downloaded = 0u32;
@@ -2022,6 +2023,21 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
     pricer::estimate_price(&input)
 }
 
+/// Full estimate: price + grade + reroll expected value.
+#[tauri::command]
+fn estimate_riven_full(input: pricer::RivenInput) -> Option<pricer::RivenFullEstimate> {
+    pricer::estimate_full(&input)
+}
+
+/// Batch estimate: price every riven in one call.
+#[tauri::command]
+fn estimate_riven_full_batch(inputs: Vec<pricer::RivenInput>) -> Vec<Option<pricer::RivenFullEstimate>> {
+    eprintln!("[PRICER CMD] called with {} inputs", inputs.len());
+    let result = pricer::estimate_full_batch(&inputs);
+    eprintln!("[PRICER CMD] done, {} results", result.len());
+    result
+}
+
 // --- Entry Point ---
 
  fn main() {
@@ -2079,6 +2095,7 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
     // are not set automatically.  Set them here so xcap always gets a working
     // software-renderer path and GDK_BACKEND is forced to X11.
     // Linux env vars set above at process start
+
     let app = tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
@@ -2128,6 +2145,12 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
                     Ok(msg) => eprintln!("[PRICER MODELS] {}", msg),
                     Err(e) => eprintln!("[PRICER MODELS] Download failed: {}", e),
                 }
+            });
+            // Pre-load the pricer ONNX + JSON on a background thread so it's
+            // ready by the time the user navigates to the Rivens page.
+            std::thread::spawn(|| {
+                pricer::init();
+                eprintln!("[PRICER] Initialized during setup");
             });
             // Position and configure all overlay windows once at startup.
             // They start hidden (tauri.conf.json) so show() in show_window_internal
@@ -2200,6 +2223,8 @@ fn estimate_riven_price(input: pricer::RivenInput) -> Option<f32> {
             crate::ocr::ocr_riven_card,
             crate::ocr::ocr_riven_card_from_file,
             estimate_riven_price,
+            estimate_riven_full,
+            estimate_riven_full_batch,
             get_available_monitors,
             set_target_monitor,
             get_warframe_window_rect,

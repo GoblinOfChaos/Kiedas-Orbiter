@@ -1,4 +1,5 @@
 import { convertFileSrc } from '@tauri-apps/api/core'
+import { useState, useCallback, useRef } from 'react'
 
 const CARD_RATIO = 290 / 409
 const CANVAS_W = 290
@@ -25,11 +26,29 @@ function SafeImg({ src, className, style, onError }) {
   return <img src={src} className={className} style={{ ...style, opacity: 0, transition: 'opacity 0.15s' }} alt="" loading="lazy" onLoad={e => e.target.style.opacity = 1} onError={e => { e.target.style.display = 'none'; onError?.() }} />
 }
 
-export default function RivenCard({ riven, framesPath, iconsPath, width = 180 }) {
+export default function RivenCard({ riven, framesPath, iconsPath, width = 180, estimate }) {
   const cardScale = width / 180
   const mf = 'Riven'
+  const cardRef = useRef(null)
+  const [tooltipPos, setTooltipPos] = useState(null)
+  const [showTooltip, setShowTooltip] = useState(false)
+
+  const handleMouseEnter = useCallback(() => {
+    if (!cardRef.current || !estimate) return
+    const rect = cardRef.current.getBoundingClientRect()
+    setTooltipPos({
+      left: rect.left + rect.width / 2,
+      top: rect.top,
+    })
+    setShowTooltip(true)
+  }, [estimate])
+
+  const handleMouseLeave = useCallback(() => {
+    setShowTooltip(false)
+  }, [])
 
   const f = (file) => u(framesPath, mf, file)
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null
   const bg = f('Background.png') || f('SilverBackground.png')
   const ft = f('FrameTop.png') || f('RivenFrameTop.png')
   const fb = f('FrameBottom.png')
@@ -54,7 +73,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180 })
   const weaponImg = riven.image || 'https://browse.wf/Lotus/Interface/Cards/Images/OmegaModIndistinctUnveiled.png'
 
   return (
-    <div className="relative flex-shrink-0 select-none" style={{ width, aspectRatio: String(CARD_RATIO) }}>
+    <div ref={cardRef} className="relative flex-shrink-0 select-none" style={{ width, aspectRatio: String(CARD_RATIO) }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {bg && <SafeImg src={bg} className="absolute inset-0 w-full h-full object-contain pointer-events-none" style={{ zIndex: 1 }} />}
 
       {sl && <><SafeImg src={sl} className="absolute inset-0 w-full h-full object-contain pointer-events-none" style={{ zIndex: 3 }} />
@@ -74,7 +93,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180 })
         }} />
       )}
 
-      {!riven.veiled && (
+      {!riven.veiled && !riven.challenge && (
         <span className="absolute font-bold pointer-events-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]" style={{
           top: `${70 / CANVAS_H * 100}%`, right: `${47 / CANVAS_W * 100}%`,
           zIndex: 4, color: '#AC83D5', fontFamily: 'Outfit, sans-serif',
@@ -172,6 +191,71 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180 })
             </div>
           )}
         </>
+      )}
+
+      {estimate && !riven.veiled && !riven.challenge && (
+        <div className="absolute top-1 left-1" style={{ zIndex: 10 }}>
+          <span className={`text-[11px] font-black px-1.5 py-0.5 rounded shadow-sm ${estimate.grade === 'S' ? 'bg-yellow-400 text-black' :
+            estimate.grade === 'A' ? 'bg-green-500 text-white' :
+              estimate.grade === 'B' ? 'bg-blue-500 text-white' :
+                estimate.grade === 'C' ? 'bg-zinc-500 text-white' :
+                  'bg-red-500 text-white'
+            }`}>{estimate.grade}</span>
+        </div>
+      )}
+
+      {estimate && !riven.veiled && !riven.challenge && estimate.price != null && (
+        <div className="absolute top-1 right-1" style={{ zIndex: 10 }}>
+          <span className="flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-400/15 border border-zinc-400/40 text-zinc-300">
+            {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3 h-3 object-contain" alt="" />}
+            {Math.round(estimate.price)}p
+          </span>
+        </div>
+      )}
+
+      {showTooltip && tooltipPos && estimate && !riven.veiled && !riven.challenge && (
+        <div className="fixed pointer-events-none z-[9999]" style={{
+          left: tooltipPos.left,
+          top: tooltipPos.top - 8,
+          transform: 'translate(-50%, -100%)',
+        }}>
+          <div className="w-72 p-3 bg-kronos-panel border border-white/10 rounded-lg shadow-2xl text-[10px] leading-tight">
+            <div className="grid grid-cols-4 gap-2 mb-2">
+              <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">Weapon Rank</div>
+              <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">Avg Value</div>
+              <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">Your Value</div>
+              <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">Potential</div>
+              <div className="text-center font-bold">{estimate.weapon_rank != null ? `#${estimate.weapon_rank}/${estimate.total_weapons ?? '?'}` : 'N/A'}</div>
+              <div className="text-center font-bold">{Math.round(estimate.expected_value)}p</div>
+              <div className="text-center font-bold text-yellow-400">{Math.round(estimate.price)}p</div>
+              <div className={`text-center font-bold ${(1 - (estimate.probability_stagnant ?? 0.5)) * 100 > 50 ? 'text-green-400' : 'text-red-400'}`}>
+                {Math.round((1 - (estimate.probability_stagnant ?? 0.5)) * 100)}%
+              </div>
+            </div>
+            {(() => {
+              const wr = estimate.weapon_rank ?? 999;
+              const total = estimate.total_weapons ?? 1;
+              const tier = wr <= total * 0.2 ? 'Meta' : wr <= total * 0.5 ? 'Popular' : wr <= total * 0.7 ? 'Average' : wr <= total * 0.9 ? 'Niche' : 'Unpopular';
+              const roll = estimate.grade === 'S' ? 'perfect' : estimate.grade === 'A' ? 'Good' : estimate.grade === 'B' ? 'Average' : estimate.grade === 'C' ? 'Mediocre' : 'Bad';
+              const belowAvg = estimate.price < estimate.expected_value;
+              const isGoodWeapon = tier === 'Meta' || tier === 'Popular';
+              const isGoodRoll = estimate.grade === 'S' || estimate.grade === 'A' || estimate.grade === 'B';
+              const isBadRoll = estimate.grade === 'D' || estimate.grade === 'F';
+              let action;
+              if (isGoodWeapon && isGoodRoll) action = 'Sell';
+              else if (isGoodWeapon && belowAvg) action = 'Reroll worthy';
+              else if (isGoodWeapon && isBadRoll) action = 'Reroll';
+              else if (tier === 'Average' && isGoodRoll) action = 'Sell';
+              else if (tier === 'Average' && belowAvg) action = 'Reroll worthy';
+              else if (tier === 'Average') action = 'Reroll';
+              else if (tier === 'Niche' && (estimate.grade === 'S' || estimate.grade === 'A')) action = 'Sell';
+              else if (tier === 'Unpopular' && (estimate.grade === 'S' || estimate.grade === 'A')) action = 'Sell';
+              else if (belowAvg) action = 'Dissolve';
+              else action = 'Dissolve';
+              return <div className="text-center text-[11px] font-bold text-kronos-accent leading-snug">{tier} weapon, {roll} rolls<span className="text-kronos-dim">; Suggestion:</span> <span className="text-yellow-400">{action}</span></div>;
+            })()}
+          </div>
+        </div>
       )}
     </div>
   )

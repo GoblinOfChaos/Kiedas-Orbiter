@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+"""
+Retrain the riven pricing model from scratch.
+
+The full training pipeline lives in tools/riven-pricer/pipeline/ so the
+repo is self-contained — no external dependencies, survives a system wipe.
+
+Usage:
+    python tools/riven-pricer/retrain.py
+
+What it does:
+  1. Downloads fresh market data from Warframe Market
+  2. Builds training dataframe
+  3. Trains a TensorFlow price prediction model
+  4. Exports to ONNX format
+  5. Generates weapon ranking information (uses ONNX, no TF needed)
+  6. Copies all model files into src-tauri/data/bin/pricer-models/
+
+After retraining, commit and push to deploy to all users:
+    git add src-tauri/data/bin/pricer-models/
+    git commit -m "retrain pricer models"
+    git push
+
+Requires: Python 3.11 (for TensorFlow training step)
+"""
+
+import os, sys, shutil, subprocess, argparse
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent.parent
+PIPELINE_DIR = REPO / "tools" / "riven-pricer" / "pipeline"
+PRICER_MODELS = REPO / "src-tauri" / "data" / "bin" / "pricer-models"
+VENV = Path("/tmp/riven-pricer-venv311")
+PYTHON = VENV / "bin" / "python3"
+
+MODEL_FILES = [
+    "price_model.onnx",
+    "price_model.h5",
+    "price_preprocessor.pkl",
+    "weapon_vocab.json",
+    "attr_vocab.json",
+    "effect_to_url_name.json",
+    "items_data.json",
+    "attribute_name_shortcuts.json",
+    "weapon_ranking_information.json",
+    "global_price_freq.json",
+]
+
+
+def run_py(script, cwd=None, args=None):
+    cmd = [str(PYTHON), str(script)] + (args or [])
+    print(f"\n── Running: {script.name} {(' '.join(args) if args else '')}──")
+    result = subprocess.run(cmd, cwd=cwd or script.parent, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(result.stderr)
+        print(f"ERROR: {script.name} failed (exit {result.returncode})")
+        sys.exit(1)
+    for line in result.stdout.splitlines():
+        print(f"  {line}")
+    return result
+
+
+def ensure_venv():
+    if VENV.exists():
+        return
+    print(f"\n── Setting up Python 3.11 venv at {VENV} ──")
+    subprocess.run([sys.executable, "-m", "venv", str(VENV)], check=True)
+    subprocess.run(
+        [str(PYTHON), "-m", "pip", "install",
+         "tensorflow", "pandas", "scikit-learn", "tqdm",
+         "tf2onnx", "onnxruntime", "prettytable"],
+        check=True,
+    )
+
+
+def retrain():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description=__doc__,
+    )
+    parser.add_argument(
+        "--pipeline", "-p",
+        default=None,
+        help="Override pipeline directory (default: tools/riven-pricer/pipeline/)",
+    )
+    args = parser.parse_args()
+
+    pipeline_dir = Path(args.pipeline).resolve() if args.pipeline else PIPELINE_DIR
+    if not pipeline_dir.exists():
+        sys.exit(f"Pipeline not found at {pipeline_dir}")
+
+    print("═" * 50)
+    print("Riven Pricer — Full Retrain")
+    print("═" * 50)
+    print(f"Pipeline: {pipeline_dir}")
+
+    ensure_venv()
+
+    run_py(pipeline_dir / "tool_setup_and_maintenance" / "download_data.py", cwd=pipeline_dir)
+    run_py(pipeline_dir / "tool_setup_and_maintenance" / "create_marketplace_dataframe.py", cwd=pipeline_dir)
+    run_py(pipeline_dir / "training" / "trainers" / "train_price_model.py", cwd=pipeline_dir)
+    run_py(pipeline_dir / "training" / "export_to_onnx.py", cwd=pipeline_dir)
+    run_py(REPO / "tools" / "riven-pricer" / "setup_weapon_information_onnx.py",
+           args=["--data-dir", str(pipeline_dir)])
+
+    src_dir = pipeline_dir / "training" / "model_data"
+    data_dir = pipeline_dir / "data_files"
+    PRICER_MODELS.mkdir(parents=True, exist_ok=True)
+
+    for fname in MODEL_FILES:
+        src = (src_dir if (src_dir / fname).exists() else data_dir) / fname
+        if src.exists():
+            shutil.copy2(src, PRICER_MODELS / fname)
+            print(f"  Copied {fname}")
+        else:
+            print(f"  WARNING: {fname} not found")
+
+    print(f"\nDone. Model files in {PRICER_MODELS}")
+    print("Next step: commit and push:")
+    print(f"  git add {PRICER_MODELS.relative_to(REPO)}/")
+    print(f"  git commit -m 'retrain pricer models'")
+    print(f"  git push")
+
+
+if __name__ == "__main__":
+    retrain()

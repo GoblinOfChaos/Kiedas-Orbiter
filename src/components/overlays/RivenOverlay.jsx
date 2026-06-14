@@ -90,13 +90,14 @@ export default function RivenOverlay() {
   const [parsed, setParsed] = useState(null)
   const [ocrLoading, setOcrLoading] = useState(false)
   const [estimatedPrice, setEstimatedPrice] = useState(null)
+  const [rivenInfo, setRivenInfo] = useState(null)
   const [framesPath, setFramesPath] = useState('')
 
   const doPricing = useCallback((p) => {
-    if (!p || !p.stats.length) { setEstimatedPrice(null); return }
+    if (!p || !p.stats.length) { setEstimatedPrice(null); setRivenInfo(null); return }
     const pos = p.stats.filter(s => !s.value.startsWith('-')).map(s => cleanStatName(s.name))
     const neg = p.stats.filter(s => s.value.startsWith('-')).map(s => cleanStatName(s.name))
-    invoke('estimate_riven_price', {
+    invoke('estimate_riven_full', {
       input: {
         weapon_name: p.name || '',
         re_rolls: 0,
@@ -105,8 +106,11 @@ export default function RivenOverlay() {
         positive3: pos[2] || null,
         negative: neg[0] || null,
       }
-    }).then(price => {
-      if (aliveRef.current) setEstimatedPrice(price)
+    }).then(info => {
+      if (aliveRef.current) {
+        setRivenInfo(info)
+        setEstimatedPrice(info?.price ?? null)
+      }
     }).catch(() => {})
   }, [])
 
@@ -283,11 +287,21 @@ export default function RivenOverlay() {
                 <div className="flex flex-col">
                   <span className="text-[8px] text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Overall Grade</span>
                   <div className="flex items-center gap-1">
-                    <span className="text-xs font-black text-kronos-dim drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">TBD</span>
+                    {rivenInfo?.grade && rivenInfo.grade !== 'N/A' ? (
+                      <span className={`text-xs font-black drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] ${
+                        rivenInfo.grade === 'S' ? 'text-yellow-300' :
+                        rivenInfo.grade === 'A' ? 'text-green-400' :
+                        rivenInfo.grade === 'B' ? 'text-blue-400' :
+                        rivenInfo.grade === 'C' ? 'text-orange-400' :
+                        'text-red-400'
+                      }`}>{rivenInfo.grade}</span>
+                    ) : (
+                      <span className="text-xs font-black text-kronos-dim drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">--</span>
+                    )}
                   </div>
                 </div>
                 <div className="flex flex-col items-end">
-                  <span className="text-[8px] text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Est. Value</span>
+                  <span className="text-[8px] text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Est. Plat</span>
                   <div className="flex items-center gap-1">
                     {estimatedPrice != null ? (
                       <>
@@ -303,6 +317,39 @@ export default function RivenOverlay() {
                   </div>
                 </div>
               </div>
+              {rivenInfo && (
+                <div className="mt-1.5 pt-1.5 border-t border-white/10 grid grid-cols-3 gap-2 text-[9px]">
+                  <div>
+                    <span className="text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Weapon Rank</span>
+                    <p className="font-bold text-kronos-accent drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">#{rivenInfo.weapon_rank}</p>
+                  </div>
+                  <div>
+                    <span className="text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Reroll EV</span>
+                    <p className="font-bold text-yellow-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{Math.round(rivenInfo.expected_on_reroll)} pt</p>
+                  </div>
+                  <div>
+                    <span className="text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Suggestion</span>
+                    {(() => {
+                      const rank = rivenInfo.weapon_rank
+                      const grade = (rivenInfo.grade || 'F').toUpperCase().charAt(0)
+                      const ev = rivenInfo.expected_on_reroll
+                      const cur = estimatedPrice
+                      const meta = rank <= 100
+                      const niche = rank > 100 && rank <= 250
+                      const trash = rank > 250
+                      const godLike = grade === 'S' || grade === 'A'
+
+                      if (godLike) return <p className="font-bold text-yellow-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Keep →</p>
+                      if (meta && ev > cur) return <p className="font-bold text-green-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Reroll ↑</p>
+                      if (meta) return <p className="font-bold text-green-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Reroll ↑</p>
+                      if (niche && grade === 'B') return <p className="font-bold text-kronos-text drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Hold →</p>
+                      if (niche) return <p className="font-bold text-red-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Avoid ↓</p>
+                      if (trash && grade === 'B') return <p className="font-bold text-yellow-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Sell →</p>
+                      return <p className="font-bold text-red-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Avoid ↓</p>
+                    })()}
+                  </div>
+                </div>
+              )}
               {parsed.mr && (
                 <div className="mt-1.5 pt-1.5 border-t border-white/10 flex justify-between items-center">
                   <span className="text-[10px] text-kronos-dim drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">MR Requirement</span>

@@ -1739,6 +1739,7 @@ export function parseInventory(raw, exports) {
         image: resolveImage(weaponUn, EW),
         category: 'rivens',
         weapon_type: rivenWeaponType(weaponUn || u.ItemType),
+        weapon_name: weaponName,
         name: rivenFullName,
         veiled: false,
         rank: parseInt(fp.lvl || u.UpgradeLevel || 0, 10),

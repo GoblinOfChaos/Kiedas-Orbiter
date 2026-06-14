@@ -12,8 +12,14 @@ autobins = false
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
+alloc-no-stdlib = "=2.0.4"
+alloc-stdlib = "=0.2.2"
+brotli-decompressor = "=5.0.1"
 
 [dependencies]
+alloc-no-stdlib = "=2.0.4"
+alloc-stdlib = "=0.2.2"
+brotli-decompressor = "=5.0.1"
 tauri = { version = "2", features = ["protocol-asset"] }
 webkit2gtk-nvidia-quirk = { version = "1.3" }
 tauri-plugin-dialog = "2"
@@ -37,6 +43,10 @@ ocr-rs = "2.2"
 ort = "2.0.0-rc.12"
 active-win-pos-rs = "0.10.1"
 ndarray = "0.17.2"
+[patch.crates-io]
+alloc-no-stdlib = { git = "https://github.com/dropbox/rust-alloc-no-stdlib.git", rev = "6032b6a9b20e03737135c55a0270ccffcc1438ef" }
+alloc-stdlib = { git = "https://github.com/dropbox/rust-alloc-no-stdlib.git", rev = "6032b6a9b20e03737135c55a0270ccffcc1438ef" }
+brotli-decompressor = { git = "https://github.com/dropbox/rust-brotli-decompressor.git", tag = "5.0.1", version = "=5.0.1" }
 
 
 

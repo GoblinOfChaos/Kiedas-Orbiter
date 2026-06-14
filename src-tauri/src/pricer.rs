@@ -95,17 +95,16 @@ fn get_pricer() -> Option<&'static RivenPricer> {
             return None;
         }
 
-        // Load model with tract — pure Rust, no CRT issues on any platform
+        eprintln!("[PRICER] dir exists: {}", dir.exists());
+eprintln!("[PRICER] onnx_path: {:?}", onnx_path);
+
         let model = tract_onnx::onnx()
-            .model_for_path(&onnx_path)
-            .map_err(|e| { eprintln!("[PRICER] model_for_path failed: {:?}", e); e })
-            .ok()?
-            .into_optimized()
-            .map_err(|e| { eprintln!("[PRICER] into_optimized failed: {:?}", e); e })
-            .ok()?
-            .into_runnable()
-            .map_err(|e| { eprintln!("[PRICER] into_runnable failed: {:?}", e); e })
-            .ok()?;
+    .model_for_path(&onnx_path)
+    .map_err(|e| eprintln!("[PRICER] model_for_path failed: {e:?}")).ok()?
+    .into_optimized()
+    .map_err(|e| eprintln!("[PRICER] into_optimized failed: {e:?}")).ok()?
+    .into_runnable()
+    .map_err(|e| eprintln!("[PRICER] into_runnable failed: {e:?}")).ok()?;
 
         let weapon_vocab: Vec<String> = serde_json::from_reader(
             std::fs::File::open(&weapon_vocab_path).ok()?

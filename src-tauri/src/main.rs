@@ -226,7 +226,7 @@ async fn check_pricer_models() -> Result<String, String> {
     if !models_dir.exists() {
         std::fs::create_dir_all(&models_dir).map_err(|e| e.to_string())?;
     }
-    let base = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/main/src-tauri/data/bin/pricer-models";
+    let base = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/master/src-tauri/data/bin/pricer-models";
     let files = &[
         "price_model.onnx",
         "weapon_vocab.json",

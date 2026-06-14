@@ -53,14 +53,14 @@ function Subpanel({ cat, items, onClose }) {
       >
         {cat && (
           <>
-            <div className="sticky top-0 z-10 flex items-center gap-3 px-4 py-3 bg-[var(--color-panel)] border-b border-white/10">
-              {cat.icon && <img src={cat.icon} alt="" className="w-8 h-8 rounded object-cover" />}
+            <div className="sticky top-0 z-10 flex items-center gap-4 px-5 py-4 bg-[var(--color-panel)] border-b border-white/10">
+              {cat.icon && <img src={cat.icon} alt="" className="w-16 h-16 rounded-xl object-cover flex-shrink-0" />}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-white truncate">{cat.label}</p>
-                <p className="text-xs" style={{ color: cat.color }}>{cat.count} / {cat.total}</p>
+                <p className="text-lg font-bold text-white truncate">{cat.label}</p>
+                <p className="text-sm" style={{ color: cat.color }}>{cat.count} / {cat.total}</p>
               </div>
               <button onClick={onClose} className="text-white/50 hover:text-white p-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
               </button>
             </div>
             <div className="divide-y divide-white/5">
@@ -70,7 +70,7 @@ function Subpanel({ cat, items, onClose }) {
                   {item.icon && <img src={item.icon} alt="" className="w-7 h-7 rounded object-cover flex-shrink-0" />}
                   <span className="text-sm text-white/80 truncate flex-1">{item.name}</span>
                   {item.found && (
-                    <svg className="w-4 h-4 text-emerald-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg className="w-4 h-4 text-emerald-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
                   )}
                 </div>
               ))}
@@ -137,8 +137,8 @@ export default function Collectibles() {
       || leaf.replace(/(Fragment|Name)$/i, '').replace(/([a-z])([A-Z])/g, '$1 $2').trim()
   }, [dict])
 
-  const openSubpanel = useCallback((cat, buildItems) => {
-    setSelectedCat(cat)
+  const openSubpanel = useCallback((cardCat, buildItems) => {
+    setSelectedCat(cardCat)
     setSubpanelItems(buildItems())
   }, [])
 
@@ -159,7 +159,7 @@ export default function Collectibles() {
     }
     return {
       ...card,
-      onClick: () => openSubpanel(cat, () => [
+      onClick: () => openSubpanel(card, () => [
         { key: 'placeholder', name: `Found ${card.count} of ${card.total}`, found: true },
       ]),
     }
@@ -179,7 +179,7 @@ export default function Collectibles() {
     }
     return {
       ...card,
-      onClick: () => openSubpanel(cat, () => {
+      onClick: () => openSubpanel(card, () => {
         if (!m || !m.discoveryState) return [{ key: 'placeholder', name: `Caves not yet loaded from inventory`, found: false }]
         const items = []
         m.discoveryState.forEach((bits, areaIdx) => {
@@ -199,28 +199,33 @@ export default function Collectibles() {
       const cat = cats.find((c) => c.match(type))
       if (cat) cat.found += f.Progress > 0 ? 1 : 0
     }
-    return cats.map((cat) => ({
-      key: cat.label,
-      icon: cat.icon && uiPath ? convertFileSrc(`${uiPath}/${cat.icon}`) : null,
-      label: cat.label,
-      color: cat.color,
-      count: cat.found,
-      total: cat.wikiTotal,
-      onClick: () => openSubpanel(cat, () => {
-        const items = []
-        for (const f of loreFragmentScans) {
-          const type = f.ItemType || ''
-          if (cat.match(type) && f.Progress > 0) {
-            items.push({
-              key: type,
-              name: fragName(type),
-              found: true,
-            })
+    return cats.map((cat) => {
+      const card = {
+        key: cat.label,
+        icon: cat.icon && uiPath ? convertFileSrc(`${uiPath}/${cat.icon}`) : null,
+        label: cat.label,
+        color: cat.color,
+        count: cat.found,
+        total: cat.wikiTotal,
+      }
+      return {
+        ...card,
+        onClick: () => openSubpanel(card, () => {
+          const items = []
+          for (const f of loreFragmentScans) {
+            const type = f.ItemType || ''
+            if (cat.match(type) && f.Progress > 0) {
+              items.push({
+                key: type,
+                name: fragName(type),
+                found: true,
+              })
+            }
           }
-        }
-        return items.length ? items : [{ key: 'placeholder', name: `None collected yet`, found: false }]
-      }),
-    }))
+          return items.length ? items : [{ key: 'placeholder', name: `None collected yet`, found: false }]
+        }),
+      }
+    })
   }, [loreFragmentScans, uiPath, openSubpanel])
 
   return (

@@ -444,7 +444,7 @@ export default function SettingsScreen() {
         filters: [{ name: 'Screenshots', extensions: ['png', 'jpg', 'jpeg', 'bmp'] }]
       })
       if (!selected) return
-      const result = await invoke('ocr_riven_card_from_file', { path: selected, position, save_crop: true })
+      const result = await invoke('ocr_riven_card_from_file', { path: selected, position, saveCrop: true })
       setRivenOcrResult(result.text)
     } catch (err) {
       setRivenOcrResult(`OCR failed: ${err}`)

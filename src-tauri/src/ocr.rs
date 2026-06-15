@@ -96,9 +96,17 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
 
     if save_crop {
         let pos_name = format!("{:?}", position).to_lowercase();
-        let debug_path = format!("/tmp/riven_debug_{}.png", pos_name);
-        let _ = crop.save(&debug_path);
-        crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Saved debug crop to {}", debug_path));
+        let mut p = crate::get_data_root();
+        p.push("data/user");
+        if let Err(e) = std::fs::create_dir_all(&p) {
+            crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Failed to create dir {:?}: {}", p, e));
+        }
+        let debug_path = p.join(format!("riven_debug_{}.png", pos_name));
+        crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Saving debug crop to {:?}", debug_path));
+        match crop.save(&debug_path) {
+            Ok(_) => crate::logger::log_to_disk(app, "[RIVEN OCR] Debug crop saved"),
+            Err(e) => crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Failed to save debug crop: {}", e)),
+        }
     }
 
     // Grayscale + contrast stretch

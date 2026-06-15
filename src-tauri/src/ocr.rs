@@ -73,7 +73,84 @@ fn find_text_lines(gray: &image::GrayImage) -> Vec<(u32, u32)> {
     if in_line && h - line_start >= 8 {
         lines.push((line_start, h));
     }
-    lines
+
+    // Second pass: split any line taller than 35px at valleys where
+    // dark-pixel count drops below a low threshold (card decorations
+    // between text lines create brief dips).
+    let gap_threshold = (w as f32 * 0.05).round() as u32;
+    let mut split_lines = Vec::new();
+    for &(start, end) in &lines {
+        let height = end - start;
+        if height <= 35 {
+            split_lines.push((start, end));
+            continue;
+        }
+        // Look for runs of >= 3 consecutive rows below gap_threshold
+        let mut gap_at: Option<u32> = None;
+        for y in start..end {
+            if row_scores[y as usize] < gap_threshold {
+                if gap_at.is_none() {
+                    gap_at = Some(y);
+                }
+            } else if let Some(g) = gap_at {
+                if y - g >= 3 {
+                    // Found a valid gap: push everything before the gap, continue from after
+                    if g - start >= 8 {
+                        split_lines.push((start, g));
+                    }
+                    // Recurse on the rest
+                    let remaining = vec![(y, end)];
+                    for r in split_tail(&row_scores, &remaining, w, gap_threshold) {
+                        split_lines.push(r);
+                    }
+                    gap_at = None;
+                    break;
+                }
+                gap_at = None;
+            }
+        }
+        if gap_at.is_none() {
+            split_lines.push((start, end));
+        }
+    }
+
+    split_lines
+}
+
+fn split_tail(row_scores: &[u32], lines: &[(u32, u32)], w: u32, gap_threshold: u32) -> Vec<(u32, u32)> {
+    let mut result = Vec::new();
+    for &(start, end) in lines {
+        if end - start <= 35 {
+            if end - start >= 8 {
+                result.push((start, end));
+            }
+            continue;
+        }
+        let mut gap_at: Option<u32> = None;
+        for y in start..end {
+            if row_scores[y as usize] < gap_threshold {
+                if gap_at.is_none() {
+                    gap_at = Some(y);
+                }
+            } else if let Some(g) = gap_at {
+                if y - g >= 3 {
+                    if g - start >= 8 {
+                        result.push((start, g));
+                    }
+                    for r in split_tail(row_scores, &[(y, end)], w, gap_threshold) {
+                        result.push(r);
+                    }
+                    gap_at = None;
+                    break;
+                }
+                gap_at = None;
+            }
+        }
+        if gap_at.is_none() && end - start >= 8 {
+            result.push((start, end));
+        }
+    }
+    result
 }
 
 fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPosition, save_crop: bool) -> Result<RivenOcrResult, String> {
@@ -131,7 +208,7 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
     // Find text lines via horizontal projection (fast — counts dark pixels per row)
     let lines = find_text_lines(&stretched);
     let dyn_stretched = DynamicImage::ImageLuma8(stretched);
-    crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Found {} text lines", lines.len()));
+    crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Found {} text lines: {:?}", lines.len(), lines));
 
     // Recognize each line individually with RecModel (fast — no detection model)
     let mut results = Vec::new();

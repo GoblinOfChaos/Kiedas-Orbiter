@@ -85,6 +85,7 @@ export default function RivenOverlay() {
   const [visible, setVisible] = useState(false)
   const [refreshTick, setRefreshTick] = useState(0)
   const aliveRef = useRef(true)
+  const showingRef = useRef(false)
 
   const [parsed, setParsed] = useState(null)
   const [ocrLoading, setOcrLoading] = useState(false)
@@ -130,16 +131,20 @@ export default function RivenOverlay() {
   }, [doPricing])
 
   const show = useCallback(() => {
+    if (showingRef.current) return
+    showingRef.current = true
     aliveRef.current = true
     setVisible(true)
     setParsed(null)
     invoke('show_overlay_window', { label })
       .then(() => invoke('resize_overlay_window', { label, width: RIVEN_W, height: RIVEN_H }))
       .catch(() => {})
+      .finally(() => { showingRef.current = false })
   }, [label])
 
   const hide = useCallback(() => {
     aliveRef.current = false
+    showingRef.current = false
     setVisible(false)
     setParsed(null)
     setEstimatedPrice(null)
@@ -156,7 +161,7 @@ export default function RivenOverlay() {
           const p = parseRivenOcr(payload)
           setParsed(p)
           doPricing(p)
-          invoke('show_overlay_window', { label }).catch(() => {})
+          // show() already called show_overlay_window — just ensure correct size
           invoke('resize_overlay_window', { label, width: RIVEN_W, height: RIVEN_H }).catch(() => {})
         }
       }),

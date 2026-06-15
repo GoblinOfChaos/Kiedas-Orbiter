@@ -41,6 +41,8 @@ pub struct LogScanner {
     is_fissure: bool,
     in_mission: bool,
     riven_state: RivenState,
+    chat_riven_open: bool,
+    riven_close_pending_ts: f64,
     squad_channels: HashSet<String>,
     expecting_archon_boosts: bool,
 }
@@ -70,6 +72,8 @@ impl LogScanner {
             is_fissure: false,
             in_mission: false,
             riven_state: RivenState::Idle,
+            chat_riven_open: false,
+            riven_close_pending_ts: 0.0,
             squad_channels: HashSet::new(),
             expecting_archon_boosts: false,
         }
@@ -158,25 +162,45 @@ impl LogScanner {
             return;
         }
 
-        // ─── Riven linked in chat ───────────────────────────────────────────
-        if s.contains("ThemedDetailedPurchaseDialog.lua: PopulateInfo->")
-            && s.contains("/Lotus/StoreItems/Upgrades/Mods/Randomized")
-        {
-            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven linked in chat opened (LogTS: {}s)", ts));
-            app.emit("riven-linked-open", ()).unwrap_or_default();
-            return;
-        }
-        if s.contains("ThemedDetailedPurchaseDialog.lua: DBG: HudVis") {
-            app.emit("riven-linked-closed", ()).unwrap_or_default();
-            return;
+        // ─── Riven linked in chat (open) ────────────────────────────────────
+        if !self.chat_riven_open {
+            let chat_open = (s.contains("ThemedDetailedPurchaseDialog.lua:") && s.contains("HudVis 1"))
+                || s.contains("Created /Lotus/Interface/ThemedDetailedPurchaseDialog.swf")
+                || (s.contains("ThemedDetailedPurchaseDialog.lua: PopulateInfo->")
+                    && s.contains("/Lotus/StoreItems/Upgrades/Mods/Randomized"));
+            if chat_open {
+                let pattern = if s.contains("HudVis 1") { "'HudVis 1'" }
+                    else if s.contains("Created /Lotus/Interface/ThemedDetailedPurchaseDialog.swf") { "'Created ThemedDetailedPurchaseDialog'" }
+                    else { "'PopulateInfo->/Randomized'" };
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] ChatRivenOpen: matched {} (LogTS: {}s)", pattern, ts));
+                self.chat_riven_open = true;
+                app.emit("riven-linked-open", ()).unwrap_or_default();
+                return;
+            }
         }
 
-        // ─── Riven reroll menu state machine ───────────────────────────────
-        if s.contains("OmegaRerollSelection.lua: Diorama setup") {
-            self.riven_state = RivenState::ScreenOpen;
-            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll screen opened (LogTS: {}s)", ts));
-            app.emit("riven-screen-open", ()).unwrap_or_default();
-            return;
+        // ─── Riven reroll menu (open) ──────────────────────────────────────
+        if self.riven_state == RivenState::Idle {
+            let mut matched = false;
+            if s.contains("Created /Lotus/Interface/OmegaRerollSelection.swf") {
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] CycleRivenOpen: matched 'Created OmegaRerollSelection' (LogTS: {}s)", ts));
+                matched = true;
+            } else if s.contains("Starting new background region: /Lotus/Levels/Lore/OmegaCephalonPortrait.level") {
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] CycleRivenOpen: matched 'Starting OmegaCephalonPortrait' (LogTS: {}s)", ts));
+                matched = true;
+            } else if s.contains("DioramaViewer.lua: SamodeusDioramaLoaded") {
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] CycleRivenOpen: matched 'SamodeusDioramaLoaded' (LogTS: {}s)", ts));
+                matched = true;
+            } else if s.contains("OmegaRerollSelection.lua: Diorama setup") {
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] CycleRivenOpen: matched 'Diorama setup' (LogTS: {}s)", ts));
+                matched = true;
+            }
+            if matched {
+                self.riven_state = RivenState::ScreenOpen;
+                self.riven_close_pending_ts = 0.0;
+                app.emit("riven-screen-open", ()).unwrap_or_default();
+                return;
+            }
         }
 
         // Track dialog lifecycle
@@ -194,13 +218,11 @@ impl LogScanner {
         }
 
         if s.contains("Dialog.lua: SendResult_MENU_CANCEL()") || s.contains("Dialog.lua: Dialog::SendResult(5)") {
-            // Dialog cancelled - go back to previous state
             match self.riven_state {
                 RivenState::AwaitingConfirm1 => {
                     self.riven_state = RivenState::ScreenOpen;
                 }
                 RivenState::AwaitingConfirm2 => {
-                    // If second dialog cancelled, the whole menu might be closing
                     self.riven_state = RivenState::ScreenOpen;
                 }
                 _ => {}
@@ -225,23 +247,35 @@ impl LogScanner {
             return;
         }
 
-        // ─── Riven close detection ────────────────────────────────────────
-        // These triggers (CancelJobs, ClearAgents) fire for many unrelated game events,
-        // so only act on them when the riven reroll screen is actually open.
-        if self.riven_state != RivenState::Idle {
-            if s.contains("CancelJobs batchcount 0") {
-                self.riven_state = RivenState::Idle;
-                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll menu closed (CancelJobs) (LogTS: {}s)", ts));
-                app.emit("riven-screen-closed", ()).unwrap_or_default();
+        // ─── Riven close detection ─────────────────────────────────────────
+        // Clean, direct close for Chat Rivens using your specific script line
+        if self.chat_riven_open && s.contains("ThemedDetailedPurchaseDialog.lua:") && s.contains("HudVis 0") {
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] ChatRivenClosed: matched 'ThemedDetailedPurchaseDialog HudVis 0' (LogTS: {}s)", ts));
+            self.chat_riven_open = false;
+            app.emit("riven-linked-closed", ()).unwrap_or_default();
+            return;
+        }
+
+        // Clean close for Cycle Rivens (shielded from dialog transitions)
+        let close_line = s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false")
+            || s.contains("CancelJobs batchcount 0");
+        if close_line && self.riven_state == RivenState::ScreenOpen {
+            let pattern = if s.contains("CancelJobs batchcount 0") { "'CancelJobs batchcount 0'" } else { "'ClearAgents'" };
+            if self.riven_close_pending_ts == 0.0 {
+                self.riven_close_pending_ts = ts;
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven close pending: matched {} (LogTS: {}s)", pattern, ts));
                 return;
             }
-            if s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false") {
+            if ts > 0.0 && ts - self.riven_close_pending_ts < 0.5 {
+                self.riven_close_pending_ts = 0.0;
                 self.riven_state = RivenState::Idle;
-                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven overlays closed (ClearAgents) (LogTS: {}s)", ts));
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] CycleRivenClosed: matched {} (LogTS: {}s)", pattern, ts));
                 app.emit("riven-screen-closed", ()).unwrap_or_default();
-                app.emit("riven-linked-closed", ()).unwrap_or_default();
-                return;
+            } else {
+                self.riven_close_pending_ts = ts;
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven close pending refreshed: matched {} (LogTS: {}s)", pattern, ts));
             }
+            return;
         }
 
         // ─── Archon Hunt Elite Alert modifiers ────────────────────────────
@@ -527,10 +561,17 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 continue;
             }
 
+            // Warframe is running — show waiting dot while trying to hook
+            if !logged_waiting {
+                crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Warframe detected, starting helper...");
+                logged_waiting = true;
+            }
+            SCANNER_STATUS.store(1, Ordering::SeqCst);
+
             let mut cmd = std::process::Command::new(&helper_path);
             cmd.arg("--read-log-buffer")
                .stdout(std::process::Stdio::piped())
-               .stderr(std::process::Stdio::piped());
+               .stderr(std::process::Stdio::null());
             #[cfg(windows)]
             {
                 use std::os::windows::process::CommandExt;
@@ -572,6 +613,11 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 }
                 let data_len = u32::from_le_bytes(len_buf) as usize;
 
+                // 0xFFFFFFFF = idle sentinel — helper is alive but no new log lines
+                if data_len == 0xFFFFFFFF {
+                    continue;
+                }
+
                 // Sanity check: prevent OOM from corrupt length values.
                 // EE.log lines are typically <4 KB; 1 MB is a generous limit.
                 if data_len > 1_048_576 {
@@ -590,7 +636,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     }
                     // Kill helper so it restarts and re-hooks if Warframe was launched
                     let _ = child.kill();
-                    std::thread::sleep(std::time::Duration::from_secs(10));
+                    std::thread::sleep(std::time::Duration::from_secs(3));
                     break;
                 }
 
@@ -604,6 +650,8 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 if first_data {
                     crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Hooked into Warframe RAM! Backfill — populating dedup set, suppressing events.");
                     SCANNER_STATUS.store(2, Ordering::SeqCst);
+                    logged_waiting = false;
+                    app_inner.emit("scanner-latched", "hooked").unwrap_or_default();
                     first_data = false;
                     let text = String::from_utf8_lossy(&buf);
                     for line in text.split('\n') {
@@ -637,11 +685,11 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 }
             }
             
-            // Sleep before restarting the helper to prevent CPU spinning when it crashes or exits
-            // immediately. Skip this delay if IS_SCANNING was cleared externally (user toggled
+            // Brief pause before restarting the helper to prevent CPU spinning.
+            // Skip this delay if IS_SCANNING was cleared externally (user toggled
             // the scanner off) so re-enabling it feels instant.
             if IS_SCANNING.load(Ordering::SeqCst) {
-                std::thread::sleep(std::time::Duration::from_secs(10));
+                std::thread::sleep(std::time::Duration::from_secs(3));
             }
         }
 

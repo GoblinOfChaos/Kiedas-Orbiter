@@ -7,6 +7,7 @@ import { UpdateProvider, useUpdate } from './contexts/UpdateContext'
 import { Tooltip } from './components/UI'
 import { AlertTriangle, FolderOpen } from 'lucide-react'
 import { invoke, convertFileSrc } from '@tauri-apps/api/core'
+import { listen } from '@tauri-apps/api/event'
 import { open as openDialog } from '@tauri-apps/plugin-dialog'
 import { loadSettings, getSetting, setSetting } from './lib/settings'
 
@@ -243,6 +244,21 @@ function AppContent() {
     checkScanner()
     const iv = setInterval(checkScanner, 2000)
     return () => clearInterval(iv)
+  }, [])
+
+  // Show toast when scanner latches onto Warframe
+  useEffect(() => {
+    const unsub = listen('scanner-latched', () => {
+      invoke('show_notification', {
+        title: 'Scanner',
+        message: 'Log scanner hooked into Warframe',
+        image: '',
+        position: 'top-right',
+        no_focus: true,
+        silent: true,
+      }).catch(() => {})
+    })
+    return () => { unsub.then(f => f()) }
   }, [])
 
   const uiIcon = (name) => iconCache[name] || (uiPath ? convertFileSrc(`${uiPath}/${name}`) : '')

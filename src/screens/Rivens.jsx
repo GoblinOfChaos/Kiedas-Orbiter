@@ -89,6 +89,7 @@ export default function Rivens() {
   const [iconsPath, setIconsPath] = useState('')
   const [framesPath, setFramesPath] = useState('')
   const [pricingCache, setPricingCache] = useState({})
+  const [retryTick, setRetryTick] = useState(0)
   const pricingRef = useRef({})
 
   useEffect(() => {
@@ -163,18 +164,27 @@ export default function Rivens() {
     })
 
     console.log('calling invoke with', inputs.length, 'inputs')
+    let cancelled = false
     invoke('estimate_riven_full_batch', { inputs }).then(results => {
+      if (cancelled) return
       console.log('batch results length:', results?.length, 'first:', results?.[0])
       if (!results) return
       const newCache = { ...pricingRef.current }
+      let stored = 0
       toFetch.forEach((r, i) => {
-        if (results[i]) newCache[rivenKey(r)] = results[i]
+        if (results[i]) { newCache[rivenKey(r)] = results[i]; stored++ }
       })
       pricingRef.current = newCache
       setPricingCache(newCache)
       console.log('pricingCache set, entries:', Object.keys(newCache).length)
+      // Retry if pricer wasn't ready (all results null)
+      if (stored === 0 && toFetch.length > 0) {
+        console.log('pricer returned no results, retrying in 3s...')
+        setTimeout(() => setRetryTick(t => t + 1), 3000)
+      }
     }).catch(e => console.error('pricer invoke failed:', e))
-  }, [allRivens])
+    return () => { cancelled = true }
+  }, [allRivens, retryTick])
 
   const unveiledCount = allRivens.filter(r => !r.veiled && !r.challenge).length
   const challengeCount = allRivens.filter(r => r.challenge).length

@@ -40,119 +40,6 @@ impl RivenCardPosition {
     }
 }
 
-fn find_text_lines(gray: &image::GrayImage) -> Vec<(u32, u32)> {
-    let (w, h) = gray.dimensions();
-    let mut row_scores = Vec::with_capacity(h as usize);
-    for y in 0..h {
-        let mut dark_pixels = 0u32;
-        for x in 0..w {
-            if gray.get_pixel(x, y)[0] < 128 {
-                dark_pixels += 1;
-            }
-        }
-        row_scores.push(dark_pixels);
-    }
-
-    let threshold = (w as f32 * 0.05).round() as u32;
-    let mut lines = Vec::new();
-    let mut in_line = false;
-    let mut line_start = 0u32;
-    for y in 0..h {
-        let is_text = row_scores[y as usize] >= threshold;
-        if is_text && !in_line {
-            in_line = true;
-            line_start = y;
-        } else if !is_text && in_line {
-            in_line = false;
-            let line_end = y;
-            if line_end - line_start >= 8 {
-                lines.push((line_start, line_end));
-            }
-        }
-    }
-    if in_line && h - line_start >= 8 {
-        lines.push((line_start, h));
-    }
-
-    // Second pass: split any line taller than 35px at valleys where
-    // dark-pixel count drops below a low threshold (card decorations
-    // between text lines create brief dips).
-    let gap_threshold = (w as f32 * 0.02).round() as u32;
-    let mut split_lines = Vec::new();
-    for &(start, end) in &lines {
-        let height = end - start;
-        if height <= 35 {
-            split_lines.push((start, end));
-            continue;
-        }
-        // Look for runs of >= 3 consecutive rows below gap_threshold
-        let mut gap_at: Option<u32> = None;
-        for y in start..end {
-            if row_scores[y as usize] < gap_threshold {
-                if gap_at.is_none() {
-                    gap_at = Some(y);
-                }
-            } else if let Some(g) = gap_at {
-                if y - g >= 3 {
-                    // Found a valid gap: push everything before the gap, continue from after
-                    if g - start >= 8 {
-                        split_lines.push((start, g));
-                    }
-                    // Recurse on the rest
-                    let remaining = vec![(y, end)];
-                    for r in split_tail(&row_scores, &remaining, w, gap_threshold) {
-                        split_lines.push(r);
-                    }
-                    gap_at = None;
-                    break;
-                }
-                gap_at = None;
-            }
-        }
-        if gap_at.is_none() {
-            split_lines.push((start, end));
-        }
-    }
-
-    split_lines
-}
-
-fn split_tail(row_scores: &[u32], lines: &[(u32, u32)], w: u32, gap_threshold: u32) -> Vec<(u32, u32)> {
-    let mut result = Vec::new();
-    for &(start, end) in lines {
-        if end - start <= 35 {
-            if end - start >= 8 {
-                result.push((start, end));
-            }
-            continue;
-        }
-        let mut gap_at: Option<u32> = None;
-        for y in start..end {
-            if row_scores[y as usize] < gap_threshold {
-                if gap_at.is_none() {
-                    gap_at = Some(y);
-                }
-            } else if let Some(g) = gap_at {
-                if y - g >= 3 {
-                    if g - start >= 8 {
-                        result.push((start, g));
-                    }
-                    for r in split_tail(row_scores, &[(y, end)], w, gap_threshold) {
-                        result.push(r);
-                    }
-                    gap_at = None;
-                    break;
-                }
-                gap_at = None;
-            }
-        }
-        if gap_at.is_none() && end - start >= 8 {
-            result.push((start, end));
-        }
-    }
-    result
-}
-
 fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPosition, save_crop: bool) -> Result<RivenOcrResult, String> {
     let sw = full.width() as f64;
     let sh = full.height() as f64;
@@ -186,43 +73,55 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
         }
     }
 
-    // Grayscale + contrast stretch
-    let gray = crop.to_luma8();
-    let (w, h) = gray.dimensions();
-    let mut min = 255u8;
-    let mut max = 0u8;
-    for p in gray.pixels() {
-        if p[0] < min { min = p[0]; }
-        if p[0] > max { max = p[0]; }
-    }
-    let range = (max as f32 - min as f32).max(1.0);
-    let mut stretched = image::GrayImage::new(w, h);
-    for (x, y, p) in gray.enumerate_pixels() {
-        let v = ((p[0] as f32 - min as f32) / range * 255.0) as u8;
-        stretched.put_pixel(x, y, image::Luma([v]));
-    }
-
-    // Invert — after contrast stretch, light text on dark card becomes dark text on light bg
-    image::imageops::invert(&mut stretched);
-
-    // Find text lines via horizontal projection (fast — counts dark pixels per row)
-    let lines = find_text_lines(&stretched);
-    let dyn_stretched = DynamicImage::ImageLuma8(stretched);
-    crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Found {} text lines: {:?}", lines.len(), lines));
-
-    // Recognize each line individually with RecModel (fast — no detection model)
-    let mut results = Vec::new();
-    for &(y0, y1) in &lines {
-        let line_h = y1 - y0;
-        if line_h < 3 { continue; }
-        let line_crop = dyn_stretched.clone().crop_imm(0, y0, w, line_h).to_luma8();
-        let text = crate::ocr_engine::recognize(&line_crop);
-        if !text.is_empty() {
-            results.push(text);
+    let rgba = crop.to_rgba8();
+    let (w, h) = rgba.dimensions();
+    let mut binary = image::GrayImage::new(w, h);
+    for y in 0..h {
+        for x in 0..w {
+            let p = rgba.get_pixel(x, y);
+            let lum = p[0] as u16 + p[1] as u16 + p[2] as u16;
+            binary.put_pixel(x, y, image::Luma([if lum > 180 { 0 } else { 255 }]));
         }
     }
 
-    let combined = results.join(" | ");
+    {
+        let pos_name = format!("{:?}", position).to_lowercase();
+        let mut p = crate::get_data_root();
+        p.push("data/user");
+        let _ = std::fs::create_dir_all(&p);
+        let debug_path = p.join(format!("riven_preprocess_{}.png", pos_name));
+        let _ = binary.save(&debug_path);
+        crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Saved preprocessed image to {:?}", debug_path));
+    }
+
+    let mut text_start = 0u32;
+    for y in (0..h).rev() {
+        let all_white = (0..w).all(|x| binary.get_pixel(x, y)[0] == 255);
+        if all_white {
+            text_start = y;
+            break;
+        }
+    }
+    crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Text region starts at y={}", text_start));
+
+    let text_region = DynamicImage::ImageLuma8(binary)
+        .crop_imm(0, text_start, w, h - text_start);
+
+    let results = crate::ocr_engine::recognize_riven(&text_region);
+    crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Raw lines: {:?}", results));
+
+    let mut merged: Vec<String> = Vec::new();
+    for text in results {
+        if let Some(prev) = merged.last_mut() {
+            if prev.ends_with('-') {
+                prev.push_str(&text);
+                continue;
+            }
+        }
+        merged.push(text);
+    }
+
+    let combined = merged.join(" | ");
     crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Card {:?}: {:?}", position, combined));
 
     Ok(RivenOcrResult { text: combined })

@@ -11,7 +11,9 @@ function cleanStatName(raw) {
 }
 
 function parseRivenOcr(text) {
-  const clean = text.replace(/^\[[^\]]*\]\s*/, '')
+  const clean = text
+    .replace(/^\[[^\]]*\]\s*/, '')
+    .replace(/^[\dA-Z]{1,3}\s*\|\s*/, '')
   const parts = clean.split('|').map(s => s.trim()).filter(Boolean)
   if (parts.length === 0) return null
 

@@ -53,7 +53,7 @@ fn find_text_lines(gray: &image::GrayImage) -> Vec<(u32, u32)> {
         row_scores.push(dark_pixels);
     }
 
-    let threshold = (w as f32 * 0.15).round() as u32;
+    let threshold = (w as f32 * 0.05).round() as u32;
     let mut lines = Vec::new();
     let mut in_line = false;
     let mut line_start = 0u32;
@@ -77,7 +77,7 @@ fn find_text_lines(gray: &image::GrayImage) -> Vec<(u32, u32)> {
     // Second pass: split any line taller than 35px at valleys where
     // dark-pixel count drops below a low threshold (card decorations
     // between text lines create brief dips).
-    let gap_threshold = (w as f32 * 0.05).round() as u32;
+    let gap_threshold = (w as f32 * 0.02).round() as u32;
     let mut split_lines = Vec::new();
     for &(start, end) in &lines {
         let height = end - start;

@@ -37,9 +37,7 @@ pub fn recognize(gray_image: &image::GrayImage) -> String {
         h * 3,
         image::imageops::FilterType::CatmullRom,
     );
-    let mut inv = upscaled;
-    image::imageops::invert(&mut inv);
-    let dyn_img = image::DynamicImage::ImageLuma8(inv);
+    let dyn_img = image::DynamicImage::ImageLuma8(upscaled);
     engine
         .recognize(&dyn_img)
         .map(|r| r.text)

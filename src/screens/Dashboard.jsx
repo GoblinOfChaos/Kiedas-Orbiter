@@ -844,7 +844,7 @@ export default function Dashboard() {
                     </div>
                   </button>
                 ) : (
-                  <div className="aspect-square flex items-center justify-center text-kronos-dim/30 text-[11px] font-bold">{dom}</div>
+                  <div key={dom} className="aspect-square flex items-center justify-center text-kronos-dim/30 text-[11px] font-bold">{dom}</div>
                 )
               })}
             </div>

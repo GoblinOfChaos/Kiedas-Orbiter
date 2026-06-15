@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState, useCallback } from 'react'
+import { useMemo, useEffect, useState, useCallback, useRef } from 'react'
 import { invoke, convertFileSrc } from '@tauri-apps/api/core'
 import { PageLayout } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
@@ -37,6 +37,8 @@ function countBits(n) {
 }
 
 function Subpanel({ cat, items, onClose }) {
+  const panelRef = useRef(null)
+
   useEffect(() => {
     if (cat) document.body.style.overflow = 'hidden'
     else document.body.style.overflow = ''
@@ -49,7 +51,8 @@ function Subpanel({ cat, items, onClose }) {
     >
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div
-        className={`relative w-full max-w-lg bg-[var(--color-panel)] border-l border-white/10 h-full overflow-y-auto transition-transform duration-300 ${cat ? 'translate-x-0' : 'translate-x-full'}`}
+        ref={panelRef}
+        className={`relative w-full max-w-lg bg-[var(--color-panel)] border-l border-white/10 h-full overflow-y-auto custom-scrollbar transition-transform duration-300 ${cat ? 'translate-x-0' : 'translate-x-full'}`}
       >
         {cat && (
           <>
@@ -231,9 +234,9 @@ export default function Collectibles() {
   return (
     <PageLayout title="Collectibles">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 pb-4">
-        {seriesCards.map((card) => <ProgressCard key={card.key} {...card} />)}
-        {markerCards.map((card) => <ProgressCard key={card.key} {...card} />)}
-        {fragmentCards.map((card) => <ProgressCard key={card.key} {...card} />)}
+        {seriesCards.map(({ key, ...card }) => <ProgressCard key={key} {...card} />)}
+        {markerCards.map(({ key, ...card }) => <ProgressCard key={key} {...card} />)}
+        {fragmentCards.map(({ key, ...card }) => <ProgressCard key={key} {...card} />)}
       </div>
       <Subpanel cat={selectedCat} items={subpanelItems} onClose={closeSubpanel} />
     </PageLayout>

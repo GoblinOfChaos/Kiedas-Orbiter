@@ -272,7 +272,8 @@ export default function RivenOverlay() {
                 ))}
               </div>
 
-              <div className="mt-2 pt-2 border-t border-white/10 grid grid-cols-4 gap-1 bg-black/30 p-1.5 rounded text-[9px]">
+              {rivenInfo && (<>
+                <div className="mt-2 pt-2 border-t border-white/10 grid grid-cols-4 gap-1 bg-black/30 p-1.5 rounded text-[9px]">
                   <div className="text-center">
                     <span className="text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Weapon Rank</span>
                     <p className="font-bold text-kronos-accent drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
@@ -294,8 +295,7 @@ export default function RivenOverlay() {
                     </p>
                   </div>
                 </div>
-                {rivenInfo && (
-                  <div className="mt-1.5 pt-1.5 border-t border-white/10 text-center">
+                <div className="mt-1.5 pt-1.5 border-t border-white/10 text-center">
                     {(() => {
                       const wr = rivenInfo.weapon_rank ?? 999;
                       const total = rivenInfo.total_weapons ?? 1;
@@ -319,7 +319,7 @@ export default function RivenOverlay() {
                       return <span className="text-[10px] font-bold text-kronos-accent drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{tier} Weapon, {roll} rolls<span className="text-kronos-dim">; Suggestion:</span> <span className="text-yellow-400">{action}</span></span>;
                     })()}
                   </div>
-                )}
+                </>)}
               {parsed.mr && (
                 <div className="mt-1.5 pt-1.5 border-t border-white/10 flex justify-between items-center">
                   <span className="text-[10px] text-kronos-dim drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">MR Requirement</span>

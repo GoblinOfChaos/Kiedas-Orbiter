@@ -241,6 +241,18 @@ export default function SettingsScreen() {
     return () => clearInterval(interval)
   }, [fissureOverlayEnabled])
 
+  // Fire a notification when the scanner successfully hooks into Warframe
+  useEffect(() => {
+    const unlisten = listen('scanner-hooked', () => {
+      invoke('show_notification', {
+        title: 'Scanner Connected',
+        message: 'Hooked into Warframe - overlay is active.',
+        silent: false,
+      }).catch(console.error)
+    })
+    return () => { unlisten.then(fn => fn()) }
+  }, [])
+
   const handleStart = async () => {
     setLoading(true)
     setError(null)
@@ -676,16 +688,13 @@ export default function SettingsScreen() {
                 </div>
               </div>
               <div className="mt-2 flex items-center gap-2">
-                {scannerStatus === 'waiting' && (
-                  <RefreshCw size={10} className="text-yellow-400 animate-spin" />
-                )}
-                <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-500 ${scannerStatus === 'active' ? 'bg-blue-400 shadow-[0_0_6px_rgba(96,165,250,0.8)]' :
-                  scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_6px_rgba(250,204,21,0.8)] animate-pulse' :
-                    'bg-zinc-600'
+                <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-700 ${scannerStatus === 'active' ? 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.9)]' :
+                  scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.7)] animate-pulse' :
+                    'bg-zinc-700'
                   }`} />
-                <span className={`text-[10px] font-black uppercase tracking-widest ${scannerStatus === 'active' ? 'text-blue-400' :
+                <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${scannerStatus === 'active' ? 'text-green-400' :
                   scannerStatus === 'waiting' ? 'text-yellow-400' :
-                    'text-zinc-500'
+                    'text-zinc-600'
                   }`}>
                   {scannerStatus === 'active' ? 'Hooked into Warframe - scanner running' :
                     scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :

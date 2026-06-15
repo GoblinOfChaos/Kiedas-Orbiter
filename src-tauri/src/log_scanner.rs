@@ -527,7 +527,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     logged_waiting = true;
                     SCANNER_STATUS.store(1, Ordering::SeqCst);
                 }
-                std::thread::sleep(std::time::Duration::from_secs(10));
+                std::thread::sleep(std::time::Duration::from_secs(2));
                 continue;
             }
 
@@ -594,7 +594,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     }
                     // Kill helper so it restarts and re-hooks if Warframe was launched
                     let _ = child.kill();
-                    std::thread::sleep(std::time::Duration::from_secs(10));
+                    std::thread::sleep(std::time::Duration::from_secs(2));
                     break;
                 }
 
@@ -608,6 +608,8 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 if first_data {
                     crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Hooked into Warframe RAM! Backfill - populating dedup set, suppressing events.");
                     SCANNER_STATUS.store(2, Ordering::SeqCst);
+                    logged_waiting = false;
+                    app_inner.emit("scanner-hooked", ()).unwrap_or_default();
                     first_data = false;
                     let text = String::from_utf8_lossy(&buf);
                     for line in text.split('\n') {
@@ -641,11 +643,11 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 }
             }
             
-            // Sleep before restarting the helper to prevent CPU spinning when it crashes or exits
-            // immediately. Skip this delay if IS_SCANNING was cleared externally (user toggled
-            // the scanner off) so re-enabling it feels instant.
-            if IS_SCANNING.load(Ordering::SeqCst) {
-                std::thread::sleep(std::time::Duration::from_secs(10));
+            // Only sleep before restarting if Warframe isn't running - prevents CPU spinning
+            // when the helper crashes on a cold start. If the game is already up, retry
+            // immediately so we hook in as fast as possible.
+            if IS_SCANNING.load(Ordering::SeqCst) && !is_warframe_running() {
+                std::thread::sleep(std::time::Duration::from_secs(2));
             }
         }
 

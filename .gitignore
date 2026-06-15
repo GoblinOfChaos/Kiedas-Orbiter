@@ -49,6 +49,7 @@ src-tauri/Cargo.lock
 build_int/
 build_int_win/
 build_int_linux/
+build_int_macos/
 
 # Soup submodule content (git tracks it via .gitmodules, no need to index)
 lib/soup/

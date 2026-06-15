@@ -76,7 +76,7 @@ fn find_text_lines(gray: &image::GrayImage) -> Vec<(u32, u32)> {
     lines
 }
 
-fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPosition) -> Result<RivenOcrResult, String> {
+fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPosition, save_crop: bool) -> Result<RivenOcrResult, String> {
     let sw = full.width() as f64;
     let sh = full.height() as f64;
     let sx = sw / 1920.0;
@@ -93,6 +93,13 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
     }
 
     let crop = full.crop_imm(cx, cy, cw, ch);
+
+    if save_crop {
+        let pos_name = format!("{:?}", position).to_lowercase();
+        let debug_path = format!("/tmp/riven_debug_{}.png", pos_name);
+        let _ = crop.save(&debug_path);
+        crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Saved debug crop to {}", debug_path));
+    }
 
     // Grayscale + contrast stretch
     let gray = crop.to_luma8();
@@ -144,13 +151,13 @@ pub fn ocr_riven_card(app: AppHandle, position: RivenCardPosition) -> Result<Riv
     let Ok(image) = monitor.capture_image() else {
         return Err("Capture failed".to_string());
     };
-    ocr_card_image(&app, DynamicImage::ImageRgba8(image), position)
+    ocr_card_image(&app, DynamicImage::ImageRgba8(image), position, false)
 }
 
 #[tauri::command]
-pub fn ocr_riven_card_from_file(app: AppHandle, path: String, position: RivenCardPosition) -> Result<RivenOcrResult, String> {
+pub fn ocr_riven_card_from_file(app: AppHandle, path: String, position: RivenCardPosition, save_crop: Option<bool>) -> Result<RivenOcrResult, String> {
     let img = image::open(&path).map_err(|e| format!("Failed to load image: {}", e))?;
-    ocr_card_image(&app, img, position)
+    ocr_card_image(&app, img, position, save_crop.unwrap_or(false))
 }
 
 /// Stores the user's custom UI Scale percentage (e.g. 100 for 1.0, 80 for 0.8)

@@ -98,7 +98,7 @@
         "width": 640,
         "height": 140,
         "decorations": false,
-        "transparent": true,
+        "transparent": false,
         "alwaysOnTop": true,
         "skipTaskbar": true,
         "resizable": true,

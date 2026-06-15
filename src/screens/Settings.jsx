@@ -72,6 +72,7 @@ export default function SettingsScreen() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
+  const [rivenOcrResult, setRivenOcrResult] = useState('')
 
   const [hotkeys, setHotkeys] = useState(
     () => getSetting('hotkeys', [{ action: 'manual_ocr', shortcut: '' }])
@@ -436,6 +437,20 @@ export default function SettingsScreen() {
     }
   }
 
+  const handleTestRivenOcr = async (position) => {
+    try {
+      const selected = await openDialog({
+        multiple: false,
+        filters: [{ name: 'Screenshots', extensions: ['png', 'jpg', 'jpeg', 'bmp'] }]
+      })
+      if (!selected) return
+      const result = await invoke('ocr_riven_card_from_file', { path: selected, position, save_crop: true })
+      setRivenOcrResult(result.text)
+    } catch (err) {
+      setRivenOcrResult(`OCR failed: ${err}`)
+    }
+  }
+
   return (
     <PageLayout title="Settings">
       <div className="space-y-6">
@@ -601,6 +616,30 @@ export default function SettingsScreen() {
                 Test relic overlay
               </button>
             </div>
+          </div>
+
+          {/* Riven OCR test */}
+          <div className="mb-5 pt-4 border-t border-white/5">
+            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Riven OCR Test</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <button
+                onClick={() => handleTestRivenOcr('Linked')}
+                className="py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20"
+              >
+                Test Linked Riven
+              </button>
+              <button
+                onClick={() => handleTestRivenOcr('Middle')}
+                className="py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20"
+              >
+                Test Cycle Riven
+              </button>
+            </div>
+            {rivenOcrResult && (
+              <div className="mt-2 p-2 bg-black/30 rounded text-[10px] font-mono text-kronos-text whitespace-pre-wrap max-h-40 overflow-y-auto">
+                {rivenOcrResult}
+              </div>
+            )}
           </div>
 
           {/* EE.log Path + Enable Scanner */}

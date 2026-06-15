@@ -127,7 +127,11 @@ impl LogScanner {
         }
 
         // === 4. Reward Screen Trigger ===
-        if (s.contains("Relic rewards initialized") || s.contains("ProjectionRewardChoice.lua: Got rewards")) && self.is_fissure {
+        if s.contains("Relic rewards initialized") || s.contains("ProjectionRewardChoice.lua: Got rewards") {
+            if !self.is_fissure {
+                self.is_fissure = true;
+                self.in_mission = true;
+            }
             if crate::ocr::ICON_SCAN_ACTIVE.load(Ordering::SeqCst) {
                 return;
             }

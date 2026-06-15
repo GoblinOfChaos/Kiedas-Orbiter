@@ -57,8 +57,9 @@ function parseRivenOcr(text) {
 
     if (/^[+-]\s*[\d.,]+%?/.test(p)) {
       flushStat()
-      pendingValue = p.replace(/\s+/g, '').replace(',', '.')
-      pendingName = ''
+      const m = p.match(/^([+-]\s*[\d.,]+%?)\s*(.*)/)
+      pendingValue = m ? m[1].replace(/\s+/g, '').replace(',', '.') : p.replace(/\s+/g, '')
+      pendingName = m ? m[2].trim() : ''
       i++
       continue
     }

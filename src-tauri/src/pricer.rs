@@ -50,6 +50,12 @@ pub fn get_models_dir() -> PathBuf {
     data_root.join("data").join("bin").join("pricer-models")
 }
 
+pub fn get_weapon_names() -> Vec<String> {
+    get_pricer()
+        .map(|p| p.weapon_name_to_url.keys().cloned().collect())
+        .unwrap_or_default()
+}
+
 fn grade_from_cdf(cdf: f32) -> &'static str {
     if cdf >= 0.95 { "S" }
     else if cdf >= 0.80 { "A" }
@@ -245,6 +251,8 @@ pub fn estimate_price(input: &RivenInput) -> Option<f32> {
 }
 
 pub fn estimate_full(input: &RivenInput) -> Option<RivenFullEstimate> {
+    eprintln!("[PRICER] input weapon_name='{}' positive1={:?} positive2={:?} negative={:?}", 
+    input.weapon_name, input.positive1, input.positive2, input.negative);
     let pricer = get_pricer()?;
     let (price, _) = run_inference(pricer, input)?;
 

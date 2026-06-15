@@ -2038,6 +2038,11 @@ fn estimate_riven_full_batch(inputs: Vec<pricer::RivenInput>) -> Vec<Option<pric
     result
 }
 
+#[tauri::command]
+fn get_known_weapon_names() -> Vec<String> {
+    pricer::get_weapon_names()
+}
+
 // --- Entry Point ---
 
  fn main() {
@@ -2225,6 +2230,7 @@ fn estimate_riven_full_batch(inputs: Vec<pricer::RivenInput>) -> Vec<Option<pric
             estimate_riven_price,
             estimate_riven_full,
             estimate_riven_full_batch,
+            get_known_weapon_names,
             get_available_monitors,
             set_target_monitor,
             get_warframe_window_rect,

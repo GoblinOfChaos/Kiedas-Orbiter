@@ -441,34 +441,10 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         }
     }
 
-    let mut pos_after = window.outer_position()
+    let pos_after = window.outer_position()
         .map(|p| format!("({},{})", p.x, p.y))
         .unwrap_or("ERR".into());
-    let mut visible = window.is_visible().unwrap_or(false);
-
-    // First-show retry: if position is (0,0) the window likely wasn't mapped yet.
-    // X11 defers positioning for unmapped windows — wait and re-force.
-    if pos_after == "(0,0)" || !visible {
-        let was = window.is_visible().unwrap_or(false);
-        if !was {
-            std::thread::sleep(std::time::Duration::from_millis(100));
-            #[cfg(target_os = "linux")]
-            {
-                force_position_x11(&window, pos.x, pos.y);
-                raise_x11(&window);
-            }
-            #[cfg(not(target_os = "linux"))]
-            {
-                let _ = force_position_tauri(&window, pos.x, pos.y);
-                let _ = window.show();
-            }
-            pos_after = window.outer_position()
-                .map(|p| format!("({},{})", p.x, p.y))
-                .unwrap_or("ERR".into());
-            visible = window.is_visible().unwrap_or(false);
-        }
-    }
-
+    let visible = window.is_visible().unwrap_or(false);
     eprintln!("[OVERLAY] FINAL '{}': pos={} visible={}", label, pos_after, visible);
 
     Ok(())

@@ -580,54 +580,11 @@ static void getWindowRectMode()
 #endif
 }
 
-// Scan a buffer range and output log lines in chronological order.
-// Detects ring-buffer wrap by finding where timestamps jump backward,
-// then scans the tail (older) first followed by the head (newer).
-static size_t scanBufferInOrder(const char* raw, size_t raw_size, char* out, size_t out_capacity)
-{
-	size_t wrap = 0;
-	float prev_ts = -1.0f;
-	size_t line_start = 0;
-	for (size_t i = 0; i < raw_size; ++i)
-	{
-		if (raw[i] == '\n')
-		{
-			char* end = nullptr;
-			float ts = std::strtof(raw + line_start, &end);
-			if (end != raw + line_start && ts >= 0.0f)
-			{
-				if (ts < prev_ts - 1.0f && prev_ts > 0.0f)
-				{
-					wrap = line_start;
-					break;
-				}
-				prev_ts = ts;
-			}
-			line_start = i + 1;
-		}
-	}
-
-	size_t written = 0;
-	if (wrap > 0)
-	{
-		written += extractLogLines(raw + wrap, raw_size - wrap, out, out_capacity);
-		written += extractLogLines(raw, wrap, out + written, out_capacity - written);
-	}
-	else
-	{
-		written = extractLogLines(raw, raw_size, out, out_capacity);
-	}
-	return written;
-}
-
 static void readLogBuffer()
 {
 #ifdef _WIN32
 	_setmode(_fileno(stdout), _O_BINARY);
 #endif
-
-	uint64_t cached_pid = 0;
-	DiscoveredBuffer cached_buffer{};
 
 	for (;;)
 	{
@@ -651,66 +608,35 @@ static void readLogBuffer()
 		auto mod = proc->open();
 		if (!mod)
 		{
-			fprintf(stderr, "[H] Failed to open process\n");
-			uint32_t zero = 0;
-			fwrite(&zero, 4, 1, stdout);
-			fflush(stdout);
+			std::this_thread::sleep_for(std::chrono::seconds(5));
+			continue;
+		}
+		DiscoveredBuffer discovered{};
+		try
+		{
+			discovered = discoverLogBuffer(*mod);
+		}
+		catch (const std::exception& e)
+		{
+			fprintf(stderr, "[H] discoverLogBuffer threw: %s\n", e.what());
+			std::this_thread::sleep_for(std::chrono::seconds(5));
+			continue;
+		}
+		catch (...)
+		{
+			fprintf(stderr, "[H] discoverLogBuffer threw unknown exception\n");
 			std::this_thread::sleep_for(std::chrono::seconds(5));
 			continue;
 		}
 
-		DiscoveredBuffer discovered{};
-		uint64_t current_pid = proc->id;
-		if (current_pid == cached_pid && cached_buffer.base.as<void*>())
+		if (!discovered.base.as<void*>())
 		{
-			discovered = cached_buffer;
-			fprintf(stderr, "[H] Using cached buffer (pid %llu)\n", (unsigned long long)current_pid);
-		}
-		else
-		{
-			try
-			{
-				discovered = discoverLogBuffer(*mod);
-			}
-			catch (const std::exception& e)
-			{
-				fprintf(stderr, "[H] discoverLogBuffer threw: %s\n", e.what());
-				uint32_t zero = 0;
-				fwrite(&zero, 4, 1, stdout);
-				fflush(stdout);
-				std::this_thread::sleep_for(std::chrono::seconds(5));
-				continue;
-			}
-			catch (...)
-			{
-				fprintf(stderr, "[H] discoverLogBuffer threw unknown exception\n");
-				uint32_t zero = 0;
-				fwrite(&zero, 4, 1, stdout);
-				fflush(stdout);
-				std::this_thread::sleep_for(std::chrono::seconds(5));
-				continue;
-			}
-
-			if (!discovered.base.as<void*>())
-			{
-				uint32_t zero = 0;
-				fwrite(&zero, 4, 1, stdout);
-				fflush(stdout);
-				std::this_thread::sleep_for(std::chrono::seconds(5));
-				continue;
-			}
-
-			cached_pid = current_pid;
-			cached_buffer = discovered;
-			fprintf(stderr, "[H] Discovered buffer at 0x%llx size %zu (pid %llu)\n",
-				(unsigned long long)discovered.base.as<uintptr_t>(),
-				discovered.size,
-				(unsigned long long)current_pid);
+			std::this_thread::sleep_for(std::chrono::seconds(5));
+			continue;
 		}
 
 		std::vector<char> raw(discovered.size);
 		std::vector<char> output(discovered.size);
-		size_t last_end = 0;
 		for (;;)
 		{
 			try
@@ -722,47 +648,13 @@ static void readLogBuffer()
 				break;
 			}
 
-			// Find the extent of valid content (trim trailing null bytes)
-			size_t current_end = discovered.size;
-			while (current_end > 0 && raw[current_end - 1] == '\0') --current_end;
+			size_t out_len = extractLogLines(raw.data(), discovered.size, output.data(), output.size());
 
-			size_t out_len;
-			if (current_end == 0)
-			{
-				out_len = 0;
-			}
-			else if (current_end == discovered.size)
-			{
-				// Buffer is full (ring buffer has wrapped) — full chronological scan
-				out_len = scanBufferInOrder(raw.data(), discovered.size, output.data(), output.size());
-			}
-			else if (current_end > last_end)
-			{
-				// Still growing, no wrap — scan only the delta
-				out_len = scanBufferInOrder(raw.data() + last_end, current_end - last_end, output.data(), output.size());
-			}
-			else if (current_end < last_end)
-			{
-				// Wrapped between polls — full chronological scan
-				out_len = scanBufferInOrder(raw.data(), current_end, output.data(), output.size());
-			}
-			else
-			{
-				out_len = 0;
-			}
-			last_end = current_end;
-
-			uint32_t len32;
+			uint32_t len32 = static_cast<uint32_t>(out_len);
+			fwrite(&len32, 4, 1, stdout);
 			if (out_len > 0)
 			{
-				len32 = static_cast<uint32_t>(out_len);
-				fwrite(&len32, 4, 1, stdout);
 				fwrite(output.data(), 1, out_len, stdout);
-			}
-			else
-			{
-				len32 = 0xFFFFFFFF; // "no new data, keep polling" sentinel
-				fwrite(&len32, 4, 1, stdout);
 			}
 			fflush(stdout);
 

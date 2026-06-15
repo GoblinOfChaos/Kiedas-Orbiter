@@ -94,22 +94,36 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
 
     let crop = full.crop_imm(cx, cy, cw, ch);
 
-    // Use light preprocessing (skip expensive gaussian blur) — riven card text
-    // already has sufficient native contrast (white text on dark card).
-    let processed = apply_ocr_preprocessing(&crop, None, true);
-    let (w, h) = processed.dimensions();
-    crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Preprocessed card: {}x{}", w, h));
+    // Grayscale + contrast stretch
+    let gray = crop.to_luma8();
+    let (w, h) = gray.dimensions();
+    let mut min = 255u8;
+    let mut max = 0u8;
+    for p in gray.pixels() {
+        if p[0] < min { min = p[0]; }
+        if p[0] > max { max = p[0]; }
+    }
+    let range = (max as f32 - min as f32).max(1.0);
+    let mut stretched = image::GrayImage::new(w, h);
+    for (x, y, p) in gray.enumerate_pixels() {
+        let v = ((p[0] as f32 - min as f32) / range * 255.0) as u8;
+        stretched.put_pixel(x, y, image::Luma([v]));
+    }
 
-    // Find text lines via horizontal projection on the clean binary image
-    let lines = find_text_lines(&processed);
+    // Invert — after contrast stretch, light text on dark card becomes dark text on light bg
+    image::imageops::invert(&mut stretched);
+
+    // Find text lines via horizontal projection (fast — counts dark pixels per row)
+    let lines = find_text_lines(&stretched);
+    let dyn_stretched = DynamicImage::ImageLuma8(stretched);
     crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Found {} text lines", lines.len()));
 
-    // Recognize each line individually
+    // Recognize each line individually with RecModel (fast — no detection model)
     let mut results = Vec::new();
     for &(y0, y1) in &lines {
         let line_h = y1 - y0;
         if line_h < 3 { continue; }
-        let line_crop = image::imageops::crop_imm(&processed, 0, y0, w, line_h).to_image();
+        let line_crop = dyn_stretched.clone().crop_imm(0, y0, w, line_h).to_luma8();
         let text = crate::ocr_engine::recognize(&line_crop);
         if !text.is_empty() {
             results.push(text);
@@ -790,59 +804,14 @@ fn run_ocr_internal(app: AppHandle, squad_size: usize, is_debug: bool, captured_
 }
 
 /// Advanced preprocessing using contrast normalization + edge enhancement.
-/// When `light_mode` is true, skips the expensive local contrast step (gaussian blur + diff)
-/// and goes straight to Otsu — suitable for high-contrast cards like riven overlays.
-fn apply_ocr_preprocessing(slot_crop: &DynamicImage, _debug_slot: Option<usize>, light_mode: bool) -> image::GrayImage {
+    /// This gives the OCR engine more usable input than pure edge detection.
+fn apply_ocr_preprocessing(slot_crop: &DynamicImage, _debug_slot: Option<usize>) -> image::GrayImage {
     use imageproc::filter::gaussian_blur_f32;
 
     let (fw, fh) = (slot_crop.width(), slot_crop.height());
     let upscaled = slot_crop.resize(fw * 3, fh * 3, image::imageops::FilterType::Lanczos3);
     let gray = upscaled.to_luma8();
     let (w, h) = gray.dimensions();
-
-    if light_mode {
-        // Skip expensive local contrast: riven card text has sufficient native contrast.
-        // Go straight to Otsu on the upscaled grayscale.
-        let mut hist = [0u32; 256];
-        for p in gray.pixels() { hist[p[0] as usize] += 1; }
-        let total = (w * h) as f64;
-        let (mut sum, mut sum_b, mut q1, mut max_var) = (0.0f64, 0.0f64, 0.0f64, 0.0f64);
-        for i in 0..256 { sum += i as f64 * hist[i] as f64; }
-        let mut otsu_thresh = 128u8;
-        for i in 0..256 {
-            q1 += hist[i] as f64;
-            if q1 == 0.0 { continue; }
-            let q2 = total - q1;
-            if q2 == 0.0 { break; }
-            sum_b += i as f64 * hist[i] as f64;
-            let m1 = sum_b / q1;
-            let m2 = (sum - sum_b) / q2;
-            let var = q1 * q2 * (m1 - m2).powi(2);
-            if var > max_var { max_var = var; otsu_thresh = i as u8; }
-        }
-        let mut binary = image::GrayImage::new(w, h);
-        for y in 0..h {
-            for x in 0..w {
-                let val = gray.get_pixel(x, y)[0];
-                binary.put_pixel(x, y, image::Luma([if val < otsu_thresh { 0 } else { 255 }]));
-            }
-        }
-        // Polarity: OCR expects dark text on light background
-        let mut edge_black = 0;
-        let mut edge_white = 0;
-        for x in 0..w {
-            if binary.get_pixel(x, 0)[0] == 0 { edge_black += 1; } else { edge_white += 1; }
-            if binary.get_pixel(x, h - 1)[0] == 0 { edge_black += 1; } else { edge_white += 1; }
-        }
-        for y in 0..h {
-            if binary.get_pixel(0, y)[0] == 0 { edge_black += 1; } else { edge_white += 1; }
-            if binary.get_pixel(w - 1, y)[0] == 0 { edge_black += 1; } else { edge_white += 1; }
-        }
-        if edge_black > edge_white {
-            for p in binary.pixels_mut() { p[0] = 255 - p[0]; }
-        }
-        return binary;
-    }
 
     // 1. Compute local contrast using difference from blurred background
     let large = gaussian_blur_f32(&gray, 30.0);
@@ -988,7 +957,7 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
                 }
 
                 // ── Regular text OCR ──────────────────────────────────────────────
-                let binary = apply_ocr_preprocessing(&slot_crop, Some(slot_idx), false);
+                let binary = apply_ocr_preprocessing(&slot_crop, Some(slot_idx));
                 let (uw, uh) = binary.dimensions();
 
                 let midpoint = uh / 2;
@@ -1131,7 +1100,7 @@ pub async fn save_debug_screenshot(app: AppHandle) -> Result<String, String> {
         let s_bh = (bh as f64 * sy).round() as u32;
 
         let crop = dynamic_image.crop_imm(s_bx, s_by, s_bw, s_bh);
-        let processed = apply_ocr_preprocessing(&crop, None, false);
+        let processed = apply_ocr_preprocessing(&crop, None);
 
         let pad = 30u32;
         let (uw, uh) = processed.dimensions();

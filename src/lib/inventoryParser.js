@@ -479,7 +479,7 @@ function extractModCategory(exportType, un, entry) {
     if (un.includes('AugmentCard') || un.includes('AugmentMod')) return 'Augment'
     // Killswitch mods
     if (un.includes('Killswitch')) return 'Peculiar'
-    // Beast stance mods — path-based before STANCE fallback
+    // Beast stance mods - path-based before STANCE fallback
     if (un.includes('/Pets/BeastWeapons/')) return 'Beasts'
     const m2 = un.match(/\/Mods\/(?:Sets|PvPMods)\/([^/]+)/)
     if (m2 && TYPE_TO_CATEGORY[m2[1]]) return TYPE_TO_CATEGORY[m2[1]]
@@ -492,7 +492,7 @@ function extractModCategory(exportType, un, entry) {
   if (exportType && exportType !== '---' && TYPE_TO_EXPORT_CATEGORY[exportType]) {
     return TYPE_TO_EXPORT_CATEGORY[exportType]
   }
-  // AP_TACTIC polarity means Exilus slot mods (last resort — don't override explicit type/checks)
+  // AP_TACTIC polarity means Exilus slot mods (last resort - don't override explicit type/checks)
   if (entry?.polarity === 'AP_TACTIC') return 'Exilus'
   return null
 }
@@ -841,7 +841,7 @@ export function parseInventory(raw, exports) {
     if (rank === -1) {
       // Cap rank at the actual achievable max for this weapon's forma count.
       // XPInfo accumulates XP across forma resets, so raw xpMap values can
-      // exceed rank-40 thresholds even for a 1-forma weapon — without this
+      // exceed rank-40 thresholds even for a 1-forma weapon - without this
       // cap, any polarized weapon with enough accumulated XP shows as rank 40.
       const formaCount = sourceItem?.Polarized ?? 0;
       const effectiveMaxRank = isOverlevelable
@@ -1094,7 +1094,7 @@ export function parseInventory(raw, exports) {
         beast.ownedCustomName = custom;
       }
       // Deimos companions (Predasites + Vulpaphylas) require gilding through Son
-      // before mastery is granted — identical rule to Kitguns/Zaws.
+      // before mastery is granted - identical rule to Kitguns/Zaws.
       if (un.includes('/Friendly/Pets/CreaturePets/')) {
         const rawInst = (ownedItems[un] ?? [])[0];
         // Gilding is indicated by having a non-empty Name in Details
@@ -1122,7 +1122,7 @@ export function parseInventory(raw, exports) {
   if (raw.Hoverboards) {
     raw.Hoverboards.forEach(h => {
       const components = resolveHoverboardComponents(h, dict, EW);
-      // The deck/board is the mastery-granting part — find it by path, not position,
+      // The deck/board is the mastery-granting part - find it by path, not position,
       // since ModularParts order varies and index 0 may be an engine (e.g. Hothead).
       const deckPart = (h.ModularParts ?? []).find(p => p.includes('Deck')) ?? h.ModularParts?.[0];
       const baseName = deckPart ? resolveName(deckPart, dict, EW) : 'K-Drive';

@@ -333,7 +333,7 @@ export function MonitoringProvider({ children }) {
 
     const position = getSetting('notif_position', 'top-right')
 
-    // On first real data, mark everything as seen — no startup flood
+    // On first real data, mark everything as seen - no startup flood
     if (!notifInitRef.current) {
       notifInitRef.current = true
       const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES })

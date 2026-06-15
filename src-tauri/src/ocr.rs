@@ -292,7 +292,7 @@ fn identify_requiem_mod(_app: &AppHandle, slot_crop: &DynamicImage, slot_idx: us
         return None;
     }
 
-    // Use raw red channel — no contrast stretch, mean-subtracted NCC handles it
+    // Use raw red channel - no contrast stretch, mean-subtracted NCC handles it
     let crop_rgb = slot_crop.to_rgb8();
     let crop_red = red_channel(&crop_rgb);
     let crop_resized = image::imageops::resize(&crop_red, cw, ch, image::imageops::FilterType::Lanczos3);
@@ -307,7 +307,7 @@ fn identify_requiem_mod(_app: &AppHandle, slot_crop: &DynamicImage, slot_idx: us
         let tpl_resized = image::imageops::resize(&tpl_red, cw, ch, image::imageops::FilterType::Lanczos3);
         let tpl_raw = tpl_resized.as_raw();
 
-        // Mean-subtracted (Pearson) NCC — single pass, no sliding window
+        // Mean-subtracted (Pearson) NCC - single pass, no sliding window
         let n = (cw * ch) as f64;
         let t_mean: f64 = tpl_raw.iter().map(|&v| v as f64).sum::<f64>() / n;
         let p_mean: f64 = crop_raw.iter().map(|&v| v as f64).sum::<f64>() / n;
@@ -748,11 +748,11 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             } else if ok2 {
                 2
             } else {
-                // No configuration matched well enough — keep polling
+                // No configuration matched well enough - keep polling
                 continue;
             };
 
-            // ── Matched — fire the OCR pipeline ───────────────────────────────
+            // ── Matched - fire the OCR pipeline ───────────────────────────────
             ocr_log!(&app,
                 "[OCR] Icon scan SUCCESS: {} slots detected (attempt {}, scale={:.2})",
                 deduced_size, attempt, active_scale,
@@ -760,7 +760,7 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
 
             ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             // show_window_internal is called by the frontend on scanner-relic-phase-start,
-            // so we don't show() here — avoids flash at (0,0) before positioning.
+            // so we don't show() here - avoids flash at (0,0) before positioning.
 
             let state = app.state::<crate::AppState>();
             let relics: Vec<crate::log_scanner::RelicInfo> =

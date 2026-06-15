@@ -1,4 +1,4 @@
-# Collectibles — Internal Data Sources
+# Collectibles - Internal Data Sources
 
 ## Data Pipeline
 
@@ -15,10 +15,10 @@ inventory.json ──► inventoryParser.js ──► MonitoringContext (invento
 Source field: `inventoryData.collectibleSeries` ← `raw.CollectibleSeries`
 
 Each entry has:
-- `CollectibleType` — identifier string (used for matching)
-- `Count` — total bits set in `Tracking` (i.e. items found)
-- `ReqScans` — total scans required to complete the series
-- `Tracking` — bitmask string, one character per item (1 = found, 0 = missing)
+- `CollectibleType` - identifier string (used for matching)
+- `Count` - total bits set in `Tracking` (i.e. items found)
+- `ReqScans` - total scans required to complete the series
+- `Tracking` - bitmask string, one character per item (1 = found, 0 = missing)
 
 | UI Label | Match | Count | Total | Data Count | Wiki Total |
 |---|---|---|---|---|---|
@@ -35,8 +35,8 @@ Note: `Count` is the number of bits set in the `Tracking` bitmask, **not** neces
 Source field: `inventoryData.discoveredMarkers` ← `raw.DiscoveredMarkers`
 
 Each entry has:
-- `tag` — identifier string (used for matching)
-- `discoveryState` — array of 32-bit integers, each bit = one sub-area discovered
+- `tag` - identifier string (used for matching)
+- `discoveryState` - array of 32-bit integers, each bit = one sub-area discovered
 
 Count = sum of popcount (bits set) across all `discoveryState` integers.
 Total = `discoveryState.length * 32`
@@ -57,9 +57,9 @@ All open-world markers have exactly one `discoveryState` integer (32 possible ar
 Source field: `inventoryData.loreFragmentScans` ← `raw.LoreFragmentScans`
 
 Each entry has:
-- `ItemType` — full item path, e.g. `/Lotus/Types/Lore/Fragments/MusicFragments/XSongFragment`
-- `Progress` — number of scans done (0 = never scanned; 1 = fully scanned)
-- `Region` — localization key for the planet/region
+- `ItemType` - full item path, e.g. `/Lotus/Types/Lore/Fragments/MusicFragments/XSongFragment`
+- `Progress` - number of scans done (0 = never scanned; 1 = fully scanned)
+- `Region` - localization key for the planet/region
 
 Filtering: entries are grouped by applying a `match(type)` function per category.
 - `total` = `wikiTotal` from the CATEGORIES definition (hardcoded wiki value)
@@ -103,11 +103,11 @@ The Cephalon match starts with all entries under `/Lotus/Types/Lore/Fragments/` 
 
 ## Key Notes
 
-1. **`Progress` field** — `LoreFragmentScans` entries only appear for fragment types the player has encountered at least once (Progress ≥ 1). Fragment types never scanned do **not** appear in the array at all. This is why categories like Solaris (35 wiki) show only 2 in data — only 2 of 35 have been scanned. Similarly, Prex Cards shows 21 in data but 50 exist — only 21 have `LoreCardFragments` entries; the rest are obtained from Baro Ki'Teer, quests, etc. and are not tracked in `LoreFragmentScans`.
+1. **`Progress` field** - `LoreFragmentScans` entries only appear for fragment types the player has encountered at least once (Progress ≥ 1). Fragment types never scanned do **not** appear in the array at all. This is why categories like Solaris (35 wiki) show only 2 in data - only 2 of 35 have been scanned. Similarly, Prex Cards shows 21 in data but 50 exist - only 21 have `LoreCardFragments` entries; the rest are obtained from Baro Ki'Teer, quests, etc. and are not tracked in `LoreFragmentScans`.
 
-2. **Series `Count` vs `ReqScans`** — `Count` is bits set in the tracking bitmask (items found), not scans completed. `ReqScans` is the total scans needed to complete. For Kuria, `Count: 18, ReqScans: 56` means 18 of 56 bits are set.
+2. **Series `Count` vs `ReqScans`** - `Count` is bits set in the tracking bitmask (items found), not scans completed. `ReqScans` is the total scans needed to complete. For Kuria, `Count: 18, ReqScans: 56` means 18 of 56 bits are set.
 
-3. **All Progress > 0** — Every entry in this user's `LoreFragmentScans` has `Progress > 0`, so `found === total` for all fragment categories. Unscanned-but-encountered fragments would show `Progress: 0` and count toward total but not found.
+3. **All Progress > 0** - Every entry in this user's `LoreFragmentScans` has `Progress > 0`, so `found === total` for all fragment categories. Unscanned-but-encountered fragments would show `Progress: 0` and count toward total but not found.
 
 4. **Wiki total sources**:
    - Cephalon: 43 Ordis transmissions, `warframe.fandom.com/wiki/Cephalon_Fragments`

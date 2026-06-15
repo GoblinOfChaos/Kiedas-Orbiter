@@ -162,7 +162,7 @@ export default function SettingsScreen() {
           ctx.drawImage(img, 0, 0, w, h)
           result[name] = canvas.toDataURL()
         } catch {
-          // fallback — leave undefined
+          // fallback - leave undefined
         }
       }
       setTintedCursors(result)
@@ -572,23 +572,23 @@ export default function SettingsScreen() {
             <div>
               <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Notification Sound</p>
               <div className="grid grid-cols-3 gap-2">
-                  {[
-                    { label: 'None', value: 'none', icon: VolumeX },
-                    { label: 'Sound 1', value: 'notification1.wav', icon: Play },
-                    { label: 'Sound 2', value: 'notification2.wav', icon: Play },
-                  ].map((s) => (
-                    <button
-                      key={s.value}
-                      onClick={() => handleSetSound(s.value)}
-                      className={`py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${notifSound === s.value
-                        ? 'bg-kronos-accent/20 border-kronos-accent text-kronos-accent'
-                        : 'bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20'
-                        }`}
-                    >
-                      <s.icon size={14} />
-                      {s.label}
-                    </button>
-                  ))}
+                {[
+                  { label: 'None', value: 'none', icon: VolumeX },
+                  { label: 'Sound 1', value: 'notification1.wav', icon: Play },
+                  { label: 'Sound 2', value: 'notification2.wav', icon: Play },
+                ].map((s) => (
+                  <button
+                    key={s.value}
+                    onClick={() => handleSetSound(s.value)}
+                    className={`py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${notifSound === s.value
+                      ? 'bg-kronos-accent/20 border-kronos-accent text-kronos-accent'
+                      : 'bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20'
+                      }`}
+                  >
+                    <s.icon size={14} />
+                    {s.label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
@@ -687,7 +687,7 @@ export default function SettingsScreen() {
                   scannerStatus === 'waiting' ? 'text-yellow-400' :
                     'text-zinc-500'
                   }`}>
-                  {scannerStatus === 'active' ? 'Hooked into Warframe — scanner running' :
+                  {scannerStatus === 'active' ? 'Hooked into Warframe - scanner running' :
                     scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :
                       'Scanner offline'}
                 </span>

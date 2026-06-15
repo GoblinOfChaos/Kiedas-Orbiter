@@ -1,27 +1,30 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cephalon Kronos</title>
-    <script>
-      // Synchronous transparency setup — runs before first paint so WebKit/Cairo
-      // never composites a black background on Linux overlay windows.
-      (function() {
-        var params = new URLSearchParams(window.location.search);
-        var h = window.location.hash;
-        var isOverlay = params.get('overlay') === 'true' || h === '#overlay' || h === '#hud' || h === '#calibration';
-        if (isOverlay) {
-          var s = 'background:transparent!important;background-color:transparent!important';
-          document.documentElement.style.cssText += ';' + s;
-          document.documentElement.classList.add('is-overlay');
-        }
-      })();
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cephalon Kronos</title>
+  <script>
+    // Synchronous transparency setup - runs before first paint so WebKit/Cairo
+    // never composites a black background on Linux overlay windows.
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var h = window.location.hash;
+      var isOverlay = params.get('overlay') === 'true' || h === '#overlay' || h === '#hud' || h === '#calibration';
+      if (isOverlay) {
+        var s = 'background:transparent!important;background-color:transparent!important';
+        document.documentElement.style.cssText += ';' + s;
+        document.documentElement.classList.add('is-overlay');
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

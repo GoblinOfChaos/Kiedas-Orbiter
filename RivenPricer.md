@@ -1,17 +1,17 @@
-# WarframeRivenPricer — Full Codebase Analysis
+# WarframeRivenPricer - Full Codebase Analysis
 ## For ONNX Export + Rust (`ort`) Port into Cephalon Kronos
 
 ## Architecture summary
 
 The model is **much simpler than it looks from the outside.** Only 3 inputs matter at inference time:
 
-1. **`weapon_url_name`** (string → embedding) — e.g. `"rubico"`
-2. **`re_rolled`** (float, 0.0 or 1.0) — has the riven been rolled at least once
-3. **`[positive1, positive2, positive3, negative]`** (4 strings → shared embedding) — stat url_names like `"critical_chance"`, or `"<NONE>"` for empty slots
+1. **`weapon_url_name`** (string → embedding) - e.g. `"rubico"`
+2. **`re_rolled`** (float, 0.0 or 1.0) - has the riven been rolled at least once
+3. **`[positive1, positive2, positive3, negative]`** (4 strings → shared embedding) - stat url_names like `"critical_chance"`, or `"<NONE>"` for empty slots
 
-That's it. **Numeric roll values (the 161.7% etc.) are not fed to the model at all.** The model learns from what stats a riven has, not how well it rolled. This is a deliberate design decision cjtho made after testing — he found it didn't significantly help.
+That's it. **Numeric roll values (the 161.7% etc.) are not fed to the model at all.** The model learns from what stats a riven has, not how well it rolled. This is a deliberate design decision cjtho made after testing - he found it didn't significantly help.
 
-The output is `log1p(platinum)` — you **must** apply `expm1()` to get actual platinum.
+The output is `log1p(platinum)` - you **must** apply `expm1()` to get actual platinum.
 
 ---
 
@@ -23,7 +23,7 @@ The output is `log1p(platinum)` — you **must** apply `expm1()` to get actual p
 
 **Phase 3 (Rust):** Your Rust module needs to do: OCR display name → `effect` field lookup → `url_name` → vocab index. The `attribute_name_shortcuts.json` gives you shorthand→url_name, and `attributes_data.json` gives you `effect` (display name) → `url_name`. Three HashMaps at startup, then it's pure index lookups → `ort` session → `expm1()`.
 
-One thing worth flagging for the OCR integration: your OCR gives display names like "Critical Chance" — you'll need a `display_name.to_lowercase() → url_name` map built from `attributes_data.json`'s `effect` field, since that's what the stat card text matches.
+One thing worth flagging for the OCR integration: your OCR gives display names like "Critical Chance" - you'll need a `display_name.to_lowercase() → url_name` map built from `attributes_data.json`'s `effect` field, since that's what the stat card text matches.
 
 
 
@@ -36,8 +36,8 @@ WarframeRivenPricer/
 ├── filepaths.py                            # Central path registry (all file locations)
 ├── tool_setup_and_maintenance/
 │   ├── auto_setup.py                       # Orchestrator: runs all setup steps
-│   ├── download_data.py                    # ★ DATA SCRAPER — hits warframe.market + warframestat.us
-│   ├── create_marketplace_dataframe.py     # ★ FEATURE ENGINEERING — raw JSON → training CSV
+│   ├── download_data.py                    # ★ DATA SCRAPER - hits warframe.market + warframestat.us
+│   ├── create_marketplace_dataframe.py     # ★ FEATURE ENGINEERING - raw JSON → training CSV
 │   └── setup_weapon_information.py         # Post-training: runs inference on all weapons, builds ranking/distribution JSON
 ├── training/
 │   ├── preprocessors/
@@ -47,8 +47,8 @@ WarframeRivenPricer/
 ├── riven_tool/
 │   └── rivens_analysis.py                  # CLI entry point: takes riven dicts, prints price table
 └── shtuff/
-    ├── data_handler.py                     # ★ ALL LOOKUP LOGIC — weapon names, attribute shortcuts, disposition, etc.
-    ├── make_prediction.py                  # ★ INFERENCE ENGINE — PricePredictor class
+    ├── data_handler.py                     # ★ ALL LOOKUP LOGIC - weapon names, attribute shortcuts, disposition, etc.
+    ├── make_prediction.py                  # ★ INFERENCE ENGINE - PricePredictor class
     ├── riven_funcs.py                      # Analysis layer: reroll math, permutation generation, table display
     ├── storage_handling.py                 # read_json / save_json helpers
     ├── WIP_bias_adjustor.py                # Unfinished: shifts listing prices toward traded prices
@@ -57,7 +57,7 @@ WarframeRivenPricer/
 
 ---
 
-## 2. Phase 1 — Data Scraping & Re-Running for Modern Meta
+## 2. Phase 1 - Data Scraping & Re-Running for Modern Meta
 
 ### 2a. What `download_data.py` hits
 
@@ -75,30 +75,30 @@ WarframeRivenPricer/
 
 The raw JSON is transformed into a flat CSV. Each row is one auction listing. The pipeline runs in order:
 
-1. **`create_df()`** — Flattens each listing into columns:
+1. **`create_df()`** - Flattens each listing into columns:
    - `weapon_url_name`, `polarity`, `mod_rank`, `re_rolls`, `re_rolled` (bool), `master_level`
-   - `positive1`, `positive2`, `positive3`, `negative` — the **stat url_names** (e.g. `critical_chance`)
-   - `positive1_value`, `positive2_value`, `positive3_value`, `negative_value` — the **numeric roll values** (e.g. `97.3`)
+   - `positive1`, `positive2`, `positive3`, `negative` - the **stat url_names** (e.g. `critical_chance`)
+   - `positive1_value`, `positive2_value`, `positive3_value`, `negative_value` - the **numeric roll values** (e.g. `97.3`)
    - `starting_price`, `buyout_price`, `is_direct_sell`
 
-2. **`handle_prices()`** — Filters and consolidates:
+2. **`handle_prices()`** - Filters and consolidates:
    - Drops rows with no `buyout_price`, price < 10 or > 10,000 platinum
    - Keeps only `is_direct_sell == True` (fixed price listings, not auctions)
    - Creates `listing_price = buyout_price`
 
-3. **`remove_duplicate_rows()`** — Deduplicates on all attribute columns.
+3. **`remove_duplicate_rows()`** - Deduplicates on all attribute columns.
 
-4. **`minor_final_adjustments()`** — Shuffles with seed 42.
+4. **`minor_final_adjustments()`** - Shuffles with seed 42.
 
 > **Important:** Several pipeline steps are currently **disabled** (`"run": False`):
-> - `add_supplementary_weapon_information()` — would add `group`, `disposition`, `has_incarnon`, `avg_trade_price` columns
-> - `add_permutation_data()` — would synthetically expand the dataset by permuting attribute order
+> - `add_supplementary_weapon_information()` - would add `group`, `disposition`, `has_incarnon`, `avg_trade_price` columns
+> - `add_permutation_data()` - would synthetically expand the dataset by permuting attribute order
 >
 > These are commented out in the active model, meaning **numeric riven values, disposition, and incarnon status are NOT used by the current model**. Only stat names (as strings) matter.
 
 ---
 
-## 3. Phase 2 — Model Architecture & ONNX Export
+## 3. Phase 2 - Model Architecture & ONNX Export
 
 ### 3a. The Keras Model (from `price_model_preprocessor.py`)
 
@@ -133,7 +133,7 @@ Output: expm1(output) = platinum_price estimate
 
 **Loss function:** `logcosh`
 **Optimizer:** `adam`
-**Target:** `np.log1p(listing_price)` — must apply `np.expm1()` to the raw model output.
+**Target:** `np.log1p(listing_price)` - must apply `np.expm1()` to the raw model output.
 
 ### 3b. The Preprocessor (`price_preprocessor.pkl`)
 
@@ -237,7 +237,7 @@ print("ONNX model saved.")
 
 ---
 
-## 4. Phase 3 — Rust Preprocessing Module for `ort`
+## 4. Phase 3 - Rust Preprocessing Module for `ort`
 
 ### 4a. What the Rust module needs to do
 
@@ -260,7 +260,7 @@ OCR text output  →  parse into structured fields  →  lookup table maps  → 
 ### 4c. The Rust preprocessing steps
 
 ```rust
-// Pseudo-Rust — exact API depends on your ort version and tensor handling
+// Pseudo-Rust - exact API depends on your ort version and tensor handling
 
 use std::collections::HashMap;
 
@@ -399,7 +399,7 @@ predicted platinum: 343  platinum  ✓
 ## 6. Key Gaps & What You Need to Build
 
 ### Things the original model does NOT use (but could improve accuracy if added later):
-- Actual numeric riven roll values (e.g. 161.7% crit chance) — the model only sees that *critical_chance* is a stat, not how high it rolled
+- Actual numeric riven roll values (e.g. 161.7% crit chance) - the model only sees that *critical_chance* is a stat, not how high it rolled
 - Disposition score
 - Incarnon status
 - Weapon group (primary/secondary/melee)

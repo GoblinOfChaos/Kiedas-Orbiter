@@ -3,7 +3,7 @@
 Retrain the riven pricing model from scratch.
 
 The full training pipeline lives in tools/riven-pricer/pipeline/ so the
-repo is self-contained — no external dependencies, survives a system wipe.
+repo is self-contained - no external dependencies, survives a system wipe.
 
 Usage:
     python tools/riven-pricer/retrain.py
@@ -90,7 +90,7 @@ def retrain():
         sys.exit(f"Pipeline not found at {pipeline_dir}")
 
     print("═" * 50)
-    print("Riven Pricer — Full Retrain")
+    print("Riven Pricer - Full Retrain")
     print("═" * 50)
     print(f"Pipeline: {pipeline_dir}")
 

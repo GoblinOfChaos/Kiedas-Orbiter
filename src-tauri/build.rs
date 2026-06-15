@@ -5,7 +5,7 @@ fn main() {
 // Tauri's resource glob includes everything under data/assets/, but its
 // resolve_resource() only works on individual files, not directories, so we
 // need the exact file list to extract them at runtime.  card-images/ is
-// excluded — those are extracted by the exporter at runtime.
+// excluded - those are extracted by the exporter at runtime.
 let manifest_dir = std::env::var("CARGO_MANIFEST_DIR").unwrap();
 let assets_dir = std::path::PathBuf::from(&manifest_dir).join("data/assets");
 let mut files: Vec<String> = Vec::new();
@@ -31,7 +31,7 @@ fn walk_dir(base: &std::path::Path, root: &std::path::Path, dir: &std::path::Pat
         for entry in entries.flatten() {
             let path = entry.path();
             if path.is_dir() {
-                // Skip card-images — extracted by the exporter at runtime
+                // Skip card-images - extracted by the exporter at runtime
                 if path.file_name().and_then(|n| n.to_str()) == Some("card-images") {
                     continue;
                 }

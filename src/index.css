@@ -225,7 +225,7 @@
     background: rgba(var(--color-accent-rgb), 0.7);
   }
 
-  /* Thin variant for the sidebar nav — 4px wide, same theme */
+  /* Thin variant for the sidebar nav - 4px wide, same theme */
   .nav-scrollbar::-webkit-scrollbar {
     width: 4px;
     height: 4px;

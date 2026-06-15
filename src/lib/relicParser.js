@@ -25,7 +25,7 @@ function resolveDisplayName(uniqueName, exportData) {
   if (!uniqueName) return '';
   // Normalize path: remove /StoreItems/ from log paths to match export data keys
   const normalizedKey = uniqueName.replace('/StoreItems/', '/');
-  
+
   const dict = exportData['dict.en'] || {};
   const uniqueNameToName = exportData.uniqueNameToName || {};
 
@@ -91,10 +91,10 @@ function resolveDisplayName(uniqueName, exportData) {
  */
 export function getAllRelicRewards(exportData) {
   if (!exportData || !exportData.ExportRelics || !exportData.ExportRewards) return [];
-  
+
   const relicData = Array.isArray(exportData.ExportRelics) ? exportData.ExportRelics : Object.values(exportData.ExportRelics);
   const rewardsMap = Array.isArray(exportData.ExportRewards) ? {} : exportData.ExportRewards;
-  
+
   // If ExportRewards is an array, we need to convert it or use it differently. 
   // Standard Warframe data has it as a Map/Object.
   let lookupTable = rewardsMap;
@@ -106,28 +106,28 @@ export function getAllRelicRewards(exportData) {
 
   const seen = new Set();
   const allItems = [];
-  
+
   for (const relic of relicData) {
     const manifestPath = relic.rewardManifest;
     if (!manifestPath) continue;
-    
+
     const pool = lookupTable[manifestPath];
     if (!pool) continue;
 
     const poolList = Array.isArray(pool) ? (Array.isArray(pool[0]) ? pool[0] : pool) : [];
     const flatPool = poolList.flat();
-    
+
     for (const drop of flatPool) {
       const un = drop.type;
       if (!un || seen.has(un)) continue;
       seen.add(un);
-      
+
       const norm = un.replace('/StoreItems/', '/');
       const recipe = exportData.ExportRecipes?.[norm] || exportData.ExportRecipes?.[un];
-      const itemData = exportData.ExportItems?.[norm] || exportData.ExportWeapons?.[norm] || 
-                      exportData.ExportWarframes?.[norm] || exportData.ExportResources?.[norm] ||
-                      exportData.ExportItems?.[un];
-      
+      const itemData = exportData.ExportItems?.[norm] || exportData.ExportWeapons?.[norm] ||
+        exportData.ExportWarframes?.[norm] || exportData.ExportResources?.[norm] ||
+        exportData.ExportItems?.[un];
+
       allItems.push({
         uniqueName: un,
         name: resolveDisplayName(un, exportData),
@@ -136,7 +136,7 @@ export function getAllRelicRewards(exportData) {
       });
     }
   }
-  
+
   // Ensure Forma is always there
   const formaUn = '/Lotus/StoreItems/Types/Items/MiscItems/FormaBlueprint';
   if (!seen.has(formaUn)) {
@@ -147,7 +147,7 @@ export function getAllRelicRewards(exportData) {
       ducats: 0
     });
   }
-  
+
   return allItems;
 }
 
@@ -182,9 +182,9 @@ export function getRelicRewards(relicUniqueName, exportData) {
     const un = item.type;
     const norm = un.replace('/StoreItems/', '/');
     const recipe = exportData.ExportRecipes?.[norm] || exportData.ExportRecipes?.[un];
-    const itemData = exportData.ExportItems?.[norm] || exportData.ExportWeapons?.[norm] || 
-                    exportData.ExportWarframes?.[norm] || exportData.ExportResources?.[norm] ||
-                    exportData.ExportItems?.[un];
+    const itemData = exportData.ExportItems?.[norm] || exportData.ExportWeapons?.[norm] ||
+      exportData.ExportWarframes?.[norm] || exportData.ExportResources?.[norm] ||
+      exportData.ExportItems?.[un];
 
     return {
       uniqueName: un,
@@ -207,7 +207,7 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
   let parentName = itemName;
   const suffixes = [
     ' Blueprint', ' Neuroptics', ' Chassis', ' Systems',
-    ' Barrel', ' Receiver', ' Stock', ' Grip', ' String', 
+    ' Barrel', ' Receiver', ' Stock', ' Grip', ' String',
     ' Limb', ' Blade', ' Hilt', ' Harness', ' Wings',
     ' Handle', ' Head', ' Link', ' Gauntlet', ' Pouch',
     ' Stars', ' Cerebrum', ' Carapace', ' Disc', ' Motor', ' Boot'
@@ -223,19 +223,19 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     }
   }
 
-  if (!inventoryData) return { 
-    stock: 0, 
-    subcomponents: [], 
-    isForma: false, 
+  if (!inventoryData) return {
+    stock: 0,
+    subcomponents: [],
+    isForma: false,
     isResource: false,
-    parentName 
+    parentName
   };
 
   const ER = exportData.ExportResources || {};
-  
+
   const isGenericResource = (un) => {
-    return !!ER[un] 
-      && !un.includes('/WeaponParts/') 
+    return !!ER[un]
+      && !un.includes('/WeaponParts/')
       && !un.includes('/WarframeRecipes/')
       && !un.includes('/ArchwingRecipes/')
       && !un.includes('Prime');
@@ -324,7 +324,7 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
       : 0;
     const isMatch = (ingUn) => {
       if (!ingUn || !rewardUniqueName) return false;
-      
+
       // 1. Path normalization match
       const clean = (s) => s.replace('/StoreItems/', '/').replace(/Blueprint$/i, '').replace(/Recipe$/i, '').toLowerCase();
       if (clean(ingUn) === clean(rewardUniqueName)) return true;
@@ -334,7 +334,7 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
       const ingNameClean = ingName.toLowerCase().replace('blueprint', '').trim();
       const rewardNameClean = itemName.toLowerCase().replace('blueprint', '').trim();
       if (ingNameClean === rewardNameClean) return true;
-      
+
       return false;
     };
 
@@ -355,29 +355,29 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
   const rNorm = normalizeUN(rewardUniqueName);
   const findInInventory = (arr) => arr?.find(i => normalizeUN(i.unique_name) === rNorm);
   let rewardEntry = findInInventory(inventoryData.all)
-      || findInInventory(inventoryData.prime_parts)
-      || findInInventory(inventoryData.mods)
-      || findInInventory(inventoryData.resources);
+    || findInInventory(inventoryData.prime_parts)
+    || findInInventory(inventoryData.mods)
+    || findInInventory(inventoryData.resources);
 
   // Fallback: if not found by uniqueName, search by display name (handles synthetic
   // short uniqueNames from OCR, e.g. "Lohk" → /Lotus/Upgrades/Mods/Requiem/Lohk)
   if (!rewardEntry && inventoryData.mods) {
     rewardEntry = inventoryData.mods.find(m => m.name?.toLowerCase() === rewardUniqueName?.toLowerCase());
   }
-      
+
   const stock = rewardEntry?.quantity ?? 0;
-  
+
   const aNorm = normalizeUN(actualComponent);
   const findInInventorySimple = (arr) => arr?.find(i => normalizeUN(i.unique_name) === aNorm);
   let craftedEntry = findInInventorySimple(inventoryData.all)
-      || findInInventorySimple(inventoryData.prime_parts)
-      || findInInventorySimple(inventoryData.resources);
+    || findInInventorySimple(inventoryData.prime_parts)
+    || findInInventorySimple(inventoryData.resources);
 
   // Fallback: search by name in mods (handles short OCR uniqueNames like "Lohk")
   if (!craftedEntry && inventoryData.mods) {
     craftedEntry = inventoryData.mods.find(m => m.name?.toLowerCase() === rewardUniqueName?.toLowerCase());
   }
-      
+
   const craftedCount = craftedEntry?.quantity ?? 0;
   const isMastered = craftedEntry?.mastered ?? false;
 
@@ -390,7 +390,7 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     parentBpCount = inventoryData.prime_parts?.find(i => normalizeUN(i.unique_name) === pNorm)?.quantity ?? 0;
     const prNorm = normalizeUN(parentRecipe.resultType);
     const pCrafted = (inventoryData.all?.find(i => normalizeUN(i.unique_name) === prNorm))
-                  || (inventoryData.prime_parts?.find(i => normalizeUN(i.unique_name) === prNorm));
+      || (inventoryData.prime_parts?.find(i => normalizeUN(i.unique_name) === prNorm));
     parentCraftedCount = pCrafted?.quantity ?? 0;
     parentIsMastered = pCrafted?.mastered ?? false;
   } else {
@@ -444,7 +444,7 @@ export function getRelicEV(rewards, refinement, squadSize = 1, valueKey = 'plat'
     return { val: r[valueKey] || 0, p };
   });
 
-  // Requiem relics have a flat drop table — each of the 8 mods has equal probability (12.5%)
+  // Requiem relics have a flat drop table - each of the 8 mods has equal probability (12.5%)
   if (rewards.length >= 7) {
     const isRequiem = rewards.every(r => r.rarity === 'COMMON');
     if (isRequiem) {
@@ -476,11 +476,11 @@ export function getRelicEV(rewards, refinement, squadSize = 1, valueKey = 'plat'
     // Probability that AT LEAST ONE of the top i+1 items drops:
     // 1 - (1 - sum(p_0...p_i))^N
     const nextCumulativeProb = 1 - Math.pow(1 - (cumulativeProb + item.p), squadSize);
-    
+
     // Probability that item i is the BEST item in the result set:
     // P(at least one of 0...i) - P(at least one of 0...i-1)
     const probThisIsBest = nextCumulativeProb - (1 - Math.pow(1 - cumulativeProb, squadSize));
-    
+
     expectedValue += item.val * probThisIsBest;
     cumulativeProb += item.p;
   }
@@ -538,10 +538,10 @@ export function fuzzyMatchReward(ocrText, candidates, threshold = 0.5) {
   if (!ocrText || !candidates || candidates.length === 0) return null;
 
   const clean = (s) => s.toUpperCase().replace(/[^A-Z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-  
+
   // Use the existing splitPascal helper to dynamically separate merged words
   const ocrClean = clean(splitPascal(ocrText));
-  
+
   if (ocrClean.length < 3) return null;
 
   const ocrWords = ocrClean.split(' ');
@@ -585,12 +585,12 @@ export function fuzzyMatchReward(ocrText, candidates, threshold = 0.5) {
     }
 
     const finalScoreWordBased = totalSim / totalWeight;
-    
+
     // Incorporate full-string similarity to penalize length mismatches
     const fullDist = levenshteinDistance(ocrClean, itemClean);
     const fullMaxL = Math.max(ocrClean.length, itemClean.length);
     const fullSim = 1.0 - (fullDist / (fullMaxL || 1));
-    
+
     // Combine scores: 70% word-based, 30% full-string
     const combinedScore = (finalScoreWordBased * 0.7) + (fullSim * 0.3);
 

@@ -337,7 +337,7 @@ h2 {
     overflow: visible;
 }
 
-/* Inner wrapper — sizes to the image, border clips to it */
+/* Inner wrapper - sizes to the image, border clips to it */
 .image-stack-inner {
     position: relative;
     border-radius: 12px;

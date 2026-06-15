@@ -368,7 +368,7 @@ pub struct LogScannerHandle {
     pub running: Arc<AtomicBool>,
 }
 
-// ─── Lifecycle helpers — call from main.rs ─────────────────────────────────────
+// ─── Lifecycle helpers - call from main.rs ─────────────────────────────────────
 
 pub fn log_app_start(app: &AppHandle) {
     crate::logger::log_to_disk(app, "");
@@ -386,7 +386,7 @@ pub fn log_app_stop(app: &AppHandle) {
 // ──────────────────────────────────────────────────────────────────────────────
 
 pub fn stop_scanner(app: &AppHandle) {
-    crate::logger::log_to_disk(app, "[LOG SCANNER] stop_scanner called — stopping watcher thread");
+    crate::logger::log_to_disk(app, "[LOG SCANNER] stop_scanner called - stopping watcher thread");
     IS_SCANNING.store(false, Ordering::SeqCst);
     SCANNER_STATUS.store(0, Ordering::SeqCst);
     crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
@@ -606,7 +606,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 }
 
                 if first_data {
-                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Hooked into Warframe RAM! Backfill — populating dedup set, suppressing events.");
+                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Hooked into Warframe RAM! Backfill - populating dedup set, suppressing events.");
                     SCANNER_STATUS.store(2, Ordering::SeqCst);
                     first_data = false;
                     let text = String::from_utf8_lossy(&buf);

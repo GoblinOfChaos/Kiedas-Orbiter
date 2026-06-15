@@ -84,7 +84,7 @@ export default function Mastery() {
 
   useEffect(() => {
     invoke('get_mastery_icons_path').then(setIconsPath).catch(console.error);
-    invoke('get_ui_path').then(setUiPath).catch(() => {});
+    invoke('get_ui_path').then(setUiPath).catch(() => { });
   }, []);
 
   if (isInventoryLoading || (inventoryData === undefined)) {
@@ -172,7 +172,7 @@ export default function Mastery() {
     { label: 'Sentinel', ...getStats('sentinels') },
     { label: 'Sentinel Weapon', ...getStats('companion_weapons') },
     { label: 'Companions', ...getStats('companions') },
-    // 'Robotic' summary row removed — Companions is now the canonical merged row.
+    // 'Robotic' summary row removed - Companions is now the canonical merged row.
     { label: 'Archwing', ...getStats('archwings') },
     { label: 'Archgun', ...getStats('archgun') },
     { label: 'Archmelee', ...getStats('archmelee') },

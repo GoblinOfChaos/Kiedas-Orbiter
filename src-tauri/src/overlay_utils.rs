@@ -187,7 +187,7 @@ fn get_x11_ids(window: &WebviewWindow) -> Option<(*mut std::ffi::c_void, u64)> {
 ///   Desktop → Below → Normal → Above → Fullscreen → Dock → Notification → OnScreenDisplay → Critical
 ///
 /// We use _KDE_NET_WM_WINDOW_TYPE_ON_SCREEN_DISPLAY (KDE extension) as the
-/// primary type — this is the highest non-critical layer, above fullscreen apps.
+/// primary type - this is the highest non-critical layer, above fullscreen apps.
 /// OSD is what KDE itself uses for volume sliders, brightness popups, etc.
 ///
 /// CRITICAL: KWin re-evaluates a window's layer only when the window is
@@ -212,7 +212,7 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
 
         // _NET_WM_WINDOW_TYPE: Notification as primary, with Dock and Utility
         // as fallbacks.  _KDE_NET_WM_WINDOW_TYPE_ON_SCREEN_DISPLAY is intentionally
-        // omitted — KWin hard-centers OSD windows, fighting our position.
+        // omitted - KWin hard-centers OSD windows, fighting our position.
         let wm_type = XInternAtom(xdisplay, b"_NET_WM_WINDOW_TYPE\0".as_ptr() as *const i8, 0);
         let notification = XInternAtom(xdisplay, b"_NET_WM_WINDOW_TYPE_NOTIFICATION\0".as_ptr() as *const i8, 0);
         let dock = XInternAtom(xdisplay, b"_NET_WM_WINDOW_TYPE_DOCK\0".as_ptr() as *const i8, 0);
@@ -371,7 +371,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
             .unwrap_or(false);
 
         // Transient for main window so WM always stacks overlay above it.
-        // Only for notification overlays — relic/riven overlays should not
+        // Only for notification overlays - relic/riven overlays should not
         // bring the main window to the foreground when shown.
         let is_notification = matches!(label, "overlay-tl" | "overlay-tr" | "overlay-tc");
         if is_notification {
@@ -401,7 +401,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
             // First show: Tauri's show() acts as the XMapWindow
             window.show().map_err(|e| format!("show() failed: {e}"))?;
             // Let KWin finish any MapNotify processing before we force the
-            // position — the XSync + sleep window ensures our move wins.
+            // position - the XSync + sleep window ensures our move wins.
             unsafe {
                 if let Some((xdisplay, _)) = get_x11_ids(&window) {
                     XSync(xdisplay, 0);

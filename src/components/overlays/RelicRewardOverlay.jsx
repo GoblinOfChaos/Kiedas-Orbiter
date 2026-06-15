@@ -56,7 +56,7 @@ export default function RelicRewardOverlay() {
   }, [windowVisible])
 
   // The overlay is shown by the OCR pipeline via scanner-relic-phase-start event.
-  // No need to force-show on mount — that would show the overlay even outside
+  // No need to force-show on mount - that would show the overlay even outside
   // a fissure mission.
 
   useEffect(() => {
@@ -239,8 +239,8 @@ export default function RelicRewardOverlay() {
           <div className="h-1 bg-white/10 overflow-hidden rounded-full mx-1">
             <div
               className="h-full shadow-[0_0_8px_rgba(var(--color-accent-rgb),0.6)]"
-              style={{ 
-                width: `${progress}%`, 
+              style={{
+                width: `${progress}%`,
                 backgroundColor: 'var(--color-accent)',
                 transition: 'width 100ms linear'
               }}
@@ -305,7 +305,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
     )
   }
 
-  // Normal items — original structure unchanged
+  // Normal items - original structure unchanged
   return (
     <div className="rounded-xl border overflow-hidden flex flex-col mx-1 transition-all border-white/5 bg-black/40">
       {/* Reward Name */}
@@ -329,12 +329,12 @@ function RewardSlot({ confirmed, isLocal, price }) {
       {/* Parent Name - Highlighted if the main blueprint is the dropped reward */}
       {!isRequiem && (
         <div className={`px-2.5 py-2 mb-1.5 text-center transition-all ${subcomponents.length > 0 && !subcomponents.some(c => c.isDroppedReward)
-            ? 'bg-amber-500/10 shadow-[inner_0_0_15px_rgba(245,158,11,0.1)] border-y border-amber-500/20'
-            : ''
+          ? 'bg-amber-500/10 shadow-[inner_0_0_15px_rgba(245,158,11,0.1)] border-y border-amber-500/20'
+          : ''
           }`}>
           <span className={`text-[10px] font-black uppercase tracking-widest ${subcomponents.length > 0 && !subcomponents.some(c => c.isDroppedReward)
-              ? 'text-amber-400 drop-shadow-[0_0_5px_rgba(245,158,11,0.5)]'
-              : 'text-kronos-dim'
+            ? 'text-amber-400 drop-shadow-[0_0_5px_rgba(245,158,11,0.5)]'
+            : 'text-kronos-dim'
             }`}>
             {inv.parentName || displayName}
           </span>

@@ -208,7 +208,7 @@ function evaluateArbitration(notif, arbys, ERg, dict, results) {
     }
   }
 
-  // Upcoming arbitration — fire if starting within the advance window
+  // Upcoming arbitration - fire if starting within the advance window
   const upcoming = getUpcomingArbies(arbys, ERg, dict, ARBY_TIERS, 10)
   const now = Date.now()
   for (const slot of upcoming) {
@@ -313,7 +313,7 @@ function evaluateSyndicateWaste(notif, inventoryData, ES, results) {
     results.push({
       notifId: notif.id,
       title: 'Syndicate Standing at Risk',
-      message: `Opposing syndicate${enemiesWithStanding.length > 1 ? 's' : ''} (${names}) have standing — spend it before it hits 0`,
+      message: `Opposing syndicate${enemiesWithStanding.length > 1 ? 's' : ''} (${names}) have standing - spend it before it hits 0`,
       image: '/IconMastery.png',
     })
   }

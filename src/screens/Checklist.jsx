@@ -723,7 +723,7 @@ export default function Checklist() {
       reset: t.reset,
       nextResetTime: t.nextResetTime,
     }))
-    // Don't delete on unmount — the notification manager reads this
+    // Don't delete on unmount - the notification manager reads this
     // even when the Checklist page isn't active.
   }, [allTasks])
 

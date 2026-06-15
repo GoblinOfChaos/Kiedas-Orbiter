@@ -1,4 +1,4 @@
-# Cephalon Kronos — Architecture Overview
+# Cephalon Kronos - Architecture Overview
 
 Tauri desktop app (Rust backend + React frontend). Reads Warframe inventory via
 the game's mobile API and the live worldstate, then presents both in a single UI
@@ -49,7 +49,7 @@ src/lib/
                         No network calls or disk I/O.
   │
   ▼
-React screens (src/screens/*.jsx) — read from MonitoringContext via useMonitoring()
+React screens (src/screens/*.jsx) - read from MonitoringContext via useMonitoring()
   Dashboard.jsx   worldstate data (fissures, sorties, cycles, events, …)
   Inventory.jsx   all items, searchable/filterable by category and ownership
   Mastery.jsx     mastery rank progress, starchart completion, mastery XP totals
@@ -188,23 +188,23 @@ Riven Close    ─►                                ─► emits riven-screen-c
 Riven Reroll   ─►                                ─► emits riven-reroll
 ```
 
-`spawn_memory_watcher()` — spawns the helper binary with `--read-log-buffer`,
+`spawn_memory_watcher()` - spawns the helper binary with `--read-log-buffer`,
 reads the binary framing (4-byte LE length + payload), splits by newlines,
 hashes for dedup, passes to `on_line()`.
 
-`stop_scanner()` — sets `IS_SCANNING=false`, kills helper via `taskkill` so the
+`stop_scanner()` - sets `IS_SCANNING=false`, kills helper via `taskkill` so the
 blocking `read_exact` unblocks and the thread exits cleanly.
 
 ### `src-tauri/src/ocr.rs`
 
 Screen capture and OCR pipeline.
 
-- `detect_slot_count_from_icons()` — captures screen, finds slot UI elements via
+- `detect_slot_count_from_icons()` - captures screen, finds slot UI elements via
   template matching, extracts each slot image, runs OCR, matches against reward pool.
-- `clean_ocr_output()` — strips leading junk characters from OCR text, handles
+- `clean_ocr_output()` - strips leading junk characters from OCR text, handles
   prefixes like `-Forma` → `Forma`.
-- `trigger_manual_ocr()` — re-runs OCR on demand via hotkey.
-- `save_debug_screenshot()` — captures and annotates debug screenshot.
+- `trigger_manual_ocr()` - re-runs OCR on demand via hotkey.
+- `save_debug_screenshot()` - captures and annotates debug screenshot.
 
 ### `src-tauri/src/ocr_engine.rs`
 

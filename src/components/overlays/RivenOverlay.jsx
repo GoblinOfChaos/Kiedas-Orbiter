@@ -250,7 +250,7 @@ export default function RivenOverlay() {
           const p = parseRivenOcr(payload)
           setParsed(p)
           doPricing(p)
-          // show() already called show_overlay_window — just ensure correct size
+          // show() already called show_overlay_window - just ensure correct size
           invoke('resize_overlay_window', { label, width: RIVEN_W, height: RIVEN_H }).catch(() => { })
         }
       }),

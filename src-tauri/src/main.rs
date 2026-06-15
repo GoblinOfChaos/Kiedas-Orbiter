@@ -860,7 +860,7 @@ fn count_unfixed_card_images(path: String) -> usize {
             else if p.extension().map_or(false, |x| x.eq_ignore_ascii_case("png")) {
                 if let Ok(rel) = p.strip_prefix(root) {
                     let key = rel.to_string_lossy().replace('\\', "/");
-                    // Skip files under Lotus/Interface/Icons/ — these are
+                    // Skip files under Lotus/Interface/Icons/ - these are
                     // UI icons (Antivirus, ImmortalRunes, etc.) that must
                     // keep their original transparency.
                     if key.starts_with("Lotus/Interface/Icons/") { continue; }
@@ -931,7 +931,7 @@ fn composite_overlay(card_path: &std::path::Path, overlay_path: &std::path::Path
 
 /// Read the overlay map and composite each overlay onto its card image.
 /// Tracks already-composited cards in .overlay-manifest.json so it is
-/// idempotent — subsequent calls skip cards already processed.
+/// idempotent - subsequent calls skip cards already processed.
 fn composite_card_overlays_inner(card_root: &std::path::Path) {
     let overlay_map_path = card_root.join("../data/card-overlay-map.json");
     let Ok(body) = std::fs::read_to_string(&overlay_map_path) else { return };
@@ -1218,7 +1218,7 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
     // results into the same card-images tree so the frontend can find
     // them under its expected paths.
     //
-    // Always check each UI icon path individually — they may not have
+    // Always check each UI icon path individually - they may not have
     // been extracted on a previous run (e.g. if the early-return guard
     // was in place before this restructuring).
     let ui_icon_paths = [
@@ -1558,7 +1558,7 @@ async fn show_notification(
     };
 
     // Show/reposition the overlay window (unless no_focus is set).
-    // Note: get_webview_window is NOT used as a guard here — windows are created
+    // Note: get_webview_window is NOT used as a guard here - windows are created
     // dynamically by show_window_internal so they may not exist yet on first call.
     if !no_focus {
         // Wipe stale toasts if window already exists and was hidden
@@ -1568,7 +1568,7 @@ async fn show_notification(
                 let _ = w.emit("wipe-state", pos.clone());
             }
         }
-        // Always call — creates the window if it doesn't exist yet
+        // Always call - creates the window if it doesn't exist yet
         let _ = show_overlay_window(app_handle.clone(), label.to_string());
     }
 
@@ -2048,7 +2048,7 @@ fn get_known_weapon_names() -> Vec<String> {
  fn main() {
     #[cfg(target_os = "linux")]
     {
-        // Raise file descriptor limit — WebKit + software rendering (GDK_BACKEND=x11
+        // Raise file descriptor limit - WebKit + software rendering (GDK_BACKEND=x11
         // + WEBKIT_DISABLE_COMPOSITING_MODE) uses significantly more SHM segments.
         // The default 1024 isn't enough; give ourselves plenty of headroom.
         unsafe {
@@ -2065,7 +2065,7 @@ fn get_known_weapon_names() -> Vec<String> {
         if std::env::var("WEBKIT_DISABLE_DMABUF_RENDERER").is_err() {
             std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
         }
-        // Force X11 backend unconditionally — X11 is required for:
+        // Force X11 backend unconditionally - X11 is required for:
         //   1. Raw XMoveWindow to position transparent (ARGB visual) windows
         //   2. _NET_WM_STATE_ABOVE for reliable always-on-top
         // Both break under the Wayland backend (compositor controls placement).

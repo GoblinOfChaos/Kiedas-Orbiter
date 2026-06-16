@@ -596,6 +596,11 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
         let mut attempt = 0u32;
         let start_time = std::time::Instant::now();
         const MANUAL_TIMEOUT_SECS: u64 = 5;
+        // Give the OCR at least 4 attempts (~1.6s) before honouring an
+        // ICON_SCAN_ACTIVE clear — the reward screen can close very quickly
+        // for round 2+ in endless missions (Step 5 races against Step 4),
+        // and we want to guarantee at least a few detection passes.
+        const MIN_ATTEMPTS_BEFORE_YIELD: u32 = 4;
 
         loop {
             if manual && start_time.elapsed().as_secs() >= MANUAL_TIMEOUT_SECS {
@@ -607,9 +612,11 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             }
 
             attempt += 1;
-            std::thread::sleep(std::time::Duration::from_millis(400));
+            if attempt > 1 {
+                std::thread::sleep(std::time::Duration::from_millis(400));
+            }
 
-            if !ICON_SCAN_ACTIVE.load(Ordering::SeqCst) {
+            if attempt >= MIN_ATTEMPTS_BEFORE_YIELD && !ICON_SCAN_ACTIVE.load(Ordering::SeqCst) {
                 ocr_log!(&app, "[OCR] Icon scan: flag cleared, stopping (attempt {})", attempt);
                 return;
             }

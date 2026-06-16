@@ -100,6 +100,10 @@ impl LogScanner {
             self.squad_relics.clear();
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 7: MISSION EXIT (LogTS: {}s)", ts));
+            let state = app.state::<crate::AppState>();
+            if let Ok(mut cached) = state.active_relic_data.lock() {
+                *cached = None;
+            }
             app.emit("fissure-reward-closed", ()).unwrap_or_default();
             return;
         }
@@ -148,6 +152,11 @@ impl LogScanner {
         if s.contains("ProjectionRewardChoice.lua: Relic reward screen shut down") {
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 5: REWARD SCREEN CLOSE (LogTS: {}s)", ts));
+            // Clear cached relic data so the next round starts fresh
+            let state = app.state::<crate::AppState>();
+            if let Ok(mut cached) = state.active_relic_data.lock() {
+                *cached = None;
+            }
             app.emit("fissure-reward-closed", ()).unwrap_or_default();
             return;
         }
@@ -157,7 +166,10 @@ impl LogScanner {
             if !self.in_mission {
                 return;
             }
-            crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
+            // Don't clear ICON_SCAN_ACTIVE here — the ThemedProjectionManager is
+            // the "Continue" screen between rounds, NOT the reward screen itself.
+            // Clearing it here races with the *next* round's reward-screen OCR
+            // (Step 4), causing successive rounds to never show the overlay.
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 6: ENDLESS CONTINUE (LogTS: {}s)", ts));
             return;
         }
@@ -606,7 +618,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 }
 
                 if first_data {
-                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Hooked into Warframe RAM! Backfill - populating dedup set, suppressing events.");
+                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Hooked into Warframe RAM! Backfill - dedup seeding, firing immediate-state events.");
                     SCANNER_STATUS.store(2, Ordering::SeqCst);
                     logged_waiting = false;
                     app_inner.emit("scanner-hooked", ()).unwrap_or_default();
@@ -618,10 +630,9 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                         if !line.starts_with(|c: char| c.is_ascii_digit()) { continue; }
                         let hash = line_hash(line);
                         seen_set.insert(hash);
-                        // Static info events (archon modifiers) should fire immediately
-                        if line.contains("EliteAlert: generated boosts for") {
-                            scanner.on_line(&app_inner, line);
-                        }
+                        // Always fire events during backfill — if the helper restarted
+                        // mid-mission we don't want to miss a "Relic rewards initialized".
+                        scanner.on_line(&app_inner, line);
                     }
                     continue;
                 }

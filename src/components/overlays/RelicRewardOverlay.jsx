@@ -26,6 +26,7 @@ export default function RelicRewardOverlay() {
   const [windowVisible, setWindowVisible] = useState(false)
   const containerRef = useRef(null)
   const resizeTimerRef = useRef(null)
+  const closeTimerRef = useRef(null)
   const triggerCount = useRef(0)
   const [triggerKey, setTriggerKey] = useState(0)
 
@@ -38,6 +39,7 @@ export default function RelicRewardOverlay() {
           console.error('[RelicOverlay] show_overlay_window error:', err)
         }
       }
+      if (closeTimerRef.current) { clearTimeout(closeTimerRef.current); closeTimerRef.current = null }
       setWindowVisible(true)
     }
   }, [windowVisible])
@@ -84,6 +86,7 @@ export default function RelicRewardOverlay() {
     // Immediate state reset when scanner triggers
     subs.push(listen('scanner-relic-phase-start', (e) => {
       console.log(`[RelicOverlay] received event scanner-relic-phase-start: squad_size=${e.payload.squad_size}`)
+      if (closeTimerRef.current) { clearTimeout(closeTimerRef.current); closeTimerRef.current = null }
       setSquadSize(e.payload.squad_size)
       setOcrResults({})
       setLocalReward(null)
@@ -98,6 +101,7 @@ export default function RelicRewardOverlay() {
     subs.push(listen('overlay-update-relics', (e) => {
       const relicsCount = e.payload.squad_relics?.length || 0
       console.log(`[RelicOverlay] received event overlay-update-relics (count=${relicsCount})`, e.payload)
+      if (closeTimerRef.current) { clearTimeout(closeTimerRef.current); closeTimerRef.current = null }
       setData(e.payload.squad_relics || [])
       setSquadSize(e.payload.squad_size)
       setOcrResults({})
@@ -131,9 +135,11 @@ export default function RelicRewardOverlay() {
     subs.push(listen('fissure-reward-closed', () => {
       console.log('[RelicRewardOverlay] received event fissure-reward-closed')
       setIsClosing(true)
-      setTimeout(() => {
+      if (closeTimerRef.current) { clearTimeout(closeTimerRef.current) }
+      closeTimerRef.current = setTimeout(() => {
         setData(null)
         hideWindow()
+        closeTimerRef.current = null
       }, 500)
     }))
 
@@ -150,16 +156,20 @@ export default function RelicRewardOverlay() {
         setProgress((next / RELIC_TIMEOUT) * 100)
         if (next === 0 && !isClosing) {
           setIsClosing(true)
-          setTimeout(() => {
+          closeTimerRef.current = setTimeout(() => {
             setData(null)
             hideWindow()
+            closeTimerRef.current = null
           }, 500)
         }
         return next
       })
     }, 100)
 
-    return () => clearInterval(interval)
+    return () => {
+      clearInterval(interval)
+      if (closeTimerRef.current) { clearTimeout(closeTimerRef.current); closeTimerRef.current = null }
+    }
   }, [data, isClosing])
 
   // Window Resize logic

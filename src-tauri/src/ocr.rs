@@ -45,12 +45,19 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
     let sh = full.height() as f64;
     let sx = sw / 1920.0;
     let sy = sh / 1080.0;
+    let scale = USER_UI_SCALE.load(Ordering::SeqCst) as f64 / 100.0;
 
     let (bx, by, bw, bh) = position.bounds_1080p();
-    let cx = (bx * sx).round() as u32;
-    let cy = (by * sy).round() as u32;
-    let cw = (bw * sx).round() as u32;
-    let ch = (bh * sy).round() as u32;
+    let box_cx = bx + bw / 2.0;
+    let box_cy = by + bh / 2.0;
+    let scaled_cx = (960.0 + (box_cx - 960.0) * scale) * sx;
+    let scaled_cy = (540.0 + (box_cy - 540.0) * scale) * sy;
+    let scaled_w = bw * scale * sx;
+    let scaled_h = bh * scale * sy;
+    let cx = (scaled_cx - scaled_w / 2.0).round() as u32;
+    let cy = (scaled_cy - scaled_h / 2.0).round() as u32;
+    let cw = scaled_w.round() as u32;
+    let ch = scaled_h.round() as u32;
 
     if cx + cw > full.width() || cy + ch > full.height() {
         return Err("Card bounds out of screen".to_string());

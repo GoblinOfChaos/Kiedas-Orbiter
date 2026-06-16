@@ -1,5 +1,4 @@
 use std::collections::HashSet;
-use std::io::Read;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;

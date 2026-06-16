@@ -1,8 +1,1 @@
-{
-  "bundle": {
-    "resources": [
-      "data/bin/warframe-api-helper",
-      "data/bin/Warframe-Exporter-CLI*"
-    ]
-  }
-}
+{}

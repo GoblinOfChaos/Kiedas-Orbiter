@@ -25,11 +25,10 @@
 import { useState, useEffect, useMemo } from 'react'
 import { PageLayout, Card, Button, CardHeader, Tabs, Modal } from '../components/UI'
 import {
-  Clock, Zap, AlertCircle, Target, Package,
-  Coins, Newspaper, DollarSign, Sparkles, RefreshCw,
-  Swords, Activity, Bell, ShoppingBag, Shield,
-  Calendar, Moon, LayoutDashboard, ChevronDown, ChevronUp, X,
-  Settings, Check, MoreHorizontal, Trophy, Star
+  Package, DollarSign, RefreshCw,
+  ShoppingBag,
+  Calendar, ChevronDown, ChevronUp, X,
+  Settings, Check
 } from 'lucide-react'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
@@ -168,6 +167,8 @@ export default function Dashboard() {
     } catch { return [] }
   })
   const [descendiaTab, setDescendiaTab] = useState('normal')
+
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null
 
   useEffect(() => { invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { }) }, [])
 
@@ -309,14 +310,14 @@ export default function Dashboard() {
     { id: 'temporal', label: 'Temporal' },
   ]
 
-  const bountyTabs = [
-    { id: 'holdfasts', label: 'Holdfasts' },
-    { id: 'cavia', label: 'Cavia' },
-    { id: 'hex', label: 'Hex' },
-    { id: 'cetus', label: 'Cetus' },
-    { id: 'deimos', label: 'Deimos' },
-    { id: 'vallis', label: 'Vallis' },
-  ]
+  const bountyTabs = useMemo(() => [
+    { id: 'holdfasts', label: 'Holdfasts', icon: iconSrc('MiniMapZariman') },
+    { id: 'cavia', label: 'Cavia', icon: iconSrc('MiniMapCaviaHubSyndicate') },
+    { id: 'hex', label: 'Hex', icon: iconSrc('MiniMapMarkersJobBoard') },
+    { id: 'cetus', label: 'Cetus', icon: iconSrc('MiniMapEidolonCetusElder') },
+    { id: 'deimos', label: 'Deimos', icon: iconSrc('MiniMapDeimosGrandmother') },
+    { id: 'vallis', label: 'Vallis', icon: iconSrc('MiniMapHubFortuna') },
+  ], [iconsPath])
 
   const renderBounties = () => {
     if (!locationBounties || !bountyCycle) {
@@ -757,13 +758,6 @@ export default function Dashboard() {
       'CET_UPGRADE': 'Upgrade',
       'CET_BIRTHDAY': 'Birthday',
     }
-    const typeIcons = {
-      'CET_CHALLENGE': Target,
-      'CET_REWARD': Package,
-      'CET_UPGRADE': Zap,
-      'CET_BIRTHDAY': Star,
-    }
-
     const goToMonth = (idx) => {
       setSelected1999Month(idx)
       const targetMonth = seasonMonths[idx]
@@ -1052,13 +1046,13 @@ export default function Dashboard() {
   const renderAlerts = () => {
     if (!worldstate?.alerts?.length) return (
       <Card glow className="p-3">
-        <CardHeader icon={Bell} title="Alerts" />
+        <CardHeader imageSrc={iconSrc('Alert')} title="Alerts" />
         <p className="text-xs text-kronos-dim italic text-center py-4">No active alerts…</p>
       </Card>
     )
     return (
       <Card glow className="p-3">
-        <CardHeader icon={Bell} title="Alerts" />
+        <CardHeader imageSrc={iconSrc('Alert')} title="Alerts" />
         <div className="space-y-1.5">
           {worldstate.alerts.map((a, idx) => (
             <div key={idx} className="bg-kronos-panel/40 rounded p-2 border border-transparent hover:border-kronos-accent/20 transition-all">
@@ -1129,9 +1123,11 @@ export default function Dashboard() {
                 <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.item}>{item.item}</p>
                 <div className="flex items-center gap-3 mt-1">
                   <span className="text-[10px] flex items-center gap-1 font-bold text-yellow-400">
+                    {iconSrc('Ducats') && <img src={iconSrc('Ducats')} className="w-3.5 h-3.5 object-contain" alt="" />}
                     {item.ducats} <span className="text-kronos-dim text-[8px] uppercase">Ducats</span>
                   </span>
                   <span className="text-[10px] flex items-center gap-1 font-bold text-blue-400">
+                    {iconSrc('Credits') && <img src={iconSrc('Credits')} className="w-3.5 h-3.5 object-contain" alt="" />}
                     {item.credits.toLocaleString()} <span className="text-kronos-dim text-[8px] uppercase">Credits</span>
                   </span>
                 </div>
@@ -1147,7 +1143,7 @@ export default function Dashboard() {
     if (!worldstate?.events?.length && !worldstate?.globalBoosters?.length) return null
     return (
       <Card glow className="p-3 border-kronos-accent/30">
-        <CardHeader icon={Activity} title="Events" />
+        <CardHeader imageSrc={iconSrc('EventNotificationIcon')} title="Events" />
         <div className="space-y-2.5">
           {/* Global Boosters */}
           {worldstate?.globalBoosters?.map((b, idx) => (
@@ -1337,7 +1333,7 @@ export default function Dashboard() {
         {isVisible('bounty') && (
           <div className="lg:col-span-3">
             <Card glow className="p-3">
-              <CardHeader icon={Shield} title="Bounties" />
+              <CardHeader imageSrc={iconSrc('MiniMapBountySource')} title="Bounties" />
               <Tabs tabs={bountyTabs} activeTab={bountyTab} onChange={setBountyTab} className="mb-2" fullWidth />
               {renderBounties()}
             </Card>
@@ -1348,7 +1344,7 @@ export default function Dashboard() {
         {isVisible('nightwave') && (
           <div className="lg:col-span-3">
             <Card glow className="p-3">
-              <CardHeader icon={Moon} title="Nightwave" />
+              <CardHeader imageSrc={iconSrc('NightwaveIconSimple')} title="Nightwave" />
               {renderNightwave()}
             </Card>
           </div>
@@ -1361,7 +1357,7 @@ export default function Dashboard() {
           {/* World Timers */}
           {isVisible('timers') && timers.length > 0 && (
             <Card glow className="p-3">
-              <CardHeader icon={Clock} title="World Timers" />
+              <CardHeader imageSrc={iconSrc('DailyTimerIcon')} title="World Timers" />
               <div className="grid grid-cols-2 gap-2">
                 {timers.map(({ label, data, getState }) => (
                   <div key={label} className="bg-kronos-panel/40 rounded p-2 flex flex-col gap-0.5">
@@ -1379,7 +1375,7 @@ export default function Dashboard() {
           {/* Arbitration */}
           {isVisible('arb') && (
             <Card glow className="p-3">
-              <CardHeader icon={Coins} title="Arbitration" />
+              <CardHeader imageSrc={iconSrc('EliteAlertIconSimple')} title="Arbitration" />
               {currentArby ? (
                 <div className="space-y-2">
                   <div className="bg-kronos-panel/40 rounded p-2 flex justify-between items-start gap-4">
@@ -1446,7 +1442,10 @@ export default function Dashboard() {
                     <div className="flex items-center gap-1.5 mt-1">
                       <span className="text-sm text-kronos-dim line-through decoration-red-500/50">{deal.originalPrice}</span>
                       <span className="text-sm text-kronos-accent font-black">{deal.salePrice}</span>
-                      <span className="text-sm font-bold text-kronos-text">Platinum</span>
+                      <span className="flex items-center gap-1 text-sm font-bold text-kronos-text">
+                        {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-4 h-4 object-contain" alt="" />}
+                        Platinum
+                      </span>
                       <span className="text-sm text-kronos-dim">(-{deal.discount}%)</span>
                     </div>
 
@@ -1469,7 +1468,7 @@ export default function Dashboard() {
           {/* SP Incursions */}
           {isVisible('inf') && (
             <Card glow className="p-3">
-              <CardHeader icon={Zap} title="SP Incursions" />
+              <CardHeader imageSrc={iconSrc('Difficulty2')} title="SP Incursions" />
               {isVisible('inf') && renderSPIncursions()}
             </Card>
           )}
@@ -1477,7 +1476,7 @@ export default function Dashboard() {
           {/* Sortie */}
           {isVisible('sortie') && worldstate?.sortie && (
             <Card glow className="p-3">
-              <CardHeader icon={Target} title="Sortie" />
+              <CardHeader imageSrc={iconSrc('Sortie')} title="Sortie" />
               <p className="text-sm font-bold text-kronos-accent mb-2 uppercase">{worldstate.sortie.boss}</p>
               <div className="space-y-1.5">
                 {worldstate.sortie.variants.map((v, idx) => (
@@ -1494,8 +1493,13 @@ export default function Dashboard() {
           {/* Archon Hunt */}
           {isVisible('hunt') && worldstate?.archonHunt && (
             <Card glow className="p-3">
-              <CardHeader icon={AlertCircle} title="Archon Hunt" />
-              <p className="text-sm font-bold text-red-400 mb-2 uppercase">{worldstate.archonHunt.boss}</p>
+              <CardHeader imageSrc={iconSrc('FactionNarmer')} title="Archon Hunt" />
+              <div className="flex items-center gap-2 mb-2">
+                {iconSrc(`Archon${worldstate.archonHunt.boss.replace(/[^a-zA-Z0-9]/g, '')}Icon`) && (
+                  <img src={iconSrc(`Archon${worldstate.archonHunt.boss.replace(/[^a-zA-Z0-9]/g, '')}Icon`)} className="w-5 h-5 object-contain" alt="" />
+                )}
+                <p className="text-sm font-bold text-red-400 uppercase">{worldstate.archonHunt.boss}</p>
+              </div>
               <div className="space-y-1.5">
                 {worldstate.archonHunt.missions.map((m, idx) => (
                   <div key={idx} className="bg-kronos-panel/40 rounded p-2">
@@ -1524,7 +1528,7 @@ export default function Dashboard() {
           {/* Archimedea */}
           {isVisible('arch') && (
             <Card glow className="p-3 border-kronos-accent/30">
-              <CardHeader icon={Activity} title="Archimedea" />
+              <CardHeader imageSrc={iconSrc('ConquestHardModeIcon')} title="Archimedea" />
               <Tabs tabs={archimedeaTabs} activeTab={archimedeaTab} onChange={setArchimedeaTab} className="mb-2" fullWidth />
               {renderArchimedea()}
             </Card>
@@ -1534,7 +1538,7 @@ export default function Dashboard() {
           {isVisible('desc') && (
             <Card glow className="p-3">
               <CardHeader
-                icon={LayoutDashboard}
+                imageSrc={iconSrc('MiniMapRoathe')}
                 title="Descendia"
                 action={
                   <button
@@ -1556,7 +1560,7 @@ export default function Dashboard() {
           {/* Duviri Circuit */}
           {isVisible('circuit') && (
             <Card glow className="p-3">
-              <CardHeader icon={Sparkles} title="The Circuit" />
+              <CardHeader imageSrc={iconSrc('DuviriMiniMapThrax')} title="The Circuit" />
               {renderCircuit()}
             </Card>
           )}
@@ -1564,7 +1568,7 @@ export default function Dashboard() {
           {/* 1999 Calendar */}
           {isVisible('1999') && (
             <Card glow className="p-3">
-              <CardHeader icon={Calendar} title="1999 Calendar" />
+              <CardHeader imageSrc={iconSrc('RetroTaskbarCalendarLg')} title="1999 Calendar" />
               {render1999()}
             </Card>
           )}
@@ -1572,7 +1576,7 @@ export default function Dashboard() {
           {/* Void Fissures */}
           {isVisible('fiss') && (
             <Card glow className="p-3">
-              <CardHeader icon={Package} title="Void Fissures" />
+              <CardHeader imageSrc={iconSrc('VoidTearIcon')} title="Void Fissures" />
               <Tabs tabs={fissureTabs} activeTab={fissureTab} onChange={setFissureTab} className="mb-2" fullWidth />
               <div className="space-y-1">
                 {visibleFissures.map((f, idx) => (
@@ -1591,7 +1595,7 @@ export default function Dashboard() {
           {/* Invasions */}
           {isVisible('inv') && worldstate?.invasions?.length > 0 && (
             <Card glow className="p-3">
-              <CardHeader icon={Swords} title="Invasions" />
+              <CardHeader imageSrc={iconSrc('Invasion')} title="Invasions" />
               <div className="space-y-4 mt-4">
                 {worldstate.invasions.filter(i => !i.completed).slice(0, 5).map((inv, idx) => {
                   const completionPercentage = Math.max(0, Math.min(100, inv.completion));
@@ -1615,10 +1619,10 @@ export default function Dashboard() {
 
                       {/* Line 2: Reward Titles */}
                       <div className="flex justify-between mb-1">
-                        <span className="text-[12px] text-white/80 w-1/2 text-left truncate pr-2" title={inv.attacker.rewardText}>
+                        <span className="text-[12px] text-white/80 w-1/2 text-left pr-2" title={inv.attacker.rewardText}>
                           {inv.attacker.rewardText || '\u00A0'}
                         </span>
-                        <span className="text-[12px] text-white/80 w-1/2 text-right truncate pl-2" title={inv.defender.rewardText}>
+                        <span className="text-[12px] text-white/80 w-1/2 text-right pl-2" title={inv.defender.rewardText}>
                           {inv.defender.rewardText || '\u00A0'}
                         </span>
                       </div>
@@ -1670,7 +1674,7 @@ export default function Dashboard() {
           {/* Latest News */}
           {isVisible('news') && worldstate?.news && (
             <Card glow className="p-3">
-              <CardHeader icon={Newspaper} title="Latest News" />
+              <CardHeader imageSrc={iconSrc('News')} title="Latest News" />
               <div className="space-y-2">
                 {worldstate.news.slice(0, 3).map((item, idx) => (
                   <div key={idx} className="text-xs">

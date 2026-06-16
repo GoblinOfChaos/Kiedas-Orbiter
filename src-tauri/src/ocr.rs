@@ -587,6 +587,7 @@ fn score_config(slot_scores: &[f32; 7], indices: &[usize], min_score: f32) -> (f
 /// If `manual` is false, loops until icons found or ICON_SCAN_ACTIVE is cleared.
 pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
     std::thread::spawn(move || {
+        std::thread::sleep(std::time::Duration::from_millis(500));
         let templates = get_templates();
         if templates.is_empty() {
             ocr_log!(&app, "[OCR] WARN: no rarity templates loaded, aborting icon scan");

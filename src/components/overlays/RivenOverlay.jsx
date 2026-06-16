@@ -46,9 +46,58 @@ const STAT_TO_PRICER = {
 }
 
 function cleanStatName(raw) {
-  const cleaned = raw.replace(/[^a-zA-Z0-9 ]/g, '').trim().toLowerCase().replace(/\s+/g, '_')
-  const mapped = STAT_TO_PRICER[raw.trim()]
-  return mapped ? mapped.toLowerCase().replace(/\s+/g, '_') : cleaned
+  if (!raw) return ''
+  const trimmed = raw.trim()
+  // 1. exact match against original
+  const exact = STAT_TO_PRICER[trimmed]
+  if (exact) return exact.toLowerCase().replace(/\s+/g, '_')
+
+  // 2. case-insensitive exact match
+  for (const [key, val] of Object.entries(STAT_TO_PRICER)) {
+    if (trimmed.toLowerCase() === key.toLowerCase()) return val.toLowerCase().replace(/\s+/g, '_')
+  }
+
+  // 3. strip common OCR noise (leading vowels 'a', 'e', etc.) and retry
+  const deNoised = trimmed.replace(/^[aAeEiIoOuU]+/, '')
+  for (const [key, val] of Object.entries(STAT_TO_PRICER)) {
+    if (deNoised.toLowerCase() === key.toLowerCase()) return val.toLowerCase().replace(/\s+/g, '_')
+  }
+
+  // 4. substring: known stat name contained in raw, or raw contained in known name
+  for (const [key, val] of Object.entries(STAT_TO_PRICER)) {
+    const kl = key.toLowerCase()
+    const rl = trimmed.toLowerCase()
+    if (rl.includes(kl) || kl.includes(rl)) return val.toLowerCase().replace(/\s+/g, '_')
+  }
+
+  // 5. fallback: aggressively clean
+  return trimmed
+    .replace(/^[aAeEiIoOuU]+/, '')
+    .replace(/[^a-zA-Z ]/g, '')
+    .trim().toLowerCase().replace(/\s+/g, '_')
+}
+
+/// Returns a human-readable display name for a stat matching the STAT_TO_PRICER keys.
+function displayStatName(raw) {
+  if (!raw) return ''
+  const trimmed = raw.trim()
+  // Try exact case-insensitive match and return the properly-cased key
+  for (const key of Object.keys(STAT_TO_PRICER)) {
+    if (trimmed.toLowerCase() === key.toLowerCase()) return key
+  }
+  // Try with leading vowel stripped (OCR artifact like "AHeat")
+  const deNoised = trimmed.replace(/^[aAeEiIoOuU]+/, '')
+  for (const key of Object.keys(STAT_TO_PRICER)) {
+    if (deNoised.toLowerCase() === key.toLowerCase()) return key
+  }
+  // Try substring match
+  for (const key of Object.keys(STAT_TO_PRICER)) {
+    const kl = key.toLowerCase()
+    const rl = trimmed.toLowerCase()
+    if (rl.includes(kl) || kl.includes(rl)) return key
+  }
+  // Fallback: just clean up the raw OCR text
+  return trimmed.replace(/^[aAeEiIoOuU]+/, '')
 }
 
 function parseRivenOcr(text) {
@@ -64,6 +113,8 @@ function parseRivenOcr(text) {
   const stats = []
   let i = 0
 
+  const GC_GARBAGE = /^(mod|drain|capacity|polarity|roll|reroll|counter|rerolls|riven)$/i
+
   while (i < parts.length) {
     const p = parts[i]
     if (/^MR\s/i.test(p)) {
@@ -74,11 +125,25 @@ function parseRivenOcr(text) {
       rolls = parseInt(p)
       i++; continue
     }
-    if (/^[+-]\s*[\d.,]+%?/.test(p)) break
+    if (/^[+\-xX]\s*[\d.,]+[x%]?/.test(p)) break
+    if (GC_GARBAGE.test(p)) { i++; continue }
     if (weaponName) weaponName += ' ' + p
     else weaponName = p
     i++
   }
+
+  // Clean any remaining garbage from the weapon name (e.g. "MOD DRAIN" as one part)
+  weaponName = weaponName
+    // Strip leading mod-drain number (e.g. "18-Aksomati" → "Aksomati")
+    .replace(/^\d+\s*[-–—]\s*/, '')
+    .replace(/\s+(mod(\s+drain)?|drain|capacity|polarity)\s*\d*/gi, '')
+    .replace(/\s+(roll(\s+counter)?|counter|reroll|rerolls)\s*\d*/gi, '')
+    .replace(/\s+riven\s*$/i, '')
+    .replace(/\s*\(.*?\)\s*/g, '')
+    .trim()
+
+  // Build a quick lookup of known stat names (lowercase)
+  const KNOWN_STAT_NAMES = new Set(Object.keys(STAT_TO_PRICER).map(k => k.toLowerCase()))
 
   // Phase 2: parse stat pairs (value followed by name parts)
   let pendingValue = null
@@ -101,14 +166,16 @@ function parseRivenOcr(text) {
       continue
     }
 
-    if (/^[+-]\s*[\d.,]+%?/.test(p)) {
+    if (/^[+\-xX]\s*[\d.,]+[x%]?/.test(p)) {
       flushStat()
-      const m = p.match(/^([+-]\s*[\d.,]+%?)\s*(.*)/)
+      const m = p.match(/^([+\-xX]\s*[\d.,]+[x%]?)\s*(.*)/)
       pendingValue = m ? m[1].replace(/\s+/g, '').replace(',', '.') : p.replace(/\s+/g, '')
       pendingName = m ? m[2].trim() : ''
       i++
       continue
     }
+
+    if (GC_GARBAGE.test(p)) { i++; continue }
 
     if (/^\(?x\d/i.test(p) || /[x×]\d/i.test(p) || /^for\s/i.test(p) || /^heavy/i.test(p)) {
       if (pendingName) pendingName += ' ' + p
@@ -119,6 +186,16 @@ function parseRivenOcr(text) {
     if (/^\d+$/.test(p)) {
       rolls = parseInt(p)
       i++; continue
+    }
+
+    // If this part is a known stat name and we already have a stat in progress,
+    // flush it so the known name starts a new stat (handles missing value separators).
+    const pl = p.toLowerCase().replace(/^[^a-zA-Z]+/, '').replace(/[^a-zA-Z]+$/, '')
+    if (pl && KNOWN_STAT_NAMES.has(pl) && pendingName && pendingValue !== null) {
+      flushStat()
+      pendingName = p
+      i++
+      continue
     }
 
     if (pendingName) pendingName += ' ' + p
@@ -155,30 +232,79 @@ export default function RivenOverlay() {
 
   function extractWeaponName(ocrName, known) {
     if (!ocrName) return ''
-    const lower = ocrName.toLowerCase()
-    for (const w of known) {
-      if (lower === w.toLowerCase()) return w
+    // Strip common garbage suffixes: mod drain, capacity, polarity, reroll counter, etc.
+    let cleaned = ocrName
+      .replace(/\s+(mod(\s+drain)?|drain|capacity|polarity)\s*\d*$/i, '')
+      .replace(/\s+(roll(\s+counter)?|counter|reroll|rerolls)\s*\d*$/i, '')
+      .replace(/\s+riven$/i, '')
+      .replace(/\s*\(.*?\)\s*$/, '')
+      .trim()
+    if (!cleaned) cleaned = ocrName
+    const lower = cleaned.toLowerCase()
+
+    // Helper: try to match `lower` against known weapons, return longest match or null
+    const tryMatch = (str) => {
+      // 1. exact match
+      for (const w of known) {
+        if (str === w.toLowerCase()) return w
+      }
+      // 2. longest prefix match
+      let best = ''
+      for (const w of known) {
+        if (str.startsWith(w.toLowerCase()) && w.length > best.length) {
+          best = w
+        }
+      }
+      if (best) return best
+      // 3. longest substring match
+      for (const w of known) {
+        const wl = w.toLowerCase()
+        if (str.includes(wl) && w.length > best.length) {
+          best = w
+        }
+      }
+      return best || null
     }
-    let best = ''
-    for (const w of known) {
-      if (lower.startsWith(w.toLowerCase()) && w.length > best.length) {
-        best = w
+
+    const direct = tryMatch(lower)
+    if (direct) return direct
+
+    // Try with leading number+hyphen stripped (mod drain "18-" prefix)
+    const noPrefix = lower.replace(/^\d+\s*[-–—]\s*/, '')
+    if (noPrefix !== lower) {
+      const unprefixed = tryMatch(noPrefix)
+      if (unprefixed) return unprefixed
+      // Also try each known weapon without its number prefix
+      for (const w of known) {
+        const wl = w.toLowerCase()
+        const wNoPrefix = wl.replace(/^\d+\s*[-–—]\s*/, '')
+        if (wNoPrefix !== wl && noPrefix === wNoPrefix) return w
       }
     }
-    if (best) return best
-    const words = ocrName.trim().split(/\s+/)
-    if (words.length > 1) {
+
+    // 4. iterative suffix strip: keep popping words until we find a known name
+    const words = cleaned.trim().split(/\s+/)
+    while (words.length > 1) {
       words.pop()
-      return words.join(' ')
+      const trial = words.join(' ').toLowerCase()
+      const matched = tryMatch(trial)
+      if (matched) return matched
+      // Also try no-prefix variant
+      const trialNoPrefix = trial.replace(/^\d+\s*[-–—]\s*/, '')
+      if (trialNoPrefix !== trial) {
+        const matched2 = tryMatch(trialNoPrefix)
+        if (matched2) return matched2
+      }
     }
-    return ocrName
+    // 5. last resort: return first word only (with number prefix stripped)
+    return cleaned.trim().split(/\s+/)[0].replace(/^\d+\s*[-–—]\s*/, '') || cleaned
   }
 
   const doPricing = useCallback((p) => {
     if (!p || !p.stats.length) { setEstimatedPrice(null); setRivenInfo(null); return }
     const weaponName = extractWeaponName(p.name || '', knownWeaponsRef.current)
     const pos = p.stats.filter(s => !s.value.startsWith('-')).map(s => cleanStatName(s.name))
-    const neg = p.stats.filter(s => s.value.startsWith('-')).map(s => cleanStatName(s.name))
+    const neg = p.stats.filter(s => s.value.startsWith('-') || /^x/i.test(s.value)).map(s => cleanStatName(s.name))
 
     console.log('[PRICER] weaponName:', weaponName)
     console.log('[PRICER] pos:', pos)
@@ -309,6 +435,8 @@ export default function RivenOverlay() {
 
   const posClass = (v) => {
     if (!v) return 'text-kronos-text'
+    // x-prefixed values (e.g. "x0.65") are negative modifiers
+    if (/^x/i.test(v)) return 'text-red-400'
     const num = parseFloat(v)
     if (num > 0) return 'text-green-400'
     if (num < 0) return 'text-red-400'
@@ -317,7 +445,8 @@ export default function RivenOverlay() {
 
   const fmtVal = (v) => {
     if (!v) return ''
-    return v.startsWith('+') || v.startsWith('-') ? v : '+' + v
+    if (v.startsWith('+') || v.startsWith('-') || /^x/i.test(v)) return v
+    return '+' + v
   }
 
   return (
@@ -352,7 +481,7 @@ export default function RivenOverlay() {
                 {parsed.stats.map((s, i) => (
                   <div key={i} className="flex justify-between items-center text-[10px] leading-tight group">
                     <div className="flex items-center gap-1.5 flex-1 min-w-0 mr-2">
-                      <span className="text-kronos-text truncate drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">{s.name}</span>
+                      <span className="text-kronos-text truncate drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">{displayStatName(s.name)}</span>
                       <span className="text-[11px] font-black px-1 rounded bg-white/5 text-kronos-dim opacity-0 group-hover:opacity-100 transition-opacity">?</span>
                     </div>
                     <span className={`font-bold whitespace-nowrap drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)] ${posClass(s.value)}`}>{fmtVal(s.value)}</span>

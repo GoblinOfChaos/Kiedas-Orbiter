@@ -251,8 +251,8 @@ pub fn estimate_price(input: &RivenInput) -> Option<f32> {
 }
 
 pub fn estimate_full(input: &RivenInput) -> Option<RivenFullEstimate> {
-    eprintln!("[PRICER] input weapon_name='{}' positive1={:?} positive2={:?} negative={:?}", 
-    input.weapon_name, input.positive1, input.positive2, input.negative);
+    eprintln!("[PRICER] input weapon_name='{}' positive1={:?} positive2={:?} positive3={:?} negative={:?}", 
+    input.weapon_name, input.positive1, input.positive2, input.positive3, input.negative);
     let pricer = get_pricer()?;
     let (price, _) = run_inference(pricer, input)?;
 

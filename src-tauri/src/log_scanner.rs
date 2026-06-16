@@ -450,42 +450,61 @@ fn line_hash(s: &str) -> u64 {
 }
 
 fn is_warframe_running() -> bool {
+    get_warframe_pid().is_some()
+}
+
+/// Returns the PID of the first Warframe.x64.exe process found, if any.
+fn get_warframe_pid() -> Option<u32> {
     #[cfg(target_os = "windows")]
     {
         use std::os::windows::process::CommandExt;
         if let Ok(output) = std::process::Command::new("tasklist")
-            .args(["/FI", "IMAGENAME eq Warframe.x64.exe", "/NH"])
+            .args(["/FI", "IMAGENAME eq Warframe.x64.exe", "/NH", "/FO", "CSV"])
             .creation_flags(0x08000000)
             .output()
         {
             let stdout = String::from_utf8_lossy(&output.stdout);
-            if stdout.contains("Warframe.x64.exe") {
-                return true;
+            // CSV format: "Warframe.x64.exe","1234","Console","1","xxx,xxx K"
+            for line in stdout.lines() {
+                let line = line.trim();
+                if line.is_empty() { continue; }
+                let fields: Vec<&str> = line.split(',').collect();
+                if fields.len() >= 2 {
+                    let pid_str = fields[1].trim_matches('"');
+                    if let Ok(pid) = pid_str.parse::<u32>() {
+                        return Some(pid);
+                    }
+                }
             }
         }
-        false
+        None
     }
     #[cfg(target_os = "linux")]
     {
         if let Ok(pids) = std::fs::read_dir("/proc") {
             for entry in pids.flatten() {
                 let pid = entry.file_name();
-                if !pid.to_string_lossy().chars().all(|c| c.is_ascii_digit()) { continue; }
+                let pid_str = pid.to_string_lossy();
+                if !pid_str.chars().all(|c| c.is_ascii_digit()) { continue; }
                 let comm_path = std::path::Path::new("/proc").join(&pid).join("comm");
                 if let Ok(comm) = std::fs::read_to_string(&comm_path) {
-                    if comm.contains("Warframe") || comm.contains("warframe.exe") || comm.contains("warframe") {
-                        return true;
+                    if comm.contains("Warframe") || comm.contains("warframe") {
+                        if let Ok(pid_num) = pid_str.parse::<u32>() {
+                            return Some(pid_num);
+                        }
                     }
                 }
                 let cmd_path = std::path::Path::new("/proc").join(&pid).join("cmdline");
                 if let Ok(cmd) = std::fs::read_to_string(&cmd_path) {
-                    if cmd.contains("Warframe") || cmd.contains("warframe.exe") || cmd.contains("warframe") {
-                        return true;
+                    if cmd.contains("Warframe") || cmd.contains("warframe") {
+                        if let Ok(pid_num) = pid_str.parse::<u32>() {
+                            return Some(pid_num);
+                        }
                     }
                 }
             }
         }
-        false
+        None
     }
     #[cfg(target_os = "macos")]
     {
@@ -495,10 +514,15 @@ fn is_warframe_running() -> bool {
             .output()
         {
             if output.status.success() {
-                return true;
+                let stdout = String::from_utf8_lossy(&output.stdout);
+                if let Some(pid_str) = stdout.lines().next() {
+                    if let Ok(pid) = pid_str.trim().parse::<u32>() {
+                        return Some(pid);
+                    }
+                }
             }
         }
-        false
+        None
     }
 }
 
@@ -573,6 +597,37 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
             };
             let mut buf = Vec::new();
             let mut first_data = true;
+            // On Windows, ReadProcessMemory can succeed on a terminated process
+            // (pages linger until freed), so the helper never detects Warframe
+            // closed.  We track the PID we hooked into and re-verify it
+            // periodically — if the PID changed (launcher->game transition, or
+            // process died) we force a restart so the helper re-discovers the
+            // real buffer.
+            let mut hooked_pid: Option<u32> = None;
+            // Throttle PID checks to avoid calling tasklist every 150ms.
+            let mut pid_check_count: u32 = 0;
+
+            // When Warframe starts *after* the app, the helper finds the process
+            // but discovelogBuffer may return nothing (EE.log ring buffer isn't
+            // populated yet).  The helper silently retries with a 5s sleep without
+            // writing anything to stdout, so read_exact would block forever.
+            // Use a timed byte-at-a-time read instead.
+            fn timed_read(reader: &mut impl std::io::Read, buf: &mut [u8], timeout: std::time::Duration) -> std::io::Result<()> {
+                let start = std::time::Instant::now();
+                let mut offset = 0;
+                while offset < buf.len() {
+                    if start.elapsed() >= timeout {
+                        return Err(std::io::Error::new(std::io::ErrorKind::TimedOut, "timeout"));
+                    }
+                    match reader.read(&mut buf[offset..]) {
+                        Ok(0) => return Err(std::io::Error::new(std::io::ErrorKind::UnexpectedEof, "eof")),
+                        Ok(n) => offset += n,
+                        Err(e) if e.kind() == std::io::ErrorKind::Interrupted => continue,
+                        Err(e) => return Err(e),
+                    }
+                }
+                Ok(())
+            }
 
             loop {
                 if !IS_SCANNING.load(Ordering::SeqCst) {
@@ -580,9 +635,33 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     break;
                 }
 
+                // Periodically verify the Warframe process is still alive and
+                // hasn't changed PIDs (launcher->game transition).
+                pid_check_count += 1;
+                if pid_check_count >= 200 {  // ~30s at 150ms per batch
+                    pid_check_count = 0;
+                    if let Some(expected_pid) = hooked_pid {
+                        if let Some(current_pid) = get_warframe_pid() {
+                            if current_pid != expected_pid {
+                                crate::logger::log_to_disk(&app_inner, &format!(
+                                    "[MEMORY WATCHER] Warframe PID changed ({} -> {}), restarting helper...",
+                                    expected_pid, current_pid
+                                ));
+                                let _ = child.kill();
+                                break;
+                            }
+                        } else {
+                            crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Warframe process gone, restarting helper...");
+                            let _ = child.kill();
+                            break;
+                        }
+                    }
+                }
+
                 let mut len_buf = [0u8; 4];
-                if reader.read_exact(&mut len_buf).is_err() {
-                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Helper stream ended, restarting...");
+                const READ_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(15);
+                if let Err(e) = timed_read(&mut reader, &mut len_buf, READ_TIMEOUT) {
+                    crate::logger::log_to_disk(&app_inner, &format!("[MEMORY WATCHER] Helper read error ({}), restarting...", e));
                     let _ = child.kill();
                     break;
                 }
@@ -611,8 +690,11 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 }
 
                 buf.resize(data_len, 0);
-                if reader.read_exact(&mut buf).is_err() {
-                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Read error, restarting helper...");
+                // Data payload should arrive immediately after the length prefix,
+                // but use a short timeout for robustness.
+                const PAYLOAD_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(5);
+                if let Err(e) = timed_read(&mut reader, &mut buf, PAYLOAD_TIMEOUT) {
+                    crate::logger::log_to_disk(&app_inner, &format!("[MEMORY WATCHER] Payload read error ({}), restarting...", e));
                     let _ = child.kill();
                     break;
                 }
@@ -621,8 +703,8 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Hooked into Warframe RAM! Backfill - dedup seeding, firing immediate-state events.");
                     SCANNER_STATUS.store(2, Ordering::SeqCst);
                     logged_waiting = false;
-                    app_inner.emit("scanner-hooked", ()).unwrap_or_default();
                     first_data = false;
+                    hooked_pid = get_warframe_pid();
                     let text = String::from_utf8_lossy(&buf);
                     for line in text.split('\n') {
                         let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
@@ -630,9 +712,29 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                         if !line.starts_with(|c: char| c.is_ascii_digit()) { continue; }
                         let hash = line_hash(line);
                         seen_set.insert(hash);
-                        // Always fire events during backfill — if the helper restarted
-                        // mid-mission we don't want to miss a "Relic rewards initialized".
+                        // Fire state-tracking events so mid-mission restarts catch up,
+                        // but skip overlay-triggering events (riven screen, UI dialogs)
+                        // that would open stale windows.
+                        let trimmed = line.trim();
+                        if trimmed.contains("OmegaRerollSelection.lua: Diorama setup")
+                            || trimmed.contains("ThemedDetailedPurchaseDialog.lua: PopulateInfo->")
+                            || trimmed.contains("ThemedDetailedPurchaseDialog.lua: DBG: HudVis")
+                            || trimmed.contains("Dialog.lua:")
+                            || trimmed.contains("CancelJobs batchcount 0")
+                            || trimmed.contains("NpcManager::ClearAgents()")
+                            || trimmed.contains("ChatRedux.lua: Chat: Filters for")
+                            || trimmed.contains("ProjectionRewardChoice.lua: Relic reward screen shut down")
+                        {
+                            continue;
+                        }
                         scanner.on_line(&app_inner, line);
+                    }
+                    // Only emit scanner-hooked once per app session, not on every
+                    // helper restart, to avoid spamming the notification.
+                    static EVER_HOOKED: std::sync::atomic::AtomicBool =
+                        std::sync::atomic::AtomicBool::new(false);
+                    if !EVER_HOOKED.swap(true, std::sync::atomic::Ordering::SeqCst) {
+                        app_inner.emit("scanner-hooked", ()).unwrap_or_default();
                     }
                     continue;
                 }

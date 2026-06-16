@@ -141,7 +141,7 @@ function GradeBadge({ grade, className = "" }) {
 // ── Main component ─────────────────────────────────────────────────────────────
 export default function Dashboard() {
   const {
-    exportData, spIncursions, arbys, descendiaDescs, archonModifiers,
+    exportData, spIncursions, arbys, archonModifiers,
     dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, arbyTiers,
     rawInventory, inventoryData, ES, ENWRawRewards, ExportImages,
   } = useMonitoring()
@@ -921,8 +921,6 @@ export default function Dashboard() {
         </div>
         <div className="space-y-1 max-h-[280px] overflow-y-auto custom-scrollbar pr-1">
           {current.stages.map((s) => {
-            const penanceDesc = descendiaDescs.penance[s.penanceRaw] || null
-            const missionDesc = descendiaDescs.missionType[s.missionTypeRaw] || null
             const isSpecial = s.isMarie || s.isLyon || s.isBoss
 
             if (s.isMarie) {
@@ -962,23 +960,11 @@ export default function Dashboard() {
             return (
               <div key={s.index} className="p-1.5 rounded bg-kronos-panel/30 flex items-center gap-1.5">
                 <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
-                <div className={`relative group/desc flex-1 min-w-0 p-1 rounded bg-kronos-panel/40 ${missionDesc ? 'cursor-help' : ''}`}>
+                <div className="flex-1 min-w-0 p-1 rounded bg-kronos-panel/40">
                   <p className="text-[10px] font-bold text-kronos-text uppercase">{s.missionType}</p>
-                  {missionDesc && (
-                    <div className="absolute left-0 bottom-full mb-1 w-64 p-3 bg-kronos-panel rounded-lg text-[11px] opacity-0 group-hover/desc:opacity-100 transition-opacity z-50 shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/5 pointer-events-none">
-                      <p className="text-kronos-accent font-bold mb-1">{s.missionType}</p>
-                      <p className="text-kronos-text/80">{missionDesc}</p>
-                    </div>
-                  )}
                 </div>
-                <div className={`relative group/desc2 flex-1 min-w-0 p-1 rounded bg-kronos-panel/20 ${penanceDesc ? 'cursor-help' : ''}`}>
+                <div className="flex-1 min-w-0 p-1 rounded bg-kronos-panel/20">
                   <p className="text-[10px] text-kronos-dim uppercase">{s.penance}</p>
-                  {penanceDesc && (
-                    <div className="absolute right-0 bottom-full mb-1 w-64 p-3 bg-kronos-panel rounded-lg text-[11px] opacity-0 group-hover/desc2:opacity-100 transition-opacity z-50 shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/5 pointer-events-none">
-                      <p className="text-kronos-accent font-bold mb-1">{s.penance}</p>
-                      <p className="text-kronos-text/80">{penanceDesc}</p>
-                    </div>
-                  )}
                 </div>
               </div>
             )

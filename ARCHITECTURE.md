@@ -255,7 +255,6 @@ export/
   supp-dict-en.json             supplementary oracle dictionary
   arbys.txt                     arbitration data (every 6h)
   sp-incursions.txt             Steel Path incursions (every 6h)
-  descendia.txt                 roathe descendia parsing dict
   exampleworldstate.txt         example API response
   KWinRule.kwinrule             KDE window rule for overlays
 

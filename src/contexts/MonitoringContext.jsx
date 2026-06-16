@@ -181,7 +181,7 @@ export function MonitoringProvider({ children }) {
   const [statusText, setStatusText] = useState('Initializing…')
   const [spIncursions, setSpIncursions] = useState(null)
   const [arbys, setArbys] = useState(null)
-  const [descendiaDescs, setDescendiaDescs] = useState({ penance: {}, missionType: {} })
+
   const [archonModifiers, setArchonModifiers] = useState(null)
   const intervalRef = useRef(null)
   const busyRef = useRef(false)
@@ -445,11 +445,10 @@ export function MonitoringProvider({ children }) {
         ])
 
         setStatusText('Loading resources…')
-        const [exports, spiText, arbText, descText] = await Promise.all([
+        const [exports, spiText, arbText] = await Promise.all([
           invoke('load_all_exports'),
           invoke('load_txt_file', { name: 'sp-incursions.txt' }),
           invoke('load_txt_file', { name: 'arbys.txt' }),
-          invoke('load_txt_file', { name: 'descendia.txt' }),
         ])
 
         // Temporary: use patched exports with levelStats until upstream ships them
@@ -474,31 +473,6 @@ export function MonitoringProvider({ children }) {
         setSpIncursions(spiText || '')
         setArbys(arbText || '')
 
-        // Parse Descendia descriptions
-        if (descText) {
-          const penance = {}
-          const missionType = {}
-          let currentSection = null
-          descText.split('\n').forEach(line => {
-            const trimmed = line.trim()
-            if (!trimmed || trimmed.startsWith('#')) return
-            if (trimmed.startsWith('# Mission')) {
-              currentSection = 'missionType'
-              return
-            }
-            const colonIdx = trimmed.indexOf(':')
-            if (colonIdx > 0) {
-              const key = trimmed.slice(0, colonIdx)
-              const desc = trimmed.slice(colonIdx + 1).trim()
-              if (currentSection === 'missionType') {
-                missionType[key] = desc
-              } else {
-                penance[key] = desc
-              }
-            }
-          })
-          setDescendiaDescs({ penance, missionType })
-        }
 
         setStatusText('Loading inventory…')
         const result = await invoke('load_cached_inventory')
@@ -903,7 +877,7 @@ export function MonitoringProvider({ children }) {
 
   return (
     <MonitoringContext.Provider value={{
-      exportData, spIncursions, arbys, descendiaDescs, archonModifiers,
+      exportData, spIncursions, arbys, archonModifiers,
       dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
       masteryProgress, allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices,

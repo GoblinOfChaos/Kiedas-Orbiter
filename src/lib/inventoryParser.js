@@ -1437,6 +1437,10 @@ export function parseInventory(raw, exports) {
     if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/')) continue;
     primeItemCounts.set(un, item.ItemCount ?? 1);
   }
+  for (const item of (raw.Recipes ?? [])) {
+    const un = item.ItemType ?? '';
+    primeItemCounts.set(un, item.ItemCount ?? 1);
+  }
 
   // Find all prime weapon/warframe recipes and build sets
   const seenPrimeSets = new Set();
@@ -1473,15 +1477,34 @@ export function parseInventory(raw, exports) {
 
     // Add prime components from recipe ingredients (exclude resources like orokin cells)
     const isPrimeComponent = (name) => /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum|Guard|Hilt)/i.test(name);
+    const ingredientMap = new Map();
     for (const ing of (recipe.ingredients ?? [])) {
       const ingName = resolveName(ing.ItemType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
-
-      // Skip resources - only include prime components
       if (!isPrimeComponent(ingName)) continue;
-
-      const ownedQty = primeItemCounts.get(ing.ItemType) ?? 0;
-      setParts.push({ unique_name: ing.ItemType, name: ingName, image: resolveImage(ing.ItemType, EW, ER, ERel), quantity: ownedQty, owned: ownedQty > 0, need: ing.ItemCount ?? 1 });
-      if (ownedQty > 0) ownedCount += ownedQty;
+      const key = ing.ItemType;
+      if (ingredientMap.has(key)) {
+        ingredientMap.get(key).need += ing.ItemCount ?? 1;
+      } else {
+        ingredientMap.set(key, { ItemType: key, name: ingName, image: resolveImage(key, EW, ER, ERel), need: ing.ItemCount ?? 1 });
+      }
+    }
+    for (const [, data] of ingredientMap) {
+      let craftedQty = 0, bpQty = 0;
+      if (data.ItemType.includes('Component')) {
+        const bpKey = data.ItemType.replace('Component', 'Blueprint');
+        craftedQty = primeItemCounts.get(data.ItemType) ?? 0;
+        bpQty = primeItemCounts.get(bpKey) ?? 0;
+        if (bpQty === 0) {
+          const leaf = bpKey.split('/').pop();
+          for (const [key, count] of primeItemCounts) {
+            if (key.endsWith('/' + leaf)) { bpQty = count; break; }
+          }
+        }
+      } else {
+        bpQty = primeItemCounts.get(data.ItemType) ?? 0;
+      }
+      setParts.push({ unique_name: data.ItemType, name: data.name, image: data.image, quantity: bpQty, crafted: craftedQty, owned: bpQty > 0 || craftedQty > 0, need: data.need });
+      if (bpQty > 0 || craftedQty > 0) ownedCount += 1;
       totalCount += 1;
     }
 
@@ -2052,7 +2075,7 @@ export function parseInventory(raw, exports) {
         if (!showBP) return;
 
         // Get count of this BP owned
-        const bpCount = ownedItemCounts[bpKey] ?? 0;
+        const bpCount = primeItemCounts.get(bpKey) ?? 0;
 
         const baseName = resultName.replace(' Blueprint', '').replace(' Prime', ' Prime');
 
@@ -2100,10 +2123,10 @@ export function parseInventory(raw, exports) {
           const isComponent = ing.ItemType.includes('Component');
           if (isComponent) {
             // Crafted component count
-            have = ownedItemCounts[ing.ItemType] ?? 0;
+            have = primeItemCounts.get(ing.ItemType) ?? 0;
             // Blueprint count (separate)
             const bpKey = ing.ItemType.replace('Component', 'Blueprint');
-            bpOwned = ownedItemCounts[bpKey] ?? 0;
+            bpOwned = primeItemCounts.get(bpKey) ?? 0;
 
             // Check if component blueprint is ready to craft
             const bpRecipe = ERecipe?.[bpKey];

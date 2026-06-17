@@ -987,7 +987,7 @@ export default function Inventory() {
                 const isPrimePart = item.category === 'prime_parts'
                 const isModOrResource = ['mods', 'resources', 'arcanes'].includes(item.category)
                 return (
-                  <Card key={item.unique_name + idx} glow={!isUnowned} className={`relative p-0 overflow-hidden flex h-40 group transition-all duration-300 ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
+                  <Card key={item.unique_name + idx} glow={!isUnowned} className={`relative p-0 overflow-hidden flex min-h-40 group transition-all duration-300 ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
 
                     {/* Image column */}
                     <div className={`w-32 flex-shrink-0 relative overflow-hidden border-r border-white/5 flex items-center justify-center ${isModFrame(item) ? '' : 'bg-kronos-panel/30 p-3'}`}>

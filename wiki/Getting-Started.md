@@ -5,7 +5,7 @@
 1. Go to the [releases page](https://github.com/glowseeker/cephalon-kronos/releases/latest).
 2. Download the package for your OS:
    - **Windows**: `.exe` installer
-   - **Linux**: `.AppImage`
+   - **Linux**: `.AppImage` or `.deb`
    - **macOS**: `.dmg`
 3. If .exe, go through setup, else put into own folder.
 4. Launch Cephalon Kronos.

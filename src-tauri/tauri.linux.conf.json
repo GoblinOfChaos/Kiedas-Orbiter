@@ -11,6 +11,14 @@
       "data/bin/pricer-models/**/*",
       "data/bin/warframe-api-helper",
       "data/bin/Warframe-Exporter-CLI*"
-    ]
+    ],
+    "deb": {
+      "depends": [
+        "libwebkit2gtk-4.1-0",
+        "libjavascriptcoregtk-4.1-0",
+        "libavif16",
+        "libsharpyuv0"
+      ]
+    }
   }
 }

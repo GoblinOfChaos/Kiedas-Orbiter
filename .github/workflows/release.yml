@@ -59,7 +59,9 @@ jobs:
             libarchive-dev \
             libicu-dev \
             libcap-dev \
-            libayatana-appindicator3-dev
+            libayatana-appindicator3-dev \
+            squashfs-tools \
+            fuse
 
       - name: Build API Helper (Linux)
         if: matrix.platform == 'ubuntu-24.04'
@@ -144,6 +146,68 @@ jobs:
           releaseDraft: true
           prerelease: false
           uploadPlainBinary: true
+
+      # Strip ABI-volatile libs from the AppImage that cause symbol conflicts on
+      # rolling-release distros (Arch/CachyOS). webkit2gtk and javascriptcoregtk
+      # are Tauri-documented runtime deps so every Linux user has them.
+      # libavif+libsharpyuv must be matched to the system Mesa/codec chain or
+      # eglGetPlatformDisplayEXT fails with EGL_BAD_PARAMETER.
+      - name: Patch AppImage - strip conflicting system libs
+        if: matrix.platform == 'ubuntu-24.04'
+        shell: bash
+        env:
+          TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+        run: |
+          TAG="${{ github.ref_name }}"
+          VERSION="${TAG#v}"
+          APPIMAGE="src-tauri/target/release/bundle/appimage/Cephalon-Kronos_${VERSION}_amd64.AppImage"
+
+          # Download appimagetool for repacking
+          curl -fsSL "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage" \
+            -o /tmp/appimagetool
+          chmod +x /tmp/appimagetool
+
+          # Extract
+          mkdir -p /tmp/appimage-patch
+          cd /tmp/appimage-patch
+          "$GITHUB_WORKSPACE/$APPIMAGE" --appimage-extract > /dev/null 2>&1
+
+          # Strip libs that must come from the system to match its EGL/codec ABI.
+          # webkit2gtk + javascriptcoregtk: required system deps per Tauri docs.
+          # libavif + libsharpyuv: must be a matched pair with system Mesa.
+          LIBS=(
+            "libwebkit2gtk-4.1.so.0"
+            "libjavascriptcoregtk-4.1.so.0"
+            "libavif.so.16"
+            "libsharpyuv.so.0"
+          )
+          for lib in "${LIBS[@]}"; do
+            find squashfs-root -name "$lib" -delete && echo "Removed $lib" || echo "Not found: $lib"
+          done
+
+          # Repack
+          PATCHED="/tmp/Cephalon-Kronos_${VERSION}_amd64.AppImage"
+          /tmp/appimagetool --comp gzip squashfs-root "$PATCHED" 2>&1
+          chmod +x "$PATCHED"
+
+          # Sign with Tauri updater key
+          cargo tauri signer sign \
+            --private-key "$TAURI_PRIVATE_KEY" \
+            --password "$TAURI_KEY_PASSWORD" \
+            "$PATCHED"
+
+          # Replace original in bundle dir so gh release upload picks it up
+          cp "$PATCHED" "$GITHUB_WORKSPACE/$APPIMAGE"
+          cp "${PATCHED}.sig" "$GITHUB_WORKSPACE/${APPIMAGE}.sig"
+
+          # Upload patched AppImage + new sig, replacing what tauri-action uploaded
+          gh release upload "$TAG" \
+            "$GITHUB_WORKSPACE/$APPIMAGE" \
+            "$GITHUB_WORKSPACE/${APPIMAGE}.sig" \
+            --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   generate-updater-json:
     if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}

@@ -598,7 +598,7 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
         let start_time = std::time::Instant::now();
         const MANUAL_TIMEOUT_SECS: u64 = 5;
         // Give the OCR at least 4 attempts (~1.6s) before honouring an
-        // ICON_SCAN_ACTIVE clear — the reward screen can close very quickly
+        // ICON_SCAN_ACTIVE clear - the reward screen can close very quickly
         // for round 2+ in endless missions (Step 5 races against Step 4),
         // and we want to guarantee at least a few detection passes.
         const MIN_ATTEMPTS_BEFORE_YIELD: u32 = 4;

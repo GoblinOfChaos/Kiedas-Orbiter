@@ -28,8 +28,7 @@
             <div class="nav-links">
                 <a href="#showcase">Features</a>
                 <a href="#wiki">FAQ</a>
-                <a href="https://github.com/glowseeker/cephalon-kronos" class="github-link" target="_blank">GitHub
-                    Repo</a>
+                <a href="https://github.com/glowseeker/cephalon-kronos" class="github-link" target="_blank">GitHub</a>
             </div>
         </div>
     </nav>
@@ -38,13 +37,14 @@
     <header class="hero">
         <div class="hero-content">
             <h1><span class="text-gradient">Cephalon Kronos</span></h1>
-            <p>An open-source, cross-platform companion app for Warframe to track your inventory, relics and rivens,
-                monitor foundry
-                progress and stay up to date with the worldstate. </p>
+            <p>The open-source, cross-platform Warframe companion. <br> Track everything from inventory to collectibles
+                with worldstate data at a glance.
+                <br> Fetch market prices for everything tradeable, with overlays & notifications.
+            </p>
             <div class="hero-actions">
-                <a href="https://github.com/glowseeker/cephalon-kronos/releases/latest" class="btn btn-primary">Download
-                    Latest Release</a>
-                <a href="#wiki" class="btn btn-secondary">Read the Wiki</a>
+                <a href="https://github.com/glowseeker/cephalon-kronos/releases/latest" class="btn btn-primary">Latest
+                    Release</a>
+                <a href="#wiki" class="btn btn-secondary">Visit the Wiki</a>
                 <a href="https://discord.gg/9GjkZ9aXwy" class="btn btn-discord" target="_blank">
                     <svg viewBox="0 0 127.14 96.36" width="20" height="20"
                         style="margin-right: 8px; fill: currentColor;">
@@ -59,95 +59,113 @@
 
     <!-- Showcase Section -->
     <section id="showcase" class="showcase">
-        <h2><span class="text-gradient">Features</span></h2>
+        <h2><span class="text-gradient">Features (subject to update)</span></h2>
         <div class="wiki-container">
             <div class="wiki-sidebar">
                 <button class="wiki-tab active" data-target="dashboard">Dashboard</button>
                 <button class="wiki-tab" data-target="inventory">Inventory</button>
+                <button class="wiki-tab" data-target="mods">Mods</button>
                 <button class="wiki-tab" data-target="rivens">Rivens</button>
                 <button class="wiki-tab" data-target="relics">Relics</button>
                 <button class="wiki-tab" data-target="mastery">Mastery</button>
                 <button class="wiki-tab" data-target="notes">Notes</button>
                 <button class="wiki-tab" data-target="maps">Maps</button>
+                <button class="wiki-tab" data-target="collectibles">Collectibles</button>
                 <button class="wiki-tab" data-target="checklist">Checklist</button>
                 <button class="wiki-tab" data-target="settings">Settings</button>
             </div>
             <div class="wiki-content">
-                <div id="inventory" class="wiki-panel">
-                    <h3>Inventory</h3>
-                    <p>Comb through your automatically updated inventory with filters and track pending items in your
-                        foundry.</p>
-                    <div class="feature-image">
-                        <img src="screenshots/inventory.png" alt="Inventory Sync">
-                        <img src="screenshots/inventory2.png" alt="Inventory Sync">
-                    </div>
-                </div>
-
-                <div id="mastery" class="wiki-panel">
-                    <h3>Mastery Progress</h3>
-                    <p>Displays your mastery progress with categories and shows everything yet to be mastered.</p>
-                    <div class="feature-image">
-                        <img src="screenshots/mastery.png" alt="Mastery Progress">
-                        <img src="screenshots/mastery2.png" alt="Mastery Progress">
-                    </div>
-                </div>
-
                 <div id="dashboard" class="wiki-panel active">
                     <h3>Dashboard</h3>
-                    <p>Provides live updates on alerts and events, world timers, fissures and arbitrations.</p>
+                    <p>Live world-state data: fissures, sorties, arbitrations, Nightwave, Archon Hunt, Circuit,
+                        bounties, 1999 calendar, cycles, Steel Path incursions.</p>
                     <div class="feature-image">
                         <img src="screenshots/dashboard.png" alt="Dashboard">
                     </div>
                 </div>
 
-                <div id="relics" class="wiki-panel">
-                    <h3>Relic Tracker</h3>
-                    <p>Track your relics and refinement and search for their drops.</p>
+                <div id="inventory" class="wiki-panel">
+                    <h3>Inventory & Foundry</h3>
+                    <p>Search inventory with filters including prime sets.
+                        Track blueprints building in your foundry.</p>
                     <div class="feature-image">
-                        <img src="screenshots/relics.png" alt="Relic tracker">
-                        <img src="screenshots/relics2.png" alt="Relic tracker">
+                        <img src="screenshots/inventory.png" alt="Inventory">
+                        <img src="screenshots/inventory2.png" alt="Inventory">
                     </div>
+                </div>
+
+                <div id="mods" class="wiki-panel">
+                    <h3>Mods</h3>
+                    <p>Browse all categories of mods from regular to Parazon, including Antiques and Arcanes and fetch
+                        their prices.</p>
                 </div>
 
                 <div id="rivens" class="wiki-panel">
                     <h3>Riven Tracker</h3>
-                    <p>Track your riven mods, inspect their stats and see challenges of veiled rivens.</p>
+                    <p>View owned rivens with neural network price prediction grading,
+                        expected value and reroll analysis.</p>
                     <div class="feature-image">
                         <img src="screenshots/riven.png" alt="Riven tracker">
                         <img src="screenshots/riven2.png" alt="Riven tracker">
                     </div>
                 </div>
 
+                <div id="relics" class="wiki-panel">
+                    <h3>Relic Management</h3>
+                    <p>Track owned relics and their priced drops, see which ones profit the most from refinement and
+                        sort by radshare efficiency.</p>
+                    <div class="feature-image">
+                        <img src="screenshots/relics.png" alt="Relic management">
+                        <img src="screenshots/relics2.png" alt="Relic management">
+                    </div>
+                </div>
+
+                <div id="mastery" class="wiki-panel">
+                    <h3>Mastery Tracker</h3>
+                    <p>MR progress, starchart completion, and mastery XP totals across all categories.
+                        Identify items and nodes you haven't gained mastery from yet.</p>
+                    <div class="feature-image">
+                        <img src="screenshots/mastery.png" alt="Mastery Progress">
+                        <img src="screenshots/mastery2.png" alt="Mastery Progress">
+                    </div>
+                </div>
+
                 <div id="notes" class="wiki-panel">
                     <h3>Markdown Notes</h3>
-                    <p>Write down notes, farming goals, strategies or paste in guides from elsewhere to make use of the
-                        markdown support.</p>
+                    <p>Markdown notepad. Notes are saved to your filesystem.</p>
                     <div class="feature-image">
                         <img src="screenshots/notes.png" alt="Markdown Notes">
                     </div>
                 </div>
 
                 <div id="maps" class="wiki-panel">
-                    <h3>Maps</h3>
-                    <p>Check out the maps of all open worlds.</p>
+                    <h3>World Maps</h3>
+                    <p>Pannable/zoomable maps for Cambion Drift, Orb Vallis, Duviri,
+                        and Plains of Eidolon with support for custom routes and markers.</p>
                     <div class="feature-image">
                         <img src="screenshots/maps.png" alt="Maps">
                         <img src="screenshots/maps2.png" alt="Maps">
                     </div>
                 </div>
 
+                <div id="collectibles" class="wiki-panel">
+                    <h3>Collectibles</h3>
+                    <p>Track your progress with Kuria, somachord, frame fighter fragments, cephalon fragments,
+                        Leverian prex cards, and open world exploration.</p>
+                </div>
+
                 <div id="checklist" class="wiki-panel">
-                    <h3>Checklists</h3>
-                    <p>Track your progress on daily and weekly tasks.</p>
+                    <h3>Checklist & Syndicates</h3>
+                    <p>Daily/weekly task tracking, focus school
+                        progress and syndicate standings.</p>
                     <div class="feature-image">
                         <img src="screenshots/checklist.png" alt="Checklists">
                     </div>
                 </div>
 
                 <div id="settings" class="wiki-panel">
-                    <h3>Theme and Overlay Support</h3>
-                    <p>Choose between multiple color themes to match your preference. You can also enable overlays
-                        to receive notifications.</p>
+                    <h3>Settings & Overlays</h3>
+                    <p>Theme picker, monitoring controls, notification, global hotkeys, OCR overlays.</p>
                     <div class="feature-image">
                         <img src="screenshots/settings.png" alt="Theme support">
                     </div>
@@ -162,6 +180,7 @@
         <div class="wiki-container">
             <div class="wiki-sidebar">
                 <button class="wiki-tab active" data-target="getting-started">Getting Started</button>
+                <button class="wiki-tab" data-target="features">How It Works</button>
                 <button class="wiki-tab" data-target="privacy">Privacy & Security</button>
                 <button class="wiki-tab" data-target="troubleshooting">Troubleshooting</button>
             </div>
@@ -171,49 +190,72 @@
                     <ol>
                         <li>Navigate to the <a href="https://github.com/glowseeker/cephalon-kronos/releases/latest"
                                 style="color:var(--accent);">releases</a> page.</li>
-                        <li>Download the appropriate binary for your OS.
-                            <br>(.exe for Windows, .deb/AppImage for Linux or .dmg for macOS).
+                        <li>Download the binary for your OS
+                            (<code>.exe</code> for Windows, <code>.AppImage</code> for Linux,
+                            <code>.dmg</code> for macOS).
                         </li>
-                        <li>Create a folder for the binary (recommended).
-                        <li>Run the binary to launch the app.</li>
+                        <li>Run setup (Windows) / Move into own folder and run (Linux/macOS).
                     </ol>
+                </div>
+
+                <div id="features" class="wiki-panel">
+                    <h3>How It Works</h3>
+                    <p><strong>Inventory Scanning</strong></p>
+                    <p><a href="https://github.com/Sainan/warframe-api-helper"
+                            style="color:var(--accent);">warframe-api-helper</a> reads session
+                        credentials from Warframe process memory, then fetches inventory from Digital Extremes'
+                        mobile API.</p>
+                    <p><strong>Real-Time Overlays and Notifications</strong></p>
+                    <p>A C++ addon to warframe-api-helper reads Warframe's in-memory EE.log ring buffer and streams log
+                        lines
+                        to the app. When the unique ingame trigger is detected, the app fires the overlay or
+                        notification.
+                    </p>
+                    <p><strong>Riven Price Prediction</strong></p>
+                    <p> Based on <a href="https://github.com/cjtho/WarframeRivenPricer"
+                            style="color:var(--accent);">WarframeRivenPricer</a>,
+                        the ONNX neural network estimates platinum prices based on weapon, equipped stats,
+                        and reroll status. Trained on warframe.market auction data, it outputs a
+                        price estimate, grade, expected value and potential for rerolling.</p>
                 </div>
 
                 <div id="privacy" class="wiki-panel">
                     <h3>Privacy & Security</h3>
-                    <p>Cephalon Kronos was made to provide functionality without compromising privacy. Because of this,
-                        it
-                        does not send any information over the internet.
+                    <p>No sign-up required. No telemetry recorded. Everything is stored locally.
+                        <br>Does not modify game files or inject code.
                     </p>
                     <ul>
-                        <li>Does not require any account sign up.</li>
-                        <li>Does not modify game files.</li>
-                        <li><strong>Disclaimer:</strong> This application makes use of <a
-                                href="https://github.com/Obsidian-Jackal/warframe-api-helper"
-                                style="color:var(--accent);">warframe-api-helper</a> to fetch
-                            session credentials which are then used to download inventory data from the
-                            game servers. While it does not
-                            inject or alter memory, use it at your own discretion.</li>
+                        <li>Session credentials read from memory only to fetch inventory from
+                            Digital Extremes API.</li>
+                        <li>Network requests: public game data exports, world-state APIs,
+                            warframe.market pricing.</li>
                     </ul>
                 </div>
+
                 <div id="troubleshooting" class="wiki-panel">
                     <h3>Troubleshooting</h3>
                     <p><strong>"My inventory is empty!"</strong>
-                        <br>This is expected at first startup. The application needs data to parse through, which means
-                        that you either need to initiate a manual scan via the settings, or turn on continuous
-                        monitoring.
+                        <br>This is expected on first startup. Run a manual scan in <strong>Settings</strong>
+                        or enable live monitoring.
                     </p>
                     <p><strong>"Do I have to turn on Live Monitoring?"</strong>
-                        <br>No, you do not have to turn on Live Monitoring. You can manually scan your inventory once
-                        via the
-                        settings. This will give you a momentary state of your inventory data, which the application
-                        will show (even if offline) until said data is refreshed by either another manual scan, or by
-                        turning on Live Monitoring.
+                        <br>No, you can also do manual scans in <strong>Settings</strong>. Data persists across
+                        sessions, just not updated constantly.
+                    </p>
+                    <p><strong>"The overlay doesn't appear during fissures."</strong>
+                        <br>1) Confirm that notifications/overlays work via the test buttons in settings.
+                        <br>2) Make sure all your settings (EE.log path, UI scaling etc.) are correct and that the
+                        log scanner has latched on to Warframe.
+                        <br>3) Check if Riven overlays work ingame.
+                        <br>4) If all the above work as expected but the overlay still fails, check
+                        <code>overlay_debug.log</code> in the <code>data/user/</code> folder and report it on the
+                        <a href="https://github.com/glowseeker/cephalon-kronos/issues"
+                            style="color:var(--accent);">issues</a> page.
                     </p>
                     <p><strong>"I found a bug!"</strong>
-                        <br>Great! Please report it on the <a
+                        <br>Great, please report it on the <a
                             href="https://github.com/glowseeker/cephalon-kronos/issues"
-                            style="color:var(--accent);">issues</a> page with as many details as possible.
+                            style="color:var(--accent);">issues</a> page!
                     </p>
                 </div>
             </div>
@@ -221,164 +263,164 @@
     </section>
 
     <!-- Lightbox Modal -->
-            <div id="lightbox" class="lightbox-overlay">
-                <span class="lightbox-close">&times;</span>
-                <img src="" class="lightbox-img" alt="Enlarged view">
-            </div>
-            <footer>
-                <p>A passion project for Warframe by Tenno, for Tenno.
-                    <br>Not affiliated with Digital Extremes.
-                </p>
-            </footer>
+    <div id="lightbox" class="lightbox-overlay">
+        <span class="lightbox-close">&times;</span>
+        <img src="" class="lightbox-img" alt="Enlarged view">
+    </div>
+    <footer>
+        <p>A Warframe passion project for Tenno, by Tenno.
+            <br>Not affiliated with Digital Extremes.
+        </p>
+    </footer>
 
-            <script>
-                // Features section tabs
-                const featureTabs = document.querySelectorAll('#showcase .wiki-tab');
-                const featurePanels = document.querySelectorAll('#showcase .wiki-panel');
+    <script>
+        // Features section tabs
+        const featureTabs = document.querySelectorAll('#showcase .wiki-tab');
+        const featurePanels = document.querySelectorAll('#showcase .wiki-panel');
 
-                featureTabs.forEach(tab => {
-                    tab.addEventListener('click', () => {
-                        featureTabs.forEach(t => t.classList.remove('active'));
-                        featurePanels.forEach(p => p.classList.remove('active'));
+        featureTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                featureTabs.forEach(t => t.classList.remove('active'));
+                featurePanels.forEach(p => p.classList.remove('active'));
 
-                        tab.classList.add('active');
-                        document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+                tab.classList.add('active');
+                document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+            });
+        });
+
+        // Wiki section tabs
+        const wikiTabs = document.querySelectorAll('#wiki .wiki-tab');
+        const wikiPanels = document.querySelectorAll('#wiki .wiki-panel');
+
+        wikiTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                wikiTabs.forEach(t => t.classList.remove('active'));
+                wikiPanels.forEach(p => p.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+            });
+        });
+
+        // Nested Stack Logic (Visual Deck of Cards)
+        document.querySelectorAll('.feature-image:not(.no-stack)').forEach(container => {
+            const images = container.querySelectorAll('img');
+            if (images.length > 1) {
+                // Wrap images so buttons strictly hug the geometry
+                container.innerHTML = '';
+                // Inner wrapper for clipping rounded corners
+                const inner = document.createElement('div');
+                inner.className = 'image-stack-inner';
+
+                const wrapper = document.createElement('div');
+                wrapper.style.position = 'relative';
+                wrapper.style.display = 'flex';
+                wrapper.style.alignItems = 'center';
+                wrapper.style.justifyContent = 'center';
+                wrapper.style.width = '100%';
+                wrapper.style.height = '100%';
+
+                images.forEach(img => inner.appendChild(img));
+                wrapper.appendChild(inner);
+                container.appendChild(wrapper);
+
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'stack-nav-btn prev';
+                prevBtn.innerHTML = '&#10094;';
+
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'stack-nav-btn next';
+                nextBtn.innerHTML = '&#10095;';
+
+                wrapper.appendChild(prevBtn);
+                wrapper.appendChild(nextBtn);
+
+                const layoutCards = () => {
+                    const currentImages = Array.from(inner.querySelectorAll('img'));
+                    currentImages.forEach((img, i) => {
+                        if (i === 0) {
+                            img.style.position = 'relative';
+                            img.style.display = 'block';
+                            img.style.zIndex = '1';
+                            img.style.opacity = '1';
+                            img.style.cursor = 'pointer';
+                        } else {
+                            img.style.position = 'absolute';
+                            img.style.display = 'none';
+                            img.style.zIndex = '0';
+                            img.style.opacity = '0';
+                        }
                     });
+                };
+
+                const nextCard = () => {
+                    const first = inner.querySelector('img');
+                    inner.appendChild(first); // Simpler move
+                    layoutCards();
+                };
+
+                const prevCard = () => {
+                    const imgs = inner.querySelectorAll('img');
+                    const last = imgs[imgs.length - 1];
+                    inner.insertBefore(last, inner.firstChild);
+                    layoutCards();
+                };
+
+                // Hit-zones for side clicking
+                const leftZone = document.createElement('div');
+                leftZone.className = 'hit-zone left';
+                const rightZone = document.createElement('div');
+                rightZone.className = 'hit-zone right';
+
+                wrapper.appendChild(leftZone);
+                wrapper.appendChild(rightZone);
+
+                leftZone.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    prevCard();
                 });
 
-                // Wiki section tabs
-                const wikiTabs = document.querySelectorAll('#wiki .wiki-tab');
-                const wikiPanels = document.querySelectorAll('#wiki .wiki-panel');
-
-                wikiTabs.forEach(tab => {
-                    tab.addEventListener('click', () => {
-                        wikiTabs.forEach(t => t.classList.remove('active'));
-                        wikiPanels.forEach(p => p.classList.remove('active'));
-
-                        tab.classList.add('active');
-                        document.getElementById(tab.getAttribute('data-target')).classList.add('active');
-                    });
+                rightZone.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    nextCard();
                 });
 
-                // Nested Stack Logic (Visual Deck of Cards)
-                document.querySelectorAll('.feature-image:not(.no-stack)').forEach(container => {
-                    const images = container.querySelectorAll('img');
-                    if (images.length > 1) {
-                        // Wrap images so buttons strictly hug the geometry
-                        container.innerHTML = '';
-                        // Inner wrapper for clipping rounded corners
-                        const inner = document.createElement('div');
-                        inner.className = 'image-stack-inner';
+                nextBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    nextCard();
+                });
 
-                        const wrapper = document.createElement('div');
-                        wrapper.style.position = 'relative';
-                        wrapper.style.display = 'flex';
-                        wrapper.style.alignItems = 'center';
-                        wrapper.style.justifyContent = 'center';
-                        wrapper.style.width = '100%';
-                        wrapper.style.height = '100%';
+                prevBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    prevCard();
+                });
 
-                        images.forEach(img => inner.appendChild(img));
-                        wrapper.appendChild(inner);
-                        container.appendChild(wrapper);
+                // Lightbox Logic
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = lightbox.querySelector('.lightbox-img');
 
-                        const prevBtn = document.createElement('button');
-                        prevBtn.className = 'stack-nav-btn prev';
-                        prevBtn.innerHTML = '&#10094;';
-
-                        const nextBtn = document.createElement('button');
-                        nextBtn.className = 'stack-nav-btn next';
-                        nextBtn.innerHTML = '&#10095;';
-
-                        wrapper.appendChild(prevBtn);
-                        wrapper.appendChild(nextBtn);
-
-                        const layoutCards = () => {
-                            const currentImages = Array.from(inner.querySelectorAll('img'));
-                            currentImages.forEach((img, i) => {
-                                if (i === 0) {
-                                    img.style.position = 'relative';
-                                    img.style.display = 'block';
-                                    img.style.zIndex = '1';
-                                    img.style.opacity = '1';
-                                    img.style.cursor = 'pointer';
-                                } else {
-                                    img.style.position = 'absolute';
-                                    img.style.display = 'none';
-                                    img.style.zIndex = '0';
-                                    img.style.opacity = '0';
-                                }
-                            });
-                        };
-
-                        const nextCard = () => {
-                            const first = inner.querySelector('img');
-                            inner.appendChild(first); // Simpler move
-                            layoutCards();
-                        };
-
-                        const prevCard = () => {
-                            const imgs = inner.querySelectorAll('img');
-                            const last = imgs[imgs.length - 1];
-                            inner.insertBefore(last, inner.firstChild);
-                            layoutCards();
-                        };
-
-                        // Hit-zones for side clicking
-                        const leftZone = document.createElement('div');
-                        leftZone.className = 'hit-zone left';
-                        const rightZone = document.createElement('div');
-                        rightZone.className = 'hit-zone right';
-
-                        wrapper.appendChild(leftZone);
-                        wrapper.appendChild(rightZone);
-
-                        leftZone.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            prevCard();
-                        });
-
-                        rightZone.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            nextCard();
-                        });
-
-                        nextBtn.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            nextCard();
-                        });
-
-                        prevBtn.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            prevCard();
-                        });
-
-                        // Lightbox Logic
-                        const lightbox = document.getElementById('lightbox');
-                        const lightboxImg = lightbox.querySelector('.lightbox-img');
-
-                        wrapper.addEventListener('click', (e) => {
-                            if (e.target.tagName === 'IMG' && e.target.style.opacity === '1') {
-                                lightboxImg.src = e.target.src;
-                                lightbox.classList.add('active');
-                            }
-                        });
-
-                        lightbox.addEventListener('click', () => {
-                            lightbox.classList.remove('active');
-                        });
-
-
-                        layoutCards();
-
-                        layoutCards();
-                    } else if (images.length === 1) {
-                        images[0].style.transform = 'translate(0,0) scale(1) rotate(0)';
-                        images[0].style.opacity = '1';
-                        images[0].style.zIndex = '1';
+                wrapper.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'IMG' && e.target.style.opacity === '1') {
+                        lightboxImg.src = e.target.src;
+                        lightbox.classList.add('active');
                     }
                 });
-            </script>
+
+                lightbox.addEventListener('click', () => {
+                    lightbox.classList.remove('active');
+                });
+
+
+                layoutCards();
+
+                layoutCards();
+            } else if (images.length === 1) {
+                images[0].style.transform = 'translate(0,0) scale(1) rotate(0)';
+                images[0].style.opacity = '1';
+                images[0].style.zIndex = '1';
+            }
+        });
+    </script>
 </body>
 
 </html>

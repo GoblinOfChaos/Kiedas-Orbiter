@@ -957,13 +957,13 @@ export default function SettingsScreen() {
             </button>
             <button
               onClick={manualRefresh}
-              disabled={!isMonitoring}
-              className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${isMonitoring
-                ? 'bg-kronos-panel/40 border-white/10 text-kronos-text hover:border-kronos-accent/30 hover:text-kronos-accent'
-                : 'bg-kronos-panel/20 border-white/5 text-kronos-dim/40 cursor-not-allowed'
+              disabled={loading}
+              className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${loading
+                ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim/40 cursor-not-allowed'
+                : 'bg-kronos-panel/40 border-white/10 text-kronos-text hover:border-kronos-accent/30 hover:text-kronos-accent'
                 }`}
             >
-              Manual Refresh
+              {loading ? 'Scanning...' : 'Manual Refresh'}
             </button>
           </div>
         </Card>

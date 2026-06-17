@@ -165,7 +165,7 @@ impl LogScanner {
             if !self.in_mission {
                 return;
             }
-            // Don't clear ICON_SCAN_ACTIVE here — the ThemedProjectionManager is
+            // Don't clear ICON_SCAN_ACTIVE here - the ThemedProjectionManager is
             // the "Continue" screen between rounds, NOT the reward screen itself.
             // Clearing it here races with the *next* round's reward-screen OCR
             // (Step 4), causing successive rounds to never show the overlay.
@@ -599,7 +599,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
             // On Windows, ReadProcessMemory can succeed on a terminated process
             // (pages linger until freed), so the helper never detects Warframe
             // closed.  We track the PID we hooked into and re-verify it
-            // periodically — if the PID changed (launcher->game transition, or
+            // periodically - if the PID changed (launcher->game transition, or
             // process died) we force a restart so the helper re-discovers the
             // real buffer.
             let mut hooked_pid: Option<u32> = None;

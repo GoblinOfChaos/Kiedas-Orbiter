@@ -224,7 +224,7 @@ assets/
   audio/
     notification1.wav           overlay sound effects
     notification2.wav
-  card-images/                  arcane/mod card images (extracted at runtime
+  card-images/                  arcane/mod images (extracted at runtime
                                  by Warframe-Exporter-CLI)
   data/
     peely-pix-names.json        asset name fixups

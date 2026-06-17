@@ -829,7 +829,7 @@ export function MonitoringProvider({ children }) {
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [exportData, inventoryData, globalRewardPool, EI])
 
-  // Re-run card image pipeline when called (e.g. after user sets cache path in Settings)
+  // Re-run mod image pipeline when called (e.g. after user sets cache path in Settings)
   const retryCardImages = useCallback(async () => {
     cardInitStarted.current = true
     setFixProgress({ checking: true })
@@ -845,7 +845,7 @@ export function MonitoringProvider({ children }) {
     }
   }, [inventoryData])
 
-  // ── Card image pipeline (extract → fix → composite) ─────────────────
+  // ── Mod image pipeline (extract → fix → composite) ─────────────────
   // Single consolidated Tauri command with unified progress events.
   useEffect(() => {
     if (cardInitStarted.current) return

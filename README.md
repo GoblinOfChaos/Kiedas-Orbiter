@@ -1,5 +1,15 @@
 # Cephalon Kronos
 
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/glowseeker/cephalon-kronos?label=Release&color=cbd5e1" alt="Release">
+  <img src="https://img.shields.io/github/downloads/glowseeker/cephalon-kronos/total?label=Downloads&color=94a3b8" alt="Downloads">
+  <img src="https://img.shields.io/badge/Windows-0865e0?logo=windows&logoColor=white" alt="Windows">
+  <img src="https://img.shields.io/badge/Linux-fcc624?logo=linux&logoColor=black" alt="Linux">
+  <img src="https://img.shields.io/badge/macOS-000000?logo=apple&logoColor=white" alt="macOS">
+  <img src="https://img.shields.io/badge/License-MIT-94a3b8" alt="License">
+  <img src="https://img.shields.io/github/stars/glowseeker/cephalon-kronos?label=Stars&color=cbd5e1" alt="Stars">
+</p>
+
 An open-source desktop companion for Warframe built with React, Rust, and Tauri.
 
 Cephalon Kronos tracks your inventory, relics, rivens and mastery progress,

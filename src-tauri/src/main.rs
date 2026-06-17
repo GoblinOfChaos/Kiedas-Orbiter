@@ -714,13 +714,13 @@ fn get_cdn_base_url() -> String {
     "https://browse.wf".to_string()
 }
 
-// --- Card Images Extraction ---
+// --- Mod Images Extraction ---
 //
-// Card images are extracted from the local Warframe game cache using the
+// Mod images are extracted from the local Warframe game cache using the
 // bundled Warframe-Exporter-CLI tool.  The user must have Warframe installed
 // with a populated cache (i.e. they've run the game at least once).
 
-/// Return the absolute path to the card images directory.
+/// Return the absolute path to the mod images directory.
 #[tauri::command]
 fn get_card_images_path() -> String {
     resolve_path("data/assets/card-images").to_string_lossy().to_string()
@@ -734,7 +734,7 @@ fn read_file_bytes(relative: String) -> Result<Vec<u8>, String> {
     fs::read(&path).map_err(|e| e.to_string())
 }
 
-// ─── Card image pre-processing ───────────────────────────────────────────────
+// ─── Mod image pre-processing ───────────────────────────────────────────────
 
 #[derive(Clone, serde::Serialize)]
 struct CardProgress { phase: String, current: usize, total: usize, current_file: String }
@@ -892,7 +892,7 @@ fn make_fully_opaque(path: &std::path::Path)
     Ok(())
 }
 
-/// Composite an overlay icon onto a card image (in-place).
+/// Composite an overlay icon onto a Mod image (in-place).
 /// The overlay is scaled down and centered on the card with alpha blending.
 fn composite_overlay(card_path: &std::path::Path, overlay_path: &std::path::Path)
     -> Result<(), Box<dyn std::error::Error + Send + Sync>>
@@ -929,7 +929,7 @@ fn composite_overlay(card_path: &std::path::Path, overlay_path: &std::path::Path
     Ok(())
 }
 
-/// Read the overlay map and composite each overlay onto its card image.
+/// Read the overlay map and composite each overlay onto its mod image.
 /// Tracks already-composited cards in .overlay-manifest.json so it is
 /// idempotent - subsequent calls skip cards already processed.
 fn composite_card_overlays_inner(card_root: &std::path::Path) {
@@ -1120,7 +1120,7 @@ fn detect_cache_inner() -> Option<String> {
     None
 }
 
-/// Extract card images from the Warframe cache using the bundled CLI.
+/// Extract mod images from the Warframe cache using the bundled CLI.
 /// Skips if already extracted (output dir has PNG files).
 fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) -> Result<u32, String> {
     let output_dir = resolve_path("data/assets/card-images");
@@ -2189,7 +2189,7 @@ fn get_known_weapon_names() -> Vec<String> {
             get_mod_frames_path,
             get_icons_path,
             get_ui_path,
-            // --- card images ---
+            // --- mod images ---
             get_card_images_path,
             read_file_bytes,
             count_unfixed_card_images,
@@ -2240,12 +2240,12 @@ fn get_known_weapon_names() -> Vec<String> {
         .build(tauri::generate_context!())
         .expect("error while building tauri application");
 
-    // Extract card images synchronously before the event loop starts,
+    // Extract mod images synchronously before the event loop starts,
     // so file watcher (dev mode) doesn't catch writes and restart.
     if let Some(cache_path) = detect_cache_inner() {
         match extract_card_images_inner(&app.handle(), &cache_path) {
-            Ok(count) => eprintln!("[CARD IMAGES] Extracted {} images", count),
-            Err(e) => eprintln!("[CARD IMAGES] Extraction failed: {}", e),
+            Ok(count) => eprintln!("[MOD IMAGES] Extracted {} images", count),
+            Err(e) => eprintln!("[MOD IMAGES] Extraction failed: {}", e),
         }
     }
 

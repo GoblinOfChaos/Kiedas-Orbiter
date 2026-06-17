@@ -52,7 +52,19 @@ Third-Party Acknowledgments
 Warframe and all associated game data, assets, names, and imagery are
 trademarks and copyright of Digital Extremes Ltd.
 
-Game export data provided by the warframe-public-export-plus project.
-See: https://github.com/calamity-inc/warframe-public-export-plus
-Worldstate and additional data sourced from browse.wf.
-See: https://browse.wf
+- **Game export data** - warframe-public-export-plus (calamity-inc)
+  https://github.com/calamity-inc/warframe-public-export-plus
+- **Worldstate & localisation** - browse.wf / oracle.browse.wf
+  https://browse.wf
+- **Price history / market engine data** - relics.run
+  https://relics.run
+- **Mod image extraction** - Warframe-Exporter
+  https://github.com/Puxtril/Warframe-Exporter/
+- **OCR engine** - PP-OCRv5 via ocr-rs (Apache 2.0)
+  https://github.com/ocr-rs/ocr-rs
+- **ONNX inference** - tract-onnx (Apache 2.0 / MIT)
+  https://github.com/sonos/tract
+- **Auction pricing data** - warframe.market
+  https://warframe.market
+- **Riven pricing model inspiration** - WarframeRivenPricer (cjtho)
+  https://github.com/cjtho/WarframeRivenPricer

@@ -28,7 +28,7 @@ src-tauri/data/export/*
 src-tauri/data/user/*
 !src-tauri/data/user/placeholder
 
-# Card images are extracted from Warframe cache at runtime (140+ MB)
+# Mod images are extracted from Warframe cache at runtime (140+ MB)
 src-tauri/data/assets/card-images/
 
 src-tauri/data/bin/*

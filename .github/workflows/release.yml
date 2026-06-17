@@ -193,7 +193,8 @@ jobs:
           chmod +x "$PATCHED"
 
           # Sign with Tauri updater key
-          cargo tauri signer sign \
+          cd "$GITHUB_WORKSPACE"
+          pnpm tauri signer sign \
             --private-key "$TAURI_PRIVATE_KEY" \
             --password "$TAURI_KEY_PASSWORD" \
             "$PATCHED"

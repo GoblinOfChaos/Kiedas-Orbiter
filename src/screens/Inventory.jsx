@@ -1012,9 +1012,9 @@ export default function Inventory() {
                           {item.image && <img src={item.image} alt="" className={`max-w-full max-h-full object-contain relative z-10 transition-all duration-500 group-hover:scale-110 ${isUnowned ? 'grayscale opacity-40' : ''}`} loading="lazy" />}
 
                           {!isUnowned && item.formas > 0 && (
-                            <div className="absolute top-2 left-2 z-20 flex items-center gap-0.5 bg-kronos-accent text-kronos-bg px-2 py-0.5 rounded shadow-lg border border-white/20 backdrop-blur-sm">
-                              <span className="text-[11px] font-black">{item.formas}</span>
-                              <span className="text-[9px]">★</span>
+                            <div className="absolute top-1 left-1 z-20 flex items-center gap-2 bg-black/50 text-yellow-400 px-1.5 py-0.5 rounded shadow-lg border border-white/10 backdrop-blur-sm">
+                              <span className="text-[13px] font-black leading-none">{item.formas}</span>
+                              <img src={iconsPath ? convertFileSrc(`${iconsPath}/Forma.png`) : ''} className="w-5 h-5 object-contain" alt="" />
                             </div>
                           )}
                         </>

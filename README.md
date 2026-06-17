@@ -3,9 +3,7 @@
 <p align="center">
   <img src="https://img.shields.io/github/v/release/glowseeker/cephalon-kronos?label=Release&color=cbd5e1" alt="Release">
   <img src="https://img.shields.io/github/downloads/glowseeker/cephalon-kronos/total?label=Downloads&color=94a3b8" alt="Downloads">
-  <img src="https://img.shields.io/badge/Windows-0865e0?logo=windows&logoColor=white" alt="Windows">
-  <img src="https://img.shields.io/badge/Linux-fcc624?logo=linux&logoColor=black" alt="Linux">
-  <img src="https://img.shields.io/badge/macOS-000000?logo=apple&logoColor=white" alt="macOS">
+  <img src="https://img.shields.io/badge/Windows%20|%20Linux%20|%20macOS-0865e0" alt="Platform">
   <img src="https://img.shields.io/badge/License-MIT-94a3b8" alt="License">
   <img src="https://img.shields.io/github/stars/glowseeker/cephalon-kronos?label=Stars&color=cbd5e1" alt="Stars">
 </p>
@@ -46,8 +44,7 @@ Cephalon Kronos does not require closed-source third-party software. It bundles:
   from Warframe memory allocations, extracts log lines, and streams them to the app for
   overlay triggers.
 
-Network requests are limited to game data exports, worldstate APIs, and optional
-warframe.market pricing.
+Network requests are limited to game data exports, worldstate APIs, and warframe.market pricing.
 
 > **Disclaimer:** This application is **not** affiliated with Digital Extremes. It utilizes a
 > memory-scanning helper. Use this software at your own risk. **I am not responsible for any

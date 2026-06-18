@@ -147,12 +147,10 @@ jobs:
           prerelease: false
           uploadPlainBinary: true
 
-      # Strip ABI-volatile libs from the AppImage that cause symbol conflicts on
-      # rolling-release distros (Arch/CachyOS). webkit2gtk and javascriptcoregtk
-      # are Tauri-documented runtime deps so every Linux user has them.
-      # libavif+libsharpyuv must be matched to the system Mesa/codec chain or
-      # eglGetPlatformDisplayEXT fails with EGL_BAD_PARAMETER.
-      - name: Patch AppImage - strip conflicting system libs
+      # Patch AppRun to preload system libwayland-client, working around
+      # a Tauri AppImage EGL_BAD_PARAMETER bug on rolling-release distros.
+      # See https://github.com/tauri-apps/tauri/pull/12491 for upstream fix.
+      - name: Patch AppImage - work around EGL_BAD_PARAMETER via LD_PRELOAD
         if: matrix.platform == 'ubuntu-24.04'
         shell: bash
         env:
@@ -176,18 +174,10 @@ jobs:
           cd /tmp/appimage-patch
           "$APPIMAGE_FILE" --appimage-extract > /dev/null 2>&1
 
-          # Strip libs that must come from the system to match its EGL/codec ABI.
-          # webkit2gtk + javascriptcoregtk: required system deps per Tauri docs.
-          # libavif + libsharpyuv: must be a matched pair with system Mesa.
-          LIBS=(
-            "libwebkit2gtk-4.1.so.0"
-            "libjavascriptcoregtk-4.1.so.0"
-            "libavif.so.16"
-            "libsharpyuv.so.0"
-          )
-          for lib in "${LIBS[@]}"; do
-            find squashfs-root -name "$lib" -delete && echo "Removed $lib" || echo "Not found: $lib"
-          done
+          # Patch AppRun to use system libwayland-client to work around
+          # Tauri AppImage EGL_BAD_PARAMETER bug on rolling-release distros.
+          # See https://github.com/tauri-apps/tauri/pull/12491 for upstream fix.
+          sed -i '2i export LD_PRELOAD=/usr/lib/libwayland-client.so' squashfs-root/AppRun
 
           # Repack
           PATCHED="/tmp/Cephalon-Kronos_${VERSION}_amd64.AppImage"

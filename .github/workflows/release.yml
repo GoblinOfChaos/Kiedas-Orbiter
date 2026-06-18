@@ -197,8 +197,9 @@ jobs:
 
           # Sign with Tauri updater key
           cd "$GITHUB_WORKSPACE"
+          printf '%s' "$TAURI_PRIVATE_KEY" > /tmp/tauri-key.pem
           pnpm exec tauri signer sign \
-            --private-key "$TAURI_PRIVATE_KEY" \
+            --private-key-path /tmp/tauri-key.pem \
             --password "$TAURI_KEY_PASSWORD" \
             "$PATCHED"
 

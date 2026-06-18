@@ -192,7 +192,7 @@ jobs:
 
           # Repack
           PATCHED="/tmp/Cephalon-Kronos_${VERSION}_amd64.AppImage"
-          /tmp/appimagetool --comp gzip squashfs-root "$PATCHED" 2>&1
+          /tmp/appimagetool --comp zstd squashfs-root "$PATCHED" 2>&1
           chmod +x "$PATCHED"
 
           # Sign with Tauri updater key

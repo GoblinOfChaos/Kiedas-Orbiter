@@ -160,12 +160,12 @@ jobs:
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -x
           TAG="${{ github.ref_name }}"
           VERSION="${TAG#v}"
-          APPIMAGE="src-tauri/target/release/bundle/appimage/Cephalon-Kronos_${VERSION}_amd64.AppImage"
-
-          ls -la "$GITHUB_WORKSPACE/src-tauri/target/release/bundle/appimage/" || echo "No appimage dir"
+          # Use wildcard to find the AppImage regardless of space/hyphen in product name
+          APPIMAGE_DIR="src-tauri/target/release/bundle/appimage"
+          APPIMAGE_FILE=$(ls "$GITHUB_WORKSPACE/$APPIMAGE_DIR"/*.AppImage 2>/dev/null | head -1) || { echo "No AppImage found"; exit 1; }
+          APPIMAGE="$APPIMAGE_DIR/$(basename "$APPIMAGE_FILE")"
 
           # Download appimagetool for repacking
           curl -fsSL "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage" \
@@ -175,8 +175,7 @@ jobs:
           # Extract
           mkdir -p /tmp/appimage-patch
           cd /tmp/appimage-patch
-          test -f "$GITHUB_WORKSPACE/$APPIMAGE" || { echo "AppImage not found at $GITHUB_WORKSPACE/$APPIMAGE"; ls -la "$GITHUB_WORKSPACE/src-tauri/target/release/bundle/appimage/" 2>/dev/null || true; exit 1; }
-          "$GITHUB_WORKSPACE/$APPIMAGE" --appimage-extract > /dev/null 2>&1
+          "$APPIMAGE_FILE" --appimage-extract > /dev/null 2>&1
 
           # Strip libs that must come from the system to match its EGL/codec ABI.
           # webkit2gtk + javascriptcoregtk: required system deps per Tauri docs.
@@ -204,14 +203,13 @@ jobs:
             "$PATCHED"
 
           # Replace original in bundle dir so gh release upload picks it up
-          cp "$PATCHED" "$GITHUB_WORKSPACE/$APPIMAGE"
-          cp "${PATCHED}.sig" "$GITHUB_WORKSPACE/${APPIMAGE}.sig"
+          cp "$PATCHED" "$APPIMAGE_FILE"
+          cp "${PATCHED}.sig" "${APPIMAGE_FILE}.sig"
 
           # Upload patched AppImage + new sig, replacing what tauri-action uploaded
-          which gh || echo "gh not found"
           gh release upload "$TAG" \
-            "$GITHUB_WORKSPACE/$APPIMAGE" \
-            "$GITHUB_WORKSPACE/${APPIMAGE}.sig" \
+            "$APPIMAGE_FILE" \
+            "${APPIMAGE_FILE}.sig" \
             --clobber
 
   generate-updater-json:

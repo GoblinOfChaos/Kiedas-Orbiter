@@ -198,8 +198,7 @@ jobs:
 
           # Sign with Tauri updater key
           cd "$GITHUB_WORKSPACE"
-          ls -la node_modules/.bin/tauri 2>/dev/null || echo "tauri binary not in node_modules/.bin/"
-          ./node_modules/.bin/tauri signer sign \
+          pnpm exec tauri signer sign \
             --private-key "$TAURI_PRIVATE_KEY" \
             --password "$TAURI_KEY_PASSWORD" \
             "$PATCHED"

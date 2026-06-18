@@ -160,9 +160,12 @@ jobs:
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -x
           TAG="${{ github.ref_name }}"
           VERSION="${TAG#v}"
           APPIMAGE="src-tauri/target/release/bundle/appimage/Cephalon-Kronos_${VERSION}_amd64.AppImage"
+
+          ls -la "$GITHUB_WORKSPACE/src-tauri/target/release/bundle/appimage/" || echo "No appimage dir"
 
           # Download appimagetool for repacking
           curl -fsSL "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage" \
@@ -172,6 +175,7 @@ jobs:
           # Extract
           mkdir -p /tmp/appimage-patch
           cd /tmp/appimage-patch
+          test -f "$GITHUB_WORKSPACE/$APPIMAGE" || { echo "AppImage not found at $GITHUB_WORKSPACE/$APPIMAGE"; ls -la "$GITHUB_WORKSPACE/src-tauri/target/release/bundle/appimage/" 2>/dev/null || true; exit 1; }
           "$GITHUB_WORKSPACE/$APPIMAGE" --appimage-extract > /dev/null 2>&1
 
           # Strip libs that must come from the system to match its EGL/codec ABI.
@@ -194,6 +198,7 @@ jobs:
 
           # Sign with Tauri updater key
           cd "$GITHUB_WORKSPACE"
+          ls -la node_modules/.bin/tauri 2>/dev/null || echo "tauri binary not in node_modules/.bin/"
           ./node_modules/.bin/tauri signer sign \
             --private-key "$TAURI_PRIVATE_KEY" \
             --password "$TAURI_KEY_PASSWORD" \
@@ -204,6 +209,7 @@ jobs:
           cp "${PATCHED}.sig" "$GITHUB_WORKSPACE/${APPIMAGE}.sig"
 
           # Upload patched AppImage + new sig, replacing what tauri-action uploaded
+          which gh || echo "gh not found"
           gh release upload "$TAG" \
             "$GITHUB_WORKSPACE/$APPIMAGE" \
             "$GITHUB_WORKSPACE/${APPIMAGE}.sig" \

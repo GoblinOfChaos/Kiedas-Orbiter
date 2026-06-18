@@ -157,6 +157,7 @@ jobs:
         shell: bash
         env:
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -197,9 +198,7 @@ jobs:
 
           # Sign with Tauri updater key
           cd "$GITHUB_WORKSPACE"
-          printf '%s' "$TAURI_PRIVATE_KEY" > /tmp/tauri-key.pem
           pnpm exec tauri signer sign \
-            --private-key-path /tmp/tauri-key.pem \
             --password "$TAURI_KEY_PASSWORD" \
             "$PATCHED"
 

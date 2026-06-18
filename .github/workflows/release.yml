@@ -194,7 +194,7 @@ jobs:
 
           # Sign with Tauri updater key
           cd "$GITHUB_WORKSPACE"
-          npx @tauri-apps/cli signer sign \
+          ./node_modules/.bin/tauri signer sign \
             --private-key "$TAURI_PRIVATE_KEY" \
             --password "$TAURI_KEY_PASSWORD" \
             "$PATCHED"

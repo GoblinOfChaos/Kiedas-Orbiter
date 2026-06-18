@@ -196,9 +196,14 @@ jobs:
 
           # Sign with Tauri updater key
           cd "$GITHUB_WORKSPACE"
-          printf '%s' "${{ secrets.TAURI_PRIVATE_KEY }}" > /tmp/tauri-key.pem
+          # Clean key: strip whitespace and fix base64 padding
+          printf '%s' "${{ secrets.TAURI_PRIVATE_KEY }}" > /tmp/tauri-key
+          KEY=$(tr -d '\r\n ' < /tmp/tauri-key)
+          MOD=$(( ${#KEY} % 4 ))
+          if [ $MOD -eq 2 ]; then KEY="${KEY}=="; fi
+          if [ $MOD -eq 3 ]; then KEY="${KEY}="; fi
           pnpm exec tauri signer sign \
-            --private-key-path /tmp/tauri-key.pem \
+            --private-key "$KEY" \
             --password "$TAURI_KEY_PASSWORD" \
             "$PATCHED"
 

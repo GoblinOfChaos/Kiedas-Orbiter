@@ -1500,11 +1500,13 @@ export function parseInventory(raw, exports) {
             if (key.endsWith('/' + leaf)) { bpQty = count; break; }
           }
         }
+        setParts.push({ unique_name: data.ItemType, name: data.name, image: data.image, quantity: bpQty, crafted: craftedQty, owned: bpQty > 0 || craftedQty > 0, need: data.need });
+        if (bpQty > 0 || craftedQty > 0) ownedCount += 1;
       } else {
         bpQty = primeItemCounts.get(data.ItemType) ?? 0;
+        setParts.push({ unique_name: data.ItemType, name: data.name, image: data.image, quantity: bpQty, owned: bpQty > 0, need: data.need });
+        if (bpQty > 0) ownedCount += 1;
       }
-      setParts.push({ unique_name: data.ItemType, name: data.name, image: data.image, quantity: bpQty, crafted: craftedQty, owned: bpQty > 0 || craftedQty > 0, need: data.need });
-      if (bpQty > 0 || craftedQty > 0) ownedCount += 1;
       totalCount += 1;
     }
 

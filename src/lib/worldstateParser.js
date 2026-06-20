@@ -614,17 +614,19 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
       })
     })),
 
-    circuit: (raw.EndlessXpChoices || []).map(c => {
-      const cat = (c.Category || '').toUpperCase()
-      const isHard = cat.includes('HARD')
-      return {
-        category: isHard ? 'Steel Path' : 'Normal',
-        choices: (c.Choices || []).map(choice => ({
-          name: resolveItemName(choice, dict, uniqueNameToName).replace(/\s+And\s+/g, ' & '),
-          uniqueName: choice
-        }))
-      }
-    }),
+    circuit: (raw.EndlessXpSchedule || []).flatMap(schedule =>
+      (schedule.CategoryChoices || []).map(c => {
+        const cat = (c.Category || '').toUpperCase()
+        const isHard = cat.includes('HARD')
+        return {
+          category: isHard ? 'Steel Path' : 'Normal',
+          choices: (c.Choices || []).map(choice => ({
+            name: choice.replace(/\s+And\s+/g, ' & '),
+            uniqueName: choice
+          }))
+        }
+      })
+    ),
 
     dailyDeals: (raw.DailyDeals || []).map(d => ({
       item: resolveItemName(d.StoreItem, dict, uniqueNameToName),

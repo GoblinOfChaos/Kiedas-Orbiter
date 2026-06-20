@@ -506,7 +506,7 @@ export default function RivenOverlay() {
                     <p className="font-bold text-yellow-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{Math.round(estimatedPrice)}p</p>
                   </div>
                   <div className="text-center">
-                    <span className="text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Potential</span>
+                    <span className="text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Reroll Potential</span>
                     <p className={`font-bold drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] ${(1 - (rivenInfo.probability_stagnant ?? 0.5)) * 100 > 50 ? 'text-green-400' : 'text-red-400'}`}>
                       {Math.round((1 - (rivenInfo.probability_stagnant ?? 0.5)) * 100)}%
                     </p>
@@ -518,23 +518,7 @@ export default function RivenOverlay() {
                     const total = rivenInfo.total_weapons ?? 1;
                     const tier = wr <= total * 0.2 ? 'Meta' : wr <= total * 0.5 ? 'Popular' : wr <= total * 0.7 ? 'Average' : wr <= total * 0.9 ? 'Niche' : 'Unpopular';
                     const roll = rivenInfo.grade === 'S' ? 'Perfect' : rivenInfo.grade === 'A' ? 'Good' : rivenInfo.grade === 'B' ? 'Average' : rivenInfo.grade === 'C' ? 'Mediocre' : 'Bad';
-                    const belowAvg = estimatedPrice < rivenInfo.expected_value;
-                    const isGoodWeapon = tier === 'Meta' || tier === 'Popular';
-                    const isGoodRoll = rivenInfo.grade === 'S' || rivenInfo.grade === 'A' || rivenInfo.grade === 'B';
-                    const isBadRoll = rivenInfo.grade === 'D' || rivenInfo.grade === 'F';
-                    let action;
-                    if (isGoodWeapon && isGoodRoll) action = 'Sell';
-                    else if (isGoodWeapon && belowAvg) action = 'Reroll worthy';
-                    else if (isGoodWeapon && isBadRoll) action = 'Reroll';
-                    else if (tier === 'Average' && isGoodRoll) action = 'Sell';
-                    else if (tier === 'Average' && belowAvg) action = 'Reroll worthy';
-                    else if (tier === 'Average') action = 'Reroll';
-                    else if (tier === 'Niche' && (rivenInfo.grade === 'S' || rivenInfo.grade === 'A')) action = 'Sell';
-                    else if (tier === 'Unpopular' && (rivenInfo.grade === 'S' || rivenInfo.grade === 'A')) action = 'Sell';
-                    else if (rivenInfo.price > 15) action = 'Reroll';
-                    else if (belowAvg) action = 'Dissolve';
-                    else action = 'Dissolve';
-                    return <span className="text-[11px] font-bold text-kronos-accent drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{tier} Weapon, {roll} rolls<span className="text-kronos-dim">; Suggestion:</span> <span className="text-yellow-400">{action}</span></span>;
+                    return <span className="text-[11px] font-bold text-kronos-accent drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{tier} Weapon, {roll} rolls</span>;
                   })()}
                 </div>
               </>)}

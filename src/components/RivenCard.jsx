@@ -224,7 +224,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
               <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">Weapon Rank</div>
               <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">Avg Value</div>
               <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">Your Value</div>
-              <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">Potential</div>
+              <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">Reroll Potential</div>
               <div className="text-center font-bold">{estimate.weapon_rank != null ? `#${estimate.weapon_rank}/${estimate.total_weapons ?? '?'}` : 'N/A'}</div>
               <div className="text-center font-bold">{Math.round(estimate.expected_value)}p</div>
               <div className="text-center font-bold text-yellow-400">{Math.round(estimate.price)}p</div>
@@ -237,23 +237,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
               const total = estimate.total_weapons ?? 1;
               const tier = wr <= total * 0.2 ? 'Meta' : wr <= total * 0.5 ? 'Popular' : wr <= total * 0.7 ? 'Average' : wr <= total * 0.9 ? 'Niche' : 'Unpopular';
               const roll = estimate.grade === 'S' ? 'perfect' : estimate.grade === 'A' ? 'Good' : estimate.grade === 'B' ? 'Average' : estimate.grade === 'C' ? 'Mediocre' : 'Bad';
-              const belowAvg = estimate.price < estimate.expected_value;
-              const isGoodWeapon = tier === 'Meta' || tier === 'Popular';
-              const isGoodRoll = estimate.grade === 'S' || estimate.grade === 'A' || estimate.grade === 'B';
-              const isBadRoll = estimate.grade === 'D' || estimate.grade === 'F';
-              let action;
-              if (isGoodWeapon && isGoodRoll) action = 'Sell';
-              else if (isGoodWeapon && belowAvg) action = 'Reroll worthy';
-              else if (isGoodWeapon && isBadRoll) action = 'Reroll';
-              else if (tier === 'Average' && isGoodRoll) action = 'Sell';
-              else if (tier === 'Average' && belowAvg) action = 'Reroll worthy';
-              else if (tier === 'Average') action = 'Reroll';
-              else if (tier === 'Niche' && (estimate.grade === 'S' || estimate.grade === 'A')) action = 'Sell';
-              else if (tier === 'Unpopular' && (estimate.grade === 'S' || estimate.grade === 'A')) action = 'Sell';
-              else if (estimate.price > 15) action = 'Reroll';
-              else if (belowAvg) action = 'Dissolve';
-              else action = 'Dissolve';
-              return <div className="text-center text-[11px] font-bold text-kronos-accent leading-snug">{tier} weapon, {roll} rolls<span className="text-kronos-dim">; Suggestion:</span> <span className="text-yellow-400">{action}</span></div>;
+              return <div className="text-center text-[11px] font-bold text-kronos-accent leading-snug">{tier} weapon, {roll} rolls</div>;
             })()}
           </div>
         </div>

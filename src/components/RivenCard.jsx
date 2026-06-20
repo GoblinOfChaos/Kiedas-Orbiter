@@ -250,6 +250,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
               else if (tier === 'Average') action = 'Reroll';
               else if (tier === 'Niche' && (estimate.grade === 'S' || estimate.grade === 'A')) action = 'Sell';
               else if (tier === 'Unpopular' && (estimate.grade === 'S' || estimate.grade === 'A')) action = 'Sell';
+              else if (estimate.price > 15) action = 'Reroll';
               else if (belowAvg) action = 'Dissolve';
               else action = 'Dissolve';
               return <div className="text-center text-[11px] font-bold text-kronos-accent leading-snug">{tier} weapon, {roll} rolls<span className="text-kronos-dim">; Suggestion:</span> <span className="text-yellow-400">{action}</span></div>;

@@ -531,6 +531,7 @@ export default function RivenOverlay() {
                     else if (tier === 'Average') action = 'Reroll';
                     else if (tier === 'Niche' && (rivenInfo.grade === 'S' || rivenInfo.grade === 'A')) action = 'Sell';
                     else if (tier === 'Unpopular' && (rivenInfo.grade === 'S' || rivenInfo.grade === 'A')) action = 'Sell';
+                    else if (rivenInfo.price > 15) action = 'Reroll';
                     else if (belowAvg) action = 'Dissolve';
                     else action = 'Dissolve';
                     return <span className="text-[11px] font-bold text-kronos-accent drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{tier} Weapon, {roll} rolls<span className="text-kronos-dim">; Suggestion:</span> <span className="text-yellow-400">{action}</span></span>;

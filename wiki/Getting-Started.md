@@ -34,7 +34,7 @@ Inventory data is cached locally and persists across sessions with a little widg
 
 The real-time overlays require **EE.log scanner** to be enabled. Once active:
 
-- When the relic reward screen appears, the overlay detects rewards via OCR and show you the ducat and platinum value and if its part of a set, it will show you the entirety the set with all subcomponents and how many you own and have crafted.
-- Riven overlays are either triggered by opening a Riven mod linked in chat where it will show grading and estimated value etc. or when cycling rivens in which case it will show another overlay for the second riven to allow for comparison.
-- The rest of the overlays are shown with toast notifications depending on how you set them up in settings.
+- When the relic reward screen appears, the overlay detects rewards via OCR and shows you the ducat and platinum value and if its part of a set, it will show you the entirety the set with all subcomponents and how many you own and have crafted.
+- Riven overlays are either triggered by opening a Riven mod linked in chat where it will show grading and estimated value etc. or when cycling rivens in which case it will show another overlay for the second rerolled riven to allow for comparison.
+- The rest of the overlays are shown with toast notifications depending on your settings.
 

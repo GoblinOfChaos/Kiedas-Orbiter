@@ -1,4 +1,7 @@
-# Troubleshooting
+# FAQ
+
+## Is it safe to use?
+As with all 3rd party software, use this at your own risk. It's open source and every single line of code is available for you or anyone else to inspect in the repo. Due to the nature of unofficial 3rd party software, Digital Extremes will never endorse or support it, which leaves us to trust their goodwill and their track record with other 3rd party apps so far.
 
 ## "My inventory is empty!"
 This is expected on first startup. Run a manual scan in <strong>Settings</strong> or enable live monitoring.

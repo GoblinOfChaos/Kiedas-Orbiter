@@ -19,7 +19,7 @@ For other distros, install equivalent packages via your package manager.
 ### Windows
 
 - Install [Microsoft Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022) or [Rust for Windows](https://rust-lang.github.io/rustup/installation/windows.html)
-- The C++ helper can be cross-compiled via MinGW using `helpers/build_win.sh`
+- The C++ helper can be cross-compiled via MinGW using `helpers/build_linux.sh` `helpers/build_macos.sh` or `helpers/build_win.sh`
 
 ### macOS
 

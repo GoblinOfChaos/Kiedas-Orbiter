@@ -2,425 +2,163 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cephalon Kronos Warframe Companion</title>
-    <meta name="description"
-        content="An open-source Warframe desktop companion app featuring inventory tracking, foundry monitoring, relic tracking, live alerts, and more.">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cephalon Kronos - Warframe Companion</title>
+  <meta name="description"
+    content="An open-source Warframe desktop companion. Inventory, relics, rivens, overlays and live market pricing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="background-effects">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
+
+  <div class="scanline-overlay" aria-hidden="true"></div>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="IconKronos.png" width="22" height="22" alt="">
+        Cephalon Kronos
+      </a>
+      <div class="nav-links">
+        <a href="#">Features</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://github.com/glowseeker/cephalon-kronos" class="nav-gh" target="_blank" rel="noopener">GitHub
+          ↗</a>
+      </div>
     </div>
+  </nav>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-content">
-            <div class="logo">
-                <img src="IconKronos.png" alt="Cephalon Kronos Logo" width="24" height="24"
-                    style="filter: brightness(0) invert(1);">
-                <span>Cephalon Kronos</span>
-            </div>
-            <div class="nav-links">
-                <a href="#showcase">Features</a>
-                <a href="#wiki">FAQ</a>
-                <a href="https://github.com/glowseeker/cephalon-kronos" class="github-link" target="_blank">GitHub</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-content">
-            <h1><span class="text-gradient">Cephalon Kronos</span></h1>
-            <p>The open-source, cross-platform Warframe companion. <br> Track everything from inventory to collectibles
-                with worldstate data at a glance.
-                <br> Fetch market prices for everything tradeable, with overlays & notifications.
-            </p>
-            <div class="hero-actions">
-                <a href="https://github.com/glowseeker/cephalon-kronos/releases/latest" class="btn btn-primary">Latest
-                    Release</a>
-                <a href="#wiki" class="btn btn-secondary">Visit the Wiki</a>
-                <a href="https://discord.gg/9GjkZ9aXwy" class="btn btn-discord" target="_blank">
-                    <svg viewBox="0 0 127.14 96.36" width="20" height="20"
-                        style="margin-right: 8px; fill: currentColor;">
-                        <path
-                            d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a67.55,67.55,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.15,46,96.06,53,91.08,65.69,84.69,65.69Z" />
-                    </svg>
-                    Join the Discord
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Showcase Section -->
-    <section id="showcase" class="showcase">
-        <h2><span class="text-gradient">Features (subject to update)</span></h2>
-        <div class="wiki-container">
-            <div class="wiki-sidebar">
-                <button class="wiki-tab active" data-target="dashboard">Dashboard</button>
-                <button class="wiki-tab" data-target="inventory">Inventory</button>
-                <button class="wiki-tab" data-target="mods">Mods</button>
-                <button class="wiki-tab" data-target="rivens">Rivens</button>
-                <button class="wiki-tab" data-target="relics">Relics</button>
-                <button class="wiki-tab" data-target="mastery">Mastery</button>
-                <button class="wiki-tab" data-target="notes">Notes</button>
-                <button class="wiki-tab" data-target="maps">Maps</button>
-                <button class="wiki-tab" data-target="collectibles">Collectibles</button>
-                <button class="wiki-tab" data-target="checklist">Checklist</button>
-                <button class="wiki-tab" data-target="settings">Settings</button>
-            </div>
-            <div class="wiki-content">
-                <div id="dashboard" class="wiki-panel active">
-                    <h3>Dashboard</h3>
-                    <p>Live world-state data: fissures, sorties, arbitrations, Nightwave, Archon Hunt, Circuit,
-                        bounties, 1999 calendar, cycles, Steel Path incursions.</p>
-                    <div class="feature-image">
-                        <img src="screenshots/dashboard.png" alt="Dashboard">
-                    </div>
-                </div>
-
-                <div id="inventory" class="wiki-panel">
-                    <h3>Inventory & Foundry</h3>
-                    <p>Search inventory with filters including prime sets.
-                        Track blueprints building in your foundry.</p>
-                    <div class="feature-image">
-                        <img src="screenshots/inventory.png" alt="Inventory">
-                        <img src="screenshots/inventory2.png" alt="Inventory">
-                    </div>
-                </div>
-
-                <div id="mods" class="wiki-panel">
-                    <h3>Mods</h3>
-                    <p>Browse all categories of mods from regular to Parazon, including Antiques and Arcanes and fetch
-                        their prices.</p>
-                </div>
-
-                <div id="rivens" class="wiki-panel">
-                    <h3>Riven Tracker</h3>
-                    <p>View owned rivens with neural network price prediction grading,
-                        expected value and reroll analysis.</p>
-                    <div class="feature-image">
-                        <img src="screenshots/riven.png" alt="Riven tracker">
-                        <img src="screenshots/riven2.png" alt="Riven tracker">
-                    </div>
-                </div>
-
-                <div id="relics" class="wiki-panel">
-                    <h3>Relic Management</h3>
-                    <p>Track owned relics and their priced drops, see which ones profit the most from refinement and
-                        sort by radshare efficiency.</p>
-                    <div class="feature-image">
-                        <img src="screenshots/relics.png" alt="Relic management">
-                        <img src="screenshots/relics2.png" alt="Relic management">
-                    </div>
-                </div>
-
-                <div id="mastery" class="wiki-panel">
-                    <h3>Mastery Tracker</h3>
-                    <p>MR progress, starchart completion, and mastery XP totals across all categories.
-                        Identify items and nodes you haven't gained mastery from yet.</p>
-                    <div class="feature-image">
-                        <img src="screenshots/mastery.png" alt="Mastery Progress">
-                        <img src="screenshots/mastery2.png" alt="Mastery Progress">
-                    </div>
-                </div>
-
-                <div id="notes" class="wiki-panel">
-                    <h3>Markdown Notes</h3>
-                    <p>Markdown notepad. Notes are saved to your filesystem.</p>
-                    <div class="feature-image">
-                        <img src="screenshots/notes.png" alt="Markdown Notes">
-                    </div>
-                </div>
-
-                <div id="maps" class="wiki-panel">
-                    <h3>World Maps</h3>
-                    <p>Pannable/zoomable maps for Cambion Drift, Orb Vallis, Duviri,
-                        and Plains of Eidolon with support for custom routes and markers.</p>
-                    <div class="feature-image">
-                        <img src="screenshots/maps.png" alt="Maps">
-                        <img src="screenshots/maps2.png" alt="Maps">
-                    </div>
-                </div>
-
-                <div id="collectibles" class="wiki-panel">
-                    <h3>Collectibles</h3>
-                    <p>Track your progress with Kuria, somachord, frame fighter fragments, cephalon fragments,
-                        Leverian prex cards, and open world exploration.</p>
-                </div>
-
-                <div id="checklist" class="wiki-panel">
-                    <h3>Checklist & Syndicates</h3>
-                    <p>Daily/weekly task tracking, focus school
-                        progress and syndicate standings.</p>
-                    <div class="feature-image">
-                        <img src="screenshots/checklist.png" alt="Checklists">
-                    </div>
-                </div>
-
-                <div id="settings" class="wiki-panel">
-                    <h3>Settings & Overlays</h3>
-                    <p>Theme picker, monitoring controls, notification, global hotkeys, OCR overlays.</p>
-                    <div class="feature-image">
-                        <img src="screenshots/settings.png" alt="Theme support">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Wiki Section -->
-    <section id="wiki" class="wiki">
-        <h2><span class="text-gradient">Frequently Asked Questions</span></h2>
-        <div class="wiki-container">
-            <div class="wiki-sidebar">
-                <button class="wiki-tab active" data-target="getting-started">Getting Started</button>
-                <button class="wiki-tab" data-target="features">How It Works</button>
-                <button class="wiki-tab" data-target="privacy">Privacy & Security</button>
-                <button class="wiki-tab" data-target="troubleshooting">Troubleshooting</button>
-            </div>
-            <div class="wiki-content">
-                <div id="getting-started" class="wiki-panel active">
-                    <h3>Getting Started</h3>
-                    <ol>
-                        <li>Navigate to the <a href="https://github.com/glowseeker/cephalon-kronos/releases/latest"
-                                style="color:var(--accent);">releases</a> page.</li>
-                        <li>Download the binary for your OS
-                            (<code>.exe</code> for Windows, <code>.AppImage</code> or <code>.deb</code> for Linux,
-                            <code>.dmg</code> for macOS).
-                        </li>
-                        <li>Run setup (Windows) / Move into own folder and run (Linux/macOS).
-                    </ol>
-                </div>
-
-                <div id="features" class="wiki-panel">
-                    <h3>How It Works</h3>
-                    <p><strong>Inventory Scanning</strong></p>
-                    <p><a href="https://github.com/Sainan/warframe-api-helper"
-                            style="color:var(--accent);">warframe-api-helper</a> reads session
-                        credentials from Warframe process memory, then fetches inventory from Digital Extremes'
-                        mobile API.</p>
-                    <p><strong>Real-Time Overlays and Notifications</strong></p>
-                    <p>A C++ addon to warframe-api-helper reads Warframe's in-memory EE.log ring buffer and streams log
-                        lines
-                        to the app. When the unique ingame trigger is detected, the app fires the overlay or
-                        notification.
-                    </p>
-                    <p><strong>Riven Price Prediction</strong></p>
-                    <p> Based on <a href="https://github.com/cjtho/WarframeRivenPricer"
-                            style="color:var(--accent);">WarframeRivenPricer</a>,
-                        the ONNX neural network estimates platinum prices based on weapon, equipped stats,
-                        and reroll status. Trained on warframe.market auction data, it outputs a
-                        price estimate, grade, expected value and potential for rerolling.</p>
-                </div>
-
-                <div id="privacy" class="wiki-panel">
-                    <h3>Privacy & Security</h3>
-                    <p>No sign-up required. No telemetry recorded. Everything is stored locally.
-                        <br>Does not modify game files or inject code.
-                    </p>
-                    <ul>
-                        <li>Session credentials read from memory only to fetch inventory from
-                            Digital Extremes API.</li>
-                        <li>Network requests: public game data exports, world-state APIs,
-                            warframe.market pricing.</li>
-                    </ul>
-                </div>
-
-                <div id="troubleshooting" class="wiki-panel">
-                    <h3>Troubleshooting</h3>
-                    <p><strong>"My inventory is empty!"</strong>
-                        <br>This is expected on first startup. Run a manual scan in <strong>Settings</strong>
-                        or enable live monitoring.
-                    </p>
-                    <p><strong>"Do I have to turn on Live Monitoring?"</strong>
-                        <br>No, you can also do manual scans in <strong>Settings</strong>. Data persists across
-                        sessions, just not updated constantly.
-                    </p>
-                    <p><strong>"The overlay doesn't appear during fissures."</strong>
-                        <br>1) Confirm that notifications/overlays work via the test buttons in settings.
-                        <br>2) Make sure all your settings (EE.log path, UI scaling etc.) are correct and that the
-                        log scanner has latched on to Warframe.
-                        <br>3) Check if Riven overlays work ingame.
-                        <br>4) If all the above work as expected but the overlay still fails, check
-                        <code>overlay_debug.log</code> in the <code>data/user/</code> folder and report it on the
-                        <a href="https://github.com/glowseeker/cephalon-kronos/issues"
-                            style="color:var(--accent);">issues</a> page.
-                    </p>
-                    <p><strong>"I found a bug!"</strong>
-                        <br>Great, please report it on the <a
-                            href="https://github.com/glowseeker/cephalon-kronos/issues"
-                            style="color:var(--accent);">issues</a> page!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="lightbox-overlay">
-        <span class="lightbox-close">&times;</span>
-        <img src="" class="lightbox-img" alt="Enlarged view">
-    </div>
-    <footer>
-        <p>A Warframe passion project for Tenno, by Tenno.
-            <br>Not affiliated with Digital Extremes.
+  <section id="hero">
+    <canvas id="kronos-canvas"></canvas>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-eyebrow">Warframe companion app</div>
+        <h1>
+          <span class="h1-main">Cephalon<br>Kronos</span>
+        </h1>
+        <p class="hero-desc">
+          Your personal Warframe companion.
+          Manage your inventory, track worldstate, and receive overlays as you play.
+          <br>Open-source, free and cross-platform.
         </p>
-    </footer>
+        <div class="hero-actions">
+          <a href="https://github.com/glowseeker/cephalon-kronos/releases/latest" class="btn btn-primary">Download
+            latest</a>
+          <a href="https://discord.gg/9GjkZ9aXwy" class="btn btn-discord" target="_blank" rel="noopener">
+            <svg viewBox="0 0 127.14 96.36" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path
+                d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a67.55,67.55,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.15,46,96.06,53,91.08,65.69,84.69,65.69Z" />
+            </svg>
+            Discord
+          </a>
+        </div>
+        <div class="platform-badges">
+          <span class="badge">Windows</span>
+          <span class="badge">Linux</span>
+          <span class="badge">macOS</span>
+        </div>
+      </div>
 
-    <script>
-        // Features section tabs
-        const featureTabs = document.querySelectorAll('#showcase .wiki-tab');
-        const featurePanels = document.querySelectorAll('#showcase .wiki-panel');
+    </div>
+    <!-- Feature nodes positioned by JS around Kronos -->
+    <div id="feat-nodes" aria-hidden="true"></div>
 
-        featureTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                featureTabs.forEach(t => t.classList.remove('active'));
-                featurePanels.forEach(p => p.classList.remove('active'));
+    <!-- Hover overlay - fades in over canvas -->
+    <div id="feat-overlay">
+      <div class="fo-title-bar">
+        <span id="fo-title"></span>
+        <div class="fo-dots" id="fo-dots"></div>
+      </div>
+      <div class="feat-overlay-inner">
+        <div class="feat-overlay-shot" id="fo-shot"></div>
+      </div>
+    </div>
+  </section>
 
-                tab.classList.add('active');
-                document.getElementById(tab.getAttribute('data-target')).classList.add('active');
-            });
-        });
+  <div class="divider"></div>
 
-        // Wiki section tabs
-        const wikiTabs = document.querySelectorAll('#wiki .wiki-tab');
-        const wikiPanels = document.querySelectorAll('#wiki .wiki-panel');
+  <section id="faq">
+    <div class="section-inner">
+      <div class="section-eyebrow">FAQ</div>
+      <h2>Common questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q">Is it safe to use?<span class="faq-chev">▾</span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner">As with all 3rd party software, use this at your own risk. It's open source and
+              every single line of code is available for you or anyone else to inspect in the repo. Due to the nature of
+              unofficial 3rd party software, Digital Extremes will never endorse or support it, which leaves us to trust
+              their goodwill and their track record with other 3rd party apps so far.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">My inventory is empty!<span class="faq-chev">▾</span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner">This is expected on first startup. Run a manual scan in <strong>Settings</strong>
+              or
+              enable live monitoring.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Do I have to turn on Live Monitoring?<span class="faq-chev">▾</span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner">No, you can also do manual scans in <strong>Settings</strong>. Data persists across
+              sessions, just not updated constantly.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">The overlay doesn't appear during fissures.<span class="faq-chev">▾</span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner">
+              <ol>
+                <li>Confirm that notifications/overlays work via the test buttons in settings.</li>
+                <li>Make sure all your settings (EE.log path, UI scaling etc.) are correct and that the log scanner has
+                  latched on to Warframe.</li>
+                <li>Check if Riven overlays work ingame.</li>
+                <li>If all the above work as expected but the overlay still fails, check
+                  <code>data/user/overlay_debug.log</code> and report it on the issues page.
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">I found a bug!<span class="faq-chev">▾</span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner">Great, please report it on the <a
+                href="https://github.com/glowseeker/cephalon-kronos/issues" target="_blank">issues page</a>!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        wikiTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                wikiTabs.forEach(t => t.classList.remove('active'));
-                wikiPanels.forEach(p => p.classList.remove('active'));
+  <div id="lightbox" role="dialog" aria-modal="true">
+    <span class="lb-close" id="lb-close">&times;</span>
+    <img src="" id="lb-img" alt="">
+  </div>
 
-                tab.classList.add('active');
-                document.getElementById(tab.getAttribute('data-target')).classList.add('active');
-            });
-        });
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="https://github.com/glowseeker/cephalon-kronos" target="_blank">GitHub</a>
+        <a href="https://discord.gg/9GjkZ9aXwy" target="_blank">Discord</a>
+        <a href="https://github.com/glowseeker/cephalon-kronos/issues" target="_blank">Issues</a>
+        <a href="https://github.com/glowseeker/cephalon-kronos/releases" target="_blank">Releases</a>
+      </div>
+      <p>A Warframe passion project for Tenno by Tenno.
+        <br>
+        Not affiliated with Digital Extremes.
+      </p>
+    </div>
+  </footer>
 
-        // Nested Stack Logic (Visual Deck of Cards)
-        document.querySelectorAll('.feature-image:not(.no-stack)').forEach(container => {
-            const images = container.querySelectorAll('img');
-            if (images.length > 1) {
-                // Wrap images so buttons strictly hug the geometry
-                container.innerHTML = '';
-                // Inner wrapper for clipping rounded corners
-                const inner = document.createElement('div');
-                inner.className = 'image-stack-inner';
-
-                const wrapper = document.createElement('div');
-                wrapper.style.position = 'relative';
-                wrapper.style.display = 'flex';
-                wrapper.style.alignItems = 'center';
-                wrapper.style.justifyContent = 'center';
-                wrapper.style.width = '100%';
-                wrapper.style.height = '100%';
-
-                images.forEach(img => inner.appendChild(img));
-                wrapper.appendChild(inner);
-                container.appendChild(wrapper);
-
-                const prevBtn = document.createElement('button');
-                prevBtn.className = 'stack-nav-btn prev';
-                prevBtn.innerHTML = '&#10094;';
-
-                const nextBtn = document.createElement('button');
-                nextBtn.className = 'stack-nav-btn next';
-                nextBtn.innerHTML = '&#10095;';
-
-                wrapper.appendChild(prevBtn);
-                wrapper.appendChild(nextBtn);
-
-                const layoutCards = () => {
-                    const currentImages = Array.from(inner.querySelectorAll('img'));
-                    currentImages.forEach((img, i) => {
-                        if (i === 0) {
-                            img.style.position = 'relative';
-                            img.style.display = 'block';
-                            img.style.zIndex = '1';
-                            img.style.opacity = '1';
-                            img.style.cursor = 'pointer';
-                        } else {
-                            img.style.position = 'absolute';
-                            img.style.display = 'none';
-                            img.style.zIndex = '0';
-                            img.style.opacity = '0';
-                        }
-                    });
-                };
-
-                const nextCard = () => {
-                    const first = inner.querySelector('img');
-                    inner.appendChild(first); // Simpler move
-                    layoutCards();
-                };
-
-                const prevCard = () => {
-                    const imgs = inner.querySelectorAll('img');
-                    const last = imgs[imgs.length - 1];
-                    inner.insertBefore(last, inner.firstChild);
-                    layoutCards();
-                };
-
-                // Hit-zones for side clicking
-                const leftZone = document.createElement('div');
-                leftZone.className = 'hit-zone left';
-                const rightZone = document.createElement('div');
-                rightZone.className = 'hit-zone right';
-
-                wrapper.appendChild(leftZone);
-                wrapper.appendChild(rightZone);
-
-                leftZone.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    prevCard();
-                });
-
-                rightZone.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    nextCard();
-                });
-
-                nextBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    nextCard();
-                });
-
-                prevBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    prevCard();
-                });
-
-                // Lightbox Logic
-                const lightbox = document.getElementById('lightbox');
-                const lightboxImg = lightbox.querySelector('.lightbox-img');
-
-                wrapper.addEventListener('click', (e) => {
-                    if (e.target.tagName === 'IMG' && e.target.style.opacity === '1') {
-                        lightboxImg.src = e.target.src;
-                        lightbox.classList.add('active');
-                    }
-                });
-
-                lightbox.addEventListener('click', () => {
-                    lightbox.classList.remove('active');
-                });
-
-
-                layoutCards();
-
-                layoutCards();
-            } else if (images.length === 1) {
-                images[0].style.transform = 'translate(0,0) scale(1) rotate(0)';
-                images[0].style.opacity = '1';
-                images[0].style.zIndex = '1';
-            }
-        });
-    </script>
+  <script src="main.js" defer></script>
 </body>
 
 </html>

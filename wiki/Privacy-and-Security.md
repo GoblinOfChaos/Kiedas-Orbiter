@@ -15,7 +15,7 @@ Cephalon Kronos is fully open-source and does not require closed-source third-pa
 
 **What the app reads from memory:**
 - Session credentials (`accountId` + `nonce`) - used to fetch inventory data from Digital Extremes mobile API at `mobile.warframe.com`
-- EE.log ring buffer - Warframe's in-process debug log, read to detect relic reward screens, riven rerolls, and mission events
+- EE.log ring buffer - Warframe's in-process debug log, read to detect relic reward screens, ingame menu navigation and mission events
 
 **External network requests:**
 | Purpose | Endpoint | Data |

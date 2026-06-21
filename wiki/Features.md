@@ -1,4 +1,6 @@
-# Features
+# Feature
+
+Here's a list of all features the application includes, sorted by screen order.
 
 ## Dashboard
 

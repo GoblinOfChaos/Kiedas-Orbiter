@@ -308,5 +308,7 @@ async function fetchWfmPrice(slug, maxRank = null) {
 function saveToCache(itemUniqueName, plat) {
   const cache = loadCache();
   cache[itemUniqueName] = { plat, lastUpdated: Date.now() };
+  cachedData = cache;
+  lastCacheLoad = Date.now();
   localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
 }

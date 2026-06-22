@@ -178,7 +178,7 @@ function parseDuviriCycle(_raw) {
  * every underscore-joined suffix of each /Conquest/ path segment, so that
  * any raw key will match one of them.
  */
-function buildArchimedeaMap(dict, suppDict) {
+export function buildArchimedeaMap(dict, suppDict) {
   const map = {}
   const clean = s => s.replace(/<[^>]*>/g, '').trim()
 
@@ -237,12 +237,12 @@ const CONQUEST_OVERRIDES = {
  *   - ENW             ExportNightwave: Nightwave reward list
  * @returns {object} Structured data consumed by Dashboard.jsx, or null if raw is falsy.
  */
-export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, bountyCycle, ES, ENWRawRewards, ExportImages }) {
+export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, bountyCycle, ES, ENWRawRewards, ExportImages, archimedeaMap }) {
   if (!raw) return null
 
   const nightwaveRewards = ENWRawRewards || []
   const imagesMap = ExportImages || {}
-  const archMap = buildArchimedeaMap(dict || {}, suppDict || {})
+  const archMap = archimedeaMap ?? buildArchimedeaMap(dict || {}, suppDict || {})
 
   const clean = (s) => {
     if (!s || typeof s !== 'string') return ''

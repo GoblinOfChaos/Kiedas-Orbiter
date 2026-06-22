@@ -220,6 +220,9 @@ async fn check_exports() -> Result<String, String> {
 }
 
 /// Download the riven pricing ONNX model and vocab files if not already cached.
+/// Unlike OCR models these ship in the repo (not from a third-party), but they
+/// are large enough that bundling bloats every release, so we just fetch them
+/// on first run like we do for OCR.
 #[tauri::command]
 async fn check_pricer_models() -> Result<String, String> {
     let models_dir = crate::pricer::get_models_dir();
@@ -426,8 +429,9 @@ async fn load_all_exports(app_handle: tauri::AppHandle) -> Result<Value, String>
             continue
         };
         
-        let content = fs::read_to_string(&path).map_err(|e| e.to_string())?;
-        let json: Value = serde_json::from_str(&content).map_err(|e| e.to_string())?;
+        let file = fs::File::open(&path).map_err(|e| e.to_string())?;
+        let json: Value = serde_json::from_reader(std::io::BufReader::new(file))
+            .map_err(|e| e.to_string())?;
         let key = file_name.trim_end_matches(".json");
         result.insert(key.to_string(), json);
     }

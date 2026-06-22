@@ -7,6 +7,7 @@ const ITEMS_TTL = 7 * 24 * 60 * 60 * 1000;
 
 let cachedPriceMap = null;
 let cachedItemMap = null;
+let ensureInFlight = null
 
 function getTodayStr() {
   const d = new Date();
@@ -81,6 +82,13 @@ function buildPriceMap(historyData, itemMap) {
 }
 
 async function ensurePriceMap() {
+  if (cachedPriceMap) return cachedPriceMap;
+  if (ensureInFlight) return ensureInFlight;
+  ensureInFlight = _doEnsurePriceMap().finally(() => { ensureInFlight = null });
+  return ensureInFlight;
+}
+
+async function _doEnsurePriceMap() {
   let priceMap = loadPriceMap();
   if (priceMap) return priceMap;
 

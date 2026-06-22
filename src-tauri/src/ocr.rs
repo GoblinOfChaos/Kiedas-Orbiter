@@ -603,6 +603,11 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
         // and we want to guarantee at least a few detection passes.
         const MIN_ATTEMPTS_BEFORE_YIELD: u32 = 4;
 
+        let mut cached_scale = 0.0f64;
+        let mut cached_sx = 0.0f64;
+        let mut cached_sy = 0.0f64;
+        let mut scaled_templates: Vec<TemplateData> = Vec::new();
+
         loop {
             if manual && start_time.elapsed().as_secs() >= MANUAL_TIMEOUT_SECS {
                 ocr_log!(&app, "[OCR] Icon scan timed out after {} attempts", attempt);
@@ -665,17 +670,24 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
                 &rgb_full, strip_x, strip_y, strip_w, strip_h
             ).to_image();
 
-            // ── Scale templates to current resolution + UI scale ───────────────
-            // Done every attempt so USER_UI_SCALE changes take effect live.
-            let scaled_templates: Vec<TemplateData> = templates.iter().filter_map(|tmpl| {
-                let tw = ((tmpl.width()  as f64 * sx * active_scale).round() as u32).max(1);
-                let th = ((tmpl.height() as f64 * sy * active_scale).round() as u32).max(1);
-                if tw > strip_w || th > strip_h { return None; }
-                let scaled = image::imageops::resize(
-                    tmpl, tw, th, image::imageops::FilterType::Lanczos3
-                );
-                precompute_template(&scaled)
-            }).collect();
+            // ── Scale templates to current resolution + UI scale (cached) ─────
+            let scale_changed = (active_scale - cached_scale).abs() > f64::EPSILON
+                || (sx - cached_sx).abs() > f64::EPSILON
+                || (sy - cached_sy).abs() > f64::EPSILON;
+            if scale_changed {
+                cached_scale = active_scale;
+                cached_sx = sx;
+                cached_sy = sy;
+                scaled_templates = templates.iter().filter_map(|tmpl| {
+                    let tw = ((tmpl.width()  as f64 * sx * active_scale).round() as u32).max(1);
+                    let th = ((tmpl.height() as f64 * sy * active_scale).round() as u32).max(1);
+                    if tw > strip_w || th > strip_h { return None; }
+                    let scaled = image::imageops::resize(
+                        tmpl, tw, th, image::imageops::FilterType::Lanczos3
+                    );
+                    precompute_template(&scaled)
+                }).collect();
+            }
 
             if scaled_templates.is_empty() { continue; }
 
@@ -810,40 +822,40 @@ fn run_ocr_internal(app: AppHandle, squad_size: usize, is_debug: bool, captured_
 }
 
 /// Advanced preprocessing using contrast normalization + edge enhancement.
-    /// This gives the OCR engine more usable input than pure edge detection.
+/// This gives the OCR engine more usable input than pure edge detection.
 fn apply_ocr_preprocessing(slot_crop: &DynamicImage, _debug_slot: Option<usize>) -> image::GrayImage {
-    use imageproc::filter::gaussian_blur_f32;
-
     let (fw, fh) = (slot_crop.width(), slot_crop.height());
-    let upscaled = slot_crop.resize(fw * 3, fh * 3, image::imageops::FilterType::Lanczos3);
+    let upscaled = slot_crop.resize(fw * 2, fh * 2, image::imageops::FilterType::Lanczos3);
     let gray = upscaled.to_luma8();
     let (w, h) = gray.dimensions();
 
-    // 1. Compute local contrast using difference from blurred background
-    let large = gaussian_blur_f32(&gray, 30.0);
+    // 1. Compute per-scanline background mean (cheap replacement for gaussian_blur)
+    let mut scanline_means = vec![0.0f32; h as usize];
+    for y in 0..h {
+        let mut sum = 0.0f32;
+        for x in 0..w {
+            sum += gray.get_pixel(x, y)[0] as f32;
+        }
+        scanline_means[y as usize] = sum / w as f32;
+    }
+    let bg_mean: f32 = scanline_means.iter().sum::<f32>() / h as f32;
 
     // 2. Create contrast-enhanced image
     let mut enhanced = image::GrayImage::new(w, h);
-    let total_pixels = (w * h) as f32;
-    let bg_mean: f32 = large.pixels().map(|p| p[0] as f32).sum::<f32>() / total_pixels;
-    
     for y in 0..h {
+        let row_mean = scanline_means[y as usize];
         for x in 0..w {
             let orig = gray.get_pixel(x, y)[0] as f32;
-            let blurred = large.get_pixel(x, y)[0] as f32;
-            let diff = orig - blurred;
+            let diff = orig - row_mean;
             let normalized = (bg_mean + diff * 3.0).clamp(0.0, 255.0) as u8;
             enhanced.put_pixel(x, y, image::Luma([normalized]));
         }
     }
 
-    // 3. Light smoothing to kill high-frequency noise/artifacts before Otsu
-    let smoothed = gaussian_blur_f32(&enhanced, 0.5);
-
-    // 4. Dynamic Otsu Threshold on smoothed image
+    // 3. Dynamic Otsu Threshold on enhanced image
     let mut hist = [0u32; 256];
-    for p in smoothed.pixels() { hist[p[0] as usize] += 1; }
-    let total = total_pixels as f64;
+    for p in enhanced.pixels() { hist[p[0] as usize] += 1; }
+    let total = (w * h) as f64;
     let (mut sum, mut sum_b, mut q1, mut max_var) = (0.0f64, 0.0f64, 0.0f64, 0.0f64);
     for i in 0..256 { sum += i as f64 * hist[i] as f64; }
     let mut otsu_thresh = 128u8;
@@ -862,7 +874,7 @@ fn apply_ocr_preprocessing(slot_crop: &DynamicImage, _debug_slot: Option<usize>)
     let mut binary = image::GrayImage::new(w, h);
     for y in 0..h {
         for x in 0..w {
-            let val = smoothed.get_pixel(x, y)[0];
+            let val = enhanced.get_pixel(x, y)[0];
             binary.put_pixel(x, y, image::Luma([if val < otsu_thresh { 0 } else { 255 }]));
         }
     }
@@ -929,8 +941,6 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
         let sx = sw / 1920.0;
         let sy = sh / 1080.0;
         
-        let gray_screenshot = std::sync::Arc::new(dynamic_image.to_luma8());
-        
         let mut coords = Vec::new();
         for (fx, fy, fw, fh) in raw_coords {
             let s_fx = (fx as f64 * sx).round() as u32;
@@ -946,7 +956,6 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
             let slot_crop = dynamic_image.crop_imm(*fx, *fy, *fw, *fh);
             
             let app_for_thread = app_c.clone();
-            let _gray_screen_c = std::sync::Arc::clone(&gray_screenshot);
             let slot_idx = i;
 
             handles.push(std::thread::spawn(move || {

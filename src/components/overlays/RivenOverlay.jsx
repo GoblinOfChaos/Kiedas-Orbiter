@@ -216,6 +216,7 @@ export default function RivenOverlay() {
   const aliveRef = useRef(true)
   const showingRef = useRef(false)
   const knownWeaponsRef = useRef([])
+  const knownWeaponsLowerRef = useRef([])
 
   const [parsed, setParsed] = useState(null)
   const [ocrLoading, setOcrLoading] = useState(false)
@@ -227,11 +228,14 @@ export default function RivenOverlay() {
     invoke('get_known_weapon_names').then(names => {
       setKnownWeapons(names)
       knownWeaponsRef.current = names
+      knownWeaponsLowerRef.current = names.map(w => w.toLowerCase())
     }).catch(() => { })
   }, [])
 
-  function extractWeaponName(ocrName, known) {
+  function extractWeaponName(ocrName) {
     if (!ocrName) return ''
+    const known = knownWeaponsRef.current
+    const knownLower = knownWeaponsLowerRef.current
     // Strip common garbage suffixes: mod drain, capacity, polarity, reroll counter, etc.
     let cleaned = ocrName
       .replace(/\s+(mod(\s+drain)?|drain|capacity|polarity)\s*\d*$/i, '')
@@ -245,22 +249,21 @@ export default function RivenOverlay() {
     // Helper: try to match `lower` against known weapons, return longest match or null
     const tryMatch = (str) => {
       // 1. exact match
-      for (const w of known) {
-        if (str === w.toLowerCase()) return w
+      for (let i = 0; i < known.length; i++) {
+        if (str === knownLower[i]) return known[i]
       }
       // 2. longest prefix match
       let best = ''
-      for (const w of known) {
-        if (str.startsWith(w.toLowerCase()) && w.length > best.length) {
-          best = w
+      for (let i = 0; i < known.length; i++) {
+        if (str.startsWith(knownLower[i]) && known[i].length > best.length) {
+          best = known[i]
         }
       }
       if (best) return best
       // 3. longest substring match
-      for (const w of known) {
-        const wl = w.toLowerCase()
-        if (str.includes(wl) && w.length > best.length) {
-          best = w
+      for (let i = 0; i < known.length; i++) {
+        if (str.includes(knownLower[i]) && known[i].length > best.length) {
+          best = known[i]
         }
       }
       return best || null
@@ -275,10 +278,9 @@ export default function RivenOverlay() {
       const unprefixed = tryMatch(noPrefix)
       if (unprefixed) return unprefixed
       // Also try each known weapon without its number prefix
-      for (const w of known) {
-        const wl = w.toLowerCase()
-        const wNoPrefix = wl.replace(/^\d+\s*[-–—]\s*/, '')
-        if (wNoPrefix !== wl && noPrefix === wNoPrefix) return w
+      for (let i = 0; i < known.length; i++) {
+        const wNoPrefix = knownLower[i].replace(/^\d+\s*[-–—]\s*/, '')
+        if (wNoPrefix !== knownLower[i] && noPrefix === wNoPrefix) return known[i]
       }
     }
 
@@ -302,7 +304,7 @@ export default function RivenOverlay() {
 
   const doPricing = useCallback((p) => {
     if (!p || !p.stats.length) { setEstimatedPrice(null); setRivenInfo(null); return }
-    const weaponName = extractWeaponName(p.name || '', knownWeaponsRef.current)
+    const weaponName = extractWeaponName(p.name || '')
     const pos = p.stats.filter(s => !s.value.startsWith('-')).map(s => cleanStatName(s.name))
     const neg = p.stats.filter(s => s.value.startsWith('-') || /^x/i.test(s.value)).map(s => cleanStatName(s.name))
 

@@ -548,7 +548,9 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
 
     std::thread::spawn(move || {
         let mut scanner = LogScanner::new();
-        let mut seen_set: std::collections::HashSet<u64> = std::collections::HashSet::new();
+        let mut seen_set: std::collections::HashSet<u64> = std::collections::HashSet::with_capacity(4096);
+        let mut seen_count: usize = 0;
+        const SEEN_RESET_THRESHOLD: usize = 16_384;
         let mut logged_waiting = false;
 
         loop {
@@ -750,6 +752,11 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     let hash = line_hash(line);
                     if !seen_set.insert(hash) {
                         continue;
+                    }
+                    seen_count += 1;
+                    if seen_count >= SEEN_RESET_THRESHOLD {
+                        seen_set.clear();
+                        seen_count = 0;
                     }
                     scanner.on_line(&app_inner, line);
                 }

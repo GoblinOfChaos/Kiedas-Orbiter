@@ -29,33 +29,24 @@ export default function RelicRewardOverlay() {
   const closeTimerRef = useRef(null)
   const triggerCount = useRef(0)
   const [triggerKey, setTriggerKey] = useState(0)
+  const windowVisibleRef = useRef(false)
 
   const showWindow = useCallback(async (fromRust = false) => {
-    if (!windowVisible) {
-      if (!fromRust) {
-        try {
-          await invoke('show_overlay_window', { label: 'overlay-relic' })
-        } catch (err) {
-          console.error('[RelicOverlay] show_overlay_window error:', err)
-        }
-      }
-      if (closeTimerRef.current) { clearTimeout(closeTimerRef.current); closeTimerRef.current = null }
-      setWindowVisible(true)
+    if (windowVisibleRef.current) return
+    windowVisibleRef.current = true
+    setWindowVisible(true)
+    if (!fromRust) {
+      await invoke('show_overlay_window', { label: 'overlay-relic' }).catch(console.error)
     }
-  }, [windowVisible])
+    if (closeTimerRef.current) { clearTimeout(closeTimerRef.current); closeTimerRef.current = null }
+  }, [])
 
   const hideWindow = useCallback(async () => {
-    console.log('[RelicOverlay] hideWindow called, windowVisible =', windowVisible)
-    if (windowVisible) {
-      try {
-        await invoke('hide_overlay_window', { label: 'overlay-relic' })
-        console.log('[RelicOverlay] hide_overlay_window success')
-        setWindowVisible(false)
-      } catch (err) {
-        console.error('[RelicOverlay] hide_overlay_window error:', err)
-      }
-    }
-  }, [windowVisible])
+    if (!windowVisibleRef.current) return
+    windowVisibleRef.current = false
+    setWindowVisible(false)
+    await invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(console.error)
+  }, [])
 
   // The overlay is shown by the OCR pipeline via scanner-relic-phase-start event.
   // No need to force-show on mount - that would show the overlay even outside
@@ -191,25 +182,34 @@ export default function RelicRewardOverlay() {
   // Price fetching logic
   useEffect(() => {
     const fetchAllPrices = async () => {
-      const newPrices = { ...prices }
-      let changed = false
+      const promises = []
+      const entries = []
 
-      if (localReward && !newPrices[localReward.uniqueName]) {
-        const p = await getPrice(localReward.uniqueName, localReward.name, localReward.ducats)
-        newPrices[localReward.uniqueName] = p
-        changed = true
+      if (localReward) {
+        entries.push({ uniqueName: localReward.uniqueName, name: localReward.name, ducats: localReward.ducats })
       }
 
       for (const slotIdx in ocrResults) {
         const item = ocrResults[slotIdx]?.item
-        if (item && !newPrices[item.uniqueName]) {
-          const p = await getPrice(item.uniqueName, item.confirmed_reward || item.name, item.ducats)
-          newPrices[item.uniqueName] = p
-          changed = true
+        if (item) {
+          entries.push({ uniqueName: item.uniqueName, name: item.confirmed_reward || item.name, ducats: item.ducats })
         }
       }
 
-      if (changed) setPrices(newPrices)
+      await Promise.all(entries.map(async ({ uniqueName, name, ducats }) => {
+        const p = await getPrice(uniqueName, name, ducats)
+        return { uniqueName, price: p }
+      })).then(results => {
+        const newPrices = { ...prices }
+        let changed = false
+        for (const { uniqueName, price } of results) {
+          if (price !== undefined) {
+            newPrices[uniqueName] = price
+            changed = true
+          }
+        }
+        if (changed) setPrices(newPrices)
+      })
     }
 
     fetchAllPrices()

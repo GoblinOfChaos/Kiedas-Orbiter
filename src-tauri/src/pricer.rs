@@ -204,9 +204,18 @@ fn get_pricer() -> Option<&'static RivenPricer> {
                 let mut rankings = HashMap::new();
                 let mut url_aliases = Vec::new();
                 for (key, val) in json {
-                    let rank = val.get("rank")?.as_i64()? as i32;
-                    let expected_value = val.get("expected_value")?.as_f64()?;
-                    let dist = parse_price_distribution(val.get("price_distribution")?);
+                    let rank = match val.get("rank").and_then(|v| v.as_i64()) {
+                      Some(r) => r as i32,
+                      None => continue,
+                    };
+                    let expected_value = match val.get("expected_value").and_then(|v| v.as_f64()) {
+                      Some(e) => e,
+                      None => continue,
+                    };
+                    let dist = match val.get("price_distribution") {
+                      Some(d) => parse_price_distribution(d),
+                      None => continue,
+                    };
                     let item_lower = key.to_lowercase();
                     for (_k, iv) in &items_data {
                         if let (Some(iname), Some(url_name)) = (

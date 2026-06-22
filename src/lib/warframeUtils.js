@@ -365,6 +365,8 @@ const FOLDER_OVERRIDES = {
   Fairy: 'Wisp', Jade: 'Nyx',
 };
 
+const PART_SUFFIX_RE = /(Blueprint|Barrel|Receiver|Stock|Handle|Grip|String|Upper\s?Limb|Lower\s?Limb|Blade|Hilt|Gauntlet|Boot|Pouch|Stars|Band|Head|Carapace|Cerebrum|Systems|Chassis|Neuroptics)$/i;
+
 function splitPascal(str) {
   return str
     .replace(/([a-z\d])([A-Z])/g, '$1 $2')
@@ -479,31 +481,31 @@ export function resolveAnyImage(rewardOrItem, EI, nameToImage, uniqueNameToName 
     if (direct) return direct
     // Blueprint path: /Lotus/Types/Recipes/.../FooBlueprint
     // EI is keyed by weapon paths, not recipe paths - look up by resolved name instead
-    if (p.includes('/Recipes/') || p.endsWith('Blueprint') || /(Barrel|Receiver|Stock|Handle|Grip|String|UpperLimb|LowerLimb|Blade|Hilt|Gauntlet|Boot|Pouch|Stars|Band|Head|Carapace|Cerebrum|Systems|Chassis|Neuroptics)$/i.test(p)) {
+    if (p.includes('/Recipes/') || p.endsWith('Blueprint') || PART_SUFFIX_RE.test(p)) {
       // 1. Resolve the item's display name via dict, strip suffixes, look up by name
       const locKey = uniqueNameToName[p]
       if (locKey) {
-        const cleanName = locKey.replace(/\s+(Blueprint|Barrel|Receiver|Stock|Handle|Grip|String|Upper Limb|Lower Limb|Blade|Hilt|Gauntlet|Boot|Pouch|Stars|Band|Head|Carapace|Cerebrum|Systems|Chassis|Neuroptics)$/i, '').trim()
+        const cleanName = locKey.replace(PART_SUFFIX_RE, '').trim()
         const byResolvedName = nameToImage[cleanName.toLowerCase()]
         if (byResolvedName) return byResolvedName
       }
 
       // 2. Use nameFromPath which splits pascal case, then strip suffixes
       const nfp = nameFromPath(p)
-      const cleanNfp = nfp.replace(/\s+(Blueprint|Barrel|Receiver|Stock|Handle|Grip|String|Upper Limb|Lower Limb|Blade|Hilt|Gauntlet|Boot|Pouch|Stars|Band|Head|Carapace|Cerebrum|Systems|Chassis|Neuroptics)$/i, '').trim()
+      const cleanNfp = nfp.replace(PART_SUFFIX_RE, '').trim()
       if (cleanNfp) {
         const byNfp = nameToImage[cleanNfp.toLowerCase()]
         if (byNfp) return byNfp
       }
 
       // 3. Try stripping suffixes from the path leaf
-      const leaf = p.split('/').at(-1)?.replace(/(Blueprint|Barrel|Receiver|Stock|Handle|Grip|String|UpperLimb|LowerLimb|Blade|Hilt|Gauntlet|Boot|Pouch|Stars|Band|Head|Carapace|Cerebrum|Systems|Chassis|Neuroptics)$/i, '') ?? ''
+      const leaf = p.split('/').at(-1)?.replace(PART_SUFFIX_RE, '') ?? ''
       if (leaf) {
         const byLeaf = nameToImage[leaf.toLowerCase()]
         if (byLeaf) return byLeaf
       }
       // 4. Try swapping recipe path to weapon path and strip suffixes
-      const swapped = p.replace('/Types/Recipes/', '/Weapons/').replace(/(Blueprint|Barrel|Receiver|Stock|Handle|Grip|String|UpperLimb|LowerLimb|Blade|Hilt|Gauntlet|Boot|Pouch|Stars|Band|Head|Carapace|Cerebrum|Systems|Chassis|Neuroptics)$/i, '')
+      const swapped = p.replace('/Types/Recipes/', '/Weapons/').replace(PART_SUFFIX_RE, '')
       const bySwap = byName(swapped)
       if (bySwap) return bySwap
     }

@@ -99,6 +99,12 @@ export default function Rivens() {
 
   const allRivens = useMemo(() => inventoryData?.rivens ?? [], [inventoryData])
 
+  const rivenKeys = useMemo(() => {
+    const m = new Map()
+    for (const r of allRivens) m.set(r, rivenKey(r))
+    return m
+  }, [allRivens])
+
   const filtered = useMemo(() => {
     let list = allRivens.filter(r => {
       const matchSearch = !searchQuery || r.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -116,8 +122,8 @@ export default function Rivens() {
 
     const dir = sortDirection === 'desc' ? -1 : 1
     return [...list].sort((a, b) => {
-      const ea = pricingRef.current[rivenKey(a)]
-      const eb = pricingRef.current[rivenKey(b)]
+      const ea = pricingRef.current[rivenKeys.get(a)]
+      const eb = pricingRef.current[rivenKeys.get(b)]
 
       if (sortCriteria === 'name') {
         const na = a.name.toLowerCase()
@@ -146,7 +152,7 @@ export default function Rivens() {
   useEffect(() => {
     console.log('pricing effect fire, rivens:', allRivens.length)
     const priceable = allRivens.filter(r => !r.veiled && !r.challenge)
-    const toFetch = priceable.filter(r => !pricingRef.current[rivenKey(r)])
+    const toFetch = priceable.filter(r => !pricingRef.current[rivenKeys.get(r)])
     console.log('toFetch:', toFetch.length)
     if (toFetch.length === 0) return
 
@@ -172,7 +178,7 @@ export default function Rivens() {
       const newCache = { ...pricingRef.current }
       let stored = 0
       toFetch.forEach((r, i) => {
-        if (results[i]) { newCache[rivenKey(r)] = results[i]; stored++ }
+        if (results[i]) { newCache[rivenKeys.get(r)] = results[i]; stored++ }
       })
       pricingRef.current = newCache
       setPricingCache(newCache)
@@ -282,7 +288,7 @@ export default function Rivens() {
             justifyContent: 'center',
           }}>
             {filtered.map((riven, idx) => (
-              <RivenCard key={idx} riven={riven} framesPath={framesPath} iconsPath={iconsPath} width={200} estimate={pricingCache[rivenKey(riven)]} />
+              <RivenCard key={idx} riven={riven} framesPath={framesPath} iconsPath={iconsPath} width={200} estimate={pricingCache[rivenKeys.get(riven)]} />
             ))}
           </div>
         )}

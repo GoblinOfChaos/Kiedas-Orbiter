@@ -229,7 +229,7 @@ async fn check_pricer_models() -> Result<String, String> {
     if !models_dir.exists() {
         std::fs::create_dir_all(&models_dir).map_err(|e| e.to_string())?;
     }
-    let base = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/main/src-tauri/data/bin/pricer-models";
+    let base = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/master/src-tauri/data/bin/pricer-models";
     let files = &[
         "price_model.onnx",
         "weapon_vocab.json",
@@ -631,7 +631,7 @@ fn extract_bundled_assets(app_handle: &tauri::AppHandle) {
 async fn check_media_assets() -> Result<String, String> {
     let client = reqwest::Client::new();
     let mut downloaded = 0u32;
-    let base_url = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/main/src-tauri/data/export";
+    let base_url = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/master/src-tauri/data/export";
 
     // Download open-world maps to assets (used by Maps screen)
     let maps_dir = resolve_path("data/assets/maps");

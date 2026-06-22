@@ -22,7 +22,7 @@ const NODE_ANGLES = Array.from({ length: 10 }, (_, i) =>
   -Math.PI / 2 + (i / 10) * Math.PI * 2
 );
 const ELLIPSE_RX = 0.32;
-const ELLIPSE_RY = 0.32;
+const ELLIPSE_RY = 0.38;
 
 const nodeContainer = document.getElementById('feat-nodes');
 const foOverlay = document.getElementById('feat-overlay');
@@ -33,11 +33,11 @@ const foDots = document.getElementById('fo-dots');
 let overlayVisible = false;
 let hideTimer = null;
 let centerX = innerWidth * 0.68;
-let centerY = innerHeight * 0.48;
+let centerY = innerHeight * 0.55;
 
 function placeNodes() {
   centerX = innerWidth * 0.6;
-  centerY = innerHeight * 0.48;
+  centerY = innerHeight * 0.55;
   const cx = centerX;
   const cy = centerY;
   const rx = innerWidth * ELLIPSE_RX;
@@ -159,11 +159,10 @@ document.querySelectorAll('.faq-q').forEach(btn => {
       res(tex);
     }, undefined, () => res(null));
   });
-  const [diffTex, normTex, roughTex, dispTex] = await Promise.all([
+  const [diffTex, normTex, roughTex] = await Promise.all([
     loadTex('cracked_concrete_wall_diff_1k.jpg'),
     loadTex('cracked_concrete_wall_nor_1k.png'),
     loadTex('cracked_concrete_wall_rough_1k.jpg'),
-    loadTex('cracked_concrete_wall_disp_1k.png'),
   ]);
 
   // -- Materials --
@@ -172,51 +171,53 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     map: diffTex,
     normalMap: normTex,
     roughnessMap: roughTex,
-    displacementMap: dispTex,
-    displacementScale: 0.04,
-    normalScale: new THREE.Vector2(1.4, 1.4),
+    normalScale: new THREE.Vector2(0.8, 0.8),
     roughness: 0.92,
     metalness: 0.04,
     color: 0xffffff,
     side: THREE.DoubleSide,
   });
 
-  // Pyramids: dark purple emissive, semi-translucent
+  // Pyramids: textured, faintly translucent
   const pyramidMat = new THREE.MeshStandardMaterial({
-    color: 0x1a0533,
+    map: diffTex,
+    normalMap: normTex,
+    roughnessMap: roughTex,
+    normalScale: new THREE.Vector2(1.0, 1.0),
+    color: 0x4d1a7e,
     emissive: 0x6d28d9,
-    emissiveIntensity: 0.6,
-    roughness: 0.5,
-    metalness: 0.2,
+    emissiveIntensity: 0.15,
+    roughness: 0.4,
+    metalness: 0.25,
     transparent: true,
-    opacity: 0.92,
-  });
-  const pyramidWireMat = new THREE.MeshBasicMaterial({
-    color: 0xa855f7, wireframe: true, transparent: true, opacity: 0.55,
-  });
-
-  // Orbit diamonds: flat panels, purple face toward center
-  const diamondMat = new THREE.MeshStandardMaterial({
-    color: 0x2d0a5e,
-    emissive: 0x7c3aed,
-    emissiveIntensity: 0.7,
-    roughness: 0.35,
-    metalness: 0.15,
-    transparent: true,
-    opacity: 0.88,
+    opacity: 0.95,
     side: THREE.DoubleSide,
   });
-  const diamondWireMat = new THREE.MeshBasicMaterial({
-    color: 0xc084fc, wireframe: true, transparent: true, opacity: 0.7,
+
+  // Orbit diamonds: textured flat panels, purple face toward center
+  const diamondMat = new THREE.MeshStandardMaterial({
+    map: diffTex,
+    normalMap: normTex,
+    roughnessMap: roughTex,
+    normalScale: new THREE.Vector2(1.0, 1.0),
+    color: 0x4d1a7e,
+    emissive: 0x7c3aed,
+    emissiveIntensity: 0.15,
+    roughness: 0.5,
+    metalness: 0.2,
+    side: THREE.DoubleSide,
   });
 
-  // Core: warm gold sphere
+  // Core: deep purple concrete shell that reacts to light
   const coreMat = new THREE.MeshStandardMaterial({
-    color: 0xffcc44,
-    emissive: 0xcc8800,
-    emissiveIntensity: 0.7,
-    roughness: 0.15,
-    metalness: 0.6,
+    map: diffTex,
+    normalMap: normTex,
+    roughnessMap: roughTex,
+    normalScale: new THREE.Vector2(1.0, 1.0),
+    color: 0x1c053a,
+    roughness: 0.5,
+    metalness: 0.2,
+    side: THREE.DoubleSide,
   });
 
   // -- Load GLB --
@@ -228,10 +229,11 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   const shellPieces = []; // { mesh, restPos, dir, phase, drift }
   let topPyramid = null;
   let botPyramid = null;
-  let coreMesh = null;
+  const corePieces = []; // icosphere cells forming hollow core
   let diamondSrc = null; // source mesh for 4 instanced orbit diamonds
   const orbitDiamonds = []; // { grp, angle }
   const shellGrp = new THREE.Group();
+  const coreGrp = new THREE.Group();
 
   gltf.scene.traverse(child => {
     if (!child.isMesh) return;
@@ -245,24 +247,20 @@ document.querySelectorAll('.faq-q').forEach(btn => {
       shellPieces.push(child);
     } else if (n === 'UpperPyramid') {
       child.material = pyramidMat;
-      const wire = new THREE.Mesh(child.geometry, pyramidWireMat);
-      child.add(wire);
       child.userData.restPos = child.position.clone();
       topPyramid = child;
     } else if (n === 'BottomPyramid') {
       child.material = pyramidMat;
-      const wire = new THREE.Mesh(child.geometry, pyramidWireMat);
-      child.add(wire);
       child.userData.restPos = child.position.clone();
       botPyramid = child;
-    } else if (n === 'Core') {
+    } else if (n.includes('Icosphere_cell')) {
       child.material = coreMat;
       child.userData.baseScale = child.scale.clone();
-      coreMesh = child;
+      corePieces.push(child);
     } else if (n === 'OrbitDiamond') {
       diamondSrc = child;
       child.visible = false;
-      const R = Math.sqrt(child.position.x**2 + child.position.z**2) || 0.72;
+      const R = Math.sqrt(child.position.x ** 2 + child.position.z ** 2) || 0.72;
       child.userData = { R, y: child.position.y };
     }
   });
@@ -275,42 +273,46 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   // Rotate the shell group to face the camera (adjust from left-facing to front-facing)
   shellGrp.rotation.y = Math.PI / 2;
 
+  // Reparent core pieces into core group
+  corePieces.forEach(p => coreGrp.add(p));
+  gltf.scene.add(coreGrp);
+
+  // Amber emissive sphere inside the hollow core — glows through cracks
+  const amberMat = new THREE.MeshStandardMaterial({
+    color: 0x996644,
+    emissive: 0x885533,
+    emissiveIntensity: 2.0,
+    roughness: 0.1,
+    metalness: 0.0,
+  });
+  const amberSphere = new THREE.Mesh(new THREE.SphereGeometry(0.28, 16, 12), amberMat);
+  coreGrp.add(amberSphere);
+  const darkCol = new THREE.Color(0x553322);
+  const amberCol = new THREE.Color(0x996644);
+  const darkEm = new THREE.Color(0x442211);
+  const amberEm = new THREE.Color(0x885533);
+
+  // Amber point light inside core — casts real light on surrounding geometry
+  const amberLight = new THREE.PointLight(0xff8844, 1.5, 1.2);
+  scene.add(amberLight);
+
   // Instance 4 orbit diamonds evenly around equator
   if (diamondSrc) {
     for (let i = 0; i < 4; i++) {
       const fill = new THREE.Mesh(diamondSrc.geometry, diamondMat);
-      const wire = new THREE.Mesh(diamondSrc.geometry, diamondWireMat);
       const grp = new THREE.Group();
-      grp.add(fill, wire);
+      fill.position.set(0.441, 0.015, 0.009);
+      grp.add(fill);
       grp.scale.copy(diamondSrc.scale);
       const angle = (i / 4) * Math.PI * 2;
-      const R = 0.72;
-      grp.position.set(Math.cos(angle) * R, 0, Math.sin(angle) * R * 0.4);
+      const R = 0.65;
+      grp.position.set(Math.cos(angle) * R, 0, Math.sin(angle) * R);
       // Face toward center: rotate so front faces origin
-      grp.rotation.y = -angle + Math.PI / 2;
+      grp.rotation.y = Math.PI - angle;
       orbitDiamonds.push({ grp, angle });
-      construct.add(grp);
+      gltf.scene.add(grp);
     }
   }
-
-  // -- Orbital ring lines --
-  const makeEllipseLine = (rx, ry, tiltX, tiltZ, color, opacity) => {
-    const pts = [];
-    for (let i = 0; i <= 128; i++) {
-      const a = (i / 128) * Math.PI * 2;
-      pts.push(Math.cos(a) * rx, Math.sin(a) * ry, 0);
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pts), 3));
-    const line = new THREE.Line(geo, new THREE.LineBasicMaterial({ color, transparent: true, opacity }));
-    line.rotation.x = tiltX;
-    line.rotation.z = tiltZ;
-    construct.add(line);
-    return line;
-  };
-  const halo = makeEllipseLine(1.8, 1.8, Math.PI / 2, 0, 0x7c3aed, 0.30);
-  const halo2 = makeEllipseLine(2.0, 1.4, Math.PI / 3, Math.PI / 6, 0xc4b5fd, 0.14);
-  const halo3 = makeEllipseLine(1.9, 1.9, Math.PI / 6, Math.PI / 4, 0x9f57f7, 0.10);
 
   // -- Debris crystal shards in outer field --
   const ORBIT_MIN_R = 2.2;
@@ -346,14 +348,15 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   scene.add(construct);
 
   // -- Lights --
-  scene.add(new THREE.AmbientLight(0x2a1f3d, 1.2)); // Reduced ambient from 5 to 1.2
-  const ptL = new THREE.PointLight(0x7c3aed, 2.5, 14); // Boosted violet rim light for contrast
-  scene.add(ptL);
-  const ptL2 = new THREE.PointLight(0xffffff, 0.4, 12); // Drastically reduced white fill so it doesn't blow out
-  ptL2.position.set(0, 0, 5);
-  scene.add(ptL2);
-  const ambL = new THREE.PointLight(0xfbbf24, 2.0, 4);  // amber core glow
-  scene.add(ambL);
+  scene.add(new THREE.AmbientLight(0x2a2a40, 0.3));
+
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1.8);
+  dirLight.position.set(5, 8, 5);
+  scene.add(dirLight);
+
+  const fillLight = new THREE.PointLight(0xa855f7, 2.0, 10);
+  fillLight.position.set(-6, -3, 2);
+  scene.add(fillLight);
 
   const resize = () => {
     renderer.setSize(innerWidth, innerHeight);
@@ -416,8 +419,8 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     // Match the ellipse center offset (0.58 of viewport = slightly right of center)
     // At FOV=50, z=6.5: 1 world unit ≈ viewport_width/tan(25deg)/6.5 ≈ not trivial,
     // so we approximate: shift by ~1.2 units right to visually align with cx=58%
-    construct.position.set(1.2, 0.1, 0);
-    pts.position.set(1.2, 0.1, 0);
+    construct.position.set(1.2, -0.2, 0);
+    pts.position.set(1.2, -0.2, 0);
   };
   posConstruct();
   window.addEventListener('resize', posConstruct);
@@ -475,37 +478,24 @@ document.querySelectorAll('.faq-q').forEach(btn => {
       botPyramid.rotation.y -= 0.004;
     }
 
-    // Orbit diamonds
-    orbitDiamonds.forEach((d, i) => {
-      const orbitAngle = t * 0.15 + d.angle;
-      const R = diamondSrc.userData.R * 1.35; // increased distance
-      d.grp.position.x = Math.cos(orbitAngle) * R;
-      d.grp.position.y = diamondSrc.userData.y;
-      d.grp.position.z = Math.sin(orbitAngle) * R * 0.4;
-
-      // Face the core, no spinning on their own axes
-      d.grp.rotation.y = -orbitAngle + Math.PI / 2;
+    // Orbit diamonds — local to coreGrp, face the core
+    orbitDiamonds.forEach((d) => {
+      const orbitAngle = t * 0.25 + d.angle;
+      d.grp.position.set(Math.cos(orbitAngle) * 0.65, diamondSrc.userData.y, Math.sin(orbitAngle) * 0.65);
+      d.grp.rotation.y = Math.PI - orbitAngle;
     });
 
-    // Orbital ring lines counter-rotate independently
-    halo.rotation.z = t * 0.14;
-    halo2.rotation.z = -t * 0.09;
-    halo3.rotation.z = t * 0.06;
+    // Core mouse tracking + amber sphere breathing color
+    if (corePieces.length) {
+      coreGrp.rotation.y = stx * 0.8;
+      coreGrp.rotation.x = sty * 0.8;
 
-    // Core pulse and cursor tracking
-    if (coreMesh) {
-      coreMesh.position.x = stx * 0.18;
-      coreMesh.position.y = -sty * 0.14;
-      coreMesh.rotation.y = stx * 0.8;
-      coreMesh.rotation.x = sty * 0.8;
+      const breath = 0.5 + Math.sin(t * 1.2) * 0.5;
+      amberMat.color.lerpColors(darkCol, amberCol, breath);
+      amberMat.emissive.lerpColors(darkEm, amberEm, breath);
 
-      const pulse = 0.96 + Math.sin(t * 1.9) * 0.04;
-      coreMesh.scale.copy(coreMesh.userData.baseScale).multiplyScalar(pulse);
-      coreMat.emissiveIntensity = 0.7 + Math.sin(t * 1.9) * 0.2;
-
-      coreMesh.getWorldPosition(tmpV);
-      ambL.position.copy(tmpV);
-      ambL.intensity = (1.2 + Math.sin(t * 1.9) * 0.4) * pulse;
+      coreGrp.getWorldPosition(tmpV);
+      amberLight.position.copy(tmpV);
     }
 
     // Orbital debris: enforce min radius so nothing phases through construct
@@ -527,11 +517,6 @@ document.querySelectorAll('.faq-q').forEach(btn => {
       o.mesh.rotation.z += 0.006;
       o.mesh.rotation.x += 0.003;
     });
-
-    // Rim light slow orbit - violet catch light sweeps panel faces
-    ptL.position.x = construct.position.x + Math.cos(t * 0.3) * 3.5;
-    ptL.position.y = Math.sin(t * 0.2) * 2.5;
-    ptL.position.z = 2.5 + Math.sin(t * 0.4) * 1.0;
 
     // Particles
     const pa = pGeo.attributes.position.array;

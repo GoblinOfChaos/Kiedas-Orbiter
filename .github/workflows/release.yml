@@ -208,7 +208,7 @@ jobs:
             --clobber
 
   generate-updater-json:
-    if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+    if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch' }}
     needs: release
     runs-on: ubuntu-latest
     permissions:
@@ -223,19 +223,59 @@ jobs:
           VERSION="${TAG#v}"
           BASE_URL="https://github.com/glowseeker/cephalon-kronos/releases/download/$TAG"
 
-          # Download signature files from the release
+          # Download all sig and binary name info from the release
           mkdir -p /tmp/sigs
           gh release download "$TAG" --pattern "*.sig" --dir /tmp/sigs --clobber 2>/dev/null || true
 
-          # Build updater.json with jq
+          # Helper: find a sig file by a unique keyword (handles space/hyphen variants)
+          get_sig() {
+            local keyword="$1"
+            local file
+            file=$(find /tmp/sigs -maxdepth 1 -name "*${keyword}*" -type f 2>/dev/null | head -1)
+            if [ -n "$file" ]; then
+              cat "$file"
+            fi
+          }
+
+          # Helper: resolve the actual asset filename for a platform from the sig filename.
+          # The tauri-action may use "Cephalon Kronos" (space) or "Cephalon-Kronos" (hyphen)
+          # depending on the version.  We derive it from whatever file is actually on the release.
+          resolve_asset() {
+            local keyword="$1"
+            local sig_file
+            sig_file=$(find /tmp/sigs -maxdepth 1 -name "*${keyword}*" -type f 2>/dev/null | head -1)
+            if [ -n "$sig_file" ]; then
+              # Strip .sig suffix to get the binary name
+              basename "$sig_file" .sig
+            else
+              # Fallback – use hyphens as the canonical form
+              case "$keyword" in
+                x64-setup.exe*)  echo "Cephalon-Kronos_${VERSION}_x64-setup.exe" ;;
+                x64.dmg*)        echo "Cephalon-Kronos_${VERSION}_x64.dmg" ;;
+                aarch64.dmg*)    echo "Cephalon-Kronos_${VERSION}_aarch64.dmg" ;;
+                AppImage*)       echo "Cephalon-Kronos_${VERSION}_amd64.AppImage" ;;
+              esac
+            fi
+          }
+
+          WIN_ASSET=$(resolve_asset 'x64-setup.exe')
+          MAC_X64_ASSET=$(resolve_asset 'x64.dmg')
+          MAC_ARM_ASSET=$(resolve_asset 'aarch64.dmg')
+          LINUX_ASSET=$(resolve_asset 'AppImage')
+
+          # Build updater.json with jq – derive platform URLs from the actual asset names
           jq -n \
             --arg version "$VERSION" \
             --arg tag "$TAG" \
             --arg base_url "$BASE_URL" \
-            --arg win_sig "$(cat /tmp/sigs/Cephalon-Kronos_${VERSION}_x64-setup.exe.sig 2>/dev/null || echo '')" \
-            --arg mac_x64_sig "$(cat /tmp/sigs/Cephalon-Kronos_${VERSION}_x64.dmg.sig 2>/dev/null || echo '')" \
-            --arg mac_aarch64_sig "$(cat /tmp/sigs/Cephalon-Kronos_${VERSION}_aarch64.dmg.sig 2>/dev/null || echo '')" \
-            --arg linux_sig "$(cat /tmp/sigs/Cephalon-Kronos_${VERSION}_amd64.AppImage.sig 2>/dev/null || echo '')" \
+            --arg win_sig "$(get_sig 'x64-setup.exe')" \
+            --arg mac_x64_sig "$(get_sig 'x64.dmg')" \
+            --arg mac_aarch64_sig "$(get_sig 'aarch64.dmg')" \
+            --arg linux_sig "$(get_sig 'AppImage')" \
+            --arg win_url "$BASE_URL/$WIN_ASSET" \
+            --arg mac_x64_url "$BASE_URL/$MAC_X64_ASSET" \
+            --arg mac_arm_url "$BASE_URL/$MAC_ARM_ASSET" \
+            --arg linux_url "$BASE_URL/$LINUX_ASSET" \
             --arg pub_date "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
             '{
               version: $version,
@@ -244,19 +284,19 @@ jobs:
               platforms: {
                 "windows-x86_64": {
                   signature: $win_sig,
-                  url: ($base_url + "/Cephalon-Kronos_" + $version + "_x64-setup.exe")
+                  url: $win_url
                 },
                 "darwin-x86_64": {
                   signature: $mac_x64_sig,
-                  url: ($base_url + "/Cephalon-Kronos_" + $version + "_x64.dmg")
+                  url: $mac_x64_url
                 },
                 "darwin-aarch64": {
                   signature: $mac_aarch64_sig,
-                  url: ($base_url + "/Cephalon-Kronos_" + $version + "_aarch64.dmg")
+                  url: $mac_arm_url
                 },
                 "linux-x86_64": {
                   signature: $linux_sig,
-                  url: ($base_url + "/Cephalon-Kronos_" + $version + "_amd64.AppImage")
+                  url: $linux_url
                 }
               }
             }' > updater.json

@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
-import { parseWorldstate } from '../lib/worldstateParser'
+import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward } from '../lib/relicParser'
 import { listen, emit } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/marketEngine'
@@ -194,6 +194,7 @@ export function MonitoringProvider({ children }) {
   // ── Derived lookup maps ──────────────────────────────────────────────────────
   const dict = useMemo(() => exportData?.['dict.en'] ?? {}, [exportData])
   const suppDict = useMemo(() => exportData?.['supp-dict-en'] ?? {}, [exportData])
+  const archimedeaMap = useMemo(() => buildArchimedeaMap(dict, suppDict), [dict, suppDict])
   const EC = useMemo(() => toMap(exportData?.ExportChallenges, 'ExportChallenges'), [exportData])
   const ERg = useMemo(() => {
     const data = exportData?.ExportRegions
@@ -424,15 +425,18 @@ export function MonitoringProvider({ children }) {
     if (!raw) return
     setRawInventory(raw)
     if (!exports) return
-    try {
-      const parsed = parseInventory(raw, exports)
-      setInventoryData(parsed || null)
-    } catch (err) {
-      setInventoryData(null)
-    }
-    const tsStr = String(ts ?? Date.now())
-    setLastUpdate(tsStr)
-    localStorage.setItem('lastUpdate', tsStr)
+    // Yield frame before heavy parseInventory to prevent UI freeze
+    setTimeout(() => {
+      try {
+        const parsed = parseInventory(raw, exports)
+        setInventoryData(parsed || null)
+      } catch (err) {
+        setInventoryData(null)
+      }
+      const tsStr = String(ts ?? Date.now())
+      setLastUpdate(tsStr)
+      localStorage.setItem('lastUpdate', tsStr)
+    }, 0)
   }, [exportData])
 
   useEffect(() => {
@@ -441,7 +445,8 @@ export function MonitoringProvider({ children }) {
         setStatusText('Checking updates & assets…')
         await Promise.all([
           invoke('check_exports'),
-          invoke('check_media_assets')
+          invoke('check_media_assets'),
+          invoke('check_pricer_models')
         ])
 
         setStatusText('Loading resources…')
@@ -495,11 +500,11 @@ export function MonitoringProvider({ children }) {
     try {
       const ws = await fetch(ORACLE_API).then(r => r.ok ? r.json() : null)
       if (ws && dict) {
-        const parsed = parseWorldstate(ws, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages })
+        const parsed = parseWorldstate(ws, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, archimedeaMap })
         setWorldState(parsed)
       }
     } catch (err) { }
-  }, [dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages])
+  }, [dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, archimedeaMap])
 
   useEffect(() => {
     if (Object.keys(dict || {}).length > 0) {

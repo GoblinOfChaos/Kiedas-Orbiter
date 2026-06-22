@@ -322,6 +322,20 @@ function _resolveNameInternal(un, dict, depth, ...tables) {
  * Returns a full browse.wf URL, or null if no image is found.
  * Falls back to a leaf-match search for recipe paths.
  */
+
+const suffixIndexCache = new WeakMap()
+
+function getSuffixIndex(tbl) {
+  if (!suffixIndexCache.has(tbl)) {
+    const index = new Map()
+    for (const key of Object.keys(tbl)) {
+      index.set(key.split('/').pop(), key)
+    }
+    suffixIndexCache.set(tbl, index)
+  }
+  return suffixIndexCache.get(tbl)
+}
+
 function resolveImage(un, ...tables) {
   // Check exact match first
   for (const tbl of tables) {
@@ -338,7 +352,8 @@ function resolveImage(un, ...tables) {
     const leaf = un.split('/').pop().replace('Blueprint', '');
     for (const tbl of tables) {
       if (!tbl) continue;
-      const matchKey = Object.keys(tbl).find(k => k.endsWith('/' + leaf));
+      const suffixIndex = getSuffixIndex(tbl)
+      const matchKey = suffixIndex.get(leaf)
       if (matchKey && (tbl[matchKey]?.icon || tbl[matchKey]?.thumbnail)) {
         const icon = tbl[matchKey].icon ?? tbl[matchKey].thumbnail;
         return `https://browse.wf${icon.startsWith('/') ? '' : '/'}${icon}`;
@@ -1949,6 +1964,37 @@ export function parseInventory(raw, exports) {
     }
   }
 
+  // ── Reverse ingredient index ──
+  // Maps each item's unique_name to the list of recipes that consume it as an
+  // ingredient.  Used to surface a "Crafting Ingredient" badge in Inventory.jsx.
+  // Shares the same filter logic as the craftable computation above.
+  const neededForCrafting = {};
+  Object.entries(ERecipe ?? {}).forEach(([bpKey, recipe]) => {
+    if (!recipe || !recipe.resultType) return;
+    // Skip Helminth abilities, quest items, and component BPs (same as craftable)
+    if (bpKey.includes('AbilityOverride')) return;
+    if (recipe.resultType?.includes('/Abilities/')) return;
+    if (bpKey.includes('Quest')) return;
+    if (bpKey.includes('HelmetBlueprint') || bpKey.includes('ChassisBlueprint') || bpKey.includes('SystemsBlueprint') || bpKey.includes('HarnessBlueprint') || bpKey.includes('WingsBlueprint')) return;
+    const resultName = resolveName(recipe.resultType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
+    (recipe.ingredients ?? []).forEach(ing => {
+      if (!ing.ItemType) return;
+      if (!neededForCrafting[ing.ItemType]) neededForCrafting[ing.ItemType] = [];
+      neededForCrafting[ing.ItemType].push({
+        name: resultName,
+        count: ing.ItemCount ?? 1,
+      });
+    });
+  });
+  // Annotate items in the `all` array that are needed as ingredients
+  all.forEach(item => {
+    const details = neededForCrafting[item.unique_name];
+    if (details) {
+      item.needed_for_crafting = true;
+      item.crafting_details = details;
+    }
+  });
+
   return {
     account: {
       mastery_rank: playerLevel,
@@ -2039,6 +2085,9 @@ export function parseInventory(raw, exports) {
         all.filter(i => i.mastered).map(i => i.name)
       );
 
+      // name → item index for O(1) lookups inside the recipe loop
+      const nameToItem = new Map(all.map(i => [i.name, i]));
+
       // Process each recipe
       Object.entries(ERecipe ?? {}).forEach(([bpKey, recipe]) => {
         if (!recipe || !recipe.resultType) return;
@@ -2082,24 +2131,16 @@ export function parseInventory(raw, exports) {
         const baseName = resultName.replace(' Blueprint', '').replace(' Prime', ' Prime');
 
         // Check if player has the full item (owned)
-        const ownedCount = all.filter(i =>
-          (i.name === baseName || i.name === baseName + " Prime") && i.owned
-        ).reduce((sum, i) => sum + (i.quantity ?? 1), 0);
+        const ownedItem = nameToItem.get(baseName) ?? nameToItem.get(baseName + ' Prime');
+        const ownedCount = ownedItem ? (ownedItem.quantity ?? 1) : 0;
         const fullItemOwned = ownedCount > 0;
 
-        // Check if mastered - also check sentinels, moas, hounds arrays for companions
-        // Use flexible matching: exact match, " Prime" suffix, or contains match
-        const findByName = (arr) => arr?.find(i =>
-          i.name === baseName ||
-          i.name === baseName + " Prime" ||
-          i.name.includes(baseName) ||
-          baseName.includes(i.name)
-        );
-        const masteredEntry = findByName(all)
-          || findByName(sentinels)
-          || findByName(moas)
-          || findByName(hounds)
-          || findByName(beasts);
+        // Check if mastered - O(1) from the name index
+        const masteredEntry = (nameToItem.get(baseName) ?? nameToItem.get(baseName + ' Prime'))
+          || sentinels?.find(i => i.name === baseName || i.name === baseName + ' Prime')
+          || moas?.find(i => i.name === baseName || i.name === baseName + ' Prime')
+          || hounds?.find(i => i.name === baseName || i.name === baseName + ' Prime')
+          || beasts?.find(i => i.name === baseName || i.name === baseName + ' Prime');
 
         // XP is keyed by resultType (item path), not blueprint path (bpKey)
         const xp = xpMap[recipe.resultType] ?? 0;

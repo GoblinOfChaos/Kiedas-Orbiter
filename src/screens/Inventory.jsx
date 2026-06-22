@@ -5,7 +5,7 @@
  * arcanes and resources.  Provides categorised tabs and multi-column
  * filtering (e.g., "Owned + Unmastered").
  */
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useCallback, useMemo, useEffect } from 'react'
 import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers } from 'lucide-react'
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
@@ -56,6 +56,63 @@ const SORT_CONFIG = {
 }
 
 const ITEMS_PER_PAGE = 48
+
+const modBgMap = {
+  'Normal Common': 'BronzeBackground.png',
+  'Normal Uncommon': 'SilverBackground.png',
+  'Normal Rare': 'GoldBackground.png',
+  'Normal Legendary': 'LegendaryBackground.png',
+  'Galvanized': 'GalvanizedBackground.png',
+  'Riven': 'SilverBackground.png',
+  'Amalgam': 'AmalgamBackground.png',
+  'Peculiar': 'LegendaryBackground.png',
+  'Plexus Common': 'BronzeBackground.png',
+  'Plexus Uncommon': 'SilverBackground.png',
+  'Plexus Rare': 'GoldBackground.png',
+  'Archon': 'Background.png',
+  'Requiem': 'Background.png',
+  'Antivirus': 'Background.png',
+  'Potency': 'Background.png',
+  'Tome': 'Background.png',
+}
+const modFrameTopMap = {
+  'Normal Common': 'BronzeFrameTop.png',
+  'Normal Uncommon': 'SilverFrameTop.png',
+  'Normal Rare': 'GoldFrameTop.png',
+  'Normal Legendary': 'LegendaryFrameTop.png',
+  'Galvanized': 'GalvanizedFrameTop.png',
+  'Riven': 'RivenFrameTop.png',
+  'Amalgam': 'AmalgamFrameTop.png',
+  'Peculiar': 'PeculiarFrameTop.png',
+  'Plexus Common': 'AvionicModsFrameTopBronze.png',
+  'Plexus Uncommon': 'AvionicModsFrameTopSilver.png',
+  'Plexus Rare': 'AvionicModsFrameTopGold.png',
+  'Archon': null,
+  'Requiem': null,
+  'Antivirus': null,
+  'Potency': null,
+  'Tektolyst': null,
+  'Tome': null,
+}
+const modFrameBotMap = {
+  'Normal Common': 'BronzeFrameBottom.png',
+  'Normal Uncommon': 'SilverFrameBottom.png',
+  'Normal Rare': 'GoldFrameBottom.png',
+  'Normal Legendary': 'LegendaryFrameBottom.png',
+  'Galvanized': 'GalvanizedFrameBottom.png',
+  'Riven': 'RivenFrameBottom.png',
+  'Amalgam': 'AmalgamFrameBottom.png',
+  'Peculiar': 'PeculiarFrameBottom.png',
+  'Plexus Common': 'AvionicModsFrameBottomBronze.png',
+  'Plexus Uncommon': 'AvionicModsFrameBottomSilver.png',
+  'Plexus Rare': 'AvionicModsFrameBottomGold.png',
+  'Archon': null,
+  'Requiem': null,
+  'Antivirus': null,
+  'Potency': null,
+  'Tektolyst': null,
+  'Tome': null,
+}
 
 function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFoundryFilters }) {
   const { isInventoryLoading } = useMonitoring()
@@ -461,13 +518,18 @@ export default function Inventory() {
         inventoryData.moas, inventoryData.hounds, inventoryData.archwings,
         inventoryData.necramechs, inventoryData.amps
       ]
+      const nameToEquipment = new Map()
+      for (const arr of searchArrays) {
+        for (const item of arr) {
+          nameToEquipment.set(item.name, item)
+        }
+      }
       return Object.values(inventoryData.primeSets ?? {}).filter(set =>
         set.parts.some(p => p.quantity > 0)
       ).map(set => {
-        const parent = searchArrays.flat().find(i =>
-          i.name === set.name || i.name === set.name + ' Prime'
-        ) ?? {}
-        return { ...set, owned: parent.owned ?? false, mastered: parent.mastered ?? false }
+        const parent = nameToEquipment.get(set.name) ?? nameToEquipment.get(set.name + ' Prime') ?? {}
+        const _value = primePrices?.[set.setPath] ?? (set.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0)
+        return { ...set, owned: parent.owned ?? false, mastered: parent.mastered ?? false, _value }
       })
     }
     if (activeTab === 'vehicles') {
@@ -555,7 +617,7 @@ export default function Inventory() {
       return items
     }
     return inventoryData[activeTab] ?? []
-  }, [inventoryData, activeTab, uiPath])
+  }, [inventoryData, activeTab, uiPath, primePrices])
 
   const filteredItems = useMemo(() => {
     let items = tabItems
@@ -605,8 +667,8 @@ export default function Inventory() {
         return sortDirection === 'asc' ? aComplete - bComplete : bComplete - aComplete
       }
       if (activeTab === 'prime_parts' && sortCriteria === 'value') {
-        const aVal = primePrices?.[a.setPath] ?? (a.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0)
-        const bVal = primePrices?.[b.setPath] ?? (b.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0)
+        const aVal = a._value ?? 0
+        const bVal = b._value ?? 0
         return sortDirection === 'asc' ? aVal - bVal : bVal - aVal
       }
       let av = a[sortCriteria] ?? ''; let bv = b[sortCriteria] ?? ''
@@ -621,63 +683,7 @@ export default function Inventory() {
 
   const visibleItems = useMemo(() => filteredItems.slice(0, visibleCount), [filteredItems, visibleCount])
 
-  const modBgMap = {
-    'Normal Common': 'BronzeBackground.png',
-    'Normal Uncommon': 'SilverBackground.png',
-    'Normal Rare': 'GoldBackground.png',
-    'Normal Legendary': 'LegendaryBackground.png',
-    'Galvanized': 'GalvanizedBackground.png',
-    'Riven': 'SilverBackground.png',
-    'Amalgam': 'AmalgamBackground.png',
-    'Peculiar': 'LegendaryBackground.png',
-    'Plexus Common': 'BronzeBackground.png',
-    'Plexus Uncommon': 'SilverBackground.png',
-    'Plexus Rare': 'GoldBackground.png',
-    'Archon': 'Background.png',
-    'Requiem': 'Background.png',
-    'Antivirus': 'Background.png',
-    'Potency': 'Background.png',
-    'Tome': 'Background.png',
-  }
-  const modFrameTopMap = {
-    'Normal Common': 'BronzeFrameTop.png',
-    'Normal Uncommon': 'SilverFrameTop.png',
-    'Normal Rare': 'GoldFrameTop.png',
-    'Normal Legendary': 'LegendaryFrameTop.png',
-    'Galvanized': 'GalvanizedFrameTop.png',
-    'Riven': 'RivenFrameTop.png',
-    'Amalgam': 'AmalgamFrameTop.png',
-    'Peculiar': 'PeculiarFrameTop.png',
-    'Plexus Common': 'AvionicModsFrameTopBronze.png',
-    'Plexus Uncommon': 'AvionicModsFrameTopSilver.png',
-    'Plexus Rare': 'AvionicModsFrameTopGold.png',
-    'Archon': null,
-    'Requiem': null,
-    'Antivirus': null,
-    'Potency': null,
-    'Tektolyst': null,
-    'Tome': null,
-  }
-  const modFrameBotMap = {
-    'Normal Common': 'BronzeFrameBottom.png',
-    'Normal Uncommon': 'SilverFrameBottom.png',
-    'Normal Rare': 'GoldFrameBottom.png',
-    'Normal Legendary': 'LegendaryFrameBottom.png',
-    'Galvanized': 'GalvanizedFrameBottom.png',
-    'Riven': 'RivenFrameBottom.png',
-    'Amalgam': 'AmalgamFrameBottom.png',
-    'Peculiar': 'PeculiarFrameBottom.png',
-    'Plexus Common': 'AvionicModsFrameBottomBronze.png',
-    'Plexus Uncommon': 'AvionicModsFrameBottomSilver.png',
-    'Plexus Rare': 'AvionicModsFrameBottomGold.png',
-    'Archon': null,
-    'Requiem': null,
-    'Antivirus': null,
-    'Potency': null,
-    'Tektolyst': null,
-    'Tome': null,
-  }
-  const modBg = (mf, item) => {
+  const modBg = useCallback((mf, item) => {
     if (!framesPath) return ''
     if (mf === 'Tektolyst') {
       const modName = item?.name
@@ -688,10 +694,10 @@ export default function Inventory() {
       return ''
     }
     return framesPath && modBgMap[mf] ? convertFileSrc(`${framesPath}/${mf}/${modBgMap[mf]}`) : ''
-  }
-  const modFrameTop = (mf) => framesPath && modFrameTopMap[mf] ? convertFileSrc(`${framesPath}/${mf}/${modFrameTopMap[mf]}`) : ''
-  const modFrameBot = (mf) => framesPath && modFrameBotMap[mf] ? convertFileSrc(`${framesPath}/${mf}/${modFrameBotMap[mf]}`) : ''
-  const isModFrame = (item) => item.category === 'mods' && framesPath && (modBgMap[item.modFrame] || item.modFrame === 'Tektolyst')
+  }, [framesPath])
+  const modFrameTop = useCallback((mf) => framesPath && modFrameTopMap[mf] ? convertFileSrc(`${framesPath}/${mf}/${modFrameTopMap[mf]}`) : '', [framesPath])
+  const modFrameBot = useCallback((mf) => framesPath && modFrameBotMap[mf] ? convertFileSrc(`${framesPath}/${mf}/${modFrameBotMap[mf]}`) : '', [framesPath])
+  const isModFrame = useCallback((item) => item.category === 'mods' && framesPath && (modBgMap[item.modFrame] || item.modFrame === 'Tektolyst'), [framesPath])
 
   const tabLabel = INVENTORY_TABS.find(t => t.id === activeTab)?.label ?? activeTab
 
@@ -1081,6 +1087,28 @@ export default function Inventory() {
                           <span className="text-[10px] font-black uppercase text-orange-400 flex items-center gap-1">
                             <Zap size={10} className="fill-current" />Incarnon
                           </span>
+                        )}
+
+                        {/* Crafting ingredient badge — only on full equipment, not resources/parts */}
+                        {item.needed_for_crafting && !isModOrResource && !isPrimePart && (
+                          <Tooltip
+                            position="bottom"
+                            content={
+                              <div className="space-y-1 max-w-[220px]">
+                                <p className="text-[10px] font-black uppercase text-kronos-accent mb-1">Needed to craft:</p>
+                                {item.crafting_details.map((d, i) => (
+                                  <p key={i} className="text-[11px] text-kronos-text flex justify-between gap-2">
+                                    <span>{d.name}</span>
+                                    <span className="text-kronos-dim font-bold">×{d.count}</span>
+                                  </p>
+                                ))}
+                              </div>
+                            }
+                          >
+                            <span className="text-[10px] font-black uppercase text-yellow-500 flex items-center gap-1 cursor-help">
+                              <Zap size={10} className="fill-current" />Crafting Ingredient
+                            </span>
+                          </Tooltip>
                         )}
                       </div>
                     </div>

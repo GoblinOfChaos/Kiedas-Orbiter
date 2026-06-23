@@ -33,34 +33,37 @@ provides live world-state data, and real-time OCR-powered overlays and notificat
   Leverian prex cards, open world exploration from inventory data.
 * **Settings** - Theme picker, monitoring controls, global hotkeys, update triggers.
 
-## Privacy and Security
+## FAQ
 
-Cephalon Kronos does not require closed-source third-party software. It bundles:
+### Is this safe to use? Will I get banned for this?
+As with all 3rd party software, use this at your own risk. It's open source and thus every single line of code is available for you or anyone else to inspect in the repo. Concerning account security, due to the nature of this being unofficial 3rd party software, Digital Extremes will never endorse or support it, which leaves us to trust their goodwill and their track record with other 3rd party apps.
 
-- **[warframe-api-helper](https://github.com/Sainan/warframe-api-helper)** - Scans
-  Warframe process memory for session credentials (`accountId` + `nonce`), then fetches
-  inventory data from `mobile.warframe.com`. No memory is modified.
-- **EE.log memory watcher** - Built-in C++ addon to the API helper that reads the in-process EE.log ring buffer
-  from Warframe memory allocations, extracts log lines, and streams them to the app for
-  overlay triggers.
+**This app is not affiliated with Digital Extremes. Use at your own risk.**
 
-Network requests are limited to game data exports, worldstate APIs, and warframe.market pricing.
+### What platforms does this work on?
+Currently this app works on **Windows**, **Linux**, and **macOS**.<br>It should however be noted that:
+- macOS builds haven't been tested yet due to lack of opportunity.
+- Linux builds may be unstable due to variety in Linux distributions and configurations.
+- Game needs to be running in borderless fullscreen for overlays to work.
 
-> **Disclaimer:** This application is **not** affiliated with Digital Extremes. It utilizes a
-> memory-scanning helper. Use this software at your own risk. **I am not responsible for any
-> bans or other consequences that may result from using this application.**
+### How does this work?
+This app is built on a cross-platform stack consisting of Tauri and React. It uses a custom made version of [warframe-api-helper](https://github.com/Sainan/warframe-api-helper) to both fetch your inventory data from Warframe's API and read your EE.log in real-time. It parses this data and renders it in a way that's hopefully useful to you. For more details see [ARCHITECTURE.md](./ARCHITECTURE.md).
 
-## Architecture
+### Is it free to use? Does it have ads?
+1. Yes, it's completely free and open-source.
+2. No, it does not have any ads.
 
-See [ARCHITECTURE.md](./ARCHITECTURE.md) for the full codebase breakdown: EE.log memory watcher,
-OCR pipeline, riven price prediction model, collectibles data flow, overlay management,
-and project layout.
+### Does it do ... ?
+Probably; most information that the game exposes is made use of to an extent. For a full list, check the wiki under [features](https://github.com/glowseeker/cephalon-kronos/wiki/Features). If there's something you'd like to see get added or you found a bug, feel free to open an issue on the [issues page](https://github.com/glowseeker/cephalon-kronos/issues).
+
+Please report bugs or suggest features on the [issues page](https://github.com/glowseeker/cephalon-kronos/issues).
+
 
 ## Installation & Usage
 
 1. Download the version for your OS from the [releases page](https://github.com/glowseeker/cephalon-kronos/releases/latest).
 2. **Windows:** Run the setup and install in preferred folder. **Linux / macOS:** Extract the binary into its own folder. 
-3. Launch Warframe (if not already running).
+3. Launch Warframe (if not already running). Game needs to be running in borderless fullscreen for overlays to work.
 4. Open the app, go to **Settings**, and start monitoring.
 5. For issues, check the [wiki](https://github.com/glowseeker/cephalon-kronos/wiki).
 
@@ -94,11 +97,3 @@ pnpm tauri build
 
 The bundled C++ helper (`warframe-api-helper`) is pre-compiled for each platform.
 To rebuild it from source, see `helpers/build_{win,linux,macos}.sh`.
-
-## Known Issues
-
-- macOS and GNOME (Linux) currently untested - feedback appreciated.
-- App is in active development; cross-platform day-to-day testing ongoing.
-
-Please report bugs or suggest features on the [issues page](https://github.com/glowseeker/cephalon-kronos/issues).
-

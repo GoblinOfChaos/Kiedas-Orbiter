@@ -88,49 +88,58 @@
       <h2>Common questions</h2>
       <div class="faq-list">
         <div class="faq-item">
-          <button class="faq-q">Is it safe to use?<span class="faq-chev">▾</span></button>
+          <button class="faq-q">Is this safe to use? Will I get banned for this?<span class="faq-chev">▾</span></button>
           <div class="faq-a">
             <div class="faq-a-inner">As with all 3rd party software, use this at your own risk. It's open source and
-              every single line of code is available for you or anyone else to inspect in the repo. Due to the nature of
-              unofficial 3rd party software, Digital Extremes will never endorse or support it, which leaves us to trust
-              their goodwill and their track record with other 3rd party apps so far.</div>
+              thus every single line of code is available for you or anyone else to inspect in the repo. Concerning
+              account security, due to the nature of this being unofficial 3rd party software, Digital Extremes will
+              never endorse or support it, which leaves us to trust their goodwill and their track record with other 3rd
+              party apps.
+              <br> <strong>This app is not affiliated with Digital Extremes. Use at your own risk.</strong>
+            </div>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-q">My inventory is empty!<span class="faq-chev">▾</span></button>
+          <button class="faq-q">What platforms does this work on?<span class="faq-chev">▾</span></button>
           <div class="faq-a">
-            <div class="faq-a-inner">This is expected on first startup. Run a manual scan in <strong>Settings</strong>
-              or
-              enable live monitoring.</div>
+            <div class="faq-a-inner">Currently this app works on <strong>Windows</strong>, <strong>Linux</strong>, and
+              <strong>macOS</strong>.<br>It should however be noted that:
+              <br>- macOS builds haven't been tested yet due to lack of opportunity.
+              <br>- Linux builds may be unstable due to variety in Linux distributions and configurations.
+              <br>- Game needs to be running in borderless fullscreen for overlays to work.
+            </div>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-q">Do I have to turn on Live Monitoring?<span class="faq-chev">▾</span></button>
+          <button class="faq-q">How does this work?<span class="faq-chev">▾</span></button>
           <div class="faq-a">
-            <div class="faq-a-inner">No, you can also do manual scans in <strong>Settings</strong>. Data persists across
-              sessions, just not updated constantly.</div>
+            <div class="faq-a-inner">This app is built on a cross-platform stack consisting of Tauri and React. It uses
+              a custom made version of
+              <a href="https://github.com/Sainan/warframe-api-helper" target="_blank">warframe-api-helper</a> to both
+              fetch your inventory data from Warframe's API and read your EE.log in real-time. It parses this data and
+              renders it in a way that's hopefully useful to you. For more details see <a
+                href="ARCHITECTURE.md">@architecture</a>.
+            </div>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-q">The overlay doesn't appear during fissures.<span class="faq-chev">▾</span></button>
+          <button class="faq-q">Is it free to use? Does it have ads?<span class="faq-chev">▾</span></button>
           <div class="faq-a">
             <div class="faq-a-inner">
               <ol>
-                <li>Confirm that notifications/overlays work via the test buttons in settings.</li>
-                <li>Make sure all your settings (EE.log path, UI scaling etc.) are correct and that the log scanner has
-                  latched on to Warframe.</li>
-                <li>Check if Riven overlays work ingame.</li>
-                <li>If all the above work as expected but the overlay still fails, check
-                  <code>data/user/overlay_debug.log</code> and report it on the issues page.
-                </li>
+                <li>Yes, it's completely free and open-source.</li>
+                <li>No, it does not have any ads.</li>
               </ol>
             </div>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-q">I found a bug!<span class="faq-chev">▾</span></button>
+          <button class="faq-q">Does it do ... ?<span class="faq-chev">▾</span></button>
           <div class="faq-a">
-            <div class="faq-a-inner">Great, please report it on the <a
+            <div class="faq-a-inner">Probably; most information that the game exposes is made use of to an extent. For
+              a full list, check the wiki under <a href="https://github.com/glowseeker/cephalon-kronos/wiki/Features"
+                target="_blank">features</a>.
+              If there's something you'd like to see get added or you found a bug, feel free to open an issue on the <a
                 href="https://github.com/glowseeker/cephalon-kronos/issues" target="_blank">issues page</a>!</div>
           </div>
         </div>

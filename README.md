@@ -47,7 +47,7 @@ Currently this app works on **Windows**, **Linux**, and **macOS**.<br>It should 
 - Game needs to be running in borderless fullscreen for overlays to work.
 
 ### How does this work?
-This app is built on a cross-platform stack consisting of Tauri and React. It uses a custom made version of [warframe-api-helper](https://github.com/Sainan/warframe-api-helper) to both fetch your inventory data from Warframe's API and read your EE.log in real-time. It parses this data and renders it in a way that's hopefully useful to you. For more details see [ARCHITECTURE.md](./ARCHITECTURE.md).
+This app is built on a cross-platform stack consisting of Tauri and React. It uses a custom version of [warframe-api-helper](https://github.com/Sainan/warframe-api-helper) to both fetch your inventory data from Warframe's API and read your EE.log in real-time. It parses this data and renders it in a way that's hopefully useful to you. For more details see [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 ### Is it free to use? Does it have ads?
 1. Yes, it's completely free and open-source.
@@ -55,9 +55,6 @@ This app is built on a cross-platform stack consisting of Tauri and React. It us
 
 ### Does it do ... ?
 Probably; most information that the game exposes is made use of to an extent. For a full list, check the wiki under [features](https://github.com/glowseeker/cephalon-kronos/wiki/Features). If there's something you'd like to see get added or you found a bug, feel free to open an issue on the [issues page](https://github.com/glowseeker/cephalon-kronos/issues).
-
-Please report bugs or suggest features on the [issues page](https://github.com/glowseeker/cephalon-kronos/issues).
-
 
 ## Installation & Usage
 

@@ -1997,6 +1997,14 @@ export function parseInventory(raw, exports) {
     }
   });
 
+  const wishlist = (raw.Wishlist ?? []).map(w => {
+    if (typeof w === 'string') {
+      const name = resolveName(w, dict, EW, EWf, ES, ER, ECust, EGear, EM, EA) || nameFromPath(w);
+      return { unique_name: w, name };
+    }
+    return null;
+  }).filter(Boolean);
+
   return {
     account: {
       mastery_rank: playerLevel,
@@ -2039,6 +2047,8 @@ export function parseInventory(raw, exports) {
     collectibleSeries: raw.CollectibleSeries ?? [],
     loreFragmentScans: raw.LoreFragmentScans ?? [],
     discoveredMarkers: raw.DiscoveredMarkers ?? [],
+
+    wishlist,
 
     // ── Craftable Items (all recipes with ingredient checks) ──
     craftable: (() => {

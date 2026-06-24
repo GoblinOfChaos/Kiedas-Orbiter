@@ -915,3 +915,4 @@ export function MonitoringProvider({ children }) {
 }
 
 export const useMonitoring = () => useContext(MonitoringContext)
+export { MonitoringContext }

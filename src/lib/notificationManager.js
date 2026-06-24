@@ -93,6 +93,12 @@ const TRIGGER_DEFINITIONS = [
     ],
     defaultConfig: { taskFilter: [], interval: 60 },
   },
+  {
+    id: 'sale',
+    label: 'Wishlisted Item on Sale',
+    columns: [],
+    defaultConfig: {},
+  },
 ]
 
 const TRIGGER_MAP = Object.fromEntries(TRIGGER_DEFINITIONS.map(t => [t.id, t]))
@@ -149,6 +155,9 @@ export function evaluateNotifications(notifications, state) {
         break
       case 'checklist':
         evaluateChecklist(notif, inventoryData, results)
+        break
+      case 'sale':
+        evaluateSale(notif, inventoryData, worldstate, results)
         break
     }
   }
@@ -345,6 +354,31 @@ function evaluateMastery(notif, inventoryData, results) {
       message: `You are ${Math.round(xpPercent)}% of the way to Mastery Rank ${currentRank + 1}.`,
       image: '/IconMastery.png',
     })
+  }
+}
+
+function evaluateSale(notif, inventoryData, worldstate, results) {
+  const wishlist = inventoryData.wishlist ?? []
+  if (wishlist.length === 0) return
+  const deals = worldstate?.dailyDeals ?? []
+  if (deals.length === 0) return
+
+  const wishlistNames = new Set(wishlist.map(w => w.name?.toLowerCase()).filter(Boolean))
+
+  for (const deal of deals) {
+    const dealName = deal.item?.toLowerCase()
+    if (!dealName) continue
+    for (const wlName of wishlistNames) {
+      if (dealName.includes(wlName) || wlName.includes(dealName)) {
+        results.push({
+          notifId: notif.id,
+          title: 'Wishlisted Item on Sale',
+          message: `${deal.item} — ${deal.discount}% off (${deal.salePrice} plat, was ${deal.originalPrice})`,
+          image: '/IconFoundry.png',
+        })
+        break
+      }
+    }
   }
 }
 

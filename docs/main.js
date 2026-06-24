@@ -36,12 +36,13 @@ let centerX = innerWidth * 0.68;
 let centerY = innerHeight * 0.55;
 
 function placeNodes() {
-  centerX = innerWidth * 0.6;
-  centerY = innerHeight * 0.55;
+  const isMobile = innerWidth <= 768;
+  centerX = innerWidth * (isMobile ? 0.5 : 0.6);
+  centerY = isMobile ? innerHeight * 0.75 : innerHeight * 0.55;
   const cx = centerX;
   const cy = centerY;
-  const rx = innerWidth * ELLIPSE_RX;
-  const ry = innerHeight * ELLIPSE_RY;
+  const rx = innerWidth * ELLIPSE_RX * (isMobile ? 0.55 : 1);
+  const ry = innerHeight * ELLIPSE_RY * (isMobile ? 0.55 : 1);
 
   // Position overlay centered on Kronos
   foOverlay.style.left = cx + 'px';
@@ -107,6 +108,10 @@ FEAT_KEYS.forEach((key, i) => {
   el.innerHTML = `<div class="feat-node-dot"></div><div class="feat-node-label">${FEATS[key].title}</div>`;
   el.addEventListener('mouseenter', () => showOverlay(key));
   el.addEventListener('mouseleave', hideOverlay);
+  el.addEventListener('touchstart', (e) => {
+    e.stopPropagation();
+    showOverlay(key);
+  }, { passive: true });
   el.addEventListener('click', (e) => {
     e.stopPropagation();
     cycleImg(key);
@@ -118,8 +123,146 @@ FEAT_KEYS.forEach((key, i) => {
 foOverlay.addEventListener('mouseenter', () => clearTimeout(hideTimer));
 foOverlay.addEventListener('mouseleave', hideOverlay);
 
+document.addEventListener('touchstart', (e) => {
+  if (!e.target.closest('.feat-node') && !e.target.closest('#feat-overlay')) {
+    hideOverlay();
+  }
+}, { passive: true });
+
 placeNodes();
 window.addEventListener('resize', placeNodes);
+
+/* ── Mobile feature strip (replaces node orbit on touch screens) ── */
+(function buildMobileStrip() {
+  if (window.innerWidth > 768) return;
+
+  // Put "Cephalon Kronos" on one line
+  const h1Span = document.querySelector('.h1-main');
+  if (h1Span) h1Span.textContent = 'Cephalon Kronos';
+
+  const strip = document.createElement('div');
+  strip.id = 'feat-strip';
+
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbClose = document.getElementById('lb-close');
+
+  let lightboxKey = null;
+  let lightboxIdx = 0;
+
+  function openLightbox(key, idx) {
+    const d = FEATS[key];
+    if (!d || !d.imgs || !d.imgs.length) return;
+    lightboxKey = key;
+    lightboxIdx = idx != null ? idx : 0;
+    lbImg.src = d.imgs[lightboxIdx];
+    lbImg.alt = d.title;
+    lb.classList.add('active');
+  }
+
+  // Dot strip element
+  const dotsEl = document.createElement('div');
+  dotsEl.className = 'lb-dots';
+
+  function renderDots() {
+    const d = FEATS[lightboxKey];
+    if (!d || d.imgs.length < 2) { dotsEl.innerHTML = ''; return; }
+    dotsEl.innerHTML = '';
+    d.imgs.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'lb-dot' + (i === lightboxIdx ? ' active' : '');
+      dot.addEventListener('click', (e) => { e.stopPropagation(); lightboxIdx = i; lbImg.src = d.imgs[i]; renderDots(); });
+      dotsEl.appendChild(dot);
+    });
+  }
+
+  function cycleLb(dir) {
+    const d = FEATS[lightboxKey];
+    if (!d || !d.imgs || d.imgs.length < 2) return;
+    lightboxIdx = (lightboxIdx + dir + d.imgs.length) % d.imgs.length;
+    lbImg.src = d.imgs[lightboxIdx];
+    renderDots();
+  }
+
+  // redefine openLightbox to render dots
+  openLightbox = function(key, idx) {
+    const d = FEATS[key];
+    if (!d || !d.imgs || !d.imgs.length) return;
+    lightboxKey = key;
+    lightboxIdx = idx != null ? idx : 0;
+    lbImg.src = d.imgs[lightboxIdx];
+    lbImg.alt = d.title;
+    lb.classList.add('active');
+    renderDots();
+  };
+
+  if (lb) {
+    lb.appendChild(dotsEl);
+
+    // Touch swipe
+    let tsX = null;
+    lb.addEventListener('touchstart', (e) => { tsX = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', (e) => {
+      if (tsX === null) return;
+      const dx = e.changedTouches[0].clientX - tsX;
+      tsX = null;
+      if (Math.abs(dx) < 40) return;
+      cycleLb(dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    // Keyboard
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('active')) return;
+      if (e.key === 'Escape') lb.classList.remove('active');
+      if (e.key === 'ArrowLeft') cycleLb(-1);
+      if (e.key === 'ArrowRight') cycleLb(1);
+    });
+
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb || e.target === lbClose) lb.classList.remove('active');
+    });
+  }
+
+  FEAT_KEYS.forEach(key => {
+    const d = FEATS[key];
+    const card = document.createElement('div');
+    card.className = 'feat-strip-card';
+
+    const thumb = document.createElement('div');
+    thumb.className = 'feat-strip-thumb';
+
+    if (d.imgs && d.imgs.length) {
+      const img = document.createElement('img');
+      img.src = d.imgs[0];
+      img.alt = d.title;
+      img.loading = 'lazy';
+      thumb.appendChild(img);
+    } else {
+      thumb.innerHTML = '<div class="feat-strip-thumb-empty">&mdash;</div>';
+    }
+
+    const label = document.createElement('div');
+    label.className = 'feat-strip-label';
+    label.textContent = d.title;
+
+    card.appendChild(thumb);
+    card.appendChild(label);
+
+    card.addEventListener('click', () => {
+      if (d.imgs && d.imgs.length && lb) {
+        openLightbox(key, 0);
+      }
+    });
+
+    strip.appendChild(card);
+  });
+
+  // Insert after .platform-badges inside .hero-text
+  const platformBadges = document.querySelector('.platform-badges');
+  if (platformBadges) {
+    platformBadges.parentNode.insertBefore(strip, platformBadges.nextSibling);
+  }
+})();
 
 /* ── FAQ accordion ── */
 document.querySelectorAll('.faq-q').forEach(btn => {
@@ -416,11 +559,13 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   // -- Construct: always centered --
   const hero = document.getElementById('hero');
   const posConstruct = () => {
-    // Match the ellipse center offset (0.58 of viewport = slightly right of center)
-    // At FOV=50, z=6.5: 1 world unit ≈ viewport_width/tan(25deg)/6.5 ≈ not trivial,
-    // so we approximate: shift by ~1.2 units right to visually align with cx=58%
-    construct.position.set(1.2, -0.2, 0);
-    pts.position.set(1.2, -0.2, 0);
+    const isMobile = innerWidth <= 768;
+    const scale = isMobile ? 0.6 : 1;
+    const yPos = isMobile ? 1.2 : -0.2;
+    construct.position.set(isMobile ? 0 : 1.2, yPos, 0);
+    construct.scale.setScalar(scale);
+    pts.position.set(isMobile ? 0 : 1.2, yPos, 0);
+    pts.scale.setScalar(scale);
   };
   posConstruct();
   window.addEventListener('resize', posConstruct);
@@ -431,8 +576,6 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   const animate = () => {
     requestAnimationFrame(animate);
     const t = clock.getElapsedTime();
-
-    // No scroll fade - Kronos stays fixed on screen always
 
     // Smooth tracking - responsive without snap
     const lerpSpeed = overlayVisible ? 0.04 : 0.15;

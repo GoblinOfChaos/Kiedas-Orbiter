@@ -12,8 +12,8 @@
   --amber: #e8a04a;
   --amber-glow: rgba(232, 160, 74, 0.18);
   --text: #ede9fe;
-  --text-dim: #7c6fa0;
-  --text-mute: #3d3050;
+  --text-dim: #d4caf0;
+  --text-mute: #7c6fa0;
   --mono: 'JetBrains Mono', monospace;
   --sans: 'Exo 2', sans-serif;
 }
@@ -253,8 +253,8 @@ h1 {
 .badge {
   font-family: var(--mono);
   font-size: 0.68rem;
-  color: var(--text-dim);
-  border: 1px solid var(--border);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   padding: 0.2rem 0.65rem;
   border-radius: 20px;
   letter-spacing: 0.04em;
@@ -606,6 +606,36 @@ h2 {
   opacity: 1;
 }
 
+/* Arrows hidden — navigation via swipe + dots */
+.lb-arrow {
+  display: none;
+}
+
+/* Dot strip below lightbox image */
+.lb-dots {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10000;
+}
+
+.lb-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+.lb-dot.active {
+  background: var(--lavender);
+  transform: scale(1.35);
+}
+
 /* ── Footer ── */
 footer {
   border-top: 1px solid var(--border);
@@ -663,9 +693,146 @@ footer a:hover {
   .nav-links a:not(.nav-gh) {
     display: none;
   }
+}
+
+/* ── Mobile feature strip ── */
+#feat-strip {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  /* Kill desktop node orbit system */
+  #feat-nodes,
+  #feat-overlay {
+    display: none !important;
+  }
+
+  /* Hero: full-height, content at bottom so Kronos is visible above */
+  #hero {
+    align-items: flex-end;
+    padding: 10vh 0 0;
+    overflow: visible;
+  }
+
+  .hero-inner {
+    width: 100%;
+    padding: 0 1.25rem;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-eyebrow {
+    display: none;
+  }
 
   h1 {
-    font-size: 2.8rem;
+    font-size: 2rem;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .platform-badges {
+    justify-content: center;
+  }
+
+  /* Feature strip replaces node orbit */
+  #feat-strip {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0.1rem 0.15rem 0.5rem;
+    margin-top: 0.75rem;
+    /* Bleed past the hero-inner padding so strip scrolls edge-to-edge */
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  #feat-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .feat-strip-card {
+    flex: 0 0 auto;
+    width: 160px;
+    background: rgba(124, 58, 237, 0.10);
+    border: 1px solid rgba(196, 181, 253, 0.18);
+    border-radius: 10px;
+    padding: 0.6rem 0.65rem 0.55rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    transition: background 0.18s, border-color 0.18s;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .feat-strip-card:active {
+    background: rgba(124, 58, 237, 0.22);
+    border-color: rgba(168, 85, 247, 0.55);
+  }
+
+  .feat-strip-thumb {
+    width: 136px;
+    height: 78px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.35);
+    flex-shrink: 0;
+  }
+
+  .feat-strip-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.85;
+  }
+
+  .feat-strip-thumb-empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    color: var(--text-mute);
+    letter-spacing: 0.05em;
+  }
+
+  .feat-strip-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: #fff;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+
+  .section-inner {
+    padding: 0 1rem;
+  }
+
+  #faq {
+    padding: 3rem 0;
   }
 }
 

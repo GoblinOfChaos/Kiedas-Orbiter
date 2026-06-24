@@ -1084,9 +1084,23 @@ export default function Inventory() {
 
                         {/* Incarnon badge */}
                         {item.is_incarnon && (
-                          <span className="text-[10px] font-black uppercase text-orange-400 flex items-center gap-1">
-                            <Zap size={10} className="fill-current" />Incarnon
-                          </span>
+                          <Tooltip
+                            position="top"
+                            content={
+                              <div className="max-w-[200px]">
+                                <p className="text-[10px] font-black uppercase text-orange-400">Incarnon Evolution</p>
+                                <p className="text-[12px] font-bold text-kronos-text mt-0.5">
+                                  {item.incarnon_evolution_level >= 0
+                                    ? `Rank ${item.incarnon_evolution_level}/4`
+                                    : 'Not evolved'}
+                                </p>
+                              </div>
+                            }
+                          >
+                            <span className="text-[10px] font-black uppercase text-orange-400 flex items-center gap-1 cursor-help">
+                              <Zap size={10} className="fill-current" />Incarnon
+                            </span>
+                          </Tooltip>
                         )}
 
                         {/* Crafting ingredient badge — only on full equipment, not resources/parts */}

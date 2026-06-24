@@ -835,6 +835,7 @@ export function parseInventory(raw, exports) {
 
   const subsumedSet = new Set((raw.InfestedFoundry?.ConsumedSuits ?? []).map(s => s.s).filter(Boolean));
   const incarnonSet = new Set((raw.EvolutionProgress ?? []).map(e => e.ItemType).filter(Boolean));
+  const evolutionLevels = new Map((raw.EvolutionProgress ?? []).filter(e => e.ItemType).map(e => [e.ItemType, e.EvolutionLevel]));
 
   // ── createItem ──
   // Central factory used by every category processor.
@@ -999,6 +1000,7 @@ export function parseInventory(raw, exports) {
       mastered,
       subsumed: subsumedSet.has(un),
       is_incarnon: incarnonSet.has(un),
+      incarnon_evolution_level: evolutionLevels.get(un) ?? -1,
       quantity: sourceItem?.ItemCount ?? (sourceItem || xpMap[un] ? 1 : 0),
       formas: sourceItem?.Polarized ?? 0,
       components,

@@ -4,6 +4,7 @@ import ToastOverlay from './ToastOverlay'
 
 const RelicRewardOverlay = lazy(() => import('./RelicRewardOverlay'))
 const RivenOverlay = lazy(() => import('./RivenOverlay'))
+const RelicPickerOverlay = lazy(() => import('./RelicPickerOverlay'))
 
 const LABEL_TO_POS = {
   'overlay-tr': 'top-right',
@@ -30,6 +31,14 @@ export default function OverlayRouter() {
     return (
       <Suspense fallback={null}>
         <RivenOverlay />
+      </Suspense>
+    )
+  }
+
+  if (label === 'overlay-relic-picker') {
+    return (
+      <Suspense fallback={null}>
+        <RelicPickerOverlay />
       </Suspense>
     )
   }

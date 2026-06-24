@@ -91,6 +91,11 @@ fn calculate_position(
             let ry = (mon_size.height as i32 - (height * scale) as i32 - (40.0 * scale) as i32).max(0);
             (rx, ry)
         }
+        "overlay-relic-picker" => {
+            let rx = mon_size.width as i32 - phys_w - margin;
+            let ry = (mon_size.height as i32 - (height * scale) as i32) / 2;
+            (rx, ry)
+        }
         "overlay-riven-current" => (margin, (mon_size.height as i32 - (height * scale) as i32) / 2),
         "overlay-riven-new" => (
             mon_size.width as i32 - phys_w - margin,
@@ -453,6 +458,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
 fn overlay_size(label: &str) -> (f64, f64) {
     match label {
         "overlay-relic" => (640.0, 140.0),
+        "overlay-relic-picker" => (480.0, 400.0),
         "overlay-riven-current" | "overlay-riven-new" => (360.0, 260.0),
         _ => (440.0, 1.0),
     }

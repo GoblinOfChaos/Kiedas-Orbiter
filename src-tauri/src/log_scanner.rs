@@ -160,9 +160,11 @@ impl LogScanner {
             return;
         }
 
-        // === 6. Endless Mission Handling ===
+        // === 6. Relic Picker / Endless Mission Handling ===
         if s.contains("Created /Lotus/Interface/ThemedProjectionManager.swf") {
             if !self.in_mission {
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (pre-mission) (LogTS: {}s)", ts));
+                app.emit("relic-picker-opened", serde_json::json!({})).unwrap_or_default();
                 return;
             }
             // Don't clear ICON_SCAN_ACTIVE here - the ThemedProjectionManager is

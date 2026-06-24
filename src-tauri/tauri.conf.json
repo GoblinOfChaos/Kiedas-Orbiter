@@ -105,6 +105,20 @@
         "visible": false,
         "focus": false,
         "shadow": false
+      },
+      {
+        "label": "overlay-relic-picker",
+        "url": "/?overlay=true",
+        "width": 480,
+        "height": 400,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false,
+        "shadow": false
       }
     ],
     "security": {

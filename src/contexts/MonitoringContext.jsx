@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useRef, useCallback, useEffect, us
 import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
-import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward } from '../lib/relicParser'
+import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
 import { listen, emit } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/marketEngine'
 import { resolveResource } from '@tauri-apps/api/path'
@@ -799,6 +799,25 @@ export function MonitoringProvider({ children }) {
 
     subs.push(listen('fissure-reward-closed', () => {
       ocrActiveRef.current = false
+    }))
+
+    subs.push(listen('relic-picker-opened', () => {
+      if (!inventoryData?.relics) return
+      const relics = inventoryData.relics
+      const enriched = relics.map(r => {
+        const sortedRewards = (r.rewards || []).map(rw => ({
+          ...rw,
+          plat: allPrices[rw.uniqueName] ?? 0,
+        }))
+        const evPlat = getRelicEV(sortedRewards, 'Intact', 1, 'plat')
+        const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')
+        return { name: r.name, era: r.era, evPlat: Math.round(evPlat), evDucats: Math.round(evDucats) }
+      })
+      const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 10)
+      const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 10)
+      const payload = { ducat_top: ducatTop, plat_top: platTop }
+      invoke('show_overlay_window', { label: 'overlay-relic-picker' }).catch(() => {})
+      invoke('relay_event', { event: 'relic-picker-data', payload }).catch(() => {})
     }))
 
     subs.push(listen('archon-hunt-modifiers', (e) => {

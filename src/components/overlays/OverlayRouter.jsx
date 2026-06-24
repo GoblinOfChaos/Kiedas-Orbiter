@@ -5,6 +5,7 @@ import ToastOverlay from './ToastOverlay'
 const RelicRewardOverlay = lazy(() => import('./RelicRewardOverlay'))
 const RivenOverlay = lazy(() => import('./RivenOverlay'))
 const RelicPickerOverlay = lazy(() => import('./RelicPickerOverlay'))
+const SidebarOverlay = lazy(() => import('./SidebarOverlay'))
 
 const LABEL_TO_POS = {
   'overlay-tr': 'top-right',
@@ -14,6 +15,14 @@ const LABEL_TO_POS = {
 
 export default function OverlayRouter() {
   const label = getCurrentWindow().label
+
+  if (label === 'overlay-sidebar') {
+    return (
+      <Suspense fallback={null}>
+        <SidebarOverlay />
+      </Suspense>
+    )
+  }
 
   if (LABEL_TO_POS[label]) {
     return <ToastOverlay position={LABEL_TO_POS[label]} />

@@ -3,7 +3,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
-import { listen, emit } from '@tauri-apps/api/event'
+import { listen, emit as tauriEmit } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/marketEngine'
 import { resolveResource } from '@tauri-apps/api/path'
 import { convertFileSrc } from '@tauri-apps/api/core'
@@ -436,6 +436,7 @@ export function MonitoringProvider({ children }) {
       const tsStr = String(ts ?? Date.now())
       setLastUpdate(tsStr)
       localStorage.setItem('lastUpdate', tsStr)
+      tauriEmit('sidebar-data-updated', { ts: tsStr })
     }, 0)
   }, [exportData])
 

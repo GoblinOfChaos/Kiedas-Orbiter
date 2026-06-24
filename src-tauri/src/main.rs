@@ -1349,6 +1349,114 @@ fn hide_overlay_window(
     }
     Ok(())
 }
+
+/// Toggle the interactive in-game sidebar on/off.
+#[tauri::command]
+fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
+    let window = app_handle
+        .get_webview_window("overlay-sidebar")
+        .ok_or_else(|| "sidebar window not found".to_string())?;
+
+    if window.is_visible().map_err(|e| e.to_string())? {
+        let _ = window.emit("sidebar-animate-out", ());
+        let w = window.clone();
+        std::thread::spawn(move || {
+            std::thread::sleep(std::time::Duration::from_millis(250));
+            let _ = w.hide();
+        });
+    } else {
+        let settings = load_settings_sync();
+        let side = settings
+            .get("sidebar_side")
+            .and_then(|v| v.as_str())
+            .unwrap_or("left")
+            .to_string();
+        let width = settings
+            .get("sidebar_width")
+            .and_then(|v| v.as_f64())
+            .unwrap_or(400.0);
+
+        overlay_utils::show_sidebar_window(&app_handle, &side, width)?;
+    }
+
+    Ok(())
+}
+
+/// Load settings synchronously from disk.
+fn load_settings_sync() -> serde_json::Value {
+    let path = resolve_path("data/user/settings.json");
+    if path.exists() {
+        std::fs::read_to_string(&path)
+            .ok()
+            .and_then(|s| serde_json::from_str(&s).ok())
+            .unwrap_or_default()
+    } else {
+        serde_json::json!({})
+    }
+}
+
+#[tauri::command]
+async fn sidebar_load_data(app_handle: tauri::AppHandle) -> Result<serde_json::Value, String> {
+    let exports = load_all_exports_inner(&app_handle).unwrap_or_default();
+    let (inventory, timestamp) = load_cached_inventory_inner()
+        .ok()
+        .flatten()
+        .map(|(inv, ts)| (Some(inv), ts))
+        .unwrap_or((None, 0));
+
+    Ok(serde_json::json!({
+        "exports": exports,
+        "inventory": inventory,
+        "inventoryTimestamp": timestamp,
+    }))
+}
+
+fn load_all_exports_inner(app_handle: &tauri::AppHandle) -> Option<serde_json::Value> {
+    let export_dir = resolve_path("data/export");
+    let mut result = serde_json::Map::new();
+
+    for file_name in crate::EXPORT_FILES {
+        let path = export_dir.join(file_name);
+        let path = if path.exists() {
+            path
+        } else if let Some(bundled) = resolve_bundled_path(app_handle, &format!("data/export/{}", file_name)) {
+            if bundled.exists() { bundled } else { continue }
+        } else {
+            continue;
+        };
+
+        let file = std::fs::File::open(&path).ok()?;
+        let json: serde_json::Value = serde_json::from_reader(std::io::BufReader::new(file)).ok()?;
+        let key = file_name.trim_end_matches(".json");
+        result.insert(key.to_string(), json);
+    }
+
+    Some(serde_json::Value::Object(result))
+}
+
+fn load_cached_inventory_inner() -> Result<Option<(serde_json::Value, u64)>, String> {
+    let path = resolve_path("data/user/inventory.json");
+    if !path.exists() {
+        return Ok(None);
+    }
+    let timestamp = std::fs::metadata(&path)
+        .ok()
+        .and_then(|m| m.modified().ok())
+        .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())
+        .map(|d| d.as_millis() as u64)
+        .unwrap_or_else(|| {
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap_or_default()
+                .as_millis() as u64
+        });
+    let content = std::fs::read_to_string(&path)
+        .map_err(|e| format!("Failed to read inventory.json: {e}"))?;
+    let json: serde_json::Value = serde_json::from_str(&content)
+        .map_err(|e| format!("Failed to parse inventory.json: {e}"))?;
+    Ok(Some((json, timestamp)))
+}
+
 #[tauri::command]
 fn relay_event(
     app_handle: tauri::AppHandle,
@@ -1825,6 +1933,9 @@ async fn register_hotkey(app: AppHandle, shortcut: String, action: String) -> Re
                         }
                     }
                 }
+                "toggle_sidebar" => {
+                    let _ = toggle_sidebar(app_c);
+                }
                 _ => {
                     eprintln!("[Hotkeys] Unknown action: {}", action_c);
                 }
@@ -1853,6 +1964,28 @@ async fn save_settings(settings: Value) -> Result<(), String> {
     }
     let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
     fs::write(settings_dir.join("settings.json"), content).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn save_sidebar_width(width: f64) -> Result<(), String> {
+    let settings_dir = resolve_path("data/user");
+    let path = settings_dir.join("settings.json");
+    let mut settings: serde_json::Value = if path.exists() {
+        std::fs::read_to_string(&path)
+            .ok()
+            .and_then(|s| serde_json::from_str(&s).ok())
+            .unwrap_or_default()
+    } else {
+        serde_json::json!({})
+    };
+    if let Some(obj) = settings.as_object_mut() {
+        obj.insert("sidebar_width".to_string(), serde_json::json!(width));
+    }
+    if !settings_dir.exists() {
+        std::fs::create_dir_all(&settings_dir).map_err(|e| e.to_string())?;
+    }
+    let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
+    std::fs::write(path, content).map_err(|e| e.to_string())
 }
 
 /// Load the JSON settings object from data/user/settings.json.
@@ -2217,6 +2350,9 @@ fn get_known_weapon_names() -> Vec<String> {
             resize_overlay_window,
             raise_overlay,
             set_ignore_cursor_events,
+            toggle_sidebar,
+            sidebar_load_data,
+            save_sidebar_width,
             play_notification_sound,
             set_notification_sound,
             start_notif_autoclose_timer,

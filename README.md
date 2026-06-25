@@ -59,7 +59,7 @@ Probably; most information that the game exposes is made use of to an extent. Fo
 ## Installation & Usage
 
 1. Download the version for your OS from the [releases page](https://github.com/glowseeker/cephalon-kronos/releases/latest).
-2. **Windows:** Run the setup and install in preferred folder. **Linux / macOS:** Extract the binary into its own folder. 
+2. **Windows:** Run the setup and install in preferred folder. **Linux / macOS:** Move the binary into its own folder. 
 3. Launch Warframe.
 4. Open the app, go to **Settings**, and start monitoring.
 5. For issues, check the [wiki](https://github.com/glowseeker/cephalon-kronos/wiki).

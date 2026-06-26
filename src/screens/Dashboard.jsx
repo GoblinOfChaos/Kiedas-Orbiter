@@ -856,11 +856,11 @@ export default function Dashboard() {
 
               return (
                 <div className="space-y-2">
-                  <div className="bg-kronos-panel/40 rounded-lg p-2.5 border border-white/5">
+                  <div className="bg-kronos-panel/40 rounded-lg p-2.5 border border-white/5 flex items-center gap-2">
                     <p className="text-xl font-black text-kronos-accent leading-none">
                       {selectedDay.date.getDate()}
                     </p>
-                    <p className="text-[9px] text-kronos-dim uppercase tracking-widest mt-0.5">
+                    <p className="text-[9px] text-kronos-dim uppercase tracking-widest leading-none pt-0.5">
                       {selectedDay.date.toLocaleDateString('en-US', { weekday: 'long' })}
                     </p>
                   </div>

@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
+import { buildDropIndex } from '../lib/dropsParser'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
 import { listen, emit as tauriEmit } from '@tauri-apps/api/event'
@@ -305,6 +306,8 @@ export function MonitoringProvider({ children }) {
   }, [exportData, dict])
 
   const globalRewardPool = useMemo(() => getAllRelicRewards(exportData), [exportData])
+
+  const dropIndex = useMemo(() => buildDropIndex(exportData), [exportData])
 
   // Audio unlock (bypass autoplay policy)
   useEffect(() => {
@@ -903,7 +906,7 @@ export function MonitoringProvider({ children }) {
   return (
     <MonitoringContext.Provider value={{
       exportData, spIncursions, arbys, archonModifiers,
-      dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS,
+      dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS, dropIndex,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
       masteryProgress, allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices,
       startMonitoring, stopMonitoring, manualRefresh, callApiHelper,

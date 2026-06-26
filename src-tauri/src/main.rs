@@ -141,6 +141,12 @@ const TXT_FILES: &[(&str, &str)] = &[
     ("sp-incursions.txt", "https://browse.wf/sp-incursions.txt"),
 ];
 
+// Drop data (warframe-drop-data) is an extra JSON file from a different source.
+// It's refreshed once per day like the main exports.
+const DROPDATA_FILES: &[(&str, &str)] = &[
+    ("DropsAll.json", "https://drops.warframestat.us/data/all.json"),
+];
+
 // --- Shared Download Helper ---
 
 /// Download a file from `url` and write it to `dest`.
@@ -207,6 +213,19 @@ async fn check_exports() -> Result<String, String> {
     for (file_name, url) in TXT_FILES {
         let path = export_dir.join(file_name);
         let needs_update = !path.exists() || file_age_secs(&path) > 21_600;
+
+        if needs_update {
+            match download_file(&client, url, &path).await {
+                Ok(_) => updated_count += 1,
+                Err(e) => eprintln!("Warning: could not download {}: {}", file_name, e),
+            }
+        }
+    }
+
+    // Drop data (warframe-drop-data) - refresh every 24 hours; non-fatal
+    for (file_name, url) in DROPDATA_FILES {
+        let path = export_dir.join(file_name);
+        let needs_update = !path.exists() || file_age_secs(&path) > 86_400;
 
         if needs_update {
             match download_file(&client, url, &path).await {
@@ -435,6 +454,18 @@ async fn load_all_exports(app_handle: tauri::AppHandle) -> Result<Value, String>
         let key = file_name.trim_end_matches(".json");
         result.insert(key.to_string(), json);
     }
+
+    // Drop data files (warframe-drop-data) - loaded under their stem key
+    for (file_name, _url) in DROPDATA_FILES {
+        let path = export_dir.join(file_name);
+        if !path.exists() { continue; }
+        let file = fs::File::open(&path).map_err(|e| e.to_string())?;
+        let json: Value = serde_json::from_reader(std::io::BufReader::new(file))
+            .map_err(|e| e.to_string())?;
+        let key = file_name.trim_end_matches(".json");
+        result.insert(key.to_string(), json);
+    }
+
     Ok(Value::Object(result))
 }
 
@@ -1374,7 +1405,7 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
         let width = settings
             .get("sidebar_width")
             .and_then(|v| v.as_f64())
-            .unwrap_or(400.0);
+            .unwrap_or(520.0);
 
         overlay_utils::show_sidebar_window(&app_handle, &side, width)?;
     }
@@ -1425,6 +1456,16 @@ fn load_all_exports_inner(app_handle: &tauri::AppHandle) -> Option<serde_json::V
             continue;
         };
 
+        let file = std::fs::File::open(&path).ok()?;
+        let json: serde_json::Value = serde_json::from_reader(std::io::BufReader::new(file)).ok()?;
+        let key = file_name.trim_end_matches(".json");
+        result.insert(key.to_string(), json);
+    }
+
+    // Drop data files (warframe-drop-data) - same as load_all_exports
+    for (file_name, _url) in crate::DROPDATA_FILES {
+        let path = export_dir.join(file_name);
+        if !path.exists() { continue; }
         let file = std::fs::File::open(&path).ok()?;
         let json: serde_json::Value = serde_json::from_reader(std::io::BufReader::new(file)).ok()?;
         let key = file_name.trim_end_matches(".json");

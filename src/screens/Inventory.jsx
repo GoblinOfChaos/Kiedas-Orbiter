@@ -115,7 +115,7 @@ const modFrameBotMap = {
 }
 
 function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFoundryFilters }) {
-  const { isInventoryLoading } = useMonitoring()
+  const { isInventoryLoading, ExportImages, dropIndex } = useMonitoring()
   const [width, setWidth] = useState(600)
   const [isResizing, setIsResizing] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
@@ -134,6 +134,18 @@ function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFound
       return () => clearTimeout(timer)
     }
   }, [isOpen])
+
+  const handleImgError = useCallback((e) => {
+    if (e.target.dataset.wfFallback === 'true') return;
+    e.target.dataset.wfFallback = 'true';
+    const src = e.target.src;
+    if (!src || !src.startsWith('https://browse.wf')) return;
+    const iconPath = src.replace('https://browse.wf', '').replace(/\/\//g, '/');
+    const entry = ExportImages?.[iconPath];
+    if (entry?.contentHash) {
+      e.target.src = `https://content.warframe.com/PublicExport${iconPath}!${entry.contentHash}`;
+    }
+  }, [ExportImages])
 
   useEffect(() => {
     if (!isResizing) return
@@ -310,7 +322,7 @@ function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFound
                           return (
                             <div key={item.unique_name + idx} className="flex gap-4 items-center bg-kronos-panel/30 p-3 rounded-lg border border-orange-500/20">
                               <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
-                                {item.image && <img src={item.image} alt="" className="max-w-full max-h-full object-contain" />}
+                                {item.image && <img src={item.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} />}
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex justify-between items-center mb-1.5">
@@ -350,7 +362,7 @@ function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFound
                             <div className={`flex items-center gap-4 px-4 py-5 border-b border-white/5 relative ${item.bpCount > 0 ? 'bg-green-500/5' : ''}`}>
                               <div className="w-28 h-28 flex items-center justify-center flex-shrink-0">
                                 {item.image
-                                  ? <img src={item.image} alt="" className="max-w-full max-h-full object-contain" />
+                                  ? <img src={item.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} />
                                   : <div className="w-14 h-14 rounded bg-white/5" />
                                 }
                               </div>
@@ -402,63 +414,109 @@ function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFound
                                   gridTemplateColumns: `repeat(${isMedium ? Math.min(item.ingredients.length, 4) : 2}, 1fr)`
                                 }}
                               >
-                                {item.ingredients.map((ing, i) => {
-                                  const met = ing.have >= ing.need
-                                  const hasSubIngredients = ing.isComponent && ing.bpOwned > 0 && ing.subIngredients && ing.subIngredients.length > 0;
-
-                                  const ingredientContent = (
-                                    <div
-                                      className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative group ${hasSubIngredients ? 'cursor-help' : ''}`}
-                                    >
-                                      <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
-                                        {ing.image
-                                          ? <img src={ing.image} alt="" className="max-w-full max-h-full object-contain" />
-                                          : <div className="w-7 h-7 rounded bg-white/5" />
-                                        }
-                                        {ing.isComponent && ing.bpOwned > 0 && (
-                                          <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center ${ing.bpReady ? 'bg-green-500' : 'bg-red-500'}`}>
-                                            {ing.bpReady ? <Check size={10} className="text-black" /> : <X size={10} className="text-white" />}
-                                          </div>
+                                  {item.ingredients.map((ing, i) => {
+                                    const met = ing.have >= ing.need
+                                    const hasSubIngredients = ing.isComponent && ing.bpOwned > 0 && ing.subIngredients && ing.subIngredients.length > 0;
+                                    const ingNorm = ing.itemType ? ing.itemType.replace('/StoreItems/', '/') : '';
+                                    const ingSourcesRaw = dropIndex?.[ingNorm] || dropIndex?.['display:' + (ing.name || '').toLowerCase().trim()] || [];
+const ingDedupKey = (s) => {
+  if (s.type === 'mission') return 'm:' + s.nodeName + '|' + (s.rotation || '')
+  if (s.type === 'relic') return 'r:' + (s.relicName || s.relicManifest)
+  if (s.type === 'enemy') return 'e:' + s.enemyName
+  if (s.type === 'bounty') return 'b:' + s.bountyLevel + '|' + (s.rotation || '') + '|' + (s.stage || '')
+  return 'o:' + (s.syndicateName || s.objectiveName || s.keyName || s.sourceName || s.type)
+}
+                                    const ingSeen = {}
+                                    const ingSources = ingSourcesRaw.filter(s => { const k = ingDedupKey(s); if (ingSeen[k]) return false; ingSeen[k] = true; return true })
+                                    const hasDropSources = ingSources.length > 0;
+                                    
+                                    const ingredientContent = (
+                                      <div
+                                        className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative group ${hasSubIngredients ? 'cursor-help' : ''}`}
+                                      >
+                                        <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
+                                          {ing.image
+                                            ? <img src={ing.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} />
+                                            : <div className="w-7 h-7 rounded bg-white/5" />
+                                          }
+                                          {ing.isComponent && ing.bpOwned > 0 && (
+                                            <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center ${ing.bpReady ? 'bg-green-500' : 'bg-red-500'}`}>
+                                              {ing.bpReady ? <Check size={10} className="text-black" /> : <X size={10} className="text-white" />}
+                                            </div>
+                                          )}
+                                        </div>
+                                        <p className="text-[14px] font-medium text-kronos-dim text-center leading-tight w-full px-1">{ing.name}</p>
+                                        <span className={`text-[12px] font-black font-mono ${met ? 'text-green-400' : 'text-red-400'}`}>
+                                          {ing.have}/{ing.need}{ing.isComponent && ing.bpOwned > 0 && ` (${ing.bpOwned} BP${ing.bpOwned > 1 ? 's' : ''})`}
+                                        </span>
+                                        {hasDropSources && (
+                                          <Tooltip
+                                            position="bottom"
+                                            content={
+                                              <div className="max-w-[260px] max-h-[200px] overflow-y-auto space-y-1">
+                                                <p className="text-[9px] font-black uppercase text-kronos-accent">Drop Sources</p>
+                                                {ingSources.filter(s => s.type === 'mission').slice(0, 4).map((s, si) => (
+                                                  <p key={`m-${si}`} className="text-[9px] text-kronos-text leading-tight">
+                                                    {s.nodeName}{s.rotation ? ` (Rot ${s.rotation})` : ''}
+                                                    {s.chance ? <span className="text-kronos-dim ml-1">{(s.chance * 100).toFixed(1)}%</span> : ''}
+                                                  </p>
+                                                ))}
+                                                {ingSources.filter(s => s.type === 'relic').slice(0, 4).map((s, si) => (
+                                                  <p key={`r-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.relicName || s.relicManifest} ({s.rarity ? (s.rarity.charAt(0).toUpperCase() + s.rarity.slice(1).toLowerCase()) : ''})</p>
+                                                ))}
+                                                {ingSources.filter(s => s.type === 'enemy').slice(0, 3).map((s, si) => (
+                                                  <p key={`e-${si}`} className="text-[9px] text-kronos-text leading-tight">
+                                                    {s.enemyName}{s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}
+                                                  </p>
+                                                ))}
+                                                {ingSources.filter(s => s.type === 'bounty').slice(0, 3).map((s, si) => (
+                                                  <p key={`b-${si}`} className="text-[9px] text-kronos-text leading-tight">
+                                                    {s.bountyLevel}{s.rotation ? ` Rot ${s.rotation}` : ''}
+                                                    {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}
+                                                  </p>
+                                                ))}
+                                              </div>
+                                            }
+                                          >
+                                            <span className="text-[8px] font-black uppercase text-kronos-dim/50 cursor-help hover:text-kronos-accent transition-colors">
+                                              Sources
+                                            </span>
+                                          </Tooltip>
                                         )}
                                       </div>
-                                      <p className="text-[14px] font-medium text-kronos-dim text-center leading-tight w-full px-1">{ing.name}</p>
-                                      <span className={`text-[12px] font-black font-mono ${met ? 'text-green-400' : 'text-red-400'}`}>
-                                        {ing.have}/{ing.need}{ing.isComponent && ing.bpOwned > 0 && ` (${ing.bpOwned} BP${ing.bpOwned > 1 ? 's' : ''})`}
-                                      </span>
-                                    </div>
-                                  );
-
-                                  if (hasSubIngredients) {
-                                    return (
-                                      <Tooltip
-                                        key={i}
-                                        position="top"
-                                        content={
-                                          <div className="min-w-[200px]">
-                                            <p className="text-[10px] font-black text-kronos-accent uppercase mb-2">Requires:</p>
-                                            <div className="space-y-1">
-                                              {ing.subIngredients.map((sub, si) => {
-                                                const subMet = sub.have >= sub.need;
-                                                return (
-                                                  <div key={si} className="flex items-center gap-2 text-[10px]">
-                                                    <div className="w-6 h-6 flex-shrink-0">
-                                                      {sub.image ? <img src={sub.image} alt="" className="max-w-full max-h-full object-contain" /> : <div className="w-4 h-4 bg-white/10 rounded" />}
-                                                    </div>
-                                                    <span className={`flex-1 ${subMet ? 'text-green-400' : 'text-red-400'}`}>{sub.name}</span>
-                                                    <span className="font-mono">{sub.have}/{sub.need}</span>
-                                                  </div>
-                                                );
-                                              })}
-                                            </div>
-                                          </div>
-                                        }
-                                      >
-                                        {ingredientContent}
-                                      </Tooltip>
                                     );
-                                  }
 
-                                  return <div key={i} className="h-full">{ingredientContent}</div>;
+                                    if (hasSubIngredients) {
+                                      return (
+                                        <Tooltip
+                                          key={i}
+                                          position="top"
+                                          content={
+                                            <div className="min-w-[200px]">
+                                              <p className="text-[10px] font-black text-kronos-accent uppercase mb-2">Requires:</p>
+                                              <div className="space-y-1">
+                                                {ing.subIngredients.map((sub, si) => {
+                                                  const subMet = sub.have >= sub.need;
+                                                  return (
+                                                    <div key={si} className="flex items-center gap-2 text-[10px]">
+                                                      <div className="w-6 h-6 flex-shrink-0">
+                                                        {sub.image ? <img src={sub.image} alt="" className="max-w-full max-h-full object-contain" /> : <div className="w-4 h-4 bg-white/10 rounded" />}
+                                                      </div>
+                                                      <span className={`flex-1 ${subMet ? 'text-green-400' : 'text-red-400'}`}>{sub.name}</span>
+                                                      <span className="font-mono">{sub.have}/{sub.need}</span>
+                                                    </div>
+                                                  );
+                                                })}
+                                              </div>
+                                            </div>
+                                          }
+                                        >
+                                          {ingredientContent}
+                                        </Tooltip>
+                                      );
+                                    }
+
+                                    return <div key={i} className="h-full">{ingredientContent}</div>;
                                 })}
                               </div>
                             )}
@@ -488,7 +546,7 @@ function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFound
   )
 }
 export default function Inventory() {
-  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress } = useMonitoring()
+  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, ExportImages } = useMonitoring()
   const [activeTab, setActiveTab] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [showFilterSortPanel, setShowFilterSortPanel] = useState(false)
@@ -506,6 +564,18 @@ export default function Inventory() {
   useEffect(() => { invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { }) }, [])
 
   useEffect(() => { setVisibleCount(ITEMS_PER_PAGE) }, [activeTab, searchQuery, currentFilters])
+
+  const handleImgError = useCallback((e) => {
+    if (e.target.dataset.wfFallback === 'true') return;
+    e.target.dataset.wfFallback = 'true';
+    const src = e.target.src;
+    if (!src || !src.startsWith('https://browse.wf')) return;
+    const iconPath = src.replace('https://browse.wf', '').replace(/\/\//g, '/');
+    const entry = ExportImages?.[iconPath];
+    if (entry?.contentHash) {
+      e.target.src = `https://content.warframe.com/PublicExport${iconPath}!${entry.contentHash}`;
+    }
+  }, [ExportImages])
 
   const primePrices = activeTab === 'prime_parts' ? allPrices : null
 
@@ -616,6 +686,7 @@ export default function Inventory() {
       ]
       return items
     }
+    if (activeTab === 'all') return (inventoryData.all ?? []).filter(i => i.category !== 'rivens')
     return inventoryData[activeTab] ?? []
   }, [inventoryData, activeTab, uiPath, primePrices])
 
@@ -846,7 +917,7 @@ export default function Inventory() {
                       <div className={`flex items-center gap-4 px-4 py-5 border-b border-white/5 relative ${isComplete ? 'bg-green-500/5' : ''}`}>
                         <div className="w-28 h-28 flex items-center justify-center flex-shrink-0">
                           {set.image
-                            ? <img src={set.image} alt="" className="max-w-full max-h-full object-contain" />
+                            ? <img src={set.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} />
                             : <div className="w-14 h-14 rounded bg-white/5" />
                           }
                         </div>
@@ -885,8 +956,18 @@ export default function Inventory() {
                               const met = part.crafted !== undefined ? (part.crafted >= need) : (part.quantity >= need)
                               const isBlueprint = part.name.includes('Blueprint')
                               const partPrice = primePrices?.[part.unique_name] ?? 0
-                              return (
-                                <div key={pi} className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
+                              const partNorm = part.unique_name ? part.unique_name.replace('/StoreItems/', '/') : '';
+                              const partSourcesRaw = dropIndex?.[partNorm] || dropIndex?.['display:' + (part.name || '').toLowerCase().trim()] || [];
+                              const partDedupKey = (s) => {
+                                if (s.type === 'relic') return 'r:' + (s.relicName || s.relicManifest)
+                                if (s.type === 'enemy') return 'e:' + s.enemyName
+                                return 'o:' + s.type
+                              }
+                              const partSeen = {}
+                              const partSources = partSourcesRaw.filter(s => { const k = partDedupKey(s); if (partSeen[k]) return false; partSeen[k] = true; return true })
+                              const hasPartSources = partSources.length > 0;
+                              const partCell = (
+                                <div className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
                                   {part.need > 1 && (
                                     <span className="absolute top-1 left-1 text-[14px] font-black text-kronos-accent px-1.5 py-0.5 rounded leading-none z-10">×{part.need}</span>
                                   )}
@@ -897,7 +978,7 @@ export default function Inventory() {
                                   )}
                                   <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
                                     {part.image
-                                      ? <img src={part.image} alt="" className="max-w-full max-h-full object-contain" />
+                                      ? <img src={part.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} />
                                       : <div className="w-7 h-7 rounded bg-white/5" />
                                     }
                                     {isBlueprint && <img src={uiPath ? convertFileSrc(`${uiPath}/BlueprintOverlay.png`) : ''} alt="" className="absolute inset-0 w-full h-full object-contain" />}
@@ -910,8 +991,29 @@ export default function Inventory() {
                                   ) : part.quantity > 0 && (
                                     <span className={`text-[10px] font-black ${met ? 'text-green-400' : 'text-red-400'}`}>{part.quantity}</span>
                                   )}
+                                  {hasPartSources && (
+                                    <Tooltip
+                                      position="bottom"
+                                      content={
+                                        <div className="max-w-[260px] max-h-[200px] overflow-y-auto space-y-1">
+                                          <p className="text-[9px] font-black uppercase text-kronos-accent">Drop Sources</p>
+                                          {partSources.filter(s => s.type === 'relic').slice(0, 6).map((s, si) => (
+                                            <p key={`r-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.relicName || s.relicManifest} ({s.rarity ? (s.rarity.charAt(0).toUpperCase() + s.rarity.slice(1).toLowerCase()) : ''})</p>
+                                          ))}
+                                          {partSources.filter(s => s.type === 'enemy').slice(0, 3).map((s, si) => (
+                                            <p key={`e-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.enemyName}{s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}</p>
+                                          ))}
+                                        </div>
+                                      }
+                                    >
+                                      <span className="text-[8px] font-black uppercase text-kronos-dim/50 cursor-help hover:text-kronos-accent transition-colors leading-none">
+                                        Sources
+                                      </span>
+                                    </Tooltip>
+                                  )}
                                 </div>
-                              )
+                              );
+                              return <div key={pi}>{partCell}</div>;
                             })}
                           </div>
                         )
@@ -960,7 +1062,7 @@ export default function Inventory() {
                     )}
                     <div className="w-24 flex-shrink-0 flex items-center justify-center p-3">
                       {item.image ? (
-                        <img src={item.image} alt="" className="max-w-full max-h-full object-contain" />
+                        <img src={item.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} />
                       ) : (
                         <div className="w-12 h-12 flex items-center justify-center bg-kronos-panel/30 rounded-lg">
                           <img src={uiPath ? convertFileSrc(`${uiPath}/Ayatan.png`) : ''} alt="" className="max-w-[60%] max-h-[60%] object-contain opacity-30" />
@@ -1003,7 +1105,7 @@ export default function Inventory() {
                           {modFrameTop(item.modFrame) && <img src={modFrameTop(item.modFrame)} className="absolute top-0 left-0 w-full pointer-events-none" alt="" style={{ objectFit: 'cover', objectPosition: 'top' }} />}
                           {modFrameBot(item.modFrame) && <img src={modFrameBot(item.modFrame)} className="absolute bottom-0 left-0 w-full pointer-events-none" alt="" style={{ objectFit: 'cover', objectPosition: 'bottom' }} />}
                           <div className={`relative z-10 flex flex-col items-center justify-center w-full h-full ${isUnowned ? 'grayscale opacity-40' : ''}`}>
-                            {item.image && <img src={item.image} className="max-w-[60%] max-h-[60%] object-contain" alt="" loading="lazy" />}
+                            {item.image && <img src={item.image} className="max-w-[60%] max-h-[60%] object-contain" alt="" loading="lazy" onError={handleImgError} />}
                             {item.rank > 0 && item.max_rank > 0 && (
                               <span className="text-[8px] font-black text-white mt-0.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">R{item.rank}</span>
                             )}
@@ -1015,7 +1117,7 @@ export default function Inventory() {
                       ) : (
                         <>
                           <Box className="text-kronos-panel absolute w-20 h-20 opacity-10" />
-                          {item.image && <img src={item.image} alt="" className={`max-w-full max-h-full object-contain relative z-10 transition-all duration-500 group-hover:scale-110 ${isUnowned ? 'grayscale opacity-40' : ''}`} loading="lazy" />}
+                          {item.image && <img src={item.image} alt="" className={`max-w-full max-h-full object-contain relative z-10 transition-all duration-500 group-hover:scale-110 ${isUnowned ? 'grayscale opacity-40' : ''}`} loading="lazy" onError={handleImgError} />}
 
                           {!isUnowned && item.formas > 0 && (
                             <div className="absolute top-1 left-1 z-20 flex items-center gap-2 bg-black/50 text-yellow-400 px-1.5 py-0.5 rounded shadow-lg border border-white/10 backdrop-blur-sm">
@@ -1038,6 +1140,11 @@ export default function Inventory() {
                         <h4 className="font-bold text-sm uppercase whitespace-normal text-kronos-text leading-tight mt-0.5">
                           {item.name}
                         </h4>
+                        {item.description && (
+                          <p className="text-[10px] text-kronos-dim/70 mt-0.5 line-clamp-2 leading-relaxed">
+                            {item.description}
+                          </p>
+                        )}
                       </div>
 
                       {/* Middle: Sub-components (centered and larger) */}
@@ -1124,6 +1231,94 @@ export default function Inventory() {
                             </span>
                           </Tooltip>
                         )}
+
+                        {/* Drop sources */}
+                        {(() => {
+                          const itemNorm = item.unique_name ? item.unique_name.replace('/StoreItems/', '/') : '';
+                          const itemSources = dropIndex?.[itemNorm] || dropIndex?.['display:' + (item.name || '').toLowerCase().trim()] || [];
+                          if (itemSources.length === 0) return null;
+                          const dedupKey = (s) => {
+                            if (s.type === 'mission') return 'm:' + s.nodeName + '|' + (s.rotation || '')
+                            if (s.type === 'relic') return 'r:' + (s.relicName || s.relicManifest)
+                            if (s.type === 'enemy') return 'e:' + s.enemyName
+                            if (s.type === 'bounty') return 'b:' + s.bountyLevel + '|' + (s.rotation || '') + '|' + (s.stage || '')
+                            return 'o:' + (s.syndicateName || s.objectiveName || s.keyName || s.sourceName || s.type)
+                          }
+                          const seen = {}
+                          const uniq = itemSources.filter(s => { const k = dedupKey(s); if (seen[k]) return false; seen[k] = true; return true })
+                          const missionSources = uniq.filter(s => s.type === 'mission').slice(0, 5);
+                          const relicSources = uniq.filter(s => s.type === 'relic').slice(0, 5);
+                          const enemySources = uniq.filter(s => s.type === 'enemy').slice(0, 4);
+                          const bountySources = uniq.filter(s => s.type === 'bounty').slice(0, 3);
+                          const otherSources = uniq.filter(s => !['mission','relic','enemy','bounty'].includes(s.type)).slice(0, 3);
+                          if (missionSources.length + relicSources.length + enemySources.length + bountySources.length + otherSources.length === 0) return null;
+                          return (
+                            <Tooltip
+                              position="bottom"
+                              content={
+                                <div className="max-w-[300px] max-h-[250px] overflow-y-auto space-y-1.5">
+                                  <p className="text-[10px] font-black uppercase text-kronos-accent">Drop Sources</p>
+                                  {missionSources.length > 0 && (
+                                    <div>
+                                      <p className="text-[9px] font-bold text-kronos-dim uppercase tracking-wider mb-0.5">Missions</p>
+                                      {missionSources.map((s, i) => (
+                                        <p key={`m-${i}`} className="text-[10px] text-kronos-text leading-tight">
+                                          {s.nodeName} {s.rotation ? `(Rot ${s.rotation})` : ''}
+                                          {s.chance ? <span className="text-kronos-dim ml-1">{(s.chance * 100).toFixed(1)}%</span> : ''}
+                                        </p>
+                                      ))}
+                                    </div>
+                                  )}
+                                  {relicSources.length > 0 && (
+                                    <div>
+                                      <p className="text-[9px] font-bold text-kronos-dim uppercase tracking-wider mb-0.5">Relics</p>
+                                      {relicSources.map((s, i) => (
+                                        <p key={`r-${i}`} className="text-[10px] text-kronos-text leading-tight">{s.relicName || s.relicManifest} ({s.rarity ? (s.rarity.charAt(0).toUpperCase() + s.rarity.slice(1).toLowerCase()) : ''})</p>
+                                      ))}
+                                    </div>
+                                  )}
+                                  {enemySources.length > 0 && (
+                                    <div>
+                                      <p className="text-[9px] font-bold text-kronos-dim uppercase tracking-wider mb-0.5">Enemy Drops</p>
+                                      {enemySources.map((s, i) => (
+                                        <p key={`e-${i}`} className="text-[10px] text-kronos-text leading-tight">
+                                          {s.enemyName}
+                                          {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}
+                                        </p>
+                                      ))}
+                                    </div>
+                                  )}
+                                  {bountySources.length > 0 && (
+                                    <div>
+                                      <p className="text-[9px] font-bold text-kronos-dim uppercase tracking-wider mb-0.5">Bounties</p>
+                                      {bountySources.map((s, i) => (
+                                        <p key={`b-${i}`} className="text-[10px] text-kronos-text leading-tight">
+                                          {s.bountyLevel}{s.stage ? ` (${s.stage})` : ''}{s.rotation ? ` Rot ${s.rotation}` : ''}
+                                          {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}
+                                        </p>
+                                      ))}
+                                    </div>
+                                  )}
+                                  {otherSources.length > 0 && (
+                                    <div>
+                                      <p className="text-[9px] font-bold text-kronos-dim uppercase tracking-wider mb-0.5">Other</p>
+                                      {otherSources.map((s, i) => (
+                                        <p key={`o-${i}`} className="text-[10px] text-kronos-text leading-tight">
+                                          {s.syndicateName || s.objectiveName || s.keyName || s.sourceName || s.type}
+                                          {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}
+                                        </p>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              }
+                            >
+                              <span className="text-[10px] font-black uppercase text-kronos-dim flex items-center gap-1 cursor-help hover:text-kronos-accent transition-colors">
+                                <Layers size={10} />Sources
+                              </span>
+                            </Tooltip>
+                          );
+                        })()}
                       </div>
                     </div>
                   </Card>

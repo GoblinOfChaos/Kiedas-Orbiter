@@ -984,11 +984,17 @@ export function parseInventory(raw, exports) {
       }
     }
 
+    const entry = nameTbls[0]?.[un];
+    const descLoctag = entry?.description ?? '';
+    const rawDesc = descLoctag ? (dict[descLoctag] || dict['/' + descLoctag] || '') : '';
+    const description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
+
     return {
       unique_name: un,
       name,
       image,
       category,
+      description,
       xp,
       rank,
       max_rank: isOverlevelable
@@ -1436,14 +1442,22 @@ export function parseInventory(raw, exports) {
     }
   });
 
-  const consumables = (raw.Consumables ?? []).map(c => ({
-    unique_name: c.ItemType,
-    name: resolveName(c.ItemType, dict, EGear, ER, ERecipe) || nameFromPath(c.ItemType),
-    image: resolveImage(c.ItemType, EGear, ER, ERecipe),
-    category: 'consumables',
-    quantity: c.ItemCount ?? 1,
-    owned: true
-  }));
+  const consumables = (raw.Consumables ?? []).map(c => {
+    const cUn = c.ItemType;
+    const cEntry = EGear[cUn];
+    const cDescLoctag = cEntry?.description ?? '';
+    const cRawDesc = cDescLoctag ? (dict[cDescLoctag] || dict['/' + cDescLoctag] || '') : '';
+    const cDescription = cRawDesc ? cRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
+    return {
+      unique_name: cUn,
+      name: resolveName(cUn, dict, EGear, ER, ERecipe) || nameFromPath(cUn),
+      description: cDescription,
+      image: resolveImage(cUn, EGear, ER, ERecipe),
+      category: 'consumables',
+      quantity: c.ItemCount ?? 1,
+      owned: true
+    };
+  });
 
   const resources = [], prime_parts = [], primeSets = {};
 
@@ -1543,7 +1557,11 @@ export function parseInventory(raw, exports) {
     const name = resolveName(un, dict, ER, ERel, EW, ES);
     const isPrimePart = /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum|Guard|Hilt)/i.test(name);
     if (!isPrimePart) {
-      const obj = { unique_name: un, name, image: resolveImage(un, ER, ERel, EW, ES), category: 'resources', quantity: item.ItemCount ?? 1, owned: true };
+      const entry = ER[un];
+      const resDescLoctag = entry?.description ?? '';
+      const resRawDesc = resDescLoctag ? (dict[resDescLoctag] || dict['/' + resDescLoctag] || '') : '';
+      const resDescription = resRawDesc ? resRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
+      const obj = { unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: 'resources', quantity: item.ItemCount ?? 1, owned: true };
       resources.push(obj);
     }
   }
@@ -1601,10 +1619,14 @@ export function parseInventory(raw, exports) {
     const relicId = baseName;
 
     if (!relicGroups[relicId]) {
+      const relDescLoctag = entry?.description ?? '';
+      const relRawDesc = relDescLoctag ? (dict[relDescLoctag] || dict['/' + relDescLoctag] || '') : '';
+      const relDescription = relRawDesc ? relRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
       relicGroups[relicId] = {
         unique_name: relicId,
         name: baseName,
         era,
+        description: relDescription,
         image: resolveImage(un, ERel),
         category: 'relics',
         refinements: { Intact: 0, Exceptional: 0, Flawless: 0, Radiant: 0 },

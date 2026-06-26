@@ -1,0 +1,485 @@
+function buildNameToUniqueNameMap(exportData, dict) {
+  const map = {}
+  const tables = [
+    'ExportWarframes',
+    'ExportWeapons',
+    'ExportSentinels',
+    'ExportUpgrades',
+    'ExportAvionics',
+    'ExportArcanes',
+    'ExportResources',
+    'ExportRelics',
+    'ExportCustoms',
+    'ExportGear',
+    'ExportFlavour',
+    'ExportSyndicates',
+    'ExportBoosterPacks',
+  ]
+  // Index items with direct uniqueName + name fields
+  for (const tblName of tables) {
+    const data = exportData[tblName]
+    if (!data) continue
+    const items = Array.isArray(data) ? data : Object.values(data)
+    for (const item of items) {
+      if (!item || !item.uniqueName) continue
+      const locKey = item.name || item.displayName
+      if (!locKey) continue
+      const resolved = dict[locKey] || dict['/' + locKey] || ''
+      const displayName = resolved.replace(/<[^>]*>/g, '').trim()
+      if (displayName && !displayName.startsWith('/')) {
+        const key = displayName.toLowerCase()
+        if (!map[key]) map[key] = []
+        map[key].push(item.uniqueName)
+      }
+    }
+  }
+  // Index ExportRecipes: recipe.resultType acts as the item's uniqueName
+  const recipes = exportData.ExportRecipes
+  if (recipes && typeof recipes === 'object') {
+    const recipeItems = Array.isArray(recipes) ? recipes : Object.values(recipes)
+    for (const recipe of recipeItems) {
+      if (!recipe || !recipe.resultType) continue
+      const locKey = recipe.name || ''
+      if (locKey) {
+        const resolved = dict[locKey] || dict['/' + locKey] || ''
+        const displayName = resolved.replace(/<[^>]*>/g, '').trim()
+        if (displayName && !displayName.startsWith('/')) {
+          const key = displayName.toLowerCase()
+          if (!map[key]) map[key] = []
+          map[key].push(recipe.resultType)
+        }
+      }
+    }
+  }
+  return map
+}
+
+function addSource(index, itemUn, source) {
+  if (!itemUn) return
+  const norm = itemUn.replace('/StoreItems/', '/')
+  if (!index[norm]) index[norm] = []
+  index[norm].push(source)
+}
+
+function addNamedSource(index, nameMap, itemName, source) {
+  if (!itemName) return
+  const lc = itemName.toLowerCase().trim()
+  // Skip generic credit/endo/affinity caches
+  if (/^[\d,]+x?\s*(credits?|endo|affinity|focus)/i.test(lc)) return
+
+  const tryName = (name) => {
+    const uniqueNames = nameMap[name]
+    if (uniqueNames && uniqueNames.length > 0) {
+      for (const un of uniqueNames) {
+        addSource(index, un, source)
+      }
+      return true
+    }
+    return false
+  }
+
+  // Try the name as-is
+  let found = tryName(lc)
+
+  // Try without trailing " Blueprint"
+  if (!found && lc.endsWith(' blueprint')) {
+    const without = lc.slice(0, -10)
+    found = tryName(without)
+    if (!found) {
+      const fallbackKey = 'display:' + without
+      if (!index[fallbackKey]) index[fallbackKey] = []
+      index[fallbackKey].push(source)
+    }
+  }
+
+  // Try with " Blueprint" appended
+  if (!found && !lc.endsWith(' blueprint')) {
+    const withBp = lc + ' blueprint'
+    found = tryName(withBp)
+    if (!found) {
+      const fallbackKey = 'display:' + withBp
+      if (!index[fallbackKey]) index[fallbackKey] = []
+      index[fallbackKey].push(source)
+    }
+  }
+
+  // If nothing matched, store under the original name
+  if (!found) {
+    const fallbackKey = 'display:' + lc
+    if (!index[fallbackKey]) index[fallbackKey] = []
+    index[fallbackKey].push(source)
+  }
+}
+
+const normChance = (c) => c != null ? c / 100 : null
+
+function processDropsAll(index, DropsAll, nameMap) {
+  if (!DropsAll || typeof DropsAll !== 'object') return
+
+  // ── missionRewards: planet -> node -> rotation -> rewards ──────────────
+  const missionRewards = DropsAll.missionRewards
+  if (missionRewards && typeof missionRewards === 'object') {
+    for (const [planet, nodes] of Object.entries(missionRewards)) {
+      if (!nodes || typeof nodes !== 'object') continue
+      for (const [nodeName, nodeData] of Object.entries(nodes)) {
+        if (!nodeData || !nodeData.rewards) continue
+        const gameMode = nodeData.gameMode || ''
+        const rewards = nodeData.rewards
+        for (const rotation of ['A', 'B', 'C', 'D']) {
+          const entries = rewards[rotation]
+          if (!Array.isArray(entries)) continue
+          for (const entry of entries) {
+            addNamedSource(index, nameMap, entry.itemName, {
+              type: 'mission',
+              node: nodeName,
+              nodeName: nodeName,
+              missionType: gameMode,
+              rotation: rotation === 'A' ? null : rotation,
+              chance: normChance(entry.chance),
+              itemCount: 1,
+              source: 'drops.wf',
+            })
+          }
+        }
+      }
+    }
+  }
+
+  // ── relics: per relic + state entries ──────────────────────────────────
+  const relics = DropsAll.relics
+  if (Array.isArray(relics)) {
+    for (const relic of relics) {
+      if (!relic || !relic.rewards) continue
+      const relicEra = relic.tier || ''
+      const relicName = relic.relicName || ''
+      const state = relic.state || ''
+      for (const entry of relic.rewards) {
+        addNamedSource(index, nameMap, entry.itemName, {
+          type: 'relic',
+          relicEra,
+          relicName: relicEra ? `${relicEra} ${relicName}` : relicName,
+          rarity: entry.rarity || 'COMMON',
+          chance: normChance(entry.chance),
+          relicManifest: relicName,
+          state,
+          source: 'drops.wf',
+        })
+      }
+    }
+  }
+
+  // ── modLocations: modName -> enemies ──────────────────────────────────
+  const modLocations = DropsAll.modLocations
+  if (Array.isArray(modLocations)) {
+    for (const modLoc of modLocations) {
+      if (!modLoc || !modLoc.modName || !modLoc.enemies) continue
+      for (const enemy of modLoc.enemies) {
+        addNamedSource(index, nameMap, modLoc.modName, {
+          type: 'enemy',
+          enemyName: enemy.enemyName,
+          rarity: enemy.rarity || '',
+          chance: normChance(enemy.chance),
+          enemyDropChance: enemy.enemyModDropChance ?? null,
+          source: 'drops.wf',
+        })
+      }
+    }
+  }
+
+  // ── enemyModTables: enemyName -> mods ──────────────────────────────────
+  const enemyModTables = DropsAll.enemyModTables
+  if (Array.isArray(enemyModTables)) {
+    for (const enemy of enemyModTables) {
+      if (!enemy || !enemy.enemyName || !enemy.mods) continue
+      for (const mod of enemy.mods) {
+        addNamedSource(index, nameMap, mod.modName, {
+          type: 'enemy',
+          enemyName: enemy.enemyName,
+          rarity: mod.rarity || '',
+          chance: normChance(mod.chance),
+          source: 'drops.wf',
+        })
+      }
+    }
+  }
+
+  // ── blueprintLocations: itemName -> enemies ────────────────────────────
+  const blueprintLocations = DropsAll.blueprintLocations
+  if (Array.isArray(blueprintLocations)) {
+    for (const bpLoc of blueprintLocations) {
+      if (!bpLoc || !bpLoc.itemName || !bpLoc.enemies) continue
+      const itemName = bpLoc.blueprintName || bpLoc.itemName
+      for (const enemy of bpLoc.enemies) {
+        addNamedSource(index, nameMap, itemName, {
+          type: 'enemy',
+          enemyName: enemy.enemyName,
+          rarity: enemy.rarity || '',
+          chance: normChance(enemy.chance),
+          source: 'drops.wf',
+        })
+      }
+    }
+  }
+
+  // ── enemyBlueprintTables: enemyName -> items + mods ────────────────────
+  const enemyBpTables = DropsAll.enemyBlueprintTables
+  if (Array.isArray(enemyBpTables)) {
+    for (const enemy of enemyBpTables) {
+      if (!enemy || !enemy.enemyName) continue
+      if (enemy.items) {
+        for (const item of enemy.items) {
+          addNamedSource(index, nameMap, item.itemName, {
+            type: 'enemy',
+            enemyName: enemy.enemyName,
+            rarity: item.rarity || '',
+            chance: normChance(item.chance),
+            source: 'drops.wf',
+          })
+        }
+      }
+      if (enemy.mods) {
+        for (const mod of enemy.mods) {
+          addNamedSource(index, nameMap, mod.modName, {
+            type: 'enemy',
+            enemyName: enemy.enemyName,
+            rarity: mod.rarity || '',
+            chance: normChance(mod.chance),
+            source: 'drops.wf',
+          })
+        }
+      }
+    }
+  }
+
+  // ── bounty rewards ─────────────────────────────────────────────────────
+  const bountyCategories = [
+    'cetusBountyRewards',
+    'solarisBountyRewards',
+    'deimosRewards',
+    'zarimanRewards',
+    'entratiLabRewards',
+    'hexRewards',
+  ]
+  for (const cat of bountyCategories) {
+    const bountyData = DropsAll[cat]
+    if (!Array.isArray(bountyData)) continue
+    for (const bounty of bountyData) {
+      if (!bounty || !bounty.rewards) continue
+      const bountyLevel = bounty.bountyLevel || ''
+      const rewards = bounty.rewards
+      for (const rotation of ['A', 'B', 'C']) {
+        const entries = rewards[rotation]
+        if (!Array.isArray(entries)) continue
+        for (const entry of entries) {
+          addNamedSource(index, nameMap, entry.itemName, {
+            type: 'bounty',
+            bountyLevel,
+            rotation: rotation === 'A' ? null : rotation,
+            stage: entry.stage || '',
+            rarity: entry.rarity || '',
+            chance: normChance(entry.chance),
+            source: 'drops.wf',
+          })
+        }
+      }
+    }
+  }
+
+  // ── sortieRewards ──────────────────────────────────────────────────────
+  const sortieRewards = DropsAll.sortieRewards
+  if (Array.isArray(sortieRewards)) {
+    for (const entry of sortieRewards) {
+      if (!entry) continue
+      addNamedSource(index, nameMap, entry.itemName, {
+        type: 'sortie',
+        rarity: entry.rarity || '',
+        chance: normChance(entry.chance),
+        source: 'drops.wf',
+      })
+    }
+  }
+
+  // ── transientRewards (Arbitrations etc.) ────────────────────────────────
+  const transientRewards = DropsAll.transientRewards
+  if (Array.isArray(transientRewards)) {
+    for (const group of transientRewards) {
+      if (!group || !group.rewards) continue
+      const objectiveName = group.objectiveName || ''
+      for (const entry of group.rewards) {
+        addNamedSource(index, nameMap, entry.itemName, {
+          type: 'transient',
+          objectiveName,
+          rotation: entry.rotation || '',
+          rarity: entry.rarity || '',
+          chance: normChance(entry.chance),
+          source: 'drops.wf',
+        })
+      }
+    }
+  }
+
+  // ── keyRewards (Dragon Key / Derelict) ─────────────────────────────────
+  const keyRewards = DropsAll.keyRewards
+  if (Array.isArray(keyRewards)) {
+    for (const key of keyRewards) {
+      if (!key || !key.rewards) continue
+      const keyName = key.keyName || ''
+      const rewards = key.rewards
+      for (const rotation of ['A', 'B', 'C']) {
+        const entries = rewards[rotation]
+        if (!Array.isArray(entries)) continue
+        for (const entry of entries) {
+          addNamedSource(index, nameMap, entry.itemName, {
+            type: 'key',
+            keyName,
+            rotation: rotation === 'A' ? null : rotation,
+            rarity: entry.rarity || '',
+            chance: normChance(entry.chance),
+            source: 'drops.wf',
+          })
+        }
+      }
+    }
+  }
+
+  // ── syndicates ─────────────────────────────────────────────────────────
+  const syndicates = DropsAll.syndicates
+  if (syndicates && typeof syndicates === 'object') {
+    for (const [syndicateName, offerings] of Object.entries(syndicates)) {
+      if (!Array.isArray(offerings)) continue
+      for (const entry of offerings) {
+        if (!entry) continue
+        addNamedSource(index, nameMap, entry.item, {
+          type: 'syndicate',
+          syndicateName,
+          place: entry.place || '',
+          standing: entry.standing ?? null,
+          rarity: entry.rarity || '',
+          chance: normChance(entry.chance),
+          source: 'drops.wf',
+        })
+      }
+    }
+  }
+
+  // ── resourceByAvatar / sigilByAvatar / additionalItemByAvatar ───────────
+  const avatarCategories = ['resourceByAvatar', 'sigilByAvatar', 'additionalItemByAvatar']
+  for (const cat of avatarCategories) {
+    const data = DropsAll[cat]
+    if (!Array.isArray(data)) continue
+    for (const entry of data) {
+      if (!entry || !entry.source || !entry.items) continue
+      const sourceName = entry.source
+      for (const item of entry.items) {
+        if (!item || !item.item) continue
+        addNamedSource(index, nameMap, item.item, {
+          type: 'avatar',
+          sourceName,
+          rarity: item.rarity || '',
+          chance: normChance(item.chance),
+          source: 'drops.wf',
+        })
+      }
+    }
+  }
+}
+
+export function buildDropIndex(exportData) {
+  if (!exportData) return {}
+
+  const ERg = exportData.ExportRegions
+  const ERw = exportData.ExportRewards
+  const ERel = exportData.ExportRelics
+  const dict = exportData['dict.en'] || {}
+
+  const index = {}
+  const nameMap = buildNameToUniqueNameMap(exportData, dict)
+
+  const addSource_ = (itemUn, source) => addSource(index, itemUn, source)
+
+  // ── Existing: ExportRegions + ExportRewards ────────────────────────────
+  if (ERg && ERw && typeof ERg === 'object' && typeof ERw === 'object') {
+    const rotations = ['A', 'B', 'C', 'D']
+    for (const [nodeKey, region] of Object.entries(ERg)) {
+      const manifests = region.rewardManifests
+      if (!manifests || !Array.isArray(manifests)) continue
+
+      const nodeNameKey = region.name
+      const nodeName = (dict[nodeNameKey] || dict['/' + nodeNameKey] || nodeNameKey || nodeKey).replace(/<[^>]*>/g, '').trim()
+      const missionType = region.missionType || ''
+
+      for (const manifestPath of manifests) {
+        const rewardTable = ERw[manifestPath]
+        if (!rewardTable || !Array.isArray(rewardTable)) continue
+
+        for (let tierIdx = 0; tierIdx < rewardTable.length; tierIdx++) {
+          const tier = rewardTable[tierIdx]
+          if (!Array.isArray(tier)) continue
+
+          const rotation = rotations[tierIdx] || `Tier ${tierIdx + 1}`
+
+          for (const entry of tier) {
+            if (!entry || !entry.type) continue
+            addSource_(entry.type, {
+              type: 'mission',
+              node: nodeKey,
+              nodeName,
+              missionType,
+              rotation: tierIdx > 0 ? rotation : null,
+              chance: entry.probability ?? null,
+              itemCount: entry.itemCount ?? 1,
+            })
+          }
+        }
+      }
+    }
+  }
+
+  // ── Existing: ExportRelics + ExportRewards ─────────────────────────────
+  if (ERel && ERw) {
+    const relics = Array.isArray(ERel) ? ERel : Object.values(ERel)
+    for (const relic of relics) {
+      if (!relic || !relic.rewardManifest) continue
+      const rewardTable = ERw[relic.rewardManifest]
+      if (!rewardTable || !Array.isArray(rewardTable)) continue
+
+      const pool = Array.isArray(rewardTable[0]) ? rewardTable[0] : rewardTable
+      const relicEra = relic.era || ''
+      const relicCat = relic.category || ''
+
+      for (const entry of pool) {
+        if (!entry || !entry.type) continue
+        addSource_(entry.type, {
+          type: 'relic',
+          relicEra,
+          relicName: relicCat ? `${relicEra} ${relicCat}` : null,
+          rarity: entry.rarity || 'COMMON',
+          relicManifest: relic.rewardManifest,
+        })
+      }
+    }
+  }
+
+  // ── New: warframe-drop-data ────────────────────────────────────────────
+  const DropsAll = exportData.DropsAll
+  processDropsAll(index, DropsAll, nameMap)
+
+  return index
+}
+
+export function getDropSources(uniqueName, dropIndex) {
+  if (!uniqueName || !dropIndex) return []
+  const norm = uniqueName.replace('/StoreItems/', '/')
+  return dropIndex[norm] || []
+}
+
+export function getDropSourcesWithFallback(uniqueName, dropIndex, displayName) {
+  if (!uniqueName || !dropIndex) return []
+  const norm = uniqueName.replace('/StoreItems/', '/')
+  const sources = dropIndex[norm] || []
+  if (displayName) {
+    const fallback = dropIndex['display:' + displayName.toLowerCase().trim()]
+    if (fallback) return sources.concat(fallback)
+  }
+  return sources
+}

@@ -1,9 +1,12 @@
 use std::sync::Mutex;
+use std::sync::atomic::{AtomicBool, Ordering};
 use tauri::{AppHandle, Emitter, Manager, PhysicalPosition, WebviewWindow};
 
 use active_win_pos_rs;
 
 static AOT_KEEPER_INSTALLED: Mutex<Vec<String>> = Mutex::new(Vec::new());
+
+pub(crate) static SIDEBAR_TOGGLING: AtomicBool = AtomicBool::new(false);
 
 pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri::Monitor, String> {
     let state = app_handle.state::<crate::AppState>();
@@ -632,7 +635,7 @@ pub fn enter_sidebar_mode(
     side: &str,
     width_phys: u32,
 ) -> Result<(), String> {
-    let monitor = get_overlay_monitor(app_handle, "main")?;
+    let monitor = get_overlay_monitor(app_handle, "main").map_err(|e| { SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e })?;
     let mon_pos_x = monitor.position().x;
     let mon_pos_y = monitor.position().y;
     let mon_size_w = monitor.size().width;
@@ -699,11 +702,19 @@ pub fn enter_sidebar_mode(
         if let Some(display) = gtk::gdk::Display::default() {
             display.sync();
         }
+        // Give KWin time to finish processing the unmap+remap from
+        // apply_x11_overlay_hints before we fight for position.
+        std::thread::sleep(std::time::Duration::from_millis(80));
 
-        // 4. Force position AFTER remap — override_redirect means KWin won't
-        //    fight us, so this lands correctly.
+        // 4. Force position — Tauri updates its internal state, X11 overrides
+        //    any WM placement from the fresh remap.
         let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
         let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
+        force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
+        // Second move after sync — belt-and-suspenders for slow compositors.
+        if let Some((xdisplay_sid, _)) = get_x11_ids(&win) {
+            unsafe { XSync(xdisplay_sid, 0); }
+        }
         force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
         raise_x11(&win);
 
@@ -717,9 +728,10 @@ pub fn enter_sidebar_mode(
             }
         }
 
+        SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
         eprintln!("[SIDEBAR-ENTER] done: side={} size={}x{} @({},{})",
             side_owned, phys_w, phys_h, target_x, mon_pos_y);
-    }).map_err(|e| e.to_string())?;
+    }).map_err(|e| { SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e.to_string() })?;
 
     Ok(())
 }

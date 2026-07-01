@@ -284,6 +284,23 @@ function AppContent() {
     return () => { unsub.then(f => f()) }
   }, [])
 
+  // Apply navbar position BEFORE the window reshapes — no animation, direct DOM
+  const containerRef = useRef(null)
+  useEffect(() => {
+    const unsub = listen('sidebar-prepare', (e) => {
+      const side = e.payload.side
+      if (!containerRef.current) return
+      containerRef.current.classList.toggle('flex-row-reverse', side === 'right')
+      const nav = containerRef.current.querySelector('nav')
+      if (nav) {
+        nav.classList.toggle('border-l', side === 'right')
+        nav.classList.toggle('border-r', side !== 'right')
+      }
+      setSidebarSide(side)
+    })
+    return () => { unsub.then(f => f()) }
+  }, [])
+
   const screens = {
     dashboard: <Dashboard />,
     inventory: <Inventory />,
@@ -300,7 +317,7 @@ function AppContent() {
   }
 
   return (
-    <div className={`flex h-screen overflow-hidden ${sidebarActive && sidebarSide === 'right' ? 'flex-row-reverse' : ''}`}>
+    <div ref={containerRef} className={`flex h-screen overflow-hidden ${sidebarActive && sidebarSide === 'right' ? 'flex-row-reverse' : ''}`}>
       {/* Sidebar */}
       <nav className={`glass-panel w-20 flex flex-col items-center py-6 gap-4 z-40 relative flex-shrink-0 ${sidebarActive && sidebarSide === 'right' ? 'border-l' : 'border-r'}`}>
         {/* Logo */}

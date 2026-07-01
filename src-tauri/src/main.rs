@@ -9,7 +9,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use std::fs;
 use tauri::{AppHandle, Manager, Emitter};
 use std::io::Cursor;
-use std::sync::atomic::AtomicU64;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 use serde_json::Value;
 
@@ -1398,6 +1398,11 @@ fn hide_overlay_window(
 /// Toggle the interactive in-game sidebar on/off.
 #[tauri::command]
 fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
+    if overlay_utils::SIDEBAR_TOGGLING.swap(true, Ordering::SeqCst) {
+        eprintln!("[SIDEBAR-TOGGLE] SKIPPED (already toggling)");
+        return Ok(());
+    }
+
     let state = app_handle.state::<AppState>();
     let mut saved = state.sidebar_saved.lock().unwrap();
 
@@ -1426,10 +1431,11 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
             let _ = win.set_always_on_top(false);
             let _ = win.set_resizable(true);
             let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: w, height: h }));
-            let _ = win.set_min_size(Some(tauri::PhysicalSize { width: w.max(900), height: h.max(500) }));
+            let _ = win.set_min_size(Some(tauri::PhysicalSize { width: 900, height: 500 }));
             let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }));
             #[cfg(target_os = "linux")]
             overlay_utils::sidebar_restore_focus_to_game(&win, game_xid);
+            overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
             eprintln!("[SIDEBAR-EXIT] restore closure END");
         }).ok();
 
@@ -1439,8 +1445,8 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
         // ── Enter sidebar mode ────────────────────────────────────────────
         eprintln!("[SIDEBAR-TOGGLE] ENTER path");
         sidebar_stamp(&state);
-        let pos  = window.outer_position().map_err(|e| e.to_string())?;
-        let size = window.outer_size().map_err(|e| e.to_string())?;
+        let pos  = window.inner_position().map_err(|e| { overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e.to_string() })?;
+        let size = window.inner_size().map_err(|e| { overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e.to_string() })?;
 
         saved.active  = true;
         saved.x       = pos.x;
@@ -1463,7 +1469,10 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
             .unwrap_or(size.width);
         drop(saved);
 
-        overlay_utils::enter_sidebar_mode(&app_handle, &window, &side, entry_width)?;
+        let _ = window.emit("sidebar-prepare", serde_json::json!({ "side": side }));
+        std::thread::sleep(std::time::Duration::from_millis(16));
+
+        overlay_utils::enter_sidebar_mode(&app_handle, &window, &side, entry_width).map_err(|e| { overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e })?;
         let _ = window.unminimize();
         let _ = window.show();
         let _ = window.emit("sidebar-mode-changed", serde_json::json!({ "active": true, "side": side }));

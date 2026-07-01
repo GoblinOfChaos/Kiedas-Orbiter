@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense, useEffect, useRef } from 'react'
+import { useState, lazy, Suspense, useEffect, useRef, useCallback } from 'react'
 import { useMonitoring } from './contexts/MonitoringContext'
 import { formatLastUpdate } from './lib/warframeUtils'
 import { ThemeProvider } from './contexts/ThemeContext'
@@ -6,10 +6,53 @@ import { MonitoringProvider } from './contexts/MonitoringContext'
 import { UpdateProvider, useUpdate } from './contexts/UpdateContext'
 import { Tooltip } from './components/UI'
 import { AlertTriangle, FolderOpen } from 'lucide-react'
-import { invoke, convertFileSrc } from '@tauri-apps/api/core'
+import { invoke } from '@tauri-apps/api/core'
 import { listen } from '@tauri-apps/api/event'
 import { open as openDialog } from '@tauri-apps/plugin-dialog'
 import { loadSettings, getSetting, setSetting } from './lib/settings'
+
+const NAV_ITEMS = [
+  { id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },
+  { id: 'inventory', icon: 'IconInventory.png', label: 'Inventory' },
+  { id: 'mods', icon: 'Mods.png', label: 'Mods' },
+  { id: 'rivens', icon: 'IconRiven.png', label: 'Rivens' },
+  { id: 'relics', icon: 'IconRelic.png', label: 'Relics' },
+  { id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },
+  { id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
+  { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
+  { id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
+  { id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
+  { id: 'settings', icon: 'IconSettings.png', label: 'Settings' },
+  { id: 'about', icon: 'IconInfo.png', label: 'About' },
+]
+
+function useUIIcons(iconNames) {
+  const [iconCache, setIconCache] = useState({})
+  useEffect(() => {
+    if (!iconNames || iconNames.length === 0) return
+    let cancelled = false
+    Promise.all(iconNames.map(async (name) => {
+      try {
+        const bytes = await invoke('read_file_bytes', { relative: `data/assets/ui/${name}` })
+        const blob = new Blob([new Uint8Array(bytes)])
+        return [name, await new Promise(r => {
+          const f = new FileReader()
+          f.onload = () => r(f.result)
+          f.onerror = () => r(null)
+          f.readAsDataURL(blob)
+        })]
+      } catch { return [name, null] }
+    })).then(entries => {
+      if (cancelled) return
+      const map = {}
+      for (const [name, url] of entries) if (url) map[name] = url
+      setIconCache(map)
+    })
+    return () => { cancelled = true }
+  }, [iconNames])
+  const uiIcon = useCallback((name) => iconCache[name] || '', [iconCache])
+  return { iconCache, uiIcon }
+}
 
 // Screens (lazy-loaded, main window only)
 const Dashboard = lazy(() => import('./screens/Dashboard'))
@@ -28,21 +71,6 @@ const Collectibles = lazy(() => import('./screens/Collectibles'))
 // Overlay (separate window, no monitoring context needed)
 const OverlayRouter = lazy(() => import('./components/overlays/OverlayRouter'))
 
-const NAV_ITEMS = [
-  { id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },
-  { id: 'inventory', icon: 'IconInventory.png', label: 'Inventory' },
-  { id: 'mods', icon: 'Mods.png', label: 'Mods' },
-  { id: 'rivens', icon: 'IconRiven.png', label: 'Rivens' },
-  { id: 'relics', icon: 'IconRelic.png', label: 'Relics' },
-  { id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },
-  { id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
-  { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
-  { id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
-  { id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
-  { id: 'settings', icon: 'IconSettings.png', label: 'Settings' },
-  { id: 'about', icon: 'IconInfo.png', label: 'About' },
-]
-
 // ─── Overlay window ───────────────────────────────────────────────────────────
 // Rendered when the window hash is #overlay.
 // IMPORTANT: does NOT include MonitoringProvider - the overlay window must not
@@ -54,14 +82,16 @@ function OverlayApp() {
   // so no useEffect is needed here - eliminating the Linux first-frame black flash.
   return (
     <ThemeProvider>
-      <main
-        className="h-screen w-screen overflow-hidden"
-        style={{ background: 'transparent' }}
-      >
-        <Suspense fallback={null}>
-          <OverlayRouter />
-        </Suspense>
-      </main>
+      <UpdateProvider>
+        <main
+          className="h-screen w-screen overflow-hidden"
+          style={{ background: 'transparent' }}
+        >
+          <Suspense fallback={null}>
+            <OverlayRouter />
+          </Suspense>
+        </main>
+      </UpdateProvider>
     </ThemeProvider>
   )
 }
@@ -210,31 +240,14 @@ function SetupScreen() {
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState('dashboard')
-  const [uiPath, setUiPath] = useState('')
-  const [iconCache, setIconCache] = useState({})
+  const [sidebarActive, setSidebarActive] = useState(false)
+  const [sidebarSide, setSidebarSide] = useState('left')
   const { lastUpdate, monitorResult, isMonitoring } = useMonitoring()
   const { updateState } = useUpdate()
   const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
 
-  useEffect(() => {
-    invoke('get_ui_path').then(setUiPath).catch(() => { })
-  }, [])
-
-  useEffect(() => {
-    if (!uiPath) return
-    const names = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
-    Promise.all(names.map(async (name) => {
-      try {
-        const bytes = await invoke('read_file_bytes', { relative: `data/assets/ui/${name}` })
-        const blob = new Blob([new Uint8Array(bytes)])
-        return [name, await new Promise(r => { const f = new FileReader(); f.onload = () => r(f.result); f.onerror = () => r(null); f.readAsDataURL(blob) })]
-      } catch { return [name, null] }
-    })).then(entries => {
-      const map = {}
-      for (const [name, url] of entries) if (url) map[name] = url
-      setIconCache(map)
-    })
-  }, [uiPath])
+  const iconNames = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
+  const { uiIcon } = useUIIcons(iconNames)
 
   useEffect(() => {
     // Poll scanner status every 2s so sidebar dot stays in sync
@@ -256,12 +269,20 @@ function AppContent() {
         position: 'top-right',
         no_focus: true,
         silent: true,
-      }).catch(() => {})
+      }).catch(() => { })
     })
     return () => { unsub.then(f => f()) }
   }, [])
 
-  const uiIcon = (name) => iconCache[name] || (uiPath ? convertFileSrc(`${uiPath}/${name}`) : '')
+  // Toggle .sidebar-mode on <body> when entering/exiting sidebar mode
+  useEffect(() => {
+    const unsub = listen('sidebar-mode-changed', (e) => {
+      document.body.classList.toggle('sidebar-mode', e.payload.active)
+      setSidebarActive(e.payload.active)
+      if (e.payload.side) setSidebarSide(e.payload.side)
+    })
+    return () => { unsub.then(f => f()) }
+  }, [])
 
   const screens = {
     dashboard: <Dashboard />,
@@ -279,9 +300,9 @@ function AppContent() {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className={`flex h-screen overflow-hidden ${sidebarActive && sidebarSide === 'right' ? 'flex-row-reverse' : ''}`}>
       {/* Sidebar */}
-      <nav className="glass-panel w-20 border-r flex flex-col items-center py-6 gap-4 z-40 relative flex-shrink-0">
+      <nav className={`glass-panel w-20 flex flex-col items-center py-6 gap-4 z-40 relative flex-shrink-0 ${sidebarActive && sidebarSide === 'right' ? 'border-l' : 'border-r'}`}>
         {/* Logo */}
         <div className="mb-4 flex-shrink-0">
           <div className="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden">
@@ -348,7 +369,7 @@ function AppContent() {
                   : 'bg-gray-600'}
             `}
           >
-            <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent">
+            <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${sidebarActive && sidebarSide === 'right' ? 'right-full mr-3' : 'left-full ml-3'}`}>
               {monitorResult === 'success' ? 'API Active' : monitorResult === 'error' ? 'API Error' : 'API Offline'}
             </div>
           </div>
@@ -361,7 +382,7 @@ function AppContent() {
               }
             `}
           >
-            <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent">
+            <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${sidebarActive && sidebarSide === 'right' ? 'right-full mr-3' : 'left-full ml-3'}`}>
               {scannerStatus === 'active' ? 'Scanner Active' :
                 scannerStatus === 'waiting' ? 'Waiting for Warframe...' :
                   'Scanner Idle'}
@@ -380,6 +401,45 @@ function AppContent() {
           {screens[activeTab]}
         </Suspense>
       </main>
+
+      {/* ── Resize handle for sidebar mode (mouse-event-based, no native drag) ── */}
+      {sidebarActive && (
+        <div
+          className="fixed top-0 bottom-0 w-3 cursor-col-resize z-[9999] flex items-center justify-center hover:bg-kronos-accent/10 transition-colors group"
+          style={{ [sidebarSide === 'left' ? 'right' : 'left']: '14px' }}
+          onMouseDown={(e) => {
+            e.preventDefault()
+            // Use screenX (absolute) so delta stays accurate even when the
+            // window width lags behind the IPC resize.
+            const startScreenX = e.screenX
+            const startW = document.documentElement.clientWidth
+            let lastW = startW
+            let rafPending = false
+            const onMove = (ev) => {
+              const delta = sidebarSide === 'left' ? ev.screenX - startScreenX : startScreenX - ev.screenX
+              const newW = Math.max(200, Math.min(startW + delta, window.screen.width * 0.9))
+              lastW = Math.round(newW)
+              if (!rafPending) {
+                rafPending = true
+                requestAnimationFrame(() => {
+                  rafPending = false
+                  invoke('set_sidebar_width', { width: lastW, side: sidebarSide }).catch(() => { })
+                })
+              }
+            }
+            const onUp = () => {
+              window.removeEventListener('mousemove', onMove)
+              window.removeEventListener('mouseup', onUp)
+              invoke('set_sidebar_width', { width: lastW, side: sidebarSide }).catch(() => { })
+              setSetting('sidebar_width', lastW).catch(() => { })
+            }
+            window.addEventListener('mousemove', onMove)
+            window.addEventListener('mouseup', onUp)
+          }}
+        >
+          <div className={`w-[2px] h-12 rounded-full bg-white/20 group-hover:bg-kronos-accent/50 transition-colors ${sidebarSide === 'left' ? 'mr-[10px]' : 'ml-[10px]'}`} />
+        </div>
+      )}
     </div>
   )
 }

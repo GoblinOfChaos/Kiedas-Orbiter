@@ -9,6 +9,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use std::fs;
 use tauri::{AppHandle, Manager, Emitter};
 use std::io::Cursor;
+use std::sync::atomic::AtomicU64;
 use std::sync::{Arc, Mutex};
 use serde_json::Value;
 
@@ -26,6 +27,19 @@ pub struct AppState {
     pub log_scanner_path: Arc<Mutex<Option<String>>>,
     pub active_relic_data: Arc<Mutex<Option<serde_json::Value>>>,
     pub target_monitor: Arc<Mutex<Option<usize>>>,
+    pub sidebar_saved: Arc<Mutex<SidebarSavedState>>,
+    pub sidebar_last_op: Arc<AtomicU64>,
+}
+
+#[derive(Default, Clone)]
+pub struct SidebarSavedState {
+    pub active: bool,
+    pub side: Option<String>,
+    pub x: i32,
+    pub y: i32,
+    pub width: u32,
+    pub height: u32,
+    pub game_xid: u64,
 }
 
 // --- Path Resolution ---
@@ -1384,33 +1398,83 @@ fn hide_overlay_window(
 /// Toggle the interactive in-game sidebar on/off.
 #[tauri::command]
 fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
-    let window = app_handle
-        .get_webview_window("overlay-sidebar")
-        .ok_or_else(|| "sidebar window not found".to_string())?;
+    let state = app_handle.state::<AppState>();
+    let mut saved = state.sidebar_saved.lock().unwrap();
 
-    if window.is_visible().map_err(|e| e.to_string())? {
-        let _ = window.emit("sidebar-animate-out", ());
-        let w = window.clone();
-        std::thread::spawn(move || {
-            std::thread::sleep(std::time::Duration::from_millis(250));
-            let _ = w.hide();
-        });
+    let window = app_handle
+        .get_webview_window("main")
+        .ok_or_else(|| "main window not found".to_string())?;
+
+    eprintln!("[SIDEBAR-TOGGLE] active={} is_visible={:?}", saved.active, window.is_visible().ok());
+
+    if saved.active {
+        // ── Exit sidebar mode (restore normal window) ──────────────────────
+        eprintln!("[SIDEBAR-TOGGLE] EXIT path");
+        #[cfg_attr(not(target_os = "linux"), allow(unused_variables))]
+        let (x, y, w, h, game_xid) = (saved.x, saved.y, saved.width, saved.height, saved.game_xid);
+        saved.active  = false;
+        saved.side    = None;
+        saved.game_xid = 0;
+        drop(saved);
+
+        let win = window.clone();
+        window.run_on_main_thread(move || {
+            eprintln!("[SIDEBAR-EXIT] restore closure start");
+            #[cfg(target_os = "linux")]
+            overlay_utils::sidebar_clear_x11_hints(&win);
+            let _ = win.set_decorations(true);
+            let _ = win.set_always_on_top(false);
+            let _ = win.set_resizable(true);
+            let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: w, height: h }));
+            let _ = win.set_min_size(Some(tauri::PhysicalSize { width: w.max(900), height: h.max(500) }));
+            let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }));
+            #[cfg(target_os = "linux")]
+            overlay_utils::sidebar_restore_focus_to_game(&win, game_xid);
+            eprintln!("[SIDEBAR-EXIT] restore closure END");
+        }).ok();
+
+        let _ = window.emit("sidebar-mode-changed", serde_json::json!({ "active": false }));
+        sidebar_stamp(&state);
     } else {
+        // ── Enter sidebar mode ────────────────────────────────────────────
+        eprintln!("[SIDEBAR-TOGGLE] ENTER path");
+        sidebar_stamp(&state);
+        let pos  = window.outer_position().map_err(|e| e.to_string())?;
+        let size = window.outer_size().map_err(|e| e.to_string())?;
+
+        saved.active  = true;
+        saved.x       = pos.x;
+        saved.y      = pos.y;
+        saved.width  = size.width;
+        saved.height = size.height;
+        eprintln!("[SIDEBAR] saved position: ({},{}) size: {}x{}", pos.x, pos.y, size.width, size.height);
+
         let settings = load_settings_sync();
         let side = settings
             .get("sidebar_side")
             .and_then(|v| v.as_str())
             .unwrap_or("left")
             .to_string();
-        let width = settings
+        saved.side = Some(side.clone());
+        let entry_width = settings
             .get("sidebar_width")
-            .and_then(|v| v.as_f64())
-            .unwrap_or(520.0);
+            .and_then(|v| v.as_u64())
+            .map(|w| w as u32)
+            .unwrap_or(size.width);
+        drop(saved);
 
-        overlay_utils::show_sidebar_window(&app_handle, &side, width)?;
+        overlay_utils::enter_sidebar_mode(&app_handle, &window, &side, entry_width)?;
+        let _ = window.unminimize();
+        let _ = window.show();
+        let _ = window.emit("sidebar-mode-changed", serde_json::json!({ "active": true, "side": side }));
     }
 
     Ok(())
+}
+
+fn sidebar_stamp(state: &AppState) {
+    let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap_or_default().as_millis() as u64;
+    state.sidebar_last_op.store(now, std::sync::atomic::Ordering::SeqCst);
 }
 
 /// Load settings synchronously from disk.
@@ -2008,7 +2072,7 @@ async fn save_settings(settings: Value) -> Result<(), String> {
 }
 
 #[tauri::command]
-fn save_sidebar_width(width: f64) -> Result<(), String> {
+fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String) -> Result<(), String> {
     let settings_dir = resolve_path("data/user");
     let path = settings_dir.join("settings.json");
     let mut settings: serde_json::Value = if path.exists() {
@@ -2021,12 +2085,27 @@ fn save_sidebar_width(width: f64) -> Result<(), String> {
     };
     if let Some(obj) = settings.as_object_mut() {
         obj.insert("sidebar_width".to_string(), serde_json::json!(width));
+        obj.insert("sidebar_side".to_string(), serde_json::json!(side.clone()));
     }
     if !settings_dir.exists() {
         std::fs::create_dir_all(&settings_dir).map_err(|e| e.to_string())?;
     }
     let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-    std::fs::write(path, content).map_err(|e| e.to_string())
+    let _ = std::fs::write(path, content);
+
+    let state = app_handle.state::<AppState>();
+    let saved = state.sidebar_saved.lock().unwrap().clone();
+    if saved.active {
+        if let Some(window) = app_handle.get_webview_window("main") {
+            #[cfg(target_os = "linux")]
+            let _ = overlay_utils::update_sidebar_position(&app_handle, &window, &side, width as u32);
+            #[cfg(not(target_os = "linux"))]
+            let _ = overlay_utils::enter_sidebar_mode(&app_handle, &window, &side, width as u32);
+            let _ = window.emit("sidebar-mode-changed", serde_json::json!({ "active": true, "side": side }));
+        }
+    }
+    
+    Ok(())
 }
 
 /// Load the JSON settings object from data/user/settings.json.
@@ -2292,6 +2371,8 @@ fn get_known_weapon_names() -> Vec<String> {
             log_scanner_path: Arc::new(Mutex::new(None)),
             active_relic_data: Arc::new(Mutex::new(None)),
             target_monitor: Arc::new(Mutex::new(target_monitor_idx)),
+            sidebar_saved: Arc::new(Mutex::new(SidebarSavedState::default())),
+            sidebar_last_op: Arc::new(AtomicU64::new(0)),
         })
         .on_window_event(|window, event| match event {
             tauri::WindowEvent::CloseRequested { api, .. } => {
@@ -2393,7 +2474,7 @@ fn get_known_weapon_names() -> Vec<String> {
             set_ignore_cursor_events,
             toggle_sidebar,
             sidebar_load_data,
-            save_sidebar_width,
+            set_sidebar_width,
             play_notification_sound,
             set_notification_sound,
             start_notif_autoclose_timer,

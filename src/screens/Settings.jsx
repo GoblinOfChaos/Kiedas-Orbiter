@@ -33,6 +33,17 @@ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
       if (e.altKey) parts.push('Alt')
       if (e.shiftKey) parts.push('Shift')
 
+      // Bare keys (no modifier) can't be grabbed over a fullscreen game.
+      // Reject and flash the button red.
+      if (parts.length === 0) {
+        const btn = buttonRef.current
+        if (btn) {
+          btn.classList.add('border-red-500', 'bg-red-500/20')
+          setTimeout(() => btn.classList.remove('border-red-500', 'bg-red-500/20'), 600)
+        }
+        return
+      }
+
       let key = e.key.toUpperCase()
       if (key === ' ') key = 'Space'
       if (key === 'ARROWUP') key = 'Up'
@@ -78,9 +89,6 @@ export default function SettingsScreen() {
   const [sidebarSide, setSidebarSide] = useState(
     () => getSetting('sidebar_side', 'left')
   )
-  const [sidebarWidth, setSidebarWidth] = useState(
-    () => parseInt(getSetting('sidebar_width', 400))
-  )
 
   const handleUpdateHotkeys = async (newHotkeys) => {
     setHotkeys(newHotkeys)
@@ -101,7 +109,7 @@ export default function SettingsScreen() {
 
   const HOTKEY_ACTIONS = [
     { id: 'manual_ocr', label: 'Manual Relic Recognition (OCR)' },
-    { id: 'toggle_sidebar', label: 'Toggle In-Game Sidebar' },
+    { id: 'toggle_sidebar', label: 'Toggle Ingame Menu' },
   ]
 
   const [version, setVersion] = useState('')
@@ -250,7 +258,7 @@ export default function SettingsScreen() {
     const unlisten = listen('scanner-hooked', () => {
       invoke('show_notification', {
         title: 'Scanner Connected',
-        message: 'Hooked into Warframe - overlay is active.',
+        message: 'Hooked into Warframe - scanner is active.',
         silent: false,
       }).catch(console.error)
     })
@@ -438,11 +446,8 @@ export default function SettingsScreen() {
   const handleSetSidebarSide = async (side) => {
     setSidebarSide(side)
     await setSetting('sidebar_side', side)
-  }
-  const handleSetSidebarWidth = async (val) => {
-    const clamped = Math.max(250, Math.min(800, val))
-    setSidebarWidth(clamped)
-    await setSetting('sidebar_width', clamped)
+    const width = parseInt(getSetting('sidebar_width', 400))
+    invoke('set_sidebar_width', { width, side }).catch(() => {})
   }
 
   const handleTestNotification = (position, delay = 0) => {
@@ -812,11 +817,10 @@ export default function SettingsScreen() {
                   <button
                     key={s}
                     onClick={() => handleSetSidebarSide(s)}
-                    className={`flex-1 py-2.5 px-4 rounded-xl border text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
-                      sidebarSide === s
-                        ? 'bg-kronos-accent/20 border-kronos-accent text-kronos-accent'
-                        : 'bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20'
-                    }`}
+                    className={`flex-1 py-2.5 px-4 rounded-xl border text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${sidebarSide === s
+                      ? 'bg-kronos-accent/20 border-kronos-accent text-kronos-accent'
+                      : 'bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20'
+                      }`}
                   >
                     {s === 'left' ? <PanelLeft size={16} /> : <PanelRight size={16} />}
                     {s === 'left' ? 'Left Side' : 'Right Side'}
@@ -824,29 +828,10 @@ export default function SettingsScreen() {
                 ))}
               </div>
             </div>
-
-            <div>
-              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">
-                Width: <span className="text-kronos-accent">{sidebarWidth}px</span>
-              </p>
-              <input
-                type="range"
-                min={250}
-                max={800}
-                step={10}
-                value={sidebarWidth}
-                onChange={(e) => handleSetSidebarWidth(parseInt(e.target.value))}
-                className="w-full h-1.5 appearance-none bg-white/10 rounded-full outline-none cursor-pointer accent-kronos-accent [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-kronos-accent [&::-webkit-slider-thumb]:shadow-[0_0_8px_rgba(var(--kronos-accent-rgb),0.5)]"
-              />
-              <div className="flex justify-between text-[10px] text-kronos-dim mt-1">
-                <span>250px</span>
-                <span>800px</span>
-              </div>
-            </div>
           </div>
 
           <p className="text-[9px] text-zinc-600 mt-4 italic uppercase tracking-wider px-1">
-            Configure a hotkey above to toggle the sidebar in-game. The sidebar shows your mods, rivens, and inventory overlaid on top of Warframe.
+            Configure a hotkey above to switch to ingame view. The sidebar shows your mods, rivens, and inventory overlaid on top of Warframe.
           </p>
         </Card>
 

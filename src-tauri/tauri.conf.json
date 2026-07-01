@@ -119,23 +119,6 @@
         "visible": false,
         "focus": false,
         "shadow": false
-      },
-      {
-        "label": "overlay-sidebar",
-        "url": "/?overlay=true",
-        "width": 400,
-        "height": 1,
-        "decorations": false,
-        "transparent": false,
-        "alwaysOnTop": true,
-        "skipTaskbar": true,
-        "resizable": true,
-        "visible": false,
-        "focus": true,
-        "shadow": false,
-        "minWidth": 250,
-        "maxWidth": 800,
-        "minHeight": 200
       }
     ],
     "security": {

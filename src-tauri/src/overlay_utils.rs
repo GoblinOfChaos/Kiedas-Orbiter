@@ -155,11 +155,14 @@ fn apply_platform_patches(window: &WebviewWindow) -> Result<(), String> {
 #[link(name = "X11")]
 extern "C" {
     fn XMoveWindow(display: *mut std::ffi::c_void, w: u64, x: i32, y: i32) -> i32;
+    fn XMoveResizeWindow(display: *mut std::ffi::c_void, w: u64, x: i32, y: i32, width: u32, height: u32) -> i32;
     fn XRaiseWindow(display: *mut std::ffi::c_void, w: u64) -> i32;
+    fn XLowerWindow(display: *mut std::ffi::c_void, w: u64) -> i32;
     fn XFlush(display: *mut std::ffi::c_void) -> i32;
     fn XSync(display: *mut std::ffi::c_void, discard: i32) -> i32;
     fn XUnmapWindow(display: *mut std::ffi::c_void, w: u64) -> i32;
     fn XMapWindow(display: *mut std::ffi::c_void, w: u64) -> i32;
+    fn XDeleteProperty(display: *mut std::ffi::c_void, w: u64, property: u64) -> i32;
     fn XInternAtom(display: *mut std::ffi::c_void, name: *const i8, only_if_exists: i32) -> u64;
     fn XChangeProperty(
         display: *mut std::ffi::c_void,
@@ -171,6 +174,65 @@ extern "C" {
         data: *const u8,
         nelements: i32,
     ) -> i32;
+    fn XGetInputFocus(display: *mut std::ffi::c_void, focus_return: *mut u64, revert_to_return: *mut i32) -> i32;
+    fn XSetInputFocus(display: *mut std::ffi::c_void, focus: u64, revert_to: i32, time: u64) -> i32;
+    fn XChangeWindowAttributes(
+        display: *mut std::ffi::c_void,
+        w: u64,
+        valuemask: u64,
+        attributes: *const u32,
+    ) -> i32;
+    fn XQueryTree(
+        display: *mut std::ffi::c_void,
+        w: u64,
+        root_return: *mut u64,
+        parent_return: *mut u64,
+        children_return: *mut *mut u64,
+        nchildren_return: *mut u32,
+    ) -> i32;
+    fn XFree(data: *mut std::ffi::c_void) -> i32;
+}
+
+#[cfg(target_os = "linux")]
+#[repr(C)]
+struct XSetWindowAttributes {
+    background_pixmap: u64,
+    background_pixel: u64,
+    border_pixmap: u64,
+    border_pixel: u64,
+    bit_gravity: i32,
+    win_gravity: i32,
+    backing_store: i32,
+    backing_planes: u64,
+    backing_pixel: u64,
+    save_under: i32,
+    event_mask: i64,
+    do_not_propagate_mask: i64,
+    override_redirect: i32,
+    colormap: u64,
+    cursor: u64,
+}
+
+/// Walk up the window tree to find the top-level child of root.
+/// XGetInputFocus can return an input-only child window (Wine does this);
+/// XSetInputFocus on a non-viewable child = BadMatch.
+#[cfg(target_os = "linux")]
+unsafe fn get_toplevel_xid(xdisplay: *mut std::ffi::c_void, xid: u64) -> u64 {
+    let mut root: u64 = 0;
+    let mut parent: u64 = xid;
+    let mut current: u64 = xid;
+    let mut children: *mut u64 = std::ptr::null_mut();
+    let mut nchildren: u32 = 0;
+
+    loop {
+        let ok = XQueryTree(xdisplay, current,
+            &mut root, &mut parent, &mut children, &mut nchildren);
+        if !children.is_null() { XFree(children as *mut _); }
+        if ok == 0 || parent == root || parent == 0 { break; }
+        current = parent;
+    }
+    eprintln!("[X11] get_toplevel_xid: {} -> {}", xid, current);
+    current
 }
 
 #[cfg(target_os = "linux")]
@@ -363,7 +425,11 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
 
     eprintln!("[OVERLAY] target pos=({},{})", pos.x, pos.y);
 
+    #[cfg(target_os = "linux")]
     #[allow(unused_assignments)]
+    let mut main_had_focus = false;
+
+    #[cfg(not(target_os = "linux"))]
     let main_had_focus = false;
 
     #[cfg(target_os = "linux")]
@@ -455,6 +521,252 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     Ok(())
 }
 
+// ── Sidebar (one-window overlay transform) ────────────────────────────────────
+
+/// Force an atomic X11 move+resize, bypassing GTK's deferred configure.
+#[cfg(target_os = "linux")]
+#[allow(dead_code)]
+fn force_move_resize_x11(window: &WebviewWindow, x: i32, y: i32, width: u32, height: u32) {
+    let (xdisplay, xid) = match get_x11_ids(window) {
+        Some(ids) => ids,
+        None => return,
+    };
+    unsafe {
+        XMoveResizeWindow(xdisplay, xid, x, y, width, height);
+        XSync(xdisplay, 0);
+        eprintln!("[SIDEBAR] force_move_resize_x11: XID={} -> ({},{}) {}x{}", xid, x, y, width, height);
+    }
+}
+
+/// Clear the window-type/state atoms set by apply_x11_overlay_hints so the
+/// window behaves as a normal managed window again on restore.
+#[cfg(target_os = "linux")]
+pub fn sidebar_clear_x11_hints(window: &WebviewWindow) {
+    eprintln!("[SIDEBAR-EXIT] clear_x11_hints start");
+    let ids = get_x11_ids(window);
+    let (xdisplay, xid) = match ids {
+        Some(ids) => ids,
+        None => { eprintln!("[SIDEBAR-EXIT] clear_x11_hints EARLY RETURN"); return; }
+    };
+    unsafe {
+        let prop_replace: i32 = 0;
+        XUnmapWindow(xdisplay, xid);
+        XSync(xdisplay, 0);
+
+        // Clear override_redirect at X11 level before remap so KWin
+        // manages the window normally again.
+        const CW_OVERRIDE_REDIRECT: u64 = 1 << 9;
+        let mut attrs: XSetWindowAttributes = std::mem::zeroed();
+        attrs.override_redirect = 0;
+        XChangeWindowAttributes(xdisplay, xid,
+            CW_OVERRIDE_REDIRECT,
+            &attrs as *const XSetWindowAttributes as *const u32);
+        XSync(xdisplay, 0);
+        eprintln!("[SIDEBAR-EXIT] override_redirect CLEARED via X11");
+
+        let wm_type = XInternAtom(xdisplay, b"_NET_WM_WINDOW_TYPE\0".as_ptr() as *const i8, 0);
+        let normal = XInternAtom(xdisplay, b"_NET_WM_WINDOW_TYPE_NORMAL\0".as_ptr() as *const i8, 0);
+        XChangeProperty(xdisplay, xid, wm_type, 4 /* XA_ATOM */, 32, prop_replace,
+            &normal as *const u64 as *const u8, 1);
+        eprintln!("[SIDEBAR-EXIT] set type NORMAL");
+
+        let wm_state = XInternAtom(xdisplay, b"_NET_WM_STATE\0".as_ptr() as *const i8, 0);
+        XDeleteProperty(xdisplay, xid, wm_state);
+        XSync(xdisplay, 0);
+        eprintln!("[SIDEBAR-EXIT] cleared _NET_WM_STATE");
+
+        let wm_user_time = XInternAtom(xdisplay, b"_NET_WM_USER_TIME\0".as_ptr() as *const i8, 0);
+        let cardinal = XInternAtom(xdisplay, b"CARDINAL\0".as_ptr() as *const i8, 0);
+        let user_time: u32 = 0;
+        XChangeProperty(xdisplay, xid, wm_user_time, cardinal, 32, prop_replace, &user_time as *const u32 as *const u8, 1);
+        eprintln!("[SIDEBAR-EXIT] set _NET_WM_USER_TIME to 0");
+
+        XMapWindow(xdisplay, xid);
+        XSync(xdisplay, 0);
+        eprintln!("[SIDEBAR-EXIT] XMapWindow done");
+    }
+    eprintln!("[SIDEBAR-EXIT] clear_x11_hints DONE");
+}
+
+/// Lower the sidebar below the game on exit and restore keyboard focus to
+/// the game window whose XID was saved on enter.  Falls back to PointerRoot
+/// if no game XID was saved.
+#[cfg(target_os = "linux")]
+pub fn sidebar_restore_focus_to_game(window: &WebviewWindow, game_xid: u64) {
+    eprintln!("[SIDEBAR-EXIT] restore_focus start game_xid={}", game_xid);
+    let (xdisplay, xid) = match get_x11_ids(window) {
+        Some(ids) => ids,
+        None => { eprintln!("[SIDEBAR-EXIT] no x11 ids"); return; }
+    };
+    unsafe {
+        // Drain events from sidebar_clear_x11_hints's XUnmapWindow/XMapWindow
+        // before touching focus. Without this, XSetInputFocus gets BadMatch
+        // because the server hasn't finished processing the remap yet.
+        XSync(xdisplay, 0);
+
+        XLowerWindow(xdisplay, xid);
+        XSync(xdisplay, 0);
+        eprintln!("[SIDEBAR-EXIT] lowered window");
+
+        if game_xid > 1 && game_xid != xid {
+            // RevertToParent (2) matches the revert mode Wine uses (raw focus=..., revert=2)
+            XSetInputFocus(xdisplay, game_xid, 2, 0);
+            XFlush(xdisplay);
+            eprintln!("[SIDEBAR-EXIT] focus restored to toplevel XID={}", game_xid);
+        } else {
+            XSetInputFocus(xdisplay, 1, 1, 0);
+            XFlush(xdisplay);
+            eprintln!("[SIDEBAR-EXIT] no game_xid saved, fallback focus to PointerRoot");
+        }
+    }
+}
+
+/// Transform the main window into sidebar overlay mode: frameless, AOT,
+/// override_redirect + X11 hints for above-fullscreen rendering.
+/// Captures game XID via XGetInputFocus before the unmap/remap cycle,
+/// and restores focus to the game on exit via sidebar_restore_focus_to_game.
+#[cfg(target_os = "linux")]
+pub fn enter_sidebar_mode(
+    app_handle: &AppHandle,
+    window: &WebviewWindow,
+    side: &str,
+    width_phys: u32,
+) -> Result<(), String> {
+    let monitor = get_overlay_monitor(app_handle, "main")?;
+    let mon_pos_x = monitor.position().x;
+    let mon_pos_y = monitor.position().y;
+    let mon_size_w = monitor.size().width;
+    let mon_size_h = monitor.size().height;
+
+    let phys_w = width_phys.max(200).min((mon_size_w as f64 * 0.9) as u32);
+    let phys_h = mon_size_h;
+    let target_x = match side {
+        "right" => mon_pos_x + mon_size_w as i32 - phys_w as i32,
+        _       => mon_pos_x,
+    };
+
+    let side_owned = side.to_string();
+    let win = window.clone();
+    let app = app_handle.clone();
+    window.run_on_main_thread(move || {
+        let _ = win.set_decorations(false);
+        let _ = win.set_always_on_top(true);
+        let _ = win.set_resizable(true);
+        let _ = win.set_min_size(None::<tauri::PhysicalSize<u32>>);
+
+        // 1. Read game XID NOW — before apply_x11_overlay_hints triggers
+        //    XUnmapWindow which causes KWin to shift X11 focus away.
+        let mut captured_game_xid: u64 = 0;
+        if let Some((xdisplay_sid, xid_sid)) = get_x11_ids(&win) {
+            unsafe {
+                let mut prev_focus: u64 = 0;
+                let mut prev_revert: i32 = 0;
+                XGetInputFocus(xdisplay_sid, &mut prev_focus, &mut prev_revert);
+                let toplevel = get_toplevel_xid(xdisplay_sid, prev_focus);
+                captured_game_xid = if toplevel > 1 && toplevel != xid_sid { toplevel } else { 0 };
+                eprintln!("[SIDEBAR-ENTER] captured game_xid={} (raw focus={}, revert={})", captured_game_xid, prev_focus, prev_revert);
+            }
+        }
+        {
+            let state = app.state::<crate::AppState>();
+            let mut saved = state.sidebar_saved.lock().unwrap();
+            saved.game_xid = captured_game_xid;
+        }
+
+        // 2. Set override_redirect at X11 level directly — GDK's wrapper
+        //    doesn't guarantee XChangeWindowAttributes is flushed before
+        //    the XUnmapWindow inside apply_x11_overlay_hints.
+        if let Some((xdisplay_sid, xid_sid)) = get_x11_ids(&win) {
+            unsafe {
+                const CW_OVERRIDE_REDIRECT: u64 = 1 << 9;
+                let mut attrs: XSetWindowAttributes = std::mem::zeroed();
+                attrs.override_redirect = 1;
+                XChangeWindowAttributes(xdisplay_sid, xid_sid,
+                    CW_OVERRIDE_REDIRECT,
+                    &attrs as *const XSetWindowAttributes as *const u32);
+                XSync(xdisplay_sid, 0);
+                eprintln!("[SIDEBAR-ENTER] override_redirect SET via X11");
+            }
+        }
+
+        // 3. Atoms: unmap → set → remap (KWin re-evaluates layer on remap).
+        //    override_redirect is now set so KWin won't apply placement policy.
+        if let Some((xdisplay_sid, xid_sid)) = get_x11_ids(&win) {
+            apply_x11_overlay_hints(xdisplay_sid, xid_sid, true);
+            eprintln!("[SIDEBAR-ENTER] apply_x11_overlay_hints DONE xid={}", xid_sid);
+        }
+
+        if let Some(display) = gtk::gdk::Display::default() {
+            display.sync();
+        }
+
+        // 4. Force position AFTER remap — override_redirect means KWin won't
+        //    fight us, so this lands correctly.
+        let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
+        let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
+        force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
+        raise_x11(&win);
+
+        // XSetInputFocus to our window → Wine gets FocusOut → calls
+        // XUngrabPointer → sidebar can receive mouse events.
+        if let Some((xdisplay_sid, xid_sid)) = get_x11_ids(&win) {
+            unsafe {
+                XSetInputFocus(xdisplay_sid, xid_sid, 1, 0);
+                XFlush(xdisplay_sid);
+                eprintln!("[SIDEBAR-ENTER] focus stolen to release Wine pointer grab");
+            }
+        }
+
+        eprintln!("[SIDEBAR-ENTER] done: side={} size={}x{} @({},{})",
+            side_owned, phys_w, phys_h, target_x, mon_pos_y);
+    }).map_err(|e| e.to_string())?;
+
+    Ok(())
+}
+
+#[cfg(target_os = "linux")]
+pub fn update_sidebar_position(
+    app_handle: &AppHandle,
+    window: &WebviewWindow,
+    side: &str,
+    width_phys: u32,
+) -> Result<(), String> {
+    let monitor = get_overlay_monitor(app_handle, "main")?;
+    let mon_pos_x = monitor.position().x;
+    let mon_pos_y = monitor.position().y;
+    let mon_size_w = monitor.size().width;
+    let mon_size_h = monitor.size().height;
+
+    let phys_w = width_phys.max(200).min((mon_size_w as f64 * 0.9) as u32);
+    let phys_h = mon_size_h;
+    let target_x = match side {
+        "right" => mon_pos_x + mon_size_w as i32 - phys_w as i32,
+        _       => mon_pos_x,
+    };
+
+    let win = window.clone();
+    window.run_on_main_thread(move || {
+        let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
+        let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
+        force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
+    }).map_err(|e| e.to_string())?;
+
+    Ok(())
+}
+
+#[cfg(not(target_os = "linux"))]
+pub fn enter_sidebar_mode(
+    _app_handle: &AppHandle,
+    window: &WebviewWindow,
+    _side: &str,
+    width_phys: u32,
+) -> Result<(), String> {
+    let _ = window.set_decorations(false);
+    let _ = window.set_always_on_top(true);
+    let _ = window.set_resizable(true);
+    Ok(())
+}
+
 fn overlay_size(label: &str) -> (f64, f64) {
     match label {
         "overlay-relic" => (640.0, 140.0),
@@ -491,7 +803,8 @@ fn sidebar_position(
     (pos, width_px, height)
 }
 
-/// Show the interactive sidebar overlay.
+/// Show the interactive sidebar overlay (old separate-window approach, unused).
+#[allow(dead_code)]
 pub fn show_sidebar_window(
     app_handle: &AppHandle,
     side: &str,

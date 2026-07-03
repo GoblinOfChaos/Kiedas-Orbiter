@@ -760,6 +760,7 @@ pub fn update_sidebar_position(
     window.run_on_main_thread(move || {
         let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
         let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
+        #[cfg(target_os = "linux")]
         force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
     }).map_err(|e| e.to_string())?;
 
@@ -768,14 +769,31 @@ pub fn update_sidebar_position(
 
 #[cfg(not(target_os = "linux"))]
 pub fn enter_sidebar_mode(
-    _app_handle: &AppHandle,
+    app_handle: &AppHandle,
     window: &WebviewWindow,
-    _side: &str,
+    side: &str,
     width_phys: u32,
 ) -> Result<(), String> {
+    let monitor = get_overlay_monitor(app_handle, "main")?;
+    let mon_pos_x = monitor.position().x;
+    let mon_pos_y = monitor.position().y;
+    let mon_size_w = monitor.size().width;
+    let mon_size_h = monitor.size().height;
+
+    let phys_w = width_phys.max(200).min((mon_size_w as f64 * 0.9) as u32);
+    let phys_h = mon_size_h;
+    let target_x = match side {
+        "right" => mon_pos_x + mon_size_w as i32 - phys_w as i32,
+        _       => mon_pos_x,
+    };
+
     let _ = window.set_decorations(false);
     let _ = window.set_always_on_top(true);
     let _ = window.set_resizable(true);
+    let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
+    let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
+
+    SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
     Ok(())
 }
 

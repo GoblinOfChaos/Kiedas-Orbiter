@@ -1423,6 +1423,7 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
         drop(saved);
 
         let win = window.clone();
+        let _toggling = &overlay_utils::SIDEBAR_TOGGLING;
         window.run_on_main_thread(move || {
             eprintln!("[SIDEBAR-EXIT] restore closure start");
             #[cfg(target_os = "linux")]
@@ -1435,12 +1436,12 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
             let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }));
             #[cfg(target_os = "linux")]
             overlay_utils::sidebar_restore_focus_to_game(&win, game_xid);
-            overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
             eprintln!("[SIDEBAR-EXIT] restore closure END");
         }).ok();
 
         let _ = window.emit("sidebar-mode-changed", serde_json::json!({ "active": false }));
         sidebar_stamp(&state);
+        overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
     } else {
         // ── Enter sidebar mode ────────────────────────────────────────────
         eprintln!("[SIDEBAR-TOGGLE] ENTER path");

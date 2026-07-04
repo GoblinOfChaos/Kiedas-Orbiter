@@ -7,7 +7,7 @@ import { UpdateProvider, useUpdate } from './contexts/UpdateContext'
 import { Tooltip } from './components/UI'
 import { AlertTriangle, FolderOpen } from 'lucide-react'
 import { invoke } from '@tauri-apps/api/core'
-import { listen } from '@tauri-apps/api/event'
+import { listen, emit } from '@tauri-apps/api/event'
 import { open as openDialog } from '@tauri-apps/plugin-dialog'
 import { loadSettings, getSetting, setSetting } from './lib/settings'
 
@@ -133,6 +133,8 @@ function SetupScreen() {
         invoke('start_log_scanner', { path: savedLogPath }).catch(console.error)
       }
       setReady(true)
+      emit('frontend-ready', {}).catch(() => {})
+      emit('frontend-ready', {}).catch(() => {})
     })
   }, [])
 
@@ -440,14 +442,14 @@ function AppContent() {
                 rafPending = true
                 requestAnimationFrame(() => {
                   rafPending = false
-                  invoke('set_sidebar_width', { width: lastW, side: sidebarSide }).catch(() => { })
+                  invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: false }).catch(() => { })
                 })
               }
             }
             const onUp = () => {
               window.removeEventListener('mousemove', onMove)
               window.removeEventListener('mouseup', onUp)
-              invoke('set_sidebar_width', { width: lastW, side: sidebarSide }).catch(() => { })
+              invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: true }).catch(() => { })
               setSetting('sidebar_width', lastW).catch(() => { })
             }
             window.addEventListener('mousemove', onMove)

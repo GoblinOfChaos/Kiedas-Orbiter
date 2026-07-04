@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 use std::path::PathBuf;
-use std::sync::{Mutex, OnceLock, RwLock};
+use std::sync::{Mutex, OnceLock};
 use tract_onnx::prelude::*;
 
-static PRICER: OnceLock<RwLock<Option<&'static RivenPricer>>> = OnceLock::new();
+static PRICER: OnceLock<Option<RivenPricer>> = OnceLock::new();
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct RivenInput {
@@ -80,178 +80,185 @@ fn parse_price_distribution(val: &serde_json::Value) -> Vec<(f64, f64)> {
     pairs
 }
 
-pub fn init() {
-    get_pricer();
-}
-
 fn get_pricer() -> Option<&'static RivenPricer> {
-    let lock = PRICER.get_or_init(|| RwLock::new(None));
-    // Fast path: already loaded
-    if let Some(pricer) = lock.read().unwrap().as_ref() {
-        return Some(pricer);
-    }
-    // Slow path: try to initialize the pricer
-    let dir = get_models_dir();
-    let onnx_path = dir.join("price_model.onnx");
-    let weapon_vocab_path = dir.join("weapon_vocab.json");
-    let attr_vocab_path = dir.join("attr_vocab.json");
-    let items_path = dir.join("items_data.json");
-    let shortcuts_path = dir.join("attribute_name_shortcuts.json");
-    let effect_map_path = dir.join("effect_to_url_name.json");
-    let ranking_path = dir.join("weapon_ranking_information.json");
+    PRICER.get_or_init(|| {
+        let dir = get_models_dir();
+        let onnx_path = dir.join("price_model.onnx");
+        let weapon_vocab_path = dir.join("weapon_vocab.json");
+        let attr_vocab_path = dir.join("attr_vocab.json");
+        let items_path = dir.join("items_data.json");
+        let shortcuts_path = dir.join("attribute_name_shortcuts.json");
+        let effect_map_path = dir.join("effect_to_url_name.json");
+        let ranking_path = dir.join("weapon_ranking_information.json");
 
-    if !dir.exists() || !onnx_path.exists() || !weapon_vocab_path.exists() || !attr_vocab_path.exists() {
-        eprintln!("[PRICER] model files not yet available (download may still be in progress)");
-        return None;
-    }
-
-    eprintln!("[PRICER] dir exists: {}", dir.exists());
-    eprintln!("[PRICER] onnx_path: {:?}", onnx_path);
-
-    let raw = tract_onnx::onnx()
-        .model_for_path(&onnx_path)
-        .map_err(|e| eprintln!("[PRICER] model_for_path failed: {e:?}")).ok()?;
-
-    // Provide concrete input shapes so tract can fully infer all internal dims
-    let with_shapes = raw
-        .with_input_fact(0, InferenceFact::dt_shape(i32::datum_type(), tvec![1, 1]))
-        .and_then(|m| m.with_input_fact(1, InferenceFact::dt_shape(f32::datum_type(), tvec![1, 1])))
-        .and_then(|m| m.with_input_fact(2, InferenceFact::dt_shape(i32::datum_type(), tvec![1, 4])));
-
-    let typed = match with_shapes {
-        Ok(m) => match m.into_optimized() {
-            Ok(t) => t,
-            Err(e) => {
-                eprintln!("[PRICER] into_optimized failed: {e:?}, trying into_typed");
-                // Reload – into_optimized consumes the model on failure
-                tract_onnx::onnx()
-                    .model_for_path(&onnx_path)
-                    .map_err(|e| eprintln!("[PRICER] model_for_path failed on retry: {e:?}")).ok()?
-                    .with_input_fact(0, InferenceFact::dt_shape(i32::datum_type(), tvec![1, 1]))
-                    .and_then(|m| m.with_input_fact(1, InferenceFact::dt_shape(f32::datum_type(), tvec![1, 1])))
-                    .and_then(|m| m.with_input_fact(2, InferenceFact::dt_shape(i32::datum_type(), tvec![1, 4])))
-                    .map_err(|e| eprintln!("[PRICER] set_input_fact on retry failed: {e:?}")).ok()?
-                    .into_typed()
-                    .map_err(|e| eprintln!("[PRICER] into_typed failed: {e:?}")).ok()?
-            }
-        },
-        Err(e) => {
-            eprintln!("[PRICER] set_input_fact failed: {e:?}, trying without input facts");
-            tract_onnx::onnx()
-                .model_for_path(&onnx_path)
-                .map_err(|e| eprintln!("[PRICER] model_for_path failed on retry: {e:?}")).ok()?
-                .into_optimized()
-                .map_err(|e| eprintln!("[PRICER] into_optimized (w/o facts) failed: {e:?}")).ok()?
+        if !dir.exists() || !onnx_path.exists() || !weapon_vocab_path.exists() || !attr_vocab_path.exists() {
+            eprintln!("[PRICER] model files not yet available (download may still be in progress)");
+            return None;
         }
-    };
 
-    let model = typed.into_runnable()
-        .map_err(|e| eprintln!("[PRICER] into_runnable failed: {e:?}")).ok()?;
+        eprintln!("[PRICER] dir exists: {}", dir.exists());
+        eprintln!("[PRICER] onnx_path: {:?}", onnx_path);
 
-    let weapon_vocab: Vec<String> = serde_json::from_reader(
-        std::fs::File::open(&weapon_vocab_path).ok()?
-    ).ok()?;
+        let raw = match tract_onnx::onnx().model_for_path(&onnx_path) {
+            Ok(m) => m,
+            Err(e) => { eprintln!("[PRICER] model_for_path failed: {e:?}"); return None; }
+        };
 
-    let attr_vocab: Vec<String> = serde_json::from_reader(
-        std::fs::File::open(&attr_vocab_path).ok()?
-    ).ok()?;
+        let with_shapes = raw
+            .with_input_fact(0, InferenceFact::dt_shape(i32::datum_type(), tvec![1, 1]))
+            .and_then(|m| m.with_input_fact(1, InferenceFact::dt_shape(f32::datum_type(), tvec![1, 1])))
+            .and_then(|m| m.with_input_fact(2, InferenceFact::dt_shape(i32::datum_type(), tvec![1, 4])));
 
-    let items_data: HashMap<String, serde_json::Value> = serde_json::from_reader(
-        std::fs::File::open(&items_path).ok()?
-    ).ok()?;
-
-    let shortcuts: HashMap<String, String> = serde_json::from_reader(
-        std::fs::File::open(&shortcuts_path).ok()?
-    ).ok()?;
-
-    let effect_map: HashMap<String, String> = serde_json::from_reader(
-        std::fs::File::open(&effect_map_path).ok()?
-    ).unwrap_or_default();
-
-    let mut weapon_name_to_url = HashMap::new();
-    for (_key, val) in &items_data {
-        if let (Some(item_name), Some(url_name)) = (
-            val.get("item_name").and_then(|v| v.as_str()),
-            val.get("url_name").and_then(|v| v.as_str()),
-        ) {
-            weapon_name_to_url.insert(item_name.to_lowercase(), url_name.to_string());
-            weapon_name_to_url.insert(url_name.to_string(), url_name.to_string());
-        }
-    }
-
-    let weapon_map: HashMap<String, i32> = weapon_vocab.into_iter().enumerate()
-        .map(|(i, s)| (s, i as i32)).collect();
-    let mask_index = *weapon_map.get("<NONE>").unwrap_or(&0);
-
-    let attr_map: HashMap<String, i32> = attr_vocab.into_iter().enumerate()
-        .map(|(i, s)| (s, i as i32)).collect();
-
-    let mut attr_shortcuts = shortcuts;
-    let identity: Vec<(String, String)> = attr_shortcuts.iter()
-        .map(|(_, v)| (v.clone(), v.clone())).collect();
-    for (k, v) in identity {
-        attr_shortcuts.entry(k).or_insert(v);
-    }
-    for (display_name, url_name) in &effect_map {
-        attr_shortcuts.entry(display_name.to_lowercase()).or_insert(url_name.clone());
-    }
-
-    let weapon_rankings: HashMap<String, WeaponRankData> = {
-        let file = std::fs::File::open(&ranking_path);
-        match file {
-            Ok(f) => {
-                let json: HashMap<String, serde_json::Value> = serde_json::from_reader(f).unwrap_or_default();
-                let mut rankings = HashMap::new();
-                let mut url_aliases = Vec::new();
-                for (key, val) in json {
-                    let rank = match val.get("rank").and_then(|v| v.as_i64()) {
-                      Some(r) => r as i32,
-                      None => continue,
-                    };
-                    let expected_value = match val.get("expected_value").and_then(|v| v.as_f64()) {
-                      Some(e) => e,
-                      None => continue,
-                    };
-                    let dist = match val.get("price_distribution") {
-                      Some(d) => parse_price_distribution(d),
-                      None => continue,
-                    };
-                    let item_lower = key.to_lowercase();
-                    for (_k, iv) in &items_data {
-                        if let (Some(iname), Some(url_name)) = (
-                            iv.get("item_name").and_then(|v| v.as_str()),
-                            iv.get("url_name").and_then(|v| v.as_str()),
-                        ) {
-                            if iname.to_lowercase() == item_lower {
-                                url_aliases.push((url_name.to_lowercase(), rank, expected_value, dist.clone()));
-                            }
-                        }
+        let typed = match with_shapes {
+            Ok(m) => match m.into_optimized() {
+                Ok(t) => t,
+                Err(e) => {
+                    eprintln!("[PRICER] into_optimized failed: {e:?}, trying into_typed");
+                    match tract_onnx::onnx()
+                        .model_for_path(&onnx_path)
+                        .and_then(|m| m.with_input_fact(0, InferenceFact::dt_shape(i32::datum_type(), tvec![1, 1])))
+                        .and_then(|m| m.with_input_fact(1, InferenceFact::dt_shape(f32::datum_type(), tvec![1, 1])))
+                        .and_then(|m| m.with_input_fact(2, InferenceFact::dt_shape(i32::datum_type(), tvec![1, 4])))
+                        .and_then(|m| m.into_typed())
+                    {
+                        Ok(t) => t,
+                        Err(e) => { eprintln!("[PRICER] into_typed on retry failed: {e:?}"); return None; }
                     }
-                    rankings.insert(item_lower, WeaponRankData { rank, expected_value, price_distribution: dist });
                 }
-                for (url_lower, rank, expected_value, dist) in url_aliases {
-                    rankings.entry(url_lower).or_insert(WeaponRankData { rank, expected_value, price_distribution: dist });
+            },
+            Err(e) => {
+                eprintln!("[PRICER] set_input_fact failed: {e:?}, trying without input facts");
+                match tract_onnx::onnx()
+                    .model_for_path(&onnx_path)
+                    .and_then(|m| m.into_optimized())
+                {
+                    Ok(t) => t,
+                    Err(e) => { eprintln!("[PRICER] into_optimized (w/o facts) failed: {e:?}"); return None; }
                 }
-                rankings
             }
-            Err(_) => HashMap::new()
+        };
+
+        let model = match typed.into_runnable() {
+            Ok(m) => m,
+            Err(e) => { eprintln!("[PRICER] into_runnable failed: {e:?}"); return None; }
+        };
+
+        let weapon_vocab: Vec<String> = match serde_json::from_reader(
+            std::fs::File::open(&weapon_vocab_path).ok()?
+        ) {
+            Ok(v) => v,
+            Err(_) => return None,
+        };
+
+        let attr_vocab: Vec<String> = match serde_json::from_reader(
+            std::fs::File::open(&attr_vocab_path).ok()?
+        ) {
+            Ok(v) => v,
+            Err(_) => return None,
+        };
+
+        let items_data: HashMap<String, serde_json::Value> = match serde_json::from_reader(
+            std::fs::File::open(&items_path).ok()?
+        ) {
+            Ok(v) => v,
+            Err(_) => return None,
+        };
+
+        let shortcuts: HashMap<String, String> = match serde_json::from_reader(
+            std::fs::File::open(&shortcuts_path).ok()?
+        ) {
+            Ok(v) => v,
+            Err(_) => return None,
+        };
+
+        let effect_map: HashMap<String, String> = serde_json::from_reader(
+            std::fs::File::open(&effect_map_path).ok()?
+        ).unwrap_or_default();
+
+        let mut weapon_name_to_url = HashMap::new();
+        for (_key, val) in &items_data {
+            if let (Some(item_name), Some(url_name)) = (
+                val.get("item_name").and_then(|v| v.as_str()),
+                val.get("url_name").and_then(|v| v.as_str()),
+            ) {
+                weapon_name_to_url.insert(item_name.to_lowercase(), url_name.to_string());
+                weapon_name_to_url.insert(url_name.to_string(), url_name.to_string());
+            }
         }
-    };
 
-    eprintln!("[PRICER INIT] weapon_rankings loaded: {} entries", weapon_rankings.len());
+        let weapon_map: HashMap<String, i32> = weapon_vocab.into_iter().enumerate()
+            .map(|(i, s)| (s, i as i32)).collect();
+        let mask_index = *weapon_map.get("<NONE>").unwrap_or(&0);
 
-    let pricer = Box::new(RivenPricer {
-        model: Mutex::new(model),
-        weapon_vocab: weapon_map,
-        attr_vocab: attr_map,
-        weapon_name_to_url,
-        attr_shortcuts,
-        mask_index,
-        weapon_rankings,
-    });
-    let pricer: &'static RivenPricer = Box::leak(pricer);
-    *lock.write().unwrap() = Some(pricer);
-    Some(pricer)
+        let attr_map: HashMap<String, i32> = attr_vocab.into_iter().enumerate()
+            .map(|(i, s)| (s, i as i32)).collect();
+
+        let mut attr_shortcuts = shortcuts;
+        let identity: Vec<(String, String)> = attr_shortcuts.iter()
+            .map(|(_, v)| (v.clone(), v.clone())).collect();
+        for (k, v) in identity {
+            attr_shortcuts.entry(k).or_insert(v);
+        }
+        for (display_name, url_name) in &effect_map {
+            attr_shortcuts.entry(display_name.to_lowercase()).or_insert(url_name.clone());
+        }
+
+        let weapon_rankings: HashMap<String, WeaponRankData> = {
+            // Build reverse-lookup map once: lowercase item_name → url_name
+            // (eliminates the O(n×m) nested scan inside the ranking loop below).
+            let mut name_to_url: HashMap<String, String> = HashMap::new();
+            for (_key, val) in &items_data {
+                if let (Some(iname), Some(url_name)) = (
+                    val.get("item_name").and_then(|v| v.as_str()),
+                    val.get("url_name").and_then(|v| v.as_str()),
+                ) {
+                    name_to_url.entry(iname.to_lowercase()).or_insert_with(|| url_name.to_lowercase());
+                }
+            }
+
+            let file = std::fs::File::open(&ranking_path);
+            match file {
+                Ok(f) => {
+                    let json: HashMap<String, serde_json::Value> = serde_json::from_reader(f).unwrap_or_default();
+                    let mut rankings = HashMap::new();
+                    for (key, val) in json {
+                        let rank = match val.get("rank").and_then(|v| v.as_i64()) {
+                          Some(r) => r as i32,
+                          None => continue,
+                        };
+                        let expected_value = match val.get("expected_value").and_then(|v| v.as_f64()) {
+                          Some(e) => e,
+                          None => continue,
+                        };
+                        let dist = match val.get("price_distribution") {
+                          Some(d) => parse_price_distribution(d),
+                          None => continue,
+                        };
+                        let item_lower = key.to_lowercase();
+                        // O(1) lookup instead of scanning all items_data
+                        if let Some(url_lower) = name_to_url.get(&item_lower) {
+                            rankings.entry(url_lower.clone()).or_insert(WeaponRankData { rank, expected_value, price_distribution: dist.clone() });
+                        }
+                        rankings.entry(item_lower.clone()).or_insert(WeaponRankData { rank, expected_value, price_distribution: dist });
+                    }
+                    rankings
+                }
+                Err(_) => HashMap::new()
+            }
+        };
+
+        eprintln!("[PRICER INIT] weapon_rankings loaded: {} entries", weapon_rankings.len());
+
+        Some(RivenPricer {
+            model: Mutex::new(model),
+            weapon_vocab: weapon_map,
+            attr_vocab: attr_map,
+            weapon_name_to_url,
+            attr_shortcuts,
+            mask_index,
+            weapon_rankings,
+        })
+    }).as_ref()
 }
 
 pub fn estimate_price(input: &RivenInput) -> Option<f32> {

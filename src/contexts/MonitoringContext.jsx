@@ -191,6 +191,7 @@ export function MonitoringProvider({ children }) {
   const [cardImagesPath, setCardImagesPath] = useState('')
   const [fixProgress, setFixProgress] = useState({ checking: true })
   const cardInitStarted = useRef(false)
+  const startedRef = useRef(false)
 
   // ── Derived lookup maps ──────────────────────────────────────────────────────
   const dict = useMemo(() => exportData?.['dict.en'] ?? {}, [exportData])
@@ -444,56 +445,59 @@ export function MonitoringProvider({ children }) {
   }, [exportData])
 
   useEffect(() => {
+    if (startedRef.current) return
+    startedRef.current = true
+
     ; (async () => {
-      try {
-        setStatusText('Checking updates & assets…')
-        await Promise.all([
-          invoke('check_exports'),
-          invoke('check_media_assets'),
-          invoke('check_pricer_models')
-        ])
+      setStatusText('Checking updates & assets…')
+      const [updatesRes] = await Promise.allSettled([
+        invoke('check_exports'),
+        invoke('check_media_assets'),
+        invoke('check_pricer_models'),
+      ])
 
-        setStatusText('Loading resources…')
-        const [exports, spiText, arbText] = await Promise.all([
-          invoke('load_all_exports'),
-          invoke('load_txt_file', { name: 'sp-incursions.txt' }),
-          invoke('load_txt_file', { name: 'arbys.txt' }),
-        ])
+      setStatusText('Loading resources…')
+      const [exportsRes, spiRes, arbRes] = await Promise.allSettled([
+        invoke('load_all_exports'),
+        invoke('load_txt_file', { name: 'sp-incursions.txt' }),
+        invoke('load_txt_file', { name: 'arbys.txt' }),
+      ])
 
-        // Temporary: use patched exports with levelStats until upstream ships them
+      const exports = exportsRes.status === 'fulfilled' ? exportsRes.value : null
+      const spiText = spiRes.status === 'fulfilled' ? spiRes.value : null
+      const arbText = arbRes.status === 'fulfilled' ? arbRes.value : null
+
+      // Temporary: use patched exports with levelStats until upstream ships them
+      if (exports) {
         try {
-          const fixedFiles = [
+          for (const [fname, key] of [
             ['ExportUpgrades_fixed.json', 'ExportUpgradesFixed'],
             ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'],
             ['mod-icon-map.json', 'ModIconMap'],
             ['peely-pix-map.json', 'PeelyPixMap'],
             ['peely-pix-names.json', 'PeelyPixNames'],
-          ];
-          for (const [fname, key] of fixedFiles) {
-            const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${fname}` }).catch(() => null);
+          ]) {
+            const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${fname}` }).catch(() => null)
             if (bytes) {
-              const text = new TextDecoder().decode(new Uint8Array(bytes));
-              exports[key] = JSON.parse(text);
+              exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
             }
           }
         } catch { }
+      }
 
-        setExportData(exports)
-        setSpIncursions(spiText || '')
-        setArbys(arbText || '')
+      setExportData(exports)
+      setSpIncursions(spiText || '')
+      setArbys(arbText || '')
 
+      setStatusText('Loading inventory…')
+      const invRes = await Promise.allSettled([invoke('load_cached_inventory')])
 
-        setStatusText('Loading inventory…')
-        const result = await invoke('load_cached_inventory')
-        if (result) {
-          applyRaw(result[0], result[1], exports)
-          setStatusText('Loaded cached data')
-        } else {
-          setStatusText('No cached data – start monitoring in Settings')
-          setInventoryData(null)
-        }
-      } catch (err) {
-        setStatusText(`Startup failed: ${err}`)
+      if (invRes[0].status === 'fulfilled' && invRes[0].value) {
+        const result = invRes[0].value
+        applyRaw(result[0], result[1], exports || {})
+        setStatusText('Loaded cached data')
+      } else {
+        setStatusText('No cached data – start monitoring in Settings')
         setInventoryData(null)
       }
     })()

@@ -7,12 +7,11 @@
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 use std::fs;
-use tauri::{AppHandle, Manager, Emitter};
+use tauri::{AppHandle, Manager, Emitter, Listener};
 use std::io::Cursor;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 use serde_json::Value;
-
 
 mod log_scanner;
 mod ocr;
@@ -40,6 +39,10 @@ pub struct SidebarSavedState {
     pub width: u32,
     pub height: u32,
     pub game_xid: u64,
+    pub mon_x: i32,
+    pub mon_y: i32,
+    pub mon_w: u32,
+    pub mon_h: u32,
 }
 
 // --- Path Resolution ---
@@ -448,36 +451,59 @@ async fn call_api_helper(app_handle: tauri::AppHandle) -> Result<Value, String> 
 #[tauri::command]
 async fn load_all_exports(app_handle: tauri::AppHandle) -> Result<Value, String> {
     let export_dir = resolve_path("data/export");
-    let mut result = serde_json::Map::new();
 
-    for file_name in EXPORT_FILES {
-        // Try writable location first, fall back to bundled
-        let path = export_dir.join(file_name);
-        
-        let path = if path.exists() {
-            path
-        } else if let Some(bundled) = resolve_bundled_path(&app_handle, &format!("data/export/{}", file_name)) {
-            if bundled.exists() { bundled } else { continue }
-        } else {
-            continue
-        };
-        
-        let file = fs::File::open(&path).map_err(|e| e.to_string())?;
-        let json: Value = serde_json::from_reader(std::io::BufReader::new(file))
-            .map_err(|e| e.to_string())?;
-        let key = file_name.trim_end_matches(".json");
-        result.insert(key.to_string(), json);
+    // Pre-resolve all paths (fast metadata ops, non-blocking)
+    let entries: Vec<(String, PathBuf)> = EXPORT_FILES.iter()
+        .filter_map(|file_name| {
+            let path = export_dir.join(file_name);
+            let resolved = if path.exists() {
+                path
+            } else if let Some(bundled) = resolve_bundled_path(&app_handle, &format!("data/export/{}", file_name)) {
+                if bundled.exists() { bundled } else { return None }
+            } else {
+                return None
+            };
+            Some((file_name.trim_end_matches(".json").to_string(), resolved))
+        })
+        .collect();
+
+    // Concurrent I/O via tokio blocking thread pool
+    let handles: Vec<_> = entries.into_iter().map(|(key, path)| {
+        tokio::task::spawn_blocking(move || -> Result<(String, Value), String> {
+            let file = fs::File::open(&path).map_err(|e| e.to_string())?;
+            let json: Value = serde_json::from_reader(std::io::BufReader::new(file))
+                .map_err(|e| e.to_string())?;
+            Ok((key, json))
+        })
+    }).collect();
+
+    let mut result = serde_json::Map::new();
+    for handle in handles {
+        let (key, json) = handle.await.map_err(|e| e.to_string())??;
+        result.insert(key, json);
     }
 
     // Drop data files (warframe-drop-data) - loaded under their stem key
-    for (file_name, _url) in DROPDATA_FILES {
-        let path = export_dir.join(file_name);
-        if !path.exists() { continue; }
-        let file = fs::File::open(&path).map_err(|e| e.to_string())?;
-        let json: Value = serde_json::from_reader(std::io::BufReader::new(file))
-            .map_err(|e| e.to_string())?;
-        let key = file_name.trim_end_matches(".json");
-        result.insert(key.to_string(), json);
+    let drop_entries: Vec<(String, PathBuf)> = DROPDATA_FILES.iter()
+        .filter_map(|(file_name, _url)| {
+            let path = export_dir.join(file_name);
+            if !path.exists() { return None; }
+            Some((file_name.trim_end_matches(".json").to_string(), path))
+        })
+        .collect();
+
+    let drop_handles: Vec<_> = drop_entries.into_iter().map(|(key, path)| {
+        tokio::task::spawn_blocking(move || -> Result<(String, Value), String> {
+            let file = fs::File::open(&path).map_err(|e| e.to_string())?;
+            let json: Value = serde_json::from_reader(std::io::BufReader::new(file))
+                .map_err(|e| e.to_string())?;
+            Ok((key, json))
+        })
+    }).collect();
+
+    for handle in drop_handles {
+        let (key, json) = handle.await.map_err(|e| e.to_string())??;
+        result.insert(key, json);
     }
 
     Ok(Value::Object(result))
@@ -1468,6 +1494,16 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
             .and_then(|v| v.as_u64())
             .map(|w| w as u32)
             .unwrap_or(size.width);
+        // Cache monitor geometry to avoid querying available_monitors() on
+        // every drag frame (get_overlay_monitor is expensive on Windows).
+        if let Ok(mon) = overlay_utils::get_overlay_monitor(&app_handle, "main") {
+            let pos = mon.position();
+            let size = mon.size();
+            saved.mon_x = pos.x;
+            saved.mon_y = pos.y;
+            saved.mon_w = size.width;
+            saved.mon_h = size.height;
+        }
         drop(saved);
 
         let _ = window.emit("sidebar-prepare", serde_json::json!({ "side": side }));
@@ -2070,6 +2106,11 @@ async fn unregister_all_hotkeys(app: AppHandle) -> Result<(), String> {
     app.global_shortcut().unregister_all().map_err(|e| format!("{:?}", e))
 }
 
+#[tauri::command]
+fn log_timing(label: String) {
+    eprintln!("[TIMING FRONTEND] {}", label);
+}
+
 /// Save a JSON settings object to data/user/settings.json.
 #[tauri::command]
 async fn save_settings(settings: Value) -> Result<(), String> {
@@ -2082,36 +2123,43 @@ async fn save_settings(settings: Value) -> Result<(), String> {
 }
 
 #[tauri::command]
-fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String) -> Result<(), String> {
-    let settings_dir = resolve_path("data/user");
-    let path = settings_dir.join("settings.json");
-    let mut settings: serde_json::Value = if path.exists() {
-        std::fs::read_to_string(&path)
-            .ok()
-            .and_then(|s| serde_json::from_str(&s).ok())
-            .unwrap_or_default()
-    } else {
-        serde_json::json!({})
-    };
-    if let Some(obj) = settings.as_object_mut() {
-        obj.insert("sidebar_width".to_string(), serde_json::json!(width));
-        obj.insert("sidebar_side".to_string(), serde_json::json!(side.clone()));
+fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, persist: bool) -> Result<(), String> {
+    if persist {
+        let settings_dir = resolve_path("data/user");
+        let path = settings_dir.join("settings.json");
+        let mut settings: serde_json::Value = if path.exists() {
+            std::fs::read_to_string(&path)
+                .ok()
+                .and_then(|s| serde_json::from_str(&s).ok())
+                .unwrap_or_default()
+        } else {
+            serde_json::json!({})
+        };
+        if let Some(obj) = settings.as_object_mut() {
+            obj.insert("sidebar_width".to_string(), serde_json::json!(width));
+            obj.insert("sidebar_side".to_string(), serde_json::json!(side.clone()));
+        }
+        if !settings_dir.exists() {
+            std::fs::create_dir_all(&settings_dir).map_err(|e| e.to_string())?;
+        }
+        let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
+        let _ = std::fs::write(path, content);
     }
-    if !settings_dir.exists() {
-        std::fs::create_dir_all(&settings_dir).map_err(|e| e.to_string())?;
-    }
-    let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-    let _ = std::fs::write(path, content);
 
     let state = app_handle.state::<AppState>();
     let saved = state.sidebar_saved.lock().unwrap().clone();
     if saved.active {
         if let Some(window) = app_handle.get_webview_window("main") {
-            #[cfg(target_os = "linux")]
-            let _ = overlay_utils::update_sidebar_position(&app_handle, &window, &side, width as u32);
-            #[cfg(not(target_os = "linux"))]
-            let _ = overlay_utils::enter_sidebar_mode(&app_handle, &window, &side, width as u32);
-            let _ = window.emit("sidebar-mode-changed", serde_json::json!({ "active": true, "side": side }));
+            // Use cached monitor geometry (populated when sidebar entered)
+            // instead of calling get_overlay_monitor → available_monitors()
+            // which is expensive on Windows and called on every drag frame.
+            let phys_w = (width as u32).max(200).min((saved.mon_w as f64 * 0.9) as u32);
+            let target_x = match side.as_str() {
+                "right" => saved.mon_x + saved.mon_w as i32 - phys_w as i32,
+                _       => saved.mon_x,
+            };
+            let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: saved.mon_h }));
+            let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: saved.mon_y }));
         }
     }
     
@@ -2306,8 +2354,10 @@ fn estimate_riven_full_batch(inputs: Vec<pricer::RivenInput>) -> Vec<Option<pric
 }
 
 #[tauri::command]
-fn get_known_weapon_names() -> Vec<String> {
-    pricer::get_weapon_names()
+async fn get_known_weapon_names() -> Vec<String> {
+    tauri::async_runtime::spawn_blocking(|| crate::pricer::get_weapon_names())
+        .await
+        .unwrap_or_default()
 }
 
 // --- Entry Point ---
@@ -2400,12 +2450,18 @@ fn get_known_weapon_names() -> Vec<String> {
         .setup(|app| {
             crate::log_scanner::log_app_start(&app.handle());
             let ah = app.handle().clone();
-            if let Some(main_win) = app.get_webview_window("main") {
-                let _ = main_win.show();
-                let _ = main_win.set_focus();
-            }
-            // Extract bundled assets from inside the AppImage to the writable data root
+            // Extract bundled assets BEFORE the window is shown, so the
+            // blocking I/O (first-launch copy) doesn't freeze a visible window.
             extract_bundled_assets(&ah);
+            // Don't show the main window until the frontend signals it has
+            // mounted its first frame, avoiding the blank-flash hitch.
+            let ah2 = ah.clone();
+            ah.listen("frontend-ready", move |_| {
+                if let Some(main_win) = ah2.get_webview_window("main") {
+                    let _ = main_win.show();
+                    let _ = main_win.set_focus();
+                }
+            });
             // Download PP-OCRv5 models in background (needed by ocr_engine)
             tauri::async_runtime::spawn(async move {
                 match check_ocr_models().await {
@@ -2420,12 +2476,10 @@ fn get_known_weapon_names() -> Vec<String> {
                     Err(e) => eprintln!("[PRICER MODELS] Download failed: {}", e),
                 }
             });
-            // Pre-load the pricer ONNX + JSON on a background thread so it's
-            // ready by the time the user navigates to the Rivens page.
-            std::thread::spawn(|| {
-                pricer::init();
-                eprintln!("[PRICER] Initialized during setup");
-            });
+            // Pricer is NOT eagerly loaded here — it lazy-inits on first use
+            // (estimate_riven_*, get_weapon_names from the Rivens tab).
+            // Eager ONNX model load at boot caused allocator contention that
+            // stalled the winit event loop → native title-bar drag freezing.
             // Position and configure all overlay windows once at startup.
             // They start hidden (tauri.conf.json) so show() in show_window_internal
             // makes them visible only after the webview has loaded transparent content,
@@ -2485,6 +2539,7 @@ fn get_known_weapon_names() -> Vec<String> {
             toggle_sidebar,
             sidebar_load_data,
             set_sidebar_width,
+            log_timing,
             play_notification_sound,
             set_notification_sound,
             start_notif_autoclose_timer,

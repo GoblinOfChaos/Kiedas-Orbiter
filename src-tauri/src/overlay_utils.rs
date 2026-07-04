@@ -692,7 +692,17 @@ pub fn enter_sidebar_mode(
             }
         }
 
-        // 3. Atoms: unmap → set → remap (KWin re-evaluates layer on remap).
+        // 3. Set geometry BEFORE unmap/remap cycle — override_redirect means
+        //    KWin won't fight us, and remap at the end will use this position.
+        let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
+        let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
+        force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
+        if let Some((xdisplay_sid, _)) = get_x11_ids(&win) {
+            unsafe { XSync(xdisplay_sid, 0); }
+        }
+        force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
+
+        // 4. Atoms: unmap → set → remap (KWin re-evaluates layer on remap).
         //    override_redirect is now set so KWin won't apply placement policy.
         if let Some((xdisplay_sid, xid_sid)) = get_x11_ids(&win) {
             apply_x11_overlay_hints(xdisplay_sid, xid_sid, true);
@@ -702,20 +712,7 @@ pub fn enter_sidebar_mode(
         if let Some(display) = gtk::gdk::Display::default() {
             display.sync();
         }
-        // Give KWin time to finish processing the unmap+remap from
-        // apply_x11_overlay_hints before we fight for position.
-        std::thread::sleep(std::time::Duration::from_millis(80));
 
-        // 4. Force position — Tauri updates its internal state, X11 overrides
-        //    any WM placement from the fresh remap.
-        let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
-        let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
-        force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
-        // Second move after sync — belt-and-suspenders for slow compositors.
-        if let Some((xdisplay_sid, _)) = get_x11_ids(&win) {
-            unsafe { XSync(xdisplay_sid, 0); }
-        }
-        force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
         raise_x11(&win);
 
         // XSetInputFocus to our window → Wine gets FocusOut → calls
@@ -794,6 +791,28 @@ pub fn enter_sidebar_mode(
     let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
 
     SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
+    Ok(())
+}
+
+#[cfg(not(target_os = "linux"))]
+pub fn update_sidebar_position(
+    app_handle: &AppHandle,
+    window: &WebviewWindow,
+    side: &str,
+    width_phys: u32,
+) -> Result<(), String> {
+    let monitor = get_overlay_monitor(app_handle, "main")?;
+    let mon_pos_x = monitor.position().x;
+    let mon_pos_y = monitor.position().y;
+    let mon_size_w = monitor.size().width;
+    let mon_size_h = monitor.size().height;
+    let phys_w = width_phys.max(200).min((mon_size_w as f64 * 0.9) as u32);
+    let target_x = match side {
+        "right" => mon_pos_x + mon_size_w as i32 - phys_w as i32,
+        _       => mon_pos_x,
+    };
+    let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: mon_size_h }));
+    let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
     Ok(())
 }
 

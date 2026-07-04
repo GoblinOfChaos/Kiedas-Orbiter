@@ -447,7 +447,7 @@ export default function SettingsScreen() {
     setSidebarSide(side)
     await setSetting('sidebar_side', side)
     const width = parseInt(getSetting('sidebar_width', 400))
-    invoke('set_sidebar_width', { width, side }).catch(() => {})
+    invoke('set_sidebar_width', { width, side, persist: true }).catch(() => {})
   }
 
   const handleTestNotification = (position, delay = 0) => {

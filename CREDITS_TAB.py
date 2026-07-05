@@ -128,12 +128,6 @@ CREDITS = [
                 "role": "For 10+ years of data, guides, spreadsheets, and tools that make projects like this possible.",
                 "contact": "reddit.com/r/Warframe",
             },
-            {
-                "name": "GitHub Copilot",
-                "url": "https://github.com/features/copilot",
-                "role": "AI pair programmer that helped build this entire application in a single extended session.",
-                "contact": "github.com/features/copilot",
-            },
         ],
     },
 ]

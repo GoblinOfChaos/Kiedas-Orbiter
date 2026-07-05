@@ -102,7 +102,6 @@ class RelicPlannerTab(QWidget):
         self._table.setSelectionBehavior(QTableWidget.SelectRows)
         self._table.setAlternatingRowColors(True)
         self._table.verticalHeader().setVisible(False)
-        self._table.itemSelectionChanged.connect(self._on_relic_selection_changed)
         right_layout.addWidget(self._table)
         self._status = QLabel("")
         right_layout.addWidget(self._status)
@@ -243,7 +242,7 @@ class RelicPlannerTab(QWidget):
             vault_item = QTableWidgetItem("Yes" if vaulted else "No")
             self._table.setItem(i, 4, vault_item)
 
-            self._table.setItem(i, 5, QTableWidgetItem(""))
+            self._table.setItem(i, 5, QTableWidgetItem(", ".join(matches)))
 
             # Colour rows: bright if owned, dim if not, red-tinted if vaulted+unowned
             if owned_count > 0:
@@ -265,14 +264,4 @@ class RelicPlannerTab(QWidget):
             f"{len(results) - owned_shown} not owned"
         )
 
-    def _on_relic_selection_changed(self):
-        row = self._table.currentRow()
-        if row >= 0:
-            self._on_relic_row_clicked(row, 0)
 
-    def _on_relic_row_clicked(self, row, col):
-        name_item = self._table.item(row, 0)
-        if not name_item:
-            return
-        matches = name_item.data(Qt.UserRole) or []
-        self._table.setItem(row, 3, QTableWidgetItem(", ".join(matches)))

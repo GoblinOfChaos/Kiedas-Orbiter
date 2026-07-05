@@ -60,4 +60,51 @@ for file in prices.json filtered_items.json; do
 done
 
 echo "Starting orbiter..."
-exec ./target/release/orbiter "$@"
+
+# ── Display detection ──────────────────────────────────────────────────────
+# xcap needs DISPLAY set even on Wayland sessions (uses XWayland for capture).
+# Find the right value if it's not already set.
+if [ -z "${DISPLAY-}" ]; then
+    # Try common X display sockets
+    for n in 0 1 2 3; do
+        if [ -S "/tmp/.X11-unix/X${n}" ]; then
+            export DISPLAY=":${n}"
+            echo "  Auto-detected DISPLAY=:${n}"
+            break
+        fi
+    done
+    # Fallback: scan running Xwayland/gamescope processes for --display arg
+    if [ -z "${DISPLAY-}" ]; then
+        _d=$(ps -eo args 2>/dev/null | grep -oE '(Xwayland|gamescope).*\+[0-9]+' \
+             | grep -oE ':[0-9]+' | head -1)
+        if [ -n "$_d" ]; then
+            export DISPLAY="$_d"
+            echo "  Found DISPLAY=${DISPLAY} from process list"
+        fi
+    fi
+    if [ -z "${DISPLAY-}" ]; then
+        echo "  WARNING: DISPLAY not set — window capture may fail"
+    fi
+fi
+
+# ── On Bazzite/immutable distros host libs are at /run/host/usr ───────────
+HOST_LIBS="/run/host/usr/lib64:/run/host/usr/lib"
+
+# ── Block notify-send — desktop notifications steal focus from Warframe ───
+# Create a no-op notify-send in a temp dir and prepend it to PATH.
+_FAKE_BIN="$(mktemp -d)"
+cat > "$_FAKE_BIN/notify-send" << 'NOTIFYEOF'
+#!/bin/sh
+# Disabled by Kieda's Orbiter launcher — steals focus from Warframe
+exit 0
+NOTIFYEOF
+chmod +x "$_FAKE_BIN/notify-send"
+
+exec env \
+    XDG_DATA_HOME="$HOME/.local/share" \
+    XDG_CACHE_HOME="$HOME/.cache" \
+    DISPLAY="${DISPLAY-}" \
+    WAYLAND_DISPLAY="${WAYLAND_DISPLAY-}" \
+    PATH="${_FAKE_BIN}:${PATH}" \
+    LD_LIBRARY_PATH="${HOST_LIBS}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" \
+    ./target/release/orbiter "$@"

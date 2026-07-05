@@ -224,9 +224,15 @@ class Overlay(_DraggableOverlay):
             log(f"poll error: {e}")
 
     def show_rewards(self, rewards):
-        while len(rewards) < 4:
-            rewards.append({"name": "-", "status": "UNKNOWN", "count": 0})
+        # Pad to 4 only if we have rewards; for solo (3) or duos (2) show exactly that many
+        # Hide unused reward columns rather than showing empty/unknown slots
+        count = max(len(rewards), 1)
         rewards = rewards[:4]
+        for i, (name_lbl, status_lbl) in enumerate(self.reward_widgets):
+            visible = i < len(rewards)
+            name_lbl.parentWidget().setVisible(visible)
+        if not rewards:
+            return
 
         for (name_lbl, status_lbl), r in zip(self.reward_widgets, rewards):
             name = r.get("name", "")

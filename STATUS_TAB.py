@@ -1029,12 +1029,19 @@ class StatusTab(QWidget):
             return
         env = os.environ.copy()
         env["LD_LIBRARY_PATH"] = qt_lib + ":" + env.get("LD_LIBRARY_PATH", "")
-        env["QT_QPA_PLATFORM"] = "xcb"
+        env["XDG_DATA_HOME"] = str(Path.home() / ".local/share")
+        env["XDG_CACHE_HOME"] = str(Path.home() / ".cache")
+        # Use wayland if available, fall back to xcb
+        if env.get("WAYLAND_DISPLAY"):
+            env["QT_QPA_PLATFORM"] = "wayland"
+        else:
+            env["QT_QPA_PLATFORM"] = "xcb"
+        log_file = open(DATA_DIR / "overlay.log", "a")
         subprocess.Popen(
             [str(VENV_PYTHON), str(OVERLAY_SCRIPT)],
             env=env,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+            stdout=log_file,
+            stderr=log_file,
             start_new_session=True,
         )
         self.lbl_status.setText("Overlay restarted.")

@@ -152,7 +152,43 @@ if command -v update-desktop-database &>/dev/null; then
     update-desktop-database "$DESKTOP_DIR" 2>/dev/null || true
 fi
 
-# ── 8. Make scripts executable ────────────────────────────────────────────
+# ── 8. Install autostart entries (overlay runs on login) ─────────────────
+section "Autostart entries"
+
+AUTOSTART_DIR="$HOME/.config/autostart"
+mkdir -p "$AUTOSTART_DIR"
+
+# Use wayland if available, otherwise xcb
+QT_PLATFORM_LINE='if [ -n "${WAYLAND_DISPLAY-}" ]; then QT_QPA_PLATFORM=wayland; else QT_QPA_PLATFORM=xcb; fi'
+QT_LIB_EXPR='$(echo '"$REPO_DIR"'/.venv/lib*/python*/site-packages/PySide6/Qt/lib | tr " " ":")'
+
+cat > "$AUTOSTART_DIR/orbiter-overlay.desktop" << AUTOSTART
+[Desktop Entry]
+Icon=orbiter
+Type=Application
+Name=Kieda's Orbiter Overlay
+Comment=Pop-up overlay for Warframe relic reward ownership
+Exec=/bin/bash -c '$QT_PLATFORM_LINE; LD_LIBRARY_PATH="$QT_LIB_EXPR" QT_QPA_PLATFORM=\${QT_QPA_PLATFORM} "$REPO_DIR/.venv/bin/python" "$REPO_DIR/overlay.py" >> "\${HOME}/.local/share/kiedas-orbiter/overlay.log" 2>&1'
+X-GNOME-Autostart-enabled=true
+NoDisplay=true
+Terminal=false
+AUTOSTART
+
+cat > "$AUTOSTART_DIR/orbiter-riven-overlay.desktop" << AUTOSTART
+[Desktop Entry]
+Icon=orbiter
+Type=Application
+Name=Kieda's Orbiter Riven Grader Overlay
+Comment=Always-on-top overlay showing your graded rivens
+Exec=/bin/bash -c '$QT_PLATFORM_LINE; LD_LIBRARY_PATH="$QT_LIB_EXPR" QT_QPA_PLATFORM=\${QT_QPA_PLATFORM} "$REPO_DIR/.venv/bin/python" "$REPO_DIR/riven_grader_overlay.py" >> "\${HOME}/.local/share/kiedas-orbiter/riven-overlay.log" 2>&1'
+X-GNOME-Autostart-enabled=true
+NoDisplay=true
+Terminal=false
+AUTOSTART
+
+success "Autostart entries installed (overlay will start on login)"
+
+# ── 9. Make scripts executable ────────────────────────────────────────────
 chmod +x "$REPO_DIR/control-panel.sh" \
          "$REPO_DIR/launch-orbiter.sh" \
          "$REPO_DIR/update.sh" \

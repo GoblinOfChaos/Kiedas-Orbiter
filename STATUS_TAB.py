@@ -598,22 +598,41 @@ class StatusTab(QWidget):
                 results = []
                 # ── App version ──────────────────────────────────────────
                 try:
-                    version_file = WFINFO_DIR.parent / "wfinfo-ng" / "VERSION"
-                    if not version_file.exists():
-                        version_file = Path(__file__).parent / "VERSION"
+                    version_file = Path(__file__).parent / "VERSION"
                     current = version_file.read_text().strip() if version_file.exists() else "unknown"
-                    req = urllib.request.Request(
-                        "https://api.github.com/repos/GoblinOfChaos/Kieda-s-Orbiter/releases/latest",
-                        headers={"User-Agent": "kiedas-orbiter/1.0", "Accept": "application/vnd.github+json"}
-                    )
-                    with urllib.request.urlopen(req, timeout=8) as r:
-                        data = json.loads(r.read())
-                    latest = data.get("tag_name", "?").lstrip("v")
-                    url = data.get("html_url", "https://github.com/GoblinOfChaos/Kieda-s-Orbiter/releases")
-                    if latest == current:
+                    base_url = "https://github.com/GoblinOfChaos/Kieda-s-Orbiter/releases"
+                    latest = None
+
+                    # Try releases API first
+                    try:
+                        req = urllib.request.Request(
+                            "https://api.github.com/repos/GoblinOfChaos/Kieda-s-Orbiter/releases/latest",
+                            headers={"User-Agent": "kiedas-orbiter/1.0", "Accept": "application/vnd.github+json"}
+                        )
+                        with urllib.request.urlopen(req, timeout=8) as r:
+                            data = json.loads(r.read())
+                        latest = data.get("tag_name", "").lstrip("v")
+                        base_url = data.get("html_url", base_url)
+                    except Exception:
+                        pass
+
+                    # Fall back to tags API if no release exists yet
+                    if not latest:
+                        req2 = urllib.request.Request(
+                            "https://api.github.com/repos/GoblinOfChaos/Kieda-s-Orbiter/tags",
+                            headers={"User-Agent": "kiedas-orbiter/1.0", "Accept": "application/vnd.github+json"}
+                        )
+                        with urllib.request.urlopen(req2, timeout=8) as r:
+                            tags = json.loads(r.read())
+                        if tags:
+                            latest = tags[0]["name"].lstrip("v")
+
+                    if not latest:
+                        results.append("?  App:  could not determine latest version")
+                    elif latest == current:
                         results.append(f"✓  App:  v{current}  (up to date)")
                     else:
-                        results.append(f"⬆  App:  v{current}  →  v{latest} available!\n   {url}")
+                        results.append(f"⬆  App:  v{current}  →  v{latest} available!\n   {base_url}")
                 except Exception as e:
                     results.append(f"?  App:  could not check ({e})")
 

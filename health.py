@@ -116,7 +116,7 @@ class HealthWidget(QGroupBox):
         # Process status rows
         for key, pattern, friendly in [
             ("orbiter",   "target/release/orbiter", "orbiter"),
-            ("overlay",  "wfinfo-ng/overlay.py",  "overlay"),
+            ("overlay",  "overlay.py",  "overlay"),
             ("watcher",  "warframe-watcher.py",   "watcher"),
             ("warframe", "Warframe.x64.exe",      "Warframe"),
         ]:

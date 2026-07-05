@@ -809,7 +809,7 @@ class StatusTab(QWidget):
     def _update_status(self):
         self.lbl_warframe.setText(_status_html(_pgrep("Warframe.x64.exe")))
         self.lbl_wfinfo.setText(_status_html(_pgrep("target/release/orbiter")))
-        self.lbl_overlay.setText(_status_html(_pgrep("wfinfo-ng/overlay.py")))
+        self.lbl_overlay.setText(_status_html(_pgrep("overlay.py")))
 
         if OWNED_FILE.exists():
             self.lbl_refresh.setText(_humanize_age(OWNED_FILE.stat().st_mtime))
@@ -1020,7 +1020,7 @@ class StatusTab(QWidget):
         )
 
     def restart_overlay(self):
-        subprocess.run(["pkill", "-f", "wfinfo-ng/overlay.py"], check=False)
+        subprocess.run(["pkill", "-f", "overlay.py"], check=False)
         time.sleep(0.5)
         qt_lib = _find_qt_lib_dir()
         if not qt_lib:

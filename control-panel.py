@@ -20,11 +20,10 @@ from health import HealthWidget
 from PySide6.QtCore import Qt, QTimer, QProcess, QSettings
 from PySide6.QtGui import QFont, QIcon
 from PySide6.QtWidgets import (
-from paths import DATA_DIR
     QApplication, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
     QPushButton, QLabel, QGroupBox, QFormLayout, QTextEdit, QMessageBox,
-
 )
+from paths import DATA_DIR
 
 WFINFO_ICON = str(Path.home() / ".local/share/icons/hicolor/scalable/apps/orbiter.svg")
 
@@ -221,7 +220,7 @@ class ControlPanel(QWidget):
     def update_status(self):
         wf = pgrep("Warframe.x64.exe")
         info = pgrep("target/release/orbiter")
-        ov = pgrep("wfinfo-ng/overlay.py")
+        ov = pgrep("overlay.py")
         self.lbl_warframe.setText(self._status_html(wf))
         self.lbl_wfinfo.setText(self._status_html(info))
         self.lbl_overlay.setText(self._status_html(ov))
@@ -438,7 +437,7 @@ class ControlPanel(QWidget):
         )
 
     def restart_overlay(self):
-        subprocess.run(["pkill", "-f", "wfinfo-ng/overlay.py"], check=False)
+        subprocess.run(["pkill", "-f", "overlay.py"], check=False)
         time.sleep(0.5)
         qt_lib = find_qt_lib_dir()
         if not qt_lib:

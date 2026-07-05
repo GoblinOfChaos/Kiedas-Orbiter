@@ -1,0 +1,3074 @@
+{
+  "/Lotus/Types/Game/Projections/T4VoidProjectionE": [
+    "Axi",
+    "A1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionTitaniaPrimeD": [
+    "Axi",
+    "A10"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionInarosPrimeA": [
+    "Axi",
+    "A11"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionBansheeMirageVaultB": [
+    "Axi",
+    "A12"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionOctaviaPrimeB": [
+    "Axi",
+    "A13"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionNidusPrimeA": [
+    "Axi",
+    "A14"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionIvaraOberonVaultA": [
+    "Axi",
+    "A15"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHildrynPrimeB": [
+    "Axi",
+    "A16"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGrendelPrimeD": [
+    "Axi",
+    "A17"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGaussPrimeD": [
+    "Axi",
+    "A18"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionXakuPrimeD": [
+    "Axi",
+    "A19"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionP": [
+    "Axi",
+    "A2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGyrePrimeA": [
+    "Axi",
+    "A20"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionStyanaxPrimeA": [
+    "Axi",
+    "A21"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionStyanaxPrimeC": [
+    "Axi",
+    "A22"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionMiragePrimeB": [
+    "Axi",
+    "A3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionLimboPrimeD": [
+    "Axi",
+    "A4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionMagNovaVaultB": [
+    "Axi",
+    "A5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionAtlasPrimeB": [
+    "Axi",
+    "A6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionAshVaubanVaultA": [
+    "Axi",
+    "A7"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionIvaraPrimeA": [
+    "Axi",
+    "A8"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionIvaraPrimeE": [
+    "Axi",
+    "A9"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionR": [
+    "Axi",
+    "B1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionX": [
+    "Axi",
+    "B2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionIvaraPrimeB": [
+    "Axi",
+    "B3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionInarosPrimeC": [
+    "Axi",
+    "B4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionBaruukPrimeA": [
+    "Axi",
+    "B5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHildrynPrimeD": [
+    "Axi",
+    "B6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGaussPrimeA": [
+    "Axi",
+    "B7"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionProteaPrimeC": [
+    "Axi",
+    "B8"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionRevenantBaruukVaultB": [
+    "Axi",
+    "B9"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionO": [
+    "Axi",
+    "C1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionCalibanPrimeC": [
+    "Axi",
+    "C10"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionVorunaPrimeC": [
+    "Axi",
+    "C11"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionU": [
+    "Axi",
+    "C2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionChromaPrimeA": [
+    "Axi",
+    "C3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionMesaPrimeD": [
+    "Axi",
+    "C4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionInarosPrimeB": [
+    "Axi",
+    "C5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionOctaviaPrimeD": [
+    "Axi",
+    "C6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHarrowPrimeE": [
+    "Axi",
+    "C7"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionTitaniaGaraVaultA": [
+    "Axi",
+    "C8"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionRevenantBaruukVaultA": [
+    "Axi",
+    "C9"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionWukongPrimeB": [
+    "Axi",
+    "D1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionIvaraPrimeC": [
+    "Axi",
+    "D2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionLimboTrinityVaultA": [
+    "Axi",
+    "D3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionFrostMagVaultA": [
+    "Axi",
+    "D4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGaussPrimeB": [
+    "Axi",
+    "D5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionVorunaPrimeB": [
+    "Axi",
+    "D6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionQ": [
+    "Axi",
+    "E1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionS": [
+    "Axi",
+    "E2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionAtlasVaubanVaultA": [
+    "Axi",
+    "F1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionProteaPrimeB": [
+    "Axi",
+    "F2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionLavosPrimeB": [
+    "Axi",
+    "F3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionK": [
+    "Axi",
+    "G1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHildrynPrimeC": [
+    "Axi",
+    "G10"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGrendelPrimeA": [
+    "Axi",
+    "G11"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGrendelPrimeB": [
+    "Axi",
+    "G12"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGarudaKhoraVaultA": [
+    "Axi",
+    "G13"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionXakuPrimeC": [
+    "Axi",
+    "G14"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGaussGrendelVaultA": [
+    "Axi",
+    "G15"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionWukongPrimeA": [
+    "Axi",
+    "G2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionAtlasPrimeD": [
+    "Axi",
+    "G3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionTitaniaPrimeA": [
+    "Axi",
+    "G4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionChromaZephyrVaultA": [
+    "Axi",
+    "G5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGaraPrimeC": [
+    "Axi",
+    "G6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGarudaPrimeA": [
+    "Axi",
+    "G7"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionKhoraPrimeD": [
+    "Axi",
+    "G8"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionBaruukPrimeC": [
+    "Axi",
+    "G9"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionT": [
+    "Axi",
+    "H1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionV": [
+    "Axi",
+    "H2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionZephyrPrimeC": [
+    "Axi",
+    "H3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionMesaPrimeB": [
+    "Axi",
+    "H4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionBansheeMirageVaultA": [
+    "Axi",
+    "H5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHildrynPrimeA": [
+    "Axi",
+    "H6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionWispPrimeB": [
+    "Axi",
+    "H7"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionXakuPrimeB": [
+    "Axi",
+    "H8"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGaraPrimeD": [
+    "Axi",
+    "I1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionNidusPrimeB": [
+    "Axi",
+    "I2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionInarosAshVaultA": [
+    "Axi",
+    "I3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionC": [
+    "Axi",
+    "K1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionKhoraPrimeE": [
+    "Axi",
+    "K10"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHildrynPrimeE": [
+    "Axi",
+    "K11"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionInarosAshVaultB": [
+    "Axi",
+    "K12"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionZephyrPrimeA": [
+    "Axi",
+    "K2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionLimboPrimeA": [
+    "Axi",
+    "K3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionChromaPrimeB": [
+    "Axi",
+    "K4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionEquinoxPrimeB": [
+    "Axi",
+    "K5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHarrowPrimeA": [
+    "Axi",
+    "K6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGarudaPrimeD": [
+    "Axi",
+    "K7"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionKhoraPrimeA": [
+    "Axi",
+    "K8"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionKhoraPrimeB": [
+    "Axi",
+    "K9"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionELFVaultA": [
+    "Axi",
+    "L1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionLimboPrimeC": [
+    "Axi",
+    "L2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionMesaPrimeC": [
+    "Axi",
+    "L3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionLokiVoltVaultA": [
+    "Axi",
+    "L4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionWukongPrimeE": [
+    "Axi",
+    "L5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGrendelPrimeC": [
+    "Axi",
+    "L6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionWukongPrimeC": [
+    "Axi",
+    "M1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionNidusPrimeC": [
+    "Axi",
+    "M2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionMesaHydroidVaultA": [
+    "Axi",
+    "M3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionMesaLimboVaultA": [
+    "Axi",
+    "M4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionBaroAkmagnusPrime": [
+    "Axi",
+    "M5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionLavosPrimeD": [
+    "Axi",
+    "M6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionD": [
+    "Axi",
+    "N1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionBaruukPrimeD": [
+    "Axi",
+    "N10"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGarudaKhoraVaultB": [
+    "Axi",
+    "N11"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionNidusSarynVaultA": [
+    "Axi",
+    "N12"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionYareliPrimeB": [
+    "Axi",
+    "N13"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionG": [
+    "Axi",
+    "N2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionI": [
+    "Axi",
+    "N3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHydroidPrimeA": [
+    "Axi",
+    "N4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHydroidPrimeB": [
+    "Axi",
+    "N5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionAlertSarynPrime": [
+    "Axi",
+    "N6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGaraPrimeA": [
+    "Axi",
+    "N7"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionKhoraPrimeC": [
+    "Axi",
+    "N8"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionRevenantPrimeA": [
+    "Axi",
+    "N9"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionW": [
+    "Axi",
+    "O1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionZephyrPrimeB": [
+    "Axi",
+    "O2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionLimboPrimeB": [
+    "Axi",
+    "O3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionChromaPrimeC": [
+    "Axi",
+    "O4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionOctaviaPrimeA": [
+    "Axi",
+    "O5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionSevagothPrimeA": [
+    "Axi",
+    "O6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionWukongPrimeD": [
+    "Axi",
+    "P1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionStyanaxPrimeB": [
+    "Axi",
+    "P10"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionAtlasPrimeA": [
+    "Axi",
+    "P2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionIvaraPrimeD": [
+    "Axi",
+    "P3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHarrowPrimeD": [
+    "Axi",
+    "P4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionNezhaOctaviaVaultA": [
+    "Axi",
+    "P5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGaussPrimeC": [
+    "Axi",
+    "P6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionProteaPrimeA": [
+    "Axi",
+    "P7"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionLavosPrimeA": [
+    "Axi",
+    "P8"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionLavosPrimeE": [
+    "Axi",
+    "P9"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionY": [
+    "Axi",
+    "R1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionMesaPrimeA": [
+    "Axi",
+    "R2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionAtlasPrimeC": [
+    "Axi",
+    "R3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionEmberRhinoVaultA": [
+    "Axi",
+    "R4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjection": [
+    "Axi",
+    "Relic"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionA": [
+    "Axi",
+    "S1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGarudaPrimeB": [
+    "Axi",
+    "S10"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGarudaPrimeC": [
+    "Axi",
+    "S11"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionKhoraPrimeF": [
+    "Axi",
+    "S12"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionIvaraOberonVaultB": [
+    "Axi",
+    "S13"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionBaruukPrimeB": [
+    "Axi",
+    "S14"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHarrowNekrosVaultB": [
+    "Axi",
+    "S15"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionSevagothPrimeB": [
+    "Axi",
+    "S16"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionSevagothPrimeC": [
+    "Axi",
+    "S17"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionCalibanPrimeA": [
+    "Axi",
+    "S18"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionWispHildrynVaultB": [
+    "Axi",
+    "S19"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionELFVaultB": [
+    "Axi",
+    "S2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionVorunaPrimeD": [
+    "Axi",
+    "S20"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionRhinoNyxVaultA": [
+    "Axi",
+    "S3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionMagNovaVaultA": [
+    "Axi",
+    "S4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionSarynValkyrVaultB": [
+    "Axi",
+    "S5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionOberonNekrosVaultA": [
+    "Axi",
+    "S6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionNovaTrinityVaultA": [
+    "Axi",
+    "S7"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionNyxValkyrRailjackB": [
+    "Axi",
+    "S8"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHarrowPrimeC": [
+    "Axi",
+    "S9"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionJ": [
+    "Axi",
+    "T1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionRevenantPrimeB": [
+    "Axi",
+    "T10"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHarrowNekrosVaultA": [
+    "Axi",
+    "T11"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionXakuPrimeA": [
+    "Axi",
+    "T12"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGyrePrimeB": [
+    "Axi",
+    "T13"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionEquinoxPrimeA": [
+    "Axi",
+    "T2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionAtlasPrimeE": [
+    "Axi",
+    "T3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionTitaniaPrimeB": [
+    "Axi",
+    "T4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionTitaniaPrimeC": [
+    "Axi",
+    "T5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionOctaviaPrimeE": [
+    "Axi",
+    "T6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionGaraPrimeB": [
+    "Axi",
+    "T7"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHarrowPrimeB": [
+    "Axi",
+    "T8"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionWukongEquinoxVaultA": [
+    "Axi",
+    "T9"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionB": [
+    "Axi",
+    "V1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionNyxValkyrRailjackA": [
+    "Axi",
+    "V10"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionTitaniaGaraVaultB": [
+    "Axi",
+    "V11"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionYareliPrimeA": [
+    "Axi",
+    "V12"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionCalibanPrimeB": [
+    "Axi",
+    "V13"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionVorunaPrimeE": [
+    "Axi",
+    "V14"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionF": [
+    "Axi",
+    "V2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionH": [
+    "Axi",
+    "V3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionM": [
+    "Axi",
+    "V4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionN": [
+    "Axi",
+    "V5"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionHydroidPrimeC": [
+    "Axi",
+    "V6"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionMiragePrimeA": [
+    "Axi",
+    "V7"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionVoltOdonataPrime": [
+    "Axi",
+    "V8"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionSarynValkyrVaultA": [
+    "Axi",
+    "V9"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionInarosPrimeD": [
+    "Axi",
+    "W1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionOctaviaPrimeC": [
+    "Axi",
+    "W2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionWispPrimeA": [
+    "Axi",
+    "W3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionWispHildrynVaultA": [
+    "Axi",
+    "W4"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionYareliPrimeC": [
+    "Axi",
+    "Y1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionCalibanPrimeD": [
+    "Axi",
+    "Y2"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionVorunaPrimeA": [
+    "Axi",
+    "Y3"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionNezhaPrimeA": [
+    "Axi",
+    "Z1"
+  ],
+  "/Lotus/Types/Game/Projections/T4VoidProjectionLavosPrimeC": [
+    "Axi",
+    "Z2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionG": [
+    "Lith",
+    "A1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionCalibanPrimeE": [
+    "Lith",
+    "A10"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGaussGrendelVaultA": [
+    "Lith",
+    "A11"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionStyanaxPrimeB": [
+    "Lith",
+    "A12"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionX": [
+    "Lith",
+    "A2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionEquinoxPrimeB": [
+    "Lith",
+    "A3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGaraPrimeC": [
+    "Lith",
+    "A4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionAtlasVaubanVaultA": [
+    "Lith",
+    "A5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGaussPrimeB": [
+    "Lith",
+    "A6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionLavosPrimeC": [
+    "Lith",
+    "A7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionYareliPrimeC": [
+    "Lith",
+    "A8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionRevenantBaruukVaultB": [
+    "Lith",
+    "A9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionY": [
+    "Lith",
+    "B1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionBaruukPrimeC": [
+    "Lith",
+    "B10"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHildrynPrimeC": [
+    "Lith",
+    "B11"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHydroidPrimeB": [
+    "Lith",
+    "B2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionLimboPrimeA": [
+    "Lith",
+    "B3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionRhinoNyxVaultA": [
+    "Lith",
+    "B4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionChromaPrimeD": [
+    "Lith",
+    "B5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionMesaPrimeC": [
+    "Lith",
+    "B6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNezhaPrimeE": [
+    "Lith",
+    "B7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionOctaviaPrimeB": [
+    "Lith",
+    "B8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionIvaraOberonVaultA": [
+    "Lith",
+    "B9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionJ": [
+    "Lith",
+    "C1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGrendelPrimeC": [
+    "Lith",
+    "C10"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGaussPrimeA": [
+    "Lith",
+    "C11"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionSevagothPrimeA": [
+    "Lith",
+    "C12"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionCalibanPrimeA": [
+    "Lith",
+    "C13"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionVorunaPrimeA": [
+    "Lith",
+    "C14"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionMiragePrimeA": [
+    "Lith",
+    "C2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionChromaPrimeC": [
+    "Lith",
+    "C3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionMesaPrimeA": [
+    "Lith",
+    "C4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionSarynValkyrVaultB": [
+    "Lith",
+    "C5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionTitaniaPrimeA": [
+    "Lith",
+    "C6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNyxValkyrRailjackA": [
+    "Lith",
+    "C7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionChromaZephyrVaultA": [
+    "Lith",
+    "C8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHarrowPrimeC": [
+    "Lith",
+    "C9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionAtlasPrimeC": [
+    "Lith",
+    "D1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionInarosPrimeB": [
+    "Lith",
+    "D2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNezhaPrimeC": [
+    "Lith",
+    "D3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionOctaviaPrimeA": [
+    "Lith",
+    "D4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionMesaLimboVaultB": [
+    "Lith",
+    "D5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGarudaKhoraVaultA": [
+    "Lith",
+    "D6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGyrePrimeA": [
+    "Lith",
+    "D7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionEmberRhinoVaultA": [
+    "Lith",
+    "E1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionCalibanPrimeD": [
+    "Lith",
+    "E2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionC": [
+    "Lith",
+    "F1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionE": [
+    "Lith",
+    "F2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionWispHildrynVaultB": [
+    "Lith",
+    "F3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionQ": [
+    "Lith",
+    "G1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGaussPrimeF": [
+    "Lith",
+    "G10"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionTitaniaGaraVaultB": [
+    "Lith",
+    "G11"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionSevagothPrimeD": [
+    "Lith",
+    "G12"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionSevagothPrimeE": [
+    "Lith",
+    "G12"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionXakuPrimeC": [
+    "Lith",
+    "G13"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGyrePrimeD": [
+    "Lith",
+    "G14"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionELFVaultA": [
+    "Lith",
+    "G2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionOctaviaPrimeC": [
+    "Lith",
+    "G3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGaraPrimeA": [
+    "Lith",
+    "G4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGarudaPrimeA": [
+    "Lith",
+    "G5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionBaruukPrimeA": [
+    "Lith",
+    "G6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNezhaOctaviaVaultB": [
+    "Lith",
+    "G7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGrendelPrimeA": [
+    "Lith",
+    "G8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGaussPrimeD": [
+    "Lith",
+    "G9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHydroidPrimeC": [
+    "Lith",
+    "H1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHarrowNekrosVaultB": [
+    "Lith",
+    "H10"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionZephyrPrimeB": [
+    "Lith",
+    "H2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHarrowPrimeB": [
+    "Lith",
+    "H3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGarudaPrimeB": [
+    "Lith",
+    "H4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionRevenantPrimeA": [
+    "Lith",
+    "H5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionRevenantPrimeD": [
+    "Lith",
+    "H6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionBaruukPrimeB": [
+    "Lith",
+    "H7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHildrynPrimeA": [
+    "Lith",
+    "H8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionWispPrimeB": [
+    "Lith",
+    "H9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionOctaviaPrimeE": [
+    "Lith",
+    "I1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionK": [
+    "Lith",
+    "K1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHildrynPrimeD": [
+    "Lith",
+    "K10"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHarrowNekrosVaultA": [
+    "Lith",
+    "K11"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionCalibanPrimeF": [
+    "Lith",
+    "K12"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionMesaPrimeD": [
+    "Lith",
+    "K2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionAtlasPrimeD": [
+    "Lith",
+    "K3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNovaTrinityVaultA": [
+    "Lith",
+    "K4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionBansheeMirageVaultA": [
+    "Lith",
+    "K5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGaraPrimeB": [
+    "Lith",
+    "K6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNidusPrimeB": [
+    "Lith",
+    "K7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionLimboTrinityVaultB": [
+    "Lith",
+    "K8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionKhoraPrimeA": [
+    "Lith",
+    "K9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionWukongPrimeB": [
+    "Lith",
+    "L1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionAtlasPrimeB": [
+    "Lith",
+    "L2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionLimboTrinityVaultA": [
+    "Lith",
+    "L3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionFrostMagVaultB": [
+    "Lith",
+    "L4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionLavosPrimeA": [
+    "Lith",
+    "L5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionWispHildrynVaultA": [
+    "Lith",
+    "L6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGyrePrimeB": [
+    "Lith",
+    "L7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionF": [
+    "Lith",
+    "M1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionYareliPrimeA": [
+    "Lith",
+    "M10"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionMagNovaVaultA": [
+    "Lith",
+    "M2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionMesaPrimeB": [
+    "Lith",
+    "M3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionEquinoxPrimeA": [
+    "Lith",
+    "M4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionTitaniaPrimeB": [
+    "Lith",
+    "M5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionInarosPrimeA": [
+    "Lith",
+    "M6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionBansheeMirageVaultB": [
+    "Lith",
+    "M7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionFrostMagVaultA": [
+    "Lith",
+    "M8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionXakuPrimeD": [
+    "Lith",
+    "M9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionL": [
+    "Lith",
+    "N1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHarrowPrimeF": [
+    "Lith",
+    "N10"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGarudaPrimeD": [
+    "Lith",
+    "N11"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGarudaPrimeF": [
+    "Lith",
+    "N12"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionWukongEquinoxVaultA": [
+    "Lith",
+    "N13"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGrendelPrimeE": [
+    "Lith",
+    "N14"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionSevagothPrimeC": [
+    "Lith",
+    "N15"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionXakuPrimeB": [
+    "Lith",
+    "N16"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionCalibanPrimeB": [
+    "Lith",
+    "N17"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGyrePrimeC": [
+    "Lith",
+    "N18"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionVorunaPrimeB": [
+    "Lith",
+    "N19"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionR": [
+    "Lith",
+    "N2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionU": [
+    "Lith",
+    "N3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionTitaniaPrimeC": [
+    "Lith",
+    "N4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNezhaPrimeB": [
+    "Lith",
+    "N5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNezhaPrimeF": [
+    "Lith",
+    "N6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNidusPrimeC": [
+    "Lith",
+    "N7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNidusPrimeD": [
+    "Lith",
+    "N8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionMesaHydroidVaultA": [
+    "Lith",
+    "N9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionChromaPrimeA": [
+    "Lith",
+    "O1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionLokiVoltVaultA": [
+    "Lith",
+    "O2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNezhaOctaviaVaultA": [
+    "Lith",
+    "O3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionCalibanPrimeC": [
+    "Lith",
+    "O4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionLimboPrimeD": [
+    "Lith",
+    "P1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionEquinoxPrimeC": [
+    "Lith",
+    "P2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionInarosPrimeC": [
+    "Lith",
+    "P3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNezhaPrimeA": [
+    "Lith",
+    "P4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNezhaPrimeD": [
+    "Lith",
+    "P5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionRevenantPrimeE": [
+    "Lith",
+    "P6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionMesaLimboVaultA": [
+    "Lith",
+    "P7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGaussPrimeE": [
+    "Lith",
+    "P8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionProteaPrimeA": [
+    "Lith",
+    "P9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionLavosPrimeB": [
+    "Lith",
+    "Q1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionYareliPrimeD": [
+    "Lith",
+    "Q2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionStyanaxPrimeA": [
+    "Lith",
+    "Q3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionMesaHydroidVaultB": [
+    "Lith",
+    "R1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionRevenantPrimeB": [
+    "Lith",
+    "R2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHildrynPrimeE": [
+    "Lith",
+    "R3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGrendelPrimeB": [
+    "Lith",
+    "R4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGaussPrimeC": [
+    "Lith",
+    "R5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjection": [
+    "Lith",
+    "Relic"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionA": [
+    "Lith",
+    "S1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionInarosPrimeD": [
+    "Lith",
+    "S10"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHarrowPrimeE": [
+    "Lith",
+    "S11"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGarudaPrimeE": [
+    "Lith",
+    "S12"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionWukongEquinoxVaultB": [
+    "Lith",
+    "S13"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionRevenantPrimeC": [
+    "Lith",
+    "S14"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHildrynPrimeB": [
+    "Lith",
+    "S15"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionLavosPrimeD": [
+    "Lith",
+    "S16"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNidusSarynVaultA": [
+    "Lith",
+    "S17"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionStyanaxPrimeE": [
+    "Lith",
+    "S18"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionB": [
+    "Lith",
+    "S2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionI": [
+    "Lith",
+    "S3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionN": [
+    "Lith",
+    "S4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionO": [
+    "Lith",
+    "S5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionV": [
+    "Lith",
+    "S6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionMiragePrimeB": [
+    "Lith",
+    "S7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionAtlasPrimeA": [
+    "Lith",
+    "S8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionOberonNekrosVaultA": [
+    "Lith",
+    "S9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHydroidPrimeA": [
+    "Lith",
+    "T1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGrendelPrimeD": [
+    "Lith",
+    "T10"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionTitaniaGaraVaultA": [
+    "Lith",
+    "T11"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionProteaPrimeB": [
+    "Lith",
+    "T12"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionRevenantBaruukVaultA": [
+    "Lith",
+    "T13"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionStyanaxPrimeD": [
+    "Lith",
+    "T14"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionLimboPrimeC": [
+    "Lith",
+    "T2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionOberonNekrosVaultB": [
+    "Lith",
+    "T3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNezhaPrimeG": [
+    "Lith",
+    "T4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionOctaviaPrimeD": [
+    "Lith",
+    "T5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionChromaZephyrVaultB": [
+    "Lith",
+    "T6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionNidusPrimeA": [
+    "Lith",
+    "T7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHarrowPrimeA": [
+    "Lith",
+    "T8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionHarrowPrimeD": [
+    "Lith",
+    "T9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionD": [
+    "Lith",
+    "V1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionInarosAshVaultA": [
+    "Lith",
+    "V10"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionStyanaxPrimeC": [
+    "Lith",
+    "V11"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionM": [
+    "Lith",
+    "V2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionS": [
+    "Lith",
+    "V3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionW": [
+    "Lith",
+    "V4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionLimboPrimeB": [
+    "Lith",
+    "V5"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionSarynValkyrVaultA": [
+    "Lith",
+    "V6"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionAshVaubanVaultA": [
+    "Lith",
+    "V7"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionAshVaubanVaultB": [
+    "Lith",
+    "V8"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionAtlasVaubanVaultB": [
+    "Lith",
+    "V9"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionWukongPrimeA": [
+    "Lith",
+    "W1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionIvaraPrimeA": [
+    "Lith",
+    "W2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionWispPrimeA": [
+    "Lith",
+    "W3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionSevagothPrimeB": [
+    "Lith",
+    "W4"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionXakuPrimeA": [
+    "Lith",
+    "X1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionYareliPrimeE": [
+    "Lith",
+    "Y1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionZephyrPrimeA": [
+    "Lith",
+    "Z1"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionChromaPrimeB": [
+    "Lith",
+    "Z2"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionGarudaPrimeC": [
+    "Lith",
+    "Z3"
+  ],
+  "/Lotus/Types/Game/Projections/T1VoidProjectionYareliPrimeB": [
+    "Lith",
+    "Z4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionMesaPrimeC": [
+    "Meso",
+    "A1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionVorunaPrimeE": [
+    "Meso",
+    "A10"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGaussGrendelVaultA": [
+    "Meso",
+    "A11"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionStyanaxPrimeD": [
+    "Meso",
+    "A12"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionWukongPrimeA": [
+    "Meso",
+    "A2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHarrowPrimeA": [
+    "Meso",
+    "A3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionBaruukPrimeB": [
+    "Meso",
+    "A4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGaussPrimeC": [
+    "Meso",
+    "A5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionTitaniaGaraVaultA": [
+    "Meso",
+    "A6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionSevagothPrimeC": [
+    "Meso",
+    "A7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionLavosPrimeA": [
+    "Meso",
+    "A8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGyrePrimeE": [
+    "Meso",
+    "A9"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionF": [
+    "Meso",
+    "B1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionEmberRhinosVaultB": [
+    "Meso",
+    "B10"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionLimboPrimeC": [
+    "Meso",
+    "B2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionMagNovaVaultA": [
+    "Meso",
+    "B3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionIvaraPrimeA": [
+    "Meso",
+    "B4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionNidusPrimeA": [
+    "Meso",
+    "B5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionNidusPrimeC": [
+    "Meso",
+    "B6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionMesaHydroidVaultA": [
+    "Meso",
+    "B7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGrendelPrimeB": [
+    "Meso",
+    "B8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGaussPrimeE": [
+    "Meso",
+    "B9"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionC": [
+    "Meso",
+    "C1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionTitaniaGaraVaultB": [
+    "Meso",
+    "C10"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionM": [
+    "Meso",
+    "C2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHydroidPrimeB": [
+    "Meso",
+    "C3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionIvaraPrimeD": [
+    "Meso",
+    "C4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionTitaniaPrimeC": [
+    "Meso",
+    "C5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionNezhaPrimeA": [
+    "Meso",
+    "C6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionInarosAshVaultB": [
+    "Meso",
+    "C7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionWispPrimeD": [
+    "Meso",
+    "C8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGrendelPrimeD": [
+    "Meso",
+    "C9"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionA": [
+    "Meso",
+    "D1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionLimboPrimeA": [
+    "Meso",
+    "D2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionChromaPrimeC": [
+    "Meso",
+    "D3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionAtlasPrimeB": [
+    "Meso",
+    "D4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionNovaTrinityVaultA": [
+    "Meso",
+    "D5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionOctaviaPrimeB": [
+    "Meso",
+    "D6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHildrynPrimeD": [
+    "Meso",
+    "D7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionVorunaPrimeC": [
+    "Meso",
+    "D8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionELFVaultA": [
+    "Meso",
+    "E1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionEquinoxPrimeC": [
+    "Meso",
+    "E2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionAtlasPrimeC": [
+    "Meso",
+    "E3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionTitaniaPrimeA": [
+    "Meso",
+    "E4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionBansheeMirageVaultA": [
+    "Meso",
+    "E5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionXakuPrimeB": [
+    "Meso",
+    "E6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionVorunaPrimeB": [
+    "Meso",
+    "E7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionK": [
+    "Meso",
+    "F1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionQ": [
+    "Meso",
+    "F2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionELFVaultB": [
+    "Meso",
+    "F3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionFrostMagVaultA": [
+    "Meso",
+    "F4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionSevagothPrimeD": [
+    "Meso",
+    "F5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHydroidPrimeC": [
+    "Meso",
+    "G1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionWispHildrynVaultA": [
+    "Meso",
+    "G10"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionNezhaPrimeB": [
+    "Meso",
+    "G2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHarrowPrimeD": [
+    "Meso",
+    "G3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGarudaPrimeA": [
+    "Meso",
+    "G4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionWispPrimeA": [
+    "Meso",
+    "G5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGaussPrimeD": [
+    "Meso",
+    "G6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaPrimeB": [
+    "Meso",
+    "G7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionXakuPrimeA": [
+    "Meso",
+    "G8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionCalibanPrimeD": [
+    "Meso",
+    "G9"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionMiragePrimeA": [
+    "Meso",
+    "H1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionKhoraPrimeA": [
+    "Meso",
+    "H2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionKhoraPrimeB": [
+    "Meso",
+    "H3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHildrynPrimeB": [
+    "Meso",
+    "H4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGaussPrimeA": [
+    "Meso",
+    "H5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGaussPrimeB": [
+    "Meso",
+    "H6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionSevagothPrimeB": [
+    "Meso",
+    "H7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGarudaKhoraVaultA": [
+    "Meso",
+    "H8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionInarosPrimeE": [
+    "Meso",
+    "I1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHarrowPrimeB": [
+    "Meso",
+    "I2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionMiragePrimeB": [
+    "Meso",
+    "K1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionWukongPrimeB": [
+    "Meso",
+    "K2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionInarosPrimeD": [
+    "Meso",
+    "K3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionRevenantPrimeD": [
+    "Meso",
+    "K4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionBaruukPrimeC": [
+    "Meso",
+    "K5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionWispPrimeB": [
+    "Meso",
+    "K6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionYareliPrimeB": [
+    "Meso",
+    "K7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionStyanaxPrimeC": [
+    "Meso",
+    "K8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionIvaraPrimeE": [
+    "Meso",
+    "L1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionMesaLimboVaultA": [
+    "Meso",
+    "L2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionCalibanPrimeA": [
+    "Meso",
+    "L3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionVorunaPrimeA": [
+    "Meso",
+    "L4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionStyanaxPrimeA": [
+    "Meso",
+    "L5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionY": [
+    "Meso",
+    "M1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionMesaPrimeD": [
+    "Meso",
+    "M2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionEquinoxPrimeA": [
+    "Meso",
+    "M3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGrendelPrimeA": [
+    "Meso",
+    "M4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionNidusSarynVaultB": [
+    "Meso",
+    "M5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionB": [
+    "Meso",
+    "N1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionInarosPrimeC": [
+    "Meso",
+    "N10"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionNyxValkyrRailjackA": [
+    "Meso",
+    "N11"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGarudaPrimeC": [
+    "Meso",
+    "N12"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionRevenantPrimeB": [
+    "Meso",
+    "N13"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHildrynPrimeC": [
+    "Meso",
+    "N14"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionNezhaOctaviaVaultA": [
+    "Meso",
+    "N15"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHarrowNekrosVaultA": [
+    "Meso",
+    "N16"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionSevagothPrimeA": [
+    "Meso",
+    "N17"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionE": [
+    "Meso",
+    "N2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionR": [
+    "Meso",
+    "N3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionW": [
+    "Meso",
+    "N4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHydroidPrimeA": [
+    "Meso",
+    "N5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionRhinoNyxVaultA": [
+    "Meso",
+    "N6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionWukongPrimeC": [
+    "Meso",
+    "N7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionSarynValkyrVaultA": [
+    "Meso",
+    "N8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionIvaraPrimeB": [
+    "Meso",
+    "N9"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionU": [
+    "Meso",
+    "O1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionZephyrPrimeA": [
+    "Meso",
+    "O2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionLokiVoltVaultA": [
+    "Meso",
+    "O3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionOberonNekrosVaultA": [
+    "Meso",
+    "O4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionKhoraPrimeE": [
+    "Meso",
+    "O5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionIvaraOberonVaultA": [
+    "Meso",
+    "O6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionMesaPrimeA": [
+    "Meso",
+    "P1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionRevenantPrimeC": [
+    "Meso",
+    "P10"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHildrynPrimeA": [
+    "Meso",
+    "P11"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionInarosAshVaultA": [
+    "Meso",
+    "P12"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionWispPrimeC": [
+    "Meso",
+    "P13"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGrendelPrimeC": [
+    "Meso",
+    "P14"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionLavosPrimeB": [
+    "Meso",
+    "P15"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionYareliPrimeA": [
+    "Meso",
+    "P16"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGyrePrimeB": [
+    "Meso",
+    "P17"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionInarosPrimeA": [
+    "Meso",
+    "P2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionInarosPrimeB": [
+    "Meso",
+    "P3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionOctaviaPrimeA": [
+    "Meso",
+    "P4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGaraPrimeB": [
+    "Meso",
+    "P5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionLimboTrinityVaultA": [
+    "Meso",
+    "P6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGarudaPrimeB": [
+    "Meso",
+    "P7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionKhoraPrimeD": [
+    "Meso",
+    "P8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionRevenantPrimeA": [
+    "Meso",
+    "P9"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionChromaPrimeD": [
+    "Meso",
+    "R1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionIvaraPrimeC": [
+    "Meso",
+    "R2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionTitaniaPrimeB": [
+    "Meso",
+    "R3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionChromaZephyrVaultA": [
+    "Meso",
+    "R4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionBaruukPrimeA": [
+    "Meso",
+    "R5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionRevenantBaruukVaultA": [
+    "Meso",
+    "R6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjection": [
+    "Meso",
+    "Relic"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionI": [
+    "Meso",
+    "S1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionNidusPrimeB": [
+    "Meso",
+    "S10"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHarrowPrimeC": [
+    "Meso",
+    "S11"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHildrynPrimeE": [
+    "Meso",
+    "S12"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionHarrowNekrosVaultB": [
+    "Meso",
+    "S13"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionEmberRhinosVaultA": [
+    "Meso",
+    "S14"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionNidusSarynVaultA": [
+    "Meso",
+    "S15"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionJ": [
+    "Meso",
+    "S2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionO": [
+    "Meso",
+    "S3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionS": [
+    "Meso",
+    "S4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionV": [
+    "Meso",
+    "S5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionZ": [
+    "Meso",
+    "S6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionLimboPrimeD": [
+    "Meso",
+    "S7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionChromaPrimeA": [
+    "Meso",
+    "S8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionAlertSarynPrime": [
+    "Meso",
+    "S9"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionZephyrPrimeB": [
+    "Meso",
+    "T1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionZephyrPrimeC": [
+    "Meso",
+    "T2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionChromaPrimeB": [
+    "Meso",
+    "T3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionOctaviaPrimeC": [
+    "Meso",
+    "T4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGaraPrimeA": [
+    "Meso",
+    "T5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionAtlasVaubanVaultA": [
+    "Meso",
+    "T6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionXakuPrimeC": [
+    "Meso",
+    "T7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionYareliPrimeC": [
+    "Meso",
+    "T8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionG": [
+    "Meso",
+    "V1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionXakuPrimeD": [
+    "Meso",
+    "V10"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionCalibanPrimeB": [
+    "Meso",
+    "V11"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionCalibanPrimeC": [
+    "Meso",
+    "V12"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGyrePrimeA": [
+    "Meso",
+    "V13"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGyrePrimeC": [
+    "Meso",
+    "V14"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionVorunaPrimeD": [
+    "Meso",
+    "V15"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionD": [
+    "Meso",
+    "V2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionN": [
+    "Meso",
+    "V3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionT": [
+    "Meso",
+    "V4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionX": [
+    "Meso",
+    "V5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionAshVaubanVaultA": [
+    "Meso",
+    "V6"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionKhoraPrimeC": [
+    "Meso",
+    "V7"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionAtlasVaubanVaultB": [
+    "Meso",
+    "V8"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaPrimeA": [
+    "Meso",
+    "V9"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionAtlasPrimeA": [
+    "Meso",
+    "W1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionWukongEquinoxVaultA": [
+    "Meso",
+    "W2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGrendelPrimeE": [
+    "Meso",
+    "W3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaPrimeC": [
+    "Meso",
+    "W4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaPrimeD": [
+    "Meso",
+    "W5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGyrePrimeF": [
+    "Meso",
+    "X1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGyrePrimeD": [
+    "Meso",
+    "Y1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionStyanaxPrimeB": [
+    "Meso",
+    "Y2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionLimboPrimeB": [
+    "Meso",
+    "Z1"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionMesaPrimeB": [
+    "Meso",
+    "Z2"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionEquinoxPrimeB": [
+    "Meso",
+    "Z3"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGaraPrimeC": [
+    "Meso",
+    "Z4"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionNezhaOctaviaVaultB": [
+    "Meso",
+    "Z5"
+  ],
+  "/Lotus/Types/Game/Projections/T2VoidProjectionGaussGrendelVaultB": [
+    "Meso",
+    "Z6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionM": [
+    "Neo",
+    "A1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionInarosAshVaultA": [
+    "Neo",
+    "A10"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGaussPrimeC": [
+    "Neo",
+    "A11"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaPrimeC": [
+    "Neo",
+    "A12"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionSevagothPrimeB": [
+    "Neo",
+    "A13"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionYareliPrimeA": [
+    "Neo",
+    "A14"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionCalibanPrimeA": [
+    "Neo",
+    "A15"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionStyanaxPrimeB": [
+    "Neo",
+    "A16"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionChromaPrimeC": [
+    "Neo",
+    "A2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionAtlasPrimeC": [
+    "Neo",
+    "A3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionAshVaubanVaultA": [
+    "Neo",
+    "A4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGaraPrimeC": [
+    "Neo",
+    "A5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionMesaHydroidVaultA": [
+    "Neo",
+    "A6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionAtlasVaubanVaultB": [
+    "Neo",
+    "A7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionBaruukPrimeA": [
+    "Neo",
+    "A8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionMesaLimboVaultA": [
+    "Neo",
+    "A9"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionT": [
+    "Neo",
+    "B1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionW": [
+    "Neo",
+    "B2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionY": [
+    "Neo",
+    "B3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionZephyrPrimeB": [
+    "Neo",
+    "B4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionLimboPrimeD": [
+    "Neo",
+    "B5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionBansheeMirageVaultA": [
+    "Neo",
+    "B6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionOctaviaPrimeD": [
+    "Neo",
+    "B7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionFrostMagVaultA": [
+    "Neo",
+    "B8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionSevagothPrimeE": [
+    "Neo",
+    "B9"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionEquinoxPrimeC": [
+    "Neo",
+    "C1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGarudaPrimeB": [
+    "Neo",
+    "C2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionBaruukPrimeC": [
+    "Neo",
+    "C3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWispPrimeD": [
+    "Neo",
+    "C4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGarudaKhoraVaultA": [
+    "Neo",
+    "C5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionLavosPrimeA": [
+    "Neo",
+    "C6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGyrePrimeC": [
+    "Neo",
+    "C7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionStyanaxPrimeA": [
+    "Neo",
+    "C8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionStyanaxPrimeE": [
+    "Neo",
+    "C9"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionF": [
+    "Neo",
+    "D1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionYareliPrimeB": [
+    "Neo",
+    "D10"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNezhaPrimeA": [
+    "Neo",
+    "D2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGaraPrimeA": [
+    "Neo",
+    "D3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionLimboTrinityVaultA": [
+    "Neo",
+    "D4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionKhoraPrimeC": [
+    "Neo",
+    "D5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionAtlasVaubanVaultA": [
+    "Neo",
+    "D6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWispPrimeC": [
+    "Neo",
+    "D7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGrendelPrimeE": [
+    "Neo",
+    "D8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionLavosPrimeD": [
+    "Neo",
+    "D9"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionELFVaultB": [
+    "Neo",
+    "E1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNezhaPrimeE": [
+    "Neo",
+    "E2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWukongEquinoxVaultB": [
+    "Neo",
+    "E3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionSevagothPrimeA": [
+    "Neo",
+    "E4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionELFVaultA": [
+    "Neo",
+    "F1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWispPrimeA": [
+    "Neo",
+    "F2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGaussPrimeA": [
+    "Neo",
+    "F3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionChromaPrimeB": [
+    "Neo",
+    "G1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGaussGrendelVaultA": [
+    "Neo",
+    "G10"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionIvaraPrimeD": [
+    "Neo",
+    "G2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionOberonNekrosVaultB": [
+    "Neo",
+    "G3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionKhoraPrimeB": [
+    "Neo",
+    "G4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionHarrowNekrosVaultA": [
+    "Neo",
+    "G5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionEmberRhinoVaultA": [
+    "Neo",
+    "G6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionSevagothPrimeC": [
+    "Neo",
+    "G7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionXakuPrimeC": [
+    "Neo",
+    "G8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionYareliPrimeC": [
+    "Neo",
+    "G9"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionHydroidPrimeC": [
+    "Neo",
+    "H1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionChromaPrimeD": [
+    "Neo",
+    "H2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionMesaHydroidVaultB": [
+    "Neo",
+    "H3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWispHildrynVaultA": [
+    "Neo",
+    "H4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionIvaraPrimeA": [
+    "Neo",
+    "I1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionTitaniaPrimeA": [
+    "Neo",
+    "I2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionIvaraOberonVaultA": [
+    "Neo",
+    "I3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionZephyrPrimeA": [
+    "Neo",
+    "K1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionChromaPrimeA": [
+    "Neo",
+    "K2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionChromaZephyrVaultA": [
+    "Neo",
+    "K3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionHarrowPrimeA": [
+    "Neo",
+    "K4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionBaruukPrimeB": [
+    "Neo",
+    "K5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGrendelPrimeC": [
+    "Neo",
+    "K6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGrendelPrimeD": [
+    "Neo",
+    "K7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGarudaKhoraVaultB": [
+    "Neo",
+    "K8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGyrePrimeA": [
+    "Neo",
+    "K9"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionLimboPrimeA": [
+    "Neo",
+    "L1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionHildrynPrimeB": [
+    "Neo",
+    "L2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWispPrimeE": [
+    "Neo",
+    "L3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionXakuPrimeA": [
+    "Neo",
+    "L4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionMiragePrimeA": [
+    "Neo",
+    "M1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionMesaPrimeB": [
+    "Neo",
+    "M2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionTitaniaPrimeC": [
+    "Neo",
+    "M3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGarudaPrimeC": [
+    "Neo",
+    "M4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaPrimeD": [
+    "Neo",
+    "M5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGaussGrendelVaultB": [
+    "Neo",
+    "M6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionC": [
+    "Neo",
+    "N1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionEquinoxPrimeB": [
+    "Neo",
+    "N10"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionOberonNekrosVaultA": [
+    "Neo",
+    "N11"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNovaTrinityVaultA": [
+    "Neo",
+    "N12"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNezhaPrimeB": [
+    "Neo",
+    "N13"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionOctaviaPrimeA": [
+    "Neo",
+    "N14"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionOctaviaPrimeE": [
+    "Neo",
+    "N15"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNidusPrimeA": [
+    "Neo",
+    "N16"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNidusPrimeD": [
+    "Neo",
+    "N17"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionHarrowPrimeB": [
+    "Neo",
+    "N18"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNidusSarynVaultA": [
+    "Neo",
+    "N19"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionD": [
+    "Neo",
+    "N2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGarudaPrimeA": [
+    "Neo",
+    "N20"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionKhoraPrimeA": [
+    "Neo",
+    "N21"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionHildrynPrimeC": [
+    "Neo",
+    "N22"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWispPrimeF": [
+    "Neo",
+    "N23"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionVorunaPrimeA": [
+    "Neo",
+    "N24"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionI": [
+    "Neo",
+    "N3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionO": [
+    "Neo",
+    "N4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionS": [
+    "Neo",
+    "N5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionX": [
+    "Neo",
+    "N6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionZ": [
+    "Neo",
+    "N7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionLimboPrimeB": [
+    "Neo",
+    "N8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionMagNovaVaultA": [
+    "Neo",
+    "N9"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionVoltOdonataPrime": [
+    "Neo",
+    "O1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaPrimeA": [
+    "Neo",
+    "O2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGyrePrimeD": [
+    "Neo",
+    "O3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionTitaniaPrimeB": [
+    "Neo",
+    "P1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionVorunaPrimeB": [
+    "Neo",
+    "P10"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionOctaviaPrimeC": [
+    "Neo",
+    "P2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNidusPrimeC": [
+    "Neo",
+    "P3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionHarrowPrimeC": [
+    "Neo",
+    "P4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionTitaniaGaraVaultA": [
+    "Neo",
+    "P5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaPrimeB": [
+    "Neo",
+    "P6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionSevagothPrimeF": [
+    "Neo",
+    "P7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionRevenantBaruukVaultA": [
+    "Neo",
+    "P8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGyrePrimeB": [
+    "Neo",
+    "P9"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionXakuPrimeB": [
+    "Neo",
+    "Q1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionRhinoNyxVaultA": [
+    "Neo",
+    "R1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWukongPrimeC": [
+    "Neo",
+    "R2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionIvaraPrimeC": [
+    "Neo",
+    "R3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionTitaniaPrimeD": [
+    "Neo",
+    "R4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionMesaLimboVaultB": [
+    "Neo",
+    "R5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjection": [
+    "Neo",
+    "Relic"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionA": [
+    "Neo",
+    "S1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionAlertSarynPrime": [
+    "Neo",
+    "S10"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionEquinoxPrimeA": [
+    "Neo",
+    "S11"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWukongPrimeA": [
+    "Neo",
+    "S12"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionSarynValkyrVaultA": [
+    "Neo",
+    "S13"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNezhaPrimeC": [
+    "Neo",
+    "S14"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionKhoraPrimeD": [
+    "Neo",
+    "S15"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionIvaraOberonVaultB": [
+    "Neo",
+    "S16"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionHildrynPrimeA": [
+    "Neo",
+    "S17"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGrendelPrimeB": [
+    "Neo",
+    "S18"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNidusSarynVaultB": [
+    "Neo",
+    "S19"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionB": [
+    "Neo",
+    "S2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionVorunaPrimeC": [
+    "Neo",
+    "S20"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionG": [
+    "Neo",
+    "S3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionQ": [
+    "Neo",
+    "S5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionV": [
+    "Neo",
+    "S6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionHydroidPrimeA": [
+    "Neo",
+    "S7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionHydroidPrimeB": [
+    "Neo",
+    "S8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionMesaPrimeC": [
+    "Neo",
+    "S9"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionR": [
+    "Neo",
+    "T1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGyrePrimeE": [
+    "Neo",
+    "T10"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionStyanaxPrimeC": [
+    "Neo",
+    "T11"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionAtlasPrimeA": [
+    "Neo",
+    "T2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionInarosPrimeA": [
+    "Neo",
+    "T3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGaraPrimeB": [
+    "Neo",
+    "T4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNidusPrimeB": [
+    "Neo",
+    "T5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionRevenantPrimeA": [
+    "Neo",
+    "T6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWispPrimeB": [
+    "Neo",
+    "T7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNezhaOctaviaVaultA": [
+    "Neo",
+    "T8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionLavosPrimeC": [
+    "Neo",
+    "T9"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionE": [
+    "Neo",
+    "V1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGaraPrimeD": [
+    "Neo",
+    "V10"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionVorunaPrimeD": [
+    "Neo",
+    "V11"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionStyanaxPrimeF": [
+    "Neo",
+    "V12"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionJ": [
+    "Neo",
+    "V2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionK": [
+    "Neo",
+    "V3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionN": [
+    "Neo",
+    "V4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionU": [
+    "Neo",
+    "V5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionMiragePrimeB": [
+    "Neo",
+    "V6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionLimboPrimeC": [
+    "Neo",
+    "V7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionLokiVoltVaultA": [
+    "Neo",
+    "V8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNyxValkyrRailjackA": [
+    "Neo",
+    "V9"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGaussPrimeB": [
+    "Neo",
+    "W1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionXakuPrimeD": [
+    "Neo",
+    "W2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionLavosPrimeB": [
+    "Neo",
+    "X1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionStyanaxPrimeD": [
+    "Neo",
+    "Y1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionZephyrPrimeC": [
+    "Neo",
+    "Z1"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionGrendelPrimeA": [
+    "Neo",
+    "Z10"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionSevagothPrimeD": [
+    "Neo",
+    "Z11"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionMesaPrimeA": [
+    "Neo",
+    "Z2"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWukongPrimeB": [
+    "Neo",
+    "Z3"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionAtlasPrimeB": [
+    "Neo",
+    "Z4"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionIvaraPrimeB": [
+    "Neo",
+    "Z5"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionNezhaPrimeD": [
+    "Neo",
+    "Z6"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionOctaviaPrimeB": [
+    "Neo",
+    "Z7"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionChromaZephyrVaultB": [
+    "Neo",
+    "Z8"
+  ],
+  "/Lotus/Types/Game/Projections/T3VoidProjectionWukongEquinoxVaultA": [
+    "Neo",
+    "Z9"
+  ]
+}

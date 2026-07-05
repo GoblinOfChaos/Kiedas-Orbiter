@@ -6,12 +6,13 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
-name = "wfinfo"
+name = "orbiter"
 path = "src/lib.rs"
 
 [[bin]]
-name = "wfinfo"
+name = "orbiter"
 path = "src/bin/main.rs"
+# Binary was previously named 'wfinfo' - renamed to 'orbiter' for Kieda's Orbiter
 
 [dependencies]
 anyhow = "1.0.63"

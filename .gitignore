@@ -1,4 +1,53 @@
-/target
-*.png
-filtered_items.json
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Rust build output
+target/
+
+# User data — generated at runtime, contain personal inventory/prices
+inventory.json
+inventory.json.*
+owned_items.json
+owned_relics.json
 prices.json
+prices.json.*
+filtered_items.json
+filtered_items.json.*
+wfcd_all_cache.json
+wfcd_all_cache.json.*
+wfcd_items_cache.json
+wm_prices_cache.json
+equipment_data_cache.json
+token_cache.txt
+lastData.dat
+
+# User config (each user creates their own)
+config.json
+
+# Backup / broken / temp files
+*.previous
+*.broken-*
+*.503-*
+*.before-enrich
+*.unsafe-original
+
+# DE public export snapshots (large, auto-downloaded)
+ExportModSet.json
+ExportUpgrades.json
+
+# Test images
+*.png
+WFI test images/
+test-images/
+
+# Editor / tooling
+.vscode/
+.continue/
+.memories.json
+toolbox_info.md
+TEST_WRITE.txt
+github.c
+Archive.zip

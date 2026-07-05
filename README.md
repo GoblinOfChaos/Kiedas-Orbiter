@@ -1,60 +1,106 @@
-# WFinfo-ng
+# Kieda's Orbiter
 
-A Linux compatible version of the great [WFinfo](https://github.com/WFCD/WFinfo/).
+A Linux Warframe companion app. Tracks your inventory, relics, rivens, mastery progress, market prices, and live world state — all in one place.
 
-Does support:
+Built on top of [wfinfo-ng](https://github.com/knoellle/wfinfo-ng) by knoellle, with a full PySide6 GUI and many additional features.
 
-- Detecting relic reward screens
-- Taking a screenshot the game
-- Detecting items
-- Displaying platinum values for each item
-- X11 & Wayland
-- Game in windowed or fullscreen mode
+---
 
-Doesn't support:
+## Features
 
-- Market integration
-- Inventory tracking
-- Interactive "snap-it" features
+- **Dashboard** — Live world state: void fissures, sortie, arbitration, Baro Ki'Teer, day/night cycles, Nightwave, Steel Path
+- **Inventory** — Browse everything you own, with ownership status
+- **Missing Parts** — What prime parts you still need, and which relics drop them
+- **Set Progress** — Track completion % of every prime set
+- **Foundry** — Items in progress or ready to claim
+- **Missing Mods** — Mods you haven't acquired yet
+- **Mastery Helper** — Items to level for free MR XP, sourced from your own relics
+- **Relic Planner** — Plan which relics to run for your most-needed drops
+- **Best Relics** — Which relics give the most value right now
+- **Riven Grader** — Grade your rivens against known good rolls; live overlay when you view one in-game
+- **Market** — Prime part prices from warframe.market
+- **Stats History** — Track your credits, plat, MR, and parts owned over time
+- **Equipment** — Mastery status for every weapon, Warframe, and companion category
+- **Relic Reward OCR** — Automatic overlay when a relic reward screen appears, showing ownership and platinum value of each reward
+- **Six UI themes** — Kieda's Default (sapphire/gold), Madurai, Vazarin, Naramon, Unairu, Zenurik (colorblind-safe options included)
 
-# Prerequisites and Dependencies
+---
 
-- `rust` rustc >= 1.74 & cargo. I recommend installation via [rustup](https://rustup.rs).
-- `libxrandr` for taking screenshots
-- `tesseract` for OCR processing
-- `curl`, `jq` for updating the databases
+## Requirements
 
-# Installation
+- **Linux** (Windows support planned)
+- **Python 3.11+**
+- **PySide6** — installed automatically via pip
+- **Tesseract OCR** — for the relic reward overlay (`sudo apt install tesseract-ocr` / `sudo dnf install tesseract`)
+- **Rust + Cargo** — only needed to build the OCR detector binary ([rustup.rs](https://rustup.rs))
+- **Steam + Proton** — Warframe must be run through Steam (EE.log is auto-detected)
+- **warframe-api-helper** — included binary for inventory reading (Linux x86-64)
 
-1. Clone this repository
-1. Install only reward screen helper: `cargo install --path . --bin wfinfo`
-1. Or install all tools: `cargo install --path .`
+---
 
-# Usage
+## Installation
 
-Run the `update.sh` script to download the latest database files.
+```bash
+# 1. Clone the repo
+git clone https://github.com/GoblinOfChaos/Kieda-s-Orbiter.git
+cd Kieda-s-Orbiter
 
-Find where your game puts it's `EE.log` file. Mine is located at `.local/share/Steam/steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log`.
+# 2. Create a Python virtual environment and install dependencies
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
 
-Now run `wfinfo <path to your EE.log file>` (the path is optional if your EE.log file is in the default location)
-This will run the program, immediately taking a screenshot and analyzing it, see section Issues and Workarounds for why.
-The program then waits for the reward screen, trying to detect items in the screenshot.
+# 3. (Optional) Build the relic reward OCR detector
+cargo build --release --bin orbiter
 
-Once items are found, their platinum and ducat values are looked up in the database downloaded previously.
-Each item is printed to stdout along with it's platinum and ducat value in platinum (assuming 10:1 conversion).
-The highest value item is also indicated with a little arrow.
-When the highest value is determined by the ducat value and there is more than one item with the same ducat value, the platinum values are used as a tie breaker.
+# 4. Download the latest Warframe item/price data
+./update.sh
 
-# Issue and Workarounds
+# 5. Launch
+./control-panel.sh
+```
 
-- Due to buffering when the game writes the `EE.log` file, it is possible that WFInfo doesn't pick up the reward screen event until the screen has disappeared. I haven't found a way of getting around the buffered writer.
-  If this happens, you can manually trigger the detection by pressing the F12 key.
+The app will auto-detect your EE.log and inventory paths on first launch.
+If auto-detection fails, set them manually in **Status & Tools → File Paths**.
 
+---
 
-- If you are using gamescope add the flag `--window-name=gamescope`
+## Usage
 
-# Logging
+- **Launch**: Run `./control-panel.sh` or use the desktop entry (if installed)
+- **Inventory**: Run Warframe with `warframe-api-helper` active, then click **Refresh Data**
+- **Relic reward overlay**: The `orbiter` binary watches EE.log and pops up automatically. Press **F12** to trigger manually
+- **Riven overlay**: Opens automatically when you view a riven mod in-game
 
-Using the Environment Variables WFINFO_LOG you can control the output.
-There are several levels: error, warn, info, debug, trace, off
-[docs](https://docs.rs/env_logger/latest/env_logger/index.html#enabling-logging)
+---
+
+## EE.log location
+
+Auto-detected for most Steam/Proton setups. Manual path can be set in **Status & Tools → File Paths**. Default location:
+
+```
+~/.local/share/Steam/steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log
+```
+
+---
+
+## Themes
+
+Switch themes in **Status & Tools → UI Theme**. Six themes available, including colorblind-safe options based on Warframe's Focus schools:
+
+| Theme | Style | Colorblind safe for |
+|---|---|---|
+| Kieda's Default | Sapphire blue + gold | — |
+| Madurai | Fire red/orange | Deuteranopia |
+| Vazarin | Deep navy + cyan | Protanopia |
+| Naramon | High-contrast charcoal | All types |
+| Unairu | Earth/amber | Deuteranopia + Protanopia |
+| Zenurik | Indigo/violet | Tritanopia |
+
+---
+
+## Credits
+
+- [knoellle/wfinfo-ng](https://github.com/knoellle/wfinfo-ng) — original Rust OCR engine
+- [WFCD](https://github.com/WFCD) — warframe-items database and warframestat.us API
+- [warframe.market](https://warframe.market) — platinum price data
+- [Calamity Inc. / Sainan](https://github.com/calamity-inc) — ExportUpgrades, RivenParser

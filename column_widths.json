@@ -1,0 +1,81 @@
+{
+  "equipment_tree_Warframe": {
+    "0": 200,
+    "1": 60,
+    "2": 119,
+    "3": 93,
+    "4": 696
+  },
+  "equipment_tree_Primary": {
+    "3": 610,
+    "0": 379,
+    "1": 60,
+    "2": 119
+  },
+  "equipment_tree_Secondary": {
+    "3": 639,
+    "0": 350,
+    "1": 60,
+    "2": 119
+  },
+  "equipment_tree_Melee": {
+    "3": 639,
+    "0": 350,
+    "1": 60,
+    "2": 119
+  },
+  "equipment_tree_Archwing": {
+    "3": 110,
+    "0": 387,
+    "1": 39,
+    "2": 102
+  },
+  "equipment_tree_Necramech": {
+    "3": 312,
+    "0": 185,
+    "1": 39,
+    "2": 102
+  },
+  "equipment_tree_Sentinel": {
+    "3": 793,
+    "0": 204,
+    "1": 60,
+    "2": 119
+  },
+  "equipment_tree_Sentinel Weapon": {
+    "3": 289,
+    "0": 208,
+    "1": 39,
+    "2": 102
+  },
+  "equipment_tree_Pet": {
+    "3": 744,
+    "0": 245,
+    "1": 60,
+    "2": 119
+  },
+  "missing_mods_table": {
+    "6": 84
+  },
+  "mastery_never_table": {
+    "0": 211
+  },
+  "mastery_relics_table": {
+    "0": 165
+  },
+  "mastery_easy_table": {},
+  "riven_grader_table": {
+    "1": 332
+  },
+  "relic_planner_table": {
+    "2": 54,
+    "0": 101
+  },
+  "set_table": {
+    "1": 130,
+    "4": 201
+  },
+  "parts_table": {
+    "4": 107
+  }
+}

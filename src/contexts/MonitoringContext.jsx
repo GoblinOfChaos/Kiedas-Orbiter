@@ -6,33 +6,12 @@ import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
 import { listen, emit as tauriEmit } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/marketEngine'
-import { resolveResource } from '@tauri-apps/api/path'
-import { convertFileSrc } from '@tauri-apps/api/core'
+
 import { resolveNode } from '../lib/warframeUtils'
 import { getSetting } from '../lib/settings'
 import { evaluateNotifications } from '../lib/notificationManager'
-import { getCurrentWindow } from '@tauri-apps/api/window'
 
 const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
-
-async function playNotificationSound(sound) {
-  if (sound === 'none') return
-
-  // THE KILLSWITCH: Stop executing if this instance is running inside an overlay window
-  if (getCurrentWindow().label !== 'main') return
-
-  try {
-    const resourcePath = await resolveResource(`data/assets/audio/${sound}`)
-    console.log('[Audio] resolved path:', resourcePath)
-    const assetUrl = convertFileSrc(resourcePath)
-    const audio = new Audio(assetUrl)
-    audio.play()
-      .then(() => console.log('[Audio] successfully played:', sound))
-      .catch(err => console.error('[Audio] play blocked:', err))
-  } catch (e) {
-    console.error('[Audio] Could not resolve sound path:', e)
-  }
-}
 
 // ── Pure helper: array/object → keyed map ─────────────────────────────────────
 function toMap(data, key) {
@@ -355,9 +334,9 @@ export function MonitoringProvider({ children }) {
       const dedupKey = `${r.notifId}::${r.title}::${r.message}`
       if (!notifiedRef.current.notifMgr.has(dedupKey)) {
         notifiedRef.current.notifMgr.add(dedupKey)
-        // Play audio in main window (never throttled) before showing notification
+        // Play audio via Rust backend (no WebKit/GStreamer dependency)
         const sound = getSetting('notif_sound', 'notification1.wav')
-        playNotificationSound(sound)
+        invoke('play_notification_sound', { sound }).catch(console.error)
         invoke('show_notification', {
           title: r.title,
           message: r.message,
@@ -382,8 +361,6 @@ export function MonitoringProvider({ children }) {
   // (minimal id/label so the dropdown works even before visiting Checklist page)
   useEffect(() => {
     window.__KRONOS_NOTIF_HELPERS = { getCurrentArby, getUpcomingArbies, ARBY_TIERS, resolveNode }
-    // Store notification sound for frontend audio playback
-    window.__kronos_notif_sound = getSetting('notif_sound', 'notification1.wav')
     window.__checklistTasks = [
       { id: 'baro', label: "Baro Ki'Teer" },
       { id: 'sortie', label: 'Sortie' },
@@ -710,11 +687,11 @@ export function MonitoringProvider({ children }) {
         ...r, ...parseRelicName(r.unique_name), rewards: getRelicRewards(r.unique_name, exportData)
       }))
       fissureStateRef.current.squad_relics = resolved
-      // Play relic sound once per session from main window
+      // Play relic sound once per session via Rust backend
       if (!relicSoundPlayed.current) {
         relicSoundPlayed.current = true
         const sound = getSetting('notif_sound', 'notification1.wav')
-        playNotificationSound(sound)
+        invoke('play_notification_sound', { sound }).catch(console.error)
       }
       invoke('relay_event', { event: 'overlay-update-relics', payload: { squad_relics: resolved, squad_size } }).catch(() => { })
 
@@ -842,7 +819,7 @@ export function MonitoringProvider({ children }) {
           if (!isFocused) {
             const position = getSetting('notif_position', 'top-right')
             const sound = getSetting('notif_sound', 'notification1.wav')
-            playNotificationSound(sound)
+            invoke('play_notification_sound', { sound }).catch(console.error)
             invoke('show_notification', {
               title: 'New Chat Message',
               message: `New message from ${channel}`,

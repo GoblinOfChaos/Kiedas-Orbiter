@@ -134,7 +134,6 @@ function SetupScreen() {
       }
       setReady(true)
       emit('frontend-ready', {}).catch(() => {})
-      emit('frontend-ready', {}).catch(() => {})
     })
   }, [])
 

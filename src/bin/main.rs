@@ -14,8 +14,6 @@ use global_hotkey::{hotkey::HotKey, GlobalHotKeyEvent, GlobalHotKeyManager, HotK
 use image::DynamicImage;
 use log::{debug, error, info, warn};
 use notify::{watcher, RecursiveMode, Watcher};
-use xcap::Monitor;
-
 use wfinfo::ownership::{notify, OwnedDb, Ownership};
 use wfinfo::{
     database::Database,
@@ -23,16 +21,41 @@ use wfinfo::{
     utils::fetch_prices_and_items,
 };
 
-fn run_detection(capturer: &Monitor, db: &Database, owned: &OwnedDb) {
-    let frame = match capturer.capture_image() {
-        Ok(f) => f,
-        Err(e) => {
-            error!("screenshot failed: {e}");
-            return;
+fn take_screenshot() -> Option<DynamicImage> {
+    // Use spectacle (KDE) via XDG portal — fully Wayland-native, never causes
+    // gamescope to release its input grab unlike any XCB/X11 connection.
+    let path = "/tmp/wfinfo-capture-portal.png";
+    let _ = std::fs::remove_file(path);
+
+    // Try spectacle first (KDE Wayland)
+    let ok = std::process::Command::new("spectacle")
+        .args(["-b", "-n", "-o", path])
+        .status()
+        .map(|s| s.success())
+        .unwrap_or(false);
+
+    if !ok {
+        // Fallback: grim (wlroots compositors)
+        let ok2 = std::process::Command::new("grim")
+            .arg(path)
+            .status()
+            .map(|s| s.success())
+            .unwrap_or(false);
+        if !ok2 {
+            error!("screenshot failed: neither spectacle nor grim worked");
+            return None;
         }
+    }
+
+    image::open(path).ok()
+}
+
+fn run_detection(db: &Database, owned: &OwnedDb) {
+    let image = match take_screenshot() {
+        Some(img) => img,
+        None => return,
     };
     info!("Captured");
-    let image = DynamicImage::ImageRgba8(frame);
     let raw_names = reward_image_to_reward_names(image, None);
     let cleaned: Vec<String> = raw_names.iter().map(|s| normalize_string(s)).collect();
     debug!("OCR: {:#?}", cleaned);
@@ -104,13 +127,29 @@ fn run_detection(capturer: &Monitor, db: &Database, owned: &OwnedDb) {
         .duration_since(UNIX_EPOCH)
         .unwrap_or_default()
         .as_secs();
+    // Use configured monitor point for warframe geometry hint to the overlay
+    let (wx, wy, ww, wh) = {
+        let pt = std::env::var("WFINFO_MONITOR_POINT")
+            .ok()
+            .and_then(|s| {
+                let p: Vec<i32> = s.split(',').filter_map(|x| x.trim().parse().ok()).collect();
+                if p.len() == 2 {
+                    Some((p[0], p[1]))
+                } else {
+                    None
+                }
+            })
+            .unwrap_or((3200, 720));
+        // Approximate the monitor geometry from the capture point
+        (pt.0 - 1280, pt.1 - 720, 2560i32, 1440i32)
+    };
     let state_json = format!(
         r#"{{"timestamp":{ts},"warframe":{{"x":{x},"y":{y},"width":{w},"height":{h}}},"rewards":[{rewards}]}}"#,
         ts = ts,
-        x = capturer.x(),
-        y = capturer.y(),
-        w = capturer.width(),
-        h = capturer.height(),
+        x = wx,
+        y = wy,
+        w = ww,
+        h = wh,
         rewards = rewards_json.join(","),
     );
 
@@ -247,38 +286,9 @@ fn main() -> Result<(), Box<dyn Error>> {
         .format_target(false)
         .init();
 
-    // Use Monitor capture instead of Window capture.
-    // Window::all() enumerates XWayland windows which causes gamescope to
-    // release its input grab from the game, stealing focus on every detection.
-    // Monitor::from_point() captures the whole screen without any window lookup.
-    // Use the monitor at the centre of the primary display, or override via env.
-    let (mx, my) = std::env::var("WFINFO_MONITOR_POINT")
-        .ok()
-        .and_then(|s| {
-            let parts: Vec<i32> = s.split(',').filter_map(|p| p.trim().parse().ok()).collect();
-            if parts.len() == 2 {
-                Some((parts[0], parts[1]))
-            } else {
-                None
-            }
-        })
-        .unwrap_or((3200, 720)); // default: centre of 2560x1440 monitor at x=1920 (Kieda's setup)
-    let warframe_window = Monitor::from_point(mx, my)
-        .or_else(|_| {
-            Monitor::all().and_then(|m| {
-                m.into_iter()
-                    .next()
-                    .ok_or(xcap::XCapError::new("no monitors found"))
-            })
-        })
-        .map_err(|e| format!("No display available for capture: {e}. Is DISPLAY set?"))?;
-
-    debug!(
-        "Capture source resolution: {:?}x{:?}",
-        warframe_window.width(),
-        warframe_window.height()
-    );
-    let _ = window_name; // no longer used — kept for CLI compat
+    // Screenshots are taken via spectacle/grim (Wayland-native portal).
+    // No X11/XCB connection is made, so gamescope never releases its input grab.
+    let _ = window_name; // kept for CLI compatibility
 
     let (prices, items) = fetch_prices_and_items()?;
     let db = Database::load_from_file(Some(&prices), Some(&items));
@@ -300,7 +310,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     while let Ok(()) = event_receiver.recv() {
         info!("Capturing");
-        run_detection(&warframe_window, &db, &owned);
+        run_detection(&db, &owned);
     }
 
     drop(OCR.lock().unwrap().take());

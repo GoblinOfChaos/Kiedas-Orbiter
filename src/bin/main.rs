@@ -46,78 +46,119 @@ fn monitor_geometry_from_env() -> (i32, i32, u32, u32) {
 }
 
 fn take_screenshot() -> Option<DynamicImage> {
-    // Use spectacle (KDE) via XDG portal — fully Wayland-native, never causes
-    // gamescope to release its input grab unlike any XCB/X11 connection.
-    let path = "/tmp/wfinfo-capture-portal.png";
-    let _ = std::fs::remove_file(path);
-
-    // -b = background (no GUI window), -n = no notification, -o = output file
-    // --no-decoration suppresses the KDE screenshot frame notification
-    let screenshot_tools: &[(&str, &[&str])] = &[
-        (
-            "/run/host/usr/bin/spectacle",
-            &["-b", "-n", "--no-decoration", "-o", path],
-        ),
-        ("spectacle", &["-b", "-n", "--no-decoration", "-o", path]),
-        ("/run/host/usr/bin/grim", &[path]),
-        ("grim", &[path]),
-    ];
-
-    let mut captured_by = None;
-    for (tool, args) in screenshot_tools {
-        let ok = std::process::Command::new(tool)
-            .args(*args)
-            .status()
-            .map(|s| s.success())
-            .unwrap_or(false);
-        if ok {
-            captured_by = Some(*tool);
-            break;
-        }
-    }
-
-    let Some(tool) = captured_by else {
-        error!("screenshot failed: neither spectacle nor grim worked");
-        return None;
-    };
-
-    let mut image = match image::open(path) {
-        Ok(img) => img,
-        Err(e) => {
-            error!("screenshot tool {tool} ran but image could not be opened: {e}");
-            return None;
-        }
-    };
-
-    info!(
-        "Screenshot captured by {tool}: {}x{}",
-        image.width(),
-        image.height()
-    );
-
-    let (wx, wy, ww, wh) = monitor_geometry_from_env();
-    if wx >= 0
-        && wy >= 0
-        && image.width() >= (wx as u32 + ww)
-        && image.height() >= (wy as u32 + wh)
-        && (image.width() != ww || image.height() != wh)
-    {
-        image = image.crop_imm(wx as u32, wy as u32, ww, wh);
-        info!("Cropped screenshot to monitor geometry ({wx},{wy}) {ww}x{wh}");
-    }
-
     let ts = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .unwrap_or_default()
         .as_secs();
-    let debug_path = format!("/tmp/wfinfo-capture-{ts}.png");
-    if let Err(e) = image.save(&debug_path) {
-        warn!("Failed to save debug capture {debug_path}: {e}");
-    } else {
+
+    #[cfg(target_os = "windows")]
+    {
+        // On Windows: use xcap::Monitor directly — Windows GDI/DXGI API,
+        // no focus stealing, no external tools needed.
+        use xcap::Monitor;
+        let (mx, my) = std::env::var("WFINFO_MONITOR_POINT")
+            .ok()
+            .and_then(|s| {
+                let p: Vec<i32> = s.split(',').filter_map(|x| x.trim().parse().ok()).collect();
+                if p.len() == 2 {
+                    Some((p[0], p[1]))
+                } else {
+                    None
+                }
+            })
+            .unwrap_or((960, 540)); // default: centre of primary 1920x1080
+
+        let monitor = Monitor::from_point(mx, my)
+            .or_else(|_| {
+                Monitor::all().and_then(|m| {
+                    m.into_iter()
+                        .next()
+                        .ok_or(xcap::XCapError::new("no monitors"))
+                })
+            })
+            .ok()?;
+
+        let frame = monitor.capture_image().ok()?;
+        let image = DynamicImage::ImageRgba8(frame);
+        info!("Screenshot via xcap: {}x{}", image.width(), image.height());
+        let debug_path = format!(
+            "{}\\wfinfo-capture-{ts}.png",
+            std::env::temp_dir().display()
+        );
+        let _ = image.save(&debug_path);
         info!("Saved debug capture to {debug_path}");
+        return Some(image);
     }
 
-    Some(image)
+    #[cfg(not(target_os = "windows"))]
+    {
+        // On Linux/macOS: use spectacle (KDE portal) or grim (wlroots).
+        // These are Wayland-native and don't cause gamescope focus loss.
+        let path = "/tmp/wfinfo-capture-portal.png";
+        let _ = std::fs::remove_file(path);
+
+        let screenshot_tools: &[(&str, &[&str])] = &[
+            (
+                "/run/host/usr/bin/spectacle",
+                &["-b", "-n", "--no-decoration", "-o", path],
+            ),
+            ("spectacle", &["-b", "-n", "--no-decoration", "-o", path]),
+            ("/run/host/usr/bin/grim", &[path]),
+            ("grim", &[path]),
+        ];
+
+        let mut captured_by = None;
+        for (tool, args) in screenshot_tools {
+            let ok = std::process::Command::new(tool)
+                .args(*args)
+                .status()
+                .map(|s| s.success())
+                .unwrap_or(false);
+            if ok {
+                captured_by = Some(*tool);
+                break;
+            }
+        }
+
+        let Some(tool) = captured_by else {
+            error!("screenshot failed: neither spectacle nor grim worked");
+            return None;
+        };
+
+        let mut image = match image::open(path) {
+            Ok(img) => img,
+            Err(e) => {
+                error!("screenshot tool {tool} ran but image could not be opened: {e}");
+                return None;
+            }
+        };
+
+        info!(
+            "Screenshot captured by {tool}: {}x{}",
+            image.width(),
+            image.height()
+        );
+
+        let (wx, wy, ww, wh) = monitor_geometry_from_env();
+        if wx >= 0
+            && wy >= 0
+            && image.width() >= (wx as u32 + ww)
+            && image.height() >= (wy as u32 + wh)
+            && (image.width() != ww || image.height() != wh)
+        {
+            image = image.crop_imm(wx as u32, wy as u32, ww, wh);
+            info!("Cropped screenshot to monitor geometry ({wx},{wy}) {ww}x{wh}");
+        }
+
+        let debug_path = format!("/tmp/wfinfo-capture-{ts}.png");
+        if let Err(e) = image.save(&debug_path) {
+            warn!("Failed to save debug capture {debug_path}: {e}");
+        } else {
+            info!("Saved debug capture to {debug_path}");
+        }
+
+        Some(image)
+    }
 }
 
 fn run_detection(db: &Database, owned: &OwnedDb) {

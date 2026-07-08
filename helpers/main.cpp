@@ -552,15 +552,17 @@ static void getWindowRectMode() {
 #endif
 }
 
-static void readLogBuffer() {
+static void readLogBuffer(uint32_t fixed_pid = 0) {
 #ifdef _WIN32
   _setmode(_fileno(stdout), _O_BINARY);
 #endif
 
   for (;;) {
-    auto proc = Process::get("Warframe.x64.exe");
+    auto proc = (fixed_pid != 0)
+      ? Process::get(fixed_pid)
+      : Process::get("Warframe.x64.exe");
 #if !SOUP_WINDOWS
-    if (!proc) {
+    if (!proc && fixed_pid == 0) {
       proc = Process::get("Warframe.x64.ex");
     }
 #endif
@@ -630,6 +632,7 @@ struct Args {
   bool read_log_buffer = false;
   bool get_window_rect = false;
   std::string output_file;
+  uint32_t pid = 0;
 };
 
 [[nodiscard]] static Args parseArgs(int argc, char *argv[]) {
@@ -648,6 +651,8 @@ struct Args {
       args.read_log_buffer = true;
     } else if (arg == "--get-window-rect") {
       args.get_window_rect = true;
+    } else if (arg.find("--pid=") == 0) {
+      args.pid = static_cast<uint32_t>(std::stoul(arg.substr(6)));
     }
   }
   return args;
@@ -661,7 +666,7 @@ int main(int argc, char *argv[]) {
   // until Warframe.x64.exe and its log ring-buffer are found, then streams
   // buffer contents to stdout every 150ms.
   if (args.read_log_buffer) {
-    readLogBuffer();
+    readLogBuffer(args.pid);
     return 0;
   }
 

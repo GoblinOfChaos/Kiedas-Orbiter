@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use tauri::{AppHandle, Emitter, Manager};
 
 pub static IS_SCANNING: AtomicBool = AtomicBool::new(false);
@@ -451,80 +451,183 @@ fn line_hash(s: &str) -> u64 {
 }
 
 fn is_warframe_running() -> bool {
-    get_warframe_pid().is_some()
-}
-
-/// Returns the PID of the first Warframe.x64.exe process found, if any.
-fn get_warframe_pid() -> Option<u32> {
-    #[cfg(target_os = "windows")]
-    {
-        use std::os::windows::process::CommandExt;
-        if let Ok(output) = std::process::Command::new("tasklist")
-            .args(["/FI", "IMAGENAME eq Warframe.x64.exe", "/NH", "/FO", "CSV"])
-            .creation_flags(0x08000000)
-            .output()
-        {
-            let stdout = String::from_utf8_lossy(&output.stdout);
-            // CSV format: "Warframe.x64.exe","1234","Console","1","xxx,xxx K"
-            for line in stdout.lines() {
-                let line = line.trim();
-                if line.is_empty() { continue; }
-                let fields: Vec<&str> = line.split(',').collect();
-                if fields.len() >= 2 {
-                    let pid_str = fields[1].trim_matches('"');
-                    if let Ok(pid) = pid_str.parse::<u32>() {
-                        return Some(pid);
-                    }
-                }
-            }
-        }
-        None
-    }
     #[cfg(target_os = "linux")]
     {
-        if let Ok(pids) = std::fs::read_dir("/proc") {
-            for entry in pids.flatten() {
-                let pid = entry.file_name();
-                let pid_str = pid.to_string_lossy();
-                if !pid_str.chars().all(|c| c.is_ascii_digit()) { continue; }
-                let comm_path = std::path::Path::new("/proc").join(&pid).join("comm");
-                if let Ok(comm) = std::fs::read_to_string(&comm_path) {
-                    if comm.contains("Warframe") || comm.contains("warframe") {
-                        if let Ok(pid_num) = pid_str.parse::<u32>() {
-                            return Some(pid_num);
-                        }
-                    }
-                }
-                let cmd_path = std::path::Path::new("/proc").join(&pid).join("cmdline");
-                if let Ok(cmd) = std::fs::read_to_string(&cmd_path) {
-                    if cmd.contains("Warframe") || cmd.contains("warframe") {
-                        if let Ok(pid_num) = pid_str.parse::<u32>() {
-                            return Some(pid_num);
-                        }
-                    }
-                }
+        match get_warframe_pid() {
+            Some(pid) if is_game_process(pid) => true,
+            Some(_) => {
+                // Cached PID is the launcher — clear and re-scan so we
+                // discover the game if it started since the last check.
+                clear_pid_cache();
+                get_warframe_pid().map_or(false, is_game_process)
             }
+            None => false,
         }
-        None
     }
-    #[cfg(target_os = "macos")]
+    #[cfg(not(target_os = "linux"))]
     {
-        if let Ok(output) = std::process::Command::new("pgrep")
-            .arg("-f")
-            .arg("Warframe")
-            .output()
+        get_warframe_pid().is_some()
+    }
+}
+
+/// Cached PID of a previously-discovered Warframe process.
+/// On subsequent calls we verify the cache via a cheap existence check
+/// instead of re-scanning the entire process table.
+static CACHED_WARFRAME_PID: std::sync::OnceLock<Mutex<Option<u32>>> = std::sync::OnceLock::new();
+
+fn clear_pid_cache() {
+    *CACHED_WARFRAME_PID.get_or_init(|| Mutex::new(None)).lock().unwrap() = None;
+}
+
+fn with_cache(f: impl FnOnce() -> Option<u32>) -> Option<u32> {
+    let lock = CACHED_WARFRAME_PID.get_or_init(|| Mutex::new(None));
+    let mut cache = lock.lock().unwrap();
+    // Fast path: cached PID still alive
+    if let Some(pid) = *cache {
+        if pid_is_alive(pid) {
+            return Some(pid);
+        }
+    }
+    // Slow path: full scan
+    let found = f();
+    *cache = found;
+    found
+}
+
+#[cfg(target_os = "linux")]
+fn pid_is_alive(pid: u32) -> bool {
+    std::path::Path::new("/proc").join(pid.to_string()).join("status").exists()
+}
+
+#[cfg(target_os = "windows")]
+fn pid_is_alive(pid: u32) -> bool {
+    use std::os::windows::process::CommandExt;
+    // Quick check via tasklist filtering on one PID
+    std::process::Command::new("tasklist")
+        .args(["/FI", &format!("PID eq {pid}"), "/NH", "/FO", "CSV"])
+        .creation_flags(0x08000000)
+        .output()
+        .ok()
+        .map(|o| {
+            let stdout = String::from_utf8_lossy(&o.stdout);
+            stdout.contains(&pid.to_string())
+        })
+        .unwrap_or(false)
+}
+
+#[cfg(target_os = "macos")]
+fn pid_is_alive(pid: u32) -> bool {
+    std::process::Command::new("kill")
+        .args(["-0", &pid.to_string()])
+        .status()
+        .map(|s| s.success())
+        .unwrap_or(false)
+}
+
+/// On Linux, checks whether the process at `pid` looks like the actual game
+/// binary (Warframe.x64.exe) rather than the launcher.
+#[cfg(target_os = "linux")]
+fn is_game_process(pid: u32) -> bool {
+    let comm_path = std::path::Path::new("/proc").join(pid.to_string()).join("comm");
+    if let Ok(comm) = std::fs::read_to_string(&comm_path) {
+        if comm.contains(".x64") || comm.contains("x64") {
+            return true;
+        }
+    }
+    let cmd_path = std::path::Path::new("/proc").join(pid.to_string()).join("cmdline");
+    if let Ok(cmd) = std::fs::read_to_string(&cmd_path) {
+        if cmd.contains(".x64") || cmd.contains("x64") {
+            return true;
+        }
+    }
+    false
+}
+
+/// Returns the PID of the first Warframe process found, if any.
+/// Uses a cached PID to avoid scanning /proc on every call.
+fn get_warframe_pid() -> Option<u32> {
+    with_cache(|| {
+        #[cfg(target_os = "windows")]
         {
-            if output.status.success() {
+            use std::os::windows::process::CommandExt;
+            if let Ok(output) = std::process::Command::new("tasklist")
+                .args(["/FI", "IMAGENAME eq Warframe.x64.exe", "/NH", "/FO", "CSV"])
+                .creation_flags(0x08000000)
+                .output()
+            {
                 let stdout = String::from_utf8_lossy(&output.stdout);
-                if let Some(pid_str) = stdout.lines().next() {
-                    if let Ok(pid) = pid_str.trim().parse::<u32>() {
-                        return Some(pid);
+                for line in stdout.lines() {
+                    let line = line.trim();
+                    if line.is_empty() { continue; }
+                    let fields: Vec<&str> = line.split(',').collect();
+                    if fields.len() >= 2 {
+                        let pid_str = fields[1].trim_matches('"');
+                        if let Ok(pid) = pid_str.parse::<u32>() {
+                            return Some(pid);
+                        }
                     }
                 }
             }
+            None
         }
-        None
-    }
+        #[cfg(target_os = "linux")]
+        {
+            // Collect all matching PIDs, preferring the game binary over the
+            // launcher (the launcher won't have the EE.log ring buffer, but
+            // both contain "Warframe" in the name).  The game process
+            // (Proton/Wine) typically shows "Warframe.x64.exe" in its comm or
+            // cmdline, so we pick that one when it exists.
+            let mut candidates: Vec<(u32, bool)> = Vec::new();
+            if let Ok(pids) = std::fs::read_dir("/proc") {
+                for entry in pids.flatten() {
+                    let pid = entry.file_name();
+                    let pid_str = pid.to_string_lossy();
+                    if !pid_str.chars().all(|c| c.is_ascii_digit()) { continue; }
+                    let pid_num = match pid_str.parse::<u32>() { Ok(n) => n, Err(_) => continue };
+                    let comm_path = std::path::Path::new("/proc").join(&pid).join("comm");
+                    if let Ok(comm) = std::fs::read_to_string(&comm_path) {
+                        if comm.contains("Warframe") || comm.contains("warframe") {
+                            candidates.push((pid_num, true));
+                            continue;
+                        }
+                    }
+                    let cmd_path = std::path::Path::new("/proc").join(&pid).join("cmdline");
+                    if let Ok(cmd) = std::fs::read_to_string(&cmd_path) {
+                        if cmd.contains("Warframe") || cmd.contains("warframe") {
+                            candidates.push((pid_num, false));
+                        }
+                    }
+                }
+            }
+            // Among candidates: prefer one with ".x64" in its name (the game),
+            // then one with only comm matching (more likely the game), then
+            // any other match.
+            candidates.sort_by(|a, b| {
+                let a_game = is_game_process(a.0);
+                let b_game = is_game_process(b.0);
+                b_game.cmp(&a_game).then(a.1.cmp(&b.1))
+            });
+            candidates.into_iter().next().map(|(pid, _)| pid)
+        }
+        #[cfg(target_os = "macos")]
+        {
+            if let Ok(output) = std::process::Command::new("pgrep")
+                .arg("-f")
+                .arg("Warframe")
+                .output()
+            {
+                if output.status.success() {
+                    let stdout = String::from_utf8_lossy(&output.stdout);
+                    if let Some(pid_str) = stdout.lines().next() {
+                        if let Ok(pid) = pid_str.trim().parse::<u32>() {
+                            return Some(pid);
+                        }
+                    }
+                }
+            }
+            None
+        }
+    })
 }
 
 pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogScannerHandle, String> {
@@ -554,6 +657,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
         let mut seen_count: usize = 0;
         const SEEN_RESET_THRESHOLD: usize = 16_384;
         let mut logged_waiting = false;
+        let mut ever_hooked = false;
 
         loop {
             if !IS_SCANNING.load(Ordering::SeqCst) {
@@ -571,8 +675,13 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
             }
 
             let mut cmd = std::process::Command::new(&helper_path);
-            cmd.arg("--read-log-buffer")
-               .stdout(std::process::Stdio::piped())
+            cmd.arg("--read-log-buffer");
+            // Pass the target PID so the helper skips its own name-based
+            // discovery and goes straight to the right process.
+            if let Some(pid) = get_warframe_pid() {
+                cmd.arg(format!("--pid={pid}"));
+            }
+            cmd.stdout(std::process::Stdio::piped())
                .stderr(std::process::Stdio::piped());
             #[cfg(windows)]
             {
@@ -587,7 +696,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     crate::logger::log_to_disk(&app_inner, &format!(
                         "[MEMORY WATCHER] Failed to spawn helper (will retry): {}", e
                     ));
-                    std::thread::sleep(std::time::Duration::from_secs(5));
+                    std::thread::sleep(std::time::Duration::from_secs(2));
                     continue;
                 }
             };
@@ -606,9 +715,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
             // periodically - if the PID changed (launcher->game transition, or
             // process died) we force a restart so the helper re-discovers the
             // real buffer.
-            let mut hooked_pid: Option<u32> = None;
-            // Throttle PID checks to avoid calling tasklist every 150ms.
-            let mut pid_check_count: u32 = 0;
+            let mut hooked_pid: Option<u32> = get_warframe_pid();
 
             // When Warframe starts *after* the app, the helper finds the process
             // but discovelogBuffer may return nothing (EE.log ring buffer isn't
@@ -638,26 +745,25 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     break;
                 }
 
-                // Periodically verify the Warframe process is still alive and
-                // hasn't changed PIDs (launcher->game transition).
-                pid_check_count += 1;
-                if pid_check_count >= 200 {  // ~30s at 150ms per batch
-                    pid_check_count = 0;
-                    if let Some(expected_pid) = hooked_pid {
-                        if let Some(current_pid) = get_warframe_pid() {
-                            if current_pid != expected_pid {
-                                crate::logger::log_to_disk(&app_inner, &format!(
-                                    "[MEMORY WATCHER] Warframe PID changed ({} -> {}), restarting helper...",
-                                    expected_pid, current_pid
-                                ));
-                                let _ = child.kill();
-                                break;
-                            }
-                        } else {
-                            crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Warframe process gone, restarting helper...");
+                // Verify the Warframe process is still alive and hasn't
+                // changed PIDs (launcher->game transition).  Cheap: just a
+                // /proc/<pid>/status stat call.
+                if let Some(expected) = hooked_pid {
+                    if let Some(current) = get_warframe_pid() {
+                        if current != expected {
+                            crate::logger::log_to_disk(&app_inner, &format!(
+                                "[MEMORY WATCHER] Warframe PID changed ({} -> {}), restarting helper...",
+                                expected, current
+                            ));
+                            clear_pid_cache();
                             let _ = child.kill();
                             break;
                         }
+                    } else {
+                        crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Warframe process gone, restarting helper...");
+                        clear_pid_cache();
+                        let _ = child.kill();
+                        break;
                     }
                 }
 
@@ -665,6 +771,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 const READ_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(15);
                 if let Err(e) = timed_read(&mut reader, &mut len_buf, READ_TIMEOUT) {
                     crate::logger::log_to_disk(&app_inner, &format!("[MEMORY WATCHER] Helper read error ({}), restarting...", e));
+                    clear_pid_cache();
                     let _ = child.kill();
                     break;
                 }
@@ -676,6 +783,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     crate::logger::log_to_disk(&app_inner, &format!(
                         "[MEMORY WATCHER] Corrupt data length {}, restarting helper...", data_len
                     ));
+                    clear_pid_cache();
                     let _ = child.kill();
                     break;
                 }
@@ -687,6 +795,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                         SCANNER_STATUS.store(1, Ordering::SeqCst);
                     }
                     // Kill helper so it restarts and re-hooks if Warframe was launched
+                    clear_pid_cache();
                     let _ = child.kill();
                     std::thread::sleep(std::time::Duration::from_secs(2));
                     break;
@@ -695,9 +804,10 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                 buf.resize(data_len, 0);
                 // Data payload should arrive immediately after the length prefix,
                 // but use a short timeout for robustness.
-                const PAYLOAD_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(5);
+                const PAYLOAD_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(2);
                 if let Err(e) = timed_read(&mut reader, &mut buf, PAYLOAD_TIMEOUT) {
                     crate::logger::log_to_disk(&app_inner, &format!("[MEMORY WATCHER] Payload read error ({}), restarting...", e));
+                    clear_pid_cache();
                     let _ = child.kill();
                     break;
                 }
@@ -732,11 +842,11 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                         }
                         scanner.on_line(&app_inner, line);
                     }
-                    // Only emit scanner-hooked once per app session, not on every
-                    // helper restart, to avoid spamming the notification.
-                    static EVER_HOOKED: std::sync::atomic::AtomicBool =
-                        std::sync::atomic::AtomicBool::new(false);
-                    if !EVER_HOOKED.swap(true, std::sync::atomic::Ordering::SeqCst) {
+                    // Emit scanner-hooked once per scanner session (user toggle
+                    // off/on resets it).  Still filtered by first_data so a
+                    // transient helper crash mid-session doesn't re-trigger it.
+                    if !ever_hooked {
+                        ever_hooked = true;
                         app_inner.emit("scanner-hooked", ()).unwrap_or_default();
                     }
                     continue;

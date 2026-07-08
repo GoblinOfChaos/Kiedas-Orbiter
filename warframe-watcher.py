@@ -22,45 +22,25 @@ def log(msg):
     with open(WATCHER_LOG, "a") as f:
         f.write(f"[{ts}] {msg}\n")
 
+from platform_utils import get_pid, kill_processes, launch_detached, clean_env_for_launch
+
+
 def get_warframe_pid():
-    try:
-        r = subprocess.run(
-            ["pgrep", "-f", "Warframe.x64.exe"],
-            capture_output=True, text=True, timeout=2
-        )
-        if r.returncode == 0 and r.stdout.strip():
-            return int(r.stdout.strip().split()[0])
-    except Exception as e:
-        log(f"pgrep error: {e}")
+    # On Windows Warframe runs natively; on Linux via Proton
+    for pattern in ["Warframe.x64.exe", "Warframe.exe"]:
+        pid = get_pid(pattern)
+        if pid:
+            return pid
     return None
 
 def restart_wfinfo():
     log("Restarting orbiter")
+    kill_processes("target/release/orbiter")
+    kill_processes("orbiter.exe")
+    time.sleep(1.0)
     try:
-        subprocess.run(["pkill", "-f", "target/release/orbiter"], check=False, timeout=5)
-    except Exception as e:
-        log(f"pkill error: {e}")
-    time.sleep(1.5)
-    try:
-        import pwd
-        uid = os.getuid()
-        # Always use the host session bus — never inherit Flatpak's bus
-        clean_env = os.environ.copy()
-        clean_env["DBUS_SESSION_BUS_ADDRESS"] = f"unix:path=/run/user/{uid}/bus"
-        clean_env["XDG_RUNTIME_DIR"] = f"/run/user/{uid}"
-        clean_env["XDG_DATA_HOME"] = str(Path.home() / ".local/share")
-        clean_env["XDG_CACHE_HOME"] = str(Path.home() / ".cache")
-        clean_env.setdefault("WAYLAND_DISPLAY", "wayland-0")
-        clean_env.setdefault("XDG_CURRENT_DESKTOP", "KDE")
-        clean_env["XDG_SESSION_TYPE"] = "wayland"
-        with open(LOG_FILE, "ab") as lf:
-            subprocess.Popen(
-                [str(WFINFO_BIN)],
-                cwd=str(WFINFO_DIR),
-                stdout=lf, stderr=subprocess.STDOUT,
-                start_new_session=True,
-                env=clean_env,
-            )
+        clean_env = clean_env_for_launch()
+        launch_detached([str(WFINFO_BIN)], cwd=WFINFO_DIR, env=clean_env, log_file=LOG_FILE)
         log("orbiter started")
     except Exception as e:
         log(f"failed to start orbiter: {e}")

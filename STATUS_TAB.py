@@ -50,12 +50,11 @@ STATE_FILE = DATA_DIR / "latest-detection.json"
 LOG_FILE = DATA_DIR / "overlay.log"
 
 
+from platform_utils import is_running, kill_processes
+
+
 def _pgrep(pattern):
-    try:
-        r = subprocess.run(["pgrep", "-f", pattern], capture_output=True, check=False)
-        return r.returncode == 0
-    except FileNotFoundError:
-        return False
+    return is_running(pattern)
 
 
 def _humanize_age(mtime):
@@ -1020,7 +1019,7 @@ class StatusTab(QWidget):
         )
 
     def restart_overlay(self):
-        subprocess.run(["pkill", "-f", "overlay.py"], check=False)
+        kill_processes("overlay.py")
         time.sleep(0.5)
         # Use launch-overlay.sh which forces XWayland (QT_QPA_PLATFORM=xcb)
         # so the overlay stays inside gamescope's compositor context and does

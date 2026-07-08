@@ -30,14 +30,11 @@ from theme import COLOR_GREAT as GREEN, COLOR_GOOD as YELLOW, COLOR_BAD as RED, 
 GREY = FG_DIM
 
 
+from platform_utils import get_pid, is_running
+
+
 def pgrep_first(pattern):
-    try:
-        r = subprocess.run(["pgrep", "-f", pattern], capture_output=True, text=True, timeout=2)
-        if r.returncode == 0 and r.stdout.strip():
-            return int(r.stdout.strip().split()[0])
-    except Exception:
-        pass
-    return None
+    return get_pid(pattern)
 
 def proc_elapsed(pid):
     if pid is None:

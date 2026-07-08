@@ -38,12 +38,11 @@ STATE_FILE = DATA_DIR / "latest-detection.json"
 LOG_FILE = DATA_DIR / "overlay.log"
 
 
+from platform_utils import is_running, kill_processes
+
+
 def pgrep(pattern):
-    try:
-        r = subprocess.run(["pgrep", "-f", pattern], capture_output=True, check=False)
-        return r.returncode == 0
-    except FileNotFoundError:
-        return False
+    return is_running(pattern)
 
 
 def humanize_age(mtime):
@@ -437,7 +436,7 @@ class ControlPanel(QWidget):
         )
 
     def restart_overlay(self):
-        subprocess.run(["pkill", "-f", "overlay.py"], check=False)
+        kill_processes("overlay.py")
         time.sleep(0.5)
         qt_lib = find_qt_lib_dir()
         if not qt_lib:

@@ -219,18 +219,26 @@ struct XSetWindowAttributes {
 /// Walk up the window tree to find the top-level child of root.
 /// XGetInputFocus can return an input-only child window (Wine does this);
 /// XSetInputFocus on a non-viewable child = BadMatch.
+///
+/// Safety: caller must ensure xid > 1 (not None/PointerRoot) and that the
+/// window was recently alive.  We cap iterations to 32 to guard against
+/// degenerate trees and bail immediately if XQueryTree returns 0 (BadWindow).
 #[cfg(target_os = "linux")]
 unsafe fn get_toplevel_xid(xdisplay: *mut std::ffi::c_void, xid: u64) -> u64 {
+    // PointerRoot (1) and None (0) are not real windows.
+    if xid <= 1 { return xid; }
+
     let mut root: u64 = 0;
     let mut parent: u64 = xid;
     let mut current: u64 = xid;
     let mut children: *mut u64 = std::ptr::null_mut();
     let mut nchildren: u32 = 0;
 
-    loop {
+    for _ in 0..32 {
         let ok = XQueryTree(xdisplay, current,
             &mut root, &mut parent, &mut children, &mut nchildren);
-        if !children.is_null() { XFree(children as *mut _); }
+        if !children.is_null() { XFree(children as *mut _); children = std::ptr::null_mut(); }
+        // ok == 0 means BadWindow (or other X error) — bail safely.
         if ok == 0 || parent == root || parent == 0 { break; }
         current = parent;
     }
@@ -268,7 +276,8 @@ fn get_x11_ids(window: &WebviewWindow) -> Option<(*mut std::ffi::c_void, u64)> {
 /// This is called BEFORE the first show() from Tauri, so Tauri's show() acts
 /// as the remap. On subsequent calls (resize), we do the unmap/remap ourselves.
 #[cfg(target_os = "linux")]
-fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_mapped: bool) {
+fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_mapped: bool,
+    pos: Option<(i32, i32, u32, u32)>) {
     unsafe {
         let xa_atom: u64 = 4;
         let xa_cardinal: u64 = 6;
@@ -280,16 +289,10 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
             XSync(xdisplay, 0);
         }
 
-        // _NET_WM_WINDOW_TYPE: Notification as primary, with Dock and Utility
-        // as fallbacks.  _KDE_NET_WM_WINDOW_TYPE_ON_SCREEN_DISPLAY is intentionally
-        // omitted - KWin hard-centers OSD windows, fighting our position.
-        let wm_type = XInternAtom(xdisplay, b"_NET_WM_WINDOW_TYPE\0".as_ptr() as *const i8, 0);
-        let notification = XInternAtom(xdisplay, b"_NET_WM_WINDOW_TYPE_NOTIFICATION\0".as_ptr() as *const i8, 0);
-        let dock = XInternAtom(xdisplay, b"_NET_WM_WINDOW_TYPE_DOCK\0".as_ptr() as *const i8, 0);
-        let utility = XInternAtom(xdisplay, b"_NET_WM_WINDOW_TYPE_UTILITY\0".as_ptr() as *const i8, 0);
-        let types: [u64; 3] = [notification, dock, utility];
-        XChangeProperty(xdisplay, xid, wm_type, xa_atom, 32, prop_replace,
-            types.as_ptr() as *const u8, 3);
+        // _NET_WM_WINDOW_TYPE intentionally omitted — despite override_redirect
+        // KWin may still apply placement policies for NOTIFICATION/DOCK types
+        // at remap time, fighting our position.  override_redirect alone is
+        // sufficient for the WM to leave us alone.
 
         // _NET_WM_STATE: ABOVE + STICKY
         let wm_state = XInternAtom(xdisplay, b"_NET_WM_STATE\0".as_ptr() as *const i8, 0);
@@ -322,10 +325,20 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
 
         XSync(xdisplay, 0);
 
-        // Remap if we unmapped above (first-time show is handled by Tauri's show())
+        // Set geometry while still unmapped so the X server maps at our
+        // position and the WM never applies its own default placement.
+        if let Some((px, py, pw, ph)) = pos {
+            XMoveResizeWindow(xdisplay, xid, px, py, pw, ph);
+        }
+        XSync(xdisplay, 0);
+
         if already_mapped {
             XMapWindow(xdisplay, xid);
             XSync(xdisplay, 0);
+            // No post-map X11 force-position here — the caller (enter_sidebar_mode)
+            // issues Tauri set_min_size + set_size + set_position immediately after,
+            // which updates GDK's internal state so GTK doesn't get confused by
+            // raw X11 moves performed behind its back.
         }
 
         eprintln!("[OVERLAY] apply_x11_overlay_hints: XID={} already_mapped={} -> NOTIFICATION|DOCK|UTILITY + ABOVE|STICKY + DESKTOP=0xFFFFFFFF + BYPASS_COMPOSITOR", xid, already_mapped);
@@ -465,7 +478,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         }
 
         if let Some((xdisplay, xid)) = get_x11_ids(&window) {
-            apply_x11_overlay_hints(xdisplay, xid, was_visible);
+            apply_x11_overlay_hints(xdisplay, xid, was_visible, None);
         }
 
         // Set position before show for Wayland/first-map hint
@@ -543,6 +556,13 @@ fn force_move_resize_x11(window: &WebviewWindow, x: i32, y: i32, width: u32, hei
 
 /// Clear the window-type/state atoms set by apply_x11_overlay_hints so the
 /// window behaves as a normal managed window again on restore.
+///
+/// IMPORTANT: This function leaves the window *unmapped* after clearing the
+/// atoms.  The caller is responsible for remapping via Tauri's window.show()
+/// so that GDK's internal window state stays consistent with the X11 state.
+/// Previously we called XMapWindow here, but that caused GDK to hold stale
+/// references to the child X11 window — on the next sidebar enter, GDK's
+/// gtk_window.window() would reference an invalidated X11 window → BadWindow.
 #[cfg(target_os = "linux")]
 pub fn sidebar_clear_x11_hints(window: &WebviewWindow) {
     eprintln!("[SIDEBAR-EXIT] clear_x11_hints start");
@@ -565,30 +585,46 @@ pub fn sidebar_clear_x11_hints(window: &WebviewWindow) {
             CW_OVERRIDE_REDIRECT,
             &attrs as *const XSetWindowAttributes as *const u32);
         XSync(xdisplay, 0);
-        eprintln!("[SIDEBAR-EXIT] override_redirect CLEARED via X11");
 
         let wm_type = XInternAtom(xdisplay, b"_NET_WM_WINDOW_TYPE\0".as_ptr() as *const i8, 0);
         let normal = XInternAtom(xdisplay, b"_NET_WM_WINDOW_TYPE_NORMAL\0".as_ptr() as *const i8, 0);
         XChangeProperty(xdisplay, xid, wm_type, 4 /* XA_ATOM */, 32, prop_replace,
             &normal as *const u64 as *const u8, 1);
-        eprintln!("[SIDEBAR-EXIT] set type NORMAL");
-
         let wm_state = XInternAtom(xdisplay, b"_NET_WM_STATE\0".as_ptr() as *const i8, 0);
         XDeleteProperty(xdisplay, xid, wm_state);
         XSync(xdisplay, 0);
-        eprintln!("[SIDEBAR-EXIT] cleared _NET_WM_STATE");
-
         let wm_user_time = XInternAtom(xdisplay, b"_NET_WM_USER_TIME\0".as_ptr() as *const i8, 0);
         let cardinal = XInternAtom(xdisplay, b"CARDINAL\0".as_ptr() as *const i8, 0);
         let user_time: u32 = 0;
         XChangeProperty(xdisplay, xid, wm_user_time, cardinal, 32, prop_replace, &user_time as *const u32 as *const u8, 1);
-        eprintln!("[SIDEBAR-EXIT] set _NET_WM_USER_TIME to 0");
 
+        // NOTE: We intentionally do NOT call XMapWindow here.
+        // The window is left unmapped so GDK's state matches reality.
+        // The EXIT closure in toggle_sidebar calls window.show() through
+        // Tauri so that GDK re-maps the window with a clean internal state.
+        XSync(xdisplay, 0);
+        eprintln!("[SIDEBAR-EXIT] clear_x11_hints DONE (window left unmapped for GDK)");
+    }
+}
+
+/// Force an XMoveResizeWindow + XMapWindow on the sidebar window, restoring
+/// geometry in the same raw X11 batch as the map.  This is a fallback for when
+/// GDK's gtk_widget_show() early-returns because it doesn't know about a raw
+/// XUnmapWindow performed by sidebar_clear_x11_hints — GDK queues geometry
+/// changes that never flush, so the only way to guarantee the window physically
+/// leaves sidebar geometry is to issue MoveResize + Map directly.
+#[cfg(target_os = "linux")]
+pub fn sidebar_force_map_window(window: &WebviewWindow, x: i32, y: i32, w: u32, h: u32) {
+    let (xdisplay, xid) = match get_x11_ids(window) {
+        Some(ids) => ids,
+        None => return,
+    };
+    unsafe {
+        XMoveResizeWindow(xdisplay, xid, x, y, w, h);
         XMapWindow(xdisplay, xid);
         XSync(xdisplay, 0);
-        eprintln!("[SIDEBAR-EXIT] XMapWindow done");
+        eprintln!("[SIDEBAR-EXIT] XMoveResizeWindow+XMapWindow fallback done xid={} -> ({},{}) {}x{}", xid, x, y, w, h);
     }
-    eprintln!("[SIDEBAR-EXIT] clear_x11_hints DONE");
 }
 
 /// Lower the sidebar below the game on exit and restore keyboard focus to
@@ -609,7 +645,6 @@ pub fn sidebar_restore_focus_to_game(window: &WebviewWindow, game_xid: u64) {
 
         XLowerWindow(xdisplay, xid);
         XSync(xdisplay, 0);
-        eprintln!("[SIDEBAR-EXIT] lowered window");
 
         if game_xid > 1 && game_xid != xid {
             // RevertToParent (2) matches the revert mode Wine uses (raw focus=..., revert=2)
@@ -665,9 +700,15 @@ pub fn enter_sidebar_mode(
                 let mut prev_focus: u64 = 0;
                 let mut prev_revert: i32 = 0;
                 XGetInputFocus(xdisplay_sid, &mut prev_focus, &mut prev_revert);
-                let toplevel = get_toplevel_xid(xdisplay_sid, prev_focus);
+                // Guard against stale/zero XIDs (None=0, PointerRoot=1) —
+                // XQueryTree on those can produce BadWindow.
+                let toplevel = if prev_focus > 1 {
+                    get_toplevel_xid(xdisplay_sid, prev_focus)
+                } else {
+                    prev_focus
+                };
                 captured_game_xid = if toplevel > 1 && toplevel != xid_sid { toplevel } else { 0 };
-                eprintln!("[SIDEBAR-ENTER] captured game_xid={} (raw focus={}, revert={})", captured_game_xid, prev_focus, prev_revert);
+                eprintln!("[SIDEBAR-ENTER] captured game_xid={} (raw focus={})", captured_game_xid, prev_focus);
             }
         }
         {
@@ -692,31 +733,30 @@ pub fn enter_sidebar_mode(
             }
         }
 
-        // 3. Set geometry BEFORE unmap/remap cycle — override_redirect means
-        //    KWin won't fight us, and remap at the end will use this position.
-        let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
-        let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
-        force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
-        if let Some((xdisplay_sid, _)) = get_x11_ids(&win) {
-            unsafe { XSync(xdisplay_sid, 0); }
-        }
-        force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
-
-        // 4. Atoms: unmap → set → remap (KWin re-evaluates layer on remap).
-        //    override_redirect is now set so KWin won't apply placement policy.
+        // 3. Atoms: unmap → set → remap, with position applied in the same X11
+        //    protocol batch as XMapWindow so the compositor renders at the
+        //    correct position on the very first frame — no visible jump.
         if let Some((xdisplay_sid, xid_sid)) = get_x11_ids(&win) {
-            apply_x11_overlay_hints(xdisplay_sid, xid_sid, true);
-            eprintln!("[SIDEBAR-ENTER] apply_x11_overlay_hints DONE xid={}", xid_sid);
+            apply_x11_overlay_hints(xdisplay_sid, xid_sid, true,
+                Some((target_x, mon_pos_y, phys_w, phys_h)));
+            eprintln!("[SIDEBAR-ENTER] apply_x11_overlay_hints + position DONE xid={}", xid_sid);
         }
 
         if let Some(display) = gtk::gdk::Display::default() {
             display.sync();
         }
 
+        // Small delay to let X server settle before Tauri calls
+        std::thread::sleep(std::time::Duration::from_millis(50));
+
+        // Sync Tauri/GDK's position+size cache so future API calls
+        // (e.g. set_sidebar_width) use the correct geometry.
+        let _ = win.set_min_size(Some(tauri::PhysicalSize { width: 200, height: 200 }));
+        let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
+        let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
+
         raise_x11(&win);
 
-        // XSetInputFocus to our window → Wine gets FocusOut → calls
-        // XUngrabPointer → sidebar can receive mouse events.
         if let Some((xdisplay_sid, xid_sid)) = get_x11_ids(&win) {
             unsafe {
                 XSetInputFocus(xdisplay_sid, xid_sid, 1, 0);
@@ -726,40 +766,9 @@ pub fn enter_sidebar_mode(
         }
 
         SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
-        eprintln!("[SIDEBAR-ENTER] done: side={} size={}x{} @({},{})",
+        eprintln!("[SIDEBAR-ENTER] done: side={} {}x{} @({},{})",
             side_owned, phys_w, phys_h, target_x, mon_pos_y);
     }).map_err(|e| { SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e.to_string() })?;
-
-    Ok(())
-}
-
-#[cfg(target_os = "linux")]
-pub fn update_sidebar_position(
-    app_handle: &AppHandle,
-    window: &WebviewWindow,
-    side: &str,
-    width_phys: u32,
-) -> Result<(), String> {
-    let monitor = get_overlay_monitor(app_handle, "main")?;
-    let mon_pos_x = monitor.position().x;
-    let mon_pos_y = monitor.position().y;
-    let mon_size_w = monitor.size().width;
-    let mon_size_h = monitor.size().height;
-
-    let phys_w = width_phys.max(200).min((mon_size_w as f64 * 0.9) as u32);
-    let phys_h = mon_size_h;
-    let target_x = match side {
-        "right" => mon_pos_x + mon_size_w as i32 - phys_w as i32,
-        _       => mon_pos_x,
-    };
-
-    let win = window.clone();
-    window.run_on_main_thread(move || {
-        let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
-        let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
-        #[cfg(target_os = "linux")]
-        force_move_resize_x11(&win, target_x, mon_pos_y, phys_w, phys_h);
-    }).map_err(|e| e.to_string())?;
 
     Ok(())
 }
@@ -771,24 +780,13 @@ pub fn enter_sidebar_mode(
     side: &str,
     width_phys: u32,
 ) -> Result<(), String> {
-    let monitor = get_overlay_monitor(app_handle, "main")?;
-    let mon_pos_x = monitor.position().x;
-    let mon_pos_y = monitor.position().y;
-    let mon_size_w = monitor.size().width;
-    let mon_size_h = monitor.size().height;
-
-    let phys_w = width_phys.max(200).min((mon_size_w as f64 * 0.9) as u32);
-    let phys_h = mon_size_h;
-    let target_x = match side {
-        "right" => mon_pos_x + mon_size_w as i32 - phys_w as i32,
-        _       => mon_pos_x,
-    };
-
     let _ = window.set_decorations(false);
     let _ = window.set_always_on_top(true);
     let _ = window.set_resizable(true);
-    let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }));
-    let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_pos_y }));
+    // Lower min size before shrinking, otherwise the OS clamps width back
+    // to tauri.conf.json's minWidth (900) and the position calc overshoots.
+    let _ = window.set_min_size(Some(tauri::PhysicalSize { width: 200, height: 200 }));
+    update_sidebar_position(app_handle, window, side, width_phys)?;
 
     SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
     Ok(())
@@ -801,6 +799,9 @@ pub fn update_sidebar_position(
     side: &str,
     width_phys: u32,
 ) -> Result<(), String> {
+    // Lower min size before every resize so the OS clamp doesn't fight the
+    // sidebar width on every drag frame (called per-rAF from resize handle).
+    let _ = window.set_min_size(Some(tauri::PhysicalSize { width: 200, height: 200 }));
     let monitor = get_overlay_monitor(app_handle, "main")?;
     let mon_pos_x = monitor.position().x;
     let mon_pos_y = monitor.position().y;
@@ -884,7 +885,7 @@ pub fn show_sidebar_window(
             }
         }
         if let Some((xdisplay, xid)) = get_x11_ids(&window) {
-            apply_x11_overlay_hints(xdisplay, xid, was_visible);
+            apply_x11_overlay_hints(xdisplay, xid, was_visible, None);
         }
         let _ = force_position_tauri(&window, pos.x, pos.y);
         if !was_visible {
@@ -983,7 +984,7 @@ pub fn resize_overlay_window(
         {
             let was_visible = window.is_visible().unwrap_or(false);
             if let Some((xdisplay, xid)) = get_x11_ids(&window) {
-                apply_x11_overlay_hints(xdisplay, xid, was_visible);
+                apply_x11_overlay_hints(xdisplay, xid, was_visible, None);
             }
             let _ = force_position_tauri(&window, pos.x, pos.y);
             if !was_visible {

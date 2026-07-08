@@ -3,6 +3,8 @@ use image::DynamicImage;
 use tauri::{AppHandle, Emitter, Manager};
 use serde::Serialize;
 use std::sync::atomic::{AtomicBool, Ordering};
+use std::process::Command;
+use std::time::Duration;
 
 /// Set to true by log_scanner when 10-reactant fires, false when reward screen
 /// closes or mission exits. The icon poll loop checks this each iteration.
@@ -139,9 +141,7 @@ pub fn ocr_riven_card(app: AppHandle, position: RivenCardPosition) -> Result<Riv
     let Some(monitor) = get_target_monitor(&app) else {
         return Err("No target monitor".to_string());
     };
-    let Ok(image) = monitor.capture_image() else {
-        return Err("Capture failed".to_string());
-    };
+    let image = capture_monitor_image(&monitor)?;
     ocr_card_image(&app, DynamicImage::ImageRgba8(image), position, false)
 }
 
@@ -157,6 +157,82 @@ pub static USER_UI_SCALE: std::sync::atomic::AtomicU32 = std::sync::atomic::Atom
 #[tauri::command]
 pub fn set_fissure_ui_scale(scale: u32) {
     USER_UI_SCALE.store(scale, Ordering::SeqCst);
+}
+
+/// Try to capture the monitor via xcap. On Linux, if xcap fails (e.g. running
+/// under Wayland where neither XGetImage nor wlr-screencopy are available),
+/// fall back to capturing the Warframe window via xcap::Window (which always
+/// uses the X11/XCB path, working through XWayland), then try calling a system
+/// screenshot tool (spectacle → import) cropping to the monitor's region.
+pub(crate) fn capture_monitor_image(monitor: &Monitor) -> Result<image::RgbaImage, String> {
+    match monitor.capture_image() {
+        Ok(img) => return Ok(img),
+        Err(e) => {
+            eprintln!("[OCR] xcap Monitor::capture_image failed: {}", e);
+        }
+    }
+
+    #[cfg(target_os = "linux")]
+    {
+        // Fallback 1: capture the Warframe window directly via xcap::Window.
+        // Window::capture_image always uses X11/XCB regardless of Wayland
+        // detection, so it works through XWayland for the Proton game window.
+        if let Ok(windows) = xcap::Window::all() {
+            let warframe = windows.iter().find(|w| {
+                w.title().as_deref().unwrap_or("").contains("Warframe")
+            }).cloned();
+            if let Some(w) = warframe {
+                match w.capture_image() {
+                    Ok(img) => {
+                        eprintln!("[OCR] Window fallback succeeded (Warframe window)");
+                        return Ok(img);
+                    }
+                    Err(e2) => eprintln!("[OCR] Window fallback also failed: {}", e2),
+                }
+            }
+        }
+
+        // Fallback 2: system screenshot tools (spectacle → import), cropped
+        // to the target monitor's region using cached geometry.
+        let mon_x = monitor.x().map_err(|e| format!("monitor.x(): {}", e))? as u32;
+        let mon_y = monitor.y().map_err(|e| format!("monitor.y(): {}", e))? as u32;
+        let mon_w = monitor.width().map_err(|e| format!("monitor.width(): {}", e))?;
+        let mon_h = monitor.height().map_err(|e| format!("monitor.height(): {}", e))?;
+
+        let tmp = std::env::temp_dir().join("kronos_screenshot.png");
+        let path = tmp.to_string_lossy().to_string();
+
+        let mut ok = Command::new("spectacle")
+            .args(["-b", "-n", "-f", "-o", &path])
+            .status()
+            .ok()
+            .map(|s| s.success())
+            .unwrap_or(false);
+
+        if !ok {
+            ok = Command::new("import")
+                .args(["-window", "root", &path])
+                .status()
+                .ok()
+                .map(|s| s.success())
+                .unwrap_or(false);
+        }
+
+        if ok {
+            std::thread::sleep(Duration::from_millis(300));
+            match image::open(&path) {
+                Ok(mut full) => {
+                    let _ = std::fs::remove_file(&path);
+                    let cropped = full.crop(mon_x, mon_y, mon_w, mon_h);
+                    return Ok(cropped.to_rgba8());
+                }
+                Err(e) => eprintln!("[OCR] Fallback screenshot load failed: {}", e),
+            }
+            let _ = std::fs::remove_file(&path);
+        }
+    }
+
+    Err("capture failed (xcap and all fallbacks exhausted)".to_string())
 }
 
 pub fn get_target_monitor(app: &AppHandle) -> Option<Monitor> {
@@ -630,7 +706,7 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             // ── Screen capture ─────────────────────────────────────────────────
             let Some(monitor) = get_target_monitor(&app) else { continue; };
 
-            let screen = match monitor.capture_image() {
+            let screen = match capture_monitor_image(&monitor) {
                 Ok(s) => s,
                 Err(e) => {
                     ocr_log!(&app, "[OCR] Capture failed (attempt {}): {}", attempt, e);
@@ -904,7 +980,7 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
         let start_time = std::time::Instant::now();
         let dynamic_image = if let Some(img) = captured_image.clone() { img } else {
             let Some(monitor) = get_target_monitor(&app_c) else { return; };
-            let Ok(image) = monitor.capture_image() else { return; };
+            let Ok(image) = capture_monitor_image(&monitor) else { return; };
             DynamicImage::ImageRgba8(image)
         };
         
@@ -1075,7 +1151,7 @@ fn clean_ocr_output(raw: &str) -> String {
 pub async fn save_debug_screenshot(app: AppHandle) -> Result<String, String> {
     tokio::time::sleep(std::time::Duration::from_secs(5)).await;
     let Some(monitor) = get_target_monitor(&app) else { return Err("No target monitor resolved".to_string()); };
-    let Ok(image) = monitor.capture_image() else { return Err("Capture failed".to_string()); };
+    let image = capture_monitor_image(&monitor)?;
     let dynamic_image = DynamicImage::ImageRgba8(image);
 
     let active_scale = USER_UI_SCALE.load(Ordering::SeqCst) as f64 / 100.0;

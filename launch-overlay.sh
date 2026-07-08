@@ -40,10 +40,19 @@ else
     QT_PLATFORM=xcb
 fi
 
+_UID="$(id -u)"
+_HOST_BUS="unix:path=/run/user/${_UID}/bus"
+_XDG_RUNTIME="/run/user/${_UID}"
+
 exec env \
     LD_LIBRARY_PATH="${QT_LIB_DIR}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" \
     QT_QPA_PLATFORM="${QT_PLATFORM}" \
     DISPLAY="${XDISPLAY}" \
+    WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}" \
     XDG_DATA_HOME="$HOME/.local/share" \
     XDG_CACHE_HOME="$HOME/.cache" \
+    XDG_RUNTIME_DIR="${_XDG_RUNTIME}" \
+    DBUS_SESSION_BUS_ADDRESS="${_HOST_BUS}" \
+    XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP:-KDE}" \
+    XDG_SESSION_TYPE="wayland" \
     "$WFINFO_DIR/.venv/bin/python" "$WFINFO_DIR/overlay.py" "$@"

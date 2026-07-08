@@ -100,11 +100,20 @@ exit 0
 NOTIFYEOF
 chmod +x "$_FAKE_BIN/notify-send"
 
+# ── Force host session bus so spectacle/portal works outside Flatpak ─────
+_UID="$(id -u)"
+_HOST_BUS="unix:path=/run/user/${_UID}/bus"
+_XDG_RUNTIME="/run/user/${_UID}"
+
 exec env \
     XDG_DATA_HOME="$HOME/.local/share" \
     XDG_CACHE_HOME="$HOME/.cache" \
     DISPLAY="${DISPLAY-}" \
-    WAYLAND_DISPLAY="${WAYLAND_DISPLAY-}" \
+    WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}" \
+    XDG_RUNTIME_DIR="${_XDG_RUNTIME}" \
+    DBUS_SESSION_BUS_ADDRESS="${_HOST_BUS}" \
+    XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP:-KDE}" \
+    XDG_SESSION_TYPE="wayland" \
     PATH="${_FAKE_BIN}:${PATH}" \
     LD_LIBRARY_PATH="${HOST_LIBS}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" \
     ./target/release/orbiter "$@"

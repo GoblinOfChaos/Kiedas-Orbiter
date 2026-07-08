@@ -42,13 +42,24 @@ def restart_wfinfo():
         log(f"pkill error: {e}")
     time.sleep(1.5)
     try:
+        import pwd
+        uid = os.getuid()
+        # Always use the host session bus — never inherit Flatpak's bus
+        clean_env = os.environ.copy()
+        clean_env["DBUS_SESSION_BUS_ADDRESS"] = f"unix:path=/run/user/{uid}/bus"
+        clean_env["XDG_RUNTIME_DIR"] = f"/run/user/{uid}"
+        clean_env["XDG_DATA_HOME"] = str(Path.home() / ".local/share")
+        clean_env["XDG_CACHE_HOME"] = str(Path.home() / ".cache")
+        clean_env.setdefault("WAYLAND_DISPLAY", "wayland-0")
+        clean_env.setdefault("XDG_CURRENT_DESKTOP", "KDE")
+        clean_env["XDG_SESSION_TYPE"] = "wayland"
         with open(LOG_FILE, "ab") as lf:
             subprocess.Popen(
                 [str(WFINFO_BIN)],
                 cwd=str(WFINFO_DIR),
                 stdout=lf, stderr=subprocess.STDOUT,
                 start_new_session=True,
-                env=os.environ.copy(),
+                env=clean_env,
             )
         log("orbiter started")
     except Exception as e:

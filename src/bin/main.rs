@@ -14,12 +14,36 @@ use global_hotkey::{hotkey::HotKey, GlobalHotKeyEvent, GlobalHotKeyManager, HotK
 use image::DynamicImage;
 use log::{debug, error, info, warn};
 use notify::{watcher, RecursiveMode, Watcher};
-use wfinfo::ownership::{notify, OwnedDb, Ownership};
+use wfinfo::ownership::{OwnedDb, Ownership};
 use wfinfo::{
     database::Database,
     ocr::{normalize_string, reward_image_to_reward_names, OCR},
     utils::fetch_prices_and_items,
 };
+
+fn monitor_geometry_from_env() -> (i32, i32, u32, u32) {
+    if let Ok(s) = std::env::var("WFINFO_MONITOR_GEOMETRY") {
+        let p: Vec<i32> = s.split(',').filter_map(|x| x.trim().parse().ok()).collect();
+        if p.len() == 4 && p[2] > 0 && p[3] > 0 {
+            return (p[0], p[1], p[2] as u32, p[3] as u32);
+        }
+    }
+
+    let pt = std::env::var("WFINFO_MONITOR_POINT")
+        .ok()
+        .and_then(|s| {
+            let p: Vec<i32> = s.split(',').filter_map(|x| x.trim().parse().ok()).collect();
+            if p.len() == 2 {
+                Some((p[0], p[1]))
+            } else {
+                None
+            }
+        })
+        .unwrap_or((3200, 720));
+
+    // Default setup: 2560x1440 Warframe monitor whose centre is WFINFO_MONITOR_POINT.
+    (pt.0 - 1280, pt.1 - 720, 2560, 1440)
+}
 
 fn take_screenshot() -> Option<DynamicImage> {
     // Use spectacle (KDE) via XDG portal — fully Wayland-native, never causes
@@ -27,27 +51,73 @@ fn take_screenshot() -> Option<DynamicImage> {
     let path = "/tmp/wfinfo-capture-portal.png";
     let _ = std::fs::remove_file(path);
 
-    // Try spectacle first (KDE Wayland)
-    let ok = std::process::Command::new("spectacle")
-        .args(["-b", "-n", "-o", path])
-        .status()
-        .map(|s| s.success())
-        .unwrap_or(false);
+    // -b = background (no GUI window), -n = no notification, -o = output file
+    // --no-decoration suppresses the KDE screenshot frame notification
+    let screenshot_tools: &[(&str, &[&str])] = &[
+        (
+            "/run/host/usr/bin/spectacle",
+            &["-b", "-n", "--no-decoration", "-o", path],
+        ),
+        ("spectacle", &["-b", "-n", "--no-decoration", "-o", path]),
+        ("/run/host/usr/bin/grim", &[path]),
+        ("grim", &[path]),
+    ];
 
-    if !ok {
-        // Fallback: grim (wlroots compositors)
-        let ok2 = std::process::Command::new("grim")
-            .arg(path)
+    let mut captured_by = None;
+    for (tool, args) in screenshot_tools {
+        let ok = std::process::Command::new(tool)
+            .args(*args)
             .status()
             .map(|s| s.success())
             .unwrap_or(false);
-        if !ok2 {
-            error!("screenshot failed: neither spectacle nor grim worked");
-            return None;
+        if ok {
+            captured_by = Some(*tool);
+            break;
         }
     }
 
-    image::open(path).ok()
+    let Some(tool) = captured_by else {
+        error!("screenshot failed: neither spectacle nor grim worked");
+        return None;
+    };
+
+    let mut image = match image::open(path) {
+        Ok(img) => img,
+        Err(e) => {
+            error!("screenshot tool {tool} ran but image could not be opened: {e}");
+            return None;
+        }
+    };
+
+    info!(
+        "Screenshot captured by {tool}: {}x{}",
+        image.width(),
+        image.height()
+    );
+
+    let (wx, wy, ww, wh) = monitor_geometry_from_env();
+    if wx >= 0
+        && wy >= 0
+        && image.width() >= (wx as u32 + ww)
+        && image.height() >= (wy as u32 + wh)
+        && (image.width() != ww || image.height() != wh)
+    {
+        image = image.crop_imm(wx as u32, wy as u32, ww, wh);
+        info!("Cropped screenshot to monitor geometry ({wx},{wy}) {ww}x{wh}");
+    }
+
+    let ts = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_secs();
+    let debug_path = format!("/tmp/wfinfo-capture-{ts}.png");
+    if let Err(e) = image.save(&debug_path) {
+        warn!("Failed to save debug capture {debug_path}: {e}");
+    } else {
+        info!("Saved debug capture to {debug_path}");
+    }
+
+    Some(image)
 }
 
 fn run_detection(db: &Database, owned: &OwnedDb) {
@@ -79,32 +149,8 @@ fn run_detection(db: &Database, owned: &OwnedDb) {
         info!("  {:<40}  {}", name, own.colored());
     }
 
-    // Desktop notification — skipped if show_notifications=0 in config.json
-    let notifications_enabled = std::fs::read_to_string(
-        std::env::current_exe()
-            .ok()
-            .and_then(|p| p.parent().map(|d| d.join("../../config.json")))
-            .unwrap_or_else(|| PathBuf::from("config.json")),
-    )
-    .ok()
-    .and_then(|s| serde_json::from_str::<serde_json::Value>(&s).ok())
-    .and_then(|v| v.get("show_notifications").and_then(|n| n.as_i64()))
-    .unwrap_or(1)
-        != 0;
-
-    if notifications_enabled {
-        let any_need = resolved.iter().any(|(_, o)| matches!(o, Ownership::Need));
-        let body = resolved
-            .iter()
-            .map(|(n, o)| format!("• {}  —  {}", n, o.label()))
-            .collect::<Vec<_>>()
-            .join("\n");
-        notify(
-            "Relic rewards",
-            &body,
-            if any_need { "normal" } else { "low" },
-        );
-    }
+    // Desktop notifications are intentionally disabled. The overlay is the UI
+    // for reward results, and host notifications steal focus from Warframe.
     // ── Write latest-detection.json for the Python overlay ───────────────
     let rewards_json: Vec<String> = resolved
         .iter()
@@ -128,21 +174,7 @@ fn run_detection(db: &Database, owned: &OwnedDb) {
         .unwrap_or_default()
         .as_secs();
     // Use configured monitor point for warframe geometry hint to the overlay
-    let (wx, wy, ww, wh) = {
-        let pt = std::env::var("WFINFO_MONITOR_POINT")
-            .ok()
-            .and_then(|s| {
-                let p: Vec<i32> = s.split(',').filter_map(|x| x.trim().parse().ok()).collect();
-                if p.len() == 2 {
-                    Some((p[0], p[1]))
-                } else {
-                    None
-                }
-            })
-            .unwrap_or((3200, 720));
-        // Approximate the monitor geometry from the capture point
-        (pt.0 - 1280, pt.1 - 720, 2560i32, 1440i32)
-    };
+    let (wx, wy, ww, wh) = monitor_geometry_from_env();
     let state_json = format!(
         r#"{{"timestamp":{ts},"warframe":{{"x":{x},"y":{y},"width":{w},"height":{h}}},"rewards":[{rewards}]}}"#,
         ts = ts,

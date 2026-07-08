@@ -40,18 +40,33 @@ Built on top of [wfinfo-ng](https://github.com/knoellle/wfinfo-ng) by knoellle, 
 
 ## Installation
 
+### Windows
+
+1. Install **[Python 3.11+](https://python.org/downloads/)** — check **"Add Python to PATH"** during install
+2. Download and unzip this repo ([Download ZIP](https://github.com/GoblinOfChaos/Kieda-s-Orbiter/archive/refs/heads/main.zip))
+3. Open the folder and double-click **`Install Windows.bat`**
+4. After it finishes, launch from the **Start Menu** or double-click **`Start Kieda's Orbiter.bat`**
+
+### Linux
+
 ```bash
 git clone https://github.com/GoblinOfChaos/Kieda-s-Orbiter.git
 cd Kieda-s-Orbiter
 ./install.sh
 ```
 
-That's it. The installer will:
+Or equivalently:
+```bash
+python install.py
+```
+
+The installer will:
 1. Check for Python 3.11+ and Tesseract OCR
 2. Create a Python virtual environment and install dependencies
 3. Build the relic reward OCR binary (if Rust is installed)
 4. Download the latest Warframe item and price data
-5. Install the app icon and **add it to your start menu**
+5. Download `warframe-api-helper` for your platform
+6. Install the app icon and **add it to your start menu**
 
 After installing, search for **"Kieda's Orbiter"** in your start menu (or application launcher) to launch it.
 

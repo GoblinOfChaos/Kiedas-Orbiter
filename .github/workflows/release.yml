@@ -26,7 +26,7 @@ jobs:
             libxcb-shape0-dev libxcb-xfixes0-dev \
             libxi-dev libxtst-dev \
             libdbus-1-dev pkg-config \
-            fontconfig-dev libfontconfig1-dev \
+            libfontconfig1-dev \
             libssl-dev
       
       - name: Build orbiter
@@ -56,8 +56,7 @@ jobs:
 
       - name: Build orbiter
         env:
-          TESSERACT_INCLUDE_PATH: ${{ env.VCPKG_ROOT }}\installed\x64-windows\include
-          TESSERACT_LIB_PATH: ${{ env.VCPKG_ROOT }}\installed\x64-windows\lib
+          VCPKGRS_TRIPLET: x64-windows
         run: cargo build --release --bin orbiter
       
       - name: Upload Windows artifact

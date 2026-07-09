@@ -25,7 +25,7 @@ impl Ownership {
 
     pub fn colored(&self) -> String {
         match self {
-            Ownership::Owned(n) => format!("{}\x1b[2mOWNED x{}\x1b[0m", n),
+            Ownership::Owned(n) => format!("\x1b[1;32mOWNED x{}\x1b[0m", n),
             Ownership::Need => "\x1b[1;32mNEED\x1b[0m".to_string(),
             Ownership::Unknown => "\x1b[33mUNKNOWN\x1b[0m".to_string(),
         }

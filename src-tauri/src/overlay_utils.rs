@@ -5,6 +5,11 @@ use tauri::{AppHandle, Emitter, Manager, PhysicalPosition, WebviewWindow};
 use active_win_pos_rs;
 
 static AOT_KEEPER_INSTALLED: Mutex<Vec<String>> = Mutex::new(Vec::new());
+static SHOWN_OVERLAYS: Mutex<Vec<String>> = Mutex::new(Vec::new());
+
+pub(crate) fn clear_shown_overlay(label: &str) {
+    SHOWN_OVERLAYS.lock().unwrap().retain(|l| l != label);
+}
 
 pub(crate) static SIDEBAR_TOGGLING: AtomicBool = AtomicBool::new(false);
 
@@ -309,13 +314,6 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
         XChangeProperty(xdisplay, xid, wm_desktop, xa_cardinal, 32, prop_replace,
             &all_desktops as *const u64 as *const u8, 1);
 
-        // _NET_WM_BYPASS_COMPOSITOR = 1: don't let compositor sandwich this
-        // window behind a fullscreen app's compositing layer.
-        let bypass = XInternAtom(xdisplay, b"_NET_WM_BYPASS_COMPOSITOR\0".as_ptr() as *const i8, 0);
-        let bypass_val: u64 = 1;
-        XChangeProperty(xdisplay, xid, bypass, xa_cardinal, 32, prop_replace,
-            &bypass_val as *const u64 as *const u8, 1);
-
         // _MOTIF_WM_HINTS: tell KWin to skip its "Center New Windows" placement
         // policy by removing decorations (flags=2, decorations=0).
         let motif_hints = XInternAtom(xdisplay, b"_MOTIF_WM_HINTS\0".as_ptr() as *const i8, 0);
@@ -371,7 +369,12 @@ fn force_position_x11(window: &WebviewWindow, x: i32, y: i32) {
 }
 
 #[cfg(target_os = "linux")]
-fn install_deiconify_handler(window: &WebviewWindow) {
+fn install_deiconify_handler(window: &WebviewWindow, label: &str) {
+    let guard_key = format!("deiconify-{label}");
+    let mut installed = AOT_KEEPER_INSTALLED.lock().unwrap();
+    if installed.contains(&guard_key) { return; }
+    installed.push(guard_key);
+
     use gtk::prelude::*;
     let gtk_window = match window.gtk_window() {
         Ok(w) => w,
@@ -435,6 +438,45 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         }
     }
 
+    // Track that this overlay has been shown (for resurrection on main deiconify).
+    {
+        let mut shown = SHOWN_OVERLAYS.lock().unwrap();
+        if !shown.contains(&label.to_string()) {
+            shown.push(label.to_string());
+        }
+    }
+
+    // Shield: on main-window state change, re-show tracked overlays on the next
+    // idle tick — never synchronously inside main's own state transition, which
+    // can corrupt KWin's client-list bookkeeping (WithdrawnState vs IconicState).
+    #[cfg(target_os = "linux")]
+    {
+        use gtk::prelude::*;
+        let mut installed = AOT_KEEPER_INSTALLED.lock().unwrap();
+        if !installed.contains(&"main-win-shield".to_string()) {
+            if let Some(main_win) = app_handle.get_webview_window("main") {
+                if let Ok(main_gtk) = main_win.gtk_window() {
+                    main_gtk.realize();
+                    let ah = app_handle.clone();
+                    main_gtk.connect_window_state_event(move |_, _| {
+                        let ah2 = ah.clone();
+                        glib::idle_add_local_once(move || {
+                            for lbl in SHOWN_OVERLAYS.lock().unwrap().iter() {
+                                if let Some(w) = ah2.get_webview_window(lbl) {
+                                    if !w.is_visible().unwrap_or(false) {
+                                        let _ = w.show();
+                                    }
+                                }
+                            }
+                        });
+                        gtk::glib::Propagation::Proceed
+                    });
+                }
+            }
+            installed.push("main-win-shield".to_string());
+        }
+    }
+
     let monitor = get_overlay_monitor(app_handle, label)?;
     let (w, h) = overlay_size(label);
     let pos = calculate_position(label, &monitor, w, h);
@@ -457,9 +499,11 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
             .and_then(|w| w.is_focused().ok())
             .unwrap_or(false);
 
-        // Transient for main window so WM always stacks overlay above it.
-        // Only for notification overlays - relic/riven overlays should not
-        // bring the main window to the foreground when shown.
+        // Transient for main window so KWin iconifies the overlay together
+        // with the main window — deiconify handler catches the ICONIFIED
+        // state and immediately restores it. Without this, KWin may still
+        // hide the overlay (app-grouped by PID) but without sending a state
+        // event, so the handler never fires.
         let is_notification = matches!(label, "overlay-tl" | "overlay-tr" | "overlay-tc");
         if is_notification {
             if let Some(main_win) = app_handle.get_webview_window("main") {
@@ -501,7 +545,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         // Override position via XMoveWindow (more reliable than GTK for ARGB windows)
         force_position_x11(&window, pos.x, pos.y);
         raise_x11(&window);
-        install_deiconify_handler(&window);
+        install_deiconify_handler(&window, label);
     }
 
     #[cfg(not(target_os = "linux"))]
@@ -592,11 +636,11 @@ pub fn sidebar_clear_x11_hints(window: &WebviewWindow) {
             &normal as *const u64 as *const u8, 1);
         let wm_state = XInternAtom(xdisplay, b"_NET_WM_STATE\0".as_ptr() as *const i8, 0);
         XDeleteProperty(xdisplay, xid, wm_state);
+        let wm_desktop = XInternAtom(xdisplay, b"_NET_WM_DESKTOP\0".as_ptr() as *const i8, 0);
+        XDeleteProperty(xdisplay, xid, wm_desktop);
         XSync(xdisplay, 0);
         let wm_user_time = XInternAtom(xdisplay, b"_NET_WM_USER_TIME\0".as_ptr() as *const i8, 0);
-        let cardinal = XInternAtom(xdisplay, b"CARDINAL\0".as_ptr() as *const i8, 0);
-        let user_time: u32 = 0;
-        XChangeProperty(xdisplay, xid, wm_user_time, cardinal, 32, prop_replace, &user_time as *const u32 as *const u8, 1);
+        XDeleteProperty(xdisplay, xid, wm_user_time);
 
         // NOTE: We intentionally do NOT call XMapWindow here.
         // The window is left unmapped so GDK's state matches reality.
@@ -899,7 +943,7 @@ pub fn show_sidebar_window(
         }
         force_position_x11(&window, pos.x, pos.y);
         raise_x11(&window);
-        install_deiconify_handler(&window);
+        install_deiconify_handler(&window, label);
     }
 
     #[cfg(not(target_os = "linux"))]
@@ -1010,6 +1054,7 @@ pub fn resize_overlay_window(
         window.set_skip_taskbar(true)
             .map_err(|e| format!("set_skip_taskbar failed: {e}"))?;
     } else {
+        clear_shown_overlay(label);
         window.hide().map_err(|e| format!("hide failed: {e}"))?;
     }
 

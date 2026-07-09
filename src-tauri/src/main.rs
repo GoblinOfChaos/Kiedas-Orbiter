@@ -19,6 +19,8 @@ mod ocr_engine;
 mod overlay_utils;
 mod logger;
 mod pricer;
+#[cfg(target_os = "linux")]
+// mod linux_shortcuts; removed
 
 pub struct AppState {
     pub notif_sound: Arc<Mutex<String>>,
@@ -1415,6 +1417,7 @@ fn hide_overlay_window(
     app_handle: tauri::AppHandle,
     label: String,
 ) -> Result<(), String> {
+    overlay_utils::clear_shown_overlay(&label);
     if let Some(w) = app_handle.get_webview_window(&label) {
         let _ = w.hide();
     }
@@ -1454,33 +1457,60 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
             eprintln!("[SIDEBAR-EXIT] restore closure start");
             #[cfg(target_os = "linux")]
             overlay_utils::sidebar_clear_x11_hints(&win);
+
+            // Remap BEFORE issuing GDK property calls — KWin ignores EWMH
+            // requests on withdrawn windows, corrupting its internal state.
+            #[cfg(target_os = "linux")]
+            {
+                let _ = win.unminimize();
+                let _ = win.show();
+                overlay_utils::sidebar_force_map_window(&win, x, y, w, h);
+                eprintln!("[SIDEBAR-EXIT] show() + XMapWindow fallback done");
+            }
+
+            // Window is now mapped — GDK calls are meaningful.
             let _ = win.set_decorations(true);
             let _ = win.set_always_on_top(false);
+            let _ = win.set_skip_taskbar(false);
+            let _ = win.set_ignore_cursor_events(false);
             let _ = win.set_resizable(true);
             let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: w, height: h }));
             let _ = win.set_min_size(Some(tauri::PhysicalSize { width: 900, height: 500 }));
             let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }));
+
             #[cfg(target_os = "linux")]
             overlay_utils::sidebar_restore_focus_to_game(&win, game_xid);
-            eprintln!("[SIDEBAR-EXIT] restore closure END");
+            let _ = win.emit("sidebar-mode-changed", serde_json::json!({ "active": false }));
+            overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
         }).ok();
 
-        let _ = window.emit("sidebar-mode-changed", serde_json::json!({ "active": false }));
+        // Log final position after restore
+        if let Ok(pos) = window.outer_position() {
+            eprintln!("[SIDEBAR-EXIT] final Tauri position: ({}, {}), saved was ({}, {})", pos.x, pos.y, x, y);
+        }
+
         sidebar_stamp(&state);
-        overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
     } else {
         // ── Enter sidebar mode ────────────────────────────────────────────
         eprintln!("[SIDEBAR-TOGGLE] ENTER path");
         sidebar_stamp(&state);
-        let pos  = window.inner_position().map_err(|e| { overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e.to_string() })?;
-        let size = window.inner_size().map_err(|e| { overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e.to_string() })?;
+
+        if saved.width == 0 {
+            // Only capture on the very first activation this session — GDK's
+            // position/size cache is unreliable after the raw X11 restore path,
+            // so re-querying on every toggle corrupts the baseline.
+            let pos  = window.inner_position().map_err(|e| { overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e.to_string() })?;
+            let size = window.inner_size().map_err(|e| { overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e.to_string() })?;
+            saved.x      = pos.x;
+            saved.y      = pos.y;
+            saved.width  = size.width;
+            saved.height = size.height;
+            eprintln!("[SIDEBAR] saved position (first activation): ({},{}) size: {}x{}", pos.x, pos.y, size.width, size.height);
+        } else {
+            eprintln!("[SIDEBAR] reusing cached position: ({},{}) size: {}x{}", saved.x, saved.y, saved.width, saved.height);
+        }
 
         saved.active  = true;
-        saved.x       = pos.x;
-        saved.y      = pos.y;
-        saved.width  = size.width;
-        saved.height = size.height;
-        eprintln!("[SIDEBAR] saved position: ({},{}) size: {}x{}", pos.x, pos.y, size.width, size.height);
 
         let settings = load_settings_sync();
         let side = settings
@@ -1493,7 +1523,7 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
             .get("sidebar_width")
             .and_then(|v| v.as_u64())
             .map(|w| w as u32)
-            .unwrap_or(size.width);
+            .unwrap_or(saved.width);
         // Cache monitor geometry to avoid querying available_monitors() on
         // every drag frame (get_overlay_monitor is expensive on Windows).
         if let Ok(mon) = overlay_utils::get_overlay_monitor(&app_handle, "main") {
@@ -1510,8 +1540,18 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
         std::thread::sleep(std::time::Duration::from_millis(16));
 
         overlay_utils::enter_sidebar_mode(&app_handle, &window, &side, entry_width).map_err(|e| { overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e })?;
-        let _ = window.unminimize();
-        let _ = window.show();
+        // On Linux, apply_x11_overlay_hints already mapped the window, so
+        // show()/unminimize() would just confuse GDK (its visibility cache
+        // hasn't caught up with the raw XMapWindow) and make it re-assert
+        // the old main-window position.  Only run these on non-Linux.
+        // (Unconditional show() on Windows can reapply the OS's cached
+        // WINDOWPLACEMENT.rcNormalPosition too, but there we need the
+        // show() to finish the remap after toggling decorations.)
+        #[cfg(not(target_os = "linux"))]
+        {
+            if window.is_minimized().unwrap_or(false) { let _ = window.unminimize(); }
+            if !window.is_visible().unwrap_or(true) { let _ = window.show(); }
+        }
         let _ = window.emit("sidebar-mode-changed", serde_json::json!({ "active": true, "side": side }));
     }
 
@@ -2040,70 +2080,95 @@ fn start_notif_autoclose_timer(app_handle: tauri::AppHandle, id: serde_json::Val
     });
 }
 
-#[tauri::command]
-async fn register_hotkey(app: AppHandle, shortcut: String, action: String) -> Result<(), String> {
-    use tauri_plugin_global_shortcut::{GlobalShortcutExt, ShortcutState};
-    let shortcut_for_err = shortcut.clone();
-    let action_clone = action.clone();
-    let shortcut_str = shortcut.clone();
-
-    // Unregister first to avoid duplicates if called multiple times
-    let _ = app.global_shortcut().unregister(shortcut.as_str());
-
-    let registration_result = app.global_shortcut().on_shortcut(shortcut.as_str(), move |app_c, _sc, event| {
-        if event.state() != ShortcutState::Pressed { return; }
-        eprintln!("[Hotkeys] Triggered: {} -> {}", shortcut_str, action_clone);
-        let app_c = app_c.clone();
-        let action_c = action_clone.clone();
-
-        tauri::async_runtime::spawn(async move {
-            match action_c.as_str() {
-                "manual_ocr" => {
-                    let _ = crate::ocr::trigger_manual_ocr(app_c, None).await;
-                }
-                pos @ ("ocr_riven_left" | "ocr_riven_middle" | "ocr_riven_right" | "ocr_riven_linked") => {
-                    let position = match pos {
-                        "ocr_riven_left"   => crate::ocr::RivenCardPosition::Left,
-                        "ocr_riven_middle" => crate::ocr::RivenCardPosition::Middle,
-                        "ocr_riven_right"  => crate::ocr::RivenCardPosition::Right,
-                        _                  => crate::ocr::RivenCardPosition::Linked,
-                    };
-                    let pos_name = format!("{:?}", position);
-                    match crate::ocr::ocr_riven_card(app_c.clone(), position) {
-                        Ok(result) => {
-                            let debug_path = format!("data/user/riven_ocr_{}.png", pos_name);
-                            let msg = if result.text.is_empty() {
-                                format!("[{}] No text found -- check {} for what was captured", pos_name, debug_path)
-                            } else {
-                                format!("[{}] {}", pos_name, result.text)
-                            };
-                            let _ = app_c.emit("riven-ocr-result", &msg);
-                        }
-                        Err(e) => {
-                            let _ = app_c.emit("riven-ocr-result", &format!("[{}] Error: {}", pos_name, e));
-                        }
-                    }
-                }
-                "toggle_sidebar" => {
-                    let _ = toggle_sidebar(app_c);
-                }
-                _ => {
-                    eprintln!("[Hotkeys] Unknown action: {}", action_c);
-                }
-            }
-        });
-    });
-
-    match registration_result {
-        Ok(_) => Ok(()),
-        Err(e) => Err(format!("Failed to register hotkey {}: {:?}", shortcut_for_err, e)),
-    }
+#[derive(serde::Deserialize)]
+struct HotkeyDef {
+    shortcut: String,
+    action: String,
 }
 
 #[tauri::command]
-async fn unregister_all_hotkeys(app: AppHandle) -> Result<(), String> {
+async fn set_hotkeys(app: AppHandle, hotkeys: Vec<HotkeyDef>) -> Result<(), String> {
+    // Fallback: register individually via plugin
     use tauri_plugin_global_shortcut::GlobalShortcutExt;
-    app.global_shortcut().unregister_all().map_err(|e| format!("{:?}", e))
+    let _ = app.global_shortcut().unregister_all();
+    for hk in &hotkeys {
+        if hk.shortcut.is_empty() || hk.action.is_empty() {
+            continue;
+        }
+        register_one_via_plugin(&app, &hk.shortcut, &hk.action).await?;
+    }
+    Ok(())
+}
+
+async fn register_one_via_plugin(app: &AppHandle, shortcut: &str, action: &str) -> Result<(), String> {
+    use tauri_plugin_global_shortcut::{GlobalShortcutExt, ShortcutState};
+    let shortcut_owned = shortcut.to_string();
+    let action_owned = action.to_string();
+
+    let _ = app.global_shortcut().unregister(shortcut);
+
+    let shortcut_for_err = shortcut.to_string();
+    app.global_shortcut()
+        .on_shortcut(shortcut, move |app_c, _sc, event| {
+            if event.state() != ShortcutState::Pressed {
+                return;
+            }
+            eprintln!("[Hotkeys] Triggered: {} -> {}", shortcut_owned, action_owned);
+            let app_c = app_c.clone();
+            let action_c = action_owned.clone();
+            tauri::async_runtime::spawn(async move {
+                dispatch_hotkey_action(app_c, &action_c).await;
+            });
+        })
+        .map_err(|e| format!("Failed to register hotkey {}: {:?}", shortcut_for_err, e))?;
+
+    Ok(())
+}
+
+async fn dispatch_hotkey_action(app: AppHandle, action: &str) {
+    let state = app.state::<AppState>();
+    let now = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_millis() as u64;
+    let last = state.sidebar_last_op.swap(now, Ordering::Relaxed);
+    if now.saturating_sub(last) < 200 {
+        eprintln!("[Hotkeys] Ignoring duplicate trigger for: {}", action);
+        return;
+    }
+
+    eprintln!("[Hotkeys] Triggered: {}", action);
+    match action {
+        "manual_ocr" => {
+            let _ = crate::ocr::trigger_manual_ocr(app, None).await;
+        }
+        pos @ ("ocr_riven_left" | "ocr_riven_middle" | "ocr_riven_right" | "ocr_riven_linked") => {
+            let position = match pos {
+                "ocr_riven_left"   => crate::ocr::RivenCardPosition::Left,
+                "ocr_riven_middle" => crate::ocr::RivenCardPosition::Middle,
+                "ocr_riven_right"  => crate::ocr::RivenCardPosition::Right,
+                _                  => crate::ocr::RivenCardPosition::Linked,
+            };
+            let pos_name = format!("{:?}", position);
+            match crate::ocr::ocr_riven_card(app.clone(), position) {
+                Ok(result) => {
+                    let debug_path = format!("data/user/riven_ocr_{}.png", pos_name);
+                    let msg = if result.text.is_empty() {
+                        format!("[{}] No text found -- check {} for what was captured", pos_name, debug_path)
+                    } else {
+                        format!("[{}] {}", pos_name, result.text)
+                    };
+                    let _ = app.emit("riven-ocr-result", &msg);
+                }
+                Err(e) => {
+                    let _ = app.emit("riven-ocr-result", &format!("[{}] Error: {}", pos_name, e));
+                }
+            }
+        }
+        "toggle_sidebar" => {
+            let _ = toggle_sidebar(app);
+        }
+        _ => {
+            eprintln!("[Hotkeys] Unknown action: {}", action);
+        }
+    }
 }
 
 #[tauri::command]
@@ -2124,6 +2189,7 @@ async fn save_settings(settings: Value) -> Result<(), String> {
 
 #[tauri::command]
 fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, persist: bool) -> Result<(), String> {
+    eprintln!("[set_sidebar_width] called width={}, side={}, persist={}", width, side, persist);
     if persist {
         let settings_dir = resolve_path("data/user");
         let path = settings_dir.join("settings.json");
@@ -2147,19 +2213,44 @@ fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, per
     }
 
     let state = app_handle.state::<AppState>();
-    let saved = state.sidebar_saved.lock().unwrap().clone();
-    if saved.active {
+    let saved_active;
+    let mon_x;
+    let mon_y;
+    let mon_w;
+    let mon_h;
+    {
+        let mut saved = state.sidebar_saved.lock().unwrap();
+        saved_active = saved.active;
+        if saved_active {
+            saved.side = Some(side.clone());
+            mon_x = saved.mon_x;
+            mon_y = saved.mon_y;
+            mon_w = saved.mon_w;
+            mon_h = saved.mon_h;
+        } else {
+            mon_x = 0; mon_y = 0; mon_w = 0; mon_h = 0;
+        }
+    }
+    if saved_active {
         if let Some(window) = app_handle.get_webview_window("main") {
+            // Notify the frontend BEFORE resizing so App.jsx updates its
+            // sidebarSide state and CSS classes (flex-row-reverse, border-l/r).
+            let _ = window.emit("sidebar-prepare", serde_json::json!({ "side": side }));
+
             // Use cached monitor geometry (populated when sidebar entered)
             // instead of calling get_overlay_monitor → available_monitors()
             // which is expensive on Windows and called on every drag frame.
-            let phys_w = (width as u32).max(200).min((saved.mon_w as f64 * 0.9) as u32);
+            let phys_w = (width as u32).max(200).min((mon_w as f64 * 0.9) as u32);
             let target_x = match side.as_str() {
-                "right" => saved.mon_x + saved.mon_w as i32 - phys_w as i32,
-                _       => saved.mon_x,
+                "right" => mon_x + mon_w as i32 - phys_w as i32,
+                _       => mon_x,
             };
-            let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: saved.mon_h }));
-            let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: saved.mon_y }));
+            eprintln!("[set_sidebar_width] computed: phys_w={}, target_x={}, mon_y={}, mon_h={}, mon_x={}, mon_w={}", phys_w, target_x, mon_y, mon_h, mon_x, mon_w);
+            let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: mon_h }));
+            let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_y }));
+            if let Ok(pos) = window.outer_position() {
+                eprintln!("[set_sidebar_width] after set_position: ({}, {}), target was ({}, {})", pos.x, pos.y, target_x, mon_y);
+            }
         }
     }
     
@@ -2456,7 +2547,7 @@ async fn get_known_weapon_names() -> Vec<String> {
             // Don't show the main window until the frontend signals it has
             // mounted its first frame, avoiding the blank-flash hitch.
             let ah2 = ah.clone();
-            ah.listen("frontend-ready", move |_| {
+            ah.once("frontend-ready", move |_| {
                 if let Some(main_win) = ah2.get_webview_window("main") {
                     let _ = main_win.show();
                     let _ = main_win.set_focus();
@@ -2486,6 +2577,33 @@ async fn get_known_weapon_names() -> Vec<String> {
             // avoiding the first-frame black flash on Linux.
             // Overlays start hidden (tauri.conf.json visible=false).
             // Shown on-demand by show_overlay_window. Pre-showing races webview load on Linux.
+
+            #[cfg(target_os = "linux")]
+            {
+                // Pre-probe screenshot permission every launch until the user
+                // grants it.  Once granted the portal remembers and subsequent
+                // probes succeed silently, so we persist the flag in settings.
+                let settings = load_settings_sync();
+                if settings.get("screenshot_probe_granted") != Some(&serde_json::json!(true)) {
+                    let ah = app.handle().clone();
+                    tauri::async_runtime::spawn(async move {
+                        let status = (|| -> Result<(), String> {
+                            let mon = crate::ocr::get_target_monitor(&ah).ok_or("no monitor")?;
+                            crate::ocr::capture_monitor_image(&mon).map(|_| ())
+                        })();
+                        if status.is_ok() {
+                            let path = resolve_path("data/user/settings.json");
+                            let mut s = load_settings_sync();
+                            if let Some(obj) = s.as_object_mut() {
+                                obj.insert("screenshot_probe_granted".into(), serde_json::json!(true));
+                                let _ = std::fs::write(&path, serde_json::to_string_pretty(&s).unwrap());
+                            }
+                        }
+                        eprintln!("[OCR] Screenshot probe: {}", if status.is_ok() { "granted" } else { "denied" });
+                    });
+                }
+            }
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
@@ -2549,8 +2667,7 @@ async fn get_known_weapon_names() -> Vec<String> {
             save_settings,
             load_settings,
             log_terminal,
-            register_hotkey,
-            unregister_all_hotkeys,
+            set_hotkeys,
             crate::ocr::set_fissure_ui_scale,
             crate::ocr::ocr_riven_card,
             crate::ocr::ocr_riven_card_from_file,
@@ -2569,6 +2686,8 @@ async fn get_known_weapon_names() -> Vec<String> {
 
     // Extract mod images synchronously before the event loop starts,
     // so file watcher (dev mode) doesn't catch writes and restart.
+    // NOTE: the old background-thread approach caused SIGSEGV because
+    // AppHandle internals aren't fully initialized before app.run().
     if let Some(cache_path) = detect_cache_inner() {
         match extract_card_images_inner(&app.handle(), &cache_path) {
             Ok(count) => eprintln!("[MOD IMAGES] Extracted {} images", count),

@@ -129,19 +129,20 @@ if prices.exists() and items.exists():
     info("Run 'python update.py' any time to refresh prices and item data.")
 else:
     info("Downloading Warframe data (this may take a moment)...")
-    # Try Python updater first, fall back to shell script on Linux
-    update_py = WFINFO_DIR / "update.py"
-    update_sh = WFINFO_DIR / "update.sh"
-    if update_py.exists():
-        result = subprocess.run([str(VENV_PYTHON), str(update_py)], cwd=str(WFINFO_DIR))
-    elif update_sh.exists() and not IS_WINDOWS:
-        result = subprocess.run(["bash", str(update_sh)], cwd=str(WFINFO_DIR))
-    else:
-        result = type("r", (), {"returncode": 1})()
+    # Use update_manager's quick_update, which falls back to local WFCD
+    # synthesis if the direct download fails — more resilient than a single
+    # unretried download attempt.
+    result = subprocess.run(
+        [str(VENV_PYTHON), "-c",
+         "from update_manager import quick_update; import sys; "
+         "r = quick_update(); "
+         "sys.exit(0 if all(v in ('updated', 'synthesized', 'current') for v in r.values()) else 1)"],
+        cwd=str(WFINFO_DIR),
+    )
     if result.returncode == 0:
         success("Warframe data downloaded")
     else:
-        warn("Data download failed. Run 'python update.py' later.")
+        warn("Data download failed. The app will retry automatically on first launch.")
 
 
 # ── 6. Install icon + start menu entry ───────────────────────────────────

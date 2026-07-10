@@ -148,10 +148,23 @@ class Tracker(QWidget):
 
         try:
             self.items_data = json.loads(ITEMS_FILE.read_text())
-        except Exception as e:
-            QMessageBox.critical(self, "Load failed", str(e))
-            QApplication.quit()
-            return
+        except Exception:
+            # First launch, or install.py's data download never completed —
+            # try to self-heal by fetching it now instead of hard-failing.
+            try:
+                from update_manager import quick_update
+                quick_update()
+                self.items_data = json.loads(ITEMS_FILE.read_text())
+            except Exception as e:
+                QMessageBox.critical(
+                    self, "Load failed",
+                    f"Couldn't load or download Warframe item data "
+                    f"(filtered_items.json): {e}\n\n"
+                    f"Check your internet connection, then try again, or run "
+                    f"update.py manually."
+                )
+                QApplication.quit()
+                return
         try:
             self.owned = json.loads(OWNED_FILE.read_text())
         except (OSError, json.JSONDecodeError):

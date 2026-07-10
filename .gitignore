@@ -46,8 +46,17 @@ test-images/
 # Editor / tooling
 .vscode/
 .continue/
+.claude/
 .memories.json
 toolbox_info.md
 TEST_WRITE.txt
 github.c
 Archive.zip
+
+# Personal AI tool configs / chat exports — machine-specific, not project source
+.aichain.json
+.bridge-mcps.json
+.mcp.json
+kilo.json
+kiedasorbiter.json
+orbiter2.json

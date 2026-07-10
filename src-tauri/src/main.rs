@@ -1463,23 +1463,33 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
             #[cfg(target_os = "linux")]
             {
                 let _ = win.unminimize();
+                eprintln!("[SIDEBAR-EXIT] after win.unminimize()");
                 let _ = win.show();
+                eprintln!("[SIDEBAR-EXIT] after win.show()");
                 overlay_utils::sidebar_force_map_window(&win, x, y, w, h);
-                eprintln!("[SIDEBAR-EXIT] show() + XMapWindow fallback done");
             }
 
             // Window is now mapped — GDK calls are meaningful.
+            eprintln!("[SIDEBAR-EXIT] GDK calls starting");
             let _ = win.set_decorations(true);
+            eprintln!("[SIDEBAR-EXIT] after set_decorations(true)");
             let _ = win.set_always_on_top(false);
+            eprintln!("[SIDEBAR-EXIT] after set_always_on_top(false)");
             let _ = win.set_skip_taskbar(false);
+            eprintln!("[SIDEBAR-EXIT] after set_skip_taskbar(false)");
             let _ = win.set_ignore_cursor_events(false);
+            eprintln!("[SIDEBAR-EXIT] after set_ignore_cursor_events(false)");
             let _ = win.set_resizable(true);
+            eprintln!("[SIDEBAR-EXIT] after set_resizable(true)");
             let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: w, height: h }));
+            eprintln!("[SIDEBAR-EXIT] after set_size({},{})", w, h);
             let _ = win.set_min_size(Some(tauri::PhysicalSize { width: 900, height: 500 }));
             let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }));
+            eprintln!("[SIDEBAR-EXIT] after set_position({},{})", x, y);
 
             #[cfg(target_os = "linux")]
             overlay_utils::sidebar_restore_focus_to_game(&win, game_xid);
+            eprintln!("[SIDEBAR-EXIT] restore closure DONE");
             let _ = win.emit("sidebar-mode-changed", serde_json::json!({ "active": false }));
             overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
         }).ok();

@@ -120,11 +120,10 @@ function SetupScreen() {
       }
 
       const savedHotkeys = getSetting('hotkeys', [])
-      for (const hk of savedHotkeys) {
-        if (hk.shortcut && hk.action) {
-          invoke('register_hotkey', { shortcut: hk.shortcut, action: hk.action })
-            .catch(err => console.error(`Failed to register startup hotkey ${hk.shortcut}:`, err))
-        }
+      const valid = savedHotkeys.filter(hk => hk.shortcut && hk.action)
+      if (valid.length > 0) {
+        invoke('set_hotkeys', { hotkeys: valid })
+          .catch(err => console.error('Failed to register startup hotkeys:', err))
       }
 
       const fissureEnabled = getSetting('fissure_overlay_enabled')

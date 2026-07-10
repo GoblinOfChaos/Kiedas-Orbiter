@@ -96,12 +96,7 @@ export default function SettingsScreen() {
 
     // Unregister and re-register all with Rust
     try {
-      await invoke('unregister_all_hotkeys')
-      for (const hk of newHotkeys) {
-        if (hk.shortcut && hk.action) {
-          await invoke('register_hotkey', { shortcut: hk.shortcut, action: hk.action })
-        }
-      }
+      await invoke('set_hotkeys', { hotkeys: newHotkeys.filter(hk => hk.shortcut && hk.action) })
     } catch (err) {
       console.error('Hotkey sync failed:', err)
     }

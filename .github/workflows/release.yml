@@ -58,6 +58,7 @@ jobs:
       - name: Build orbiter
         env:
           VCPKGRS_TRIPLET: x64-windows
+          VCPKGRS_DYNAMIC: 1
         run: cargo build --release --bin orbiter
       
       - name: Upload Windows artifact

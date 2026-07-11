@@ -81,13 +81,27 @@ success("Python dependencies installed (PySide6, psutil)")
 
 # ── 3. Check Tesseract ────────────────────────────────────────────────────
 section("Tesseract OCR")
+tesseract_missing = False
 if shutil.which("tesseract"):
     result = subprocess.run(["tesseract", "--version"], capture_output=True, text=True)
     success(f"Tesseract found: {result.stdout.splitlines()[0]}")
 else:
+    tesseract_missing = True
     warn("Tesseract not found — relic reward OCR overlay won't work.")
     if IS_LINUX:
-        warn("Install with: sudo dnf install tesseract  OR  sudo apt install tesseract-ocr")
+        is_atomic = shutil.which("rpm-ostree") is not None
+        has_brew = shutil.which("brew") is not None
+        if is_atomic and has_brew:
+            warn("This is an atomic/immutable distro (Fedora Silverblue, Bazzite, etc).")
+            warn("Plain 'dnf install' won't work on the host. Use Homebrew instead:")
+            warn("  brew install tesseract")
+        elif is_atomic:
+            warn("This is an atomic/immutable distro (Fedora Silverblue, Bazzite, etc).")
+            warn("'sudo dnf install' will NOT work on the host system. Either:")
+            warn("  rpm-ostree install tesseract   (layers the package — requires a reboot)")
+            warn("  OR install Homebrew (https://brew.sh) then: brew install tesseract")
+        else:
+            warn("Install with: sudo dnf install tesseract  OR  sudo apt install tesseract-ocr")
     elif IS_WINDOWS:
         warn("Download from: https://github.com/UB-Mannheim/tesseract/wiki")
     elif IS_MAC:
@@ -263,3 +277,8 @@ print()
 print(f"  On first launch, go to {BOLD}Status & Tools → File Paths{RESET}")
 print(f"  to verify your EE.log was auto-detected correctly.")
 print()
+if tesseract_missing:
+    print(f"{YELLOW}{BOLD}⚠ IMPORTANT: Tesseract OCR is not installed.{RESET}")
+    print(f"{YELLOW}  The relic reward overlay will NOT work until you install it —")
+    print(f"  see the 'Tesseract OCR' section above for the exact command.{RESET}")
+    print()

@@ -345,6 +345,7 @@ class Tracker(QWidget):
         # ── System section ─────────────────────────────────────────────────
         _add_section("System")
         _add_page("Status & Tools",   lambda: __import__('STATUS_TAB',       fromlist=['StatusTab']).StatusTab(),            "\u2699")
+        _add_page("User Guide",       lambda: __import__('HELP_TAB',         fromlist=['HelpTab']).HelpTab(),                "\u2139")
         _add_page("Credits",          lambda: __import__('CREDITS_TAB',      fromlist=['CreditsTab']).CreditsTab(),          "\u2665")
 
         sidebar_layout.addStretch()

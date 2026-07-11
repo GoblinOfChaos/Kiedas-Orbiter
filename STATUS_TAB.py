@@ -905,8 +905,20 @@ class StatusTab(QWidget):
         self.process.setProcessChannelMode(QProcess.MergedChannels)
         self.process.readyReadStandardOutput.connect(self._process_output)
         self.process.finished.connect(self._process_finished)
+        self.process.errorOccurred.connect(self._process_error)
         self.process.setWorkingDirectory(str(cwd))
         self.process.start("/bin/bash", ["-c", cmd])
+
+    def _process_error(self, error):
+        # Fires when the process fails to even start (e.g. /bin/bash
+        # doesn't exist on Windows) — without this, QProcess never emits
+        # 'finished' in that case and the UI hangs forever on "Running:..."
+        # with every button disabled, since only 'finished' was handled.
+        if error == QProcess.FailedToStart:
+            self.cmd_text.append("\n=== Failed to start: /bin/bash not found on this system ===")
+            self.lbl_status.setText("Failed to start (no /bin/bash)")
+            self._set_buttons_enabled(True)
+            self.process = None
 
     def _process_output(self):
         if self.process:

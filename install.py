@@ -183,9 +183,14 @@ section("Virtual environment")
 VENV = WFINFO_DIR / ".venv"
 if IS_WINDOWS:
     VENV_PYTHON = VENV / "Scripts" / "python.exe"
+    # pythonw.exe has no console subsystem attached, so launching the GUI
+    # through it doesn't pop a terminal window — and critically, closing
+    # that terminal (python.exe's) would otherwise kill the whole app.
+    VENV_PYTHONW = VENV / "Scripts" / "pythonw.exe"
     VENV_PIP = VENV / "Scripts" / "pip.exe"
 else:
     VENV_PYTHON = VENV / "bin" / "python"
+    VENV_PYTHONW = VENV_PYTHON
     VENV_PIP = VENV / "bin" / "pip"
 
 if not VENV.exists():
@@ -347,7 +352,7 @@ elif IS_WINDOWS:
     ps_script = f"""
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut({_ps_quote(lnk)})
-$Shortcut.TargetPath = {_ps_quote(VENV_PYTHON)}
+$Shortcut.TargetPath = {_ps_quote(VENV_PYTHONW)}
 $Shortcut.Arguments = {_ps_quote(f'"{launcher}" app')}
 $Shortcut.WorkingDirectory = {_ps_quote(WFINFO_DIR)}
 $Shortcut.Description = "Kieda's Orbiter — Warframe Companion"

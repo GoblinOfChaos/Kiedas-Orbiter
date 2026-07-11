@@ -329,8 +329,15 @@ Terminal=false
     success("Desktop entry + autostart files installed")
 
 elif IS_WINDOWS:
+    def _ps_quote(s):
+        """Single-quote a string for PowerShell, escaping embedded single
+        quotes ('' inside a '...' string) — needed because "Kieda's" has
+        one, and PowerShell single-quoted strings don't support backslash
+        escapes."""
+        return "'" + str(s).replace("'", "''") + "'"
+
     icon_path = WFINFO_DIR / "orbiter.ico"
-    icon_line = f"$Shortcut.IconLocation = '{icon_path}'" if icon_path.exists() else ""
+    icon_line = f"$Shortcut.IconLocation = {_ps_quote(icon_path)}" if icon_path.exists() else ""
 
     # Create a Start Menu shortcut via PowerShell
     start_menu = Path(os.environ.get("APPDATA", "")) / "Microsoft/Windows/Start Menu/Programs"
@@ -339,10 +346,10 @@ elif IS_WINDOWS:
     launcher = WFINFO_DIR / "launcher.py"
     ps_script = f"""
 $WshShell = New-Object -comObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut('{lnk}')
-$Shortcut.TargetPath = '{VENV_PYTHON}'
-$Shortcut.Arguments = '"{launcher}" app'
-$Shortcut.WorkingDirectory = '{WFINFO_DIR}'
+$Shortcut = $WshShell.CreateShortcut({_ps_quote(lnk)})
+$Shortcut.TargetPath = {_ps_quote(VENV_PYTHON)}
+$Shortcut.Arguments = {_ps_quote(f'"{launcher}" app')}
+$Shortcut.WorkingDirectory = {_ps_quote(WFINFO_DIR)}
 $Shortcut.Description = "Kieda's Orbiter — Warframe Companion"
 {icon_line}
 $Shortcut.Save()
@@ -362,9 +369,9 @@ $Shortcut.Save()
         desktop_lnk = desktop / "Kieda's Orbiter.lnk"
         ps_script2 = f"""
 $WshShell = New-Object -comObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut('{desktop_lnk}')
-$Shortcut.TargetPath = '{bat_path}'
-$Shortcut.WorkingDirectory = '{WFINFO_DIR}'
+$Shortcut = $WshShell.CreateShortcut({_ps_quote(desktop_lnk)})
+$Shortcut.TargetPath = {_ps_quote(bat_path)}
+$Shortcut.WorkingDirectory = {_ps_quote(WFINFO_DIR)}
 $Shortcut.Description = "Kieda's Orbiter — Warframe Companion"
 {icon_line}
 $Shortcut.Save()

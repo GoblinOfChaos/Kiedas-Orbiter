@@ -381,7 +381,11 @@ class StatusTab(QWidget):
             setattr(self, attr, edit)
             brw = self._action_btn("Browse")
             brw.setMaximumWidth(75)
-            def _browse(title=browse_title, filt=browse_filter, e=edit):
+            def _browse(checked=False, title=browse_title, filt=browse_filter, e=edit):
+                # 'checked' absorbs the bool Qt's clicked signal passes to
+                # slots — without it, that bool binds positionally to
+                # 'title' instead, silently breaking the dialog call.
+                #
                 # DontUseNativeDialog: native dialogs route through
                 # xdg-desktop-portal, which is often missing/misconfigured
                 # on minimal or fresh Linux installs (VMs especially) and
@@ -662,18 +666,26 @@ class StatusTab(QWidget):
                     results.append(f"?  PySide6:  could not check ({e})")
 
                 # ── Post back to UI thread ────────────────────────────────
+                # This runs after a network round-trip (up to ~16s), so the
+                # tab may have been rebuilt (e.g. theme change calls
+                # refresh_styles(), which deletes and recreates every
+                # widget) by the time we get here — guard against updating
+                # already-deleted widgets.
+                import shiboken6
                 from PySide6.QtCore import QMetaObject, Qt as _Qt2, Q_ARG
                 text = "\n".join(results)
-                QMetaObject.invokeMethod(
-                    upd_status, "setText",
-                    _Qt2.ConnectionType.QueuedConnection,
-                    Q_ARG(str, text)
-                )
-                QMetaObject.invokeMethod(
-                    upd_btn, "setEnabled",
-                    _Qt2.ConnectionType.QueuedConnection,
-                    Q_ARG(bool, True)
-                )
+                if shiboken6.isValid(upd_status):
+                    QMetaObject.invokeMethod(
+                        upd_status, "setText",
+                        _Qt2.ConnectionType.QueuedConnection,
+                        Q_ARG(str, text)
+                    )
+                if shiboken6.isValid(upd_btn):
+                    QMetaObject.invokeMethod(
+                        upd_btn, "setEnabled",
+                        _Qt2.ConnectionType.QueuedConnection,
+                        Q_ARG(bool, True)
+                    )
 
             threading.Thread(target=_run, daemon=True).start()
 
@@ -953,33 +965,28 @@ class StatusTab(QWidget):
         )
 
     def refresh_inventory(self):
-        inv = INVENTORY_FILE
-        if inv.is_symlink():
-            target = inv.resolve()
-            if not target.exists():
-                QMessageBox.warning(
-                    self, "Inventory data missing",
-                    f"inventory.json symlink points at {target} but the file doesn't exist."
-                )
-                return
-            age_min = (time.time() - target.stat().st_mtime) / 60
-        else:
-            if not inv.exists():
-                QMessageBox.warning(self, "No inventory data",
-                    "inventory.json doesn't exist.")
-                return
-            age_min = (time.time() - inv.stat().st_mtime) / 60
-
-        if age_min > 30:
-            reply = QMessageBox.question(
-                self, "Inventory data is stale",
-                f"inventory.json is {age_min:.0f} minutes old. Refresh anyway?",
-                QMessageBox.Yes | QMessageBox.No,
+        # warframe-api-helper reads inventory directly from Warframe's own
+        # memory/API. It needs a cached auth token (from a prior successful
+        # run) or a live memory scan, which needs Warframe actually running.
+        if not _pgrep("Warframe.x64.exe"):
+            QMessageBox.warning(
+                self, "Warframe isn't running",
+                "warframe-api-helper needs Warframe running to read your "
+                "inventory. Launch Warframe first, then try again."
             )
-            if reply != QMessageBox.Yes:
-                return
+            return
+
+        helper = WFINFO_DIR / "warframe-api-helper"
+        if not helper.exists():
+            QMessageBox.warning(
+                self, "Helper not installed",
+                "warframe-api-helper wasn't found. Run install.py again, or "
+                "python download_helper.py, to fetch it."
+            )
+            return
 
         self._run_command(
+            "./warframe-api-helper && "
             "python3 populate_owned.py inventory.json owned_items.json && "
             "python3 populate_crafted.py && python3 populate_relics.py && "
             "python3 populate_equipment.py && python3 record_stats_snapshot.py && "

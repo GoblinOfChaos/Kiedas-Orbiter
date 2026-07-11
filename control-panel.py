@@ -106,7 +106,7 @@ class ControlPanel(QWidget):
         main.addWidget(status_group)
 
         # Primary action
-        self.btn_refresh = QPushButton("Refresh Tracker from Kronos Data")
+        self.btn_refresh = QPushButton("Refresh Inventory from Warframe")
         self.btn_refresh.setStyleSheet(
             f"QPushButton {{ font-size: 14pt; padding: 16px; "
             f"background-color: {BG_CARD}; color: {GOLD}; border: 1px solid {GOLD}; border-radius: 5px; font-weight: 700; }}"
@@ -117,8 +117,9 @@ class ControlPanel(QWidget):
         main.addWidget(self.btn_refresh)
 
         warning = QLabel(
-            "Re-reads inventory.json (from Kronos symlink) and rebuilds derived data. "
-            "Warframe's memory. Best done in your orbiter or on a loading screen."
+            "Runs warframe-api-helper to re-read your inventory from Warframe's "
+            "memory and rebuilds derived data. Requires Warframe running — "
+            "best done in your orbiter or on a loading screen."
         )
         warning.setStyleSheet(f"color: {GOLD_BRIGHT}; padding: 4px;")
         warning.setWordWrap(True)
@@ -336,46 +337,30 @@ class ControlPanel(QWidget):
         )
 
     def refresh_inventory(self):
-        # Kronos (glowseeker/cephalon-kronos) now owns the memory-reading task.
-        # Our inventory.json is symlinked to its output. We just refresh derived
-        # data files from whatever Kronos last wrote.
-        inv = INVENTORY_FILE
-        if inv.is_symlink():
-            target = inv.resolve()
-            if not target.exists():
-                QMessageBox.warning(
-                    self, "Kronos data missing",
-                    f"inventory.json symlink points at {target} but the file "
-                    "doesn't exist. Make sure Cephalon Kronos has run at least once."
-                )
-                return
-            age_min = (time.time() - target.stat().st_mtime) / 60
-            stale = age_min > 30
-        else:
-            if not inv.exists():
-                QMessageBox.warning(
-                    self, "No inventory data",
-                    "inventory.json doesn't exist. Launch Cephalon Kronos with "
-                    "monitoring enabled while Warframe is running."
-                )
-                return
-            age_min = (time.time() - inv.stat().st_mtime) / 60
-            stale = age_min > 30
-
-        if stale:
-            reply = QMessageBox.question(
-                self, "Inventory data is stale",
-                f"inventory.json is {age_min:.0f} minutes old. Kronos may not be "
-                "running or may not have hooked into Warframe.\n\nRefresh anyway "
-                "with the existing data?",
-                QMessageBox.Yes | QMessageBox.No,
+        # warframe-api-helper reads inventory directly from Warframe's own
+        # memory/API — no third-party app needed. It requires a cached auth
+        # token (from a prior successful run) or a live memory scan, which
+        # needs Warframe actually running.
+        if not pgrep("Warframe.x64.exe"):
+            QMessageBox.warning(
+                self, "Warframe isn't running",
+                "warframe-api-helper needs Warframe running to read your "
+                "inventory. Launch Warframe first, then try again."
             )
-            if reply != QMessageBox.Yes:
-                return
+            return
+
+        helper = WFINFO_DIR / "warframe-api-helper"
+        if not helper.exists():
+            QMessageBox.warning(
+                self, "Helper not installed",
+                "warframe-api-helper wasn't found. Run install.py again, or "
+                "python download_helper.py, to fetch it."
+            )
+            return
 
         self._run_command(
-            "echo 'Using inventory.json from Kronos (symlinked).' && "
-            "ls -la inventory.json && echo && "
+            "echo 'Reading inventory from Warframe...' && "
+            "./warframe-api-helper && echo && "
             "python3 populate_owned.py inventory.json owned_items.json && "
             "python3 populate_crafted.py && "
             "python3 populate_relics.py && "
@@ -385,7 +370,7 @@ class ControlPanel(QWidget):
             "pkill -f missing-parts.py 2>/dev/null; "
             "echo 'Done. Relaunch missing parts via the button below.'",
             cwd=WFINFO_DIR,
-            description="Refresh tracker from Kronos data",
+            description="Refresh inventory from Warframe",
         )
 
 

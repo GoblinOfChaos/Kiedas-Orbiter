@@ -83,7 +83,8 @@ def _download_binary(url: str, dest: Path):
 def download_api_helper(force: bool = False) -> bool:
     """
     Download warframe-api-helper for the current platform.
-    Returns True if downloaded, False if already present (and not forced).
+    Returns True if the binary is present and usable (downloaded now or
+    already there), False only on a genuine failure.
     """
     platform = sys.platform
     if platform not in API_HELPER_ASSET_NAME:
@@ -97,7 +98,7 @@ def download_api_helper(force: bool = False) -> bool:
     if output.exists() and not force:
         print(f"  {output.name} already present — skipping download.")
         print("  Run with --force to re-download.")
-        return False
+        return True
 
     print(f"Fetching latest warframe-api-helper release...")
     try:
@@ -150,7 +151,8 @@ def download_api_helper(force: bool = False) -> bool:
 def download_orbiter(force: bool = False) -> bool:
     """
     Download orbiter binary for the current platform.
-    Returns True if downloaded, False if already present (and not forced).
+    Returns True if the binary is present and usable (downloaded now or
+    already there), False only on a genuine failure.
     """
     platform = sys.platform
     if platform not in ORBITER_ASSET_NAME:
@@ -163,7 +165,7 @@ def download_orbiter(force: bool = False) -> bool:
     if output.exists() and not force:
         print(f"  {output.name} already present — skipping download.")
         print("  Run with --force to re-download.")
-        return False
+        return True
 
     print(f"Fetching orbiter release from Kiedas-Orbiter...")
     try:

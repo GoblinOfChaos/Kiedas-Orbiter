@@ -177,7 +177,12 @@ jobs:
           # Patch AppRun to use system libwayland-client to work around
           # Tauri AppImage EGL_BAD_PARAMETER bug on rolling-release distros.
           # See https://github.com/tauri-apps/tauri/pull/12491 for upstream fix.
-          sed -i '2i export LD_PRELOAD=/usr/lib/libwayland-client.so' squashfs-root/AppRun
+          cat > /tmp/preload-snippet.sh << 'EOF'
+          for libpath in /usr/lib/x86_64-linux-gnu/libwayland-client.so.0 /usr/lib64/libwayland-client.so.0 /usr/lib/libwayland-client.so.0 /lib64/libwayland-client.so.0; do
+            [ -f "$libpath" ] && export LD_PRELOAD="$libpath" && break
+          done
+          EOF
+          sed -i '2r /tmp/preload-snippet.sh' squashfs-root/AppRun
 
           # Repack
           PATCHED="/tmp/Cephalon-Kronos_${VERSION}_amd64.AppImage"

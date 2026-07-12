@@ -310,6 +310,11 @@ class Tracker(QWidget):
         _add_page("Arcanes",          lambda: __import__('ARCANE_TAB',       fromlist=['ArcaneTab']).ArcaneTab(),             "◐")
         _add_page("Mastery Helper",   lambda: __import__('MASTERY_HELPER_TAB',fromlist=['MasteryHelperTab']).MasteryHelperTab(),"★")
 
+        # ── Collectibles section ─────────────────────────────────────────────
+        _add_section("Collectibles")
+        _add_page("Ayatan Sculptures", lambda: __import__('AYATAN_TAB',           fromlist=['AyatanTab']).AyatanTab(),                     "◉")
+        _add_page("Conservation Tags", lambda: __import__('CONSERVATION_TAG_TAB', fromlist=['ConservationTagTab']).ConservationTagTab(),   "▲")
+
         # ── Relics section ─────────────────────────────────────────────────
         _add_section("Relics")
         _add_page("Relic Planner",    lambda: __import__('RELIC_PLANNER_TAB', fromlist=['RelicPlannerTab']).RelicPlannerTab(), "�")

@@ -145,7 +145,7 @@ jobs:
           releaseBody: 'See the attached assets for the release binaries.'
           releaseDraft: true
           prerelease: false
-          uploadPlainBinary: true
+          uploadPlainBinary: false
 
       # Patch AppRun to preload system libwayland-client, working around
       # a Tauri AppImage EGL_BAD_PARAMETER bug on rolling-release distros.

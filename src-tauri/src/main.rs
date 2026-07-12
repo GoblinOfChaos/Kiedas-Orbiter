@@ -40,7 +40,6 @@ pub struct SidebarSavedState {
     pub y: i32,
     pub width: u32,
     pub height: u32,
-    pub game_xid: u64,
     pub mon_x: i32,
     pub mon_y: i32,
     pub mon_w: u32,
@@ -1425,6 +1424,9 @@ fn hide_overlay_window(
 }
 
 /// Toggle the interactive in-game sidebar on/off.
+/// Uses a dedicated overlay-sidebar window — main is never touched.
+/// The overlay window gets OSD X11 hints on first show (via show_sidebar_internal)
+/// so KWin places it above fullscreen games.
 #[tauri::command]
 fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
     if overlay_utils::SIDEBAR_TOGGLING.swap(true, Ordering::SeqCst) {
@@ -1435,92 +1437,20 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
     let state = app_handle.state::<AppState>();
     let mut saved = state.sidebar_saved.lock().unwrap();
 
-    let window = app_handle
-        .get_webview_window("main")
-        .ok_or_else(|| "main window not found".to_string())?;
-
-    eprintln!("[SIDEBAR-TOGGLE] active={} is_visible={:?}", saved.active, window.is_visible().ok());
-
     if saved.active {
-        // ── Exit sidebar mode (restore normal window) ──────────────────────
-        eprintln!("[SIDEBAR-TOGGLE] EXIT path");
-        #[cfg_attr(not(target_os = "linux"), allow(unused_variables))]
-        let (x, y, w, h, game_xid) = (saved.x, saved.y, saved.width, saved.height, saved.game_xid);
-        saved.active  = false;
-        saved.side    = None;
-        saved.game_xid = 0;
+        overlay_utils::hide_sidebar_internal(&app_handle);
+        saved.active = false;
+        saved.side = None;
         drop(saved);
-
-        let win = window.clone();
-        let _toggling = &overlay_utils::SIDEBAR_TOGGLING;
-        window.run_on_main_thread(move || {
-            eprintln!("[SIDEBAR-EXIT] restore closure start");
-            #[cfg(target_os = "linux")]
-            overlay_utils::sidebar_clear_x11_hints(&win);
-
-            // Remap BEFORE issuing GDK property calls — KWin ignores EWMH
-            // requests on withdrawn windows, corrupting its internal state.
-            #[cfg(target_os = "linux")]
-            {
-                let _ = win.unminimize();
-                eprintln!("[SIDEBAR-EXIT] after win.unminimize()");
-                let _ = win.show();
-                eprintln!("[SIDEBAR-EXIT] after win.show()");
-                overlay_utils::sidebar_force_map_window(&win, x, y, w, h);
-            }
-
-            // Window is now mapped — GDK calls are meaningful.
-            eprintln!("[SIDEBAR-EXIT] GDK calls starting");
-            let _ = win.set_decorations(true);
-            eprintln!("[SIDEBAR-EXIT] after set_decorations(true)");
-            let _ = win.set_always_on_top(false);
-            eprintln!("[SIDEBAR-EXIT] after set_always_on_top(false)");
-            let _ = win.set_skip_taskbar(false);
-            eprintln!("[SIDEBAR-EXIT] after set_skip_taskbar(false)");
-            let _ = win.set_ignore_cursor_events(false);
-            eprintln!("[SIDEBAR-EXIT] after set_ignore_cursor_events(false)");
-            let _ = win.set_resizable(true);
-            eprintln!("[SIDEBAR-EXIT] after set_resizable(true)");
-            let _ = win.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: w, height: h }));
-            eprintln!("[SIDEBAR-EXIT] after set_size({},{})", w, h);
-            let _ = win.set_min_size(Some(tauri::PhysicalSize { width: 900, height: 500 }));
-            let _ = win.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }));
-            eprintln!("[SIDEBAR-EXIT] after set_position({},{})", x, y);
-
-            #[cfg(target_os = "linux")]
-            overlay_utils::sidebar_restore_focus_to_game(&win, game_xid);
-            eprintln!("[SIDEBAR-EXIT] restore closure DONE");
-            let _ = win.emit("sidebar-mode-changed", serde_json::json!({ "active": false }));
-            overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
-        }).ok();
-
-        // Log final position after restore
-        if let Ok(pos) = window.outer_position() {
-            eprintln!("[SIDEBAR-EXIT] final Tauri position: ({}, {}), saved was ({}, {})", pos.x, pos.y, x, y);
-        }
-
+        overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
         sidebar_stamp(&state);
+        if let Some(main_win) = app_handle.get_webview_window("main") {
+            let _ = main_win.emit("sidebar-mode-changed", serde_json::json!({ "active": false }));
+        }
+        eprintln!("[SIDEBAR-TOGGLE] EXIT done");
+        Ok(())
     } else {
-        // ── Enter sidebar mode ────────────────────────────────────────────
-        eprintln!("[SIDEBAR-TOGGLE] ENTER path");
         sidebar_stamp(&state);
-
-        if saved.width == 0 {
-            // Only capture on the very first activation this session — GDK's
-            // position/size cache is unreliable after the raw X11 restore path,
-            // so re-querying on every toggle corrupts the baseline.
-            let pos  = window.inner_position().map_err(|e| { overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e.to_string() })?;
-            let size = window.inner_size().map_err(|e| { overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e.to_string() })?;
-            saved.x      = pos.x;
-            saved.y      = pos.y;
-            saved.width  = size.width;
-            saved.height = size.height;
-            eprintln!("[SIDEBAR] saved position (first activation): ({},{}) size: {}x{}", pos.x, pos.y, size.width, size.height);
-        } else {
-            eprintln!("[SIDEBAR] reusing cached position: ({},{}) size: {}x{}", saved.x, saved.y, saved.width, saved.height);
-        }
-
-        saved.active  = true;
 
         let settings = load_settings_sync();
         let side = settings
@@ -1529,14 +1459,15 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
             .unwrap_or("left")
             .to_string();
         saved.side = Some(side.clone());
+        saved.active = true;
         let entry_width = settings
             .get("sidebar_width")
             .and_then(|v| v.as_u64())
             .map(|w| w as u32)
-            .unwrap_or(saved.width);
-        // Cache monitor geometry to avoid querying available_monitors() on
-        // every drag frame (get_overlay_monitor is expensive on Windows).
-        if let Ok(mon) = overlay_utils::get_overlay_monitor(&app_handle, "main") {
+            .unwrap_or(300);
+
+        // Cache monitor geometry for set_sidebar_width drag resizing.
+        if let Ok(mon) = overlay_utils::get_overlay_monitor(&app_handle, "overlay-sidebar") {
             let pos = mon.position();
             let size = mon.size();
             saved.mon_x = pos.x;
@@ -1546,26 +1477,14 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
         }
         drop(saved);
 
-        let _ = window.emit("sidebar-prepare", serde_json::json!({ "side": side }));
-        std::thread::sleep(std::time::Duration::from_millis(16));
-
-        overlay_utils::enter_sidebar_mode(&app_handle, &window, &side, entry_width).map_err(|e| { overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst); e })?;
-        // On Linux, apply_x11_overlay_hints already mapped the window, so
-        // show()/unminimize() would just confuse GDK (its visibility cache
-        // hasn't caught up with the raw XMapWindow) and make it re-assert
-        // the old main-window position.  Only run these on non-Linux.
-        // (Unconditional show() on Windows can reapply the OS's cached
-        // WINDOWPLACEMENT.rcNormalPosition too, but there we need the
-        // show() to finish the remap after toggling decorations.)
-        #[cfg(not(target_os = "linux"))]
-        {
-            if window.is_minimized().unwrap_or(false) { let _ = window.unminimize(); }
-            if !window.is_visible().unwrap_or(true) { let _ = window.show(); }
+        overlay_utils::show_sidebar_internal(&app_handle, &side, entry_width)?;
+        overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
+        if let Some(main_win) = app_handle.get_webview_window("main") {
+            let _ = main_win.emit("sidebar-mode-changed", serde_json::json!({ "active": true, "side": side }));
         }
-        let _ = window.emit("sidebar-mode-changed", serde_json::json!({ "active": true, "side": side }));
+        eprintln!("[SIDEBAR-TOGGLE] ENTER done side={}", side);
+        Ok(())
     }
-
-    Ok(())
 }
 
 fn sidebar_stamp(state: &AppState) {
@@ -1597,6 +1516,23 @@ async fn sidebar_load_data(app_handle: tauri::AppHandle) -> Result<serde_json::V
 
     Ok(serde_json::json!({
         "exports": exports,
+        "inventory": inventory,
+        "inventoryTimestamp": timestamp,
+    }))
+}
+
+/// Lightweight version — only loads inventory (no exports).
+/// Used by the sidebar overlay on data-update events to avoid
+/// re-reading all ~30 export JSON files every monitoring cycle.
+#[tauri::command]
+async fn sidebar_load_inventory() -> Result<serde_json::Value, String> {
+    let (inventory, timestamp) = load_cached_inventory_inner()
+        .ok()
+        .flatten()
+        .map(|(inv, ts)| (Some(inv), ts))
+        .unwrap_or((None, 0));
+
+    Ok(serde_json::json!({
         "inventory": inventory,
         "inventoryTimestamp": timestamp,
     }))
@@ -2139,7 +2075,7 @@ async fn dispatch_hotkey_action(app: AppHandle, action: &str) {
     let state = app.state::<AppState>();
     let now = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_millis() as u64;
     let last = state.sidebar_last_op.swap(now, Ordering::Relaxed);
-    if now.saturating_sub(last) < 200 {
+    if now.saturating_sub(last) < 100 {
         eprintln!("[Hotkeys] Ignoring duplicate trigger for: {}", action);
         return;
     }
@@ -2242,14 +2178,7 @@ fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, per
         }
     }
     if saved_active {
-        if let Some(window) = app_handle.get_webview_window("main") {
-            // Notify the frontend BEFORE resizing so App.jsx updates its
-            // sidebarSide state and CSS classes (flex-row-reverse, border-l/r).
-            let _ = window.emit("sidebar-prepare", serde_json::json!({ "side": side }));
-
-            // Use cached monitor geometry (populated when sidebar entered)
-            // instead of calling get_overlay_monitor → available_monitors()
-            // which is expensive on Windows and called on every drag frame.
+        if let Some(window) = app_handle.get_webview_window("overlay-sidebar") {
             let phys_w = (width as u32).max(200).min((mon_w as f64 * 0.9) as u32);
             let target_x = match side.as_str() {
                 "right" => mon_x + mon_w as i32 - phys_w as i32,
@@ -2258,9 +2187,6 @@ fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, per
             eprintln!("[set_sidebar_width] computed: phys_w={}, target_x={}, mon_y={}, mon_h={}, mon_x={}, mon_w={}", phys_w, target_x, mon_y, mon_h, mon_x, mon_w);
             let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: mon_h }));
             let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_y }));
-            if let Ok(pos) = window.outer_position() {
-                eprintln!("[set_sidebar_width] after set_position: ({}, {}), target was ({}, {})", pos.x, pos.y, target_x, mon_y);
-            }
         }
     }
     
@@ -2489,6 +2415,12 @@ async fn get_known_weapon_names() -> Vec<String> {
         // Both break under the Wayland backend (compositor controls placement).
         // KDE always provides XWayland, so this is safe.
         std::env::set_var("GDK_BACKEND", "x11");
+
+        // Install a non-terminating X error handler so stray protocol errors
+        // (e.g. racy BadMatch on XSetInputFocus) log and continue instead of
+        // calling exit().  Must run after GDK_BACKEND is set so the X display
+        // connection is available.
+        crate::overlay_utils::install_x_error_handler();
     }
     // Clear old debug log on startup so it doesn't grow infinitely
     let log_path = resolve_path("data/user/overlay_debug.log");
@@ -2666,6 +2598,7 @@ async fn get_known_weapon_names() -> Vec<String> {
             set_ignore_cursor_events,
             toggle_sidebar,
             sidebar_load_data,
+            sidebar_load_inventory,
             set_sidebar_width,
             log_timing,
             play_notification_sound,

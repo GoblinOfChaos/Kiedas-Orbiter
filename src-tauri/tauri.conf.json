@@ -119,6 +119,20 @@
         "visible": false,
         "focus": false,
         "shadow": false
+      },
+      {
+        "label": "overlay-sidebar",
+        "url": "/?overlay=true",
+        "width": 400,
+        "height": 600,
+        "decorations": false,
+        "transparent": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": false,
+        "visible": false,
+        "focus": true,
+        "shadow": false
       }
     ],
     "security": {

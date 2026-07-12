@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import ToastOverlay from './ToastOverlay'
+import SidebarOverlay from './SidebarOverlay'
 
 const RelicRewardOverlay = lazy(() => import('./RelicRewardOverlay'))
 const RivenOverlay = lazy(() => import('./RivenOverlay'))
@@ -41,6 +42,10 @@ export default function OverlayRouter() {
         <RelicPickerOverlay />
       </Suspense>
     )
+  }
+
+  if (label === 'overlay-sidebar') {
+    return <SidebarOverlay />
   }
 
   return null

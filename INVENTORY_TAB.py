@@ -84,6 +84,7 @@ class InventoryTab(QWidget):
 
         was_sorting = self._table.isSortingEnabled()
         self._table.setSortingEnabled(False)
+        self._table.setRowCount(0)
         names = sorted(self._owned.keys())
         for n in names:
             self._add_row(n)

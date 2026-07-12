@@ -59,6 +59,7 @@ class FoundryTab(QWidget):
 
         was_sorting = self._table.isSortingEnabled()
         self._table.setSortingEnabled(False)
+        self._table.setRowCount(0)
         names = sorted(self._eqmt.keys())
         for n in names:
             self._add_row(n, self._eqmt.get(n) or {})

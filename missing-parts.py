@@ -3,6 +3,7 @@
 
 import json
 import sys
+import threading
 from collections import defaultdict
 from pathlib import Path
 
@@ -986,6 +987,46 @@ class Tracker(QWidget):
         self._show_relic(era_item.text(), name_item.text())
 
 
+def _start_update_check():
+    """Check GitHub for a newer release in the background, and if one
+    exists, pop up a notice with a link and update instructions. Runs
+    fully async so it never delays startup; the QObject is returned so
+    the caller can keep a reference alive until the signal fires (an
+    unreferenced QObject can get garbage-collected before a background
+    thread finishes, silently dropping the signal)."""
+    from PySide6.QtCore import QObject, Signal
+
+    class _Notifier(QObject):
+        found = Signal(dict)
+
+    notifier = _Notifier()
+
+    def _on_found(info):
+        msg = QMessageBox(QMessageBox.Information, "Update Available",
+                           f"A new version of Kieda's Orbiter is available!\n\n"
+                           f"Current: v{info['current']}\nLatest: v{info['latest']}")
+        msg.setInformativeText(
+            "To update:\n"
+            "1. Download the latest release (or 'git pull' if you cloned)\n"
+            "2. Re-run the installer (install.py / Install Windows.bat / install.sh)\n"
+            "3. Relaunch the app\n\n"
+            f"Release page:\n{info['url']}"
+        )
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec()
+
+    notifier.found.connect(_on_found)
+
+    def _worker():
+        from update_check import check_for_update
+        result = check_for_update()
+        if result:
+            notifier.found.emit(result)
+
+    threading.Thread(target=_worker, daemon=True).start()
+    return notifier
+
+
 def main():
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon(WFINFO_ICON))
@@ -1001,6 +1042,7 @@ def main():
 
     t = Tracker()
     t.show()
+    app._update_notifier = _start_update_check()  # keep a reference alive
     ret = app.exec()
     # Save window geometry on exit
     if hasattr(t, '_settings'):

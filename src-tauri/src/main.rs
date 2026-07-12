@@ -19,9 +19,6 @@ mod ocr_engine;
 mod overlay_utils;
 mod logger;
 mod pricer;
-#[cfg(target_os = "linux")]
-// mod linux_shortcuts; removed
-
 pub struct AppState {
     pub notif_sound: Arc<Mutex<String>>,
     pub log_scanner: Arc<Mutex<Option<log_scanner::LogScannerHandle>>>,

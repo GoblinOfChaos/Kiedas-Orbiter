@@ -225,6 +225,7 @@ extern "C" {
     fn XUngrabKeyboard(display: *mut std::ffi::c_void, time: u64) -> i32;
 }
 
+#[cfg(target_os = "linux")]
 #[repr(C)]
 struct XErrorEvent {
     typ: i32,
@@ -254,6 +255,7 @@ pub fn install_x_error_handler() {
     }
 }
 
+#[cfg(target_os = "linux")]
 fn get_x11_ids(window: &WebviewWindow) -> Option<(*mut std::ffi::c_void, u64)> {
     use gtk::prelude::*;
     let gtk_window = window.gtk_window().ok()?;

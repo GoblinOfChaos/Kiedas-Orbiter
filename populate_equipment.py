@@ -110,9 +110,10 @@ def build_item(raw, tab, mastered, subsumed_set=None):
     components = []
     for c in (raw.get("components") or []):
         components.append({
-            "name":  c.get("name", ""),
-            "count": c.get("itemCount", 1),
-            "drops": [shape_drop(d) for d in (c.get("drops") or [])],
+            "name":       c.get("name", ""),
+            "uniqueName": c.get("uniqueName", ""),
+            "count":      c.get("itemCount", 1),
+            "drops":      [shape_drop(d) for d in (c.get("drops") or [])],
         })
     # Check helminth subsume: look at both exact unique and base version
     subsumed = False

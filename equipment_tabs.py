@@ -62,16 +62,49 @@ class EquipmentTabBuilder:
         self.data = {}
         self.trees = {}
         self.filter_boxes = {}
+        self.ingredient_index = {}
 
     def reload_data(self):
         if EQUIPMENT_FILE.exists():
             try:
                 self.data = json.loads(EQUIPMENT_FILE.read_text())
+                self.ingredient_index = self._build_ingredient_index()
                 return True
             except json.JSONDecodeError:
                 pass
         self.data = {}
+        self.ingredient_index = {}
         return False
+
+    def _build_ingredient_index(self):
+        """Some weapons are crafting components for OTHER weapons (e.g.
+        Redeemer's blueprint needs a full Dual Skana and a full Vasto, not
+        just raw resources). Scan every item's component list across all
+        categories once, and index: ingredient uniqueName -> names of the
+        items that need it. Mirrors Cephalon Kronos's automatic "Crafting
+        Ingredient" badge, derived entirely from data we already have."""
+        equipment_unames = set()
+        for items in self.data.values():
+            if isinstance(items, list):
+                for item in items:
+                    if item.get("uniqueName"):
+                        equipment_unames.add(item["uniqueName"])
+
+        index = {}
+        for items in self.data.values():
+            if not isinstance(items, list):
+                continue
+            for item in items:
+                needer = item.get("name", "")
+                own_uname = item.get("uniqueName")
+                for c in (item.get("components") or []):
+                    cu = c.get("uniqueName", "")
+                    # Only count it as an "ingredient" if that component IS
+                    # itself a full equipment item, not a raw resource,
+                    # blueprint, or generic crafting material.
+                    if cu and cu != own_uname and cu in equipment_unames:
+                        index.setdefault(cu, []).append(needer)
+        return index
 
     def build_all(self):
         ok = self.reload_data()
@@ -164,6 +197,10 @@ class EquipmentTabBuilder:
 
         label = item["name"] + (make_item_label_extras(item) if not mastered else "")
 
+        needed_by = self.ingredient_index.get(item.get("uniqueName"), [])
+        if needed_by:
+            label += "  \U0001F527"  # wrench - "Crafting Ingredient"
+
         wiki_url = item.get("wikiaUrl", "")
         wiki_display = "\u25b7 Wiki" if wiki_url else ""   # ▷ open triangle = link
         subsumed = item.get("subsumed", False)
@@ -180,6 +217,10 @@ class EquipmentTabBuilder:
 
         node.setData(0, Qt.UserRole, wiki_url)
         node.setData(0, Qt.UserRole + 1, "mastered" if mastered else "missing")
+
+        if needed_by:
+            names = ", ".join(sorted(set(needed_by)))
+            node.setToolTip(0, f"Crafting Ingredient — required to build: {names}")
 
         # Item thumbnail from cached WFCD image
         img_name = item.get("imageName", "")

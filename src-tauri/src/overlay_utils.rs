@@ -420,16 +420,11 @@ fn force_position_tauri(window: &WebviewWindow, x: i32, y: i32) -> Result<(), St
 // hidden msedgewebview2.exe instances competing for CPU/GPU at startup.
 
 fn create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<tauri::WebviewWindow, String> {
-    let is_transparent = matches!(label,
-        "overlay-tl" | "overlay-tc" | "overlay-tr" |
-        "overlay-relic" | "overlay-relic-picker"
-    );
     let (w, h) = overlay_size(label);
 
     let builder = WebviewWindowBuilder::new(app_handle, label, WebviewUrl::App("/?overlay=true".into()))
         .inner_size(w, h)
         .decorations(false)
-        .transparent(is_transparent)
         .always_on_top(true)
         .skip_taskbar(true)
         .resizable(true)

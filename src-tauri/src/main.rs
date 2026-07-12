@@ -2537,16 +2537,28 @@ async fn get_known_weapon_names() -> Vec<String> {
                     Err(e) => eprintln!("[PRICER MODELS] Download failed: {}", e),
                 }
             });
+            // Extract card images in the background (was synchronous before
+            // app.run(), which froze the window during startup).
+            let ah4 = ah.clone();
+            std::thread::spawn(move || {
+                std::thread::sleep(std::time::Duration::from_millis(500));
+                if let Some(cache_path) = detect_cache_inner() {
+                    match extract_card_images_inner(&ah4, &cache_path) {
+                        Ok(count) => eprintln!("[MOD IMAGES] {} card images available", count),
+                        Err(e) => eprintln!("[MOD IMAGES] Extraction failed: {}", e),
+                    }
+                }
+            });
+
             // Pricer is NOT eagerly loaded here — it lazy-inits on first use
             // (estimate_riven_*, get_weapon_names from the Rivens tab).
             // Eager ONNX model load at boot caused allocator contention that
             // stalled the winit event loop → native title-bar drag freezing.
-            // Position and configure all overlay windows once at startup.
-            // They start hidden (tauri.conf.json) so show() in show_window_internal
-            // makes them visible only after the webview has loaded transparent content,
-            // avoiding the first-frame black flash on Linux.
-            // Overlays start hidden (tauri.conf.json visible=false).
-            // Shown on-demand by show_overlay_window. Pre-showing races webview load on Linux.
+            // Overlay windows are created on-demand by show_window_internal
+            // (not eagerly in tauri.conf.json) so WebView2 processes only
+            // spin up when an overlay is actually needed.  show() makes them
+            // visible after the webview has loaded, avoiding the first-frame
+            // black flash on Linux.
 
             #[cfg(target_os = "linux")]
             {
@@ -2656,17 +2668,6 @@ async fn get_known_weapon_names() -> Vec<String> {
         ])
         .build(tauri::generate_context!())
         .expect("error while building tauri application");
-
-    // Extract mod images synchronously before the event loop starts,
-    // so file watcher (dev mode) doesn't catch writes and restart.
-    // NOTE: the old background-thread approach caused SIGSEGV because
-    // AppHandle internals aren't fully initialized before app.run().
-    if let Some(cache_path) = detect_cache_inner() {
-        match extract_card_images_inner(&app.handle(), &cache_path) {
-            Ok(count) => eprintln!("[MOD IMAGES] Extracted {} images", count),
-            Err(e) => eprintln!("[MOD IMAGES] Extraction failed: {}", e),
-        }
-    }
 
     app.run(|_app_handle, _event| {});
 }

@@ -1,7 +1,7 @@
 use std::sync::Mutex;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
-use tauri::{AppHandle, Emitter, Manager, PhysicalPosition, WebviewWindow};
+use tauri::{AppHandle, Emitter, Manager, PhysicalPosition, WebviewWindow, WebviewUrl, WebviewWindowBuilder};
 
 use active_win_pos_rs;
 
@@ -196,6 +196,7 @@ fn apply_platform_patches(window: &WebviewWindow) -> Result<(), String> {
 #[cfg(target_os = "linux")]
 #[link(name = "X11")]
 extern "C" {
+    fn XInitThreads() -> i32;
     fn XMoveWindow(display: *mut std::ffi::c_void, w: u64, x: i32, y: i32) -> i32;
     fn XMoveResizeWindow(display: *mut std::ffi::c_void, w: u64, x: i32, y: i32, width: u32, height: u32) -> i32;
     fn XRaiseWindow(display: *mut std::ffi::c_void, w: u64) -> i32;
@@ -223,6 +224,11 @@ extern "C" {
     fn XSetErrorHandler(handler: Option<unsafe extern "C" fn(*mut std::ffi::c_void, *mut XErrorEvent) -> i32>) -> Option<unsafe extern "C" fn(*mut std::ffi::c_void, *mut XErrorEvent) -> i32>;
     fn XUngrabPointer(display: *mut std::ffi::c_void, time: u64) -> i32;
     fn XUngrabKeyboard(display: *mut std::ffi::c_void, time: u64) -> i32;
+}
+
+#[cfg(target_os = "linux")]
+pub fn init_x11_threading() {
+    unsafe { XInitThreads(); }
 }
 
 #[cfg(target_os = "linux")]
@@ -293,7 +299,6 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
         // If already mapped, unmap so KWin re-evaluates the layer on remap
         if already_mapped {
             XUnmapWindow(xdisplay, xid);
-            XSync(xdisplay, 0);
         }
 
         // _NET_WM_WINDOW_TYPE intentionally omitted — despite override_redirect
@@ -323,13 +328,14 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
         XChangeProperty(xdisplay, xid, motif_hints, motif_hints, 32, prop_replace,
             mwm_hints.as_ptr() as *const u8, 5);
 
-        XSync(xdisplay, 0);
-
         // Set geometry while still unmapped so the X server maps at our
         // position and the WM never applies its own default placement.
         if let Some((px, py, pw, ph)) = pos {
             XMoveResizeWindow(xdisplay, xid, px, py, pw, ph);
         }
+
+        // Single sync after all property writes + geometry — avoids redundant
+        // round-trips that contend with GTK's own X11 access during WM drag.
         XSync(xdisplay, 0);
 
         if already_mapped {
@@ -407,14 +413,39 @@ fn force_position_tauri(window: &WebviewWindow, x: i32, y: i32) -> Result<(), St
         .map_err(|e| format!("set_position({x},{y}) failed: {e}"))
 }
 
+// ── Lazy window creation ──────────────────────────────────────────────────────
+// Overlays are created on-demand (not eagerly in tauri.conf.json) so WebView2
+// processes only spin up when an overlay is actually needed — avoiding 8+
+// hidden msedgewebview2.exe instances competing for CPU/GPU at startup.
+
+fn create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<tauri::WebviewWindow, String> {
+    let is_transparent = matches!(label,
+        "overlay-tl" | "overlay-tc" | "overlay-tr" |
+        "overlay-relic" | "overlay-relic-picker"
+    );
+    let (w, h) = overlay_size(label);
+
+    let builder = WebviewWindowBuilder::new(app_handle, label, WebviewUrl::App("/?overlay=true".into()))
+        .inner_size(w, h)
+        .decorations(false)
+        .transparent(is_transparent)
+        .always_on_top(true)
+        .skip_taskbar(true)
+        .resizable(true)
+        .visible(false);
+
+    builder.build().map_err(|e| format!("failed to create overlay '{}': {}", label, e))
+}
+
 // ── Public API ────────────────────────────────────────────────────────────────
 
 pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), String> {
     eprintln!("[OVERLAY] show_window_internal: '{}'", label);
 
-    let window = app_handle
-        .get_webview_window(label)
-        .ok_or_else(|| format!("window '{}' not found", label))?;
+    let window = match app_handle.get_webview_window(label) {
+        Some(w) => w,
+        None => create_overlay_window(app_handle, label)?,
+    };
 
 
     #[cfg_attr(target_os = "linux", allow(unused_variables))]
@@ -430,9 +461,10 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
                 if let tauri::WindowEvent::Focused(focused) = event {
                     if !focused {
                         eprintln!("[OVERLAY] AOT keeper: '{}' lost focus", label_owned);
-                        let _ = w.set_always_on_top(true);
                         #[cfg(target_os = "linux")]
-                        raise_x11(&w);
+                        { let _ = w.set_always_on_top(true); raise_x11(&w); }
+                        #[cfg(not(target_os = "linux"))]
+                        { let _ = &w; }
                     }
                 }
             });
@@ -558,6 +590,9 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         }
     }
 
+    // Overlays are already created with alwaysOnTop/skipTaskbar in
+    // tauri.conf.json — skip redundant OS calls on Windows/Linux.
+    #[cfg(target_os = "linux")]
     window.set_always_on_top(true)
         .map_err(|e| format!("set_always_on_top failed: {e}"))?;
     // Sidebar overlay must stay interactive (click-through breaks nav/screens).
@@ -565,6 +600,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         window.set_ignore_cursor_events(true)
             .map_err(|e| format!("set_ignore_cursor_events failed: {e}"))?;
     }
+    #[cfg(target_os = "linux")]
     window.set_skip_taskbar(true)
         .map_err(|e| format!("set_skip_taskbar failed: {e}"))?;
 
@@ -595,9 +631,10 @@ pub fn show_sidebar_internal(
     side: &str,
     entry_width: u32,
 ) -> Result<(), String> {
-    let window = app_handle
-        .get_webview_window("overlay-sidebar")
-        .ok_or_else(|| "overlay-sidebar not found".to_string())?;
+    let window = match app_handle.get_webview_window("overlay-sidebar") {
+        Some(w) => w,
+        None => create_overlay_window(app_handle, "overlay-sidebar")?,
+    };
 
     let was_visible = window.is_visible().unwrap_or(false);
 
@@ -842,9 +879,10 @@ pub fn resize_overlay_window(
 ) -> Result<(), String> {
     eprintln!("[OVERLAY] resize_overlay_window '{}': {}x{}", label, width, height);
 
-    let window = app_handle
-        .get_webview_window(label)
-        .ok_or_else(|| format!("window '{}' not found", label))?;
+    let window = match app_handle.get_webview_window(label) {
+        Some(w) => w,
+        None => create_overlay_window(app_handle, label)?,
+    };
 
     if height > 40.0 {
         let monitor = get_overlay_monitor(app_handle, label)?;
@@ -878,10 +916,12 @@ pub fn resize_overlay_window(
         window
             .set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }))
             .map_err(|e| format!("set_size failed: {e}"))?;
-        window.set_always_on_top(true)
-            .map_err(|e| format!("set_always_on_top failed: {e}"))?;
         window.set_ignore_cursor_events(true)
             .map_err(|e| format!("set_ignore_cursor_events failed: {e}"))?;
+        #[cfg(target_os = "linux")]
+        window.set_always_on_top(true)
+            .map_err(|e| format!("set_always_on_top failed: {e}"))?;
+        #[cfg(target_os = "linux")]
         window.set_skip_taskbar(true)
             .map_err(|e| format!("set_skip_taskbar failed: {e}"))?;
     } else {

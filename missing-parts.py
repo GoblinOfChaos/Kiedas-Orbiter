@@ -307,6 +307,7 @@ class Tracker(QWidget):
         _add_page("Missing Parts",    lambda: self._build_parts_tab(),                                                        "□")
         _add_page("Set Progress",     lambda: self._build_sets_tab(),                                                         "▣")
         _add_page("Mod Collection",   lambda: __import__('MOD_COLLECTION_TAB', fromlist=['ModCollectionTab']).ModCollectionTab(), "▽")
+        _add_page("Arcanes",          lambda: __import__('ARCANE_TAB',       fromlist=['ArcaneTab']).ArcaneTab(),             "◐")
         _add_page("Mastery Helper",   lambda: __import__('MASTERY_HELPER_TAB',fromlist=['MasteryHelperTab']).MasteryHelperTab(),"★")
 
         # ── Relics section ─────────────────────────────────────────────────

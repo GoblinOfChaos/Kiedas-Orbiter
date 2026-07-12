@@ -346,8 +346,25 @@ struct Arguments {
 
 fn main() -> Result<(), Box<dyn Error>> {
     let arguments = Arguments::parse();
-    let default_log_path = PathBuf::from_str(&std::env::var("HOME").unwrap()).unwrap().join(PathBuf::from_str(".local/share/Steam/steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log")?);
-    let log_path = arguments.game_log_file_path.unwrap_or(default_log_path);
+    // HOME doesn't exist on Windows (it's USERPROFILE there), and this used
+    // to unwrap() it unconditionally — eagerly evaluated even when
+    // --game-log-file-path was already given, since unwrap_or() isn't lazy.
+    // That panicked on every Windows launch. Only compute this fallback
+    // path (and only touch env vars at all) if it's actually needed.
+    let log_path = match arguments.game_log_file_path {
+        Some(p) => p,
+        None => {
+            let home = std::env::var("HOME")
+                .or_else(|_| std::env::var("USERPROFILE"))
+                .unwrap_or_else(|_| ".".to_string());
+            let home = PathBuf::from_str(&home).unwrap();
+            if cfg!(windows) {
+                home.join("AppData/Local/Warframe/EE.log")
+            } else {
+                home.join(".local/share/Steam/steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log")
+            }
+        }
+    };
     let window_name = arguments.window_name;
     let env = Env::default()
         .filter_or("WFINFO_LOG", "info")

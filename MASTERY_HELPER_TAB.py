@@ -28,15 +28,18 @@ MASTERY_TYPES = {
     'Robotic Weapon', 'Amp',
 }
 
+# "Heavy" categories (the pet/frame/vehicle itself, not weapons used with
+# it) need double the affinity per rank that regular weapons do. Verified
+# against Cephalon Kronos's production inventoryParser.js, which hit and
+# fixed this exact class of bug (their issue #1).
+HEAVY_TYPES = {'Warframe', 'Archwing', 'Sentinel', 'Necramech', 'Moa', 'Hound', 'K-Drive'}
+
 # Inventory slots that hold leveled items
 INV_SLOTS = [
     'LongGuns', 'Pistols', 'Melee', 'Suits', 'Sentinels', 'SentinelWeapons',
     'SpaceGuns', 'SpaceSuits', 'SpaceMelee', 'MechSuits', 'OperatorAmps',
     'KubrowPets', 'Hoverboards',
 ]
-
-MAX_XP = 900000   # rank-30 affinity threshold in XPInfo
-
 
 def _load(path, default):
     try:
@@ -45,9 +48,42 @@ def _load(path, default):
         return default
 
 
-def _xp_to_rank(xp):
-    """Approximate rank from affinity XP (each rank ~30000 XP)."""
-    return min(30, max(0, int(xp / 30000)))
+def _rank_limit(uname, itype):
+    """Most items cap at rank 30. Necramechs, Paracesis, and Kuva/Tenet/Coda
+    weapons go to 40. Verified against Cephalon Kronos's getRankLimit()."""
+    if itype == 'Necramech':
+        return 40
+    if any(tag in uname for tag in ('Kuva', 'Tenet', 'Coda', 'Paracesis')):
+        return 40
+    return 30
+
+
+def _max_xp_for(uname, itype):
+    """Real affinity required for max rank: rank^2 * base, base=1000 for
+    heavy categories (Warframe/Archwing/Sentinel/Necramech/Moa/Hound/
+    K-Drive), 500 for regular weapons. Verified against Cephalon Kronos's
+    calculateRank() - the old flat "xp/30000, cap 30" approximation this
+    replaced was wrong for every weapon type (real weapon cap is 450,000
+    at rank 30, not 900,000) and couldn't represent 40-rank items at all."""
+    limit = _rank_limit(uname, itype)
+    base = 1000 if itype in HEAVY_TYPES else 500
+    return limit * limit * base
+
+
+def _xp_to_rank(xp, uname, itype):
+    """Real Warframe affinity curve: cumulative XP to reach rank r is
+    r^2 * base. Not linear - each rank costs more than the last."""
+    if xp <= 0:
+        return 0
+    limit = _rank_limit(uname, itype)
+    base = 1000 if itype in HEAVY_TYPES else 500
+    rank = 0
+    for r in range(1, limit + 1):
+        if xp >= r * r * base:
+            rank = r
+        else:
+            break
+    return rank
 
 
 class MasteryHelperTab(QWidget):
@@ -261,23 +297,27 @@ class MasteryHelperTab(QWidget):
                             (era, rcode, rarity, owned_relics.get(f"{era} {rcode}", {}).get("owned", 0))
                         )
 
-        # ---- EASY: owned + not rank 30 ----
+        # ---- EASY: owned + not yet maxed ----
         self._easy_items = []
         for uname in owned_unames:
             xp = xpi.get(uname, 0)
-            if 0 < xp < MAX_XP:
-                item = self._wfcd_items.get(uname)
-                if not item:
-                    continue  # skip items not in WFCD (internal/test items)
-                name = item.get("name", "")
-                itype = item.get("type", "Unknown")
-                if not name or itype not in MASTERY_TYPES:
-                    continue
-                rank = _xp_to_rank(xp)
-                xp_left = MAX_XP - xp
-                self._easy_items.append({
-                    "name": name, "type": itype, "rank": rank, "xp_left": xp_left
-                })
+            if xp <= 0:
+                continue
+            item = self._wfcd_items.get(uname)
+            if not item:
+                continue  # skip items not in WFCD (internal/test items)
+            name = item.get("name", "")
+            itype = item.get("type", "Unknown")
+            if not name or itype not in MASTERY_TYPES:
+                continue
+            max_xp = _max_xp_for(uname, itype)
+            if xp >= max_xp:
+                continue  # already maxed
+            rank = _xp_to_rank(xp, uname, itype)
+            xp_left = max_xp - xp
+            self._easy_items.append({
+                "name": name, "type": itype, "rank": rank, "xp_left": xp_left
+            })
 
         self._easy_items.sort(key=lambda x: x["xp_left"])
 

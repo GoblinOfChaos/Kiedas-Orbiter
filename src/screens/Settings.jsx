@@ -4,7 +4,6 @@ import { Palette, Bell, RefreshCw, X, FolderOpen, Keyboard, MousePointer, AlignS
 import { open as openDialog } from '@tauri-apps/plugin-dialog'
 import { invoke } from '@tauri-apps/api/core'
 import { convertFileSrc } from '@tauri-apps/api/core'
-import { listen } from '@tauri-apps/api/event'
 import { getVersion } from '@tauri-apps/api/app'
 import { useUpdate } from '../contexts/UpdateContext'
 import { getSetting, setSetting, onSettingsChanged } from '../lib/settings'
@@ -258,18 +257,6 @@ export default function SettingsScreen() {
         setEeLogPath(settings.ee_log_path)
       }
     })
-  }, [])
-
-  // Fire a notification when the scanner successfully hooks into Warframe
-  useEffect(() => {
-    const unlisten = listen('scanner-hooked', () => {
-      invoke('show_notification', {
-        title: 'Scanner Connected',
-        message: 'Hooked into Warframe - scanner is active.',
-        silent: false,
-      }).catch(console.error)
-    })
-    return () => { unlisten.then(fn => fn()) }
   }, [])
 
   const handleStart = async () => {

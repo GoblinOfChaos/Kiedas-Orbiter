@@ -317,6 +317,7 @@ class Tracker(QWidget):
         _add_page("Ephemera",          lambda: __import__('EPHEMERA_TAB',         fromlist=['EphemeraTab']).EphemeraTab(),                 "✺")
         _add_page("Captura Scenes",    lambda: __import__('CAPTURA_TAB',          fromlist=['CapturaTab']).CapturaTab(),                   "▦")
         _add_page("Glyphs",            lambda: __import__('GLYPH_TAB',            fromlist=['GlyphTab']).GlyphTab(),                       "◫")
+        _add_page("Cephalon Fragments", lambda: __import__('CEPHALON_FRAGMENT_TAB', fromlist=['CephalonFragmentTab']).CephalonFragmentTab(), "❂")
 
         # ── Relics section ─────────────────────────────────────────────────
         _add_section("Relics")

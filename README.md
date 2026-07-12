@@ -212,6 +212,13 @@ All 1668 profile/chat glyphs with owned status (Yes/No — these aren't stackabl
 
 - **Search box**, **Hide owned glyphs** checkbox
 
+#### Cephalon Fragments
+
+A log of the Lore Fragments you've found, grouped by planet/region. Unlike every other tab in this section, this can't show what's missing — there's no complete catalog of every fragment in the game anywhere in the data this app has access to, so this is a record of what you've found, not a completion tracker. Somachord Fragments have no data source at all and aren't covered.
+
+- **Region dropdown**, **Search box**
+- **Times Scanned** — some fragments (Sentient/Glass fragments especially) need multiple reads to fully translate; this shows how many you've done
+
 ---
 
 ### Relics

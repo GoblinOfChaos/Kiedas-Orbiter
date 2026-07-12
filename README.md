@@ -287,6 +287,7 @@ The control center: live status, data-refresh actions, overlay settings, file pa
 
 **Updates:**
 - **Check for Updates** — checks GitHub for a newer app version and PyPI for a newer PySide6, in the background (can take up to ~15 seconds)
+- The app also checks for a newer version automatically on startup, in the background — if one's available, a popup shows the version numbers, a link to the release, and quick update instructions. No popup if you're already up to date.
 
 **Advanced Settings** (collapsed by default — only change these if you know what you're doing): trigger pattern, desktop notifications toggle, Warframe window name, pre-capture delay, poll interval, overlay display duration, and a duplicate EE.log path field, all backed by `config.json`. **Save settings** / **Reload from disk** buttons.
 

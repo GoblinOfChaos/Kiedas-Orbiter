@@ -104,6 +104,22 @@ Each sub-tab has a **Type filter dropdown**, and a summary bar up top shows your
 
 ---
 
+## Collectibles
+
+### Ayatan Sculptures
+
+All 12 sculptures with owned counts (summed across empty/partially/fully-filled copies) and drop locations.
+
+- **Search box**, **Hide owned sculptures** checkbox.
+
+### Conservation Tags
+
+All 54 wildlife conservation tags with owned counts.
+
+- **Search box**, **Hide owned tags** checkbox.
+
+---
+
 ## Relics
 
 ### Relic Planner

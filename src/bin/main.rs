@@ -226,12 +226,22 @@ fn run_detection(db: &Database, owned: &OwnedDb) {
         rewards = rewards_json.join(","),
     );
 
-    let data_dir = std::env::var("XDG_DATA_HOME")
-        .map(PathBuf::from)
-        .unwrap_or_else(|_| {
-            PathBuf::from(std::env::var("HOME").unwrap_or_default()).join(".local/share")
-        })
-        .join("kiedas-orbiter");
+    // Must match paths.py's _get_data_dir() exactly, or the Python side
+    // (overlay.py) polls a completely different file than this writes to.
+    let data_dir = if cfg!(windows) {
+        std::env::var("APPDATA")
+            .map(PathBuf::from)
+            .unwrap_or_else(|_| {
+                PathBuf::from(std::env::var("USERPROFILE").unwrap_or_default()).join("AppData/Roaming")
+            })
+    } else {
+        std::env::var("XDG_DATA_HOME")
+            .map(PathBuf::from)
+            .unwrap_or_else(|_| {
+                PathBuf::from(std::env::var("HOME").unwrap_or_default()).join(".local/share")
+            })
+    }
+    .join("kiedas-orbiter");
     let _ = std::fs::create_dir_all(&data_dir);
     let state_path = data_dir.join("latest-detection.json");
     match File::create(&state_path).and_then(|mut f| f.write_all(state_json.as_bytes())) {

@@ -192,6 +192,18 @@ All 54 wildlife conservation tags with owned counts.
 
 - **Search box**, **Hide owned tags** checkbox
 
+#### Emblems
+
+All 26 clan/alliance/event emblems with owned status (Yes/No — these aren't stackable).
+
+- **Search box**, **Hide owned emblems** checkbox
+
+#### Ephemera
+
+All 98 cosmetic ephemera with owned status and drop locations.
+
+- **Search box**, **Hide owned ephemera** checkbox
+
 ---
 
 ### Relics

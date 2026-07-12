@@ -26,6 +26,8 @@ const NAV_ITEMS = [
   { id: 'about', icon: 'IconInfo.png', label: 'About' },
 ]
 
+const ICON_NAMES = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
+
 function useUIIcons(iconNames) {
   const [iconCache, setIconCache] = useState({})
   useEffect(() => {
@@ -246,8 +248,7 @@ function AppContent() {
   const { updateState } = useUpdate()
   const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
 
-  const iconNames = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
-  const { uiIcon } = useUIIcons(iconNames)
+  const { uiIcon } = useUIIcons(ICON_NAMES)
 
   useEffect(() => {
     // Poll scanner status every 2s so sidebar dot stays in sync

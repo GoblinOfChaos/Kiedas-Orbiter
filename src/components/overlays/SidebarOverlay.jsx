@@ -22,6 +22,8 @@ const NAV_ITEMS = [
   { id: 'about', icon: 'IconInfo.png', label: 'About' },
 ]
 
+const ICON_NAMES = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
+
 const Dashboard = lazy(() => import('../../screens/Dashboard'))
 const Inventory = lazy(() => import('../../screens/Inventory'))
 const Mastery = lazy(() => import('../../screens/Mastery'))
@@ -69,8 +71,7 @@ function SidebarContent() {
   const [sidebarSide, setSidebarSide] = useState('left')
   const resizeRef = useRef(null)
 
-  const iconNames = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
-  const uiIcon = useUIIcons(iconNames)
+  const uiIcon = useUIIcons(ICON_NAMES)
 
   useEffect(() => {
     loadSettings().then(() => {

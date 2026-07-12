@@ -3,7 +3,9 @@ use image::DynamicImage;
 use tauri::{AppHandle, Emitter, Manager};
 use serde::Serialize;
 use std::sync::atomic::{AtomicBool, Ordering};
+#[cfg(target_os = "linux")]
 use std::process::Command;
+#[cfg(target_os = "linux")]
 use std::time::Duration;
 
 /// Set to true by log_scanner when 10-reactant fires, false when reward screen

@@ -1,7 +1,8 @@
 use std::sync::Mutex;
 use std::sync::atomic::{AtomicBool, Ordering};
+#[cfg(target_os = "linux")]
 use std::time::Duration;
-use tauri::{AppHandle, Emitter, Manager, PhysicalPosition, WebviewWindow, WebviewUrl, WebviewWindowBuilder};
+use tauri::{AppHandle, Manager, PhysicalPosition, WebviewWindow, WebviewUrl, WebviewWindowBuilder};
 
 use active_win_pos_rs;
 
@@ -738,138 +739,7 @@ fn overlay_size(label: &str) -> (f64, f64) {
     }
 }
 
-/// Calculate sidebar position: padded from monitor edges.
-fn sidebar_position(
-    monitor: &tauri::Monitor,
-    side: &str,
-    width_px: f64,
-) -> (PhysicalPosition<i32>, f64, f64) {
-    let mon_pos = monitor.position();
-    let mon_size = monitor.size();
-    let scale = monitor.scale_factor();
-    let margin = (12.0 * scale) as i32;
-    let phys_w = (width_px * scale) as i32;
 
-    let (lx, _ly) = match side {
-        "right" => (mon_size.width as i32 - phys_w - margin, margin),
-        _ => (margin, margin),
-    };
-
-    let pos = PhysicalPosition {
-        x: mon_pos.x + lx,
-        y: mon_pos.y,
-    };
-
-    let height = mon_size.height as f64 - (2.0 * 12.0);
-
-    (pos, width_px, height)
-}
-
-/// Show the interactive sidebar overlay (old separate-window approach, unused).
-#[allow(dead_code)]
-pub fn show_sidebar_window(
-    app_handle: &AppHandle,
-    side: &str,
-    width_px: f64,
-) -> Result<(), String> {
-    let label = "overlay-sidebar";
-    eprintln!("[SIDEBAR] show: side={} width={}", side, width_px);
-
-    let window = app_handle
-        .get_webview_window(label)
-        .ok_or_else(|| format!("window '{}' not found", label))?;
-
-    let monitor = get_overlay_monitor(app_handle, label)?;
-    let (pos, w, h) = sidebar_position(&monitor, side, width_px);
-    let scale = monitor.scale_factor();
-
-    #[cfg(target_os = "linux")]
-    {
-        let was_visible = window.is_visible().unwrap_or(false);
-        if let Some(main_win) = app_handle.get_webview_window("main") {
-            set_transient_for(&window, &main_win);
-        }
-        use gtk::prelude::*;
-        if let Ok(gtk_win) = window.gtk_window() {
-            gtk_win.realize();
-            if let Some(gdk_win) = gtk_win.window() {
-                gdk_win.set_override_redirect(true);
-            }
-        }
-        if let Some((xdisplay, xid)) = get_x11_ids(&window) {
-            apply_x11_overlay_hints(xdisplay, xid, was_visible, None);
-        }
-        let _ = force_position_tauri(&window, pos.x, pos.y);
-        if !was_visible {
-            window.show().map_err(|e| format!("show() failed: {e}"))?;
-            unsafe {
-                if let Some((xdisplay, _)) = get_x11_ids(&window) {
-                    XSync(xdisplay, 0);
-                }
-            }
-            std::thread::sleep(std::time::Duration::from_millis(50));
-        }
-        force_position_x11(&window, pos.x, pos.y);
-        raise_x11(&window);
-        install_deiconify_handler(&window, label);
-    }
-
-    #[cfg(not(target_os = "linux"))]
-    {
-        let _ = force_position_tauri(&window, pos.x, pos.y);
-        let was_visible = window.is_visible().unwrap_or(false);
-        if !was_visible {
-            window.show().map_err(|e| format!("show() failed: {e}"))?;
-        }
-    }
-
-    window
-        .set_size(tauri::Size::Physical(tauri::PhysicalSize {
-            width: (w * scale) as u32,
-            height: (h * scale) as u32,
-        }))
-        .map_err(|e| format!("set_size failed: {e}"))?;
-
-    window
-        .set_always_on_top(true)
-        .map_err(|e| format!("set_always_on_top failed: {e}"))?;
-
-    window
-        .set_skip_taskbar(true)
-        .map_err(|e| format!("set_skip_taskbar failed: {e}"))?;
-
-    apply_platform_patches(&window)?;
-
-    {
-        let mut installed = AOT_KEEPER_INSTALLED.lock().unwrap();
-        if !installed.contains(&"sidebar-focus-hide".to_string()) {
-            let w = window.clone();
-            window.on_window_event(move |event| {
-                if let tauri::WindowEvent::Focused(focused) = event {
-                    if !focused {
-                        eprintln!("[SIDEBAR] focus lost -> scheduling hide check");
-                        let w2 = w.clone();
-                        std::thread::spawn(move || {
-                            std::thread::sleep(std::time::Duration::from_millis(100));
-                            if !w2.is_focused().unwrap_or(false) {
-                                eprintln!("[SIDEBAR] confirm unfocused -> hiding");
-                                let _ = w2.emit("sidebar-animate-out", ());
-                                std::thread::sleep(std::time::Duration::from_millis(250));
-                                let _ = w2.hide();
-                            }
-                        });
-                    }
-                }
-            });
-            installed.push("sidebar-focus-hide".to_string());
-        }
-    }
-
-    let _ = window.emit("sidebar-animate-in", side);
-
-    eprintln!("[SIDEBAR] FINAL: pos=({},{}) size=({}x{})", pos.x, pos.y, w, h);
-    Ok(())
-}
 
 pub fn resize_overlay_window(
     app_handle: &AppHandle,

@@ -1,6 +1,21 @@
 import { invoke } from '@tauri-apps/api/core'
+import { listen } from '@tauri-apps/api/event'
 
 let cachedSettings = null
+let listeners = new Set()
+
+// Refresh cache whenever any window saves settings to disk
+listen('settings-changed', async () => {
+  try {
+    cachedSettings = await invoke('load_settings')
+    listeners.forEach(fn => fn(cachedSettings))
+  } catch {}
+})
+
+export function onSettingsChanged(fn) {
+  listeners.add(fn)
+  return () => listeners.delete(fn)
+}
 
 /**
  * Load all settings from the Rust backend.

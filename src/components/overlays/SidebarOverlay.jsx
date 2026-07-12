@@ -5,6 +5,7 @@ import { Tooltip } from '../UI'
 import MirroredMonitoringProvider from '../../contexts/MirroredMonitoringProvider'
 import { useMonitoring } from '../../contexts/MonitoringContext'
 import { formatLastUpdate } from '../../lib/warframeUtils'
+import { loadSettings, getSetting } from '../../lib/settings'
 
 const NAV_ITEMS = [
   { id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },
@@ -63,11 +64,27 @@ function useUIIcons(iconNames) {
 
 function SidebarContent() {
   const [activeTab, setActiveTab] = useState('dashboard')
-  const { lastUpdate, monitorResult, isMonitoring } = useMonitoring()
+  const { lastUpdate, monitorResult } = useMonitoring()
   const [scannerStatus, setScannerStatus] = useState('idle')
+  const [sidebarSide, setSidebarSide] = useState('left')
+  const resizeRef = useRef(null)
 
   const iconNames = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
   const uiIcon = useUIIcons(iconNames)
+
+  useEffect(() => {
+    loadSettings().then(() => {
+      const s = getSetting('sidebar_side', 'left')
+      setSidebarSide(s)
+    })
+  }, [])
+
+  useEffect(() => {
+    const unsub = listen('sidebar-side-changed', (e) => {
+      if (e.payload?.side) setSidebarSide(e.payload.side)
+    })
+    return () => { unsub.then(f => f()) }
+  }, [])
 
   useEffect(() => {
     const check = () => {
@@ -77,6 +94,37 @@ function SidebarContent() {
     const iv = setInterval(check, 5000)
     return () => clearInterval(iv)
   }, [])
+
+  // ── Resize handle (mouse-event-based) ──
+  const onResizeStart = useCallback((e) => {
+    e.preventDefault()
+    const startScreenX = e.screenX
+    const startW = document.documentElement.clientWidth
+    let lastW = startW
+    let rafPending = false
+
+    const onMove = (ev) => {
+      const delta = sidebarSide === 'left' ? ev.screenX - startScreenX : startScreenX - ev.screenX
+      const newW = Math.max(200, Math.min(startW + delta, window.screen.width * 0.9))
+      lastW = Math.round(newW)
+      if (!rafPending) {
+        rafPending = true
+        requestAnimationFrame(() => {
+          rafPending = false
+          invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: false }).catch(() => {})
+        })
+      }
+    }
+
+    const onUp = () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+      invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: true }).catch(() => {})
+    }
+
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+  }, [sidebarSide])
 
   const screens = {
     dashboard: <Dashboard />,
@@ -93,9 +141,11 @@ function SidebarContent() {
     about: <About />,
   }
 
+  const isRight = sidebarSide === 'right'
+
   return (
-    <div className="flex h-screen bg-kronos-bg">
-      <nav className="glass-panel w-20 flex flex-col items-center py-6 gap-4 z-40 relative flex-shrink-0 border-r border-white/5">
+    <div className={`flex h-screen bg-kronos-bg ${isRight ? 'flex-row-reverse' : ''}`}>
+      <nav className={`glass-panel w-20 flex flex-col items-center py-6 gap-4 z-40 relative flex-shrink-0 ${isRight ? 'border-l' : 'border-r'} border-white/5`}>
         <div className="mb-4 flex-shrink-0">
           <div className="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden">
             <img src={uiIcon('IconKronos.png')} alt="" className="w-full h-full object-contain" />
@@ -147,7 +197,7 @@ function SidebarContent() {
               : monitorResult === 'error' ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]'
               : 'bg-gray-600'
           }`}>
-            <div className="absolute top-1/2 -translate-y-1/2 left-full ml-3 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent">
+            <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${isRight ? 'right-full mr-3' : 'left-full ml-3'}`}>
               {monitorResult === 'success' ? 'API Active' : monitorResult === 'error' ? 'API Error' : 'API Offline'}
             </div>
           </div>
@@ -156,7 +206,7 @@ function SidebarContent() {
               : scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.6)] animate-pulse'
               : 'bg-gray-700'
           }`}>
-            <div className="absolute top-1/2 -translate-y-1/2 left-full ml-3 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent">
+            <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${isRight ? 'right-full mr-3' : 'left-full ml-3'}`}>
               {scannerStatus === 'active' ? 'Scanner Active'
                 : scannerStatus === 'waiting' ? 'Waiting for Warframe...'
                 : 'Scanner Idle'}
@@ -164,6 +214,17 @@ function SidebarContent() {
           </div>
         </div>
       </nav>
+
+      {/* Resize handle */}
+      <div
+        ref={resizeRef}
+        className="fixed top-0 bottom-0 w-3 cursor-col-resize z-[9999] flex items-center justify-center hover:bg-kronos-accent/10 transition-colors group"
+        style={{ [isRight ? 'left' : 'right']: '14px' }}
+        onMouseDown={onResizeStart}
+      >
+        <div className="w-0.5 h-12 rounded-full bg-white/10 group-hover:bg-kronos-accent/50 transition-colors" />
+      </div>
+
       <main className="flex-1 overflow-hidden bg-kronos-bg">
         <Suspense fallback={
           <div className="h-full flex items-center justify-center">

@@ -167,6 +167,7 @@ export function MonitoringProvider({ children }) {
   const busyRef = useRef(false)
   const notifiedRef = useRef({})
   const priceFetchRef = useRef(false)
+  const processingRef = useRef(false)
   const [cardImagesPath, setCardImagesPath] = useState('')
   const [fixProgress, setFixProgress] = useState({ checking: true })
   const cardInitStarted = useRef(false)
@@ -466,6 +467,11 @@ export function MonitoringProvider({ children }) {
       setSpIncursions(spiText || '')
       setArbys(arbText || '')
 
+      // Sync monitoring state with other windows
+      invoke('get_monitoring_active').then((active) => {
+        if (active) setIsMonitoring(true)
+      }).catch(() => {})
+
       setStatusText('Loading inventory…')
       const invRes = await Promise.allSettled([invoke('load_cached_inventory')])
 
@@ -505,17 +511,22 @@ export function MonitoringProvider({ children }) {
     setIsInventoryLoading(true)
     try {
       const raw = await invoke('call_api_helper')
-      if (raw) {
+      if (raw && typeof raw === 'object' && raw.Suits) {
         applyRaw(raw, Date.now())
         setMonitorResult('success')
         setStatusText('Monitoring active')
+        return 'success'
       } else {
         setMonitorResult('error')
-        setStatusText('API helper returned no data')
+        const msg = 'API helper returned no data'
+        setStatusText(msg)
+        return msg
       }
     } catch (err) {
       setMonitorResult('error')
-      setStatusText(`Error: ${err}`)
+      const msg = `Error: ${err}`
+      setStatusText(msg)
+      return msg
     } finally {
       busyRef.current = false
       setIsInventoryLoading(false)
@@ -525,8 +536,13 @@ export function MonitoringProvider({ children }) {
   const startMonitoring = useCallback(async (intervalMs = 180_000) => {
     if (isMonitoring) return
     setIsMonitoring(true)
-    try { await callApiHelper() } catch { }
-    intervalRef.current = setInterval(() => callApiHelper().catch(() => { }), intervalMs)
+    const result = await callApiHelper()
+    const msg = result === 'success' ? 'Monitoring active' : result
+    invoke('set_monitoring_active', { active: true, result, statusText: msg }).catch(() => {})
+    intervalRef.current = setInterval(async () => {
+      const r = await callApiHelper()
+      invoke('set_monitoring_active', { active: true, result: r, statusText: r === 'success' ? 'Monitoring active' : r }).catch(() => {})
+    }, intervalMs)
   }, [isMonitoring, callApiHelper])
 
   const stopMonitoring = useCallback(() => {
@@ -534,6 +550,7 @@ export function MonitoringProvider({ children }) {
     setIsMonitoring(false)
     setMonitorResult('idle')
     setStatusText('Monitoring stopped')
+    invoke('set_monitoring_active', { active: false, result: 'idle', statusText: 'Monitoring stopped' }).catch(() => {})
   }, [])
 
   const manualRefresh = useCallback(() => callApiHelper(), [callApiHelper])
@@ -832,6 +849,28 @@ export function MonitoringProvider({ children }) {
         }
       } catch (err) {
         console.error('Failed to check focus:', err)
+      }
+    }))
+
+    subs.push(listen('monitoring-active-changed', async (e) => {
+      if (processingRef.current) return
+      const p = e.payload || {}
+      if (p.active === false) {
+        if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null }
+        setIsMonitoring(false)
+        setMonitorResult(p.result || 'idle')
+        setStatusText(p.statusText || 'Monitoring stopped')
+      } else if (p.active === true && !isMonitoring) {
+        setMonitorResult(p.result || 'success')
+        setStatusText(p.statusText || 'Monitoring active')
+        setIsMonitoring(true)
+        processingRef.current = true
+        try {
+          await callApiHelper()
+          intervalRef.current = setInterval(() => callApiHelper().catch(() => {}), 180_000)
+        } finally {
+          processingRef.current = false
+        }
       }
     }))
 

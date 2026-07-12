@@ -7,7 +7,7 @@ import { convertFileSrc } from '@tauri-apps/api/core'
 import { listen } from '@tauri-apps/api/event'
 import { getVersion } from '@tauri-apps/api/app'
 import { useUpdate } from '../contexts/UpdateContext'
-import { getSetting, setSetting } from '../lib/settings'
+import { getSetting, setSetting, onSettingsChanged } from '../lib/settings'
 import { useTheme } from '../contexts/ThemeContext'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { formatLastUpdate } from '../lib/warframeUtils'
@@ -247,6 +247,18 @@ export default function SettingsScreen() {
     }
     return () => clearInterval(interval)
   }, [fissureOverlayEnabled])
+
+  // Re-read scanner settings when another window saves to disk
+  useEffect(() => {
+    return onSettingsChanged((settings) => {
+      if (settings.fissure_overlay_enabled !== undefined) {
+        setFissureOverlayEnabled(settings.fissure_overlay_enabled)
+      }
+      if (settings.ee_log_path !== undefined) {
+        setEeLogPath(settings.ee_log_path)
+      }
+    })
+  }, [])
 
   // Fire a notification when the scanner successfully hooks into Warframe
   useEffect(() => {

@@ -9,7 +9,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use std::fs;
 use tauri::{AppHandle, Manager, Emitter, Listener};
 use std::io::Cursor;
-use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 use serde_json::Value;
 
@@ -30,6 +30,7 @@ pub struct AppState {
     pub target_monitor: Arc<Mutex<Option<usize>>>,
     pub sidebar_saved: Arc<Mutex<SidebarSavedState>>,
     pub sidebar_last_op: Arc<AtomicU64>,
+    pub monitoring_active: Arc<AtomicBool>,
 }
 
 #[derive(Default, Clone)]
@@ -442,8 +443,15 @@ async fn call_api_helper(app_handle: tauri::AppHandle) -> Result<Value, String> 
 
     let content = fs::read_to_string(&inv_path)
         .map_err(|e| format!("Failed to read inventory.json after update: {e}"))?;
-    serde_json::from_str(&content)
-        .map_err(|e| format!("Failed to parse updated inventory.json: {e}"))
+    let value: Value = serde_json::from_str(&content)
+        .map_err(|e| format!("Failed to parse updated inventory.json: {e}"))?;
+    // Bare {} means the helper ran but the account wasn't logged in.
+    if let Value::Object(ref obj) = value {
+        if obj.len() < 5 {
+            return Err("API helper returned empty inventory — not logged into Warframe?".to_string());
+        }
+    }
+    Ok(value)
 }
 
 /// Load all JSON export files into a single JSON object keyed by file stem
@@ -2124,13 +2132,33 @@ fn log_timing(label: String) {
 
 /// Save a JSON settings object to data/user/settings.json.
 #[tauri::command]
-async fn save_settings(settings: Value) -> Result<(), String> {
+async fn save_settings(app_handle: tauri::AppHandle, settings: Value) -> Result<(), String> {
     let settings_dir = resolve_path("data/user");
     if !settings_dir.exists() {
         fs::create_dir_all(&settings_dir).map_err(|e| e.to_string())?;
     }
     let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-    fs::write(settings_dir.join("settings.json"), content).map_err(|e| e.to_string())
+    fs::write(settings_dir.join("settings.json"), content).map_err(|e| e.to_string())?;
+    app_handle.emit("settings-changed", ()).map_err(|e| e.to_string())
+}
+
+/// Set the shared monitoring active flag and notify all windows.
+#[tauri::command]
+fn set_monitoring_active(app_handle: tauri::AppHandle, active: bool, result: Option<String>, status_text: Option<String>) -> Result<(), String> {
+    let state = app_handle.state::<AppState>();
+    state.monitoring_active.store(active, Ordering::SeqCst);
+    app_handle.emit("monitoring-active-changed", serde_json::json!({
+        "active": active,
+        "result": result,
+        "statusText": status_text,
+    })).map_err(|e| e.to_string())
+}
+
+/// Get the current shared monitoring active state.
+#[tauri::command]
+fn get_monitoring_active(app_handle: tauri::AppHandle) -> bool {
+    let state = app_handle.state::<AppState>();
+    state.monitoring_active.load(Ordering::SeqCst)
 }
 
 #[tauri::command]
@@ -2188,6 +2216,8 @@ fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, per
             let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: mon_h }));
             let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_y }));
         }
+        // Notify the overlay sidebar so it can flip nav layout
+        let _ = app_handle.emit("sidebar-side-changed", serde_json::json!({"side": side}));
     }
     
     Ok(())
@@ -2466,6 +2496,7 @@ async fn get_known_weapon_names() -> Vec<String> {
             target_monitor: Arc::new(Mutex::new(target_monitor_idx)),
             sidebar_saved: Arc::new(Mutex::new(SidebarSavedState::default())),
             sidebar_last_op: Arc::new(AtomicU64::new(0)),
+            monitoring_active: Arc::new(AtomicBool::new(false)),
         })
         .on_window_event(|window, event| match event {
             tauri::WindowEvent::CloseRequested { api, .. } => {
@@ -2600,6 +2631,8 @@ async fn get_known_weapon_names() -> Vec<String> {
             sidebar_load_data,
             sidebar_load_inventory,
             set_sidebar_width,
+            set_monitoring_active,
+            get_monitoring_active,
             log_timing,
             play_notification_sound,
             set_notification_sound,

@@ -29,9 +29,10 @@ const ARBY_TIERS = {
 
 export default function MirroredMonitoringProvider({ children }) {
   const [exportData, setExportData] = useState(null)
-  const [isMonitoring] = useState(false)
+  const [isMonitoring, setIsMonitoring] = useState(false)
   const [monitorResult, setMonitorResult] = useState('idle')
-  const [autoStart] = useState(false)
+  const [autoStart, setAutoStartState] = useState(() => localStorage.getItem('autoStartMonitoring') === 'true')
+  const autoStartRef = useRef(autoStart)
   const [lastUpdate, setLastUpdate] = useState(() => localStorage.getItem('lastUpdate') || null)
   const [rawInventory, setRawInventory] = useState(null)
   const [inventoryData, setInventoryData] = useState(undefined)
@@ -48,6 +49,25 @@ export default function MirroredMonitoringProvider({ children }) {
   const [cardImagesPath, setCardImagesPath] = useState('')
   const [fixProgress] = useState({ phase: 'done', checking: false })
   const loadedRef = useRef(false)
+  const intervalRef = useRef(null)
+  const busyRef = useRef(false)
+  const autoStartedRef = useRef(false)
+  const processingRef = useRef(false)
+
+  const setAutoStart = useCallback((val) => {
+    const v = !!val
+    setAutoStartState(v)
+    autoStartRef.current = v
+    localStorage.setItem('autoStartMonitoring', String(v))
+  }, [])
+
+  const PATCH_FILES = [
+    ['ExportUpgrades_fixed.json', 'ExportUpgradesFixed'],
+    ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'],
+    ['mod-icon-map.json', 'ModIconMap'],
+    ['peely-pix-map.json', 'PeelyPixMap'],
+    ['peely-pix-names.json', 'PeelyPixNames'],
+  ]
 
   // ── Initial snapshot from backend ──
   useEffect(() => {
@@ -57,11 +77,24 @@ export default function MirroredMonitoringProvider({ children }) {
     // Lightweight path queries — these return static paths, no file I/O
     invoke('get_card_images_path').then(setCardImagesPath).catch(() => {})
 
+    // Check shared monitoring state
+    invoke('get_monitoring_active').then(setIsMonitoring).catch(() => {})
+
     invoke('sidebar_load_data')
-      .then(result => {
-        if (result.exports) {
-          setExportData(result.exports)
+      .then(async result => {
+        const exports = result.exports ? { ...result.exports } : null
+
+        // Apply patched export files (same as main MonitoringContext)
+        if (exports) {
+          for (const [fname, key] of PATCH_FILES) {
+            try {
+              const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${fname}` })
+              if (bytes) exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
+            } catch { /* patch file not found, skip */ }
+          }
         }
+
+        setExportData(exports)
         if (result.inventory) {
           setRawInventory(result.inventory)
         }
@@ -76,6 +109,16 @@ export default function MirroredMonitoringProvider({ children }) {
         setStatusText('Failed to load data')
         setIsInventoryLoading(false)
       })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Auto-start monitoring on mount if previously enabled ──
+  useEffect(() => {
+    if (autoStartedRef.current) return
+    autoStartedRef.current = true
+    if (autoStartRef.current && !isMonitoring) {
+      startMonitoringFn().catch(() => {})
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // ── Parse inventory when both exportData and rawInventory change ──
@@ -110,10 +153,36 @@ export default function MirroredMonitoringProvider({ children }) {
     return () => { unsub.then(f => f()) }
   }, [])
 
-  // ── Subscribe to scanner-latched for monitoring status ──
+  // ── Subscribe to scanner-hooked for monitoring status ──
   useEffect(() => {
-    const unsub = listen('scanner-latched', () => {
+    const unsub = listen('scanner-hooked', () => {
       setMonitorResult('success')
+    })
+    return () => { unsub.then(f => f()) }
+  }, [])
+
+  // ── Sync monitoring active state with other windows ──
+  useEffect(() => {
+    const unsub = listen('monitoring-active-changed', async (e) => {
+      if (processingRef.current) return
+      const p = e.payload || {}
+      if (p.active === false) {
+        if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null }
+        setIsMonitoring(false)
+        setMonitorResult(p.result || 'idle')
+        setStatusText(p.statusText || 'Monitoring stopped')
+      } else if (p.active === true && !isMonitoring) {
+        setMonitorResult(p.result || 'success')
+        setStatusText(p.statusText || 'Monitoring active')
+        setIsMonitoring(true)
+        processingRef.current = true
+        try {
+          await callApiHelperFn()
+          intervalRef.current = setInterval(() => callApiHelperFn().catch(() => {}), 180_000)
+        } finally {
+          processingRef.current = false
+        }
+      }
     })
     return () => { unsub.then(f => f()) }
   }, [])
@@ -275,15 +344,70 @@ export default function MirroredMonitoringProvider({ children }) {
   const globalRewardPool = useMemo(() => getAllRelicRewards(exportData), [exportData])
   const dropIndex = useMemo(() => buildDropIndex(exportData), [exportData])
 
-  const startMonitoringFn = useCallback(async () => {
-    setMonitorResult('idle')
-    try {
-      await invoke('call_api_helper')
-    } catch {}
-  }, [])
+  const applyRaw = useCallback((raw, ts, exports) => {
+    if (!raw) return
+    setRawInventory(raw)
+    const ed = exports || exportData
+    if (!ed) return
+    setTimeout(() => {
+      try {
+        const parsed = parseInventory(raw, ed)
+        setInventoryData(parsed || null)
+      } catch {
+        setInventoryData(null)
+      }
+      const tsStr = String(ts ?? Date.now())
+      setLastUpdate(tsStr)
+      localStorage.setItem('lastUpdate', tsStr)
+    }, 0)
+  }, [exportData])
 
   const callApiHelperFn = useCallback(async () => {
-    try { await invoke('call_api_helper') } catch {}
+    if (busyRef.current) return
+    busyRef.current = true
+    setIsInventoryLoading(true)
+    try {
+      const raw = await invoke('call_api_helper')
+      if (raw && typeof raw === 'object' && raw.Suits) {
+        applyRaw(raw, Date.now(), exportData)
+        setMonitorResult('success')
+        setStatusText('Monitoring active')
+        return 'success'
+      } else {
+        setMonitorResult('error')
+        const msg = 'API helper returned no data'
+        setStatusText(msg)
+        return msg
+      }
+    } catch (err) {
+      setMonitorResult('error')
+      const msg = `Error: ${err}`
+      setStatusText(msg)
+      return msg
+    } finally {
+      busyRef.current = false
+      setIsInventoryLoading(false)
+    }
+  }, [applyRaw, exportData])
+
+  const startMonitoringFn = useCallback(async (intervalMs = 180_000) => {
+    if (isMonitoring) return
+    setIsMonitoring(true)
+    const result = await callApiHelperFn()
+    const msg = result === 'success' ? 'Monitoring active' : result
+    invoke('set_monitoring_active', { active: true, result, statusText: msg }).catch(() => {})
+    intervalRef.current = setInterval(async () => {
+      const r = await callApiHelperFn()
+      invoke('set_monitoring_active', { active: true, result: r, statusText: r === 'success' ? 'Monitoring active' : r }).catch(() => {})
+    }, intervalMs)
+  }, [isMonitoring, callApiHelperFn])
+
+  const stopMonitoringFn = useCallback(() => {
+    if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null }
+    setIsMonitoring(false)
+    setMonitorResult('idle')
+    setStatusText('Monitoring stopped')
+    invoke('set_monitoring_active', { active: false, result: 'idle', statusText: 'Monitoring stopped' }).catch(() => {})
   }, [])
 
   const value = useMemo(() => ({
@@ -296,11 +420,11 @@ export default function MirroredMonitoringProvider({ children }) {
     ExportImages, ExportTextIcons, masteryProgress,
     EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex,
     arbyTiers: ARBY_TIERS,
-    setAutoStart: () => {}, startMonitoring: startMonitoringFn,
-    stopMonitoring: () => {}, manualRefresh: callApiHelperFn,
+    setAutoStart, startMonitoring: startMonitoringFn,
+    stopMonitoring: stopMonitoringFn, manualRefresh: callApiHelperFn,
     callApiHelper: callApiHelperFn, refreshPrices: () => Promise.resolve(),
     retryCardImages: () => Promise.resolve(), setWorldState,
-  }), [exportData, isMonitoring, monitorResult, lastUpdate, rawInventory,
+  }), [exportData, isMonitoring, monitorResult, autoStart, lastUpdate, rawInventory,
       inventoryData, isInventoryLoading, worldState, statusText,
       spIncursions, arbys, archonModifiers,
       dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,

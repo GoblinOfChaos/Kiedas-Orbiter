@@ -1,5 +1,6 @@
 use std::sync::Mutex;
-use std::sync::atomic::AtomicBool;
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::time::Duration;
 use tauri::{AppHandle, Emitter, Manager, PhysicalPosition, WebviewWindow};
 
 use active_win_pos_rs;
@@ -12,6 +13,39 @@ pub(crate) fn clear_shown_overlay(label: &str) {
 }
 
 pub(crate) static SIDEBAR_TOGGLING: AtomicBool = AtomicBool::new(false);
+
+/// Background ungrab timer for the sidebar overlay.  Warframe/Wine may
+/// re-assert an X pointer grab shortly after we release it; this timer
+/// periodically breaks the grab so the sidebar stays interactive.
+static SIDEBAR_UNGRAB_ACTIVE: AtomicBool = AtomicBool::new(false);
+
+#[cfg(target_os = "linux")]
+fn start_sidebar_ungrab_timer() {
+    if SIDEBAR_UNGRAB_ACTIVE.swap(true, Ordering::SeqCst) {
+        return;
+    }
+    std::thread::spawn(|| {
+        while SIDEBAR_UNGRAB_ACTIVE.load(Ordering::SeqCst) {
+            std::thread::sleep(Duration::from_millis(500));
+            let xdisplay = unsafe { gdkx11::ffi::gdk_x11_get_default_xdisplay() };
+            if !xdisplay.is_null() {
+                const CT: u64 = 0;
+                unsafe {
+                    XUngrabPointer(xdisplay as *mut std::ffi::c_void, CT);
+                    XUngrabKeyboard(xdisplay as *mut std::ffi::c_void, CT);
+                    XSync(xdisplay as *mut std::ffi::c_void, 0);
+                }
+            }
+        }
+    });
+}
+
+#[cfg(not(target_os = "linux"))]
+fn start_sidebar_ungrab_timer() {}
+
+fn stop_sidebar_ungrab_timer() {
+    SIDEBAR_UNGRAB_ACTIVE.store(false, Ordering::SeqCst);
+}
 
 pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri::Monitor, String> {
     let state = app_handle.state::<crate::AppState>();
@@ -232,22 +266,20 @@ fn get_x11_ids(window: &WebviewWindow) -> Option<(*mut std::ffi::c_void, u64)> {
     Some((xdisplay as *mut std::ffi::c_void, xid))
 }
 
-/// Set window type and layer hints for above-fullscreen rendering on KWin.
+/// Apply X11 properties for above-fullscreen overlay rendering on KWin.
 ///
-/// KWin's layer stack (bottom → top):
-///   Desktop → Below → Normal → Above → Fullscreen → Dock → Notification → OnScreenDisplay → Critical
+/// Sets:
+///   - `_NET_WM_STATE` = ABOVE | STICKY (above fullscreen, survives Show Desktop)
+///   - `_NET_WM_DESKTOP` = 0xFFFFFFFF (visible on all virtual desktops)
+///   - `_MOTIF_WM_HINTS` = undecorated (skip "Center New Windows" placement)
 ///
-/// We use _KDE_NET_WM_WINDOW_TYPE_ON_SCREEN_DISPLAY (KDE extension) as the
-/// primary type - this is the highest non-critical layer, above fullscreen apps.
-/// OSD is what KDE itself uses for volume sliders, brightness popups, etc.
+/// `_NET_WM_WINDOW_TYPE` is intentionally **not** set — despite override_redirect
+/// KWin may still re-apply placement policies for NOTIFICATION/DOCK types at
+/// remap time, fighting our explicit position.
 ///
-/// CRITICAL: KWin re-evaluates a window's layer only when the window is
-/// unmapped and remapped. Setting the atom on an already-mapped window does
-/// nothing. The sequence must be:
-///   unmap → XSync → set atom → XSync → remap
-///
-/// This is called BEFORE the first show() from Tauri, so Tauri's show() acts
-/// as the remap. On subsequent calls (resize), we do the unmap/remap ourselves.
+/// If `already_mapped`, does unmap → set props → remap so KWin re-evaluates
+/// the layer.  On first show the caller calls this before `win.show()`, so
+/// Tauri's `show()` serves as the remap.
 #[cfg(target_os = "linux")]
 fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_mapped: bool,
     pos: Option<(i32, i32, u32, u32)>) {
@@ -307,7 +339,7 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
             // raw X11 moves performed behind its back.
         }
 
-        eprintln!("[OVERLAY] apply_x11_overlay_hints: XID={} already_mapped={} -> NOTIFICATION|DOCK|UTILITY + ABOVE|STICKY + DESKTOP=0xFFFFFFFF + BYPASS_COMPOSITOR", xid, already_mapped);
+        eprintln!("[OVERLAY] apply_x11_overlay_hints: XID={} already_mapped={} -> ABOVE|STICKY + DESKTOP=0xFFFFFFFF + undecorated", xid, already_mapped);
     }
 }
 
@@ -567,11 +599,6 @@ pub fn show_sidebar_internal(
 
     let was_visible = window.is_visible().unwrap_or(false);
 
-    // Check whether main window had focus before we show the sidebar
-    let main_had_focus = app_handle.get_webview_window("main")
-        .and_then(|w| w.is_focused().ok())
-        .unwrap_or(false);
-
     let monitor = get_overlay_monitor(app_handle, "overlay-sidebar")?;
     let mon_x = monitor.position().x;
     let mon_y = monitor.position().y;
@@ -584,11 +611,13 @@ pub fn show_sidebar_internal(
         _       => mon_x,
     };
 
-    eprintln!("[SIDEBAR] show: side={} {}x{} @({},{}) main_had_focus={}", side, phys_w, mon_h, target_x, mon_y, main_had_focus);
+    eprintln!("[SIDEBAR] show: side={} {}x{} @({},{})", side, phys_w, mon_h, target_x, mon_y);
 
     let win = window.clone();
-    let ah = app_handle.clone();
     window.run_on_main_thread(move || {
+        #[cfg(target_os = "linux")]
+        let x11_ids;
+
         #[cfg(target_os = "linux")]
         {
             use gtk::prelude::*;
@@ -598,7 +627,8 @@ pub fn show_sidebar_internal(
                     gdk_win.set_override_redirect(true);
                 }
             }
-            if let Some((xdisplay, xid)) = get_x11_ids(&win) {
+            x11_ids = get_x11_ids(&win);
+            if let Some((xdisplay, xid)) = x11_ids {
                 apply_x11_overlay_hints(xdisplay, xid, was_visible,
                     Some((target_x, mon_y, phys_w, mon_h)));
                 eprintln!("[SIDEBAR] x11 hints applied xid={}", xid);
@@ -610,22 +640,26 @@ pub fn show_sidebar_internal(
         let _ = win.set_always_on_top(true);
         let _ = win.set_skip_taskbar(true);
         if !was_visible {
-            let _ = win.show();
+            if let Err(e) = win.show() {
+                eprintln!("[SIDEBAR] win.show() failed: {}", e);
+            }
         }
 
-        // Explicit XMapWindow: GDK's gtk_widget_show() skips the X11 map when
-        // override_redirect + raw X11 property mutations (apply_x11_overlay_hints)
-        // were applied before the first map — GDK thinks the window is already
-        // configured and no-ops.  We must force the map ourselves.
         #[cfg(target_os = "linux")]
-        if let Some((xdisplay, xid)) = get_x11_ids(&win) {
-            unsafe {
-                XMapWindow(xdisplay, xid);
-                XSync(xdisplay, 0);
+        if let Some((xdisplay, xid)) = x11_ids {
+            // Explicit XMapWindow only on first show: GDK's gtk_widget_show()
+            // skips the X11 map when override_redirect + raw X11 property
+            // mutations were applied before the first map.
+            if !was_visible {
+                unsafe {
+                    XMapWindow(xdisplay, xid);
+                    XSync(xdisplay, 0);
+                }
             }
 
-            // Warframe/Wine holds an active X pointer grab via DirectInput.
-            // Release it before setting focus so X delivers events to our window.
+            // Warframe/Wine holds an active X grab via DirectInput.  Release
+            // it before setting focus so X delivers events to our window.
+            // Must run every toggle (Wine may re-grab between shows).
             const CURRENT_TIME: u64 = 0;
             const REVERT_TO_POINTER_ROOT: i32 = 1;
             unsafe {
@@ -635,23 +669,21 @@ pub fn show_sidebar_internal(
                 XSetInputFocus(xdisplay, xid, REVERT_TO_POINTER_ROOT, CURRENT_TIME);
                 XSync(xdisplay, 0);
             }
-            eprintln!("[SIDEBAR] XMapWindow + ungrab + focus on XID={}", xid);
+            eprintln!("[SIDEBAR] map(if first) + ungrab + focus on XID={}", xid);
         }
 
         eprintln!("[SIDEBAR] show done");
-
-        // Restore main window focus so sidebar doesn't steal it on show
-        if main_had_focus {
-            if let Some(main_win) = ah.get_webview_window("main") {
-                let _ = main_win.set_focus();
-            }
-        }
     }).map_err(|e| format!("run_on_main_thread failed: {e}"))?;
+
+    // Background timer: periodically release Wine's X grab so clicks
+    // keep reaching the sidebar while it's visible.
+    start_sidebar_ungrab_timer();
 
     Ok(())
 }
 
 pub fn hide_sidebar_internal(app_handle: &AppHandle) {
+    stop_sidebar_ungrab_timer();
     if let Some(window) = app_handle.get_webview_window("overlay-sidebar") {
         let _ = window.hide();
         eprintln!("[SIDEBAR] hidden");

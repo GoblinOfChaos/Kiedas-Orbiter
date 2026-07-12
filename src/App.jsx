@@ -261,7 +261,7 @@ function AppContent() {
 
   // Show toast when scanner latches onto Warframe
   useEffect(() => {
-    const unsub = listen('scanner-latched', () => {
+    const unsub = listen('scanner-hooked', () => {
       invoke('show_notification', {
         title: 'Scanner',
         message: 'Log scanner hooked into Warframe',

@@ -154,6 +154,8 @@ Tracks completion of every full Prime **set** (the whole Warframe/weapon, not on
 Every mod in the game, cross-referenced with what you own, including where to farm the ones you're missing.
 
 - **Search box** — matches name, type, source, or drop location
+- **Slot dropdown** — filter to Primary / Secondary / Melee / Warframe / Sentinel / Aura / Stance / Parazon / Arch-Gun / Arch-Melee / Archwing / Kavat / Kubrow / Helminth Charger / Other
+- **Weapon/Type dropdown** — narrows further to a specific weapon type or an individual weapon's exclusive mods, options depend on the selected Slot
 - **Hide owned mods** — only show mods you own zero of
 - Columns are sortable
 

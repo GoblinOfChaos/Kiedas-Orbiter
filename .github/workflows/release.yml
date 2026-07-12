@@ -114,6 +114,17 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
+      - name: Force-fetch the triggering tag's real annotated object
+        # actions/checkout's initial fetch for a tag-triggered run grabs the
+        # tag as a lightweight ref pointing at the commit SHA. The later
+        # fetch-tags pass above doesn't overwrite that already-existing
+        # local ref, so `git tag -l --format='%(contents)'` below still saw
+        # the commit message instead of the tag's own annotation even with
+        # fetch-depth/fetch-tags set (confirmed live on v1.2.7's release).
+        # Force-fetching this exact tag ref replaces it with the real
+        # annotated tag object.
+        run: git fetch --force origin "refs/tags/${{ github.ref_name }}:refs/tags/${{ github.ref_name }}"
+
       - name: Download Linux binary
         uses: actions/download-artifact@v4
         with:

@@ -7,7 +7,7 @@ from pathlib import Path
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QCheckBox,
-    QTableWidget, QTableWidgetItem, QHeaderView
+    QTableWidget, QTableWidgetItem, QHeaderView, QComboBox
 )
 from column_persistence import apply_saved_widths, remember_widths
 
@@ -22,6 +22,31 @@ POLARITY_NAMES = {
     'AP_WARD': 'Unairu',
     'AP_ANY': 'Aura',
 }
+
+# Maps the raw 'type' field (the weapon slot a mod fits into) to a readable
+# label for the Type dropdown. Mods with no type or '---' get bucketed
+# together as "Other" since that's not a real category.
+TYPE_DISPLAY_NAMES = {
+    'WARFRAME': 'Warframe',
+    'PRIMARY': 'Primary',
+    'SECONDARY': 'Secondary',
+    'MELEE': 'Melee',
+    'SENTINEL': 'Sentinel',
+    'STANCE': 'Stance',
+    'ARCH-GUN': 'Arch-Gun',
+    'ARCH-MELEE': 'Arch-Melee',
+    'AURA': 'Aura',
+    'PARAZON': 'Parazon',
+    'KAVAT': 'Kavat',
+    'KUBROW': 'Kubrow',
+    'ARCHWING': 'Archwing',
+    'HELMINTH CHARGER': 'Helminth Charger',
+    'OTHER': 'Other',
+}
+
+
+def _type_bucket(raw_type):
+    return raw_type if raw_type in TYPE_DISPLAY_NAMES else 'OTHER'
 
 
 class ModCollectionTab(QWidget):
@@ -44,6 +69,16 @@ class ModCollectionTab(QWidget):
         self._hide_owned = QCheckBox("Hide owned mods")
         self._hide_owned.stateChanged.connect(self._filter)
         header.addWidget(self._hide_owned)
+
+        header.addWidget(QLabel("Slot:"))
+        self._type_combo = QComboBox()
+        self._type_combo.currentIndexChanged.connect(self._on_type_changed)
+        header.addWidget(self._type_combo)
+
+        header.addWidget(QLabel("Weapon/Type:"))
+        self._source_combo = QComboBox()
+        self._source_combo.currentIndexChanged.connect(self._filter)
+        header.addWidget(self._source_combo)
 
         layout.addLayout(header)
 
@@ -96,6 +131,7 @@ class ModCollectionTab(QWidget):
             self._mods.append({
                 'name': mod_name,
                 'type': mod_type,
+                'type_bucket': _type_bucket(mod_type),
                 'rarity': rarity,
                 'polarity': polarity,
                 'source': source,
@@ -104,8 +140,39 @@ class ModCollectionTab(QWidget):
                 'is_set': bool(set_name),
             })
 
+        self._populate_type_combo()
         self._populate_table(self._mods)
         self._status.setText(f"Loaded {len(self._mods)} mods from ExportUpgrades")
+
+    def _populate_type_combo(self):
+        buckets = sorted(
+            {m['type_bucket'] for m in self._mods},
+            key=lambda b: TYPE_DISPLAY_NAMES.get(b, b)
+        )
+        self._type_combo.blockSignals(True)
+        self._type_combo.clear()
+        self._type_combo.addItem("All Slots", None)
+        for bucket in buckets:
+            self._type_combo.addItem(TYPE_DISPLAY_NAMES.get(bucket, bucket), bucket)
+        self._type_combo.blockSignals(False)
+        self._populate_source_combo(None)
+
+    def _populate_source_combo(self, bucket):
+        if bucket is None:
+            sources = {m['source'] for m in self._mods if m['source']}
+        else:
+            sources = {m['source'] for m in self._mods if m['type_bucket'] == bucket and m['source']}
+        self._source_combo.blockSignals(True)
+        self._source_combo.clear()
+        self._source_combo.addItem("All", None)
+        for source in sorted(sources):
+            self._source_combo.addItem(source, source)
+        self._source_combo.blockSignals(False)
+
+    def _on_type_changed(self, *_):
+        bucket = self._type_combo.currentData()
+        self._populate_source_combo(bucket)
+        self._filter()
 
     def _load_json(self, path):
         try:
@@ -183,6 +250,8 @@ class ModCollectionTab(QWidget):
     def _filter(self, *_):
         q = self._search.text().strip().lower()
         hide_owned = self._hide_owned.isChecked()
+        selected_bucket = self._type_combo.currentData()
+        selected_source = self._source_combo.currentData()
 
         for r in range(self._table.rowCount()):
             name_item = self._table.item(r, 0)
@@ -191,8 +260,10 @@ class ModCollectionTab(QWidget):
             drop_item = self._table.item(r, 5)
             owned_item = self._table.item(r, 6)
             name = name_item.text().lower() if name_item else ''
-            typ = type_item.text().lower() if type_item else ''
-            source = source_item.text().lower() if source_item else ''
+            typ_raw = type_item.text() if type_item else ''
+            typ = typ_raw.lower()
+            source_raw = source_item.text() if source_item else ''
+            source = source_raw.lower()
             drop_location = drop_item.text().lower() if drop_item else ''
             owned = 0
             try:
@@ -203,6 +274,10 @@ class ModCollectionTab(QWidget):
             if q and q not in name and q not in typ and q not in source and q not in drop_location:
                 visible = False
             if hide_owned and owned > 0:
+                visible = False
+            if selected_bucket is not None and _type_bucket(typ_raw) != selected_bucket:
+                visible = False
+            if selected_source is not None and source_raw != selected_source:
                 visible = False
             self._table.setRowHidden(r, not visible)
 

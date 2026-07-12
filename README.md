@@ -237,6 +237,7 @@ Nine near-identical tabs — **Warframe, Primary, Secondary, Melee, Archwing, Ne
 - **Show only missing** — hides mastered items
 - **Expand all / Collapse all** — for the whole tree at once; clicking a row also toggles it individually
 - **Wiki** link (rightmost column) — opens that item's wiki page in your browser
+- A 🔧 badge next to an item's name means it's itself required to craft something else — hover it to see what
 - Tree structure: item → components (with quantity needed) → drop sources (location, rarity, drop chance, rotation)
 - The **Warframe** tab has an extra **Subsumed** column showing which frames you've fed to Helminth
 

@@ -1020,15 +1020,27 @@ class StatusTab(QWidget):
     def _reload_config_launch(self):
         from platform_utils import launch_detached, clean_env_for_launch, IS_LINUX
         log_file = DATA_DIR / "orbiter.log"
+        # orbiter.exe takes the EE.log path as a positional CLI argument -
+        # without it, it falls back to its own built-in default guess and
+        # silently ignores whatever the user configured (Save Paths) in
+        # config.json. get_ee_log_path() already resolves override ->
+        # auto-detect the same way the rest of the app does, so pass it
+        # through explicitly instead of leaving the binary to guess on its
+        # own with a narrower, less accurate fallback.
+        log_path_arg = []
+        if get_ee_log_path is not None:
+            ee_path = get_ee_log_path()
+            if ee_path is not None:
+                log_path_arg = [str(ee_path)]
         try:
             if IS_LINUX:
                 # launch-orbiter.sh handles Bazzite/gamescope-specific setup
                 # (DISPLAY detection, host libs, portal bus) that Windows
                 # simply doesn't need — there we can launch the exe directly.
-                launch_detached(["./launch-orbiter.sh"], cwd=WFINFO_DIR,
+                launch_detached(["./launch-orbiter.sh"] + log_path_arg, cwd=WFINFO_DIR,
                                  env=clean_env_for_launch(), log_file=log_file)
             else:
-                launch_detached([str(WFINFO_DIR / "orbiter.exe")], cwd=WFINFO_DIR,
+                launch_detached([str(WFINFO_DIR / "orbiter.exe")] + log_path_arg, cwd=WFINFO_DIR,
                                  log_file=log_file)
         except OSError as e:
             self.cmd_text.append(f"ERROR: failed to launch orbiter: {e}")

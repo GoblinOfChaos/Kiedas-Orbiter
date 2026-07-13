@@ -11,13 +11,23 @@ const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
 
 function toMap(data, key) {
   if (!data) return {}
-  const arr = data[key]
-  if (!Array.isArray(arr)) return {}
-  const map = {}
-  for (const item of arr) {
-    if (item && item.uniqueName) map[item.uniqueName] = item
+  let arr = data
+  if (typeof data === 'object' && !Array.isArray(data)) {
+    if (key && data[key]) arr = data[key]
+    else {
+      const keys = Object.keys(data)
+      if (keys.length === 1) arr = data[keys[0]]
+    }
   }
-  return map
+  if (Array.isArray(arr)) {
+    const map = {}
+    for (const item of arr) {
+      const k = item.uniqueName || item.ItemType || item.name || item.regionIndex
+      if (k !== undefined) map[k] = item
+    }
+    return map
+  }
+  return arr || {}
 }
 
 const ARBY_TIERS = {
@@ -195,34 +205,6 @@ export default function MirroredMonitoringProvider({ children }) {
     return () => { unsub.then(f => f()) }
   }, [])
 
-  // ── Worldstate polling ──
-  const fetchWorldstate = useCallback(async () => {
-    try {
-      const resp = await fetch(ORACLE_API)
-      if (!resp.ok) return
-      const ws = await resp.json()
-      if (!ws || !exportData) return
-      const d = exportData['dict.en'] ?? {}
-      if (Object.keys(d).length === 0) return
-      const suppDict = exportData['supp-dict-en'] ?? {}
-      const ERg = buildERg(exportData)
-      const EC = toMap(exportData?.ExportChallenges, 'ExportChallenges')
-      const eiB = buildEI(exportData, d)
-      const EI = eiB?.EI ?? {}
-      const nameToImage = eiB?.nameToImage ?? {}
-      const uniqueNameToName = eiB?.uniqueNameToName ?? {}
-      const ES = exportData?.ExportSyndicates ?? {}
-      const ENWRawRewards = exportData?.ExportNightwave?.rewards || []
-      const ExportImages = exportData?.ExportImages ?? {}
-      const archimedeaMap = buildArchimedeaMap(d, suppDict)
-      const parsed = parseWorldstate(ws, {
-        dict: d, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName,
-        ES, ENWRawRewards, ExportImages, archimedeaMap,
-      })
-      setWorldState(parsed)
-    } catch {}
-  }, [exportData])
-
   // ── Archon hunt modifiers ──
   useEffect(() => {
     const unsub = listen('archon-hunt-modifiers', (e) => {
@@ -317,15 +299,6 @@ export default function MirroredMonitoringProvider({ children }) {
   const ExportImages = useMemo(() => exportData?.ExportImages ?? {}, [exportData])
   const ExportTextIcons = useMemo(() => exportData?.ExportTextIcons ?? {}, [exportData])
 
-  // ── Worldstate polling (must be after dict is declared) ──
-  useEffect(() => {
-    if (Object.keys(dict || {}).length > 0) {
-      fetchWorldstate()
-      const iv = setInterval(fetchWorldstate, 60000)
-      return () => clearInterval(iv)
-    }
-  }, [fetchWorldstate, dict])
-
   const masteryProgress = useMemo(() => {
     if (!inventoryData) return 0
     const currentRank = inventoryData.account?.mastery_rank
@@ -350,6 +323,28 @@ export default function MirroredMonitoringProvider({ children }) {
   const EI = eiResult.EI
   const nameToImage = eiResult.nameToImage
   const uniqueNameToName = eiResult.uniqueNameToName
+
+  // ── Worldstate polling (after all memoized fields so deps are in scope) ──
+  const fetchWorldstate = useCallback(async () => {
+    try {
+      const ws = await fetch(ORACLE_API).then(r => r.ok ? r.json() : null)
+      if (ws && dict) {
+        const parsed = parseWorldstate(ws, {
+          dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName,
+          ES, ENWRawRewards, ExportImages, archimedeaMap,
+        })
+        setWorldState(parsed)
+      }
+    } catch {}
+  }, [dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, archimedeaMap])
+
+  useEffect(() => {
+    if (Object.keys(dict || {}).length > 0) {
+      fetchWorldstate()
+      const iv = setInterval(fetchWorldstate, 60000)
+      return () => clearInterval(iv)
+    }
+  }, [fetchWorldstate, dict])
 
   const globalRewardPool = useMemo(() => getAllRelicRewards(exportData), [exportData])
   const dropIndex = useMemo(() => buildDropIndex(exportData), [exportData])

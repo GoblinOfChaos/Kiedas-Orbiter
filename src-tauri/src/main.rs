@@ -165,7 +165,13 @@ const DROPDATA_FILES: &[(&str, &str)] = &[
 
 // --- Shared Download Helper ---
 
-/// Download a file from `url` and write it to `dest`.
+/// Download a file from `url` and write it to `dest` atomically.
+/// Writes to a `.tmp` sibling first, then renames into place so concurrent
+/// readers never see a torn/incomplete write (fixes a cross-window race
+/// between `check_exports` writing and `sidebar_load_data` reading).
+/// When the destination has a `.json` extension the content is validated
+/// as valid JSON before the rename, so network-truncated garbage is never
+/// atomically committed.
 /// Returns `Ok(true)` on success, or an error string on failure.
 async fn download_file(client: &reqwest::Client, url: &str, dest: &std::path::Path) -> Result<bool, String> {
     let resp = client.get(url).send().await.map_err(|e| e.to_string())?;
@@ -173,7 +179,17 @@ async fn download_file(client: &reqwest::Client, url: &str, dest: &std::path::Pa
         return Err(format!("HTTP {} for {}", resp.status(), url));
     }
     let bytes = resp.bytes().await.map_err(|e| e.to_string())?;
-    fs::write(dest, bytes).map_err(|e| e.to_string())?;
+
+    let tmp = dest.with_extension("tmp");
+    fs::write(&tmp, &bytes).map_err(|e| e.to_string())?;
+
+    // Validate JSON before committing the rename
+    if dest.extension().and_then(|e| e.to_str()) == Some("json") {
+        serde_json::from_slice::<serde_json::Value>(&bytes)
+            .map_err(|e| format!("Invalid JSON in downloaded {}: {}", url, e))?;
+    }
+
+    fs::rename(&tmp, dest).map_err(|e| e.to_string())?;
     Ok(true)
 }
 
@@ -1512,6 +1528,11 @@ fn load_settings_sync() -> serde_json::Value {
 
 #[tauri::command]
 async fn sidebar_load_data(app_handle: tauri::AppHandle) -> Result<serde_json::Value, String> {
+    // Ensure exports are fresh before reading — this is cheap (file-age check)
+    // if the main window's check_exports already ran, and safe (atomic rename)
+    // if it hasn't yet.
+    check_exports().await?;
+
     let exports = load_all_exports_inner(&app_handle).unwrap_or_default();
     let (inventory, timestamp) = load_cached_inventory_inner()
         .ok()
@@ -1558,10 +1579,12 @@ fn load_all_exports_inner(app_handle: &tauri::AppHandle) -> Option<serde_json::V
         };
 
         let key = file_name.trim_end_matches(".json");
-        if let Ok(file) = std::fs::File::open(&path) {
-            if let Ok(json) = serde_json::from_reader(std::io::BufReader::new(file)) {
-                result.insert(key.to_string(), json);
-            }
+        match std::fs::File::open(&path) {
+            Ok(file) => match serde_json::from_reader(std::io::BufReader::new(file)) {
+                Ok(json) => { result.insert(key.to_string(), json); }
+                Err(e) => eprintln!("[load_all_exports_inner] failed to parse {} ({}b): {}", key, path.metadata().map(|m| m.len()).unwrap_or(0), e),
+            },
+            Err(e) => eprintln!("[load_all_exports_inner] failed to open {}: {}", key, e),
         }
     }
 
@@ -1570,10 +1593,12 @@ fn load_all_exports_inner(app_handle: &tauri::AppHandle) -> Option<serde_json::V
         let path = export_dir.join(file_name);
         if !path.exists() { continue; }
         let key = file_name.trim_end_matches(".json");
-        if let Ok(file) = std::fs::File::open(&path) {
-            if let Ok(json) = serde_json::from_reader(std::io::BufReader::new(file)) {
-                result.insert(key.to_string(), json);
-            }
+        match std::fs::File::open(&path) {
+            Ok(file) => match serde_json::from_reader(std::io::BufReader::new(file)) {
+                Ok(json) => { result.insert(key.to_string(), json); }
+                Err(e) => eprintln!("[load_all_exports_inner] failed to parse {} ({}b): {}", key, path.metadata().map(|m| m.len()).unwrap_or(0), e),
+            },
+            Err(e) => eprintln!("[load_all_exports_inner] failed to open {}: {}", key, e),
         }
     }
 

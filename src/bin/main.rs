@@ -314,8 +314,27 @@ fn log_watcher(path: PathBuf, event_sender: mpsc::Sender<()>) {
 fn hotkey_watcher(hotkey: HotKey, event_sender: mpsc::Sender<()>) {
     debug!("watching hotkey: {hotkey:?}");
     thread::spawn(move || {
-        let manager = GlobalHotKeyManager::new().unwrap();
-        manager.register(hotkey).unwrap();
+        // This runs on a spawned thread, not main - a panic here only kills
+        // this thread, not the whole process. That silently left orbiter.exe
+        // running in a half-alive state (no hotkey, but otherwise still
+        // running) whenever registration failed, with no visible crash to
+        // explain why F12 stopped working - and since that half-alive
+        // process was still holding the registration, every subsequent
+        // launch attempt failed the same way too, compounding indefinitely.
+        // Log and return instead of unwrap()ing, so a failure here is
+        // visible and the thread just exits cleanly rather than leaving a
+        // zombie behind.
+        let manager = match GlobalHotKeyManager::new() {
+            Ok(m) => m,
+            Err(e) => {
+                error!("Failed to create hotkey manager: {e}");
+                return;
+            }
+        };
+        if let Err(e) = manager.register(hotkey) {
+            error!("Failed to register hotkey {hotkey:?}: {e} (F12 screenshot trigger will not work until orbiter is restarted)");
+            return;
+        }
 
         while let Ok(event) = GlobalHotKeyEvent::receiver().recv() {
             debug!("{:?}", event);

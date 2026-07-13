@@ -525,15 +525,15 @@ export default function Dashboard() {
                     <span className="text-[12px] text-kronos-dim uppercase">Standing</span>
                     <span className="text-[14px] font-black text-kronos-accent">{standingInLevel.toLocaleString()} / {STANDING_PER_LEVEL.toLocaleString()}</span>
                   </div>
-                  <div className="relative h-5 bg-black/40 rounded overflow-hidden">
-                    <div
-                      className="absolute top-0 left-0 bottom-0 bg-kronos-accent"
-                      style={{ width: `${progressPercent}%` }}
-                    />
-                    <div className="absolute inset-0 flex items-center justify-between px-2">
-                      <span className="text-[10px] font-black text-black">{currentRank}</span>
-                      <span className="text-[10px] font-black text-white">{currentRank + 1}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-black text-kronos-text">{currentRank}</span>
+                    <div className="relative flex-1 h-3 bg-black/40 rounded overflow-hidden">
+                      <div
+                        className="absolute top-0 left-0 bottom-0 bg-kronos-accent"
+                        style={{ width: `${progressPercent}%` }}
+                      />
                     </div>
+                    <span className="text-[11px] font-black text-kronos-dim">{currentRank + 1}</span>
                   </div>
                 </>
               ) : (

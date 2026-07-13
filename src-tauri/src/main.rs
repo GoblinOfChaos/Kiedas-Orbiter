@@ -1557,20 +1557,24 @@ fn load_all_exports_inner(app_handle: &tauri::AppHandle) -> Option<serde_json::V
             continue;
         };
 
-        let file = std::fs::File::open(&path).ok()?;
-        let json: serde_json::Value = serde_json::from_reader(std::io::BufReader::new(file)).ok()?;
         let key = file_name.trim_end_matches(".json");
-        result.insert(key.to_string(), json);
+        if let Ok(file) = std::fs::File::open(&path) {
+            if let Ok(json) = serde_json::from_reader(std::io::BufReader::new(file)) {
+                result.insert(key.to_string(), json);
+            }
+        }
     }
 
     // Drop data files (warframe-drop-data) - same as load_all_exports
     for (file_name, _url) in crate::DROPDATA_FILES {
         let path = export_dir.join(file_name);
         if !path.exists() { continue; }
-        let file = std::fs::File::open(&path).ok()?;
-        let json: serde_json::Value = serde_json::from_reader(std::io::BufReader::new(file)).ok()?;
         let key = file_name.trim_end_matches(".json");
-        result.insert(key.to_string(), json);
+        if let Ok(file) = std::fs::File::open(&path) {
+            if let Ok(json) = serde_json::from_reader(std::io::BufReader::new(file)) {
+                result.insert(key.to_string(), json);
+            }
+        }
     }
 
     Some(serde_json::Value::Object(result))

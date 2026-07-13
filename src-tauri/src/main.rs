@@ -2436,6 +2436,14 @@ async fn get_known_weapon_names() -> Vec<String> {
         if std::env::var("WEBKIT_DISABLE_DMABUF_RENDERER").is_err() {
             std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
         }
+        // Disable WebKit compositing mode (EGL) to prevent "Could not create
+        // default EGL display: EGL_BAD_PARAMETER" crashes on systems with
+        // broken EGL implementations (Nvidia proprietary + XWayland, etc.).
+        // Forces WebKit to use CPU-based compositing (Cairo), avoiding the
+        // GPU process entirely. Without this, overlay windows render white/grey.
+        if std::env::var("WEBKIT_DISABLE_COMPOSITING_MODE").is_err() {
+            std::env::set_var("WEBKIT_DISABLE_COMPOSITING_MODE", "1");
+        }
         // Force X11 backend unconditionally - X11 is required for:
         //   1. Raw XMoveWindow to position transparent (ARGB visual) windows
         //   2. _NET_WM_STATE_ABOVE for reliable always-on-top

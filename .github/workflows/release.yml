@@ -52,19 +52,27 @@ jobs:
         with:
           toolchain: '1.96.0'
       
-      - name: Export GitHub Actions cache vars for vcpkg
-        uses: actions/github-script@v7
+      - name: Restore vcpkg binary cache
+        # vcpkg removed its 'x-gha' GitHub Actions Cache binary source
+        # (github.com/microsoft/vcpkg-tool/pull/1662) - it silently kept
+        # working (just a warning, not an error) but stopped caching
+        # anything at all, so every release was doing a full from-scratch
+        # Tesseract/Leptonica compile (~20+ min, confirmed live via the
+        # workflow's own step timing: 1392s on "Install Tesseract via
+        # vcpkg" alone). Switched to vcpkg's plain filesystem binary cache
+        # (VCPKG_BINARY_SOURCES=files,<path>,readwrite below) persisted
+        # across runs with actions/cache instead - no new secrets/tokens
+        # needed, unlike the officially-recommended NuGet/GitHub Packages
+        # replacement. Bump the key suffix if the installed package set
+        # ever changes, to avoid serving a stale cache.
+        uses: actions/cache@v4
         with:
-          script: |
-            core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
-            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+          path: C:\vcpkg-binary-cache
+          key: vcpkg-binary-cache-windows-tesseract-v1
 
       - name: Install Tesseract via vcpkg
         env:
-          # vcpkg's built-in GitHub Actions Cache binary source - caches
-          # built packages so this doesn't recompile Tesseract/Leptonica
-          # from source (~10-15 min) on every single release.
-          VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+          VCPKG_BINARY_SOURCES: "clear;files,C:\\vcpkg-binary-cache,readwrite"
         run: |
           vcpkg install tesseract:x64-windows
           echo "VCPKG_ROOT=$env:VCPKG_INSTALLATION_ROOT" >> $env:GITHUB_ENV

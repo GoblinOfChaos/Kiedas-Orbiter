@@ -133,10 +133,22 @@ def _exec_or_spawn(argv, env):
     inherited console, Windows auto-allocates a fresh blank one for it that
     then sticks around for the whole run. CREATE_NO_WINDOW is the only way
     to actually suppress that, so on Windows we spawn explicitly with that
-    flag and exit, instead of relying on execve."""
+    flag and exit, instead of relying on execve.
+
+    stdout/stderr are passed through explicitly - without this, when this
+    launcher.py process itself was started with its output redirected to a
+    log file (e.g. restart_overlay()'s launch_detached(..., log_file=...)),
+    that redirection stopped right here: subprocess.Popen with no explicit
+    stdout/stderr doesn't inherit it automatically on Windows, and the
+    child here is pythonw.exe (no console, no output channel at all by
+    design), so overlay.py's actual output went nowhere - confirmed live,
+    overlay.log stayed completely empty even after a restart."""
     if IS_WINDOWS:
         CREATE_NO_WINDOW = 0x08000000
-        subprocess.Popen(argv, env=env, creationflags=CREATE_NO_WINDOW)
+        subprocess.Popen(
+            argv, env=env, creationflags=CREATE_NO_WINDOW,
+            stdout=sys.stdout, stderr=sys.stderr,
+        )
         sys.exit(0)
     else:
         os.execve(str(argv[0]), [str(a) for a in argv], env)

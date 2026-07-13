@@ -22,7 +22,7 @@
  * Arbitration and Incursion logic (epoch-based rotation) is handled by local
  * helpers in this file.
  */
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { PageLayout, Card, Button, CardHeader, Tabs, Modal } from '../components/UI'
 import {
   Package, DollarSign, RefreshCw,
@@ -44,9 +44,7 @@ import {
   timeRemaining,
   timeSince
 } from '../lib/warframeUtils'
-import { parseWorldstate } from '../lib/worldstateParser'
 
-const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
 const LOCATION_BOUNTIES_API = 'https://oracle.browse.wf/location-bounties'
 const BOUNTY_CYCLE_API = 'https://oracle.browse.wf/bounty-cycle'
 
@@ -141,7 +139,7 @@ function GradeBadge({ grade, className = "" }) {
 // ── Main component ─────────────────────────────────────────────────────────────
 export default function Dashboard() {
   const {
-    exportData, spIncursions, arbys, archonModifiers,
+    exportData, worldState, spIncursions, arbys, archonModifiers,
     dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, arbyTiers,
     rawInventory, inventoryData, ES, ENWRawRewards, ExportImages,
   } = useMonitoring()
@@ -228,37 +226,32 @@ export default function Dashboard() {
 
 
 
-  const fetchWorldstate = async () => {
-    setLoading(true)
+  // Use pre-parsed worldState from monitoring context
+  useEffect(() => {
+    if (worldState) {
+      setWorldstate(worldState)
+      setLoading(false)
+    }
+  }, [worldState])
+
+  // Fetch bounty-cycle and location-bounties (not mirrored from context)
+  const fetchBounties = useCallback(async () => {
     try {
-      const [wsOracle, loc, cycle] = await Promise.all([
-        fetch(ORACLE_API).then(r => r.ok ? r.json() : null),
+      const [loc, cycle] = await Promise.all([
         fetch(LOCATION_BOUNTIES_API).then(r => r.ok ? r.json() : null),
         fetch(BOUNTY_CYCLE_API).then(r => r.ok ? r.json() : null),
       ])
-
-      if (wsOracle) {
-        const parsed = parseWorldstate(wsOracle, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, bountyCycle: cycle, ES, ENWRawRewards, ExportImages })
-        setWorldstate(parsed)
-      }
       if (loc) setLocationBounties(loc)
       if (cycle) setBountyCycle(cycle)
-
       setLastFetch(Date.now())
-    } catch (err) {
-      console.error('Fetch failed:', err)
-    } finally {
-      setLoading(false)
-    }
-  }
+    } catch {}
+  }, [])
 
   useEffect(() => {
-    if (Object.keys(dict).length > 0) {
-      fetchWorldstate()
-      const iv1 = setInterval(fetchWorldstate, 60_000)
-      return () => clearInterval(iv1)
-    }
-  }, [dict])
+    fetchBounties()
+    const iv = setInterval(fetchBounties, 120_000)
+    return () => clearInterval(iv)
+  }, [fetchBounties])
 
   // ── Derived data ─────────────────────────────────────────────────────────────
   const currentArbyRaw = useMemo(() => getCurrentArby(arbys, ERg, dict), [arbys, ERg, dict])
@@ -1224,7 +1217,7 @@ export default function Dashboard() {
       <PageLayout
         title="Dashboard"
         extra={(
-          <Button variant="ghost" onClick={fetchWorldstate} disabled={loading} className="h-12 w-12 !p-0 !px-0 !py-0">
+          <Button variant="ghost" onClick={fetchBounties} disabled={loading} className="h-12 w-12 !p-0 !px-0 !py-0">
             <RefreshCw size={28} strokeWidth={3} className="animate-spin text-kronos-accent" />
           </Button>
         )}
@@ -1301,7 +1294,7 @@ export default function Dashboard() {
           )}
           <Button
             variant="ghost"
-            onClick={fetchWorldstate}
+            onClick={fetchBounties}
             disabled={loading}
             className="h-9 w-9 !p-0 hover:bg-kronos-accent/10 transition-colors"
           >

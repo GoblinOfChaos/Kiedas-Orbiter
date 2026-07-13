@@ -94,6 +94,14 @@ export default function MirroredMonitoringProvider({ children }) {
           }
         }
 
+        // Load incursion/arbitration data from files (same as main MonitoringContext)
+        const [spiRes, arbRes] = await Promise.allSettled([
+          invoke('load_txt_file', { name: 'sp-incursions.txt' }),
+          invoke('load_txt_file', { name: 'arbys.txt' }),
+        ])
+        if (spiRes.status === 'fulfilled' && spiRes.value) setSpIncursions(spiRes.value)
+        if (arbRes.status === 'fulfilled' && arbRes.value) setArbys(arbRes.value)
+
         setExportData(exports)
         if (result.inventory) {
           setRawInventory(result.inventory)

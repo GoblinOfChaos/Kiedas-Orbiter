@@ -85,6 +85,7 @@ class StatusTab(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.process = None
+        self._step_timeout_process = None
         self._setup_ui()
 
         self.refresh_timer = QTimer(self)
@@ -927,6 +928,26 @@ class StatusTab(QWidget):
         self.process.errorOccurred.connect(self._process_error)
         self.process.setWorkingDirectory(str(self._pending_cwd))
         self.process.start(str(argv[0]), [str(a) for a in argv[1:]])
+
+        # Some external tools (warframe-api-helper.exe in particular, seen
+        # live on Windows) print their result but don't actually exit the
+        # process afterward, which without this left the whole window stuck
+        # on "Running:..." with every button disabled forever - QProcess
+        # never emits 'finished' for a process that's still alive. Force-
+        # kill anything that's still running after a generous timeout so a
+        # single misbehaving step can't hang the app.
+        self._step_timeout_process = self.process
+        QTimer.singleShot(60_000, self._check_step_timeout)
+
+    def _check_step_timeout(self):
+        proc = self._step_timeout_process
+        if proc is None or proc is not self.process:
+            return  # already finished/replaced - nothing to do
+        if proc.state() != QProcess.NotRunning:
+            self.cmd_text.append(
+                "\n=== Step timed out after 60s, killing it and moving on ==="
+            )
+            proc.kill()
 
     def _step_finished(self, code, status):
         if code != 0:

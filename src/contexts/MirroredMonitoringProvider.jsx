@@ -202,33 +202,26 @@ export default function MirroredMonitoringProvider({ children }) {
       if (!resp.ok) return
       const ws = await resp.json()
       if (!ws || !exportData) return
-      const dict = exportData['dict.en'] ?? {}
+      const d = exportData['dict.en'] ?? {}
+      if (Object.keys(d).length === 0) return
       const suppDict = exportData['supp-dict-en'] ?? {}
       const ERg = buildERg(exportData)
       const EC = toMap(exportData?.ExportChallenges, 'ExportChallenges')
-      const eiB = buildEI(exportData, dict)
+      const eiB = buildEI(exportData, d)
       const EI = eiB?.EI ?? {}
       const nameToImage = eiB?.nameToImage ?? {}
       const uniqueNameToName = eiB?.uniqueNameToName ?? {}
       const ES = exportData?.ExportSyndicates ?? {}
       const ENWRawRewards = exportData?.ExportNightwave?.rewards || []
       const ExportImages = exportData?.ExportImages ?? {}
-      const archimedeaMap = buildArchimedeaMap(dict, suppDict)
+      const archimedeaMap = buildArchimedeaMap(d, suppDict)
       const parsed = parseWorldstate(ws, {
-        dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName,
+        dict: d, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName,
         ES, ENWRawRewards, ExportImages, archimedeaMap,
       })
       setWorldState(parsed)
     } catch {}
   }, [exportData])
-
-  useEffect(() => {
-    if (exportData) {
-      fetchWorldstate()
-      const iv = setInterval(fetchWorldstate, 60000)
-      return () => clearInterval(iv)
-    }
-  }, [exportData, fetchWorldstate])
 
   // ── Archon hunt modifiers ──
   useEffect(() => {
@@ -323,6 +316,15 @@ export default function MirroredMonitoringProvider({ children }) {
   const ENWRawRewards = useMemo(() => exportData?.ExportNightwave?.rewards || [], [exportData])
   const ExportImages = useMemo(() => exportData?.ExportImages ?? {}, [exportData])
   const ExportTextIcons = useMemo(() => exportData?.ExportTextIcons ?? {}, [exportData])
+
+  // ── Worldstate polling (must be after dict is declared) ──
+  useEffect(() => {
+    if (Object.keys(dict || {}).length > 0) {
+      fetchWorldstate()
+      const iv = setInterval(fetchWorldstate, 60000)
+      return () => clearInterval(iv)
+    }
+  }, [fetchWorldstate, dict])
 
   const masteryProgress = useMemo(() => {
     if (!inventoryData) return 0

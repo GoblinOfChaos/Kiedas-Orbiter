@@ -23,12 +23,20 @@ IS_MAC     = sys.platform == "darwin"
 # ── Process detection ─────────────────────────────────────────────────────
 
 def find_processes(pattern: str) -> List[psutil.Process]:
-    """Return all running processes whose cmdline contains `pattern`."""
+    """Return all running processes whose cmdline OR executable name
+    contains `pattern`. Falls back to name matching because reading
+    another process's cmdline can be silently denied on Windows even for
+    the user's own processes (seen live: "Stopped 0 running orbiter
+    process(es)" every time, even with a real stuck orbiter.exe still
+    holding its global hotkey registration) - name() needs far less
+    privilege than cmdline() there, so it still catches what cmdline
+    matching alone misses."""
     matches = []
-    for proc in psutil.process_iter(["pid", "cmdline"]):
+    for proc in psutil.process_iter(["pid", "cmdline", "name"]):
         try:
             cmdline = " ".join(proc.info["cmdline"] or [])
-            if pattern in cmdline:
+            name = proc.info["name"] or ""
+            if pattern in cmdline or pattern in name:
                 matches.append(proc)
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             pass

@@ -5,7 +5,7 @@ import { Tooltip } from '../UI'
 import MirroredMonitoringProvider from '../../contexts/MirroredMonitoringProvider'
 import { useMonitoring } from '../../contexts/MonitoringContext'
 import { formatLastUpdate } from '../../lib/warframeUtils'
-import { loadSettings, getSetting } from '../../lib/settings'
+import { loadSettings, getSetting, setSetting } from '../../lib/settings'
 
 const NAV_ITEMS = [
   { id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },
@@ -96,35 +96,34 @@ function SidebarContent() {
     return () => clearInterval(iv)
   }, [])
 
-  // ── Resize handle (mouse-event-based) ──
+  // ── Resize handle (pointer-event-based with capture) ──
   const onResizeStart = useCallback((e) => {
     e.preventDefault()
     const startScreenX = e.screenX
-    const startW = document.documentElement.clientWidth
+    const startW = window.innerWidth
     let lastW = startW
-    let rafPending = false
+    const el = resizeRef.current
+    if (!el) return
+
+    el.setPointerCapture(e.pointerId)
 
     const onMove = (ev) => {
       const delta = sidebarSide === 'left' ? ev.screenX - startScreenX : startScreenX - ev.screenX
       const newW = Math.max(200, Math.min(startW + delta, window.screen.width * 0.9))
       lastW = Math.round(newW)
-      if (!rafPending) {
-        rafPending = true
-        requestAnimationFrame(() => {
-          rafPending = false
-          invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: false }).catch(() => {})
-        })
-      }
+      invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: false }).catch(() => {})
     }
 
-    const onUp = () => {
-      window.removeEventListener('mousemove', onMove)
-      window.removeEventListener('mouseup', onUp)
+    const onUp = (ev) => {
+      el.removeEventListener('pointermove', onMove)
+      el.removeEventListener('pointerup', onUp)
+      try { el.releasePointerCapture(ev.pointerId) } catch {}
       invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: true }).catch(() => {})
+      setSetting('sidebar_width', lastW).catch(() => {})
     }
 
-    window.addEventListener('mousemove', onMove)
-    window.addEventListener('mouseup', onUp)
+    el.addEventListener('pointermove', onMove)
+    el.addEventListener('pointerup', onUp)
   }, [sidebarSide])
 
   const screens = {
@@ -220,8 +219,8 @@ function SidebarContent() {
       <div
         ref={resizeRef}
         className="fixed top-0 bottom-0 w-3 cursor-col-resize z-[9999] flex items-center justify-center hover:bg-kronos-accent/10 transition-colors group"
-        style={{ [isRight ? 'left' : 'right']: '14px' }}
-        onMouseDown={onResizeStart}
+        style={{ [isRight ? 'left' : 'right']: '14px', touchAction: 'none' }}
+        onPointerDown={onResizeStart}
       >
         <div className="w-0.5 h-12 rounded-full bg-white/10 group-hover:bg-kronos-accent/50 transition-colors" />
       </div>

@@ -1469,7 +1469,7 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
             .get("sidebar_width")
             .and_then(|v| v.as_u64())
             .map(|w| w as u32)
-            .unwrap_or(300);
+            .unwrap_or(400);
 
         // Cache monitor geometry for set_sidebar_width drag resizing.
         if let Ok(mon) = overlay_utils::get_overlay_monitor(&app_handle, "overlay-sidebar") {

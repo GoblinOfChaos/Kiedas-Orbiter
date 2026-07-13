@@ -287,6 +287,7 @@ function AppContent() {
 
   // Apply navbar position BEFORE the window reshapes — no animation, direct DOM
   const containerRef = useRef(null)
+  const resizeRef = useRef(null)
   useEffect(() => {
     const unsub = listen('sidebar-prepare', (e) => {
       const side = e.payload.side
@@ -420,39 +421,39 @@ function AppContent() {
         </Suspense>
       </main>
 
-      {/* ── Resize handle for sidebar mode (mouse-event-based, no native drag) ── */}
+      {/* ── Resize handle for sidebar mode ── */}
       {sidebarActive && (
         <div
+          ref={resizeRef}
           className="fixed top-0 bottom-0 w-3 cursor-col-resize z-[9999] flex items-center justify-center hover:bg-kronos-accent/10 transition-colors group"
-          style={{ [sidebarSide === 'left' ? 'right' : 'left']: '14px' }}
-          onMouseDown={(e) => {
+          style={{ [sidebarSide === 'left' ? 'right' : 'left']: '14px', touchAction: 'none' }}
+          onPointerDown={(e) => {
             e.preventDefault()
-            // Use screenX (absolute) so delta stays accurate even when the
-            // window width lags behind the IPC resize.
             const startScreenX = e.screenX
             const startW = document.documentElement.clientWidth
             let lastW = startW
-            let rafPending = false
+            const el = resizeRef.current
+            if (!el) return
+
+            el.setPointerCapture(e.pointerId)
+
             const onMove = (ev) => {
               const delta = sidebarSide === 'left' ? ev.screenX - startScreenX : startScreenX - ev.screenX
               const newW = Math.max(200, Math.min(startW + delta, window.screen.width * 0.9))
               lastW = Math.round(newW)
-              if (!rafPending) {
-                rafPending = true
-                requestAnimationFrame(() => {
-                  rafPending = false
-                  invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: false }).catch(() => { })
-                })
-              }
+              invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: false }).catch(() => {})
             }
+
             const onUp = () => {
-              window.removeEventListener('mousemove', onMove)
-              window.removeEventListener('mouseup', onUp)
-              invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: true }).catch(() => { })
-              setSetting('sidebar_width', lastW).catch(() => { })
+              el.removeEventListener('pointermove', onMove)
+              el.removeEventListener('pointerup', onUp)
+              try { el.releasePointerCapture(e.pointerId) } catch {}
+              invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: true }).catch(() => {})
+              setSetting('sidebar_width', lastW).catch(() => {})
             }
-            window.addEventListener('mousemove', onMove)
-            window.addEventListener('mouseup', onUp)
+
+            el.addEventListener('pointermove', onMove)
+            el.addEventListener('pointerup', onUp)
           }}
         >
           <div className={`w-[2px] h-12 rounded-full bg-white/20 group-hover:bg-kronos-accent/50 transition-colors ${sidebarSide === 'left' ? 'mr-[10px]' : 'ml-[10px]'}`} />

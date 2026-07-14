@@ -938,35 +938,24 @@ export default function SettingsScreen() {
           </div>
 
           {/* Action buttons */}
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <button
-              onClick={handleStart}
-              disabled={loading || isMonitoring}
-              className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${isMonitoring
-                ? (monitorResult === 'error'
-                  ? 'bg-amber-500/10 border-amber-500/30 text-amber-500 cursor-not-allowed'
-                  : 'bg-green-500/10 border-green-500/30 text-green-400 cursor-not-allowed')
-                : loading
+              onClick={isMonitoring ? stopMonitoring : handleStart}
+              disabled={loading && !isMonitoring}
+              className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${
+                loading
                   ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
-                  : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
-                }`}
+                  : isMonitoring
+                    ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
+                    : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
+              }`}
             >
               {loading
                 ? <span className="flex items-center justify-center gap-2"><RefreshCw size={12} className="animate-spin" /> Starting</span>
                 : isMonitoring
-                  ? (monitorResult === 'error' ? '● Retrying' : '● Active')
-                  : 'Start'
+                  ? '■ Stop Sync'
+                  : '▶ Start Sync'
               }
-            </button>
-            <button
-              onClick={stopMonitoring}
-              disabled={!isMonitoring}
-              className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${isMonitoring
-                ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
-                : 'bg-kronos-panel/20 border-white/5 text-kronos-dim/40 cursor-not-allowed'
-                }`}
-            >
-              Stop
             </button>
             <button
               onClick={manualRefresh}

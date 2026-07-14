@@ -2465,12 +2465,25 @@ async fn get_known_weapon_names() -> Vec<String> {
         if std::env::var("WEBKIT_DISABLE_DMABUF_RENDERER").is_err() {
             std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
         }
-        // Disable WebKit compositing mode (EGL) to prevent "Could not create
-        // default EGL display: EGL_BAD_PARAMETER" crashes on systems with
-        // broken EGL implementations (Nvidia proprietary + XWayland, etc.).
-        // Forces WebKit to use CPU-based compositing (Cairo), avoiding the
-        // GPU process entirely. Without this, overlay windows render white/grey.
-        if std::env::var("WEBKIT_DISABLE_COMPOSITING_MODE").is_err() {
+        // Only disable WebKit EGL compositing on Nvidia hardware.  The
+        // proprietary Nvidia driver on XWayland produces broken EGL contexts
+        // causing white/grey overlay windows.  AMD/Intel GPUs handle EGL
+        // correctly through Mesa and keep hardware acceleration for better perf.
+        //
+        // Override env vars (set before starting the process):
+        //   KRONOS_CPU_COMPOSITING=1  - force CPU path on any GPU (debugging)
+        //   KRONOS_GPU_COMPOSITING=1  - force GPU path on any GPU (Hyprland/AMD)
+        let has_nvidia = std::path::Path::new("/proc/driver/nvidia/version").exists()
+            || std::process::Command::new("nvidia-smi")
+                .stdout(std::process::Stdio::null())
+                .stderr(std::process::Stdio::null())
+                .status()
+                .map(|s| s.success())
+                .unwrap_or(false);
+        let user_cpu = std::env::var("KRONOS_CPU_COMPOSITING").is_ok();
+        let user_gpu = std::env::var("KRONOS_GPU_COMPOSITING").is_ok();
+        let need_cpu = user_cpu || (has_nvidia && !user_gpu);
+        if need_cpu && std::env::var("WEBKIT_DISABLE_COMPOSITING_MODE").is_err() {
             std::env::set_var("WEBKIT_DISABLE_COMPOSITING_MODE", "1");
         }
         // Force X11 backend unconditionally - X11 is required for:
@@ -2479,6 +2492,15 @@ async fn get_known_weapon_names() -> Vec<String> {
         // Both break under the Wayland backend (compositor controls placement).
         // KDE always provides XWayland, so this is safe.
         std::env::set_var("GDK_BACKEND", "x11");
+
+        // Suppress WebKitGTK's GStreamer "appsink not found" warning.
+        // WebKit uses GStreamer internally for HTML5 media, but the app has no
+        // media playback dependency - this warning is cosmetic.  GST_DEBUG=*:0
+        // silences all GStreamer diagnostic output.  Users can override via
+        // their own GST_DEBUG if they want troubleshooting.
+        if std::env::var("GST_DEBUG").is_err() {
+            std::env::set_var("GST_DEBUG", "*:0");
+        }
 
         // Install a non-terminating X error handler so stray protocol errors
         // (e.g. racy BadMatch on XSetInputFocus) log and continue instead of
@@ -2587,7 +2609,7 @@ async fn get_known_weapon_names() -> Vec<String> {
                 }
             });
 
-            // Pricer is NOT eagerly loaded here — it lazy-inits on first use
+            // Pricer is NOT eagerly loaded here - it lazy-inits on first use
             // (estimate_riven_*, get_weapon_names from the Rivens tab).
             // Eager ONNX model load at boot caused allocator contention that
             // stalled the winit event loop → native title-bar drag freezing.

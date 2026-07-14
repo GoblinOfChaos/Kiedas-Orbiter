@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <chrono>
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <filesystem>
@@ -552,7 +553,28 @@ static void getWindowRectMode() {
 #endif
 }
 
-static void readLogBuffer(uint32_t fixed_pid = 0) {
+// Read dynamic poll interval override written by the Rust side.
+// Path: /tmp/kronos/helper_poll_ms - created by set_poll_interval() in
+// log_scanner.rs so the already-running helper picks up interval changes
+// without having to respawn and re-discover the log buffer.
+static int read_dynamic_poll_ms(int default_ms) {
+    const char *path = "/tmp/kronos/helper_poll_ms";
+    FILE *f = fopen(path, "r");
+    if (!f) return default_ms;
+    char buf[16] = {};
+    if (fgets(buf, sizeof(buf), f)) {
+        char *end = nullptr;
+        long val = strtol(buf, &end, 10);
+        if (end != buf && val >= 50 && val <= 2000) {
+            fclose(f);
+            return (int)val;
+        }
+    }
+    fclose(f);
+    return default_ms;
+}
+
+static void readLogBuffer(uint32_t fixed_pid = 0, int poll_ms = 150, bool profile = false) {
 #ifdef _WIN32
   _setmode(_fileno(stdout), _O_BINARY);
 #endif
@@ -598,17 +620,51 @@ static void readLogBuffer(uint32_t fixed_pid = 0) {
       continue;
     }
 
+    // Reusable scratch buffers - allocated once, reused across cycles
     std::vector<char> raw(discovered.size);
+    std::vector<char> prev_raw(discovered.size);
     std::vector<char> output(discovered.size);
+    // Initialise prev_raw with a non-matching state so the first cycle
+    // sends everything (divergence=0).
+    std::memset(prev_raw.data(), 0, prev_raw.size());
+
     for (;;) {
+      auto cycle_start = profile ? std::chrono::steady_clock::now()
+                                 : std::chrono::steady_clock::time_point{};
+
       try {
         mod->externalRead(discovered.base, raw.data(), discovered.size);
       } catch (...) {
         break;
       }
 
-      size_t out_len = extractLogLines(raw.data(), discovered.size,
-                                       output.data(), output.size());
+      // - Cursor-based incremental extraction -
+      // Compare with the previous buffer to find where new data begins.
+      // In steady state the ring buffer appends at the tail, so the old
+      // content is a prefix of the new content.  Only parse the delta.
+      size_t divergence = 0;
+      size_t check_size = (std::min)(prev_raw.size(), raw.size());
+      while (divergence < check_size &&
+             prev_raw[divergence] == raw[divergence]) {
+        ++divergence;
+      }
+
+      size_t out_len = 0;
+      if (divergence < raw.size()) {
+        // Rewind to the start of the line containing the divergence
+        size_t line_start = divergence;
+        while (line_start > 0 && raw[line_start - 1] != '\n') {
+          --line_start;
+        }
+        // If divergence is mid-line and we have a partial line from the
+        // previous cycle, skip the partial (it was already sent).
+        out_len = extractLogLines(raw.data() + line_start,
+                                  raw.size() - line_start,
+                                  output.data(), output.size());
+      }
+
+      // Save the current buffer for next cycle's diff
+      prev_raw = raw;
 
       uint32_t len32 = static_cast<uint32_t>(out_len);
       fwrite(&len32, 4, 1, stdout);
@@ -617,7 +673,20 @@ static void readLogBuffer(uint32_t fixed_pid = 0) {
       }
       fflush(stdout);
 
-      std::this_thread::sleep_for(std::chrono::milliseconds(150));
+      if (profile) {
+        auto cycle_end = std::chrono::steady_clock::now();
+        auto us = std::chrono::duration_cast<std::chrono::microseconds>(
+                      cycle_end - cycle_start)
+                      .count();
+        fprintf(stderr, "[H] cycle: %zu us, read=%zu, parsed=%zu, divergence=%zu\n",
+                us, discovered.size, out_len, divergence);
+      }
+
+      // Check for dynamic interval override from Rust side (via
+      // /tmp/kronos/helper_poll_ms).  Allows interval to change without
+      // killing and re-discovering the log buffer.
+      int effective_poll = read_dynamic_poll_ms(poll_ms);
+      std::this_thread::sleep_for(std::chrono::milliseconds(effective_poll));
     }
   }
 }
@@ -631,6 +700,8 @@ struct Args {
   bool all_matches = false;
   bool read_log_buffer = false;
   bool get_window_rect = false;
+  bool profile = false;
+  int poll_ms = 150;
   std::string output_file;
   uint32_t pid = 0;
 };
@@ -651,6 +722,11 @@ struct Args {
       args.read_log_buffer = true;
     } else if (arg == "--get-window-rect") {
       args.get_window_rect = true;
+    } else if (arg == "--profile") {
+      args.profile = true;
+    } else if (arg.find("--poll-ms=") == 0) {
+      int val = std::stoi(arg.substr(10));
+      args.poll_ms = (std::max)(50, (std::min)(val, 2000));
     } else if (arg.find("--pid=") == 0) {
       args.pid = static_cast<uint32_t>(std::stoul(arg.substr(6)));
     }
@@ -666,7 +742,7 @@ int main(int argc, char *argv[]) {
   // until Warframe.x64.exe and its log ring-buffer are found, then streams
   // buffer contents to stdout every 150ms.
   if (args.read_log_buffer) {
-    readLogBuffer(args.pid);
+    readLogBuffer(args.pid, args.poll_ms, args.profile);
     return 0;
   }
 

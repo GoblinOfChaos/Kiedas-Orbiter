@@ -1,12 +1,26 @@
 use std::collections::HashSet;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 use std::sync::{Arc, Mutex};
 use tauri::{AppHandle, Emitter, Manager};
+use rustc_hash::FxHashSet;
 
 pub static IS_SCANNING: AtomicBool = AtomicBool::new(false);
 // 0 = idle, 1 = waiting for process, 2 = hooked/active
 pub static SCANNER_STATUS: std::sync::atomic::AtomicU8 = std::sync::atomic::AtomicU8::new(0);
+/// Poll interval (ms) for the helper process.  Tight during fissure reward
+/// windows (150ms), relaxed otherwise (400ms) to reduce CPU/IO overhead.
+pub static POLL_INTERVAL_MS: AtomicU32 = AtomicU32::new(150);
+
+pub fn set_poll_interval(ms: u32) {
+    let clamped = ms.clamp(50, 2000);
+    POLL_INTERVAL_MS.store(clamped, Ordering::Relaxed);
+    // Write to shared file so the already-running helper picks up the new
+    // interval on its next cycle - no kill/restart needed, no buffer rediscovery.
+    let poll_path = std::path::Path::new("/tmp/kronos/helper_poll_ms");
+    let _ = std::fs::create_dir_all(poll_path.parent().unwrap());
+    let _ = std::fs::write(poll_path, clamped.to_string());
+}
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct RelicInfo {
@@ -88,6 +102,7 @@ impl LogScanner {
             self.squad_size = 1;
             self.squad_relics.clear();
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
+            set_poll_interval(400);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 1: FISSURE START (LogTS: {}s)", ts));
             return;
         }
@@ -98,6 +113,7 @@ impl LogScanner {
             self.in_mission = false;
             self.squad_relics.clear();
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
+            set_poll_interval(400);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 7: MISSION EXIT (LogTS: {}s)", ts));
             let state = app.state::<crate::AppState>();
             if let Ok(mut cached) = state.active_relic_data.lock() {
@@ -116,6 +132,7 @@ impl LogScanner {
                     let relic = parse_relic_path(path);
                     self.squad_relics.push(relic);
                     self.is_fissure = true;
+                    set_poll_interval(150);
 
                     let state = app.state::<crate::AppState>();
                     if let Ok(mut cached) = state.active_relic_data.lock() {
@@ -135,6 +152,7 @@ impl LogScanner {
                 self.is_fissure = true;
                 self.in_mission = true;
             }
+            set_poll_interval(150);
             if crate::ocr::ICON_SCAN_ACTIVE.load(Ordering::SeqCst) {
                 return;
             }
@@ -150,6 +168,7 @@ impl LogScanner {
         // === 5. Reward Screen Closure ===
         if s.contains("ProjectionRewardChoice.lua: Relic reward screen shut down") {
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
+            set_poll_interval(400);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 5: REWARD SCREEN CLOSE (LogTS: {}s)", ts));
             // Clear cached relic data so the next round starts fresh
             let state = app.state::<crate::AppState>();
@@ -403,6 +422,7 @@ pub fn stop_scanner(app: &AppHandle) {
     IS_SCANNING.store(false, Ordering::SeqCst);
     SCANNER_STATUS.store(0, Ordering::SeqCst);
     crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
+    crate::overlay_utils::stop_focus_watcher();
     // Kill any orphaned helper so the blocking read_exact unblocks
     #[cfg(windows)]
     {
@@ -456,7 +476,7 @@ fn is_warframe_running() -> bool {
         match get_warframe_pid() {
             Some(pid) if is_game_process(pid) => true,
             Some(_) => {
-                // Cached PID is the launcher — clear and re-scan so we
+                // Cached PID is the launcher - clear and re-scan so we
                 // discover the game if it started since the last check.
                 clear_pid_cache();
                 get_warframe_pid().map_or(false, is_game_process)
@@ -473,24 +493,45 @@ fn is_warframe_running() -> bool {
 /// Cached PID of a previously-discovered Warframe process.
 /// On subsequent calls we verify the cache via a cheap existence check
 /// instead of re-scanning the entire process table.
-static CACHED_WARFRAME_PID: std::sync::OnceLock<Mutex<Option<u32>>> = std::sync::OnceLock::new();
+/// When no Warframe is found, the "not found" result is also cached with
+/// a TTL so the waiting loop doesn't hammer /proc every 2 seconds.
+static CACHED_WARFRAME_PID: std::sync::OnceLock<Mutex<(Option<u32>, std::time::Instant)>> =
+    std::sync::OnceLock::new();
+/// Minimum time between full /proc scans when Warframe is not running.
+const PID_CACHE_MISS_TTL: std::time::Duration = std::time::Duration::from_secs(5);
+/// Sentinel Instant far enough in the past that the first access / post-clear
+/// call always triggers a real scan instead of short-circuiting on the TTL.
+fn stale_instant() -> std::time::Instant {
+    std::time::Instant::now() - PID_CACHE_MISS_TTL - std::time::Duration::from_secs(1)
+}
 
 fn clear_pid_cache() {
-    *CACHED_WARFRAME_PID.get_or_init(|| Mutex::new(None)).lock().unwrap() = None;
+    *CACHED_WARFRAME_PID
+        .get_or_init(|| Mutex::new((None, stale_instant())))
+        .lock()
+        .unwrap() = (None, stale_instant());
 }
 
 fn with_cache(f: impl FnOnce() -> Option<u32>) -> Option<u32> {
-    let lock = CACHED_WARFRAME_PID.get_or_init(|| Mutex::new(None));
+    let lock = CACHED_WARFRAME_PID
+        .get_or_init(|| Mutex::new((None, stale_instant())));
     let mut cache = lock.lock().unwrap();
+    let (pid, checked_at) = &*cache;
+    let age = checked_at.elapsed();
+
     // Fast path: cached PID still alive
-    if let Some(pid) = *cache {
-        if pid_is_alive(pid) {
-            return Some(pid);
+    if let Some(pid) = pid {
+        if pid_is_alive(*pid) {
+            return Some(*pid);
         }
+    } else if age < PID_CACHE_MISS_TTL {
+        // "Not found" result is still fresh - skip the /proc scan
+        return None;
     }
+
     // Slow path: full scan
     let found = f();
-    *cache = found;
+    *cache = (found, std::time::Instant::now());
     found
 }
 
@@ -653,7 +694,7 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
 
     std::thread::spawn(move || {
         let mut scanner = LogScanner::new();
-        let mut seen_set: std::collections::HashSet<u64> = std::collections::HashSet::with_capacity(4096);
+        let mut seen_set: FxHashSet<u64> = FxHashSet::with_capacity_and_hasher(4096, Default::default());
         let mut seen_count: usize = 0;
         const SEEN_RESET_THRESHOLD: usize = 16_384;
         let mut logged_waiting = false;
@@ -680,6 +721,14 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
             // discovery and goes straight to the right process.
             if let Some(pid) = get_warframe_pid() {
                 cmd.arg(format!("--pid={pid}"));
+            }
+            let poll_ms = POLL_INTERVAL_MS.load(Ordering::Relaxed);
+            cmd.arg(format!("--poll-ms={poll_ms}"));
+            // Pass --profile in debug builds or when KRONOS_PROFILE_HELPER is set
+            if cfg!(debug_assertions)
+                || std::env::var("KRONOS_PROFILE_HELPER").is_ok()
+            {
+                cmd.arg("--profile");
             }
             cmd.stdout(std::process::Stdio::piped())
                .stderr(std::process::Stdio::piped());
@@ -848,6 +897,9 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                     if !ever_hooked {
                         ever_hooked = true;
                         app_inner.emit("scanner-hooked", ()).unwrap_or_default();
+                        // Start the Warframe focus watcher so overlays track
+                        // the game window and hide on alt+tab.
+                        crate::overlay_utils::spawn_focus_watcher(&app_inner);
                     }
                     continue;
                 }

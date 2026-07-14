@@ -41,6 +41,7 @@ imageproc = "0.25"
 chrono = "0.4"
 ocr-rs = "2.2"
 active-win-pos-rs = "0.10.1"
+rustc-hash = "2.1"
 
 # tract: pure-Rust ONNX inference, replaces ort.
 # No prebuilt C++ runtime means no CRT mismatch with ocr-rs on Windows,

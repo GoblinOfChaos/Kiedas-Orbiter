@@ -1108,9 +1108,20 @@ class StatusTab(QWidget):
         # guest tools, etc.) can claim F12 as a global hotkey first, which
         # prevents orbiter from registering it at all - configurable via
         # Settings instead of needing a code change to switch keys.
+        #
+        # Only pass --hotkey when it's actually been changed from the
+        # default. --hotkey is a newer flag than the "no extra args"
+        # calling convention this used before - unconditionally sending it
+        # broke every orbiter.exe/orbiter binary older than this Python
+        # source with a hard "unexpected argument" parse error and a
+        # refusal to start at all (confirmed live on Linux). Since the
+        # binary's own default is already "F12", omitting the flag in the
+        # common case keeps old binaries working exactly as before.
         hotkey_args = []
         if get_screenshot_hotkey is not None:
-            hotkey_args = ["--hotkey", get_screenshot_hotkey()]
+            configured_hotkey = get_screenshot_hotkey()
+            if configured_hotkey != "F12":
+                hotkey_args = ["--hotkey", configured_hotkey]
         try:
             if IS_LINUX:
                 # launch-orbiter.sh handles Bazzite/gamescope-specific setup

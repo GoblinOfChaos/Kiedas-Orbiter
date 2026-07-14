@@ -26,9 +26,9 @@ const INVENTORY_TABS = [
 ]
 
 const FILTER_CONFIG = {
-  all: ['owned', 'mastered', 'unmastered'],
-  warframes: ['owned', 'mastered', 'subsumed'],
-  weapons: ['owned', 'mastered', 'primary', 'secondary', 'melee', 'incarnon'],
+  all: ['owned', 'mastered', 'prime'],
+  warframes: ['owned', 'mastered', 'subsumed', 'prime'],
+  weapons: ['owned', 'mastered', 'prime', 'primary', 'secondary', 'melee', 'incarnon'],
   companions: ['owned', 'mastered'],
   companion_weapons: ['owned', 'mastered'],
   archweapons: ['owned', 'mastered'],
@@ -37,8 +37,11 @@ const FILTER_CONFIG = {
   mods: ['owned'],
   prime_parts: ['owned', 'mastered'],
   resources: ['owned'],
-  ayatan: ['socketed', 'unsocketed'],
+  ayatan: ['socketed'],
 }
+
+const TRIPLE_FILTERS = new Set(['owned', 'mastered', 'subsumed', 'socketed', 'prime'])
+const NEG_LABELS = { owned: 'Unowned', mastered: 'Unmastered', subsumed: 'Unsubsumed', socketed: 'Unsocketed', prime: 'Base' }
 
 const SORT_CONFIG = {
   all: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
@@ -704,25 +707,33 @@ export default function Inventory() {
         );
       });
     }
-    const filters = FILTER_CONFIG[activeTab] ?? []
-    const activeF = filters.filter(f => currentFilters[f])
-    if (activeF.length > 0) {
+    const filterKeys = FILTER_CONFIG[activeTab] ?? []
+    const hasActiveFilter = filterKeys.some(f => currentFilters[f] !== undefined)
+    if (hasActiveFilter) {
       items = items.filter(item => {
-        for (const f of activeF) {
-          if (f === 'owned' && !item.owned) return false
-          if (f === 'unowned' && item.owned) return false
-          if (f === 'mastered' && !item.mastered) return false
-          if (f === 'unmastered' && item.mastered) return false
-          if (f === 'subsumed' && !item.subsumed) return false
-          if (f === 'incarnon' && !item.is_incarnon) return false
-          if (f === 'primary' && item.weapon_type !== 'primary') return false
-          if (f === 'secondary' && item.weapon_type !== 'secondary') return false
-          if (f === 'melee' && item.weapon_type !== 'melee') return false
-          if (f === 'archwing' && item.vehicle_type !== 'archwing') return false
-          if (f === 'kdrive' && item.vehicle_type !== 'kdrive') return false
-          if (f === 'necramech' && !item.is_necramech) return false
-          if (f === 'socketed' && item.sockets <= 0) return false
-          if (f === 'unsocketed' && item.sockets > 0) return false
+        for (const f of filterKeys) {
+          const state = currentFilters[f]
+          if (state === undefined) continue
+          if (state === 'yes') {
+            if (f === 'owned' && !item.owned) return false
+            if (f === 'mastered' && !item.mastered) return false
+            if (f === 'subsumed' && !item.subsumed) return false
+            if (f === 'incarnon' && !item.is_incarnon) return false
+            if (f === 'primary' && item.weapon_type !== 'primary') return false
+            if (f === 'secondary' && item.weapon_type !== 'secondary') return false
+            if (f === 'melee' && item.weapon_type !== 'melee') return false
+            if (f === 'archwing' && item.vehicle_type !== 'archwing') return false
+            if (f === 'kdrive' && item.vehicle_type !== 'kdrive') return false
+            if (f === 'necramech' && !item.is_necramech) return false
+            if (f === 'prime' && !item.is_prime) return false
+            if (f === 'socketed' && item.sockets <= 0) return false
+          } else if (state === 'no') {
+            if (f === 'owned' && item.owned) return false
+            if (f === 'mastered' && item.mastered) return false
+            if (f === 'subsumed' && item.subsumed) return false
+            if (f === 'prime' && item.is_prime) return false
+            if (f === 'socketed' && item.sockets > 0) return false
+          }
         }
         return true
       })
@@ -791,15 +802,33 @@ export default function Inventory() {
           <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
             <Filter size={14} className="text-kronos-dim mx-1" />
             <div className="flex gap-1">
-              {(FILTER_CONFIG[activeTab] ?? []).map(f => (
-                <button
-                  key={f}
-                  onClick={() => setCurrentFilters(prev => ({ ...prev, [f]: !prev[f] }))}
-                  className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all whitespace-nowrap ${currentFilters[f] ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
-                >
-                  {f.replace(/_/g, ' ')}
-                </button>
-              ))}
+              {(FILTER_CONFIG[activeTab] ?? []).map(f => {
+                const state = currentFilters[f]
+                const isTriple = TRIPLE_FILTERS.has(f)
+                const label = state === 'no' ? (NEG_LABELS[f] ?? f.replace(/_/g, ' ')) : f.replace(/_/g, ' ')
+                return (
+                  <button
+                    key={f}
+                    onClick={() => {
+                      setCurrentFilters(prev => {
+                        if (prev[f] === undefined) return { ...prev, [f]: 'yes' }
+                        if (prev[f] === 'yes' && isTriple) return { ...prev, [f]: 'no' }
+                        const { [f]: _, ...rest } = prev
+                        return rest
+                      })
+                    }}
+                    className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all whitespace-nowrap ${
+                      state === 'yes'
+                        ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]'
+                        : state === 'no'
+                          ? 'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]'
+                          : 'text-kronos-dim hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                )
+              })}
             </div>
           </div>
         )}

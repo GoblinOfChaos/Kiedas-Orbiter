@@ -1005,6 +1005,7 @@ export function parseInventory(raw, exports) {
       owned: !!sourceItem || !!xpMap[un],
       mastered,
       subsumed: subsumedSet.has(un),
+      is_prime: entry?.variantType === 'VT_PRIME' || /Prime$/i.test(un.split('/').filter(Boolean).at(-1) ?? ''),
       is_incarnon: incarnonSet.has(un),
       incarnon_evolution_level: evolutionLevels.get(un) ?? -1,
       quantity: sourceItem?.ItemCount ?? (sourceItem || xpMap[un] ? 1 : 0),

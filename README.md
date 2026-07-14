@@ -31,7 +31,7 @@ provides live world-state data, and real-time OCR-powered overlays and notificat
   focus school progress and syndicate standings.
 * **Collectibles** - Track Kuria, somachord, frame fighter fragments, cephalon fragments,
   Leverian prex cards, open world exploration from inventory data.
-* **Settings** - Theme picker, monitoring controls, global hotkeys, update triggers.
+* **Settings** - Theme picker, sync controls, global hotkeys, update triggers.
 
 ## FAQ
 
@@ -61,7 +61,7 @@ Probably; most information that the game exposes is made use of to an extent. Fo
 1. Download the version for your OS from the [releases page](https://github.com/glowseeker/cephalon-kronos/releases/latest).
 2. **Windows:** Run the setup and install in preferred folder. **Linux / macOS:** Move the binary into its own folder. 
 3. Launch Warframe.
-4. Open the app, go to **Settings**, and start monitoring.
+4. Open the app, go to **Settings**, and start syncing.
 5. For issues, check the [wiki](https://github.com/glowseeker/cephalon-kronos/wiki).
 
 ## Build from Source

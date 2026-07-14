@@ -188,10 +188,10 @@ export default function MirroredMonitoringProvider({ children }) {
         if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null }
         setIsMonitoring(false)
         setMonitorResult(p.result || 'idle')
-        setStatusText(p.statusText || 'Monitoring stopped')
+        setStatusText(p.statusText || 'Syncing stopped')
       } else if (p.active === true && !isMonitoring) {
         setMonitorResult(p.result || 'success')
-        setStatusText(p.statusText || 'Monitoring active')
+        setStatusText(p.statusText || 'Syncing active')
         setIsMonitoring(true)
         processingRef.current = true
         try {
@@ -376,7 +376,7 @@ export default function MirroredMonitoringProvider({ children }) {
       if (raw && typeof raw === 'object' && raw.Suits) {
         applyRaw(raw, Date.now(), exportData)
         setMonitorResult('success')
-        setStatusText('Monitoring active')
+        setStatusText('Syncing active')
         return 'success'
       } else {
         setMonitorResult('error')
@@ -399,11 +399,11 @@ export default function MirroredMonitoringProvider({ children }) {
     if (isMonitoring) return
     setIsMonitoring(true)
     const result = await callApiHelperFn()
-    const msg = result === 'success' ? 'Monitoring active' : result
+    const msg = result === 'success' ? 'Syncing active' : result
     invoke('set_monitoring_active', { active: true, result, statusText: msg }).catch(() => {})
     intervalRef.current = setInterval(async () => {
       const r = await callApiHelperFn()
-      invoke('set_monitoring_active', { active: true, result: r, statusText: r === 'success' ? 'Monitoring active' : r }).catch(() => {})
+      invoke('set_monitoring_active', { active: true, result: r, statusText: r === 'success' ? 'Syncing active' : r }).catch(() => {})
     }, intervalMs)
   }, [isMonitoring, callApiHelperFn])
 
@@ -411,8 +411,8 @@ export default function MirroredMonitoringProvider({ children }) {
     if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null }
     setIsMonitoring(false)
     setMonitorResult('idle')
-    setStatusText('Monitoring stopped')
-    invoke('set_monitoring_active', { active: false, result: 'idle', statusText: 'Monitoring stopped' }).catch(() => {})
+    setStatusText('Syncing stopped')
+    invoke('set_monitoring_active', { active: false, result: 'idle', statusText: 'Syncing stopped' }).catch(() => {})
   }, [])
 
   const value = useMemo(() => ({

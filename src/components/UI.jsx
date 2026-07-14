@@ -111,10 +111,10 @@ export function MonitorState({ className = "", isLoading = false }) {
       <AlertCircle size={48} className="text-kronos-accent/30 mb-4" />
       <h3 className="text-xl font-bold uppercase mb-2">No inventory data found.</h3>
       <p className="text-sm text-kronos-dim mb-6 max-w-xs uppercase font-medium">
-        Sync your game memory to view your collection and progress.
+        Sync your inventory to view your collection and progress.
       </p>
       <Button onClick={goToSettings} className="px-8 font-black uppercase tracking-widest">
-        Go to Settings to Start Monitoring
+        Go to Settings to Start Sync
       </Button>
     </div>
   );

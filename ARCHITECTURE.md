@@ -311,7 +311,7 @@ All screens are lazy-loaded. Each reads from MonitoringContext via
 | Maps | `screens/Maps.jsx` | Pannable/zoomable open-world maps |
 | Collectibles | `screens/Collectibles.jsx` | Kuria, somachord, fragments, caves tracking |
 | Checklist | `screens/Checklist.jsx` | Persistent to-do list (localStorage) |
-| Settings | `screens/Settings.jsx` | Theme picker, monitoring controls, hotkeys, update trigger |
+| Settings | `screens/Settings.jsx` | Theme picker, sync controls, hotkeys, update trigger |
 | About | `screens/About.jsx` | Credits and disclaimer |
 
 ### Lib Modules
@@ -455,7 +455,7 @@ Windows helper: `helpers/inet_ntop_win.cpp` (MinGW compatibility shim).
 | `oracle.browse.wf/dicts/en.json` | Supplementary localisation dictionary | Daily |
 | `browse.wf/arbys.txt` | Current arbitration rotation | Every 6 h |
 | `browse.wf/sp-incursions.txt` | Steel Path incursions | Every 6 h |
-| `oracle.browse.wf/worldState.json` | Live worldstate (cached by Oracle) | Each monitoring cycle |
+| `oracle.browse.wf/worldState.json` | Live worldstate (cached by Oracle) | Each sync cycle |
 | `browse.wf` | Item images (via icon URLs in exports) | On demand |
 
 ---

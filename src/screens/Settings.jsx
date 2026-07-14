@@ -908,7 +908,7 @@ export default function SettingsScreen() {
               monitorResult === 'error' ? 'bg-red-500   shadow-[0_0_8px_rgba(239,68,68,0.7)]' :
                 'bg-zinc-600'
               }`} />
-            <h2 className="text-xl font-black uppercase tracking-tight">Game Monitoring</h2>
+            <h2 className="text-xl font-black uppercase tracking-tight">Inventory Syncing</h2>
           </div>
 
           {/* Status widget */}
@@ -916,7 +916,7 @@ export default function SettingsScreen() {
             <div className="bg-kronos-panel/30 rounded-xl p-4 border border-white/5 space-y-3">
               <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">Status</p>
               <p className="text-xs text-kronos-accent font-mono break-words leading-relaxed min-h-[2rem]">
-                {statusText || (isMonitoring ? 'Monitoring active' : 'Not monitoring')}
+                {statusText || (isMonitoring ? 'Syncing active' : 'Not syncing')}
               </p>
               {lastUpdate && (
                 <p className="text-[10px] text-zinc-600 font-mono">
@@ -932,7 +932,7 @@ export default function SettingsScreen() {
                 checked={autoStart}
                 onChange={setAutoStart}
                 label="Auto-start on launch"
-                description="Start monitoring when the app opens"
+                description="Sync inventory when the app opens"
               />
             </div>
           </div>

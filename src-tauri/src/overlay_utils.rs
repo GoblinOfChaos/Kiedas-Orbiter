@@ -79,6 +79,12 @@ pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri:
             .map_err(|e| e.to_string())?
             .ok_or_else(|| "no monitor found".to_string())
     } else {
+        // Game overlays always follow Warframe's monitor - not configurable
+        if let Some(wf_idx) = get_warframe_monitor_idx() {
+            if wf_idx < monitors.len() {
+                return Ok(monitors[wf_idx].clone());
+            }
+        }
         main_window
             .current_monitor()
             .map_err(|e| e.to_string())?
@@ -228,6 +234,7 @@ extern "C" {
 }
 
 #[cfg(target_os = "linux")]
+#[allow(dead_code)]
 pub fn init_x11_threading() {
     unsafe { XInitThreads(); }
 }
@@ -408,6 +415,7 @@ fn set_transient_for(window: &WebviewWindow, parent: &WebviewWindow) {
     }
 }
 
+#[cfg(not(target_os = "linux"))]
 fn force_position_tauri(window: &WebviewWindow, x: i32, y: i32) -> Result<(), String> {
     window
         .set_position(tauri::Position::Physical(tauri::PhysicalPosition { x, y }))
@@ -555,8 +563,9 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
             apply_x11_overlay_hints(xdisplay, xid, was_visible, None);
         }
 
-        // Set position before show for Wayland/first-map hint
-        let _ = force_position_tauri(&window, pos.x, pos.y);
+        // Position is set via single authoritative X11 XMoveWindow call after
+        // show/map - no Tauri set_position call here to avoid racing with X11.
+        // One positioning path per platform, cfg-gated.
 
         if !was_visible {
             // First show: Tauri's show() acts as the XMapWindow
@@ -591,6 +600,12 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     #[cfg(target_os = "linux")]
     window.set_always_on_top(true)
         .map_err(|e| format!("set_always_on_top failed: {e}"))?;
+    // Force backing-store invalidation: resize to 1x1 then restore.
+    // WebKit discards its rendering surface on geometry change, so this
+    // reliably clears any stale content ghosts from prior hide/show cycles.
+    // (The 1x1 resize is already proven to work - visible in Bug 4 logs.)
+    let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
+    let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: w as u32, height: h as u32 }));
     // Sidebar overlay must stay interactive (click-through breaks nav/screens).
     if label != "overlay-sidebar" {
         window.set_ignore_cursor_events(true)
@@ -764,7 +779,6 @@ pub fn resize_overlay_window(
             if let Some((xdisplay, xid)) = get_x11_ids(&window) {
                 apply_x11_overlay_hints(xdisplay, xid, was_visible, None);
             }
-            let _ = force_position_tauri(&window, pos.x, pos.y);
             if !was_visible {
                 window.show().map_err(|e| format!("show failed: {e}"))?;
             }
@@ -778,6 +792,9 @@ pub fn resize_overlay_window(
             window.show().map_err(|e| format!("show failed: {e}"))?;
         }
 
+        // Force backing-store invalidation via 1x1 resize before setting the
+        // real size - WebKit discards its rendering surface on geometry change.
+        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
         window
             .set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }))
             .map_err(|e| format!("set_size failed: {e}"))?;
@@ -795,4 +812,144 @@ pub fn resize_overlay_window(
     }
 
     Ok(())
+}
+
+// ── Warframe window tracking ────────────────────────────────────────────────
+//
+// Caches Warframe's window rect and the monitor it occupies.  Updated
+// periodically by the focus watcher thread.  Used by get_overlay_monitor
+// to place game overlays on the correct monitor, and by the focus watcher
+// to hide overlays when the user alt+tabs away.
+
+static WARFRAME_CACHE: Mutex<Option<WarframeRect>> = Mutex::new(None);
+static FOCUS_WATCHER_RUNNING: AtomicBool = AtomicBool::new(false);
+
+#[derive(Clone, Copy)]
+#[allow(dead_code)]
+struct WarframeRect {
+    x: i32,
+    y: i32,
+    w: u32,
+    h: u32,
+    monitor_idx: Option<usize>,
+}
+
+/// Run warframe-api-helper --get-window-rect and parse the output.
+fn fetch_warframe_rect_sync() -> Option<(i32, i32, u32, u32)> {
+    let bin_name = format!("warframe-api-helper{}", std::env::consts::EXE_SUFFIX);
+    let relative = format!("data/bin/{}", bin_name);
+    let helper = crate::get_data_root().join(&relative);
+    if !helper.exists() {
+        return None;
+    }
+    let output = std::process::Command::new(&helper)
+        .arg("--get-window-rect")
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::null())
+        .output()
+        .ok()?;
+    let stdout = String::from_utf8_lossy(&output.stdout).trim().to_string();
+    if stdout == "not found" || stdout.is_empty() {
+        return None;
+    }
+    let parts: Vec<&str> = stdout.split_whitespace().collect();
+    if parts.len() < 4 {
+        return None;
+    }
+    Some((
+        parts[0].parse::<i32>().ok()?,
+        parts[1].parse::<i32>().ok()?,
+        parts[2].parse::<u32>().ok()?,
+        parts[3].parse::<u32>().ok()?,
+    ))
+}
+
+/// Cross-reference a window rect with available monitors to find the host monitor.
+fn rect_to_monitor(x: i32, y: i32, w: u32, h: u32) -> Option<usize> {
+    let cx = x + w as i32 / 2;
+    let cy = y + h as i32 / 2;
+    let monitors = xcap::Monitor::all().ok()?;
+    for (idx, m) in monitors.iter().enumerate() {
+        let mx = m.x().unwrap_or(0) as i32;
+        let my = m.y().unwrap_or(0) as i32;
+        let mw = m.width().unwrap_or(1920) as i32;
+        let mh = m.height().unwrap_or(1080) as i32;
+        if cx >= mx && cx < mx + mw && cy >= my && cy < my + mh {
+            return Some(idx);
+        }
+    }
+    None
+}
+
+/// Force-refresh the Warframe window cache (called from focus watcher thread).
+fn update_warframe_cache() {
+    let cache = if let Some((x, y, w, h)) = fetch_warframe_rect_sync() {
+        let mon = rect_to_monitor(x, y, w, h);
+        Some(WarframeRect { x, y, w, h, monitor_idx: mon })
+    } else {
+        None
+    };
+    *WARFRAME_CACHE.lock().unwrap() = cache;
+}
+
+/// Return the cached monitor index of the Warframe window, if known.
+pub fn get_warframe_monitor_idx() -> Option<usize> {
+    WARFRAME_CACHE.lock().unwrap().and_then(|c| c.monitor_idx)
+}
+
+/// Check whether the currently focused window is Warframe's (via active_win_pos_rs).
+fn is_warframe_focused() -> bool {
+    if let Ok(active) = active_win_pos_rs::get_active_window() {
+        let app = active.app_name.to_lowercase();
+        app.contains("warframe")
+    } else {
+        false
+    }
+}
+
+/// Start a background thread that monitors Warframe's window position and focus
+/// state.  When Warframe loses focus, all non-notification overlays are hidden;
+/// when it regains focus, previously-tracked overlays are re-shown.
+pub fn spawn_focus_watcher(app_handle: &AppHandle) {
+    if FOCUS_WATCHER_RUNNING.swap(true, Ordering::SeqCst) {
+        return;
+    }
+    let ah = app_handle.clone();
+    std::thread::spawn(move || {
+        let mut had_visible: Vec<String> = Vec::new();
+        let mut was_focused = false;
+
+        while FOCUS_WATCHER_RUNNING.load(Ordering::SeqCst) {
+            update_warframe_cache();
+
+            let focused_now = is_warframe_focused();
+
+            if focused_now && !was_focused {
+                for label in had_visible.drain(..).collect::<Vec<_>>() {
+                    let _ = show_window_internal(&ah, &label);
+                }
+            } else if !focused_now && was_focused {
+                had_visible.clear();
+                for label in SHOWN_OVERLAYS.lock().unwrap().iter() {
+                    let is_notification = matches!(
+                        label.as_str(),
+                        "overlay-tl" | "overlay-tr" | "overlay-tc"
+                    );
+                    if !is_notification {
+                        had_visible.push(label.clone());
+                        if let Some(w) = ah.get_webview_window(label) {
+                            let _ = w.hide();
+                        }
+                    }
+                }
+            }
+
+            was_focused = focused_now;
+            std::thread::sleep(std::time::Duration::from_millis(500));
+        }
+    });
+}
+
+pub fn stop_focus_watcher() {
+    FOCUS_WATCHER_RUNNING.store(false, Ordering::SeqCst);
 }

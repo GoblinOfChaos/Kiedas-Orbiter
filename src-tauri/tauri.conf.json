@@ -24,6 +24,7 @@
       },
       {
         "label": "overlay-tl",
+        "title": "Cephalon Kronos Notification",
         "url": "/?overlay=true",
         "width": 440,
         "height": 1,
@@ -38,6 +39,7 @@
       },
       {
         "label": "overlay-tc",
+        "title": "Cephalon Kronos Notification",
         "url": "/?overlay=true",
         "width": 440,
         "height": 1,
@@ -52,6 +54,7 @@
       },
       {
         "label": "overlay-tr",
+        "title": "Cephalon Kronos Notification",
         "url": "/?overlay=true",
         "width": 440,
         "height": 1,
@@ -66,6 +69,7 @@
       },
       {
         "label": "overlay-riven-current",
+        "title": "Cephalon Kronos Overlay",
         "url": "/?overlay=true",
         "width": 360,
         "height": 260,
@@ -80,6 +84,7 @@
       },
       {
         "label": "overlay-riven-new",
+        "title": "Cephalon Kronos Overlay",
         "url": "/?overlay=true",
         "width": 360,
         "height": 260,
@@ -94,6 +99,7 @@
       },
       {
         "label": "overlay-relic",
+        "title": "Cephalon Kronos Overlay",
         "url": "/?overlay=true",
         "width": 640,
         "height": 140,
@@ -108,6 +114,7 @@
       },
       {
         "label": "overlay-relic-picker",
+        "title": "Cephalon Kronos Overlay",
         "url": "/?overlay=true",
         "width": 480,
         "height": 400,
@@ -122,6 +129,7 @@
       },
       {
         "label": "overlay-sidebar",
+        "title": "Cephalon Kronos Overlay",
         "url": "/?overlay=true",
         "width": 400,
         "height": 600,

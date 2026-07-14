@@ -84,7 +84,7 @@ export default function MirroredMonitoringProvider({ children }) {
     if (loadedRef.current) return
     loadedRef.current = true
 
-    // Lightweight path queries — these return static paths, no file I/O
+    // Lightweight path queries - these return static paths, no file I/O
     invoke('get_card_images_path').then(setCardImagesPath).catch(() => {})
 
     // Check shared monitoring state

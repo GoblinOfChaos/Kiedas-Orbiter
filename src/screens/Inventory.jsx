@@ -1239,7 +1239,7 @@ export default function Inventory() {
                           </Tooltip>
                         )}
 
-                        {/* Crafting ingredient badge — only on full equipment, not resources/parts */}
+                        {/* Crafting ingredient badge - only on full equipment, not resources/parts */}
                         {item.needed_for_crafting && !isModOrResource && !isPrimePart && (
                           <Tooltip
                             position="bottom"

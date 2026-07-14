@@ -420,7 +420,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   corePieces.forEach(p => coreGrp.add(p));
   gltf.scene.add(coreGrp);
 
-  // Amber emissive sphere inside the hollow core — glows through cracks
+  // Amber emissive sphere inside the hollow core - glows through cracks
   const amberMat = new THREE.MeshStandardMaterial({
     color: 0x996644,
     emissive: 0x885533,
@@ -435,7 +435,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   const darkEm = new THREE.Color(0x442211);
   const amberEm = new THREE.Color(0x885533);
 
-  // Amber point light inside core — casts real light on surrounding geometry
+  // Amber point light inside core - casts real light on surrounding geometry
   const amberLight = new THREE.PointLight(0xff8844, 1.5, 1.2);
   scene.add(amberLight);
 
@@ -621,7 +621,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
       botPyramid.rotation.y -= 0.004;
     }
 
-    // Orbit diamonds — local to coreGrp, face the core
+    // Orbit diamonds - local to coreGrp, face the core
     orbitDiamonds.forEach((d) => {
       const orbitAngle = t * 0.25 + d.angle;
       d.grp.position.set(Math.cos(orbitAngle) * 0.65, diamondSrc.userData.y, Math.sin(orbitAngle) * 0.65);

@@ -285,7 +285,7 @@ function AppContent() {
     return () => { unsub.then(f => f()) }
   }, [])
 
-  // Apply navbar position BEFORE the window reshapes — no animation, direct DOM
+  // Apply navbar position BEFORE the window reshapes - no animation, direct DOM
   const containerRef = useRef(null)
   const resizeRef = useRef(null)
   useEffect(() => {

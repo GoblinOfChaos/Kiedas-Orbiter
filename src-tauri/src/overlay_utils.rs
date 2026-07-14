@@ -282,7 +282,7 @@ fn get_x11_ids(window: &WebviewWindow) -> Option<(*mut std::ffi::c_void, u64)> {
 ///   - `_NET_WM_DESKTOP` = 0xFFFFFFFF (visible on all virtual desktops)
 ///   - `_MOTIF_WM_HINTS` = undecorated (skip "Center New Windows" placement)
 ///
-/// `_NET_WM_WINDOW_TYPE` is intentionally **not** set — despite override_redirect
+/// `_NET_WM_WINDOW_TYPE` is intentionally **not** set - despite override_redirect
 /// KWin may still re-apply placement policies for NOTIFICATION/DOCK types at
 /// remap time, fighting our explicit position.
 ///
@@ -302,7 +302,7 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
             XUnmapWindow(xdisplay, xid);
         }
 
-        // _NET_WM_WINDOW_TYPE intentionally omitted — despite override_redirect
+        // _NET_WM_WINDOW_TYPE intentionally omitted - despite override_redirect
         // KWin may still apply placement policies for NOTIFICATION/DOCK types
         // at remap time, fighting our position.  override_redirect alone is
         // sufficient for the WM to leave us alone.
@@ -335,14 +335,14 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
             XMoveResizeWindow(xdisplay, xid, px, py, pw, ph);
         }
 
-        // Single sync after all property writes + geometry — avoids redundant
+        // Single sync after all property writes + geometry - avoids redundant
         // round-trips that contend with GTK's own X11 access during WM drag.
         XSync(xdisplay, 0);
 
         if already_mapped {
             XMapWindow(xdisplay, xid);
             XSync(xdisplay, 0);
-            // No post-map X11 force-position here — the caller (enter_sidebar_mode)
+            // No post-map X11 force-position here - the caller (enter_sidebar_mode)
             // issues Tauri set_min_size + set_size + set_position immediately after,
             // which updates GDK's internal state so GTK doesn't get confused by
             // raw X11 moves performed behind its back.
@@ -416,7 +416,7 @@ fn force_position_tauri(window: &WebviewWindow, x: i32, y: i32) -> Result<(), St
 
 // ── Lazy window creation ──────────────────────────────────────────────────────
 // Overlays are created on-demand (not eagerly in tauri.conf.json) so WebView2
-// processes only spin up when an overlay is actually needed — avoiding 8+
+// processes only spin up when an overlay is actually needed - avoiding 8+
 // hidden msedgewebview2.exe instances competing for CPU/GPU at startup.
 
 fn create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<tauri::WebviewWindow, String> {
@@ -477,7 +477,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     }
 
     // Shield: on main-window state change, re-show tracked overlays on the next
-    // idle tick — never synchronously inside main's own state transition, which
+    // idle tick - never synchronously inside main's own state transition, which
     // can corrupt KWin's client-list bookkeeping (WithdrawnState vs IconicState).
     #[cfg(target_os = "linux")]
     {
@@ -530,7 +530,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
             .unwrap_or(false);
 
         // Transient for main window so KWin iconifies the overlay together
-        // with the main window — deiconify handler catches the ICONIFIED
+        // with the main window - deiconify handler catches the ICONIFIED
         // state and immediately restores it. Without this, KWin may still
         // hide the overlay (app-grouped by PID) but without sending a state
         // event, so the handler never fires.
@@ -587,7 +587,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     }
 
     // Overlays are already created with alwaysOnTop/skipTaskbar in
-    // tauri.conf.json — skip redundant OS calls on Windows/Linux.
+    // tauri.conf.json - skip redundant OS calls on Windows/Linux.
     #[cfg(target_os = "linux")]
     window.set_always_on_top(true)
         .map_err(|e| format!("set_always_on_top failed: {e}"))?;

@@ -461,7 +461,7 @@ async fn call_api_helper(app_handle: tauri::AppHandle) -> Result<Value, String> 
     // Bare {} means the helper ran but the account wasn't logged in.
     if let Value::Object(ref obj) = value {
         if obj.len() < 5 {
-            return Err("API helper returned empty inventory — not logged into Warframe?".to_string());
+            return Err("API helper returned empty inventory - not logged into Warframe?".to_string());
         }
     }
     Ok(value)
@@ -1445,7 +1445,7 @@ fn hide_overlay_window(
 }
 
 /// Toggle the interactive in-game sidebar on/off.
-/// Uses a dedicated overlay-sidebar window — main is never touched.
+/// Uses a dedicated overlay-sidebar window - main is never touched.
 /// The overlay window gets OSD X11 hints on first show (via show_sidebar_internal)
 /// so KWin places it above fullscreen games.
 #[tauri::command]
@@ -1528,7 +1528,7 @@ fn load_settings_sync() -> serde_json::Value {
 
 #[tauri::command]
 async fn sidebar_load_data(app_handle: tauri::AppHandle) -> Result<serde_json::Value, String> {
-    // Ensure exports are fresh before reading — this is cheap (file-age check)
+    // Ensure exports are fresh before reading - this is cheap (file-age check)
     // if the main window's check_exports already ran, and safe (atomic rename)
     // if it hasn't yet.
     check_exports().await?;
@@ -1547,7 +1547,7 @@ async fn sidebar_load_data(app_handle: tauri::AppHandle) -> Result<serde_json::V
     }))
 }
 
-/// Lightweight version — only loads inventory (no exports).
+/// Lightweight version - only loads inventory (no exports).
 /// Used by the sidebar overlay on data-update events to avoid
 /// re-reading all ~30 export JSON files every monitoring cycle.
 #[tauri::command]

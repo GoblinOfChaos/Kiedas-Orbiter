@@ -373,7 +373,7 @@ function evaluateSale(notif, inventoryData, worldstate, results) {
         results.push({
           notifId: notif.id,
           title: 'Wishlisted Item on Sale',
-          message: `${deal.item} — ${deal.discount}% off (${deal.salePrice} plat, was ${deal.originalPrice})`,
+          message: `${deal.item} - ${deal.discount}% off (${deal.salePrice} plat, was ${deal.originalPrice})`,
           image: '/IconFoundry.png',
         })
         break

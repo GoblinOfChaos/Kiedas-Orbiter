@@ -90,8 +90,9 @@ export function Tooltip({ children, content, position = 'right' }) {
 // Unified "No inventory data found" component.
 export function MonitorState({ className = "", isLoading = false }) {
   const goToSettings = () => {
-    const btn = document.getElementById('nav-settings');
-    if (btn) btn.click();
+    const btn = document.getElementById('nav-settings')
+      ?? document.querySelector('[data-nav="settings"]');
+    btn?.click();
   };
 
   if (isLoading) {

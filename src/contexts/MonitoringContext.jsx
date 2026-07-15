@@ -4,7 +4,7 @@ import { parseInventory } from '../lib/inventoryParser'
 import { buildDropIndex } from '../lib/dropsParser'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
-import { listen, emit as tauriEmit } from '@tauri-apps/api/event'
+import { listen } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/marketEngine'
 
 import { resolveNode } from '../lib/warframeUtils'
@@ -418,7 +418,7 @@ export function MonitoringProvider({ children }) {
       const tsStr = String(ts ?? Date.now())
       setLastUpdate(tsStr)
       localStorage.setItem('lastUpdate', tsStr)
-      tauriEmit('sidebar-data-updated', { ts: tsStr })
+      invoke('relay_event', { event: 'sidebar-data-updated', payload: { ts: tsStr } }).catch(() => {})
     }, 0)
   }, [exportData])
 

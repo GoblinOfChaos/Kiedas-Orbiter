@@ -159,6 +159,7 @@ function SidebarContent() {
                 <div key={item.id} className="relative">
                   <Tooltip content={item.label}>
                     <button
+                      data-nav={item.id}
                       onClick={() => setActiveTab(item.id)}
                       className={`w-12 h-12 flex items-center justify-center rounded-lg transition-all duration-200 flex-shrink-0 ${
                         isActive

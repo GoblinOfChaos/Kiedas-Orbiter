@@ -901,13 +901,23 @@ pub fn get_warframe_monitor_idx() -> Option<usize> {
     WARFRAME_CACHE.lock().unwrap().and_then(|c| c.monitor_idx)
 }
 
-/// Check whether the currently focused window is Warframe's (via active_win_pos_rs).
+/// Check whether the Warframe window is visible and focused.
+///
+/// Primary: the helper's `--get-window-rect` returns coordinates only when the
+/// window has visible geometry — minimized/iconified windows return "not found".
+/// Secondary: `active_win_pos_rs` refines the check to catch alt+tab while the
+/// game is still visible (overlaps another window).  On KDE Wayland the crate
+/// may fail; we fall back to the rect check alone.
 fn is_warframe_focused() -> bool {
+    // Minimized windows have no visible rect — catches minimize reliably.
+    if fetch_warframe_rect_sync().is_none() {
+        return false;
+    }
+    // Window has geometry; refine with focus check if available.
     if let Ok(active) = active_win_pos_rs::get_active_window() {
-        let app = active.app_name.to_lowercase();
-        app.contains("warframe")
+        active.app_name.to_lowercase().contains("warframe")
     } else {
-        false
+        true
     }
 }
 

@@ -4,7 +4,9 @@ import { listen } from '@tauri-apps/api/event'
 import { invoke } from '@tauri-apps/api/core'
 
 const RIVEN_W = 360
-const RIVEN_H = 290
+const RIVEN_BASE_H = 260
+
+const calcH = (n) => Math.min(RIVEN_BASE_H + Math.max(0, (n || 0) - 3) * 30, 320)
 
 const STAT_TO_PRICER = {
   'Critical Chance': 'critical_chance',
@@ -354,7 +356,7 @@ export default function RivenOverlay() {
     setVisible(true)
     setParsed(null)
     invoke('show_overlay_window', { label })
-      .then(() => invoke('resize_overlay_window', { label, width: RIVEN_W, height: RIVEN_H }))
+      .then(() => invoke('resize_overlay_window', { label, width: RIVEN_W, height: RIVEN_BASE_H }))
       .catch(() => { })
       .finally(() => { showingRef.current = false })
   }, [label])
@@ -379,7 +381,7 @@ export default function RivenOverlay() {
           setParsed(p)
           doPricing(p)
           // show() already called show_overlay_window - just ensure correct size
-          invoke('resize_overlay_window', { label, width: RIVEN_W, height: RIVEN_H }).catch(() => { })
+          invoke('resize_overlay_window', { label, width: RIVEN_W, height: calcH(p.stats.length) }).catch(() => { })
         }
       }),
     ]
@@ -447,93 +449,112 @@ export default function RivenOverlay() {
 
   const fmtVal = (v) => {
     if (!v) return ''
-    if (v.startsWith('+') || v.startsWith('-') || /^x/i.test(v)) return v
-    return '+' + v
+    const s = String(v)
+    if (s.startsWith('+') || s.startsWith('-') || /^x/i.test(s)) return s
+    return '+' + s
   }
 
   return (
-    <div className="w-full h-full overflow-hidden flex items-center justify-center relative">
-      <div className="absolute inset-0 bg-black" />
+    <div className="w-full h-full overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-black to-black" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.06),transparent_70%)]" />
 
       <div className="relative z-10 flex flex-col w-full h-full">
-        <div key={refreshTick} className="px-3 py-2 flex items-center gap-2">
-          {rivenInfo?.grade && rivenInfo.grade !== 'N/A' && (
-            <span className={`text-[11px] font-black ${rivenInfo.grade === 'S' ? 'text-yellow-300' :
-              rivenInfo.grade === 'A' ? 'text-green-400' :
-                rivenInfo.grade === 'B' ? 'text-blue-400' :
-                  rivenInfo.grade === 'C' ? 'text-orange-400' :
-                    'text-red-400'
+        {/* Header: weapon name + badge */}
+        <div className="flex items-center justify-between px-3 pt-2.5 pb-1">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            {parsed?.name && (
+              <span className="text-[14px] font-black text-white truncate drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] tracking-tight">
+                {parsed.name}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {rivenInfo?.grade && rivenInfo.grade !== 'N/A' && (
+              <span className={`text-[12px] font-black px-2 py-0.5 rounded ${
+                rivenInfo.grade === 'S' ? 'bg-yellow-400/20 text-yellow-300 border border-yellow-400/30' :
+                rivenInfo.grade === 'A' ? 'bg-green-400/20 text-green-400 border border-green-400/30' :
+                rivenInfo.grade === 'B' ? 'bg-blue-400/20 text-blue-400 border border-blue-400/30' :
+                rivenInfo.grade === 'C' ? 'bg-orange-400/20 text-orange-400 border border-orange-400/30' :
+                'bg-red-400/20 text-red-400 border border-red-400/30'
               }`}>{rivenInfo.grade}</span>
-          )}
-          <span className="text-xs font-bold text-kronos-text uppercase tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
-            {isNew ? 'Riven (New)' : 'Riven (Current)'}
-          </span>
+            )}
+          </div>
         </div>
-        <div className="px-3 pb-3 flex flex-col flex-1 overflow-hidden">
+
+        {/* Content */}
+        <div className="flex-1 px-3 pb-3 flex flex-col overflow-hidden">
           {ocrLoading ? (
-            <div className="flex items-center justify-center h-full">
-              <p className="text-[12px] text-kronos-dim uppercase tracking-wider animate-pulse drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">OCR in progress...</p>
+            <div className="flex items-center justify-center flex-1">
+              <p className="text-[12px] text-zinc-300 uppercase tracking-widest font-bold animate-pulse">Scanning...</p>
             </div>
           ) : parsed ? (
-            <div className="flex flex-col overflow-hidden flex-1">
-              {parsed.name && (
-                <p className="text-[13px] font-bold text-kronos-accent truncate mb-1.5 drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">{parsed.name}</p>
-              )}
-              <div className="overflow-y-auto flex-1 space-y-0.5 pr-1">
-                {parsed.stats.map((s, i) => (
-                  <div key={i} className="flex justify-between items-center text-[10px] leading-tight group">
-                    <div className="flex items-center gap-1.5 flex-1 min-w-0 mr-2">
-                      <span className="text-kronos-text truncate drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">{displayStatName(s.name)}</span>
-                      <span className="text-[11px] font-black px-1 rounded bg-white/5 text-kronos-dim opacity-0 group-hover:opacity-100 transition-opacity">?</span>
+            <div className="flex flex-col flex-1 overflow-hidden gap-1.5">
+              {/* Stats */}
+              {parsed.stats.length > 0 && (
+                <div className="space-y-[2px]">
+                  {parsed.stats.map((s, i) => (
+                    <div key={i} className="flex justify-between items-center px-2.5 py-1.5 rounded bg-white/[0.03]">
+                      <span className="text-[12px] text-zinc-200 font-medium truncate pr-2">
+                        {displayStatName(s.name)}
+                      </span>
+                      <span className={`text-[13px] font-black whitespace-nowrap ${posClass(s.value)}`}>
+                        {fmtVal(s.value)}
+                      </span>
                     </div>
-                    <span className={`font-bold whitespace-nowrap drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)] ${posClass(s.value)}`}>{fmtVal(s.value)}</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              )}
+
+              {/* Rolls + MR inline */}
+              <div className="flex items-center gap-2 px-1">
+                {parsed.rolls > 0 && (
+                  <span className="text-[10px] font-bold text-zinc-300 uppercase tracking-wider">{parsed.rolls} rolls</span>
+                )}
+                {parsed.mr && (
+                  <>
+                    <span className="text-zinc-500">|</span>
+                    <span className="text-[10px] font-bold text-zinc-300 uppercase tracking-wider">MR {parsed.mr}</span>
+                  </>
+                )}
               </div>
 
-              {rivenInfo && (<>
-                <div className="mt-2 pt-2 border-t border-white/10 grid grid-cols-4 gap-1 bg-black/30 p-1.5 rounded text-[10px]">
-                  <div className="text-center">
-                    <span className="text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Weapon Rank</span>
-                    <p className="font-bold text-kronos-accent drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
-                      {rivenInfo.weapon_rank != null ? `#${rivenInfo.weapon_rank}/${rivenInfo.total_weapons ?? '?'}` : 'N/A'}
-                    </p>
+              {/* Pricing info */}
+              {rivenInfo && (
+                <div className="mt-auto grid grid-cols-3 gap-[1px] rounded-lg overflow-hidden">
+                  <div className="bg-white/[0.04] px-2 py-2 text-center">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">Average Value</span>
+                    <span className="text-[14px] font-black text-yellow-400">{Math.round(rivenInfo.expected_value)}p</span>
                   </div>
-                  <div className="text-center">
-                    <span className="text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Avg Value</span>
-                    <p className="font-bold text-yellow-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{Math.round(rivenInfo.expected_value)}p</p>
+                  <div className="bg-white/[0.04] px-2 py-2 text-center">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">Your Value</span>
+                    <span className="text-[14px] font-black text-yellow-400">{Math.round(estimatedPrice)}p</span>
                   </div>
-                  <div className="text-center">
-                    <span className="text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Your Value</span>
-                    <p className="font-bold text-yellow-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{Math.round(estimatedPrice)}p</p>
-                  </div>
-                  <div className="text-center">
-                    <span className="text-kronos-dim uppercase tracking-wider font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">Reroll Potential</span>
-                    <p className={`font-bold drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] ${(1 - (rivenInfo.probability_stagnant ?? 0.5)) * 100 > 50 ? 'text-green-400' : 'text-red-400'}`}>
+                  <div className="bg-white/[0.04] px-2 py-2 text-center">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">Reroll Potential</span>
+                    <span className={`text-[14px] font-black ${(1 - (rivenInfo.probability_stagnant ?? 0.5)) * 100 > 50 ? 'text-green-400' : 'text-red-400'}`}>
                       {Math.round((1 - (rivenInfo.probability_stagnant ?? 0.5)) * 100)}%
-                    </p>
+                    </span>
                   </div>
-                </div>
-                <div className="mt-1.5 pt-1.5 border-t border-white/10 text-center">
-                  {(() => {
-                    const wr = rivenInfo.weapon_rank ?? 999;
-                    const total = rivenInfo.total_weapons ?? 1;
-                    const tier = wr <= total * 0.2 ? 'Meta' : wr <= total * 0.5 ? 'Popular' : wr <= total * 0.7 ? 'Average' : wr <= total * 0.9 ? 'Niche' : 'Unpopular';
-                    const roll = rivenInfo.grade === 'S' ? 'Perfect' : rivenInfo.grade === 'A' ? 'Good' : rivenInfo.grade === 'B' ? 'Average' : rivenInfo.grade === 'C' ? 'Mediocre' : 'Bad';
-                    return <span className="text-[11px] font-bold text-kronos-accent drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{tier} Weapon, {roll} rolls</span>;
-                  })()}
-                </div>
-              </>)}
-              {parsed.mr && (
-                <div className="mt-1.5 pt-1.5 border-t border-white/10 flex justify-between items-center">
-                  <span className="text-xs text-kronos-dim drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]">MR Requirement</span>
-                  <span className="text-[13px] font-bold text-kronos-accent drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{parsed.mr}</span>
+                  <div className="bg-white/[0.04] px-2 py-2 text-center col-span-3">
+                    {(() => {
+                      const wr = rivenInfo.weapon_rank ?? 999;
+                      const total = rivenInfo.total_weapons ?? 1;
+                      const tier = wr <= total * 0.2 ? 'Meta' : wr <= total * 0.5 ? 'Popular' : wr <= total * 0.7 ? 'Average' : wr <= total * 0.9 ? 'Niche' : 'Unpopular';
+                      const roll = rivenInfo.grade === 'S' ? 'Perfect' : rivenInfo.grade === 'A' ? 'Good' : rivenInfo.grade === 'B' ? 'Average' : rivenInfo.grade === 'C' ? 'Mediocre' : 'Bad';
+                      return (
+                        <span className="text-[11px] font-bold text-zinc-200 uppercase tracking-wider">
+                          {tier} Weapon &middot; {roll} rolls
+                        </span>
+                      );
+                    })()}
+                  </div>
                 </div>
               )}
             </div>
           ) : (
-            <div className="flex items-center justify-center h-full">
-              <p className="text-[14px] text-kronos-dim uppercase tracking-wider drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Waiting for card...</p>
+            <div className="flex items-center justify-center flex-1">
+              <p className="text-[13px] text-zinc-400 uppercase tracking-widest font-bold">Waiting for card...</p>
             </div>
           )}
         </div>

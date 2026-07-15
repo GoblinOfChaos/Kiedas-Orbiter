@@ -499,6 +499,9 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
                     main_gtk.connect_window_state_event(move |_, _| {
                         let ah2 = ah.clone();
                         glib::idle_add_local_once(move || {
+                            if !is_warframe_focused() {
+                                return;
+                            }
                             for lbl in SHOWN_OVERLAYS.lock().unwrap().iter() {
                                 if let Some(w) = ah2.get_webview_window(lbl) {
                                     if !w.is_visible().unwrap_or(false) {
@@ -748,7 +751,7 @@ fn overlay_size(label: &str) -> (f64, f64) {
     match label {
         "overlay-relic" => (640.0, 140.0),
         "overlay-relic-picker" => (480.0, 400.0),
-        "overlay-riven-current" | "overlay-riven-new" => (360.0, 260.0),
+        "overlay-riven-current" | "overlay-riven-new" => (360.0, 320.0),
         _ => (440.0, 1.0),
     }
 }

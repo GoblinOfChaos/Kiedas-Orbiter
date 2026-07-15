@@ -4,9 +4,7 @@ import { listen } from '@tauri-apps/api/event'
 import { invoke } from '@tauri-apps/api/core'
 
 const RIVEN_W = 360
-const RIVEN_BASE_H = 260
-
-const calcH = (n) => Math.min(RIVEN_BASE_H + Math.max(0, (n || 0) - 3) * 30, 320)
+const RIVEN_H = 320
 
 const STAT_TO_PRICER = {
   'Critical Chance': 'critical_chance',
@@ -355,9 +353,7 @@ export default function RivenOverlay() {
     aliveRef.current = true
     setVisible(true)
     setParsed(null)
-    invoke('show_overlay_window', { label })
-      .then(() => invoke('resize_overlay_window', { label, width: RIVEN_W, height: RIVEN_BASE_H }))
-      .catch(() => { })
+    invoke('show_overlay_window', { label }).catch(() => { })
       .finally(() => { showingRef.current = false })
   }, [label])
 
@@ -380,8 +376,6 @@ export default function RivenOverlay() {
           const p = parseRivenOcr(payload)
           setParsed(p)
           doPricing(p)
-          // show() already called show_overlay_window - just ensure correct size
-          invoke('resize_overlay_window', { label, width: RIVEN_W, height: calcH(p.stats.length) }).catch(() => { })
         }
       }),
     ]

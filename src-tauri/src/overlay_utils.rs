@@ -933,13 +933,6 @@ fn is_warframe_focused() -> bool {
     if let Ok(active) = active_win_pos_rs::get_active_window() {
         return active.app_name.to_lowercase().contains("warframe");
     }
-    // Last resort: check _NET_WM_STATE for HIDDEN/ICONIFIED.
-    #[cfg(target_os = "linux")]
-    {
-        if is_x11_window_hidden("Warframe") {
-            return false;
-        }
-    }
     true
 }
 
@@ -968,37 +961,6 @@ fn is_x11_active_window(window_name: &str) -> Option<bool> {
     }
     let active_id = std::str::from_utf8(&active_output.stdout).ok()?.trim();
     Some(active_id == target_id)
-}
-
-/// Check whether any top-level X11 window whose name contains `window_name`
-/// has `_NET_WM_STATE_HIDDEN` or `_NET_WM_STATE_ICONIFIED` set.
-/// Uses the `xprop` utility; silently returns false if `xprop` is unavailable.
-#[cfg(target_os = "linux")]
-fn is_x11_window_hidden(window_name: &str) -> bool {
-    let id_output = match std::process::Command::new("xdotool")
-        .args(["search", "--name", window_name])
-        .output()
-    {
-        Ok(o) if o.status.success() => o.stdout,
-        _ => return false,
-    };
-    let first_id = std::str::from_utf8(&id_output)
-        .ok()
-        .and_then(|s| s.lines().next())
-        .map(|s| s.trim().to_string())
-        .unwrap_or_default();
-    if first_id.is_empty() {
-        return false;
-    }
-    let prop_output = match std::process::Command::new("xprop")
-        .args(["-id", &first_id, "_NET_WM_STATE"])
-        .output()
-    {
-        Ok(o) => o.stdout,
-        _ => return false,
-    };
-    let state = std::str::from_utf8(&prop_output).unwrap_or("");
-    state.contains("HIDDEN") || state.contains("ICONIFIED")
 }
 
 /// Start a background thread that monitors Warframe's window position and focus

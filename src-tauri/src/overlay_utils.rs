@@ -920,11 +920,20 @@ fn is_warframe_focused() -> bool {
     if fetch_warframe_rect_sync().is_none() {
         return false;
     }
-    // Window has geometry; refine with focus check if available.
+    // EWMH _NET_ACTIVE_WINDOW via xdotool: correctly maintained by KWin even
+    // when focus moves to a native Wayland client (unlike XGetInputFocus used
+    // by active_win_pos_rs, which never leaves the XWayland client).
+    #[cfg(target_os = "linux")]
+    {
+        if let Some(active) = is_x11_active_window("Warframe") {
+            return active;
+        }
+    }
+    // Fallback: active_win_pos_rs refinement for alt+tab within X11/XWayland.
     if let Ok(active) = active_win_pos_rs::get_active_window() {
         return active.app_name.to_lowercase().contains("warframe");
     }
-    // active_win_pos_rs failed (e.g. Wayland) — fall back to X11 state check
+    // Last resort: check _NET_WM_STATE for HIDDEN/ICONIFIED.
     #[cfg(target_os = "linux")]
     {
         if is_x11_window_hidden("Warframe") {
@@ -932,6 +941,33 @@ fn is_warframe_focused() -> bool {
         }
     }
     true
+}
+
+/// Check whether the X11 window whose name contains `window_name` matches
+/// `_NET_ACTIVE_WINDOW` (via `xdotool getactivewindow`).  KWin correctly
+/// maintains this EWMH atom even when focus moves to a native Wayland client,
+/// making it reliable where `XGetInputFocus` (used by `active_win_pos_rs`) is
+/// not.  Returns `None` if `xdotool` is unavailable or the window is not found.
+#[cfg(target_os = "linux")]
+fn is_x11_active_window(window_name: &str) -> Option<bool> {
+    let id_output = std::process::Command::new("xdotool")
+        .args(["search", "--name", window_name])
+        .output()
+        .ok()?;
+    if !id_output.status.success() { return None; }
+    let target_id = std::str::from_utf8(&id_output.stdout).ok()?
+        .lines().next()?.trim().to_string();
+    if target_id.is_empty() { return None; }
+
+    let active_output = std::process::Command::new("xdotool")
+        .arg("getactivewindow")
+        .output()
+        .ok()?;
+    if !active_output.status.success() {
+        return Some(false);
+    }
+    let active_id = std::str::from_utf8(&active_output.stdout).ok()?.trim();
+    Some(active_id == target_id)
 }
 
 /// Check whether any top-level X11 window whose name contains `window_name`

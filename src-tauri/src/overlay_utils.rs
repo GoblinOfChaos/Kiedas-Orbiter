@@ -604,8 +604,12 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     // WebKit discards its rendering surface on geometry change, so this
     // reliably clears any stale content ghosts from prior hide/show cycles.
     // (The 1x1 resize is already proven to work - visible in Bug 4 logs.)
-    let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
-    let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: w as u32, height: h as u32 }));
+    // Notification overlays are skipped — their height is dynamically managed
+    // by the frontend ResizeObserver and clobbering it would collapse the window.
+    if !matches!(label, "overlay-tl" | "overlay-tr" | "overlay-tc") {
+        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
+        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: w as u32, height: h as u32 }));
+    }
     // Sidebar overlay must stay interactive (click-through breaks nav/screens).
     if label != "overlay-sidebar" {
         window.set_ignore_cursor_events(true)

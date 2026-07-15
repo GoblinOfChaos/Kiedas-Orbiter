@@ -803,9 +803,13 @@ export function MonitoringProvider({ children }) {
       ocrActiveRef.current = false
     }))
 
-    subs.push(listen('relic-picker-opened', () => {
+    subs.push(listen('relic-picker-opened', (e) => {
       if (!inventoryData?.relics) return
-      const relics = inventoryData.relics
+      const voidTier = e.payload?.void_tier
+      let relics = inventoryData.relics
+      if (voidTier) {
+        relics = relics.filter(r => r.era === voidTier)
+      }
       const enriched = relics.map(r => {
         const sortedRewards = (r.rewards || []).map(rw => ({
           ...rw,
@@ -817,8 +821,30 @@ export function MonitoringProvider({ children }) {
       })
       const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 10)
       const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 10)
-      const payload = { ducat_top: ducatTop, plat_top: platTop }
+      const payload = { ducat_top: ducatTop, plat_top: platTop, era: voidTier }
       invoke('show_overlay_window', { label: 'overlay-relic-picker' }).catch(() => {})
+      invoke('relay_event', { event: 'relic-picker-data', payload }).catch(() => {})
+    }))
+
+    subs.push(listen('relic-picker-tier', (e) => {
+      const voidTier = e.payload?.tier
+      if (!voidTier || !inventoryData?.relics) return
+      let relics = inventoryData.relics
+      if (voidTier) {
+        relics = relics.filter(r => r.era === voidTier)
+      }
+      const enriched = relics.map(r => {
+        const sortedRewards = (r.rewards || []).map(rw => ({
+          ...rw,
+          plat: allPrices[rw.uniqueName] ?? 0,
+        }))
+        const evPlat = getRelicEV(sortedRewards, 'Intact', 1, 'plat')
+        const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')
+        return { name: r.name, era: r.era, evPlat: Math.round(evPlat), evDucats: Math.round(evDucats) }
+      })
+      const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 10)
+      const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 10)
+      const payload = { ducat_top: ducatTop, plat_top: platTop, era: voidTier }
       invoke('relay_event', { event: 'relic-picker-data', payload }).catch(() => {})
     }))
 

@@ -33,14 +33,9 @@ export default function ToastOverlay({ position }) {
     }
   }, [visibleToasts.length, queue])
 
-  // Collapse window to 1×1 when empty to force a compositor repaint
-  // (clears the cached last-frame ghost on Linux). No show/hide = no focus steal.
   const hadContent = useRef(false)
   useEffect(() => {
     if (visibleToasts.length === 0 && queue.length === 0) {
-      // Only collapse the window if it previously had content.
-      // On first mount (empty), skipping this avoids triggering show() on the
-      // dynamically-created window before any notification has been requested.
       if (hadContent.current) {
         invoke('resize_overlay_window', { label: myLabel, width: 1, height: 1 }).catch(() => { })
       }

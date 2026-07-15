@@ -454,11 +454,38 @@ export default function SettingsScreen() {
     }, delay)
   }
 
-  const handleCaptureDebugOcr = async () => {
+  const handleTestRelicReward = async () => {
+    const mockRelics = [
+      { era: 'Lith', tier: 'T1', refinement: 'Intact', unique_name: 'Lith S9 Relic' },
+      { era: 'Lith', tier: 'T1', refinement: 'Exceptional', unique_name: 'Lith B6 Relic' },
+      { era: 'Meso', tier: 'T2', refinement: 'Intact', unique_name: 'Meso N16 Relic' },
+      { era: 'Meso', tier: 'T2', refinement: 'Flawless', unique_name: 'Meso V9 Relic' },
+    ]
+    const mockRewards = [
+      'Forma Blueprint',
+      'Paris Prime Blueprint',
+      'Bronco Prime Barrel',
+      'Vasto Prime Receiver',
+    ]
     try {
-      await invoke('start_debug_ocr_session')
+      await invoke('relay_event', {
+        event: 'scanner-relic-phase-start',
+        payload: { squad_size: 4 }
+      })
+      mockRelics.forEach((r, i) => {
+        setTimeout(() => {
+          invoke('relay_event', {
+            event: 'overlay-update-ocr',
+            payload: { slot: i + 1, confirmed_reward: mockRewards[i], item: { ...r, name: mockRewards[i], ducats: [0, 100, 45, 35][i] } }
+          }).catch(() => {})
+        }, i * 500)
+      })
+      await invoke('relay_event', {
+        event: 'overlay-update-relics',
+        payload: { squad_relics: mockRelics, squad_size: 4 }
+      })
     } catch (err) {
-      alert(`Debug OCR Failed: ${err}`)
+      console.error(err)
     }
   }
 
@@ -621,10 +648,10 @@ export default function SettingsScreen() {
                 Test notification in 5 seconds
               </button>
               <button
-                onClick={handleCaptureDebugOcr}
+                onClick={handleTestRelicReward}
                 className="py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20"
               >
-                Test relic overlay
+                Test relic reward overlay
               </button>
             </div>
           </div>

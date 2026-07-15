@@ -141,8 +141,8 @@ fn calculate_position(
             (rx, ry)
         }
         "overlay-relic-picker" => {
-            let rx = mon_size.width as i32 - phys_w - margin;
-            let ry = (mon_size.height as i32 - (height * scale) as i32) / 2;
+            let rx = (mon_size.width as i32 * 85 / 100) - phys_w;
+            let ry = margin / 2;
             (rx, ry)
         }
         "overlay-riven-current" => (margin, (mon_size.height as i32 - (height * scale) as i32) / 2),
@@ -908,6 +908,10 @@ pub fn get_warframe_monitor_idx() -> Option<usize> {
 /// Secondary: `active_win_pos_rs` refines the check to catch alt+tab while the
 /// game is still visible (overlaps another window).  On KDE Wayland the crate
 /// may fail; we fall back to the rect check alone.
+///
+/// Tertiary (Linux only): uses `xprop` to check `_NET_WM_STATE` for HIDDEN or
+/// ICONIFIED atoms as a last resort for XWayland windows where the rect check
+/// may not detect minimize.
 fn is_warframe_focused() -> bool {
     // Minimized windows have no visible rect — catches minimize reliably.
     if fetch_warframe_rect_sync().is_none() {
@@ -915,10 +919,47 @@ fn is_warframe_focused() -> bool {
     }
     // Window has geometry; refine with focus check if available.
     if let Ok(active) = active_win_pos_rs::get_active_window() {
-        active.app_name.to_lowercase().contains("warframe")
-    } else {
-        true
+        return active.app_name.to_lowercase().contains("warframe");
     }
+    // active_win_pos_rs failed (e.g. Wayland) — fall back to X11 state check
+    #[cfg(target_os = "linux")]
+    {
+        if is_x11_window_hidden("Warframe") {
+            return false;
+        }
+    }
+    true
+}
+
+/// Check whether any top-level X11 window whose name contains `window_name`
+/// has `_NET_WM_STATE_HIDDEN` or `_NET_WM_STATE_ICONIFIED` set.
+/// Uses the `xprop` utility; silently returns false if `xprop` is unavailable.
+#[cfg(target_os = "linux")]
+fn is_x11_window_hidden(window_name: &str) -> bool {
+    let id_output = match std::process::Command::new("xdotool")
+        .args(["search", "--name", window_name])
+        .output()
+    {
+        Ok(o) if o.status.success() => o.stdout,
+        _ => return false,
+    };
+    let first_id = std::str::from_utf8(&id_output)
+        .ok()
+        .and_then(|s| s.lines().next())
+        .map(|s| s.trim().to_string())
+        .unwrap_or_default();
+    if first_id.is_empty() {
+        return false;
+    }
+    let prop_output = match std::process::Command::new("xprop")
+        .args(["-id", &first_id, "_NET_WM_STATE"])
+        .output()
+    {
+        Ok(o) => o.stdout,
+        _ => return false,
+    };
+    let state = std::str::from_utf8(&prop_output).unwrap_or("");
+    state.contains("HIDDEN") || state.contains("ICONIFIED")
 }
 
 /// Start a background thread that monitors Warframe's window position and focus

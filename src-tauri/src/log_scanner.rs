@@ -53,6 +53,8 @@ pub struct LogScanner {
     squad_size: usize,
     is_fissure: bool,
     in_mission: bool,
+    relic_picker_open: bool,
+    void_tier: Option<String>,
     riven_state: RivenState,
     squad_channels: HashSet<String>,
     expecting_archon_boosts: bool,
@@ -82,6 +84,8 @@ impl LogScanner {
             squad_size: 1,
             is_fissure: false,
             in_mission: false,
+            relic_picker_open: false,
+            void_tier: None,
             riven_state: RivenState::Idle,
             squad_channels: HashSet::new(),
             expecting_archon_boosts: false,
@@ -101,8 +105,13 @@ impl LogScanner {
             self.in_mission = true;
             self.squad_size = 1;
             self.squad_relics.clear();
+            self.void_tier = None;
+            if self.relic_picker_open {
+                self.relic_picker_open = false;
+                app.emit("relic-picker-closed", ()).unwrap_or_default();
+            }
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
-            set_poll_interval(400);
+            set_poll_interval(150);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 1: FISSURE START (LogTS: {}s)", ts));
             return;
         }
@@ -111,9 +120,11 @@ impl LogScanner {
         if s.contains("ExitState: Disconnected") || s.contains("Game [Info]: Set state to Disconnected") {
             self.is_fissure = false;
             self.in_mission = false;
+            self.relic_picker_open = false;
+            self.void_tier = None;
             self.squad_relics.clear();
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
-            set_poll_interval(400);
+            set_poll_interval(150);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 7: MISSION EXIT (LogTS: {}s)", ts));
             let state = app.state::<crate::AppState>();
             if let Ok(mut cached) = state.active_relic_data.lock() {
@@ -130,15 +141,27 @@ impl LogScanner {
                     let path = &s[start + 1..start + end];
                     crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 2: RELIC POOL - {} (LogTS: {}s)", path, ts));
                     let relic = parse_relic_path(path);
+                    let is_first = self.squad_relics.is_empty();
                     self.squad_relics.push(relic);
                     self.is_fissure = true;
                     set_poll_interval(150);
+
+                    // Detect void tier from the first relic
+                    if is_first {
+                        self.void_tier = Some(detect_void_tier(path));
+                        if self.relic_picker_open {
+                            app.emit("relic-picker-tier",
+                                serde_json::json!({ "tier": self.void_tier })
+                            ).unwrap_or_default();
+                        }
+                    }
 
                     let state = app.state::<crate::AppState>();
                     if let Ok(mut cached) = state.active_relic_data.lock() {
                         *cached = Some(serde_json::json!({
                             "squad_relics": self.squad_relics,
                             "squad_size": self.squad_size,
+                            "void_tier": self.void_tier,
                         }));
                     };
                 }
@@ -168,7 +191,7 @@ impl LogScanner {
         // === 5. Reward Screen Closure ===
         if s.contains("ProjectionRewardChoice.lua: Relic reward screen shut down") {
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
-            set_poll_interval(400);
+            set_poll_interval(150);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 5: REWARD SCREEN CLOSE (LogTS: {}s)", ts));
             // Clear cached relic data so the next round starts fresh
             let state = app.state::<crate::AppState>();
@@ -182,15 +205,22 @@ impl LogScanner {
         // === 6. Relic Picker / Endless Mission Handling ===
         if s.contains("Created /Lotus/Interface/ThemedProjectionManager.swf") {
             if !self.in_mission {
+                self.relic_picker_open = true;
                 crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (pre-mission) (LogTS: {}s)", ts));
-                app.emit("relic-picker-opened", serde_json::json!({})).unwrap_or_default();
+                app.emit("relic-picker-opened", serde_json::json!({ "void_tier": self.void_tier })).unwrap_or_default();
                 return;
             }
-            // Don't clear ICON_SCAN_ACTIVE here - the ThemedProjectionManager is
-            // the "Continue" screen between rounds, NOT the reward screen itself.
-            // Clearing it here races with the *next* round's reward-screen OCR
-            // (Step 4), causing successive rounds to never show the overlay.
-            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 6: ENDLESS CONTINUE (LogTS: {}s)", ts));
+            self.relic_picker_open = true;
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (endless) (LogTS: {}s)", ts));
+            app.emit("relic-picker-opened", serde_json::json!({ "void_tier": self.void_tier })).unwrap_or_default();
+            return;
+        }
+
+        // === Relic Picker Close (MapRedux re-subscription) ===
+        if self.relic_picker_open && s.contains("Subscribing for /Lotus/Interface/MapRedux.swf") {
+            self.relic_picker_open = false;
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER CLOSED (MapRedux) (LogTS: {}s)", ts));
+            app.emit("relic-picker-closed", ()).unwrap_or_default();
             return;
         }
 
@@ -394,6 +424,14 @@ fn parse_relic_path(path: &str) -> RelicInfo {
         refinement: refinement.to_string(),
         era: tier_code.to_string(),
     }
+}
+
+fn detect_void_tier(path: &str) -> String {
+    if path.contains("T1") { "Lith".to_string() }
+    else if path.contains("T2") { "Meso".to_string() }
+    else if path.contains("T3") { "Neo".to_string() }
+    else if path.contains("T4") { "Axi".to_string() }
+    else { "Unknown".to_string() }
 }
 
 pub struct LogScannerHandle {
@@ -886,6 +924,8 @@ pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogSca
                             || trimmed.contains("NpcManager::ClearAgents()")
                             || trimmed.contains("ChatRedux.lua: Chat: Filters for")
                             || trimmed.contains("ProjectionRewardChoice.lua: Relic reward screen shut down")
+                            || trimmed.contains("Created /Lotus/Interface/ThemedProjectionManager.swf")
+                            || trimmed.contains("Subscribing for /Lotus/Interface/MapRedux.swf")
                         {
                             continue;
                         }

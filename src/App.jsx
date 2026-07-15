@@ -26,10 +26,7 @@ const NAV_ITEMS = [
   { id: 'about', icon: 'IconInfo.png', label: 'About' },
 ]
 
-const DEV_NAV_ITEM = import.meta.env.DEV ? { id: 'dev-overlays', icon: 'IconSettings.png', label: 'Dev Overlays' } : null
-
-const ALL_NAV_ITEMS = DEV_NAV_ITEM ? [...NAV_ITEMS, DEV_NAV_ITEM] : NAV_ITEMS
-const ICON_NAMES = [...ALL_NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
+const ICON_NAMES = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
 
 function useUIIcons(iconNames) {
   const [iconCache, setIconCache] = useState({})
@@ -334,7 +331,7 @@ function AppContent() {
         {/* Nav items */}
         <div className="flex-1 w-full overflow-y-auto py-2 custom-scrollbar">
           <div className="flex flex-col gap-6 items-center min-h-min pb-4">
-            {ALL_NAV_ITEMS.map((item) => {
+            {NAV_ITEMS.map((item) => {
               const isActive = activeTab === item.id
               return (
                 <div key={item.id} className="relative">

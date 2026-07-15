@@ -260,6 +260,21 @@ function AppContent() {
     return () => clearInterval(iv)
   }, [])
 
+  // Show toast when scanner latches onto Warframe (single notification, main window only)
+  useEffect(() => {
+    const unsub = listen('scanner-hooked', () => {
+      invoke('show_notification', {
+        title: 'Scanner',
+        message: 'Log scanner hooked into Warframe',
+        image: '',
+        position: 'top-right',
+        no_focus: true,
+        silent: true,
+      }).catch(() => { })
+    })
+    return () => { unsub.then(f => f()) }
+  }, [])
+
   // Toggle .sidebar-mode on <body> when entering/exiting sidebar mode
   useEffect(() => {
     const unsub = listen('sidebar-mode-changed', (e) => {

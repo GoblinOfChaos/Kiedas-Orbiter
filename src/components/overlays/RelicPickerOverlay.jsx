@@ -49,14 +49,14 @@ export default function RelicPickerOverlay() {
   if (!relics) return null
 
   return (
-    <div className="h-screen w-screen overflow-hidden" style={{ background: 'transparent' }}>
-      <div className="p-2">
+    <div className="absolute top-4 right-4 w-auto max-w-[420px]" style={{ background: 'transparent' }}>
+      <div className="p-3">
         {relics.era && (
-          <div className="text-[9px] font-black uppercase text-kronos-accent tracking-widest text-center mb-2">
+          <div className="text-[11px] font-black uppercase text-kronos-accent tracking-widest text-center mb-3">
             {relics.era} Fissure
           </div>
         )}
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <Column items={relics.ducat_top} title="Top Ducat EV" accent="text-amber-400" />
           <Column items={relics.plat_top} title="Top Plat EV" accent="text-blue-400" />
         </div>
@@ -68,20 +68,20 @@ export default function RelicPickerOverlay() {
 function Column({ items, title, accent }) {
   return (
     <div className="flex-1 min-w-0">
-      <div className={`text-[9px] font-black uppercase tracking-widest text-center mb-1 ${accent}`}>
+      <div className={`text-[10px] font-black uppercase tracking-widest text-center mb-1.5 ${accent}`}>
         {title}
       </div>
-      <div className="flex flex-col gap-0.5">
+      <div className="flex flex-col gap-1">
         {items?.map((item, i) => (
           <div
             key={item.name}
-            className="flex items-center justify-between px-2 py-1 rounded bg-black/40 border border-white/5"
+            className="flex items-center justify-between px-2.5 py-1.5 rounded bg-black/40 border border-white/5"
           >
             <div className="flex items-center gap-1.5 min-w-0 flex-1">
-              <span className="text-[8px] font-black text-kronos-dim w-3 flex-shrink-0">{i + 1}.</span>
-              <span className="text-[10px] font-bold text-white truncate">{item.name}</span>
+              <span className="text-[9px] font-black text-kronos-dim w-3 flex-shrink-0">{i + 1}.</span>
+              <span className="text-[12px] font-bold text-white truncate">{item.name}</span>
             </div>
-            <span className={`text-[9px] font-black flex-shrink-0 ml-1 ${accent}`}>
+            <span className={`text-[10px] font-black flex-shrink-0 ml-1 ${accent}`}>
               {title.startsWith('Top Ducat') ? `${item.evDucats}` : `${item.evPlat}p`}
             </span>
           </div>

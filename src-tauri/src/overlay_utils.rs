@@ -1006,7 +1006,7 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
             }
 
             was_focused = focused_now;
-            std::thread::sleep(std::time::Duration::from_millis(500));
+            std::thread::sleep(std::time::Duration::from_millis(2000));
         }
     });
 }

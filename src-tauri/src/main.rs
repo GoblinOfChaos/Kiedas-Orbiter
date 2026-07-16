@@ -2288,12 +2288,17 @@ async fn get_warframe_window_rect() -> Result<Option<WarframeWindowRect>, String
         return Err("warframe-api-helper not found".to_string());
     }
 
-    let output = std::process::Command::new(&helper_path)
-        .arg("--get-window-rect")
-        .stdout(std::process::Stdio::piped())
-        .stderr(std::process::Stdio::null())
-        .output()
-        .map_err(|e| e.to_string())?;
+    let mut cmd = std::process::Command::new(&helper_path);
+    cmd.arg("--get-window-rect")
+       .stdout(std::process::Stdio::piped())
+       .stderr(std::process::Stdio::null());
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        const CREATE_NO_WINDOW: u32 = 0x08000000;
+        cmd.creation_flags(CREATE_NO_WINDOW);
+    }
+    let output = cmd.output().map_err(|e| e.to_string())?;
 
     let stdout = String::from_utf8_lossy(&output.stdout).trim().to_string();
     if stdout == "not found" || stdout.is_empty() {

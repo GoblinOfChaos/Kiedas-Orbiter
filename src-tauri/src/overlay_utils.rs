@@ -849,12 +849,17 @@ fn fetch_warframe_rect_sync() -> Option<(i32, i32, u32, u32)> {
     if !helper.exists() {
         return None;
     }
-    let output = std::process::Command::new(&helper)
-        .arg("--get-window-rect")
-        .stdout(std::process::Stdio::piped())
-        .stderr(std::process::Stdio::null())
-        .output()
-        .ok()?;
+    let mut cmd = std::process::Command::new(&helper);
+    cmd.arg("--get-window-rect")
+       .stdout(std::process::Stdio::piped())
+       .stderr(std::process::Stdio::null());
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        const CREATE_NO_WINDOW: u32 = 0x08000000;
+        cmd.creation_flags(CREATE_NO_WINDOW);
+    }
+    let output = cmd.output().ok()?;
     let stdout = String::from_utf8_lossy(&output.stdout).trim().to_string();
     if stdout == "not found" || stdout.is_empty() {
         return None;

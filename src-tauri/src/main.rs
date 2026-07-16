@@ -2570,16 +2570,33 @@ async fn get_known_weapon_names() -> Vec<String> {
         .setup(|app| {
             crate::log_scanner::log_app_start(&app.handle());
             let ah = app.handle().clone();
-            // Extract bundled assets BEFORE the window is shown, so the
+            // Register the frontend-ready listener BEFORE the blocking
+            // extract_bundled_assets call, so we never miss the event if
+            // the webview loads fast and JS emits while Rust is busy.
+            if let Some(main_win) = app.get_webview_window("main") {
+                let win = main_win.clone();
+                main_win.once("frontend-ready", move |_| {
+                    let _ = win.show();
+                    let _ = win.set_focus();
+                });
+            }
+            // Extract bundled assets before the window is shown, so the
             // blocking I/O (first-launch copy) doesn't freeze a visible window.
             extract_bundled_assets(&ah);
-            // Don't show the main window until the frontend signals it has
-            // mounted its first frame, avoiding the blank-flash hitch.
-            let ah2 = ah.clone();
-            ah.once("frontend-ready", move |_| {
-                if let Some(main_win) = ah2.get_webview_window("main") {
-                    let _ = main_win.show();
-                    let _ = main_win.set_focus();
+            // Fallback: if the frontend never fires frontend-ready (e.g.
+            // WebView2 navigation failure or a very slow disk), force-show
+            // the window after 5s so the user can see what happened.
+            let ah3 = ah.clone();
+            std::thread::spawn(move || {
+                std::thread::sleep(std::time::Duration::from_secs(5));
+                if let Some(main_win) = ah3.get_webview_window("main") {
+                    if !main_win.is_visible().unwrap_or(false) {
+                        let _ = main_win.show();
+                        let _ = main_win.set_focus();
+                        #[cfg(any(debug_assertions, feature = "devtools"))]
+                        let _ = main_win.open_devtools();
+                        eprintln!("[DEBUG] Force-showed main window after 5s (frontend-ready not received)");
+                    }
                 }
             });
             // Download PP-OCRv5 models in background (needed by ocr_engine)

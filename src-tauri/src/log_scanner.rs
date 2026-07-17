@@ -1,25 +1,25 @@
 use std::collections::HashSet;
-use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 use std::sync::{Arc, Mutex};
 use tauri::{AppHandle, Emitter, Manager};
-use rustc_hash::FxHashSet;
 
 pub static IS_SCANNING: AtomicBool = AtomicBool::new(false);
 // 0 = idle, 1 = waiting for process, 2 = hooked/active
 pub static SCANNER_STATUS: std::sync::atomic::AtomicU8 = std::sync::atomic::AtomicU8::new(0);
+/// Incremented on each stop_scanner call so stale watcher threads can detect
+/// they were orphaned by a restart and exit instead of continuing to run.
+static SCANNER_GENERATION: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
 /// Poll interval (ms) for the helper process.  Tight during fissure reward
 /// windows (150ms), relaxed otherwise (400ms) to reduce CPU/IO overhead.
-pub static POLL_INTERVAL_MS: AtomicU32 = AtomicU32::new(150);
+/// 50 ms default: the old 150 ms figure was calibrated for the C++ helper's
+/// 4 MB external-read + memcpy cycle.  With direct pread on a 16 KB buffer
+/// the read+diff cost is single-digit microseconds - we can poll tighter
+/// with negligible CPU overhead and cut worst-case trigger latency by 3×.
+pub static POLL_INTERVAL_MS: AtomicU32 = AtomicU32::new(50);
 
 pub fn set_poll_interval(ms: u32) {
     let clamped = ms.clamp(50, 2000);
     POLL_INTERVAL_MS.store(clamped, Ordering::Relaxed);
-    // Write to shared file so the already-running helper picks up the new
-    // interval on its next cycle - no kill/restart needed, no buffer rediscovery.
-    let poll_path = std::path::Path::new("/tmp/kronos/helper_poll_ms");
-    let _ = std::fs::create_dir_all(poll_path.parent().unwrap());
-    let _ = std::fs::write(poll_path, clamped.to_string());
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
@@ -457,30 +457,16 @@ pub fn log_app_stop(app: &AppHandle) {
 
 pub fn stop_scanner(app: &AppHandle) {
     crate::logger::log_to_disk(app, "[LOG SCANNER] stop_scanner called - stopping watcher thread");
+    SCANNER_GENERATION.fetch_add(1, Ordering::SeqCst);
     IS_SCANNING.store(false, Ordering::SeqCst);
     SCANNER_STATUS.store(0, Ordering::SeqCst);
     crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
     crate::overlay_utils::stop_focus_watcher();
-    // Kill any orphaned helper so the blocking read_exact unblocks
-    #[cfg(windows)]
-    {
-        use std::os::windows::process::CommandExt;
-        const CREATE_NO_WINDOW: u32 = 0x08000000;
-        let _ = std::process::Command::new("taskkill")
-            .args(["/f", "/im", "warframe-api-helper.exe"])
-            .creation_flags(CREATE_NO_WINDOW)
-            .stdout(std::process::Stdio::null())
-            .stderr(std::process::Stdio::null())
-            .status();
-    }
-    #[cfg(not(windows))]
-    {
-        // macOS and Linux
-        let _ = std::process::Command::new("pkill")
-            .args(["-f", "warframe-api-helper"])
-            .stdout(std::process::Stdio::null())
-            .stderr(std::process::Stdio::null())
-            .status();
+    // Force a fresh /proc scan on next get_warframe_pid call
+    if let Some(cache) = CACHED_WARFRAME_PID.get() {
+        if let Ok(mut c) = cache.lock() {
+            *c = (None, stale_instant());
+        }
     }
 }
 
@@ -493,40 +479,12 @@ pub fn get_scanner_status() -> String {
     match SCANNER_STATUS.load(Ordering::SeqCst) {
         1 => "waiting".to_string(),
         2 => "active".to_string(),
+        3 => "stale_offset".to_string(),
         _ => "idle".to_string(),
     }
 }
 
 // ─── Memory watcher ────────────────────────────────────────────────────────────
-
-fn line_hash(s: &str) -> u64 {
-    let mut hash: u64 = 0xcbf29ce484222325;
-    for &b in s.as_bytes() {
-        hash ^= b as u64;
-        hash = hash.wrapping_mul(0x100000001b3);
-    }
-    hash
-}
-
-fn is_warframe_running() -> bool {
-    #[cfg(target_os = "linux")]
-    {
-        match get_warframe_pid() {
-            Some(pid) if is_game_process(pid) => true,
-            Some(_) => {
-                // Cached PID is the launcher - clear and re-scan so we
-                // discover the game if it started since the last check.
-                clear_pid_cache();
-                get_warframe_pid().map_or(false, is_game_process)
-            }
-            None => false,
-        }
-    }
-    #[cfg(not(target_os = "linux"))]
-    {
-        get_warframe_pid().is_some()
-    }
-}
 
 /// Cached PID of a previously-discovered Warframe process.
 /// On subsequent calls we verify the cache via a cheap existence check
@@ -541,13 +499,6 @@ const PID_CACHE_MISS_TTL: std::time::Duration = std::time::Duration::from_secs(5
 /// call always triggers a real scan instead of short-circuiting on the TTL.
 fn stale_instant() -> std::time::Instant {
     std::time::Instant::now() - PID_CACHE_MISS_TTL - std::time::Duration::from_secs(1)
-}
-
-fn clear_pid_cache() {
-    *CACHED_WARFRAME_PID
-        .get_or_init(|| Mutex::new((None, stale_instant())))
-        .lock()
-        .unwrap() = (None, stale_instant());
 }
 
 fn with_cache(f: impl FnOnce() -> Option<u32>) -> Option<u32> {
@@ -624,7 +575,7 @@ fn is_game_process(pid: u32) -> bool {
 
 /// Returns the PID of the first Warframe process found, if any.
 /// Uses a cached PID to avoid scanning /proc on every call.
-fn get_warframe_pid() -> Option<u32> {
+pub fn get_warframe_pid() -> Option<u32> {
     with_cache(|| {
         #[cfg(target_os = "windows")]
         {
@@ -709,269 +660,181 @@ fn get_warframe_pid() -> Option<u32> {
     })
 }
 
-pub fn spawn_memory_watcher(app: AppHandle, _log_path: PathBuf) -> Result<LogScannerHandle, String> {
+pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> {
     if IS_SCANNING.load(Ordering::SeqCst) {
         return Err("Already scanning".to_string());
     }
 
-    let bin_name = format!("warframe-api-helper{}", std::env::consts::EXE_SUFFIX);
-    let relative = format!("data/bin/{}", bin_name);
-
-    let writable = crate::get_data_root().join(&relative);
-    let helper_path = if writable.exists() {
-        writable
-    } else if let Some(bundled) = app.path().resolve(&relative, tauri::path::BaseDirectory::Resource).ok() {
-        if bundled.exists() { bundled } else { return Err("warframe-api-helper not found".to_string()); }
-    } else {
-        return Err("warframe-api-helper not found".to_string());
-    };
-
     IS_SCANNING.store(true, Ordering::SeqCst);
+    // Show "waiting" immediately so the UI responds right away;
+    // the watcher thread will refine this to "active" or "stale_offset".
+    SCANNER_STATUS.store(1, Ordering::SeqCst);
 
     let app_inner = app.clone();
 
     std::thread::spawn(move || {
+        let my_gen = SCANNER_GENERATION.load(Ordering::SeqCst);
         let mut scanner = LogScanner::new();
-        let mut seen_set: FxHashSet<u64> = FxHashSet::with_capacity_and_hasher(4096, Default::default());
-        let mut seen_count: usize = 0;
-        const SEEN_RESET_THRESHOLD: usize = 16_384;
         let mut logged_waiting = false;
         let mut ever_hooked = false;
+        let mut validated = false;
+        let mut had_pid = false;
+
+        // Try local cache first (fast - avoids full anonymous region walk),
+        // fall back to repo-pushed default.
+        let cached = crate::mem_reader::load_offset_cache();
+        let mut using_cache = cached.is_some();
+        let mut offsets = match cached {
+            Some(c) => {
+                crate::logger::log_to_disk(&app_inner, &format!(
+                    "[MEMORY WATCHER] Using cached VA {:#x}", c.buffer_va));
+                c
+            }
+            None => {
+                crate::logger::log_to_disk(&app_inner,
+                    "[MEMORY WATCHER] No cached VA found, using repo default");
+                crate::mem_reader::load_offsets()
+            }
+        };
+
+        // Scratch buffers reused across cycles (no per-cycle allocs)
+        let mut raw = Vec::with_capacity(offsets.buffer_size);
+        let mut prev = vec![0u8; 0];
 
         loop {
-            if !IS_SCANNING.load(Ordering::SeqCst) {
+            if !IS_SCANNING.load(Ordering::SeqCst) || SCANNER_GENERATION.load(Ordering::SeqCst) != my_gen {
                 break;
             }
-            
-            if !is_warframe_running() {
-                if !logged_waiting {
-                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Waiting for Warframe process...");
-                    logged_waiting = true;
-                    SCANNER_STATUS.store(1, Ordering::SeqCst);
-                }
-                std::thread::sleep(std::time::Duration::from_secs(2));
-                continue;
-            }
 
-            let mut cmd = std::process::Command::new(&helper_path);
-            cmd.arg("--read-log-buffer");
-            // Pass the target PID so the helper skips its own name-based
-            // discovery and goes straight to the right process.
-            if let Some(pid) = get_warframe_pid() {
-                cmd.arg(format!("--pid={pid}"));
-            }
-            let poll_ms = POLL_INTERVAL_MS.load(Ordering::Relaxed);
-            cmd.arg(format!("--poll-ms={poll_ms}"));
-            // Pass --profile in debug builds or when KRONOS_PROFILE_HELPER is set
-            if cfg!(debug_assertions)
-                || std::env::var("KRONOS_PROFILE_HELPER").is_ok()
-            {
-                cmd.arg("--profile");
-            }
-            cmd.stdout(std::process::Stdio::piped())
-               .stderr(std::process::Stdio::piped());
-            #[cfg(windows)]
-            {
-                use std::os::windows::process::CommandExt;
-                const CREATE_NO_WINDOW: u32 = 0x08000000;
-                cmd.creation_flags(CREATE_NO_WINDOW);
-            }
-            let mut child = match cmd.spawn()
-            {
-                Ok(c) => c,
-                Err(e) => {
-                    crate::logger::log_to_disk(&app_inner, &format!(
-                        "[MEMORY WATCHER] Failed to spawn helper (will retry): {}", e
-                    ));
-                    std::thread::sleep(std::time::Duration::from_secs(2));
-                    continue;
-                }
-            };
-
-            crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Helper started");
-
-            let mut reader = match child.stdout.take() {
-                Some(s) => std::io::BufReader::new(s),
-                None => continue,
-            };
-            let mut buf = Vec::new();
-            let mut first_data = true;
-            // On Windows, ReadProcessMemory can succeed on a terminated process
-            // (pages linger until freed), so the helper never detects Warframe
-            // closed.  We track the PID we hooked into and re-verify it
-            // periodically - if the PID changed (launcher->game transition, or
-            // process died) we force a restart so the helper re-discovers the
-            // real buffer.
-            let mut hooked_pid: Option<u32> = get_warframe_pid();
-
-            // When Warframe starts *after* the app, the helper finds the process
-            // but discovelogBuffer may return nothing (EE.log ring buffer isn't
-            // populated yet).  The helper silently retries with a 5s sleep without
-            // writing anything to stdout, so read_exact would block forever.
-            // Use a timed byte-at-a-time read instead.
-            fn timed_read(reader: &mut impl std::io::Read, buf: &mut [u8], timeout: std::time::Duration) -> std::io::Result<()> {
-                let start = std::time::Instant::now();
-                let mut offset = 0;
-                while offset < buf.len() {
-                    if start.elapsed() >= timeout {
-                        return Err(std::io::Error::new(std::io::ErrorKind::TimedOut, "timeout"));
+            let pid = match get_warframe_pid() {
+                Some(p) => p,
+                None => {
+                    if had_pid {
+                        // Warframe closed mid-session - reset state so the
+                        // next cycle re-validates the VA and re-emits events
+                        // cleanly, avoiding edge cases from stale prev data.
+                        validated = false;
+                        ever_hooked = false;
+                        prev.clear();
+                        had_pid = false;
                     }
-                    match reader.read(&mut buf[offset..]) {
-                        Ok(0) => return Err(std::io::Error::new(std::io::ErrorKind::UnexpectedEof, "eof")),
-                        Ok(n) => offset += n,
-                        Err(e) if e.kind() == std::io::ErrorKind::Interrupted => continue,
-                        Err(e) => return Err(e),
-                    }
-                }
-                Ok(())
-            }
-
-            loop {
-                if !IS_SCANNING.load(Ordering::SeqCst) {
-                    let _ = child.kill();
-                    break;
-                }
-
-                // Verify the Warframe process is still alive and hasn't
-                // changed PIDs (launcher->game transition).  Cheap: just a
-                // /proc/<pid>/status stat call.
-                if let Some(expected) = hooked_pid {
-                    if let Some(current) = get_warframe_pid() {
-                        if current != expected {
-                            crate::logger::log_to_disk(&app_inner, &format!(
-                                "[MEMORY WATCHER] Warframe PID changed ({} -> {}), restarting helper...",
-                                expected, current
-                            ));
-                            clear_pid_cache();
-                            let _ = child.kill();
-                            break;
-                        }
-                    } else {
-                        crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Warframe process gone, restarting helper...");
-                        clear_pid_cache();
-                        let _ = child.kill();
-                        break;
-                    }
-                }
-
-                let mut len_buf = [0u8; 4];
-                const READ_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(15);
-                if let Err(e) = timed_read(&mut reader, &mut len_buf, READ_TIMEOUT) {
-                    crate::logger::log_to_disk(&app_inner, &format!("[MEMORY WATCHER] Helper read error ({}), restarting...", e));
-                    clear_pid_cache();
-                    let _ = child.kill();
-                    break;
-                }
-                let data_len = u32::from_le_bytes(len_buf) as usize;
-
-                // Sanity check: prevent OOM from corrupt length values.
-                // EE.log lines are typically <4 KB; 1 MB is a generous limit.
-                if data_len > 1_048_576 {
-                    crate::logger::log_to_disk(&app_inner, &format!(
-                        "[MEMORY WATCHER] Corrupt data length {}, restarting helper...", data_len
-                    ));
-                    clear_pid_cache();
-                    let _ = child.kill();
-                    break;
-                }
-
-                if data_len == 0 {
                     if !logged_waiting {
                         crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Waiting for Warframe process...");
                         logged_waiting = true;
                         SCANNER_STATUS.store(1, Ordering::SeqCst);
                     }
-                    // Kill helper so it restarts and re-hooks if Warframe was launched
-                    clear_pid_cache();
-                    let _ = child.kill();
                     std::thread::sleep(std::time::Duration::from_secs(2));
-                    break;
-                }
-
-                buf.resize(data_len, 0);
-                // Data payload should arrive immediately after the length prefix,
-                // but use a short timeout for robustness.
-                const PAYLOAD_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(2);
-                if let Err(e) = timed_read(&mut reader, &mut buf, PAYLOAD_TIMEOUT) {
-                    crate::logger::log_to_disk(&app_inner, &format!("[MEMORY WATCHER] Payload read error ({}), restarting...", e));
-                    clear_pid_cache();
-                    let _ = child.kill();
-                    break;
-                }
-
-                if first_data {
-                    crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Hooked into Warframe RAM! Backfill - dedup seeding, firing immediate-state events.");
-                    SCANNER_STATUS.store(2, Ordering::SeqCst);
-                    logged_waiting = false;
-                    first_data = false;
-                    hooked_pid = get_warframe_pid();
-                    let text = String::from_utf8_lossy(&buf);
-                    for line in text.split('\n') {
-                        let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
-                        if line.is_empty() { continue; }
-                        if !line.starts_with(|c: char| c.is_ascii_digit()) { continue; }
-                        let hash = line_hash(line);
-                        seen_set.insert(hash);
-                        // Fire state-tracking events so mid-mission restarts catch up,
-                        // but skip overlay-triggering events (riven screen, UI dialogs)
-                        // that would open stale windows.
-                        let trimmed = line.trim();
-                        if trimmed.contains("OmegaRerollSelection.lua: Diorama setup")
-                            || trimmed.contains("ThemedDetailedPurchaseDialog.lua: PopulateInfo->")
-                            || trimmed.contains("ThemedDetailedPurchaseDialog.lua: DBG: HudVis")
-                            || trimmed.contains("Dialog.lua:")
-                            || trimmed.contains("CancelJobs batchcount 0")
-                            || trimmed.contains("NpcManager::ClearAgents()")
-                            || trimmed.contains("ChatRedux.lua: Chat: Filters for")
-                            || trimmed.contains("ProjectionRewardChoice.lua: Relic reward screen shut down")
-                            || trimmed.contains("Created /Lotus/Interface/ThemedProjectionManager.swf")
-                            || trimmed.contains("Subscribing for /Lotus/Interface/MapRedux.swf")
-                        {
-                            continue;
-                        }
-                        scanner.on_line(&app_inner, line);
-                    }
-                    // Emit scanner-hooked once per scanner session (user toggle
-                    // off/on resets it).  Still filtered by first_data so a
-                    // transient helper crash mid-session doesn't re-trigger it.
-                    if !ever_hooked {
-                        ever_hooked = true;
-                        app_inner.emit("scanner-hooked", ()).unwrap_or_default();
-                        // Start the Warframe focus watcher so overlays track
-                        // the game window and hide on alt+tab.
-                        crate::overlay_utils::spawn_focus_watcher(&app_inner);
-                    }
                     continue;
                 }
+            };
+            had_pid = true;
 
-                let text = String::from_utf8_lossy(&buf);
+            if !validated {
+                // Don't re-load from disk every cycle - use the offsets
+                // from outside the loop (cache or default).
+                raw.reserve(offsets.buffer_size.saturating_sub(raw.len()));
+                match crate::mem_reader::read_ring_buffer(pid, &offsets, &mut raw) {
+                    Ok(()) => {
+                        if crate::mem_reader::validate_buffer(&raw).is_ok() {
+                            validated = true;
+                            // Persist validated VA to local cache so next
+                            // launch hooks instantly.
+                            crate::mem_reader::save_offset_cache(&offsets);
+                        } else {
+                            // Buffer content doesn't match EE.log format.
+                            if using_cache {
+                                // Cached VA is stale (game update, etc.)
+                                // Fall through to repo default immediately.
+                                crate::logger::log_to_disk(&app_inner,
+                                    "[MEMORY WATCHER] Cached VA stale, falling back to repo default");
+                                offsets = crate::mem_reader::load_offsets();
+                                using_cache = false;
+                                continue; // retry with new offsets right away
+                            }
+                            std::thread::sleep(std::time::Duration::from_secs(2));
+                            continue;
+                        }
+                    }
+                    Err(e) => {
+                        if !ever_hooked && !logged_waiting {
+                            logged_waiting = true;
+                            SCANNER_STATUS.store(1, Ordering::SeqCst);
+                        }
+                        crate::logger::log_to_disk(&app_inner, &format!(
+                            "[MEMORY WATCHER] Initial ring buffer read failed: {e:?}"
+                        ));
+                        std::thread::sleep(std::time::Duration::from_millis(150));
+                        continue;
+                    }
+                }
+            }
+
+            // ── Steady state: read, delta-diff, parse ──────────────────────
+            if let Err(e) = crate::mem_reader::read_ring_buffer(pid, &offsets, &mut raw) {
+                if ever_hooked {
+                    SCANNER_STATUS.store(3, Ordering::SeqCst);
+                }
+                crate::logger::log_to_disk(&app_inner, &format!(
+                    "[MEMORY WATCHER] Read error ({:?}), retrying...", e
+                ));
+                std::thread::sleep(std::time::Duration::from_millis(500));
+                continue;
+            }
+
+            if prev.len() != raw.len() {
+                // First cycle after validation: send all lines through on_line,
+                // including stateful triggers (riven, dialog, etc.).  The
+                // previous code skipped these to avoid stale-event noise, but
+                // that had a critical flaw: after skipping, `prev = raw.clone()`
+                // captured them in the snapshot, so subsequent delta-diffs
+                // would never see them as "new" - permanently missing events.
+                let text = String::from_utf8_lossy(&raw);
                 for line in text.split('\n') {
                     let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
-                    if line.is_empty() {
-                        continue;
-                    }
-                    if !line.starts_with(|c: char| c.is_ascii_digit()) {
-                        continue;
-                    }
-                    let hash = line_hash(line);
-                    if !seen_set.insert(hash) {
-                        continue;
-                    }
-                    seen_count += 1;
-                    if seen_count >= SEEN_RESET_THRESHOLD {
-                        seen_set.clear();
-                        seen_count = 0;
-                    }
+                    if line.is_empty() { continue; }
+                    if !line.starts_with(|c: char| c.is_ascii_digit()) { continue; }
+                    scanner.on_line(&app_inner, line);
+                }
+
+                if !ever_hooked {
+                    ever_hooked = true;
+                    SCANNER_STATUS.store(2, Ordering::SeqCst);
+                    logged_waiting = false;
+                    app_inner.emit("scanner-hooked", ()).unwrap_or_default();
+                    crate::overlay_utils::spawn_focus_watcher(&app_inner);
+                }
+
+                prev = raw.clone();
+                let poll_ms = POLL_INTERVAL_MS.load(Ordering::Relaxed);
+                std::thread::sleep(std::time::Duration::from_millis(poll_ms as u64));
+                continue;
+            }
+
+            // Delta-diff: only parse the new bytes since last poll
+            let new_bytes = crate::mem_reader::extract_new(&raw, &prev);
+            if !new_bytes.is_empty() {
+                if !ever_hooked {
+                    ever_hooked = true;
+                    SCANNER_STATUS.store(2, Ordering::SeqCst);
+                    logged_waiting = false;
+                    app_inner.emit("scanner-hooked", ()).unwrap_or_default();
+                    crate::overlay_utils::spawn_focus_watcher(&app_inner);
+                }
+
+                let text = String::from_utf8_lossy(new_bytes);
+                for line in text.split('\n') {
+                    let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
+                    if line.is_empty() { continue; }
+                    if !line.starts_with(|c: char| c.is_ascii_digit()) { continue; }
                     scanner.on_line(&app_inner, line);
                 }
             }
-            
-            // Only sleep before restarting if Warframe isn't running - prevents CPU spinning
-            // when the helper crashes on a cold start. If the game is already up, retry
-            // immediately so we hook in as fast as possible.
-            if IS_SCANNING.load(Ordering::SeqCst) && !is_warframe_running() {
-                std::thread::sleep(std::time::Duration::from_secs(2));
-            }
+
+            // Swap instead of copy for the prev buffer
+            std::mem::swap(&mut prev, &mut raw);
+
+            let poll_ms = POLL_INTERVAL_MS.load(Ordering::Relaxed);
+            std::thread::sleep(std::time::Duration::from_millis(poll_ms as u64));
         }
 
         IS_SCANNING.store(false, Ordering::SeqCst);

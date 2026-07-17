@@ -63,23 +63,6 @@ jobs:
             squashfs-tools \
             fuse
 
-      - name: Build API Helper (Linux)
-        if: matrix.platform == 'ubuntu-24.04'
-        run: |
-          bash helpers/build_linux.sh
-          strip src-tauri/data/bin/warframe-api-helper
-
-      - name: Build API Helper (macOS)
-        if: matrix.platform == 'macos-latest'
-        run: |
-          bash helpers/build_macos.sh
-
-      - name: Build API Helper (Windows)
-        if: matrix.platform == 'windows-latest'
-        shell: bash
-        run: |
-          bash helpers/build_win.sh
-
       - name: Prepare Tauri Binaries Directory
         shell: bash
         run: mkdir -p src-tauri/data/bin

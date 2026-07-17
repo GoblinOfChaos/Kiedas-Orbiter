@@ -35,7 +35,7 @@ src-tauri/data/bin/*
 !src-tauri/data/bin/*.png
 !src-tauri/data/bin/pricer-models/
 !src-tauri/data/bin/pricer-models/**
-!src-tauri/data/bin/warframe-api-helper*
+
 
 # Python cache in training pipeline
 __pycache__/

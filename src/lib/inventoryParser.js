@@ -1,18 +1,18 @@
 /**
  * inventoryParser.js
  *
- * Turns the raw API response from warframe-api-helper into structured data for
+ * Turns the raw API response from Warframe into structured data for
  * every screen in the app.  Nothing in here touches the network or the disk;
  * all that is handled by main.rs before this file even runs.
  *
  * DATA PIPELINE (how raw bytes become UI)
  * ─────────────────────────────────────────
- * 1. main.rs:check_exports()      – downloads / refreshes JSON export files
- * 2. main.rs:load_all_exports()   – reads them from disk into one big object
- * 3. main.rs:call_api_helper()    – runs the bundled helper binary, produces inventory.json
+ * 1. main.rs:check_exports()        – downloads / refreshes JSON export files
+ * 2. main.rs:load_all_exports()     – reads them from disk into one big object
+ * 3. main.rs:call_api_helper()      – scans game memory for auth token, fetches inventory
  * 4. main.rs:load_cached_inventory() – reads inventory.json from disk
- * 5. MonitoringContext.jsx        – calls (2) and (3)/(4) on startup / each scan
- * 6. parseInventory(raw, exports) – <-- YOU ARE HERE
+ * 5. MonitoringContext.jsx          – calls (2) and (3)/(4) on startup / each scan
+ * 6. parseInventory(raw, exports)   – <-- YOU ARE HERE
  *    Takes the raw inventory object and the exports bundle, returns a flat
  *    structured object consumed by Inventory.jsx, Mastery.jsx, Relics.jsx, etc.
  *
@@ -417,7 +417,7 @@ function resolveHoverboardComponents(sourceItem, dict, EW) {
 // ─── Relic Reward Resolution ──────────────────────────────────────────────────
 
 /**
- * Main export.  Receives the raw inventory JSON (from warframe-api-helper via
+ * Main export.  Receives the raw inventory JSON (from call_api_helper via
  * main.rs) and the full exports bundle (from load_all_exports via main.rs).
  * Returns a single structured object with named arrays for every item category
  * plus account-level stats.  Consumed by Inventory.jsx, Mastery.jsx,

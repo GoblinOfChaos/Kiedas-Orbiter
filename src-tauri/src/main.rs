@@ -19,6 +19,8 @@ mod ocr_engine;
 mod overlay_utils;
 mod logger;
 mod pricer;
+mod mem_reader;
+mod memory_scan;
 pub struct AppState {
     pub notif_sound: Arc<Mutex<String>>,
     pub log_scanner: Arc<Mutex<Option<log_scanner::LogScannerHandle>>>,
@@ -267,6 +269,18 @@ async fn check_exports() -> Result<String, String> {
         }
     }
 
+    // Memory offsets (EE.log buffer VA) - refresh every 24 hours; non-fatal.
+    // This lets the buffer address be updated without a release cycle.
+    let offsets_path = export_dir.join("memory_offsets.json");
+    let needs_offsets_update = !offsets_path.exists() || file_age_secs(&offsets_path) > 86_400;
+    if needs_offsets_update {
+        let url = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/master/src-tauri/data/export/memory_offsets.json";
+        match download_file(&client, url, &offsets_path).await {
+            Ok(_) => updated_count += 1,
+            Err(e) => eprintln!("Warning: could not download memory_offsets.json: {e}"),
+        }
+    }
+
     Ok(format!("Updated {} files", updated_count))
 }
 
@@ -365,9 +379,9 @@ async fn load_txt_file(app_handle: tauri::AppHandle, name: String) -> Result<Str
 
 // --- Inventory Management ---
 //
-// Inventory data is obtained by running the bundled warframe-api-helper binary,
-// which authenticates with Warframe's servers using the local game session.
-// The result is stored as data/user/inventory.json.
+// Inventory is fetched by scanning Warframe process memory for the auth token
+// (memory_scan::scan_auth), then calling mobile.warframe.com via reqwest.
+// The result is cached at data/user/inventory.json.
 
 /// Load the previously saved inventory JSON and its file modification timestamp.
 /// Returns `None` if no inventory has been fetched yet (fresh install).
@@ -396,74 +410,52 @@ async fn load_cached_inventory() -> Result<Option<(Value, u64)>, String> {
     Ok(Some((json, timestamp)))
 }
 
-/// Run the warframe-api-helper binary to fetch a fresh inventory from the game
-/// servers, save it to data/user/inventory.json, and return the parsed JSON.
-/// Called by MonitoringContext on manual scan and on each monitoring tick.
+/// Scan Warframe process memory for the auth token, then fetch inventory from
+/// mobile.warframe.com.
 #[tauri::command]
-async fn call_api_helper(app_handle: tauri::AppHandle) -> Result<Value, String> {
-    // Binary is always bundled - check writable location first, fall back to bundled
-    let bin_name = format!("warframe-api-helper{}", std::env::consts::EXE_SUFFIX);
-    let relative_bin = format!("data/bin/{}", bin_name);
-    let writable_bin = resolve_path(&relative_bin);
-    let bundled_bin = resolve_bundled_path(&app_handle, &relative_bin);
-    let bin_path = if writable_bin.exists() {
-        writable_bin
-    } else if let Some(b) = bundled_bin.clone().filter(|p| p.exists()) {
-        b
-    } else {
-        return Err(format!(
-            "warframe-api-helper not found. Writable: {:?}, Bundled: {:?}",
-            writable_bin, bundled_bin
-        ));
-    };
-    
-    let inv_dir = resolve_path("data/user");
-    let inv_path = inv_dir.join("inventory.json");
+async fn call_api_helper(_app_handle: tauri::AppHandle) -> Result<Value, String> {
+    // Find Warframe PID on a blocking thread (reads /proc or uses Win32 API).
+    let pid = tokio::task::spawn_blocking(move || {
+        crate::log_scanner::get_warframe_pid()
+    })
+    .await
+    .map_err(|e| format!("Task join error: {e}"))?
+    .ok_or_else(|| "Warframe not running".to_string())?;
 
+    // Scan process memory for auth token (blocking I/O).
+    let authz = tokio::task::spawn_blocking(move || {
+        crate::memory_scan::scan_auth(pid)
+    })
+    .await
+    .map_err(|e| format!("Scan task error: {e}"))?
+    .ok_or_else(|| "Could not find auth token in Warframe memory - try logging in first".to_string())?;
+
+    eprintln!("[inventory] auth token found, fetching inventory...");
+
+    // Fetch inventory from Warframe's mobile API.
+    let url = format!("https://mobile.warframe.com/api/inventory.php{authz}");
+    let client = reqwest::Client::new();
+    let resp = client.get(&url).send().await.map_err(|e| e.to_string())?;
+    let body = resp.bytes().await.map_err(|e| e.to_string())?;
+
+    let value: Value = serde_json::from_slice(&body)
+        .map_err(|e| format!("Invalid JSON from mobile API: {e}"))?;
+
+    // Bare {} means the API returned nothing useful.
+    if let Value::Object(ref obj) = value {
+        if obj.len() < 5 {
+            return Err("Empty inventory from API - not logged into Warframe?".to_string());
+        }
+    }
+
+    // Save to disk for cache.
+    let inv_dir = crate::resolve_path("data/user");
     if !inv_dir.exists() {
         fs::create_dir_all(&inv_dir).map_err(|e| e.to_string())?;
     }
+    let inv_path = inv_dir.join("inventory.json");
+    fs::write(&inv_path, &body).map_err(|e| e.to_string())?;
 
-    // Make the binary executable on Unix platforms.
-    #[cfg(unix)]
-    {
-        use std::os::unix::fs::PermissionsExt;
-        if let Ok(meta) = fs::metadata(&bin_path) {
-            let mut perms = meta.permissions();
-            perms.set_mode(0o755);
-            let _ = fs::set_permissions(&bin_path, perms);
-        }
-    }
-
-    let mut cmd = std::process::Command::new(&bin_path);
-    cmd.arg(format!("--output={}", inv_path.to_string_lossy()))
-       .current_dir(&inv_dir);
-
-    #[cfg(windows)]
-    {
-        use std::os::windows::process::CommandExt;
-        const CREATE_NO_WINDOW: u32 = 0x08000000;
-        cmd.creation_flags(CREATE_NO_WINDOW);
-    }
-
-    let output = cmd.output()
-        .map_err(|e| format!("Failed to launch warframe-api-helper: {e}"))?;
-
-    if !output.status.success() {
-        let stderr = String::from_utf8_lossy(&output.stderr);
-        return Err(format!("warframe-api-helper failed: {stderr}"));
-    }
-
-    let content = fs::read_to_string(&inv_path)
-        .map_err(|e| format!("Failed to read inventory.json after update: {e}"))?;
-    let value: Value = serde_json::from_str(&content)
-        .map_err(|e| format!("Failed to parse updated inventory.json: {e}"))?;
-    // Bare {} means the helper ran but the account wasn't logged in.
-    if let Value::Object(ref obj) = value {
-        if obj.len() < 5 {
-            return Err("API helper returned empty inventory - not logged into Warframe?".to_string());
-        }
-    }
     Ok(value)
 }
 
@@ -1934,9 +1926,7 @@ async fn open_url(_app_handle: tauri::AppHandle, url: String) -> Result<(), Stri
 
 #[tauri::command]
 async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppState>, path: String) -> Result<(), String> {
-    use std::path::PathBuf;
-    let path_buf = PathBuf::from(&path);
-    if !path_buf.exists() {
+    if !std::path::Path::new(&path).exists() {
         return Err("Log file does not exist".to_string());
     }
     
@@ -1966,7 +1956,7 @@ async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppSta
     drop(path_lock);
     drop(scanner_lock);
     
-    let handle = match log_scanner::spawn_memory_watcher(app.clone(), path_buf) {
+    let handle = match log_scanner::spawn_memory_watcher(app.clone()) {
         Ok(h) => h,
         Err(e) => {
             crate::log_scanner::stop_scanner(&app);
@@ -2278,44 +2268,16 @@ struct WarframeWindowRect {
     height: u32,
 }
 
-/// Find the Warframe window rect by running the helper with --get-window-rect.
+/// Find the Warframe window rect using native APIs (no helper binary).
 #[tauri::command]
 async fn get_warframe_window_rect() -> Result<Option<WarframeWindowRect>, String> {
-    let bin_name = format!("warframe-api-helper{}", std::env::consts::EXE_SUFFIX);
-    let relative = format!("data/bin/{}", bin_name);
-    let helper_path = crate::get_data_root().join(&relative);
-    if !helper_path.exists() {
-        return Err("warframe-api-helper not found".to_string());
-    }
+    let result = tokio::task::spawn_blocking(|| {
+        crate::overlay_utils::fetch_warframe_rect_sync()
+    })
+    .await
+    .map_err(|e| e.to_string())?;
 
-    let mut cmd = std::process::Command::new(&helper_path);
-    cmd.arg("--get-window-rect")
-       .stdout(std::process::Stdio::piped())
-       .stderr(std::process::Stdio::null());
-    #[cfg(windows)]
-    {
-        use std::os::windows::process::CommandExt;
-        const CREATE_NO_WINDOW: u32 = 0x08000000;
-        cmd.creation_flags(CREATE_NO_WINDOW);
-    }
-    let output = cmd.output().map_err(|e| e.to_string())?;
-
-    let stdout = String::from_utf8_lossy(&output.stdout).trim().to_string();
-    if stdout == "not found" || stdout.is_empty() {
-        return Ok(None);
-    }
-
-    let parts: Vec<&str> = stdout.split_whitespace().collect();
-    if parts.len() < 4 {
-        return Ok(None);
-    }
-
-    let x = parts[0].parse::<i32>().map_err(|_| "bad x".to_string())?;
-    let y = parts[1].parse::<i32>().map_err(|_| "bad y".to_string())?;
-    let w = parts[2].parse::<u32>().map_err(|_| "bad w".to_string())?;
-    let h = parts[3].parse::<u32>().map_err(|_| "bad h".to_string())?;
-
-    Ok(Some(WarframeWindowRect { x, y, width: w, height: h }))
+    Ok(result.map(|(x, y, w, h)| WarframeWindowRect { x, y, width: w, height: h }))
 }
 
 /// Auto-detect which monitor Warframe is on and set target_monitor to it.

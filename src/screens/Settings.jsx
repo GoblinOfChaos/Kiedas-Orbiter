@@ -237,7 +237,12 @@ export default function SettingsScreen() {
     let interval
     if (fissureOverlayEnabled) {
       const poll = () => {
-        invoke('get_scanner_status').then(setScannerStatus).catch(() => setScannerStatus('idle'))
+        invoke('get_scanner_status').then(s => {
+          setScannerStatus(prev => {
+            if (prev === 'waiting' && s === 'idle') return prev
+            return s
+          })
+        }).catch(() => setScannerStatus('idle'))
       }
       poll()
       interval = setInterval(poll, 2000)
@@ -387,6 +392,9 @@ export default function SettingsScreen() {
     setFissureOverlayEnabled(val)
     await setSetting('fissure_overlay_enabled', val)
     if (val) {
+      // Show "waiting" immediately so the UI responds right away,
+      // regardless of backend polling latency.
+      setScannerStatus('waiting')
       // Always stop first to clear any stale IS_SCANNING state from a previous session,
       // otherwise spawn_memory_watcher returns "Already scanning" if the flag is stuck.
       await invoke('stop_log_scanner').catch(console.error)
@@ -396,6 +404,7 @@ export default function SettingsScreen() {
         console.warn('Cannot start scanner: no EE.log path configured')
       }
     } else {
+      setScannerStatus('idle')
       invoke('stop_log_scanner').catch(console.error)
     }
   }
@@ -692,15 +701,18 @@ export default function SettingsScreen() {
               <div className="mt-2 flex items-center gap-2">
                 <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-700 ${scannerStatus === 'active' ? 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.9)]' :
                   scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.7)] animate-pulse' :
-                    'bg-zinc-700'
+                    scannerStatus === 'stale_offset' ? 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]' :
+                      'bg-zinc-700'
                   }`} />
                 <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${scannerStatus === 'active' ? 'text-green-400' :
                   scannerStatus === 'waiting' ? 'text-yellow-400' :
-                    'text-zinc-600'
+                    scannerStatus === 'stale_offset' ? 'text-red-400' :
+                      'text-zinc-600'
                   }`}>
                   {scannerStatus === 'active' ? 'Hooked into Warframe - scanner running' :
                     scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :
-                      'Scanner offline'}
+                      scannerStatus === 'stale_offset' ? 'EE.log offset out of date - auto-retrying' :
+                        'Scanner offline'}
                 </span>
               </div>
             </div>

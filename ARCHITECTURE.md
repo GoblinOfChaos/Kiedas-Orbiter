@@ -12,13 +12,13 @@ ring buffer from process memory and run PP-OCRv5 on the reward/riven screens.
 ```
 Warframe game process
   |
-  +-- memory scan (auth token) -> warframe-api-helper -> inventory.json
-  +-- memory scan (EE.log ring buffer) -> warframe-api-helper -> stdout -> log_scanner
+  +-- memory scan (auth token) -> Rust call_api_helper -> inventory.json
+  +-- memory scan (EE.log ring buffer) -> mem_reader.rs -> log_scanner
   |
   v
 Rust backend (src-tauri/src/)
   main.rs           - Tauri entry point, IPC commands, app lifecycle
-  log_scanner.rs    - spawns/watches warframe-api-helper, parses EE.log lines,
+  log_scanner.rs    - spawns memory watcher thread, parses EE.log lines,
                        emits fissure/relic/riven events
   ocr.rs            - screen capture, slot detection, OCR pipeline
   ocr_engine.rs     - PP-OCRv5 model wrapper (ocr-rs crate)
@@ -28,8 +28,8 @@ Rust backend (src-tauri/src/)
   |
   +-- downloads/caches JSON exports from GitHub          -> data/export/
   +-- downloads/caches media assets                      -> data/assets/
-  +-- runs warframe-api-helper for inventory              -> data/user/inventory.json
-  +-- reads EE.log lines from warframe-api-helper stdout -> emits Tauri events
+  +-- scans game memory for auth token, fetches inventory  -> data/user/inventory.json
+  +-- reads EE.log ring buffer from game process memory   -> emits Tauri events
   +-- exposes all of the above via Tauri IPC commands
   |
   v
@@ -72,17 +72,25 @@ React frontend (src/)
 
 ### EE.log Memory Watcher
 
-Reads Warframe's in-process EE.log ring buffer via a bundled C++ helper that
-scans all memory allocations and streams extracted log lines to stdout.
+Reads Warframe's in-process EE.log ring buffer natively in Rust by
+scanning /proc/&lt;pid&gt;/maps (Linux) or VirtualQueryEx (Windows) for private
+memory regions, then reading via pread / ReadProcessMemory.
 
 **Control flow:**
 
 ```
-Rust: stop_scanner()       -> kills helper via taskkill, sets IS_SCANNING=false
-Rust: spawn_memory_watcher -> spawns warframe-api-helper --read-log-buffer
-                              reads 4-byte LE length prefix + payload from stdout
-                              splits payload by newlines, hashes + deduplicates
-                              passes each line to LogScanner::on_line()
+Rust: stop_scanner()       -> sets IS_SCANNING=false, join watcher thread
+Rust: spawn_memory_watcher -> spawns tokio blocking thread:
+                              get_warframe_pid() -> enumerate memory regions
+                              for each candidate region containing log markers:
+                                score a sliding 64KB window (CHUNK - OVERLAP stride)
+                                apply penalty to executable-image address ranges
+                              pick best-scoring region, set stale_offset status
+                              loop every 150ms:
+                                pread/ReadProcessMemory the region
+                                delta-diff against previous snapshot
+                                extract new lines matching /^\d+\.?\d* .../
+                                pass each new line to LogScanner::on_line()
                                 +-- Mission Start  (_ActiveMission})
                                 +-- Relic Pool     (Resloader...Projections...starting)
                                 +-- Reward Screen  (Relic rewards initialized)
@@ -93,18 +101,8 @@ Rust: spawn_memory_watcher -> spawns warframe-api-helper --read-log-buffer
                                 +-- Riven Close    (DiegeticArtifactCards.lua: DBG: HudVis)
                                 +-- Riven Reroll   (Dialog::SendResult(4))
                               each trigger emits a Tauri event to the frontend
-
-C++: warframe-api-helper --read-log-buffer
-  loops: get Warframe process -> open handle -> enumerate all memory allocations
-         for each allocation containing "EE [Info]:" / "Sys [Info]:" / "Script [Info]:":
-           score a 64KB window centered on the match (count valid log lines)
-           apply 4x penalty to allocations in the executable image address range
-         pick the best-scoring allocation, clamp a 4MB read window to its bounds
-         loop every 150ms:
-           externalRead the window
-           extract lines matching /^\d+\.?\d* (EE|Sys|Script) \[Info\]: /
-           write 4-byte LE length + extracted bytes to stdout
-         on read failure: break, outer loop re-discovers the buffer
+                              on validation failure: reload offsets, re-discover region
+```
 ```
 
 ### OCR Pipeline (PP-OCRv5)
@@ -212,7 +210,6 @@ resource directory at runtime.
 
 ```
 bin/
-  warframe-api-helper[.exe]    bundled helper binary (Linux/Windows)
   Warframe-Exporter-CLI_Linux.AppImage  card-image extraction tool
   ocr-models/
     PP-OCRv5_mobile_det.mnn    detection model
@@ -359,12 +356,12 @@ frontend via `invoke()`.
 |---------|-----------|---------|
 | `check_exports` | MonitoringContext (startup) | Download/refresh JSON exports |
 | `load_all_exports` | MonitoringContext (startup) | Read all exports into one object |
-| `call_api_helper` | MonitoringContext (scan) | Run the API helper, get fresh inventory |
+| `call_api_helper` | MonitoringContext (scan) | Scan memory for auth token, fetch inventory from Warframe API |
 | `load_cached_inventory` | MonitoringContext (startup) | Load last saved inventory from disk |
 | `check_media_assets` | MonitoringContext (startup) | Download map + rank icon images |
 | `load_txt_file` | Dashboard | Read TXT data files from disk |
 | `start_log_scanner` | Frontend (overlay toggle) | Start memory watcher thread |
-| `stop_log_scanner` | Frontend (overlay toggle) | Kill helper, stop watcher thread |
+| `stop_log_scanner` | Frontend (overlay toggle) | Stop watcher thread |
 | `list_notes` / `read_note` / `save_note` / `delete_note` | Notes.jsx | CRUD for Markdown notes |
 | `open_data_folder` | Settings.jsx | Open data/ in OS file browser |
 | `show_notification` | Frontend | Show toast notification overlay |
@@ -391,12 +388,13 @@ frontend via `invoke()`.
 EE.log parsing engine. Contains `LogScanner` struct with `on_line()` that
 receives each log line and checks for known trigger patterns.
 
-`spawn_memory_watcher()` - spawns the helper binary with `--read-log-buffer`,
-reads the binary framing (4-byte LE length + payload), splits by newlines,
-hashes for dedup, passes to `on_line()`.
+`spawn_memory_watcher()` - spawns a tokio blocking thread that enumerates
+Warframe's memory regions, discovers the EE.log ring buffer, and polls it
+every 150ms via pread/ReadProcessMemory. New lines are delta-diffed and
+passed to `on_line()`.
 
-`stop_scanner()` - sets `IS_SCANNING=false`, kills helper via platform kill so
-the blocking `read_exact` unblocks and the thread exits cleanly.
+`stop_scanner()` - sets `IS_SCANNING=false` which causes the polling loop
+to exit and the blocking thread to join.
 
 ### `src-tauri/src/ocr.rs`
 
@@ -427,23 +425,18 @@ emits `BUNDLED_ASSET_FILES` as a Rust array literal into the build output.
 This allows runtime extraction of bundled assets without a runtime directory
 walk.
 
-### `warframe-api-helper` (C++ source: `helpers/main.cpp`)
+### Native Rust Memory Scanner (`src-tauri/src/memory_scan.rs`, `mem_reader.rs`)
 
-Bundled binary with three modes:
+The C++ helper has been fully replaced by native Rust modules:
 
-| Mode | Flag | Purpose |
-|------|------|---------|
-| Auth gruzzling | (default) | Scan Warframe memory for `?accountId=...&nonce=...`, then fetch inventory from `mobile.warframe.com` |
-| Log buffer | `--read-log-buffer` | Scan Warframe memory allocations for the EE.log ring buffer, poll every 150ms, write extracted lines to stdout with 4-byte length prefix |
-| Skip scan | `--skip-scan` | Use provided accountId/nonce without memory scan |
+| Module | Purpose |
+|--------|---------|
+| `memory_scan.rs` | Scans all private memory regions for auth tokens (`?accountId=...&nonce=...`), then fetches inventory from `mobile.warframe.com` via reqwest |
+| `mem_reader.rs` | Reads the EE.log ring buffer from process memory: loads configurable VA offsets from `data/export/memory_offsets.json`, reads via `/proc/<pid>/mem` + `pread` (Linux) or `ReadProcessMemory` (Windows), delta-diffs to extract new lines |
 
-Rust spawns with `CREATE_NO_WINDOW` (Windows) or as a regular child process.
-
-The helper links against the `Soup` library (git submodule at `lib/soup/`),
-a header-only C++ utility library providing memory scanning primitives.
-
-Build scripts for all platforms: `helpers/build_{win,linux,macos}.sh`.
-Windows helper: `helpers/inet_ntop_win.cpp` (MinGW compatibility shim).
+Both use `get_warframe_pid()` to find the Warframe process, and the memory
+region scanner (`memory_scan.rs`) walks `/proc/<pid>/maps` (Linux) or
+`VirtualQueryEx` (Windows), filtering to `MEM_PRIVATE` regions.
 
 ---
 
@@ -556,9 +549,8 @@ Cephalon Fragment exclusions: `/Eidolon`, `/Music`, `/FrameFighter`,
 |------|---------|
 | `.github/workflows/release.yml` | GitHub Actions: build + release for Linux/Windows/macOS |
 | `.github/workflows/discord_release.yml` | Post release notification to Discord |
-| `helpers/build_linux.sh` | Cross-compile warframe-api-helper for Linux |
-| `helpers/build_win.sh` | Cross-compile warframe-api-helper for Windows (MinGW) |
-| `helpers/build_macos.sh` | Cross-compile warframe-api-helper for macOS |
+| `src-tauri/src/mem_reader.rs` | Native EE.log ring buffer reader |
+| `src-tauri/src/memory_scan.rs` | Native auth token memory scanner |
 
 ---
 
@@ -599,14 +591,9 @@ Cephalon Fragment exclusions: `/Eidolon`, `/Music`, `/FrameFighter`,
       setup_weapon_information_onnx.py
       pipeline/                 scraping, preprocessing, training
 
-  helpers/                      C++ + build scripts
-    main.cpp                    warframe-api-helper source
-    inet_ntop_win.cpp           Windows compat shim
+  helpers/                      (removed — C++ helper deleted)
     training_extractor.rs       standalone OCR training data extractor
     theme_training_extractor.rs standalone theme data extractor
-    build_{win,linux,macos}.sh  cross-compile scripts
-
-  lib/soup/                     C++ utility library (git submodule)
 
   docs/                         Documentation site
     index.html, styles.css, IconKronos.png
@@ -625,8 +612,8 @@ Cephalon Fragment exclusions: `/Eidolon`, `/Music`, `/FrameFighter`,
 ## EE.log Memory Based Triggers
 
 Documentation of all log triggers used by the scanner.
-Triggers fire from the memory-based EE.log watcher (`log_scanner.rs` -> C++
-helper `--read-log-buffer`).
+Triggers fire from the memory-based EE.log watcher (`log_scanner.rs` ->
+`mem_reader.rs` ring buffer reader).
 
 ### Fissure / Relic Workflow
 

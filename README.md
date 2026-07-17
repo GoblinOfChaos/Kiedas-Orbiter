@@ -47,7 +47,7 @@ Currently this app works on **Windows**, **Linux**, and **macOS**.<br>It should 
 - Game needs to be running in borderless fullscreen for overlays to work.
 
 ### How does this work?
-This app is built on a cross-platform stack consisting of Tauri and React. It uses a custom version of [warframe-api-helper](https://github.com/Sainan/warframe-api-helper) to both fetch your inventory data from Warframe's API and read your EE.log in real-time. It parses this data and renders it in a way that's hopefully useful to you. For more details see [ARCHITECTURE.md](./ARCHITECTURE.md).
+This app is built on a cross-platform stack consisting of Tauri and React. It reads session tokens directly from Warframe's game memory and tails its EE.log ring buffer in real-time to detect relic rewards and mission events. For more details see [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 ### Is it free to use? Does it have ads?
 1. Yes, it's completely free and open-source.
@@ -91,6 +91,3 @@ pnpm install
 # Build the Tauri app (bundles Rust backend + React frontend)
 pnpm tauri build
 ```
-
-The bundled C++ helper (`warframe-api-helper`) is pre-compiled for each platform.
-To rebuild it from source, see `helpers/build_{win,linux,macos}.sh`.

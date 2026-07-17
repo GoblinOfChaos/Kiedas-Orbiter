@@ -8,7 +8,6 @@
       "data/assets/ocr/**/*",
       "data/assets/data/**/*",
       "data/assets/audio/**/*",
-      "data/bin/warframe-api-helper.exe",
       "data/bin/Warframe-Exporter-CLI.exe"
     ]
   }

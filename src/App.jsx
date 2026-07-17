@@ -216,7 +216,7 @@ function SetupScreen() {
             <AlertTriangle className="text-red-500 flex-shrink-0 mt-0.5" size={20} />
             <div>
               <p className="text-sm font-black uppercase tracking-tight text-red-400">Disclaimer</p>
-              <p className="text-xs text-kronos-text/70 mt-1">This app uses warframe-api-helper to read session tokens from game memory. Digital Extremes has not approved this application.</p>
+              <p className="text-xs text-kronos-text/70 mt-1">This app reads session tokens from game memory. Digital Extremes has not approved this application.</p>
             </div>
           </div>
           <label className="flex items-start gap-3 cursor-pointer mb-4">
@@ -396,14 +396,16 @@ function AppContent() {
             className={`w-3 h-3 rounded-full transition-all duration-300 relative group
               ${scannerStatus === 'active' ? 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]' :
                 scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.6)] animate-pulse' :
-                  'bg-gray-700'
+                  scannerStatus === 'stale_offset' ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]' :
+                    'bg-gray-700'
               }
             `}
           >
             <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${sidebarActive && sidebarSide === 'right' ? 'right-full mr-3' : 'left-full ml-3'}`}>
               {scannerStatus === 'active' ? 'Scanner Active' :
                 scannerStatus === 'waiting' ? 'Waiting for Warframe...' :
-                  'Scanner Idle'}
+                  scannerStatus === 'stale_offset' ? 'Scanner Offset Stale' :
+                    'Scanner Idle'}
             </div>
           </div>
         </div>

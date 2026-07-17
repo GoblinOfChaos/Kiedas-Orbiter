@@ -329,6 +329,17 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
         XChangeProperty(xdisplay, xid, wm_desktop, xa_cardinal, 32, prop_replace,
             &all_desktops as *const u64 as *const u8, 1);
 
+        // _NET_WM_BYPASS_COMPOSITOR = 1: tells KWin/other EWMH compositors to
+        // skip their effects pipeline (blur-behind, fade, etc.) for this
+        // window.  Root cause of the "blur artifact left behind" reports:
+        // without this, KWin's blur-behind effect can apply to this
+        // override-redirect window and retain a stale composited buffer
+        // across unmap/remap cycles.
+        let bypass_compositor = XInternAtom(xdisplay, b"_NET_WM_BYPASS_COMPOSITOR\0".as_ptr() as *const i8, 0);
+        let bypass_val: u64 = 1;
+        XChangeProperty(xdisplay, xid, bypass_compositor, xa_cardinal, 32, prop_replace,
+            &bypass_val as *const u64 as *const u8, 1);
+
         // _MOTIF_WM_HINTS: tell KWin to skip its "Center New Windows" placement
         // policy by removing decorations (flags=2, decorations=0).
         let motif_hints = XInternAtom(xdisplay, b"_MOTIF_WM_HINTS\0".as_ptr() as *const i8, 0);
@@ -607,7 +618,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     // WebKit discards its rendering surface on geometry change, so this
     // reliably clears any stale content ghosts from prior hide/show cycles.
     // (The 1x1 resize is already proven to work - visible in Bug 4 logs.)
-    // Notification overlays are skipped — their height is dynamically managed
+    // Notification overlays are skipped - their height is dynamically managed
     // by the frontend ResizeObserver and clobbering it would collapse the window.
     if !matches!(label, "overlay-tl" | "overlay-tr" | "overlay-tc") {
         let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
@@ -778,11 +789,13 @@ pub fn resize_overlay_window(
         let phys_w = (width * scale) as u32;
         let phys_h = (height * scale) as u32;
 
+        // Captured once, before any show()/hints calls, so both the
+        // remap-hint path and the ghost-clear decision below see the
+        // pre-call state consistently.
+        let was_visible = window.is_visible().unwrap_or(false);
 
-        
         #[cfg(target_os = "linux")]
         {
-            let was_visible = window.is_visible().unwrap_or(false);
             if let Some((xdisplay, xid)) = get_x11_ids(&window) {
                 apply_x11_overlay_hints(xdisplay, xid, was_visible, None);
             }
@@ -799,9 +812,20 @@ pub fn resize_overlay_window(
             window.show().map_err(|e| format!("show failed: {e}"))?;
         }
 
-        // Force backing-store invalidation via 1x1 resize before setting the
-        // real size - WebKit discards its rendering surface on geometry change.
-        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
+        // Ghost-clear (1x1 -> real size) forces WebKit to discard and
+        // recreate its rendering surface, which clears stale content from
+        // a prior hide/show cycle. Only needed on that transition - running
+        // it on every in-place resize of an already-visible window collapses
+        // the live geometry mid-repaint, producing the "scaled down / chopped
+        // off" flash. Notification overlays (tl/tr/tc) are additionally
+        // excluded because their height is driven continuously by the
+        // frontend ResizeObserver; clobbering geometry on every content
+        // update collapses the toast (mirrors the existing guard in
+        // show_window_internal).
+        let is_notification = matches!(label, "overlay-tl" | "overlay-tr" | "overlay-tc");
+        if !was_visible && !is_notification {
+            let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
+        }
         window
             .set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }))
             .map_err(|e| format!("set_size failed: {e}"))?;
@@ -841,39 +865,119 @@ struct WarframeRect {
     monitor_idx: Option<usize>,
 }
 
-/// Run warframe-api-helper --get-window-rect and parse the output.
-fn fetch_warframe_rect_sync() -> Option<(i32, i32, u32, u32)> {
-    let bin_name = format!("warframe-api-helper{}", std::env::consts::EXE_SUFFIX);
-    let relative = format!("data/bin/{}", bin_name);
-    let helper = crate::get_data_root().join(&relative);
-    if !helper.exists() {
-        return None;
-    }
-    let mut cmd = std::process::Command::new(&helper);
-    cmd.arg("--get-window-rect")
-       .stdout(std::process::Stdio::piped())
-       .stderr(std::process::Stdio::null());
-    #[cfg(windows)]
+/// Find the Warframe window position using OS-native APIs.
+pub fn fetch_warframe_rect_sync() -> Option<(i32, i32, u32, u32)> {
+    let pid = crate::log_scanner::get_warframe_pid()?;
+
+    #[cfg(target_os = "linux")]
     {
-        use std::os::windows::process::CommandExt;
-        const CREATE_NO_WINDOW: u32 = 0x08000000;
-        cmd.creation_flags(CREATE_NO_WINDOW);
+        // Use xdotool to find the Warframe window by PID. xdotool is already
+        // used elsewhere in this file (is_x11_active_window).
+        let out = std::process::Command::new("xdotool")
+            .args(["search", "--pid", &pid.to_string(), "getwindowgeometry"])
+            .output()
+            .ok()?;
+        let stdout = String::from_utf8_lossy(&out.stdout);
+        for line in stdout.lines() {
+            if let Some(x) = line.strip_prefix("  Position: ") {
+                let coords: Vec<&str> = x.splitn(2, ',').collect();
+                if coords.len() == 2 {
+                    let x = coords[0].trim().parse::<i32>().ok()?;
+                    let y = coords[1].trim().parse::<i32>().ok()?;
+                    // Next line should be Geometry
+                    // We need to scan for it - xdotool puts everything on stdout
+                    // so we parse position from the full output
+                    return Some((x, y, 0, 0)); // placeholder
+                }
+            }
+        }
+        // Parse differently: xdotool outputs "Window <id>\n  Position: x,y\n  Geometry: WxH"
+        let lines: Vec<&str> = stdout.lines().collect();
+        let pos_line = lines.iter().find(|l| l.contains("Position:"))?;
+        let geom_line = lines.iter().find(|l| l.contains("Geometry:"))?;
+        let pos_str = pos_line.trim().strip_prefix("Position: ")?;
+        let (px, py) = pos_str.split_once(',')?;
+        let geom_str = geom_line.trim().strip_prefix("Geometry: ")?;
+        let (w_str, h_str) = geom_str.split_once('x')?;
+        Some((
+            px.trim().parse().ok()?,
+            py.trim().parse().ok()?,
+            w_str.trim().parse().ok()?,
+            h_str.trim().parse().ok()?,
+        ))
     }
-    let output = cmd.output().ok()?;
-    let stdout = String::from_utf8_lossy(&output.stdout).trim().to_string();
-    if stdout == "not found" || stdout.is_empty() {
-        return None;
+
+    #[cfg(target_os = "windows")]
+    {
+        win32_find_window_rect(pid)
     }
-    let parts: Vec<&str> = stdout.split_whitespace().collect();
-    if parts.len() < 4 {
-        return None;
+
+    #[cfg(not(any(target_os = "linux", target_os = "windows")))]
+    {
+        let _ = pid;
+        None
     }
-    Some((
-        parts[0].parse::<i32>().ok()?,
-        parts[1].parse::<i32>().ok()?,
-        parts[2].parse::<u32>().ok()?,
-        parts[3].parse::<u32>().ok()?,
-    ))
+}
+
+#[cfg(target_os = "windows")]
+fn win32_find_window_rect(pid: u32) -> Option<(i32, i32, u32, u32)> {
+    type HANDLE = *mut std::ffi::c_void;
+    type BOOL = i32;
+    type DWORD = u32;
+    type HWND = HANDLE;
+    type LPARAM = isize;
+    type LONG = i32;
+
+    extern "system" {
+        fn EnumWindows(lpEnumFunc: Option<unsafe extern "system" fn(HWND, LPARAM) -> BOOL>, lParam: LPARAM) -> BOOL;
+        fn GetWindowThreadProcessId(hWnd: HWND, lpdwProcessId: *mut DWORD) -> DWORD;
+        fn GetWindowRect(hWnd: HWND, lpRect: *mut std::ffi::c_void) -> BOOL;
+        fn IsWindowVisible(hWnd: HWND) -> BOOL;
+    }
+
+    #[repr(C)]
+    struct RECT {
+        left: LONG,
+        top: LONG,
+        right: LONG,
+        bottom: LONG,
+    }
+
+    #[repr(C)]
+    struct EnumCtx {
+        target_pid: u32,
+        found_hwnd: HWND,
+    }
+
+    let mut ctx = EnumCtx { target_pid: pid, found_hwnd: std::ptr::null_mut() };
+
+    unsafe extern "system" fn enum_callback(hwnd: HWND, lparam: LPARAM) -> BOOL {
+        let ctx = &mut *(lparam as *mut EnumCtx);
+        let mut win_pid: u32 = 0;
+        GetWindowThreadProcessId(hwnd, &mut win_pid);
+        if win_pid == ctx.target_pid && IsWindowVisible(hwnd) != 0 {
+            ctx.found_hwnd = hwnd;
+            return 0;
+        }
+        1
+    }
+
+    unsafe {
+        EnumWindows(Some(enum_callback), &mut ctx as *mut EnumCtx as isize);
+        if ctx.found_hwnd.is_null() {
+            return None;
+        }
+        let mut rect = RECT { left: 0, top: 0, right: 0, bottom: 0 };
+        if GetWindowRect(ctx.found_hwnd, &mut rect as *mut _ as *mut std::ffi::c_void) == 0 {
+            return None;
+        }
+        Some((
+            rect.left,
+            rect.top,
+            (rect.right - rect.left) as u32,
+            (rect.bottom - rect.top) as u32,
+        ))
+    }
 }
 
 /// Cross-reference a window rect with available monitors to find the host monitor.
@@ -912,7 +1016,7 @@ pub fn get_warframe_monitor_idx() -> Option<usize> {
 /// Check whether the Warframe window is visible and focused.
 ///
 /// Primary: the helper's `--get-window-rect` returns coordinates only when the
-/// window has visible geometry — minimized/iconified windows return "not found".
+/// window has visible geometry - minimized/iconified windows return "not found".
 /// Secondary: `active_win_pos_rs` refines the check to catch alt+tab while the
 /// game is still visible (overlaps another window).  On KDE Wayland the crate
 /// may fail; we fall back to the rect check alone.
@@ -921,7 +1025,7 @@ pub fn get_warframe_monitor_idx() -> Option<usize> {
 /// ICONIFIED atoms as a last resort for XWayland windows where the rect check
 /// may not detect minimize.
 fn is_warframe_focused() -> bool {
-    // Minimized windows have no visible rect — catches minimize reliably.
+    // Minimized windows have no visible rect - catches minimize reliably.
     if fetch_warframe_rect_sync().is_none() {
         return false;
     }

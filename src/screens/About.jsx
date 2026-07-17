@@ -104,14 +104,7 @@ export default function About() {
             <div>
               <h3 className="text-base font-semibold text-red-400 mb-2">Important Disclaimer</h3>
               <p className="text-kronos-text/90 text-sm leading-relaxed mb-2">
-                This app uses an expanded version of{' '}
-                <button
-                  onClick={() => handleOpenLink('https://github.com/Sainan/warframe-api-helper')}
-                  className="text-kronos-accent hover:underline cursor-pointer"
-                >
-                  warframe-api-helper
-                </button>
-                {' '} to extract sessions tokens and tail game logs.
+                This app reads Warframe's game memory directly to fetch session tokens and other in-game information.
               </p>
               <ul className="text-kronos-text/80 text-xs space-y-0.5 mb-2 list-disc list-inside">
                 <li>Digital Extremes has not explicitly approved this application and has no affiliation with it.</li>

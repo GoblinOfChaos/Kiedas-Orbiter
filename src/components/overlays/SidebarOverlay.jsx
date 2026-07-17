@@ -205,11 +205,13 @@ function SidebarContent() {
           <div className={`w-3 h-3 rounded-full transition-all duration-300 relative group ${
             scannerStatus === 'active' ? 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]'
               : scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.6)] animate-pulse'
+              : scannerStatus === 'stale_offset' ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]'
               : 'bg-gray-700'
           }`}>
             <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${isRight ? 'right-full mr-3' : 'left-full ml-3'}`}>
               {scannerStatus === 'active' ? 'Scanner Active'
                 : scannerStatus === 'waiting' ? 'Waiting for Warframe...'
+                : scannerStatus === 'stale_offset' ? 'Scanner Offset Stale'
                 : 'Scanner Idle'}
             </div>
           </div>

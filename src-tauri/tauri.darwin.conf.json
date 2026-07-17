@@ -7,8 +7,7 @@
       "data/assets/ui/**/*",
       "data/assets/ocr/**/*",
       "data/assets/data/**/*",
-      "data/assets/audio/**/*",
-      "data/bin/warframe-api-helper"
+      "data/assets/audio/**/*"
     ]
   }
 }

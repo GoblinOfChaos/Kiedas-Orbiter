@@ -380,7 +380,7 @@ export default function MirroredMonitoringProvider({ children }) {
         return 'success'
       } else {
         setMonitorResult('error')
-        const msg = 'API helper returned no data'
+        const msg = 'Inventory fetch returned no data'
         setStatusText(msg)
         return msg
       }

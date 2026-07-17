@@ -113,11 +113,9 @@
         <div class="faq-item">
           <button class="faq-q">How does this work?<span class="faq-chev">▾</span></button>
           <div class="faq-a">
-            <div class="faq-a-inner">This app is built on a cross-platform stack consisting of Tauri and React. It uses
-              a custom made version of
-              <a href="https://github.com/Sainan/warframe-api-helper" target="_blank">warframe-api-helper</a> to both
-              fetch your inventory data from Warframe's API and read your EE.log in real-time. It parses this data and
-              renders it in a way that's hopefully useful to you. For more details see <a
+            <div class="faq-a-inner">This app is built on a cross-platform stack consisting of Tauri and React. It
+              reads session tokens directly from Warframe's game memory and tails its EE.log ring buffer in real-time to
+              detect relic rewards and mission events. For more details see <a
                 href="ARCHITECTURE.md">@architecture</a>.
             </div>
           </div>

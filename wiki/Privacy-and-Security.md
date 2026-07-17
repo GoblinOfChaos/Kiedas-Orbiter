@@ -30,17 +30,17 @@ Cephalon Kronos is fully open-source and does not require closed-source third-pa
 
 ## How Memory Reading Works
 
-The bundled `warframe-api-helper` utility scans Warframe's process memory allocations to find:
+The Rust backend scans Warframe's process memory allocations to find:
 
 1. **Auth tokens**: Searches for patterns like `?accountId=...&nonce=...` to retrieve session credentials for API access.
-2. **EE.log ring buffer**: Enumerates memory allocations, scores them for valid log line density, and polls the best candidate every 150ms to extract log lines.
+2. **EE.log ring buffer**: Reads the configured virtual address, validates it contains EE.log content, and polls it for new lines.
 
-No memory is modified. The helper uses `ReadProcessMemory` (Windows) or `ptrace`-based reads (Linux).
+No memory is modified. The scanner uses `/proc/<pid>/mem` + `pread` (Linux) or `ReadProcessMemory` (Windows).
 
 ## Source Code Transparency
 
 The full source code is available in this repository:
 - Rust backend: `src-tauri/src/`
 - React frontend: `src/`
-- C++ memory helper: `helpers/main.cpp`
+- Memory scanner: `src-tauri/src/mem_reader.rs`, `src-tauri/src/memory_scan.rs`
 - Neural network model training pipeline: `tools/riven-pricer/`

@@ -1,3 +1,0 @@
-[submodule "lib/soup"]
-	path = lib/soup
-	url = https://github.com/calamity-inc/Soup.git

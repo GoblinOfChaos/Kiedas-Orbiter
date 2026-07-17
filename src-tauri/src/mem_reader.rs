@@ -52,7 +52,7 @@ impl Default for MemOffsets {
     fn default() -> Self {
         Self {
             buffer_va: 0x589000,
-            buffer_size: 0x4000,
+            buffer_size: 0x20000,
         }
     }
 }
@@ -121,31 +121,6 @@ pub fn validate_buffer(buf: &[u8]) -> Result<(), &'static str> {
         return Err("stale_offset");
     }
     Ok(())
-}
-
-/// Delta-diff the current buffer against the previous snapshot.
-/// Returns a byte slice of new/changed content since the last poll,
-/// starting at the beginning of the line containing the first divergence.
-///
-/// Ported from helpers/main.cpp:645-667 (cursor-based incremental extraction).
-pub fn extract_new<'a>(current: &'a [u8], previous: &[u8]) -> &'a [u8] {
-    let check = current.len().min(previous.len());
-    let divergence = (0..check)
-        .find(|&i| current[i] != previous[i])
-        .unwrap_or(check);
-
-    if divergence >= current.len() {
-        return &[];
-    }
-
-    // Rewind to start of line containing the divergence
-    let line_start = (0..divergence)
-        .rev()
-        .find(|&i| current[i] == b'\n')
-        .map(|i| i + 1)
-        .unwrap_or(0);
-
-    &current[line_start..]
 }
 
 // ── Platform-specific process memory reading ──────────────────────────────────

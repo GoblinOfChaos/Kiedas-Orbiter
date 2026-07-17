@@ -12,7 +12,7 @@ static SCANNER_GENERATION: std::sync::atomic::AtomicU64 = std::sync::atomic::Ato
 /// Poll interval (ms) for the helper process.  Tight during fissure reward
 /// windows (150ms), relaxed otherwise (400ms) to reduce CPU/IO overhead.
 /// 50 ms default: the old 150 ms figure was calibrated for the C++ helper's
-/// 4 MB external-read + memcpy cycle.  With direct pread on a 16 KB buffer
+/// 4 MB external-read + memcpy cycle.  With direct pread on a 128 KB buffer
 /// the read+diff cost is single-digit microseconds - we can poll tighter
 /// with negligible CPU overhead and cut worst-case trigger latency by 3×.
 pub static POLL_INTERVAL_MS: AtomicU32 = AtomicU32::new(50);
@@ -486,6 +486,15 @@ pub fn get_scanner_status() -> String {
 
 // ─── Memory watcher ────────────────────────────────────────────────────────────
 
+fn line_hash(s: &str) -> u64 {
+    let mut hash: u64 = 0xcbf29ce484222325;
+    for &b in s.as_bytes() {
+        hash ^= b as u64;
+        hash = hash.wrapping_mul(0x100000001b3);
+    }
+    hash
+}
+
 /// Cached PID of a previously-discovered Warframe process.
 /// On subsequent calls we verify the cache via a cheap existence check
 /// instead of re-scanning the entire process table.
@@ -679,6 +688,7 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
         let mut ever_hooked = false;
         let mut validated = false;
         let mut had_pid = false;
+        let mut discovered = false;
 
         // Try local cache first (fast - avoids full anonymous region walk),
         // fall back to repo-pushed default.
@@ -700,6 +710,9 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
         // Scratch buffers reused across cycles (no per-cycle allocs)
         let mut raw = Vec::with_capacity(offsets.buffer_size);
         let mut prev = vec![0u8; 0];
+        let mut seen_set: std::collections::HashSet<u64> = std::collections::HashSet::new();
+        let mut seen_count: usize = 0;
+        const SEEN_RESET_THRESHOLD: usize = 16_384;
 
         loop {
             if !IS_SCANNING.load(Ordering::SeqCst) || SCANNER_GENERATION.load(Ordering::SeqCst) != my_gen {
@@ -717,6 +730,8 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                         ever_hooked = false;
                         prev.clear();
                         had_pid = false;
+                        seen_set.clear();
+                        seen_count = 0;
                     }
                     if !logged_waiting {
                         crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Waiting for Warframe process...");
@@ -749,7 +764,30 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                                     "[MEMORY WATCHER] Cached VA stale, falling back to repo default");
                                 offsets = crate::mem_reader::load_offsets();
                                 using_cache = false;
-                                continue; // retry with new offsets right away
+                                continue;
+                            }
+                            if !discovered {
+                                // One-shot discovery: scan all anonymous
+                                // regions for EE.log content.  Runs at most
+                                // once per session, result is cached to disk.
+                                discovered = true;
+                                crate::logger::log_to_disk(&app_inner,
+                                    "[MEMORY WATCHER] Default VA failed, scanning for ring buffer...");
+                                if let Some((found_va, found_size)) =
+                                    crate::memory_scan::discover_ring_buffer(pid)
+                                {
+                                    offsets = crate::mem_reader::MemOffsets {
+                                        buffer_va: found_va,
+                                        buffer_size: found_size,
+                                    };
+                                    crate::logger::log_to_disk(&app_inner, &format!(
+                                        "[MEMORY WATCHER] Discovery found VA {:#x}, size {}",
+                                        found_va, found_size
+                                    ));
+                                    continue;
+                                }
+                                crate::logger::log_to_disk(&app_inner,
+                                    "[MEMORY WATCHER] Ring buffer discovery returned no candidate");
                             }
                             std::thread::sleep(std::time::Duration::from_secs(2));
                             continue;
@@ -781,21 +819,50 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                 continue;
             }
 
-            if prev.len() != raw.len() {
-                // First cycle after validation: send all lines through on_line,
-                // including stateful triggers (riven, dialog, etc.).  The
-                // previous code skipped these to avoid stale-event noise, but
-                // that had a critical flaw: after skipping, `prev = raw.clone()`
-                // captured them in the snapshot, so subsequent delta-diffs
-                // would never see them as "new" - permanently missing events.
-                let text = String::from_utf8_lossy(&raw);
-                for line in text.split('\n') {
-                    let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
-                    if line.is_empty() { continue; }
-                    if !line.starts_with(|c: char| c.is_ascii_digit()) { continue; }
-                    scanner.on_line(&app_inner, line);
+            // ── Parse lines with hash dedup ────────────────────────────────
+            // The ring buffer is circular: new lines overwrite old content at
+            // a different position than where they're written.  Byte-level
+            // delta-diff (extract_new) alone is unreliable for this — the
+            // divergence point may be at the overwritten region, not the new
+            // content.  Instead, re-parse lines and skip by hash.
+            let text = String::from_utf8_lossy(&raw);
+            for line in text.split('\n') {
+                let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
+                if line.is_empty() { continue; }
+                if !line.starts_with(|c: char| c.is_ascii_digit()) { continue; }
+                let hash = line_hash(line);
+                if !seen_set.insert(hash) {
+                    continue;
+                }
+                seen_count += 1;
+                if seen_count >= SEEN_RESET_THRESHOLD {
+                    seen_set.clear();
+                    seen_count = 0;
                 }
 
+                // On the first cycle only (prev empty), skip stateful
+                // triggers to avoid stale-event noise from the initial
+                // buffer dump.  After that, every new line is real.
+                if prev.len() != raw.len()
+                    && (line.contains("OmegaRerollSelection.lua: Diorama setup")
+                        || line.contains("ThemedDetailedPurchaseDialog.lua: PopulateInfo->")
+                        || line.contains("ThemedDetailedPurchaseDialog.lua: DBG: HudVis")
+                        || line.contains("Dialog.lua:")
+                        || line.contains("CancelJobs batchcount 0")
+                        || line.contains("NpcManager::ClearAgents()")
+                        || line.contains("ChatRedux.lua: Chat: Filters for")
+                        || line.contains("ProjectionRewardChoice.lua: Relic reward screen shut down")
+                        || line.contains("Created /Lotus/Interface/ThemedProjectionManager.swf")
+                        || line.contains("Subscribing for /Lotus/Interface/MapRedux.swf"))
+                {
+                    continue;
+                }
+
+                scanner.on_line(&app_inner, line);
+            }
+
+            if prev.len() != raw.len() {
+                // First cycle done — mark hooked and save baseline.
                 if !ever_hooked {
                     ever_hooked = true;
                     SCANNER_STATUS.store(2, Ordering::SeqCst);
@@ -803,41 +870,32 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                     app_inner.emit("scanner-hooked", ()).unwrap_or_default();
                     crate::overlay_utils::spawn_focus_watcher(&app_inner);
                 }
-
                 prev = raw.clone();
                 let poll_ms = POLL_INTERVAL_MS.load(Ordering::Relaxed);
                 std::thread::sleep(std::time::Duration::from_millis(poll_ms as u64));
                 continue;
             }
 
-            // Delta-diff: only parse the new bytes since last poll
-            let new_bytes = crate::mem_reader::extract_new(&raw, &prev);
-            if !new_bytes.is_empty() {
-                if !ever_hooked {
-                    ever_hooked = true;
-                    SCANNER_STATUS.store(2, Ordering::SeqCst);
-                    logged_waiting = false;
-                    app_inner.emit("scanner-hooked", ()).unwrap_or_default();
-                    crate::overlay_utils::spawn_focus_watcher(&app_inner);
-                }
-
-                let text = String::from_utf8_lossy(new_bytes);
-                for line in text.split('\n') {
-                    let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
-                    if line.is_empty() { continue; }
-                    if !line.starts_with(|c: char| c.is_ascii_digit()) { continue; }
-                    scanner.on_line(&app_inner, line);
-                }
+            if !ever_hooked {
+                ever_hooked = true;
+                SCANNER_STATUS.store(2, Ordering::SeqCst);
+                logged_waiting = false;
+                app_inner.emit("scanner-hooked", ()).unwrap_or_default();
+                crate::overlay_utils::spawn_focus_watcher(&app_inner);
             }
 
-            // Swap instead of copy for the prev buffer
             std::mem::swap(&mut prev, &mut raw);
 
             let poll_ms = POLL_INTERVAL_MS.load(Ordering::Relaxed);
             std::thread::sleep(std::time::Duration::from_millis(poll_ms as u64));
         }
 
-        IS_SCANNING.store(false, Ordering::SeqCst);
+        // Only clear IS_SCANNING if we're still the current generation.
+        // If a newer thread was spawned (generation was bumped), it manages
+        // the flag — clearing it here would orphan the new thread.
+        if SCANNER_GENERATION.load(Ordering::SeqCst) == my_gen {
+            IS_SCANNING.store(false, Ordering::SeqCst);
+        }
     });
 
     Ok(LogScannerHandle {

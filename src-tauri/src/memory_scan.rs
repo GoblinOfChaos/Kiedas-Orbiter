@@ -351,6 +351,156 @@ fn scan_region_windows(pid: u32, region: &MemRegion) -> Option<String> {
     None
 }
 
+/// Score a buffer slice for EE.log-like content: lines starting with a
+/// timestamp and containing known log channel tags.
+fn ee_log_score(buf: &[u8]) -> usize {
+    buf.split(|&b| b == b'\n')
+        .filter(|l| l.len() > 12 && l[0].is_ascii_digit())
+        .filter(|l| {
+            let s = std::str::from_utf8(l).unwrap_or("");
+            s.contains("EE [Info]: ")
+                || s.contains("Sys [Info]: ")
+                || s.contains("Script [Info]: ")
+                || s.contains("Net [Info]: ")
+                || s.contains("Game [Info]: ")
+        })
+        .count()
+}
+
+/// One-shot discovery: scan all anonymous readable regions for EE.log ring
+/// buffer content.  Returns the VA + size of the best-scoring candidate,
+/// or None if no region scores above the threshold.
+///
+/// `buffer_size` is set to the full discovered region size (capped at 1MB
+/// as a safety ceiling — real ring buffer allocations are typically
+/// 128 KB - 512 KB).  This matters because the delta-diff cycle reads
+/// exactly `buffer_size` bytes every poll; if the read window is smaller
+/// than the actual ring buffer, log lines written outside the window are
+/// invisible until the write cursor wraps around, producing the "hella
+/// delayed" riven overlay symptom.
+pub fn discover_ring_buffer(pid: u32) -> Option<(u64, usize)> {
+    const MIN_LOG_SCORE: usize = 3;
+    const SCORE_OVERLAP: u64 = 256;
+    const MAX_READ_SIZE: usize = 1024 * 1024;
+
+    let regions = readable_anonymous_regions(pid)?;
+
+    #[cfg(target_os = "linux")]
+    {
+        use std::os::unix::fs::FileExt;
+        let mem_file = fs::File::open(format!("/proc/{pid}/mem")).ok()?;
+        let mut best_score: usize = 0;
+        let mut best_va: u64 = 0;
+        let mut best_end: u64 = 0;
+        let mut buf = vec![0u8; CHUNK as usize];
+        let stride = CHUNK - SCORE_OVERLAP;
+
+        for region in &regions {
+            let total = region.end - region.start;
+            let mut offset = 0u64;
+            while offset < total {
+                let want = (total - offset).min(CHUNK) as usize;
+                if mem_file.read_at(&mut buf[..want], region.start + offset).is_err() {
+                    break;
+                }
+                let score = ee_log_score(&buf[..want]);
+                if score > best_score {
+                    best_score = score;
+                    best_va = region.start + offset;
+                    best_end = region.end;
+                }
+                if want < CHUNK as usize {
+                    break;
+                }
+                offset += stride;
+            }
+        }
+
+        if best_score < MIN_LOG_SCORE {
+            return None;
+        }
+        let read_size = (best_end.saturating_sub(best_va)).min(MAX_READ_SIZE as u64) as usize;
+        Some((best_va, read_size))
+    }
+
+    #[cfg(target_os = "windows")]
+    {
+        type HANDLE = *mut std::ffi::c_void;
+        type BOOL = i32;
+        type DWORD = u32;
+        type LPCVOID = *const std::ffi::c_void;
+        type LPVOID = *mut std::ffi::c_void;
+        type SIZE_T = usize;
+        type LPSIZE_T = *mut usize;
+
+        const PROCESS_VM_READ: DWORD = 0x0010;
+
+        extern "system" {
+            fn OpenProcess(dwDesiredAccess: DWORD, bInheritHandle: BOOL, dwProcessId: DWORD) -> HANDLE;
+            fn ReadProcessMemory(
+                hProcess: HANDLE,
+                lpBaseAddress: LPCVOID,
+                lpBuffer: LPVOID,
+                nSize: SIZE_T,
+                lpNumberOfBytesRead: LPSIZE_T,
+            ) -> BOOL;
+            fn CloseHandle(hObject: HANDLE) -> BOOL;
+        }
+
+        let handle = unsafe { OpenProcess(PROCESS_VM_READ, 0, pid) };
+        if handle.is_null() {
+            return None;
+        }
+
+        let mut best_score: usize = 0;
+        let mut best_va: u64 = 0;
+        let mut best_end: u64 = 0;
+        let mut buf = vec![0u8; CHUNK as usize];
+        let stride = CHUNK - SCORE_OVERLAP;
+
+        for region in &regions {
+            let total = region.end - region.start;
+            let mut offset = 0u64;
+            while offset < total {
+                let want = (total - offset).min(CHUNK) as usize;
+                let mut bytes_read: SIZE_T = 0;
+                let ok = unsafe {
+                    ReadProcessMemory(
+                        handle,
+                        (region.start + offset) as LPCVOID,
+                        buf.as_mut_ptr() as LPVOID,
+                        want,
+                        &mut bytes_read as LPSIZE_T,
+                    )
+                };
+                if ok == 0 || bytes_read == 0 {
+                    break;
+                }
+                let score = ee_log_score(&buf[..bytes_read]);
+                if score > best_score {
+                    best_score = score;
+                    best_va = region.start + offset;
+                    best_end = region.end;
+                }
+                if bytes_read < CHUNK as usize {
+                    break;
+                }
+                offset += stride;
+            }
+        }
+
+        unsafe { CloseHandle(handle); }
+        if best_score < MIN_LOG_SCORE {
+            return None;
+        }
+        let read_size = (best_end.saturating_sub(best_va)).min(MAX_READ_SIZE) as usize;
+        Some((best_va, read_size))
+    }
+
+    #[cfg(not(any(target_os = "linux", target_os = "windows")))]
+    { let _ = regions; None }
+}
+
 // ── macOS ───────────────────────────────────────────────────────────────────
 
 #[cfg(target_os = "macos")]

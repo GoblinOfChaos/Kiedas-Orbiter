@@ -49,9 +49,6 @@ fn stop_sidebar_ungrab_timer() {
 }
 
 pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri::Monitor, String> {
-    let state = app_handle.state::<crate::AppState>();
-    let target_idx = *state.target_monitor.lock().unwrap();
-
     let main_window = app_handle
         .get_webview_window("main")
         .ok_or_else(|| "main window not found".to_string())?;
@@ -60,17 +57,19 @@ pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri:
         .available_monitors()
         .map_err(|e| e.to_string())?;
 
-    eprintln!("[OVERLAY] get_overlay_monitor: target_idx={:?} label={} monitors={}", target_idx, label, monitors.len());
-
-    if let Some(idx) = target_idx {
-        if idx < monitors.len() {
-            return Ok(monitors[idx].clone());
-        }
-    }
-
     let is_notification = matches!(label, "overlay-tl" | "overlay-tr" | "overlay-tc");
 
     if is_notification {
+        let state = app_handle.state::<crate::AppState>();
+        let target_idx = *state.target_monitor.lock().unwrap();
+        eprintln!("[OVERLAY] get_overlay_monitor: target_idx={:?} label={} monitors={}", target_idx, label, monitors.len());
+
+        if let Some(idx) = target_idx {
+            if idx < monitors.len() {
+                return Ok(monitors[idx].clone());
+            }
+        }
+
         if let Ok(mon) = get_focused_monitor(app_handle) {
             return Ok(mon);
         }
@@ -80,6 +79,8 @@ pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri:
             .ok_or_else(|| "no monitor found".to_string())
     } else {
         // Game overlays always follow Warframe's monitor - not configurable
+        eprintln!("[OVERLAY] get_overlay_monitor: label={} monitors={}", label, monitors.len());
+
         if let Some(wf_idx) = get_warframe_monitor_idx() {
             if wf_idx < monitors.len() {
                 return Ok(monitors[wf_idx].clone());

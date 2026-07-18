@@ -788,22 +788,37 @@ export default function SettingsScreen() {
               </div>
             </div>
             <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Notification Display Monitor</p>
-              <div className="flex items-center justify-between gap-3">
-                <label className="flex items-center gap-2 cursor-pointer shrink-0">
-                  <Toggle checked={autoMonitor} onChange={handleAutoMonitorToggle} />
-                  <span className="text-xs font-bold uppercase text-kronos-text whitespace-nowrap">Auto: Show on focused monitor</span>
-                </label>
-                <div className={`flex items-center gap-1.5 transition-opacity ${autoMonitor ? 'opacity-40 pointer-events-none' : ''}`}>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-kronos-dim whitespace-nowrap">Always show on this monitor:</span>
+              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Notification Monitor</p>
+              <p className="text-[10px] text-kronos-dim leading-relaxed mb-3">In-game overlays always follow Warframe's monitor. This setting only controls notification pop-ups.</p>
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="notif-monitor"
+                    checked={autoMonitor}
+                    onChange={() => handleAutoMonitorToggle(true)}
+                    className="w-4 h-4 accent-kronos-accent cursor-pointer shrink-0"
+                  />
+                  <span className="text-xs font-black uppercase text-kronos-text shrink-0">Spawn on active monitor</span>
+                  <span className="text-[10px] text-kronos-dim">Follows whichever monitor has focus (e.g. Warframe while playing)</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="notif-monitor"
+                    checked={!autoMonitor}
+                    onChange={() => handleAutoMonitorToggle(false)}
+                    className="w-4 h-4 accent-kronos-accent cursor-pointer shrink-0"
+                  />
+                  <span className="text-xs font-black uppercase text-kronos-text shrink-0 whitespace-nowrap">Spawn on monitor:</span>
                   <select
-                    value={fissureTargetMonitor}
+                    value={autoMonitor ? '' : fissureTargetMonitor}
                     disabled={autoMonitor}
                     onChange={(e) => {
                       const val = e.target.value
-                      handleSetTargetMonitor(val === 'auto' ? 'auto' : parseInt(val))
+                      handleSetTargetMonitor(parseInt(val))
                     }}
-                    className="w-40 kronos-select text-xs font-mono font-bold bg-black/20 border-white/10 text-white rounded-lg px-2 py-1.5 focus:outline-none disabled:opacity-40"
+                    className={`w-48 kronos-select text-xs font-mono font-bold bg-black/20 border-white/10 text-white rounded-lg px-2 py-1.5 focus:outline-none ${autoMonitor ? 'opacity-40' : ''}`}
                   >
                     {availableMonitors.map((mon) => (
                       <option key={mon.index} value={mon.index}>
@@ -813,7 +828,7 @@ export default function SettingsScreen() {
                   </select>
                   <button
                     onClick={() => invoke('get_available_monitors').then(setAvailableMonitors).catch(console.error)}
-                    className="p-1.5 rounded-lg bg-black/20 border border-white/10 text-kronos-dim hover:text-white transition-colors"
+                    className={`p-1.5 rounded-lg bg-black/20 border border-white/10 text-kronos-dim hover:text-white transition-colors ${autoMonitor ? 'opacity-40' : ''}`}
                     title="Refresh monitor list"
                   >
                     <RefreshCw size={14} />

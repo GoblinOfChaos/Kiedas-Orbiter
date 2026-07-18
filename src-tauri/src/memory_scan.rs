@@ -493,7 +493,7 @@ pub fn discover_ring_buffer(pid: u32) -> Option<(u64, usize)> {
         if best_score < MIN_LOG_SCORE {
             return None;
         }
-        let read_size = (best_end.saturating_sub(best_va)).min(MAX_READ_SIZE) as usize;
+        let read_size = (best_end.saturating_sub(best_va)).min(MAX_READ_SIZE as u64) as usize;
         Some((best_va, read_size))
     }
 

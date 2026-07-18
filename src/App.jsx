@@ -388,7 +388,7 @@ function AppContent() {
             `}
           >
             <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${sidebarActive && sidebarSide === 'right' ? 'right-full mr-3' : 'left-full ml-3'}`}>
-              {monitorResult === 'success' ? 'API Active' : monitorResult === 'error' ? 'API Error' : 'API Offline'}
+              {monitorResult === 'success' ? 'Inventory Sync' : monitorResult === 'error' ? 'Inventory Sync Error' : 'Inventory Sync Offline'}
             </div>
           </div>
           {/* Scanner dot */}

@@ -142,18 +142,27 @@ export function MonitoringProvider({ children }) {
   const [rawInventory, setRawInventory] = useState(null)
   const [inventoryData, setInventoryData] = useState(undefined)
   const [isInventoryLoading, setIsInventoryLoading] = useState(false)
+  const allPricesRef = useRef({})
   const [allPrices, setAllPrices] = useState(() => {
     try {
       const data = localStorage.getItem('wfm_price_cache');
-      if (!data) return {};
-      const cache = JSON.parse(data);
-      const prices = {};
-      for (const [key, val] of Object.entries(cache)) {
-        if (val && typeof val.plat === 'number') prices[key] = val.plat;
+      if (data) {
+        const cache = JSON.parse(data);
+        const prices = {};
+        for (const [key, val] of Object.entries(cache)) {
+          if (val && typeof val.plat === 'number') prices[key] = val.plat;
+        }
+        if (Object.keys(prices).length > 0) return prices;
       }
-      return prices;
-    } catch { return {} }
+      const engineRaw = localStorage.getItem('market_engine_prices');
+      if (engineRaw) {
+        const { data: entries } = JSON.parse(engineRaw);
+        if (entries && entries.length > 0) return Object.fromEntries(entries);
+      }
+    } catch { /* ignore */ }
+    return {};
   })
+  useEffect(() => { allPricesRef.current = allPrices }, [allPrices])
   const [isPriceLoading, setIsPriceLoading] = useState(false)
   const [priceFetchProgress, setPriceFetchProgress] = useState(null)
   const [priceLastUpdated, setPriceLastUpdated] = useState(localStorage.getItem('wfm_price_last_updated') || null)
@@ -553,7 +562,15 @@ export function MonitoringProvider({ children }) {
     invoke('set_monitoring_active', { active: false, result: 'idle', statusText: 'Syncing stopped' }).catch(() => {})
   }, [])
 
-  const manualRefresh = useCallback(() => callApiHelper(), [callApiHelper])
+  const manualRefresh = useCallback(async () => {
+    const wasMonitoring = intervalRef.current !== null
+    const result = await callApiHelper()
+    if (!wasMonitoring) {
+      setMonitorResult('idle')
+      setStatusText('Not syncing')
+    }
+    return result
+  }, [callApiHelper])
 
   // ── Pre-fetch prices after inventory loads ─────────────────────
   useEffect(() => {
@@ -813,7 +830,7 @@ export function MonitoringProvider({ children }) {
       const enriched = relics.map(r => {
         const sortedRewards = (r.rewards || []).map(rw => ({
           ...rw,
-          plat: allPrices[rw.uniqueName] ?? 0,
+          plat: allPricesRef.current[rw.uniqueName] ?? 0,
         }))
         const evPlat = getRelicEV(sortedRewards, 'Intact', 1, 'plat')
         const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')
@@ -836,7 +853,7 @@ export function MonitoringProvider({ children }) {
       const enriched = relics.map(r => {
         const sortedRewards = (r.rewards || []).map(rw => ({
           ...rw,
-          plat: allPrices[rw.uniqueName] ?? 0,
+          plat: allPricesRef.current[rw.uniqueName] ?? 0,
         }))
         const evPlat = getRelicEV(sortedRewards, 'Intact', 1, 'plat')
         const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')

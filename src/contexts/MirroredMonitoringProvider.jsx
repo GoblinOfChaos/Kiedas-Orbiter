@@ -171,14 +171,6 @@ export default function MirroredMonitoringProvider({ children }) {
     return () => { unsub.then(f => f()) }
   }, [])
 
-  // ── Subscribe to scanner-hooked for monitoring status ──
-  useEffect(() => {
-    const unsub = listen('scanner-hooked', () => {
-      setMonitorResult('success')
-    })
-    return () => { unsub.then(f => f()) }
-  }, [])
-
   // ── Sync monitoring active state with other windows ──
   useEffect(() => {
     const unsub = listen('monitoring-active-changed', async (e) => {
@@ -426,7 +418,15 @@ export default function MirroredMonitoringProvider({ children }) {
     EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex,
     arbyTiers: ARBY_TIERS,
     setAutoStart, startMonitoring: startMonitoringFn,
-    stopMonitoring: stopMonitoringFn, manualRefresh: callApiHelperFn,
+    stopMonitoring: stopMonitoringFn,     manualRefresh: async () => {
+      const wasMonitoring = intervalRef.current !== null
+      const result = await callApiHelperFn()
+      if (!wasMonitoring) {
+        setMonitorResult('idle')
+        setStatusText('Not syncing')
+      }
+      return result
+    },
     callApiHelper: callApiHelperFn, refreshPrices: () => Promise.resolve(),
     retryCardImages: () => Promise.resolve(), setWorldState,
   }), [exportData, isMonitoring, monitorResult, autoStart, lastUpdate, rawInventory,

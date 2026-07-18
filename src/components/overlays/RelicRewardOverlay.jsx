@@ -18,23 +18,21 @@ export default function RelicRewardOverlay() {
   const [data, setData] = useState(null)
   const [localReward, setLocalReward] = useState(null)
   const [ocrResults, setOcrResults] = useState({})
-  const [isClosing, setIsClosing] = useState(false)
   const [squadSize, setSquadSize] = useState(1)
   const [prices, setPrices] = useState({})
   const [remaining, setRemaining] = useState(RELIC_TIMEOUT)
   const [progress, setProgress] = useState(100)
-  const [windowVisible, setWindowVisible] = useState(false)
   const containerRef = useRef(null)
   const resizeTimerRef = useRef(null)
   const closeTimerRef = useRef(null)
+  const timeoutRef = useRef(null)
   const triggerCount = useRef(0)
   const [triggerKey, setTriggerKey] = useState(0)
-  const windowVisibleRef = useRef(false)
+  const showingRef = useRef(false)
 
   const showWindow = useCallback(async (fromRust = false) => {
-    if (windowVisibleRef.current) return
-    windowVisibleRef.current = true
-    setWindowVisible(true)
+    if (showingRef.current) return
+    showingRef.current = true
     if (!fromRust) {
       await invoke('show_overlay_window', { label: 'overlay-relic' }).catch(console.error)
     }
@@ -42,15 +40,12 @@ export default function RelicRewardOverlay() {
   }, [])
 
   const hideWindow = useCallback(async () => {
-    if (!windowVisibleRef.current) return
-    windowVisibleRef.current = false
-    setWindowVisible(false)
+    if (!showingRef.current) return
+    showingRef.current = false
     await invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(console.error)
   }, [])
 
   // The overlay is shown by the OCR pipeline via scanner-relic-phase-start event.
-  // No need to force-show on mount - that would show the overlay even outside
-  // a fissure mission.
 
   useEffect(() => {
     // 1. Immediately request the cached session data in case the event was missed
@@ -81,7 +76,6 @@ export default function RelicRewardOverlay() {
       setSquadSize(e.payload.squad_size)
       setOcrResults({})
       setLocalReward(null)
-      setIsClosing(false)
       setRemaining(RELIC_TIMEOUT)
       setProgress(100)
       triggerCount.current += 1
@@ -97,7 +91,6 @@ export default function RelicRewardOverlay() {
       setSquadSize(e.payload.squad_size)
       setOcrResults({})
       setLocalReward(null)
-      setIsClosing(false)
       setRemaining(RELIC_TIMEOUT)
       setProgress(100)
       triggerCount.current += 1
@@ -125,43 +118,67 @@ export default function RelicRewardOverlay() {
 
     subs.push(listen('fissure-reward-closed', () => {
       console.log('[RelicRewardOverlay] received event fissure-reward-closed')
-      setIsClosing(true)
       if (closeTimerRef.current) { clearTimeout(closeTimerRef.current) }
       closeTimerRef.current = setTimeout(() => {
         setData(null)
+        setOcrResults({})
+        setLocalReward(null)
         hideWindow()
         closeTimerRef.current = null
-      }, 500)
+      }, 10)
     }))
 
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [])
 
-  // Timer & Auto-close logic - use interval instead of RAF for better throttling resilience
+  // Safety net: if the window somehow ends up shown without data (e.g. focus
+  // watcher re-shows after timer expiry), hide it. Idempotent — no-op when
+  // already hidden.
   useEffect(() => {
-    if (!data || isClosing) return
+    if (!data) {
+      invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(console.error)
+    }
+  }, [data])
 
-    const interval = setInterval(() => {
-      setRemaining(prev => {
-        const next = Math.max(0, prev - 100)
-        setProgress((next / RELIC_TIMEOUT) * 100)
-        if (next === 0 && !isClosing) {
-          setIsClosing(true)
-          closeTimerRef.current = setTimeout(() => {
-            setData(null)
-            hideWindow()
-            closeTimerRef.current = null
-          }, 500)
-        }
-        return next
-      })
-    }, 100)
+  // Timer & Auto-close logic — uses real elapsed time so it stays accurate
+  // even when the WebView is hidden and JS timers are throttled.
+  useEffect(() => {
+    if (!data) return
+
+    const closed = { current: false }
+    const startedAt = Date.now()
+
+    const tick = () => {
+      if (closed.current) return
+      const elapsed = Date.now() - startedAt
+      const remaining = Math.max(0, RELIC_TIMEOUT - elapsed)
+      setRemaining(remaining)
+      setProgress((remaining / RELIC_TIMEOUT) * 100)
+
+      if (remaining <= 0) {
+        closed.current = true
+        setData(null)
+        setOcrResults({})
+        setLocalReward(null)
+        hideWindow()
+        return
+      }
+
+      schedule()
+    }
+
+    const schedule = () => {
+      if (closed.current) return
+      timeoutRef.current = setTimeout(tick, Math.min(100, RELIC_TIMEOUT - (Date.now() - startedAt)))
+    }
+
+    schedule()
 
     return () => {
-      clearInterval(interval)
-      if (closeTimerRef.current) { clearTimeout(closeTimerRef.current); closeTimerRef.current = null }
+      closed.current = true
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }
-  }, [data, isClosing])
+  }, [data])
 
   // Window Resize logic
   useEffect(() => {
@@ -222,7 +239,7 @@ export default function RelicRewardOverlay() {
   return (
     <div
       ref={containerRef}
-      className={`inline-block transition-all duration-500 ${isClosing ? 'opacity-0 scale-95 blur-sm' : 'animate-in fade-in zoom-in'}`}
+      className="inline-block"
       style={{ width: totalWidth }}
     >
       <div className="relative">

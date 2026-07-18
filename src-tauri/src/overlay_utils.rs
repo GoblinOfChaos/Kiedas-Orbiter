@@ -8,12 +8,28 @@ use active_win_pos_rs;
 
 static AOT_KEEPER_INSTALLED: Mutex<Vec<String>> = Mutex::new(Vec::new());
 static SHOWN_OVERLAYS: Mutex<Vec<String>> = Mutex::new(Vec::new());
+static LAST_OVERLAY_SIZES: Mutex<Vec<(String, f64, f64)>> = Mutex::new(Vec::new());
 
 pub(crate) fn clear_shown_overlay(label: &str) {
     SHOWN_OVERLAYS.lock().unwrap().retain(|l| l != label);
 }
 
+fn get_last_overlay_size(label: &str) -> Option<(f64, f64)> {
+    let sizes = LAST_OVERLAY_SIZES.lock().unwrap();
+    sizes.iter().find(|(l, _, _)| l == label).map(|(_, w, h)| (*w, *h))
+}
+
+fn set_last_overlay_size(label: &str, width: f64, height: f64) {
+    let mut sizes = LAST_OVERLAY_SIZES.lock().unwrap();
+    if let Some(entry) = sizes.iter_mut().find(|(l, _, _)| l == label) {
+        *entry = (label.to_string(), width, height);
+    } else {
+        sizes.push((label.to_string(), width, height));
+    }
+}
+
 pub(crate) static SIDEBAR_TOGGLING: AtomicBool = AtomicBool::new(false);
+pub(crate) static SIDEBAR_HIDE_ON_FOCUS_LOSS: AtomicBool = AtomicBool::new(true);
 
 /// Background ungrab timer for the sidebar overlay.  Warframe/Wine may
 /// re-assert an X pointer grab shortly after we release it; this timer
@@ -142,8 +158,8 @@ fn calculate_position(
             (rx, ry)
         }
         "overlay-relic-picker" => {
-            let rx = (mon_size.width as i32 * 85 / 100) - phys_w;
-            let ry = margin / 2;
+            let rx = mon_size.width as i32 * 50 / 100;
+            let ry = mon_size.height as i32 * 5 / 100;
             (rx, ry)
         }
         "overlay-riven-current" => (margin, (mon_size.height as i32 - (height * scale) as i32) / 2),
@@ -329,17 +345,6 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
         let all_desktops: u64 = 0xFFFFFFFF;
         XChangeProperty(xdisplay, xid, wm_desktop, xa_cardinal, 32, prop_replace,
             &all_desktops as *const u64 as *const u8, 1);
-
-        // _NET_WM_BYPASS_COMPOSITOR = 1: tells KWin/other EWMH compositors to
-        // skip their effects pipeline (blur-behind, fade, etc.) for this
-        // window.  Root cause of the "blur artifact left behind" reports:
-        // without this, KWin's blur-behind effect can apply to this
-        // override-redirect window and retain a stale composited buffer
-        // across unmap/remap cycles.
-        let bypass_compositor = XInternAtom(xdisplay, b"_NET_WM_BYPASS_COMPOSITOR\0".as_ptr() as *const i8, 0);
-        let bypass_val: u64 = 1;
-        XChangeProperty(xdisplay, xid, bypass_compositor, xa_cardinal, 32, prop_replace,
-            &bypass_val as *const u64 as *const u8, 1);
 
         // _MOTIF_WM_HINTS: tell KWin to skip its "Center New Windows" placement
         // policy by removing decorations (flags=2, decorations=0).
@@ -531,7 +536,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     }
 
     let monitor = get_overlay_monitor(app_handle, label)?;
-    let (w, h) = overlay_size(label);
+    let (w, h) = get_last_overlay_size(label).unwrap_or_else(|| overlay_size(label));
     let pos = calculate_position(label, &monitor, w, h);
 
     eprintln!("[OVERLAY] target pos=({},{})", pos.x, pos.y);
@@ -615,15 +620,16 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     #[cfg(target_os = "linux")]
     window.set_always_on_top(true)
         .map_err(|e| format!("set_always_on_top failed: {e}"))?;
-    // Force backing-store invalidation: resize to 1x1 then restore.
-    // WebKit discards its rendering surface on geometry change, so this
-    // reliably clears any stale content ghosts from prior hide/show cycles.
-    // (The 1x1 resize is already proven to work - visible in Bug 4 logs.)
-    // Notification overlays are skipped - their height is dynamically managed
+    // Force backing-store invalidation: resize to 1x1 then restore to the
+    // last known size (or the static default if never resized). WebKit
+    // discards its rendering surface on geometry change, which clears any
+    // stale content ghosts from prior hide/show cycles.
+    // Notification overlays are skipped — their height is dynamically managed
     // by the frontend ResizeObserver and clobbering it would collapse the window.
     if !matches!(label, "overlay-tl" | "overlay-tr" | "overlay-tc") {
+        let (restore_w, restore_h) = get_last_overlay_size(label).unwrap_or((w, h));
         let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
-        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: w as u32, height: h as u32 }));
+        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: restore_w as u32, height: restore_h as u32 }));
     }
     // Sidebar overlay must stay interactive (click-through breaks nav/screens).
     if label != "overlay-sidebar" {
@@ -763,7 +769,7 @@ fn overlay_size(label: &str) -> (f64, f64) {
     match label {
         "overlay-relic" => (640.0, 140.0),
         "overlay-relic-picker" => (480.0, 400.0),
-        "overlay-riven-current" | "overlay-riven-new" => (360.0, 320.0),
+        "overlay-riven-current" | "overlay-riven-new" => (360.0, 260.0),
         _ => (440.0, 1.0),
     }
 }
@@ -778,6 +784,8 @@ pub fn resize_overlay_window(
 ) -> Result<(), String> {
     eprintln!("[OVERLAY] resize_overlay_window '{}': {}x{}", label, width, height);
 
+    set_last_overlay_size(label, width, height);
+
     let window = match app_handle.get_webview_window(label) {
         Some(w) => w,
         None => create_overlay_window(app_handle, label)?,
@@ -790,13 +798,11 @@ pub fn resize_overlay_window(
         let phys_w = (width * scale) as u32;
         let phys_h = (height * scale) as u32;
 
-        // Captured once, before any show()/hints calls, so both the
-        // remap-hint path and the ghost-clear decision below see the
-        // pre-call state consistently.
-        let was_visible = window.is_visible().unwrap_or(false);
 
+        
         #[cfg(target_os = "linux")]
         {
+            let was_visible = window.is_visible().unwrap_or(false);
             if let Some((xdisplay, xid)) = get_x11_ids(&window) {
                 apply_x11_overlay_hints(xdisplay, xid, was_visible, None);
             }
@@ -813,20 +819,9 @@ pub fn resize_overlay_window(
             window.show().map_err(|e| format!("show failed: {e}"))?;
         }
 
-        // Ghost-clear (1x1 -> real size) forces WebKit to discard and
-        // recreate its rendering surface, which clears stale content from
-        // a prior hide/show cycle. Only needed on that transition - running
-        // it on every in-place resize of an already-visible window collapses
-        // the live geometry mid-repaint, producing the "scaled down / chopped
-        // off" flash. Notification overlays (tl/tr/tc) are additionally
-        // excluded because their height is driven continuously by the
-        // frontend ResizeObserver; clobbering geometry on every content
-        // update collapses the toast (mirrors the existing guard in
-        // show_window_internal).
-        let is_notification = matches!(label, "overlay-tl" | "overlay-tr" | "overlay-tc");
-        if !was_visible && !is_notification {
-            let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
-        }
+        // Force backing-store invalidation via 1x1 resize before setting the
+        // real size - WebKit discards its rendering surface on geometry change.
+        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
         window
             .set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }))
             .map_err(|e| format!("set_size failed: {e}"))?;

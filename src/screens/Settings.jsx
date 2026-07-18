@@ -88,6 +88,9 @@ export default function SettingsScreen() {
   const [sidebarSide, setSidebarSide] = useState(
     () => getSetting('sidebar_side', 'left')
   )
+  const [sidebarHideOnFocusLoss, setSidebarHideOnFocusLoss] = useState(
+    () => getSetting('sidebar_hide_on_focus_loss', true)
+  )
 
   const handleUpdateHotkeys = async (newHotkeys) => {
     setHotkeys(newHotkeys)
@@ -300,6 +303,10 @@ export default function SettingsScreen() {
     const savedMonitor = getSetting('fissure_target_monitor', 'auto')
     invoke('set_target_monitor', { monitor: savedMonitor }).catch(console.error)
 
+    // Sync sidebar hide-on-focus-loss to Rust backend on mount
+    const savedSidebarHide = getSetting('sidebar_hide_on_focus_loss', true)
+    invoke('set_sidebar_hide_on_focus_loss', { hide: savedSidebarHide }).catch(console.error)
+
     // Auto-check is handled by UpdateProvider
   }, [])
 
@@ -451,6 +458,12 @@ export default function SettingsScreen() {
     await setSetting('sidebar_side', side)
     const width = parseInt(getSetting('sidebar_width', 400))
     invoke('set_sidebar_width', { width, side, persist: true }).catch(() => {})
+  }
+
+  const handleSetSidebarHideOnFocusLoss = async (val) => {
+    setSidebarHideOnFocusLoss(val)
+    await setSetting('sidebar_hide_on_focus_loss', val)
+    invoke('set_sidebar_hide_on_focus_loss', { hide: val }).catch(console.error)
   }
 
   const handleTestNotification = (position, delay = 0) => {
@@ -876,11 +889,15 @@ export default function SettingsScreen() {
                 ))}
               </div>
             </div>
+            <div className="pt-3 border-t border-white/5">
+              <Toggle
+                checked={sidebarHideOnFocusLoss}
+                onChange={handleSetSidebarHideOnFocusLoss}
+                label="Hide sidebar when alt-tabbing"
+              />
+            </div>
           </div>
 
-          <p className="text-[9px] text-zinc-600 mt-4 italic uppercase tracking-wider px-1">
-            Configure a hotkey above to switch to ingame view. The sidebar shows your mods, rivens, and inventory overlaid on top of Warframe.
-          </p>
         </Card>
 
         {/* Global Hotkeys */}

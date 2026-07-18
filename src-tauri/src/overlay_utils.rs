@@ -463,6 +463,22 @@ fn create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<tauri::W
 pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), String> {
     eprintln!("[OVERLAY] show_window_internal: '{}'", label);
 
+    // Sidebar has its own X11-heavy show path (override-redirect, ungrab, focus).
+    if label == "overlay-sidebar" {
+        let settings = crate::load_settings_sync();
+        let side = settings
+            .get("sidebar_side")
+            .and_then(|v| v.as_str())
+            .unwrap_or("left")
+            .to_string();
+        let width = settings
+            .get("sidebar_width")
+            .and_then(|v| v.as_u64())
+            .map(|w| w as u32)
+            .unwrap_or(400);
+        return show_sidebar_internal(app_handle, &side, width);
+    }
+
     let window = match app_handle.get_webview_window(label) {
         Some(w) => w,
         None => create_overlay_window(app_handle, label)?,
@@ -688,6 +704,9 @@ pub fn show_sidebar_internal(
 
     eprintln!("[SIDEBAR] show: side={} {}x{} @({},{})", side, phys_w, mon_h, target_x, mon_y);
 
+    // Register in SHOWN_OVERLAYS so the focus watcher can track this window.
+    SHOWN_OVERLAYS.lock().unwrap().push("overlay-sidebar".to_string());
+
     let win = window.clone();
     window.run_on_main_thread(move || {
         #[cfg(target_os = "linux")]
@@ -759,6 +778,7 @@ pub fn show_sidebar_internal(
 
 pub fn hide_sidebar_internal(app_handle: &AppHandle) {
     stop_sidebar_ungrab_timer();
+    clear_shown_overlay("overlay-sidebar");
     if let Some(window) = app_handle.get_webview_window("overlay-sidebar") {
         let _ = window.hide();
         eprintln!("[SIDEBAR] hidden");
@@ -861,119 +881,29 @@ struct WarframeRect {
     monitor_idx: Option<usize>,
 }
 
-/// Find the Warframe window position using OS-native APIs.
+/// Find the Warframe window geometry using xdotool (name-based search).
 pub fn fetch_warframe_rect_sync() -> Option<(i32, i32, u32, u32)> {
-    let pid = crate::log_scanner::get_warframe_pid()?;
-
-    #[cfg(target_os = "linux")]
-    {
-        // Use xdotool to find the Warframe window by PID. xdotool is already
-        // used elsewhere in this file (is_x11_active_window).
-        let out = std::process::Command::new("xdotool")
-            .args(["search", "--pid", &pid.to_string(), "getwindowgeometry"])
-            .output()
-            .ok()?;
-        let stdout = String::from_utf8_lossy(&out.stdout);
-        for line in stdout.lines() {
-            if let Some(x) = line.strip_prefix("  Position: ") {
-                let coords: Vec<&str> = x.splitn(2, ',').collect();
-                if coords.len() == 2 {
-                    let x = coords[0].trim().parse::<i32>().ok()?;
-                    let y = coords[1].trim().parse::<i32>().ok()?;
-                    // Next line should be Geometry
-                    // We need to scan for it - xdotool puts everything on stdout
-                    // so we parse position from the full output
-                    return Some((x, y, 0, 0)); // placeholder
-                }
-            }
-        }
-        // Parse differently: xdotool outputs "Window <id>\n  Position: x,y\n  Geometry: WxH"
-        let lines: Vec<&str> = stdout.lines().collect();
-        let pos_line = lines.iter().find(|l| l.contains("Position:"))?;
-        let geom_line = lines.iter().find(|l| l.contains("Geometry:"))?;
-        let pos_str = pos_line.trim().strip_prefix("Position: ")?;
-        let (px, py) = pos_str.split_once(',')?;
-        let geom_str = geom_line.trim().strip_prefix("Geometry: ")?;
-        let (w_str, h_str) = geom_str.split_once('x')?;
-        Some((
-            px.trim().parse().ok()?,
-            py.trim().parse().ok()?,
-            w_str.trim().parse().ok()?,
-            h_str.trim().parse().ok()?,
-        ))
+    let out = std::process::Command::new("xdotool")
+        .args(["search", "--name", "Warframe", "getwindowgeometry"])
+        .output()
+        .ok()?;
+    if !out.status.success() {
+        return None;
     }
-
-    #[cfg(target_os = "windows")]
-    {
-        win32_find_window_rect(pid)
-    }
-
-    #[cfg(not(any(target_os = "linux", target_os = "windows")))]
-    {
-        let _ = pid;
-        None
-    }
-}
-
-#[cfg(target_os = "windows")]
-fn win32_find_window_rect(pid: u32) -> Option<(i32, i32, u32, u32)> {
-    type HANDLE = *mut std::ffi::c_void;
-    type BOOL = i32;
-    type DWORD = u32;
-    type HWND = HANDLE;
-    type LPARAM = isize;
-    type LONG = i32;
-
-    extern "system" {
-        fn EnumWindows(lpEnumFunc: Option<unsafe extern "system" fn(HWND, LPARAM) -> BOOL>, lParam: LPARAM) -> BOOL;
-        fn GetWindowThreadProcessId(hWnd: HWND, lpdwProcessId: *mut DWORD) -> DWORD;
-        fn GetWindowRect(hWnd: HWND, lpRect: *mut std::ffi::c_void) -> BOOL;
-        fn IsWindowVisible(hWnd: HWND) -> BOOL;
-    }
-
-    #[repr(C)]
-    struct RECT {
-        left: LONG,
-        top: LONG,
-        right: LONG,
-        bottom: LONG,
-    }
-
-    #[repr(C)]
-    struct EnumCtx {
-        target_pid: u32,
-        found_hwnd: HWND,
-    }
-
-    let mut ctx = EnumCtx { target_pid: pid, found_hwnd: std::ptr::null_mut() };
-
-    unsafe extern "system" fn enum_callback(hwnd: HWND, lparam: LPARAM) -> BOOL {
-        let ctx = &mut *(lparam as *mut EnumCtx);
-        let mut win_pid: u32 = 0;
-        GetWindowThreadProcessId(hwnd, &mut win_pid);
-        if win_pid == ctx.target_pid && IsWindowVisible(hwnd) != 0 {
-            ctx.found_hwnd = hwnd;
-            return 0;
-        }
-        1
-    }
-
-    unsafe {
-        EnumWindows(Some(enum_callback), &mut ctx as *mut EnumCtx as isize);
-        if ctx.found_hwnd.is_null() {
-            return None;
-        }
-        let mut rect = RECT { left: 0, top: 0, right: 0, bottom: 0 };
-        if GetWindowRect(ctx.found_hwnd, &mut rect as *mut _ as *mut std::ffi::c_void) == 0 {
-            return None;
-        }
-        Some((
-            rect.left,
-            rect.top,
-            (rect.right - rect.left) as u32,
-            (rect.bottom - rect.top) as u32,
-        ))
-    }
+    let stdout = String::from_utf8_lossy(&out.stdout);
+    let lines: Vec<&str> = stdout.lines().collect();
+    let pos_line = lines.iter().find(|l| l.contains("Position:"))?;
+    let geom_line = lines.iter().find(|l| l.contains("Geometry:"))?;
+    let pos_str = pos_line.trim().strip_prefix("Position: ")?;
+    let (px, py) = pos_str.split_once(',')?;
+    let geom_str = geom_line.trim().strip_prefix("Geometry: ")?;
+    let (w_str, h_str) = geom_str.split_once('x')?;
+    Some((
+        px.trim().parse().ok()?,
+        py.trim().parse().ok()?,
+        w_str.trim().parse().ok()?,
+        h_str.trim().parse().ok()?,
+    ))
 }
 
 /// Cross-reference a window rect with available monitors to find the host monitor.
@@ -1009,63 +939,16 @@ pub fn get_warframe_monitor_idx() -> Option<usize> {
     WARFRAME_CACHE.lock().unwrap().and_then(|c| c.monitor_idx)
 }
 
-/// Check whether the Warframe window is visible and focused.
-///
-/// Primary: the helper's `--get-window-rect` returns coordinates only when the
-/// window has visible geometry - minimized/iconified windows return "not found".
-/// Secondary: `active_win_pos_rs` refines the check to catch alt+tab while the
-/// game is still visible (overlaps another window).  On KDE Wayland the crate
-/// may fail; we fall back to the rect check alone.
-///
-/// Tertiary (Linux only): uses `xprop` to check `_NET_WM_STATE` for HIDDEN or
-/// ICONIFIED atoms as a last resort for XWayland windows where the rect check
-/// may not detect minimize.
+/// Check whether the currently focused window is Warframe's (PID-based).
 fn is_warframe_focused() -> bool {
-    // Minimized windows have no visible rect - catches minimize reliably.
-    if fetch_warframe_rect_sync().is_none() {
-        return false;
+    let warframe_pid = match crate::log_scanner::get_warframe_pid() {
+        Some(p) => p,
+        None => return false,
+    };
+    match active_win_pos_rs::get_active_window() {
+        Ok(active) => active.process_id == warframe_pid as u64,
+        Err(_) => false,
     }
-    // EWMH _NET_ACTIVE_WINDOW via xdotool: correctly maintained by KWin even
-    // when focus moves to a native Wayland client (unlike XGetInputFocus used
-    // by active_win_pos_rs, which never leaves the XWayland client).
-    #[cfg(target_os = "linux")]
-    {
-        if let Some(active) = is_x11_active_window("Warframe") {
-            return active;
-        }
-    }
-    // Fallback: active_win_pos_rs refinement for alt+tab within X11/XWayland.
-    if let Ok(active) = active_win_pos_rs::get_active_window() {
-        return active.app_name.to_lowercase().contains("warframe");
-    }
-    true
-}
-
-/// Check whether the X11 window whose name contains `window_name` matches
-/// `_NET_ACTIVE_WINDOW` (via `xdotool getactivewindow`).  KWin correctly
-/// maintains this EWMH atom even when focus moves to a native Wayland client,
-/// making it reliable where `XGetInputFocus` (used by `active_win_pos_rs`) is
-/// not.  Returns `None` if `xdotool` is unavailable or the window is not found.
-#[cfg(target_os = "linux")]
-fn is_x11_active_window(window_name: &str) -> Option<bool> {
-    let id_output = std::process::Command::new("xdotool")
-        .args(["search", "--name", window_name])
-        .output()
-        .ok()?;
-    if !id_output.status.success() { return None; }
-    let target_id = std::str::from_utf8(&id_output.stdout).ok()?
-        .lines().next()?.trim().to_string();
-    if target_id.is_empty() { return None; }
-
-    let active_output = std::process::Command::new("xdotool")
-        .arg("getactivewindow")
-        .output()
-        .ok()?;
-    if !active_output.status.success() {
-        return Some(false);
-    }
-    let active_id = std::str::from_utf8(&active_output.stdout).ok()?.trim();
-    Some(active_id == target_id)
 }
 
 /// Start a background thread that monitors Warframe's window position and focus
@@ -1084,18 +967,29 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
             update_warframe_cache();
 
             let focused_now = is_warframe_focused();
+            eprintln!("[FOCUS] focused_now={}, was_focused={}", focused_now, was_focused);
 
             if focused_now && !was_focused {
                 for label in had_visible.drain(..).collect::<Vec<_>>() {
+                    // Skip overlays that have been voluntarily closed (e.g. relic
+                    // reward timer expired while hidden) — they were removed from
+                    // SHOWN_OVERLAYS by clear_shown_overlay and should not re-appear.
+                    let still_expected = SHOWN_OVERLAYS.lock().unwrap().contains(&label);
+                    if !still_expected { continue; }
                     let _ = show_window_internal(&ah, &label);
                 }
             } else if !focused_now && was_focused {
+                eprintln!("[FOCUS] hiding overlays: {:?}", SHOWN_OVERLAYS.lock().unwrap());
                 had_visible.clear();
                 for label in SHOWN_OVERLAYS.lock().unwrap().iter() {
                     let is_notification = matches!(
                         label.as_str(),
                         "overlay-tl" | "overlay-tr" | "overlay-tc"
                     );
+                    let is_sidebar = label.as_str() == "overlay-sidebar";
+                    if is_sidebar && !SIDEBAR_HIDE_ON_FOCUS_LOSS.load(Ordering::SeqCst) {
+                        continue;
+                    }
                     if !is_notification {
                         had_visible.push(label.clone());
                         if let Some(w) = ah.get_webview_window(label) {
@@ -1106,7 +1000,7 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
             }
 
             was_focused = focused_now;
-            std::thread::sleep(std::time::Duration::from_millis(2000));
+            std::thread::sleep(std::time::Duration::from_millis(500));
         }
     });
 }

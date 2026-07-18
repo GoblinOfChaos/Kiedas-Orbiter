@@ -1506,7 +1506,7 @@ fn sidebar_stamp(state: &AppState) {
 }
 
 /// Load settings synchronously from disk.
-fn load_settings_sync() -> serde_json::Value {
+pub(crate) fn load_settings_sync() -> serde_json::Value {
     let path = resolve_path("data/user/settings.json");
     if path.exists() {
         std::fs::read_to_string(&path)
@@ -2372,6 +2372,12 @@ fn set_target_monitor(state: tauri::State<'_, AppState>, monitor: Value) -> Resu
 }
 
 #[tauri::command]
+fn set_sidebar_hide_on_focus_loss(hide: bool) -> Result<(), String> {
+    crate::overlay_utils::SIDEBAR_HIDE_ON_FOCUS_LOSS.store(hide, std::sync::atomic::Ordering::SeqCst);
+    Ok(())
+}
+
+#[tauri::command]
 fn is_warframe_focused() -> bool {
     if let Ok(window) = active_win_pos_rs::get_active_window() {
         let name = window.app_name.to_lowercase();
@@ -2468,12 +2474,6 @@ async fn get_known_weapon_names() -> Vec<String> {
         if std::env::var("GST_DEBUG").is_err() {
             std::env::set_var("GST_DEBUG", "*:0");
         }
-
-        // Install a non-terminating X error handler so stray protocol errors
-        // (e.g. racy BadMatch on XSetInputFocus) log and continue instead of
-        // calling exit().  Must run after GDK_BACKEND is set so the X display
-        // connection is available.
-        crate::overlay_utils::install_x_error_handler();
     }
     // Clear old debug log on startup so it doesn't grow infinitely
     let log_path = resolve_path("data/user/overlay_debug.log");
@@ -2497,7 +2497,14 @@ async fn get_known_weapon_names() -> Vec<String> {
         }
         _ => None,
     };
-    
+
+    // Sync sidebar hide-on-focus-loss to static so focus watcher uses it immediately
+    let sidebar_hide = saved_settings
+        .get("sidebar_hide_on_focus_loss")
+        .and_then(|v| v.as_bool())
+        .unwrap_or(true);
+    overlay_utils::SIDEBAR_HIDE_ON_FOCUS_LOSS.store(sidebar_hide, std::sync::atomic::Ordering::SeqCst);
+
     // Fix xcap screen capture on Linux inside AppImage:
     // When run from an AppImage, the usual env-var workarounds for WebKit / Mesa
     // are not set automatically.  Set them here so xcap always gets a working
@@ -2708,6 +2715,7 @@ async fn get_known_weapon_names() -> Vec<String> {
             get_warframe_window_rect,
             auto_detect_warframe_monitor,
             is_warframe_focused,
+            set_sidebar_hide_on_focus_loss,
         ])
         .build(tauri::generate_context!())
         .expect("error while building tauri application");

@@ -11,12 +11,15 @@ pub fn log_to_disk(_app: &AppHandle, message: &str) {
     path.push("overlay_debug.log");
     
     let wall_time = Local::now().format("%H:%M:%S%.3f").to_string();
+    let line = format!("[{}] {}", wall_time, message);
+
+    eprintln!("{line}");
 
     if let Ok(mut file) = OpenOptions::new()
         .create(true)
         .append(true)
         .open(&path) 
     {
-        let _ = writeln!(file, "[{}] {}", wall_time, message);
+        let _ = writeln!(file, "{line}");
     }
 }

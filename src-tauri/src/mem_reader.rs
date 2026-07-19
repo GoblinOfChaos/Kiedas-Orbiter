@@ -136,16 +136,13 @@ fn read_process_memory(pid: u32, va: u64, buf: &mut [u8]) -> Result<(), &'static
 
 #[cfg(target_os = "windows")]
 fn read_process_memory(pid: u32, va: u64, buf: &mut [u8]) -> Result<(), &'static str> {
-    use std::mem;
-    use std::ptr;
-
     type HANDLE = *mut std::ffi::c_void;
     type BOOL = i32;
     type DWORD = u32;
     type LPCVOID = *const std::ffi::c_void;
     type LPVOID = *mut std::ffi::c_void;
-    type SIZE_T = usize;
-    type LPSIZE_T = *mut usize;
+    type SizeT = usize;
+    type LpsizeT = *mut usize;
 
     const PROCESS_VM_READ: DWORD = 0x0010;
     const PROCESS_QUERY_INFORMATION: DWORD = 0x0400;
@@ -156,8 +153,8 @@ fn read_process_memory(pid: u32, va: u64, buf: &mut [u8]) -> Result<(), &'static
             hProcess: HANDLE,
             lpBaseAddress: LPCVOID,
             lpBuffer: LPVOID,
-            nSize: SIZE_T,
-            lpNumberOfBytesRead: LPSIZE_T,
+            nSize: SizeT,
+            lpNumberOfBytesRead: LpsizeT,
         ) -> BOOL;
         fn CloseHandle(hObject: HANDLE) -> BOOL;
     }
@@ -169,14 +166,14 @@ fn read_process_memory(pid: u32, va: u64, buf: &mut [u8]) -> Result<(), &'static
         return Err("open_process_failed");
     }
 
-    let mut bytes_read: SIZE_T = 0;
+    let mut bytes_read: SizeT = 0;
     let ok = unsafe {
         ReadProcessMemory(
             handle,
             va as LPCVOID,
             buf.as_mut_ptr() as LPVOID,
             buf.len(),
-            &mut bytes_read as LPSIZE_T,
+            &mut bytes_read as LpsizeT,
         )
     };
 

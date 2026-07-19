@@ -78,7 +78,6 @@ pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri:
     if is_notification {
         let state = app_handle.state::<crate::AppState>();
         let target_idx = *state.target_monitor.lock().unwrap();
-        eprintln!("[OVERLAY] get_overlay_monitor: target_idx={:?} label={} monitors={}", target_idx, label, monitors.len());
 
         if let Some(idx) = target_idx {
             if idx < monitors.len() {
@@ -94,17 +93,11 @@ pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri:
             .map_err(|e| e.to_string())?
             .ok_or_else(|| "no monitor found".to_string())
     } else {
-        // Game overlays always follow Warframe's monitor - not configurable
-        eprintln!("[OVERLAY] get_overlay_monitor: label={} monitors={}", label, monitors.len());
-
-        if let Some(mon) = warframe_monitor(app_handle) {
-            return Ok(mon);
-        }
-        main_window
-            .current_monitor()
-            .map_err(|e| e.to_string())?
-            .or_else(|| main_window.primary_monitor().ok().flatten())
-            .ok_or_else(|| "no monitor found".to_string())
+        // Game overlays always follow Warframe's monitor - not configurable.
+        // Never fall back to current/primary monitor — if we can't determine
+        // Warframe's rect, the overlay simply won't show until it's found.
+        warframe_monitor(app_handle)
+            .ok_or_else(|| "Warframe window not found".to_string())
     }
 }
 
@@ -369,8 +362,6 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
             // which updates GDK's internal state so GTK doesn't get confused by
             // raw X11 moves performed behind its back.
         }
-
-        eprintln!("[OVERLAY] apply_x11_overlay_hints: XID={} already_mapped={} -> ABOVE|STICKY + DESKTOP=0xFFFFFFFF + undecorated", xid, already_mapped);
     }
 }
 
@@ -395,7 +386,6 @@ fn force_position_x11(window: &WebviewWindow, x: i32, y: i32) {
     unsafe {
         XMoveWindow(xdisplay, xid, x, y);
         XFlush(xdisplay);
-        eprintln!("[OVERLAY] force_position_x11: XID={} -> ({},{})", xid, x, y);
     }
 }
 
@@ -414,7 +404,6 @@ fn install_deiconify_handler(window: &WebviewWindow, label: &str) {
     gtk_window.realize();
     gtk_window.connect_window_state_event(|win, event| {
         if event.new_window_state().contains(gtk::gdk::WindowState::ICONIFIED) {
-            eprintln!("[OVERLAY] deiconify: was iconified, restoring");
             win.deiconify();
             win.show();
         }
@@ -459,8 +448,6 @@ fn create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<tauri::W
 // ── Public API ────────────────────────────────────────────────────────────────
 
 pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), String> {
-    eprintln!("[OVERLAY] show_window_internal: '{}'", label);
-
     // Sidebar has its own X11-heavy show path (override-redirect, ungrab, focus).
     if label == "overlay-sidebar" {
         let settings = crate::load_settings_sync();
@@ -491,11 +478,9 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         let mut installed = AOT_KEEPER_INSTALLED.lock().unwrap();
         if !installed.contains(&label.to_string()) {
             let w = window.clone();
-            let label_owned = label.to_string();
             window.on_window_event(move |event| {
                 if let tauri::WindowEvent::Focused(focused) = event {
                     if !focused {
-                        eprintln!("[OVERLAY] AOT keeper: '{}' lost focus", label_owned);
                         #[cfg(target_os = "linux")]
                         { let _ = w.set_always_on_top(true); raise_x11(&w); }
                         #[cfg(not(target_os = "linux"))]
@@ -552,8 +537,6 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
     let monitor = get_overlay_monitor(app_handle, label)?;
     let (w, h) = get_last_overlay_size(label).unwrap_or_else(|| overlay_size(label));
     let pos = calculate_position(label, &monitor, w, h);
-
-    eprintln!("[OVERLAY] target pos=({},{})", pos.x, pos.y);
 
     #[cfg(target_os = "linux")]
     #[allow(unused_assignments)]
@@ -663,12 +646,6 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         }
     }
 
-    let pos_after = window.outer_position()
-        .map(|p| format!("({},{})", p.x, p.y))
-        .unwrap_or("ERR".into());
-    let visible = window.is_visible().unwrap_or(false);
-    eprintln!("[OVERLAY] FINAL '{}': pos={} visible={}", label, pos_after, visible);
-
     Ok(())
 }
 
@@ -700,8 +677,6 @@ pub fn show_sidebar_internal(
         _       => mon_x,
     };
 
-    eprintln!("[SIDEBAR] show: side={} {}x{} @({},{})", side, phys_w, mon_h, target_x, mon_y);
-
     // Register in SHOWN_OVERLAYS so the focus watcher can track this window.
     SHOWN_OVERLAYS.lock().unwrap().push("overlay-sidebar".to_string());
 
@@ -723,7 +698,6 @@ pub fn show_sidebar_internal(
             if let Some((xdisplay, xid)) = x11_ids {
                 apply_x11_overlay_hints(xdisplay, xid, was_visible,
                     Some((target_x, mon_y, phys_w, mon_h)));
-                eprintln!("[SIDEBAR] x11 hints applied xid={}", xid);
             }
         }
 
@@ -761,10 +735,7 @@ pub fn show_sidebar_internal(
                 XSetInputFocus(xdisplay, xid, REVERT_TO_POINTER_ROOT, CURRENT_TIME);
                 XSync(xdisplay, 0);
             }
-            eprintln!("[SIDEBAR] map(if first) + ungrab + focus on XID={}", xid);
         }
-
-        eprintln!("[SIDEBAR] show done");
     }).map_err(|e| format!("run_on_main_thread failed: {e}"))?;
 
     // Background timer: periodically release Wine's X grab so clicks
@@ -779,7 +750,6 @@ pub fn hide_sidebar_internal(app_handle: &AppHandle) {
     clear_shown_overlay("overlay-sidebar");
     if let Some(window) = app_handle.get_webview_window("overlay-sidebar") {
         let _ = window.hide();
-        eprintln!("[SIDEBAR] hidden");
     }
 }
 
@@ -800,8 +770,6 @@ pub fn resize_overlay_window(
     width: f64,
     height: f64,
 ) -> Result<(), String> {
-    eprintln!("[OVERLAY] resize_overlay_window '{}': {}x{}", label, width, height);
-
     set_last_overlay_size(label, width, height);
 
     let window = match app_handle.get_webview_window(label) {
@@ -925,41 +893,46 @@ pub fn fetch_warframe_rect_sync() -> Option<(i32, i32, u32, u32)> {
     }
 
     let target_pid = crate::log_scanner::get_warframe_pid()?;
-    let result = std::sync::Mutex::new(None::<(i32, i32, u32, u32)>);
+    let result = std::sync::Mutex::new((target_pid, None::<(i32, i32, u32, u32)>));
 
     unsafe extern "system" fn enum_proc(hwnd: HANDLE, lparam: LPARAM) -> BOOL {
-        let ctx = &*(lparam as *const std::sync::Mutex<Option<(i32, i32, u32, u32)>>);
+        let ctx = &*(lparam as *const std::sync::Mutex<(u32, Option<(i32, i32, u32, u32)>)>);
         let mut pid: DWORD = 0;
         GetWindowThreadProcessId(hwnd, &mut pid);
         if pid == 0 { return 1; }
         if IsWindowVisible(hwnd) == 0 { return 1; }
 
-        let target = ctx.lock().unwrap();
-        let (target_pid, _, _, _, _) = target.as_ref().unwrap();
-        if pid == *target_pid as DWORD {
-            let mut r = RECT { left: 0, top: 0, right: 0, bottom: 0 };
-            if GetWindowRect(hwnd, &mut r) != 0 {
-                drop(target);
-                *ctx.lock().unwrap() = Some((
-                    r.left,
-                    r.top,
-                    (r.right - r.left) as u32,
-                    (r.bottom - r.top) as u32,
-                ));
-                return 0;
+        let mut guard = ctx.lock().unwrap();
+        if pid != guard.0 { return 1; }
+
+        let mut r = RECT { left: 0, top: 0, right: 0, bottom: 0 };
+        if GetWindowRect(hwnd, &mut r) != 0 {
+            let w = (r.right - r.left) as u32;
+            let h = (r.bottom - r.top) as u32;
+            let area = w as u64 * h as u64;
+            let at_origin = r.left == 0 && r.top == 0;
+            let better = match guard.1 {
+                None => true,
+                Some((ox, oy, ow, oh)) => {
+                    let existing_area = ow as u64 * oh as u64;
+                    let existing_at_origin = ox == 0 && oy == 0;
+                    area > existing_area || (area == existing_area && existing_at_origin && !at_origin)
+                }
+            };
+            if better {
+                guard.1 = Some((r.left, r.top, w, h));
             }
         }
         1
     }
 
-    *result.lock().unwrap() = Some((target_pid as i32, 0, 0, 0));
     unsafe {
         EnumWindows(Some(enum_proc), &result as *const _ as isize);
     }
     let guard = result.lock().unwrap();
-    let (_, x, y, w, h) = guard.as_ref()?;
-    if *w == 0 { return None; }
-    Some((*x, *y, *w, *h))
+    let (x, y, w, h) = guard.1?;
+    if w == 0 { return None; }
+    Some((x, y, w, h))
 }
 
 #[cfg(not(any(target_os = "linux", target_os = "windows")))]
@@ -1060,6 +1033,21 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
                     let _ = show_window_internal(&ah, &label);
                 }
             } else if !focused_now && was_focused {
+                // Don't hide overlays if focus moved to one of our own overlay
+                // windows (e.g. user clicked the sidebar) — that would trigger a
+                // hide-then-re-show loop when focus falls through to Warframe.
+                let our_pid = std::process::id() as u64;
+                let on_our_overlay = active_win_pos_rs::get_active_window()
+                    .map(|w| w.process_id == our_pid)
+                    .unwrap_or(false);
+                if on_our_overlay {
+                    // Treat focus-on-our-overlay as "still focused" so we don't
+                    // (a) hide anything now, and (b) later suppress the re-show
+                    // branch by leaving was_focused stuck at true.
+                    was_focused = true;
+                    std::thread::sleep(std::time::Duration::from_millis(500));
+                    continue;
+                }
                 had_visible.clear();
                 for label in SHOWN_OVERLAYS.lock().unwrap().iter() {
                     let is_notification = matches!(

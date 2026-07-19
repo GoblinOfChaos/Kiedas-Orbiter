@@ -1,5 +1,5 @@
-use std::fs;
 use std::sync::Mutex;
+use std::sync::atomic::{AtomicBool, Ordering};
 
 const NEEDLE: &[u8] = b"?accountId=";
 const NONCE_PREFIX: &[u8] = b"&nonce=";
@@ -18,6 +18,7 @@ pub(crate) struct MemRegion {
 /// so a cached region is likely to contain the active auth token on the next
 /// periodic fetch - avoids a full region walk on the common path.
 static AUTH_LOCATION: Mutex<Option<MemRegion>> = Mutex::new(None);
+static SCAN_IN_PROGRESS: AtomicBool = AtomicBool::new(false);
 
 pub fn scan_auth(pid: u32) -> Option<String> {
     // Fast path: try the region where auth was found last time.
@@ -30,38 +31,47 @@ pub fn scan_auth(pid: u32) -> Option<String> {
         }
     }
 
-    // Fall back to full anonymous region walk.
-    let regions = readable_anonymous_regions(pid)?;
+    // Reentrancy guard: collapse concurrent full walks into one.
+    if SCAN_IN_PROGRESS.swap(true, Ordering::SeqCst) {
+        return None;
+    }
+    let start = std::time::Instant::now();
+    let result = (|| {
+        let regions = readable_anonymous_regions(pid)?;
 
-    #[cfg(target_os = "linux")]
-    {
-        let mem_file = fs::File::open(format!("/proc/{pid}/mem")).ok()?;
-        for region in &regions {
-            if let Some(auth) = scan_region_linux(&mem_file, region) {
-                if let Ok(mut cache) = AUTH_LOCATION.lock() {
-                    *cache = Some(MemRegion { start: region.start, end: region.end });
+        #[cfg(target_os = "linux")]
+        {
+            let mem_file = fs::File::open(format!("/proc/{pid}/mem")).ok()?;
+            for region in &regions {
+                if let Some(auth) = scan_region_linux(&mem_file, region) {
+                    if let Ok(mut cache) = AUTH_LOCATION.lock() {
+                        *cache = Some(MemRegion { start: region.start, end: region.end });
+                    }
+                    return Some(auth);
                 }
-                return Some(auth);
             }
         }
-    }
 
-    #[cfg(target_os = "windows")]
-    {
-        for region in &regions {
-            if let Some(auth) = scan_region_windows(pid, region) {
-                if let Ok(mut cache) = AUTH_LOCATION.lock() {
-                    *cache = Some(MemRegion { start: region.start, end: region.end });
+        #[cfg(target_os = "windows")]
+        {
+            for region in &regions {
+                if let Some(auth) = scan_region_windows(pid, region) {
+                    if let Ok(mut cache) = AUTH_LOCATION.lock() {
+                        *cache = Some(MemRegion { start: region.start, end: region.end });
+                    }
+                    return Some(auth);
                 }
-                return Some(auth);
             }
         }
-    }
 
-    #[cfg(not(any(target_os = "linux", target_os = "windows")))]
-    let _ = regions;
+        #[cfg(not(any(target_os = "linux", target_os = "windows")))]
+        let _ = regions;
 
-    None
+        None
+    })();
+    eprintln!("[AUTH_SCAN] full walk took {:?}, found={}", start.elapsed(), result.is_some());
+    SCAN_IN_PROGRESS.store(false, Ordering::SeqCst);
+    result
 }
 
 /// Quick one-region scan used by the auth location cache fast path.
@@ -208,7 +218,7 @@ pub(crate) fn readable_anonymous_regions(pid: u32) -> Option<Vec<MemRegion>> {
     type BOOL = i32;
     type DWORD = u32;
     type LPCVOID = *const std::ffi::c_void;
-    type SIZE_T = usize;
+    type SizeT = usize;
 
     const PROCESS_QUERY_INFORMATION: DWORD = 0x0400;
     const PROCESS_VM_READ: DWORD = 0x0010;
@@ -224,7 +234,7 @@ pub(crate) fn readable_anonymous_regions(pid: u32) -> Option<Vec<MemRegion>> {
         base_address: LPCVOID,
         allocation_base: LPCVOID,
         allocation_protect: DWORD,
-        region_size: SIZE_T,
+        region_size: SizeT,
         state: DWORD,
         protect: DWORD,
         type_: DWORD,
@@ -232,7 +242,7 @@ pub(crate) fn readable_anonymous_regions(pid: u32) -> Option<Vec<MemRegion>> {
 
     extern "system" {
         fn OpenProcess(dwDesiredAccess: DWORD, bInheritHandle: BOOL, dwProcessId: DWORD) -> HANDLE;
-        fn VirtualQueryEx(hProcess: HANDLE, lpAddress: LPCVOID, lpBuffer: *mut MEMORY_BASIC_INFORMATION, dwLength: SIZE_T) -> SIZE_T;
+        fn VirtualQueryEx(hProcess: HANDLE, lpAddress: LPCVOID, lpBuffer: *mut MEMORY_BASIC_INFORMATION, dwLength: SizeT) -> SizeT;
         fn CloseHandle(hObject: HANDLE) -> BOOL;
     }
 
@@ -292,8 +302,8 @@ fn scan_region_windows(pid: u32, region: &MemRegion) -> Option<String> {
     type DWORD = u32;
     type LPCVOID = *const std::ffi::c_void;
     type LPVOID = *mut std::ffi::c_void;
-    type SIZE_T = usize;
-    type LPSIZE_T = *mut usize;
+    type SizeT = usize;
+    type LpsizeT = *mut usize;
 
     const PROCESS_VM_READ: DWORD = 0x0010;
 
@@ -303,8 +313,8 @@ fn scan_region_windows(pid: u32, region: &MemRegion) -> Option<String> {
             hProcess: HANDLE,
             lpBaseAddress: LPCVOID,
             lpBuffer: LPVOID,
-            nSize: SIZE_T,
-            lpNumberOfBytesRead: LPSIZE_T,
+            nSize: SizeT,
+            lpNumberOfBytesRead: LpsizeT,
         ) -> BOOL;
         fn CloseHandle(hObject: HANDLE) -> BOOL;
     }
@@ -321,14 +331,14 @@ fn scan_region_windows(pid: u32, region: &MemRegion) -> Option<String> {
 
     while offset < total as u64 {
         let want = (total as u64 - offset).min(CHUNK) as usize;
-        let mut bytes_read: SIZE_T = 0;
+        let mut bytes_read: SizeT = 0;
         let ok = unsafe {
             ReadProcessMemory(
                 handle,
                 (region.start + offset) as LPCVOID,
                 buf.as_mut_ptr() as LPVOID,
                 want,
-                &mut bytes_read as LPSIZE_T,
+                &mut bytes_read as LpsizeT,
             )
         };
         if ok == 0 || bytes_read == 0 {
@@ -427,8 +437,8 @@ pub fn discover_ring_buffer(pid: u32) -> Option<(u64, usize)> {
         type DWORD = u32;
         type LPCVOID = *const std::ffi::c_void;
         type LPVOID = *mut std::ffi::c_void;
-        type SIZE_T = usize;
-        type LPSIZE_T = *mut usize;
+        type SizeT = usize;
+        type LpsizeT = *mut usize;
 
         const PROCESS_VM_READ: DWORD = 0x0010;
 
@@ -438,8 +448,8 @@ pub fn discover_ring_buffer(pid: u32) -> Option<(u64, usize)> {
                 hProcess: HANDLE,
                 lpBaseAddress: LPCVOID,
                 lpBuffer: LPVOID,
-                nSize: SIZE_T,
-                lpNumberOfBytesRead: LPSIZE_T,
+                nSize: SizeT,
+                lpNumberOfBytesRead: LpsizeT,
             ) -> BOOL;
             fn CloseHandle(hObject: HANDLE) -> BOOL;
         }
@@ -460,14 +470,14 @@ pub fn discover_ring_buffer(pid: u32) -> Option<(u64, usize)> {
             let mut offset = 0u64;
             while offset < total {
                 let want = (total - offset).min(CHUNK) as usize;
-                let mut bytes_read: SIZE_T = 0;
+                let mut bytes_read: SizeT = 0;
                 let ok = unsafe {
                     ReadProcessMemory(
                         handle,
                         (region.start + offset) as LPCVOID,
                         buf.as_mut_ptr() as LPVOID,
                         want,
-                        &mut bytes_read as LPSIZE_T,
+                        &mut bytes_read as LpsizeT,
                     )
                 };
                 if ok == 0 || bytes_read == 0 {

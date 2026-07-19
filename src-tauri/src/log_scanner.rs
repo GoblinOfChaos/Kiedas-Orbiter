@@ -602,9 +602,9 @@ pub fn get_warframe_pid() -> Option<u32> {
             type WCHAR = u16;
 
             const TH32CS_SNAPPROCESS: DWORD = 0x00000002;
-            const PROCESS_QUERY_INFORMATION: DWORD = 0x0400;
 
             #[repr(C)]
+            #[allow(non_snake_case)]
             struct PROCESSENTRY32W {
                 dwSize: DWORD,
                 cntUsage: DWORD,
@@ -747,7 +747,7 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
         let mut ever_hooked = false;
         let mut validated = false;
         let mut had_pid = false;
-        let mut discovered = false;
+        let mut discovery_attempts = 0u32;
 
         // Try local cache first (fast - avoids full anonymous region walk),
         // fall back to repo-pushed default.
@@ -825,13 +825,10 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                                 using_cache = false;
                                 continue;
                             }
-                            if !discovered {
-                                // One-shot discovery: scan all anonymous
-                                // regions for EE.log content.  Runs at most
-                                // once per session, result is cached to disk.
-                                discovered = true;
-                                crate::logger::log_to_disk(&app_inner,
-                                    "[MEMORY WATCHER] Default VA failed, scanning for ring buffer...");
+                            if discovery_attempts < 5 {
+                                discovery_attempts += 1;
+                                crate::logger::log_to_disk(&app_inner, &format!(
+                                    "[MEMORY WATCHER] Discovery attempt {}/5...", discovery_attempts));
                                 if let Some((found_va, found_size)) =
                                     crate::memory_scan::discover_ring_buffer(pid)
                                 {
@@ -845,8 +842,11 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                                     ));
                                     continue;
                                 }
-                                crate::logger::log_to_disk(&app_inner,
-                                    "[MEMORY WATCHER] Ring buffer discovery returned no candidate");
+                                crate::logger::log_to_disk(&app_inner, &format!(
+                                    "[MEMORY WATCHER] Discovery attempt {}/5 returned no candidate",
+                                    discovery_attempts));
+                                std::thread::sleep(std::time::Duration::from_secs(3));
+                                continue;
                             }
                             std::thread::sleep(std::time::Duration::from_secs(2));
                             continue;
@@ -860,6 +860,29 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                         crate::logger::log_to_disk(&app_inner, &format!(
                             "[MEMORY WATCHER] Initial ring buffer read failed: {e:?}"
                         ));
+                        if discovery_attempts < 5 {
+                            discovery_attempts += 1;
+                            crate::logger::log_to_disk(&app_inner, &format!(
+                                "[MEMORY WATCHER] Discovery attempt {}/5...", discovery_attempts));
+                            if let Some((found_va, found_size)) =
+                                crate::memory_scan::discover_ring_buffer(pid)
+                            {
+                                offsets = crate::mem_reader::MemOffsets {
+                                    buffer_va: found_va,
+                                    buffer_size: found_size,
+                                };
+                                crate::logger::log_to_disk(&app_inner, &format!(
+                                    "[MEMORY WATCHER] Discovery found VA {:#x}, size {}",
+                                    found_va, found_size
+                                ));
+                                continue;
+                            }
+                            crate::logger::log_to_disk(&app_inner, &format!(
+                                "[MEMORY WATCHER] Discovery attempt {}/5 returned no candidate",
+                                discovery_attempts));
+                            std::thread::sleep(std::time::Duration::from_secs(3));
+                            continue;
+                        }
                         std::thread::sleep(std::time::Duration::from_millis(150));
                         continue;
                     }

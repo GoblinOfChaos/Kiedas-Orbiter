@@ -97,10 +97,8 @@ pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri:
         // Game overlays always follow Warframe's monitor - not configurable
         eprintln!("[OVERLAY] get_overlay_monitor: label={} monitors={}", label, monitors.len());
 
-        if let Some(wf_idx) = get_warframe_monitor_idx() {
-            if wf_idx < monitors.len() {
-                return Ok(monitors[wf_idx].clone());
-            }
+        if let Some(mon) = warframe_monitor(app_handle) {
+            return Ok(mon);
         }
         main_window
             .current_monitor()
@@ -872,13 +870,11 @@ static WARFRAME_CACHE: Mutex<Option<WarframeRect>> = Mutex::new(None);
 static FOCUS_WATCHER_RUNNING: AtomicBool = AtomicBool::new(false);
 
 #[derive(Clone, Copy)]
-#[allow(dead_code)]
 struct WarframeRect {
     x: i32,
     y: i32,
     w: u32,
     h: u32,
-    monitor_idx: Option<usize>,
 }
 
 /// Find the Warframe window geometry using xdotool (name-based search).
@@ -906,37 +902,58 @@ pub fn fetch_warframe_rect_sync() -> Option<(i32, i32, u32, u32)> {
     ))
 }
 
-/// Cross-reference a window rect with available monitors to find the host monitor.
-fn rect_to_monitor(x: i32, y: i32, w: u32, h: u32) -> Option<usize> {
-    let cx = x + w as i32 / 2;
-    let cy = y + h as i32 / 2;
-    let monitors = xcap::Monitor::all().ok()?;
-    for (idx, m) in monitors.iter().enumerate() {
-        let mx = m.x().unwrap_or(0) as i32;
-        let my = m.y().unwrap_or(0) as i32;
-        let mw = m.width().unwrap_or(1920) as i32;
-        let mh = m.height().unwrap_or(1080) as i32;
-        if cx >= mx && cx < mx + mw && cy >= my && cy < my + mh {
-            return Some(idx);
-        }
+/// Fallback: use the active window's geometry when its PID matches Warframe.
+/// Works on Wayland (via active_win_pos_rs) when the game window is focused,
+/// and also on X11 when xdotool is unavailable.
+fn fetch_warframe_rect_from_active_window() -> Option<(i32, i32, u32, u32)> {
+    let warframe_pid = crate::log_scanner::get_warframe_pid()?;
+    let active = active_win_pos_rs::get_active_window().ok()?;
+    if active.process_id == warframe_pid as u64 {
+        Some((
+            active.position.x as i32,
+            active.position.y as i32,
+            active.position.width as u32,
+            active.position.height as u32,
+        ))
+    } else {
+        None
     }
-    None
 }
 
 /// Force-refresh the Warframe window cache (called from focus watcher thread).
 fn update_warframe_cache() {
     let cache = if let Some((x, y, w, h)) = fetch_warframe_rect_sync() {
-        let mon = rect_to_monitor(x, y, w, h);
-        Some(WarframeRect { x, y, w, h, monitor_idx: mon })
+        Some(WarframeRect { x, y, w, h })
+    } else if let Some((x, y, w, h)) = fetch_warframe_rect_from_active_window() {
+        Some(WarframeRect { x, y, w, h })
     } else {
         None
     };
     *WARFRAME_CACHE.lock().unwrap() = cache;
 }
 
-/// Return the cached monitor index of the Warframe window, if known.
-pub fn get_warframe_monitor_idx() -> Option<usize> {
-    WARFRAME_CACHE.lock().unwrap().and_then(|c| c.monitor_idx)
+/// Resolve Warframe's monitor by containment matching against Tauri's own
+/// monitor list (same approach as `get_focused_monitor`).  Avoids the
+/// xcap-index-crossover bug — xcap and GDK/Tauri don't guarantee the same
+/// enumeration order, so storing an index from one and using it against
+/// the other can land on the wrong display.
+fn warframe_monitor(app_handle: &AppHandle) -> Option<tauri::Monitor> {
+    let (x, y, w, h) = {
+        let cache = WARFRAME_CACHE.lock().ok()?;
+        let rect = (*cache)?;
+        (rect.x, rect.y, rect.w, rect.h)
+    };
+    let cx = x + w as i32 / 2;
+    let cy = y + h as i32 / 2;
+
+    let main_window = app_handle.get_webview_window("main")?;
+    let monitors = main_window.available_monitors().ok()?;
+    monitors.into_iter().find(|m| {
+        let pos = m.position();
+        let size = m.size();
+        cx >= pos.x && cx < pos.x + size.width as i32 &&
+        cy >= pos.y && cy < pos.y + size.height as i32
+    })
 }
 
 /// Check whether the currently focused window is Warframe's (PID-based).
@@ -967,7 +984,6 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
             update_warframe_cache();
 
             let focused_now = is_warframe_focused();
-            eprintln!("[FOCUS] focused_now={}, was_focused={}", focused_now, was_focused);
 
             if focused_now && !was_focused {
                 for label in had_visible.drain(..).collect::<Vec<_>>() {
@@ -979,7 +995,6 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
                     let _ = show_window_internal(&ah, &label);
                 }
             } else if !focused_now && was_focused {
-                eprintln!("[FOCUS] hiding overlays: {:?}", SHOWN_OVERLAYS.lock().unwrap());
                 had_visible.clear();
                 for label in SHOWN_OVERLAYS.lock().unwrap().iter() {
                     let is_notification = matches!(

@@ -161,15 +161,14 @@ pub(crate) fn readable_anonymous_regions(pid: u32) -> Option<Vec<MemRegion>> {
         }
         let _ = (cols.next(), cols.next(), cols.next());
         let path = cols.next().unwrap_or("");
-        if !path.is_empty() && !path.starts_with('[') {
+        let is_anon = path.is_empty() || path.starts_with('[');
+        let is_writable = perms.contains('w');
+        if !is_anon && !is_writable {
             continue;
         }
         let (s, e) = range.split_once('-')?;
         let start = u64::from_str_radix(s, 16).ok()?;
         let end = u64::from_str_radix(e, 16).ok()?;
-        if end.saturating_sub(start) > 64 * 1024 * 1024 {
-            continue;
-        }
         regions.push(MemRegion { start, end });
     }
     Some(regions)
@@ -271,12 +270,10 @@ pub(crate) fn readable_anonymous_regions(pid: u32) -> Option<Vec<MemRegion>> {
                 != 0;
             let is_anon = mbi.type_ == MEM_PRIVATE;
             if is_readable && is_anon && mbi.state == MEM_COMMIT {
-                if mbi.region_size <= 64 * 1024 * 1024 {
-                    regions.push(MemRegion {
-                        start: address,
-                        end: address + mbi.region_size as u64,
-                    });
-                }
+                regions.push(MemRegion {
+                    start: address,
+                    end: address + mbi.region_size as u64,
+                });
             }
             address += mbi.region_size as u64;
         } else {

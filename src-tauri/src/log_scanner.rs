@@ -216,10 +216,18 @@ impl LogScanner {
             return;
         }
 
-        // === Relic Picker Close (MapRedux re-subscription) ===
+        // === Relic Picker Close (MapRedux re-subscription — in-mission) ===
         if self.relic_picker_open && s.contains("Subscribing for /Lotus/Interface/MapRedux.swf") {
             self.relic_picker_open = false;
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER CLOSED (MapRedux) (LogTS: {}s)", ts));
+            app.emit("relic-picker-closed", ()).unwrap_or_default();
+            return;
+        }
+
+        // === Relic Picker Close (TennoShipInputFilter — orbiter relic menu) ===
+        if self.relic_picker_open && s.contains("TennoShipInputFilter") {
+            self.relic_picker_open = false;
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER CLOSED (TennoShipInputFilter) (LogTS: {}s)", ts));
             app.emit("relic-picker-closed", ()).unwrap_or_default();
             return;
         }

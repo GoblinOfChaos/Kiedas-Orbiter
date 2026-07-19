@@ -836,8 +836,8 @@ export function MonitoringProvider({ children }) {
         const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')
         return { name: r.name, era: r.era, evPlat: Math.round(evPlat), evDucats: Math.round(evDucats) }
       })
-      const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 10)
-      const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 10)
+      const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 5)
+      const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 5)
       const payload = { ducat_top: ducatTop, plat_top: platTop, era: voidTier }
       invoke('show_overlay_window', { label: 'overlay-relic-picker' }).catch(() => {})
       invoke('relay_event', { event: 'relic-picker-data', payload }).catch(() => {})
@@ -859,8 +859,8 @@ export function MonitoringProvider({ children }) {
         const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')
         return { name: r.name, era: r.era, evPlat: Math.round(evPlat), evDucats: Math.round(evDucats) }
       })
-      const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 10)
-      const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 10)
+      const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 5)
+      const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 5)
       const payload = { ducat_top: ducatTop, plat_top: platTop, era: voidTier }
       invoke('relay_event', { event: 'relic-picker-data', payload }).catch(() => {})
     }))

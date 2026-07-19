@@ -6,6 +6,7 @@ export default function RelicPickerOverlay() {
   const [relics, setRelics] = useState(null)
   const [windowVisible, setWindowVisible] = useState(false)
   const windowVisibleRef = useRef(false)
+  const contentRef = useRef(null)
 
   const showWindow = useCallback(async (fromRust = false) => {
     if (windowVisibleRef.current) return
@@ -46,11 +47,28 @@ export default function RelicPickerOverlay() {
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [])
 
+  useEffect(() => {
+    if (!relics) return
+    const timer = setTimeout(() => {
+      if (contentRef.current) {
+        const w = contentRef.current.scrollWidth
+        const h = contentRef.current.scrollHeight
+        if (w > 40 && h > 40) {
+          invoke('resize_overlay_window', {
+            label: 'overlay-relic-picker',
+            width: w,
+            height: h
+          }).catch(console.error)
+        }
+      }
+    }, 10)
+    return () => clearTimeout(timer)
+  }, [relics])
+
   if (!relics) return null
 
   return (
-    <div className="absolute top-4 right-4 w-auto max-w-[420px]" style={{ background: 'transparent' }}>
-      <div className="p-3">
+    <div ref={contentRef} className="inline-block p-3 max-w-[420px] bg-[#04060b]">
         {relics.era && (
           <div className="text-[11px] font-black uppercase text-kronos-accent tracking-widest text-center mb-3">
             {relics.era} Fissure
@@ -60,7 +78,6 @@ export default function RelicPickerOverlay() {
           <Column items={relics.ducat_top} title="Top Ducat EV" accent="text-amber-400" />
           <Column items={relics.plat_top} title="Top Plat EV" accent="text-blue-400" />
         </div>
-      </div>
     </div>
   )
 }

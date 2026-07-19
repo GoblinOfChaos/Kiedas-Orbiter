@@ -152,12 +152,12 @@ fn calculate_position(
         "overlay-tc" => ((mon_size.width as i32 - phys_w) / 2, margin),
         "overlay-relic" => {
             let rx = (mon_size.width as i32 - phys_w) / 2;
-            let ry = (mon_size.height as i32 - (height * scale) as i32 - (40.0 * scale) as i32).max(0);
+            let ry = (mon_size.height as i32 - (420.0 * scale) as i32).max(0);
             (rx, ry)
         }
         "overlay-relic-picker" => {
-            let rx = mon_size.width as i32 * 50 / 100;
-            let ry = mon_size.height as i32 * 5 / 100;
+            let rx = mon_size.width as i32 * 60 / 100;
+            let ry = 5;
             (rx, ry)
         }
         "overlay-riven-current" => (margin, (mon_size.height as i32 - (height * scale) as i32) / 2),

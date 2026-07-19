@@ -7,8 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cephalon Kronos</title>
   <script>
-    // Synchronous transparency setup - runs before first paint so WebKit/Cairo
-    // never composites a black background on Linux overlay windows.
     (function () {
       var params = new URLSearchParams(window.location.search);
       var h = window.location.hash;

@@ -188,10 +188,15 @@ export default function RelicRewardOverlay() {
     if (resizeTimerRef.current) clearTimeout(resizeTimerRef.current)
     resizeTimerRef.current = setTimeout(() => {
       resizeTimerRef.current = null
+      let height = 0
+      if (containerRef.current) {
+        height = containerRef.current.scrollHeight
+      }
+      height = Math.max(height, 40)
       invoke('resize_overlay_window', {
         label: 'overlay-relic',
         width: Math.round(width),
-        height: 380
+        height
       }).catch(err => console.error('[RelicOverlay] Resize failed:', err))
     }, 10) // Near-instant resize
   }, [squadSize, triggerKey])

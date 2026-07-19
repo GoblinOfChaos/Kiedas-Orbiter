@@ -877,7 +877,7 @@ struct WarframeRect {
     h: u32,
 }
 
-/// Find the Warframe window geometry using xdotool (name-based search).
+#[cfg(target_os = "linux")]
 pub fn fetch_warframe_rect_sync() -> Option<(i32, i32, u32, u32)> {
     let out = std::process::Command::new("xdotool")
         .args(["search", "--name", "Warframe", "getwindowgeometry"])
@@ -900,6 +900,71 @@ pub fn fetch_warframe_rect_sync() -> Option<(i32, i32, u32, u32)> {
         w_str.trim().parse().ok()?,
         h_str.trim().parse().ok()?,
     ))
+}
+
+#[cfg(target_os = "windows")]
+pub fn fetch_warframe_rect_sync() -> Option<(i32, i32, u32, u32)> {
+    type HANDLE = *mut std::ffi::c_void;
+    type DWORD = u32;
+    type BOOL = i32;
+    type LPARAM = isize;
+
+    #[repr(C)]
+    struct RECT {
+        left: i32,
+        top: i32,
+        right: i32,
+        bottom: i32,
+    }
+
+    extern "system" {
+        fn EnumWindows(lpEnumFunc: Option<unsafe extern "system" fn(HANDLE, LPARAM) -> BOOL>, lParam: LPARAM) -> BOOL;
+        fn GetWindowThreadProcessId(hWnd: HANDLE, lpdwProcessId: *mut DWORD) -> DWORD;
+        fn GetWindowRect(hWnd: HANDLE, lpRect: *mut RECT) -> BOOL;
+        fn IsWindowVisible(hWnd: HANDLE) -> BOOL;
+    }
+
+    let target_pid = crate::log_scanner::get_warframe_pid()?;
+    let result = std::sync::Mutex::new(None::<(i32, i32, u32, u32)>);
+
+    unsafe extern "system" fn enum_proc(hwnd: HANDLE, lparam: LPARAM) -> BOOL {
+        let ctx = &*(lparam as *const std::sync::Mutex<Option<(i32, i32, u32, u32)>>);
+        let mut pid: DWORD = 0;
+        GetWindowThreadProcessId(hwnd, &mut pid);
+        if pid == 0 { return 1; }
+        if IsWindowVisible(hwnd) == 0 { return 1; }
+
+        let target = ctx.lock().unwrap();
+        let (target_pid, _, _, _, _) = target.as_ref().unwrap();
+        if pid == *target_pid as DWORD {
+            let mut r = RECT { left: 0, top: 0, right: 0, bottom: 0 };
+            if GetWindowRect(hwnd, &mut r) != 0 {
+                drop(target);
+                *ctx.lock().unwrap() = Some((
+                    r.left,
+                    r.top,
+                    (r.right - r.left) as u32,
+                    (r.bottom - r.top) as u32,
+                ));
+                return 0;
+            }
+        }
+        1
+    }
+
+    *result.lock().unwrap() = Some((target_pid as i32, 0, 0, 0));
+    unsafe {
+        EnumWindows(Some(enum_proc), &result as *const _ as isize);
+    }
+    let guard = result.lock().unwrap();
+    let (_, x, y, w, h) = guard.as_ref()?;
+    if *w == 0 { return None; }
+    Some((*x, *y, *w, *h))
+}
+
+#[cfg(not(any(target_os = "linux", target_os = "windows")))]
+pub fn fetch_warframe_rect_sync() -> Option<(i32, i32, u32, u32)> {
+    None
 }
 
 /// Fallback: use the active window's geometry when its PID matches Warframe.

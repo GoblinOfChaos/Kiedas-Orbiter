@@ -548,18 +548,18 @@ fn pid_is_alive(pid: u32) -> bool {
 
 #[cfg(target_os = "windows")]
 fn pid_is_alive(pid: u32) -> bool {
-    use std::os::windows::process::CommandExt;
-    // Quick check via tasklist filtering on one PID
-    std::process::Command::new("tasklist")
-        .args(["/FI", &format!("PID eq {pid}"), "/NH", "/FO", "CSV"])
-        .creation_flags(0x08000000)
-        .output()
-        .ok()
-        .map(|o| {
-            let stdout = String::from_utf8_lossy(&o.stdout);
-            stdout.contains(&pid.to_string())
-        })
-        .unwrap_or(false)
+    type HANDLE = *mut std::ffi::c_void;
+    type DWORD = u32;
+    type BOOL = i32;
+    const PROCESS_QUERY_INFORMATION: DWORD = 0x0400;
+    extern "system" {
+        fn OpenProcess(dwDesiredAccess: DWORD, bInheritHandle: BOOL, dwProcessId: DWORD) -> HANDLE;
+        fn CloseHandle(hObject: HANDLE) -> BOOL;
+    }
+    let h = unsafe { OpenProcess(PROCESS_QUERY_INFORMATION, 0, pid) };
+    if h.is_null() { return false; }
+    unsafe { CloseHandle(h); }
+    true
 }
 
 #[cfg(target_os = "macos")]
@@ -596,26 +596,77 @@ pub fn get_warframe_pid() -> Option<u32> {
     with_cache(|| {
         #[cfg(target_os = "windows")]
         {
-            use std::os::windows::process::CommandExt;
-            if let Ok(output) = std::process::Command::new("tasklist")
-                .args(["/FI", "IMAGENAME eq Warframe.x64.exe", "/NH", "/FO", "CSV"])
-                .creation_flags(0x08000000)
-                .output()
-            {
-                let stdout = String::from_utf8_lossy(&output.stdout);
-                for line in stdout.lines() {
-                    let line = line.trim();
-                    if line.is_empty() { continue; }
-                    let fields: Vec<&str> = line.split(',').collect();
-                    if fields.len() >= 2 {
-                        let pid_str = fields[1].trim_matches('"');
-                        if let Ok(pid) = pid_str.parse::<u32>() {
-                            return Some(pid);
-                        }
-                    }
+            type HANDLE = *mut std::ffi::c_void;
+            type DWORD = u32;
+            type BOOL = i32;
+            type WCHAR = u16;
+
+            const TH32CS_SNAPPROCESS: DWORD = 0x00000002;
+            const PROCESS_QUERY_INFORMATION: DWORD = 0x0400;
+
+            #[repr(C)]
+            struct PROCESSENTRY32W {
+                dwSize: DWORD,
+                cntUsage: DWORD,
+                th32ProcessID: DWORD,
+                th32DefaultHeapID: *mut std::ffi::c_void,
+                th32ModuleID: DWORD,
+                cntThreads: DWORD,
+                th32ParentProcessID: DWORD,
+                pcPriClassBase: i32,
+                dwFlags: DWORD,
+                szExeFile: [WCHAR; 260],
+            }
+
+            extern "system" {
+                fn CreateToolhelp32Snapshot(dwFlags: DWORD, th32ProcessID: DWORD) -> HANDLE;
+                fn Process32FirstW(hSnapshot: HANDLE, lppe: *mut PROCESSENTRY32W) -> BOOL;
+                fn Process32NextW(hSnapshot: HANDLE, lppe: *mut PROCESSENTRY32W) -> BOOL;
+                fn CloseHandle(hObject: HANDLE) -> BOOL;
+            }
+
+            let snapshot = unsafe { CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0) };
+            if snapshot.is_null() || snapshot as isize == -1 {
+                return None;
+            }
+
+            let mut entry: PROCESSENTRY32W = unsafe { std::mem::zeroed() };
+            entry.dwSize = std::mem::size_of::<PROCESSENTRY32W>() as DWORD;
+
+            if unsafe { Process32FirstW(snapshot, &mut entry) } == 0 {
+                unsafe { CloseHandle(snapshot); }
+                return None;
+            }
+
+            let mut candidates: Vec<(u32, bool)> = Vec::new();
+            loop {
+                // Convert wide szExeFile to a Rust string for matching
+                let mut name_utf16: Vec<u16> = Vec::new();
+                for &c in entry.szExeFile.iter() {
+                    if c == 0 { break; }
+                    name_utf16.push(c);
+                }
+                let name = String::from_utf16_lossy(&name_utf16);
+                let lower = name.to_lowercase();
+
+                if lower.contains("warframe") {
+                    let is_game = lower.contains("x64");
+                    candidates.push((entry.th32ProcessID, is_game));
+                }
+
+                if unsafe { Process32NextW(snapshot, &mut entry) } == 0 {
+                    break;
                 }
             }
-            None
+            unsafe { CloseHandle(snapshot); }
+
+            // Prefer the actual game binary (Warframe.x64.exe) over the launcher
+            let has_game = candidates.iter().any(|(_, is_game)| *is_game);
+            if has_game {
+                candidates.into_iter().find(|(_, is_game)| *is_game).map(|(pid, _)| pid)
+            } else {
+                candidates.into_iter().next().map(|(pid, _)| pid)
+            }
         }
         #[cfg(target_os = "linux")]
         {

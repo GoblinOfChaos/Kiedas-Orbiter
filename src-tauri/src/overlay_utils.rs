@@ -156,8 +156,8 @@ fn calculate_position(
             (rx, ry)
         }
         "overlay-relic-picker" => {
-            let rx = mon_size.width as i32 * 60 / 100;
-            let ry = 5;
+            let rx = mon_size.width as i32 * 55 / 100;
+            let ry = margin;
             (rx, ry)
         }
         "overlay-riven-current" => (margin, (mon_size.height as i32 - (height * scale) as i32) / 2),

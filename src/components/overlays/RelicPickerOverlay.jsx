@@ -68,7 +68,8 @@ export default function RelicPickerOverlay() {
   if (!relics) return null
 
   return (
-    <div ref={contentRef} className="inline-block p-3 max-w-[420px] bg-[#04060b]">
+    <div className="absolute top-4 right-4 w-auto max-w-[420px]" style={{ background: 'transparent' }}>
+      <div className="p-3">
         {relics.era && (
           <div className="text-[11px] font-black uppercase text-kronos-accent tracking-widest text-center mb-3">
             {relics.era} Fissure
@@ -78,10 +79,10 @@ export default function RelicPickerOverlay() {
           <Column items={relics.ducat_top} title="Top Ducat EV" accent="text-amber-400" />
           <Column items={relics.plat_top} title="Top Plat EV" accent="text-blue-400" />
         </div>
+      </div>
     </div>
   )
 }
-
 function Column({ items, title, accent }) {
   return (
     <div className="flex-1 min-w-0">

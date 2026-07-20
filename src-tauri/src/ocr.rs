@@ -194,7 +194,45 @@ pub(crate) fn capture_monitor_image(monitor: &Monitor) -> Result<image::RgbaImag
             }
         }
 
-        // Fallback 2: system screenshot tools (spectacle → import), cropped
+        // Fallback 2: grim for wlroots compositors (Hyprland/Sway).
+        // grim talks directly to wlr-screencopy, bypassing GDK entirely.
+        fn is_wlroots_compositor() -> bool {
+            std::env::var("HYPRLAND_INSTANCE_SIGNATURE").is_ok()
+                || std::env::var("SWAYSOCK").is_ok()
+        }
+
+        if is_wlroots_compositor() {
+            let m_x = monitor.x().map_err(|e| format!("monitor.x(): {}", e))? as u32;
+            let m_y = monitor.y().map_err(|e| format!("monitor.y(): {}", e))? as u32;
+            let m_w = monitor.width().map_err(|e| format!("monitor.width(): {}", e))?;
+            let m_h = monitor.height().map_err(|e| format!("monitor.height(): {}", e))?;
+
+            let tmp = std::env::temp_dir().join("kronos_grim_capture.png");
+            let path = tmp.to_string_lossy().to_string();
+            let geom = format!("{},{}{}x{}", m_x, m_y, m_w, m_h);
+            let ok = Command::new("grim")
+                .args(["-g", &geom, &path])
+                .status()
+                .ok()
+                .map(|s| s.success())
+                .unwrap_or(false);
+
+            if ok {
+                std::thread::sleep(Duration::from_millis(200));
+                match image::open(&path) {
+                    Ok(img) => {
+                        let _ = std::fs::remove_file(&path);
+                        return Ok(img.to_rgba8());
+                    }
+                    Err(e) => eprintln!("[OCR] grim capture load failed: {}", e),
+                }
+                let _ = std::fs::remove_file(&path);
+            } else {
+                eprintln!("[OCR] grim fallback failed (not installed or wlr-screencopy unavailable)");
+            }
+        }
+
+        // Fallback 3: system screenshot tools (spectacle → import), cropped
         // to the target monitor's region using cached geometry.
         let mon_x = monitor.x().map_err(|e| format!("monitor.x(): {}", e))? as u32;
         let mon_y = monitor.y().map_err(|e| format!("monitor.y(): {}", e))? as u32;

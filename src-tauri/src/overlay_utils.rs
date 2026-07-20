@@ -236,6 +236,7 @@ extern "C" {
         revert_to: i32,
         time: u64,
     ) -> i32;
+    #[allow(dead_code)]
     fn XSetErrorHandler(handler: Option<unsafe extern "C" fn(*mut std::ffi::c_void, *mut XErrorEvent) -> i32>) -> Option<unsafe extern "C" fn(*mut std::ffi::c_void, *mut XErrorEvent) -> i32>;
     fn XUngrabPointer(display: *mut std::ffi::c_void, time: u64) -> i32;
     fn XUngrabKeyboard(display: *mut std::ffi::c_void, time: u64) -> i32;
@@ -248,6 +249,7 @@ pub fn init_x11_threading() {
 }
 
 #[cfg(target_os = "linux")]
+#[allow(dead_code)]
 #[repr(C)]
 struct XErrorEvent {
     typ: i32,
@@ -260,6 +262,7 @@ struct XErrorEvent {
 }
 
 #[cfg(target_os = "linux")]
+#[allow(dead_code)]
 pub fn install_x_error_handler() {
     unsafe extern "C" fn handler(
         _display: *mut std::ffi::c_void,

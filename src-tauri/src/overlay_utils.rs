@@ -149,8 +149,8 @@ fn calculate_position(
             (rx, ry)
         }
         "overlay-relic-picker" => {
-            let rx = mon_size.width as i32 * 55 / 100;
-            let ry = margin;
+            let rx = mon_size.width as i32 - phys_w - margin / 2;
+            let ry = margin + 75;
             (rx, ry)
         }
         "overlay-riven-current" => (margin, (mon_size.height as i32 - (height * scale) as i32) / 2),
@@ -759,7 +759,7 @@ pub fn hide_sidebar_internal(app_handle: &AppHandle) {
 fn overlay_size(label: &str) -> (f64, f64) {
     match label {
         "overlay-relic" => (640.0, 140.0),
-        "overlay-relic-picker" => (480.0, 400.0),
+        "overlay-relic-picker" => (380.0, 220.0),
         "overlay-riven-current" | "overlay-riven-new" => (360.0, 260.0),
         _ => (440.0, 1.0),
     }

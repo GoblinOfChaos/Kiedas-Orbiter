@@ -57,7 +57,9 @@ pub struct LogScanner {
     void_tier: Option<String>,
     riven_state: RivenState,
     squad_channels: HashSet<String>,
-    expecting_archon_boosts: bool,
+    expecting_elite_alert_boosts: bool,
+    is_archon_elite_alert: bool,
+    min_ts: f64,
 }
 
 fn parse_timestamp(line: &str) -> Option<f64> {
@@ -88,12 +90,17 @@ impl LogScanner {
             void_tier: None,
             riven_state: RivenState::Idle,
             squad_channels: HashSet::new(),
-            expecting_archon_boosts: false,
+            expecting_elite_alert_boosts: false,
+            is_archon_elite_alert: false,
+            min_ts: f64::MAX,
         }
     }
 
     pub fn on_line(&mut self, app: &AppHandle, line: &str) {
         let ts = parse_timestamp(line).unwrap_or(0.0);
+        if ts < self.min_ts {
+            self.min_ts = ts;
+        }
         let s = line.trim();
         if s.is_empty() {
             return;
@@ -318,9 +325,9 @@ impl LogScanner {
             }
         }
 
-        // ─── Archon Hunt Elite Alert modifiers ────────────────────────────
-        if self.expecting_archon_boosts && (s.contains("suitType=") || s.contains("wepTypes=")) {
-            self.expecting_archon_boosts = false;
+        // -- Elite Alert modifiers: first = Archon Hunt, subsequent = Arbitration --
+        if self.expecting_elite_alert_boosts && (s.contains("suitType=") || s.contains("wepTypes=")) {
+            self.expecting_elite_alert_boosts = false;
             let mut suit_type = String::new();
             let mut wep_types: Vec<String> = Vec::new();
             if let Some(suit_start) = s.find("suitType=") {
@@ -340,7 +347,8 @@ impl LogScanner {
                     }
                 }
             }
-            app.emit("archon-hunt-modifiers", serde_json::json!({
+            let event_name = if self.is_archon_elite_alert { "archon-hunt-modifiers" } else { "arbitration-modifiers" };
+            app.emit(event_name, serde_json::json!({
                 "suitType": suit_type,
                 "wepTypes": wep_types,
             })).unwrap_or_default();
@@ -348,8 +356,14 @@ impl LogScanner {
         }
 
         if s.contains("Background.lua: EliteAlert: generated boosts for") {
-            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Archon Hunt elite alert modifiers detected (LogTS: {}s)", ts));
-            
+            let is_archon = ts - self.min_ts < 180.0;
+
+            if is_archon {
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Archon Hunt elite alert modifiers detected (LogTS: {}s)", ts));
+            } else {
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Arbitration elite alert modifiers detected (LogTS: {}s)", ts));
+            }
+
             // Check if modifiers are on the same line
             if s.contains("suitType=") {
                 let mut suit_type = String::new();
@@ -371,12 +385,14 @@ impl LogScanner {
                         }
                     }
                 }
-                app.emit("archon-hunt-modifiers", serde_json::json!({
+                let event_name = if is_archon { "archon-hunt-modifiers" } else { "arbitration-modifiers" };
+                app.emit(event_name, serde_json::json!({
                     "suitType": suit_type,
                     "wepTypes": wep_types,
                 })).unwrap_or_default();
             } else {
-                self.expecting_archon_boosts = true;
+                self.expecting_elite_alert_boosts = true;
+                self.is_archon_elite_alert = is_archon;
             }
             return;
         }

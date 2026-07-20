@@ -172,6 +172,7 @@ export function MonitoringProvider({ children }) {
   const [arbys, setArbys] = useState(null)
 
   const [archonModifiers, setArchonModifiers] = useState(null)
+  const [arbitrationModifiers, setArbitrationModifiers] = useState(null)
   const intervalRef = useRef(null)
   const busyRef = useRef(false)
   const notifiedRef = useRef({})
@@ -868,6 +869,9 @@ export function MonitoringProvider({ children }) {
     subs.push(listen('archon-hunt-modifiers', (e) => {
       setArchonModifiers(e.payload)
     }))
+    subs.push(listen('arbitration-modifiers', (e) => {
+      setArbitrationModifiers(e.payload)
+    }))
 
     subs.push(listen('chat-incoming-message', async (e) => {
       const channel = e.payload?.channel || 'Unknown'
@@ -968,7 +972,7 @@ export function MonitoringProvider({ children }) {
 
   return (
     <MonitoringContext.Provider value={{
-      exportData, spIncursions, arbys, archonModifiers,
+      exportData, spIncursions, arbys, archonModifiers, arbitrationModifiers,
       dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS, dropIndex,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
       masteryProgress, allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices,

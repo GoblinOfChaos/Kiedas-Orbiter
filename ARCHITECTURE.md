@@ -770,12 +770,14 @@ Chat: Filters for <hash>:       -> channel ready, emit chat-incoming-message
 
 Exclude: `G_EN_EU` (region), `R_EN_EU` (recruitment), `Q_EN_EU` (Q&A),
 `T_EN_EU` (trade).
-
-### Archon Hunt Modifiers
+### Elite Alert Modifiers (Archon Hunt & Arbitration)
 
 ```
 Script [Info]: Background.lua: EliteAlert: generated boosts for <player>:
   suitType=<path> wepTypes=<path1>, <path2>, <path3>
 ```
 
-Parsed and displayed in Dashboard under Archon Hunt card.
+The _first_ occurrence in the EE.log is the weekly Archon Hunt bonus (emitted as
+`archon-hunt-modifiers`, shown under the Archon Hunt card on the Dashboard).
+All subsequent occurrences are Arbitration modifiers (emitted as
+`arbitration-modifiers`, shown under the Arbitration card).

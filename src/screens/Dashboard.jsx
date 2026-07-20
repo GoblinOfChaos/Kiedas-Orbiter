@@ -139,7 +139,7 @@ function GradeBadge({ grade, className = "" }) {
 // ── Main component ─────────────────────────────────────────────────────────────
 export default function Dashboard() {
   const {
-    exportData, worldState, spIncursions, arbys, archonModifiers,
+    exportData, worldState, spIncursions, arbys, archonModifiers, arbitrationModifiers,
     dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, arbyTiers,
     rawInventory, inventoryData, ES, ENWRawRewards, ExportImages,
   } = useMonitoring()
@@ -1388,6 +1388,27 @@ export default function Dashboard() {
                       </div>
                     </div>
                   )}
+                  {arbitrationModifiers && (
+                    <div className="pt-2 border-t border-kronos-divider/30">
+                      <p className="text-xs font-bold text-kronos-accent mb-1 uppercase tracking-wide">Personal Bonuses</p>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        <div className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
+                          <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
+                            <img src={resolveAnyImage(arbitrationModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                          </div>
+                          <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(arbitrationModifiers.suitType, dict, uniqueNameToName)}</span>
+                        </div>
+                        {(arbitrationModifiers.wepTypes || []).map((w, i) => (
+                          <div key={i} className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
+                            <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
+                              <img src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                            </div>
+                            <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(w, dict, uniqueNameToName)}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : <p className="text-xs text-kronos-dim italic">Loading data…</p>}
             </Card>
@@ -1489,15 +1510,23 @@ export default function Dashboard() {
               </div>
               {archonModifiers && (
                 <div className="mt-2 pt-2 border-t border-kronos-divider/30">
-                  <p className="text-xs font-bold text-kronos-accent mb-1 uppercase tracking-wide">Elite Alert Modifiers</p>
-                  <p className="text-xs text-kronos-text">
-                    <span className="text-kronos-dim">Frame: </span>
-                    <span className="text-kronos-text">{resolveItemName(archonModifiers.suitType, dict, uniqueNameToName)}</span>
-                  </p>
-                  <p className="text-xs text-kronos-text mt-0.5">
-                    <span className="text-kronos-dim">Weapons: </span>
-                    <span className="text-kronos-text">{(archonModifiers.wepTypes || []).map(w => resolveItemName(w, dict, uniqueNameToName)).join(', ')}</span>
-                  </p>
+                  <p className="text-xs font-bold text-kronos-accent mb-1 uppercase tracking-wide">Personal Bonuses</p>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    <div className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
+                      <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
+                        <img src={resolveAnyImage(archonModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                      </div>
+                      <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(archonModifiers.suitType, dict, uniqueNameToName)}</span>
+                    </div>
+                    {(archonModifiers.wepTypes || []).map((w, i) => (
+                      <div key={i} className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
+                        <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
+                          <img src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                        </div>
+                        <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(w, dict, uniqueNameToName)}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
               <p className="text-xs text-kronos-dim mt-2 text-right">{timeRemaining(worldstate.archonHunt.expiry)}</p>

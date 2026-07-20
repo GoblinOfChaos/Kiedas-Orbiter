@@ -56,6 +56,7 @@ export default function MirroredMonitoringProvider({ children }) {
   const [spIncursions, setSpIncursions] = useState(null)
   const [arbys, setArbys] = useState(null)
   const [archonModifiers, setArchonModifiers] = useState(null)
+  const [arbitrationModifiers, setArbitrationModifiers] = useState(null)
   const [cardImagesPath, setCardImagesPath] = useState('')
   const [fixProgress] = useState({ phase: 'done', checking: false })
   const loadedRef = useRef(false)
@@ -201,6 +202,14 @@ export default function MirroredMonitoringProvider({ children }) {
   useEffect(() => {
     const unsub = listen('archon-hunt-modifiers', (e) => {
       setArchonModifiers(e.payload)
+    })
+    return () => { unsub.then(f => f()) }
+  }, [])
+
+  // ── Arbitration modifiers ──
+  useEffect(() => {
+    const unsub = listen('arbitration-modifiers', (e) => {
+      setArbitrationModifiers(e.payload)
     })
     return () => { unsub.then(f => f()) }
   }, [])
@@ -411,7 +420,7 @@ export default function MirroredMonitoringProvider({ children }) {
     exportData, isMonitoring, monitorResult, autoStart, lastUpdate,
     rawInventory, inventoryData, isInventoryLoading,
     allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated,
-    worldState, statusText, spIncursions, arbys, archonModifiers,
+    worldState, statusText, spIncursions, arbys, archonModifiers, arbitrationModifiers,
     cardImagesPath, fixProgress,
     dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
     ExportImages, ExportTextIcons, masteryProgress,
@@ -431,7 +440,7 @@ export default function MirroredMonitoringProvider({ children }) {
     retryCardImages: () => Promise.resolve(), setWorldState,
   }), [exportData, isMonitoring, monitorResult, autoStart, lastUpdate, rawInventory,
       inventoryData, isInventoryLoading, worldState, statusText,
-      spIncursions, arbys, archonModifiers,
+      spIncursions, arbys, archonModifiers, arbitrationModifiers,
       dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
       ExportImages, ExportTextIcons, masteryProgress,
       EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex])

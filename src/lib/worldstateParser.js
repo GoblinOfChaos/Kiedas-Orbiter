@@ -639,6 +639,21 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
       sold: d.AmountSold
     })),
 
+    flashSales: (raw.FlashSales || []).filter(f => {
+      if (!f.Discount) return false
+      const now = Date.now()
+      const start = f.StartDate?.$date?.$numberLong ? parseInt(f.StartDate.$date.$numberLong) : 0
+      const end = f.EndDate?.$date?.$numberLong ? parseInt(f.EndDate.$date.$numberLong) : 0
+      return now >= start && now < end
+    }).map(f => ({
+      item: resolveItemName(f.TypeName, dict, uniqueNameToName),
+      uniqueName: f.TypeName,
+      discount: f.Discount,
+      salePrice: f.PremiumOverride,
+      originalPrice: f.PremiumOverride ? Math.round(f.PremiumOverride / (1 - f.Discount / 100)) : 0,
+      expiry: f.EndDate,
+    })),
+
     // Alerts
     alerts: (raw.Alerts || []).map(a => ({
       id: a._id?.$oid || a._id,

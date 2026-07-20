@@ -152,6 +152,7 @@ export default function Dashboard() {
   const [archimedeaTab, setArchimedeaTab] = useState('deep')
   const [bountyTab, setBountyTab] = useState('holdfasts')
   const [showBaroModal, setShowBaroModal] = useState(false)
+  const [showWishlistModal, setShowWishlistModal] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [iconsPath, setIconsPath] = useState('')
   const [calendarDate, setCalendarDate] = useState(new Date(1999, 11, 1)) // Default to Dec 1999
@@ -1118,6 +1119,34 @@ export default function Dashboard() {
     )
   }
 
+  const WishlistModal = () => {
+    const wishlist = inventoryData?.wishlist ?? []
+    return (
+      <Modal
+        isOpen={showWishlistModal}
+        onClose={() => setShowWishlistModal(false)}
+        title="Wishlist"
+      >
+        {wishlist.length === 0 ? (
+          <p className="text-xs text-kronos-dim italic text-center py-8">No items on your wishlist</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {wishlist.map((item, idx) => (
+              <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
+                <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
+                  <img src={resolveAnyImage(item.unique_name, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.name}>{item.name}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </Modal>
+    )
+  }
+
   const renderEvents = () => {
     if (!worldstate?.events?.length && !worldstate?.globalBoosters?.length) return null
     return (
@@ -1270,6 +1299,7 @@ export default function Dashboard() {
                   { id: 'hunt', label: 'Archon Hunts' },
                   { id: 'circuit', label: 'The Circuit' },
                   { id: 'deal', label: 'Daily Deals' },
+                  { id: 'sales', label: 'Market Sales' },
                   { id: 'alerts', label: 'Alerts' },
                   { id: 'event', label: 'Events' },
                 ].map(card => (
@@ -1460,6 +1490,45 @@ export default function Dashboard() {
               </Card>
             );
           })()}
+
+          {/* Market Sales */}
+          {isVisible('sales') && worldstate?.flashSales?.length > 0 && (
+            <Card glow className="p-3">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <DollarSign size={16} className="text-kronos-accent flex-shrink-0" />
+                  <p className="font-bold text-sm uppercase">Market Sales</p>
+                </div>
+                <button
+                  onClick={() => setShowWishlistModal(true)}
+                  className="text-[10px] bg-kronos-accent/20 text-kronos-accent font-bold px-2 py-0.5 rounded uppercase hover:bg-kronos-accent/30 transition-colors"
+                >
+                  Wishlist
+                </button>
+              </div>
+              <div className="space-y-1.5">
+                {worldstate.flashSales.map((sale, idx) => (
+                  <div key={idx} className="flex items-center gap-3 bg-kronos-panel/40 rounded p-2">
+                    <div className="w-10 h-10 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
+                      <img src={resolveAnyImage(sale.uniqueName, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={sale.item}>{sale.item}</p>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-xs text-kronos-dim line-through decoration-red-500/50">{sale.originalPrice}</span>
+                        <span className="text-xs text-kronos-accent font-black">{sale.salePrice}</span>
+                        <span className="flex items-center gap-1 text-xs font-bold text-kronos-text">
+                          {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3 h-3 object-contain" alt="" />}
+                          Platinum
+                        </span>
+                        <span className="text-xs text-kronos-dim">(-{sale.discount}%)</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
         </div>
 
         {/* ── Col 2 ── */}
@@ -1706,6 +1775,7 @@ export default function Dashboard() {
       </div>
       <DescendiaModal />
       <BaroModal />
+      <WishlistModal />
     </PageLayout >
   )
 }

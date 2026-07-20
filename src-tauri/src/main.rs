@@ -269,18 +269,6 @@ async fn check_exports() -> Result<String, String> {
         }
     }
 
-    // Memory offsets (EE.log buffer VA) - refresh every 24 hours; non-fatal.
-    // This lets the buffer address be updated without a release cycle.
-    let offsets_path = export_dir.join("memory_offsets.json");
-    let needs_offsets_update = !offsets_path.exists() || file_age_secs(&offsets_path) > 86_400;
-    if needs_offsets_update {
-        let url = "https://raw.githubusercontent.com/glowseeker/cephalon-kronos/master/src-tauri/data/export/memory_offsets.json";
-        match download_file(&client, url, &offsets_path).await {
-            Ok(_) => updated_count += 1,
-            Err(e) => eprintln!("Warning: could not download memory_offsets.json: {e}"),
-        }
-    }
-
     Ok(format!("Updated {} files", updated_count))
 }
 

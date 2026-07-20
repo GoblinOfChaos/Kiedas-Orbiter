@@ -1,73 +1,11 @@
 use std::fs;
 use std::path::PathBuf;
 
-/// VA offset config loaded from data/export/memory_offsets.json.
-/// Pushed as a raw JSON file on the same cadence as other exports;
-/// no release cycle needed to update.
-///
-/// `buffer_va` accepts either a decimal number (5805568) or a
-/// hex string ("0x589000") for readability.
-#[derive(Debug, Clone, serde::Serialize)]
+/// VA offset config for reading the EE.log ring buffer from process memory.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct MemOffsets {
     pub buffer_va: u64,
     pub buffer_size: usize,
-}
-
-impl<'de> serde::Deserialize<'de> for MemOffsets {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[derive(serde::Deserialize)]
-        struct Raw {
-            #[serde(rename = "buffer_va")]
-            buffer_va: serde_json::Value,
-            #[serde(rename = "buffer_size")]
-            buffer_size: usize,
-        }
-        let raw = Raw::deserialize(deserializer)?;
-        let buffer_va = match &raw.buffer_va {
-            serde_json::Value::Number(n) => n.as_u64().ok_or_else(|| {
-                serde::de::Error::custom("buffer_va must be a non-negative integer")
-            })?,
-            serde_json::Value::String(s) => {
-                let s = s.trim();
-                if let Some(hex) = s.strip_prefix("0x").or_else(|| s.strip_prefix("0X")) {
-                    u64::from_str_radix(hex, 16).map_err(|_| {
-                        serde::de::Error::custom(format!("invalid hex buffer_va: {s}"))
-                    })?
-                } else {
-                    s.parse::<u64>().map_err(|_| {
-                        serde::de::Error::custom(format!("invalid buffer_va: {s}"))
-                    })?
-                }
-            }
-            _ => return Err(serde::de::Error::custom("buffer_va must be a number or string")),
-        };
-        Ok(MemOffsets { buffer_va, buffer_size: raw.buffer_size })
-    }
-}
-
-impl Default for MemOffsets {
-    fn default() -> Self {
-        Self {
-            buffer_va: 0x589000,
-            buffer_size: 0x20000,
-        }
-    }
-}
-
-/// Load memory offsets from the export directory, falling back to defaults.
-pub fn load_offsets() -> MemOffsets {
-    let path = offsets_path();
-    fs::read_to_string(&path)
-        .ok()
-        .and_then(|s| serde_json::from_str::<MemOffsets>(&s).ok())
-        .unwrap_or_default()
-}
-
-fn offsets_path() -> PathBuf {
-    crate::get_data_root().join("data/export/memory_offsets.json")
 }
 
 /// Path to the per-user offset override cache.

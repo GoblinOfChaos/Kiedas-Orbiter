@@ -760,11 +760,8 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
         let mut discovery_attempts = 0u32;
         let mut last_pid_for_discovery: u32 = 0;
 
-        // Try local cache first (fast - avoids full anonymous region walk),
-        // fall back to repo-pushed default.
-        let cached = crate::mem_reader::load_offset_cache();
-        let mut using_cache = cached.is_some();
-        let mut offsets = match cached {
+        // Try local cache first (fast - avoids full anonymous region walk).
+        let mut offsets = match crate::mem_reader::load_offset_cache() {
             Some(c) => {
                 crate::logger::log_to_disk(&app_inner, &format!(
                     "[MEMORY WATCHER] Using cached VA {:#x}", c.buffer_va));
@@ -772,13 +769,13 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
             }
             None => {
                 crate::logger::log_to_disk(&app_inner,
-                    "[MEMORY WATCHER] No cached VA found, using repo default");
-                crate::mem_reader::load_offsets()
+                    "[MEMORY WATCHER] No cached VA found, will discover");
+                crate::mem_reader::MemOffsets { buffer_va: 0, buffer_size: 0x20000 }
             }
         };
 
         // Scratch buffers reused across cycles (no per-cycle allocs)
-        let mut raw = Vec::with_capacity(offsets.buffer_size);
+        let mut raw = Vec::new();
         let mut prev = vec![0u8; 0];
         let mut seen_set: std::collections::HashSet<u64> = std::collections::HashSet::new();
         let mut seen_count: usize = 0;
@@ -823,91 +820,74 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
             }
 
             if !validated {
-                // Don't re-load from disk every cycle - use the offsets
-                // from outside the loop (cache or default).
-                raw.reserve(offsets.buffer_size.saturating_sub(raw.len()));
-                match crate::mem_reader::read_ring_buffer(pid, &offsets, &mut raw) {
-                    Ok(()) => {
-                        if crate::mem_reader::validate_buffer(&raw).is_ok() {
-                            validated = true;
-                            // Persist validated VA to local cache so next
-                            // launch hooks instantly.
-                            crate::mem_reader::save_offset_cache(&offsets);
-                        } else {
-                            // Buffer content doesn't match EE.log format.
-                            if using_cache {
-                                // Cached VA is stale (game update, etc.)
-                                // Fall through to repo default immediately.
-                                crate::logger::log_to_disk(&app_inner,
-                                    "[MEMORY WATCHER] Cached VA stale, falling back to repo default");
-                                offsets = crate::mem_reader::load_offsets();
-                                using_cache = false;
-                                continue;
+                let mut need_discovery = true;
+
+                // Try cached VA first (fast path).
+                if offsets.buffer_va != 0 {
+                    raw.reserve(offsets.buffer_size.saturating_sub(raw.len()));
+                    match crate::mem_reader::read_ring_buffer(pid, &offsets, &mut raw) {
+                        Ok(()) => {
+                            if crate::mem_reader::validate_buffer(&raw).is_ok() {
+                                validated = true;
+                                need_discovery = false;
                             }
-                            if discovery_attempts < 5 {
-                                discovery_attempts += 1;
-                                crate::logger::log_to_disk(&app_inner, &format!(
-                                    "[MEMORY WATCHER] Discovery attempt {}/5...", discovery_attempts));
-                                if let Some((found_va, found_size)) =
-                                    crate::memory_scan::discover_ring_buffer(pid)
-                                {
-                                    offsets = crate::mem_reader::MemOffsets {
-                                        buffer_va: found_va,
-                                        buffer_size: found_size,
-                                    };
-                                    crate::logger::log_to_disk(&app_inner, &format!(
-                                        "[MEMORY WATCHER] Discovery found VA {:#x}, size {}",
-                                        found_va, found_size
-                                    ));
-                                    continue;
-                                }
-                                crate::logger::log_to_disk(&app_inner, &format!(
-                                    "[MEMORY WATCHER] Discovery attempt {}/5 returned no candidate",
-                                    discovery_attempts));
-                                std::thread::sleep(std::time::Duration::from_secs(3));
-                                continue;
-                            }
-                            std::thread::sleep(std::time::Duration::from_secs(2));
-                            continue;
+                        }
+                        Err(_) => {
+                            clear_pid_cache();
                         }
                     }
-                    Err(e) => {
-                        if !ever_hooked && !logged_waiting {
-                            logged_waiting = true;
-                            SCANNER_STATUS.store(1, Ordering::SeqCst);
-                        }
-                        // Reading this PID's memory failed — likely the
-                        // launcher process (not the game).  Clear the cache
-                        // so the next iteration does a fresh /proc scan and
-                        // finds the real game process once it's running.
-                        clear_pid_cache();
+                }
+
+                if need_discovery {
+                    if discovery_attempts < 5 {
+                        discovery_attempts += 1;
                         crate::logger::log_to_disk(&app_inner, &format!(
-                            "[MEMORY WATCHER] Initial ring buffer read failed: {e:?}"
-                        ));
-                        if discovery_attempts < 5 {
-                            discovery_attempts += 1;
-                            crate::logger::log_to_disk(&app_inner, &format!(
-                                "[MEMORY WATCHER] Discovery attempt {}/5...", discovery_attempts));
-                            if let Some((found_va, found_size)) =
-                                crate::memory_scan::discover_ring_buffer(pid)
-                            {
-                                offsets = crate::mem_reader::MemOffsets {
-                                    buffer_va: found_va,
-                                    buffer_size: found_size,
-                                };
-                                crate::logger::log_to_disk(&app_inner, &format!(
-                                    "[MEMORY WATCHER] Discovery found VA {:#x}, size {}",
-                                    found_va, found_size
-                                ));
-                                continue;
+                            "[MEMORY WATCHER] Discovery attempt {}/5...", discovery_attempts));
+                        if let Some((found_va, found_size)) =
+                            crate::memory_scan::discover_ring_buffer(pid)
+                        {
+                            offsets = crate::mem_reader::MemOffsets {
+                                buffer_va: found_va,
+                                buffer_size: found_size,
+                            };
+                            raw.reserve(offsets.buffer_size.saturating_sub(raw.len()));
+                            match crate::mem_reader::read_ring_buffer(pid, &offsets, &mut raw) {
+                                Ok(()) => {
+                                    if crate::mem_reader::validate_buffer(&raw).is_ok() {
+                                        validated = true;
+                                        crate::mem_reader::save_offset_cache(&offsets);
+                                    } else {
+                                        crate::logger::log_to_disk(&app_inner, &format!(
+                                            "[MEMORY WATCHER] Discovery attempt {}/5 buffer validation failed",
+                                            discovery_attempts));
+                                        std::thread::sleep(std::time::Duration::from_secs(3));
+                                        continue;
+                                    }
+                                }
+                                Err(e) => {
+                                    clear_pid_cache();
+                                    crate::logger::log_to_disk(&app_inner, &format!(
+                                        "[MEMORY WATCHER] Discovery attempt {}/5 read failed: {e:?}",
+                                        discovery_attempts));
+                                    std::thread::sleep(std::time::Duration::from_secs(3));
+                                    continue;
+                                }
                             }
+                        } else {
                             crate::logger::log_to_disk(&app_inner, &format!(
                                 "[MEMORY WATCHER] Discovery attempt {}/5 returned no candidate",
                                 discovery_attempts));
                             std::thread::sleep(std::time::Duration::from_secs(3));
                             continue;
                         }
-                        std::thread::sleep(std::time::Duration::from_millis(150));
+                    } else {
+                        if !logged_waiting {
+                            logged_waiting = true;
+                            SCANNER_STATUS.store(1, Ordering::SeqCst);
+                        }
+                        crate::logger::log_to_disk(&app_inner,
+                            "[MEMORY WATCHER] All discovery attempts exhausted, retrying...");
+                        std::thread::sleep(std::time::Duration::from_secs(2));
                         continue;
                     }
                 }

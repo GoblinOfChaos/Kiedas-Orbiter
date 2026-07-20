@@ -463,6 +463,14 @@ pub fn log_app_stop(app: &AppHandle) {
 
 // ──────────────────────────────────────────────────────────────────────────────
 
+fn clear_pid_cache() {
+    if let Some(cache) = CACHED_WARFRAME_PID.get() {
+        if let Ok(mut c) = cache.lock() {
+            *c = None;
+        }
+    }
+}
+
 pub fn stop_scanner(app: &AppHandle) {
     crate::logger::log_to_disk(app, "[LOG SCANNER] stop_scanner called - stopping watcher thread");
     SCANNER_GENERATION.fetch_add(1, Ordering::SeqCst);
@@ -470,12 +478,7 @@ pub fn stop_scanner(app: &AppHandle) {
     SCANNER_STATUS.store(0, Ordering::SeqCst);
     crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
     crate::overlay_utils::stop_focus_watcher();
-    // Force a fresh /proc scan on next get_warframe_pid call
-    if let Some(cache) = CACHED_WARFRAME_PID.get() {
-        if let Ok(mut c) = cache.lock() {
-            *c = (None, stale_instant());
-        }
-    }
+    clear_pid_cache();
 }
 
 pub fn is_scanning() -> bool {
@@ -505,39 +508,30 @@ fn line_hash(s: &str) -> u64 {
 
 /// Cached PID of a previously-discovered Warframe process.
 /// On subsequent calls we verify the cache via a cheap existence check
-/// instead of re-scanning the entire process table.
-/// When no Warframe is found, the "not found" result is also cached with
-/// a TTL so the waiting loop doesn't hammer /proc every 2 seconds.
-static CACHED_WARFRAME_PID: std::sync::OnceLock<Mutex<(Option<u32>, std::time::Instant)>> =
+/// instead of re-scanning the entire process table.  When no PID is
+/// cached (or the cached PID is dead), we always do a full scan —
+/// `/proc` readdir + comm/cmdline reads is microseconds of work and
+/// happens at most every 2 s (the wait-loop sleep), so there is no
+/// meaningful CPU cost to skip the cache on a cache-miss.
+static CACHED_WARFRAME_PID: std::sync::OnceLock<Mutex<Option<u32>>> =
     std::sync::OnceLock::new();
-/// Minimum time between full /proc scans when Warframe is not running.
-const PID_CACHE_MISS_TTL: std::time::Duration = std::time::Duration::from_secs(5);
-/// Sentinel Instant far enough in the past that the first access / post-clear
-/// call always triggers a real scan instead of short-circuiting on the TTL.
-fn stale_instant() -> std::time::Instant {
-    std::time::Instant::now() - PID_CACHE_MISS_TTL - std::time::Duration::from_secs(1)
-}
 
 fn with_cache(f: impl FnOnce() -> Option<u32>) -> Option<u32> {
     let lock = CACHED_WARFRAME_PID
-        .get_or_init(|| Mutex::new((None, stale_instant())));
+        .get_or_init(|| Mutex::new(None));
     let mut cache = lock.lock().unwrap();
-    let (pid, checked_at) = &*cache;
-    let age = checked_at.elapsed();
 
-    // Fast path: cached PID still alive
-    if let Some(pid) = pid {
-        if pid_is_alive(*pid) {
-            return Some(*pid);
+    // Fast path: cached PID still alive (avoids full /proc scan on every
+    // 50 ms poll tick while hooked).
+    if let Some(pid) = *cache {
+        if pid_is_alive(pid) {
+            return Some(pid);
         }
-    } else if age < PID_CACHE_MISS_TTL {
-        // "Not found" result is still fresh - skip the /proc scan
-        return None;
     }
 
     // Slow path: full scan
     let found = f();
-    *cache = (found, std::time::Instant::now());
+    *cache = found;
     found
 }
 
@@ -748,6 +742,7 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
         let mut validated = false;
         let mut had_pid = false;
         let mut discovery_attempts = 0u32;
+        let mut last_pid_for_discovery: u32 = 0;
 
         // Try local cache first (fast - avoids full anonymous region walk),
         // fall back to repo-pushed default.
@@ -803,6 +798,14 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
             };
             had_pid = true;
 
+            // If the PID changed (e.g. we found the game process instead of
+            // the launcher), reset discovery so we can discover the right VA
+            // for the new process.
+            if pid != last_pid_for_discovery {
+                last_pid_for_discovery = pid;
+                discovery_attempts = 0;
+            }
+
             if !validated {
                 // Don't re-load from disk every cycle - use the offsets
                 // from outside the loop (cache or default).
@@ -857,6 +860,11 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                             logged_waiting = true;
                             SCANNER_STATUS.store(1, Ordering::SeqCst);
                         }
+                        // Reading this PID's memory failed — likely the
+                        // launcher process (not the game).  Clear the cache
+                        // so the next iteration does a fresh /proc scan and
+                        // finds the real game process once it's running.
+                        clear_pid_cache();
                         crate::logger::log_to_disk(&app_inner, &format!(
                             "[MEMORY WATCHER] Initial ring buffer read failed: {e:?}"
                         ));
@@ -897,6 +905,17 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                 crate::logger::log_to_disk(&app_inner, &format!(
                     "[MEMORY WATCHER] Read error ({:?}), retrying...", e
                 ));
+                // If the process memory is inaccessible, the PID is stale
+                // (e.g. the game restarted under a new PID).  Reset so the
+                // next iteration re-scans /proc and re-discovers the buffer.
+                // also reset ever_hooked so the status goes back to "active"
+                // (green) once re-validation succeeds.
+                if e == "open_mem_failed" {
+                    validated = false;
+                    ever_hooked = false;
+                    crate::overlay_utils::stop_focus_watcher();
+                    clear_pid_cache();
+                }
                 std::thread::sleep(std::time::Duration::from_millis(500));
                 continue;
             }

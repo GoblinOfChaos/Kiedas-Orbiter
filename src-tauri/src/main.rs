@@ -1861,6 +1861,56 @@ async fn show_notification(
 }
 
 #[tauri::command]
+fn get_platform_info() -> serde_json::Value {
+    serde_json::json!({
+        "is_appimage": std::env::var("APPIMAGE").is_ok(),
+        "os": std::env::consts::OS,
+        "arch": std::env::consts::ARCH,
+    })
+}
+
+#[tauri::command]
+async fn download_appimage_update(url: String) -> Result<String, String> {
+    let appimage_path =
+        std::env::var("APPIMAGE").map_err(|_| "Not running from AppImage".to_string())?;
+    let parent = std::path::Path::new(&appimage_path)
+        .parent()
+        .ok_or("Cannot determine AppImage directory")?;
+    let filename = url.split('/').last().ok_or("Invalid URL")?;
+    let dest_path = parent.join(filename);
+    let temp_path = parent.join(format!(".{}.partial", filename));
+
+    let client = reqwest::Client::builder()
+        .user_agent("Cephalon-Kronos-Updater")
+        .build()
+        .map_err(|e| e.to_string())?;
+    let response = client
+        .get(&url)
+        .send()
+        .await
+        .map_err(|e| format!("Download failed: {}", e))?;
+    let bytes = response
+        .bytes()
+        .await
+        .map_err(|e| format!("Read failed: {}", e))?;
+
+    std::fs::write(&temp_path, &bytes).map_err(|e| format!("Write failed: {}", e))?;
+
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        std::fs::set_permissions(&temp_path, std::fs::Permissions::from_mode(0o755))
+            .map_err(|e| format!("Chmod failed: {}", e))?;
+    }
+
+    std::fs::rename(&temp_path, &dest_path).map_err(|e| format!("Rename failed: {}", e))?;
+
+    let _ = std::process::Command::new(&dest_path).spawn();
+
+    Ok(dest_path.to_string_lossy().to_string())
+}
+
+#[tauri::command]
 async fn open_url(_app_handle: tauri::AppHandle, url: String) -> Result<(), String> {
     #[cfg(target_os = "linux")]
     {
@@ -2687,6 +2737,8 @@ async fn get_known_weapon_names() -> Vec<String> {
             relay_event,
             get_active_relic_session,
             open_url,
+            download_appimage_update,
+            get_platform_info,
             save_settings,
             load_settings,
             log_terminal,

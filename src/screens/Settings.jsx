@@ -124,6 +124,12 @@ export default function SettingsScreen() {
     }
   }
 
+  const handleDownloadUpdate = (url) => {
+    if (url) {
+      invoke('open_url', { url })
+    }
+  }
+
   const handleSetUpdateOnStartup = async (val) => {
     setUpdateOnStartup(val)
     await setSetting('update_on_startup', val)
@@ -1093,10 +1099,20 @@ export default function SettingsScreen() {
                   </p>
                 )}
                 {updateState.status === 'error' && (
-                  <p className="text-xs text-red-400 font-mono">Error: {updateState.error}</p>
+                  <div className="space-y-1">
+                    <p className="text-xs text-red-400 font-mono">Error: {updateState.error}</p>
+                    {updateState.manifest?.downloadUrl && (
+                      <button
+                        onClick={() => handleDownloadUpdate(updateState.manifest.downloadUrl)}
+                        className="text-xs text-blue-400 font-mono underline hover:text-blue-300"
+                      >
+                        Download manually &rarr;
+                      </button>
+                    )}
+                  </div>
                 )}
 
-                <div className="flex gap-2 pt-2">
+                <div className="flex flex-wrap gap-2 pt-2">
                   <button
                     onClick={checkForUpdates}
                     disabled={updateState.status === 'checking' || updateState.status === 'installing'}

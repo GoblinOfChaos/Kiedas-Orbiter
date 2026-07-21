@@ -837,15 +837,15 @@ pub fn resize_overlay_window(
 // to place game overlays on the correct monitor, and by the focus watcher
 // to hide overlays when the user alt+tabs away.
 
-static WARFRAME_CACHE: Mutex<Option<WarframeRect>> = Mutex::new(None);
+pub(crate) static WARFRAME_CACHE: Mutex<Option<WarframeRect>> = Mutex::new(None);
 static FOCUS_WATCHER_RUNNING: AtomicBool = AtomicBool::new(false);
 
 #[derive(Clone, Copy)]
-struct WarframeRect {
-    x: i32,
-    y: i32,
-    w: u32,
-    h: u32,
+pub(crate) struct WarframeRect {
+    pub(crate) x: i32,
+    pub(crate) y: i32,
+    pub(crate) w: u32,
+    pub(crate) h: u32,
 }
 
 #[cfg(target_os = "linux")]

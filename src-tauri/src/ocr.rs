@@ -276,22 +276,67 @@ pub(crate) fn capture_monitor_image(monitor: &Monitor) -> Result<image::RgbaImag
 }
 
 pub fn get_target_monitor(app: &AppHandle) -> Option<Monitor> {
-    let state = app.state::<crate::AppState>();
-    let target_idx = *state.target_monitor.lock().unwrap();
     let monitors = Monitor::all().unwrap_or_default();
     if monitors.is_empty() {
         return None;
     }
+
+    // Prefer the monitor that contains Warframe's window centre — the
+    // xcap-index-crossover bug means a stored index from Tauri's enumeration
+    // may point to the wrong display when used with xcap's ordering.
+    if let Some(wf_rect) = warframe_window_rect_sync() {
+        let wf_cx = wf_rect.0 + wf_rect.2 as i32 / 2;
+        let wf_cy = wf_rect.1 + wf_rect.3 as i32 / 2;
+        for m in &monitors {
+            if let (Ok(x), Ok(y), Ok(w_), Ok(h_)) = (m.x(), m.y(), m.width(), m.height()) {
+                let right = x as i32 + w_ as i32;
+                let bottom = y as i32 + h_ as i32;
+                if wf_cx >= x as i32 && wf_cx < right
+                    && wf_cy >= y as i32 && wf_cy < bottom
+                {
+                    return Some(m.clone());
+                }
+            }
+        }
+    }
+
+    // Fallback: user's stored preference, then primary.
+    let state = app.state::<crate::AppState>();
+    let target_idx = *state.target_monitor.lock().unwrap();
     if let Some(idx) = target_idx {
         if idx < monitors.len() {
             return Some(monitors[idx].clone());
         }
     }
-    // Fall back to primary monitor
     let primary = monitors.iter()
         .find(|m| m.is_primary().unwrap_or(false))
         .cloned();
     primary.or_else(|| monitors.first().cloned())
+}
+
+/// Retrieve Warframe's window geometry via the shared focus-watcher cache
+/// or by enumerating xcap windows.
+fn warframe_window_rect_sync() -> Option<(i32, i32, u32, u32)> {
+    // Try the focus-watcher's WARFRAME_CACHE first (updated every 500 ms).
+    #[cfg(any(target_os = "linux", target_os = "windows"))]
+    {
+        if let Ok(cache) = crate::overlay_utils::WARFRAME_CACHE.lock() {
+            if let Some(rect) = *cache {
+                return Some((rect.x, rect.y, rect.w, rect.h));
+            }
+        }
+    }
+    // Fallback: enumerate xcap windows directly.
+    if let Ok(windows) = xcap::Window::all() {
+        if let Some(w) = windows.iter().find(|w| {
+            w.title().as_deref().unwrap_or("").contains("Warframe")
+        }) {
+            if let (Ok(x), Ok(y), Ok(w_), Ok(h_)) = (w.x(), w.y(), w.width(), w.height()) {
+                return Some((x, y, w_, h_));
+            }
+        }
+    }
+    None
 }
 
 struct RequiemTemplate {

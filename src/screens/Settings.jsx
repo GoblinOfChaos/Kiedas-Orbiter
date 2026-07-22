@@ -78,10 +78,17 @@ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
 
 export default function SettingsScreen() {
   const { theme, setTheme, themes, cursorStyle, setCursorStyle, cursorTint, setCursorTint } = useTheme()
-  const { isMonitoring, startMonitoring, stopMonitoring, manualRefresh, lastUpdate, statusText, autoStart, setAutoStart, monitorResult, refreshPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, retryCardImages } = useMonitoring()
+  const { isMonitoring, startMonitoring, stopMonitoring, manualRefresh, lastUpdate, statusText, autoStart, setAutoStart, monitorResult, nextRetryAt, refreshPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, retryCardImages } = useMonitoring()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
+  const [tick, setTick] = useState(0)
+  useEffect(() => {
+    if (!isMonitoring) return
+    const iv = setInterval(() => setTick(t => t + 1), 1000)
+    return () => clearInterval(iv)
+  }, [isMonitoring])
+
   const [hotkeys, setHotkeys] = useState(
     () => getSetting('hotkeys', [{ action: 'manual_ocr', shortcut: '' }])
   )
@@ -669,7 +676,7 @@ export default function SettingsScreen() {
                       {monitorResult === 'success'
                         ? `Syncing${lastUpdate ? ` (next update in ${Math.max(0, Math.floor((parseInt(lastUpdate) + 180000 - Date.now()) / 60000))}m)` : ''}`
                         : monitorResult === 'cached'
-                          ? 'Waiting for Warframe (showing cached data)'
+                          ? `Waiting for Warframe (next attempt in ${Math.max(0, Math.floor((nextRetryAt - Date.now()) / 1000))}s)`
                           : monitorResult === 'error'
                             ? 'Sync Error'
                             : 'Idle'}

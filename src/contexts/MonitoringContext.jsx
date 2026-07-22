@@ -522,6 +522,8 @@ export function MonitoringProvider({ children }) {
     }
   }, [fetchWorldstate, dict])
 
+  const [nextRetryAt, setNextRetryAt] = useState(0)
+
   const hasCachedData = useCallback(async () => {
     if (hasCachedDataRef.current) return true
     try {
@@ -566,8 +568,10 @@ export function MonitoringProvider({ children }) {
     setIsMonitoring(true)
     const result = await callApiHelper()
     const msg = result === 'success' ? 'Syncing active' : result === 'cached' ? 'Game not running, using cached data' : result
+    setNextRetryAt(Date.now() + intervalMs)
     invoke('set_monitoring_active', { active: true, result, statusText: msg }).catch(() => {})
     intervalRef.current = setInterval(async () => {
+      setNextRetryAt(Date.now() + intervalMs)
       const r = await callApiHelper()
       const msg2 = r === 'success' ? 'Syncing active' : r === 'cached' ? 'Game not running, using cached data' : r
       invoke('set_monitoring_active', { active: true, result: r, statusText: msg2 }).catch(() => {})
@@ -577,6 +581,7 @@ export function MonitoringProvider({ children }) {
   const stopMonitoring = useCallback(() => {
     if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null }
     setIsMonitoring(false)
+    setNextRetryAt(0)
     setMonitorResult('idle')
     setStatusText('Syncing stopped')
     invoke('set_monitoring_active', { active: false, result: 'idle', statusText: 'Syncing stopped' }).catch(() => {})
@@ -993,7 +998,7 @@ export function MonitoringProvider({ children }) {
     <MonitoringContext.Provider value={{
       exportData, spIncursions, arbys, archonModifiers, arbitrationModifiers,
       dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS, dropIndex,
-      isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
+      isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, nextRetryAt, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
       masteryProgress, allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices,
       startMonitoring, stopMonitoring, manualRefresh, callApiHelper,
       cardImagesPath, fixProgress, retryCardImages,

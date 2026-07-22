@@ -53,6 +53,7 @@ export default function MirroredMonitoringProvider({ children }) {
   const [priceLastUpdated] = useState(null)
   const [worldState, setWorldState] = useState(null)
   const [statusText, setStatusText] = useState('Initializing…')
+  const [nextRetryAt, setNextRetryAt] = useState(0)
   const [spIncursions, setSpIncursions] = useState(null)
   const [arbys, setArbys] = useState(null)
   const [archonModifiers, setArchonModifiers] = useState(null)
@@ -415,9 +416,11 @@ export default function MirroredMonitoringProvider({ children }) {
     if (isMonitoring) return
     setIsMonitoring(true)
     const result = await callApiHelperFn()
+    setNextRetryAt(Date.now() + intervalMs)
     const msg = result === 'success' ? 'Syncing active' : result === 'cached' ? 'Game not running, using cached data' : result
     invoke('set_monitoring_active', { active: true, result, statusText: msg }).catch(() => {})
     intervalRef.current = setInterval(async () => {
+      setNextRetryAt(Date.now() + intervalMs)
       const r = await callApiHelperFn()
       const msg2 = r === 'success' ? 'Syncing active' : r === 'cached' ? 'Game not running, using cached data' : r
       invoke('set_monitoring_active', { active: true, result: r, statusText: msg2 }).catch(() => {})
@@ -427,6 +430,7 @@ export default function MirroredMonitoringProvider({ children }) {
   const stopMonitoringFn = useCallback(() => {
     if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null }
     setIsMonitoring(false)
+    setNextRetryAt(0)
     setMonitorResult('idle')
     setStatusText('Syncing stopped')
     invoke('set_monitoring_active', { active: false, result: 'idle', statusText: 'Syncing stopped' }).catch(() => {})
@@ -452,9 +456,9 @@ export default function MirroredMonitoringProvider({ children }) {
       }
       return result
     },
-    callApiHelper: callApiHelperFn, refreshPrices: () => Promise.resolve(),
+    nextRetryAt, callApiHelper: callApiHelperFn, refreshPrices: () => Promise.resolve(),
     retryCardImages: () => Promise.resolve(), setWorldState,
-  }), [exportData, isMonitoring, monitorResult, autoStart, lastUpdate, rawInventory,
+  }), [exportData, isMonitoring, monitorResult, autoStart, lastUpdate, nextRetryAt, rawInventory,
       inventoryData, isInventoryLoading, worldState, statusText,
       spIncursions, arbys, archonModifiers, arbitrationModifiers,
       dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,

@@ -652,9 +652,10 @@ export default function SettingsScreen() {
             </div>
           </div>
 
-          {/* In-Game Scanner */}
+          {/* Log Scanner */}
           <div className="mb-4 pt-4 border-t border-white/5">
-            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">In-Game Scanner</p>
+            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-1">Log Scanner</p>
+            <p className="text-[10px] text-zinc-500 mb-3">Required for relic reward overlay triggers</p>
             <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">

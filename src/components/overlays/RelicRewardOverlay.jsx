@@ -180,7 +180,7 @@ export default function RelicRewardOverlay() {
     }
   }, [data])
 
-  // Window Resize logic
+  // Window Resize logic — re-measure whenever layout/content changes
   useEffect(() => {
     if (!data) return
     const width = SLOT_WIDTHS[squadSize] || 640
@@ -198,8 +198,8 @@ export default function RelicRewardOverlay() {
         width: Math.round(width),
         height
       }).catch(err => console.error('[RelicOverlay] Resize failed:', err))
-    }, 10) // Near-instant resize
-  }, [squadSize, triggerKey])
+    }, 10)
+  }, [squadSize, triggerKey, ocrResults, localReward])
 
   // Price fetching logic
   useEffect(() => {

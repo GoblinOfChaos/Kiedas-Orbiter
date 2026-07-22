@@ -93,11 +93,17 @@ pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri:
             .map_err(|e| e.to_string())?
             .ok_or_else(|| "no monitor found".to_string())
     } else {
-        // Game overlays always follow Warframe's monitor - not configurable.
-        // Never fall back to current/primary monitor — if we can't determine
-        // Warframe's rect, the overlay simply won't show until it's found.
-        warframe_monitor(app_handle)
-            .ok_or_else(|| "Warframe window not found".to_string())
+        // Game overlays always follow Warframe's monitor.
+        // If Warframe isn't running (e.g. testing), fall back to the
+        // current/primary monitor so the overlay can still be shown.
+        if let Some(mon) = warframe_monitor(app_handle) {
+            return Ok(mon);
+        }
+        main_window
+            .current_monitor()
+            .map_err(|e| e.to_string())?
+            .or_else(|| main_window.primary_monitor().ok().flatten())
+            .ok_or_else(|| "no monitor found".to_string())
     }
 }
 

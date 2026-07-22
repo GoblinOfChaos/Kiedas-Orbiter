@@ -187,7 +187,7 @@ export default function MirroredMonitoringProvider({ children }) {
         setIsMonitoring(false)
         setMonitorResult(p.result || 'idle')
         setStatusText(p.statusText || 'Syncing stopped')
-      } else if (p.active === true && !isMonitoring) {
+      } else if (p.active === true && !intervalRef.current) {
         setMonitorResult(p.result || 'success')
         setStatusText(p.statusText || 'Syncing active')
         setIsMonitoring(true)

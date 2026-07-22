@@ -178,6 +178,7 @@ export function MonitoringProvider({ children }) {
   const notifiedRef = useRef({})
   const priceFetchRef = useRef(false)
   const processingRef = useRef(false)
+  const isMonitoringRef = useRef(false)
   const hasCachedDataRef = useRef(false)
   const [cardImagesPath, setCardImagesPath] = useState('')
   const [fixProgress, setFixProgress] = useState({ checking: true })
@@ -923,7 +924,12 @@ export function MonitoringProvider({ children }) {
       }
     }))
 
-    subs.push(listen('monitoring-active-changed', async (e) => {
+    return () => { subs.forEach(p => p.then(f => f())) }
+  }, [exportData, inventoryData, globalRewardPool, EI])
+
+  // Monitoring-active listener in its own effect so it's registered ASAP.
+  useEffect(() => {
+    const unsub = listen('monitoring-active-changed', async (e) => {
       if (processingRef.current) return
       const p = e.payload || {}
       if (p.active === false) {
@@ -931,7 +937,7 @@ export function MonitoringProvider({ children }) {
         setIsMonitoring(false)
         setMonitorResult(p.result || 'idle')
         setStatusText(p.statusText || 'Syncing stopped')
-      } else if (p.active === true && !isMonitoring) {
+      } else if (p.active === true && !intervalRef.current) {
         setMonitorResult(p.result || 'success')
         setStatusText(p.statusText || 'Syncing active')
         setIsMonitoring(true)
@@ -943,10 +949,9 @@ export function MonitoringProvider({ children }) {
           processingRef.current = false
         }
       }
-    }))
-
-    return () => { subs.forEach(p => p.then(f => f())) }
-  }, [exportData, inventoryData, globalRewardPool, EI])
+    })
+    return () => { unsub.then(f => f()) }
+  }, [callApiHelper])
 
   // Re-run mod image pipeline when called (e.g. after user sets cache path in Settings)
   const retryCardImages = useCallback(async () => {

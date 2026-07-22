@@ -666,7 +666,10 @@ export default function SettingsScreen() {
               <p className="text-[10px] text-zinc-500 mb-3">Sync inventory data</p>
               <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5">
+                    <button onClick={manualRefresh} className="p-1 hover:bg-white/10 rounded transition-colors" title="Manual Refresh">
+                      <RefreshCw size={10} className="text-kronos-dim" />
+                    </button>
                     <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-500 ${monitorResult === 'success' ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.7)]' :
                       monitorResult === 'cached' ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.7)]' :
                         monitorResult === 'error' ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.7)]' :
@@ -682,14 +685,16 @@ export default function SettingsScreen() {
                             : 'Idle'}
                     </span>
                   </div>
-                  <Toggle checked={isMonitoring} onChange={async (val) => {
-                    setAutoStart(val)
-                    if (val) {
-                      await startMonitoring()
-                    } else {
-                      stopMonitoring()
-                    }
-                  }} />
+                  <div className="flex items-center gap-2">
+                    <Toggle checked={isMonitoring} onChange={async (val) => {
+                      setAutoStart(val)
+                      if (val) {
+                        await startMonitoring()
+                      } else {
+                        stopMonitoring()
+                      }
+                    }} />
+                  </div>
                 </div>
               </div>
             </div>

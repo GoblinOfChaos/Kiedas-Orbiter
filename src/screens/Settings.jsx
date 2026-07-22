@@ -676,7 +676,6 @@ export default function SettingsScreen() {
                 </div>
                 <Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />
               </div>
-              <p className="text-[10px] text-zinc-500 leading-relaxed">Reads relic/fissure data from Warframe's process memory. No file path needed.</p>
             </div>
           </div>
 

@@ -54,6 +54,7 @@ pub struct LogScanner {
     is_fissure: bool,
     in_mission: bool,
     relic_picker_open: bool,
+    relic_picker_opened_at: f64,
     void_tier: Option<String>,
     riven_state: RivenState,
     squad_channels: HashSet<String>,
@@ -87,6 +88,7 @@ impl LogScanner {
             is_fissure: false,
             in_mission: false,
             relic_picker_open: false,
+            relic_picker_opened_at: 0.0,
             void_tier: None,
             riven_state: RivenState::Idle,
             squad_channels: HashSet::new(),
@@ -213,11 +215,13 @@ impl LogScanner {
         if s.contains("Created /Lotus/Interface/ThemedProjectionManager.swf") {
             if !self.in_mission {
                 self.relic_picker_open = true;
+                self.relic_picker_opened_at = ts;
                 crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (pre-mission) (LogTS: {}s)", ts));
                 app.emit("relic-picker-opened", serde_json::json!({ "void_tier": self.void_tier })).unwrap_or_default();
                 return;
             }
             self.relic_picker_open = true;
+            self.relic_picker_opened_at = ts;
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (endless) (LogTS: {}s)", ts));
             app.emit("relic-picker-opened", serde_json::json!({ "void_tier": self.void_tier })).unwrap_or_default();
             return;
@@ -232,7 +236,13 @@ impl LogScanner {
         }
 
         // === Relic Picker Close (TennoShipInputFilter — orbiter relic menu) ===
-        if self.relic_picker_open && s.contains("TennoShipInputFilter") {
+        // TennoShipInputFilter fires both when the picker opens (during init)
+        // and when it closes, so debounce against the open timestamp.
+        const RELIC_PICKER_DEBOUNCE_S: f64 = 0.5;
+        if self.relic_picker_open
+            && s.contains("TennoShipInputFilter")
+            && ts - self.relic_picker_opened_at > RELIC_PICKER_DEBOUNCE_S
+        {
             self.relic_picker_open = false;
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER CLOSED (TennoShipInputFilter) (LogTS: {}s)", ts));
             app.emit("relic-picker-closed", ()).unwrap_or_default();

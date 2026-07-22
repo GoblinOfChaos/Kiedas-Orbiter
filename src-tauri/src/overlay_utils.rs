@@ -817,9 +817,12 @@ pub fn resize_overlay_window(
             window.show().map_err(|e| format!("show failed: {e}"))?;
         }
 
-        // Force backing-store invalidation via 1x1 resize before setting the
-        // real size - WebKit discards its rendering surface on geometry change.
-        let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
+        // Only force backing-store invalidation (1x1 resize) when the window
+        // was hidden — incremental resizes on a visible window don't need it
+        // and the 1x1 flash is visually jarring.
+        if !window.is_visible().unwrap_or(false) {
+            let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
+        }
         window
             .set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }))
             .map_err(|e| format!("set_size failed: {e}"))?;

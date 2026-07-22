@@ -29,6 +29,7 @@ export default function RelicRewardOverlay() {
   const triggerCount = useRef(0)
   const [triggerKey, setTriggerKey] = useState(0)
   const showingRef = useRef(false)
+  const lastSizeRef = useRef({ width: 0, height: 0 })
 
   const showWindow = useCallback(async (fromRust = false) => {
     if (showingRef.current) return
@@ -180,7 +181,9 @@ export default function RelicRewardOverlay() {
     }
   }, [data])
 
-  // Window Resize logic — re-measure whenever layout/content changes
+  // Window Resize logic — re-measure whenever layout/content changes.
+  // Skips resize if dimensions haven't changed to avoid the backing-store
+  // invalidation flash (1x1 restore cycle) in resize_overlay_window.
   useEffect(() => {
     if (!data) return
     const width = SLOT_WIDTHS[squadSize] || 640
@@ -193,9 +196,12 @@ export default function RelicRewardOverlay() {
         height = containerRef.current.scrollHeight
       }
       height = Math.max(height, 40)
+      const rw = Math.round(width)
+      if (rw === lastSizeRef.current.width && height === lastSizeRef.current.height) return
+      lastSizeRef.current = { width: rw, height }
       invoke('resize_overlay_window', {
         label: 'overlay-relic',
-        width: Math.round(width),
+        width: rw,
         height
       }).catch(err => console.error('[RelicOverlay] Resize failed:', err))
     }, 10)

@@ -496,6 +496,10 @@ export function MonitoringProvider({ children }) {
         setStatusText('No cached data – start syncing in Settings')
         setInventoryData(null)
       }
+
+      if (autoStartRef.current) {
+        startMonitoring().catch(() => {})
+      }
     })()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 

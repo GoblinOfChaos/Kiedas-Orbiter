@@ -652,30 +652,58 @@ export default function SettingsScreen() {
             </div>
           </div>
 
-          {/* Log Scanner */}
-          <div className="mb-4 pt-4 border-t border-white/5">
-            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-1">Log Scanner</p>
-            <p className="text-[10px] text-zinc-500 mb-3">Required for relic reward overlay triggers</p>
-            <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-700 ${scannerStatus === 'active' ? 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.9)]' :
-                    scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.7)] animate-pulse' :
-                      scannerStatus === 'stale_offset' ? 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]' :
-                        'bg-zinc-700'
+          {/* Inventory Sync + Log Scanner */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 pt-4 border-t border-white/5">
+            <div>
+              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-1">Inventory Sync</p>
+              <p className="text-[10px] text-zinc-500 mb-3">Sync inventory data from Warframe's API</p>
+              <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-500 ${monitorResult === 'success' ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.7)]' :
+                      monitorResult === 'cached' ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.7)]' :
+                      monitorResult === 'error' ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.7)]' :
+                        'bg-zinc-600'
                     }`} />
-                  <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${scannerStatus === 'active' ? 'text-green-400' :
-                    scannerStatus === 'waiting' ? 'text-yellow-400' :
-                      scannerStatus === 'stale_offset' ? 'text-red-400' :
-                        'text-zinc-600'
-                    }`}>
-                    {scannerStatus === 'active' ? 'Hooked into Warframe - scanner running' :
-                      scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :
-                        scannerStatus === 'stale_offset' ? 'Scanner offset out of date - auto-retrying' :
-                          'Scanner offline'}
-                  </span>
+                    <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${isMonitoring ? 'text-green-400' : 'text-zinc-600'}`}>
+                      {isMonitoring ? 'Syncing' : 'Idle'}
+                    </span>
+                  </div>
+                  <Toggle checked={isMonitoring} onChange={async (val) => {
+                    setAutoStart(val)
+                    if (val) {
+                      await startMonitoring()
+                    } else {
+                      stopMonitoring()
+                    }
+                  }} />
                 </div>
-                <Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />
+              </div>
+            </div>
+            <div>
+              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-1">Log Scanner</p>
+              <p className="text-[10px] text-zinc-500 mb-3">Required for relic reward overlay triggers</p>
+              <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-700 ${scannerStatus === 'active' ? 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.9)]' :
+                      scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.7)] animate-pulse' :
+                        scannerStatus === 'stale_offset' ? 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]' :
+                          'bg-zinc-700'
+                    }`} />
+                    <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${scannerStatus === 'active' ? 'text-green-400' :
+                      scannerStatus === 'waiting' ? 'text-yellow-400' :
+                        scannerStatus === 'stale_offset' ? 'text-red-400' :
+                          'text-zinc-600'
+                    }`}>
+                      {scannerStatus === 'active' ? 'Hooked into Warframe - scanner running' :
+                        scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :
+                          scannerStatus === 'stale_offset' ? 'Scanner offset out of date - auto-retrying' :
+                            'Scanner offline'}
+                    </span>
+                  </div>
+                  <Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />
+                </div>
               </div>
             </div>
           </div>
@@ -933,29 +961,17 @@ export default function SettingsScreen() {
           </div>
 
           {/* Status widget */}
-          <div className="grid grid-cols-2 gap-3 mb-5">
-            <div className="bg-kronos-panel/30 rounded-xl p-4 border border-white/5 space-y-3">
-              <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">Status</p>
-              <p className="text-xs text-kronos-accent font-mono break-words leading-relaxed min-h-[2rem]">
-                {statusText || (isMonitoring ? 'Syncing active' : 'Not syncing')}
+          <div className="bg-kronos-panel/30 rounded-xl p-4 border border-white/5 space-y-3 mb-5">
+            <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">Status</p>
+            <p className="text-xs text-kronos-accent font-mono break-words leading-relaxed min-h-[2rem]">
+              {statusText || (isMonitoring ? 'Syncing active' : 'Not syncing')}
+            </p>
+            {lastUpdate && (
+              <p className="text-[10px] text-zinc-600 font-mono">
+                Last update: {formatLastUpdate(lastUpdate)}
               </p>
-              {lastUpdate && (
-                <p className="text-[10px] text-zinc-600 font-mono">
-                  Last update: {formatLastUpdate(lastUpdate)}
-                </p>
-              )}
-              {error && <p className="text-[10px] text-red-400 font-mono">Error: {error}</p>}
-            </div>
-
-            <div className="bg-kronos-panel/30 rounded-xl p-4 border border-white/5 flex flex-col justify-between">
-              <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim mb-3">Options</p>
-              <Toggle
-                checked={autoStart}
-                onChange={setAutoStart}
-                label="Auto-start on launch"
-                description="Sync inventory when the app opens"
-              />
-            </div>
+            )}
+            {error && <p className="text-[10px] text-red-400 font-mono">Error: {error}</p>}
           </div>
 
           {/* Action buttons */}

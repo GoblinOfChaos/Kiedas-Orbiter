@@ -105,7 +105,6 @@ function SetupScreen() {
   const [checked, setChecked] = useState(false)
   const [ready, setReady] = useState(false)
   const [cachePath, setCachePath] = useState('')
-  const [logPath, setLogPath] = useState('')
   const hasStartedRef = useRef(false)
 
   useEffect(() => {
@@ -117,7 +116,6 @@ function SetupScreen() {
       if (!getSetting('disclaimer-accepted')) {
         setShow(true)
         setCachePath(getSetting('warframe_cache_path', ''))
-        setLogPath(getSetting('ee_log_path', ''))
       }
 
       const savedHotkeys = getSetting('hotkeys', [])
@@ -127,30 +125,13 @@ function SetupScreen() {
           .catch(err => console.error('Failed to register startup hotkeys:', err))
       }
 
-      const fissureEnabled = getSetting('fissure_overlay_enabled')
-      const savedLogPath = getSetting('ee_log_path')
-      if (fissureEnabled && savedLogPath) {
-        invoke('start_log_scanner', { path: savedLogPath }).catch(console.error)
+      if (getSetting('fissure_overlay_enabled')) {
+        invoke('start_log_scanner').catch(console.error)
       }
       setReady(true)
       emit('frontend-ready', {}).catch(() => {})
     })
   }, [])
-
-  const handleBrowseLog = async () => {
-    try {
-      const selected = await openDialog({
-        multiple: false,
-        filters: [{ name: 'Game Log', extensions: ['log'] }]
-      })
-      if (selected) {
-        setLogPath(selected)
-        await setSetting('ee_log_path', selected)
-      }
-    } catch (err) {
-      console.error(err)
-    }
-  }
 
   const handleBrowseCache = async () => {
     try {
@@ -191,22 +172,6 @@ function SetupScreen() {
               </button>
             </div>
             <p className="mt-2 text-[10px] text-kronos-dim leading-relaxed">Point to your Warframe Cache.Windows folder to use game assets. Skipping this uses a fallback.</p>
-          </div>
-        </div>
-
-        {/* Log path */}
-        <div className="mb-4">
-          <p className="text-sm font-black uppercase tracking-widest text-kronos-text/80 mb-2">EE.log Path <span className="text-kronos-dim font-normal normal-case tracking-normal">(optional)</span></p>
-          <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-            <div className="flex gap-2">
-              <input type="text" value={logPath} readOnly placeholder="Select your Warframe EE.log file..."
-                className="flex-1 glass-panel rounded-lg px-4 py-2 text-xs font-mono focus:outline-none focus:glow-border" />
-              <button onClick={handleBrowseLog}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all bg-kronos-accent/10 text-kronos-accent hover:bg-kronos-accent/20 border border-kronos-accent/20 shrink-0">
-                <FolderOpen size={14} /> Browse
-              </button>
-            </div>
-            <p className="mt-2 text-[10px] text-kronos-dim leading-relaxed">Required for fissure overlays and the in-game scanner. Pick the EE.log file from your Warframe installation.</p>
           </div>
         </div>
 

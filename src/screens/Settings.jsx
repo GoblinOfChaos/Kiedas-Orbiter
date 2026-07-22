@@ -224,9 +224,6 @@ export default function SettingsScreen() {
   const [fissureOverlayEnabled, setFissureOverlayEnabled] = useState(
     () => getSetting('fissure_overlay_enabled')
   )
-  const [eeLogPath, setEeLogPath] = useState(
-    () => getSetting('ee_log_path', '')
-  )
   const [warframeCachePath, setWarframeCachePath] = useState(
     () => getSetting('warframe_cache_path', '')
   )
@@ -266,9 +263,6 @@ export default function SettingsScreen() {
     return onSettingsChanged((settings) => {
       if (settings.fissure_overlay_enabled !== undefined) {
         setFissureOverlayEnabled(settings.fissure_overlay_enabled)
-      }
-      if (settings.ee_log_path !== undefined) {
-        setEeLogPath(settings.ee_log_path)
       }
     })
   }, [])
@@ -405,17 +399,9 @@ export default function SettingsScreen() {
     setFissureOverlayEnabled(val)
     await setSetting('fissure_overlay_enabled', val)
     if (val) {
-      // Show "waiting" immediately so the UI responds right away,
-      // regardless of backend polling latency.
       setScannerStatus('waiting')
-      // Always stop first to clear any stale IS_SCANNING state from a previous session,
-      // otherwise spawn_memory_watcher returns "Already scanning" if the flag is stuck.
       await invoke('stop_log_scanner').catch(console.error)
-      if (eeLogPath) {
-        invoke('start_log_scanner', { path: eeLogPath }).catch(console.error)
-      } else {
-        console.warn('Cannot start scanner: no EE.log path configured')
-      }
+      invoke('start_log_scanner').catch(console.error)
     } else {
       setScannerStatus('idle')
       invoke('stop_log_scanner').catch(console.error)
@@ -426,24 +412,6 @@ export default function SettingsScreen() {
     setFissureUiScale(val)
     await setSetting('fissure_ui_scale', val)
     invoke('set_fissure_ui_scale', { scale: val }).catch(console.error)
-  }
-
-  const handleBrowseLog = async () => {
-    try {
-      const selected = await openDialog({
-        multiple: false,
-        filters: [{ name: 'Game Log', extensions: ['log'] }]
-      })
-      if (selected) {
-        setEeLogPath(selected)
-        await setSetting('ee_log_path', selected)
-        if (fissureOverlayEnabled) {
-          invoke('start_log_scanner', { path: selected }).catch(console.error)
-        }
-      }
-    } catch (err) {
-      console.error(err)
-    }
   }
 
   const handleBrowseCache = async () => {
@@ -684,56 +652,31 @@ export default function SettingsScreen() {
             </div>
           </div>
 
-          {/* EE.log Path + Enable Scanner */}
+          {/* In-Game Scanner */}
           <div className="mb-4 pt-4 border-t border-white/5">
-            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">EE.log scanning</p>
+            <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">In-Game Scanner</p>
             <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                <div className="flex-1 flex gap-2">
-                  <input
-                    type="text"
-                    value={eeLogPath}
-                    readOnly
-                    placeholder="Select your Warframe EE.log file..."
-                    className="flex-1 glass-panel rounded-lg px-4 py-2 text-xs font-mono focus:outline-none focus:glow-border"
-                  />
-                  <Button variant="secondary" onClick={handleBrowseLog} className="px-3">
-                    <FolderOpen size={16} className="mr-2" />
-                    Browse
-                  </Button>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-700 ${scannerStatus === 'active' ? 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.9)]' :
+                    scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.7)] animate-pulse' :
+                      scannerStatus === 'stale_offset' ? 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]' :
+                        'bg-zinc-700'
+                    }`} />
+                  <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${scannerStatus === 'active' ? 'text-green-400' :
+                    scannerStatus === 'waiting' ? 'text-yellow-400' :
+                      scannerStatus === 'stale_offset' ? 'text-red-400' :
+                        'text-zinc-600'
+                    }`}>
+                    {scannerStatus === 'active' ? 'Hooked into Warframe - scanner running' :
+                      scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :
+                        scannerStatus === 'stale_offset' ? 'Scanner offset out of date - auto-retrying' :
+                          'Scanner offline'}
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl border border-white/5 shrink-0">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">Enable Scanner</span>
-                  <Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />
-                </div>
+                <Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />
               </div>
-              <div className="mt-3 flex flex-col sm:flex-row gap-4 text-[10px] text-zinc-500 uppercase leading-relaxed font-bold">
-                <div>
-                  <p className="text-zinc-400 mb-1 tracking-widest">Common Windows Path:</p>
-                  <p className="font-mono text-kronos-accent/70">AppData\Local\Warframe\EE.log</p>
-                </div>
-                <div>
-                  <p className="text-zinc-400 mb-1 tracking-widest">Common Linux Path:</p>
-                  <p className="font-mono text-kronos-accent/70">steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log</p>
-                </div>
-              </div>
-              <div className="mt-2 flex items-center gap-2">
-                <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-700 ${scannerStatus === 'active' ? 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.9)]' :
-                  scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.7)] animate-pulse' :
-                    scannerStatus === 'stale_offset' ? 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]' :
-                      'bg-zinc-700'
-                  }`} />
-                <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${scannerStatus === 'active' ? 'text-green-400' :
-                  scannerStatus === 'waiting' ? 'text-yellow-400' :
-                    scannerStatus === 'stale_offset' ? 'text-red-400' :
-                      'text-zinc-600'
-                  }`}>
-                  {scannerStatus === 'active' ? 'Hooked into Warframe - scanner running' :
-                    scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :
-                      scannerStatus === 'stale_offset' ? 'EE.log offset out of date - auto-retrying' :
-                        'Scanner offline'}
-                </span>
-              </div>
+              <p className="text-[10px] text-zinc-500 leading-relaxed">Reads relic/fissure data from Warframe's process memory. No file path needed.</p>
             </div>
           </div>
 

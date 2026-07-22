@@ -24,7 +24,6 @@ mod memory_scan;
 pub struct AppState {
     pub notif_sound: Arc<Mutex<String>>,
     pub log_scanner: Arc<Mutex<Option<log_scanner::LogScannerHandle>>>,
-    pub log_scanner_path: Arc<Mutex<Option<String>>>,
     pub active_relic_data: Arc<Mutex<Option<serde_json::Value>>>,
     pub target_monitor: Arc<Mutex<Option<usize>>>,
     pub sidebar_saved: Arc<Mutex<SidebarSavedState>>,
@@ -1963,36 +1962,10 @@ async fn open_url(_app_handle: tauri::AppHandle, url: String) -> Result<(), Stri
 // --- Log Scanner Commands ---
 
 #[tauri::command]
-async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppState>, path: String) -> Result<(), String> {
-    if !std::path::Path::new(&path).exists() {
-        return Err("Log file does not exist".to_string());
-    }
-    
-    let mut scanner_lock = state.log_scanner.lock().unwrap();
-    let mut path_lock = state.log_scanner_path.lock().unwrap();
-    
-    let existing = path_lock.as_ref().map(|s| s.as_str()).unwrap_or("");
-    let is_same = scanner_lock.is_some() && existing == path;
-    eprintln!("[LOG_SCANNER] start called path={}, existing={}, is_same={}", path, existing, is_same);
-    
-    if is_same {
+async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppState>) -> Result<(), String> {
+    if state.log_scanner.lock().unwrap().is_some() {
         return Ok(());
     }
-
-    // Properly stop any existing scanner before spawning a new one,
-    // so IS_SCANNING is cleared and spawn_memory_watcher won't reject us
-    if scanner_lock.is_some() {
-        drop(scanner_lock);
-        drop(path_lock);
-        crate::log_scanner::stop_scanner(&app);
-        scanner_lock = state.log_scanner.lock().unwrap();
-        path_lock = state.log_scanner_path.lock().unwrap();
-    }
-    
-    *scanner_lock = None;
-    *path_lock = Some(path.clone());
-    drop(path_lock);
-    drop(scanner_lock);
     
     let handle = match log_scanner::spawn_memory_watcher(app.clone()) {
         Ok(h) => h,
@@ -2001,8 +1974,7 @@ async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppSta
             return Err(e);
         }
     };
-    let mut scanner_lock = state.log_scanner.lock().unwrap();
-    *scanner_lock = Some(handle);
+    *state.log_scanner.lock().unwrap() = Some(handle);
     
     Ok(())
 }
@@ -2013,28 +1985,6 @@ async fn stop_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppStat
     *scanner_lock = None;
     crate::log_scanner::stop_scanner(&app);
     Ok(())
-}
-
-#[tauri::command]
-async fn validate_log_path(path: String) -> Result<serde_json::Value, String> {
-    use std::io::Read;
-    use std::path::PathBuf;
-    
-    let path_buf = PathBuf::from(path);
-    if !path_buf.exists() {
-        return Ok(serde_json::json!({ "valid": false, "reason": "File not found" }));
-    }
-    
-    let mut file = std::fs::File::open(&path_buf).map_err(|e| e.to_string())?;
-    let mut head = [0u8; 1024];
-    let _ = file.read(&mut head);
-    let s = String::from_utf8_lossy(&head);
-    
-    if s.contains("Sys [Info]:") || s.contains("Game [Info]:") {
-        Ok(serde_json::json!({ "valid": true }))
-    } else {
-        Ok(serde_json::json!({ "valid": false, "reason": "Invalid log format" }))
-    }
 }
 
 #[tauri::command]
@@ -2559,7 +2509,6 @@ async fn get_known_weapon_names() -> Vec<String> {
         .manage(AppState {
             notif_sound: Arc::new(Mutex::new(saved_sound.to_string())),
             log_scanner: Arc::new(Mutex::new(None)),
-            log_scanner_path: Arc::new(Mutex::new(None)),
             active_relic_data: Arc::new(Mutex::new(None)),
             target_monitor: Arc::new(Mutex::new(target_monitor_idx)),
             sidebar_saved: Arc::new(Mutex::new(SidebarSavedState::default())),
@@ -2710,7 +2659,6 @@ async fn get_known_weapon_names() -> Vec<String> {
             crate::log_scanner::get_scanner_status,
             start_log_scanner,
             stop_log_scanner,
-            validate_log_path,
             is_scanning,
             simulate_fissure_event,
             crate::ocr::save_debug_screenshot,

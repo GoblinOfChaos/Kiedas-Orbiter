@@ -603,7 +603,6 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
 
         // Override position via XMoveWindow (more reliable than GTK for ARGB windows)
         force_position_x11(&window, pos.x, pos.y);
-        raise_x11(&window);
         install_deiconify_handler(&window, label);
     }
 
@@ -615,11 +614,6 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         }
     }
 
-    // Overlays are already created with alwaysOnTop/skipTaskbar in
-    // tauri.conf.json - skip redundant OS calls on Windows/Linux.
-    #[cfg(target_os = "linux")]
-    window.set_always_on_top(true)
-        .map_err(|e| format!("set_always_on_top failed: {e}"))?;
     // Force backing-store invalidation: resize to 1x1 then restore to the
     // last known size (or the static default if never resized). WebKit
     // discards its rendering surface on geometry change, which clears any
@@ -630,6 +624,16 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         let (restore_w, restore_h) = get_last_overlay_size(label).unwrap_or((w, h));
         let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: 1, height: 1 }));
         let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: restore_w as u32, height: restore_h as u32 }));
+    }
+
+    // Raise and set always-on-top AFTER backing-store invalidation so KWin's
+    // stacking policy doesn't undo XRaiseWindow on the ConfigureNotify from
+    // set_size.  Must stay above the game window at all times.
+    #[cfg(target_os = "linux")]
+    {
+        raise_x11(&window);
+        window.set_always_on_top(true)
+            .map_err(|e| format!("set_always_on_top failed: {e}"))?;
     }
     // Sidebar overlay must stay interactive (click-through breaks nav/screens).
     if label != "overlay-sidebar" {
@@ -799,7 +803,6 @@ pub fn resize_overlay_window(
                 window.show().map_err(|e| format!("show failed: {e}"))?;
             }
             force_position_x11(&window, pos.x, pos.y);
-            raise_x11(&window);
         }
 
         #[cfg(not(target_os = "linux"))]
@@ -814,14 +817,19 @@ pub fn resize_overlay_window(
         window
             .set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: phys_h }))
             .map_err(|e| format!("set_size failed: {e}"))?;
+
+        // Raise, AOT, and click-through AFTER size is final so KWin doesn't
+        // undo XRaiseWindow on ConfigureNotify from the set_size above.
+        #[cfg(target_os = "linux")]
+        {
+            raise_x11(&window);
+            window.set_always_on_top(true)
+                .map_err(|e| format!("set_always_on_top failed: {e}"))?;
+            window.set_skip_taskbar(true)
+                .map_err(|e| format!("set_skip_taskbar failed: {e}"))?;
+        }
         window.set_ignore_cursor_events(true)
             .map_err(|e| format!("set_ignore_cursor_events failed: {e}"))?;
-        #[cfg(target_os = "linux")]
-        window.set_always_on_top(true)
-            .map_err(|e| format!("set_always_on_top failed: {e}"))?;
-        #[cfg(target_os = "linux")]
-        window.set_skip_taskbar(true)
-            .map_err(|e| format!("set_skip_taskbar failed: {e}"))?;
     } else {
         clear_shown_overlay(label);
         window.hide().map_err(|e| format!("hide failed: {e}"))?;

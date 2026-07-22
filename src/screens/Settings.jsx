@@ -657,7 +657,7 @@ export default function SettingsScreen() {
             <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-1">Log Scanner</p>
             <p className="text-[10px] text-zinc-500 mb-3">Required for relic reward overlay triggers</p>
             <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-700 ${scannerStatus === 'active' ? 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.9)]' :
                     scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.7)] animate-pulse' :

@@ -2608,7 +2608,7 @@ async fn get_known_weapon_names() -> Vec<String> {
                     tauri::async_runtime::spawn(async move {
                         let status = (|| -> Result<(), String> {
                             let mon = crate::ocr::get_target_monitor(&ah).ok_or("no monitor")?;
-                            crate::ocr::capture_monitor_image(&mon).map(|_| ())
+                             crate::ocr::capture_monitor_image(&ah, &mon).map(|_| ())
                         })();
                         if status.is_ok() {
                             let path = resolve_path("data/user/settings.json");

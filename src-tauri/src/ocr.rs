@@ -143,7 +143,7 @@ pub fn ocr_riven_card(app: AppHandle, position: RivenCardPosition) -> Result<Riv
     let Some(monitor) = get_target_monitor(&app) else {
         return Err("No target monitor".to_string());
     };
-    let image = capture_monitor_image(&monitor)?;
+    let image = capture_monitor_image(&app, &monitor)?;
     ocr_card_image(&app, DynamicImage::ImageRgba8(image), position, false)
 }
 
@@ -166,11 +166,15 @@ pub fn set_fissure_ui_scale(scale: u32) {
 /// fall back to capturing the Warframe window via xcap::Window (which always
 /// uses the X11/XCB path, working through XWayland), then try calling a system
 /// screenshot tool (spectacle → import) cropping to the monitor's region.
-pub(crate) fn capture_monitor_image(monitor: &Monitor) -> Result<image::RgbaImage, String> {
+pub(crate) fn capture_monitor_image(app: &AppHandle, monitor: &Monitor) -> Result<image::RgbaImage, String> {
     match monitor.capture_image() {
-        Ok(img) => return Ok(img),
+        Ok(img) => {
+            crate::logger::log_to_disk(app, "[OCR] Capture via xcap Monitor");
+            return Ok(img);
+        }
         Err(e) => {
             eprintln!("[OCR] xcap Monitor::capture_image failed: {}", e);
+            crate::logger::log_to_disk(app, &format!("[OCR] xcap Monitor::capture_image failed: {}", e));
         }
     }
 
@@ -184,11 +188,12 @@ pub(crate) fn capture_monitor_image(monitor: &Monitor) -> Result<image::RgbaImag
                 w.title().as_deref().unwrap_or("").contains("Warframe")
             }).cloned();
             if let Some(w) = warframe {
-                match w.capture_image() {
-                    Ok(img) => {
-                        eprintln!("[OCR] Window fallback succeeded (Warframe window)");
-                        return Ok(img);
-                    }
+                        match w.capture_image() {
+                            Ok(img) => {
+                                eprintln!("[OCR] Window fallback succeeded (Warframe window)");
+                                crate::logger::log_to_disk(app, "[OCR] Capture via xcap Window fallback");
+                                return Ok(img);
+                            }
                     Err(e2) => eprintln!("[OCR] Window fallback also failed: {}", e2),
                 }
             }
@@ -219,12 +224,16 @@ pub(crate) fn capture_monitor_image(monitor: &Monitor) -> Result<image::RgbaImag
 
             if ok {
                 std::thread::sleep(Duration::from_millis(200));
-                match image::open(&path) {
-                    Ok(img) => {
-                        let _ = std::fs::remove_file(&path);
-                        return Ok(img.to_rgba8());
-                    }
-                    Err(e) => eprintln!("[OCR] grim capture load failed: {}", e),
+                     match image::open(&path) {
+                        Ok(img) => {
+                            let _ = std::fs::remove_file(&path);
+                            crate::logger::log_to_disk(app, "[OCR] Capture via grim fallback");
+                            return Ok(img.to_rgba8());
+                        }
+                        Err(e) => {
+                            eprintln!("[OCR] grim capture load failed: {}", e);
+                            crate::logger::log_to_disk(app, &format!("[OCR] grim capture load failed: {}", e));
+                        }
                 }
                 let _ = std::fs::remove_file(&path);
             } else {
@@ -260,18 +269,23 @@ pub(crate) fn capture_monitor_image(monitor: &Monitor) -> Result<image::RgbaImag
 
         if ok {
             std::thread::sleep(Duration::from_millis(300));
-            match image::open(&path) {
-                Ok(mut full) => {
-                    let _ = std::fs::remove_file(&path);
-                    let cropped = full.crop(mon_x, mon_y, mon_w, mon_h);
-                    return Ok(cropped.to_rgba8());
-                }
-                Err(e) => eprintln!("[OCR] Fallback screenshot load failed: {}", e),
+                match image::open(&path) {
+                    Ok(mut full) => {
+                        let _ = std::fs::remove_file(&path);
+                        let cropped = full.crop(mon_x, mon_y, mon_w, mon_h);
+                        crate::logger::log_to_disk(app, "[OCR] Capture via spectacle/import fallback");
+                        return Ok(cropped.to_rgba8());
+                    }
+                    Err(e) => {
+                        eprintln!("[OCR] Fallback screenshot load failed: {}", e);
+                        crate::logger::log_to_disk(app, &format!("[OCR] Fallback screenshot load failed: {}", e));
+                    }
             }
             let _ = std::fs::remove_file(&path);
         }
     }
 
+    crate::logger::log_to_disk(app, "[OCR] Capture failed (xcap and all fallbacks exhausted)");
     Err("capture failed (xcap and all fallbacks exhausted)".to_string())
 }
 
@@ -791,7 +805,7 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             // ── Screen capture ─────────────────────────────────────────────────
             let Some(monitor) = get_target_monitor(&app) else { continue; };
 
-            let screen = match capture_monitor_image(&monitor) {
+            let screen = match capture_monitor_image(&app, &monitor) {
                 Ok(s) => s,
                 Err(e) => {
                     ocr_log!(&app, "[OCR] Capture failed (attempt {}): {}", attempt, e);
@@ -1065,7 +1079,7 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
         let start_time = std::time::Instant::now();
         let dynamic_image = if let Some(img) = captured_image.clone() { img } else {
             let Some(monitor) = get_target_monitor(&app_c) else { return; };
-            let Ok(image) = capture_monitor_image(&monitor) else { return; };
+            let Ok(image) = capture_monitor_image(&app_c, &monitor) else { return; };
             DynamicImage::ImageRgba8(image)
         };
         
@@ -1236,7 +1250,7 @@ fn clean_ocr_output(raw: &str) -> String {
 pub async fn save_debug_screenshot(app: AppHandle) -> Result<String, String> {
     tokio::time::sleep(std::time::Duration::from_secs(5)).await;
     let Some(monitor) = get_target_monitor(&app) else { return Err("No target monitor resolved".to_string()); };
-    let image = capture_monitor_image(&monitor)?;
+    let image = capture_monitor_image(&app, &monitor)?;
     let dynamic_image = DynamicImage::ImageRgba8(image);
 
     let active_scale = USER_UI_SCALE.load(Ordering::SeqCst) as f64 / 100.0;

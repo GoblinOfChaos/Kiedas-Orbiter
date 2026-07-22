@@ -195,11 +195,12 @@ function SidebarContent() {
           </div>
           <div className={`w-3 h-3 rounded-full transition-all duration-300 relative group ${
             monitorResult === 'success' ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]'
+              : monitorResult === 'cached' ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.6)]'
               : monitorResult === 'error' ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]'
               : 'bg-gray-600'
           }`}>
             <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${isRight ? 'right-full mr-3' : 'left-full ml-3'}`}>
-              {monitorResult === 'success' ? 'Inventory Sync' : monitorResult === 'error' ? 'Inventory Sync Error' : 'Inventory Sync Offline'}
+              {monitorResult === 'success' ? 'Inventory Sync' : monitorResult === 'cached' ? 'Using Cached Data' : monitorResult === 'error' ? 'Inventory Sync Error' : 'Inventory Sync Offline'}
             </div>
           </div>
           <div className={`w-3 h-3 rounded-full transition-all duration-300 relative group ${

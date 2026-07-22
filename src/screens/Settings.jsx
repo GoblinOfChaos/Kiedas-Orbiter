@@ -982,6 +982,7 @@ export default function SettingsScreen() {
         <Card glow className="p-5">
           <div className="flex items-center gap-3 mb-5">
             <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 transition-all duration-500 ${monitorResult === 'success' ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.7)]' :
+              monitorResult === 'cached' ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.7)]' :
               monitorResult === 'error' ? 'bg-red-500   shadow-[0_0_8px_rgba(239,68,68,0.7)]' :
                 'bg-zinc-600'
               }`} />

@@ -178,6 +178,7 @@ export function MonitoringProvider({ children }) {
   const notifiedRef = useRef({})
   const priceFetchRef = useRef(false)
   const processingRef = useRef(false)
+  const hasCachedDataRef = useRef(false)
   const [cardImagesPath, setCardImagesPath] = useState('')
   const [fixProgress, setFixProgress] = useState({ checking: true })
   const cardInitStarted = useRef(false)
@@ -488,8 +489,10 @@ export function MonitoringProvider({ children }) {
       if (invRes[0].status === 'fulfilled' && invRes[0].value) {
         const result = invRes[0].value
         applyRaw(result[0], result[1], exports || {})
+        hasCachedDataRef.current = true
         setStatusText('Loaded cached data')
       } else {
+        hasCachedDataRef.current = false
         setStatusText('No cached data – start syncing in Settings')
         setInventoryData(null)
       }
@@ -515,6 +518,14 @@ export function MonitoringProvider({ children }) {
     }
   }, [fetchWorldstate, dict])
 
+  const hasCachedData = useCallback(async () => {
+    if (hasCachedDataRef.current) return true
+    try {
+      const result = await invoke('sidebar_load_inventory')
+      return !!result?.inventory
+    } catch { return false }
+  }, [])
+
   const callApiHelper = useCallback(async () => {
     if (busyRef.current) return
     busyRef.current = true
@@ -526,32 +537,36 @@ export function MonitoringProvider({ children }) {
         setMonitorResult('success')
         setStatusText('Syncing active')
         return 'success'
-      } else {
-        setMonitorResult('error')
-        const msg = 'Inventory fetch returned no data'
-        setStatusText(msg)
-        return msg
       }
-    } catch (err) {
       setMonitorResult('error')
-      const msg = `Error: ${err}`
-      setStatusText(msg)
-      return msg
+      setStatusText('Inventory fetch returned no data')
+      return 'error'
+    } catch {
+      if (await hasCachedData()) {
+        hasCachedDataRef.current = true
+        setMonitorResult('cached')
+        setStatusText('Game not running, using cached data')
+        return 'cached'
+      }
+      setMonitorResult('error')
+      setStatusText('Could not connect to Warframe')
+      return 'error'
     } finally {
       busyRef.current = false
       setIsInventoryLoading(false)
     }
-  }, [applyRaw])
+  }, [applyRaw, hasCachedData])
 
   const startMonitoring = useCallback(async (intervalMs = 180_000) => {
     if (isMonitoring) return
     setIsMonitoring(true)
     const result = await callApiHelper()
-    const msg = result === 'success' ? 'Syncing active' : result
+    const msg = result === 'success' ? 'Syncing active' : result === 'cached' ? 'Game not running, using cached data' : result
     invoke('set_monitoring_active', { active: true, result, statusText: msg }).catch(() => {})
     intervalRef.current = setInterval(async () => {
       const r = await callApiHelper()
-      invoke('set_monitoring_active', { active: true, result: r, statusText: r === 'success' ? 'Syncing active' : r }).catch(() => {})
+      const msg2 = r === 'success' ? 'Syncing active' : r === 'cached' ? 'Game not running, using cached data' : r
+      invoke('set_monitoring_active', { active: true, result: r, statusText: msg2 }).catch(() => {})
     }, intervalMs)
   }, [isMonitoring, callApiHelper])
 

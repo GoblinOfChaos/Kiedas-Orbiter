@@ -431,7 +431,7 @@ export default function SettingsScreen() {
     setSidebarSide(side)
     await setSetting('sidebar_side', side)
     const width = parseInt(getSetting('sidebar_width', 400))
-    invoke('set_sidebar_width', { width, side, persist: true }).catch(() => {})
+    invoke('set_sidebar_width', { width, side, persist: true }).catch(() => { })
   }
 
   const handleSetSidebarHideOnFocusLoss = async (val) => {
@@ -473,7 +473,7 @@ export default function SettingsScreen() {
           invoke('relay_event', {
             event: 'overlay-update-ocr',
             payload: { slot: i + 1, confirmed_reward: mockRewards[i], item: { ...r, name: mockRewards[i], ducats: [0, 100, 45, 35][i] } }
-          }).catch(() => {})
+          }).catch(() => { })
         }, i * 500)
       })
       await invoke('relay_event', {
@@ -656,17 +656,23 @@ export default function SettingsScreen() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 pt-4 border-t border-white/5">
             <div>
               <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-1">Inventory Sync</p>
-              <p className="text-[10px] text-zinc-500 mb-3">Sync inventory data from Warframe's API</p>
+              <p className="text-[10px] text-zinc-500 mb-3">Sync inventory data</p>
               <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-500 ${monitorResult === 'success' ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.7)]' :
                       monitorResult === 'cached' ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.7)]' :
-                      monitorResult === 'error' ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.7)]' :
-                        'bg-zinc-600'
-                    }`} />
-                    <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${isMonitoring ? 'text-green-400' : 'text-zinc-600'}`}>
-                      {isMonitoring ? 'Syncing' : 'Idle'}
+                        monitorResult === 'error' ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.7)]' :
+                          'bg-zinc-600'
+                      }`} />
+                    <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${monitorResult === 'success' ? 'text-green-400' : monitorResult === 'cached' ? 'text-yellow-400' : monitorResult === 'error' ? 'text-red-400' : 'text-zinc-600'}`}>
+                      {monitorResult === 'success'
+                        ? `Syncing${lastUpdate ? ` (next update in ${Math.max(0, Math.floor((parseInt(lastUpdate) + 180000 - Date.now()) / 60000))}m)` : ''}`
+                        : monitorResult === 'cached'
+                          ? 'Waiting for Warframe (showing cached data)'
+                          : monitorResult === 'error'
+                            ? 'Sync Error'
+                            : 'Idle'}
                     </span>
                   </div>
                   <Toggle checked={isMonitoring} onChange={async (val) => {
@@ -682,7 +688,7 @@ export default function SettingsScreen() {
             </div>
             <div>
               <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-1">Log Scanner</p>
-              <p className="text-[10px] text-zinc-500 mb-3">Required for relic reward overlay triggers</p>
+              <p className="text-[10px] text-zinc-500 mb-3">Required to read triggers for overlays</p>
               <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -690,12 +696,12 @@ export default function SettingsScreen() {
                       scannerStatus === 'waiting' ? 'bg-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.7)] animate-pulse' :
                         scannerStatus === 'stale_offset' ? 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)]' :
                           'bg-zinc-700'
-                    }`} />
+                      }`} />
                     <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${scannerStatus === 'active' ? 'text-green-400' :
                       scannerStatus === 'waiting' ? 'text-yellow-400' :
                         scannerStatus === 'stale_offset' ? 'text-red-400' :
                           'text-zinc-600'
-                    }`}>
+                      }`}>
                       {scannerStatus === 'active' ? 'Hooked into Warframe - scanner running' :
                         scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :
                           scannerStatus === 'stale_offset' ? 'Scanner offset out of date - auto-retrying' :
@@ -954,8 +960,8 @@ export default function SettingsScreen() {
           <div className="flex items-center gap-3 mb-5">
             <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 transition-all duration-500 ${monitorResult === 'success' ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.7)]' :
               monitorResult === 'cached' ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.7)]' :
-              monitorResult === 'error' ? 'bg-red-500   shadow-[0_0_8px_rgba(239,68,68,0.7)]' :
-                'bg-zinc-600'
+                monitorResult === 'error' ? 'bg-red-500   shadow-[0_0_8px_rgba(239,68,68,0.7)]' :
+                  'bg-zinc-600'
               }`} />
             <h2 className="text-xl font-black uppercase tracking-tight">Inventory Syncing</h2>
           </div>
@@ -979,13 +985,12 @@ export default function SettingsScreen() {
             <button
               onClick={isMonitoring ? stopMonitoring : handleStart}
               disabled={loading && !isMonitoring}
-              className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${
-                loading
-                  ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
-                  : isMonitoring
-                    ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
-                    : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
-              }`}
+              className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${loading
+                ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
+                : isMonitoring
+                  ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
+                  : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
+                }`}
             >
               {loading
                 ? <span className="flex items-center justify-center gap-2"><RefreshCw size={12} className="animate-spin" /> Starting</span>

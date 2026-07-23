@@ -172,8 +172,8 @@ fn is_valid_capture(img: &image::RgbaImage) -> bool {
 
 #[cfg(target_os = "linux")]
 fn try_grim(app: &AppHandle, monitor: &Monitor) -> Option<image::RgbaImage> {
-    let m_x = monitor.x().ok()? as u32;
-    let m_y = monitor.y().ok()? as u32;
+    let m_x = monitor.x().ok()?;
+    let m_y = monitor.y().ok()?;
     let m_w = monitor.width().ok()?;
     let m_h = monitor.height().ok()?;
 
@@ -312,6 +312,22 @@ pub(crate) fn capture_monitor_image(app: &AppHandle, monitor: &Monitor) -> Resul
             crate::logger::log_to_disk(app, "[OCR] xcap returned invalid/blank buffer, discarding");
         } else {
             crate::logger::log_to_disk(app, "[OCR] xcap Monitor::capture_image failed");
+        }
+
+        // Fallback: capture the Warframe XWayland window directly via XCB
+        if let Ok(windows) = xcap::Window::all() {
+            let warframe = windows.iter().find(|w| {
+                w.title().as_deref().unwrap_or("").contains("Warframe")
+            }).cloned();
+            if let Some(w) = warframe {
+                if let Ok(img) = w.capture_image() {
+                    if is_valid_capture(&img) {
+                        crate::logger::log_to_disk(app, "[OCR] Capture via xcap Window (Warframe XWayland)");
+                        return Ok(img);
+                    }
+                    crate::logger::log_to_disk(app, "[OCR] xcap Window returned invalid/blank buffer, discarding");
+                }
+            }
         }
 
         if is_wayland {

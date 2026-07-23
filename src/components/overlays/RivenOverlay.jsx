@@ -477,13 +477,13 @@ export default function RivenOverlay() {
         </div>
 
         {/* Content */}
-        <div className="flex-1 px-3 pb-3 flex flex-col overflow-hidden">
+        <div className="flex-1 px-3 pb-4 flex flex-col overflow-hidden">
           {ocrLoading ? (
             <div className="flex items-center justify-center flex-1">
               <p className="text-[12px] text-zinc-300 uppercase tracking-widest font-bold animate-pulse">Scanning...</p>
             </div>
           ) : parsed ? (
-            <div className="flex flex-col flex-1 overflow-hidden gap-1.5">
+            <div className="flex flex-col flex-1 overflow-hidden">
               {/* Stats */}
               {parsed.stats.length > 0 && (
                 <div className="space-y-[2px]">
@@ -500,38 +500,23 @@ export default function RivenOverlay() {
                 </div>
               )}
 
-              {/* Rolls + MR inline */}
-              <div className="flex items-center gap-2 px-1">
-                {parsed.rolls > 0 && (
-                  <span className="text-[10px] font-bold text-zinc-300 uppercase tracking-wider">{parsed.rolls} rolls</span>
-                )}
-                {parsed.mr && (
-                  <>
-                    <span className="text-zinc-500">|</span>
-                    <span className="text-[10px] font-bold text-zinc-300 uppercase tracking-wider">MR {parsed.mr}</span>
-                  </>
-                )}
-              </div>
-
-              {/* Pricing info */}
-              {rivenInfo ? (
-                <div className="mt-auto grid grid-cols-3 gap-[1px] rounded-lg overflow-hidden">
-                  <div className="bg-white/[0.04] px-2 py-2 text-center">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">Average Value</span>
-                    <span className="text-[14px] font-black text-yellow-400">{Math.round(rivenInfo.expected_value)}p</span>
-                  </div>
-                  <div className="bg-white/[0.04] px-2 py-2 text-center">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">Your Value</span>
-                    <span className="text-[14px] font-black text-yellow-400">{Math.round(estimatedPrice)}p</span>
-                  </div>
-                  <div className="bg-white/[0.04] px-2 py-2 text-center">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">Reroll Potential</span>
-                    <span className={`text-[14px] font-black ${(1 - (rivenInfo.probability_stagnant ?? 0.5)) * 100 > 50 ? 'text-green-400' : 'text-red-400'}`}>
-                      {Math.round((1 - (rivenInfo.probability_stagnant ?? 0.5)) * 100)}%
-                    </span>
-                  </div>
-                  <div className="bg-white/[0.04] px-2 py-2 text-center col-span-3">
-                    {(() => {
+              {/* Pricing info — always shown */}
+              <div className="grid grid-cols-3 gap-[1px] rounded-lg overflow-hidden mt-0.5">
+                <div className="bg-white/[0.04] px-2 py-2 text-center">
+                  <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">Average Value</span>
+                  <span className="text-[14px] font-black text-yellow-400">{rivenInfo ? `${Math.round(rivenInfo.expected_value)}p` : '--'}</span>
+                </div>
+                <div className="bg-white/[0.04] px-2 py-2 text-center">
+                  <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">Your Value</span>
+                  <span className="text-[14px] font-black text-yellow-400">{rivenInfo ? `${Math.round(estimatedPrice)}p` : '--'}</span>
+                </div>
+                <div className="bg-white/[0.04] px-2 py-2 text-center">
+                  <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">Reroll Potential</span>
+                  <span className="text-[14px] font-black text-zinc-500">{rivenInfo ? `${Math.round((1 - (rivenInfo.probability_stagnant ?? 0.5)) * 100)}%` : '--'}</span>
+                </div>
+                <div className="bg-white/[0.04] px-2 py-2 text-center col-span-3">
+                  {rivenInfo ? (
+                    (() => {
                       const wr = rivenInfo.weapon_rank ?? 999;
                       const total = rivenInfo.total_weapons ?? 1;
                       const tier = wr <= total * 0.2 ? 'Meta' : wr <= total * 0.5 ? 'Popular' : wr <= total * 0.7 ? 'Average' : wr <= total * 0.9 ? 'Niche' : 'Unpopular';
@@ -541,14 +526,12 @@ export default function RivenOverlay() {
                           {tier} Weapon &middot; {roll} rolls
                         </span>
                       );
-                    })()}
-                  </div>
+                    })()
+                  ) : (
+                    <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-wider">Waiting for price data...</span>
+                  )}
                 </div>
-              ) : (
-                <div className="mt-auto px-2 py-2 text-center bg-white/[0.02] rounded-lg">
-                  <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Pricing unavailable</span>
-                </div>
-              )}
+              </div>
             </div>
           ) : (
             <div className="flex items-center justify-center flex-1">

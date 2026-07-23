@@ -770,7 +770,7 @@ fn overlay_size(label: &str) -> (f64, f64) {
     match label {
         "overlay-relic" => (640.0, 140.0),
         "overlay-relic-picker" => (380.0, 220.0),
-        "overlay-riven-current" | "overlay-riven-new" => (360.0, 260.0),
+        "overlay-riven-current" | "overlay-riven-new" => (360.0, 300.0),
         _ => (440.0, 1.0),
     }
 }

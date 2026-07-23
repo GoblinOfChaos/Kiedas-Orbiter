@@ -514,7 +514,7 @@ export default function RivenOverlay() {
               </div>
 
               {/* Pricing info */}
-              {rivenInfo && (
+              {rivenInfo ? (
                 <div className="mt-auto grid grid-cols-3 gap-[1px] rounded-lg overflow-hidden">
                   <div className="bg-white/[0.04] px-2 py-2 text-center">
                     <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">Average Value</span>
@@ -543,6 +543,10 @@ export default function RivenOverlay() {
                       );
                     })()}
                   </div>
+                </div>
+              ) : (
+                <div className="mt-auto px-2 py-2 text-center bg-white/[0.02] rounded-lg">
+                  <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Pricing unavailable</span>
                 </div>
               )}
             </div>

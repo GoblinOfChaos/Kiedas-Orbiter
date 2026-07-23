@@ -237,7 +237,7 @@ const CONQUEST_OVERRIDES = {
  *   - ENW             ExportNightwave: Nightwave reward list
  * @returns {object} Structured data consumed by Dashboard.jsx, or null if raw is falsy.
  */
-export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, bountyCycle, ES, ENWRawRewards, ExportImages, archimedeaMap }) {
+export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, bountyCycle, ES, ENWRawRewards, ExportImages, ExportUpgrades, archimedeaMap }) {
   if (!raw) return null
 
   const nightwaveRewards = ENWRawRewards || []
@@ -547,12 +547,33 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
         const contentHash = exportImageEntry.contentHash
         const highQualityUrl = contentHash ? `https://content.warframe.com/PublicExport${iconPath}!${contentHash}` : null
         const browseWfUrl = iconPath ? `https://browse.wf${iconPath}` : null
+        const modEntry = ExportUpgrades?.[r.uniqueName]
+        const isMod = modEntry != null || (iconPath?.includes('/Upgrades/Mods/') || EI[r.uniqueName]?.includes('/Upgrades/Mods/') || false)
+        const modFrame = isMod ? (() => {
+          const u = (r.uniqueName || '').toLowerCase()
+          const rarity = (modEntry?.rarity || '').toLowerCase()
+          if (u.includes('/fusers/')) return 'Fuser'
+          if (u.includes('galvanized')) return 'Galvanized'
+          if (u.includes('amalgam')) return 'Amalgam'
+          if (u.includes('peculiar')) return 'Peculiar'
+          if (u.includes('/immortal/antivirus')) return 'Antivirus'
+          if (u.includes('/immortal/')) return 'Requiem'
+          if (u.includes('archon')) return 'Archon'
+          if (u.includes('grimoire') || u.includes('tome')) return 'Tome'
+          if (u.includes('/dataspike/potency/') || u.includes('potency')) return 'Potency'
+          if (u.includes('/antiques/') || u.includes('/antique/') || u.includes('tektolyst')) return 'Tektolyst'
+          if (rarity === 'uncommon') return 'Normal Uncommon'
+          if (rarity === 'rare') return 'Normal Rare'
+          if (rarity === 'legendary') return 'Normal Legendary'
+          return 'Normal Common'
+        })() : null
         return {
           name: r.name ? (dict[r.name] || dict['/' + r.name] || r.name) : 'Reward',
           uniqueName: r.uniqueName,
           itemCount: r.itemCount,
           image: highQualityUrl || eiImage || browseWfUrl || null,
-          iconPath: iconPath
+          iconPath: iconPath,
+          modFrame
         }
       }),
       challenges: (raw.SeasonInfo.ActiveChallenges || []).map(c => {

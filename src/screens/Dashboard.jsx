@@ -24,6 +24,7 @@
  */
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { PageLayout, Card, Button, CardHeader, Tabs, Modal } from '../components/UI'
+import ModCard from '../components/ModCard'
 import {
   Package, DollarSign, RefreshCw,
   ShoppingBag,
@@ -141,7 +142,8 @@ export default function Dashboard() {
   const {
     exportData, worldState, spIncursions, arbys, archonModifiers, arbitrationModifiers,
     dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, arbyTiers,
-    rawInventory, inventoryData, ES, ENWRawRewards, ExportImages,
+    rawInventory, inventoryData, ES, ENWRawRewards, ExportImages, ExportTextIcons,
+    cardImagesPath,
   } = useMonitoring()
   const [worldstate, setWorldstate] = useState(null)
   const [locationBounties, setLocationBounties] = useState(null)
@@ -155,6 +157,7 @@ export default function Dashboard() {
   const [showWishlistModal, setShowWishlistModal] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [iconsPath, setIconsPath] = useState('')
+  const [framesPath, setFramesPath] = useState('')
   const [calendarDate, setCalendarDate] = useState(new Date(1999, 11, 1)) // Default to Dec 1999
   const [selected1999Month, setSelected1999Month] = useState(0)
   const [selected1999Day, setSelected1999Day] = useState(-1)
@@ -170,6 +173,7 @@ export default function Dashboard() {
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null
 
   useEffect(() => { invoke('get_icons_path').then(p => setIconsPath(p)).catch(() => { }) }, [])
+  useEffect(() => { invoke('get_mod_frames_path').then(p => setFramesPath(p)).catch(() => { }) }, [])
 
   useEffect(() => {
     localStorage.setItem('dashboard_hidden_cards', JSON.stringify(hiddenCards))
@@ -566,15 +570,34 @@ export default function Dashboard() {
                         className={`relative flex-shrink-0 transition-all flex flex-col items-center ${isCurrent ? 'ring-2 ring-kronos-accent rounded p-1 m-1' : ''}`}
                       >
                         <span className={`text-[9px] font-black uppercase mb-1 ${isCurrent ? 'text-kronos-accent' : 'text-kronos-dim/60'}`}>Rank {ri + 1}</span>
-                        <div className="w-36 h-full flex items-center justify-center">
-                          <img
-                            src={r.image}
-                            alt={r.name}
-                            className={`max-w-full max-h-full object-contain ${isUnlocked ? 'grayscale opacity-60' : ''}`}
-                            onError={e => { e.target.style.display = 'none'; e.target.onerror = null }}
-                          />
+                        <div className={`w-36 h-full flex items-center justify-center ${isUnlocked ? 'grayscale opacity-60' : ''}`}>
+                          {r.modFrame ? (
+                            <ModCard
+                              mod={{
+                                name: r.name,
+                                modFrame: r.modFrame,
+                                icon: r.iconPath,
+                                image: r.image,
+                              }}
+                              framesPath={framesPath}
+                              cardImagesPath={cardImagesPath}
+                              iconsPath={iconsPath}
+                              exportTextIcons={ExportTextIcons}
+                              width={136}
+                              hideCategory
+                            />
+                          ) : (
+                            <img
+                              src={r.image}
+                              alt={r.name}
+                              className="max-w-full max-h-full object-contain"
+                              onError={e => { e.target.style.display = 'none'; e.target.onerror = null }}
+                            />
+                          )}
                         </div>
-                        <p className="text-[9px] font-bold text-kronos-text uppercase leading-tight text-center mt-2 max-w-[120px] whitespace-normal break-words">{r.name}</p>
+                        {!r.modFrame && (
+                          <p className="text-[9px] font-bold text-kronos-text uppercase leading-tight text-center mt-2 max-w-[120px] whitespace-normal break-words">{r.name}</p>
+                        )}
                       </div>
                     )
                   })}

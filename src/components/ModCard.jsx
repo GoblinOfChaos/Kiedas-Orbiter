@@ -250,7 +250,7 @@ const Charges = memo(function Charges({ modFrame, rank, maxRank, framesPath, car
   )
 })
 
-const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPath, width = 180, exportTextIcons, platValue, pricesLoading = false }) {
+const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPath, width = 180, exportTextIcons, platValue, pricesLoading = false, hideCategory = false }) {
   const isSticker = mod._isSticker
   const mf = mod.modFrame || 'Normal Common'
   const custom = CUSTOM.has(mf)
@@ -359,7 +359,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const fb = custom ? null : f('FrameBottom')
   const sl = custom || NO_SIDE.has(mf) ? null : f('SideLight')
   const bk = custom && mf !== 'Requiem' && mf !== 'Antivirus' && mf !== 'Potency' ? null : (mod.baseDrain === 0 ? null : f('RightBacker'))
-  const lt = custom ? null : f('LowerTab')
+  const lt = custom || hideCategory ? null : f('LowerTab')
   const cl = custom ? null : f('CornerLights')
 
   const rank = mod.rank ?? 0
@@ -557,7 +557,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
         </span>
       )}
 
-      {cat && mf !== 'Arcanes' && (
+      {cat && mf !== 'Arcanes' && !hideCategory && (
         <div className="absolute text-center pointer-events-none" style={{ left: 0, right: 0, bottom: mf === 'Antivirus' ? `${55 / CANVAS_H * 100}%` : mf === 'Potency' ? `${26 / CANVAS_H * 100}%` : mf === 'Tektolyst' ? `${48 / CANVAS_H * 100}%` : `${38 / CANVAS_H * 100}%`, zIndex: 4 }}>
           <p className="font-semibold uppercase tracking-wider drop-shadow-[0_1px_1px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'Outfit, sans-serif', color: mf === 'Potency' ? '#FFD700' : color, fontSize: `${11 * cardScale}px` }}>
             {cat}

@@ -509,7 +509,7 @@ export function MonitoringProvider({ children }) {
     try {
       const ws = await fetch(ORACLE_API).then(r => r.ok ? r.json() : null)
       if (ws && dict) {
-        const parsed = parseWorldstate(ws, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, archimedeaMap })
+        const parsed = parseWorldstate(ws, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, ExportUpgrades: exportData?.ExportUpgrades, archimedeaMap })
         setWorldState(parsed)
       }
     } catch (err) { }

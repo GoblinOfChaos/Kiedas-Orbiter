@@ -50,6 +50,10 @@ pub fn get_models_dir() -> PathBuf {
     data_root.join("data").join("bin").join("pricer-models")
 }
 
+pub fn ensure_loaded() {
+    get_pricer();
+}
+
 pub fn get_weapon_names() -> Vec<String> {
     get_pricer()
         .map(|p| p.weapon_name_to_url.keys().cloned().collect())

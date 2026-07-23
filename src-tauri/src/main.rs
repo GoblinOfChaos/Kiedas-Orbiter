@@ -2573,6 +2573,10 @@ async fn get_known_weapon_names() -> Vec<String> {
                     Ok(msg) => eprintln!("[PRICER MODELS] {}", msg),
                     Err(e) => eprintln!("[PRICER MODELS] Download failed: {}", e),
                 }
+                // Eager-init the pricer so it's ready when the user first
+                // navigates to the Rivens tab or opens a riven overlay.
+                std::thread::sleep(std::time::Duration::from_millis(200));
+                crate::pricer::ensure_loaded();
             });
             // Extract card images in the background (was synchronous before
             // app.run(), which froze the window during startup).

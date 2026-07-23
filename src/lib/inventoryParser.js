@@ -753,10 +753,45 @@ export function parseInventory(raw, exports) {
     return arr || {};
   };
 
-  const EWf = toMap(exports.ExportWarframes, 'ExportWarframes');
-  const EW = toMap(exports.ExportWeapons, 'ExportWeapons');
-  const ES = toMap(exports.ExportSentinels, 'ExportSentinels');
-  const EM = toMap(exports.ExportUpgrades, 'ExportUpgrades');
+  // ── warframe-items data (pre-resolved names, descriptions, images) ──
+  // When WI maps are available (injected by MonitoringContext), they serve as
+  // the primary lookup source.  Entries missing from WI are supplemented from
+  // the original public-export-plus data.
+  const useWI = !!exports.WI_Warframes;
+
+  const mergeWithOrig = (wiMap, origKey) => {
+    const map = wiMap ? { ...wiMap } : {};
+    if (origKey && exports[origKey]) {
+      const origMap = toMap(exports[origKey], origKey);
+      for (const [un, origEntry] of Object.entries(origMap)) {
+        if (map[un]) {
+          // Supplement WI entry with original fields it doesn't have
+          for (const [k, v] of Object.entries(origEntry)) {
+            if (map[un][k] === undefined && v !== undefined) {
+              map[un][k] = v;
+            }
+          }
+        } else {
+          // Entry only in original data
+          map[un] = origEntry;
+        }
+      }
+    }
+    return map;
+  };
+
+  const EWf = useWI
+    ? mergeWithOrig(exports.WI_Warframes, 'ExportWarframes')
+    : toMap(exports.ExportWarframes, 'ExportWarframes');
+  const EW = useWI
+    ? mergeWithOrig(exports.WI_Weapons, 'ExportWeapons')
+    : toMap(exports.ExportWeapons, 'ExportWeapons');
+  const ES = useWI
+    ? mergeWithOrig(exports.WI_Sentinels, 'ExportSentinels')
+    : toMap(exports.ExportSentinels, 'ExportSentinels');
+  const EM = useWI
+    ? mergeWithOrig(exports.WI_Upgrades, 'ExportUpgrades')
+    : toMap(exports.ExportUpgrades, 'ExportUpgrades');
   // Merge Railjack avionics into EM
   if (exports.ExportAvionics) {
     const avMap = toMap(exports.ExportAvionics, 'ExportAvionics');
@@ -796,13 +831,23 @@ export function parseInventory(raw, exports) {
       }
     }
   }
-  const EA = toMap(exports.ExportArcanes, 'ExportArcanes');
-  const ER = toMap(exports.ExportResources, 'ExportResources');
-  const ERel = toMap(exports.ExportRelics, 'ExportRelics');
+  const EA = useWI
+    ? mergeWithOrig(exports.WI_Arcanes, 'ExportArcanes')
+    : toMap(exports.ExportArcanes, 'ExportArcanes');
+  const ER = useWI
+    ? mergeWithOrig(exports.WI_Resources, 'ExportResources')
+    : toMap(exports.ExportResources, 'ExportResources');
+  const ERel = useWI
+    ? mergeWithOrig(exports.WI_Relics, 'ExportRelics')
+    : toMap(exports.ExportRelics, 'ExportRelics');
   const ERew = toMap(exports.ExportRewards, 'ExportRewards');
   const ERecipe = toMap(exports.ExportRecipes, 'ExportRecipes');
-  const ECust = toMap(exports.ExportCustoms, 'ExportCustoms');
-  const EGear = toMap(exports.ExportGear, 'ExportGear');
+  const ECust = useWI
+    ? mergeWithOrig(exports.WI_Customs, 'ExportCustoms')
+    : toMap(exports.ExportCustoms, 'ExportCustoms');
+  const EGear = useWI
+    ? mergeWithOrig(exports.WI_Gear, 'ExportGear')
+    : toMap(exports.ExportGear, 'ExportGear');
 
   // ── XP lookup ──
   // inventory.XPInfo contains per-item affinity totals, referenced by ItemType.
@@ -986,7 +1031,11 @@ export function parseInventory(raw, exports) {
 
     const entry = nameTbls[0]?.[un];
     const descLoctag = entry?.description ?? '';
-    const rawDesc = descLoctag ? (dict[descLoctag] || dict['/' + descLoctag] || '') : '';
+    const rawDesc = descLoctag
+      ? (descLoctag.startsWith('/Lotus/')
+          ? (dict[descLoctag] || dict['/' + descLoctag] || '')
+          : descLoctag)
+      : '';
     const description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
 
     return {
@@ -1411,7 +1460,11 @@ export function parseInventory(raw, exports) {
       mod.modFrame = detectModFrame(un, mod.rarity, mod.name);
       if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
       const descLoctag = entry?.description ?? '';
-      const rawDesc = descLoctag ? (dict[descLoctag] || dict['/' + descLoctag] || '') : '';
+      const rawDesc = descLoctag
+        ? (descLoctag.startsWith('/Lotus/')
+            ? (dict[descLoctag] || dict['/' + descLoctag] || '')
+            : descLoctag)
+        : '';
       mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').trim() : '';
       mod.levelStats = entry?.levelStats ?? null;
       mod.category = extractModCategory(entry?.type, un, entry);

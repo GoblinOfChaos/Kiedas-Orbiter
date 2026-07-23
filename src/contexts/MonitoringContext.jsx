@@ -10,6 +10,42 @@ import { getPrice, getPricesBatch } from '../lib/marketEngine'
 import { resolveNode } from '../lib/warframeUtils'
 import { getSetting } from '../lib/settings'
 import { evaluateNotifications } from '../lib/notificationManager'
+import { transformWarframeItems } from '../lib/warframeItemsTransform'
+
+// ── warframe-items data (pre-resolved names/descriptions from the npm package) ──
+import wiWarframes from 'warframe-items-data/Warframes.json'
+import wiPrimary from 'warframe-items-data/Primary.json'
+import wiSecondary from 'warframe-items-data/Secondary.json'
+import wiMelee from 'warframe-items-data/Melee.json'
+import wiArchGun from 'warframe-items-data/Arch-Gun.json'
+import wiArchMelee from 'warframe-items-data/Arch-Melee.json'
+import wiArchwing from 'warframe-items-data/Archwing.json'
+import wiRailjack from 'warframe-items-data/Railjack.json'
+import wiSentinelWeapons from 'warframe-items-data/SentinelWeapons.json'
+import wiSentinels from 'warframe-items-data/Sentinels.json'
+import wiPets from 'warframe-items-data/Pets.json'
+import wiMods from 'warframe-items-data/Mods.json'
+import wiArcanes from 'warframe-items-data/Arcanes.json'
+import wiResources from 'warframe-items-data/Resources.json'
+import wiRelics from 'warframe-items-data/Relics.json'
+import wiGear from 'warframe-items-data/Gear.json'
+import wiMisc from 'warframe-items-data/Misc.json'
+import wiSkins from 'warframe-items-data/Skins.json'
+import wiSigils from 'warframe-items-data/Sigils.json'
+import wiGlyphs from 'warframe-items-data/Glyphs.json'
+import wiFish from 'warframe-items-data/Fish.json'
+
+const warframeItemsRaw = {
+  Warframes: wiWarframes, Primary: wiPrimary, Secondary: wiSecondary,
+  Melee: wiMelee, 'Arch-Gun': wiArchGun, 'Arch-Melee': wiArchMelee,
+  Archwing: wiArchwing, Railjack: wiRailjack, SentinelWeapons: wiSentinelWeapons,
+  Sentinels: wiSentinels, Pets: wiPets,
+  Mods: wiMods, Arcanes: wiArcanes, Resources: wiResources,
+  Relics: wiRelics, Gear: wiGear, Misc: wiMisc,
+  Skins: wiSkins, Sigils: wiSigils, Glyphs: wiGlyphs, Fish: wiFish,
+}
+
+const { maps: wiMaps, supplement: wiSupplement } = transformWarframeItems(warframeItemsRaw)
 
 const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
 
@@ -247,7 +283,12 @@ export function MonitoringProvider({ children }) {
     const tableNames = [
       'ExportWeapons', 'ExportWarframes', 'ExportSentinels',
       'ExportResources', 'ExportArcanes', 'ExportUpgrades',
-      'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms', 'ExportGear'
+      'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms', 'ExportGear',
+      // warframe-items pre-resolved maps
+      'WI_Warframes', 'WI_Weapons', 'WI_Sentinels',
+      'WI_Upgrades', 'WI_Arcanes', 'WI_Resources',
+      'WI_Relics', 'WI_Gear', 'WI_Customs',
+      'WI_Skins', 'WI_Sigils', 'WI_Glyphs', 'WI_Fish',
     ]
     const EI = {}
     const nameToImage = {}
@@ -475,7 +516,16 @@ export function MonitoringProvider({ children }) {
         } catch { }
       }
 
-      setExportData(exports)
+      // Inject warframe-items pre-resolved data into exports
+      const exportsWithWI = exports ? { ...exports, ...wiMaps } : null
+      // Also provide the supplement maps for relicParser/worldstateParser
+      if (exportsWithWI) {
+        exportsWithWI.uniqueNameToName = { ...exportsWithWI.uniqueNameToName, ...wiSupplement.uniqueNameToName }
+        exportsWithWI.nameToImage = { ...exportsWithWI.nameToImage, ...wiSupplement.nameToImage }
+        exportsWithWI.WI_Supplement = wiSupplement
+      }
+
+      setExportData(exportsWithWI)
       setSpIncursions(spiText || '')
       setArbys(arbText || '')
 

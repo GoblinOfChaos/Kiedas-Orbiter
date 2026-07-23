@@ -1097,7 +1097,7 @@ export default function Dashboard() {
           {inventory?.map((item, idx) => (
             <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
               <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
-                <img src={resolveAnyImage(item.uniqueName, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.item}>{item.item}</p>
@@ -1134,7 +1134,7 @@ export default function Dashboard() {
             {wishlist.map((item, idx) => (
               <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
                 <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
-                  <img src={resolveAnyImage(item.unique_name, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                  <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.name}>{item.name}</p>
@@ -1510,7 +1510,7 @@ export default function Dashboard() {
                 {worldstate.flashSales.map((sale, idx) => (
                   <div key={idx} className="flex items-center gap-3 bg-kronos-panel/40 rounded p-2">
                     <div className="w-10 h-10 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
-                      <img src={resolveAnyImage(sale.uniqueName, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                      <img src={resolveAnyImage(sale, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={sale.item}>{sale.item}</p>

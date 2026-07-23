@@ -367,6 +367,29 @@ const FOLDER_OVERRIDES = {
 
 const PART_SUFFIX_RE = /(Blueprint|Barrel|Receiver|Stock|Handle|Grip|String|Upper\s?Limb|Lower\s?Limb|Blade|Hilt|Gauntlet|Boot|Pouch|Stars|Band|Head|Carapace|Cerebrum|Systems|Chassis|Neuroptics)$/i;
 
+const BOOSTER_NAME_MAP = {
+  'ResourceAmount3Day': '3 Day Resource Booster',
+  'ResourceDropChance3Day': '3 Day Resource Drop Chance Booster',
+  'Affinity3Day': '3 Day Affinity Booster',
+  'Credit3Day': '3 Day Credit Booster',
+  'ModDropChance3Day': '3 Day Mod Drop Chance Booster',
+  'ResourceAmount7Day': '7 Day Resource Booster',
+  'ResourceDropChance7Day': '7 Day Resource Drop Chance Booster',
+  'Affinity7Day': '7 Day Affinity Booster',
+  'Credit7Day': '7 Day Credit Booster',
+  'ModDropChance7Day': '7 Day Mod Drop Chance Booster',
+  'ResourceAmount30Day': '30 Day Resource Booster',
+  'ResourceDropChance30Day': '30 Day Resource Drop Chance Booster',
+  'Affinity30Day': '30 Day Affinity Booster',
+  'Credit30Day': '30 Day Credit Booster',
+  'ModDropChance30Day': '30 Day Mod Drop Chance Booster',
+  'ResourceAmount': 'Resource Booster',
+  'ResourceDropChance': 'Resource Drop Chance Booster',
+  'Affinity': 'Affinity Booster',
+  'Credit': 'Credit Booster',
+  'ModDropChance': 'Mod Drop Chance Booster',
+}
+
 function splitPascal(str) {
   return str
     .replace(/([a-z\d])([A-Z])/g, '$1 $2')
@@ -425,17 +448,58 @@ export function resolveItemName(path, dict, uniqueNameToName) {
 
   // 1. Try actualPath (mapped)
   resolved = lookup(actualPath);
-  
+  if (resolved) console.warn('[resolveItemName] step1 resolved', { path, resolved });
+
   // 2. Try raw path
-  if (!resolved) resolved = lookup(path);
+  if (!resolved) {
+    resolved = lookup(path);
+    if (resolved) console.warn('[resolveItemName] step2 resolved', { path, resolved });
+  }
 
   // 3. Try dict directly
   if (!resolved) {
     const d1 = dict[actualPath] || dict['/' + actualPath] || dict[path] || dict['/' + path];
     if (d1 && typeof d1 === 'string' && !d1.startsWith('/Lotus/')) resolved = clean(d1);
+    if (resolved) console.warn('[resolveItemName] step3 resolved', { path, resolved });
   }
 
-  // 4. nameFromPath (fallback)
+  // 4. Try matching dict keys by leaf name (for StoreItem paths that follow
+  //    the pattern /Lotus/Language/{Category}/{Leaf}Name)
+  if (!resolved) {
+    const leaf = path.split('/').pop();
+    const leafNorm = leaf.replace(/StoreItem$/i, '').toLowerCase();
+    for (const [key, val] of Object.entries(dict)) {
+      if (typeof val !== 'string' || val.startsWith('/Lotus/') || !key.endsWith('Name')) continue;
+      if (key.split('/').pop().replace(/Name$/, '').toLowerCase() === leafNorm) {
+        resolved = clean(val);
+        console.warn('[resolveItemName] step4 dict leaf match', { path, leaf, leafNorm, key, resolved });
+        break;
+      }
+    }
+    if (!resolved) console.warn('[resolveItemName] step4 no dict leaf match', { path, leaf: path.split('/').pop(), leafNorm });
+  }
+
+  // 4b. Fallback for known booster patterns (dict uses different naming
+  //     conventions than StoreItem paths, e.g. "ThreeDay" vs "3Day")
+  if (!resolved) {
+    const leaf = path.split('/').pop().replace(/StoreItem$/i, '');
+    console.warn('[resolveItemName] step4b trying booster map', { path, leaf });
+    if (BOOSTER_NAME_MAP[leaf]) {
+      console.warn('[resolveItemName] Booster match via exact key', { leaf, name: BOOSTER_NAME_MAP[leaf] });
+      resolved = BOOSTER_NAME_MAP[leaf];
+    }
+    if (!resolved) {
+      for (const [key, name] of Object.entries(BOOSTER_NAME_MAP)) {
+        if (leaf.startsWith(key)) {
+          console.warn('[resolveItemName] Booster match via prefix', { leaf, key, name });
+          resolved = name; break;
+        }
+      }
+    }
+    if (!resolved) console.warn('[resolveItemName] step4b no booster match', { path, leaf });
+  }
+
+  // 5. nameFromPath (fallback)
   if (!resolved) {
     const n = nameFromPath(actualPath);
     if (n && !n.startsWith('/Lotus/')) resolved = n;
@@ -468,7 +532,7 @@ export function resolveAnyImage(rewardOrItem, EI, nameToImage, uniqueNameToName 
   if (typeof rewardOrItem === 'string') {
     item = rewardOrItem;
   } else {
-    item = rewardOrItem.uniqueName || rewardOrItem.ItemType || rewardOrItem.StoreItem || rewardOrItem.item || '';
+    item = rewardOrItem.uniqueName || rewardOrItem.unique_name || rewardOrItem.ItemType || rewardOrItem.StoreItem || rewardOrItem.item || '';
   }
 
   if (typeof item !== 'string') return null;

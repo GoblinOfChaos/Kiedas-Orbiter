@@ -645,14 +645,19 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
       const start = f.StartDate?.$date?.$numberLong ? parseInt(f.StartDate.$date.$numberLong) : 0
       const end = f.EndDate?.$date?.$numberLong ? parseInt(f.EndDate.$date.$numberLong) : 0
       return now >= start && now < end
-    }).map(f => ({
-      item: resolveItemName(f.TypeName, dict, uniqueNameToName),
+    }).map(f => {
+      const itemName = resolveItemName(f.TypeName, dict, uniqueNameToName);
+      if (itemName !== (f.ItemType || f.TypeName || '').split('/').pop()) console.warn('[wsParser] flashSale item resolved', { typeName: f.TypeName, item: itemName });
+      else console.warn('[wsParser] flashSale item UNRESOLVED', { typeName: f.TypeName, item: itemName });
+      return {
+      item: itemName,
       uniqueName: f.TypeName,
       discount: f.Discount,
       salePrice: f.PremiumOverride,
       originalPrice: f.PremiumOverride ? Math.round(f.PremiumOverride / (1 - f.Discount / 100)) : 0,
       expiry: f.EndDate,
-    })),
+    };
+    }),
 
     // Alerts
     alerts: (raw.Alerts || []).map(a => ({

@@ -1,0 +1,534 @@
+diff --git a/package.json b/package.json
+index 06d7bc3..c76e720 100644
+--- a/package.json
++++ b/package.json
+@@ -24,6 +24,7 @@
+     "react": "^18.2.0",
+     "react-dom": "^18.2.0",
+     "remark-gfm": "^4.0.1",
++    "warframe-items": "^1.1269.87",
+     "warframe-public-export-plus": "latest"
+   },
+   "devDependencies": {
+diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
+index 9f7398b..f63dfbf 100644
+--- a/pnpm-lock.yaml
++++ b/pnpm-lock.yaml
+@@ -44,6 +44,9 @@ importers:
+       remark-gfm:
+         specifier: ^4.0.1
+         version: 4.0.1
++      warframe-items:
++        specifier: ^1.1269.87
++        version: 1.1269.87(warframe-worldstate-data@2.25.0)
+       warframe-public-export-plus:
+         specifier: latest
+         version: 0.6.2
+@@ -2428,9 +2431,18 @@ packages:
+   w3c-keyname@2.2.8:
+     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
+ 
++  warframe-items@1.1269.87:
++    resolution: {integrity: sha512-FBHlgLGWxgVFJY2SgGC6afj6xzi6apl+kXm3NLbSg5knYRKpmYqSX6/uv3O3mJniIwMoBajJ9TW7NCEVkxQmXQ==}
++    peerDependencies:
++      warframe-worldstate-data: ^2.24
++
+   warframe-public-export-plus@0.6.2:
+     resolution: {integrity: sha512-eyfJJ4H9dtN03vGTvHwDBJh5Gr6lC/OCN7K8GdSjT0MlyuwwglyYw8gvQU9lwkS3kNY2eClhG86Xe3Y625KbYg==}
+ 
++  warframe-worldstate-data@2.25.0:
++    resolution: {integrity: sha512-orgH0ZTrGeZaU300VqUdMETpAARrePDmBIQlrsmch10cmOyPL/tykFO44JacMYYC2xSoyz+n7irFwx5pTyWA1w==}
++    engines: {node: '>=18.19.0'}
++
+   web-namespaces@2.0.1:
+     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
+ 
+@@ -5513,8 +5525,14 @@ snapshots:
+ 
+   w3c-keyname@2.2.8: {}
+ 
++  warframe-items@1.1269.87(warframe-worldstate-data@2.25.0):
++    dependencies:
++      warframe-worldstate-data: 2.25.0
++
+   warframe-public-export-plus@0.6.2: {}
+ 
++  warframe-worldstate-data@2.25.0: {}
++
+   web-namespaces@2.0.1: {}
+ 
+   yallist@3.1.1: {}
+diff --git a/src/contexts/MonitoringContext.jsx b/src/contexts/MonitoringContext.jsx
+index 9d5c1b8..2bba234 100644
+--- a/src/contexts/MonitoringContext.jsx
++++ b/src/contexts/MonitoringContext.jsx
+@@ -10,6 +10,42 @@ import { getPrice, getPricesBatch } from '../lib/marketEngine'
+ import { resolveNode } from '../lib/warframeUtils'
+ import { getSetting } from '../lib/settings'
+ import { evaluateNotifications } from '../lib/notificationManager'
++import { transformWarframeItems } from '../lib/warframeItemsTransform'
++
++// ── warframe-items data (pre-resolved names/descriptions from the npm package) ──
++import wiWarframes from 'warframe-items-data/Warframes.json'
++import wiPrimary from 'warframe-items-data/Primary.json'
++import wiSecondary from 'warframe-items-data/Secondary.json'
++import wiMelee from 'warframe-items-data/Melee.json'
++import wiArchGun from 'warframe-items-data/Arch-Gun.json'
++import wiArchMelee from 'warframe-items-data/Arch-Melee.json'
++import wiArchwing from 'warframe-items-data/Archwing.json'
++import wiRailjack from 'warframe-items-data/Railjack.json'
++import wiSentinelWeapons from 'warframe-items-data/SentinelWeapons.json'
++import wiSentinels from 'warframe-items-data/Sentinels.json'
++import wiPets from 'warframe-items-data/Pets.json'
++import wiMods from 'warframe-items-data/Mods.json'
++import wiArcanes from 'warframe-items-data/Arcanes.json'
++import wiResources from 'warframe-items-data/Resources.json'
++import wiRelics from 'warframe-items-data/Relics.json'
++import wiGear from 'warframe-items-data/Gear.json'
++import wiMisc from 'warframe-items-data/Misc.json'
++import wiSkins from 'warframe-items-data/Skins.json'
++import wiSigils from 'warframe-items-data/Sigils.json'
++import wiGlyphs from 'warframe-items-data/Glyphs.json'
++import wiFish from 'warframe-items-data/Fish.json'
++
++const warframeItemsRaw = {
++  Warframes: wiWarframes, Primary: wiPrimary, Secondary: wiSecondary,
++  Melee: wiMelee, 'Arch-Gun': wiArchGun, 'Arch-Melee': wiArchMelee,
++  Archwing: wiArchwing, Railjack: wiRailjack, SentinelWeapons: wiSentinelWeapons,
++  Sentinels: wiSentinels, Pets: wiPets,
++  Mods: wiMods, Arcanes: wiArcanes, Resources: wiResources,
++  Relics: wiRelics, Gear: wiGear, Misc: wiMisc,
++  Skins: wiSkins, Sigils: wiSigils, Glyphs: wiGlyphs, Fish: wiFish,
++}
++
++const { maps: wiMaps, supplement: wiSupplement } = transformWarframeItems(warframeItemsRaw)
+ 
+ const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
+ 
+@@ -247,7 +283,12 @@ export function MonitoringProvider({ children }) {
+     const tableNames = [
+       'ExportWeapons', 'ExportWarframes', 'ExportSentinels',
+       'ExportResources', 'ExportArcanes', 'ExportUpgrades',
+-      'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms', 'ExportGear'
++      'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms', 'ExportGear',
++      // warframe-items pre-resolved maps
++      'WI_Warframes', 'WI_Weapons', 'WI_Sentinels',
++      'WI_Upgrades', 'WI_Arcanes', 'WI_Resources',
++      'WI_Relics', 'WI_Gear', 'WI_Customs',
++      'WI_Skins', 'WI_Sigils', 'WI_Glyphs', 'WI_Fish',
+     ]
+     const EI = {}
+     const nameToImage = {}
+@@ -475,7 +516,16 @@ export function MonitoringProvider({ children }) {
+         } catch { }
+       }
+ 
+-      setExportData(exports)
++      // Inject warframe-items pre-resolved data into exports
++      const exportsWithWI = exports ? { ...exports, ...wiMaps } : null
++      // Also provide the supplement maps for relicParser/worldstateParser
++      if (exportsWithWI) {
++        exportsWithWI.uniqueNameToName = { ...exportsWithWI.uniqueNameToName, ...wiSupplement.uniqueNameToName }
++        exportsWithWI.nameToImage = { ...exportsWithWI.nameToImage, ...wiSupplement.nameToImage }
++        exportsWithWI.WI_Supplement = wiSupplement
++      }
++
++      setExportData(exportsWithWI)
+       setSpIncursions(spiText || '')
+       setArbys(arbText || '')
+ 
+diff --git a/src/lib/inventoryParser.js b/src/lib/inventoryParser.js
+index 22ce8e6..9d684bb 100644
+--- a/src/lib/inventoryParser.js
++++ b/src/lib/inventoryParser.js
+@@ -753,10 +753,45 @@ export function parseInventory(raw, exports) {
+     return arr || {};
+   };
+ 
+-  const EWf = toMap(exports.ExportWarframes, 'ExportWarframes');
+-  const EW = toMap(exports.ExportWeapons, 'ExportWeapons');
+-  const ES = toMap(exports.ExportSentinels, 'ExportSentinels');
+-  const EM = toMap(exports.ExportUpgrades, 'ExportUpgrades');
++  // ── warframe-items data (pre-resolved names, descriptions, images) ──
++  // When WI maps are available (injected by MonitoringContext), they serve as
++  // the primary lookup source.  Entries missing from WI are supplemented from
++  // the original public-export-plus data.
++  const useWI = !!exports.WI_Warframes;
++
++  const mergeWithOrig = (wiMap, origKey) => {
++    const map = wiMap ? { ...wiMap } : {};
++    if (origKey && exports[origKey]) {
++      const origMap = toMap(exports[origKey], origKey);
++      for (const [un, origEntry] of Object.entries(origMap)) {
++        if (map[un]) {
++          // Supplement WI entry with original fields it doesn't have
++          for (const [k, v] of Object.entries(origEntry)) {
++            if (map[un][k] === undefined && v !== undefined) {
++              map[un][k] = v;
++            }
++          }
++        } else {
++          // Entry only in original data
++          map[un] = origEntry;
++        }
++      }
++    }
++    return map;
++  };
++
++  const EWf = useWI
++    ? mergeWithOrig(exports.WI_Warframes, 'ExportWarframes')
++    : toMap(exports.ExportWarframes, 'ExportWarframes');
++  const EW = useWI
++    ? mergeWithOrig(exports.WI_Weapons, 'ExportWeapons')
++    : toMap(exports.ExportWeapons, 'ExportWeapons');
++  const ES = useWI
++    ? mergeWithOrig(exports.WI_Sentinels, 'ExportSentinels')
++    : toMap(exports.ExportSentinels, 'ExportSentinels');
++  const EM = useWI
++    ? mergeWithOrig(exports.WI_Upgrades, 'ExportUpgrades')
++    : toMap(exports.ExportUpgrades, 'ExportUpgrades');
+   // Merge Railjack avionics into EM
+   if (exports.ExportAvionics) {
+     const avMap = toMap(exports.ExportAvionics, 'ExportAvionics');
+@@ -796,13 +831,23 @@ export function parseInventory(raw, exports) {
+       }
+     }
+   }
+-  const EA = toMap(exports.ExportArcanes, 'ExportArcanes');
+-  const ER = toMap(exports.ExportResources, 'ExportResources');
+-  const ERel = toMap(exports.ExportRelics, 'ExportRelics');
++  const EA = useWI
++    ? mergeWithOrig(exports.WI_Arcanes, 'ExportArcanes')
++    : toMap(exports.ExportArcanes, 'ExportArcanes');
++  const ER = useWI
++    ? mergeWithOrig(exports.WI_Resources, 'ExportResources')
++    : toMap(exports.ExportResources, 'ExportResources');
++  const ERel = useWI
++    ? mergeWithOrig(exports.WI_Relics, 'ExportRelics')
++    : toMap(exports.ExportRelics, 'ExportRelics');
+   const ERew = toMap(exports.ExportRewards, 'ExportRewards');
+   const ERecipe = toMap(exports.ExportRecipes, 'ExportRecipes');
+-  const ECust = toMap(exports.ExportCustoms, 'ExportCustoms');
+-  const EGear = toMap(exports.ExportGear, 'ExportGear');
++  const ECust = useWI
++    ? mergeWithOrig(exports.WI_Customs, 'ExportCustoms')
++    : toMap(exports.ExportCustoms, 'ExportCustoms');
++  const EGear = useWI
++    ? mergeWithOrig(exports.WI_Gear, 'ExportGear')
++    : toMap(exports.ExportGear, 'ExportGear');
+ 
+   // ── XP lookup ──
+   // inventory.XPInfo contains per-item affinity totals, referenced by ItemType.
+@@ -986,7 +1031,11 @@ export function parseInventory(raw, exports) {
+ 
+     const entry = nameTbls[0]?.[un];
+     const descLoctag = entry?.description ?? '';
+-    const rawDesc = descLoctag ? (dict[descLoctag] || dict['/' + descLoctag] || '') : '';
++    const rawDesc = descLoctag
++      ? (descLoctag.startsWith('/Lotus/')
++          ? (dict[descLoctag] || dict['/' + descLoctag] || '')
++          : descLoctag)
++      : '';
+     const description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
+ 
+     return {
+@@ -1411,7 +1460,11 @@ export function parseInventory(raw, exports) {
+       mod.modFrame = detectModFrame(un, mod.rarity, mod.name);
+       if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
+       const descLoctag = entry?.description ?? '';
+-      const rawDesc = descLoctag ? (dict[descLoctag] || dict['/' + descLoctag] || '') : '';
++      const rawDesc = descLoctag
++        ? (descLoctag.startsWith('/Lotus/')
++            ? (dict[descLoctag] || dict['/' + descLoctag] || '')
++            : descLoctag)
++        : '';
+       mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').trim() : '';
+       mod.levelStats = entry?.levelStats ?? null;
+       mod.category = extractModCategory(entry?.type, un, entry);
+diff --git a/src/lib/warframeItemsTransform.js b/src/lib/warframeItemsTransform.js
+new file mode 100644
+index 0000000..daaba33
+--- /dev/null
++++ b/src/lib/warframeItemsTransform.js
+@@ -0,0 +1,135 @@
++/**
++ * Transforms warframe-items npm-package data into lookup maps
++ * compatible with inventoryParser.js's export-table format.
++ *
++ * Each warframe-items entry has `name` and `description` already resolved
++ * to human-readable strings, so _resolveNameInternal can return them
++ * immediately without going through the dict fallback chain.
++ *
++ * EXPORTS:
++ *   transformWarframeItems(rawData) → { maps, supplement }
++ *     maps      – object keyed by WI_* export-table name
++ *     supplement – { uniqueNameToName, nameToImage } for cache helpers
++ */
++
++const WI_FILES = [
++  'Warframes', 'Primary', 'Secondary', 'Melee',
++  'Arch-Gun', 'Arch-Melee', 'Archwing',
++  'Railjack', 'SentinelWeapons',
++  'Sentinels', 'Pets',
++  'Mods', 'Arcanes', 'Resources', 'Relics', 'Gear', 'Misc',
++  'Skins', 'Sigils', 'Glyphs', 'Fish',
++]
++
++/** Convert a warframe-items array to a uniqueName→entry map with pre-resolved fields. */
++function itemsToMap(items) {
++  const map = {}
++  for (const item of items) {
++    const un = item.uniqueName
++    if (!un) continue
++
++    map[un] = {
++      uniqueName: un,
++      name: item.name || '',
++      description: item.description || '',
++      // Do NOT set icon here — let existing export icons win via mergeWithOrig
++      // in inventoryParser.js (resolveImage prepends browse.wf and can't handle
++      // absolute URLs from wikiaThumbnail).
++      category: item.category,
++      type: item.type,
++      productCategory: item.productCategory,
++      rarity: item.rarity,
++      fusionLimit: item.fusionLimit,
++      levelStats: item.levelStats,
++      polarity: item.polarity,
++      baseDrain: item.baseDrain,
++      compatName: item.compatName,
++      omegaAttenuation: item.disposition,
++      masteryReq: item.masteryReq,
++      excludeFromCodex: item.excludeFromCodex,
++      variantType: item.isPrime ? 'VT_PRIME' : undefined,
++      primeSellingPrice: item.primeSellingPrice,
++      quality: item.quality,
++      rewards: item.rewards,
++      locations: item.locations,
++      components: item.components,
++      drops: item.drops,
++      buildPrice: item.buildPrice,
++      buildTime: item.buildTime,
++      skipBuildTimePrice: item.skipBuildTimePrice,
++      buildQuantity: item.buildQuantity,
++      consumeOnBuild: item.consumeOnBuild,
++      marketCost: item.marketCost,
++      bpCost: item.bpCost,
++      modSet: item.modSet,
++    }
++  }
++  return map
++}
++
++/** Merge multiple uniqueName maps, earlier maps win. */
++function mergeMaps(...maps) {
++  const merged = {}
++  for (const map of maps) {
++    if (!map) continue
++    for (const [key, val] of Object.entries(map)) {
++      if (!merged[key]) merged[key] = { ...val }
++    }
++  }
++  return merged
++}
++
++export function transformWarframeItems(rawData) {
++  if (!rawData || typeof rawData !== 'object') {
++    return { maps: {}, supplement: { uniqueNameToName: {}, nameToImage: {} } }
++  }
++
++  const loaded = {}
++  for (const key of Object.keys(rawData)) {
++    const data = rawData[key]
++    if (Array.isArray(data)) {
++      loaded[key] = itemsToMap(data)
++    }
++  }
++
++  const weapons = mergeMaps(
++    loaded.Primary, loaded.Secondary, loaded.Melee,
++    loaded['Arch-Gun'], loaded['Arch-Melee'], loaded.Archwing,
++    loaded.Railjack, loaded.SentinelWeapons,
++  )
++
++  const sentinels = mergeMaps(loaded.Sentinels, loaded.Pets)
++
++  const maps = {
++    WI_Warframes: loaded.Warframes || {},
++    WI_Weapons: weapons,
++    WI_Sentinels: sentinels,
++    WI_Upgrades: loaded.Mods || {},
++    WI_Arcanes: loaded.Arcanes || {},
++    WI_Resources: loaded.Resources || {},
++    WI_Relics: loaded.Relics || {},
++    WI_Gear: loaded.Gear || {},
++    WI_Customs: loaded.Misc || {},
++    WI_Skins: loaded.Skins || {},
++    WI_Sigils: loaded.Sigils || {},
++    WI_Glyphs: loaded.Glyphs || {},
++    WI_Fish: loaded.Fish || {},
++  }
++
++  // Build supplement maps for caching (used by worldstateParser UI helpers)
++  const uniqueNameToName = {}
++  const nameToImage = {}
++
++  for (const [, map] of Object.entries(maps)) {
++    for (const [un, entry] of Object.entries(map)) {
++      const n = entry.name
++      if (n && typeof n === 'string' && !n.startsWith('/Lotus/')) {
++        uniqueNameToName[un] = n
++      }
++    }
++  }
++
++  return { maps, supplement: { uniqueNameToName, nameToImage } }
++}
++
++export { WI_FILES, itemsToMap, mergeMaps }
+diff --git a/src/lib/warframeUtils.js b/src/lib/warframeUtils.js
+index afe234e..5bb47d1 100644
+--- a/src/lib/warframeUtils.js
++++ b/src/lib/warframeUtils.js
+@@ -367,6 +367,29 @@ const FOLDER_OVERRIDES = {
+ 
+ const PART_SUFFIX_RE = /(Blueprint|Barrel|Receiver|Stock|Handle|Grip|String|Upper\s?Limb|Lower\s?Limb|Blade|Hilt|Gauntlet|Boot|Pouch|Stars|Band|Head|Carapace|Cerebrum|Systems|Chassis|Neuroptics)$/i;
+ 
++const BOOSTER_NAME_MAP = {
++  'ResourceAmount3Day': '3 Day Resource Booster',
++  'ResourceDropChance3Day': '3 Day Resource Drop Chance Booster',
++  'Affinity3Day': '3 Day Affinity Booster',
++  'Credit3Day': '3 Day Credit Booster',
++  'ModDropChance3Day': '3 Day Mod Drop Chance Booster',
++  'ResourceAmount7Day': '7 Day Resource Booster',
++  'ResourceDropChance7Day': '7 Day Resource Drop Chance Booster',
++  'Affinity7Day': '7 Day Affinity Booster',
++  'Credit7Day': '7 Day Credit Booster',
++  'ModDropChance7Day': '7 Day Mod Drop Chance Booster',
++  'ResourceAmount30Day': '30 Day Resource Booster',
++  'ResourceDropChance30Day': '30 Day Resource Drop Chance Booster',
++  'Affinity30Day': '30 Day Affinity Booster',
++  'Credit30Day': '30 Day Credit Booster',
++  'ModDropChance30Day': '30 Day Mod Drop Chance Booster',
++  'ResourceAmount': 'Resource Booster',
++  'ResourceDropChance': 'Resource Drop Chance Booster',
++  'Affinity': 'Affinity Booster',
++  'Credit': 'Credit Booster',
++  'ModDropChance': 'Mod Drop Chance Booster',
++}
++
+ function splitPascal(str) {
+   return str
+     .replace(/([a-z\d])([A-Z])/g, '$1 $2')
+@@ -435,7 +458,34 @@ export function resolveItemName(path, dict, uniqueNameToName) {
+     if (d1 && typeof d1 === 'string' && !d1.startsWith('/Lotus/')) resolved = clean(d1);
+   }
+ 
+-  // 4. nameFromPath (fallback)
++  // 4. Try matching dict keys by leaf name (for StoreItem paths that follow
++  //    the pattern /Lotus/Language/{Category}/{Leaf}Name)
++  if (!resolved) {
++    const leaf = path.split('/').pop();
++    const leafNorm = leaf.replace(/StoreItem$/i, '').toLowerCase();
++    for (const [key, val] of Object.entries(dict)) {
++      if (typeof val !== 'string' || val.startsWith('/Lotus/') || !key.endsWith('Name')) continue;
++      if (key.split('/').pop().replace(/Name$/, '').toLowerCase() === leafNorm) {
++        resolved = clean(val);
++        break;
++      }
++    }
++  }
++
++  // 4b. Fallback for known booster patterns (dict uses different naming
++  //     conventions than StoreItem paths, e.g. "ThreeDay" vs "3Day")
++  if (!resolved) {
++    const leaf = path.split('/').pop().replace(/StoreItem$/i, '');
++    resolved = BOOSTER_NAME_MAP[leaf] || null;
++    // Also try matching by prefix against known booster keys
++    if (!resolved) {
++      for (const [key, name] of Object.entries(BOOSTER_NAME_MAP)) {
++        if (leaf.startsWith(key)) { resolved = name; break; }
++      }
++    }
++  }
++
++  // 5. nameFromPath (fallback)
+   if (!resolved) {
+     const n = nameFromPath(actualPath);
+     if (n && !n.startsWith('/Lotus/')) resolved = n;
+@@ -468,7 +518,7 @@ export function resolveAnyImage(rewardOrItem, EI, nameToImage, uniqueNameToName
+   if (typeof rewardOrItem === 'string') {
+     item = rewardOrItem;
+   } else {
+-    item = rewardOrItem.uniqueName || rewardOrItem.ItemType || rewardOrItem.StoreItem || rewardOrItem.item || '';
++    item = rewardOrItem.uniqueName || rewardOrItem.unique_name || rewardOrItem.ItemType || rewardOrItem.StoreItem || rewardOrItem.item || '';
+   }
+ 
+   if (typeof item !== 'string') return null;
+diff --git a/src/screens/Dashboard.jsx b/src/screens/Dashboard.jsx
+index 248d46b..579dc63 100644
+--- a/src/screens/Dashboard.jsx
++++ b/src/screens/Dashboard.jsx
+@@ -1097,7 +1097,7 @@ export default function Dashboard() {
+           {inventory?.map((item, idx) => (
+             <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
+               <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
+-                <img src={resolveAnyImage(item.uniqueName, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
++                <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+               </div>
+               <div className="min-w-0 flex-1">
+                 <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.item}>{item.item}</p>
+@@ -1134,7 +1134,7 @@ export default function Dashboard() {
+             {wishlist.map((item, idx) => (
+               <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
+                 <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
+-                  <img src={resolveAnyImage(item.unique_name, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
++                  <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                 </div>
+                 <div className="min-w-0 flex-1">
+                   <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.name}>{item.name}</p>
+@@ -1510,7 +1510,7 @@ export default function Dashboard() {
+                 {worldstate.flashSales.map((sale, idx) => (
+                   <div key={idx} className="flex items-center gap-3 bg-kronos-panel/40 rounded p-2">
+                     <div className="w-10 h-10 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
+-                      <img src={resolveAnyImage(sale.uniqueName, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
++                      <img src={resolveAnyImage(sale, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                     </div>
+                     <div className="min-w-0 flex-1">
+                       <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={sale.item}>{sale.item}</p>
+diff --git a/vite.config.js b/vite.config.js
+index 9b259f6..0106165 100644
+--- a/vite.config.js
++++ b/vite.config.js
+@@ -1,5 +1,9 @@
+ import { defineConfig } from 'vite'
+ import react from '@vitejs/plugin-react'
++import path from 'path'
++import { fileURLToPath } from 'url'
++
++const __dirname = path.dirname(fileURLToPath(import.meta.url))
+ 
+ export default defineConfig({
+   plugins: [react()],
+@@ -14,5 +18,19 @@ export default defineConfig({
+   },
+   build: {
+     target: 'es2022',
++    rollupOptions: {
++      output: {
++        manualChunks(id) {
++          if (id.includes('warframe-items') && id.endsWith('.json')) {
++            return 'wi-data'
++          }
++        },
++      },
++    },
++  },
++  resolve: {
++    alias: {
++      'warframe-items-data': path.resolve(__dirname, 'node_modules/warframe-items/data/json'),
++    },
+   },
+ })
+\ No newline at end of file

@@ -161,132 +161,186 @@ pub fn set_fissure_ui_scale(scale: u32) {
     USER_UI_SCALE.store(scale, Ordering::SeqCst);
 }
 
-/// Try to capture the monitor via xcap. On Linux, if xcap fails (e.g. running
-/// under Wayland where neither XGetImage nor wlr-screencopy are available),
-/// fall back to capturing the Warframe window via xcap::Window (which always
-/// uses the X11/XCB path, working through XWayland), then try calling a system
-/// screenshot tool (spectacle → import) cropping to the monitor's region.
-pub(crate) fn capture_monitor_image(app: &AppHandle, monitor: &Monitor) -> Result<image::RgbaImage, String> {
-    match monitor.capture_image() {
+fn is_valid_capture(img: &image::RgbaImage) -> bool {
+    let (w, h) = img.dimensions();
+    if w == 0 || h == 0 {
+        return false;
+    }
+    // reject all-black/all-transparent buffers (stale compositor frame)
+    img.pixels().step_by(997).any(|p| p[0] != 0 || p[1] != 0 || p[2] != 0)
+}
+
+#[cfg(target_os = "linux")]
+fn try_grim(app: &AppHandle, monitor: &Monitor) -> Option<image::RgbaImage> {
+    let m_x = monitor.x().ok()? as u32;
+    let m_y = monitor.y().ok()? as u32;
+    let m_w = monitor.width().ok()?;
+    let m_h = monitor.height().ok()?;
+
+    let tmp = std::env::temp_dir().join("kronos_grim_capture.png");
+    let path = tmp.to_string_lossy().to_string();
+    let geom = format!("{}x{}+{}+{}", m_w, m_h, m_x, m_y);
+    let ok = Command::new("grim")
+        .args(["-g", &geom, &path])
+        .status()
+        .ok()
+        .map(|s| s.success())
+        .unwrap_or(false);
+
+    if !ok {
+        eprintln!("[OCR] grim fallback failed (not installed or wlr-screencopy unavailable)");
+        return None;
+    }
+    std::thread::sleep(Duration::from_millis(200));
+    let result = match image::open(&path) {
         Ok(img) => {
-            crate::logger::log_to_disk(app, "[OCR] Capture via xcap Monitor");
-            return Ok(img);
+            crate::logger::log_to_disk(app, "[OCR] Capture via grim fallback");
+            Some(img.to_rgba8())
         }
         Err(e) => {
-            eprintln!("[OCR] xcap Monitor::capture_image failed: {}", e);
-            crate::logger::log_to_disk(app, &format!("[OCR] xcap Monitor::capture_image failed: {}", e));
+            eprintln!("[OCR] grim capture load failed: {}", e);
+            crate::logger::log_to_disk(app, &format!("[OCR] grim capture load failed: {}", e));
+            None
         }
-    }
+    };
+    let _ = std::fs::remove_file(&path);
+    result
+}
 
+#[cfg(target_os = "linux")]
+fn try_spectacle(app: &AppHandle, monitor: &Monitor) -> Option<image::RgbaImage> {
+    let mon_x = monitor.x().ok()? as u32;
+    let mon_y = monitor.y().ok()? as u32;
+    let mon_w = monitor.width().ok()?;
+    let mon_h = monitor.height().ok()?;
+
+    let tmp = std::env::temp_dir().join("kronos_screenshot.png");
+    let path = tmp.to_string_lossy().to_string();
+
+    let ok = Command::new("spectacle")
+        .args(["-b", "-n", "-f", "-o", &path])
+        .status()
+        .ok()
+        .map(|s| s.success())
+        .unwrap_or(false);
+
+    if !ok {
+        return None;
+    }
+    std::thread::sleep(Duration::from_millis(300));
+    let result = match image::open(&path) {
+        Ok(mut full) => {
+            let cropped = full.crop(mon_x, mon_y, mon_w, mon_h);
+            crate::logger::log_to_disk(app, "[OCR] Capture via spectacle fallback");
+            Some(cropped.to_rgba8())
+        }
+        Err(e) => {
+            eprintln!("[OCR] spectacle capture load failed: {}", e);
+            crate::logger::log_to_disk(app, &format!("[OCR] spectacle capture load failed: {}", e));
+            None
+        }
+    };
+    let _ = std::fs::remove_file(&path);
+    result
+}
+
+#[cfg(target_os = "linux")]
+fn try_import(app: &AppHandle, monitor: &Monitor) -> Option<image::RgbaImage> {
+    let mon_x = monitor.x().ok()? as u32;
+    let mon_y = monitor.y().ok()? as u32;
+    let mon_w = monitor.width().ok()?;
+    let mon_h = monitor.height().ok()?;
+
+    let tmp = std::env::temp_dir().join("kronos_screenshot.png");
+    let path = tmp.to_string_lossy().to_string();
+
+    let ok = Command::new("import")
+        .args(["-window", "root", &path])
+        .status()
+        .ok()
+        .map(|s| s.success())
+        .unwrap_or(false);
+
+    if !ok {
+        return None;
+    }
+    std::thread::sleep(Duration::from_millis(300));
+    let result = match image::open(&path) {
+        Ok(mut full) => {
+            let cropped = full.crop(mon_x, mon_y, mon_w, mon_h);
+            crate::logger::log_to_disk(app, "[OCR] Capture via import fallback");
+            Some(cropped.to_rgba8())
+        }
+        Err(e) => {
+            eprintln!("[OCR] import capture load failed: {}", e);
+            crate::logger::log_to_disk(app, &format!("[OCR] import capture load failed: {}", e));
+            None
+        }
+    };
+    let _ = std::fs::remove_file(&path);
+    result
+}
+
+#[cfg(target_os = "linux")]
+fn is_kde_kwin() -> bool {
+    std::env::var("XDG_CURRENT_DESKTOP")
+        .map(|v| v.to_lowercase().contains("kde"))
+        .unwrap_or(false)
+}
+
+pub(crate) fn capture_monitor_image(app: &AppHandle, monitor: &Monitor) -> Result<image::RgbaImage, String> {
     #[cfg(target_os = "linux")]
     {
-        // Fallback 1: capture the Warframe window directly via xcap::Window.
-        // Window::capture_image always uses X11/XCB regardless of Wayland
-        // detection, so it works through XWayland for the Proton game window.
-        if let Ok(windows) = xcap::Window::all() {
-            let warframe = windows.iter().find(|w| {
-                w.title().as_deref().unwrap_or("").contains("Warframe")
-            }).cloned();
-            if let Some(w) = warframe {
-                        match w.capture_image() {
-                            Ok(img) => {
-                                eprintln!("[OCR] Window fallback succeeded (Warframe window)");
-                                crate::logger::log_to_disk(app, "[OCR] Capture via xcap Window fallback");
-                                return Ok(img);
-                            }
-                    Err(e2) => eprintln!("[OCR] Window fallback also failed: {}", e2),
-                }
-            }
-        }
-
-        // Fallback 2: grim for wlroots compositors (Hyprland/Sway).
-        // grim talks directly to wlr-screencopy, bypassing GDK entirely.
-        fn is_wlroots_compositor() -> bool {
-            std::env::var("HYPRLAND_INSTANCE_SIGNATURE").is_ok()
-                || std::env::var("SWAYSOCK").is_ok()
-        }
-
-        if is_wlroots_compositor() {
-            let m_x = monitor.x().map_err(|e| format!("monitor.x(): {}", e))? as u32;
-            let m_y = monitor.y().map_err(|e| format!("monitor.y(): {}", e))? as u32;
-            let m_w = monitor.width().map_err(|e| format!("monitor.width(): {}", e))?;
-            let m_h = monitor.height().map_err(|e| format!("monitor.height(): {}", e))?;
-
-            let tmp = std::env::temp_dir().join("kronos_grim_capture.png");
-            let path = tmp.to_string_lossy().to_string();
-            let geom = format!("{},{}{}x{}", m_x, m_y, m_w, m_h);
-            let ok = Command::new("grim")
-                .args(["-g", &geom, &path])
-                .status()
-                .ok()
-                .map(|s| s.success())
-                .unwrap_or(false);
-
-            if ok {
-                std::thread::sleep(Duration::from_millis(200));
-                     match image::open(&path) {
-                        Ok(img) => {
-                            let _ = std::fs::remove_file(&path);
-                            crate::logger::log_to_disk(app, "[OCR] Capture via grim fallback");
-                            return Ok(img.to_rgba8());
-                        }
-                        Err(e) => {
-                            eprintln!("[OCR] grim capture load failed: {}", e);
-                            crate::logger::log_to_disk(app, &format!("[OCR] grim capture load failed: {}", e));
-                        }
-                }
-                let _ = std::fs::remove_file(&path);
-            } else {
-                eprintln!("[OCR] grim fallback failed (not installed or wlr-screencopy unavailable)");
-            }
-        }
-
-        // Fallback 3: system screenshot tools (spectacle → import), cropped
-        // to the target monitor's region using cached geometry.
-        let mon_x = monitor.x().map_err(|e| format!("monitor.x(): {}", e))? as u32;
-        let mon_y = monitor.y().map_err(|e| format!("monitor.y(): {}", e))? as u32;
-        let mon_w = monitor.width().map_err(|e| format!("monitor.width(): {}", e))?;
-        let mon_h = monitor.height().map_err(|e| format!("monitor.height(): {}", e))?;
-
-        let tmp = std::env::temp_dir().join("kronos_screenshot.png");
-        let path = tmp.to_string_lossy().to_string();
-
-        let mut ok = Command::new("spectacle")
-            .args(["-b", "-n", "-f", "-o", &path])
-            .status()
-            .ok()
-            .map(|s| s.success())
+        let is_wayland = std::env::var("XDG_SESSION_TYPE")
+            .map(|v| v == "wayland")
             .unwrap_or(false);
 
-        if !ok {
-            ok = Command::new("import")
-                .args(["-window", "root", &path])
-                .status()
-                .ok()
-                .map(|s| s.success())
-                .unwrap_or(false);
+        if is_wayland {
+            if let Some(img) = try_grim(app, monitor) {
+                if is_valid_capture(&img) {
+                    return Ok(img);
+                }
+                eprintln!("[OCR] grim returned invalid/blank buffer, discarding");
+            }
         }
 
-        if ok {
-            std::thread::sleep(Duration::from_millis(300));
-                match image::open(&path) {
-                    Ok(mut full) => {
-                        let _ = std::fs::remove_file(&path);
-                        let cropped = full.crop(mon_x, mon_y, mon_w, mon_h);
-                        crate::logger::log_to_disk(app, "[OCR] Capture via spectacle/import fallback");
-                        return Ok(cropped.to_rgba8());
-                    }
-                    Err(e) => {
-                        eprintln!("[OCR] Fallback screenshot load failed: {}", e);
-                        crate::logger::log_to_disk(app, &format!("[OCR] Fallback screenshot load failed: {}", e));
-                    }
+        if let Ok(img) = monitor.capture_image() {
+            if is_valid_capture(&img) {
+                crate::logger::log_to_disk(app, "[OCR] Capture via xcap Monitor");
+                return Ok(img);
             }
-            let _ = std::fs::remove_file(&path);
+            crate::logger::log_to_disk(app, "[OCR] xcap returned invalid/blank buffer, discarding");
+        } else {
+            crate::logger::log_to_disk(app, "[OCR] xcap Monitor::capture_image failed");
         }
+
+        if is_wayland {
+            if is_kde_kwin() {
+                if let Some(img) = try_spectacle(app, monitor) {
+                    if is_valid_capture(&img) {
+                        return Ok(img);
+                    }
+                }
+            }
+        } else {
+            if let Some(img) = try_import(app, monitor) {
+                if is_valid_capture(&img) {
+                    return Ok(img);
+                }
+            }
+        }
+
+        crate::logger::log_to_disk(app, "[OCR] Capture failed (all methods exhausted or returned invalid data)");
+        return Err("capture failed (all methods exhausted or returned invalid data)".to_string());
     }
 
-    crate::logger::log_to_disk(app, "[OCR] Capture failed (xcap and all fallbacks exhausted)");
-    Err("capture failed (xcap and all fallbacks exhausted)".to_string())
+    #[cfg(not(target_os = "linux"))]
+    {
+        if let Ok(img) = monitor.capture_image() {
+            return Ok(img);
+        }
+        Err("capture failed (xcap returned error)".to_string())
+    }
 }
 
 pub fn get_target_monitor(app: &AppHandle) -> Option<Monitor> {

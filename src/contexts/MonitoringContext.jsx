@@ -850,7 +850,7 @@ export function MonitoringProvider({ children }) {
       if (!inventoryData?.relics) return
       const voidTier = e.payload?.void_tier
       let relics = inventoryData.relics
-      if (voidTier) {
+      if (voidTier && voidTier !== 'Omnia') {
         relics = relics.filter(r => r.era === voidTier)
       }
       const enriched = relics.map(r => {
@@ -873,7 +873,7 @@ export function MonitoringProvider({ children }) {
       const voidTier = e.payload?.tier
       if (!voidTier || !inventoryData?.relics) return
       let relics = inventoryData.relics
-      if (voidTier) {
+      if (voidTier && voidTier !== 'Omnia') {
         relics = relics.filter(r => r.era === voidTier)
       }
       const enriched = relics.map(r => {

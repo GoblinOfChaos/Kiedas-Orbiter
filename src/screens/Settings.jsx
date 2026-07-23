@@ -967,63 +967,6 @@ export default function SettingsScreen() {
           </p>
         </Card>
 
-        {/* Monitoring Section */}
-        <Card glow className="p-5">
-          <div className="flex items-center gap-3 mb-5">
-            <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 transition-all duration-500 ${monitorResult === 'success' ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.7)]' :
-              monitorResult === 'cached' ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.7)]' :
-                monitorResult === 'error' ? 'bg-red-500   shadow-[0_0_8px_rgba(239,68,68,0.7)]' :
-                  'bg-zinc-600'
-              }`} />
-            <h2 className="text-xl font-black uppercase tracking-tight">Inventory Syncing</h2>
-          </div>
-
-          {/* Status widget */}
-          <div className="bg-kronos-panel/30 rounded-xl p-4 border border-white/5 space-y-3 mb-5">
-            <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">Status</p>
-            <p className="text-xs text-kronos-accent font-mono break-words leading-relaxed min-h-[2rem]">
-              {statusText || (isMonitoring ? 'Syncing active' : 'Not syncing')}
-            </p>
-            {lastUpdate && (
-              <p className="text-[10px] text-zinc-600 font-mono">
-                Last update: {formatLastUpdate(lastUpdate)}
-              </p>
-            )}
-            {error && <p className="text-[10px] text-red-400 font-mono">Error: {error}</p>}
-          </div>
-
-          {/* Action buttons */}
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={isMonitoring ? stopMonitoring : handleStart}
-              disabled={loading && !isMonitoring}
-              className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${loading
-                ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'
-                : isMonitoring
-                  ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
-                  : 'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'
-                }`}
-            >
-              {loading
-                ? <span className="flex items-center justify-center gap-2"><RefreshCw size={12} className="animate-spin" /> Starting</span>
-                : isMonitoring
-                  ? '■ Stop Sync'
-                  : '▶ Start Sync'
-              }
-            </button>
-            <button
-              onClick={manualRefresh}
-              disabled={loading}
-              className={`py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${loading
-                ? 'bg-kronos-panel/20 border-white/5 text-kronos-dim/40 cursor-not-allowed'
-                : 'bg-kronos-panel/40 border-white/10 text-kronos-text hover:border-kronos-accent/30 hover:text-kronos-accent'
-                }`}
-            >
-              {loading ? 'Scanning...' : 'Manual Refresh'}
-            </button>
-          </div>
-        </Card>
-
         {/* Updates & Price Cache */}
         <Card glow className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

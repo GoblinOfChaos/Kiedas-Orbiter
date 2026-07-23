@@ -114,14 +114,14 @@ impl LogScanner {
             self.in_mission = true;
             self.squad_size = 1;
             self.squad_relics.clear();
-            self.void_tier = None;
+            self.void_tier = parse_mission_void_tier(s);
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 1: FISSURE START void_tier={:?} (LogTS: {}s)", self.void_tier, ts));
             if self.relic_picker_open {
                 self.relic_picker_open = false;
                 app.emit("relic-picker-closed", ()).unwrap_or_default();
             }
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             set_poll_interval(150);
-            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 1: FISSURE START (LogTS: {}s)", ts));
             return;
         }
 
@@ -155,14 +155,14 @@ impl LogScanner {
                     self.is_fissure = true;
                     set_poll_interval(150);
 
-                    // Detect void tier from the first relic
-                    if is_first {
+                    // Detect void tier from the first relic (only if not already set from mission JSON)
+                    if is_first && self.void_tier.is_none() {
                         self.void_tier = Some(detect_void_tier(path));
-                        if self.relic_picker_open {
-                            app.emit("relic-picker-tier",
-                                serde_json::json!({ "tier": self.void_tier })
-                            ).unwrap_or_default();
-                        }
+                    }
+                    if is_first && self.relic_picker_open {
+                        app.emit("relic-picker-tier",
+                            serde_json::json!({ "tier": self.void_tier })
+                        ).unwrap_or_default();
                     }
 
                     let state = app.state::<crate::AppState>();
@@ -213,16 +213,23 @@ impl LogScanner {
 
         // === 6. Relic Picker / Endless Mission Handling ===
         if s.contains("Created /Lotus/Interface/ThemedProjectionManager.swf") {
+            // Omnia fallback: if squad relics span multiple tiers, it's Omnia
+            if self.void_tier.as_deref() != Some("Omnia") {
+                if let Some(omnia) = detect_omnia_from_squad(&self.squad_relics) {
+                    crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Omnia detected from multi-tier squad relics"));
+                    self.void_tier = Some(omnia);
+                }
+            }
             if !self.in_mission {
                 self.relic_picker_open = true;
                 self.relic_picker_opened_at = ts;
-                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (pre-mission) (LogTS: {}s)", ts));
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (pre-mission) void_tier={:?} (LogTS: {}s)", self.void_tier, ts));
                 app.emit("relic-picker-opened", serde_json::json!({ "void_tier": self.void_tier })).unwrap_or_default();
                 return;
             }
             self.relic_picker_open = true;
             self.relic_picker_opened_at = ts;
-            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (endless) (LogTS: {}s)", ts));
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (endless) void_tier={:?} (LogTS: {}s)", self.void_tier, ts));
             app.emit("relic-picker-opened", serde_json::json!({ "void_tier": self.void_tier })).unwrap_or_default();
             return;
         }
@@ -465,7 +472,40 @@ fn detect_void_tier(path: &str) -> String {
     else if path.contains("T2") { "Meso".to_string() }
     else if path.contains("T3") { "Neo".to_string() }
     else if path.contains("T4") { "Axi".to_string() }
+    else if path.contains("T5") { "Requiem".to_string() }
     else { "Unknown".to_string() }
+}
+
+/// Parse `voidTier` from the Host loading JSON on the mission start line.
+fn parse_mission_void_tier(line: &str) -> Option<String> {
+    let start = line.find("Host loading ")?;
+    let after = &line[start + "Host loading ".len()..];
+    let json_end = after.find(" with MissionInfo")?;
+    let json_str = &after[..json_end];
+    let v: serde_json::Value = serde_json::from_str(json_str).ok()?;
+    let vt = v.get("voidTier")?.as_str()?;
+    match vt {
+        "VoidT1" => Some("Lith".to_string()),
+        "VoidT2" => Some("Meso".to_string()),
+        "VoidT3" => Some("Neo".to_string()),
+        "VoidT4" => Some("Axi".to_string()),
+        "VoidT5" => Some("Requiem".to_string()),
+        "VoidT6" => Some("Omnia".to_string()),
+        _ => None,
+    }
+}
+
+/// If squad relics span multiple tiers, it's likely an Omnia fissure.
+fn detect_omnia_from_squad(squad_relics: &[RelicInfo]) -> Option<String> {
+    if squad_relics.len() < 2 {
+        return None;
+    }
+    let first_tier = &squad_relics[0].tier;
+    if squad_relics.iter().any(|r| &r.tier != first_tier) {
+        Some("Omnia".to_string())
+    } else {
+        None
+    }
 }
 
 pub struct LogScannerHandle {

@@ -180,17 +180,23 @@ export default function MirroredMonitoringProvider({ children }) {
   // ── Sync monitoring active state with other windows ──
   useEffect(() => {
     const unsub = listen('monitoring-active-changed', async (e) => {
-      if (processingRef.current) return
       const p = e.payload || {}
+
       if (p.active === false) {
         if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null }
         setIsMonitoring(false)
         setMonitorResult(p.result || 'idle')
         setStatusText(p.statusText || 'Syncing stopped')
-      } else if (p.active === true && !intervalRef.current) {
+        return
+      }
+
+      if (p.active === true) {
+        setIsMonitoring(true)
         setMonitorResult(p.result || 'success')
         setStatusText(p.statusText || 'Syncing active')
-        setIsMonitoring(true)
+
+        if (processingRef.current || intervalRef.current) return
+
         processingRef.current = true
         try {
           await callApiHelperFn()

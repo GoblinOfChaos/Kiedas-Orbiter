@@ -48,18 +48,15 @@ export default function RelicPickerOverlay() {
 
   if (!relics) return null
 
+  const eraSuffix = relics.era ? ` (${relics.era})` : ''
+
   return (
     <div className="w-full h-full bg-zinc-900 flex flex-col">
       <div className="flex-1 flex items-center justify-center p-4">
         <div className="w-full max-w-[360px]">
-          {relics.era && (
-            <div className="text-[12px] font-black uppercase text-kronos-accent tracking-widest text-center mb-3">
-              {relics.era} Fissure
-            </div>
-          )}
           <div className="flex gap-3">
-            <Column items={relics.ducat_top} title="Top Ducat EV" accent="text-amber-400" />
-            <Column items={relics.plat_top} title="Top Plat EV" accent="text-blue-400" />
+            <Column items={relics.ducat_top} title={`Top Ducat EV${eraSuffix}`} accent="text-amber-400" />
+            <Column items={relics.plat_top} title={`Top Plat EV${eraSuffix}`} accent="text-blue-400" />
           </div>
         </div>
       </div>

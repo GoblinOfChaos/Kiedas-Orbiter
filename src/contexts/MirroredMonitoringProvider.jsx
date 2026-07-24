@@ -6,6 +6,7 @@ import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getAllRelicRewards } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
 import { MonitoringContext } from './MonitoringContext'
+import { getPricesBatch } from '../lib/marketEngine'
 
 const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
 
@@ -47,10 +48,31 @@ export default function MirroredMonitoringProvider({ children }) {
   const [rawInventory, setRawInventory] = useState(null)
   const [inventoryData, setInventoryData] = useState(undefined)
   const [isInventoryLoading, setIsInventoryLoading] = useState(true)
-  const [allPrices] = useState({})
-  const [isPriceLoading] = useState(false)
-  const [priceFetchProgress] = useState(null)
-  const [priceLastUpdated] = useState(null)
+  const [allPrices, setAllPrices] = useState(() => {
+    try {
+      const data = localStorage.getItem('wfm_price_cache');
+      if (data) {
+        const cache = JSON.parse(data);
+        const prices = {};
+        for (const [key, val] of Object.entries(cache)) {
+          if (val && typeof val.plat === 'number') prices[key] = val.plat;
+        }
+        if (Object.keys(prices).length > 0) return prices;
+      }
+      const engineRaw = localStorage.getItem('market_engine_prices');
+      if (engineRaw) {
+        const { data: entries } = JSON.parse(engineRaw);
+        if (entries && entries.length > 0) return Object.fromEntries(entries);
+      }
+    } catch { /* ignore */ }
+    return {};
+  })
+  const allPricesRef = useRef(allPrices)
+  useEffect(() => { allPricesRef.current = allPrices }, [allPrices])
+  const [isPriceLoading, setIsPriceLoading] = useState(false)
+  const [priceFetchProgress, setPriceFetchProgress] = useState(null)
+  const [priceLastUpdated, setPriceLastUpdated] = useState(localStorage.getItem('wfm_price_last_updated') || null)
+  const priceFetchRef = useRef(false)
   const [worldState, setWorldState] = useState(null)
   const [statusText, setStatusText] = useState('Initializing…')
   const [nextRetryAt, setNextRetryAt] = useState(0)
@@ -156,6 +178,68 @@ export default function MirroredMonitoringProvider({ children }) {
       setInventoryData(null)
     }
   }, [exportData, rawInventory])
+
+  // ── Pre-fetch prices after inventory loads ──
+  useEffect(() => {
+    if (!inventoryData) return
+    if (priceFetchRef.current) return
+    priceFetchRef.current = true
+    const items = []
+    const seen = new Set()
+
+    for (const m of (inventoryData.mods ?? [])) {
+      if (!seen.has(m.unique_name)) {
+        items.push({ uniqueName: m.unique_name, name: m.name, maxRank: m.max_rank ?? null })
+        seen.add(m.unique_name)
+      }
+    }
+    for (const a of (inventoryData.arcanes ?? [])) {
+      if (!seen.has(a.unique_name)) {
+        items.push({ uniqueName: a.unique_name, name: a.name })
+        seen.add(a.unique_name)
+      }
+    }
+    for (const set of Object.values(inventoryData.primeSets ?? {})) {
+      for (const part of (set.parts ?? [])) {
+        if (!seen.has(part.unique_name)) {
+          items.push({ uniqueName: part.unique_name, name: part.name })
+          seen.add(part.unique_name)
+        }
+      }
+      if (set.setPath && !seen.has(set.setPath)) {
+        items.push({ uniqueName: set.setPath, name: `${set.name} Set` })
+        seen.add(set.setPath)
+      }
+    }
+    for (const r of (inventoryData.relics ?? [])) {
+      if (r.unique_name && !seen.has(r.unique_name)) {
+        items.push({ uniqueName: r.unique_name, name: r.name })
+        seen.add(r.unique_name)
+      }
+      for (const rew of (r.rewards ?? [])) {
+        if (!seen.has(rew.uniqueName)) {
+          items.push({ uniqueName: rew.uniqueName, name: rew.name })
+          seen.add(rew.uniqueName)
+        }
+      }
+    }
+    if (items.length > 0) {
+      setIsPriceLoading(true)
+      setPriceFetchProgress({ current: 0, total: items.filter(i => i.name && !/\bForma\b/.test(i.name)).length })
+      const onProgress = (p) => setPriceFetchProgress(p)
+      getPricesBatch(items, onProgress).then(({ results }) => {
+        setAllPrices(results)
+        setIsPriceLoading(false)
+        setPriceFetchProgress(null)
+        priceFetchRef.current = false
+        const now = Date.now()
+        setPriceLastUpdated(now)
+        localStorage.setItem('wfm_price_last_updated', String(now))
+      }).catch(() => { setAllPrices({}); setIsPriceLoading(false); setPriceFetchProgress(null); priceFetchRef.current = false })
+    } else {
+      priceFetchRef.current = false
+    }
+  }, [inventoryData])
 
   // ── Subscribe to main window's data-updated event ──
   // Uses the lightweight sidebar_load_inventory (no exports) to avoid
@@ -442,6 +526,68 @@ export default function MirroredMonitoringProvider({ children }) {
     invoke('set_monitoring_active', { active: false, result: 'idle', statusText: 'Syncing stopped' }).catch(() => {})
   }, [])
 
+  const refreshPrices = useCallback(() => {
+    if (priceFetchRef.current) return Promise.resolve()
+    priceFetchRef.current = true
+    localStorage.removeItem('wfm_price_cache')
+    if (!inventoryData) { priceFetchRef.current = false; return Promise.resolve() }
+    const items = []
+    const seen = new Set()
+    for (const m of (inventoryData.mods ?? [])) {
+      if (!seen.has(m.unique_name)) {
+        items.push({ uniqueName: m.unique_name, name: m.name, maxRank: m.max_rank ?? null })
+        seen.add(m.unique_name)
+      }
+    }
+    for (const a of (inventoryData.arcanes ?? [])) {
+      if (!seen.has(a.unique_name)) {
+        items.push({ uniqueName: a.unique_name, name: a.name })
+        seen.add(a.unique_name)
+      }
+    }
+    for (const set of Object.values(inventoryData.primeSets ?? {})) {
+      for (const part of (set.parts ?? [])) {
+        if (!seen.has(part.unique_name)) {
+          items.push({ uniqueName: part.unique_name, name: part.name })
+          seen.add(part.unique_name)
+        }
+      }
+      if (set.setPath && !seen.has(set.setPath)) {
+        items.push({ uniqueName: set.setPath, name: `${set.name} Set` })
+        seen.add(set.setPath)
+      }
+    }
+    for (const r of (inventoryData.relics ?? [])) {
+      if (r.unique_name && !seen.has(r.unique_name)) {
+        items.push({ uniqueName: r.unique_name, name: r.name })
+        seen.add(r.unique_name)
+      }
+      for (const rew of (r.rewards ?? [])) {
+        if (!seen.has(rew.uniqueName)) {
+          items.push({ uniqueName: rew.uniqueName, name: rew.name })
+          seen.add(rew.uniqueName)
+        }
+      }
+    }
+    if (items.length > 0) {
+      setIsPriceLoading(true)
+      setPriceFetchProgress({ current: 0, total: items.filter(i => i.name && !/\bForma\b/.test(i.name)).length })
+      const onProgress = (p) => setPriceFetchProgress(p)
+      return getPricesBatch(items, onProgress).then(({ results }) => {
+        setAllPrices(results)
+        setIsPriceLoading(false)
+        setPriceFetchProgress(null)
+        priceFetchRef.current = false
+        const now = Date.now()
+        setPriceLastUpdated(now)
+        localStorage.setItem('wfm_price_last_updated', String(now))
+      }).catch(() => { setAllPrices({}); setIsPriceLoading(false); setPriceFetchProgress(null); priceFetchRef.current = false })
+    } else {
+      priceFetchRef.current = false
+      return Promise.resolve()
+    }
+  }, [inventoryData])
+
   const value = useMemo(() => ({
     exportData, isMonitoring, monitorResult, autoStart, lastUpdate,
     rawInventory, inventoryData, isInventoryLoading,
@@ -462,14 +608,15 @@ export default function MirroredMonitoringProvider({ children }) {
       }
       return result
     },
-    nextRetryAt, callApiHelper: callApiHelperFn, refreshPrices: () => Promise.resolve(),
+    nextRetryAt, callApiHelper: callApiHelperFn, refreshPrices,
     retryCardImages: () => Promise.resolve(), setWorldState,
   }), [exportData, isMonitoring, monitorResult, autoStart, lastUpdate, nextRetryAt, rawInventory,
       inventoryData, isInventoryLoading, worldState, statusText,
       spIncursions, arbys, archonModifiers, arbitrationModifiers,
       dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
       ExportImages, ExportTextIcons, masteryProgress,
-      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex])
+      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex,
+      allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices])
 
   return (
     <MonitoringContext.Provider value={value}>

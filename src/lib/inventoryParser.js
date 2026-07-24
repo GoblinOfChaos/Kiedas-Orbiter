@@ -226,6 +226,29 @@ const FOLDER_OVERRIDES = {
  * Strips common suffix tokens (Suit, Blueprint, etc.) and converts PascalCase
  * to spaced words.  Also handles skin folder overrides.
  */
+const BOOSTER_NAME_MAP = {
+  'ResourceAmount3Day': '3 Day Resource Booster',
+  'ResourceDropChance3Day': '3 Day Resource Drop Chance Booster',
+  'Affinity3Day': '3 Day Affinity Booster',
+  'Credit3Day': '3 Day Credit Booster',
+  'ModDropChance3Day': '3 Day Mod Drop Chance Booster',
+  'ResourceAmount7Day': '7 Day Resource Booster',
+  'ResourceDropChance7Day': '7 Day Resource Drop Chance Booster',
+  'Affinity7Day': '7 Day Affinity Booster',
+  'Credit7Day': '7 Day Credit Booster',
+  'ModDropChance7Day': '7 Day Mod Drop Chance Booster',
+  'ResourceAmount30Day': '30 Day Resource Booster',
+  'ResourceDropChance30Day': '30 Day Resource Drop Chance Booster',
+  'Affinity30Day': '30 Day Affinity Booster',
+  'Credit30Day': '30 Day Credit Booster',
+  'ModDropChance30Day': '30 Day Mod Drop Chance Booster',
+  'ResourceAmount': 'Resource Booster',
+  'ResourceDropChance': 'Resource Drop Chance Booster',
+  'Affinity': 'Affinity Booster',
+  'Credit': 'Credit Booster',
+  'ModDropChance': 'Mod Drop Chance Booster',
+}
+
 function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
   const leaf = parts.at(-1) ?? path;
@@ -237,7 +260,7 @@ function nameFromPath(path = '') {
   }
 
   const stripped = leaf
-    .replace(/(BaseSuit|PowerSuit|PrimeName|OperatorAmp|HoverboardSuit|MotorcyclePowerSuit|MoaPetPowerSuit|KubrowPet|KavatPet|SentientPet|Pet|Suit|Blueprint)$/g, '');
+    .replace(/(BaseSuit|PowerSuit|PrimeName|OperatorAmp|HoverboardSuit|MotorcyclePowerSuit|KubrowPet|KavatPet|SentientPet|Pet|Suit|Blueprint)$/g, '');
   return splitPascal(stripped).trim() || leaf;
 }
 
@@ -314,6 +337,13 @@ function _resolveNameInternal(un, dict, depth, ...tables) {
     if (fragName) return cleanName(fragName);
   }
 
+  // Fallback for known booster patterns (StoreItem paths use "3Day" but human names use "3 Day")
+  const leaf = un.split('/').pop().replace(/StoreItem$/i, '');
+  if (BOOSTER_NAME_MAP[leaf]) return BOOSTER_NAME_MAP[leaf];
+  for (const [key, name] of Object.entries(BOOSTER_NAME_MAP)) {
+    if (leaf.startsWith(key)) return name;
+  }
+
   return cleanName(nameFromPath(un));
 }
 
@@ -343,6 +373,7 @@ function resolveImage(un, ...tables) {
     const entry = tbl?.[un];
     if (entry && (entry.icon || entry.thumbnail)) {
       const icon = entry.icon ?? entry.thumbnail;
+      if (icon.startsWith('http://') || icon.startsWith('https://')) return icon;
       return `https://browse.wf${icon.startsWith('/') ? '' : '/'}${icon}`;
     }
   }
@@ -356,6 +387,7 @@ function resolveImage(un, ...tables) {
       const matchKey = suffixIndex.get(leaf)
       if (matchKey && (tbl[matchKey]?.icon || tbl[matchKey]?.thumbnail)) {
         const icon = tbl[matchKey].icon ?? tbl[matchKey].thumbnail;
+        if (icon.startsWith('http://') || icon.startsWith('https://')) return icon;
         return `https://browse.wf${icon.startsWith('/') ? '' : '/'}${icon}`;
       }
     }
@@ -753,10 +785,45 @@ export function parseInventory(raw, exports) {
     return arr || {};
   };
 
-  const EWf = toMap(exports.ExportWarframes, 'ExportWarframes');
-  const EW = toMap(exports.ExportWeapons, 'ExportWeapons');
-  const ES = toMap(exports.ExportSentinels, 'ExportSentinels');
-  const EM = toMap(exports.ExportUpgrades, 'ExportUpgrades');
+  // ── warframe-items data (pre-resolved names, descriptions, images) ──
+  // When WI maps are available (injected by MonitoringContext), they serve as
+  // the primary lookup source.  Entries missing from WI are supplemented from
+  // the original public-export-plus data.
+  const useWI = !!exports.WI_Warframes;
+
+  const mergeWithOrig = (wiMap, origKey) => {
+    const map = wiMap ? { ...wiMap } : {};
+    if (origKey && exports[origKey]) {
+      const origMap = toMap(exports[origKey], origKey);
+      for (const [un, origEntry] of Object.entries(origMap)) {
+        if (map[un]) {
+          // Supplement WI entry with original fields it doesn't have
+          for (const [k, v] of Object.entries(origEntry)) {
+            if (map[un][k] === undefined && v !== undefined) {
+              map[un][k] = v;
+            }
+          }
+        } else {
+          // Entry only in original data
+          map[un] = origEntry;
+        }
+      }
+    }
+    return map;
+  };
+
+  const EWf = useWI
+    ? mergeWithOrig(exports.WI_Warframes, 'ExportWarframes')
+    : toMap(exports.ExportWarframes, 'ExportWarframes');
+  const EW = useWI
+    ? mergeWithOrig(exports.WI_Weapons, 'ExportWeapons')
+    : toMap(exports.ExportWeapons, 'ExportWeapons');
+  const ES = useWI
+    ? mergeWithOrig(exports.WI_Sentinels, 'ExportSentinels')
+    : toMap(exports.ExportSentinels, 'ExportSentinels');
+  const EM = useWI
+    ? mergeWithOrig(exports.WI_Upgrades, 'ExportUpgrades')
+    : toMap(exports.ExportUpgrades, 'ExportUpgrades');
   // Merge Railjack avionics into EM
   if (exports.ExportAvionics) {
     const avMap = toMap(exports.ExportAvionics, 'ExportAvionics');
@@ -796,13 +863,23 @@ export function parseInventory(raw, exports) {
       }
     }
   }
-  const EA = toMap(exports.ExportArcanes, 'ExportArcanes');
-  const ER = toMap(exports.ExportResources, 'ExportResources');
-  const ERel = toMap(exports.ExportRelics, 'ExportRelics');
+  const EA = useWI
+    ? mergeWithOrig(exports.WI_Arcanes, 'ExportArcanes')
+    : toMap(exports.ExportArcanes, 'ExportArcanes');
+  const ER = useWI
+    ? mergeWithOrig(exports.WI_Resources, 'ExportResources')
+    : toMap(exports.ExportResources, 'ExportResources');
+  const ERel = useWI
+    ? mergeWithOrig(exports.WI_Relics, 'ExportRelics')
+    : toMap(exports.ExportRelics, 'ExportRelics');
   const ERew = toMap(exports.ExportRewards, 'ExportRewards');
   const ERecipe = toMap(exports.ExportRecipes, 'ExportRecipes');
-  const ECust = toMap(exports.ExportCustoms, 'ExportCustoms');
-  const EGear = toMap(exports.ExportGear, 'ExportGear');
+  const ECust = useWI
+    ? mergeWithOrig(exports.WI_Customs, 'ExportCustoms')
+    : toMap(exports.ExportCustoms, 'ExportCustoms');
+  const EGear = useWI
+    ? mergeWithOrig(exports.WI_Gear, 'ExportGear')
+    : toMap(exports.ExportGear, 'ExportGear');
 
   // ── XP lookup ──
   // inventory.XPInfo contains per-item affinity totals, referenced by ItemType.
@@ -986,7 +1063,11 @@ export function parseInventory(raw, exports) {
 
     const entry = nameTbls[0]?.[un];
     const descLoctag = entry?.description ?? '';
-    const rawDesc = descLoctag ? (dict[descLoctag] || dict['/' + descLoctag] || '') : '';
+    const rawDesc = descLoctag
+      ? (descLoctag.startsWith('/Lotus/')
+          ? (dict[descLoctag] || dict['/' + descLoctag] || '')
+          : descLoctag)
+      : '';
     const description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
 
     return {
@@ -1411,7 +1492,11 @@ export function parseInventory(raw, exports) {
       mod.modFrame = detectModFrame(un, mod.rarity, mod.name);
       if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
       const descLoctag = entry?.description ?? '';
-      const rawDesc = descLoctag ? (dict[descLoctag] || dict['/' + descLoctag] || '') : '';
+      const rawDesc = descLoctag
+        ? (descLoctag.startsWith('/Lotus/')
+            ? (dict[descLoctag] || dict['/' + descLoctag] || '')
+            : descLoctag)
+        : '';
       mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').trim() : '';
       mod.levelStats = entry?.levelStats ?? null;
       mod.category = extractModCategory(entry?.type, un, entry);

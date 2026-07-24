@@ -243,6 +243,7 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
   const nightwaveRewards = ENWRawRewards || []
   const imagesMap = ExportImages || {}
   const archMap = archimedeaMap ?? buildArchimedeaMap(dict || {}, suppDict || {})
+  const mergedDict = suppDict ? { ...dict, ...suppDict } : dict
 
   const clean = (s) => {
     if (!s || typeof s !== 'string') return ''
@@ -412,10 +413,9 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
           if (type === 'CET_CHALLENGE') {
             name = resolveChallenge(ev.challenge || ev.Challenge, dict, EC);
             description = resolveChallengeDesc(ev.challenge || ev.Challenge, dict, EC, ERg);
-          } else if (type === 'CET_REWARD') {
-            name = resolveItemName(ev.reward || ev.Reward, dict, uniqueNameToName);
+            name = resolveItemName(ev.reward || ev.Reward, mergedDict, uniqueNameToName);
           } else if (type === 'CET_UPGRADE') {
-            name = resolveItemName(ev.upgrade || ev.Upgrade, dict, uniqueNameToName);
+            name = resolveItemName(ev.upgrade || ev.Upgrade, mergedDict, uniqueNameToName);
             description = resolveChallengeDesc(ev.upgrade || ev.Upgrade, dict, EC, ERg);
           } else if (type === 'CET_BIRTHDAY') {
             name = ev.name || ev.Name || 'Unknown';
@@ -642,7 +642,7 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
         return {
           category: isHard ? 'Steel Path' : 'Normal',
           choices: (c.Choices || []).map(choice => ({
-            name: choice.replace(/\s+And\s+/g, ' & '),
+            name: resolveItemName(choice, mergedDict, uniqueNameToName),
             uniqueName: choice
           }))
         }
@@ -650,7 +650,7 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
     ),
 
     dailyDeals: (raw.DailyDeals || []).map(d => ({
-      item: resolveItemName(d.StoreItem, dict, uniqueNameToName),
+      item: resolveItemName(d.StoreItem, mergedDict, uniqueNameToName),
       uniqueName: d.StoreItem,
       expiry: d.Expiry,
       discount: d.Discount,
@@ -666,14 +666,19 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
       const start = f.StartDate?.$date?.$numberLong ? parseInt(f.StartDate.$date.$numberLong) : 0
       const end = f.EndDate?.$date?.$numberLong ? parseInt(f.EndDate.$date.$numberLong) : 0
       return now >= start && now < end
-    }).map(f => ({
-      item: resolveItemName(f.TypeName, dict, uniqueNameToName),
+    }).map(f => {
+      const itemName = resolveItemName(f.TypeName, mergedDict, uniqueNameToName);
+      if (itemName !== (f.ItemType || f.TypeName || '').split('/').pop()) console.warn('[wsParser] flashSale item resolved', { typeName: f.TypeName, item: itemName });
+      else console.warn('[wsParser] flashSale item UNRESOLVED', { typeName: f.TypeName, item: itemName });
+      return {
+      item: itemName,
       uniqueName: f.TypeName,
       discount: f.Discount,
       salePrice: f.PremiumOverride,
       originalPrice: f.PremiumOverride ? Math.round(f.PremiumOverride / (1 - f.Discount / 100)) : 0,
       expiry: f.EndDate,
-    })),
+    };
+    }),
 
     // Alerts
     alerts: (raw.Alerts || []).map(a => ({
@@ -753,7 +758,7 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
         expiryMs: expMs,
         active: actMs > 0 && Date.now() >= actMs && (expMs === 0 || Date.now() < expMs),
         inventory: (t.Manifest || []).map(item => ({
-          item: resolveItemName(item.ItemType, dict, uniqueNameToName),
+          item: resolveItemName(item.ItemType, mergedDict, uniqueNameToName),
           uniqueName: item.ItemType,
           ducats: item.PrimePrice ?? 0,
           credits: item.RegularPrice ?? 0,

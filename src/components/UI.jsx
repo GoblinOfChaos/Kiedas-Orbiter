@@ -369,7 +369,7 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl'
             <X size={20} />
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto p-6 scrollbar-thin">
+        <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
           {children}
         </div>
       </div>

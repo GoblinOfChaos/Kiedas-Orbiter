@@ -44,6 +44,9 @@ importers:
       remark-gfm:
         specifier: ^4.0.1
         version: 4.0.1
+      warframe-items:
+        specifier: ^1.1269.87
+        version: 1.1269.87(warframe-worldstate-data@2.25.0)
       warframe-public-export-plus:
         specifier: latest
         version: 0.6.2
@@ -2428,8 +2431,17 @@ packages:
   w3c-keyname@2.2.8:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
 
+  warframe-items@1.1269.87:
+    resolution: {integrity: sha512-FBHlgLGWxgVFJY2SgGC6afj6xzi6apl+kXm3NLbSg5knYRKpmYqSX6/uv3O3mJniIwMoBajJ9TW7NCEVkxQmXQ==}
+    peerDependencies:
+      warframe-worldstate-data: ^2.24
+
   warframe-public-export-plus@0.6.2:
     resolution: {integrity: sha512-eyfJJ4H9dtN03vGTvHwDBJh5Gr6lC/OCN7K8GdSjT0MlyuwwglyYw8gvQU9lwkS3kNY2eClhG86Xe3Y625KbYg==}
+
+  warframe-worldstate-data@2.25.0:
+    resolution: {integrity: sha512-orgH0ZTrGeZaU300VqUdMETpAARrePDmBIQlrsmch10cmOyPL/tykFO44JacMYYC2xSoyz+n7irFwx5pTyWA1w==}
+    engines: {node: '>=18.19.0'}
 
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
@@ -5513,7 +5525,13 @@ snapshots:
 
   w3c-keyname@2.2.8: {}
 
+  warframe-items@1.1269.87(warframe-worldstate-data@2.25.0):
+    dependencies:
+      warframe-worldstate-data: 2.25.0
+
   warframe-public-export-plus@0.6.2: {}
+
+  warframe-worldstate-data@2.25.0: {}
 
   web-namespaces@2.0.1: {}
 

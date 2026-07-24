@@ -1120,7 +1120,7 @@ export default function Dashboard() {
           {inventory?.map((item, idx) => (
             <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
               <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
-                <img src={resolveAnyImage(item.uniqueName, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.item}>{item.item}</p>
@@ -1153,14 +1153,14 @@ export default function Dashboard() {
         {wishlist.length === 0 ? (
           <p className="text-xs text-kronos-dim italic text-center py-8">No items on your wishlist</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {wishlist.map((item, idx) => (
-              <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
-                <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
-                  <img src={resolveAnyImage(item.unique_name, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+              <div key={idx} className="bg-kronos-panel/40 p-3 rounded flex items-center gap-4 border border-transparent hover:border-kronos-accent/20 transition-all">
+                <div className="w-16 h-16 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
+                  <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.name}>{item.name}</p>
+                  <p className="text-sm font-bold text-kronos-text uppercase" title={item.name}>{item.name}</p>
                 </div>
               </div>
             ))}
@@ -1531,20 +1531,18 @@ export default function Dashboard() {
               </div>
               <div className="space-y-1.5">
                 {worldstate.flashSales.map((sale, idx) => (
-                  <div key={idx} className="flex items-center gap-3 bg-kronos-panel/40 rounded p-2">
-                    <div className="w-10 h-10 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
-                      <img src={resolveAnyImage(sale.uniqueName, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
+                  <div key={idx} className="flex items-center gap-3 bg-kronos-panel/40 rounded p-2.5">
+                    <div className="w-14 h-14 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
+                      <img src={resolveAnyImage(sale, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={sale.item}>{sale.item}</p>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-xs text-kronos-dim line-through decoration-red-500/50">{sale.originalPrice}</span>
-                        <span className="text-xs text-kronos-accent font-black">{sale.salePrice}</span>
-                        <span className="flex items-center gap-1 text-xs font-bold text-kronos-text">
-                          {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3 h-3 object-contain" alt="" />}
-                          Platinum
+                      <p className="text-sm font-bold text-kronos-text uppercase truncate" title={sale.item}>{sale.item}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-sm text-kronos-dim line-through decoration-red-500/50">{sale.originalPrice}</span>
+                        <span className="flex items-center gap-1 text-sm text-kronos-accent font-black">
+                          {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-4 h-4 object-contain" alt="" />}
+                          {sale.salePrice}
                         </span>
-                        <span className="text-xs text-kronos-dim">(-{sale.discount}%)</span>
                       </div>
                     </div>
                   </div>

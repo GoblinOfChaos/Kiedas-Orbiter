@@ -340,7 +340,7 @@ export default function MirroredMonitoringProvider({ children }) {
     const tableNames = [
       'ExportWeapons', 'ExportWarframes', 'ExportSentinels',
       'ExportResources', 'ExportArcanes', 'ExportUpgrades',
-      'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms', 'ExportGear',
+      'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms', 'ExportGear', 'ExportFlavour', 'ExportBundles',
     ]
     const EI = {}
     const nameToImage = {}

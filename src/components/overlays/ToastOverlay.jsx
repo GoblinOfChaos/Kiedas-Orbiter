@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { listen } from '@tauri-apps/api/event'
 import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
@@ -11,11 +11,48 @@ const IS_LINUX = typeof navigator !== 'undefined' &&
 
 const LIMITS = IS_LINUX ? 1 : 3
 
+function useUIIcons(iconNames) {
+  const [iconCache, setIconCache] = useState({})
+  useEffect(() => {
+    if (!iconNames || iconNames.length === 0) return
+    let cancelled = false
+    Promise.all(iconNames.map(async (name) => {
+      try {
+        const bytes = await invoke('read_file_bytes', { relative: `data/assets/ui/${name}` })
+        const blob = new Blob([new Uint8Array(bytes)])
+        return [name, await new Promise(r => {
+          const f = new FileReader()
+          f.onload = () => r(f.result)
+          f.onerror = () => r(null)
+          f.readAsDataURL(blob)
+        })]
+      } catch { return [name, null] }
+    })).then(entries => {
+      if (cancelled) return
+      const map = {}
+      for (const [name, url] of entries) if (url) map[name] = url
+      setIconCache(map)
+    })
+    return () => { cancelled = true }
+  }, [iconNames])
+  const uiIcon = useCallback((name) => iconCache[name] || '', [iconCache])
+  return uiIcon
+}
+
 export default function ToastOverlay({ position }) {
   const [visibleToasts, setVisibleToasts] = useState([])
   const [queue, setQueue] = useState([])
   const containerRef = useRef(null)
   const myLabel = getCurrentWindow().label
+
+  const iconNames = useMemo(() => {
+    const names = new Set()
+    for (const t of queue) if (t.image) names.add(t.image)
+    for (const t of visibleToasts) if (t.image) names.add(t.image)
+    return Array.from(names)
+  }, [queue, visibleToasts])
+
+  const uiIcon = useUIIcons(iconNames)
 
   const removeToast = useCallback((id) => {
     setVisibleToasts(prev => prev.filter(t => t.id !== id))
@@ -99,7 +136,7 @@ export default function ToastOverlay({ position }) {
     <div ref={containerRef} className={`flex flex-col gap-2 items-center p-10 w-[440px] select-none pointer-events-none ${isEmpty ? 'opacity-0' : ''}`}>
       {visibleToasts.map((t, index) => (
         <div key={t.id} className="relative">
-          <ToastCard toast={t} onExpire={() => removeToast(t.id)} />
+          <ToastCard toast={t} onExpire={() => removeToast(t.id)} uiIcon={uiIcon} />
           {IS_LINUX && index === 0 && queue.length > 0 && (
             <div className="absolute -top-2 -right-2 z-50 animate-bounce">
               <div className="text-white text-[10px] font-black px-2 py-0.5 rounded-full border border-white/20 bg-kronos-accent">
@@ -120,7 +157,7 @@ export default function ToastOverlay({ position }) {
   )
 }
 
-function ToastCard({ toast, onExpire }) {
+function ToastCard({ toast, onExpire, uiIcon }) {
   const [remaining, setRemaining] = useState(TOAST_MS)
   const [exiting, setExiting] = useState(false)
   const lastTick = useRef(Date.now())
@@ -160,7 +197,7 @@ function ToastCard({ toast, onExpire }) {
       <div className="flex gap-3 items-center">
         <div className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden bg-kronos-accent/15">
           {toast.image
-            ? <img src={toast.image} alt="" className="w-6 h-6 object-contain" />
+            ? <img src={uiIcon(toast.image)} alt="" className="w-6 h-6 object-contain" />
             : <Bell size={15} className="text-kronos-accent" />
           }
         </div>

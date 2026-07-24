@@ -1,13 +1,57 @@
-import { useState, useEffect } from 'react'
-import { Trash2 } from 'lucide-react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
+import { Trash2, History } from 'lucide-react'
+import { invoke } from '@tauri-apps/api/core'
 import { getSetting, setSetting } from '../lib/settings'
 import { getAllTriggerDefs, getDefaultNotification } from '../lib/notificationManager'
-import { Toggle, Select } from './UI'
+import { Toggle, Select, Modal } from './UI'
+import { useMonitoring } from '../contexts/MonitoringContext'
+
+function useUIIcons(iconNames) {
+  const [iconCache, setIconCache] = useState({})
+  useEffect(() => {
+    if (!iconNames || iconNames.length === 0) return
+    let cancelled = false
+    Promise.all(iconNames.map(async (name) => {
+      try {
+        const bytes = await invoke('read_file_bytes', { relative: `data/assets/ui/${name}` })
+        const blob = new Blob([new Uint8Array(bytes)])
+        return [name, await new Promise(r => {
+          const f = new FileReader()
+          f.onload = () => r(f.result)
+          f.onerror = () => r(null)
+          f.readAsDataURL(blob)
+        })]
+      } catch { return [name, null] }
+    })).then(entries => {
+      if (cancelled) return
+      const map = {}
+      for (const [name, url] of entries) if (url) map[name] = url
+      setIconCache(map)
+    })
+    return () => { cancelled = true }
+  }, [iconNames])
+  const uiIcon = useCallback((name) => iconCache[name] || '', [iconCache])
+  return uiIcon
+}
 
 export default function NotificationManager() {
   const [notifications, setNotifications] = useState([])
   const [loading, setLoading] = useState(true)
   const triggerDefs = getAllTriggerDefs()
+  
+  const { notificationHistory } = useMonitoring()
+  const [showLog, setShowLog] = useState(false)
+
+  const iconNames = useMemo(() => {
+    if (!notificationHistory) return []
+    const names = new Set()
+    for (const log of notificationHistory) {
+      if (log.image) names.add(log.image)
+    }
+    return Array.from(names)
+  }, [notificationHistory])
+
+  const uiIcon = useUIIcons(iconNames)
 
   useEffect(() => {
     const saved = getSetting('notifications', [])
@@ -88,6 +132,45 @@ export default function NotificationManager() {
             <option key={t.id} value={t.id}>{t.label}</option>
           ))}
         </select>
+      </div>
+
+      <div className="mt-8 pt-4 border-t border-white/5">
+        <button
+          onClick={() => setShowLog(true)}
+          className="flex items-center gap-2 text-sm font-bold text-kronos-text uppercase hover:text-white transition-colors"
+        >
+          <History size={16} />
+          Session Log {notificationHistory?.length > 0 && <span className="text-kronos-dim">({notificationHistory.length})</span>}
+        </button>
+        
+        <Modal isOpen={showLog} onClose={() => setShowLog(false)} title="Session Log" maxWidth="max-w-md">
+          <div className="space-y-2">
+            {!notificationHistory || notificationHistory.length === 0 ? (
+              <p className="text-sm text-kronos-dim italic text-center py-4">No notifications fired in this session.</p>
+            ) : (
+              notificationHistory.map((log, idx) => (
+                <div key={idx} className="flex gap-3 items-start p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
+                  {log.image ? (
+                    <img src={uiIcon(log.image)} alt="" className="w-8 h-8 object-contain mt-0.5 opacity-80" />
+                  ) : (
+                    <div className="w-8 h-8 bg-black/20 rounded border border-white/5 flex items-center justify-center shrink-0">
+                      <span className="text-[10px] text-white/30 font-bold uppercase">MSG</span>
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-sm font-bold text-kronos-text uppercase truncate">{log.title}</span>
+                      <span className="text-[10px] text-kronos-dim whitespace-nowrap">
+                        {new Date(log.timestamp).toLocaleTimeString()}
+                      </span>
+                    </div>
+                    <p className="text-sm text-kronos-dim/80 mt-1 leading-snug">{log.message}</p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </Modal>
       </div>
     </div>
   )

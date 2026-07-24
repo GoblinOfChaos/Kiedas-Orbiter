@@ -1,3 +1,4 @@
+console.log('notificationManager loaded');
 const TRIGGER_DEFINITIONS = [
   {
     id: 'fissure',
@@ -45,8 +46,10 @@ const TRIGGER_DEFINITIONS = [
   {
     id: 'void_traces',
     label: 'Void Traces Capped',
-    columns: [],
-    defaultConfig: {},
+    columns: [
+      { key: 'cooldown', label: 'Cooldown (min)', type: 'number', default: 180 },
+    ],
+    defaultConfig: { cooldown: 180 },
   },
   {
     id: 'chat',
@@ -59,14 +62,18 @@ const TRIGGER_DEFINITIONS = [
   {
     id: 'syndicate',
     label: 'Syndicate Standing Capped',
-    columns: [],
-    defaultConfig: {},
+    columns: [
+      { key: 'cooldown', label: 'Cooldown (min)', type: 'number', default: 180 },
+    ],
+    defaultConfig: { cooldown: 180 },
   },
   {
     id: 'syndicate_waste',
     label: 'Syndicate Standing Waste',
-    columns: [],
-    defaultConfig: {},
+    columns: [
+      { key: 'cooldown', label: 'Cooldown (min)', type: 'number', default: 180 },
+    ],
+    defaultConfig: { cooldown: 180 },
   },
   {
     id: 'foundry',
@@ -96,8 +103,10 @@ const TRIGGER_DEFINITIONS = [
   {
     id: 'sale',
     label: 'Wishlisted Item on Sale',
-    columns: [],
-    defaultConfig: {},
+    columns: [
+      { key: 'cooldown', label: 'Cooldown (min)', type: 'number', default: 180 },
+    ],
+    defaultConfig: { cooldown: 180 },
   },
 ]
 
@@ -187,7 +196,7 @@ function evaluateFissure(notif, worldstate, results) {
       notifId: notif.id,
       title: `${f.tier} Fissure`,
       message: `${f.missionType} on ${f.node}${f.isHard ? ' ( Steel Path )' : ''}`,
-      image: '/IconRelic.png',
+      image: 'IconRelic.png',
     })
   }
 }
@@ -212,7 +221,7 @@ function evaluateArbitration(notif, arbys, ERg, dict, results) {
         notifId: notif.id,
         title: `${grade}-Tier Arbitration Active`,
         message: `${resolveNode(current.type, dict, ERg)} on ${resolveNode(current.node, dict, ERg)} (${remainingMin}m remaining)`,
-        image: '/IconDashboard.png',
+        image: 'IconDashboard.png',
       })
     }
   }
@@ -229,7 +238,7 @@ function evaluateArbitration(notif, arbys, ERg, dict, results) {
         notifId: notif.id,
         title: `${slot.grade}-Tier Arbitration Soon`,
         message: `${resolveNode(slot.type, dict, ERg)} on ${resolveNode(slot.node, dict, ERg)} starting at ${startTime}`,
-        image: '/IconDashboard.png',
+        image: 'IconDashboard.png',
       })
     }
   }
@@ -242,7 +251,7 @@ function evaluateVoidTraces(notif, inventoryData, results) {
       notifId: notif.id,
       title: 'Void Traces Capped',
       message: `You have reached the maximum capacity of ${void_traces_max} Void Traces.`,
-      image: '/IconRelic.png',
+      image: 'IconRelic.png',
     })
   }
 }
@@ -281,7 +290,7 @@ function evaluateSyndicate(notif, inventoryData, results) {
         notifId: notif.id,
         title: 'Syndicate Capped',
         message: `You have reached the maximum standing for ${aff.Tag.replace('Syndicate', '')}.`,
-        image: '/IconMastery.png',
+        image: 'IconMastery.png',
       })
     }
   }
@@ -323,7 +332,7 @@ function evaluateSyndicateWaste(notif, inventoryData, ES, results) {
       notifId: notif.id,
       title: 'Syndicate Standing at Risk',
       message: `Opposing syndicate${enemiesWithStanding.length > 1 ? 's' : ''} (${names}) have standing - spend it before it hits 0`,
-      image: '/IconMastery.png',
+      image: 'IconMastery.png',
     })
   }
 }
@@ -336,7 +345,7 @@ function evaluateFoundry(notif, inventoryData, results) {
         notifId: notif.id,
         title: 'Foundry Complete',
         message: `${item.name} is ready to claim!`,
-        image: item.image || '/IconFoundry.png',
+        image: item.image || 'IconFoundry.png',
       })
     }
   }
@@ -352,7 +361,7 @@ function evaluateMastery(notif, inventoryData, results) {
       notifId: notif.id,
       title: 'Mastery Progress',
       message: `You are ${Math.round(xpPercent)}% of the way to Mastery Rank ${currentRank + 1}.`,
-      image: '/IconMastery.png',
+      image: 'IconMastery.png',
     })
   }
 }
@@ -374,7 +383,7 @@ function evaluateSale(notif, inventoryData, worldstate, results) {
           notifId: notif.id,
           title: 'Wishlisted Item on Sale',
           message: `${deal.item} - ${deal.discount}% off (${deal.salePrice} plat, was ${deal.originalPrice})`,
-          image: '/IconFoundry.png',
+          image: 'IconFoundry.png',
         })
         break
       }
@@ -401,7 +410,7 @@ function evaluateChecklist(notif, inventoryData, results) {
         notifId: notif.id,
         title: 'Checklist Task Due',
         message: `${task.label} resets soon!`,
-        image: '/IconChecklist.png',
+        image: 'IconChecklist.png',
       })
     }
   }

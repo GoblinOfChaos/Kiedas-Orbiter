@@ -321,6 +321,8 @@ export function MonitoringProvider({ children }) {
   // ── Notification Manager evaluator ──────────────────────────────────────────
   const notifInitRef = useRef(false)
 
+  const [notificationHistory, setNotificationHistory] = useState([])
+
   useEffect(() => {
     const raw = getSetting('notifications', [])
     if (!Array.isArray(raw) || raw.length === 0) return
@@ -329,6 +331,8 @@ export function MonitoringProvider({ children }) {
     if (!notifiedRef.current.notifMgr) notifiedRef.current.notifMgr = new Set()
 
     const position = getSetting('notif_position', 'top-right')
+    const lastFired = getSetting('notification_last_fired', {})
+    let updatedLastFired = false
 
     // On first real data, mark everything as seen - no startup flood
     if (!notifInitRef.current) {
@@ -345,8 +349,23 @@ export function MonitoringProvider({ children }) {
     // Fire each new notification individually; play sound in main window first
     for (const r of results) {
       const dedupKey = `${r.notifId}::${r.title}::${r.message}`
-      if (!notifiedRef.current.notifMgr.has(dedupKey)) {
+      const notifConfig = raw.find(n => n.id === r.notifId)
+      const cooldownMin = notifConfig?.config?.cooldown
+      const cooldownMs = (typeof cooldownMin === 'number' ? cooldownMin : 0) * 60 * 1000
+      
+      const lastTime = lastFired[dedupKey] || 0
+      const now = Date.now()
+
+      if (!notifiedRef.current.notifMgr.has(dedupKey) || (cooldownMs > 0 && now - lastTime >= cooldownMs)) {
         notifiedRef.current.notifMgr.add(dedupKey)
+        
+        if (cooldownMs > 0) {
+          lastFired[dedupKey] = now
+          updatedLastFired = true
+        }
+
+        setNotificationHistory(prev => [{ ...r, timestamp: now }, ...prev])
+
         // Play audio via Rust backend (no WebKit/GStreamer dependency)
         const sound = getSetting('notif_sound', 'notification1.wav')
         invoke('play_notification_sound', { sound }).catch(console.error)
@@ -359,6 +378,10 @@ export function MonitoringProvider({ children }) {
           silent: true, // Sound already played from main window
         }).catch(console.error)
       }
+    }
+
+    if (updatedLastFired) {
+      setSetting('notification_last_fired', lastFired)
     }
 
     // Reset dedup for notifications that no longer match
@@ -1006,7 +1029,7 @@ export function MonitoringProvider({ children }) {
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, nextRetryAt, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
       masteryProgress, allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices,
       startMonitoring, stopMonitoring, manualRefresh, callApiHelper,
-      cardImagesPath, fixProgress, retryCardImages,
+      cardImagesPath, fixProgress, retryCardImages, notificationHistory,
     }}>
       {children}
     </MonitoringContext.Provider>

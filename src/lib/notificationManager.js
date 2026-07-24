@@ -369,25 +369,31 @@ function evaluateMastery(notif, inventoryData, results) {
 function evaluateSale(notif, inventoryData, worldstate, results) {
   const wishlist = inventoryData.wishlist ?? []
   if (wishlist.length === 0) return
-  const deals = worldstate?.dailyDeals ?? []
-  if (deals.length === 0) return
-
   const wishlistNames = new Set(wishlist.map(w => w.name?.toLowerCase()).filter(Boolean))
 
-  for (const deal of deals) {
-    const dealName = deal.item?.toLowerCase()
-    if (!dealName) continue
+  const checkItem = (item, price, original, discount) => {
+    if (!item) return
+    const name = item.toLowerCase()
     for (const wlName of wishlistNames) {
-      if (dealName.includes(wlName) || wlName.includes(dealName)) {
+      if (name.includes(wlName) || wlName.includes(name)) {
         results.push({
           notifId: notif.id,
           title: 'Wishlisted Item on Sale',
-          message: `${deal.item} - ${deal.discount}% off (${deal.salePrice} plat, was ${deal.originalPrice})`,
-          image: 'IconFoundry.png',
+          message: `${item} — ${price} platinum (was ${original})`,
         })
         break
       }
     }
+  }
+
+  // Daily Deals (Darvo)
+  for (const deal of worldstate?.dailyDeals ?? []) {
+    checkItem(deal.item, deal.salePrice, deal.originalPrice, deal.discount)
+  }
+
+  // Market Flash Sales
+  for (const sale of worldstate?.flashSales ?? []) {
+    checkItem(sale.item, sale.salePrice, sale.originalPrice, sale.discount)
   }
 }
 

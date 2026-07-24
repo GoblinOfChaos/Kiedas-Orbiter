@@ -283,7 +283,7 @@ export function MonitoringProvider({ children }) {
     const tableNames = [
       'ExportWeapons', 'ExportWarframes', 'ExportSentinels',
       'ExportResources', 'ExportArcanes', 'ExportUpgrades',
-      'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms', 'ExportGear',
+      'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms', 'ExportGear', 'ExportFlavour', 'ExportBundles',
       // warframe-items pre-resolved maps
       'WI_Warframes', 'WI_Weapons', 'WI_Sentinels',
       'WI_Upgrades', 'WI_Arcanes', 'WI_Resources',

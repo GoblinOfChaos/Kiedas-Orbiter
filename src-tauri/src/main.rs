@@ -139,6 +139,7 @@ const EXPORT_FILES: &[&str] = &[
     "ExportNightwave.json",
     "ExportSyndicates.json",
     "ExportBoosterPacks.json",
+    "ExportBundles.json",
     "ExportRecipes.json",
     "ExportCustoms.json",
     "ExportGear.json",

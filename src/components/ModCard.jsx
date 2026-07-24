@@ -281,6 +281,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
     : null
   const [localImageFailed, setLocalImageFailed] = useState(false)
   const finalSrc = (mf === 'Requiem' && cdnFallback) || (!localImageFailed && cardImageSrc) || cdnFallback
+  const [hovered, setHovered] = useState(false)
 
   if (isSticker) {
     const stickerSrc = finalSrc
@@ -376,8 +377,6 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const completeLine = displayCompleteLine ? u(framesPath, mf, mf === 'Tektolyst' ? `RankCompleteLine${tektolystGroup}.png` : 'RankCompleteLine.png') : null
   const hasDesc = desc && desc.length > 0
   const contentBottom = mf === 'Requiem' ? 80 : mf === 'Antivirus' ? 110 : mf === 'Potency' ? 45 : mf === 'Tektolyst' ? 55 + (hasDesc ? 25 : 0) : 45 + (hasDesc ? 25 : 0)
-
-  const [hovered, setHovered] = useState(false)
 
   return (
     <div className="relative flex-shrink-0 select-none" style={{

@@ -293,7 +293,11 @@ export function MonitoringProvider({ children }) {
     const EI = {}
     const nameToImage = {}
     const uniqueNameToName = {}
-    const toBrowseWf = (p) => p ? `https://browse.wf${p.startsWith('/') ? '' : '/'}${p}` : null
+    const toBrowseWf = (p) => {
+      if (!p) return null
+      if (p.startsWith('http://') || p.startsWith('https://')) return p
+      return `https://browse.wf${p.startsWith('/') ? '' : '/'}${p}`
+    }
 
     const indexEntry = (e, k, t) => {
       const un = e.uniqueName || e.ItemType || k

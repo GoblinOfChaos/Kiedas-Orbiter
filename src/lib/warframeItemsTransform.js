@@ -32,9 +32,9 @@ function itemsToMap(items) {
       uniqueName: un,
       name: item.name || '',
       description: item.description || '',
-      // Do NOT set icon here — let existing export icons win via mergeWithOrig
-      // in inventoryParser.js (resolveImage prepends browse.wf and can't handle
-      // absolute URLs from wikiaThumbnail).
+      icon: item.wikiaThumbnail || null,
+      // Note: icon is an absolute https://wiki.warframe.com URL; resolveImage
+      // and toBrowseWf now detect absolute URLs and return them as-is.
       category: item.category,
       type: item.type,
       productCategory: item.productCategory,
@@ -125,6 +125,12 @@ export function transformWarframeItems(rawData) {
       const n = entry.name
       if (n && typeof n === 'string' && !n.startsWith('/Lotus/')) {
         uniqueNameToName[un] = n
+      }
+      // Index wikiaThumbnails into nameToImage for resolveAnyImage fallback
+      if (entry.icon && n && typeof n === 'string') {
+        nameToImage[n.toLowerCase()] = entry.icon
+        // Also key by uniqueName (lowered) for direct path lookups
+        nameToImage[un.toLowerCase()] = entry.icon
       }
     }
   }

@@ -389,6 +389,7 @@ const BOOSTER_NAME_MAP = {
   'Credit': 'Credit Booster',
   'ModDropChance': 'Mod Drop Chance Booster',
 }
+export { BOOSTER_NAME_MAP };
 
 function splitPascal(str) {
   return str
@@ -396,7 +397,6 @@ function splitPascal(str) {
     .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
     .trim();
 }
-
 export { splitPascal };
 
 function nameFromPath(path = '') {
@@ -445,23 +445,20 @@ export function resolveItemName(path, dict, uniqueNameToName) {
   };
 
   let resolved = null;
-
   // 1. Try actualPath (mapped)
   resolved = lookup(actualPath);
-  if (resolved) console.warn('[resolveItemName] step1 resolved', { path, resolved });
 
   // 2. Try raw path
   if (!resolved) {
     resolved = lookup(path);
-    if (resolved) console.warn('[resolveItemName] step2 resolved', { path, resolved });
   }
 
   // 3. Try dict directly
   if (!resolved) {
     const d1 = dict[actualPath] || dict['/' + actualPath] || dict[path] || dict['/' + path];
     if (d1 && typeof d1 === 'string' && !d1.startsWith('/Lotus/')) resolved = clean(d1);
-    if (resolved) console.warn('[resolveItemName] step3 resolved', { path, resolved });
   }
+
 
   // 4. Try matching dict keys by leaf name (for StoreItem paths that follow
   //    the pattern /Lotus/Language/{Category}/{Leaf}Name)
@@ -472,31 +469,25 @@ export function resolveItemName(path, dict, uniqueNameToName) {
       if (typeof val !== 'string' || val.startsWith('/Lotus/') || !key.endsWith('Name')) continue;
       if (key.split('/').pop().replace(/Name$/, '').toLowerCase() === leafNorm) {
         resolved = clean(val);
-        console.warn('[resolveItemName] step4 dict leaf match', { path, leaf, leafNorm, key, resolved });
         break;
       }
     }
-    if (!resolved) console.warn('[resolveItemName] step4 no dict leaf match', { path, leaf: path.split('/').pop(), leafNorm });
   }
 
   // 4b. Fallback for known booster patterns (dict uses different naming
   //     conventions than StoreItem paths, e.g. "ThreeDay" vs "3Day")
   if (!resolved) {
     const leaf = path.split('/').pop().replace(/StoreItem$/i, '');
-    console.warn('[resolveItemName] step4b trying booster map', { path, leaf });
     if (BOOSTER_NAME_MAP[leaf]) {
-      console.warn('[resolveItemName] Booster match via exact key', { leaf, name: BOOSTER_NAME_MAP[leaf] });
       resolved = BOOSTER_NAME_MAP[leaf];
     }
     if (!resolved) {
       for (const [key, name] of Object.entries(BOOSTER_NAME_MAP)) {
         if (leaf.startsWith(key)) {
-          console.warn('[resolveItemName] Booster match via prefix', { leaf, key, name });
           resolved = name; break;
         }
       }
     }
-    if (!resolved) console.warn('[resolveItemName] step4b no booster match', { path, leaf });
   }
 
   // 5. nameFromPath (fallback)

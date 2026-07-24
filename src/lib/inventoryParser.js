@@ -226,6 +226,29 @@ const FOLDER_OVERRIDES = {
  * Strips common suffix tokens (Suit, Blueprint, etc.) and converts PascalCase
  * to spaced words.  Also handles skin folder overrides.
  */
+const BOOSTER_NAME_MAP = {
+  'ResourceAmount3Day': '3 Day Resource Booster',
+  'ResourceDropChance3Day': '3 Day Resource Drop Chance Booster',
+  'Affinity3Day': '3 Day Affinity Booster',
+  'Credit3Day': '3 Day Credit Booster',
+  'ModDropChance3Day': '3 Day Mod Drop Chance Booster',
+  'ResourceAmount7Day': '7 Day Resource Booster',
+  'ResourceDropChance7Day': '7 Day Resource Drop Chance Booster',
+  'Affinity7Day': '7 Day Affinity Booster',
+  'Credit7Day': '7 Day Credit Booster',
+  'ModDropChance7Day': '7 Day Mod Drop Chance Booster',
+  'ResourceAmount30Day': '30 Day Resource Booster',
+  'ResourceDropChance30Day': '30 Day Resource Drop Chance Booster',
+  'Affinity30Day': '30 Day Affinity Booster',
+  'Credit30Day': '30 Day Credit Booster',
+  'ModDropChance30Day': '30 Day Mod Drop Chance Booster',
+  'ResourceAmount': 'Resource Booster',
+  'ResourceDropChance': 'Resource Drop Chance Booster',
+  'Affinity': 'Affinity Booster',
+  'Credit': 'Credit Booster',
+  'ModDropChance': 'Mod Drop Chance Booster',
+}
+
 function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
   const leaf = parts.at(-1) ?? path;
@@ -237,7 +260,7 @@ function nameFromPath(path = '') {
   }
 
   const stripped = leaf
-    .replace(/(BaseSuit|PowerSuit|PrimeName|OperatorAmp|HoverboardSuit|MotorcyclePowerSuit|MoaPetPowerSuit|KubrowPet|KavatPet|SentientPet|Pet|Suit|Blueprint)$/g, '');
+    .replace(/(BaseSuit|PowerSuit|PrimeName|OperatorAmp|HoverboardSuit|MotorcyclePowerSuit|KubrowPet|KavatPet|SentientPet|Pet|Suit|Blueprint)$/g, '');
   return splitPascal(stripped).trim() || leaf;
 }
 
@@ -314,6 +337,13 @@ function _resolveNameInternal(un, dict, depth, ...tables) {
     if (fragName) return cleanName(fragName);
   }
 
+  // Fallback for known booster patterns (StoreItem paths use "3Day" but human names use "3 Day")
+  const leaf = un.split('/').pop().replace(/StoreItem$/i, '');
+  if (BOOSTER_NAME_MAP[leaf]) return BOOSTER_NAME_MAP[leaf];
+  for (const [key, name] of Object.entries(BOOSTER_NAME_MAP)) {
+    if (leaf.startsWith(key)) return name;
+  }
+
   return cleanName(nameFromPath(un));
 }
 
@@ -343,6 +373,7 @@ function resolveImage(un, ...tables) {
     const entry = tbl?.[un];
     if (entry && (entry.icon || entry.thumbnail)) {
       const icon = entry.icon ?? entry.thumbnail;
+      if (icon.startsWith('http://') || icon.startsWith('https://')) return icon;
       return `https://browse.wf${icon.startsWith('/') ? '' : '/'}${icon}`;
     }
   }
@@ -356,6 +387,7 @@ function resolveImage(un, ...tables) {
       const matchKey = suffixIndex.get(leaf)
       if (matchKey && (tbl[matchKey]?.icon || tbl[matchKey]?.thumbnail)) {
         const icon = tbl[matchKey].icon ?? tbl[matchKey].thumbnail;
+        if (icon.startsWith('http://') || icon.startsWith('https://')) return icon;
         return `https://browse.wf${icon.startsWith('/') ? '' : '/'}${icon}`;
       }
     }

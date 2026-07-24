@@ -16,7 +16,7 @@
  * - Click-to-rename filenames.
  */
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { FileText, Plus, Trash, Edit2, Check, X } from 'lucide-react'
+import { FileText, Plus, X } from 'lucide-react'
 import { PageLayout, Card, Button } from '../components/UI'
 import { invoke } from '@tauri-apps/api/core'
 import { MDXEditor } from '@mdxeditor/editor'
@@ -29,9 +29,6 @@ import {
   UndoRedo, CodeToggle, DiffSourceToggleWrapper, Separator
 } from '@mdxeditor/editor'
 import '@mdxeditor/editor/style.css'
-
-
-
 
 // Inline editable title - click to rename
 function EditableTitle({ filename, onRename }) {
@@ -78,7 +75,6 @@ function EditableTitle({ filename, onRename }) {
     >
       <FileText size={18} />
       {val}
-      <Edit2 size={12} className="opacity-0 group-hover:opacity-60 transition-opacity" />
     </button>
   )
 }
@@ -88,8 +84,8 @@ export default function Notes() {
   const [activeFile, setActiveFile] = useState(null)
   const [content, setContent] = useState('')
   const [saving, setSaving] = useState(false)
-  const [editingFile, setEditingFile] = useState(null)
-  const [editName, setEditName] = useState('')
+  const [renamingTab, setRenamingTab] = useState(null)
+  const [renameVal, setRenameVal] = useState('')
   const [fileToDelete, setFileToDelete] = useState(null)
   const latestContentRef = useRef('')
   const isDirtyRef = useRef(false)
@@ -176,7 +172,6 @@ export default function Notes() {
     const finalName = newName.endsWith('.md') ? newName : `${newName}.md`
     if (files.includes(finalName)) { alert('A note with that name already exists'); return }
     try {
-      // If the renamed file is active, save its current (possibly unsaved) state to the new name
       const src = activeFile === oldName ? latestContentRef.current : await invoke('read_note', { filename: oldName })
       await invoke('save_note', { filename: finalName, content: src })
       await invoke('delete_note', { filename: oldName })
@@ -185,11 +180,15 @@ export default function Notes() {
       if (activeFile === oldName) {
         activeFileRef.current = finalName
         setActiveFile(finalName)
-        isDirtyRef.current = false // Content was just saved to the new file
+        isDirtyRef.current = false
       }
     } catch (err) { console.error('rename failed:', err) }
-    finally { if (editingFile) setEditingFile(null) }
-  }, [files, activeFile, editingFile])
+  }, [files, activeFile])
+
+  const handleTabRename = useCallback((oldName, rawNewName) => {
+    handleRename(oldName, rawNewName)
+    setRenamingTab(null)
+  }, [handleRename])
 
   const confirmDelete = async () => {
     if (!fileToDelete) return
@@ -256,9 +255,7 @@ export default function Notes() {
 
   return (
     <PageLayout title="Notes">
-      {/* Kronos theme overrides for MDXEditor - using stable public class names from mdxeditor.dev/editor/docs/theming */}
       <style>{`
-        /* ── CSS variable theme tokens ── */
         .dark-editor.kronos-editor {
           --accentBase: var(--color-accent);
           --accentBgSubtle: color-mix(in srgb, var(--color-accent) 10%, transparent);
@@ -289,7 +286,6 @@ export default function Notes() {
           background: var(--color-bg);
         }
 
-        /* ── Toolbar ── */
         .kronos-editor .mdxeditor-toolbar {
           background: var(--color-panel) !important;
           border-bottom: 1px solid rgba(255,255,255,0.06) !important;
@@ -302,7 +298,6 @@ export default function Notes() {
           outline: none !important;
         }
 
-        /* ── Heading/block-type select dropdown (stable class from docs) ── */
         .kronos-editor .mdxeditor-select-content {
           background: var(--color-panel) !important;
           border: 1px solid rgba(255,255,255,0.1) !important;
@@ -320,7 +315,6 @@ export default function Notes() {
           color: var(--color-accent) !important;
         }
 
-        /* ── Rich text editor content (stable class from docs) ── */
         .kronos-editor .mdxeditor-root-contenteditable {
           color: var(--color-text) !important;
           background: var(--color-bg) !important;
@@ -380,7 +374,6 @@ export default function Notes() {
           color: var(--color-accent) !important;
         }
 
-        /* ── Diff/source wrapper (stable class from docs) ── */
         .kronos-editor .mdxeditor-diff-source-wrapper {
           overflow-y: auto !important;
           max-height: calc(100vh - 280px) !important;
@@ -401,7 +394,6 @@ export default function Notes() {
           box-shadow: 0 0 10px var(--color-accent);
         }
 
-        /* ── CodeMirror (source/diff mode) ── */
         .kronos-editor .cm-editor {
           background: var(--color-bg) !important;
           color: var(--color-text) !important;
@@ -428,7 +420,6 @@ export default function Notes() {
           border-left-color: var(--color-accent) !important;
         }
 
-        /* ── Diff colours ── */
         .kronos-editor .mdxeditor-diff-editor ins { background: rgba(34,197,94,0.15) !important; }
         .kronos-editor .mdxeditor-diff-editor del { background: rgba(239,68,68,0.15) !important; }
       `}</style>
@@ -446,85 +437,78 @@ export default function Notes() {
         </div>
       )}
 
-      <div className="grid grid-cols-4 gap-4 h-full relative z-0">
-        {/* File list */}
-        <div className="col-span-1">
-          <Card className="h-full p-3 flex flex-col gap-3">
-            <div className="flex items-center justify-between">
-              <h3 className="font-semibold">Files</h3>
-              <Button variant="ghost" title="New note" onClick={newFile}><Plus size={14} /></Button>
-            </div>
-            <div className="overflow-auto mt-2 flex-1">
-              <ul className="space-y-2">
-                {files.map(f => (
-                  <li key={f} className="relative group">
-                    {editingFile === f ? (
-                      <div className="flex items-center gap-1 w-full bg-kronos-panel/40 p-1 rounded">
-                        <input autoFocus value={editName}
-                          onChange={e => setEditName(e.target.value)}
-                          onKeyDown={e => {
-                            if (e.key === 'Enter') handleRename(f, editName)
-                            if (e.key === 'Escape') setEditingFile(null)
-                          }}
-                          className="bg-transparent text-sm text-kronos-text outline-none flex-1 min-w-0"
-                        />
-                        <button onClick={() => handleRename(f, editName)} className="text-green-400 hover:text-green-300"><Check size={12} /></button>
-                        <button onClick={() => setEditingFile(null)} className="text-red-400 hover:text-red-300"><X size={12} /></button>
-                      </div>
-                    ) : (
-                      <div className="flex items-center group/item w-full pr-1">
-                        <button onClick={() => selectFile(f)}
-                          className={`flex-1 text-left px-2 py-2 rounded truncate text-sm ${activeFile === f ? 'bg-kronos-panel text-kronos-accent' : 'hover:bg-kronos-panel/40'}`}>
-                          {f.replace('.md', '')}
-                        </button>
-                        <div className="opacity-0 group-hover/item:opacity-100 flex items-center gap-1 transition-opacity">
-                          <button onClick={e => { e.stopPropagation(); setEditingFile(f); setEditName(f.replace('.md', '')) }}
-                            className="p-1.5 text-kronos-dim hover:text-kronos-accent bg-kronos-bg/90 rounded"><Edit2 size={12} /></button>
-                          <button onClick={e => { e.stopPropagation(); setFileToDelete(f) }}
-                            className="p-1.5 text-kronos-dim hover:text-red-400 bg-kronos-bg/90 rounded"><Trash size={12} /></button>
-                        </div>
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Card>
-        </div>
-
-        {/* Editor pane */}
-        <div className="col-span-3">
-          <Card className="p-4 h-full flex flex-col gap-3">
-            {activeFile ? (
-              <>
-                <div className="flex items-center gap-2 shrink-0">
-                  <EditableTitle filename={activeFile} onRename={handleRename} />
-                  <div className={`ml-auto text-xs transition-opacity duration-500 ${saving ? 'opacity-100 text-kronos-accent' : 'opacity-0'}`}>Saved</div>
+      <Card className="p-4 h-full flex flex-col">
+        {/* Tab strip */}
+        <div className="flex items-center gap-1.5 overflow-x-auto shrink-0 pb-3" style={{ scrollbarWidth: 'thin' }}>
+          {files.map(f => {
+            const isActive = f === activeFile
+            if (renamingTab === f) {
+              return (
+                <div key={f} className="flex items-center gap-1 bg-kronos-panel rounded px-2 py-1 shrink-0">
+                  <input autoFocus value={renameVal}
+                    onChange={e => setRenameVal(e.target.value)}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter') handleTabRename(f, renameVal)
+                      if (e.key === 'Escape') setRenamingTab(null)
+                    }}
+                    onBlur={() => setRenamingTab(null)}
+                    className="bg-transparent text-sm text-kronos-text outline-none w-24"
+                  />
                 </div>
-
-
-                <MDXEditor
-                  key={activeFile}
-                  markdown={content}
-                  onChange={val => {
-                    latestContentRef.current = val;
-                    isDirtyRef.current = true;
-                  }}
-                  autoFocus={{ defaultSelection: 'end', preventScroll: true }}
-                  plugins={plugins}
-                  className="dark-theme dark-editor kronos-editor"
-                  contentEditableClassName="prose-kronos-content custom-scrollbar"
-                />
-
-              </>
-            ) : (
-              <div className="flex items-center justify-center h-full text-kronos-dim">
-                Select or create a note
+              )
+            }
+            return (
+              <div key={f}
+                onClick={() => selectFile(f)}
+                onDoubleClick={() => { setRenamingTab(f); setRenameVal(f.replace('.md', '')) }}
+                className={`group/tab flex items-center gap-1 px-3 py-1.5 rounded cursor-pointer shrink-0 text-sm transition-colors select-none
+                  ${isActive
+                    ? 'bg-kronos-accent/15 text-kronos-accent font-medium'
+                    : 'bg-kronos-panel/40 text-kronos-dim hover:bg-kronos-panel/70 hover:text-kronos-text'}`}
+              >
+                <span className="truncate max-w-[120px]">{f.replace('.md', '')}</span>
+                <button onClick={e => { e.stopPropagation(); setFileToDelete(f) }}
+                  className="opacity-0 group-hover/tab:opacity-100 transition-opacity p-0.5 text-kronos-dim hover:text-red-400 ml-0.5 rounded">
+                  <X size={12} />
+                </button>
               </div>
-            )}
-          </Card>
+            )
+          })}
+          <button onClick={newFile}
+            className="shrink-0 p-1.5 rounded hover:bg-kronos-panel/40 text-kronos-dim hover:text-kronos-accent transition-colors"
+            title="New note"
+          >
+            <Plus size={14} />
+          </button>
         </div>
-      </div>
+
+        {/* Title row + Editor */}
+        {activeFile ? (
+          <>
+            <div className="flex items-center gap-2 shrink-0 pb-3">
+              <EditableTitle filename={activeFile} onRename={handleRename} />
+              <div className={`ml-auto text-xs transition-opacity duration-500 ${saving ? 'opacity-100 text-kronos-accent' : 'opacity-0'}`}>Saved</div>
+            </div>
+
+            <MDXEditor
+              key={activeFile}
+              markdown={content}
+              onChange={val => {
+                latestContentRef.current = val;
+                isDirtyRef.current = true;
+              }}
+              autoFocus={{ defaultSelection: 'end', preventScroll: true }}
+              plugins={plugins}
+              className="dark-theme dark-editor kronos-editor"
+              contentEditableClassName="prose-kronos-content custom-scrollbar"
+            />
+          </>
+        ) : (
+          <div className="flex items-center justify-center h-full text-kronos-dim">
+            Select or create a note
+          </div>
+        )}
+      </Card>
     </PageLayout>
   )
 }

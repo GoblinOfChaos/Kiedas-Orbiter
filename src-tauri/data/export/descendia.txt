@@ -4,18 +4,18 @@
 
 VeryToxic: Enemies emit a damaging light aura that damages Tenno and allies who enter it.
 NC_Darkness: The lights have been turned off, causing darkness.
+Darkness: The lights have been turned off, causing darkness.
 GlassMaker: Void tears turn enemies to glass, rendering them immortal until glass shards on their body are destroyed.
 BasicMimics: Some storage containers are mimics in disguise.
 Manics: All enemies will be Manics.
 HardShell: Enemies are heavily resistant to all damage not dealt by Amphors. Amphors spawn in the arena.
-Wisp: Marie's Sanctuary - Rest point with selectable buff. Gain a permanent set of Wisp Motes.
-NarmerPhobia: Poison gas is dispersed around the arena dealing Toxin damage.
-NC_NarmerPhobia: Collect Vitoplast to fill a gauge.
+Wisp: Marie's Sanctuary.
+NC_NarmerPhobia: Poison gas is dispersed around the arena, no enemies.
 PoisonGas: Poison gas is dispersed around the arena dealing Toxin damage.
+NarmerPhobia: Poison gas is dispersed around the arena dealing Toxin damage.
 BasicLootCreatures: Kill Gruzzlings before they escape with rewards.
-SpikeCeiling: Debris is constantly falling from the ceiling, dealing damage to anyone caught underneath.
 GiantRealm: Enemies are larger and slower than normal.
-Harrow: Lyon's Sanctuary - Rest point with selectable debuff. Abilities cost no Energy but consume 200% of their Energy cost in Health.
+Harrow: Lyon's Sanctuary.
 BasicRace: Race through gates that appear in order within a time limit.
 FireAndIce: Enemies are protected by Arbitration Shield Drones.
 FreezeInShoot: Standing still has a chance of giving yourself Cold Status.
@@ -23,24 +23,44 @@ UnseenFoes: Enemies are invisible until they first attack.
 99TankP1: Defeat the H-09 Efervon Tank.
 HeadShotsOnly: Enemies are heavily resistant to damage applied outside of weak spots.
 Devil: Roathe's Oblivion - Final boss fight against Roathe.
-NC_SlipAndSlide: Frictionless without enemies.
-MineField: Stasis Mines are scattered throughout the arena.
 SlipAndSlide: Friction is greatly reduced for Tenno.
 Escapist: Upon reaching half health, enemies become invulnerable and teleport away.
 VoidAberration: Slow moving, immortal Liminus drain health and energy from allies.
 NC_MineField: Minefield without enemies.
 Octopede: The Fragmented boss fight.
-Darkness: The lights have been turned off, causing darkness.
+MineField: Stasis Mines are scattered throughout the arena.
 SpicyKnife: Players glow with Heat, exploding after 15 seconds. Delay by killing enemies.
 JumpSmash: Enemies are smaller and take massively increased damage from being jumped on.
 CollectionBasic: Collect Vitoplast.
-SecuritySpin: Security Spin.
 NC_SecuritySpin: Security Spin.
 BlitzLeech: Blitz Leech.
+SecuritySpin: Security Spin.
 BasicLoot: Loot storage containers.
 FieryTrailRollers: All enemies are Rollers that leave behind a trail of fire.
 InfestedBoyband: Infested Boyband.
 Horse: Horse Combat Only.
+
+# New from worldstate — fill descriptions from game strings
+PowerHouse: Protect Excavators and keep them powered with Power Cells.
+FireChain: Enemies are connected by flaming beams, burning players on contact.
+JohnProdman: Defeat John Prodman.
+JadeGuardian: Guardian, Jade Light, or Shock Eximus variant.
+ToxicFire: Toxic Flames variant of Eximus Cabal.
+ArbitrationDrones: Enemies are protected by Arbitration Shield Drones.
+Sentients: All enemies will be Sentients.
+HordeWeakpoints: Enemies are heavily resistant to damage applied outside of weak spots, with horde density.
+Sunlight: Sunlight penance.
+RangedArcadiaOnly: All enemies are ranged units with slow projectiles.
+FieryTrail: Enemies leave behind a trail of fire which burns Tenno and allies.
+RaceHorse: Race through gates on a Kaithe.
+NC_SpikeCeiling: Debris falling from ceiling, no enemies.
+SpikeCeiling: Debris is constantly falling from the ceiling, dealing damage to anyone caught underneath.
+BallonParty: All enemies are Balloon-based Scaldura.
+MechCombatOnly: The player is forced to use Necramech against Rogue Necramechs.
+ShockingLeech: Leech, Shock, or Venomous Eximus variant.
+Oraxia: Defeat Oraxia boss.
+HeavyWeaponsOnly: Enemies are heavily resistant to all damage not dealt by Archguns or Rockets.
+ArbitersNightmareLich: Defeat a Sister of Parvos or Kuva Lich.
 
 # Mission Type Descriptions
 DT_EXTERMINATE: Kill a specific number of enemies.
@@ -63,3 +83,4 @@ DT_UNIQUE: Unique mission objective.
 DT_NETRACELLS: Kill marked Necramites that periodically spawn.
 DT_SABOTAGE_HIVE: Destroy Infested Tumors to eliminate their Hives.
 DT_EXCAVATION: Protect Excavators and keep them powered with Power Cells.
+DT_SHRINE_DEFENSE: Keep enemies out of a point, deposit offerings to spawn a boss.

@@ -877,13 +877,6 @@ export default function Maps() {
                   )
                 })}
               </div>
-              <div className="flex gap-2 pt-3 border-t border-white/5">
-                <button onClick={() => invoke('open_map_configs_folder')}
-                  className="flex-1 text-xs py-1.5 rounded-lg hover:bg-white/5 text-kronos-dim hover:text-kronos-text transition-colors flex items-center justify-center gap-1.5"
-                  title="Open map configs folder">
-                  Open Folder
-                </button>
-              </div>
             </div>
           )}
         </div>

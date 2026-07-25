@@ -12,9 +12,9 @@ const ICONS = {
 }
 
 const MAPS = [
-  { name: 'Plains of Eidolon', filename: 'PlainsofEidolon_4k_Map.png' },
-  { name: 'Orb Vallis', filename: 'OrbVallis4kMap-min.png' },
-  { name: 'Cambion Drift', filename: 'CambianDrift4kMap.png' },
+  { name: 'Plains of Eidolon', filename: 'poe_full.png' },
+  { name: 'Orb Vallis', filename: 'venus_full.png' },
+  { name: 'Cambion Drift', filename: 'deimos_full.png' },
   { name: 'Duviri', filename: 'Duviri_map_with_caves.png' },
 ]
 

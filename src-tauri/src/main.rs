@@ -650,6 +650,61 @@ async fn open_data_folder() -> Result<(), String> {
     Ok(())
 }
 
+/// Opens the notes directory in the system file manager.
+#[tauri::command]
+async fn open_notes_folder() -> Result<(), String> {
+    let path = resolve_path("data/user/notes");
+    #[cfg(target_os = "windows")]
+    { std::process::Command::new("explorer").arg(&path).spawn().map_err(|e| e.to_string())?; }
+    #[cfg(target_os = "linux")]
+    { std::process::Command::new("xdg-open").arg(&path).spawn().map_err(|e| e.to_string())?; }
+    #[cfg(target_os = "macos")]
+    { std::process::Command::new("open").arg(&path).spawn().map_err(|e| e.to_string())?; }
+    Ok(())
+}
+
+/// Opens the map configs directory in the system file manager.
+#[tauri::command]
+async fn open_map_configs_folder() -> Result<(), String> {
+    let path = resolve_path("data/user/map-configs");
+    #[cfg(target_os = "windows")]
+    { std::process::Command::new("explorer").arg(&path).spawn().map_err(|e| e.to_string())?; }
+    #[cfg(target_os = "linux")]
+    { std::process::Command::new("xdg-open").arg(&path).spawn().map_err(|e| e.to_string())?; }
+    #[cfg(target_os = "macos")]
+    { std::process::Command::new("open").arg(&path).spawn().map_err(|e| e.to_string())?; }
+    Ok(())
+}
+
+/// Read a map config JSON file from the map-configs directory.
+#[tauri::command]
+async fn read_map_config(filename: String) -> Result<String, String> {
+    let path = resolve_path("data/user/map-configs").join(&filename);
+    fs::read_to_string(&path).map_err(|e| e.to_string())
+}
+
+/// Write a map config JSON file to the map-configs directory.
+#[tauri::command]
+async fn write_map_config(filename: String, content: String) -> Result<(), String> {
+    let dir = resolve_path("data/user/map-configs");
+    fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+    fs::write(dir.join(&filename), content).map_err(|e| e.to_string())
+}
+
+/// List all `.json` files in the map-configs directory.
+#[tauri::command]
+async fn list_map_configs() -> Result<Vec<String>, String> {
+    let dir = resolve_path("data/user/map-configs");
+    if !dir.exists() { return Ok(vec![]) }
+    let mut files = vec![];
+    for entry in fs::read_dir(&dir).map_err(|e| e.to_string())? {
+        let entry = entry.map_err(|e| e.to_string())?;
+        let name = entry.file_name().to_string_lossy().to_string();
+        if name.ends_with(".json") { files.push(name) }
+    }
+    Ok(files)
+}
+
 // --- Media Assets ---
 //
 // Map images and mastery rank icons are downloaded on demand from the GitHub
@@ -2665,6 +2720,11 @@ async fn get_known_weapon_names() -> Vec<String> {
             save_note,
             delete_note,
             // --- misc ---
+            open_notes_folder,
+            open_map_configs_folder,
+            read_map_config,
+            write_map_config,
+            list_map_configs,
             open_data_folder,
             get_mastery_icons_path,
             get_maps_path,

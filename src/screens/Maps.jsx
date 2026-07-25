@@ -33,19 +33,33 @@ const COLORS = ['#f97316', '#22c55e', '#3b82f6', '#ef4444', '#a855f7', '#ec4899'
 
 const genId = () => crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 9)
 
+const MAP_CONFIG_DIR = 'data/user/map-configs'
+
 async function loadMapConfigs() {
   try {
-    const settings = await invoke('load_settings')
-    return settings.mapConfigs || {}
+    const files = await invoke('list_map_configs')
+    const configs = {}
+    for (const filename of files) {
+      try {
+        const text = await invoke('read_map_config', { filename })
+        const parsed = JSON.parse(text)
+        const tabId = parsed.tabId || filename.replace('.json', '')
+        if (Array.isArray(parsed.configs)) {
+          configs[tabId] = parsed.configs
+        }
+      } catch (e) { console.warn('Failed to load map config', filename, e) }
+    }
+    return configs
   } catch { return {} }
 }
 
 async function saveMapConfigs(configs) {
   try {
-    let settings = {}
-    try { settings = await invoke('load_settings') } catch { }
-    settings.mapConfigs = configs
-    await invoke('save_settings', { settings })
+    for (const [tabId, configList] of Object.entries(configs)) {
+      const filename = `${tabId}.json`
+      const content = JSON.stringify({ tabId, configs: configList })
+      await invoke('write_map_config', { filename, content })
+    }
   } catch (e) { console.error('Failed to save map configs:', e) }
 }
 
@@ -881,6 +895,11 @@ export default function Maps() {
                 })}
               </div>
               <div className="flex gap-2 pt-3 border-t border-white/5">
+                <button onClick={() => invoke('open_map_configs_folder')}
+                  className="flex-1 text-xs py-1.5 rounded-lg hover:bg-white/5 text-kronos-dim hover:text-kronos-text transition-colors flex items-center justify-center gap-1.5"
+                  title="Open map configs folder">
+                  Open Folder
+                </button>
                 <button onClick={handleExport}
                   className="flex-1 text-xs py-1.5 rounded-lg hover:bg-white/5 text-kronos-dim hover:text-kronos-text transition-colors flex items-center justify-center gap-1.5"
                   title="Export current map configs to file">

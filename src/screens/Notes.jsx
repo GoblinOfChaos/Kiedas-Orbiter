@@ -16,7 +16,7 @@
  * - Click-to-rename filenames.
  */
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { FileText, Plus, X, Upload, Download } from 'lucide-react'
+import { FileText, Plus, X, FolderOpen } from 'lucide-react'
 import { PageLayout, Card, Button } from '../components/UI'
 import { invoke } from '@tauri-apps/api/core'
 import { open, save } from '@tauri-apps/plugin-dialog'
@@ -168,49 +168,6 @@ export default function Notes() {
     } catch { }
   }
 
-  const importFromFile = async () => {
-    const path = await open({
-      filters: [{ name: 'Markdown', extensions: ['md', 'markdown', 'txt'] }],
-      multiple: false, directory: false,
-    })
-    if (!path) return
-    let text
-    try {
-      const bytes = await invoke('read_file', { path })
-      text = new TextDecoder().decode(bytes)
-    } catch (err) { console.error('import read failed:', err); return }
-
-    // Derive filename from the imported file's basename
-    const base = path.split(/[/\\]/).pop() || 'Imported Note.md'
-    let name = base
-    let n = 2
-    while (files.includes(name)) {
-      const dot = base.lastIndexOf('.')
-      const stem = dot > 0 ? base.slice(0, dot) : base
-      const ext = dot > 0 ? base.slice(dot) : ''
-      name = `${stem} (${n})${ext}`
-      n++
-    }
-    try {
-      await invoke('save_note', { filename: name, content: text })
-      const list = await invoke('list_notes')
-      setFiles(list)
-      await selectFile(name)
-    } catch (err) { console.error('import save failed:', err) }
-  }
-
-  const exportToFile = async () => {
-    if (!activeFileRef.current) return
-    const path = await save({
-      defaultPath: activeFileRef.current,
-      filters: [{ name: 'Markdown', extensions: ['md', 'markdown'] }],
-    })
-    if (!path) return
-    try {
-      const content = latestContentRef.current
-      await invoke('write_file', { path, data: new TextEncoder().encode(content) })
-    } catch (err) { console.error('export failed:', err) }
-  }
 
   const handleRename = useCallback(async (oldName, newName) => {
     if (!newName.trim() || newName === oldName.replace('.md', '')) return
@@ -525,20 +482,14 @@ export default function Notes() {
           >
             <Plus size={14} />
           </button>
-        </div>
           <div className="flex items-center gap-0.5 ml-1 pl-1 border-l border-white/5">
-            <button onClick={importFromFile}
+            <button onClick={() => invoke('open_notes_folder')}
               className="shrink-0 p-1.5 rounded hover:bg-kronos-panel/40 text-kronos-dim hover:text-kronos-accent transition-colors"
-              title="Import note from file">
-              <Download size={14} />
-            </button>
-            <button onClick={exportToFile}
-              className="shrink-0 p-1.5 rounded hover:bg-kronos-panel/40 text-kronos-dim hover:text-kronos-text transition-colors disabled:opacity-30"
-              title="Export current note to file"
-              disabled={!activeFile}>
-              <Upload size={14} />
+              title="Open notes folder">
+              <FolderOpen size={14} />
             </button>
           </div>
+        </div>
 
         {/* Title row + Editor */}
         {activeFile ? (

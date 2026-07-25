@@ -547,11 +547,10 @@ export default function Maps() {
                     <line x1="16" y1="6" x2="16" y2="22" />
                   </svg>
                 </button>
-                <button onClick={importCustomMarkersFromGame}
+                <button onClick={() => invoke('open_map_configs_folder')}
                   className="p-2 rounded-lg bg-kronos-bg/80 backdrop-blur text-kronos-dim hover:text-kronos-text border border-white/5 transition-colors"
-                  title={inventoryData?.customMarkers?.length ? 'Import in-game markers for all maps' : 'No in-game markers found'}
-                  disabled={!inventoryData?.customMarkers?.length}>
-                  <MapPin size={16} />
+                  title="Open map configs folder">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 </button>
                 <button onClick={() => { setPanelOpen(!panelOpen); setMode('view'); setPendingConfigId(null) }}
                   className={`p-2 rounded-lg transition-colors ${panelOpen ? 'bg-kronos-accent text-kronos-bg' : 'bg-kronos-bg/80 backdrop-blur text-kronos-dim hover:text-kronos-text border border-white/5'}`}

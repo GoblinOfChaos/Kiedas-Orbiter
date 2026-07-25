@@ -13,10 +13,10 @@ const ICONS = {
 }
 
 const MAPS = [
-  { name: 'Plains of Eidolon', filename: 'poe_full.png' },
-  { name: 'Orb Vallis', filename: 'venus_full.png' },
-  { name: 'Cambion Drift', filename: 'deimos_full.png' },
-  { name: 'Duviri', filename: 'Duviri_map_with_caves.png' },
+  { name: 'Plains of Eidolon', raw: 'poe_full.png', labeled: 'PlainsofEidolon_4k_Map.png' },
+  { name: 'Orb Vallis', raw: 'venus_full.png', labeled: 'OrbVallis4kMap-min.png' },
+  { name: 'Cambion Drift', raw: 'deimos_full.png', labeled: 'CambianDrift4kMap.png' },
+  { name: 'Duviri', raw: 'Duviri_map_with_caves.png', labeled: 'Duviri_map_with_caves.png' },
 ]
 
 const PLACEHOLDER = `data:image/svg+xml;utf8,${encodeURIComponent(
@@ -105,6 +105,10 @@ export default function Maps() {
     loadMapConfigs().then(setAllConfigs).catch(console.error)
   }, [])
 
+
+  const [useRawMap, setUseRawMap] = useState(true)
+  const activeMap = MAPS[parseInt(activeTab)]
+  const mapFilename = useRawMap ? activeMap?.raw : activeMap?.labeled
   const { worldState } = useMonitoring()
   const duviriCycle = worldState?.duviriCycle
   const [timeLeft, setTimeLeft] = useState('')
@@ -483,6 +487,15 @@ export default function Maps() {
 
               <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
                 <ZoomBadge xfRef={xfRef} />
+                <button onClick={() => setUseRawMap(v => !v)}
+                  className={`p-2 rounded-lg transition-colors ${useRawMap ? 'bg-kronos-accent/20 text-kronos-accent border border-kronos-accent/30' : 'bg-kronos-bg/80 backdrop-blur text-kronos-dim hover:text-kronos-text border border-white/5'}`}
+                  title={useRawMap ? 'Switch to labeled map' : 'Switch to raw terrain map'}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
+                    <line x1="8" y1="2" x2="8" y2="18" />
+                    <line x1="16" y1="6" x2="16" y2="22" />
+                  </svg>
+                </button>
                 <button onClick={() => { setPanelOpen(!panelOpen); setMode('view'); setPendingConfigId(null) }}
                   className={`p-2 rounded-lg transition-colors ${panelOpen ? 'bg-kronos-accent text-kronos-bg' : 'bg-kronos-bg/80 backdrop-blur text-kronos-dim hover:text-kronos-text border border-white/5'}`}
                   title="Configurations">
@@ -632,7 +645,7 @@ export default function Maps() {
                 }}>
                   <img
                     ref={imgRef}
-                    src={mapsPath ? convertFileSrc(`${mapsPath}/${MAPS[parseInt(activeTab)].filename}`) : PLACEHOLDER}
+                    src={mapsPath ? convertFileSrc(`${mapsPath}/${mapFilename}`) : PLACEHOLDER}
                     alt={MAPS[parseInt(activeTab)].name}
                     onLoad={onImgLoad}
                     onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = PLACEHOLDER }}

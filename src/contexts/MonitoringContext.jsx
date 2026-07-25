@@ -206,6 +206,7 @@ export function MonitoringProvider({ children }) {
   const [statusText, setStatusText] = useState('Initializing…')
   const [spIncursions, setSpIncursions] = useState(null)
   const [arbys, setArbys] = useState(null)
+  const [descendiaDesc, setDescendiaDesc] = useState({})
 
   const [archonModifiers, setArchonModifiers] = useState(null)
   const [arbitrationModifiers, setArbitrationModifiers] = useState(null)
@@ -514,11 +515,11 @@ export function MonitoringProvider({ children }) {
         invoke('check_pricer_models'),
       ])
 
-      setStatusText('Loading resources…')
-      const [exportsRes, spiRes, arbRes] = await Promise.allSettled([
+      const [exportsRes, spiRes, arbRes, descRes] = await Promise.allSettled([
         invoke('load_all_exports'),
         invoke('load_txt_file', { name: 'sp-incursions.txt' }),
         invoke('load_txt_file', { name: 'arbys.txt' }),
+        invoke('load_txt_file', { name: 'descendia.txt' }),
       ])
 
       const exports = exportsRes.status === 'fulfilled' ? exportsRes.value : null
@@ -555,6 +556,20 @@ export function MonitoringProvider({ children }) {
       setExportData(exportsWithWI)
       setSpIncursions(spiText || '')
       setArbys(arbText || '')
+      // Parse descendia descriptions
+      const descText = descRes.status === 'fulfilled' ? descRes.value : null
+      if (descText) {
+        const descMap = {}
+        for (const line of descText.split('\n')) {
+          const trimmed = line.trim()
+          if (!trimmed || trimmed.startsWith('#')) continue
+          const sepIdx = trimmed.indexOf(': ')
+          if (sepIdx > 0) {
+            descMap[trimmed.slice(0, sepIdx)] = trimmed.slice(sepIdx + 2)
+          }
+        }
+        setDescendiaDesc(descMap)
+      }
 
       // Sync monitoring state with other windows
       invoke('get_monitoring_active').then((active) => {
@@ -586,11 +601,11 @@ export function MonitoringProvider({ children }) {
     try {
       const ws = await fetch(ORACLE_API).then(r => r.ok ? r.json() : null)
       if (ws && dict) {
-        const parsed = parseWorldstate(ws, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, ExportUpgrades: exportData?.ExportUpgrades, archimedeaMap })
+        const parsed = parseWorldstate(ws, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, ExportUpgrades: exportData?.ExportUpgrades, archimedeaMap, descendiaDesc })
         setWorldState(parsed)
       }
     } catch (err) { }
-  }, [dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, archimedeaMap])
+  }, [dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, archimedeaMap, descendiaDesc])
 
   useEffect(() => {
     if (Object.keys(dict || {}).length > 0) {

@@ -23,7 +23,7 @@
  * helpers in this file.
  */
 import { useState, useEffect, useMemo, useCallback } from 'react'
-import { PageLayout, Card, Button, CardHeader, Tabs, Modal } from '../components/UI'
+import { PageLayout, Card, Button, CardHeader, Tabs, Modal, Tooltip } from '../components/UI'
 import ModCard from '../components/ModCard'
 import {
   Package, DollarSign, RefreshCw,
@@ -946,7 +946,9 @@ export default function Dashboard() {
                   <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-bold text-kronos-accent uppercase">Marie&apos;s Sanctuary</p>
-                    <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    <Tooltip content={s.penanceDesc || s.penance} position="top">
+                      <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    </Tooltip>
                   </div>
                 </div>
               )
@@ -957,7 +959,9 @@ export default function Dashboard() {
                   <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-bold text-kronos-accent uppercase">Lyon&apos;s Sanctuary</p>
-                    <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    <Tooltip content={s.penanceDesc || s.penance} position="top">
+                      <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    </Tooltip>
                   </div>
                 </div>
               )
@@ -968,7 +972,9 @@ export default function Dashboard() {
                   <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-bold text-kronos-accent uppercase">Roathe&apos;s Oblivion</p>
-                    <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    <Tooltip content={s.penanceDesc || s.penance} position="top">
+                      <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    </Tooltip>
                   </div>
                 </div>
               )
@@ -978,10 +984,14 @@ export default function Dashboard() {
               <div key={s.index} className="p-1.5 rounded bg-kronos-panel/30 flex items-center gap-1.5">
                 <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
                 <div className="flex-1 min-w-0 p-1 rounded bg-kronos-panel/40">
-                  <p className="text-[10px] font-bold text-kronos-text uppercase">{s.missionType}</p>
+                  <Tooltip content={s.missionTypeDesc || s.missionType} position="top">
+                    <p className="text-[10px] font-bold text-kronos-text uppercase">{s.missionType}</p>
+                  </Tooltip>
                 </div>
                 <div className="flex-1 min-w-0 p-1 rounded bg-kronos-panel/20">
-                  <p className="text-[10px] text-kronos-dim uppercase">{s.penance}</p>
+                  <Tooltip content={s.penanceDesc || s.penance} position="top">
+                    <p className="text-[10px] text-kronos-dim uppercase">{s.penance}</p>
+                  </Tooltip>
                 </div>
               </div>
             )
@@ -1025,8 +1035,12 @@ export default function Dashboard() {
                     {set.stages.map((s) => (
                       <div key={s.index} className={`p-2 rounded flex justify-between items-center gap-2 ${s.isCheckpoint ? 'bg-kronos-accent/10 border border-kronos-accent/20' : 'bg-black/20'}`}>
                         <div className="min-w-0">
-                          <p className="text-[10px] font-bold text-kronos-text uppercase truncate">{s.missionType}{s.isBoss ? ' - Roathe' : ''}</p>
-                          <p className="text-[9px] text-kronos-dim truncate uppercase">{s.penance}</p>
+                          <Tooltip content={s.missionTypeDesc || s.missionType} position="top">
+                            <p className="text-[10px] font-bold text-kronos-text uppercase truncate">{s.missionType}{s.isBoss ? ' - Roathe' : ''}</p>
+                          </Tooltip>
+                          <Tooltip content={s.penanceDesc || s.penance} position="bottom">
+                            <p className="text-[9px] text-kronos-dim truncate uppercase">{s.penance}</p>
+                          </Tooltip>
                         </div>
                         <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded flex-shrink-0 ${s.isCheckpoint ? 'text-kronos-accent bg-kronos-accent/20' : 'text-kronos-dim bg-kronos-panel/40'}`}>
                           {s.isCheckpoint ? `CHECKPOINT ${s.index}` : `INF. ${s.index}`}

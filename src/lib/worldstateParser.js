@@ -230,15 +230,17 @@ const CONQUEST_OVERRIDES = {
  *   - ERg             ExportRegions: node name resolution
  *   - EC              ExportChallenges: Nightwave challenge text
  *   - EI              Item unique name → image URL map
- *   - nameToImage     Additional image lookup
- *   - uniqueNameToName  Item unique name → display name map
+ *   - nameToImage     Display name → image URL map
+ *   - uniqueNameToName  Unique name → display name map
  *   - bountyCycle     Oracle bounty cycle data (for Zariman faction)
  *   - ES              ExportSentinels (for companion images)
- *   - ENW             ExportNightwave: Nightwave reward list
- * @returns {object} Structured data consumed by Dashboard.jsx, or null if raw is falsy.
+ *   - ENWRawRewards   Nightwave raw rewards list
+ *   - ExportImages    ExportImages table
+ *   - ExportUpgrades  ExportUpgrades table
+ *   - archimedeaMap   Archimedea localized name map
+ *   - descendiaDesc   Descendia description map (key → description text)
  */
-export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, bountyCycle, ES, ENWRawRewards, ExportImages, ExportUpgrades, archimedeaMap }) {
-  if (!raw) return null
+export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, bountyCycle, ES, ENWRawRewards, ExportImages, ExportUpgrades, archimedeaMap, descendiaDesc }) {
 
   const nightwaveRewards = ENWRawRewards || []
   const imagesMap = ExportImages || {}
@@ -467,8 +469,10 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
           index: c.Index,
           missionType: (resolvedType !== rawType) ? resolvedType : (DESCENDIA_MISSION_TYPES[rawType] || rawType),
           missionTypeRaw: rawType,
+          missionTypeDesc: (descendiaDesc || {})[rawType] || '',
           penance: (resolvedPenance !== rawPenance) ? resolvedPenance : (DESCENDIA_PENANCES[rawPenance] || rawPenance),
           penanceRaw: rawPenance,
+          penanceDesc: (descendiaDesc || {})[rawPenance] || '',
           arena: levelName,
           level: resolveNode(c.Level, dict, ERg),
           specs: c.Specs || [],

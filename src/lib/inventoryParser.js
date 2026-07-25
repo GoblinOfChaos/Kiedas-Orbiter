@@ -2155,6 +2155,7 @@ export function parseInventory(raw, exports) {
     collectibleSeries: raw.CollectibleSeries ?? [],
     loreFragmentScans: raw.LoreFragmentScans ?? [],
     discoveredMarkers: raw.DiscoveredMarkers ?? [],
+    customMarkers: raw.CustomMarkers ?? [],
 
     wishlist,
 

@@ -2,6 +2,7 @@ import { useRef, useEffect, useCallback, useState } from 'react'
 import { PageLayout, Card, Tabs, Modal, Button, Input } from '../components/UI'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import { useMonitoring } from '../contexts/MonitoringContext'
+import { parseCustomMarkers } from '../lib/customMarkers'
 import { Plus, Trash, Link2, Crosshair, Eye, EyeOff, Edit3, X, MapPin, Layers, Check, Navigation, Skull, Shield, Star, Diamond } from 'lucide-react'
 
 const ICONS = {
@@ -109,7 +110,7 @@ export default function Maps() {
   const [useRawMap, setUseRawMap] = useState(true)
   const activeMap = MAPS[parseInt(activeTab)]
   const mapFilename = useRawMap ? activeMap?.raw : activeMap?.labeled
-  const { worldState } = useMonitoring()
+  const { worldState, inventoryData } = useMonitoring()
   const duviriCycle = worldState?.duviriCycle
   const [timeLeft, setTimeLeft] = useState('')
 
@@ -335,6 +336,7 @@ export default function Maps() {
       const cw = wrapRef.current.offsetWidth
       const ch = wrapRef.current.offsetHeight
       const s = Math.min(cw / nw, ch / nh, 1)
+
       fitScaleRef.current = s
       xfRef.current = { x: 0, y: 0, scale: s }
     }
@@ -466,6 +468,24 @@ export default function Maps() {
 
   const mapTabs = MAPS.map((m, i) => ({ id: i.toString(), label: m.name }))
 
+  const importCustomMarkers = useCallback(() => {
+    if (!inventoryData?.customMarkers?.length) return
+    const parsed = parseCustomMarkers(inventoryData.customMarkers)
+    const mapKey = ['poe', 'venus', 'deimos', 'duviri'][parseInt(activeTab)] || 'poe'
+    const markers = parsed[mapKey]
+    if (!markers?.length) return
+
+    let config = configsForCurrentMap.find(c => c.name === 'Game Markers')
+    if (!config) {
+      config = { id: genId(), name: 'Game Markers', description: 'Imported in-game custom markers', enabled: true, markers: [], paths: [] }
+      updateConfigs([...configsForCurrentMap, config])
+    }
+    const existing = new Set(config.markers.map(m => `${m.label}_${Math.round(m.x * 100)}_${Math.round(m.y * 100)}`))
+    const newOnes = markers.filter(m => !existing.has(`${m.label}_${Math.round(m.x * 100)}_${Math.round(m.y * 100)}`))
+    if (newOnes.length === 0) return
+    updateConfig(config.id, { markers: [...config.markers, ...newOnes] })
+  }, [inventoryData, activeTab, configsForCurrentMap, updateConfigs])
+
   const selectedMarkerConfig = selectedMarker ? configsForCurrentMap.find(c => c.id === selectedMarker.configId) : null
   const nextMarkerNum = selectedMarkerConfig ? getNextLabelNum(selectedMarkerConfig.markers) : 1
 
@@ -494,6 +514,15 @@ export default function Maps() {
                     <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
                     <line x1="8" y1="2" x2="8" y2="18" />
                     <line x1="16" y1="6" x2="16" y2="22" />
+                  </svg>
+                </button>
+                <button onClick={importCustomMarkers}
+                  className="p-2 rounded-lg bg-kronos-bg/80 backdrop-blur text-kronos-dim hover:text-kronos-text border border-white/5 transition-colors"
+                  title={inventoryData?.customMarkers?.length ? 'Import in-game markers' : 'No in-game markers found'}
+                  disabled={!inventoryData?.customMarkers?.length}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                    <path d="M9 18c-4.51 2-5-2-7-2" />
                   </svg>
                 </button>
                 <button onClick={() => { setPanelOpen(!panelOpen); setMode('view'); setPendingConfigId(null) }}

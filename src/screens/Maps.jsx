@@ -1,6 +1,7 @@
 import { useRef, useEffect, useCallback, useState } from 'react'
 import { PageLayout, Card, Tabs, Modal, Button, Input } from '../components/UI'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
+import { useMonitoring } from '../contexts/MonitoringContext'
 import { Plus, Trash, Link2, Crosshair, Eye, EyeOff, Edit3, X, MapPin, Layers, Check, Navigation, Skull, Shield, Star, Diamond } from 'lucide-react'
 
 const ICONS = {
@@ -103,6 +104,24 @@ export default function Maps() {
     invoke('get_maps_path').then(setMapsPath).catch(console.error)
     loadMapConfigs().then(setAllConfigs).catch(console.error)
   }, [])
+
+  const { worldState } = useMonitoring()
+  const duviriCycle = worldState?.duviriCycle
+  const [timeLeft, setTimeLeft] = useState('')
+
+  useEffect(() => {
+    if (!duviriCycle) return
+    const tick = () => {
+      const ms = duviriCycle.expiry - Date.now()
+      if (ms <= 0) { setTimeLeft('expired'); return }
+      const m = Math.floor(ms / 60000)
+      const s = Math.floor((ms % 60000) / 1000)
+      setTimeLeft(`${m}m ${s}s`)
+    }
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [duviriCycle])
 
   const applyTransform = useCallback(() => {
     if (!transformRef.current) return
@@ -436,8 +455,6 @@ export default function Maps() {
     if (!wrapRef.current) return
     if (inertiaRaf.current) { cancelAnimationFrame(inertiaRaf.current); inertiaRaf.current = null }
     const scale = xfRef.current.scale
-    // Offset from image center in screen pixels at current scale
-    const imgX = (marker.x - 0.5) * imgNatural.w * scale
     const imgY = (marker.y - 0.5) * imgNatural.h * scale
     xfRef.current = clamp({ x: -imgX, y: -imgY, scale })
     requestAnimationFrame(applyTransform)
@@ -456,6 +473,12 @@ export default function Maps() {
             <Card className="glass-panel rounded-lg overflow-hidden p-0 relative min-h-0 bg-black/40 h-full w-full">
               <div className="absolute top-4 left-4 z-10 max-w-[calc(100%-300px)] flex items-center gap-2">
                 <Tabs tabs={mapTabs} activeTab={activeTab} onChange={switchTab} />
+                {activeTab === '3' && duviriCycle && (
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/40 backdrop-blur border border-white/5">
+                    <span className="text-[11px] font-black uppercase tracking-wider text-kronos-accent">{duviriCycle.state}</span>
+                    <span className="text-[11px] text-kronos-dim font-mono">{timeLeft}</span>
+                  </div>
+                )}
               </div>
 
               <div className="absolute top-4 right-4 z-10 flex items-center gap-2">

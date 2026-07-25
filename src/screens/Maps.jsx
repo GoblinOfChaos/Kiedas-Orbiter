@@ -468,6 +468,8 @@ export default function Maps() {
     requestAnimationFrame(applyTransform)
   }, [applyTransform, clamp, imgNatural])
 
+  const mapTabs = MAPS.map((m, i) => ({ id: i.toString(), label: m.name }))
+
   const importCustomMarkersFromGame = useCallback(() => {
     if (!inventoryData?.customMarkers?.length) return
     const parsed = parseCustomMarkers(inventoryData.customMarkers)

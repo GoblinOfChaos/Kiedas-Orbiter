@@ -803,12 +803,31 @@ fn get_card_images_path() -> String {
     resolve_path("data/assets/card-images").to_string_lossy().to_string()
 }
 
+/// Read bytes from an absolute path. Used for importing share bundles from a
+/// user-picked file (not the data root). Mirrors `write_file`.
+#[tauri::command]
+fn read_file(path: String) -> Result<Vec<u8>, String> {
+    use std::path::Path;
+    fs::read(Path::new(&path)).map_err(|e| e.to_string())
+}
+
 /// Read a file from the data root as raw bytes. Used by the frontend to
 /// bypass CORS restrictions on the asset protocol when processing images via canvas.
 #[tauri::command]
 fn read_file_bytes(relative: String) -> Result<Vec<u8>, String> {
     let path = resolve_path(&relative);
     fs::read(&path).map_err(|e| e.to_string())
+}
+/// Write bytes to an absolute path. Used for importing/exporting share bundles
+/// via the user's file-picker path (not the data root).
+#[tauri::command]
+fn write_file(path: String, data: Vec<u8>) -> Result<(), String> {
+    use std::path::Path;
+    let p = Path::new(&path);
+    if let Some(parent) = p.parent() {
+        fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+    fs::write(p, &data).map_err(|e| e.to_string())
 }
 
 // ─── Mod image pre-processing ───────────────────────────────────────────────
@@ -2656,6 +2675,8 @@ async fn get_known_weapon_names() -> Vec<String> {
             get_ui_path,
             // --- mod images ---
             get_card_images_path,
+            read_file,
+            write_file,
             read_file_bytes,
             count_unfixed_card_images,
             ensure_card_images,

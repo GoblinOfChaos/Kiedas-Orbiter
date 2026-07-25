@@ -3,6 +3,7 @@ import { PageLayout, Card, Tabs, Modal, Button, Input } from '../components/UI'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { parseCustomMarkers } from '../lib/customMarkers'
+import { exportBundle, importBundle } from '../lib/shareBundle'
 import { Plus, Trash, Link2, Crosshair, Eye, EyeOff, Edit3, X, MapPin, Layers, Check, Navigation, Skull, Shield, Star, Diamond } from 'lucide-react'
 
 const ICONS = {
@@ -362,6 +363,7 @@ export default function Maps() {
     updateConfigs(configsForCurrentMap.map(c => c.id === configId ? { ...c, ...updates } : c))
   }, [configsForCurrentMap, updateConfigs])
 
+
   const deleteConfig = useCallback((configId) => {
     updateConfigs(configsForCurrentMap.filter(c => c.id !== configId))
   }, [configsForCurrentMap, updateConfigs])
@@ -466,29 +468,67 @@ export default function Maps() {
     requestAnimationFrame(applyTransform)
   }, [applyTransform, clamp, imgNatural])
 
-  const mapTabs = MAPS.map((m, i) => ({ id: i.toString(), label: m.name }))
-
-  const importCustomMarkers = useCallback(() => {
+  const importCustomMarkersFromGame = useCallback(() => {
     if (!inventoryData?.customMarkers?.length) return
     const parsed = parseCustomMarkers(inventoryData.customMarkers)
-    const mapKey = ['poe', 'venus', 'deimos', 'duviri'][parseInt(activeTab)] || 'poe'
-    const markers = parsed[mapKey]
-    if (!markers?.length) return
-
-    let config = configsForCurrentMap.find(c => c.name === 'Game Markers')
-    if (!config) {
-      config = { id: genId(), name: 'Game Markers', description: 'Imported in-game custom markers', enabled: true, markers: [], paths: [] }
-      updateConfigs([...configsForCurrentMap, config])
+    const mapKeys = ['poe', 'venus', 'deimos', 'duviri']
+    for (const [mapKey, markers] of Object.entries(parsed)) {
+      if (!markers?.length) continue
+      const ti = mapKeys.indexOf(mapKey)
+      if (ti === -1) continue
+      const tabId = ti.toString()
+      setAllConfigs(prev => {
+        const current = prev[tabId] || []
+        let config = current.find(c => c.name === 'Game Markers')
+        let next
+        if (!config) {
+          config = { id: genId(), name: 'Game Markers', description: 'Imported in-game custom markers', enabled: true, markers: [], paths: [] }
+          next = [...current, config]
+        } else {
+          next = current
+        }
+        const existing = new Set(config.markers.map(m => `${m.label}_${Math.round(m.x * 100)}_${Math.round(m.y * 100)}`))
+        const newOnes = markers.filter(m => !existing.has(`${m.label}_${Math.round(m.x * 100)}_${Math.round(m.y * 100)}`))
+        if (newOnes.length === 0) return prev
+        const updatedConfig = { ...config, markers: [...config.markers, ...newOnes] }
+        const updated = { ...prev, [tabId]: next.map(c => c.id === config.id ? updatedConfig : c) }
+        saveMapConfigs(updated)
+        return updated
+      })
     }
-    const existing = new Set(config.markers.map(m => `${m.label}_${Math.round(m.x * 100)}_${Math.round(m.y * 100)}`))
-    const newOnes = markers.filter(m => !existing.has(`${m.label}_${Math.round(m.x * 100)}_${Math.round(m.y * 100)}`))
-    if (newOnes.length === 0) return
-    updateConfig(config.id, { markers: [...config.markers, ...newOnes] })
-  }, [inventoryData, activeTab, configsForCurrentMap, updateConfigs])
+  }, [inventoryData])
+
+  const handleExport = useCallback(async () => {
+    // Export all configs for current map
+    const mapName = MAPS[parseInt(activeTab)]?.name
+    const tabConfigs = { [activeTab]: configsForCurrentMap }
+    await exportBundle({ configs: tabConfigs, mapId: activeTab, mapName })
+  }, [activeTab, configsForCurrentMap])
+
+  const handleImportFile = useCallback(async () => {
+    const result = await importBundle()
+    if (!result?.configs) return
+    setAllConfigs(prev => {
+      const merged = { ...prev }
+      for (const [tabId, configs] of Object.entries(result.configs)) {
+        if (!Array.isArray(configs)) continue
+        const existing = merged[tabId] || []
+        // Regenerate IDs to avoid collisions
+        const clean = configs.map(c => ({
+          ...c,
+          id: genId(),
+          markers: (c.markers || []).map(m => ({ ...m, id: genId() })),
+          paths: (c.paths || []).map(p => ({ ...p, id: genId() })),
+        }))
+        merged[tabId] = [...existing, ...clean]
+      }
+      saveMapConfigs(merged)
+      return merged
+    })
+  }, [])
 
   const selectedMarkerConfig = selectedMarker ? configsForCurrentMap.find(c => c.id === selectedMarker.configId) : null
   const nextMarkerNum = selectedMarkerConfig ? getNextLabelNum(selectedMarkerConfig.markers) : 1
-
   return (
     <PageLayout title="Maps">
       <div className="absolute inset-0 flex flex-col">
@@ -516,9 +556,9 @@ export default function Maps() {
                     <line x1="16" y1="6" x2="16" y2="22" />
                   </svg>
                 </button>
-                <button onClick={importCustomMarkers}
+                <button onClick={importCustomMarkersFromGame}
                   className="p-2 rounded-lg bg-kronos-bg/80 backdrop-blur text-kronos-dim hover:text-kronos-text border border-white/5 transition-colors"
-                  title={inventoryData?.customMarkers?.length ? 'Import in-game markers' : 'No in-game markers found'}
+                  title={inventoryData?.customMarkers?.length ? 'Import in-game markers for all maps' : 'No in-game markers found'}
                   disabled={!inventoryData?.customMarkers?.length}>
                   <MapPin size={16} />
                 </button>
@@ -837,6 +877,18 @@ export default function Maps() {
                     </div>
                   )
                 })}
+              </div>
+              <div className="flex gap-2 pt-3 border-t border-white/5">
+                <button onClick={handleExport}
+                  className="flex-1 text-xs py-1.5 rounded-lg hover:bg-white/5 text-kronos-dim hover:text-kronos-text transition-colors flex items-center justify-center gap-1.5"
+                  title="Export current map configs to file">
+                  Export
+                </button>
+                <button onClick={handleImportFile}
+                  className="flex-1 text-xs py-1.5 rounded-lg hover:bg-white/5 text-kronos-dim hover:text-kronos-text transition-colors flex items-center justify-center gap-1.5"
+                  title="Import configs from file">
+                  Import
+                </button>
               </div>
             </div>
           )}

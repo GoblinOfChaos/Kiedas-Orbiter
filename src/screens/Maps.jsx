@@ -3,8 +3,7 @@ import { PageLayout, Card, Tabs, Modal, Button, Input } from '../components/UI'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { parseCustomMarkers } from '../lib/customMarkers'
-import { exportBundle, importBundle } from '../lib/shareBundle'
-import { Plus, Trash, Link2, Crosshair, Eye, EyeOff, Edit3, X, MapPin, Layers, Check, Navigation, Skull, Shield, Star, Diamond } from 'lucide-react'
+
 
 const ICONS = {
   MapPin: MapPin,
@@ -35,6 +34,12 @@ const genId = () => crypto.randomUUID ? crypto.randomUUID() : Date.now().toStrin
 
 const MAP_CONFIG_DIR = 'data/user/map-configs'
 
+function configFilename(tabId) {
+  const map = MAPS[parseInt(tabId)]
+  if (!map) return `${tabId}.json`
+  return map.name.toLowerCase().replace(/\s+/g, '-') + '.json'
+}
+
 async function loadMapConfigs() {
   try {
     const files = await invoke('list_map_configs')
@@ -43,9 +48,8 @@ async function loadMapConfigs() {
       try {
         const text = await invoke('read_map_config', { filename })
         const parsed = JSON.parse(text)
-        const tabId = parsed.tabId || filename.replace('.json', '')
-        if (Array.isArray(parsed.configs)) {
-          configs[tabId] = parsed.configs
+        if (parsed?.tabId != null && Array.isArray(parsed.configs)) {
+          configs[parsed.tabId] = parsed.configs
         }
       } catch (e) { console.warn('Failed to load map config', filename, e) }
     }
@@ -56,13 +60,12 @@ async function loadMapConfigs() {
 async function saveMapConfigs(configs) {
   try {
     for (const [tabId, configList] of Object.entries(configs)) {
-      const filename = `${tabId}.json`
+      const filename = configFilename(tabId)
       const content = JSON.stringify({ tabId, configs: configList })
       await invoke('write_map_config', { filename, content })
     }
   } catch (e) { console.error('Failed to save map configs:', e) }
 }
-
 
 function parsePathTargets(text, currentLabelNum) {
   if (!text || !text.trim()) return []
@@ -514,35 +517,6 @@ export default function Maps() {
     }
   }, [inventoryData])
 
-  const handleExport = useCallback(async () => {
-    // Export all configs for current map
-    const mapName = MAPS[parseInt(activeTab)]?.name
-    const tabConfigs = { [activeTab]: configsForCurrentMap }
-    await exportBundle({ configs: tabConfigs, mapId: activeTab, mapName })
-  }, [activeTab, configsForCurrentMap])
-
-  const handleImportFile = useCallback(async () => {
-    const result = await importBundle()
-    if (!result?.configs) return
-    setAllConfigs(prev => {
-      const merged = { ...prev }
-      for (const [tabId, configs] of Object.entries(result.configs)) {
-        if (!Array.isArray(configs)) continue
-        const existing = merged[tabId] || []
-        // Regenerate IDs to avoid collisions
-        const clean = configs.map(c => ({
-          ...c,
-          id: genId(),
-          markers: (c.markers || []).map(m => ({ ...m, id: genId() })),
-          paths: (c.paths || []).map(p => ({ ...p, id: genId() })),
-        }))
-        merged[tabId] = [...existing, ...clean]
-      }
-      saveMapConfigs(merged)
-      return merged
-    })
-  }, [])
-
   const selectedMarkerConfig = selectedMarker ? configsForCurrentMap.find(c => c.id === selectedMarker.configId) : null
   const nextMarkerNum = selectedMarkerConfig ? getNextLabelNum(selectedMarkerConfig.markers) : 1
   return (
@@ -834,11 +808,20 @@ export default function Maps() {
             <div className="w-80 flex-shrink-0 glass-panel rounded-lg p-4 flex flex-col gap-3 overflow-y-auto custom-scrollbar" style={{ maxHeight: 'calc(100vh - 200px)' }}>
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-kronos-accent">Configurations</h3>
-                <button onClick={() => setConfigToEdit({ name: `Config ${configsForCurrentMap.length + 1}`, description: '' })}
-                  className="p-1.5 rounded-lg bg-kronos-accent/20 text-kronos-accent hover:bg-kronos-accent/40 transition-colors"
-                  title="Add configuration">
-                  <Plus size={14} />
-                </button>
+                <div className="flex items-center gap-1">
+                  {inventoryData?.customMarkers?.length && (
+                    <button onClick={importCustomMarkersFromGame}
+                      className="p-1.5 rounded-lg bg-kronos-accent/20 text-kronos-accent hover:bg-kronos-accent/40 transition-colors"
+                      title="Import in-game markers for all maps">
+                      <MapPin size={14} />
+                    </button>
+                  )}
+                  <button onClick={() => setConfigToEdit({ name: `Config ${configsForCurrentMap.length + 1}`, description: '' })}
+                    className="p-1.5 rounded-lg bg-kronos-accent/20 text-kronos-accent hover:bg-kronos-accent/40 transition-colors"
+                    title="Add configuration">
+                    <Plus size={14} />
+                  </button>
+                </div>
               </div>
 
               {configsForCurrentMap.length === 0 && (
@@ -899,16 +882,6 @@ export default function Maps() {
                   className="flex-1 text-xs py-1.5 rounded-lg hover:bg-white/5 text-kronos-dim hover:text-kronos-text transition-colors flex items-center justify-center gap-1.5"
                   title="Open map configs folder">
                   Open Folder
-                </button>
-                <button onClick={handleExport}
-                  className="flex-1 text-xs py-1.5 rounded-lg hover:bg-white/5 text-kronos-dim hover:text-kronos-text transition-colors flex items-center justify-center gap-1.5"
-                  title="Export current map configs to file">
-                  Export
-                </button>
-                <button onClick={handleImportFile}
-                  className="flex-1 text-xs py-1.5 rounded-lg hover:bg-white/5 text-kronos-dim hover:text-kronos-text transition-colors flex items-center justify-center gap-1.5"
-                  title="Import configs from file">
-                  Import
                 </button>
               </div>
             </div>

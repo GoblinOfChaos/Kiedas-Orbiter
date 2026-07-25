@@ -78,6 +78,7 @@ export default function MirroredMonitoringProvider({ children }) {
   const [nextRetryAt, setNextRetryAt] = useState(0)
   const [spIncursions, setSpIncursions] = useState(null)
   const [arbys, setArbys] = useState(null)
+  const [descendiaDesc, setDescendiaDesc] = useState({})
   const [archonModifiers, setArchonModifiers] = useState(null)
   const [arbitrationModifiers, setArbitrationModifiers] = useState(null)
   const [cardImagesPath, setCardImagesPath] = useState('')
@@ -129,13 +130,25 @@ export default function MirroredMonitoringProvider({ children }) {
           }
         }
 
-        // Load incursion/arbitration data from files (same as main MonitoringContext)
-        const [spiRes, arbRes] = await Promise.allSettled([
+        const [spiRes, arbRes, descRes] = await Promise.allSettled([
           invoke('load_txt_file', { name: 'sp-incursions.txt' }),
           invoke('load_txt_file', { name: 'arbys.txt' }),
+          invoke('load_txt_file', { name: 'descendia.txt' }),
         ])
         if (spiRes.status === 'fulfilled' && spiRes.value) setSpIncursions(spiRes.value)
         if (arbRes.status === 'fulfilled' && arbRes.value) setArbys(arbRes.value)
+        if (descRes.status === 'fulfilled' && descRes.value) {
+          const descMap = {}
+          for (const line of descRes.value.split('\n')) {
+            const trimmed = line.trim()
+            if (!trimmed || trimmed.startsWith('#')) continue
+            const sepIdx = trimmed.indexOf(': ')
+            if (sepIdx > 0) {
+              descMap[trimmed.slice(0, sepIdx)] = trimmed.slice(sepIdx + 2)
+            }
+          }
+          setDescendiaDesc(descMap)
+        }
 
         setExportData(exports)
         if (result.inventory) {
@@ -416,7 +429,6 @@ export default function MirroredMonitoringProvider({ children }) {
   }, [inventoryData])
 
   const eiResult = useMemo(() => buildEI(exportData, dict), [exportData, dict])
-  const EI = eiResult.EI
   const nameToImage = eiResult.nameToImage
   const uniqueNameToName = eiResult.uniqueNameToName
 
@@ -427,12 +439,12 @@ export default function MirroredMonitoringProvider({ children }) {
       if (ws && dict) {
         const parsed = parseWorldstate(ws, {
           dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName,
-          ES, ENWRawRewards, ExportImages, archimedeaMap,
+          ES, ENWRawRewards, ExportImages, archimedeaMap, descendiaDesc,
         })
         setWorldState(parsed)
       }
     } catch {}
-  }, [dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, archimedeaMap])
+  }, [dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, archimedeaMap, descendiaDesc])
 
   useEffect(() => {
     if (Object.keys(dict || {}).length > 0) {

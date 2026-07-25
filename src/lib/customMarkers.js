@@ -89,19 +89,23 @@ export function parseCustomMarkers(customMarkers) {
   const result = {}
   for (const group of customMarkers) {
     const tag = group.tag || ''
-    const mapKey = detectMap(tag)
-    if (!mapKey) continue
+    let mapKey = detectMap(tag)
 
     for (const markerInfo of (group.markerInfos || [])) {
       const iconPath = markerInfo.icon || ''
       const iconName = gameIconToIconName(iconPath)
 
       for (const marker of (markerInfo.markers || [])) {
-        const pos = worldToMapFraction(marker.x, marker.z, mapKey)
+        // Try marker's anchorName as fallback if tag didn't match
+        const ak = detectMap(marker.anchorName) || mapKey
+        if (!ak) continue
+        if (!mapKey) mapKey = ak // latch on first match
+
+        const pos = worldToMapFraction(marker.x, marker.z, ak)
         if (!pos) continue
 
-        if (!result[mapKey]) result[mapKey] = []
-        result[mapKey].push({
+        if (!result[ak]) result[ak] = []
+        result[ak].push({
           id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 9),
           label: marker.label || markerInfo.label || `In-Game Marker`,
           x: pos.x,

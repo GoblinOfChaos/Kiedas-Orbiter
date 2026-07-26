@@ -22,10 +22,10 @@ const NAV_ITEMS = [
   { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
   { id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
   { id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
+  { id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },
+  { id: 'wiki', icon: 'Wiki.png', label: 'Wiki' },
   { id: 'settings', icon: 'IconSettings.png', label: 'Settings' },
   { id: 'about', icon: 'IconInfo.png', label: 'About' },
-  { id: 'adversaries', icon: 'Adversary.png', label: 'Adversaries' },
-  { id: 'wiki', icon: 'IconWiki.png', label: 'Wiki' },
 ]
 
 const ICON_NAMES = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']

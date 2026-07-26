@@ -24,6 +24,8 @@ const NAV_ITEMS = [
   { id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
   { id: 'settings', icon: 'IconSettings.png', label: 'Settings' },
   { id: 'about', icon: 'IconInfo.png', label: 'About' },
+  { id: 'adversaries', icon: 'Adversary.png', label: 'Adversaries' },
+  { id: 'wiki', icon: 'IconWiki.png', label: 'Wiki' },
 ]
 
 const ICON_NAMES = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
@@ -69,6 +71,8 @@ const Rivens = lazy(() => import('./screens/Rivens'))
 const Relics = lazy(() => import('./screens/Relics'))
 const Mods = lazy(() => import('./screens/Mods'))
 const Collectibles = lazy(() => import('./screens/Collectibles'))
+const Wiki = lazy(() => import('./screens/Wiki'))
+const Adversaries = lazy(() => import('./screens/Adversaries'))
 // Overlay (separate window, no monitoring context needed)
 const OverlayRouter = lazy(() => import('./components/overlays/OverlayRouter'))
 
@@ -280,6 +284,8 @@ function AppContent() {
     checklist: <Checklist />,
     settings: <SettingsScreen />,
     about: <About />,
+    wiki: <Wiki />,
+    adversaries: <Adversaries />,
   }
 
   return (

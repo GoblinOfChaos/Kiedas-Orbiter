@@ -431,6 +431,7 @@ export default function MirroredMonitoringProvider({ children }) {
   const eiResult = useMemo(() => buildEI(exportData, dict), [exportData, dict])
   const nameToImage = eiResult.nameToImage
   const uniqueNameToName = eiResult.uniqueNameToName
+  const EI = eiResult.EI
 
   // ── Worldstate polling (after all memoized fields so deps are in scope) ──
   const fetchWorldstate = useCallback(async () => {

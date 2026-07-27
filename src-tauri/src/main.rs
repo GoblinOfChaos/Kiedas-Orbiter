@@ -7,8 +7,10 @@
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 use std::fs;
-use tauri::{AppHandle, Manager, Emitter, Listener};
+use tauri::{AppHandle, Emitter, Listener, Manager};
 use std::io::Cursor;
+use tauri::webview::{WebviewBuilder};
+use tauri::WebviewUrl;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 use serde_json::Value;
@@ -29,6 +31,8 @@ pub struct AppState {
     pub sidebar_saved: Arc<Mutex<SidebarSavedState>>,
     pub sidebar_last_op: Arc<AtomicU64>,
     pub monitoring_active: Arc<AtomicBool>,
+    pub active_wiki_tab: Arc<parking_lot::Mutex<Option<String>>>,
+    pub main_window_monitor: parking_lot::Mutex<Option<tauri::Monitor>>,
 }
 
 #[derive(Default, Clone)]
@@ -1552,8 +1556,19 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
         }
         drop(saved);
 
-        overlay_utils::show_sidebar_internal(&app_handle, &side, entry_width)?;
+        // Always reset the toggling guard, even if show_sidebar_internal errors.
+        let show_result = overlay_utils::show_sidebar_internal(&app_handle, &side, entry_width);
         overlay_utils::SIDEBAR_TOGGLING.store(false, Ordering::SeqCst);
+        if let Err(e) = &show_result {
+            eprintln!("[SIDEBAR-TOGGLE] show_sidebar_internal FAILED: {e}");
+            // Roll back saved state so a subsequent toggle doesn't try to
+            // "hide" a window that was never shown.
+            let mut saved = state.sidebar_saved.lock().unwrap();
+            saved.active = false;
+            saved.side = None;
+        }
+        show_result?;
+
         if let Some(main_win) = app_handle.get_webview_window("main") {
             let _ = main_win.emit("sidebar-mode-changed", serde_json::json!({ "active": true, "side": side }));
         }
@@ -1898,7 +1913,6 @@ async fn show_notification(
     // Note: get_webview_window is NOT used as a guard here - windows are created
     // dynamically by show_window_internal so they may not exist yet on first call.
     if !no_focus {
-        // Wipe stale toasts if window already exists and was hidden
         if let Some(w) = app_handle.get_webview_window(label) {
             let was_hidden = !w.is_visible().unwrap_or(true);
             if was_hidden {
@@ -2479,13 +2493,210 @@ async fn get_known_weapon_names() -> Vec<String> {
         .unwrap_or_default()
 }
 
+#[cfg(target_os = "linux")]
+pub(crate) fn ensure_gtk_overlay_wrapper(window: &tauri::WebviewWindow) -> Result<(), String> {
+    use gtk::prelude::*;
+    let label = window.label().to_string();
+    window.with_webview(move |pwv| {
+        let widget: gtk::Widget = pwv.inner().upcast();
+        let box_widget = match widget.parent() {
+            Some(p) => p,
+            None => { eprintln!("[GTK-WRAP] {label}: webview has no parent yet"); return; }
+        };
+        let window_container = match box_widget.parent() {
+            Some(p) => p,
+            None => { eprintln!("[GTK-WRAP] {label}: GtkBox has no parent yet"); return; }
+        };
+        if window_container.type_().name() == "GtkOverlay" {
+            eprintln!("[GTK-WRAP] {label}: already wrapped"); return;
+        }
+        let vbox = match box_widget.dynamic_cast::<gtk::Box>() {
+            Ok(b) => b,
+            Err(_) => { eprintln!("[GTK-WRAP] {label}: parent is not GtkBox"); return; }
+        };
+        let win_container = match window_container.dynamic_cast::<gtk::Container>() {
+            Ok(c) => c,
+            Err(_) => { eprintln!("[GTK-WRAP] {label}: grandparent is not Container"); return; }
+        };
+        let overlay = gtk::Overlay::new();
+        overlay.set_hexpand(true);
+        overlay.set_vexpand(true);
+        win_container.remove(&vbox);
+        win_container.add(&overlay);
+        overlay.add(&vbox);
+        overlay.show();
+        eprintln!("[GTK-WRAP] {label}: wrapped successfully");
+    }).map_err(|e| e.to_string())
+}
+
+// ── Wiki (embedded child webview via GTK overlay on Linux) ──────────────
+// Tauri's set_position/set_size is broken on the GTK backend (child
+// webviews off-origin get mis-positioned by webkit2gtk).  The fix: use
+// the raw GTK widget tree directly — reparent both the main and child
+// webview into a GtkOverlay, then position the child via
+// set_margin_start/set_margin_top/set_size_request, bypassing Tauri's
+// buggy coordinate-conversion path entirely.
+
+#[cfg(target_os = "linux")]
+fn linux_reparent_and_position(
+    main_webview: &tauri::Webview,
+    child_webview: &tauri::Webview,
+    x: f64, y: f64, width: f64, height: f64,
+) -> Result<(), String> {
+    use gtk::prelude::*;
+    use send_wrapper::SendWrapper;
+
+    // with_webview needs Send + 'static, but GTK widgets aren't Send.
+    // SendWrapper<gtk::Widget> IS Send (it panics if dropped off-thread).
+    let child_cell: Arc<Mutex<Option<SendWrapper<gtk::Widget>>>> = Arc::default();
+    let cc = child_cell.clone();
+    child_webview.with_webview(move |pwv| {
+        *cc.lock().unwrap() = Some(SendWrapper::new(pwv.inner().upcast::<gtk::Widget>()));
+    }).map_err(|e| e.to_string())?;
+
+    let child_wv = child_cell.lock().unwrap().take()
+        .ok_or("failed to get child webview widget")?;
+
+    let error: Arc<Mutex<Option<String>>> = Arc::default();
+    let err = error.clone();
+
+    main_webview.with_webview(move |pwv| {
+        let main_widget: gtk::Widget = pwv.inner().upcast::<gtk::Widget>();
+
+        // Walk up: webview → GtkBox → window container (must be GtkOverlay).
+        let parent = match main_widget.parent() {
+            Some(p) => p,
+            None => { *err.lock().unwrap() = Some("main webview has no parent".into()); return; }
+        };
+        let window_widget = match parent.parent() {
+            Some(p) => p,
+            None => { *err.lock().unwrap() = Some("GtkBox has no parent".into()); return; }
+        };
+        let overlay = match window_widget.dynamic_cast::<gtk::Overlay>() {
+            Ok(o) => o,
+            Err(_) => { *err.lock().unwrap() = Some("window not pre-wrapped in GtkOverlay (ensure_gtk_overlay_wrapper was not called)".into()); return; }
+        };
+
+        // Idempotent: only add_overlay on first call.
+        let already_in_overlay = child_wv.parent()
+            .map(|p| p.type_().name() == "GtkOverlay")
+            .unwrap_or(false);
+
+        if !already_in_overlay {
+            if let Some(child_parent) = child_wv.parent() {
+                if let Some(container) = child_parent.dynamic_cast::<gtk::Container>().ok() {
+                    container.remove(&*child_wv);
+                }
+            }
+            overlay.add_overlay(&*child_wv);
+            child_wv.show();
+        }
+
+        child_wv.set_halign(gtk::Align::Start);
+        child_wv.set_valign(gtk::Align::Start);
+        child_wv.set_margin_start(x as i32);
+        child_wv.set_margin_top(y as i32);
+        child_wv.set_size_request(width as i32, height as i32);
+
+        // Force GTK to re-layout so margin/size changes take effect.
+        child_wv.queue_resize();
+        if let Some(overlay_widget) = child_wv.parent() {
+            overlay_widget.queue_resize();
+        }
+    }).map_err(|e| e.to_string())?;
+
+    Arc::try_unwrap(error).unwrap().into_inner().unwrap().map_or(Ok(()), Err)
+}
+#[tauri::command]
+fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) -> Result<(), String> {
+    let app = webview.app_handle();
+    let window = webview.window();
+
+    if let Some(state) = app.try_state::<AppState>() {
+        let mut active = state.active_wiki_tab.lock();
+        if let Some(prev) = active.as_ref() {
+            if prev != &label {
+                if let Some(w) = app.get_webview(prev) { let _ = w.hide(); }
+            }
+        }
+        *active = Some(label.clone());
+    }
+
+    if let Some(existing) = app.get_webview(&label) {
+        existing.show().map_err(|e| e.to_string())?;
+        return Ok(());
+    }
+
+    let target = url.unwrap_or_else(|| "https://wiki.warframe.com".to_string());
+    let app_for_hook = app.clone();
+    let label_for_hook = label.clone();
+    let builder = WebviewBuilder::new(&label, WebviewUrl::External(
+        target.parse().map_err(|e: url::ParseError| e.to_string())?
+    ))
+    .on_new_window(move |new_url, _features| {
+        let new_label = format!("wiki-{}", std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos());
+        let _ = app_for_hook.emit("wiki-tab-opened", serde_json::json!({
+            "label": new_label, "url": new_url.to_string(), "opener": label_for_hook,
+        }));
+        tauri::webview::NewWindowResponse::Deny
+    })
+    .on_document_title_changed(move |window, title| {
+        let _ = window.emit("wiki-tab-title", serde_json::json!({ "title": title }));
+    });
+
+    window.add_child(builder,
+        tauri::PhysicalPosition::new(0, 0),
+        tauri::PhysicalSize::new(100, 100),
+    ).map_err(|e| e.to_string())?;
+
+    #[cfg(target_os = "linux")]
+    {
+        let parent_wv = app.get_webview(webview.label()).ok_or("invoking webview not found")?;
+        let child_wv = app.get_webview(&label).ok_or("child webview not found after add_child")?;
+        linux_reparent_and_position(&parent_wv, &child_wv, 0.0, 0.0, 100.0, 100.0)?;
+    }
+
+    Ok(())
+}
+
+#[tauri::command]
+fn hide_wiki_tab(app: tauri::AppHandle, label: String) -> Result<(), String> {
+    if let Some(w) = app.get_webview(&label) { w.hide().map_err(|e| e.to_string())?; }
+    Ok(())
+}
+
+#[tauri::command]
+fn close_wiki_tab(app: tauri::AppHandle, label: String) -> Result<(), String> {
+    if let Some(w) = app.get_webview(&label) { w.hide().map_err(|e| e.to_string())?; }
+    Ok(())
+}
+
+#[tauri::command]
+fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width: f64, height: f64) -> Result<(), String> {
+    let app = webview.app_handle();
+    #[cfg(target_os = "linux")]
+    {
+        let parent_wv = app.get_webview(webview.label()).ok_or("invoking webview not found")?;
+        let child_wv = app.get_webview(&label).ok_or("child webview not found")?;
+        linux_reparent_and_position(&parent_wv, &child_wv, x, y, width, height)?;
+    }
+
+    #[cfg(not(target_os = "linux"))]
+    {
+        if let Some(w) = app.get_webview(&label) {
+            w.set_position(tauri::LogicalPosition::new(x, y)).map_err(|e| e.to_string())?;
+            w.set_size(tauri::LogicalSize::new(width, height)).map_err(|e| e.to_string())?;
+        }
+    }
+
+    Ok(())
+}
 // --- Entry Point ---
 
  fn main() {
     #[cfg(target_os = "linux")]
     {
-        // Raise file descriptor limit - WebKit + software rendering (GDK_BACKEND=x11
-        // + WEBKIT_DISABLE_COMPOSITING_MODE) uses significantly more SHM segments.
         // The default 1024 isn't enough; give ourselves plenty of headroom.
         unsafe {
             let mut lim: libc::rlimit = std::mem::zeroed();
@@ -2589,6 +2800,8 @@ async fn get_known_weapon_names() -> Vec<String> {
             sidebar_saved: Arc::new(Mutex::new(SidebarSavedState::default())),
             sidebar_last_op: Arc::new(AtomicU64::new(0)),
             monitoring_active: Arc::new(AtomicBool::new(false)),
+            main_window_monitor: parking_lot::Mutex::new(None),
+            active_wiki_tab: Arc::new(parking_lot::Mutex::new(None)),
         })
         .on_window_event(|window, event| match event {
             tauri::WindowEvent::CloseRequested { api, .. } => {
@@ -2614,6 +2827,20 @@ async fn get_known_weapon_names() -> Vec<String> {
                 main_win.once("frontend-ready", move |_| {
                     let _ = win.show();
                     let _ = win.set_focus();
+                    #[cfg(target_os = "linux")]
+                    { let _ = ensure_gtk_overlay_wrapper(&win); }
+                    // Cache main window's monitor once, before any wiki interaction
+                    // can corrupt Tauri's window registry.
+                    if let Ok(Some(monitor)) = win.current_monitor() {
+                        let ah = win.app_handle();
+                        if let Some(state) = ah.try_state::<crate::AppState>() {
+                            *state.main_window_monitor.lock() = Some(monitor.clone());
+                            let pos = monitor.position();
+                            let size = monitor.size();
+                            eprintln!("[MONITOR-CACHE] main window monitor cached: {}x{}+{}+{}",
+                                size.width, size.height, pos.x, pos.y);
+                        }
+                    }
                 });
             }
             // Extract bundled assets before the window is shown, so the
@@ -2629,6 +2856,14 @@ async fn get_known_weapon_names() -> Vec<String> {
                     if !main_win.is_visible().unwrap_or(false) {
                         let _ = main_win.show();
                         let _ = main_win.set_focus();
+                        #[cfg(target_os = "linux")]
+                        { let _ = crate::ensure_gtk_overlay_wrapper(&main_win); }
+                        // Also cache in the fallback path (frontend-ready never fired)
+                        if let Ok(Some(monitor)) = main_win.current_monitor() {
+                            if let Some(state) = ah3.try_state::<crate::AppState>() {
+                                *state.main_window_monitor.lock() = Some(monitor);
+                            }
+                        }
                         #[cfg(any(debug_assertions, feature = "devtools"))]
                         let _ = main_win.open_devtools();
                         eprintln!("[DEBUG] Force-showed main window after 5s (frontend-ready not received)");
@@ -2790,6 +3025,11 @@ async fn get_known_weapon_names() -> Vec<String> {
             auto_detect_warframe_monitor,
             is_warframe_focused,
             set_sidebar_hide_on_focus_loss,
+            // --- wiki ---
+            show_wiki_tab,
+            hide_wiki_tab,
+            close_wiki_tab,
+            reflow_wiki_tab,
         ])
         .build(tauri::generate_context!())
         .expect("error while building tauri application");

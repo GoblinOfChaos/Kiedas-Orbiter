@@ -65,11 +65,7 @@ fn stop_sidebar_ungrab_timer() {
 }
 
 pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri::Monitor, String> {
-    let main_window = app_handle
-        .get_webview_window("main")
-        .ok_or_else(|| "main window not found".to_string())?;
-
-    let monitors = main_window
+    let monitors = app_handle
         .available_monitors()
         .map_err(|e| e.to_string())?;
 
@@ -88,35 +84,33 @@ pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri:
         if let Ok(mon) = get_focused_monitor(app_handle) {
             return Ok(mon);
         }
-        main_window
+        app_handle
             .primary_monitor()
             .map_err(|e| e.to_string())?
             .ok_or_else(|| "no monitor found".to_string())
     } else {
         // Game overlays always follow Warframe's monitor.
         // If Warframe isn't running (e.g. testing), fall back to the
-        // current/primary monitor so the overlay can still be shown.
+        // cached main-window monitor, or primary.
         if let Some(mon) = warframe_monitor(app_handle) {
             return Ok(mon);
         }
-        main_window
-            .current_monitor()
-            .map_err(|e| e.to_string())?
-            .or_else(|| main_window.primary_monitor().ok().flatten())
+        // Use cached main window monitor to avoid live get_webview_window("main")
+        // calls, which break after child webviews are added.
+        let state = app_handle.state::<crate::AppState>();
+        let cached = state.main_window_monitor.lock().clone();
+        cached
+            .or_else(|| app_handle.primary_monitor().ok().flatten())
             .ok_or_else(|| "no monitor found".to_string())
     }
 }
 
 fn get_focused_monitor(app_handle: &AppHandle) -> Result<tauri::Monitor, String> {
-    let main_window = app_handle
-        .get_webview_window("main")
-        .ok_or_else(|| "main window not found".to_string())?;
-
     if let Ok(active) = active_win_pos_rs::get_active_window() {
         let cx = active.position.x as i32 + active.position.width as i32 / 2;
         let cy = active.position.y as i32 + active.position.height as i32 / 2;
 
-        let monitors = main_window
+        let monitors = app_handle
             .available_monitors()
             .map_err(|e| e.to_string())?;
 
@@ -450,8 +444,14 @@ fn create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<tauri::W
         .skip_taskbar(true)
         .resizable(true)
         .visible(false);
+    let window = builder.build().map_err(|e| format!("failed to create overlay '{}': {}", label, e))?;
 
-    builder.build().map_err(|e| format!("failed to create overlay '{}': {}", label, e))
+    window.show().map_err(|e| e.to_string())?;
+    #[cfg(target_os = "linux")]
+    { let _ = crate::ensure_gtk_overlay_wrapper(&window); }
+    window.hide().map_err(|e| e.to_string())?;
+
+    Ok(window)
 }
 
 // ── Public API ────────────────────────────────────────────────────────────────
@@ -1004,8 +1004,7 @@ fn warframe_monitor(app_handle: &AppHandle) -> Option<tauri::Monitor> {
     let cx = x + w as i32 / 2;
     let cy = y + h as i32 / 2;
 
-    let main_window = app_handle.get_webview_window("main")?;
-    let monitors = main_window.available_monitors().ok()?;
+    let monitors = app_handle.available_monitors().ok()?;
     monitors.into_iter().find(|m| {
         let pos = m.position();
         let size = m.size();

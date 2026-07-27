@@ -18,6 +18,8 @@ const NAV_ITEMS = [
   { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
   { id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
   { id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
+  { id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },
+  { id: 'wiki', icon: 'Wiki.png', label: 'Wiki' },
   { id: 'settings', icon: 'IconSettings.png', label: 'Settings' },
   { id: 'about', icon: 'IconInfo.png', label: 'About' },
 ]
@@ -36,6 +38,8 @@ const Rivens = lazy(() => import('../../screens/Rivens'))
 const Relics = lazy(() => import('../../screens/Relics'))
 const Mods = lazy(() => import('../../screens/Mods'))
 const Collectibles = lazy(() => import('../../screens/Collectibles'))
+const Wiki = lazy(() => import('../../screens/Wiki'))
+const Adversaries = lazy(() => import('../../screens/Adversaries'))
 
 function useUIIcons(iconNames) {
   const [iconCache, setIconCache] = useState({})
@@ -137,6 +141,8 @@ function SidebarContent() {
     maps: <Maps />,
     collectibles: <Collectibles />,
     checklist: <Checklist />,
+    adversaries: <Adversaries />,
+    wiki: <Wiki />,
     settings: <SettingsScreen />,
     about: <About />,
   }

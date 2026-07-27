@@ -20,7 +20,7 @@ brotli-decompressor = "=5.0.1"
 alloc-no-stdlib = "=2.0.4"
 alloc-stdlib = "=0.2.2"
 brotli-decompressor = "=5.0.1"
-tauri = { version = "2", features = ["protocol-asset"] }
+tauri = { version = "2", features = ["protocol-asset", "unstable"] }
 webkit2gtk-nvidia-quirk = { version = "1.3" }
 tauri-plugin-dialog = "2"
 tauri-plugin-http = "2"
@@ -29,6 +29,8 @@ tauri-plugin-notification = "2"
 tauri-plugin-shell = "2"
 tauri-plugin-opener = "2"
 tauri-plugin-updater = "2"
+url = "2.5"
+parking_lot = "0.12"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 tokio = { version = "1", features = ["full"] }
@@ -46,6 +48,8 @@ active-win-pos-rs = "0.10.1"
 # No prebuilt C++ runtime means no CRT mismatch with ocr-rs on Windows,
 # no glibc version requirement on Linux, and no load-dynamic hang on any platform.
 tract-onnx = "0.21"
+send_wrapper = "0.6"
+
 
 [patch.crates-io]
 alloc-no-stdlib = { git = "https://github.com/dropbox/rust-alloc-no-stdlib.git", rev = "6032b6a9b20e03737135c55a0270ccffcc1438ef" }

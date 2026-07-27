@@ -1,11 +1,114 @@
+import { useRef, useState, useEffect, useCallback } from 'react'
+import { X } from 'lucide-react'
+import { invoke } from '@tauri-apps/api/core'
+import { listen } from '@tauri-apps/api/event'
 import { PageLayout } from '../components/UI'
 
 export default function Wiki() {
+  const containerRef = useRef(null)
+  const tabsRef = useRef([])
+  const [tabs, setTabs] = useState([{ label: 'wiki-0', title: 'Warframe Wiki' }])
+  const [activeTab, setActiveTab] = useState('wiki-0')
+  const activeTabRef = useRef(activeTab)
+  const lastRectRef = useRef(null)
+  const debounceRef = useRef(null)
+
+  tabsRef.current = tabs
+  activeTabRef.current = activeTab
+
+  const reportBounds = useCallback((label) => {
+    const el = containerRef.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const last = lastRectRef.current
+    if (last && Math.abs(last.width - r.width) < 2 && Math.abs(last.height - r.height) < 2
+        && Math.abs(last.left - r.left) < 2 && Math.abs(last.top - r.top) < 2) return
+
+    clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(() => {
+      console.log('📐 Wiki container rect (logical):', r.left, r.top, r.width, r.height)
+      lastRectRef.current = { left: r.left, top: r.top, width: r.width, height: r.height }
+      invoke('reflow_wiki_tab', {
+        label, x: r.left, y: r.top, width: r.width, height: r.height,
+      }).catch(err => console.error('reflow error:', err))
+    }, 150)
+  }, [])
+
+  const showTab = useCallback((label, url) => {
+    invoke('show_wiki_tab', { label, url })
+      .then(() => reportBounds(label))
+      .catch(err => console.error('show wiki tab error:', err))
+    setActiveTab(label)
+  }, [reportBounds])
+
+  useEffect(() => {
+    tabsRef.current.forEach(t => invoke('close_wiki_tab', { label: t.label }).catch(() => {}))
+    showTab('wiki-0')
+
+    const measure = () => reportBounds(activeTabRef.current)
+    requestAnimationFrame(measure)
+    const timeout = setTimeout(measure, 200)
+
+    const ro = new ResizeObserver(measure)
+    if (containerRef.current) ro.observe(containerRef.current)
+
+    window.addEventListener('resize', measure)
+
+    const unlistenOpen = listen('wiki-tab-opened', (e) => {
+      const { label, url } = e.payload
+      setTabs(t => [...t, { label, title: 'New tab' }])
+      invoke('show_wiki_tab', { label, url })
+        .then(() => invoke('hide_wiki_tab', { label }))
+        .catch(() => {})
+    })
+
+    return () => {
+      clearTimeout(timeout)
+      clearTimeout(debounceRef.current)
+      ro.disconnect()
+      window.removeEventListener('resize', measure)
+      unlistenOpen.then(f => f())
+      tabsRef.current.forEach(t => invoke('close_wiki_tab', { label: t.label }).catch(() => {}))
+    }
+  }, [])  // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    reportBounds(activeTab)
+  }, [activeTab, reportBounds])
+
+  const closeTab = (label, e) => {
+    e.stopPropagation()
+    invoke('close_wiki_tab', { label }).catch(() => {})
+    setTabs(t => t.filter(x => x.label !== label))
+    if (activeTab === label) {
+      const remaining = tabs.filter(x => x.label !== label)
+      if (remaining.length) showTab(remaining[remaining.length - 1].label)
+    }
+  }
+
   return (
-    <PageLayout title="Wiki">
-      <div className="space-y-4">
-        <p className="text-kronos-dim">Wiki content coming soon.</p>
-      </div>
+    <PageLayout
+      title="Wiki"
+      extra={
+        <div className="flex items-center gap-1">
+          {tabs.map(t => (
+            <div key={t.label}
+              onClick={() => showTab(t.label)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm cursor-pointer transition-colors ${
+                activeTab === t.label
+                  ? 'bg-kronos-accent/20 text-kronos-accent'
+                  : 'bg-white/5 text-kronos-dim hover:bg-white/10'
+              }`}>
+              <span className="max-w-[120px] truncate">{t.title}</span>
+              {tabs.length > 1 && (
+                <X size={12} onClick={(e) => closeTab(t.label, e)} className="hover:text-red-400" />
+              )}
+            </div>
+          ))}
+        </div>
+      }
+    >
+      <div ref={containerRef} className="absolute inset-0" />
     </PageLayout>
   )
 }

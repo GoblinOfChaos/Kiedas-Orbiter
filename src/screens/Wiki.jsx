@@ -39,6 +39,17 @@ export default function Wiki() {
       .then(actualLabel => {
         // Replace the placeholder label with the window-namespaced actual label
         setTabs(t => t.map(tab => tab.label === label ? { ...tab, label: actualLabel } : tab))
+        // Immediate reflow — the new tab's webview has stale placeholder
+        // margins from creation, and reportBounds may skip if container
+        // bounds are unchanged (early-return guard).
+        const el = containerRef.current
+        if (el) {
+          const r = el.getBoundingClientRect()
+          invoke('reflow_wiki_tab', { label: actualLabel, x: r.left, y: r.top, width: r.width, height: r.height })
+            .catch(() => {})
+        }
+        // Clear guard so reportBounds also fires (for resize tracking)
+        lastRectRef.current = null
         reportBounds(actualLabel)
         setActiveTab(actualLabel)
       })

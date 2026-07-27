@@ -2607,6 +2607,66 @@ fn linux_reparent_and_position(
 
     Arc::try_unwrap(error).unwrap().into_inner().unwrap().map_or(Ok(()), Err)
 }
+
+/// Ensure a child webview is in the GtkOverlay without changing its position/size.
+/// Unlike `linux_reparent_and_position`, this does NOT reset margins or size_request —
+/// GTK widget attributes persist across hide/show, so the old correct position is preserved.
+#[cfg(target_os = "linux")]
+fn linux_ensure_overlay(main_webview: &tauri::Webview, child_webview: &tauri::Webview) -> Result<(), String> {
+    use gtk::prelude::*;
+    use send_wrapper::SendWrapper;
+
+    let child_cell: Arc<Mutex<Option<SendWrapper<gtk::Widget>>>> = Arc::default();
+    let cc = child_cell.clone();
+    child_webview.with_webview(move |pwv| {
+        *cc.lock().unwrap() = Some(SendWrapper::new(pwv.inner().upcast::<gtk::Widget>()));
+    }).map_err(|e| e.to_string())?;
+
+    let child_wv = child_cell.lock().unwrap().take()
+        .ok_or("failed to get child webview widget")?;
+
+    let error: Arc<Mutex<Option<String>>> = Arc::default();
+    let err = error.clone();
+
+    main_webview.with_webview(move |pwv| {
+        let main_widget: gtk::Widget = pwv.inner().upcast::<gtk::Widget>();
+        let parent = match main_widget.parent() {
+            Some(p) => p,
+            None => { *err.lock().unwrap() = Some("main webview has no parent".into()); return; }
+        };
+        let window_widget = match parent.parent() {
+            Some(p) => p,
+            None => { *err.lock().unwrap() = Some("GtkBox has no parent".into()); return; }
+        };
+        let overlay = match window_widget.dynamic_cast::<gtk::Overlay>() {
+            Ok(o) => o,
+            Err(_) => { *err.lock().unwrap() = Some("not wrapped in GtkOverlay".into()); return; }
+        };
+
+        let already_in_overlay = child_wv.parent()
+            .map(|p| p.type_().name() == "GtkOverlay")
+            .unwrap_or(false);
+
+        if !already_in_overlay {
+            if let Some(child_parent) = child_wv.parent() {
+                if let Some(container) = child_parent.dynamic_cast::<gtk::Container>().ok() {
+                    container.remove(&*child_wv);
+                }
+            }
+            overlay.add_overlay(&*child_wv);
+            child_wv.set_halign(gtk::Align::Start);
+            child_wv.set_valign(gtk::Align::Start);
+            child_wv.show();
+        }
+
+        child_wv.queue_resize();
+        if let Some(overlay_widget) = child_wv.parent() {
+            overlay_widget.queue_resize();
+        }
+    }).map_err(|e| e.to_string())?;
+
+    Arc::try_unwrap(error).unwrap().into_inner().unwrap().map_or(Ok(()), Err)
+}
 /// Resolve the actual webview label for a wiki tab.
 /// If the label is already namespaced for this window, use as-is;
 /// otherwise prefix with the window label so each window has independent tabs.
@@ -2626,12 +2686,16 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
     let window_label = window.label().to_string();
     let actual = wiki_actual(&window_label, &label);
 
-    // Track active wiki tab per-window — each window's tabs are independent.
+    // Track active wiki tab per-window — hide previous if different.
+    let mut had_to_hide = false;
     if let Some(state) = app.try_state::<AppState>() {
         let mut active = state.active_wiki_tab.lock();
         if let Some(prev) = active.get(&window_label) {
             if prev != &actual {
-                if let Some(w) = app.get_webview(prev) { let _ = w.hide(); }
+                if let Some(w) = app.get_webview(prev) {
+                    let _ = w.hide();
+                    had_to_hide = true;
+                }
             }
         }
         active.insert(window_label.clone(), actual.clone());
@@ -2639,6 +2703,15 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
 
     if let Some(existing) = app.get_webview(&actual) {
         existing.show().map_err(|e| e.to_string())?;
+        // Re-ensure overlay membership without resetting margins/size.
+        // GTK widget attributes persist across hide/show, so the old
+        // correct position is preserved.
+        #[cfg(target_os = "linux")]
+        if had_to_hide {
+            if let Some(parent_wv) = app.get_webview(webview.label()) {
+                let _ = linux_ensure_overlay(&parent_wv, &existing);
+            }
+        }
         return Ok(actual);
     }
 
@@ -2660,7 +2733,18 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
     })
     .on_document_title_changed(move |child_window, title| {
         let _ = child_window.emit("wiki-tab-title", serde_json::json!({ "title": title }));
-    });
+    })
+    .initialization_script(r#"
+document.addEventListener('auxclick', (e) => {
+    if (e.button === 1) {
+        const link = e.target.closest('a[href]');
+        if (link && !link.target) {
+            e.preventDefault();
+            window.open(link.href, '_blank');
+        }
+    }
+});
+"#);
 
     #[cfg(target_os = "linux")]
     {

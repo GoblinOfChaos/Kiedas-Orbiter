@@ -31,7 +31,7 @@ pub struct AppState {
     pub sidebar_saved: Arc<Mutex<SidebarSavedState>>,
     pub sidebar_last_op: Arc<AtomicU64>,
     pub monitoring_active: Arc<AtomicBool>,
-    pub active_wiki_tab: Arc<parking_lot::Mutex<Option<String>>>,
+    pub active_wiki_tab: Arc<parking_lot::Mutex<std::collections::HashMap<String, String>>>,
     pub main_window_monitor: parking_lot::Mutex<Option<tauri::Monitor>>,
 }
 
@@ -2607,43 +2607,67 @@ fn linux_reparent_and_position(
 
     Arc::try_unwrap(error).unwrap().into_inner().unwrap().map_or(Ok(()), Err)
 }
+/// Resolve the actual webview label for a wiki tab.
+/// If the label is already namespaced for this window, use as-is;
+/// otherwise prefix with the window label so each window has independent tabs.
+fn wiki_actual(window_label: &str, label: &str) -> String {
+    let prefix = format!("{}-", window_label);
+    if label.starts_with(&prefix) {
+        label.to_string()
+    } else {
+        format!("{}{}", prefix, label)
+    }
+}
+
 #[tauri::command]
-fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) -> Result<(), String> {
+fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) -> Result<String, String> {
     let app = webview.app_handle();
     let window = webview.window();
+    let window_label = window.label().to_string();
+    let actual = wiki_actual(&window_label, &label);
 
+    // Track active wiki tab per-window — each window's tabs are independent.
     if let Some(state) = app.try_state::<AppState>() {
         let mut active = state.active_wiki_tab.lock();
-        if let Some(prev) = active.as_ref() {
-            if prev != &label {
+        if let Some(prev) = active.get(&window_label) {
+            if prev != &actual {
                 if let Some(w) = app.get_webview(prev) { let _ = w.hide(); }
             }
         }
-        *active = Some(label.clone());
+        active.insert(window_label.clone(), actual.clone());
     }
 
-    if let Some(existing) = app.get_webview(&label) {
+    if let Some(existing) = app.get_webview(&actual) {
         existing.show().map_err(|e| e.to_string())?;
-        return Ok(());
+        return Ok(actual);
     }
 
     let target = url.unwrap_or_else(|| "https://wiki.warframe.com".to_string());
-    let app_for_hook = app.clone();
-    let label_for_hook = label.clone();
-    let builder = WebviewBuilder::new(&label, WebviewUrl::External(
+    let ah = app.clone();
+    let win_label = window_label.clone();
+    let opener_label = label.clone();
+    let builder = WebviewBuilder::new(&actual, WebviewUrl::External(
         target.parse().map_err(|e: url::ParseError| e.to_string())?
     ))
     .on_new_window(move |new_url, _features| {
-        let new_label = format!("wiki-{}", std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos());
-        let _ = app_for_hook.emit("wiki-tab-opened", serde_json::json!({
-            "label": new_label, "url": new_url.to_string(), "opener": label_for_hook,
+        let ts = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos();
+        let new_label = format!("{}-wiki-{}", win_label, ts);
+        let _ = ah.emit("wiki-tab-opened", serde_json::json!({
+            "label": new_label, "url": new_url.to_string(), "opener": opener_label,
         }));
         tauri::webview::NewWindowResponse::Deny
     })
-    .on_document_title_changed(move |window, title| {
-        let _ = window.emit("wiki-tab-title", serde_json::json!({ "title": title }));
+    .on_document_title_changed(move |child_window, title| {
+        let _ = child_window.emit("wiki-tab-title", serde_json::json!({ "title": title }));
     });
+
+    #[cfg(target_os = "linux")]
+    {
+        if let Some(ww) = app.get_webview_window(window.label()) {
+            let _ = ensure_gtk_overlay_wrapper(&ww);
+        }
+    }
 
     window.add_child(builder,
         tauri::PhysicalPosition::new(0, 0),
@@ -2653,11 +2677,11 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
     #[cfg(target_os = "linux")]
     {
         let parent_wv = app.get_webview(webview.label()).ok_or("invoking webview not found")?;
-        let child_wv = app.get_webview(&label).ok_or("child webview not found after add_child")?;
+        let child_wv = app.get_webview(&actual).ok_or("child webview not found after add_child")?;
         linux_reparent_and_position(&parent_wv, &child_wv, 0.0, 0.0, 100.0, 100.0)?;
     }
 
-    Ok(())
+    Ok(actual)
 }
 
 #[tauri::command]
@@ -2674,17 +2698,22 @@ fn close_wiki_tab(app: tauri::AppHandle, label: String) -> Result<(), String> {
 
 #[tauri::command]
 fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width: f64, height: f64) -> Result<(), String> {
-    let app = webview.app_handle();
+    let actual = wiki_actual(&webview.window().label(), &label);
     #[cfg(target_os = "linux")]
     {
+        let app = webview.app_handle();
+        if let Some(ww) = app.get_webview_window(webview.window().label()) {
+            let _ = ensure_gtk_overlay_wrapper(&ww);
+        }
         let parent_wv = app.get_webview(webview.label()).ok_or("invoking webview not found")?;
-        let child_wv = app.get_webview(&label).ok_or("child webview not found")?;
+        let child_wv = app.get_webview(&actual).ok_or("child webview not found")?;
         linux_reparent_and_position(&parent_wv, &child_wv, x, y, width, height)?;
     }
 
     #[cfg(not(target_os = "linux"))]
     {
-        if let Some(w) = app.get_webview(&label) {
+        let app = webview.app_handle();
+        if let Some(w) = app.get_webview(&actual) {
             w.set_position(tauri::LogicalPosition::new(x, y)).map_err(|e| e.to_string())?;
             w.set_size(tauri::LogicalSize::new(width, height)).map_err(|e| e.to_string())?;
         }
@@ -2801,7 +2830,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             sidebar_last_op: Arc::new(AtomicU64::new(0)),
             monitoring_active: Arc::new(AtomicBool::new(false)),
             main_window_monitor: parking_lot::Mutex::new(None),
-            active_wiki_tab: Arc::new(parking_lot::Mutex::new(None)),
+            active_wiki_tab: Arc::new(parking_lot::Mutex::new(std::collections::HashMap::new())),
         })
         .on_window_event(|window, event| match event {
             tauri::WindowEvent::CloseRequested { api, .. } => {

@@ -36,9 +36,13 @@ export default function Wiki() {
 
   const showTab = useCallback((label, url) => {
     invoke('show_wiki_tab', { label, url })
-      .then(() => reportBounds(label))
+      .then(actualLabel => {
+        // Replace the placeholder label with the window-namespaced actual label
+        setTabs(t => t.map(tab => tab.label === label ? { ...tab, label: actualLabel } : tab))
+        reportBounds(actualLabel)
+        setActiveTab(actualLabel)
+      })
       .catch(err => console.error('show wiki tab error:', err))
-    setActiveTab(label)
   }, [reportBounds])
 
   useEffect(() => {

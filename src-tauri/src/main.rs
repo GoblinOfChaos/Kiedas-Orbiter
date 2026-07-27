@@ -2728,11 +2728,17 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
         let new_label = format!("{}-wiki-{}", win_label, ts);
         let _ = ah.emit("wiki-tab-opened", serde_json::json!({
             "label": new_label, "url": new_url.to_string(), "opener": opener_label,
+            "source_window": win_label,
         }));
         tauri::webview::NewWindowResponse::Deny
     })
-    .on_document_title_changed(move |child_window, title| {
-        let _ = child_window.emit("wiki-tab-title", serde_json::json!({ "title": title }));
+    .on_document_title_changed({
+        let child_label = actual.clone();
+        move |child_window, title| {
+            let _ = child_window.emit("wiki-tab-title", serde_json::json!({
+                "title": title, "source_window": child_window.label(), "label": child_label,
+            }));
+        }
     })
     .initialization_script(r#"
 document.addEventListener('auxclick', (e) => {

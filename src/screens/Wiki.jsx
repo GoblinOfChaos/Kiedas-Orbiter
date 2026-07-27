@@ -2,6 +2,7 @@ import { useRef, useState, useEffect, useCallback } from 'react'
 import { X } from 'lucide-react'
 import { invoke } from '@tauri-apps/api/core'
 import { listen } from '@tauri-apps/api/event'
+import { getCurrentWindow } from '@tauri-apps/api/window'
 import { PageLayout } from '../components/UI'
 
 export default function Wiki() {
@@ -68,13 +69,22 @@ export default function Wiki() {
     if (containerRef.current) ro.observe(containerRef.current)
 
     window.addEventListener('resize', measure)
+    const currentLabel = getCurrentWindow().label
 
     const unlistenOpen = listen('wiki-tab-opened', (e) => {
-      const { label, url } = e.payload
+      const { label, url, source_window } = e.payload
+      // Ignore events from other windows — wiki tabs are per-window namespaced.
+      if (source_window && source_window !== currentLabel) return
       setTabs(t => [...t, { label, title: 'New tab' }])
       invoke('show_wiki_tab', { label, url })
         .then(() => invoke('hide_wiki_tab', { label }))
         .catch(() => {})
+    })
+
+    const unlistenTitle = listen('wiki-tab-title', (e) => {
+      const { title, source_window, label } = e.payload
+      if (source_window && source_window !== currentLabel) return
+      setTabs(t => t.map(tab => tab.label === label ? { ...tab, title } : tab))
     })
 
     return () => {
@@ -83,6 +93,7 @@ export default function Wiki() {
       ro.disconnect()
       window.removeEventListener('resize', measure)
       unlistenOpen.then(f => f())
+      unlistenTitle.then(f => f())
       tabsRef.current.forEach(t => invoke('close_wiki_tab', { label: t.label }).catch(() => {}))
     }
   }, [])  // eslint-disable-line react-hooks/exhaustive-deps

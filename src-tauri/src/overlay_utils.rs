@@ -9,6 +9,47 @@ use active_win_pos_rs;
 static AOT_KEEPER_INSTALLED: Mutex<Vec<String>> = Mutex::new(Vec::new());
 static SHOWN_OVERLAYS: Mutex<Vec<String>> = Mutex::new(Vec::new());
 static LAST_OVERLAY_SIZES: Mutex<Vec<(String, f64, f64)>> = Mutex::new(Vec::new());
+use std::collections::HashMap;
+use std::sync::LazyLock;
+
+/// Cache of overlay WebviewWindow handles.
+/// Workaround for Tauri 2 bug: `get_webview_window(label)` returns `None`
+/// for ALL windows after any `add_child` call corrupts the internal registry.
+static CACHED_OVERLAY_WINDOWS: LazyLock<Mutex<HashMap<String, WebviewWindow>>> =
+    LazyLock::new(|| Mutex::new(HashMap::new()));
+
+fn get_or_create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<WebviewWindow, String> {
+    // Check cache first — bypasses Tauri's corrupted registry.
+    {
+        let cache = CACHED_OVERLAY_WINDOWS.lock().unwrap();
+        if let Some(w) = cache.get(label) {
+            return Ok(w.clone());
+        }
+    }
+    let window = match app_handle.get_webview_window(label) {
+        Some(w) => w,
+        None => create_overlay_window(app_handle, label)?,
+    };
+    CACHED_OVERLAY_WINDOWS.lock().unwrap().insert(label.to_string(), window.clone());
+    Ok(window)
+}
+
+/// Find an existing overlay window without creating one.
+/// Checks cache first (bypasses Tauri registry corruption), then get_webview_window.
+fn find_overlay_window(app_handle: &AppHandle, label: &str) -> Option<WebviewWindow> {
+    // Cache bypasses Tauri's corrupted get_webview_window.
+    {
+        let cache = CACHED_OVERLAY_WINDOWS.lock().unwrap();
+        if let Some(w) = cache.get(label) {
+            return Some(w.clone());
+        }
+    }
+    // Tauri's own lookup — will be None after add_child corruption.
+    let w = app_handle.get_webview_window(label)?;
+    // Found via Tauri — populate cache for next time.
+    CACHED_OVERLAY_WINDOWS.lock().unwrap().insert(label.to_string(), w.clone());
+    Some(w)
+}
 
 pub(crate) fn clear_shown_overlay(label: &str) {
     SHOWN_OVERLAYS.lock().unwrap().retain(|l| l != label);
@@ -473,11 +514,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
         return show_sidebar_internal(app_handle, &side, width);
     }
 
-    let window = match app_handle.get_webview_window(label) {
-        Some(w) => w,
-        None => create_overlay_window(app_handle, label)?,
-    };
-
+    let window = get_or_create_overlay_window(app_handle, label)?;
 
     #[cfg_attr(target_os = "linux", allow(unused_variables))]
     let already_visible = window.is_visible().unwrap_or(false);
@@ -671,10 +708,7 @@ pub fn show_sidebar_internal(
     side: &str,
     entry_width: u32,
 ) -> Result<(), String> {
-    let window = match app_handle.get_webview_window("overlay-sidebar") {
-        Some(w) => w,
-        None => create_overlay_window(app_handle, "overlay-sidebar")?,
-    };
+    let window = get_or_create_overlay_window(app_handle, "overlay-sidebar")?;
 
     let was_visible = window.is_visible().unwrap_or(false);
 
@@ -761,7 +795,7 @@ pub fn show_sidebar_internal(
 pub fn hide_sidebar_internal(app_handle: &AppHandle) {
     stop_sidebar_ungrab_timer();
     clear_shown_overlay("overlay-sidebar");
-    if let Some(window) = app_handle.get_webview_window("overlay-sidebar") {
+    if let Some(window) = find_overlay_window(app_handle, "overlay-sidebar") {
         let _ = window.hide();
     }
 }
@@ -785,10 +819,7 @@ pub fn resize_overlay_window(
 ) -> Result<(), String> {
     set_last_overlay_size(label, width, height);
 
-    let window = match app_handle.get_webview_window(label) {
-        Some(w) => w,
-        None => create_overlay_window(app_handle, label)?,
-    };
+    let window = get_or_create_overlay_window(app_handle, label)?;
 
     if height > 40.0 {
         let monitor = get_overlay_monitor(app_handle, label)?;
@@ -1079,7 +1110,7 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
                     }
                     if !is_notification {
                         had_visible.push(label.clone());
-                        if let Some(w) = ah.get_webview_window(label) {
+                        if let Some(w) = find_overlay_window(&ah, &label) {
                             let _ = w.hide();
                         }
                     }

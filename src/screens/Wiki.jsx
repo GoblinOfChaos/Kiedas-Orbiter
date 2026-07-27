@@ -23,7 +23,7 @@ export default function Wiki() {
     const r = el.getBoundingClientRect()
     const last = lastRectRef.current
     if (last && Math.abs(last.width - r.width) < 2 && Math.abs(last.height - r.height) < 2
-        && Math.abs(last.left - r.left) < 2 && Math.abs(last.top - r.top) < 2) return
+      && Math.abs(last.left - r.left) < 2 && Math.abs(last.top - r.top) < 2) return
 
     clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(() => {
@@ -38,27 +38,25 @@ export default function Wiki() {
   const showTab = useCallback((label, url) => {
     invoke('show_wiki_tab', { label, url })
       .then(actualLabel => {
-        // Replace the placeholder label with the window-namespaced actual label
+        // Replace the placeholder label with the actual namespaced label
         setTabs(t => t.map(tab => tab.label === label ? { ...tab, label: actualLabel } : tab))
-        // Immediate reflow — the new tab's webview has stale placeholder
-        // margins from creation, and reportBounds may skip if container
-        // bounds are unchanged (early-return guard).
-        const el = containerRef.current
-        if (el) {
-          const r = el.getBoundingClientRect()
-          invoke('reflow_wiki_tab', { label: actualLabel, x: r.left, y: r.top, width: r.width, height: r.height })
-            .catch(() => {})
-        }
-        // Clear guard so reportBounds also fires (for resize tracking)
-        lastRectRef.current = null
-        reportBounds(actualLabel)
         setActiveTab(actualLabel)
+        // Force a reflow after a short delay to let GTK attach the webview
+        setTimeout(() => {
+          const el = containerRef.current
+          if (el) {
+            const r = el.getBoundingClientRect()
+            invoke('reflow_wiki_tab', { label: actualLabel, x: r.left, y: r.top, width: r.width, height: r.height })
+              .catch(() => { })
+          }
+        }, 50)
       })
       .catch(err => console.error('show wiki tab error:', err))
-  }, [reportBounds])
+  }, [])
 
   useEffect(() => {
-    tabsRef.current.forEach(t => invoke('close_wiki_tab', { label: t.label }).catch(() => {}))
+    // Close stale tabs
+    tabsRef.current.forEach(t => invoke('close_wiki_tab', { label: t.label }).catch(() => { }))
     showTab('wiki-0')
 
     const measure = () => reportBounds(activeTabRef.current)
@@ -73,16 +71,15 @@ export default function Wiki() {
 
     const unlistenOpen = listen('wiki-tab-opened', (e) => {
       const { label, url, source_window } = e.payload
-      // Ignore events from other windows — wiki tabs are per-window namespaced.
       if (source_window && source_window !== currentLabel) return
+      // Add the new tab to the list and immediately activate it
       setTabs(t => [...t, { label, title: 'New tab' }])
-      invoke('show_wiki_tab', { label, url })
-        .then(() => invoke('hide_wiki_tab', { label }))
-        .catch(() => {})
+      showTab(label, url)  // This will also reflow and show the tab
     })
 
     const unlistenTitle = listen('wiki-tab-title', (e) => {
       const { title, source_window, label } = e.payload
+      console.log('📝 Title event:', { title, source_window, label, currentLabel })
       if (source_window && source_window !== currentLabel) return
       setTabs(t => t.map(tab => tab.label === label ? { ...tab, title } : tab))
     })
@@ -94,7 +91,7 @@ export default function Wiki() {
       window.removeEventListener('resize', measure)
       unlistenOpen.then(f => f())
       unlistenTitle.then(f => f())
-      tabsRef.current.forEach(t => invoke('close_wiki_tab', { label: t.label }).catch(() => {}))
+      tabsRef.current.forEach(t => invoke('close_wiki_tab', { label: t.label }).catch(() => { }))
     }
   }, [])  // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -104,7 +101,7 @@ export default function Wiki() {
 
   const closeTab = (label, e) => {
     e.stopPropagation()
-    invoke('close_wiki_tab', { label }).catch(() => {})
+    invoke('close_wiki_tab', { label }).catch(() => { })
     setTabs(t => t.filter(x => x.label !== label))
     if (activeTab === label) {
       const remaining = tabs.filter(x => x.label !== label)
@@ -120,11 +117,10 @@ export default function Wiki() {
           {tabs.map(t => (
             <div key={t.label}
               onClick={() => showTab(t.label)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm cursor-pointer transition-colors ${
-                activeTab === t.label
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm cursor-pointer transition-colors ${activeTab === t.label
                   ? 'bg-kronos-accent/20 text-kronos-accent'
                   : 'bg-white/5 text-kronos-dim hover:bg-white/10'
-              }`}>
+                }`}>
               <span className="max-w-[120px] truncate">{t.title}</span>
               {tabs.length > 1 && (
                 <X size={12} onClick={(e) => closeTab(t.label, e)} className="hover:text-red-400" />

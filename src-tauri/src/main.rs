@@ -2704,10 +2704,8 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
     if let Some(existing) = app.get_webview(&actual) {
         existing.show().map_err(|e| e.to_string())?;
         // Re-ensure overlay membership without resetting margins/size.
-        // GTK widget attributes persist across hide/show, so the old
-        // correct position is preserved.
         #[cfg(target_os = "linux")]
-        if had_to_hide {
+        {
             if let Some(parent_wv) = app.get_webview(webview.label()) {
                 let _ = linux_ensure_overlay(&parent_wv, &existing);
             }

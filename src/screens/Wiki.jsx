@@ -7,47 +7,42 @@ import { PageLayout } from '../components/UI'
 
 export default function Wiki() {
   const containerRef = useRef(null)
-  const tabsRef = useRef([])
-  const [tabs, setTabs] = useState([{ label: 'wiki-0', title: 'Warframe Wiki' }])
-  const [activeTab, setActiveTab] = useState('wiki-0')
-  const activeTabRef = useRef(activeTab)
+  const [tabs, setTabs] = useState([])
+  const [activeTab, setActiveTab] = useState(null)
+  const activeTabRef = useRef(null)
   const lastRectRef = useRef(null)
   const debounceRef = useRef(null)
 
-  tabsRef.current = tabs
   activeTabRef.current = activeTab
 
-  const reportBounds = useCallback((label) => {
+  const reportBounds = useCallback((id) => {
+    if (!id) return
     const el = containerRef.current
     if (!el) return
     const r = el.getBoundingClientRect()
     const last = lastRectRef.current
     if (last && Math.abs(last.width - r.width) < 2 && Math.abs(last.height - r.height) < 2
       && Math.abs(last.left - r.left) < 2 && Math.abs(last.top - r.top) < 2) return
-
     clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(() => {
       console.log('📐 Wiki container rect (logical):', r.left, r.top, r.width, r.height)
       lastRectRef.current = { left: r.left, top: r.top, width: r.width, height: r.height }
       invoke('reflow_wiki_tab', {
-        label, x: r.left, y: r.top, width: r.width, height: r.height,
+        label: id, x: r.left, y: r.top, width: r.width, height: r.height,
       }).catch(err => console.error('reflow error:', err))
     }, 150)
   }, [])
 
-  const showTab = useCallback((label, url) => {
-    invoke('show_wiki_tab', { label, url })
-      .then(actualLabel => {
-        // Replace the placeholder label with the actual namespaced label
-        setTabs(t => t.map(tab => tab.label === label ? { ...tab, label: actualLabel } : tab))
-        setActiveTab(actualLabel)
-        // Force a reflow after a short delay to let GTK attach the webview
+  const showTab = useCallback((id, url) => {
+    invoke('show_wiki_tab', { label: id, url })
+      .then(() => {
+        setActiveTab(id)
         setTimeout(() => {
           const el = containerRef.current
           if (el) {
             const r = el.getBoundingClientRect()
-            invoke('reflow_wiki_tab', { label: actualLabel, x: r.left, y: r.top, width: r.width, height: r.height })
-              .catch(() => { })
+            invoke('reflow_wiki_tab', { label: id, x: r.left, y: r.top, width: r.width, height: r.height })
+              .catch(() => {})
           }
         }, 50)
       })
@@ -55,9 +50,51 @@ export default function Wiki() {
   }, [])
 
   useEffect(() => {
-    // Close stale tabs
-    tabsRef.current.forEach(t => invoke('close_wiki_tab', { label: t.label }).catch(() => { }))
-    showTab('wiki-0')
+    const currentLabel = getCurrentWindow().label
+
+    // Seed tabs from Rust on mount — if the list is empty, create initial tab.
+    invoke('list_wiki_tabs').then(list => {
+      if (list.length === 0) {
+        showTab('wiki-0')
+      } else {
+        setTabs(list)
+        const last = list[list.length - 1]
+        showTab(last.id, last.url)
+      }
+    })
+
+    // Shared tab list changes — broadcast app-wide, no source_window filter.
+    const unlistenTabsChanged = listen('wiki-tabs-changed', (e) => {
+      const newTabs = e.payload
+      setTabs(newTabs)
+
+      if (newTabs.length === 0) {
+        // All tabs closed — create a fresh initial tab.
+        setActiveTab(null)
+        showTab('wiki-0')
+        return
+      }
+
+      // If the current active tab was removed, switch to the last remaining.
+      if (activeTabRef.current && !newTabs.find(t => t.id === activeTabRef.current)) {
+        const next = newTabs[newTabs.length - 1]
+        showTab(next.id, next.url)
+      }
+    })
+
+    // New tab from THIS window's middle-click handler.
+    const unlistenOpen = listen('wiki-tab-opened', (e) => {
+      const { label: id, url, source_window } = e.payload
+      if (source_window && source_window !== currentLabel) return
+      showTab(id, url)
+    })
+
+    // Optimistic title update for THIS window's tabs.
+    const unlistenTitle = listen('wiki-tab-title', (e) => {
+      const { title, source_window, label: id } = e.payload
+      if (source_window && source_window !== currentLabel) return
+      setTabs(t => t.map(tab => tab.id === id ? { ...tab, title } : tab))
+    })
 
     const measure = () => reportBounds(activeTabRef.current)
     requestAnimationFrame(measure)
@@ -65,48 +102,29 @@ export default function Wiki() {
 
     const ro = new ResizeObserver(measure)
     if (containerRef.current) ro.observe(containerRef.current)
-
     window.addEventListener('resize', measure)
-    const currentLabel = getCurrentWindow().label
-
-    const unlistenOpen = listen('wiki-tab-opened', (e) => {
-      const { label, url, source_window } = e.payload
-      if (source_window && source_window !== currentLabel) return
-      // Add the new tab to the list and immediately activate it
-      setTabs(t => [...t, { label, title: 'New tab' }])
-      showTab(label, url)  // This will also reflow and show the tab
-    })
-
-    const unlistenTitle = listen('wiki-tab-title', (e) => {
-      const { title, source_window, label } = e.payload
-      console.log('📝 Title event:', { title, source_window, label, currentLabel })
-      if (source_window && source_window !== currentLabel) return
-      setTabs(t => t.map(tab => tab.label === label ? { ...tab, title } : tab))
-    })
 
     return () => {
       clearTimeout(timeout)
       clearTimeout(debounceRef.current)
       ro.disconnect()
       window.removeEventListener('resize', measure)
+      unlistenTabsChanged.then(f => f())
       unlistenOpen.then(f => f())
       unlistenTitle.then(f => f())
-      tabsRef.current.forEach(t => invoke('close_wiki_tab', { label: t.label }).catch(() => { }))
+      // Do NOT close tabs on unmount — they persist across unmounts.
     }
   }, [])  // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    reportBounds(activeTab)
+    if (activeTab) reportBounds(activeTab)
   }, [activeTab, reportBounds])
 
-  const closeTab = (label, e) => {
+  const closeTab = (id, e) => {
     e.stopPropagation()
-    invoke('close_wiki_tab', { label }).catch(() => { })
-    setTabs(t => t.filter(x => x.label !== label))
-    if (activeTab === label) {
-      const remaining = tabs.filter(x => x.label !== label)
-      if (remaining.length) showTab(remaining[remaining.length - 1].label)
-    }
+    invoke('close_wiki_tab', { label: id }).catch(() => {})
+    // The wiki-tabs-changed listener handles tab list update and
+    // automatically switches to another tab if the active one was removed.
   }
 
   return (
@@ -115,15 +133,16 @@ export default function Wiki() {
       extra={
         <div className="flex items-center gap-1">
           {tabs.map(t => (
-            <div key={t.label}
-              onClick={() => showTab(t.label)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm cursor-pointer transition-colors ${activeTab === t.label
+            <div key={t.id}
+              onClick={() => showTab(t.id, t.url)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm cursor-pointer transition-colors ${
+                activeTab === t.id
                   ? 'bg-kronos-accent/20 text-kronos-accent'
                   : 'bg-white/5 text-kronos-dim hover:bg-white/10'
-                }`}>
+              }`}>
               <span className="max-w-[120px] truncate">{t.title}</span>
               {tabs.length > 1 && (
-                <X size={12} onClick={(e) => closeTab(t.label, e)} className="hover:text-red-400" />
+                <X size={12} onClick={(e) => closeTab(t.id, e)} className="hover:text-red-400" />
               )}
             </div>
           ))}

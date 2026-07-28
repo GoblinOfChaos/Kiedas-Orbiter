@@ -14,6 +14,7 @@ use tauri::WebviewUrl;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 use serde_json::Value;
+use serde::Serialize;
 
 mod log_scanner;
 mod ocr;
@@ -22,7 +23,16 @@ mod overlay_utils;
 mod logger;
 mod pricer;
 mod mem_reader;
+
 mod memory_scan;
+
+#[derive(Clone, Serialize)]
+pub struct WikiTabInfo {
+    pub id: String,
+    pub url: String,
+    pub title: String,
+}
+
 pub struct AppState {
     pub notif_sound: Arc<Mutex<String>>,
     pub log_scanner: Arc<Mutex<Option<log_scanner::LogScannerHandle>>>,
@@ -32,6 +42,7 @@ pub struct AppState {
     pub sidebar_last_op: Arc<AtomicU64>,
     pub monitoring_active: Arc<AtomicBool>,
     pub active_wiki_tab: Arc<parking_lot::Mutex<std::collections::HashMap<String, String>>>,
+    pub wiki_tabs: parking_lot::Mutex<Vec<WikiTabInfo>>,
     pub main_window_monitor: parking_lot::Mutex<Option<tauri::Monitor>>,
 }
 
@@ -2685,16 +2696,15 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
     let window = webview.window();
     let window_label = window.label().to_string();
     let actual = wiki_actual(&window_label, &label);
+    let canonical_id = label.clone();
 
     // Track active wiki tab per-window — hide previous if different.
-    let mut had_to_hide = false;
     if let Some(state) = app.try_state::<AppState>() {
         let mut active = state.active_wiki_tab.lock();
         if let Some(prev) = active.get(&window_label) {
             if prev != &actual {
                 if let Some(w) = app.get_webview(prev) {
                     let _ = w.hide();
-                    had_to_hide = true;
                 }
             }
         }
@@ -2715,27 +2725,42 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
 
     let target = url.unwrap_or_else(|| "https://wiki.warframe.com".to_string());
     let ah = app.clone();
+    let ah_for_title = ah.clone();
     let win_label = window_label.clone();
-    let opener_label = label.clone();
+    let win_label_for_title = win_label.clone();
+    let canonical_id2 = canonical_id.clone();
+    let target_for_insert = target.clone();
     let builder = WebviewBuilder::new(&actual, WebviewUrl::External(
         target.parse().map_err(|e: url::ParseError| e.to_string())?
     ))
     .on_new_window(move |new_url, _features| {
         let ts = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos();
-        let new_label = format!("{}-wiki-{}", win_label, ts);
+        // Emit canonical (non-window-prefixed) label so any window can open it.
+        let new_label = format!("wiki-{}", ts);
         let _ = ah.emit("wiki-tab-opened", serde_json::json!({
-            "label": new_label, "url": new_url.to_string(), "opener": opener_label,
+            "label": new_label, "url": new_url.to_string(), "opener": canonical_id2,
             "source_window": win_label,
         }));
         tauri::webview::NewWindowResponse::Deny
     })
     .on_document_title_changed({
-        let child_label = actual.clone();
-        move |child_window, title| {
-            let _ = child_window.emit("wiki-tab-title", serde_json::json!({
-                "title": title, "source_window": child_window.label(), "label": child_label,
+        let child_id = canonical_id.clone();
+        let ah_title = ah_for_title;
+        let win_label_title = win_label_for_title;
+        move |_child_window, title| {
+            // Emit title event app-wide so the host React listener receives it.
+            let _ = ah_title.emit("wiki-tab-title", serde_json::json!({
+                "title": title, "source_window": win_label_title, "label": child_id,
             }));
+            // Update shared tab list and broadcast.
+            if let Some(state) = ah_title.try_state::<AppState>() {
+                let mut tabs = state.wiki_tabs.lock();
+                if let Some(tab) = tabs.iter_mut().find(|t| t.id == *child_id) {
+                    tab.title = title.to_string();
+                }
+                let _ = ah_title.emit("wiki-tabs-changed", &*tabs);
+            }
         }
     })
     .initialization_script(r#"
@@ -2769,6 +2794,19 @@ document.addEventListener('auxclick', (e) => {
         linux_reparent_and_position(&parent_wv, &child_wv, 0.0, 0.0, 100.0, 100.0)?;
     }
 
+    // Insert into shared tab list and broadcast.
+    if let Some(state) = app.try_state::<AppState>() {
+        let mut tabs = state.wiki_tabs.lock();
+        if !tabs.iter().any(|t| t.id == canonical_id) {
+            tabs.push(WikiTabInfo {
+                id: canonical_id,
+                url: target_for_insert,
+                title: "New tab".to_string(),
+            });
+        }
+        let _ = app.emit("wiki-tabs-changed", &*tabs);
+    }
+
     Ok(actual)
 }
 
@@ -2779,8 +2817,28 @@ fn hide_wiki_tab(app: tauri::AppHandle, label: String) -> Result<(), String> {
 }
 
 #[tauri::command]
-fn close_wiki_tab(app: tauri::AppHandle, label: String) -> Result<(), String> {
-    if let Some(w) = app.get_webview(&label) { w.hide().map_err(|e| e.to_string())?; }
+fn list_wiki_tabs(app: tauri::AppHandle) -> Vec<WikiTabInfo> {
+    if let Some(state) = app.try_state::<AppState>() {
+        state.wiki_tabs.lock().clone()
+    } else {
+        Vec::new()
+    }
+}
+
+#[tauri::command]
+fn close_wiki_tab(webview: tauri::Webview, label: String) -> Result<(), String> {
+    let app = webview.app_handle();
+    let window_label = webview.window().label().to_string();
+    let actual = wiki_actual(&window_label, &label);
+    if let Some(w) = app.get_webview(&actual) { w.hide().map_err(|e| e.to_string())?; }
+
+    // Remove from shared tab list and broadcast.
+    if let Some(state) = app.try_state::<AppState>() {
+        let mut tabs = state.wiki_tabs.lock();
+        tabs.retain(|t| t.id != label);
+        let _ = app.emit("wiki-tabs-changed", &*tabs);
+    }
+
     Ok(())
 }
 
@@ -2919,6 +2977,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             monitoring_active: Arc::new(AtomicBool::new(false)),
             main_window_monitor: parking_lot::Mutex::new(None),
             active_wiki_tab: Arc::new(parking_lot::Mutex::new(std::collections::HashMap::new())),
+            wiki_tabs: parking_lot::Mutex::new(Vec::new()),
         })
         .on_window_event(|window, event| match event {
             tauri::WindowEvent::CloseRequested { api, .. } => {
@@ -3143,6 +3202,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             is_warframe_focused,
             set_sidebar_hide_on_focus_loss,
             // --- wiki ---
+            list_wiki_tabs,
             show_wiki_tab,
             hide_wiki_tab,
             close_wiki_tab,

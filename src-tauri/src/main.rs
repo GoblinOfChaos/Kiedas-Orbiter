@@ -1537,6 +1537,7 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
         if let Some(main_win) = app_handle.get_webview_window("main") {
             let _ = main_win.emit("sidebar-mode-changed", serde_json::json!({ "active": false }));
         }
+        let _ = app_handle.emit("sidebar-visible", serde_json::json!({ "visible": false }));
         eprintln!("[SIDEBAR-TOGGLE] EXIT done");
         Ok(())
     } else {
@@ -1583,6 +1584,7 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
         if let Some(main_win) = app_handle.get_webview_window("main") {
             let _ = main_win.emit("sidebar-mode-changed", serde_json::json!({ "active": true, "side": side }));
         }
+        let _ = app_handle.emit("sidebar-visible", serde_json::json!({ "visible": true }));
         eprintln!("[SIDEBAR-TOGGLE] ENTER done side={}", side);
         Ok(())
     }
@@ -2713,6 +2715,12 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
 
     if let Some(existing) = app.get_webview(&actual) {
         existing.show().map_err(|e| e.to_string())?;
+        // If a URL is provided, navigate the existing webview to it.
+        if let Some(nav_url) = &url {
+            if let Ok(parsed) = nav_url.parse::<url::Url>() {
+                let _ = existing.navigate(parsed);
+            }
+        }
         // Re-ensure overlay membership without resetting margins/size.
         #[cfg(target_os = "linux")]
         {
@@ -2726,6 +2734,7 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
     let target = url.unwrap_or_else(|| "https://wiki.warframe.com".to_string());
     let ah = app.clone();
     let ah_for_title = ah.clone();
+    let ah_for_nav = ah.clone();
     let win_label = window_label.clone();
     let win_label_for_title = win_label.clone();
     let canonical_id2 = canonical_id.clone();
@@ -2761,8 +2770,24 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
                 }
                 let _ = ah_title.emit("wiki-tabs-changed", &*tabs);
             }
+        }})
+    .on_navigation({
+        let nav_id = canonical_id.clone();
+        let ah_nav = ah_for_nav;
+        move |url| {
+            if let Some(state) = ah_nav.try_state::<AppState>() {
+                let mut tabs = state.wiki_tabs.lock();
+                if let Some(tab) = tabs.iter_mut().find(|t| t.id == *nav_id) {
+                    tab.url = url.to_string();
+                }
+                let snapshot = tabs.clone();
+                drop(tabs);
+                let _ = ah_nav.emit("wiki-tabs-changed", snapshot);
+            }
+            true // allow navigation
         }
     })
+
     .initialization_script(r#"
 document.addEventListener('auxclick', (e) => {
     if (e.button === 1) {
@@ -2811,8 +2836,11 @@ document.addEventListener('auxclick', (e) => {
 }
 
 #[tauri::command]
-fn hide_wiki_tab(app: tauri::AppHandle, label: String) -> Result<(), String> {
-    if let Some(w) = app.get_webview(&label) { w.hide().map_err(|e| e.to_string())?; }
+fn hide_wiki_tab(webview: tauri::Webview, label: String) -> Result<(), String> {
+    let actual = wiki_actual(&webview.window().label(), &label);
+    if let Some(w) = webview.app_handle().get_webview(&actual) {
+        w.hide().map_err(|e| e.to_string())?;
+    }
     Ok(())
 }
 
@@ -2839,6 +2867,26 @@ fn close_wiki_tab(webview: tauri::Webview, label: String) -> Result<(), String> 
         let _ = app.emit("wiki-tabs-changed", &*tabs);
     }
 
+    Ok(())
+}
+
+#[tauri::command]
+fn refresh_wiki_tab(webview: tauri::Webview, label: String) -> Result<(), String> {
+    let actual = wiki_actual(&webview.window().label(), &label);
+    if let Some(w) = webview.app_handle().get_webview(&actual) {
+        w.reload().map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
+#[tauri::command]
+fn sync_wiki_tab(webview: tauri::Webview, label: String, url: String) -> Result<(), String> {
+    let actual = wiki_actual(&webview.window().label(), &label);
+    if let Some(w) = webview.app_handle().get_webview(&actual) {
+        let parsed = url.parse().map_err(|e: url::ParseError| e.to_string())?;
+        w.navigate(parsed).map_err(|e| e.to_string())?;
+    }
+    // No-op if webview doesn't exist (lazy creation preserved).
     Ok(())
 }
 
@@ -3207,6 +3255,8 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             hide_wiki_tab,
             close_wiki_tab,
             reflow_wiki_tab,
+            refresh_wiki_tab,
+            sync_wiki_tab,
         ])
         .build(tauri::generate_context!())
         .expect("error while building tauri application");

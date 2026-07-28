@@ -1,19 +1,24 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
-import { X } from 'lucide-react'
+import { X, RefreshCw } from 'lucide-react'
 import { invoke } from '@tauri-apps/api/core'
 import { listen } from '@tauri-apps/api/event'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { PageLayout } from '../components/UI'
+
+// Module-level: persists across component unmount/remount within this JS context (per-window).
+let lastActiveId = null
 
 export default function Wiki() {
   const containerRef = useRef(null)
   const [tabs, setTabs] = useState([])
   const [activeTab, setActiveTab] = useState(null)
   const activeTabRef = useRef(null)
+  const tabsRef = useRef([])
   const lastRectRef = useRef(null)
   const debounceRef = useRef(null)
 
   activeTabRef.current = activeTab
+  tabsRef.current = tabs
 
   const reportBounds = useCallback((id) => {
     if (!id) return
@@ -52,14 +57,17 @@ export default function Wiki() {
   useEffect(() => {
     const currentLabel = getCurrentWindow().label
 
-    // Seed tabs from Rust on mount — if the list is empty, create initial tab.
+    // Seed tabs from Rust on mount — re-show the previously active tab if one exists.
     invoke('list_wiki_tabs').then(list => {
       if (list.length === 0) {
         showTab('wiki-0')
       } else {
+        // Part A: sync URLs for all existing webviews in this window
+        list.forEach(t => invoke('sync_wiki_tab', { label: t.id, url: t.url }).catch(() => {}))
         setTabs(list)
-        const last = list[list.length - 1]
-        showTab(last.id, last.url)
+        const toShow = list.find(t => t.id === lastActiveId) || list[list.length - 1]
+        showTab(toShow.id, toShow.url)
+        lastActiveId = null
       }
     })
 
@@ -88,12 +96,20 @@ export default function Wiki() {
       if (source_window && source_window !== currentLabel) return
       showTab(id, url)
     })
-
     // Optimistic title update for THIS window's tabs.
     const unlistenTitle = listen('wiki-tab-title', (e) => {
       const { title, source_window, label: id } = e.payload
       if (source_window && source_window !== currentLabel) return
       setTabs(t => t.map(tab => tab.id === id ? { ...tab, title } : tab))
+    })
+
+    // Part B: when sidebar becomes visible, sync URLs for all of this window's live webviews.
+    const unlistenSidebar = listen('sidebar-visible', (e) => {
+      if (e.payload?.visible) {
+        tabsRef.current.forEach(t => {
+          invoke('sync_wiki_tab', { label: t.id, url: t.url }).catch(() => {})
+        })
+      }
     })
 
     const measure = () => reportBounds(activeTabRef.current)
@@ -103,7 +119,6 @@ export default function Wiki() {
     const ro = new ResizeObserver(measure)
     if (containerRef.current) ro.observe(containerRef.current)
     window.addEventListener('resize', measure)
-
     return () => {
       clearTimeout(timeout)
       clearTimeout(debounceRef.current)
@@ -112,7 +127,13 @@ export default function Wiki() {
       unlistenTabsChanged.then(f => f())
       unlistenOpen.then(f => f())
       unlistenTitle.then(f => f())
-      // Do NOT close tabs on unmount — they persist across unmounts.
+      unlistenSidebar.then(f => f())
+      // Hide the active tab's webview so it doesn't float over other screens.
+      // Do NOT close the tab — the persisted list survives unmount.
+      if (activeTabRef.current) {
+        lastActiveId = activeTabRef.current
+        invoke('hide_wiki_tab', { label: activeTabRef.current }).catch(() => {})
+      }
     }
   }, [])  // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -146,6 +167,15 @@ export default function Wiki() {
               )}
             </div>
           ))}
+          {activeTab && (
+            <button
+              onClick={() => invoke('refresh_wiki_tab', { label: activeTab }).catch(() => {})}
+              className="flex items-center justify-center w-7 h-7 rounded-lg text-sm cursor-pointer transition-colors bg-white/5 text-kronos-dim hover:bg-white/10"
+              title="Refresh this tab"
+            >
+              <RefreshCw size={14} />
+            </button>
+          )}
         </div>
       }
     >

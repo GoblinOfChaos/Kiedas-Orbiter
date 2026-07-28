@@ -25,24 +25,74 @@ const MAP_SIZE = {
 // ── AnchorName patterns → map key ──
 function detectMap(anchorName) {
   if (!anchorName) return null
-  if (/PoeRemaster|Eidolon|Cetus/i.test(anchorName)) return 'poe'
+  if (/PoeRemaster|EidolonPlains|Eidolon|Cetus/i.test(anchorName)) return 'poe'
   if (/VenusLandscape|OrbVallis/i.test(anchorName)) return 'venus'
   if (/InfestedMicroplanet|Cambion|Deimos|Fleshscape/i.test(anchorName)) return 'deimos'
-  if (/Duviri/i.test(anchorName)) return 'duviri'
-  // Fallback by checking the tag field from the group
   return null
 }
 
-// ── Map-specific world bounds (in-game meters) ──
-// xMin, xMax, zMin, zMax define the visible map rectangle.
-// These are approximate — adjust based on where markers actually land.
+// Map-specific world bounds (in-game meters).
+// These define the full visible map rectangle for each open world.
+// Calibrated against reference markers near known landmarks.
+// Actual terrain extents may be larger, but markers beyond these are placed
+// at the map edge. Tune further by placing a marker at a known map-edge
+// landmark (e.g. Cetus gate, Fortuna entrance) and measuring its world coords.
 const MAP_BOUNDS = {
-  poe:    { xMin: -1000, xMax: 1000, zMin: -1000, zMax: 1000 },
-  venus:  { xMin: -1000, xMax: 1000, zMin: -1000, zMax: 1000 },
-  deimos: { xMin: -1000, xMax: 1000, zMin: -1000, zMax: 1000 },
-  duviri: { xMin: -1000, xMax: 1000, zMin: -1000, zMax: 1000 },
+  poe:    { xMin: -600, xMax: 600, zMin: -600, zMax: 600 },
+  venus:  { xMin: -800, xMax: 800, zMin: -800, zMax: 800 },
+  deimos: { xMin: -300, xMax: 300, zMin: -300, zMax: 300 },
+}
+// ── Zone grid layout per map ──
+// Plains zones are column-first: zoneNum = col * numRows + row
+// (col 0 row 0 = top-left, col 9 row 9 = bottom-right)
+const ZONE_GRID = {
+  poe:   { numRows: 10 },  // 10×10 grid (confirmed: zone 9=bottom-left, 99=bottom-right)
+  venus: { numRows: 10 },  // guess — needs verification
+  deimos:{ numRows: 10 },  // guess — needs verification
 }
 
+/**
+ * Convert zone-local coords to world coords, then to map fraction.
+ * The game uses per-zone coordinate spaces; zone origin + local offset = world position.
+ * Local x/z are measured from zone CENTER.
+ */
+function zoneLocalToMapFraction(zoneNum, localX, localZ, mapKey) {
+  const bounds = MAP_BOUNDS[mapKey]
+  const grid = ZONE_GRID[mapKey]
+  if (!bounds || !grid) return null
+  const spanX = bounds.xMax - bounds.xMin
+  const spanZ = bounds.zMax - bounds.zMin
+  const numCols = 10
+  const cellX = spanX / numCols
+  const cellZ = spanZ / grid.numRows
+  const col = Math.floor(zoneNum / grid.numRows)
+  const row = zoneNum % grid.numRows
+  // Zone grid is column-first: zone 0 = col 0 row 0 (top-left).
+  // row 0 = top of map (zMax), row N-1 = bottom (zMin).
+  // Local x/z are offset from zone CENTER.
+  // Verified: Point 1 (zone 34, row 4) → ~0.465 fy matches correction 0.462
+  const worldX = bounds.xMin + col * cellX + cellX / 2 + localX
+  const worldZ = bounds.zMax - row * cellZ - cellZ / 2 + localZ
+  return worldToMapFractionWithBounds(worldX, worldZ, bounds)
+}
+function parseZoneNum(anchorName) {
+  if (!anchorName) return -1
+  const m = anchorName.match(/(?:EPOutdoorZoneAttribs|OVOutdoorZoneAttribs|InfestedMicroplanetZoneAttribs)(\d+)$/i)
+  return m ? parseInt(m[1], 10) : -1
+}
+
+function worldToMapFractionWithBounds(worldX, worldZ, bounds) {
+  if (!bounds) return { x: 0.5, y: 0.5 }
+  const spanX = bounds.xMax - bounds.xMin
+  const spanZ = bounds.zMax - bounds.zMin
+  if (spanX <= 0 || spanZ <= 0) return { x: 0.5, y: 0.5 }
+  const fx = (worldX - bounds.xMin) / spanX
+  const fz = (worldZ - bounds.zMin) / spanZ
+  return {
+    x: Math.max(0, Math.min(1, fx)),
+    y: Math.max(0, Math.min(1, 1 - fz)),
+  }
+}
 /**
  * Convert in-game world (x, z) to map fractional coordinates (0..1, 0..1).
  * Maps.jsx uses fractional coords where (0,0) = top-left, (1,1) = bottom-right.
@@ -50,12 +100,11 @@ const MAP_BOUNDS = {
 function worldToMapFraction(worldX, worldZ, mapKey) {
   const bounds = MAP_BOUNDS[mapKey]
   if (!bounds) return null
-
   const fx = (worldX - bounds.xMin) / (bounds.xMax - bounds.xMin)
   const fz = (worldZ - bounds.zMin) / (bounds.zMax - bounds.zMin)
   return {
     x: Math.max(0, Math.min(1, fx)),
-    y: Math.max(0, Math.min(1, 1 - fz)), // invert z (north = up on map)
+    y: Math.max(0, Math.min(1, 1 - fz)),
   }
 }
 
@@ -76,12 +125,9 @@ function gameIconToIconName(gameIconPath) {
   }
   return 'MapPin'
 }
-
 /**
  * Parse raw CustomMarkers from inventory.json into the Maps.jsx config format.
- *
- * @param {Array} customMarkers - raw `CustomMarkers` array from inventory
- * @returns {Object} map from mapKey → array of marker objects for Maps.jsx
+ * Uses zone-aware coordinate conversion when anchorName includes zone ID.
  */
 export function parseCustomMarkers(customMarkers) {
   if (!Array.isArray(customMarkers)) return {}
@@ -96,12 +142,18 @@ export function parseCustomMarkers(customMarkers) {
       const iconName = gameIconToIconName(iconPath)
 
       for (const marker of (markerInfo.markers || [])) {
-        // Try marker's anchorName as fallback if tag didn't match
         const ak = detectMap(marker.anchorName) || mapKey
         if (!ak) continue
-        if (!mapKey) mapKey = ak // latch on first match
+        if (!mapKey) mapKey = ak
 
-        const pos = worldToMapFraction(marker.x, marker.z, ak)
+        const bounds = MAP_BOUNDS[ak]
+        let pos
+        const zoneNum = parseZoneNum(marker.anchorName)
+        if (zoneNum >= 0) {
+          pos = zoneLocalToMapFraction(zoneNum, marker.x, marker.z, ak)
+        } else if (bounds) {
+          pos = worldToMapFractionWithBounds(marker.x, marker.z, bounds)
+        }
         if (!pos) continue
 
         if (!result[ak]) result[ak] = []

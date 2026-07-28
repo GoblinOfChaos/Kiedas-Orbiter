@@ -491,7 +491,7 @@ export default function Maps() {
   const importCustomMarkersFromGame = useCallback(() => {
     if (!inventoryData?.customMarkers?.length) return
     const parsed = parseCustomMarkers(inventoryData.customMarkers)
-    const mapKeys = ['poe', 'venus', 'deimos', 'duviri']
+    const mapKeys = ['poe', 'venus', 'deimos']
     for (const [mapKey, markers] of Object.entries(parsed)) {
       if (!markers?.length) continue
       const ti = mapKeys.indexOf(mapKey)
@@ -517,7 +517,6 @@ export default function Maps() {
       })
     }
   }, [inventoryData])
-
   const selectedMarkerConfig = selectedMarker ? configsForCurrentMap.find(c => c.id === selectedMarker.configId) : null
   const nextMarkerNum = selectedMarkerConfig ? getNextLabelNum(selectedMarkerConfig.markers) : 1
   return (

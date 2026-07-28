@@ -2935,14 +2935,10 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
         if std::env::var("WEBKIT_DISABLE_DMABUF_RENDERER").is_err() {
             std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
         }
-        // Only disable WebKit EGL compositing on Nvidia hardware.  The
+        // Only disable WebKit EGL compositing on Nvidia hardware. The
         // proprietary Nvidia driver on XWayland produces broken EGL contexts
-        // causing white/grey overlay windows.  AMD/Intel GPUs handle EGL
+        // causing white/grey overlay windows. AMD/Intel GPUs handle EGL
         // correctly through Mesa and keep hardware acceleration for better perf.
-        //
-        // Override env vars (set before starting the process):
-        //   KRONOS_CPU_COMPOSITING=1  - force CPU path on any GPU (debugging)
-        //   KRONOS_GPU_COMPOSITING=1  - force GPU path on any GPU (Hyprland/AMD)
         let has_nvidia = std::path::Path::new("/proc/driver/nvidia/version").exists()
             || std::process::Command::new("nvidia-smi")
                 .stdout(std::process::Stdio::null())
@@ -2950,10 +2946,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
                 .status()
                 .map(|s| s.success())
                 .unwrap_or(false);
-        let user_cpu = std::env::var("KRONOS_CPU_COMPOSITING").is_ok();
-        let user_gpu = std::env::var("KRONOS_GPU_COMPOSITING").is_ok();
-        let need_cpu = user_cpu || (has_nvidia && !user_gpu);
-        if need_cpu && std::env::var("WEBKIT_DISABLE_COMPOSITING_MODE").is_err() {
+        if has_nvidia && std::env::var("WEBKIT_DISABLE_COMPOSITING_MODE").is_err() {
             std::env::set_var("WEBKIT_DISABLE_COMPOSITING_MODE", "1");
         }
         // Force X11 backend unconditionally - X11 is required for:

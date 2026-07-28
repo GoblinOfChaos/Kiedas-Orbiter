@@ -296,8 +296,13 @@ export default function MirroredMonitoringProvider({ children }) {
 
         processingRef.current = true
         try {
+          setNextRetryAt(Date.now() + 180_000)
           await callApiHelperFn()
-          intervalRef.current = setInterval(() => callApiHelperFn().catch(() => {}), 180_000)
+          intervalRef.current = setInterval(async () => {
+            setNextRetryAt(Date.now() + 180_000)
+            const r = await callApiHelperFn()
+            invoke('set_monitoring_active', { active: true, result: r, statusText: r === 'success' ? 'Syncing active' : r === 'cached' ? 'Game not running, using cached data' : r }).catch(() => {})
+          }, 180_000)
         } finally {
           processingRef.current = false
         }

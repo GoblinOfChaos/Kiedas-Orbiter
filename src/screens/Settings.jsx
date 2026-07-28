@@ -674,9 +674,19 @@ export default function SettingsScreen() {
                       }`} />
                     <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${monitorResult === 'success' ? 'text-green-400' : monitorResult === 'cached' ? 'text-yellow-400' : monitorResult === 'error' ? 'text-red-400' : 'text-zinc-600'}`}>
                       {monitorResult === 'success'
-                        ? `Syncing${lastUpdate ? ` (next update in ${Math.max(0, Math.floor((parseInt(lastUpdate) + 180000 - Date.now()) / 60000))}m)` : ''}`
+                        ? `Syncing${(() => {
+                            const ms = Math.max(0, (nextRetryAt || (lastUpdate ? parseInt(lastUpdate) + 180000 : 0)) - Date.now());
+                            const m = Math.floor(ms / 60000);
+                            const s = Math.floor((ms % 60000) / 1000);
+                            return ms > 0 ? ` (next update in ${m > 0 ? `${m}m ${s}s` : `${s}s`})` : '';
+                          })()}`
                         : monitorResult === 'cached'
-                          ? `Waiting for Warframe (next attempt in ${Math.max(0, Math.floor((nextRetryAt - Date.now()) / 1000))}s)`
+                          ? `Waiting for Warframe${nextRetryAt ? (() => {
+                              const ms = Math.max(0, nextRetryAt - Date.now());
+                              const m = Math.floor(ms / 60000);
+                              const s = Math.floor((ms % 60000) / 1000);
+                              return ` (next attempt in ${m > 0 ? `${m}m ${s}s` : `${s}s`})`;
+                            })() : ''}`
                           : monitorResult === 'error'
                             ? 'Sync Error'
                             : 'Idle'}

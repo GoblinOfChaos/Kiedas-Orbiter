@@ -62,6 +62,7 @@ function itemsToMap(items) {
       marketCost: item.marketCost,
       bpCost: item.bpCost,
       modSet: item.modSet,
+      icon: item.wikiaThumbnail || item.icon,
     }
   }
   return map

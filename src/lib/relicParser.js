@@ -26,7 +26,7 @@ function resolveDisplayName(uniqueName, exportData) {
   // Normalize path: remove /StoreItems/ from log paths to match export data keys
   const normalizedKey = uniqueName.replace('/StoreItems/', '/');
 
-  const dict = exportData['dict.en'] || {};
+  const dict = exportData.dict || {};
   const uniqueNameToName = exportData.uniqueNameToName || {};
 
   // Build lookup tables

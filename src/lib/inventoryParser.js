@@ -218,6 +218,16 @@ const FOLDER_OVERRIDES = {
   Fairy: 'Wisp', Jade: 'Nyx',
 };
 
+// Items without dict entries that produce ugly pascal-split names.
+const NAME_OVERRIDES = {
+  'MUSEUMDOGTAG': 'Museum Dog Tag',
+  'MUSEUMDOGTAGCONSUMABLE': 'Museum Dog Tag',
+  'GUILDGLYPHCONSUMABLENOCHARGES': 'Guild Glyph (No Charges)',
+  'GUILDGLYPHCONSUMABLE': 'Guild Glyph',
+  'RESOURCESTESTPARTITEM': 'Resource Test Part',
+  'MUSEUMDOG': 'Museum Dog',
+}
+
 // ─── Name / Image Resolution ─────────────────────────────────────────────────
 
 /**
@@ -253,6 +263,7 @@ function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
   const leaf = parts.at(-1) ?? path;
   const folder = parts.at(-2) ?? '';
+  if (NAME_OVERRIDES[leaf]) return NAME_OVERRIDES[leaf];
 
   if (FOLDER_OVERRIDES[folder]) {
     const suffix = leaf.match(/(Prime|Vandal|Wraith|Prisma|Kuva|Tenet|Umbra)$/i)?.[0] ?? '';
@@ -2131,6 +2142,7 @@ export function parseInventory(raw, exports) {
       nightwave_title: nightwaveTitle,
       endo: raw.FusionPoints ?? 0,
     },
+    wishlist,
     Affiliations: raw.Affiliations ?? [],
     SupportedSyndicate: raw.SupportedSyndicate ?? null,
     DailyFocus: raw.DailyFocus ?? 0,

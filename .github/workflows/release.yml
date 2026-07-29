@@ -95,6 +95,9 @@ jobs:
           fi
           rm -rf squashfs-root /tmp/Warframe-Exporter-CLI.AppImage
 
+      - name: Set Node.js heap limit for large build
+        run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
+
       - name: Install frontend dependencies
         run: pnpm install
 

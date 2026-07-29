@@ -389,6 +389,18 @@ const BOOSTER_NAME_MAP = {
   'Credit': 'Credit Booster',
   'ModDropChance': 'Mod Drop Chance Booster',
 }
+
+// Items that don't have dict entries and produce ugly pascal-split names.
+const NAME_OVERRIDES = {
+  'MUSEUMDOGTAG': 'Museum Dog Tag',
+  'MUSEUMDOGTAGCONSUMABLE': 'Museum Dog Tag',
+  'GUILDGLYPHCONSUMABLENOCHARGES': 'Guild Glyph (No Charges)',
+  'GUILDGLYPHCONSUMABLE': 'Guild Glyph',
+  'RESOURCESTESTPARTITEM': 'Resource Test Part',
+  'MUSEUMDOG': 'Museum Dog',
+  'CONSUMABLENOCHARGES': 'Consumable (No Charges)',
+}
+export { NAME_OVERRIDES }
 export { BOOSTER_NAME_MAP };
 
 function splitPascal(str) {
@@ -403,6 +415,7 @@ function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
   const leaf = parts.at(-1) ?? path;
   const folder = parts.at(-2) ?? '';
+  if (NAME_OVERRIDES[leaf]) return NAME_OVERRIDES[leaf];
 
   if (FOLDER_OVERRIDES[folder]) {
     const suffix = leaf.match(/(Prime|Vandal|Wraith|Prisma|Kuva|Tenet|Umbra)$/i)?.[0] ?? '';

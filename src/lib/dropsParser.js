@@ -390,7 +390,7 @@ export function buildDropIndex(exportData) {
   const ERg = exportData.ExportRegions
   const ERw = exportData.ExportRewards
   const ERel = exportData.ExportRelics
-  const dict = exportData['dict.en'] || {}
+  const dict = exportData.dict || {}
 
   const index = {}
   const nameMap = buildNameToUniqueNameMap(exportData, dict)

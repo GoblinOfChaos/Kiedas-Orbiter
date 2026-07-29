@@ -151,7 +151,7 @@ export default function MirroredMonitoringProvider({ children }) {
           setDescendiaDesc(descMap)
         }
 
-        // Inject warframe-items pre-resolved data into exports (lazy-loaded via dynamic import)
+        // Inject warframe-items pre-resolved data into exports (loaded from data/user/wfcd/)
         const { maps: wiMaps, supplement: wiSupplement } = exports ? await loadWarframeItemsMaps() : { maps: {}, supplement: {} }
         if (exports) {
           exports.uniqueNameToName = { ...(exports.uniqueNameToName || {}), ...wiSupplement.uniqueNameToName }

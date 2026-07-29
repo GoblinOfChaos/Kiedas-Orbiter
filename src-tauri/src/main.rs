@@ -174,6 +174,33 @@ const TXT_FILES: &[(&str, &str)] = &[
     ("sp-incursions.txt", "https://browse.wf/sp-incursions.txt"),
 ];
 
+// Warframe-items data (WFCD) — 20 JSON files used for name resolution in
+// Inventory, Rivens, Relics, etc.  Downloaded from the WFCD repo and cached
+// for 24 hours, same refresh cadence as the main game exports.
+const WFCD_FILES: &[&str] = &[
+    "Warframes.json",
+    "Primary.json",
+    "Secondary.json",
+    "Melee.json",
+    "Arch-Gun.json",
+    "Arch-Melee.json",
+    "Archwing.json",
+    "Railjack.json",
+    "SentinelWeapons.json",
+    "Sentinels.json",
+    "Pets.json",
+    "Mods.json",
+    "Arcanes.json",
+    "Resources.json",
+    "Relics.json",
+    "Gear.json",
+    "Misc.json",
+    "Skins.json",
+    "Sigils.json",
+    "Glyphs.json",
+    "Fish.json",
+];
+
 // Drop data (warframe-drop-data) is an extra JSON file from a different source.
 // It's refreshed once per day like the main exports.
 const DROPDATA_FILES: &[(&str, &str)] = &[
@@ -814,6 +841,36 @@ async fn check_media_assets() -> Result<String, String> {
     }
 
     Ok(format!("Downloaded {} media assets", downloaded))
+}
+
+/// Download warframe-items-data JSON files from the WFCD repo.
+/// Cached for 24 hours (same cadence as main exports).  Failures are non-fatal
+/// per-file — the frontend falls back to empty maps if a file is missing.
+#[tauri::command]
+async fn check_wfcd_data() -> Result<String, String> {
+    let wfcd_dir = resolve_path("data/user/wfcd");
+    if !wfcd_dir.exists() {
+        fs::create_dir_all(&wfcd_dir).map_err(|e| e.to_string())?;
+    }
+
+    let client = reqwest::Client::new();
+    let base_url = "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json";
+    let mut downloaded = 0u32;
+
+    for file_name in WFCD_FILES {
+        let path = wfcd_dir.join(file_name);
+        let needs_update = !path.exists() || file_age_secs(&path) > 86_400;
+
+        if needs_update {
+            let url = format!("{}/{}", base_url, file_name);
+            match download_file(&client, &url, &path).await {
+                Ok(_) => downloaded += 1,
+                Err(e) => eprintln!("Warning: could not download WFCD {}: {}", file_name, e),
+            }
+        }
+    }
+
+    Ok(format!("Updated {} WFCD files", downloaded))
 }
 
 /// Return the absolute path to the mastery icons directory.
@@ -3164,6 +3221,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             check_ocr_models,
             check_pricer_models,
             check_media_assets,
+            check_wfcd_data,
             load_all_exports,
             load_txt_file,
             // --- notes ---

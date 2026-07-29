@@ -479,6 +479,7 @@ export function MonitoringProvider({ children }) {
         invoke('check_exports'),
         invoke('check_media_assets'),
         invoke('check_pricer_models'),
+        invoke('check_wfcd_data'),
       ])
 
       const [exportsRes, spiRes, arbRes, descRes] = await Promise.allSettled([
@@ -510,7 +511,7 @@ export function MonitoringProvider({ children }) {
         } catch { }
       }
 
-      // Inject warframe-items pre-resolved data into exports (lazy-loaded via dynamic import)
+      // Inject warframe-items pre-resolved data into exports (loaded from data/user/wfcd/)
       const { maps: wiMaps, supplement: wiSupplement } = exports ? await loadWarframeItemsMaps() : { maps: {}, supplement: {} }
       const exportsWithWI = exports ? { ...exports, ...wiMaps } : null
       if (exportsWithWI) {

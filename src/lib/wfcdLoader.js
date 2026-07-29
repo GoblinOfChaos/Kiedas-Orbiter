@@ -1,15 +1,12 @@
 /**
- * Cached dynamic-import loader for warframe-items-data JSON files.
+ * Cached loader for warframe-items-data JSON files.
  *
- * Replaces the static top-level imports that caused OOM at startup by
- * deferring the JSON load until first use.  The result of
- * transformWarframeItems() is cached so repeated calls are free.
- *
- * Uses plain dynamic import() with a template literal — Vite/Rollup can
- * statically analyze this since WI_FILES is a fixed array of literal strings,
- * producing lazy-loaded chunks without the silent-failure of import.meta.glob
- * with bare package specifiers.
+ * Reads from data/user/wfcd/ (populated by the Rust check_wfcd_data command)
+ * instead of importing from the npm package, avoiding the 67MB static bundle
+ * that caused OOM at startup.  The result of transformWarframeItems() is
+ * cached so repeated calls are free.
  */
+import { invoke } from '@tauri-apps/api/core'
 import { transformWarframeItems, WI_FILES } from './warframeItemsTransform'
 
 let cached = null
@@ -21,8 +18,13 @@ export async function loadWarframeItemsMaps() {
 
   await Promise.all(WI_FILES.map(async (file) => {
     try {
-      const mod = await import(`warframe-items-data/${file}.json`)
-      rawData[file] = mod.default || mod
+      const bytes = await invoke('read_file_bytes', {
+        relative: `data/user/wfcd/${file}.json`,
+      })
+      if (bytes) {
+        const jsonStr = new TextDecoder().decode(new Uint8Array(bytes))
+        rawData[file] = JSON.parse(jsonStr)
+      }
     } catch {
       // file missing — skip
     }

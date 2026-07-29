@@ -2157,8 +2157,7 @@ export function parseInventory(raw, exports) {
     discoveredMarkers: raw.DiscoveredMarkers ?? [],
     customMarkers: raw.CustomMarkers ?? [],
     NemesisHistory: raw.NemesisHistory ?? [],
-    wishlist,
-
+    periodicMissionCompletions: raw.PeriodicMissionCompletions ?? [],
     // ── Craftable Items (all recipes with ingredient checks) ──
     craftable: (() => {
       const craftableItems = [];

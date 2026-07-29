@@ -497,16 +497,51 @@ export default function Checklist() {
       return JSON.parse(localStorage.getItem('checklist_hidden') || '{}')
     } catch { return {} }
   })
+  const [autoTrack, setAutoTrack] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('checklist_auto_track') || 'true')
+    } catch { return true }
+  })
   const [showHiddenTasks, setShowHiddenTasks] = useState(false)
   const [cdnBase, setCdnBase] = useState('')
+  const periodicCompletions = inventoryData?.periodicMissionCompletions ?? []
 
+  // ── Auto-complete from inventory ──
+  useEffect(() => {
+    if (!autoTrack || !periodicCompletions.length) return
+    const t = new Date()
+    const todayStart = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate()))
+    const lastMonday = new Date(todayStart)
+    lastMonday.setUTCDate(lastMonday.getUTCDate() - ((lastMonday.getUTCDay() + 6) % 7))
+
+    const isAfter = (ts, boundary) => ts >= boundary.getTime()
+    const parseTs = (entry) => new Date(entry.date?.$date?.$numberLong).getTime()
+
+    const auto = {}
+    for (const entry of periodicCompletions) {
+      const tag = entry.tag
+      const ts = parseTs(entry)
+      if (isNaN(ts)) continue
+      if (tag === 'GetClem' && isAfter(ts, lastMonday)) auto.clem = true
+      else if (tag?.startsWith('TreasureHunt') && isAfter(ts, lastMonday)) auto.ayatan = true
+      else if (tag?.startsWith('HardDaily') && isAfter(ts, todayStart)) auto.steel_path = true
+    }
+
+    setCompleted(prev => {
+      const next = { ...prev }
+      let changed = false
+      for (const [id, val] of Object.entries(auto)) {
+        if (!prev[id]) { next[id] = val; changed = true }
+      }
+      return changed ? next : prev
+    })
+  }, [periodicCompletions, autoTrack])
   const hasInventory = !!inventoryData
+  const [now, setNow] = useState(Date.now())
   const masteryRank = hasInventory ? (inventoryData?.account?.mastery_rank || 16) : 16
   const affiliations = hasInventory ? (inventoryData?.Affiliations || []) : []
   const focusXP = hasInventory ? (inventoryData?.FocusXP || {}) : {}
   const dailyFocus = hasInventory ? (inventoryData?.DailyFocus || 0) : 0
-  const [now, setNow] = useState(Date.now())
-
   useEffect(() => {
     const interval = setInterval(() => setNow(Date.now()), 1000)
     return () => clearInterval(interval)
@@ -520,7 +555,9 @@ export default function Checklist() {
   useEffect(() => {
     localStorage.setItem('checklist_hidden', JSON.stringify(hiddenMap))
   }, [hiddenMap])
-
+  useEffect(() => {
+    localStorage.setItem('checklist_auto_track', JSON.stringify(autoTrack))
+  }, [autoTrack])
   useEffect(() => {
     invoke('get_cdn_base_url').then(setCdnBase).catch(() => { })
   }, [])
@@ -817,6 +854,16 @@ export default function Checklist() {
               <span className="text-[14px] font-semibold text-kronos-text">Tasks</span>
             </div>
             <div className="flex items-center gap-3">
+              <label className="flex items-center gap-1.5 text-[13px] text-kronos-text cursor-pointer select-none"
+                title="Auto-sync tasks (requires inventory sync and log scanning enabled)">
+                <input
+                  type="checkbox"
+                  checked={autoTrack}
+                  onChange={e => setAutoTrack(e.target.checked)}
+                  className="w-3.5 h-3.5 accent-kronos-accent"
+                />
+                Auto-track (WIP)
+              </label>
               <span className="text-[18px] font-bold text-kronos-accent">
                 {completedTasks}/{visibleTasks.length}
               </span>

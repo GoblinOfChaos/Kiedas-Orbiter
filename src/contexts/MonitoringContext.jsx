@@ -479,7 +479,6 @@ export function MonitoringProvider({ children }) {
         invoke('check_exports'),
         invoke('check_media_assets'),
         invoke('check_pricer_models'),
-        invoke('check_wfcd_data'),
       ])
 
       const [exportsRes, spiRes, arbRes, descRes] = await Promise.allSettled([

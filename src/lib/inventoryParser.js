@@ -2156,7 +2156,7 @@ export function parseInventory(raw, exports) {
     loreFragmentScans: raw.LoreFragmentScans ?? [],
     discoveredMarkers: raw.DiscoveredMarkers ?? [],
     customMarkers: raw.CustomMarkers ?? [],
-
+    NemesisHistory: raw.NemesisHistory ?? [],
     wishlist,
 
     // ── Craftable Items (all recipes with ingredient checks) ──

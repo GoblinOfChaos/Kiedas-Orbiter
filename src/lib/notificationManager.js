@@ -79,9 +79,9 @@ const TRIGGER_DEFINITIONS = [
     id: 'foundry',
     label: 'Foundry Complete',
     columns: [
-      { key: 'checkInterval', label: 'Check (min)', type: 'number', default: 5 },
+      { key: 'advance', label: 'Notify when remaining time is (minutes)', type: 'number', default: 5 },
     ],
-    defaultConfig: { checkInterval: 5 },
+    defaultConfig: { advance: 5 },
   },
   {
     id: 'mastery',
@@ -338,9 +338,13 @@ function evaluateSyndicateWaste(notif, inventoryData, ES, results) {
 }
 
 function evaluateFoundry(notif, inventoryData, results) {
-  const recipes = inventoryData.craftable || []
+  const recipes = inventoryData.foundry || []
+  const advance = (notif.config?.advance ?? 5) * 60 // min → seconds
+  const now = Date.now() / 1000
   for (const item of recipes) {
-    if (item.isCrafting && item.remainingTime <= 0) {
+    if (!item.finishTime || item.finishTime <= now) continue
+    const remaining = item.finishTime - now
+    if (remaining > 0 && remaining <= advance) {
       results.push({
         notifId: notif.id,
         title: 'Foundry Complete',

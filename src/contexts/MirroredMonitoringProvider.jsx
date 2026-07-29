@@ -7,40 +7,9 @@ import { getAllRelicRewards } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
 import { MonitoringContext } from './MonitoringContext'
 import { getPricesBatch } from '../lib/marketEngine'
-import { transformWarframeItems } from '../lib/warframeItemsTransform'
-import wiWarframes from 'warframe-items-data/Warframes.json'
-import wiPrimary from 'warframe-items-data/Primary.json'
-import wiSecondary from 'warframe-items-data/Secondary.json'
-import wiMelee from 'warframe-items-data/Melee.json'
-import wiArchGun from 'warframe-items-data/Arch-Gun.json'
-import wiArchMelee from 'warframe-items-data/Arch-Melee.json'
-import wiArchwing from 'warframe-items-data/Archwing.json'
-import wiRailjack from 'warframe-items-data/Railjack.json'
-import wiSentinelWeapons from 'warframe-items-data/SentinelWeapons.json'
-import wiSentinels from 'warframe-items-data/Sentinels.json'
-import wiPets from 'warframe-items-data/Pets.json'
-import wiMods from 'warframe-items-data/Mods.json'
-import wiArcanes from 'warframe-items-data/Arcanes.json'
-import wiResources from 'warframe-items-data/Resources.json'
-import wiRelics from 'warframe-items-data/Relics.json'
-import wiGear from 'warframe-items-data/Gear.json'
-import wiMisc from 'warframe-items-data/Misc.json'
-import wiSkins from 'warframe-items-data/Skins.json'
-import wiSigils from 'warframe-items-data/Sigils.json'
-import wiGlyphs from 'warframe-items-data/Glyphs.json'
-import wiFish from 'warframe-items-data/Fish.json'
+import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
 
 const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
-const warframeItemsRaw = {
-  Warframes: wiWarframes, Primary: wiPrimary, Secondary: wiSecondary,
-  Melee: wiMelee, 'Arch-Gun': wiArchGun, 'Arch-Melee': wiArchMelee,
-  Archwing: wiArchwing, Railjack: wiRailjack, SentinelWeapons: wiSentinelWeapons,
-  Sentinels: wiSentinels, Pets: wiPets,
-  Mods: wiMods, Arcanes: wiArcanes, Resources: wiResources,
-  Relics: wiRelics, Gear: wiGear, Misc: wiMisc,
-  Skins: wiSkins, Sigils: wiSigils, Glyphs: wiGlyphs, Fish: wiFish,
-}
-const { maps: wiMaps, supplement: wiSupplement } = transformWarframeItems(warframeItemsRaw)
 
 function toMap(data, key) {
   if (!data) return {}
@@ -182,7 +151,8 @@ export default function MirroredMonitoringProvider({ children }) {
           setDescendiaDesc(descMap)
         }
 
-        // Inject warframe-items pre-resolved data into exports (same as main MonitoringContext)
+        // Inject warframe-items pre-resolved data into exports (lazy-loaded via dynamic import)
+        const { maps: wiMaps, supplement: wiSupplement } = exports ? await loadWarframeItemsMaps() : { maps: {}, supplement: {} }
         if (exports) {
           exports.uniqueNameToName = { ...(exports.uniqueNameToName || {}), ...wiSupplement.uniqueNameToName }
           exports.nameToImage = { ...(exports.nameToImage || {}), ...wiSupplement.nameToImage }

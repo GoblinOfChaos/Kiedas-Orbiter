@@ -1620,11 +1620,9 @@ pub(crate) fn load_settings_sync() -> serde_json::Value {
 
 #[tauri::command]
 async fn sidebar_load_data(app_handle: tauri::AppHandle) -> Result<serde_json::Value, String> {
-    // Ensure exports are fresh before reading - this is cheap (file-age check)
-    // if the main window's check_exports already ran, and safe (atomic rename)
-    // if it hasn't yet.
-    check_exports().await?;
-
+    // Load whatever exports are already on disk — don't block on check_exports.
+    // The main window's MonitoringProvider runs check_exports in parallel;
+    // if it hasn't finished yet, we just use stale/cached data.
     let exports = load_all_exports_inner(&app_handle).unwrap_or_default();
     let (inventory, timestamp) = load_cached_inventory_inner()
         .ok()

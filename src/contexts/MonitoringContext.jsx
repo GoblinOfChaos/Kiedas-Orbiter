@@ -475,14 +475,11 @@ export function MonitoringProvider({ children }) {
 
     ; (async () => {
       setStatusText('Checking updates & assets…')
-      const [updatesRes] = await Promise.allSettled([
+      const [updatesRes, exportsRes, mediaRes, pricerRes, spiRes, arbRes, descRes] = await Promise.allSettled([
         invoke('check_exports'),
+        invoke('load_all_exports'),
         invoke('check_media_assets'),
         invoke('check_pricer_models'),
-      ])
-
-      const [exportsRes, spiRes, arbRes, descRes] = await Promise.allSettled([
-        invoke('load_all_exports'),
         invoke('load_txt_file', { name: 'sp-incursions.txt' }),
         invoke('load_txt_file', { name: 'arbys.txt' }),
         invoke('load_txt_file', { name: 'descendia.txt' }),

@@ -359,7 +359,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const ft = custom ? null : f('FrameTop')
   const fb = custom ? null : f('FrameBottom')
   const sl = custom || NO_SIDE.has(mf) ? null : f('SideLight')
-  const bk = custom && mf !== 'Requiem' && mf !== 'Antivirus' && mf !== 'Potency' ? null : (mod.baseDrain === 0 ? null : f('RightBacker'))
+  const bk = custom && mf !== 'Requiem' && mf !== 'Antivirus' && mf !== 'Potency' ? null : (!mod.baseDrain ? null : f('RightBacker'))
   const lt = custom || hideCategory ? null : f('LowerTab')
   const cl = custom ? null : f('CornerLights')
 

@@ -461,29 +461,26 @@ const SYNDICATE_LABELS = {
   EntratiSyndicate: 'Deimos',
   SolarisSyndicate: 'Vallis',
 }
-const BUNTY_MISSION_EXTRACTORS = [
-  { re: /\/(Vania|Hex|1999)([A-Z][a-z]+)/, idx: 2 },
-  { re: /\/(Cetus|Solaris|Deimos)([A-Z][a-z]+)/, idx: 2 },
-  { re: /\/(Zariman|EntratiLab)([A-Z][a-z]+)/, idx: 2 },
-]
 
-function extractBountyMissionType(challenge) {
+// Prefixes that appear as the first camelCase word in challenge filenames
+const CHALLENGE_PREFIXES = new Set(['Vania', 'Hex', '1999', 'Venus', 'Deimos', 'Narmer'])
+const SYNDICATE_PREFIXES = new Set(['Vania', 'Hex', '1999', 'Venus', 'Deimos', 'Narmer', 'Cetus'])
+
+function challengeMissionType(challenge) {
   if (!challenge) return ''
-  for (const { re, idx } of BUNTY_MISSION_EXTRACTORS) {
-    const m = challenge.match(re)
-    if (m) return m[idx]
-  }
-  return ''
+  const fn = challenge.split('/').pop()
+  const words = fn.replace(/([A-Z])/g, ' $1').trim().split(/\s+/)
+  return words.find(w => !CHALLENGE_PREFIXES.has(w)) || words[0] || ''
 }
 
 function evaluateBounty(notif, state, results) {
-  const { bountyCycle, locationBounties, ERg, dict, EC } = state
-
+  const { bountyCycle, worldstate, ERg, dict, EC } = state
   const config = notif.config || {}
   const syndicates = config.syndicates || []
   const missionTypes = config.missionTypes || []
+  const skipPrefix = (s) => { const ws = s.split(/\s+/); return ws.find(w => !SYNDICATE_PREFIXES.has(w)) || ws[0] || '' }
 
-  // ── Check bounty-cycle data (Zariman, Cavia, Hex) ────────────────────────
+  // ── bounty-cycle data (Zariman, Cavia, Hex) ─────────────────────────────
   if (bountyCycle?.bounties) {
     for (const [key, bounties] of Object.entries(bountyCycle.bounties)) {
       if (syndicates.length > 0 && !syndicates.includes(key)) continue
@@ -498,7 +495,7 @@ function evaluateBounty(notif, state, results) {
           mType = resolveMissionType(entry.missionName || entry.missionType || '', dict, ERg)
         }
         if (!mType) {
-          mType = resolveMissionType(extractBountyMissionType(b.challenge), dict, ERg)
+          mType = resolveMissionType(challengeMissionType(b.challenge), dict, ERg)
         }
         if (missionTypes.length > 0 && !missionTypes.some(mt => mType?.toLowerCase().includes(mt.toLowerCase()))) continue
 
@@ -513,34 +510,26 @@ function evaluateBounty(notif, state, results) {
     }
   }
 
-  // ── Check location-bounties data (Cetus, Deimos, Vallis) ─────────────────
-  if (!locationBounties) return
-  const LOCATION_SYNDICATES = { CetusSyndicate: 'CetusSyndicate', EntratiSyndicate: 'EntratiSyndicate', SolarisSyndicate: 'SolarisSyndicate' }
+  // ── worldstate SyndicateMissions (Cetus, Deimos, Vallis) ────────────────
+  if (!worldstate?.SyndicateMissions) return
+  for (const sm of worldstate.SyndicateMissions) {
+    if (!['CetusSyndicate', 'EntratiSyndicate', 'SolarisSyndicate'].includes(sm.Tag)) continue
+    if (syndicates.length > 0 && !syndicates.includes(sm.Tag)) continue
+    const synLabel = SYNDICATE_LABELS[sm.Tag] || sm.Tag
 
-  for (const [key, tiers] of Object.entries(locationBounties)) {
-    if (!LOCATION_SYNDICATES[key]) continue
-    if (syndicates.length > 0 && !syndicates.includes(key)) continue
-    const synLabel = SYNDICATE_LABELS[key] || key
+    for (const job of (sm.Jobs || [])) {
+      const fn = (job.jobType || '').split('/').pop()
+      if (!fn) continue
+      const name = resolveChallenge(fn, dict, EC) || 'Bounty'
+      const mType = resolveMissionType(challengeMissionType(fn), dict, ERg) || skipPrefix(name)
+      if (missionTypes.length > 0 && !missionTypes.some(mt => mType?.toLowerCase().includes(mt.toLowerCase()))) continue
 
-    for (const [_tier, challenges] of Object.entries(tiers)) {
-      if (!Array.isArray(challenges)) continue
-      for (const ch of challenges) {
-        const name = resolveChallenge(ch, dict, EC) || 'Bounty'
-        let mType = resolveMissionType(extractBountyMissionType(ch), dict, ERg)
-        if (!mType) {
-          const spaced = name.replace(/([A-Z])/g, ' $1').trim()
-          const words = spaced.split(/\s+/)
-          if (words.length > 0) mType = words[0]
-        }
-        if (missionTypes.length > 0 && !missionTypes.some(mt => mType?.toLowerCase().includes(mt.toLowerCase()))) continue
-
-        results.push({
-          notifId: notif.id,
-          title: `${synLabel} Bounty`,
-          message: `${name}${mType ? ` (${mType})` : ''}`,
-          image: 'IconMission.png',
-        })
-      }
+      results.push({
+        notifId: notif.id,
+        title: `${synLabel} Bounty`,
+        message: `${name}${mType ? ` (${mType})` : ''}`,
+        image: 'IconMission.png',
+      })
     }
   }
 }

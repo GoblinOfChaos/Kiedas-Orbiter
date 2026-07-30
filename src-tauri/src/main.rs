@@ -898,6 +898,23 @@ fn read_file_bytes(app_handle: tauri::AppHandle, relative: String) -> Result<Vec
     }
     Err(format!("File not found: {}", relative))
 }
+
+/// Resolve the absolute path of an asset file, with fallback to bundled resources.
+/// Used by the frontend with `convertFileSrc` + `fetch` to load large JSON files
+/// without the 200-300% bloat of Vec<u8> JSON serialization.
+#[tauri::command]
+fn resolve_asset_path(app_handle: tauri::AppHandle, relative: String) -> Result<String, String> {
+    let path = resolve_path(&relative);
+    if path.exists() {
+        return Ok(path.to_string_lossy().to_string());
+    }
+    if let Some(bundled) = resolve_bundled_path(&app_handle, &relative) {
+        if bundled.exists() {
+            return Ok(bundled.to_string_lossy().to_string());
+        }
+    }
+    Err(format!("File not found: {}", relative))
+}
 /// Write bytes to an absolute path. Used for importing/exporting share bundles
 /// via the user's file-picker path (not the data root).
 #[tauri::command]
@@ -3198,6 +3215,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             read_file,
             write_file,
             read_file_bytes,
+            resolve_asset_path,
             count_unfixed_card_images,
             ensure_card_images,
             detect_warframe_cache,

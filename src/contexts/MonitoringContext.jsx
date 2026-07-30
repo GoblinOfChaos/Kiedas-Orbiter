@@ -507,16 +507,19 @@ export function MonitoringProvider({ children }) {
         } catch { }
       }
 
-      // Inject warframe-items pre-resolved data into exports (loaded from data/assets/wfcd/)
-      const { maps: wiMaps, supplement: wiSupplement } = exports ? await loadWarframeItemsMaps() : { maps: {}, supplement: {} }
-      const exportsWithWI = exports ? { ...exports, ...wiMaps } : null
-      if (exportsWithWI) {
-        exportsWithWI.uniqueNameToName = { ...exportsWithWI.uniqueNameToName, ...wiSupplement.uniqueNameToName }
-        exportsWithWI.nameToImage = { ...exportsWithWI.nameToImage, ...wiSupplement.nameToImage }
-        exportsWithWI.WI_Supplement = wiSupplement
-      }
+      // Set exports immediately (no wfcd blocking) — defer the wfcd load to
+      // the background so the shell UI renders without a 15s hitch.
+      setExportData(exports)
 
-      setExportData(exportsWithWI)
+      if (exports) {
+        loadWarframeItemsMaps().then(({ maps: wiMaps, supplement: wiSupplement }) => {
+          const enhanced = { ...exports, ...wiMaps }
+          enhanced.uniqueNameToName = { ...enhanced.uniqueNameToName, ...wiSupplement.uniqueNameToName }
+          enhanced.nameToImage = { ...enhanced.nameToImage, ...wiSupplement.nameToImage }
+          enhanced.WI_Supplement = wiSupplement
+          setExportData(enhanced)
+        })
+      }
       setSpIncursions(spiText || '')
       setArbys(arbText || '')
       // Parse descendia descriptions

@@ -1,36 +1,36 @@
 /**
  * Cached loader for warframe-items-data JSON files.
  *
- * Reads from data/assets/wfcd/ (bundled Tauri resource, populated at build time
- * by scripts/sync-wfcd.js from the warframe-items npm package) instead of
- * importing from node_modules, avoiding the 67MB static bundle that caused
- * OOM at startup.  The result of transformWarframeItems() is cached so
- * repeated calls are free.
+ * Uses resolve_asset_path + convertFileSrc + fetch to load the combined JSON
+ * through Tauri's asset protocol (byte stream, no JSON-array-of-numbers bloat).
+ *
+ * The combined file (wfcd-combined.json) is built by scripts/sync-wfcd.js
+ * from the warframe-items npm package at build time and bundled as a Tauri
+ * resource.  The result of transformWarframeItems() is cached.
  */
-import { invoke } from '@tauri-apps/api/core'
-import { transformWarframeItems, WI_FILES } from './warframeItemsTransform'
+import { invoke, convertFileSrc } from '@tauri-apps/api/core'
+import { transformWarframeItems } from './warframeItemsTransform'
 
 let cached = null
+let loading = null
 
 export async function loadWarframeItemsMaps() {
   if (cached) return cached
+  if (loading) return loading
 
-  const rawData = {}
-
-  await Promise.all(WI_FILES.map(async (file) => {
+  loading = (async () => {
     try {
-      const bytes = await invoke('read_file_bytes', {
-        relative: `data/assets/wfcd/${file}.json`,
+      const absolutePath = await invoke('resolve_asset_path', {
+        relative: 'data/assets/wfcd/wfcd-combined.json',
       })
-      if (bytes) {
-        const jsonStr = new TextDecoder().decode(new Uint8Array(bytes))
-        rawData[file] = JSON.parse(jsonStr)
-      }
+      const url = convertFileSrc(absolutePath)
+      const combined = await fetch(url).then(r => r.json())
+      cached = transformWarframeItems(combined)
     } catch {
-      // file missing — skip
+      cached = { maps: {}, supplement: { uniqueNameToName: {}, nameToImage: {} } }
     }
-  }))
+    return cached
+  })()
 
-  cached = transformWarframeItems(rawData)
-  return cached
+  return loading
 }

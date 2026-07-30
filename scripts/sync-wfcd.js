@@ -1,11 +1,15 @@
 /**
- * Copy warframe-items JSON files from node_modules into src-tauri/data/assets/wfcd/
- * so they get bundled as Tauri resources (no Vite/Rollup involvement).
+ * Copy warframe-items JSON files from node_modules into a single combined file
+ * at src-tauri/data/assets/wfcd/wfcd-combined.json so the frontend needs only
+ * one read_file_bytes call at startup instead of 21 individual IPC reads.
+ *
+ * The output is a JSON object keyed by the file names used in
+ * warframeItemsTransform.js (Warframes, Primary, Secondary, …).
  *
  * Runs as a `prebuild` script — always in sync with the warframe-items
  * version in package.json.  Idempotent: overwrites existing files.
  */
-import { copyFileSync, mkdirSync, readdirSync } from 'fs'
+import { readFileSync, mkdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
 
 const SRC = 'node_modules/warframe-items/data/json'
@@ -37,16 +41,20 @@ const FILES = [
 
 mkdirSync(DEST, { recursive: true })
 
+const combined = {}
 let count = 0
 for (const file of FILES) {
   const src = join(SRC, file)
-  const dest = join(DEST, file)
   try {
-    copyFileSync(src, dest)
+    const raw = readFileSync(src, 'utf-8')
+    // Use the filename stem as the key (e.g. "Warframes", "Primary")
+    const key = file.replace(/\.json$/, '')
+    combined[key] = JSON.parse(raw)
     count++
   } catch (e) {
-    console.warn(`sync-wfcd: could not copy ${file}: ${e.message}`)
+    console.warn(`sync-wfcd: could not read ${file}: ${e.message}`)
   }
 }
 
-console.log(`sync-wfcd: copied ${count}/${FILES.length} files to ${DEST}/`)
+writeFileSync(join(DEST, 'wfcd-combined.json'), JSON.stringify(combined))
+console.log(`sync-wfcd: combined ${count}/${FILES.length} files into ${DEST}/wfcd-combined.json (${Object.keys(combined).length} keys)`)

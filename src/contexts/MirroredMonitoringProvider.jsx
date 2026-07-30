@@ -151,15 +151,18 @@ export default function MirroredMonitoringProvider({ children }) {
           setDescendiaDesc(descMap)
         }
 
-        // Inject warframe-items pre-resolved data into exports (loaded from data/assets/wfcd/)
-        const { maps: wiMaps, supplement: wiSupplement } = exports ? await loadWarframeItemsMaps() : { maps: {}, supplement: {} }
-        if (exports) {
-          exports.uniqueNameToName = { ...(exports.uniqueNameToName || {}), ...wiSupplement.uniqueNameToName }
-          exports.nameToImage = { ...(exports.nameToImage || {}), ...wiSupplement.nameToImage }
-          exports.WI_Supplement = wiSupplement
-        }
-
+        // Set exports immediately (no wfcd blocking) — load wfcd in background
         setExportData(exports)
+
+        if (exports) {
+          loadWarframeItemsMaps().then(({ maps: wiMaps, supplement: wiSupplement }) => {
+            const enhanced = { ...exports, ...wiMaps }
+            enhanced.uniqueNameToName = { ...(enhanced.uniqueNameToName || {}), ...wiSupplement.uniqueNameToName }
+            enhanced.nameToImage = { ...(enhanced.nameToImage || {}), ...wiSupplement.nameToImage }
+            enhanced.WI_Supplement = wiSupplement
+            setExportData(enhanced)
+          })
+        }
         if (result.inventory) {
           hasCachedDataRef.current = true
           setRawInventory(result.inventory)

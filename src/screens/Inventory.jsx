@@ -26,7 +26,7 @@ const INVENTORY_TABS = [
 ]
 
 const FILTER_CONFIG = {
-  all: ['owned', 'mastered', 'prime'],
+  all: ['owned', 'mastered'],
   warframes: ['owned', 'mastered', 'subsumed', 'prime'],
   weapons: ['owned', 'mastered', 'prime', 'primary', 'secondary', 'melee', 'incarnon'],
   companions: ['owned', 'mastered'],

@@ -41,7 +41,9 @@ ExportUpgrades.json
 # Test images
 *.png
 WFI test images/
-test-images/
+test-images/*
+!test-images/riven-corpus/
+!test-images/riven-corpus/*.png
 
 # Editor / tooling
 .vscode/

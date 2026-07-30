@@ -1,0 +1,63 @@
+[
+  {
+    "image": "riven-cycle.png",
+    "mode": "Cycle",
+    "variant": "Tenet Arca Plasmor",
+    "cards": [
+      {
+        "rows": [
+          {
+            "raw_text": "+52.3% Electricity",
+            "numeric_token": "+52.3%",
+            "stat_name": "Electricity"
+          },
+          {
+            "raw_text": "+49.1% Status Chance",
+            "numeric_token": "+49.1%",
+            "stat_name": "Status Chance"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "image": "riven-confirm.png",
+    "mode": "Confirm",
+    "variant": "Tenet Arca Plasmor",
+    "cards": [
+      {
+        "rows": [
+          {
+            "raw_text": "+52.3% Electricity",
+            "numeric_token": "+52.3%",
+            "stat_name": "Electricity"
+          },
+          {
+            "raw_text": "+49.1% Status Chance",
+            "numeric_token": "+49.1%",
+            "stat_name": "Status Chance"
+          }
+        ]
+      },
+      {
+        "rows": [
+          {
+            "raw_text": "+60.7% Cold",
+            "numeric_token": "+60.7%",
+            "stat_name": "Cold"
+          },
+          {
+            "raw_text": "-62% Weapon Recoil",
+            "numeric_token": "-62%",
+            "stat_name": "Weapon Recoil"
+          },
+          {
+            "raw_text": "x0.88 Damage to Infested",
+            "numeric_token": "x0.88",
+            "stat_name": "Damage to Infested"
+          }
+        ]
+      }
+    ]
+  }
+]

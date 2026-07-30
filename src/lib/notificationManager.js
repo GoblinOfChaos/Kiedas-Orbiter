@@ -1,3 +1,4 @@
+import { resolveChallenge, resolveMissionType, resolveNode } from './warframeUtils.js'
 console.log('notificationManager loaded');
 const TRIGGER_DEFINITIONS = [
   {
@@ -108,6 +109,28 @@ const TRIGGER_DEFINITIONS = [
     ],
     defaultConfig: { cooldown: 180 },
   },
+  {
+    id: 'bounty',
+    label: 'Bounty Available',
+    columns: [
+      {
+        key: 'syndicates', label: 'Syndicate', type: 'multi-select', options: [
+          { value: 'ZarimanSyndicate', label: 'Zariman' },
+          { value: 'EntratiLabSyndicate', label: 'Cavia' },
+          { value: 'HexSyndicate', label: 'Hex' },
+        ]
+      },
+      {
+        key: 'missionTypes', label: 'Mission Types', type: 'multi-select', options: [
+          'Exterminate', 'Capture', 'Survival', 'Defense', 'Interception',
+          'Sabotage', 'Rescue', 'Spy', 'Mobile Defense', 'Disruption',
+          'Void Flood', 'Void Cascade', 'Void Armageddon',
+          'Assassination', 'Excavation',
+        ].map(v => ({ value: v, label: v }))
+      },
+    ],
+    defaultConfig: { syndicates: [], missionTypes: [] },
+  },
 ]
 
 const TRIGGER_MAP = Object.fromEntries(TRIGGER_DEFINITIONS.map(t => [t.id, t]))
@@ -132,7 +155,7 @@ export function getDefaultNotification(triggerId) {
 }
 
 export function evaluateNotifications(notifications, state) {
-  const { inventoryData, worldstate, arbys, ERg, dict, ES } = state
+  const { inventoryData, worldstate, arbys, ERg, dict, ES, bountyCycle } = state
   if (!inventoryData) return []
 
   const results = []
@@ -168,6 +191,8 @@ export function evaluateNotifications(notifications, state) {
       case 'sale':
         evaluateSale(notif, inventoryData, worldstate, results)
         break
+      case 'bounty':
+        evaluateBounty(notif, state, results)
     }
   }
 
@@ -421,6 +446,65 @@ function evaluateChecklist(notif, inventoryData, results) {
         title: 'Checklist Task Due',
         message: `${task.label} resets soon!`,
         image: 'IconChecklist.png',
+      })
+    }
+  }
+}
+
+const SYNDICATE_LABELS = {
+  ZarimanSyndicate: 'Zariman',
+  EntratiLabSyndicate: 'Cavia',
+  HexSyndicate: 'Hex',
+}
+const BUNTY_MISSION_EXTRACTORS = [
+  { re: /\/(Vania|Hex|1999)([A-Z][a-z]+)/, idx: 2 },
+  { re: /\/(Cetus|Solaris|Deimos)([A-Z][a-z]+)/, idx: 2 },
+  { re: /\/(Zariman|EntratiLab)([A-Z][a-z]+)/, idx: 2 },
+]
+
+function extractBountyMissionType(challenge) {
+  if (!challenge) return ''
+  for (const { re, idx } of BUNTY_MISSION_EXTRACTORS) {
+    const m = challenge.match(re)
+    if (m) return m[idx]
+  }
+  return ''
+}
+
+function evaluateBounty(notif, state, results) {
+  const { bountyCycle, ERg, dict, EC } = state
+  if (!bountyCycle?.bounties) return
+
+  const config = notif.config || {}
+  const syndicates = config.syndicates || []
+  const missionTypes = config.missionTypes || []
+
+  for (const [key, bounties] of Object.entries(bountyCycle.bounties)) {
+    if (syndicates.length > 0 && !syndicates.includes(key)) continue
+
+    for (const b of bounties) {
+      const name = b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Bounty'
+      const synLabel = SYNDICATE_LABELS[key] || key
+
+      // Determine mission type from node info or challenge path
+      let mType = ''
+      if (b.node && ERg?.[b.node]) {
+        const entry = ERg[b.node]
+        mType = resolveMissionType(entry.missionName || entry.missionType || '', dict, ERg)
+      }
+      if (!mType) {
+        mType = resolveMissionType(extractBountyMissionType(b.challenge), dict, ERg)
+      }
+
+      if (missionTypes.length > 0 && !missionTypes.some(mt => mType?.toLowerCase().includes(mt.toLowerCase()))) continue
+
+      const node = b.node ? resolveNode(b.node, dict, ERg) || '' : ''
+
+      results.push({
+        notifId: notif.id,
+        title: `${synLabel} Bounty`,
+        message: `${name}${mType ? ` (${mType})` : ''}${node ? ` on ${node}` : ''}`,
+        image: 'IconMission.png',
       })
     }
   }

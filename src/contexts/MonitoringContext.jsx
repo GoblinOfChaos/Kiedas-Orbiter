@@ -6,15 +6,15 @@ import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/marketEngine'
-
-import { resolveNode } from '../lib/warframeUtils'
-import { getSetting } from '../lib/settings'
+import { resolveNode, resolveMissionType, resolveChallenge } from '../lib/warframeUtils'
 import { evaluateNotifications } from '../lib/notificationManager'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
+import { getSetting, setSetting } from '../lib/settings'
 
 
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
 const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
+const BOUNTY_CYCLE_API = 'https://oracle.browse.wf/bounty-cycle'
 function toMap(data, key) {
   if (!data) return {}
   let arr = data
@@ -168,6 +168,7 @@ export function MonitoringProvider({ children }) {
   const [priceFetchProgress, setPriceFetchProgress] = useState(null)
   const [priceLastUpdated, setPriceLastUpdated] = useState(localStorage.getItem('wfm_price_last_updated') || null)
   const [worldState, setWorldState] = useState(null)
+  const [bountyCycle, setBountyCycle] = useState(null)
   const [statusText, setStatusText] = useState('Initializing…')
   const [spIncursions, setSpIncursions] = useState(null)
   const [arbys, setArbys] = useState(null)
@@ -348,14 +349,14 @@ export function MonitoringProvider({ children }) {
     // On first real data, mark everything as seen - no startup flood
     if (!notifInitRef.current) {
       notifInitRef.current = true
-      const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES })
+      const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, bountyCycle })
       for (const r of results) {
         notifiedRef.current.notifMgr.add(`${r.notifId}::${r.title}::${r.message}`)
       }
       return
     }
 
-    const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES })
+    const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, bountyCycle })
 
     // Fire each new notification individually; play sound in main window first
     for (const r of results) {
@@ -580,6 +581,19 @@ export function MonitoringProvider({ children }) {
       return () => clearInterval(iv)
     }
   }, [fetchWorldstate, dict])
+
+  // ── Bounty cycle polling (for bounty notifications) ────────────────────────
+  useEffect(() => {
+    const fetchBountyCycle = async () => {
+      const raw = await invoke('fetch_url', { url: BOUNTY_CYCLE_API }).catch(() => null)
+      if (raw) {
+        try { setBountyCycle(JSON.parse(raw)) } catch {}
+      }
+    }
+    fetchBountyCycle()
+    const iv = setInterval(fetchBountyCycle, 120_000)
+    return () => clearInterval(iv)
+  }, [])
 
   const [nextRetryAt, setNextRetryAt] = useState(0)
 

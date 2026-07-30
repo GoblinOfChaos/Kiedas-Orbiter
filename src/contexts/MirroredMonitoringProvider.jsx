@@ -9,6 +9,7 @@ import { MonitoringContext } from './MonitoringContext'
 import { getPricesBatch } from '../lib/marketEngine'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
 
+const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
 const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
 
 function toMap(data, key) {
@@ -458,16 +459,18 @@ export default function MirroredMonitoringProvider({ children }) {
   // ── Worldstate polling (after all memoized fields so deps are in scope) ──
   const fetchWorldstate = useCallback(async () => {
     try {
-      const ws = await fetch(ORACLE_API).then(r => r.ok ? r.json() : null)
+      const wsStr = await invoke('fetch_url', { url: OFFICIAL_API }).catch(() => null) || await invoke('fetch_url', { url: ORACLE_API }).catch(() => null)
+      const ws = wsStr ? JSON.parse(wsStr) : null
       if (ws && dict) {
         const parsed = parseWorldstate(ws, {
           dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName,
-          ES, ENWRawRewards, ExportImages, archimedeaMap, descendiaDesc,
+          ES, ENWRawRewards, ExportImages, ExportUpgrades: exportData?.ExportUpgrades,
+          archimedeaMap, descendiaDesc,
         })
         setWorldState(parsed)
       }
-    } catch {}
-  }, [dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, archimedeaMap, descendiaDesc])
+    } catch (err) { }
+  }, [dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, archimedeaMap, descendiaDesc])
 
   useEffect(() => {
     if (Object.keys(dict || {}).length > 0) {

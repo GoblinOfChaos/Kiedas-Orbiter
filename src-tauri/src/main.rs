@@ -927,6 +927,20 @@ fn write_file(path: String, data: Vec<u8>) -> Result<(), String> {
     fs::write(p, &data).map_err(|e| e.to_string())
 }
 
+/// Fetch a URL and return the response body as text.
+/// Bypasses CORS and Tauri HTTP plugin permission system.
+/// Rejects on non-2xx status or network error so the caller's `.catch()` fallback triggers.
+#[tauri::command]
+async fn fetch_url(url: String) -> Result<String, String> {
+    let client = reqwest::Client::builder()
+        .timeout(std::time::Duration::from_secs(15))
+        .build()
+        .map_err(|e| format!("Client build error: {e}"))?;
+    let resp = client.get(&url).send().await.map_err(|e| format!("HTTP request failed: {e}"))?;
+    resp.error_for_status_ref().map_err(|e| format!("HTTP {e}"))?;
+    resp.text().await.map_err(|e| format!("Failed to read response: {e}"))
+}
+
 // ─── Mod image pre-processing ───────────────────────────────────────────────
 
 #[derive(Clone, serde::Serialize)]
@@ -3276,6 +3290,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             reflow_wiki_tab,
             refresh_wiki_tab,
             sync_wiki_tab,
+            fetch_url,
         ])
         .build(tauri::generate_context!())
         .expect("error while building tauri application");

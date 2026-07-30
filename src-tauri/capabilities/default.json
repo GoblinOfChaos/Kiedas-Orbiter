@@ -25,7 +25,8 @@
         { "url": "https://api.warframe.market/*" },
         { "url": "https://github.com/glowseeker/cephalon-kronos/*" },
         { "url": "https://oracle.browse.wf/*" },
-        { "url": "https://relics.run/*" }
+        { "url": "https://relics.run/*" },
+        { "url": "https://api.warframe.com/*" }
       ]
     },
     "global-shortcut:default",

@@ -13,9 +13,8 @@ import { evaluateNotifications } from '../lib/notificationManager'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
 
 
+const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
 const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
-
-// ── Pure helper: array/object → keyed map ─────────────────────────────────────
 function toMap(data, key) {
   if (!data) return {}
   let arr = data
@@ -565,7 +564,8 @@ export function MonitoringProvider({ children }) {
 
   const fetchWorldstate = useCallback(async () => {
     try {
-      const ws = await fetch(ORACLE_API).then(r => r.ok ? r.json() : null)
+      const wsStr = await invoke('fetch_url', { url: OFFICIAL_API }).catch(() => null) || await invoke('fetch_url', { url: ORACLE_API }).catch(() => null)
+      const ws = wsStr ? JSON.parse(wsStr) : null
       if (ws && dict) {
         const parsed = parseWorldstate(ws, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, ExportUpgrades: exportData?.ExportUpgrades, archimedeaMap, descendiaDesc })
         setWorldState(parsed)

@@ -349,14 +349,14 @@ export function MonitoringProvider({ children }) {
     // On first real data, mark everything as seen - no startup flood
     if (!notifInitRef.current) {
       notifInitRef.current = true
-      const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, bountyCycle })
+      const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle })
       for (const r of results) {
         notifiedRef.current.notifMgr.add(`${r.notifId}::${r.title}::${r.message}`)
       }
       return
     }
 
-    const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, bountyCycle })
+    const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle })
 
     // Fire each new notification individually; play sound in main window first
     for (const r of results) {

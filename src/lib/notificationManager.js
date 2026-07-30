@@ -1,4 +1,4 @@
-import { resolveChallenge, resolveMissionType, resolveNode } from './warframeUtils.js'
+import { resolveChallenge, resolveMissionType, resolveNode, cleanBountyName } from './warframeUtils.js'
 console.log('notificationManager loaded');
 const TRIGGER_DEFINITIONS = [
   {
@@ -520,7 +520,7 @@ function evaluateBounty(notif, state, results) {
     for (const job of (sm.Jobs || [])) {
       const fn = (job.jobType || '').split('/').pop()
       if (!fn) continue
-      const name = resolveChallenge(fn, dict, EC) || 'Bounty'
+      const name = cleanBountyName(fn) || 'Bounty'
       const mType = resolveMissionType(challengeMissionType(fn), dict, ERg) || skipPrefix(name)
       if (missionTypes.length > 0 && !missionTypes.some(mt => mType?.toLowerCase().includes(mt.toLowerCase()))) continue
 

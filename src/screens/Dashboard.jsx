@@ -39,6 +39,7 @@ import {
   resolveRewardText,
   resolveAnyImage,
   resolveChallenge,
+  cleanBountyName,
   resolveChallengeDesc,
   resolveChallengeFlavour,
   resolveItemName,
@@ -360,7 +361,7 @@ export default function Dashboard() {
       const data = locationBounties.CetusSyndicate || {}
       Object.entries(data).forEach(([key, list]) => {
         if (Array.isArray(list)) {
-          const main = list[0] ? resolveChallenge(list[0], dict, EC).replace(/^Cetus\s+/i, '') : 'Bounty'
+          const main = list[0] ? cleanBountyName(list[0]) : 'Bounty'
           const stages = list.map(p => resolveChallenge(p, dict, EC).replace(/^Cetus\s+/i, '')).join('\n')
           items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Tent', 'Pool ') })
         }
@@ -369,7 +370,7 @@ export default function Dashboard() {
       const data = locationBounties.EntratiSyndicate || {}
       Object.entries(data).forEach(([key, list]) => {
         if (Array.isArray(list)) {
-          const main = list[0] ? resolveChallenge(list[0], dict, EC).replace(/^Deimos\s+/i, '') : 'Bounty'
+          const main = list[0] ? cleanBountyName(list[0]) : 'Bounty'
           const stages = list.map(p => resolveChallenge(p, dict, EC).replace(/^Deimos\s+/i, '')).join('\n')
           items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Chamber', 'Vault ').replace('Tent', 'Pool ') })
         }
@@ -378,7 +379,7 @@ export default function Dashboard() {
       const data = locationBounties.SolarisSyndicate || {}
       Object.entries(data).forEach(([key, list]) => {
         if (Array.isArray(list)) {
-          const main = list[0] ? resolveChallenge(list[0], dict, EC).replace(/^Venus\s+/i, '').replace(/^Solaris\s+/i, '') : 'Bounty'
+          const main = list[0] ? cleanBountyName(list[0]) : 'Bounty'
           const stages = list.map(p => resolveChallenge(p, dict, EC).replace(/^Venus\s+/i, '').replace(/^Solaris\s+/i, '')).join('\n')
           items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Bounty', '').replace(/([A-Z])/g, ' $1').trim() })
         }

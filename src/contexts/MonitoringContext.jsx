@@ -169,6 +169,7 @@ export function MonitoringProvider({ children }) {
   const [priceLastUpdated, setPriceLastUpdated] = useState(localStorage.getItem('wfm_price_last_updated') || null)
   const [worldState, setWorldState] = useState(null)
   const [bountyCycle, setBountyCycle] = useState(null)
+  const [statusText, setStatusText] = useState('Initializing…')
   const [spIncursions, setSpIncursions] = useState(null)
   const [arbys, setArbys] = useState(null)
   const [descendiaDesc, setDescendiaDesc] = useState({})
@@ -591,6 +592,15 @@ export function MonitoringProvider({ children }) {
     const iv = setInterval(fetchBountyCycle, 120_000)
     return () => clearInterval(iv)
   }, [])
+const [nextRetryAt, setNextRetryAt] = useState(0)
+
+const hasCachedData = useCallback(async () => {
+  if (hasCachedDataRef.current) return true
+  try {
+    const result = await invoke('sidebar_load_inventory')
+    return !!result?.inventory
+  } catch { return false }
+}, [])
   const callApiHelper = useCallback(async () => {
     if (busyRef.current) return
     busyRef.current = true

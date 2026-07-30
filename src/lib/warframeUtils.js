@@ -238,7 +238,34 @@ export function resolveChallenge(path, dict, EC) {
   return last.replace(/Challenge$/, '').replace(/([A-Z])/g, ' $1').trim()
 }
 
+// ─── Bounty Challenge Display Name ─────────────────────────────────────
 
+// Filler words stripped from bounty challenge filenames for clean display.
+// Includes path-structure-only tokens, tier/rotation markers, and abbreviations
+// that don't carry meaning for the user-facing bounty name.
+const BOUNTY_FILLER = new Set([
+  'Bounty', 'Cap', 'Ext', 'Lib', 'Sab', 'Cache', 'Two', 'Props', 'Easy',
+  'Normal', 'Hard', 'Elite', 'X', 'Tent', 'Job', 'Key', 'Pieces', 'Crp',
+  'Grn', 'Endless', 'Chamber',
+  // Syndicate / area prefixes
+  'Vania', 'Hex', '1999', 'Venus', 'Deimos', 'Narmer', 'Cetus', 'Solaris',
+])
+/**
+ * Strips filler words and syndicate prefixes that are meaningless to the user,
+ * leaving mission-type descriptors (e.g. "Capture", "Area Defense", "Cull Resource").
+ * Falls back to the cleanest available representation when everything is filler.
+ */
+export function cleanBountyName(path) {
+  if (!path) return 'Bounty'
+  const fn = path.split('/').pop()
+  const words = fn.replace(/([A-Z])/g, ' $1').trim().split(/\s+/)
+  const sig = words.filter(w => !BOUNTY_FILLER.has(w))
+  // Deduplicate consecutive identical words (e.g. "Spy Spy" → "Spy")
+  const deduped = sig.filter((w, i) => i === 0 || w !== sig[i - 1])
+  if (deduped.length > 0) return deduped.join(' ')
+  // All words are filler — fall back to first meaningful looking chunk
+  return words.filter(w => w.length > 1).join(' ') || words[0] || 'Bounty'
+}
 export function resolveChallengeDesc(path, dict, EC, ERg, allyPath = '') {
   if (!path) return ''
   const entry = EC[path]

@@ -507,7 +507,7 @@ export function MonitoringProvider({ children }) {
         } catch { }
       }
 
-      // Inject warframe-items pre-resolved data into exports (loaded from data/user/wfcd/)
+      // Inject warframe-items pre-resolved data into exports (loaded from data/assets/wfcd/)
       const { maps: wiMaps, supplement: wiSupplement } = exports ? await loadWarframeItemsMaps() : { maps: {}, supplement: {} }
       const exportsWithWI = exports ? { ...exports, ...wiMaps } : null
       if (exportsWithWI) {

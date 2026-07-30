@@ -1,7 +1,7 @@
 /**
  * Cached loader for warframe-items-data JSON files.
  *
- * Reads from data/wfcd/ (bundled Tauri resource, populated at build time
+ * Reads from data/assets/wfcd/ (bundled Tauri resource, populated at build time
  * by scripts/sync-wfcd.js from the warframe-items npm package) instead of
  * importing from node_modules, avoiding the 67MB static bundle that caused
  * OOM at startup.  The result of transformWarframeItems() is cached so
@@ -20,7 +20,7 @@ export async function loadWarframeItemsMaps() {
   await Promise.all(WI_FILES.map(async (file) => {
     try {
       const bytes = await invoke('read_file_bytes', {
-        relative: `data/wfcd/${file}.json`,
+        relative: `data/assets/wfcd/${file}.json`,
       })
       if (bytes) {
         const jsonStr = new TextDecoder().decode(new Uint8Array(bytes))

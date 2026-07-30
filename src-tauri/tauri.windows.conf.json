@@ -8,7 +8,7 @@
       "data/assets/ocr/**/*",
       "data/assets/data/**/*",
       "data/assets/audio/**/*",
-      "data/wfcd/**/*",
+      "data/assets/wfcd/**/*"
       "data/bin/Warframe-Exporter-CLI.exe"
     ]
   }

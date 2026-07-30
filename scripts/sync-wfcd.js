@@ -1,5 +1,5 @@
 /**
- * Copy warframe-items JSON files from node_modules into src-tauri/data/wfcd/
+ * Copy warframe-items JSON files from node_modules into src-tauri/data/assets/wfcd/
  * so they get bundled as Tauri resources (no Vite/Rollup involvement).
  *
  * Runs as a `prebuild` script — always in sync with the warframe-items
@@ -9,7 +9,7 @@ import { copyFileSync, mkdirSync, readdirSync } from 'fs'
 import { join } from 'path'
 
 const SRC = 'node_modules/warframe-items/data/json'
-const DEST = 'src-tauri/data/wfcd'
+const DEST = 'src-tauri/data/assets/wfcd'
 
 const FILES = [
   'Warframes.json',

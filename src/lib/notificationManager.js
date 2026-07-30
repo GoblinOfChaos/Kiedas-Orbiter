@@ -118,6 +118,9 @@ const TRIGGER_DEFINITIONS = [
           { value: 'ZarimanSyndicate', label: 'Zariman' },
           { value: 'EntratiLabSyndicate', label: 'Cavia' },
           { value: 'HexSyndicate', label: 'Hex' },
+          { value: 'CetusSyndicate', label: 'Cetus' },
+          { value: 'EntratiSyndicate', label: 'Deimos' },
+          { value: 'SolarisSyndicate', label: 'Vallis' },
         ]
       },
       {
@@ -450,11 +453,13 @@ function evaluateChecklist(notif, inventoryData, results) {
     }
   }
 }
-
 const SYNDICATE_LABELS = {
   ZarimanSyndicate: 'Zariman',
   EntratiLabSyndicate: 'Cavia',
   HexSyndicate: 'Hex',
+  CetusSyndicate: 'Cetus',
+  EntratiSyndicate: 'Deimos',
+  SolarisSyndicate: 'Vallis',
 }
 const BUNTY_MISSION_EXTRACTORS = [
   { re: /\/(Vania|Hex|1999)([A-Z][a-z]+)/, idx: 2 },
@@ -472,40 +477,70 @@ function extractBountyMissionType(challenge) {
 }
 
 function evaluateBounty(notif, state, results) {
-  const { bountyCycle, ERg, dict, EC } = state
-  if (!bountyCycle?.bounties) return
+  const { bountyCycle, locationBounties, ERg, dict, EC } = state
 
   const config = notif.config || {}
   const syndicates = config.syndicates || []
   const missionTypes = config.missionTypes || []
 
-  for (const [key, bounties] of Object.entries(bountyCycle.bounties)) {
-    if (syndicates.length > 0 && !syndicates.includes(key)) continue
-
-    for (const b of bounties) {
-      const name = b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Bounty'
+  // ── Check bounty-cycle data (Zariman, Cavia, Hex) ────────────────────────
+  if (bountyCycle?.bounties) {
+    for (const [key, bounties] of Object.entries(bountyCycle.bounties)) {
+      if (syndicates.length > 0 && !syndicates.includes(key)) continue
       const synLabel = SYNDICATE_LABELS[key] || key
 
-      // Determine mission type from node info or challenge path
-      let mType = ''
-      if (b.node && ERg?.[b.node]) {
-        const entry = ERg[b.node]
-        mType = resolveMissionType(entry.missionName || entry.missionType || '', dict, ERg)
+      for (const b of bounties) {
+        const name = b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Bounty'
+
+        let mType = ''
+        if (b.node && ERg?.[b.node]) {
+          const entry = ERg[b.node]
+          mType = resolveMissionType(entry.missionName || entry.missionType || '', dict, ERg)
+        }
+        if (!mType) {
+          mType = resolveMissionType(extractBountyMissionType(b.challenge), dict, ERg)
+        }
+        if (missionTypes.length > 0 && !missionTypes.some(mt => mType?.toLowerCase().includes(mt.toLowerCase()))) continue
+
+        const node = b.node ? resolveNode(b.node, dict, ERg) || '' : ''
+        results.push({
+          notifId: notif.id,
+          title: `${synLabel} Bounty`,
+          message: `${name}${mType ? ` (${mType})` : ''}${node ? ` on ${node}` : ''}`,
+          image: 'IconMission.png',
+        })
       }
-      if (!mType) {
-        mType = resolveMissionType(extractBountyMissionType(b.challenge), dict, ERg)
+    }
+  }
+
+  // ── Check location-bounties data (Cetus, Deimos, Vallis) ─────────────────
+  if (!locationBounties) return
+  const LOCATION_SYNDICATES = { CetusSyndicate: 'CetusSyndicate', EntratiSyndicate: 'EntratiSyndicate', SolarisSyndicate: 'SolarisSyndicate' }
+
+  for (const [key, tiers] of Object.entries(locationBounties)) {
+    if (!LOCATION_SYNDICATES[key]) continue
+    if (syndicates.length > 0 && !syndicates.includes(key)) continue
+    const synLabel = SYNDICATE_LABELS[key] || key
+
+    for (const [_tier, challenges] of Object.entries(tiers)) {
+      if (!Array.isArray(challenges)) continue
+      for (const ch of challenges) {
+        const name = resolveChallenge(ch, dict, EC) || 'Bounty'
+        let mType = resolveMissionType(extractBountyMissionType(ch), dict, ERg)
+        if (!mType) {
+          const spaced = name.replace(/([A-Z])/g, ' $1').trim()
+          const words = spaced.split(/\s+/)
+          if (words.length > 0) mType = words[0]
+        }
+        if (missionTypes.length > 0 && !missionTypes.some(mt => mType?.toLowerCase().includes(mt.toLowerCase()))) continue
+
+        results.push({
+          notifId: notif.id,
+          title: `${synLabel} Bounty`,
+          message: `${name}${mType ? ` (${mType})` : ''}`,
+          image: 'IconMission.png',
+        })
       }
-
-      if (missionTypes.length > 0 && !missionTypes.some(mt => mType?.toLowerCase().includes(mt.toLowerCase()))) continue
-
-      const node = b.node ? resolveNode(b.node, dict, ERg) || '' : ''
-
-      results.push({
-        notifId: notif.id,
-        title: `${synLabel} Bounty`,
-        message: `${name}${mType ? ` (${mType})` : ''}${node ? ` on ${node}` : ''}`,
-        image: 'IconMission.png',
-      })
     }
   }
 }

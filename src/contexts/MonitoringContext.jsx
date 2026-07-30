@@ -15,6 +15,7 @@ import { getSetting, setSetting } from '../lib/settings'
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
 const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
 const BOUNTY_CYCLE_API = 'https://oracle.browse.wf/bounty-cycle'
+const LOCATION_BOUNTIES_API = 'https://oracle.browse.wf/location-bounties'
 function toMap(data, key) {
   if (!data) return {}
   let arr = data
@@ -169,6 +170,7 @@ export function MonitoringProvider({ children }) {
   const [priceLastUpdated, setPriceLastUpdated] = useState(localStorage.getItem('wfm_price_last_updated') || null)
   const [worldState, setWorldState] = useState(null)
   const [bountyCycle, setBountyCycle] = useState(null)
+  const [locationBounties, setLocationBounties] = useState(null)
   const [statusText, setStatusText] = useState('Initializing…')
   const [spIncursions, setSpIncursions] = useState(null)
   const [arbys, setArbys] = useState(null)
@@ -348,15 +350,13 @@ export function MonitoringProvider({ children }) {
 
     // On first real data, mark everything as seen - no startup flood
     if (!notifInitRef.current) {
-      notifInitRef.current = true
-      const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle })
+      const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle, locationBounties })
       for (const r of results) {
         notifiedRef.current.notifMgr.add(`${r.notifId}::${r.title}::${r.message}`)
       }
       return
     }
-
-    const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle })
+    const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle, locationBounties })
 
     // Fire each new notification individually; play sound in main window first
     for (const r of results) {
@@ -582,16 +582,18 @@ export function MonitoringProvider({ children }) {
     }
   }, [fetchWorldstate, dict])
 
-  // ── Bounty cycle polling (for bounty notifications) ────────────────────────
+  // ── Bounty cycle + location-bounties polling (for bounty notifications) ──
   useEffect(() => {
-    const fetchBountyCycle = async () => {
-      const raw = await invoke('fetch_url', { url: BOUNTY_CYCLE_API }).catch(() => null)
-      if (raw) {
-        try { setBountyCycle(JSON.parse(raw)) } catch {}
-      }
+    const fetchBountyData = async () => {
+      const [bc, lb] = await Promise.all([
+        invoke('fetch_url', { url: BOUNTY_CYCLE_API }).catch(() => null),
+        invoke('fetch_url', { url: LOCATION_BOUNTIES_API }).catch(() => null),
+      ])
+      if (bc) { try { setBountyCycle(JSON.parse(bc)) } catch {} }
+      if (lb) { try { setLocationBounties(JSON.parse(lb)) } catch {} }
     }
-    fetchBountyCycle()
-    const iv = setInterval(fetchBountyCycle, 120_000)
+    fetchBountyData()
+    const iv = setInterval(fetchBountyData, 120_000)
     return () => clearInterval(iv)
   }, [])
 

@@ -884,9 +884,19 @@ fn read_file(path: String) -> Result<Vec<u8>, String> {
 /// Read a file from the data root as raw bytes. Used by the frontend to
 /// bypass CORS restrictions on the asset protocol when processing images via canvas.
 #[tauri::command]
-fn read_file_bytes(relative: String) -> Result<Vec<u8>, String> {
+fn read_file_bytes(app_handle: tauri::AppHandle, relative: String) -> Result<Vec<u8>, String> {
     let path = resolve_path(&relative);
-    fs::read(&path).map_err(|e| e.to_string())
+    if path.exists() {
+        return fs::read(&path).map_err(|e| e.to_string());
+    }
+    // Fall back to bundled resources (needed for AppImage where extract_bundled_assets
+    // may not have run yet when an overlay window starts before the main window).
+    if let Some(bundled) = resolve_bundled_path(&app_handle, &relative) {
+        if bundled.exists() {
+            return fs::read(&bundled).map_err(|e| e.to_string());
+        }
+    }
+    Err(format!("File not found: {}", relative))
 }
 /// Write bytes to an absolute path. Used for importing/exporting share bundles
 /// via the user's file-picker path (not the data root).

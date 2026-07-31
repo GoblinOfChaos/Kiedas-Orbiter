@@ -494,10 +494,9 @@ const FOLDER_OVERRIDES = {
   Fairy: 'Wisp', Jade: 'Nyx',
 };
 
-// Items that don't have dict entries and produce ugly pascal-split names.
-// Keyed by the leaf of the uniqueName path.
+// Hidden items (dev/test/internal) that produce ugly pascal-split names.
+// Keyed by the leaf of the uniqueName path. These items are not user-facing.
 const NAME_OVERRIDES = {
-  'MUSEUMDOGTAG': 'Museum Dog Tag',
   'RESOURCESTESTPARTITEM': 'Resource Test Part',
   'RESOURCES_TEST_PART_ITEM': 'Resource Test Part',
 }

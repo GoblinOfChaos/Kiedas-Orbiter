@@ -47,154 +47,108 @@
   "peely": {
     "/Lotus/Upgrades/Stickers/DropSpecialItemChanceOnWeakpointKillSticker": {
       "name": "Argon Combo #2",
-      "description": "On Weakpoint kill: chance to drop Health Orbs, Energy Orbs, Ammo, Pheroglands, or SporeX Charges increased by 20%",
-      "_needsReview": true
+      "description": "On Weakpoint kill: chance to drop Health Orbs, Energy Orbs, Ammo, Pheroglands, or SporeX Charges increased by 20%"
     },
     "/Lotus/Upgrades/Stickers/ToxinGasResistanceOnHealthOrbSticker": {
       "name": "Breathless",
-      "description": "Gain 100% resistance to Gas and Toxin for 30s. Collected Health Orbs add 20s.",
-      "_needsReview": true
+      "description": "Gain 100% resistance to Gas and Toxin for 30s. Collected Health Orbs add 20s."
     },
     "/Lotus/Upgrades/Stickers/DropHealingBurgerChanceSticker": {
       "name": "Burgerfest",
-      "description": "Enemies have a 15% chance of dropping Argon Burger Boxes that can heal nearby allies by 10% and defense targets by 100.",
-      "_needsReview": true
+      "description": "Enemies have a 15% chance of dropping Argon Burger Boxes that can heal nearby allies by 10% and defense targets by 100."
     },
     "/Lotus/Upgrades/Stickers/StickerSporePrimer": {
       "name": "Catscratch Fever",
-      "description": "Every 20s, an enemy within 30m is affected by Saryn's Spores.",
-      "_needsReview": true
+      "description": "Every 20s, an enemy within 30m is affected by Saryn's Spores."
     },
     "/Lotus/Upgrades/Stickers/CreateShieldOnHeavySlamSticker": {
       "name": "Crushing Chills",
-      "description": "Heavy Slam with 6x combo creates up to 3 Snow Globes on a 10s cooldown.",
-      "_needsReview": true
+      "description": "Heavy Slam with 6x combo creates up to 3 Snow Globes on a 10s cooldown."
     },
     "/Lotus/Upgrades/Stickers/StickerEnemyShotgun": {
       "name": "Doktor's Orders",
-      "description": "Equip an EFV-8 Mars with +450% damage as a secondary weapon.",
-      "_needsReview": true
+      "description": "Equip an EFV-8 Mars with +450% damage as a secondary weapon."
     },
     "/Lotus/Upgrades/Stickers/DropEfervonGrenadeChanceSticker": {
       "name": "Fly, Fly!",
-      "description": "Enemies have a 15% chance to drop grenades that clear Hell-Scrubber contamination.",
-      "_needsReview": true
+      "description": "Enemies have a 15% chance to drop grenades that clear Hell-Scrubber contamination."
     },
     "/Lotus/Upgrades/Stickers/AvatarKnockdownResistanceSticker": {
       "name": "Going Steady",
-      "description": "100% chance to resist Knockdown.",
-      "_needsReview": true
+      "description": "100% chance to resist Knockdown."
     },
     "/Lotus/Upgrades/Stickers/DeathPreventionOnKillsSticker": {
       "name": "Hi-Score",
-      "description": "Gain 20 points per kill, 100 per Weakpoint Kill. Bonus revives at 1000, 2500, 5000 points.",
-      "_needsReview": true
+      "description": "Gain 20 points per kill, 100 per Weakpoint Kill. Bonus revives at 1000, 2500, 5000 points."
     },
     "/Lotus/Upgrades/Stickers/CreateChasingAntiMatterDropSticker": {
       "name": "It Sees You",
-      "description": "An Anti-Matter drop appears 25m away and gives chase every 20s. Gain 1 Pix Chip on success.",
-      "_needsReview": true
+      "description": "An Anti-Matter drop appears 25m away and gives chase every 20s. Gain 1 Pix Chip on success."
     },
     "/Lotus/Upgrades/Stickers/ToxinProcOnDamageSticker": {
       "name": "Old Pizza",
-      "description": "On Damaged: 6% chance to receive Toxin status. Cooldown: 5s. Gain 1 Pix Chip on success.",
-      "_needsReview": true
+      "description": "On Damaged: 6% chance to receive Toxin status. Cooldown: 5s. Gain 1 Pix Chip on success."
     },
     "/Lotus/Upgrades/Stickers/StickerEnemyMelee": {
       "name": "Only Knives",
-      "description": "Equip Scaldra Dual Viciss with +450% damage as melee weapons.",
-      "_needsReview": true
+      "description": "Equip Scaldra Dual Viciss with +450% damage as melee weapons."
     },
     "/Lotus/Upgrades/Stickers/FreezePlayerOverTimeSticker": {
       "name": "Optimism",
-      "description": "Build Cold stacks every 8s. Freezing at 10 stacks for 3s. Roll or Void Sling to thaw 3 stacks.",
-      "_needsReview": true
+      "description": "Build Cold stacks every 8s. Freezing at 10 stacks for 3s. Roll or Void Sling to thaw 3 stacks."
     },
     "/Lotus/Upgrades/Stickers/NPCReviveSticker": {
       "name": "Panic Call",
-      "description": "Minerva or Velimir will attempt to revive you. 30s cooldown.",
-      "_needsReview": true
+      "description": "Minerva or Velimir will attempt to revive you. 30s cooldown."
     },
     "/Lotus/Upgrades/Stickers/StickerEnemyRifle": {
       "name": "Resolutions",
-      "description": "Equip a Purgator 1 with +450% damage as a primary weapon.",
-      "_needsReview": true
+      "description": "Equip a Purgator 1 with +450% damage as a primary weapon."
     },
     "/Lotus/Upgrades/Stickers/RemoveStatusesOnHeavyAttackSticker": {
       "name": "Reverse-O",
-      "description": "On Heavy Attack Hit: transfer negative status effects onto enemies within 10m.",
-      "_needsReview": true
+      "description": "On Heavy Attack Hit: transfer negative status effects onto enemies within 10m."
     },
     "/Lotus/Upgrades/Stickers/EjectButtonSticker": {
       "name": "Slippery Customer",
-      "description": "First time downed: teleport to safety, revive with 50% HP/Shields, invulnerable for 9s.",
-      "_needsReview": true
+      "description": "First time downed: teleport to safety, revive with 50% HP/Shields, invulnerable for 9s."
     },
     "/Lotus/Upgrades/Stickers/NullStarOnWeakpointKillSticker": {
       "name": "Spinnin' Around",
-      "description": "Weakpoint kills generate 1 Null Star (max 18). Null Stars reduce damage by 5%.",
-      "_needsReview": true
+      "description": "Weakpoint kills generate 1 Null Star (max 18). Null Stars reduce damage by 5%."
     },
     "/Lotus/Upgrades/Stickers/ElementalAmmoChanceOnEximusKillSticker": {
       "name": "Super Scavenger",
-      "description": "On Eximus Kill: 45% chance to drop an Elemental Ammo Pack.",
-      "_needsReview": true
+      "description": "On Eximus Kill: 45% chance to drop an Elemental Ammo Pack."
     },
     "/Lotus/Upgrades/Stickers/StickerEnemySmg": {
       "name": "Through My Heart",
-      "description": "Equip an EFV-5 Jupiter with +450% damage as a primary weapon.",
-      "_needsReview": true
+      "description": "Equip an EFV-5 Jupiter with +450% damage as a primary weapon."
     },
     "/Lotus/Upgrades/Stickers/DecoyOnDamagedSticker": {
       "name": "Too Hot",
-      "description": "Taking damage below 70% HP creates a Molt clone every 10s.",
-      "_needsReview": true
+      "description": "Taking damage below 70% HP creates a Molt clone every 10s."
     },
     "/Lotus/Upgrades/Stickers/AllowNecramechSummonSticker": {
       "name": "Vintage Tech",
-      "description": "Summon a Necramech. 60s cooldown after destroyed.",
-      "_needsReview": true
+      "description": "Summon a Necramech. 60s cooldown after destroyed."
     },
     "/Lotus/Upgrades/Stickers/AllowThermianRpgSummonSticker": {
       "name": "Wakeup Call",
-      "description": "A loaded Thermian RPG can be deployed from the Gear Wheel. 60s cooldown.",
-      "_needsReview": true
+      "description": "A loaded Thermian RPG can be deployed from the Gear Wheel. 60s cooldown."
     },
     "/Lotus/Upgrades/Stickers/SuperGlideParkourSticker": {
       "name": "Walking on Air",
-      "description": "Increase Aim Glide and Wall Latch duration +100%. Lowers gravity by 100%.",
-      "_needsReview": true
+      "description": "Increase Aim Glide and Wall Latch duration +100%. Lowers gravity by 100%."
     },
     "/Lotus/Upgrades/Stickers/WeaponColdDamageSticker": {
       "name": "XL Frosty",
-      "description": "Adds +30% Cold Damage to primary and secondary weapons.",
-      "_needsReview": true
+      "description": "Adds +30% Cold Damage to primary and secondary weapons."
     }
   },
   "ui": {
     "game_language": "Langue du jeu",
     "changing_language": "Changement de langue…",
     "reloading": "Rechargement des données du jeu"
-  },
-  "_meta": {
-    "source": "RIVEN_STAT_TRANSLATIONS + NAME_OVERRIDES (warframeUtils.js), ERA_TRANSLATIONS (worldstateParser.js), peely-pix-names.json, UI labels",
-    "needsReview": {
-      "peely": [
-        "de",
-        "fr",
-        "es",
-        "it",
-        "pt",
-        "ru",
-        "pl",
-        "zh",
-        "ko",
-        "ja",
-        "tc",
-        "th",
-        "tr",
-        "uk"
-      ]
-    }
   }
 }

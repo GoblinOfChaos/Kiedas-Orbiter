@@ -21,7 +21,7 @@
  * parseInventory(raw, exports) → structured inventory object
  *   All other functions are internal helpers.
  */
-import { RIVEN_STAT_TRANSLATIONS } from './warframeUtils'
+import { RIVEN_STAT_TRANSLATIONS, NAME_OVERRIDES } from './warframeUtils'
 
 // ─── Riven Tag Data ───────────────────────────────────────────────────────────
 //
@@ -219,20 +219,6 @@ const FOLDER_OVERRIDES = {
   Fairy: 'Wisp', Jade: 'Nyx',
 };
 
-// Items without dict entries that produce ugly pascal-split names.
-const NAME_OVERRIDES = {
-  'MUSEUMDOGTAG': 'Museum Dog Tag',
-  'RESOURCESTESTPARTITEM': 'Resource Test Part',
-  'RESOURCES_TEST_PART_ITEM': 'Resource Test Part',
-}
-
-// Wayward items: display-name + description overrides keyed by full unique name.
-const RESOURCE_OVERRIDES = {
-  '/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag': {
-    name: 'Tethra Data Fragments',
-    description: 'Intercepted encrypted fragment of Grineer communications.',
-  },
-}
 
 // ─── Name / Image Resolution ─────────────────────────────────────────────────
 
@@ -1663,9 +1649,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   for (const item of (raw.MiscItems ?? [])) {
     const un = item.ItemType ?? '';
     if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/') || un.includes('OroFusexOrnament')) continue;
-    // Hidden test item — zero references anywhere, safe to drop
-    if (un.includes('TestPartItem')) continue;
-    const override = RESOURCE_OVERRIDES[un];
+    // Hidden resource — user requested it be excluded (Tethra Data Fragments)
+    if (un === '/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag') continue;
     const name = override?.name || resolveName(un, dict, ER, ERel, EW, ES);
     const isPrimePart = /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum|Guard|Hilt)/i.test(name);
     if (!isPrimePart) {

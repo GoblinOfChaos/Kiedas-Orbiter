@@ -36,7 +36,6 @@
     "Slide Crit Chance": "Slide Crit Chance"
   },
   "nameOverrides": {
-    "MUSEUMDOGTAG": "Museum Dog Tag",
     "RESOURCESTESTPARTITEM": "Resource Test Part",
     "RESOURCES_TEST_PART_ITEM": "Resource Test Part"
   },
@@ -154,26 +153,5 @@
     "game_language": "Game Language",
     "changing_language": "Changing language…",
     "reloading": "Reloading game data"
-  },
-  "_meta": {
-    "source": "RIVEN_STAT_TRANSLATIONS + NAME_OVERRIDES (warframeUtils.js), ERA_TRANSLATIONS (worldstateParser.js), peely-pix-names.json, UI labels",
-    "needsReview": {
-      "peely": [
-        "de",
-        "fr",
-        "es",
-        "it",
-        "pt",
-        "ru",
-        "pl",
-        "zh",
-        "ko",
-        "ja",
-        "tc",
-        "th",
-        "tr",
-        "uk"
-      ]
-    }
   }
 }

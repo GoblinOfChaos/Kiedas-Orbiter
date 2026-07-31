@@ -21,6 +21,7 @@ wfcd_all_cache.json.*
 wfcd_items_cache.json
 wm_prices_cache.json
 equipment_data_cache.json
+dropdata_cache.json
 token_cache.txt
 lastData.dat
 
@@ -33,6 +34,8 @@ config.json
 *.503-*
 *.before-enrich
 *.unsafe-original
+*.orig
+*.backup
 
 # DE public export snapshots (large, auto-downloaded)
 ExportModSet.json
@@ -49,6 +52,7 @@ test-images/*
 .vscode/
 .continue/
 .claude/
+.roo/
 .memories.json
 toolbox_info.md
 TEST_WRITE.txt

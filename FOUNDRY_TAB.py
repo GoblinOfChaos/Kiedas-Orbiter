@@ -6,7 +6,7 @@ from pathlib import Path
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QCheckBox,
-    QTableWidget, QTableWidgetItem, QHeaderView
+    QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView
 )
 from column_persistence import apply_saved_widths, remember_widths, align_columns
 
@@ -32,6 +32,7 @@ class FoundryTab(QWidget):
         layout.addLayout(top)
 
         self._table = QTableWidget(0, 4)
+        self._table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self._table.setHorizontalHeaderLabels(["Name", "Required", "Missing", "Can Craft"])
         for col in range(4):
             self._table.horizontalHeader().setSectionResizeMode(col, QHeaderView.Interactive)

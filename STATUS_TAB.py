@@ -13,18 +13,25 @@ try:
     from paths import (
         get_ee_log_path, get_inventory_path, set_ee_log_path, set_inventory_path,
         get_screenshot_hotkey, set_screenshot_hotkey, describe_paths, DATA_DIR, WFINFO_DIR,
+        get_close_behavior, set_close_behavior, get_pre_capture_sleep_ms, build_detector_args,
+        CONFIG_FILE,
     )
 except Exception:
     get_ee_log_path = get_inventory_path = set_ee_log_path = set_inventory_path = describe_paths = None
     get_screenshot_hotkey = set_screenshot_hotkey = None
+    get_close_behavior = set_close_behavior = None
+    get_pre_capture_sleep_ms = None
+    build_detector_args = None
+    CONFIG_FILE = Path(__file__).parent / "config.json"
 
-from PySide6.QtCore import Qt, QTimer, QProcess, QProcessEnvironment, QEvent
+from PySide6.QtCore import Qt, QTimer, QProcess, QProcessEnvironment, QEvent, QSize
 from PySide6.QtGui import QFont
 from PySide6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QScrollArea,
+    QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QScrollArea, QFrame,
     QPushButton, QLabel, QGroupBox, QFormLayout, QTextEdit, QMessageBox,
     QSplitter, QSizePolicy, QLineEdit, QFileDialog, QComboBox,
 )
+from editable_layout import EditableCanvas, edit_mode_toolbar
 
 
 class _ScrollLockCombo(QComboBox):
@@ -35,6 +42,66 @@ class _ScrollLockCombo(QComboBox):
         # Always ignore — scroll wheel on a combo in a scrollable page is
         # almost always accidental.  User must click to open the dropdown.
         event.ignore()
+
+
+class _ElidingButton(QPushButton):
+    """A QPushButton that shrinks its own text with a trailing ellipsis
+    as it narrows, instead of having a hard floor at its full text's
+    width. Plain QPushButton has no built-in truncation - its
+    minimumSizeHint is basically its full-text sizeHint, so a QHBoxLayout
+    literally cannot shrink it below that no matter what stretch factor
+    you give it. That's why giving two buttons equal stretch had zero
+    visible effect earlier - neither could actually shrink. Jacob
+    2026-07-24 ("all of these cut off text when sizing down" / "you also
+    never fixed the buttons")."""
+    def __init__(self, text, parent=None):
+        super().__init__(text, parent)
+        self._full_text = text
+
+    def setText(self, text):
+        self._full_text = text
+        super().setText(text)
+        self._reflow_text()
+
+    def _reflow_text(self):
+        fm = self.fontMetrics()
+        avail = max(10, self.width() - 24)
+        super().setText(fm.elidedText(self._full_text, Qt.ElideRight, avail))
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self._reflow_text()
+
+
+class _ElidingLabel(QLabel):
+    """Same idea as _ElidingButton but for QLabel - the File Paths card's
+    "Found: /long/path/..." status labels have no truncation at all, so
+    narrowing the card just clipped them mid-character instead of eliding
+    gracefully. Jacob 2026-07-24 ("shrink the card and it works like the
+    others" / "its forced to cut it")."""
+    def __init__(self, text="", parent=None):
+        super().__init__(text, parent)
+        self._full_text = text
+
+    def setText(self, text):
+        self._full_text = text
+        super().setText(text)
+        self._reflow_text()
+
+    def _reflow_text(self):
+        fm = self.fontMetrics()
+        avail = max(10, self.width())
+        super().setText(fm.elidedText(self._full_text, Qt.ElideRight, avail))
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self._reflow_text()
+
+    def minimumSizeHint(self):
+        """Let layouts shrink this label instead of reserving the full path."""
+        return QSize(0, super().minimumSizeHint().height())
+
+
 from theme import get_palette, COLOR_GREAT, COLOR_BAD
 
 
@@ -45,7 +112,6 @@ def _p():
 HOME = Path.home()
 HELPER_SRC = HOME / "helper-src"
 OWNED_FILE = WFINFO_DIR / "owned_items.json"
-INVENTORY_FILE = WFINFO_DIR / "inventory.json"
 WFCD_CACHE = WFINFO_DIR / "wfcd_all_cache.json"
 OVERLAY_SCRIPT = WFINFO_DIR / "overlay.py"
 import sys as _sys
@@ -55,6 +121,8 @@ LOG_FILE = DATA_DIR / "overlay.log"
 
 
 from platform_utils import is_running, kill_processes
+import autostart_manager
+from toggle_switch import ToggleSwitch
 
 
 def _pgrep(pattern):
@@ -119,9 +187,7 @@ class StatusTab(QWidget):
             )
             hl = QHBoxLayout(hdr)
             hl.setContentsMargins(12, 7, 12, 7)
-            bar = QWidget(); bar.setFixedWidth(3); bar.setFixedHeight(14)
-            bar.setStyleSheet(f"background: {accent}; border-radius: 2px;")
-            hl.addWidget(bar)
+            hl.addStretch()
             lbl = QLabel(title)
             lbl.setStyleSheet(f"color: {p['gold']}; font-size: 12px; font-weight: 700; "
                               f"letter-spacing: 0.5px; background: transparent;")
@@ -136,7 +202,7 @@ class StatusTab(QWidget):
     def _action_btn(self, text, tooltip="", primary=False):
         """Styled action button using the current theme palette."""
         p = _p()
-        b = QPushButton(text)
+        b = _ElidingButton(text)
         b.setToolTip(tooltip)
         if primary:
             b.setStyleSheet(
@@ -148,10 +214,11 @@ class StatusTab(QWidget):
         else:
             b.setStyleSheet(
                 f"QPushButton {{ background: {p['bg_header']}; color: {p['fg']}; border: 1px solid {p['border']}; "
-                f"border-radius: 5px; padding: 6px 12px; font-size: 12px; }}"
+                f"border-radius: 5px; padding: 10px 14px; font-size: 14px; }}"
                 f"QPushButton:hover {{ background: {p['bg_card']}; color: {p['gold_bright']}; border-color: {p['accent_mid']}; }}"
                 f"QPushButton:disabled {{ color: {p['fg_dim']}; border-color: {p['border']}; }}"
             )
+            b.setMinimumHeight(40)
         return b
 
     def _row_lbl(self, key, val_widget, layout):
@@ -189,24 +256,42 @@ class StatusTab(QWidget):
         outer.setContentsMargins(0, 0, 0, 0)
         outer.setSpacing(0)
 
+        # Rebuilt to match DASHBOARD_TAB.py's confirmed-working scroll
+        # setup exactly (that tab handles the same absolutely-positioned
+        # EditableCanvas correctly) instead of continuing to patch this
+        # one incrementally. Two real differences from Dashboard's version
+        # are fixed here: this scroll was added to `outer` with no stretch
+        # factor (Dashboard uses stretch=1), and the canvas itself never
+        # got an explicit background stylesheet (Dashboard sets one).
+        # Jacob 2026-07-24 ("remake the box from scratch").
+        self._canvas = EditableCanvas(DATA_DIR / "status_layout.json")
+        toolbar_bar = QFrame()
+        toolbar_bar.setStyleSheet(
+            f"background: {p['bg_panel']}; border-bottom: 1px solid {p['border']};"
+        )
+        toolbar_bar_layout = QHBoxLayout(toolbar_bar)
+        toolbar_bar_layout.setContentsMargins(12, 6, 12, 6)
+        toolbar_bar_layout.addWidget(edit_mode_toolbar(self._canvas))
+        toolbar_bar_layout.addStretch()
+        outer.addWidget(toolbar_bar)
+
         scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        scroll.setWidgetResizable(False)
         scroll.setStyleSheet(f"QScrollArea {{ border: none; background: {p['bg']}; }}")
-        content = QWidget()
-        content.setStyleSheet(f"background: {p['bg']};")
-        scroll.setWidget(content)
-        outer.addWidget(scroll)
+        self._canvas.setStyleSheet(f"background: {p['bg']};")
+        outer.addWidget(scroll, stretch=1)
 
-        main = QVBoxLayout(content)
-        main.setSpacing(10)
-        main.setContentsMargins(12, 12, 12, 12)
+        # Cards below are collected here instead of being added to `main`
+        # directly, then placed on an EditableCanvas (drag to move, corner
+        # grip to resize - width change re-wraps text and grows/shrinks
+        # the card's height to fit). Saved layout lives in
+        # status_layout.json. Jacob 2026-07-23.
+        self._status_cards = []
 
-        # ── Top row: status card + refresh button ─────────────────────────
-        top_row = QHBoxLayout()
-        top_row.setSpacing(10)
-
-        # Status card
+        # Status card + Refresh button - two independent cards that just
+        # default to sharing a row (same fix as Arbitration/Steel Path:
+        # wrapping them into one combined widget meant dragging one
+        # dragged both). Jacob 2026-07-23.
         status_frame, status_body = self._card("● LIVE STATUS", "#3eff3e")
         status_layout = QVBoxLayout(status_body)
         status_layout.setContentsMargins(12, 10, 12, 12)
@@ -230,8 +315,6 @@ class StatusTab(QWidget):
             widget.setStyleSheet(f"color: {p['fg']}; font-size: 12px; background: transparent;")
             self._row_lbl(label_text, widget, status_layout)
 
-        top_row.addWidget(status_frame, stretch=3)
-
         # Primary refresh button (right of status)
         self.btn_refresh = self._action_btn(
             "\u27f3  Refresh Data",
@@ -240,18 +323,43 @@ class StatusTab(QWidget):
             primary=True
         )
         self.btn_refresh.setMinimumHeight(60)
+        self.btn_refresh.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.btn_refresh.clicked.connect(self.refresh_inventory)
-        top_row.addWidget(self.btn_refresh, stretch=1)
-        main.addLayout(top_row)
+        # Needs a real title-bar header like every other card - without
+        # one, EditableCanvas._install_inner() (which always pulls the
+        # content's first child out as a fixed-height header/drag handle)
+        # grabbed the button itself as that "header" instead. A
+        # QPushButton swallows its own mouse-press events, so clicking
+        # anywhere on the card just clicked the button and the click never
+        # reached the card to start a drag - it couldn't be moved OR
+        # resized. Jacob 2026-07-24.
+        refresh_frame, refresh_body = self._card("\u27f3  REFRESH DATA", p['gold'])
+        refresh_body_layout = QVBoxLayout(refresh_body)
+        refresh_body_layout.setContentsMargins(12, 10, 12, 12)
+        refresh_body_layout.addWidget(self.btn_refresh)
+
+        self._status_cards.append([
+            ("status", status_frame, 620, 190),
+            ("refresh", refresh_frame, 280, 190),
+        ])
 
         # ── Actions card ──────────────────────────────────────────────────
         act_frame, act_body = self._card("\u2699  ACTIONS", "#c9a84c")
         act_layout = QGridLayout(act_body)
         act_layout.setContentsMargins(12, 10, 12, 12)
         act_layout.setSpacing(8)
+        # Without explicit equal stretch, the two columns don't split the
+        # card width evenly - buttons stay at their natural text width
+        # and the leftover space becomes a dead gap down the middle
+        # instead of the buttons filling their cell. Jacob 2026-07-22
+        # (screenshot, circled): huge empty band between the two button
+        # columns.
+        act_layout.setColumnStretch(0, 1)
+        act_layout.setColumnStretch(1, 1)
 
         def _abtn(text, tip, slot, r, c, span=1):
             b = self._action_btn(text, tip)
+            b.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
             b.clicked.connect(slot)
             act_layout.addWidget(b, r, c, 1, span)
             return b
@@ -264,7 +372,7 @@ class StatusTab(QWidget):
         self.btn_test        = _abtn("Test Overlay",             "Write a fake detection so the overlay pops up to test it", self.test_overlay,       2, 1)
         self.btn_reload_cfg  = _abtn("Reload Detector Config",   "Restart the OCR detector to pick up config.json changes",  self.reload_config,      3, 0)
         self.btn_rebuild     = _abtn("Rebuild API Helper",       "Pull + rebuild warframe-api-helper from source",           self.rebuild_helper,     3, 1)
-        main.addWidget(act_frame)
+        self._status_cards.append([("actions", act_frame, 900, 260)])
 
         # ── Overlay settings card ─────────────────────────────────────────
         from PySide6.QtWidgets import QComboBox as _CB2
@@ -287,6 +395,20 @@ class StatusTab(QWidget):
             "Use 'Reset Position' to move it back to this monitor's default position."
         )
         self._monitor_combo.wheelEvent = lambda e: e.ignore()  # no accidental scroll
+        # The app's global theme doesn't give QComboBox a visible
+        # border/arrow, so without this it just reads as flat label text
+        # instead of an obvious dropdown - confirmed by Jacob mistaking it
+        # for plain info text.
+        self._monitor_combo.setStyleSheet(
+            f"QComboBox {{ background: {p['bg_input']}; color: {p['fg']}; "
+            f"border: 1px solid {p['border']}; border-radius: 4px; padding: 4px 8px; }}"
+            f"QComboBox::drop-down {{ border: none; width: 22px; }}"
+            f"QComboBox::down-arrow {{ image: none; border-left: 4px solid transparent; "
+            f"border-right: 4px solid transparent; border-top: 5px solid {p['fg_dim']}; "
+            f"margin-right: 6px; }}"
+            f"QComboBox QAbstractItemView {{ background: {p['bg_panel']}; color: {p['fg']}; "
+            f"selection-background-color: {p['accent_dim']}; border: 1px solid {p['border']}; }}"
+        )
 
         # Populate with current screens
         from PySide6.QtWidgets import QApplication as _QApp2
@@ -302,7 +424,7 @@ class StatusTab(QWidget):
 
         # Load saved value
         try:
-            _cfg = json.loads(Path(WFINFO_DIR / "config.json").read_text())
+            _cfg = json.loads(CONFIG_FILE.read_text())
             saved_mon = _cfg.get("overlay_monitor", "auto")
             for idx in range(self._monitor_combo.count()):
                 if self._monitor_combo.itemData(idx) == saved_mon:
@@ -317,7 +439,7 @@ class StatusTab(QWidget):
 
         # Reset saved position + save monitor button
         btn_row2 = QHBoxLayout()
-        save_mon_btn = self._action_btn("Apply & Reset Position",
+        save_mon_btn = self._action_btn("Save Monitor Choice && Reset Overlay Position",
             "Save monitor choice and clear the overlay's remembered drag position\n"
             "so it snaps to the new monitor on next detection.")
         reset_pos_btn = self._action_btn("Reset Position Only",
@@ -325,7 +447,7 @@ class StatusTab(QWidget):
 
         def _save_monitor():
             try:
-                cfg_path = WFINFO_DIR / "config.json"
+                cfg_path = CONFIG_FILE
                 cfg = json.loads(cfg_path.read_text()) if cfg_path.exists() else {}
                 cfg["overlay_monitor"] = self._monitor_combo.currentData()
                 cfg_path.write_text(json.dumps(cfg, indent=2))
@@ -351,17 +473,135 @@ class StatusTab(QWidget):
 
         save_mon_btn.clicked.connect(_save_monitor)
         reset_pos_btn.clicked.connect(_reset_position)
-        btn_row2.addWidget(save_mon_btn)
-        btn_row2.addWidget(reset_pos_btn)
+        # Without equal stretch, QHBoxLayout shrank these two unevenly as
+        # the card narrowed - Reset Position (shorter text, less slack)
+        # got squeezed down to unreadable while Save Monitor Choice barely
+        # moved. Jacob 2026-07-24 ("only shrinks reset button and not save
+        # monitor").
+        btn_row2.addWidget(save_mon_btn, stretch=1)
+        btn_row2.addWidget(reset_pos_btn, stretch=1)
         ol.addLayout(btn_row2)
 
         hint2 = QLabel("Tip: drag the overlay during a detection to reposition it. That position is saved automatically.")
         hint2.setStyleSheet(f"color: {p['fg_dim']}; font-size: 11px; background: transparent;")
         hint2.setWordWrap(True)
         ol.addWidget(hint2)
-        main.addWidget(ov_frame)
+        self._status_cards.append([("overlay", ov_frame, 900, 230)])
+
+        # ── Auto-Start card ──────────────────────────────────────────────
+        as_frame, as_body = self._card("▶  AUTO-START", p['green'])
+        as_layout = QVBoxLayout(as_body)
+        as_layout.setContentsMargins(12, 10, 12, 12)
+        as_layout.setSpacing(10)
+
+        as_hint = QLabel(
+            "Auto-start: Detector and Watcher launch as soon as this app opens. "
+            "The four overlays below them only start once Warframe is actually "
+            "running, and stop again once it closes. "
+            "Off → On: current live status — flip it to start or stop right away, "
+            "independent of the auto-start setting."
+        )
+        as_hint.setStyleSheet(f"color: {p['fg_dim']}; font-size: 11px; background: transparent;")
+        as_hint.setWordWrap(True)
+        as_layout.addWidget(as_hint)
+
+        grid = QGridLayout()
+        grid.setHorizontalSpacing(18)
+        grid.setVerticalSpacing(8)
+        # No column stretch here (was setColumnStretch(0, 1), which made
+        # the label column consume the ENTIRE card width, leaving a big
+        # dead gap between the label text and the toggle switches pushed
+        # to the far right edge - Jacob 2026-07-22 screenshot). The grid
+        # is wrapped below in an HBox + addStretch() instead, so it stays
+        # naturally compact (labels right next to their toggles) rather
+        # than spanning the full card width.
+
+        col_auto = QLabel("Auto-start")
+        col_auto.setStyleSheet(f"color: {p['fg_dim']}; font-size: 10px; font-weight: 700;")
+        col_auto.setAlignment(Qt.AlignCenter)
+        col_on = QLabel("Off → On")
+        col_on.setStyleSheet(f"color: {p['fg_dim']}; font-size: 10px; font-weight: 700;")
+        col_on.setAlignment(Qt.AlignCenter)
+        grid.addWidget(col_auto, 0, 1)
+        grid.addWidget(col_on, 0, 2)
+
+        self._autostart_toggles = {}
+        self._enabled_toggles = {}
+        for row, feature in enumerate(autostart_manager.FEATURES, start=1):
+            lbl = QLabel(autostart_manager.FEATURE_LABELS[feature])
+            lbl.setStyleSheet(f"color: {p['fg']}; font-size: 12px; background: transparent;")
+            grid.addWidget(lbl, row, 0)
+
+            auto_toggle = ToggleSwitch()
+            auto_toggle.setChecked(autostart_manager.get_autostart(feature))
+            auto_toggle.toggledOn.connect(lambda checked, f=feature: self._on_autostart_toggled(f, checked))
+            grid.addWidget(auto_toggle, row, 1, Qt.AlignCenter)
+            self._autostart_toggles[feature] = auto_toggle
+
+            on_toggle = ToggleSwitch(on_color=p['green'])
+            on_toggle.setChecked(autostart_manager.is_feature_running(feature))
+            on_toggle.toggledOn.connect(lambda checked, f=feature: self._on_enabled_toggled(f, checked))
+            grid.addWidget(on_toggle, row, 2, Qt.AlignCenter)
+            self._enabled_toggles[feature] = on_toggle
+
+        grid_row = QHBoxLayout()
+        grid_row.addLayout(grid)
+        grid_row.addStretch()
+        as_layout.addLayout(grid_row)
+        self._status_cards.append([("autostart", as_frame, 900, 280)])
+
+        # ── On Close card ────────────────────────────────────────────────
+        close_frame, close_body = self._card("✖  ON CLOSE", "#4a90d9")
+        close_body_layout = QVBoxLayout(close_body)
+        close_body_layout.setContentsMargins(12, 10, 12, 12)
+        close_body_layout.setSpacing(8)
+
+        close_row = QHBoxLayout()
+        close_row.setSpacing(10)
+
+        close_label = QLabel("Exit Program")
+        close_label.setStyleSheet(f"color: {p['fg']}; font-size: 12px; background: transparent;")
+        close_row.addWidget(close_label)
+
+        self._close_toggle = ToggleSwitch(on_color=p['green'])
+        if get_close_behavior is not None:
+            self._close_toggle.setChecked(get_close_behavior() == "tray")
+        self._close_toggle.toggledOn.connect(self._on_close_behavior_toggled)
+        close_row.addWidget(self._close_toggle)
+
+        close_label2 = QLabel("Minimize to Tray")
+        close_label2.setStyleSheet(f"color: {p['fg']}; font-size: 12px; background: transparent;")
+        close_row.addWidget(close_label2)
+        close_row.addStretch()
+        close_body_layout.addLayout(close_row)
+
+        close_hint = QLabel(
+            "Controls what the ✕ button does. Minimize to Tray keeps everything running "
+            "in the background with a small tray icon; Exit Program fully quits and "
+            "stops the detector, watcher, and all overlays."
+        )
+        close_hint.setStyleSheet(f"color: {p['fg_dim']}; font-size: 11px; background: transparent;")
+        close_hint.setWordWrap(True)
+        close_body_layout.addWidget(close_hint)
+
+        self._status_cards.append([("onclose", close_frame, 900, 110)])
 
         # ── Paths card ────────────────────────────────────────────────────
+        # The card's own rounded border/background used to render
+        # narrower than its actual content (a long dynamically-set
+        # "Found: /path" status label kept spilling past the visible box
+        # edge). Root cause: the path QLineEdit had a hard
+        # setFixedWidth(260) and the status label had no way to shrink
+        # below its natural text width, so the row's real minimum width
+        # was wider than whatever the card had actually been resized to -
+        # the row just overflowed the frame instead of the frame growing/
+        # shrinking with it. Fixed by letting both actually shrink: the
+        # edit is now setMaximumWidth(260) + setMinimumWidth(0) +
+        # Expanding policy, and the status label uses QSizePolicy.Ignored
+        # so it can go narrower than its text's sizeHint, with
+        # _ElidingLabel showing "\u2026" instead of raw clipping once it
+        # does. Jacob 2026-07-24 ("it doesn't have the round wrapper
+        # around it like the other cards").
         paths_frame, paths_body = self._card("\u25a1  FILE PATHS", "#4a90d9")
         pl = QVBoxLayout(paths_body)
         pl.setContentsMargins(12, 10, 12, 12)
@@ -383,9 +623,13 @@ class StatusTab(QWidget):
             lk.setStyleSheet(f"color: {p['fg_dim']}; font-size: 12px; background: transparent;")
             lk.setFixedWidth(120)
             edit = QLineEdit(); edit.setPlaceholderText(placeholder)
+            # Prefer 260px at normal widths, but allow it to shrink with the card.
+            edit.setMaximumWidth(260)
+            edit.setMinimumWidth(0)
+            edit.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
             setattr(self, attr, edit)
             brw = self._action_btn("Browse")
-            brw.setMaximumWidth(75)
+            brw.setMaximumWidth(95)
             def _browse(checked=False, title=browse_title, filt=browse_filter, e=edit):
                 # 'checked' absorbs the bool Qt's clicked signal passes to
                 # slots — without it, that bool binds positionally to
@@ -405,10 +649,12 @@ class StatusTab(QWidget):
                 )
                 if path: e.setText(path)
             brw.clicked.connect(_browse)
-            status_lbl = QLabel("")
+            status_lbl = _ElidingLabel("")
             status_lbl.setStyleSheet(f"color: {p['fg_dim']}; font-size: 11px; background: transparent;")
+            status_lbl.setMinimumWidth(0)
+            status_lbl.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
             setattr(self, attr.replace("_edit", "_status_lbl"), status_lbl)
-            row.addWidget(lk); row.addWidget(edit, stretch=1)
+            row.addWidget(lk); row.addWidget(edit)
             row.addWidget(brw); row.addWidget(status_lbl, stretch=1)
             pl.addLayout(row)
 
@@ -430,9 +676,9 @@ class StatusTab(QWidget):
         save_btn = self._action_btn("Save Paths", "Save path overrides to config.json")
         save_btn.setMaximumWidth(110)
         save_btn.clicked.connect(self._save_paths)
-        save_row.addWidget(save_btn); save_row.addStretch()
+        save_row.addStretch(); save_row.addWidget(save_btn); save_row.addStretch()
         pl.addLayout(save_row)
-        main.addWidget(paths_frame)
+        self._status_cards.append([("paths", paths_frame, 900, 230)])
         self._refresh_path_display()
 
         # ── Theme picker card (always visible) ───────────────────────────
@@ -491,41 +737,55 @@ class StatusTab(QWidget):
         )
         tl.addWidget(chart_lbl)
 
-        chart = _QTW(6, 3)
-        chart.setHorizontalHeaderLabels(["Theme", "Warframe School", "Safe For"])
-        chart.verticalHeader().setVisible(False)
-        chart.setEditTriggers(_QTW.NoEditTriggers)
-        chart.setStyleSheet(
-            f"background: {p['bg']}; color: {p['fg']}; gridline-color: {p['border']}; "
-            f"border: 1px solid {p['border']}; border-radius: 4px; font-size: 11px;"
-            f"QHeaderView::section {{ background: {p['bg_header']}; color: {p['gold']}; "
-            f"font-weight: 700; border-bottom: 1px solid {p['accent_mid']}; padding: 3px 6px; }}"
-        )
-        from PySide6.QtWidgets import QHeaderView as _QHV
-        chart.horizontalHeader().setSectionResizeMode(0, _QHV.ResizeToContents)
-        chart.horizontalHeader().setSectionResizeMode(1, _QHV.ResizeToContents)
-        chart.horizontalHeader().setSectionResizeMode(2, _QHV.Stretch)
-        chart.setFixedHeight(160)
+        # Built from plain QLabel cells in a grid, not a QTableWidget -
+        # QTableWidgetItem.setBackground()/setForeground() got silently
+        # overridden by the table's own setStyleSheet() (a real Qt/QSS
+        # quirk: once a style sheet touches an item view, it takes over
+        # item painting and ignores the model's own per-item brushes), so
+        # every row kept rendering in the currently-active theme's colors
+        # instead of its own. Plain widgets with their own stylesheet have
+        # no such conflict. Jacob 2026-07-24 ("why is the background still
+        # fucking blue in the rows").
+        chart = QWidget()
+        chart_grid = QGridLayout(chart)
+        chart_grid.setContentsMargins(0, 0, 0, 0)
+        chart_grid.setSpacing(1)
+        chart_grid.setColumnStretch(2, 1)
 
+        for c, htext in enumerate(["Theme", "Warframe School", "Safe For"]):
+            hlbl = QLabel(htext)
+            hlbl.setStyleSheet(
+                f"background: {p['bg_header']}; color: {p['gold']}; font-weight: 700; "
+                f"border-bottom: 1px solid {p['accent_mid']}; padding: 3px 6px; font-size: 11px;"
+            )
+            chart_grid.addWidget(hlbl, 0, c)
+
+        # Descriptions only - the actual preview color for each theme
+        # comes from that theme's real palette (get_palette()['accent'])
+        # below, not a separately hand-picked hex here. Several of these
+        # had drifted from the theme's real colors (e.g. Naramon showed
+        # #f0f0f0 while its real accent is #ffbe40) - this chart's whole
+        # point is letting someone with a color vision deficiency see what
+        # a theme actually looks like before picking it, so a swatch that
+        # doesn't match the real theme wouldn't tell them anything true
+        # about it. Jacob 2026-07-24.
         THEME_CB_INFO = {
             "Kieda's Default": ("Sapphire blue + metallic gold",
-                                "Standard — no specific colorblind optimization",
-                                "#d8eaf8"),
+                                "Standard — no specific colorblind optimization"),
             "Madurai":         ("Deep crimson + fire orange",
-                                "\u2705 Safe for Deuteranopia (red-green) \u2014 uses orange/amber, no green",
-                                "#ff8c3a"),
+                                "\u2705 Safe for Deuteranopia (red-green) \u2014 uses orange/amber, no green"),
             "Vazarin":         ("Deep navy + cyan/white",
-                                "\u2705 Safe for Protanopia (red-blind) \u2014 blue/white spectrum only",
-                                "#38b6e8"),
+                                "\u2705 Safe for Protanopia (red-blind) \u2014 blue/white spectrum only"),
             "Naramon":         ("Charcoal black + white/amber",
-                                "\u2705 Safe for ALL colorblindness types \u2014 high contrast monochrome",
-                                "#f0f0f0"),
+                                "\u2705 Safe for ALL colorblindness types \u2014 high contrast monochrome"),
             "Unairu":          ("Deep earth brown + desert amber",
-                                "\u2705 Safe for Deuteranopia + Protanopia \u2014 warm amber/tan, no red/green",
-                                "#e8c060"),
+                                "\u2705 Safe for Deuteranopia + Protanopia \u2014 warm amber/tan, no red/green"),
             "Zenurik":         ("Deep indigo + electric violet",
-                                "\u2705 Safe for Tritanopia (blue-yellow) \u2014 purple base avoids blue-yellow confusion",
-                                "#b060ff"),
+                                "\u2705 Safe for Tritanopia (blue-yellow) \u2014 purple base avoids blue-yellow confusion"),
+            "Daylight":        ("Soft off-white + near-black text",
+                                "High contrast light mode — easy on the eyes, not glaring white"),
+            "Obsidian":        ("Polished black gemstone, cool blue-violet sheen",
+                                "High contrast dark mode — distinct from Naramon's warm charcoal/gold"),
         }
         CHART_ROWS = [
             ("Kieda's Default", "—",        "Standard (no optimization)"),
@@ -534,17 +794,30 @@ class StatusTab(QWidget):
             ("Naramon",         "Precision","ALL types + low vision"),
             ("Unairu",          "Endurance","Deuteranopia, Protanopia"),
             ("Zenurik",         "Energy",   "Tritanopia"),
+            ("Daylight",        "—",        "Light mode, high contrast"),
+            ("Obsidian",        "—",        "Dark mode, high contrast"),
         ]
-        CHART_COLORS = ["#d8eaf8","#ff8c3a","#38b6e8","#f0f0f0","#e8c060","#b060ff"]
-        for r, (theme_name, school, safe_for) in enumerate(CHART_ROWS):
-            color = CHART_COLORS[r]
+        # Each row is styled with THAT theme's own real background + text
+        # color, not just one accent-colored word sitting on whichever
+        # theme is currently active - the whole point of this chart is
+        # showing what picking Vazarin/Naramon/etc. actually looks like,
+        # so the row itself needs to look like that theme, not just hint
+        # at its accent. Jacob 2026-07-24 ("the vazarin section should be
+        # in its theme, the naramon row should be in its theme").
+        for r, (theme_name, school, safe_for) in enumerate(CHART_ROWS, start=1):
+            row_pal = get_palette(theme_name)
+            row_style = (
+                f"background: {row_pal['bg_panel']}; color: {row_pal['fg']}; "
+                f"padding: 4px 8px; font-size: 11px;"
+            )
             for c, text in enumerate([theme_name, school, safe_for]):
-                item = _QTWI(text)
-                item.setForeground(__import__('PySide6.QtGui', fromlist=['QColor']).QColor(color))
-                item.setTextAlignment(_Qt.AlignLeft | _Qt.AlignVCenter)
-                chart.setItem(r, c, item)
+                lbl = QLabel(text)
+                lbl.setStyleSheet(row_style)
+                if c == 2:
+                    lbl.setWordWrap(True)
+                chart_grid.addWidget(lbl, r, c)
         tl.addWidget(chart)
-        main.addWidget(theme_frame)
+        self._status_cards.append([("theme", theme_frame, 900, 430)])
 
         try:
             from theme import THEMES, save_theme, load_theme, get_theme
@@ -557,10 +830,26 @@ class StatusTab(QWidget):
             def _update_cb_info(name):
                 info = THEME_CB_INFO.get(name)
                 if info:
-                    colors_str, cb_str, accent = info
+                    colors_str, cb_str = info
+                    # Box itself now also uses the PREVIEWED theme's real
+                    # colors, not whichever theme happens to be currently
+                    # applied - it was only recoloring the bold heading
+                    # text before, so e.g. Naramon's name showed in gold
+                    # sitting on Madurai's actual brown box (whatever was
+                    # applied at the time), making Naramon look brownish
+                    # for a reason that had nothing to do with Naramon.
+                    # Jacob 2026-07-24 ("this isnt just grey, its got
+                    # brown tones - great for Naramon, not Obsidian").
+                    preview_pal = get_palette(name)
+                    self._cb_info_lbl.setStyleSheet(
+                        f"color: {preview_pal['fg']}; font-size: 11px; "
+                        f"background: {preview_pal['bg_panel']}; "
+                        f"border: 1px solid {preview_pal['border']}; "
+                        f"border-radius: 4px; padding: 4px 8px;"
+                    )
                     self._cb_info_lbl.setText(
-                        f"<b style='color:{accent};'>{name}</b>  \u2014  {colors_str}<br>"
-                        f"<span style='color:{_p()['fg']};'>{cb_str}</span>"
+                        f"<b style='color:{preview_pal['accent']};'>{name}</b>  \u2014  {colors_str}<br>"
+                        f"<span style='color:{preview_pal['fg']};'>{cb_str}</span>"
                     )
                     self._cb_info_lbl.setTextFormat(_Qt.RichText)
 
@@ -717,46 +1006,90 @@ class StatusTab(QWidget):
             threading.Thread(target=_run, daemon=True).start()
 
         upd_btn.clicked.connect(_do_check)
-        main.addWidget(upd_frame)
+        self._status_cards.append([("updates", upd_frame, 900, 130)])
+
+        # ── Place the collected cards on the editable canvas (created
+        # earlier, alongside the static toolbar bar) ───────────────────────
+        scroll.setWidget(self._canvas)
+
+        # Fixed (x, y, width, height) defaults - Jacob's actual tuned
+        # arrangement (Live Status is left-aligned only; Refresh Data's
+        # right edge lines up with Actions'/every other card's right
+        # edge), not flow-computed. Reset Layout must reproduce exactly
+        # this, so it's hardcoded per-card instead of derived from
+        # row-group/flow math that doesn't know about the alignment -
+        # same fix, and same reason, as Dashboard's DEFAULTS dict in
+        # DASHBOARD_TAB.py. Jacob 2026-07-24 ("this is twice now you
+        # didn't [bake it into the code default]").
+        STATUS_DEFAULTS = {
+            "status":    (0, 0, 620, 190),
+            "refresh":   (629, 0, 271, 190),
+            "actions":   (0, 200, 900, 260),
+            "overlay":   (0, 470, 900, 176),
+            "autostart": (0, 653, 900, 290),
+            "onclose":   (0, 950, 900, 118),
+            "paths":     (0, 1074, 900, 258),
+            "theme":     (0, 1338, 900, 371),
+            "updates":   (0, 1719, 900, 130),
+        }
+        saved = self._canvas.load_layout()
+        for group in self._status_cards:
+            for key, widget, default_w, default_h in group:
+                dx, dy, dw, dh = STATUS_DEFAULTS.get(key, (0, 0, default_w, default_h))
+                pos = saved.get(key)
+                kx = pos["x"] if pos else dx
+                ky = pos["y"] if pos else dy
+                kw = pos["width"] if pos else dw
+                kh = pos.get("height", dh) if pos else dh
+                self._canvas.add_card(key, widget, kx, ky, kw, kh)
+                self._canvas.remember_default(key, dx, dy, dw, dh)
 
         # ── Advanced Settings (collapsible) ───────────────────────────────
-        adv_toggle = QPushButton("\u25b6  Advanced Settings (OCR / Detector config)")
-        adv_toggle.setCheckable(True)
-        adv_toggle.setStyleSheet(
-            f"QPushButton {{ text-align: left; padding: 8px 14px; background: {p['bg_header']}; "
-            f"color: {p['accent_mid']}; border: 1px solid {p['border']}; border-radius: 5px; "
-            f"font-size: 12px; font-weight: 600; }}"
-            f"QPushButton:checked {{ color: {p['gold']}; border-color: {p['gold']}; }}"
-            f"QPushButton:hover {{ color: {p['accent']}; background: {p['bg_card']}; }}"
+        # Advanced Settings opens in its own dialog instead of expanding
+        # inline. As an inline collapsible section at the bottom of a long
+        # scrollable page, opening it changed the page's total height out
+        # from under you (had to scroll down to see what you'd just
+        # opened) and caused layout thrashing. A dialog sidesteps all of
+        # that. Jacob 2026-07-23.
+        # Advanced Settings is now a regular card on the editable canvas
+        # like everything else - a plain button has none of the
+        # dynamic-height problems that made the old collapsible version
+        # undraggable. Jacob 2026-07-23 (wanted it movable/resizable too).
+        adv_frame, adv_body = self._card("\u2699  ADVANCED SETTINGS", p['accent_mid'])
+        adv_body_layout = QVBoxLayout(adv_body)
+        adv_body_layout.setContentsMargins(12, 10, 12, 12)
+
+        adv_open_btn = self._action_btn(
+            "\u2699  Advanced Settings (OCR / Detector config)\u2026",
+            "Opens OCR/detector configuration in its own window."
         )
-        main.addWidget(adv_toggle)
+        adv_body_layout.addWidget(adv_open_btn)
 
-        self._adv_widget = QWidget()
-        self._adv_widget.setVisible(False)
-        self._adv_widget.setStyleSheet(
-            f"background: {p['bg_panel']}; border: 1px solid {p['border']}; border-radius: 6px;"
-        )
-        adv_layout = QVBoxLayout(self._adv_widget)
-        adv_layout.setContentsMargins(12, 10, 12, 10)
+        def _open_adv_dialog():
+            from PySide6.QtWidgets import QDialog
+            dialog = QDialog(self)
+            dialog.setWindowTitle("Advanced Settings")
+            dialog.resize(720, 640)
+            dl = QVBoxLayout(dialog)
 
-        warn = QLabel("\u26a0  These settings affect the OCR detector. Only change if you know what you're doing.")
-        warn.setStyleSheet(f"color: {p['gold_bright']}; font-size: 11px; background: transparent;")
-        warn.setWordWrap(True)
-        adv_layout.addWidget(warn)
-        try:
-            from SETTINGS_TAB import SettingsTab
-            self._settings_widget = SettingsTab()
-            adv_layout.addWidget(self._settings_widget)
-        except Exception:
-            adv_layout.addWidget(QLabel("Settings failed to load."))
-        main.addWidget(self._adv_widget)
+            warn = QLabel("\u26a0  These settings affect the OCR detector. Only change if you know what you're doing.")
+            warn.setStyleSheet(f"color: {p['gold_bright']}; font-size: 11px; background: transparent;")
+            warn.setWordWrap(True)
+            dl.addWidget(warn)
 
-        def _toggle_adv(checked):
-            self._adv_widget.setVisible(checked)
-            adv_toggle.setText(
-                ("\u25bc" if checked else "\u25b6") + "  Advanced Settings (OCR / Detector config)"
-            )
-        adv_toggle.toggled.connect(_toggle_adv)
+            settings_scroll = QScrollArea()
+            settings_scroll.setWidgetResizable(True)
+            try:
+                from SETTINGS_TAB import SettingsTab
+                self._settings_widget = SettingsTab()
+                settings_scroll.setWidget(self._settings_widget)
+            except Exception:
+                settings_scroll.setWidget(QLabel("Settings failed to load."))
+            dl.addWidget(settings_scroll)
+
+            dialog.exec()
+
+        adv_open_btn.clicked.connect(_open_adv_dialog)
 
         # ── Logs card ─────────────────────────────────────────────────────
         logs_frame, logs_body = self._card("\u25a0  OUTPUT LOG", "#2e6db4")
@@ -804,10 +1137,25 @@ class StatusTab(QWidget):
         self._log_tab_cmd.clicked.connect(lambda: _show_log(1, self._log_tab_cmd, self._log_tab_overlay))
 
         ll.addWidget(self._log_stack)
-        main.addWidget(logs_frame, stretch=1)
 
-        # ── Status bar ────────────────────────────────────────────────────
-        self.lbl_status = QLabel("Idle")
+        # Advanced Settings and Output Log are both placed on the same
+        # editable canvas, using the same fixed-default approach as above.
+        STATUS_DEFAULTS["advanced"] = (0, 1862, 900, 102)
+        STATUS_DEFAULTS["logs"] = (0, 1975, 900, 320)
+        for key, widget in [("advanced", adv_frame), ("logs", logs_frame)]:
+            dx, dy, dw, dh = STATUS_DEFAULTS[key]
+            pos = saved.get(key)
+            kx = pos["x"] if pos else dx
+            ky = pos["y"] if pos else dy
+            kw = pos["width"] if pos else dw
+            kh = pos.get("height", dh) if pos else dh
+            self._canvas.add_card(key, widget, kx, ky, kw, kh)
+            self._canvas.remember_default(key, dx, dy, dw, dh)
+
+        # ── Status bar - shows progress/result of whatever Action button
+        # you last clicked (Refresh Data, Rebuild API Helper, etc.).
+        # Jacob 2026-07-23 (bare "Idle" didn't explain what it was for).
+        self.lbl_status = QLabel("Action status will appear here")
         self.lbl_status.setStyleSheet(
             f"padding: 5px 10px; background: {p['bg']}; color: {p['fg_dim']}; "
             f"border-top: 1px solid {p['border']}; font-size: 11px;"
@@ -860,7 +1208,14 @@ class StatusTab(QWidget):
 
     def _update_status(self):
         self.lbl_warframe.setText(_status_html(_pgrep("Warframe.x64.exe")))
-        self.lbl_wfinfo.setText(_status_html(_pgrep("target/release/orbiter")))
+        # Also matches the flat "./orbiter" fallback binary path
+        # download_helper.py writes for a fresh install (see
+        # autostart_manager.py's _PROCESS_PATTERNS comment) - this status
+        # check was never updated for it, so a downloaded detector always
+        # showed as not running even while it was.
+        self.lbl_wfinfo.setText(
+            _status_html(_pgrep("target/release/orbiter") or _pgrep("./orbiter"))
+        )
         self.lbl_overlay.setText(_status_html(_pgrep("overlay.py")))
 
         if OWNED_FILE.exists():
@@ -909,6 +1264,8 @@ class StatusTab(QWidget):
                     )
             except OSError:
                 pass
+
+        self._refresh_autostart_toggles()
 
     # ── Command runner ────────────────────────────────────────────────────
 
@@ -1074,12 +1431,26 @@ class StatusTab(QWidget):
         self.cmd_text.clear()
         self.cmd_text.append("=== Reload orbiter config ===\n")
         try:
-            self.cmd_text.append("Current config:\n" + (WFINFO_DIR / "config.json").read_text())
+            self.cmd_text.append("Current config:\n" + CONFIG_FILE.read_text())
         except OSError as e:
             self.cmd_text.append(f"(could not read config.json: {e})")
         self.cmd_text.append("\nRestarting orbiter...")
 
-        killed = kill_processes("orbiter")
+        # Bare "orbiter" as the match pattern is dangerously generic -
+        # would match ANY process with "orbiter" anywhere in an argument
+        # (a file path, an unrelated tool's arg, even this app's own repo
+        # path). Killing by the two actual specific binary patterns
+        # instead, matching autostart_manager.py's own canonical list.
+        # Jacob 2026-07-24 ("overbroad process kill... can kill unrelated
+        # processes"). Also matches the flat "./orbiter" fallback path a
+        # downloaded (not cargo-built) detector actually runs as - this
+        # list was never updated for it, so "Restart Detector" silently
+        # failed to stop a downloaded detector before launching a new one.
+        killed = (
+            kill_processes("target/release/orbiter")
+            + kill_processes("orbiter.exe")
+            + kill_processes("./orbiter")
+        )
         self.cmd_text.append(f"Stopped {killed} running orbiter process(es).")
         # QTimer instead of time.sleep — this runs on the GUI thread, and a
         # real sleep() here would freeze the whole window for a few seconds.
@@ -1092,45 +1463,22 @@ class StatusTab(QWidget):
     def _reload_config_launch(self):
         from platform_utils import launch_detached, clean_env_for_launch, IS_LINUX
         log_file = DATA_DIR / "orbiter.log"
-        # orbiter.exe takes the EE.log path as a positional CLI argument -
-        # without it, it falls back to its own built-in default guess and
-        # silently ignores whatever the user configured (Save Paths) in
-        # config.json. get_ee_log_path() already resolves override ->
-        # auto-detect the same way the rest of the app does, so pass it
-        # through explicitly instead of leaving the binary to guess on its
-        # own with a narrower, less accurate fallback.
-        log_path_arg = []
-        if get_ee_log_path is not None:
-            ee_path = get_ee_log_path()
-            if ee_path is not None:
-                log_path_arg = [str(ee_path)]
-        # Some other software (Steam, GeForce Experience, Xbox Game Bar, VM
-        # guest tools, etc.) can claim F12 as a global hotkey first, which
-        # prevents orbiter from registering it at all - configurable via
-        # Settings instead of needing a code change to switch keys.
-        #
-        # Only pass --hotkey when it's actually been changed from the
-        # default. --hotkey is a newer flag than the "no extra args"
-        # calling convention this used before - unconditionally sending it
-        # broke every orbiter.exe/orbiter binary older than this Python
-        # source with a hard "unexpected argument" parse error and a
-        # refusal to start at all (confirmed live on Linux). Since the
-        # binary's own default is already "F12", omitting the flag in the
-        # common case keeps old binaries working exactly as before.
-        hotkey_args = []
-        if get_screenshot_hotkey is not None:
-            configured_hotkey = get_screenshot_hotkey()
-            if configured_hotkey != "F12":
-                hotkey_args = ["--hotkey", configured_hotkey]
+        # Extra args (EE.log override, --hotkey, --pre-capture-sleep-ms)
+        # come from one shared builder now (paths.build_detector_args())
+        # instead of being rebuilt here - this used to be one of three
+        # independent copies of the same logic, and warframe-watcher.py's
+        # own copy had drifted to have none of it at all. Jacob 2026-07-24
+        # ("Unify detector launch/restart construction").
+        args = build_detector_args() if build_detector_args is not None else []
         try:
             if IS_LINUX:
                 # launch-orbiter.sh handles Bazzite/gamescope-specific setup
                 # (DISPLAY detection, host libs, portal bus) that Windows
                 # simply doesn't need — there we can launch the exe directly.
-                launch_detached(["./launch-orbiter.sh"] + log_path_arg + hotkey_args, cwd=WFINFO_DIR,
+                launch_detached(["./launch-orbiter.sh"] + args, cwd=WFINFO_DIR,
                                  env=clean_env_for_launch(), log_file=log_file)
             else:
-                launch_detached([str(WFINFO_DIR / "orbiter.exe")] + log_path_arg + hotkey_args, cwd=WFINFO_DIR,
+                launch_detached([str(WFINFO_DIR / "orbiter.exe")] + args, cwd=WFINFO_DIR,
                                  log_file=log_file)
         except OSError as e:
             self.cmd_text.append(f"ERROR: failed to launch orbiter: {e}")
@@ -1248,6 +1596,33 @@ class StatusTab(QWidget):
             [["/bin/bash", "-c", f"git pull && ./build.sh && cp warframe-api-helper {WFINFO_DIR}/"]],
             cwd=HELPER_SRC, description="Rebuild helper",
         )
+
+    def _on_close_behavior_toggled(self, checked):
+        if set_close_behavior is not None:
+            set_close_behavior("tray" if checked else "exit")
+
+    def _on_autostart_toggled(self, feature, checked):
+        autostart_manager.set_autostart(feature, checked)
+
+    def _on_enabled_toggled(self, feature, checked):
+        if checked:
+            autostart_manager.start_feature(feature, reason="manual Off→On toggle click")
+        else:
+            autostart_manager.stop_feature(feature, reason="manual Off→On toggle click")
+
+    def _refresh_autostart_toggles(self):
+        """Keep the 'On now' toggles honest if a process dies/gets started
+        outside this UI (crash, killed elsewhere, etc.) - block signals
+        while setting so this doesn't itself trigger _on_enabled_toggled
+        and start/stop things every 2s."""
+        if not hasattr(self, "_enabled_toggles"):
+            return
+        for feature, toggle in self._enabled_toggles.items():
+            running = autostart_manager.is_feature_running(feature)
+            if toggle.isChecked() != running:
+                toggle.blockSignals(True)
+                toggle.setChecked(running)
+                toggle.blockSignals(False)
 
     def restart_overlay(self):
         kill_processes("overlay.py")

@@ -17,9 +17,28 @@ from PySide6.QtWidgets import (
     QComboBox, QCheckBox, QPushButton, QLineEdit,
 )
 from column_persistence import apply_saved_widths, remember_widths
-from theme import BG_PANEL, BG_CARD, FG, DIM, GOLD, FG_DIM, BORDER
+from paths import get_inventory_path
+from theme import get_palette
+from mastery import affinity_to_rank, max_affinity
 
 WFINFO_DIR = Path(__file__).parent
+
+
+def _rank_tint_colors():
+    """Row-background tints for the rank progress color-coding
+    (near-done/halfway/low). These were fixed dark hex literals designed
+    to sit under light text on a dark background - on a light theme with
+    near-black text, that became dark-on-dark. Picks light or dark tints
+    based on whether the current theme's background is actually light or
+    dark. Jacob 2026-07-23."""
+    p = get_palette()
+    bg = p['bg'].lstrip('#')
+    brightness = sum(int(bg[i:i+2], 16) for i in (0, 2, 4)) / 3
+    if brightness > 128:
+        # Light theme - pale tints, dark text stays legible on them.
+        return QColor("#c8f0d0"), QColor("#f5e8b0"), QColor("#dde3f0")
+    return QColor("#1a5c2a"), QColor("#5c4a00"), QColor("#1a2e55")
+
 
 MASTERY_TYPES = {
     'Primary', 'Secondary', 'Melee', 'Warframe', 'Archwing',
@@ -27,12 +46,6 @@ MASTERY_TYPES = {
     'Necramech', 'Moa', 'Hound', 'K-Drive', 'Zaw', 'Kitgun',
     'Robotic Weapon', 'Amp',
 }
-
-# "Heavy" categories (the pet/frame/vehicle itself, not weapons used with
-# it) need double the affinity per rank that regular weapons do. Verified
-# against Cephalon Kronos's production inventoryParser.js, which hit and
-# fixed this exact class of bug (their issue #1).
-HEAVY_TYPES = {'Warframe', 'Archwing', 'Sentinel', 'Necramech', 'Moa', 'Hound', 'K-Drive'}
 
 # Inventory slots that hold leveled items
 INV_SLOTS = [
@@ -48,47 +61,34 @@ def _load(path, default):
         return default
 
 
-def _rank_limit(uname, itype):
-    """Most items cap at rank 30. Necramechs, Paracesis, and Kuva/Tenet/Coda
-    weapons go to 40. Verified against Cephalon Kronos's getRankLimit()."""
-    if itype == 'Necramech':
-        return 40
-    if any(tag in uname for tag in ('Kuva', 'Tenet', 'Coda', 'Paracesis')):
-        return 40
-    return 30
-
-
-def _max_xp_for(uname, itype):
+def _max_xp_for(uname, itype, max_level=None):
     """Real affinity required for max rank: rank^2 * base, base=1000 for
     heavy categories (Warframe/Archwing/Sentinel/Necramech/Moa/Hound/
     K-Drive), 500 for regular weapons. Verified against Cephalon Kronos's
     calculateRank() - the old flat "xp/30000, cap 30" approximation this
     replaced was wrong for every weapon type (real weapon cap is 450,000
     at rank 30, not 900,000) and couldn't represent 40-rank items at all."""
-    limit = _rank_limit(uname, itype)
-    base = 1000 if itype in HEAVY_TYPES else 500
-    return limit * limit * base
+    return max_affinity(uname, itype, max_level)
 
 
-def _xp_to_rank(xp, uname, itype):
+def _xp_to_rank(xp, uname, itype, max_level=None):
     """Real Warframe affinity curve: cumulative XP to reach rank r is
     r^2 * base. Not linear - each rank costs more than the last."""
-    if xp <= 0:
-        return 0
-    limit = _rank_limit(uname, itype)
-    base = 1000 if itype in HEAVY_TYPES else 500
-    rank = 0
-    for r in range(1, limit + 1):
-        if xp >= r * r * base:
-            rank = r
-        else:
-            break
-    return rank
+    return affinity_to_rank(xp, uname, itype, max_level)
 
 
 class MasteryHelperTab(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
+        # These used to be imported once from theme.py's hardcoded
+        # sapphire-theme constants, so this tab stayed sapphire-colored
+        # no matter what theme was selected. Read fresh from the
+        # currently selected theme instead. Jacob 2026-07-23.
+        p = get_palette()
+        self._p = p
+        global BG_PANEL, BG_CARD, FG, DIM, GOLD, FG_DIM, BORDER
+        BG_PANEL, BG_CARD = p['bg_panel'], p['bg_card']
+        FG, DIM, FG_DIM, GOLD, BORDER = p['fg'], p['fg_dim'], p['fg_dim'], p['gold'], p['border']
         self._setup_ui()
         self._load_data()
 
@@ -250,7 +250,7 @@ class MasteryHelperTab(QWidget):
     # ---------------------------------------------------------------- Data load
 
     def _load_data(self):
-        inv = _load(WFINFO_DIR / "inventory.json", {})
+        inv = _load(get_inventory_path(), {})
         wfcd = _load(WFINFO_DIR / "wfcd_all_cache.json", [])
         owned_parts = _load(WFINFO_DIR / "owned_items.json", {})
         owned_relics = _load(WFINFO_DIR / "owned_relics.json", {})
@@ -301,8 +301,6 @@ class MasteryHelperTab(QWidget):
         self._easy_items = []
         for uname in owned_unames:
             xp = xpi.get(uname, 0)
-            if xp <= 0:
-                continue
             item = self._wfcd_items.get(uname)
             if not item:
                 continue  # skip items not in WFCD (internal/test items)
@@ -310,10 +308,10 @@ class MasteryHelperTab(QWidget):
             itype = item.get("type", "Unknown")
             if not name or itype not in MASTERY_TYPES:
                 continue
-            max_xp = _max_xp_for(uname, itype)
+            max_xp = _max_xp_for(uname, itype, item.get("maxLevelCap"))
             if xp >= max_xp:
                 continue  # already maxed
-            rank = _xp_to_rank(xp, uname, itype)
+            rank = _xp_to_rank(xp, uname, itype, item.get("maxLevelCap"))
             xp_left = max_xp - xp
             self._easy_items.append({
                 "name": name, "type": itype, "rank": rank, "xp_left": xp_left
@@ -343,6 +341,7 @@ class MasteryHelperTab(QWidget):
             parts_owned = 0
             parts_missing = []
             relic_buildable = True
+            real_parts = 0
 
             parts_from_owned_relic = 0
             for comp in components:
@@ -350,23 +349,29 @@ class MasteryHelperTab(QWidget):
                 if not cname_base or cname_base in ("Orokin Cell", "Forma"):
                     continue
                 full_part = f"{name} {cname_base}"
-                count = owned_parts.get(full_part, 0)
-                if count and int(count) >= 1:
-                    parts_owned += 1
-                else:
+                required = max(1, int(comp.get("itemCount", 1) or 1))
+                count = int(owned_parts.get(full_part, 0) or 0)
+                real_parts += required
+                parts_owned += min(count, required)
+                deficit = max(0, required - count)
+                if deficit:
                     # Check if any owned relic drops this part
                     relics_for_part = part_to_relics.get(full_part, [])
-                    owned_relic_drops = [r for r in relics_for_part if r[3] > 0]
-                    if owned_relic_drops:
-                        parts_from_owned_relic += 1
+                    available_relics = sum(int(r[3] or 0) for r in relics_for_part)
+                    coverable = min(deficit, available_relics)
+                    parts_from_owned_relic += coverable
+                    if coverable >= deficit:
+                        pass
                     else:
-                        relic_buildable = False  # at least one part not in any owned relic
-                    parts_missing.append(full_part)
+                        relic_buildable = False
+                    parts_missing.append(
+                        full_part if deficit == 1 else f"{full_part} ×{deficit}"
+                    )
 
             # Show if ANY missing part can come from owned relics
             # (relic_buildable=True means ALL missing parts are coverable)
             has_relic_parts = parts_from_owned_relic > 0
-            if has_relic_parts and parts_missing:
+            if relic_buildable and has_relic_parts and parts_missing:
                 mr_req = item.get("masteryReq", 0) or 0
                 self._relic_items.append({
                     "name": name, "type": itype, "mr_req": mr_req,
@@ -375,6 +380,7 @@ class MasteryHelperTab(QWidget):
                     "missing_count": len(parts_missing),
                     "fully_coverable": relic_buildable,
                     "relic_parts_available": parts_from_owned_relic,
+                    "real_parts": real_parts,
                 })
 
         # Sort: fully coverable first, then by missing count
@@ -405,16 +411,17 @@ class MasteryHelperTab(QWidget):
                 if not cname_base or cname_base in ("Orokin Cell", "Forma"):
                     continue
                 full_part = f"{name} {cname_base}"
-                count = owned_parts.get(full_part, 0)
-                real_parts += 1
-                if count and int(count) >= 1:
-                    parts_owned_count += 1
-                else:
+                required = max(1, int(comp.get("itemCount", 1) or 1))
+                count = int(owned_parts.get(full_part, 0) or 0)
+                real_parts += required
+                parts_owned_count += min(count, required)
+                deficit = max(0, required - count)
+                if deficit:
                     # Try both "Name Component" and "Name Component Blueprint"
                     price = self._prices.get(full_part.lower(), 0)
                     if not price:
                         price = self._prices.get((full_part + " Blueprint").lower(), 0)
-                    buy_cost += price
+                    buy_cost += price * deficit
 
             mr_req = item.get("masteryReq", 0) or 0
             self._never_items.append({
@@ -458,12 +465,13 @@ class MasteryHelperTab(QWidget):
             xp_item.setData(Qt.DisplayRole, r["xp_left"])
             self._easy_table.setItem(i, 3, xp_item)
             # Color code by rank
+            near_done, halfway, low = _rank_tint_colors()
             if r["rank"] >= 25:
-                color = QColor("#1a5c2a")  # nearly done — green
+                color = near_done
             elif r["rank"] >= 15:
-                color = QColor("#5c4a00")  # halfway — yellow
+                color = halfway
             else:
-                color = QColor("#1a2e55")  # low rank — neutral
+                color = low
             for col in range(4):
                 item = self._easy_table.item(i, col)
                 if item:
@@ -492,12 +500,13 @@ class MasteryHelperTab(QWidget):
             self._relics_table.setItem(i, 3, owned_item)
             self._relics_table.setItem(i, 4, QTableWidgetItem(", ".join(r["parts_missing"])))
             # Color: fully covered by owned relics = green, partial = yellow, needs other = neutral
+            near_done, halfway, low = _rank_tint_colors()
             if r["fully_coverable"]:
-                color = QColor("#1a5c2a")
+                color = near_done
             elif r["relic_parts_available"] > 0:
-                color = QColor("#5c4a00")
+                color = halfway
             else:
-                color = QColor("#1a2e55")
+                color = low
             for col in range(5):
                 item = self._relics_table.item(i, col)
                 if item:
@@ -532,12 +541,13 @@ class MasteryHelperTab(QWidget):
                 cost_item.setText("free / relic")
             self._never_table.setItem(i, 4, cost_item)
             # Color: free = green, cheap = yellow, expensive = neutral
+            near_done, halfway, low = _rank_tint_colors()
             if cost == 0:
-                color = QColor("#1a5c2a")
+                color = near_done
             elif cost < 50:
-                color = QColor("#5c4a00")
+                color = halfway
             else:
-                color = QColor("#1a2e55")
+                color = low
             for col in range(5):
                 item = self._never_table.item(i, col)
                 if item:

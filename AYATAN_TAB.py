@@ -12,9 +12,35 @@ from pathlib import Path
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QCheckBox,
-    QTableWidget, QTableWidgetItem, QHeaderView
+    QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView
 )
+from paths import get_inventory_path
 from column_persistence import apply_saved_widths, remember_widths
+from wiki_links import open_wiki_url
+from drop_data import find_drop_info
+
+# Individual Ayatan Sculptures don't have their own wiki pages - confirmed
+# live 2026-07-21 (Jacob: "most of the ayatan links redirect to the main,
+# the others are blank") - they're all documented on one shared page.
+AYATAN_WIKI_URL = "https://wiki.warframe.com/w/Ayatan_Treasures"
+
+# Real acquisition text from the wiki's "Ayatan Treasures#Acquisition"
+# section (confirmed live 2026-07-21) - these aren't random drops, so
+# they're not in dropdata_cache.json / wfcd_all_cache.json's "drops"
+# field at all. Keyed by display name.
+_ACQUISITION_OVERRIDES = {
+    "Ayatan Anasa Sculpture": "Sortie or Archon Hunt reward (28% chance, end of 3rd mission)",
+    "Ayatan Hemakara Sculpture": (
+        "Operation: Orphix Venom (1,000 points); Nightwave Intermission III "
+        "Rank 22; Nightwave Nora's Mix Vol.3 Rank 22; Vol.5 Rank 22; Vol.6 Rank 23"
+    ),
+    "Ayatan Kitha Sculpture": "Bought from Loid for 50,000 Credits (requires Necraloid Rank 3 - Clearance Odima)",
+    "Ayatan Zambuka Sculpture": "Bought from Arbitration Honors store for 50 Vitus Essence",
+    "Ayatan Chattraka Sculpture": (
+        "Bought from Nightcap for 75 Fergolyte (requires Rank 3 - Seeker "
+        "with Nightcap; limit 1/week)"
+    ),
+}
 
 
 class AyatanTab(QWidget):
@@ -40,15 +66,17 @@ class AyatanTab(QWidget):
 
         layout.addLayout(header)
 
-        self._table = QTableWidget(0, 3)
-        self._table.setHorizontalHeaderLabels(["Name", "Drop Location", "Owned"])
-        for col in range(3):
+        self._table = QTableWidget(0, 4)
+        self._table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self._table.setHorizontalHeaderLabels(["Name", "Drop Location", "Owned", "Wiki"])
+        for col in range(4):
             self._table.horizontalHeader().setSectionResizeMode(col, QHeaderView.Interactive)
-        apply_saved_widths(self._table, "ayatan_table", [220, 320, 70])
+        apply_saved_widths(self._table, "ayatan_table", [220, 320, 70, 70])
         remember_widths(self._table, "ayatan_table")
         self._table.setSortingEnabled(True)
         self._table.verticalHeader().setVisible(False)
         self._table.sortByColumn(0, Qt.AscendingOrder)
+        self._table.cellClicked.connect(self._on_cell_clicked)
         layout.addWidget(self._table)
 
         self._status = QLabel("")
@@ -56,7 +84,7 @@ class AyatanTab(QWidget):
 
     def _load(self):
         base = Path(__file__).parent
-        inventory = self._load_json(base / 'inventory.json') or {}
+        inventory = self._load_json(get_inventory_path()) or {}
         # Sculptures can be owned in multiple socket-fill states (same
         # uniqueName, different "Sockets" value) - sum all copies together
         # for a total-owned count.
@@ -76,8 +104,18 @@ class AyatanTab(QWidget):
             name = item.get('name', '')
             if not uname or not name:
                 continue
-            locations = sorted({d.get('location') for d in (item.get('drops') or []) if d.get('location')})
-            drop_location = '; '.join(locations) if locations else 'No drop data (check wiki)'
+            # /Lotus/StoreItems/... entries are Market-listing wrappers
+            # around the same real item (e.g. the "Orofusexf" entry is a
+            # duplicate of Ayatan Anasa Sculpture missing its display
+            # name in wfcd's cache, not a separate sculpture) - confirmed
+            # live 2026-07-21 by comparing uniqueName suffixes.
+            if '/StoreItems/' in uname:
+                continue
+            if name in _ACQUISITION_OVERRIDES:
+                drop_location = _ACQUISITION_OVERRIDES[name]
+            else:
+                locations = sorted({d.get('location') for d in (item.get('drops') or []) if d.get('location')})
+                drop_location = '; '.join(locations) if locations else (find_drop_info(name) or 'No drop data (check wiki)')
             self._sculptures.append({
                 'name': name, 'drop_location': drop_location,
                 'owned': self._owned.get(uname, 0),
@@ -108,7 +146,19 @@ class AyatanTab(QWidget):
             if s['owned'] > 0:
                 owned_item.setForeground(Qt.cyan)
             self._table.setItem(r, 2, owned_item)
+            wiki_item = QTableWidgetItem("▷ Wiki")
+            wiki_item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            wiki_item.setData(Qt.UserRole, AYATAN_WIKI_URL)
+            self._table.setItem(r, 3, wiki_item)
         self._table.setSortingEnabled(True)
+
+    def _on_cell_clicked(self, row, column):
+        if column != 3:
+            return
+        item = self._table.item(row, 3)
+        url = item.data(Qt.UserRole) if item else None
+        if url:
+            open_wiki_url(url)
 
     def _filter(self, *_):
         q = self._search.text().strip().lower()

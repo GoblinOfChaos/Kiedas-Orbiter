@@ -12,9 +12,33 @@ from pathlib import Path
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QCheckBox,
-    QTableWidget, QTableWidgetItem, QHeaderView
+    QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView
 )
+from paths import get_inventory_path
 from column_persistence import apply_saved_widths, remember_widths
+from wiki_links import build_wiki_url, open_wiki_url, fix_roman_numeral_casing
+from drop_data import find_drop_info
+
+# TennoCon 2021 Ephemera was only ever available in the TennoCon 2021
+# Digital Pack (real-money bundle), never as an in-game drop - confirmed
+# live 2026-07-21. Keyed on uniqueName (not display name) for precision.
+_NO_DROP_OVERRIDES = {
+    "/Lotus/Upgrades/Skins/Effects/TennoCon2021Ephemera":
+        "Not Available, only included in TennoCon 2021 Digital Pack",
+}
+
+# Wiki-verified acquisition text for the ~83 ephemera the drop-data
+# datasets don't cover (most come from Nightwave, Baro, Prime Access
+# accessory packs, or boss/Lich RNG spawn chances, not random drops) -
+# added 2026-07-22 per Jacob's request. Keyed on display name.
+def _load_acquisition_overrides():
+    path = Path(__file__).parent / "component_overrides_ephemera.json"
+    try:
+        return json.loads(path.read_text())
+    except Exception:
+        return {}
+
+_ACQUISITION_OVERRIDES = _load_acquisition_overrides()
 
 
 class EphemeraTab(QWidget):
@@ -40,15 +64,20 @@ class EphemeraTab(QWidget):
 
         layout.addLayout(header)
 
-        self._table = QTableWidget(0, 3)
-        self._table.setHorizontalHeaderLabels(["Name", "Drop Location", "Owned"])
-        for col in range(3):
+        self._table = QTableWidget(0, 4)
+        # This is a read-only reference table (drop data, ownership status)
+        # - without this, Qt's default edit triggers let a stray click or
+        # keypress silently edit/clear cell text.
+        self._table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self._table.setHorizontalHeaderLabels(["Name", "Drop Location", "Owned", "Wiki"])
+        for col in range(4):
             self._table.horizontalHeader().setSectionResizeMode(col, QHeaderView.Interactive)
-        apply_saved_widths(self._table, "ephemera_table", [260, 320, 70])
+        apply_saved_widths(self._table, "ephemera_table", [260, 320, 70, 70])
         remember_widths(self._table, "ephemera_table")
         self._table.setSortingEnabled(True)
         self._table.verticalHeader().setVisible(False)
         self._table.sortByColumn(0, Qt.AscendingOrder)
+        self._table.cellClicked.connect(self._on_cell_clicked)
         layout.addWidget(self._table)
 
         self._status = QLabel("")
@@ -56,7 +85,7 @@ class EphemeraTab(QWidget):
 
     def _load(self):
         base = Path(__file__).parent
-        inventory = self._load_json(base / 'inventory.json') or {}
+        inventory = self._load_json(get_inventory_path()) or {}
         self._owned = {
             u['ItemType'] for u in inventory.get('WeaponSkins', [])
             if isinstance(u, dict) and u.get('ItemType')
@@ -73,8 +102,28 @@ class EphemeraTab(QWidget):
             name = item.get('name', '')
             if not uname or not name or 'Ephemera' not in uname:
                 continue
-            locations = sorted({d.get('location') for d in (item.get('drops') or []) if d.get('location')})
-            drop_location = '; '.join(locations) if locations else 'No drop data (check wiki)'
+            # Kaithe-mount cosmetics that happen to have "Ephemera" in
+            # their uniqueName (e.g. "Malaen Ephemera") aren't real
+            # ephemera - confirmed live 2026-07-21: they're only inspired
+            # by ephemera, bought in real-money packs, not obtainable the
+            # way actual ephemera are. The "Coronet" cosmetics (Dauntair/
+            # Enverve/Myrthen/Vexage/Wistfall) are the same kind of Kaithe
+            # cosmetic but use "Horse" in their path instead of "kaithe" -
+            # confirmed live 2026-07-22 (Jacob: "coronets are still
+            # listed").
+            if 'kaithe' in uname.lower() or '/Horse/' in uname:
+                continue
+            raw_name = name
+            name = fix_roman_numeral_casing(name)
+            if uname in _NO_DROP_OVERRIDES:
+                drop_location = _NO_DROP_OVERRIDES[uname]
+            else:
+                override = _ACQUISITION_OVERRIDES.get(raw_name) or _ACQUISITION_OVERRIDES.get(name)
+                if override and override != "UNKNOWN":
+                    drop_location = override
+                else:
+                    locations = sorted({d.get('location') for d in (item.get('drops') or []) if d.get('location')})
+                    drop_location = '; '.join(locations) if locations else (find_drop_info(name) or 'No drop data (check wiki)')
             self._ephemera.append({
                 'name': name, 'drop_location': drop_location,
                 'owned': uname in self._owned,
@@ -104,7 +153,19 @@ class EphemeraTab(QWidget):
             if e['owned']:
                 owned_item.setForeground(Qt.cyan)
             self._table.setItem(r, 2, owned_item)
+            wiki_item = QTableWidgetItem("▷ Wiki")
+            wiki_item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            wiki_item.setData(Qt.UserRole, build_wiki_url(e['name']))
+            self._table.setItem(r, 3, wiki_item)
         self._table.setSortingEnabled(True)
+
+    def _on_cell_clicked(self, row, column):
+        if column != 3:
+            return
+        item = self._table.item(row, 3)
+        url = item.data(Qt.UserRole) if item else None
+        if url:
+            open_wiki_url(url)
 
     def _filter(self, *_):
         q = self._search.text().strip().lower()

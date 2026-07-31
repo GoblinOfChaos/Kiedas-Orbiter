@@ -13,11 +13,11 @@ Supported platforms:
 
 import json
 import os
+import shutil
 import sys
 from pathlib import Path
 
 WFINFO_DIR = Path(__file__).parent
-CONFIG_FILE = WFINFO_DIR / "config.json"
 
 # Known Warframe Steam App ID — this never changes
 WARFRAME_APPID = "230410"
@@ -73,6 +73,26 @@ def _get_cache_dir() -> Path:
 
 DATA_DIR  = _get_data_dir()   # persistent app state
 CACHE_DIR = _get_cache_dir()  # ephemeral caches (images, etc.)
+
+
+def migrate_legacy_state_file(filename: str) -> Path:
+    """Copy legacy mutable state out of the install tree on first use."""
+    destination = DATA_DIR / filename
+    legacy = WFINFO_DIR / filename
+    if not destination.exists() and legacy.exists():
+        try:
+            temporary = destination.with_name(destination.name + ".migrating")
+            shutil.copy2(legacy, temporary)
+            os.replace(temporary, destination)
+        except OSError:
+            try:
+                temporary.unlink(missing_ok=True)
+            except UnboundLocalError:
+                pass
+    return destination
+
+
+CONFIG_FILE = migrate_legacy_state_file("config.json")
 
 # ── EE.log relative path inside a Steam Proton prefix (Linux) ────────────
 _EE_PROTON_REL = "pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log"
@@ -246,22 +266,16 @@ def _find_ee_log_auto() -> Path | None:
 
 def get_data_dir() -> Path:
     """
-    Return the OS-appropriate directory for app data files
-    (logs, state, cache).
+    Return the same canonical persistent-data directory as DATA_DIR.
 
       Linux:   ~/.local/share/kiedas-orbiter/
       Windows: %APPDATA%\\kiedas-orbiter\\
       macOS:   ~/Library/Application Support/kiedas-orbiter/
+
+    Keeping this as a thin accessor prevents callers from bypassing the
+    sandbox-path filtering in _get_data_dir().
     """
-    if IS_WINDOWS:
-        base = Path(os.environ.get("APPDATA", Path.home() / "AppData/Roaming"))
-    elif IS_MAC:
-        base = Path.home() / "Library" / "Application Support"
-    else:
-        base = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share"))
-    d = base / "kiedas-orbiter"
-    d.mkdir(parents=True, exist_ok=True)
-    return d
+    return DATA_DIR
 
 
 def get_ee_log_path() -> Path | None:
@@ -312,6 +326,72 @@ def get_screenshot_hotkey() -> str:
 def set_screenshot_hotkey(key_str: str):
     cfg = _load_config()
     cfg["screenshot_hotkey"] = key_str.strip() if key_str.strip() else None
+    _save_config(cfg)
+
+
+def get_pre_capture_sleep_ms() -> int:
+    """How long (ms) the Rust detector waits after the reward-ready
+    trigger fires before capturing the screen - editable via the
+    Settings tab's raw config editor. Previously dead: the detector
+    always used a hardcoded 1500ms regardless of this value, since
+    nothing ever read it or passed it through. Jacob 2026-07-24."""
+    cfg = _load_config()
+    val = cfg.get("pre_capture_sleep_ms", 1500)
+    try:
+        return int(val)
+    except (TypeError, ValueError):
+        return 1500
+
+
+def build_detector_args() -> list[str]:
+    """Extra CLI args (log path override, --hotkey, --pre-capture-sleep-ms)
+    for launching/restarting the Rust detector, derived from config.json.
+
+    Previously duplicated (and drifting) across autostart_manager.py,
+    control-panel.py, and STATUS_TAB.py - each independently rebuilt this
+    same list, and warframe-watcher.py's restart_wfinfo() (triggered
+    every time Warframe itself restarts) didn't build it at all, silently
+    dropping the configured EE.log path, hotkey, and pre-capture sleep on
+    every watcher-triggered restart. One shared function so there's only
+    one place left to keep in sync. Jacob 2026-07-24 ("Unify detector
+    launch/restart construction").
+
+    --hotkey and --pre-capture-sleep-ms are only included when actually
+    changed from their defaults ("F12" / 1500ms) - unconditionally
+    sending --hotkey once broke every orbiter binary older than the
+    Python source with a hard "unexpected argument" parse error (confirmed
+    live on Linux), since the binary's own default already matches the
+    common case. Same convention applied to --pre-capture-sleep-ms."""
+    args: list[str] = []
+
+    ee_path = get_ee_log_path()
+    if ee_path is not None:
+        args.append(str(ee_path))
+
+    configured_hotkey = get_screenshot_hotkey()
+    if configured_hotkey != "F12":
+        args += ["--hotkey", configured_hotkey]
+
+    configured_sleep_ms = get_pre_capture_sleep_ms()
+    if configured_sleep_ms != 1500:
+        args += ["--pre-capture-sleep-ms", str(configured_sleep_ms)]
+
+    return args
+
+
+def get_close_behavior() -> str:
+    """What the X button does: 'tray' (minimize, keep running in the
+    background with a tray icon) or 'exit' (fully quit, stopping all
+    auto-started background features too). Defaults to 'tray' per Jacob
+    2026-07-16."""
+    cfg = _load_config()
+    val = cfg.get("close_behavior", "tray")
+    return val if val in ("tray", "exit") else "tray"
+
+
+def set_close_behavior(value: str):
+    cfg = _load_config()
+    cfg["close_behavior"] = "exit" if value == "exit" else "tray"
     _save_config(cfg)
 
 

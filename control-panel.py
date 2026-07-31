@@ -23,7 +23,7 @@ from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
     QPushButton, QLabel, QGroupBox, QFormLayout, QTextEdit, QMessageBox,
 )
-from paths import DATA_DIR, WFINFO_DIR, get_ee_log_path, get_inventory_path, get_screenshot_hotkey
+from paths import DATA_DIR, WFINFO_DIR, get_inventory_path, build_detector_args
 
 WFINFO_ICON = str(WFINFO_DIR / ("orbiter.ico" if sys.platform == "win32" else "orbiter.svg"))
 
@@ -219,7 +219,9 @@ class ControlPanel(QWidget):
 
     def update_status(self):
         wf = pgrep("Warframe.x64.exe")
-        info = pgrep("target/release/orbiter")
+        # Also matches the flat "./orbiter" fallback binary path a
+        # downloaded (not cargo-built) detector actually runs as.
+        info = pgrep("target/release/orbiter") or pgrep("./orbiter")
         ov = pgrep("overlay.py")
         self.lbl_warframe.setText(self._status_html(wf))
         self.lbl_wfinfo.setText(self._status_html(info))
@@ -414,12 +416,25 @@ class ControlPanel(QWidget):
         self.cmd_text.clear()
         self.cmd_text.append("=== Reload orbiter config ===\n")
         try:
-            self.cmd_text.append("Current config:\n" + (WFINFO_DIR / "config.json").read_text())
+            from paths import CONFIG_FILE
+            self.cmd_text.append("Current config:\n" + CONFIG_FILE.read_text())
         except OSError as e:
             self.cmd_text.append(f"(could not read config.json: {e})")
         self.cmd_text.append("\nRestarting orbiter...")
 
-        killed = kill_processes("orbiter")
+        # Bare "orbiter" as the match pattern is dangerously generic -
+        # would match ANY process with "orbiter" anywhere in an argument
+        # (a file path, an unrelated tool's arg, even this app's own repo
+        # path). Killing by the two actual specific binary patterns
+        # instead, matching autostart_manager.py's own canonical list.
+        # Jacob 2026-07-24 ("overbroad process kill... can kill unrelated
+        # processes"). Also matches the flat "./orbiter" fallback path a
+        # downloaded (not cargo-built) detector actually runs as.
+        killed = (
+            kill_processes("target/release/orbiter")
+            + kill_processes("orbiter.exe")
+            + kill_processes("./orbiter")
+        )
         self.cmd_text.append(f"Stopped {killed} running orbiter process(es).")
         # QTimer instead of time.sleep — this runs on the GUI thread, and a
         # real sleep() here would freeze the whole window for a few seconds.
@@ -433,38 +448,22 @@ class ControlPanel(QWidget):
         from platform_utils import launch_detached, clean_env_for_launch, IS_LINUX
         log_file = DATA_DIR / "orbiter.log"
         # orbiter.exe takes the EE.log path as a positional CLI argument -
-        # without it, it falls back to its own built-in default guess and
-        # silently ignores whatever the user configured (Save Paths) in
-        # config.json. get_ee_log_path() already resolves override ->
-        # auto-detect the same way the rest of the app does, so pass it
-        # through explicitly instead of leaving the binary to guess on its
-        # own with a narrower, less accurate fallback.
-        ee_path = get_ee_log_path()
-        log_path_arg = [str(ee_path)] if ee_path is not None else []
-        # Some other software (Steam, GeForce Experience, Xbox Game Bar, VM
-        # guest tools, etc.) can claim F12 as a global hotkey first, which
-        # prevents orbiter from registering it at all - configurable via
-        # config.json's screenshot_hotkey instead of needing a code change.
-        #
-        # Only pass --hotkey when it's actually been changed from the
-        # default. --hotkey is a newer flag than the "no extra args"
-        # calling convention this used before - unconditionally sending it
-        # broke every orbiter.exe/orbiter binary older than this Python
-        # source with a hard "unexpected argument" parse error and a
-        # refusal to start at all (confirmed live on Linux). Since the
-        # binary's own default is already "F12", omitting the flag in the
-        # common case keeps old binaries working exactly as before.
-        configured_hotkey = get_screenshot_hotkey()
-        hotkey_args = ["--hotkey", configured_hotkey] if configured_hotkey != "F12" else []
+        # Extra args (EE.log override, --hotkey, --pre-capture-sleep-ms)
+        # come from one shared builder now (paths.build_detector_args())
+        # instead of being rebuilt here - this used to be one of three
+        # independent copies of the same logic, and warframe-watcher.py's
+        # own copy had drifted to have none of it at all. Jacob 2026-07-24
+        # ("Unify detector launch/restart construction").
+        args = build_detector_args()
         try:
             if IS_LINUX:
                 # launch-orbiter.sh handles Bazzite/gamescope-specific setup
                 # (DISPLAY detection, host libs, portal bus) that Windows
                 # simply doesn't need — there we can launch the exe directly.
-                launch_detached(["./launch-orbiter.sh"] + log_path_arg + hotkey_args, cwd=WFINFO_DIR,
+                launch_detached(["./launch-orbiter.sh"] + args, cwd=WFINFO_DIR,
                                  env=clean_env_for_launch(), log_file=log_file)
             else:
-                launch_detached([str(WFINFO_DIR / "orbiter.exe")] + log_path_arg + hotkey_args, cwd=WFINFO_DIR,
+                launch_detached([str(WFINFO_DIR / "orbiter.exe")] + args, cwd=WFINFO_DIR,
                                  log_file=log_file)
         except OSError as e:
             self.cmd_text.append(f"ERROR: failed to launch orbiter: {e}")

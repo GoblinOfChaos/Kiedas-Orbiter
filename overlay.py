@@ -6,6 +6,7 @@ wfinfo pop-up overlay (PySide6, KDE-friendly window flags).
 import json
 import os
 import sys
+import traceback
 from pathlib import Path
 
 from PySide6.QtGui import QIcon
@@ -14,6 +15,7 @@ from PySide6.QtWidgets import (
     QApplication, QWidget, QHBoxLayout, QVBoxLayout, QLabel,
 )
 from paths import DATA_DIR, WFINFO_DIR
+from theme import get_palette
 
 # .ico is natively supported for Windows taskbar/title-bar icons (HICON);
 # .svg needs the QtSvg plugin to render and can silently fall back to no
@@ -23,7 +25,7 @@ WFINFO_ICON = str(WFINFO_DIR / ("orbiter.ico" if sys.platform == "win32" else "o
 STATE_FILE = DATA_DIR / "latest-detection.json"
 POSITION_FILE = DATA_DIR / "overlay-position.json"
 CRAFTED_PARTS_FILE = DATA_DIR / "crafted_parts.json"
-CONFIG_FILE = WFINFO_DIR / "config.json"
+from paths import CONFIG_FILE
 
 RELIC_RECOMMEND_STATE_FILE = DATA_DIR / "relic-recommend.json"
 RELIC_RECOMMEND_POSITION_FILE = DATA_DIR / "relic-recommend-position.json"
@@ -63,6 +65,11 @@ def _apply_x11_stacking_hints(win_id: int):
         xlib.XOpenDisplay.restype = ctypes.c_void_p
         display = xlib.XOpenDisplay(None)
         if not display:
+            # XOpenDisplay uses $DISPLAY, not $WAYLAND_DISPLAY - if it's
+            # unset or wrong, this fails silently with no exception at all,
+            # which previously meant the whole "stay above fullscreen"
+            # mechanism could be silently dead with zero trace in the log.
+            log(f"X11 stacking hints skipped: XOpenDisplay failed (DISPLAY={os.environ.get('DISPLAY')!r})")
             return
         try:
             def atom(name):
@@ -72,14 +79,33 @@ def _apply_x11_stacking_hints(win_id: int):
             state_above = atom("_NET_WM_STATE_ABOVE")
             net_wm_desktop = atom("_NET_WM_DESKTOP")
             net_wm_user_time = atom("_NET_WM_USER_TIME")
+            net_wm_window_type = atom("_NET_WM_WINDOW_TYPE")
+            window_type_notification = atom("_NET_WM_WINDOW_TYPE_NOTIFICATION")
             cardinal = atom("CARDINAL")
             atom_type = atom("ATOM")
 
             PROP_MODE_REPLACE = 0
             ALL_DESKTOPS = 0xFFFFFFFF
 
+            # _NET_WM_STATE_ABOVE alone (an EWMH *state* hint) was confirmed
+            # via live testing to have zero effect on KWin's stacking over a
+            # fullscreen Warframe - Kronos's overlay, by contrast, does stay
+            # above it. Kronos is Electron-based, and Electron's Linux
+            # backend lets you set the window's *type* (not just state) to
+            # 'notification', which maps to this same X11 atom - desktop
+            # notification popups are the one window class every compositor
+            # reliably renders above fullscreen apps, so this asks KWin to
+            # treat this window the same way instead of as an ordinary
+            # utility window that merely requests to be "above".
+            wtype = (ctypes.c_ulong * 1)(window_type_notification)
+            xlib.XChangeProperty(
+                ctypes.c_void_p(display), ctypes.c_ulong(win_id), net_wm_window_type,
+                atom_type, 32, PROP_MODE_REPLACE,
+                ctypes.cast(wtype, ctypes.POINTER(ctypes.c_ubyte)), 1,
+            )
+
             # _NET_WM_STATE_ABOVE: the actual EWMH "always on top" state —
-            # more reliably honored by KWin than Qt's own hint alone.
+            # kept alongside the window-type hint above as defense in depth.
             states = (ctypes.c_ulong * 1)(state_above)
             xlib.XChangeProperty(
                 ctypes.c_void_p(display), ctypes.c_ulong(win_id), net_wm_state,
@@ -116,12 +142,17 @@ POLL_INTERVAL_MS = int(_cfg.get("poll_interval_ms") or 250)
 # reliably marks that case, so the normal "confirmed a pick" trigger never fires).
 RELIC_RECOMMEND_TIMEOUT_MS = 60000
 
-BG = "#0b1628"  # Porsche sapphire — matches app background
-TEXT = "#dce8f8"
-OWNED = "#6a88aa"        # steel-blue-grey: already owned, deprioritize
-CRAFTED = "#e8c96a"      # bright gold: collection-done
-NEED = "#3eff3e"         # green: never had it, take this one
-UNKNOWN_COLOR = "#ff5555" # red: OCR couldn't resolve the reward text
+# Read from whatever theme is currently selected in the main app - this
+# overlay is launched fresh as its own process each time it pops up, so
+# there's no live-refresh needed, just read the saved theme at startup.
+# Jacob 2026-07-24 ("overlay colors need to match the themes").
+_p = get_palette()
+BG = _p['bg']
+TEXT = _p['fg']
+OWNED = _p['fg_dim']        # already owned, deprioritize
+CRAFTED = _p['gold']        # collection-done
+NEED = _p['green']          # never had it, take this one
+UNKNOWN_COLOR = _p['red']   # OCR couldn't resolve the reward text
 
 # Warframe doesn't log which fissure tier you're browsing until after you've
 # already confirmed a relic (too late to filter), so instead each era gets its
@@ -141,6 +172,22 @@ def _existing_timestamp(path):
         return json.loads(path.read_text()).get("timestamp")
     except (OSError, json.JSONDecodeError):
         return None
+
+def _existing_state_id(path):
+    """Prefer "seq" (a monotonic counter the Rust detector writes
+    alongside "timestamp") over the timestamp itself - "timestamp" only
+    has whole-second resolution, so a bad/empty capture followed shortly
+    by a real one within the same second looked like the same detection
+    and the real one got silently skipped. This is the same bug
+    overlay_gtk.py's RelicRecommendOverlay already hit and fixed with its
+    own "seq" field (2026-07-21) - falls back to "timestamp" only for an
+    older, not-yet-rebuilt detector binary that doesn't write "seq" yet.
+    Jacob 2026-07-24."""
+    try:
+        data = json.loads(path.read_text())
+    except (OSError, json.JSONDecodeError):
+        return None
+    return data.get("seq", data.get("timestamp"))
 
 def log(msg):
     print(f"[overlay] {msg}", file=sys.stderr, flush=True)
@@ -302,7 +349,20 @@ class Overlay(_DraggableOverlay):
 
         self.hide()
 
-        self.last_timestamp = _existing_timestamp(STATE_FILE)
+        # Apply the X11 window-type/state hints once, immediately, using
+        # winId() to force Qt to create the underlying native window right
+        # now rather than lazily at first show(). Previously these hints
+        # were only applied inside showEvent(), which fires *after* Qt has
+        # already mapped the window with its default type - KWin may only
+        # honor "always above / notification" placement for windows that
+        # already have that type at the moment they're first mapped, and
+        # never re-evaluate stacking just because a property changes on an
+        # already-mapped window. Setting it before the first real show()
+        # (which happens later, from show_rewards()) tests that theory.
+        if QApplication.platformName() == "xcb":
+            _apply_x11_stacking_hints(int(self.winId()))
+
+        self.last_state_id = _existing_state_id(STATE_FILE)
         self._last_warframe_geom = None
         self.crafted_parts = self._load_crafted_parts()
         self.hide_timer = QTimer(self)
@@ -322,15 +382,38 @@ class Overlay(_DraggableOverlay):
             if STATE_FILE.exists():
                 with open(STATE_FILE, "r") as f:
                     state = json.load(f)
-                ts = state.get("timestamp")
-                if ts != self.last_timestamp:
-                    log(f"new detection, timestamp={ts}")
-                    self.last_timestamp = ts
+                state_id = state.get("seq", state.get("timestamp"))
+                if state_id != self.last_state_id:
+                    # Always mark this state_id consumed immediately (not
+                    # just when it turns out to have real rewards) - the
+                    # bug here used to be a coarse whole-second timestamp
+                    # making a bad capture and a shortly-following real
+                    # one look like duplicates, silently skipping the
+                    # real one. Marking it consumed regardless, but only
+                    # acting on it when rewards is non-empty, fixes that
+                    # without re-triggering on every single poll tick for
+                    # the same still-empty state (which not updating
+                    # last_state_id at all would cause). The Rust side
+                    # now refuses to publish empty results in the first
+                    # place, but staying defensive here in case an older,
+                    # not-yet-rebuilt detector binary is still running.
+                    # Jacob 2026-07-24.
+                    self.last_state_id = state_id
+                    rewards = state.get("rewards", [])
+                    if not rewards:
+                        log(f"ignoring empty/garbage detection, state_id={state_id}")
+                        return
+                    log(f"new detection, state_id={state_id}")
                     self._last_warframe_geom = state.get("warframe")
                     self.crafted_parts = self._load_crafted_parts()
-                    self.show_rewards(state.get("rewards", []))
-        except (OSError, json.JSONDecodeError) as e:
-            log(f"poll error: {e}")
+                    self.show_rewards(rewards)
+        except Exception as e:
+            # Broad on purpose: an unhandled exception inside a QTimer slot
+            # can silently kill the whole process (no crash line, no core
+            # dump) instead of raising anything visible - catching and
+            # logging here trades a missed poll tick for a process that
+            # keeps running and leaves a real traceback if this ever fires.
+            log(f"poll error: {e}\n{traceback.format_exc()}")
 
     def show_rewards(self, rewards):
         # Pad to 4 only if we have rewards; for solo (3) or duos (2) show exactly that many
@@ -450,8 +533,8 @@ class RelicRecommendOverlay(_DraggableOverlay):
                         self.show_relics(state.get("relics", []))
                     else:
                         self.hide()
-        except (OSError, json.JSONDecodeError) as e:
-            log(f"relic-recommend poll error: {e}")
+        except Exception as e:
+            log(f"relic-recommend poll error: {e}\n{traceback.format_exc()}")
 
     def show_relics(self, relics):
         if not relics:
@@ -485,8 +568,16 @@ class RelicRecommendOverlay(_DraggableOverlay):
         log(f"relic-recommend shown at ({x},{y}) with {len(relics)} relics")
 
 
+def _log_uncaught(exc_type, exc_value, exc_tb):
+    log("UNCAUGHT EXCEPTION (would otherwise die silently):\n"
+        + "".join(traceback.format_exception(exc_type, exc_value, exc_tb)))
+
+
 def main():
-    import os, signal, fcntl
+    import os, fcntl
+    import psutil
+
+    sys.excepthook = _log_uncaught
 
     # ── Singleton: kill any other overlay.py before starting ─────────────
     pid_path = DATA_DIR / "overlay.pid"
@@ -496,19 +587,77 @@ def main():
         old_pid = int(pid_path.read_text().strip())
         if old_pid != os.getpid():
             try:
-                os.kill(old_pid, signal.SIGTERM)
-                log(f"killed previous overlay instance (pid {old_pid})")
-                import time as _t; _t.sleep(0.3)
-            except ProcessLookupError:
-                pass  # already dead
+                proc = psutil.Process(old_pid)
+                # Verify this PID still actually IS an overlay.py process
+                # before signaling it - PIDs get reused by the OS once a
+                # process exits, so blindly os.kill()-ing whatever PID
+                # happens to be recorded here (this used to do exactly
+                # that, with no identity check at all) can kill a
+                # completely unrelated process that happened to reuse
+                # this same PID number since the file was written. Jacob
+                # 2026-07-24 ("GTK overlay singleton PID files don't check
+                # process identity/start time before signaling" - same
+                # bug here in the Qt overlay too).
+                cmdline = " ".join(proc.cmdline())
+                if "overlay.py" in cmdline:
+                    proc.terminate()
+                    log(f"killed previous overlay instance (pid {old_pid})")
+                    import time as _t; _t.sleep(0.3)
+                else:
+                    log(f"pid {old_pid} in overlay.pid is no longer overlay.py "
+                        f"(now: {cmdline!r}) - not signaling it")
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                pass  # already dead, or can't inspect it - either way don't kill blind
     except Exception:
         pass
     pid_path.write_text(str(os.getpid()))
 
+    # Neither overlay (Overlay nor RelicRecommendOverlay, below) can
+    # reliably stay above a fullscreen game via Qt on this KWin/Wayland
+    # setup - see overlay_gtk.py's module docstring for the full research
+    # trail. If GTK/PyGObject is actually installed, run that
+    # implementation instead, as a separate process (GTK's and Qt's event
+    # loops can't coexist in one process) - overlay_gtk.py's own main()
+    # runs both of its GTK-based overlays together, so neither Qt overlay
+    # class gets instantiated at all when this path is taken.
+    gtk_overlay_proc = None
+    try:
+        import subprocess
+        import importlib
+        importlib.import_module("overlay_gtk")
+        gtk_overlay_proc = subprocess.Popen([sys.executable, str(WFINFO_DIR / "overlay_gtk.py")])
+        log("GTK available - launched overlay_gtk.py for both overlays")
+    except Exception as e:
+        # Broad on purpose: a broken/partial `gi` install (seen in one
+        # environment during development - present as a namespace stub
+        # with no require_version attribute) raises AttributeError here,
+        # not ImportError, and either way this must fall back to the Qt
+        # overlays rather than crash main() entirely.
+        log(f"GTK not available ({e}) - using Qt overlays")
+
+    if gtk_overlay_proc is not None:
+        # QApplication itself was the actual crash: creating it here was
+        # calling into Qt's xcb platform plugin, which fails hard (a
+        # native qFatal()/abort(), not a catchable Python exception) with
+        # "could not connect to display :0" on this machine - and because
+        # it aborts at the C++ level, Python's own finally block below
+        # never even ran, silently orphaning the GTK subprocess on every
+        # single launch. Qt is completely unnecessary once the GTK
+        # subprocess is handling both overlays, so skip it entirely here
+        # instead of creating an app object with nothing to do and no
+        # windows to show - just wait on the child directly.
+        try:
+            gtk_overlay_proc.wait()
+        except KeyboardInterrupt:
+            pass
+        finally:
+            gtk_overlay_proc.terminate()
+        return
+
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon(WFINFO_ICON))
-    overlay = Overlay()  # keep reference alive
-    relic_overlay = RelicRecommendOverlay()  # keep reference alive
+    overlay = Overlay()  # keep reference alive - Qt fallback
+    relic_overlay = RelicRecommendOverlay()  # keep reference alive - Qt fallback
     sys.exit(app.exec())
 
 

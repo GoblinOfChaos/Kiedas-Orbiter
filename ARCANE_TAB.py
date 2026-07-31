@@ -13,9 +13,21 @@ from pathlib import Path
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QCheckBox,
-    QComboBox, QTableWidget, QTableWidgetItem, QHeaderView
+    QComboBox, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView
 )
+from paths import get_inventory_path
 from column_persistence import apply_saved_widths, remember_widths
+from wiki_links import build_wiki_url, open_wiki_url
+from drop_data import find_drop_info
+
+# wfcd_all_cache.json contains leftover unimplemented/test entries under
+# real arcane types - confirmed live 2026-07-21 against the actual wiki
+# (https://wiki.warframe.com/w/Arcane): none of these are real arcanes.
+FAKE_ARCANE_NAMES = {
+    "Arcane Defense", "Arcane Detoxifier", "Arcane Liquid",
+    "Arcane Protection", "Arcane Shield", "Arcane Survival",
+    "Arcane Temperance",
+}
 
 ARCANE_TYPES = {
     'Arcane', 'Amp Arcane', 'Bow Arcane', 'Kitgun Arcane', 'Melee Arcane',
@@ -53,17 +65,19 @@ class ArcaneTab(QWidget):
 
         layout.addLayout(header)
 
-        self._table = QTableWidget(0, 5)
+        self._table = QTableWidget(0, 6)
+        self._table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self._table.setHorizontalHeaderLabels([
-            "Name", "Type", "Rarity", "Drop Location", "Owned"
+            "Name", "Type", "Rarity", "Drop Location", "Owned", "Wiki"
         ])
-        for col in range(5):
+        for col in range(6):
             self._table.horizontalHeader().setSectionResizeMode(col, QHeaderView.Interactive)
-        apply_saved_widths(self._table, "arcane_table", [220, 130, 70, 320, 60])
+        apply_saved_widths(self._table, "arcane_table", [220, 130, 70, 320, 60, 70])
         remember_widths(self._table, "arcane_table")
         self._table.setSortingEnabled(True)
         self._table.verticalHeader().setVisible(False)
         self._table.sortByColumn(0, Qt.AscendingOrder)
+        self._table.cellClicked.connect(self._on_cell_clicked)
         layout.addWidget(self._table)
 
         self._status = QLabel("")
@@ -71,7 +85,7 @@ class ArcaneTab(QWidget):
 
     def _load(self):
         base = Path(__file__).parent
-        inventory = self._load_json(base / 'inventory.json') or {}
+        inventory = self._load_json(get_inventory_path()) or {}
         self._owned = {
             u['ItemType']: u.get('ItemCount', 0)
             for u in inventory.get('RawUpgrades', [])
@@ -81,7 +95,15 @@ class ArcaneTab(QWidget):
         wfcd = self._load_json(base / 'wfcd_all_cache.json') or []
         items = wfcd if isinstance(wfcd, list) else (wfcd.get('items') or wfcd.get('data') or [])
 
-        self._arcanes = []
+        # Keyed by name (not uniqueName) - confirmed live 2026-07-21 that
+        # "Arcane Steadfast" appeared 5 times identically in the table.
+        # wfcd_all_cache.json genuinely has 5 different internal
+        # uniqueNames for it (separate per-rank listeners), same display
+        # name/rarity/drop location - a real display duplication bug, not
+        # 5 distinct arcanes. Summing owned counts across the duplicates
+        # rather than just keeping the first, in case ownership happens to
+        # be tracked under a different one of the variant uniqueNames.
+        by_name = {}
         types_seen = set()
         for item in items:
             if not isinstance(item, dict):
@@ -90,19 +112,23 @@ class ArcaneTab(QWidget):
                 continue
             uname = item.get('uniqueName', '')
             name = item.get('name', '')
-            if not uname or not name:
+            if not uname or not name or name in FAKE_ARCANE_NAMES:
                 continue
             atype = item.get('type', '')
             types_seen.add(atype)
             rarity = item.get('rarity', '')
             locations = sorted({d.get('location') for d in (item.get('drops') or []) if d.get('location')})
-            drop_location = '; '.join(locations) if locations else 'No drop data (check wiki)'
+            drop_location = '; '.join(locations) if locations else (find_drop_info(name) or 'No drop data (check wiki)')
             owned_count = self._owned.get(uname, 0)
-            self._arcanes.append({
-                'name': name, 'type': atype, 'rarity': rarity,
-                'drop_location': drop_location, 'owned': owned_count,
-            })
+            if name in by_name:
+                by_name[name]['owned'] += owned_count
+            else:
+                by_name[name] = {
+                    'name': name, 'type': atype, 'rarity': rarity,
+                    'drop_location': drop_location, 'owned': owned_count,
+                }
 
+        self._arcanes = list(by_name.values())
         self._arcanes.sort(key=lambda a: a['name'])
         self._type_filter.blockSignals(True)
         for t in sorted(types_seen):
@@ -135,7 +161,19 @@ class ArcaneTab(QWidget):
             if a['owned'] > 0:
                 owned_item.setForeground(Qt.cyan)
             self._table.setItem(r, 4, owned_item)
+            wiki_item = QTableWidgetItem("▷ Wiki")
+            wiki_item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            wiki_item.setData(Qt.UserRole, build_wiki_url(a['name']))
+            self._table.setItem(r, 5, wiki_item)
         self._table.setSortingEnabled(True)
+
+    def _on_cell_clicked(self, row, column):
+        if column != 5:
+            return
+        item = self._table.item(row, 5)
+        url = item.data(Qt.UserRole) if item else None
+        if url:
+            open_wiki_url(url)
 
     def _filter(self, *_):
         q = self._search.text().strip().lower()

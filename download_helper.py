@@ -15,13 +15,18 @@ Usage:
 """
 
 import hashlib
+import hmac
 import json
 import os
 import shutil
 import stat
 import sys
 import urllib.request
+import zipfile
+import io
 from pathlib import Path
+from pathlib import PurePosixPath
+from paths import DATA_DIR
 
 WFINFO_DIR = Path(__file__).parent
 API_HELPER_REPO = "Sainan/warframe-api-helper"
@@ -60,6 +65,26 @@ ORBITER_OUTPUT_PATH = {
     "win32": WFINFO_DIR / "orbiter.exe",
     "linux": WFINFO_DIR / "orbiter",
 }
+INSTALL_MANIFEST = DATA_DIR / "downloaded-binaries.json"
+
+
+def _record_install(component: str, repo: str, version: str, asset: dict) -> None:
+    try:
+        manifest = json.loads(INSTALL_MANIFEST.read_text())
+        if not isinstance(manifest, dict):
+            manifest = {}
+    except Exception:
+        manifest = {}
+    manifest[component] = {
+        "repo": repo,
+        "version": version,
+        "asset": asset["name"],
+        "digest": asset["digest"],
+    }
+    INSTALL_MANIFEST.parent.mkdir(parents=True, exist_ok=True)
+    temporary = INSTALL_MANIFEST.with_name(INSTALL_MANIFEST.name + ".tmp")
+    temporary.write_text(json.dumps(manifest, indent=2))
+    temporary.replace(INSTALL_MANIFEST)
 
 
 def _get_latest_release(repo: str) -> dict:
@@ -76,15 +101,69 @@ def _get_latest_release(repo: str) -> dict:
         return json.loads(r.read())
 
 
-def _download_binary(url: str, dest: Path):
-    """Download binary from URL."""
+def _verify_asset_data(asset: dict, data: bytes) -> None:
+    """Require GitHub's published SHA-256 digest and advertised byte size."""
+    digest = asset.get("digest", "")
+    if not digest.startswith("sha256:") or len(digest) != len("sha256:") + 64:
+        raise ValueError(f"asset {asset.get('name', '?')} has no usable SHA-256 digest")
+    expected_size = asset.get("size")
+    if not isinstance(expected_size, int) or expected_size < 0:
+        raise ValueError(f"asset {asset.get('name', '?')} has no usable size")
+    if len(data) != expected_size:
+        raise ValueError(
+            f"asset size mismatch: expected {expected_size:,} bytes, got {len(data):,}"
+        )
+    actual = hashlib.sha256(data).hexdigest()
+    expected = digest.removeprefix("sha256:").lower()
+    if not hmac.compare_digest(actual, expected):
+        raise ValueError(
+            f"SHA-256 mismatch for {asset.get('name', '?')}: expected {expected}, got {actual}"
+        )
+
+
+def _download_asset(asset: dict) -> bytes:
+    """Download and authenticate a GitHub release asset before use."""
+    with urllib.request.urlopen(asset["browser_download_url"], timeout=60) as r:
+        data = r.read()
+    _verify_asset_data(asset, data)
+    print(f"  Verified SHA-256: {asset['digest'].removeprefix('sha256:')}")
+    return data
+
+
+def _download_binary(asset: dict, dest: Path):
+    """Download a verified binary and atomically replace its destination."""
     print(f"  Downloading {dest.name}...", flush=True)
     tmp = dest.with_suffix(".tmp")
-    with urllib.request.urlopen(url, timeout=60) as r:
-        data = r.read()
+    data = _download_asset(asset)
     tmp.write_bytes(data)
     tmp.replace(dest)
     print(f"  Saved to {dest}")
+
+
+def _safe_extract_zip(data: bytes, destination: Path) -> None:
+    """Extract regular ZIP members without allowing paths outside destination."""
+    destination = destination.resolve()
+    with zipfile.ZipFile(io.BytesIO(data)) as zf:
+        for member in zf.infolist():
+            normalized = member.filename.replace("\\", "/")
+            member_path = PurePosixPath(normalized)
+            if (not normalized or normalized.startswith("/")
+                    or member_path.is_absolute() or ".." in member_path.parts
+                    or (member_path.parts and ":" in member_path.parts[0])):
+                raise ValueError(f"unsafe ZIP member path: {member.filename!r}")
+            unix_mode = member.external_attr >> 16
+            if stat.S_ISLNK(unix_mode):
+                raise ValueError(f"ZIP symlink is not allowed: {member.filename!r}")
+
+            target = destination.joinpath(*member_path.parts)
+            if member.is_dir():
+                target.mkdir(parents=True, exist_ok=True)
+                continue
+            target.parent.mkdir(parents=True, exist_ok=True)
+            tmp = target.with_name(target.name + ".download-tmp")
+            with zf.open(member) as source, tmp.open("wb") as output:
+                shutil.copyfileobj(source, output)
+            tmp.replace(target)
 
 
 def download_api_helper(force: bool = False) -> bool:
@@ -125,14 +204,10 @@ def download_api_helper(force: bool = False) -> bool:
         print(f"  Available: {[a['name'] for a in assets]}")
         return False
 
-    url = asset["browser_download_url"]
-
     if IS_LINUX and asset_name.endswith(".zip"):
         # Linux release is a zip — extract the binary from it
-        import zipfile, io
         print(f"  Downloading {asset_name}...", flush=True)
-        with urllib.request.urlopen(url, timeout=60) as r:
-            data = r.read()
+        data = _download_asset(asset)
         with zipfile.ZipFile(io.BytesIO(data)) as zf:
             # Find the binary inside the zip
             names = zf.namelist()
@@ -147,11 +222,12 @@ def download_api_helper(force: bool = False) -> bool:
         output.chmod(output.stat().st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH)
         print(f"  Extracted to {output}")
     else:
-        _download_binary(url, output)
+        _download_binary(asset, output)
         if not IS_WINDOWS:
             output.chmod(output.stat().st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH)
 
     print(f"  warframe-api-helper {version} installed.")
+    _record_install("api_helper", API_HELPER_REPO, version, asset)
     return True
 
 
@@ -192,25 +268,21 @@ def download_orbiter(force: bool = False) -> bool:
         print(f"  Available: {[a['name'] for a in assets]}")
         return False
 
-    url = asset["browser_download_url"]
-
     if IS_WINDOWS and asset_name.endswith(".zip"):
         # Windows ships as a zip of orbiter.exe + the Tesseract/Leptonica
         # DLLs it's dynamically linked against — extract everything into
         # WFINFO_DIR so the DLLs land right next to the exe.
-        import zipfile, io
         print(f"  Downloading {asset_name}...", flush=True)
-        with urllib.request.urlopen(url, timeout=60) as r:
-            data = r.read()
-        with zipfile.ZipFile(io.BytesIO(data)) as zf:
-            zf.extractall(WFINFO_DIR)
+        data = _download_asset(asset)
+        _safe_extract_zip(data, WFINFO_DIR)
         print(f"  Extracted orbiter.exe + DLLs to {WFINFO_DIR}")
     else:
-        _download_binary(url, output)
+        _download_binary(asset, output)
         if IS_LINUX:
             output.chmod(output.stat().st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH)
 
     print(f"  orbiter {version} installed.")
+    _record_install("orbiter", ORBITER_REPO, version, asset)
     return True
 
 

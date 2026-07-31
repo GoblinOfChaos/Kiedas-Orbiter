@@ -5,8 +5,8 @@ A part is 'crafted' if you have the Prime item it builds in your inventory
 crafted via the missing-parts tracker."""
 import json
 from pathlib import Path
-from paths import DATA_DIR, WFINFO_DIR
-INV = WFINFO_DIR / "inventory.json"
+from paths import DATA_DIR, WFINFO_DIR, get_inventory_path
+INV = get_inventory_path()
 WFCD = WFINFO_DIR / "wfcd_all_cache.json"
 ITEMS = WFINFO_DIR / "filtered_items.json"
 MANUAL = DATA_DIR / "crafted-before.json"

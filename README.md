@@ -21,7 +21,7 @@ Built on top of [wfinfo-ng](https://github.com/knoellle/wfinfo-ng) by knoellle, 
 - **Market** — Prime part prices from warframe.market
 - **Stats History** — Track your credits, plat, MR, and parts owned over time
 - **Equipment** — Mastery status for every weapon, Warframe, and companion category
-- **Relic Reward OCR** — Automatic overlay when a relic reward screen appears, showing ownership and platinum value of each reward
+- **Relic Reward OCR** — Automatic overlay when a relic reward screen appears, showing ownership/crafted status for each reward
 - **Six UI themes** — Kieda's Default (sapphire/gold), Madurai, Vazarin, Naramon, Unairu, Zenurik (colorblind-safe options included)
 
 ---
@@ -87,6 +87,8 @@ The app is also fully usable with Warframe closed for browsing/planning — only
 ### Linux / Bazzite / KDE Wayland notes
 
 The overlay uses `spectacle` for screen capture via the KDE XDG portal (no focus stealing from Warframe). Always launch from your start menu or a clean terminal — launching from inside VS Code or another Flatpak app will use the wrong DBus session and cause issues.
+
+**"Portal" icon in your taskbar/tray:** the detector reads the game screen for OCR-based detection using your desktop's own built-in screen-sharing service, which appears as a "Portal" icon in the taskbar or system tray for as long as the detector is running. This is a normal, expected part of your Linux desktop's screen-sharing infrastructure, not something this app installed covertly — comparable to a video-call app's screen-share indicator staying visible for the whole call. It goes away once the detector/app is closed.
 
 ---
 
@@ -246,13 +248,24 @@ Ranks every relic by expected platinum value **specifically toward your own need
 
 #### Riven Grader
 
-Every riven you own, automatically graded, plus a "good roll" reference for any weapon.
+Every riven you own, automatically evaluated against bundled historical
+community profiles, plus an advisory roll reference for covered weapons.
 
 - **Look up weapon** (top bar) — search any weapon to see its good-roll guide, even without owning a riven for it
-- **Your Rivens table (left)** — Grade is color-coded (green = GREAT, gold = GOOD, orange = OK, red = WEAK/REROLL); **filter box** searches by weapon or stat text; click a row to see its full detail on the right
+- **Your Rivens table (left)** — historical profile matches are color-coded and labeled **ADVISORY**; **REVIEW** means no reliable profile verdict was possible. The filter box searches by weapon or stat text
 - **Detail panel (right)** — shows the "good combo" guide for the selected weapon, with your riven's actual rolled stats matched against it (green highlight = you have that stat)
+- **WFCD variants** — lists compatible current weapon variants with exact Riven
+  attenuation and in-game disposition dots without guessing your intended variant
 
-**Note:** rivens are graded automatically in the background every 5 minutes while Warframe is running — there's nothing to click to trigger grading itself, this tab just displays the results.
+**Note:** rivens are graded whenever `inventory.json` changes, normally after you run **Refresh Data**. The background watcher notices that change within a few seconds; there is no independent five-minute inventory scheduler.
+
+**Important:** the bundled stat-desirability profiles are historical community
+guidance, not a current universal KEEP/REROLL authority. Numeric roll
+perfectness is calculated and displayed separately.
+
+Advanced users can copy `riven_profiles.example.json` to `riven_profiles.json`
+in the app data directory and override individual weapon profiles. Local
+profiles are marked player-authoritative and are never replaced by data updates.
 
 ---
 
@@ -275,7 +288,7 @@ A timeline of your credits, plat, mastery rank, and prime-part progress over tim
 - **Show last dropdown** — All time / Last 7 days / Last 30 days / Last 24 hours
 - Table shows one row per snapshot, with change (Δ) columns colored green (increase) or red (decrease)
 
-**Note:** snapshots are recorded automatically every 5 minutes while Warframe is running — nothing to click to start it, just play and check back.
+**Note:** a snapshot is recorded as part of **Refresh Data**. There is no independent five-minute snapshot scheduler, so history advances when inventory data is refreshed.
 
 ---
 
@@ -373,7 +386,7 @@ A read-only thank-you page listing every open-source project, data source, and p
 
 ### The overlays, explained
 
-There are three separate popup windows that can appear while you're playing, all frameless, semi-transparent, always-on-top, and **draggable** — left-click and drag to reposition any of them, and that position is remembered automatically for next time.
+There are four separate overlay windows that can appear while you're playing, all frameless, semi-transparent, always-on-top, and **draggable** — left-click and drag to reposition any of them, and that position is remembered automatically for next time.
 
 **Relic reward overlay** — appears after cracking a relic, showing up to 4 rewards with ownership status:
 - 🟢 **NEED** (green) — you've never had this, prioritize it
@@ -385,7 +398,9 @@ It appears a couple seconds after the reward screen (time to capture and read th
 
 **Relic recommendation overlay** — a separate small popup at the relic-selection screen before a Void Fissure mission, showing your best relics to run ranked by expected value toward your need list. Auto-hides after 60 seconds as a safety net, or immediately once you pick a relic.
 
-**Riven grading overlay** — appears while you're at the Arsenal, showing every graded riven you own with a colored border by grade. If you just rerolled one, it shows a "↻ REROLLED" badge with the old stats struck through above the new ones. Has its own small close (✕) button, and fades out automatically 2 minutes after your last inventory update.
+**Riven grading overlay** — appears while you're at the Arsenal, showing every graded riven you own with a colored border by grade. If you just rerolled one, it shows a "↻ REROLLED" badge with the old stats struck through above the new ones. It has no close button and fades out automatically 2 minutes after your last inventory update.
+
+**Fissure tracker overlay** — a persistent HUD of active Void Fissures, grouped by era with mission, node, and expiry information. Its watcher refreshes world-state data every 60 seconds; unlike the event popups, it remains visible until its feature is stopped.
 
 ---
 

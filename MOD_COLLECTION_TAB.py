@@ -4,16 +4,40 @@ import json
 import re
 from pathlib import Path
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QCheckBox,
-    QTableWidget, QTableWidgetItem, QHeaderView, QComboBox
+    QTableWidget, QTableWidgetItem, QHeaderView, QComboBox, QAbstractItemView
 )
 from column_persistence import apply_saved_widths, remember_widths
-from paths import CACHE_DIR
+from paths import CACHE_DIR, get_inventory_path
+from wiki_links import build_wiki_url, open_wiki_url
+from drop_data import find_drop_info
+
+# Real, wiki-verified acquisition text for mods that aren't random drops
+# at all (Baro Ki'Teer, Arbitration vendor, Nightwave, companion precepts,
+# etc.) - neither wfcd_all_cache.json's "drops" field nor
+# dropdata_cache.json (a random-drop-table dataset) was ever going to
+# have these. Verified live 2026-07-21 against individual wiki pages.
+# A few entries here are confirmed-junk leftovers in ExportUpgrades.json
+# (raw internal paths, duplicate placeholders) marked "NOT_A_REAL_MOD" -
+# those are excluded from the tab entirely rather than shown.
+def _load_acquisition_overrides():
+    path = Path(__file__).parent / "mod_acquisition_overrides.json"
+    try:
+        return json.loads(path.read_text())
+    except Exception:
+        return {}
+
+MOD_ACQUISITION_OVERRIDES = _load_acquisition_overrides()
 
 IMAGE_CACHE_DIR = CACHE_DIR / "item_images"
+# Pre-rendered in-game-style mod cards (art + polarity + drain + warframe tag),
+# built once offline via @wfcd/mod-generator and cached to disk - never
+# generated at runtime, so this costs nothing on a normal app launch beyond
+# a local file read, same as the plain icons above.
+MOD_CARD_CACHE_DIR = CACHE_DIR / "mod_cards"
 
 POLARITY_NAMES = {
     'AP_ATTACK': 'Madurai',
@@ -58,6 +82,8 @@ class ModCollectionTab(QWidget):
         super().__init__(parent)
         self._owned = {}
         self._mods = []
+        self._icon_cache = {}
+        self._population_generation = 0
         self._setup_ui()
         self._load()
 
@@ -86,17 +112,19 @@ class ModCollectionTab(QWidget):
 
         layout.addLayout(header)
 
-        self._table = QTableWidget(0, 7)
+        self._table = QTableWidget(0, 8)
+        self._table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self._table.setHorizontalHeaderLabels([
-            "Name", "Type", "Rarity", "Polarity", "Source", "Drop Location", "Owned"
+            "Name", "Type", "Rarity", "Polarity", "Source", "Drop Location", "Owned", "Wiki"
         ])
-        for col in range(7):
+        for col in range(8):
             self._table.horizontalHeader().setSectionResizeMode(col, QHeaderView.Interactive)
-        apply_saved_widths(self._table, "mod_collection_table", [210, 110, 70, 80, 140, 320, 60])
+        apply_saved_widths(self._table, "mod_collection_table", [210, 110, 70, 80, 140, 320, 60, 70])
         remember_widths(self._table, "mod_collection_table")
         self._table.setSortingEnabled(True)
         self._table.verticalHeader().setVisible(False)
         self._table.sortByColumn(0, Qt.AscendingOrder)
+        self._table.cellClicked.connect(self._on_cell_clicked)
         layout.addWidget(self._table)
 
         self._status = QLabel("")
@@ -104,7 +132,7 @@ class ModCollectionTab(QWidget):
 
     def _load(self):
         base = Path(__file__).parent
-        inventory = self._load_json(base / 'inventory.json') or {}
+        inventory = self._load_json(get_inventory_path()) or {}
         self._owned = {
             u['ItemType']: u.get('ItemCount', 0)
             for u in inventory.get('RawUpgrades', [])
@@ -121,6 +149,16 @@ class ModCollectionTab(QWidget):
             mod_name = wfcd_names.get(unique)
             if not mod_name:
                 mod_name = self._humanize_name(unique)
+
+            # Confirmed-junk ExportUpgrades.json entries (raw internal
+            # paths, duplicate placeholders like "Unfused Artifact") -
+            # verified live 2026-07-21 to have no real wiki page / not be
+            # an obtainable mod at all. Skip entirely rather than show a
+            # broken/fake row.
+            if (MOD_ACQUISITION_OVERRIDES.get(unique) == "NOT_A_REAL_MOD"
+                    or MOD_ACQUISITION_OVERRIDES.get(mod_name) == "NOT_A_REAL_MOD"):
+                continue
+
             mod_type = data.get('type', '')
             rarity = data.get('rarity', '')
             raw_polarity = data.get('polarity', '')
@@ -131,7 +169,11 @@ class ModCollectionTab(QWidget):
                 source = f"Set: {set_name}"
 
             owned_count = self._owned.get(unique, 0)
-            drop_location = wfcd_drops.get(unique, '') or 'No drop data (check wiki)'
+            override = MOD_ACQUISITION_OVERRIDES.get(mod_name)
+            if override and override != "UNKNOWN":
+                drop_location = override
+            else:
+                drop_location = wfcd_drops.get(unique, '') or find_drop_info(mod_name) or 'No drop data (check wiki)'
             self._mods.append({
                 'name': mod_name,
                 'type': mod_type,
@@ -237,20 +279,48 @@ class ModCollectionTab(QWidget):
         name = name.replace('Mod', '').replace('Set', '').replace('Augment', 'Augment').strip()
         return re.sub(r'([A-Z])', r' \1', name).replace('  ', ' ').strip()
 
+    def _icon_for(self, img_name):
+        """Resolve + decode + scale a mod card icon once per unique image
+        file, cached for reuse - ~330 of the ~1,600 mods share the exact
+        same art (rank/set variants), so this avoids re-decoding those
+        from disk every load. Jacob 2026-07-22: "Mod Collection takes a
+        few seconds to load"."""
+        if not img_name:
+            return None
+        if img_name in self._icon_cache:
+            return self._icon_cache[img_name]
+        card_path = MOD_CARD_CACHE_DIR / re.sub(r'\.(jpg|jpeg|png)$', '.webp', img_name, flags=re.IGNORECASE)
+        img_path = card_path if card_path.exists() else IMAGE_CACHE_DIR / img_name
+        icon = None
+        if img_path.exists():
+            pix = QPixmap(str(img_path))
+            if not pix.isNull():
+                icon = QIcon(pix.scaled(32, 32, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        self._icon_cache[img_name] = icon
+        return icon
+
     def _populate_table(self, mods):
+        self._population_generation += 1
+        generation = self._population_generation
         self._table.setSortingEnabled(False)
-        self._table.setRowCount(0)
-        for mod in mods:
-            r = self._table.rowCount()
-            self._table.insertRow(r)
+        self._table.setRowCount(len(mods))
+        # Populated in chunks via the event loop instead of one long
+        # blocking loop, so the window stays responsive/paints
+        # immediately instead of freezing for the full ~1,600-row build.
+        self._populate_chunk(mods, 0, 150, generation)
+
+    def _populate_chunk(self, mods, start, chunk_size, generation):
+        # A filter/reload can replace the table while callbacks from the
+        # previous population are still queued. Ignore those stale callbacks.
+        if generation != self._population_generation:
+            return
+        end = min(start + chunk_size, len(mods))
+        for r in range(start, end):
+            mod = mods[r]
             _a0 = QTableWidgetItem(mod['name']); _a0.setTextAlignment(Qt.AlignLeft | Qt.AlignVCenter)
-            img_name = mod.get('image_name', '')
-            if img_name:
-                img_path = IMAGE_CACHE_DIR / img_name
-                if img_path.exists():
-                    pix = QPixmap(str(img_path))
-                    if not pix.isNull():
-                        _a0.setIcon(QIcon(pix.scaled(32, 32, Qt.KeepAspectRatio, Qt.SmoothTransformation)))
+            icon = self._icon_for(mod.get('image_name', ''))
+            if icon is not None:
+                _a0.setIcon(icon)
             self._table.setItem(r, 0, _a0)
             _a1 = QTableWidgetItem(mod['type']); _a1.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter); self._table.setItem(r, 1, _a1)
             _a2 = QTableWidgetItem(mod['rarity']); _a2.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter); self._table.setItem(r, 2, _a2)
@@ -261,7 +331,25 @@ class ModCollectionTab(QWidget):
             owned_item.setData(Qt.DisplayRole, mod['owned'])
             owned_item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
             self._table.setItem(r, 6, owned_item)
-        self._table.setSortingEnabled(True)
+            wiki_item = QTableWidgetItem("▷ Wiki")
+            wiki_item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            wiki_item.setData(Qt.UserRole, build_wiki_url(mod['name']))
+            self._table.setItem(r, 7, wiki_item)
+        if end < len(mods):
+            QTimer.singleShot(
+                0,
+                lambda: self._populate_chunk(mods, end, chunk_size, generation),
+            )
+        else:
+            self._table.setSortingEnabled(True)
+
+    def _on_cell_clicked(self, row, column):
+        if column != 7:
+            return
+        item = self._table.item(row, 7)
+        url = item.data(Qt.UserRole) if item else None
+        if url:
+            open_wiki_url(url)
 
     def _filter(self, *_):
         q = self._search.text().strip().lower()

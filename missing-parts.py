@@ -4,6 +4,7 @@
 import json
 import sys
 import threading
+import time
 from collections import defaultdict
 from pathlib import Path
 
@@ -11,16 +12,18 @@ import sys as _wfi_sys
 from pathlib import Path as _WfiPath
 _wfi_sys.path.insert(0, str(_WfiPath(__file__).parent))
 from theme import WFINFO_STYLESHEET, get_theme, load_theme, save_theme, THEMES, THEME_DESCRIPTIONS, get_palette
+from mastery import is_mastered
 from column_persistence import apply_saved_widths, remember_widths
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QBrush, QColor, QIcon
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit,
     QComboBox, QCheckBox, QTableWidget, QTableWidgetItem, QHeaderView,
     QMessageBox, QTabWidget, QDialog, QProgressBar, QPushButton,
+    QSystemTrayIcon, QMenu,
 )
-from paths import DATA_DIR, WFINFO_DIR
+from paths import DATA_DIR, WFINFO_DIR, get_close_behavior, get_inventory_path, set_close_behavior
 
 WFINFO_ICON = str(WFINFO_DIR / ("orbiter.ico" if sys.platform == "win32" else "orbiter.svg"))
 
@@ -28,7 +31,7 @@ HOME = Path.home()
 OWNED_FILE = WFINFO_DIR / "owned_items.json"
 ITEMS_FILE = WFINFO_DIR / "filtered_items.json"
 PRICES_FILE = WFINFO_DIR / "prices.json"
-INVENTORY_FILE = WFINFO_DIR / "inventory.json"
+INVENTORY_FILE = get_inventory_path()
 WFCD_CACHE = WFINFO_DIR / "wfcd_all_cache.json"
 CRAFTED_FILE = DATA_DIR / "crafted-before.json"
 OWNED_RELICS_FILE = WFINFO_DIR / "owned_relics.json"
@@ -153,7 +156,15 @@ class Tracker(QWidget):
             frame = self.frameGeometry()
             fits = avail.intersected(frame).width() >= frame.width() * 0.5 and \
                    avail.intersected(frame).height() >= frame.height() * 0.5
-            if not fits:
+            # A restored geometry can also be too small to render the UI
+            # properly without actually being off-screen - Wayland's window
+            # geometry restore is looser than X11's and can hand back a
+            # size narrower than our own declared minimum, which the
+            # off-screen check above never catches (a small window sitting
+            # well inside a big screen still "fits"). Treat that as broken
+            # too rather than leaving the layout squished on launch.
+            too_small = frame.width() < 1100 or frame.height() < 700
+            if not fits or too_small:
                 restored_ok = False
         if not restored_ok:
             screen = QApplication.primaryScreen()
@@ -255,6 +266,14 @@ class Tracker(QWidget):
 
         def _add_section(label):
             lbl = QLabel(label.upper())
+            # QLabel, unlike QPushButton, doesn't grow its own geometry to
+            # fit stylesheet padding - the padding is just drawn as inset
+            # within whatever size the layout already gave it (based on
+            # the label's own font-metrics size hint). Adding more padding
+            # in the stylesheet alone made this *worse* (more inset into
+            # the same fixed box, squeezing the text further) - it needs
+            # actual extra room via setMinimumHeight, not just CSS padding.
+            lbl.setMinimumHeight(30)
             self._section_labels.append(lbl)
             sidebar_layout.addWidget(lbl)
 
@@ -271,6 +290,14 @@ class Tracker(QWidget):
             btn.setCheckable(True)
             btn.setAutoExclusive(False)
             btn.setFlat(True)
+            # Forcing height directly rather than relying on stylesheet
+            # padding alone - confirmed live 2026-07-21 that padding tweaks
+            # alone weren't enough (icon and letter tops were still cut off
+            # at the very top of each row), which points at a QSS/style-
+            # engine sizing quirk with setFlat(True) buttons rather than a
+            # plain padding shortfall - this sidesteps it entirely instead
+            # of continuing to chase the exact stylesheet interaction.
+            btn.setMinimumHeight(34)
             self._nav_btn_list.append(btn)
 
             def _on_click(checked, _idx=idx, _btn=btn):
@@ -321,7 +348,7 @@ class Tracker(QWidget):
 
         # ── Relics section ─────────────────────────────────────────────────
         _add_section("Relics")
-        _add_page("Relic Planner",    lambda: __import__('RELIC_PLANNER_TAB', fromlist=['RelicPlannerTab']).RelicPlannerTab(), "�")
+        _add_page("Relic Planner",    lambda: __import__('RELIC_PLANNER_TAB', fromlist=['RelicPlannerTab']).RelicPlannerTab(), "▥")
         _add_page("Best Relics",      lambda: self._build_relics_tab(),                                                        "\u25c6")
 
         # ── Rivens section ──────────────────────────────────────────────
@@ -357,8 +384,8 @@ class Tracker(QWidget):
 
         # ── System section ─────────────────────────────────────────────────
         _add_section("System")
-        _add_page("Status & Tools",   lambda: __import__('STATUS_TAB',       fromlist=['StatusTab']).StatusTab(),            "\u2699")
-        _add_page("User Guide",       lambda: __import__('HELP_TAB',         fromlist=['HelpTab']).HelpTab(),                "\ud83d\udcd6")
+        _add_page("Settings",   lambda: __import__('STATUS_TAB',       fromlist=['StatusTab']).StatusTab(),            "\u2699")
+        _add_page("User Guide",       lambda: __import__('HELP_TAB',         fromlist=['HelpTab']).HelpTab(),                "\u25a4")
         _add_page("Credits",          lambda: __import__('CREDITS_TAB',      fromlist=['CreditsTab']).CreditsTab(),          "\u2665")
 
         sidebar_layout.addStretch()
@@ -372,6 +399,63 @@ class Tracker(QWidget):
         # Select first page by default
         if self._nav_buttons:
             self._nav_buttons[0].click()
+
+        self._setup_tray_icon()
+
+    def _setup_tray_icon(self):
+        self._tray = QSystemTrayIcon(QIcon(WFINFO_ICON), self)
+        self._tray.setToolTip("Kieda's Orbiter")
+
+        menu = QMenu()
+        show_action = menu.addAction("Show")
+        show_action.triggered.connect(self._show_from_tray)
+        menu.addSeparator()
+        exit_action = menu.addAction("Exit")
+        exit_action.triggered.connect(self._do_full_exit)
+        self._tray.setContextMenu(menu)
+
+        def _on_activated(reason):
+            # Left-click/double-click restores the window; right-click just
+            # opens the context menu above, handled by Qt automatically.
+            if reason in (QSystemTrayIcon.Trigger, QSystemTrayIcon.DoubleClick):
+                self._show_from_tray()
+        self._tray.activated.connect(_on_activated)
+        self._tray.show()
+
+    def _show_from_tray(self):
+        self.show()
+        self.raise_()
+        self.activateWindow()
+
+    def _do_full_exit(self):
+        """The real 'Exit Program' action - unlike just closing the window
+        (which, depending on the close-behavior setting, may only minimize
+        to tray), this actually stops every auto-started background
+        feature (detector, watcher, overlay, relic-recommend, riven,
+        fissure) before quitting, so nothing keeps running invisibly."""
+        try:
+            import autostart_manager
+            for feature in autostart_manager.FEATURES:
+                autostart_manager.stop_feature(feature)
+        except Exception as e:
+            print(f"[exit] error stopping background features: {e}", file=sys.stderr)
+        self._tray.hide()
+        QApplication.instance().quit()
+
+    def closeEvent(self, event):
+        if get_close_behavior() == "exit":
+            event.accept()
+            self._do_full_exit()
+        else:
+            event.ignore()
+            self.hide()
+            if not getattr(self, "_tray_hint_shown", False):
+                self._tray_hint_shown = True
+                self._tray.showMessage(
+                    "Kieda's Orbiter",
+                    "Still running in the background. Right-click the tray icon to fully exit.",
+                    QSystemTrayIcon.Information, 4000,
+                )
 
     def _apply_chrome_styles(self):
         """Apply/re-apply theme colors to the main window chrome (title bar, sidebar, nav)."""
@@ -390,12 +474,17 @@ class Tracker(QWidget):
         for lbl in self._section_labels:
             lbl.setStyleSheet(
                 f"color: {p['gold_bright']}; font-size: 10px; font-weight: 700; "
-                f"letter-spacing: 0.5px; padding: 12px 12px 4px 12px; "
+                f"letter-spacing: 0.5px; padding: 4px 12px 0px 12px; "
                 f"background: transparent;"
             )
         for btn in self._nav_btn_list:
             btn.setStyleSheet(
-                f"QPushButton {{ text-align: left; padding: 7px 8px 7px 14px; "
+                # Vertical padding bumped from 7px to 9px (Jacob reported
+                # descenders/ascenders on letters like g/y being visually
+                # clipped in "Missing Parts", "Foundry", "Riven Grader" -
+                # 12px font-size needs more than 7px+7px of padding to fit
+                # its full ascent/descent inside the button's box).
+                f"QPushButton {{ text-align: left; padding: 9px 8px 9px 14px; "
                 f"color: {p['fg_dim']}; background: transparent; border: none; "
                 f"font-size: 12px; border-left: 3px solid transparent; }}"
                 f"QPushButton:hover {{ color: {p['fg']}; background: {p['bg_card']}; "
@@ -433,13 +522,13 @@ class Tracker(QWidget):
             wfcd = json.loads(WFCD_CACHE.read_text())
         except (OSError, json.JSONDecodeError):
             return auto
-        path_to_name = {}
+        path_to_item = {}
         items_list = wfcd if isinstance(wfcd, list) else (wfcd.get("items", []) if isinstance(wfcd, dict) else [])
         for item in items_list:
             if isinstance(item, dict):
                 u, n = item.get("uniqueName"), item.get("name")
                 if u and n:
-                    path_to_name[u] = n
+                    path_to_item[u] = item
         paths = set()
         for cat in ["Suits", "LongGuns", "Pistols", "Melee", "SpaceSuits", "SpaceGuns", "SpaceMelee", "Sentinels", "SentinelWeapons", "MechSuits"]:
             for it in inv.get(cat, []) or []:
@@ -450,12 +539,14 @@ class Tracker(QWidget):
         for it in inv.get("XPInfo", []) or []:
             if isinstance(it, dict):
                 p = it.get("ItemType")
-                # FIX: presence of XPInfo entry = mastered (XP resets to 0 when sold)
-                if p:
+                item = path_to_item.get(p, {})
+                if p and is_mastered(
+                    it.get("XP", 0), p, item.get("type", ""), item.get("maxLevelCap")
+                ):
                     paths.add(p)
         eq_names = set()
         for p in paths:
-            n = path_to_name.get(p)
+            n = path_to_item.get(p, {}).get("name")
             if n and "Prime" in n:
                 eq_names.add(n)
         for eq_name in eq_names:
@@ -792,7 +883,7 @@ class Tracker(QWidget):
         layout.addWidget(self.set_summary)
         self.set_table = QTableWidget()
         self.set_table.setColumnCount(6)
-        self.set_table.setHorizontalHeaderLabels(["Equipment", "Type", "V", "Progress", "Status", "Parts NEED"])
+        self.set_table.setHorizontalHeaderLabels(["Equipment", "Type", "V", "Progress", "Status", "Parts Needed"])
         self.set_table.setEditTriggers(QTableWidget.NoEditTriggers)
         self.set_table.setSelectionBehavior(QTableWidget.SelectRows)
         self.set_table.setAlternatingRowColors(True)
@@ -1044,6 +1135,12 @@ def main():
     app.setWindowIcon(QIcon(WFINFO_ICON))
     app.setStyleSheet(get_theme(load_theme()))
 
+    from single_instance import SingleInstance
+    instance = SingleInstance(parent=app)
+    if not instance.acquire():
+        return
+    app._single_instance = instance
+
     # Show first-run disclaimer if not yet accepted
     try:
         from disclaimer import check_and_show_disclaimer
@@ -1053,7 +1150,46 @@ def main():
         print(f"[disclaimer] error: {e}", file=sys.stderr)
 
     t = Tracker()
+    instance.activate_requested.connect(t._show_from_tray)
     t.show()
+
+    # On some Wayland compositors the window's first paint happens before
+    # the compositor has actually settled it onto its final restored
+    # geometry (e.g. a second monitor at a non-zero x offset) - the nested
+    # tab layouts compute their initial sizes against that transient
+    # pre-settle geometry and never get invalidated once the real size
+    # lands, leaving buttons/text squished even though the window itself
+    # ends up the right size. A tiny resize nudge shortly after show()
+    # forces every layout in the tree to recompute against the real,
+    # final geometry.
+    def _force_relayout():
+        size = t.size()
+        t.resize(size.width() + 1, size.height())
+        t.resize(size)
+    QTimer.singleShot(150, _force_relayout)
+
+    # Auto-start detector/watcher immediately (per their own toggle in
+    # Settings, default on) - delayed slightly so it doesn't compete with
+    # the window's own first paint/layout.
+    def _apply_autostart():
+        try:
+            import autostart_manager
+            autostart_manager.apply_autostart()
+        except Exception as e:
+            print(f"[autostart] error: {e}", file=sys.stderr)
+    QTimer.singleShot(500, _apply_autostart)
+
+    # The other four (overlay, relic-recommend, riven, fissure) only make
+    # sense while Warframe is actually running. Reconciling this used to
+    # run from a QTimer here in the GUI process, but confirmed live
+    # 2026-07-16/17 that it stopped once and then never restarted for 5+
+    # hours with zero heartbeat/exception evidence of why - something
+    # about this specific timer/callback died silently despite the rest
+    # of the GUI staying up. Moved to warframe-watcher.py's own
+    # already-reliable standalone poll loop instead (that process has run
+    # all session with no such gap), so this no longer depends on the GUI
+    # event loop staying healthy for a specific timer.
+
     app._update_notifier = _start_update_check()  # keep a reference alive
     ret = app.exec()
     # Save window geometry on exit

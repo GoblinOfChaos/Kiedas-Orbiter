@@ -11,9 +11,9 @@ from pathlib import Path
 from PySide6.QtCore import QTimer, Qt
 from PySide6.QtWidgets import QGroupBox, QGridLayout, QLabel, QPushButton, QHBoxLayout
 
-from paths import DATA_DIR, WFINFO_DIR
+from paths import DATA_DIR, WFINFO_DIR, get_inventory_path
 LOG_DIR    = DATA_DIR
-INVENTORY  = WFINFO_DIR / "inventory.json"
+INVENTORY  = get_inventory_path()
 WFINFO_BIN = WFINFO_DIR / "target/release/orbiter"
 WFINFO_SRC = WFINFO_DIR / "src/bin/main.rs"
 STATE_FILE = DATA_DIR / "latest-detection.json"

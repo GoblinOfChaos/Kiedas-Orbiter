@@ -1,17 +1,5 @@
-#!/bin/bash
-
-# Navigate to the project directory
- cd /var/home/jedwards/wfinfo-ng/
-
-# Activate the virtual environment
- source .venv/bin/activate
-
-# Run the update scripts in the required order
-python3 refresh_wfcd_cache.py && \
-python3 synthesize_wfinfo_data.py && \
-python3 enrich_prices_from_market.py && \
-python3 populate_owned.py inventory.json owned_items.json && \
-python3 populate_relics.py
-
-# Deactivate the virtual environment
-deactivate
+#!/usr/bin/env sh
+# Compatibility entrypoint for the canonical full updater.
+set -eu
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+exec "$SCRIPT_DIR/.venv/bin/python" "$SCRIPT_DIR/update_manager.py" all

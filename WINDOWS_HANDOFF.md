@@ -46,6 +46,84 @@ src/bin/main.rs      — Rust OCR detector binary source
 
 ---
 
+## Future direction: swapchain-hook overlay (both platforms) — research note, 2026-07-20
+
+**Not started, not scheduled. This is a "when we're ready" architecture note, written up after finding a
+sibling project that solves the two hardest problems we fought on Linux this session:**
+1. The reward/relic overlays not receiving mouse clicks while a fullscreen game has input focus (a
+   real Wayland/KWin limitation — clicks pass through to the game underneath even though the overlay
+   renders on top).
+2. Screenshot capture reliability (`spectacle`/`grim` shelling out, fighting environment/library
+   pollution from the Python venv's bundled Qt libs).
+
+### What we found
+
+[wuuthradd/WFInfo-Linux](https://github.com/wuuthradd/WFInfo-Linux) (Apache-2.0, actively maintained,
+a proper Linux port of the original [WFCD/WFInfo](https://github.com/WFCD/WFInfo)) solves both problems
+the same way: instead of taking a screenshot and drawing a separate overlay window, it installs an
+**implicit Vulkan layer** (`WFInfo.Linux/NativeOverlay/` — plain C++, built with a Makefile, no
+Vulkan SDK needed beyond headers) that hooks `vkCreateSwapchainKHR`/`vkQueuePresentKHR` in the game's
+own process. It reads frames directly out of the swapchain (no `spectacle` needed) and composites
+overlay panels (rendered with pangocairo) directly onto the frame *before* it's presented to the
+screen — so the "overlay" is never a second window at all. There's no compositor "which surface gets
+the click" question because nothing but the game's own window ever exists.
+
+It talks to the main app over a plain Unix domain socket
+(`$XDG_RUNTIME_DIR/wfinfo.sock`, see `WFInfo.Linux/Services/SocketCommandServer.cs`) with simple text
+commands (`activate`, `snapit`, `searchit`, `masterit`). The layer is gated behind a
+`WFINFO=1`/`DISABLE_WFINFO=1` env var pair in its manifest (`wfinfo_vk.json`), activated by adding
+`WFINFO=1 %command%` to Warframe's Steam launch options — a one-time, user-facing setup step, same
+spirit as things we already ask Jacob to do.
+
+Their own README explicitly confirms our exact click-passthrough finding wasn't a mistake on our
+part — it's a real, acknowledged Linux limitation for regular windows: *"You can't interact with the
+reward window while the game stays focused"* (their fallback plain-window display mode, which is a
+different code path from the Vulkan-composited one and still has our exact problem).
+
+### Why this would work on Linux
+
+Warframe under Proton is translated DirectX→Vulkan via DXVK/VKD3D — so even though the game is a
+DirectX title, Proton gives it a real Vulkan swapchain, which is exactly what an implicit Vulkan layer
+hooks. This is the same general technique MangoHud/gamescope use, just repurposed for overlay
+compositing instead of a stats HUD.
+
+### Why the same code would NOT work on Windows
+
+Confirmed via research (see chat log, 2026-07-20): Warframe on native Windows uses DirectX 11/12
+directly — there is **no Vulkan involved at all** on that platform (no native Vulkan renderer option
+exists in Warframe). Proton's DXVK/VKD3D translation layer is what creates a Vulkan swapchain to hook
+on Linux; that translation simply doesn't exist on native Windows, so a Vulkan layer would have
+nothing to attach to there.
+
+To get the same benefit on Windows (overlay composited into the game's own frame, immune to the
+window-stacking/input-focus problem entirely) would need a **separate implementation**: hooking the
+DirectX 11/12 swapchain's `Present()` call instead of Vulkan's. This is a well-established technique
+(the same general approach Discord's overlay, Steam's overlay, and RivaTuner Statistics Server all
+use), typically via a detour/trampoline library (e.g. MinHook, Microsoft Detours) injected into the
+game process. Same underlying philosophy as the Linux approach (composite into the frame, don't fight
+window stacking), but genuinely different code — not a port, a parallel implementation.
+
+### Rough cost/risk if we ever pursue this
+
+- **New toolchain**: neither platform's version currently needs a C/C++ compiler + graphics-API SDK
+  headers in this project. Both the Vulkan-layer route (Linux) and the DirectX-hook route (Windows)
+  would introduce one.
+- **Scope**: this would replace meaningful chunks of both the Rust detector's screenshot logic and the
+  entire Python/GTK overlay system on Linux, and would be new work entirely on Windows (nothing to
+  replace there yet, per Task 1-4 above).
+- **Protocol work**: WFInfo-Linux's socket protocol for triggering captures is documented in their
+  source (simple text commands) but the *overlay content* side (how panel data gets INTO the layer for
+  compositing) wasn't fully explored yet — would need to read `vklayer-composite.cpp`/`overlay.hpp`/
+  `overlay-render.cpp` in more depth before estimating that part's cost.
+- **License**: Apache-2.0 permits reuse/adaptation with attribution, so directly adapting their native
+  layer (rather than writing one from scratch) is a legitimate option, not just inspiration.
+- **Recommendation**: worth pursuing once Linux is otherwise stable and this exact class of bug
+  (overlay input routing, screenshot reliability) keeps recurring — build the Linux side first (it's
+  the platform actually in active daily use), then decide whether the Windows DirectX-hook mirror is
+  worth the same investment based on how much the Linux version actually helps.
+
+---
+
 ## Task 1: GitHub Actions — Build Rust Binary for Windows + Linux
 
 Create `.github/workflows/release.yml` that triggers on tag push (`v*`), builds the `orbiter` binary for both platforms, and attaches to the GitHub Release.

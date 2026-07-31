@@ -168,42 +168,30 @@ if command -v update-desktop-database &>/dev/null; then
     update-desktop-database "$DESKTOP_DIR" 2>/dev/null || true
 fi
 
-# ── 9. Install autostart entries (overlay + watcher run on login) ───────────
-section "Autostart entries"
+# ── 9. Migrate legacy login-autostart entries ──────────────────────────────
+section "Autostart migration"
 
 AUTOSTART_DIR="$HOME/.config/autostart"
 mkdir -p "$AUTOSTART_DIR"
-_UID="$(id -u)"
 
-# CRITICAL: use env -i to strip any Flatpak/sandbox environment that would
-# set the wrong DBUS_SESSION_BUS_ADDRESS and cause focus stealing.
-_CLEAN_ENV="env -i HOME=\"\$HOME\" USER=\"\$USER\" LOGNAME=\"\$USER\" SHELL=/bin/bash PATH=\"\$HOME/.local/bin:\$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin\" WAYLAND_DISPLAY=wayland-0 XDG_RUNTIME_DIR=/run/user/${_UID} DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${_UID}/bus XDG_DATA_HOME=\"\$HOME/.local/share\" XDG_CACHE_HOME=\"\$HOME/.cache\" XDG_CURRENT_DESKTOP=KDE XDG_SESSION_TYPE=wayland"
+# These two files predate the in-app Auto-Start panel.  Keeping both systems
+# can double-launch watchers and overlays.  Rename rather than delete so the
+# migration is recoverable, and use a non-.desktop suffix so XDG ignores it.
+for legacy_name in orbiter-overlay.desktop orbiter-watcher.desktop; do
+    legacy_path="$AUTOSTART_DIR/$legacy_name"
+    if [[ -f "$legacy_path" ]]; then
+        backup_path="$legacy_path.disabled-by-kiedas-orbiter"
+        backup_index=1
+        while [[ -e "$backup_path" ]]; do
+            backup_path="$legacy_path.disabled-by-kiedas-orbiter.$backup_index"
+            backup_index=$((backup_index + 1))
+        done
+        mv "$legacy_path" "$backup_path"
+        success "Disabled legacy autostart entry: $legacy_name"
+    fi
+done
 
-cat > "$AUTOSTART_DIR/orbiter-overlay.desktop" << AUTOSTART
-[Desktop Entry]
-Icon=orbiter
-Type=Application
-Name=Kieda's Orbiter Overlay
-Comment=Pop-up overlay for Warframe relic reward ownership
-Exec=/bin/bash -c '${_CLEAN_ENV} setsid ${REPO_DIR}/launch-overlay.sh >> \${HOME}/.local/share/kiedas-orbiter/overlay.log 2>&1 < /dev/null'
-X-GNOME-Autostart-enabled=true
-NoDisplay=true
-Terminal=false
-AUTOSTART
-
-cat > "$AUTOSTART_DIR/orbiter-watcher.desktop" << AUTOSTART
-[Desktop Entry]
-Icon=orbiter
-Type=Application
-Name=Kieda's Orbiter Warframe Watcher
-Comment=Watches for Warframe process and restarts the detector
-Exec=/bin/bash -c '${_CLEAN_ENV} setsid ${REPO_DIR}/.venv/bin/python ${REPO_DIR}/warframe-watcher.py >> \${HOME}/.local/share/kiedas-orbiter/watcher.log 2>&1 < /dev/null'
-X-GNOME-Autostart-enabled=true
-NoDisplay=true
-Terminal=false
-AUTOSTART
-
-success "Autostart entries installed (overlay + watcher will start on login)"
+success "In-app Auto-Start settings are authoritative"
 
 # ── Compatibility symlink: old wfinfo path → kiedas-orbiter ──────────────
 # The detector binary may write to ~/.local/share/wfinfo/ (old name).

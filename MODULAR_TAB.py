@@ -24,10 +24,11 @@ from pathlib import Path
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QCheckBox,
-    QTableWidget, QTableWidgetItem, QHeaderView, QComboBox
+    QTableWidget, QTableWidgetItem, QHeaderView, QComboBox, QAbstractItemView
 )
 from column_persistence import apply_saved_widths, remember_widths
 from MASTERY_HELPER_TAB import _xp_to_rank, _max_xp_for
+from paths import get_inventory_path
 
 # Each category's catalog filter (matches a part's uniqueName in
 # wfcd_all_cache.json) and the itype string MASTERY_HELPER_TAB's rank
@@ -99,6 +100,7 @@ class ModularTab(QWidget):
         layout.addLayout(header)
 
         self._table = QTableWidget(0, 4)
+        self._table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self._table.setHorizontalHeaderLabels(["Name", "Rank", "Affinity", "Owned"])
         for col in range(4):
             self._table.horizontalHeader().setSectionResizeMode(col, QHeaderView.Interactive)
@@ -114,7 +116,7 @@ class ModularTab(QWidget):
 
     def _load(self):
         base = Path(__file__).parent
-        inventory = self._load_json(base / 'inventory.json') or {}
+        inventory = self._load_json(get_inventory_path()) or {}
         xp_map = {
             x['ItemType']: x.get('XP', 0)
             for x in inventory.get('XPInfo', [])
@@ -134,8 +136,8 @@ class ModularTab(QWidget):
                 if not uname or not name or not matcher(uname):
                     continue
                 xp = xp_map.get(uname, 0)
-                rank = _xp_to_rank(xp, uname, itype)
-                max_xp = _max_xp_for(uname, itype)
+                rank = _xp_to_rank(xp, uname, itype, item.get("maxLevelCap"))
+                max_xp = _max_xp_for(uname, itype, item.get("maxLevelCap"))
                 rows.append({
                     'name': name,
                     'rank': rank,

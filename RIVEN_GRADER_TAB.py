@@ -14,6 +14,12 @@ from PySide6.QtWidgets import (
 
 WFINFO_DIR = Path(__file__).parent
 from paths import DATA_DIR
+from riven_grader_watcher import (
+    WFCD_CACHE,
+    _load_json,
+    _weapon_variant_facts,
+    load_riven_data,
+)
 GRADED_FILE = DATA_DIR / "riven-graded.json"
 
 GRADE_COLORS = {
@@ -22,6 +28,7 @@ GRADE_COLORS = {
     "ok":      "#ff9933",
     "weak":    "#ff6060",
     "reroll":  "#ff4444",
+    "review":  "#6a88aa",
     "unknown": "#6a88aa",
 }
 GRADE_LABELS = {
@@ -30,9 +37,10 @@ GRADE_LABELS = {
     "ok":     "\u25a0 OK",
     "weak":   "\u25bc WEAK",
     "reroll": "\u21bb REROLL",
+    "review": "REVIEW",
 }
 
-from theme import BG_PANEL, BG_CARD, FG, DIM, GOLD, SAP_MID as SAP
+from theme import get_palette
 from paths import DATA_DIR
 
 
@@ -41,8 +49,19 @@ class RivenGraderTab(QWidget):
         super().__init__(parent)
         self._riven_data = {}
         self._weapon_lookup = []
+        self._wfcd_items = []
         self._graded_rivens = []
         self._last_mtime = 0
+        # These used to be imported once from theme.py's hardcoded
+        # sapphire-theme constants (BG_PANEL, BG_CARD, FG, DIM, GOLD,
+        # SAP_MID), so this tab stayed sapphire-colored no matter what
+        # theme was selected - illegible on a light theme. Read fresh
+        # from the currently selected theme instead. Jacob 2026-07-23.
+        p = get_palette()
+        self._p = p
+        global BG_PANEL, BG_CARD, FG, DIM, GOLD, SAP
+        BG_PANEL, BG_CARD = p['bg_panel'], p['bg_card']
+        FG, DIM, GOLD, SAP = p['fg'], p['fg_dim'], p['gold'], p['accent']
         self._setup_ui()
         self._load_riven_data()
         self._load_graded()
@@ -119,15 +138,15 @@ class RivenGraderTab(QWidget):
         self._owned.sortByColumn(0, Qt.AscendingOrder)
         self._owned.setStyleSheet(
             f"background:{BG_PANEL}; alternate-background-color:{BG_CARD}; "
-            f"color:{FG}; gridline-color:#1e3a62; selection-background-color:#1e4a7a;"
-            "QHeaderView::section{background:#0f1e3d;color:#c9a84c;font-weight:700;border-bottom:2px solid #2e6db4;}"
+            f"color:{FG}; gridline-color:{self._p['border']}; selection-background-color:{self._p['accent_dim']};"
+            f"QHeaderView::section{{background:{self._p['bg_header']};color:{self._p['gold']};font-weight:700;border-bottom:2px solid {self._p['accent_mid']};}}"
         )
         self._owned.itemSelectionChanged.connect(self._on_riven_selected)
         ll.addWidget(self._owned)
 
         self._empty_lbl = QLabel(
-            "No riven data yet.\n\nRivens are graded automatically\n"
-            "every 5 minutes while Warframe runs."
+            "No riven data yet.\n\nRivens are evaluated automatically\n"
+            "when inventory.json changes."
         )
         self._empty_lbl.setAlignment(Qt.AlignCenter)
         self._empty_lbl.setStyleSheet(f"color:{DIM}; font-size:12px; padding:20px;")
@@ -153,8 +172,8 @@ class RivenGraderTab(QWidget):
         self._detail.setAlternatingRowColors(True)
         self._detail.setStyleSheet(
             f"background:{BG_PANEL}; alternate-background-color:{BG_CARD}; "
-            f"color:{FG}; gridline-color:#1e3a62;"
-            "QHeaderView::section{background:#0f1e3d;color:#c9a84c;font-weight:700;border-bottom:2px solid #2e6db4;}"
+            f"color:{FG}; gridline-color:{self._p['border']};"
+            f"QHeaderView::section{{background:{self._p['bg_header']};color:{self._p['gold']};font-weight:700;border-bottom:2px solid {self._p['accent_mid']};}}"
         )
         rl.addWidget(self._detail)
         self._notes = QLabel("")
@@ -174,7 +193,8 @@ class RivenGraderTab(QWidget):
 
     def _load_riven_data(self):
         try:
-            self._riven_data = json.loads((WFINFO_DIR / "riven_good_rolls.json").read_text())
+            self._riven_data = load_riven_data()
+            self._wfcd_items = _load_json(WFCD_CACHE, [])
         except Exception:
             self._riven_data = {}
         self._weapon_lookup = sorted(
@@ -227,11 +247,15 @@ class RivenGraderTab(QWidget):
             w.setData(Qt.UserRole, r)
             self._owned.setItem(row, 0, w)
 
-            g = QTableWidgetItem(GRADE_LABELS.get(grade, grade.upper()))
+            g = QTableWidgetItem(r.get("label") or GRADE_LABELS.get(grade, grade.upper()))
             g.setForeground(QBrush(QColor(color)))
             g.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
             # Sort order: great=0, good=1, ok=2, weak=3, reroll=4
-            g.setData(Qt.UserRole, {"great":0,"good":1,"ok":2,"weak":3,"reroll":4}.get(grade,5))
+            g.setData(
+                Qt.UserRole,
+                {"great": 0, "good": 1, "ok": 2, "weak": 3, "reroll": 4,
+                 "review": 5}.get(grade, 5),
+            )
             self._owned.setItem(row, 1, g)
 
             pos = [f"+{legend.get(c,c)}" for c in r.get("positives",[])]
@@ -327,21 +351,26 @@ class RivenGraderTab(QWidget):
         )
 
         if not data:
-            self._detail_title.setText(f"{weapon.title()} \u2014 not in database")
-            self._grade_badge.setText("")
+            self._detail_title.setText(f"{weapon.title()} \u2014 review required")
+            self._grade_badge.setText("REVIEW")
+            self._notes.setText(
+                "No weapon profile exists, so no stat-desirability verdict was made."
+            )
             return
 
         if riven:
             grade = riven.get("grade", "unknown")
             gc = GRADE_COLORS.get(grade, DIM)
             self._detail_title.setText(f"{weapon.title()}  \u2014  {riven.get('rerolls',0)} rerolls  \u00b7  {riven.get('polarity','')}")
-            self._grade_badge.setText(GRADE_LABELS.get(grade, grade.upper()))
+            self._grade_badge.setText(
+                riven.get("label") or GRADE_LABELS.get(grade, grade.upper())
+            )
             self._grade_badge.setStyleSheet(
                 f"font-size:13px; font-weight:700; padding:3px 12px; border-radius:4px; "
                 f"color:{gc}; background:#0b1628; border:1px solid {gc};"
             )
         else:
-            self._detail_title.setText(f"{weapon.title()} \u2014 Good Roll Guide")
+            self._detail_title.setText(f"{weapon.title()} \u2014 Historical Roll Guide")
             self._grade_badge.setText("")
 
         hp = set(riven.get("positives", [])) if riven else set()
@@ -360,6 +389,22 @@ class RivenGraderTab(QWidget):
                 stat_pct[code] = curse_pcts[i]
         safe_negs = set(data.get("safe_negatives", []))
         seen = set()
+
+        variants = (
+            riven.get("weapon_variants", []) if riven
+            else _weapon_variant_facts(weapon, self._wfcd_items)
+        )
+        for variant in variants:
+            attenuation = variant.get("omega_attenuation")
+            dots = variant.get("disposition")
+            if attenuation is None:
+                continue
+            dot_text = f" · UI disposition {dots}/5" if dots is not None else ""
+            self._add_row(
+                "WFCD VARIANT",
+                f"{variant.get('name', weapon)} · attenuation {attenuation:.2f}{dot_text}",
+                "#10233a", "#8fd3ff", FG,
+            )
 
         for idx, combo in enumerate(data.get("good_combos", []), 1):
             if idx > 1:
@@ -409,8 +454,21 @@ class RivenGraderTab(QWidget):
             rtext = ",  ".join(legend.get(s, s) for s in risky)
             self._add_row("Risky \u2212", rtext, "#3a1010", "#ff6060", "#ff8888")
 
+        metadata = data.get(
+            "profile_metadata", self._riven_data.get("profile_metadata", {})
+        )
+        source = metadata.get("source", "Unknown profile source")
+        reviewed = metadata.get("reviewed_at") or "not currently reviewed"
+        if metadata.get("status") == "player_authoritative":
+            provenance = f"Player-authoritative profile — {source}; {reviewed}."
+        else:
+            provenance = f"Advisory historical profile — {source}; {reviewed}."
+        notes = [provenance + " Numeric roll perfectness is objective and shown separately."]
+        if riven and riven.get("explanation"):
+            notes.append(riven["explanation"])
         if data.get("notes"):
-            self._notes.setText(data["notes"])
+            notes.append(data["notes"])
+        self._notes.setText("\n".join(notes))
 
     def _add_row(self, role, stat, bg_hex, role_color, stat_color):
         r = self._detail.rowCount()

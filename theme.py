@@ -576,6 +576,43 @@ THEME_ZENURIK = _make_stylesheet(
     check_checked_bg="#8a2be2", check_checked_border="#d060e8",
 )
 
+# ── Theme 7: Daylight (light mode — soft off-white, near-black text) ──────
+# Not pure white (#ffffff would be glaring against dark UI chrome like
+# scrollbars/tooltips) - a soft warm off-white keeps it easy on the eyes
+# while staying unmistakably a light theme. Jacob 2026-07-23.
+THEME_DAYLIGHT = _make_stylesheet(
+    bg_deep="#f7f6f2",   bg_panel="#efeee7",  bg_card="#e5e2d8",
+    bg_input="#ffffff",  bg_header="#e9e6dd",
+    accent="#3a6ea5",    accent_bright="#4f86bf", accent_dim="#274b73",
+    accent_hover="#2f5a86",
+    sel_bg="#cfe0f0",
+    fg="#1c1c1c",        fg_dim="#5a5a5a",
+    border="#d3d0c5",    border_bright="#b8b4a5",
+    gold="#8a6d1a",      gold_bright="#a9862a",  gold_dim="#6b5414",
+    check_checked_bg="#3a6ea5", check_checked_border="#274b73",
+)
+
+# ── Theme 8: Obsidian (polished black gemstone) ───────────────────────────
+# Previously shared its exact panel/text colors with Naramon (#181818 /
+# #f0f0f0, both landed there independently) with only a "muted blue" accent
+# to tell them apart - two supposedly distinct themes that looked almost
+# identical. Redone as genuinely near-black (darker than Naramon's neutral
+# charcoal) with a cool blue-violet sheen throughout - fg/fg_dim/border are
+# now cool-toned instead of neutral gray, so it doesn't converge with
+# Naramon again. Jacob 2026-07-24 ("its the same colors as the other one
+# ... its just bad").
+THEME_OBSIDIAN = _make_stylesheet(
+    bg_deep="#08080a",   bg_panel="#101014",  bg_card="#18181f",
+    bg_input="#050506",  bg_header="#0c0c10",
+    accent="#7c9cff",    accent_bright="#9db8ff", accent_dim="#4a5fb0",
+    accent_hover="#5a78e0",
+    sel_bg="#232c50",
+    fg="#e6e9f2",        fg_dim="#8890a5",
+    border="#22222c",    border_bright="#34344a",
+    gold="#c8d4ea",      gold_bright="#e0e8fa",  gold_dim="#96a2c0",
+    check_checked_bg="#7c9cff", check_checked_border="#9db8ff",
+)
+
 THEMES = {
     "Kieda's Default": WFINFO_STYLESHEET,
     "Madurai":         THEME_MADURAI,
@@ -583,6 +620,8 @@ THEMES = {
     "Naramon":         THEME_NARAMON,
     "Unairu":          THEME_UNAIRU,
     "Zenurik":         THEME_ZENURIK,
+    "Daylight":        THEME_DAYLIGHT,
+    "Obsidian":        THEME_OBSIDIAN,
 }
 
 THEME_DESCRIPTIONS = {
@@ -592,6 +631,8 @@ THEME_DESCRIPTIONS = {
     "Naramon":         "High contrast charcoal/white + amber — safe for ALL colorblindness types",
     "Unairu":          "Earth/stone amber/brown — Deuteranopia + Protanopia safe",
     "Zenurik":         "Electric indigo/violet — Tritanopia safe (blue-yellow colorblind)",
+    "Daylight":        "Soft off-white + near-black text — light mode, easy on the eyes",
+    "Obsidian":        "Polished black gemstone — near-black with a cool blue-violet sheen",
 }
 
 
@@ -658,6 +699,24 @@ THEME_PALETTES = {
         border="#28104a", border_bright="#4a2070",
         green="#60d8b0", red="#e060a0", orange="#d060e8",
     ),
+    "Daylight": dict(
+        bg="#f7f6f2", bg_panel="#efeee7", bg_card="#e5e2d8",
+        bg_input="#ffffff", bg_header="#e9e6dd",
+        fg="#1c1c1c", fg_dim="#5a5a5a",
+        gold="#8a6d1a", gold_bright="#a9862a",
+        accent="#4f86bf", accent_mid="#3a6ea5", accent_dim="#274b73",
+        border="#d3d0c5", border_bright="#b8b4a5",
+        green="#1a8a3a", red="#c0392b", orange="#c07a10",
+    ),
+    "Obsidian": dict(
+        bg="#08080a", bg_panel="#101014", bg_card="#18181f",
+        bg_input="#050506", bg_header="#0c0c10",
+        fg="#e6e9f2", fg_dim="#8890a5",
+        gold="#c8d4ea", gold_bright="#e0e8fa",
+        accent="#9db8ff", accent_mid="#7c9cff", accent_dim="#4a5fb0",
+        border="#22222c", border_bright="#34344a",
+        green="#4ade80", red="#ff5555", orange="#ffa940",
+    ),
 }
 
 
@@ -672,7 +731,7 @@ def get_palette(name: str = None) -> dict:
 def save_theme(name: str):
     """Save theme preference to config.json."""
     import json
-    config_file = __import__('pathlib').Path(__file__).parent / "config.json"
+    from paths import CONFIG_FILE as config_file
     try:
         cfg = json.loads(config_file.read_text())
     except Exception:
@@ -684,7 +743,7 @@ def save_theme(name: str):
 def load_theme() -> str:
     """Load saved theme name from config.json."""
     import json
-    config_file = __import__('pathlib').Path(__file__).parent / "config.json"
+    from paths import CONFIG_FILE as config_file
     try:
         cfg = json.loads(config_file.read_text())
         return cfg.get("theme", "Kieda's Default")

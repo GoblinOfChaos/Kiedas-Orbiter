@@ -8,8 +8,9 @@ import json, sys
 from pathlib import Path
 from urllib.request import urlopen, Request
 from urllib.error import URLError
-from paths import DATA_DIR, WFINFO_DIR
-INVENTORY_FILE = WFINFO_DIR / "inventory.json"
+from paths import DATA_DIR, WFINFO_DIR, get_inventory_path
+from mastery import is_mastered
+INVENTORY_FILE = get_inventory_path()
 OUTPUT_FILE    = DATA_DIR / "equipment_status.json"
 CACHE_FILE     = WFINFO_DIR / "equipment_data_cache.json"
 ALL_JSON_CACHE = WFINFO_DIR / "wfcd_all_cache.json"
@@ -70,20 +71,29 @@ def filter_mechs(all_data):
 def is_prime(name, unique=""):
     return "Prime" in name or "Prime" in unique
 
-def collect_mastered(inventory, keys):
-    """Set of uniqueNames the user has (in inventory or has XP > 0).
-       XPInfo bleeds across categories but we intersect against actual
-       WFCD items for this tab, so cross-bleed is harmless."""
-    out = set()
+# Shared mastery helpers use the real rank-squared affinity curve. Items
+# with a rank-40 cap are complete only after reaching rank 40.
+ITEM_TYPE_BY_TAB = {
+    "Warframe": "Warframe", "Archwing": "Archwing", "Necramech": "Necramech",
+    "Sentinel": "Sentinel", "Pet": "Pet",
+}
+
+def collect_xp(inventory, keys):
+    """Map of uniqueName -> total affinity XP, from both the owned-item
+    bin (per-instance XP, e.g. MechSuits) and the account-wide XPInfo
+    ledger (whichever is higher - XPInfo persists after an item is sold/
+    dismantled, so it's the more reliable long-term record, but a
+    freshly-built item may not have an XPInfo entry yet)."""
+    out = {}
     for k in keys:
         for entry in (inventory.get(k) or []):
             u = entry.get("ItemType", "")
             if u:
-                out.add(u)
+                out[u] = max(out.get(u, 0), entry.get("XP", 0))
     for entry in (inventory.get("XPInfo") or []):
         u = entry.get("ItemType", "")
-        if u and entry.get("XP", 0) > 0:
-            out.add(u)
+        if u:
+            out[u] = max(out.get(u, 0), entry.get("XP", 0))
     return out
 
 def shape_drop(d):
@@ -105,14 +115,22 @@ def _base_unique(unique: str) -> str:
     return re.sub(r'Prime$', '', unique)
 
 
-def build_item(raw, tab, mastered, subsumed_set=None):
+def build_item(raw, tab, xp_by_unique, subsumed_set=None, resource_counts=None):
     unique = raw.get("uniqueName", "")
     components = []
     for c in (raw.get("components") or []):
+        c_unique = c.get("uniqueName", "")
         components.append({
             "name":       c.get("name", ""),
-            "uniqueName": c.get("uniqueName", ""),
+            "uniqueName": c_unique,
             "count":      c.get("itemCount", 1),
+            # How many of this resource the player currently holds -
+            # lets the UI show "still needed" (count - owned) instead of
+            # always the full recipe total, for stackable resources
+            # (Nano Spores, Plastids, etc.) tracked in inventory.json's
+            # MiscItems. Jacob 2026-07-22: "does the need column show 5
+            # or 3?" if you need 5 total and have 2.
+            "owned":      (resource_counts or {}).get(c_unique, 0),
             "drops":      [shape_drop(d) for d in (c.get("drops") or [])],
         })
     # Check helminth subsume: look at both exact unique and base version
@@ -120,11 +138,15 @@ def build_item(raw, tab, mastered, subsumed_set=None):
     if subsumed_set and tab == "Warframe":
         base = _base_unique(unique)
         subsumed = (unique in subsumed_set) or (base in subsumed_set)
+    xp = (xp_by_unique or {}).get(unique, 0)
     return {
         "name":        raw.get("name", ""),
         "uniqueName":  unique,
         "tab":         tab,
-        "mastered":    unique in mastered,
+        # True only at the item's real maximum rank (30 or 40),
+        # not on simple ownership or first use. See mastery.py.
+        "mastered":    is_mastered(xp, unique, ITEM_TYPE_BY_TAB.get(tab, tab), raw.get("maxLevelCap")),
+        "xp":          xp,
         "subsumed":    subsumed,
         "components":  components,
         "itemDrops":   [shape_drop(d) for d in (raw.get("drops") or [])],
@@ -155,6 +177,16 @@ def main():
         pass
     print(f"  Subsumed warframes: {len(subsumed_set)}")
 
+    # Owned quantities of stackable resources (Nano Spores, Plastids,
+    # etc.), keyed by uniqueName - lets the "Need" column show how many
+    # more are still needed instead of always the full recipe amount.
+    resource_counts = {}
+    for entry in (inventory.get('MiscItems') or []):
+        u = entry.get('ItemType', '')
+        if u:
+            resource_counts[u] = entry.get('ItemCount', 0)
+    print(f"  Tracked resource types: {len(resource_counts)}")
+
     cache = {}
     tabs = {}
     all_json = None
@@ -162,7 +194,7 @@ def main():
     print("=" * 60)
     for tab_name, cfg, inv_keys in TAB_CONFIG:
         print(f"\n[{tab_name}]")
-        mastered = collect_mastered(inventory, inv_keys)
+        xp_by_unique = collect_xp(inventory, inv_keys)
 
         items, seen = [], set()
 
@@ -181,8 +213,17 @@ def main():
                     # Skip Helminth specifically — it's a system, not a masterable warframe
                     if u == "/Lotus/Powersuits/PowersuitAbilities/Helminth":
                         continue
+                    # The Jade Shadows quest's child Warframe is listed twice
+                    # under two uniqueNames ("OrionSuit" and "SiriusSuit") -
+                    # one per naming choice the player picks during the
+                    # quest (only one is ever actually obtainable per
+                    # account). Skip the Sirius variant, keeping "Orion &
+                    # Sirius" as the single entry - confirmed live 2026-07-22
+                    # (Jacob: "Orion and Sirius are in there as a dual twice").
+                    if u == "/Lotus/Powersuits/SiriusOrion/SiriusSuit":
+                        continue
                     seen.add(u)
-                    items.append(build_item(raw, tab_name, mastered, subsumed_set))
+                    items.append(build_item(raw, tab_name, xp_by_unique, subsumed_set, resource_counts))
                     kept += 1
                 print(f"  {fname}: kept {kept}")
 
@@ -198,7 +239,7 @@ def main():
                 if not u or u in seen:
                     continue
                 seen.add(u)
-                items.append(build_item(raw, tab_name, mastered, subsumed_set))
+                items.append(build_item(raw, tab_name, xp_by_unique, subsumed_set, resource_counts))
                 kept += 1
             print(f"    kept {kept}")
 

@@ -9,8 +9,7 @@ from PySide6.QtWidgets import (
     QLineEdit, QSpinBox, QPushButton, QHBoxLayout, QMessageBox,
 )
 
-from paths import WFINFO_DIR as BASE
-CONFIG_FILE = BASE / 'config.json'
+from paths import CONFIG_FILE
 
 _FIELDS = [
     # (config_key, label, type, min, max, tooltip)

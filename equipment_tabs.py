@@ -4,20 +4,49 @@ Tree view per tab: items -> components -> drop sources.
 """
 import json
 from pathlib import Path
-from PySide6.QtCore import Qt, QUrl
-from PySide6.QtGui import QColor, QBrush, QDesktopServices, QFont, QIcon, QPixmap
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QColor, QBrush, QFont, QIcon, QPixmap
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QCheckBox, QLabel,
     QTreeWidget, QTreeWidgetItem, QTabWidget, QHeaderView, QPushButton
 )
 from column_persistence import apply_saved_widths, remember_widths
 from paths import DATA_DIR, CACHE_DIR
+from wiki_links import build_wiki_url, open_wiki_url, _wiki_log
+from drop_data import find_drop_info, find_component_drop_info
+import theme
 
 EQUIPMENT_FILE = DATA_DIR / "equipment_status.json"
 IMAGE_CACHE_DIR = CACHE_DIR / "item_images"
 
-COLOR_MASTERED  = QColor("#3eff3e")
-COLOR_MISSING   = QColor("#ff6060")
+# Wiki-verified acquisition text for items/components that aren't random
+# drops at all (boss assassinations, Dojo research, Syndicate/vendor
+# purchases, Kuva Lich/Sister weapons, Founders-exclusive items, etc.) -
+# neither wfcd_all_cache.json's "drops" field nor dropdata_cache.json (a
+# random-drop-table dataset) was ever going to have these. Verified live
+# 2026-07-21/22 against individual wiki pages. Keyed "Item|Component" for
+# component-level entries, or just "Item" for item-level entries (Primes,
+# starter weapons with no components at all).
+def _load_acquisition_overrides():
+    path = Path(__file__).parent / "component_acquisition_overrides.json"
+    try:
+        return json.loads(path.read_text())
+    except Exception:
+        return {}
+
+ACQUISITION_OVERRIDES = _load_acquisition_overrides()
+
+def _status_colors():
+    """QColor(theme.GREEN)/QColor(theme.RED) used to be computed once at
+    import time from theme.py's hardcoded sapphire-theme constants, so
+    mastered/missing rows stayed that color forever regardless of the
+    selected theme. Called fresh each time a tree node is colored instead,
+    so a data refresh (which repopulates the tree) picks up whatever
+    theme is currently active. Jacob 2026-07-23."""
+    p = theme.get_palette()
+    return QColor(p['green']), QColor(p['red'])
+
+
 COLOR_COMPONENT = QColor("#e8c96a")
 COLOR_RESOURCE  = QColor("#888888")
 COLOR_DROP      = QColor("#cdd4ff")
@@ -33,12 +62,20 @@ RESOURCE_HINTS = {
     "circuit", "rubedo", "neurode", "mutagen", "plasm", "thrax",
     "bundle", "mass", "morphics", "oxium", "control module",
     "argon", "tellurium", "kuva", "fieldron", "detonite",
+    "nano spore", "plastid", "cryotic", "gallium", "nitain",
 }
 
 def is_resource(component_name):
     """True if this 'component' is really a generic crafting material."""
     lower = component_name.lower()
     return any(h in lower for h in RESOURCE_HINTS)
+
+def _center_cols(tree_item, col_count):
+    """Column 0 (name/component/source) stays left-aligned; every other
+    column is centered - matches the alignment convention already used
+    across the QTableWidget-based tabs."""
+    for col in range(1, col_count):
+        tree_item.setTextAlignment(col, Qt.AlignHCenter | Qt.AlignVCenter)
 
 def make_item_label_extras(item):
     """Build the parenthetical extras shown after a missing item's name."""
@@ -157,32 +194,39 @@ class EquipmentTabBuilder:
         layout.addLayout(hdr)
 
         is_warframe = (tab_name == "Warframe")
-        col_count = 5 if is_warframe else 4
+        # Drop Location is always the LAST column (after Wiki) - own
+        # column now instead of sharing space with "Mastered", per Jacob
+        # 2026-07-21 ("I just hate that its under the mastered tab").
+        col_count = 6 if is_warframe else 5
         tree = QTreeWidget()
         tree.setColumnCount(col_count)
         if is_warframe:
-            tree.setHeaderLabels(["Item / Component / Source", "Need", "Status / Rarity", "Subsumed", "Wiki"])
-            apply_saved_widths(tree, f"equipment_tree_{tab_name}", [280, 55, 130, 80, 140])
+            tree.setHeaderLabels(["Item / Component / Source", "Need", "Mastered", "Subsumed", "Wiki", "Drop Location"])
+            apply_saved_widths(tree, f"equipment_tree_{tab_name}", [280, 55, 90, 80, 90, 320])
         else:
-            tree.setHeaderLabels(["Item / Component / Source", "Need", "Status / Rarity", "Wiki"])
-            apply_saved_widths(tree, f"equipment_tree_{tab_name}", [320, 70, 140, 160])
+            tree.setHeaderLabels(["Item / Component / Source", "Need", "Mastered", "Wiki", "Drop Location"])
+            apply_saved_widths(tree, f"equipment_tree_{tab_name}", [320, 70, 90, 90, 320])
         for col in range(col_count):
             tree.header().setSectionResizeMode(col, QHeaderView.Interactive)
+        tree.header().setStretchLastSection(False)
         remember_widths(tree, f"equipment_tree_{tab_name}")
         tree.setAlternatingRowColors(True)
 
         # Single click: toggle expand/collapse on top-level items
-        # Wiki links in column 3 are clickable text — handled in itemClicked
+        # Wiki links are clickable text — handled in itemClicked
         tree.itemClicked.connect(self._on_single_click)
 
         for it in items:
-            tree.addTopLevelItem(self._build_item_node(it))
+            tree.addTopLevelItem(self._build_item_node(it, col_count))
 
         # Auto-resize all columns to content after populating
-        for col in range(4):
+        for col in range(col_count):
             tree.resizeColumnToContents(col)
         # Then restore any saved widths (overrides auto-size)
-        apply_saved_widths(tree, f"equipment_tree_{tab_name}", [320, 70, 140, 160])
+        if is_warframe:
+            apply_saved_widths(tree, f"equipment_tree_{tab_name}", [280, 55, 90, 80, 90, 320])
+        else:
+            apply_saved_widths(tree, f"equipment_tree_{tab_name}", [320, 70, 90, 90, 320])
 
         expand_btn.clicked.connect(tree.expandAll)
         collapse_btn.clicked.connect(tree.collapseAll)
@@ -191,9 +235,9 @@ class EquipmentTabBuilder:
         layout.addWidget(tree)
         return w
 
-    def _build_item_node(self, item):
+    def _build_item_node(self, item, col_count):
         mastered = item["mastered"]
-        status = "✓ Mastered" if mastered else "✗ Missing"
+        status = "Yes" if mastered else "No"
 
         label = item["name"] + (make_item_label_extras(item) if not mastered else "")
 
@@ -201,19 +245,60 @@ class EquipmentTabBuilder:
         if needed_by:
             label += "  \U0001F527"  # wrench - "Crafting Ingredient"
 
-        wiki_url = item.get("wikiaUrl", "")
-        wiki_display = "\u25b7 Wiki" if wiki_url else ""   # ▷ open triangle = link
+        # Falls back to a constructed URL (same convention real wikiaUrl
+        # values already follow) when the data doesn't have one - Jacob
+        # reported "everything that says check wiki needs ... a wiki
+        # link", and several items here lack a wikiaUrl in the source
+        # data despite genuinely having a wiki page.
+        wiki_url = item.get("wikiaUrl") or build_wiki_url(item["name"])
+        wiki_display = "\u25b7 Wiki"   # always shown now that wiki_url always has a value (falls back to a constructed URL)
         subsumed = item.get("subsumed", False)
         is_warframe = (item.get("tab") == "Warframe")
 
+        # Drop Location is always the LAST column (after Wiki) - its own
+        # column now instead of sharing space with "Mastered" - Jacob
+        # 2026-07-21 ("I just hate that its under the mastered tab").
+        components = item.get("components", [])
+        item_drops = item.get("itemDrops", [])
+        drop_location = ""
+        if item_drops:
+            locations = sorted({d.get("location") for d in item_drops if d.get("location")})
+            drop_location = "; ".join(locations)
+        elif not components and not mastered:
+            # No component or drop data in wfcd_all_cache.json - check
+            # the wiki-verified overrides (Founders exclusives, quest
+            # rewards, Baro rotations, etc.) before falling back to
+            # dropdata_cache.json, then a generic wiki hint.
+            override = ACQUISITION_OVERRIDES.get(item["name"])
+            real_drops = override or find_drop_info(item["name"])
+            itype = item.get("tab", "")
+            if real_drops:
+                drop_location = real_drops
+            elif itype == "Pet":
+                drop_location = "Obtained by capturing wild animals, trading, or Incubation — check wiki"
+            elif itype in ("Sentinel", "Moa", "Hound"):
+                drop_location = "Obtained from the Market or via components — check wiki"
+            elif item.get("marketCost"):
+                drop_location = f"Purchase from Market for {item['marketCost']:,} platinum"
+            else:
+                drop_location = "Check wiki for acquisition method"
+
+        wiki_col = col_count - 2
+        drop_col = col_count - 1
+        row = [""] * col_count
+        row[0] = label
+        row[2] = status
+        row[wiki_col] = wiki_display
+        row[drop_col] = drop_location
         if is_warframe:
-            sub_display = "✅ Yes" if subsumed else ""
-            node = QTreeWidgetItem([label, "", status, sub_display, wiki_display])
-            node.setToolTip(4, wiki_url if wiki_url else "No wiki link available")
+            row[3] = "\u2705 Yes" if subsumed else ""
+        node = QTreeWidgetItem(row)
+        node.setToolTip(wiki_col, wiki_url if wiki_url else "No wiki link available")
+        if drop_location:
+            node.setToolTip(drop_col, drop_location)
+        if is_warframe:
             node.setForeground(3, QBrush(QColor("#3eff3e") if subsumed else QColor("#6a88aa")))
-        else:
-            node = QTreeWidgetItem([label, "", status, wiki_display])
-            node.setToolTip(3, wiki_url if wiki_url else "No wiki link available")
+        _center_cols(node, col_count)
 
         node.setData(0, Qt.UserRole, wiki_url)
         node.setData(0, Qt.UserRole + 1, "mastered" if mastered else "missing")
@@ -231,73 +316,65 @@ class EquipmentTabBuilder:
                 if not pix.isNull():
                     node.setIcon(0, QIcon(pix.scaled(40, 40, Qt.KeepAspectRatio, Qt.SmoothTransformation)))
 
-        color = COLOR_MASTERED if mastered else COLOR_MISSING
+        color_mastered, color_missing = _status_colors()
+        color = color_mastered if mastered else color_missing
         bold = QFont()
         bold.setBold(True)
         for col in range(4):
             node.setForeground(col, QBrush(color))
         node.setFont(0, bold)
 
-        components = item.get("components", [])
-        item_drops = item.get("itemDrops", [])
-
         if components:
             for c in components:
-                self._add_component_node(node, c)
-        elif item_drops:
-            for d in item_drops:
-                self._add_drop_node(node, d)
-        elif not mastered:
-            # No component or drop data — suggest wiki
-            itype = item.get("tab", "")
-            if itype == "Pet":
-                hint = "Obtained by capturing wild animals, trading, or Incubation — check wiki"
-            elif itype in ("Sentinel", "Moa", "Hound"):
-                hint = "Obtained from the Market or via components — check wiki"
-            elif item.get("marketCost"):
-                hint = f"Purchase from Market for {item['marketCost']:,} platinum"
-            else:
-                hint = "Check wiki for acquisition method"
-            stub = QTreeWidgetItem([f"  \u2139  {hint}", "", "", ""])
-            stub.setForeground(0, QBrush(COLOR_RESOURCE))
-            node.addChild(stub)
+                self._add_component_node(node, c, item["name"], col_count)
 
         return node
 
-    def _add_component_node(self, parent, c):
+    def _add_component_node(self, parent, c, item_name, col_count):
         cn = c.get("name", "")
         cnt = c.get("count", 1)
+        owned = c.get("owned", 0)
         res = is_resource(cn)
 
-        cnode = QTreeWidgetItem([f"  └ {cn}", f"x{cnt}",
-                                 "(resource)" if res else "", ""])
-        col = COLOR_RESOURCE if res else COLOR_COMPONENT
-        for i in range(4):
-            cnode.setForeground(i, QBrush(col))
-        parent.addChild(cnode)
+        # For stackable resources (Nano Spores, Plastids, etc.) the Need
+        # column shows how many MORE are needed (recipe total minus what
+        # you already hold), not the flat recipe total - Jacob 2026-07-22
+        # asked whether "need 5, have 2" shows 5 or 3. Non-resource parts
+        # (Blueprint/Barrel/...) aren't stackable inventory counts the
+        # same way, so those keep showing the plain recipe count.
+        if res and owned:
+            remaining = max(0, cnt - owned)
+            need_text = f"x{remaining} (of {cnt}, have {owned:,})" if remaining else f"Have {owned:,}/{cnt:,} \u2713"
+        else:
+            need_text = f"x{cnt}"
 
+        # Acquisition text shown directly in the row (last column)
+        # instead of a nested child that needed an extra click/
+        # double-click to reveal - Jacob reported the info "is there"
+        # but hidden behind an expand step that's easy to miss across
+        # ~200 items.
         drops = c.get("drops", [])
-        if drops:
-            for d in drops:
-                self._add_drop_node(cnode, d)
-        elif not res:
-            stub = QTreeWidgetItem(["      (no drop sources listed — check wiki)", "", "", ""])
-            stub.setForeground(0, QBrush(COLOR_RESOURCE))
-            cnode.addChild(stub)
+        if res:
+            source_text = "(resource)"
+        elif drops:
+            locations = sorted({d.get("location") for d in drops if d.get("location")})
+            source_text = "; ".join(locations) if locations else "(no drop sources listed \u2014 check wiki)"
+        else:
+            override = ACQUISITION_OVERRIDES.get(f"{item_name}|{cn}")
+            real_drops = override or find_component_drop_info(item_name, cn)
+            source_text = real_drops or "(no drop sources listed \u2014 check wiki)"
 
-    def _add_drop_node(self, parent, d):
-        loc = d.get("location", "")
-        rarity = d.get("rarity", "")
-        chance = d.get("chance", 0)
-        rotation = d.get("rotation", "")
-
-        details = rarity + (f" {rotation}" if rotation else "")
-        chance_str = f"{chance}%" if chance else ""
-
-        dnode = QTreeWidgetItem([f"      • {loc}", "", details, chance_str])
-        for i in range(4):
-            dnode.setForeground(i, QBrush(COLOR_DROP))
-        parent.addChild(dnode)
+        row = [""] * col_count
+        row[0] = f"  \u2514 {cn}"
+        row[1] = need_text
+        row[col_count - 1] = source_text
+        cnode = QTreeWidgetItem(row)
+        col = COLOR_RESOURCE if res else COLOR_COMPONENT
+        for i in range(col_count):
+            cnode.setForeground(i, QBrush(col))
+        cnode.setToolTip(col_count - 1, source_text)
+        _center_cols(cnode, col_count)
+        parent.addChild(cnode)
 
     def _refilter(self, tab_name):
         tree = self.trees.get(tab_name)
@@ -311,17 +388,35 @@ class EquipmentTabBuilder:
             it.setHidden(only_missing and status == "mastered")
 
     def _on_single_click(self, item, column):
-        """Single click: col 3 = open wiki; col 0 on top-level = expand/collapse."""
-        if column == 3:
-            # Open wiki link
+        """Single click: Wiki column = open wiki; col 0 on top-level = expand/collapse."""
+        tree = item.treeWidget()
+        # The Wiki column is second-to-last (Drop Location is now the
+        # true last column, after Wiki) - column 4 for the Warframe tab
+        # (6 columns: extra "Subsumed" column) but 3 for every other tab
+        # (5 columns). This used to hardcode column == 3, which meant
+        # wiki clicks silently did nothing on the Warframe tab
+        # specifically (column 3 there is "Subsumed", not "Wiki").
+        wiki_column = (tree.columnCount() - 2) if tree else 3
+        _wiki_log(f"clicked column={column} wiki_column={wiki_column}")
+        if column == wiki_column:
             url = item.data(0, Qt.UserRole) or ""
             if not url:
                 p = item.parent()
                 while p and not url:
                     url = p.data(0, Qt.UserRole) or ""
                     p = p.parent()
+            _wiki_log(f"resolved url={url!r}")
             if url:
-                QDesktopServices.openUrl(QUrl(url))
+                self._open_url(url)
+            else:
+                _wiki_log("no url found on this item or any ancestor - nothing to open")
         elif item.parent() is None:
             # Top-level item — toggle expand/collapse
             item.setExpanded(not item.isExpanded())
+
+    def _open_url(self, url):
+        # Moved to wiki_links.open_wiki_url() - shared with the other
+        # tabs (Ayatan/Ephemera/Arcane/Mod Collection) that also needed
+        # this same xdg-open-with-clean-env fix, rather than duplicating
+        # it per file.
+        open_wiki_url(url)

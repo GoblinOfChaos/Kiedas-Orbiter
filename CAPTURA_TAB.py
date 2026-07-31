@@ -7,9 +7,31 @@ from pathlib import Path
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QCheckBox,
-    QTableWidget, QTableWidgetItem, QHeaderView
+    QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView
 )
 from column_persistence import apply_saved_widths, remember_widths
+from wiki_links import open_wiki_url
+from paths import get_inventory_path
+from drop_data import find_drop_info
+
+# Individual Captura scene wiki pages mostly don't exist (confirmed live
+# 2026-07-22 - e.g. "Deimos Vault Scene" 404s) - the real, always-valid
+# resource is the general Captura catalog page, which lists all scenes
+# with their sources (Jacob: "most of those wiki links arent real").
+CAPTURA_WIKI_URL = "https://wiki.warframe.com/w/Captura"
+
+# Wiki-verified acquisition text for scenes the drop-data datasets don't
+# cover (most Captura scenes unlock by visiting/completing the matching
+# tileset or quest, not a random drop) - added 2026-07-22 per Jacob's
+# request.
+def _load_acquisition_overrides():
+    path = Path(__file__).parent / "component_overrides_captura.json"
+    try:
+        return json.loads(path.read_text())
+    except Exception:
+        return {}
+
+_ACQUISITION_OVERRIDES = _load_acquisition_overrides()
 
 
 class CapturaTab(QWidget):
@@ -35,15 +57,17 @@ class CapturaTab(QWidget):
 
         layout.addLayout(header)
 
-        self._table = QTableWidget(0, 2)
-        self._table.setHorizontalHeaderLabels(["Name", "Owned"])
-        for col in range(2):
+        self._table = QTableWidget(0, 4)
+        self._table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self._table.setHorizontalHeaderLabels(["Name", "Drop Location", "Owned", "Wiki"])
+        for col in range(4):
             self._table.horizontalHeader().setSectionResizeMode(col, QHeaderView.Interactive)
-        apply_saved_widths(self._table, "captura_table", [320, 70])
+        apply_saved_widths(self._table, "captura_table", [260, 320, 70, 70])
         remember_widths(self._table, "captura_table")
         self._table.setSortingEnabled(True)
         self._table.verticalHeader().setVisible(False)
         self._table.sortByColumn(0, Qt.AscendingOrder)
+        self._table.cellClicked.connect(self._on_cell_clicked)
         layout.addWidget(self._table)
 
         self._status = QLabel("")
@@ -51,7 +75,7 @@ class CapturaTab(QWidget):
 
     def _load(self):
         base = Path(__file__).parent
-        inventory = self._load_json(base / 'inventory.json') or {}
+        inventory = self._load_json(get_inventory_path()) or {}
         self._owned = {
             u['ItemType']: u.get('ItemCount', 0)
             for u in inventory.get('MiscItems', [])
@@ -69,7 +93,16 @@ class CapturaTab(QWidget):
             name = item.get('name', '')
             if not uname or not name:
                 continue
-            self._scenes.append({'name': name, 'owned': self._owned.get(uname, 0)})
+            override = _ACQUISITION_OVERRIDES.get(name)
+            if override and override != "UNKNOWN":
+                drop_location = override
+            else:
+                locations = sorted({d.get('location') for d in (item.get('drops') or []) if d.get('location')})
+                drop_location = '; '.join(locations) if locations else (find_drop_info(name) or 'No drop data (check wiki)')
+            self._scenes.append({
+                'name': name, 'drop_location': drop_location,
+                'owned': self._owned.get(uname, 0),
+            })
 
         self._scenes.sort(key=lambda s: s['name'])
         self._populate_table(self._scenes)
@@ -89,24 +122,39 @@ class CapturaTab(QWidget):
             r = self._table.rowCount()
             self._table.insertRow(r)
             _a0 = QTableWidgetItem(s['name']); _a0.setTextAlignment(Qt.AlignLeft | Qt.AlignVCenter); self._table.setItem(r, 0, _a0)
+            _a1 = QTableWidgetItem(s['drop_location']); _a1.setTextAlignment(Qt.AlignLeft | Qt.AlignVCenter); self._table.setItem(r, 1, _a1)
             owned_item = QTableWidgetItem()
             owned_item.setData(Qt.DisplayRole, s['owned'])
             owned_item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
             if s['owned'] > 0:
                 owned_item.setForeground(Qt.cyan)
-            self._table.setItem(r, 1, owned_item)
+            self._table.setItem(r, 2, owned_item)
+            wiki_item = QTableWidgetItem("▷ Wiki")
+            wiki_item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            wiki_item.setData(Qt.UserRole, CAPTURA_WIKI_URL)
+            self._table.setItem(r, 3, wiki_item)
         self._table.setSortingEnabled(True)
+
+    def _on_cell_clicked(self, row, column):
+        if column != 3:
+            return
+        item = self._table.item(row, 3)
+        url = item.data(Qt.UserRole) if item else None
+        if url:
+            open_wiki_url(url)
 
     def _filter(self, *_):
         q = self._search.text().strip().lower()
         hide_owned = self._hide_owned.isChecked()
         for r in range(self._table.rowCount()):
             name_item = self._table.item(r, 0)
-            owned_item = self._table.item(r, 1)
+            drop_item = self._table.item(r, 1)
+            owned_item = self._table.item(r, 2)
             name = name_item.text().lower() if name_item else ''
+            drop_location = drop_item.text().lower() if drop_item else ''
             owned = owned_item.data(Qt.DisplayRole) if owned_item else 0
             visible = True
-            if q and q not in name:
+            if q and q not in name and q not in drop_location:
                 visible = False
             if hide_owned and (owned or 0) > 0:
                 visible = False

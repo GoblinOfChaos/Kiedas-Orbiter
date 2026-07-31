@@ -11,6 +11,22 @@ from PySide6.QtWidgets import (
 )
 from column_persistence import apply_saved_widths, remember_widths
 from paths import DATA_DIR
+from theme import get_palette
+
+
+def _relic_row_tints():
+    """Row-background tints (owned/vaulted-unowned/normal) - these were
+    fixed dark hex literals designed to sit under light text on a dark
+    background. On a light theme with near-black default text, dark
+    tinted rows would be dark-on-dark. Picks light or dark tints based on
+    whether the current theme's background is actually light or dark.
+    Jacob 2026-07-23."""
+    p = get_palette()
+    bg = p['bg'].lstrip('#')
+    brightness = sum(int(bg[i:i+2], 16) for i in (0, 2, 4)) / 3
+    if brightness > 128:
+        return QColor("#c8f0d0"), QColor("#f5c8c8"), QColor("#e5e2d8")
+    return QColor("#0f2e18"), QColor("#2e1010"), QColor("#1a1e2e")
 
 BASE = Path(__file__).parent
 ERAS = ["Lith", "Meso", "Neo", "Axi", "Vanguard"]
@@ -245,12 +261,13 @@ class RelicPlannerTab(QWidget):
             self._table.setItem(i, 5, QTableWidgetItem(", ".join(matches)))
 
             # Colour rows: bright if owned, dim if not, red-tinted if vaulted+unowned
+            owned_tint, vaulted_tint, normal_tint = _relic_row_tints()
             if owned_count > 0:
-                row_color = QColor("#0f2e18")   # dark green tint — you have it
+                row_color = owned_tint
             elif vaulted:
-                row_color = QColor("#2e1010")   # dark red tint — vaulted, can't get
+                row_color = vaulted_tint
             else:
-                row_color = QColor("#1a1e2e")   # normal dark — unvaulted but unowned
+                row_color = normal_tint
             for col in range(6):
                 item = self._table.item(i, col)
                 if item:

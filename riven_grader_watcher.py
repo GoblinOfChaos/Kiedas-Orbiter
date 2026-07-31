@@ -13,12 +13,16 @@ State file: " + str(DATA_DIR) + "/riven-graded.json
 import json
 import os
 import time
+from copy import deepcopy
 from pathlib import Path
-from paths import DATA_DIR
+from paths import DATA_DIR, get_inventory_path
 
 WFINFO_DIR = Path(__file__).parent
-INVENTORY_FILE = WFINFO_DIR / "inventory.json"
+INVENTORY_FILE = get_inventory_path()
 RIVEN_DATA_FILE = WFINFO_DIR / "riven_good_rolls.json"
+USER_RIVEN_DATA_FILE = DATA_DIR / "riven_profiles.json"
+EXPORT_UPGRADES_FILE = WFINFO_DIR / "ExportUpgrades.json"
+RIVEN_NAME_FRAGMENTS_FILE = WFINFO_DIR / "riven_name_fragments.json"
 WFCD_CACHE = WFINFO_DIR / "wfcd_all_cache.json"
 STATE_FILE = DATA_DIR / "riven-graded.json"
 PREV_STATE_FILE = DATA_DIR / "riven-graded-prev.json"
@@ -49,7 +53,9 @@ TAG_MAP = {
     "WeaponZoomMod": "ZOOM",
     "WeaponAmmoMaxMod": "AMMO",
     "WeaponCritOnSlideMod": "SLIDE",
+    "SlideAttackCritChanceMod": "SLIDE",
     "WeaponFinisherDamageMod": "FIN",
+    "WeaponMeleeFinisherDamageMod": "FIN",
     "WeaponCorpusDamageMod": "DTC",
     "WeaponGrineerDamageMod": "DTG",
     "WeaponInfestedDamageMod": "DTI",
@@ -68,10 +74,6 @@ TAG_MAP = {
     "WeaponFactionDamageCorpus": "DTC",
     "WeaponFactionDamageGrineer": "DTG",
     "WeaponFactionDamageInfested": "DTI",
-    "WeaponFactionDamageCorrupted": "DMG",
-    "WeaponComboCountMod": "IC",
-    "WeaponLifestealMod": "DMG",
-    "WeaponChargeAmountMod": "MAG",
     # Melee-specific tags
     "WeaponMeleeDamageMod": "DMG",
     "WeaponMeleeRangeIncMod": "RANGE",
@@ -80,13 +82,25 @@ TAG_MAP = {
     "WeaponMeleeFactionDamageInfested": "DTI",
     "WeaponMeleeComboEfficiencyMod": "EFF",
     "WeaponMeleeComboInitialBonusMod": "IC",
-    "WeaponMeleeComboBonusOnHitMod": "IC",
-    "ComboDurationMod": "SD",
     "WeaponFreezeDamageMod": "COLD",
     "WeaponFireDamageMod": "HEAT",
-    "WeaponPunctureDepthMod": "PUNC",
+    # Tag name says "Puncture" but this is DE's actual internal tag for
+    # Punch Through - confirmed by its own localization keys
+    # (PunchThroughPrefix/PunchThroughSuffix), consistently across every
+    # weapon pool (Archgun/Pistol/Rifle/Shotgun/Modular Pistol). It's also
+    # the ONLY Punch-Through-or-Puncture-related tag that appears
+    # anywhere in the exported upgrade data at all - the other three
+    # (WeaponPunctureDamageMod, DamageNewPunctureMod, WeaponPunchThroughMod)
+    # never actually occur in any pool, so this single mismapped entry was
+    # silently misclassifying every real Punch Through riven as Puncture,
+    # causing the name-decode consensus check to reject a correct roll as
+    # "mismatched" forever (visible OCR said Punch Through, decoded name
+    # said Puncture - never matched, stuck on "Reading Riven stats...").
+    # Jacob 2026-07-27 ("stuck on reading riven stats"), confirmed live by
+    # directly reproducing the decode with the actual export data.
+    "WeaponPunctureDepthMod": "PT",
     "WeaponClipMaxMod": "MAG",
-    "WeaponMeleeFactionDamageCorrupted": "DMG",
+    "WeaponRecoilReductionMod": "REC",
 }
 
 POLARITY_MAP = {
@@ -116,6 +130,45 @@ def _load_json(path, default):
         return default
 
 
+def load_riven_data(user_path=USER_RIVEN_DATA_FILE):
+    """Load bundled profiles plus optional authoritative per-user overrides.
+
+    The override file uses the same ``categories -> category -> weapon`` shape.
+    Only supplied weapon entries replace bundled entries; malformed files are
+    ignored as a whole, preserving the last usable bundled guidance.
+    """
+    bundled = _load_json(RIVEN_DATA_FILE, {})
+    overrides = _load_json(user_path, None)
+    if not isinstance(overrides, dict) or not isinstance(overrides.get("categories"), dict):
+        return bundled
+
+    user_metadata = overrides.get("profile_metadata", {})
+    if not isinstance(user_metadata, dict):
+        return bundled
+    user_metadata = {
+        "schema_version": user_metadata.get("schema_version", 1),
+        "status": "player_authoritative",
+        "source": user_metadata.get("source", "Player-authored local profile"),
+        "reviewed_at": user_metadata.get("reviewed_at"),
+    }
+
+    merged = deepcopy(bundled)
+    merged_categories = merged.setdefault("categories", {})
+    for category, weapons in overrides["categories"].items():
+        if not isinstance(category, str) or not isinstance(weapons, dict):
+            continue
+        destination = merged_categories.setdefault(category, {})
+        for weapon, profile in weapons.items():
+            if not isinstance(weapon, str) or not isinstance(profile, dict):
+                continue
+            if not isinstance(profile.get("good_combos"), list):
+                continue
+            profile = deepcopy(profile)
+            profile["profile_metadata"] = deepcopy(user_metadata)
+            destination[weapon.lower()] = profile
+    return merged
+
+
 def _build_weapon_lookup():
     """Build dict: last path segment (lowercase) -> display name (lowercase)."""
     wfcd = _load_json(WFCD_CACHE, [])
@@ -130,16 +183,149 @@ def _build_weapon_lookup():
     return lookup
 
 
-INT32_MAX = 2_147_483_647
+def _weapon_variant_facts(weapon_name, wfcd_items):
+    """Return current WFCD facts for variants compatible by family name.
+
+    Riven fingerprints identify a compatibility family, not the player's
+    intended variant. Prefix variants (Kuva/Tenet/etc.) and suffix variants
+    (Prime/Vandal/etc.) are therefore reported as candidates, never selected
+    automatically.
+    """
+    base = " ".join(str(weapon_name).lower().split())
+    if not base:
+        return []
+
+    facts = []
+    for item in wfcd_items:
+        if not isinstance(item, dict):
+            continue
+        name = " ".join(str(item.get("name", "")).lower().split())
+        compatible = (
+            name == base or name.startswith(base + " ") or name.endswith(" " + base)
+            or name.endswith("-" + base)
+        )
+        attenuation = item.get("omegaAttenuation")
+        if not compatible or not isinstance(attenuation, (int, float)):
+            continue
+        facts.append({
+            "name": item.get("name", weapon_name),
+            "omega_attenuation": round(float(attenuation), 4),
+            "disposition": item.get("disposition"),
+            "category": item.get("category"),
+            "type": item.get("type"),
+            "critical_chance": item.get("criticalChance"),
+            "critical_multiplier": item.get("criticalMultiplier"),
+            "status_chance": item.get("procChance"),
+        })
+    return sorted(facts, key=lambda fact: (fact["name"].lower() != base, fact["name"]))
+
+
+def _match_weapon_variant(ocr_text, variants):
+    """Match FITS IN OCR to one candidate, preferring the longest name."""
+    haystack = "".join(ch.lower() for ch in str(ocr_text) if ch.isalnum())
+    matches = []
+    for variant in variants:
+        key = "".join(ch.lower() for ch in str(variant.get("name", "")) if ch.isalnum())
+        if key and key in haystack:
+            matches.append((len(key), variant))
+    return max(matches, key=lambda pair: pair[0])[1] if matches else None
+
+
+def _riven_mod_path_for_variant(variant):
+    """Choose DE's randomized-mod definition for a WFCD weapon variant."""
+    variant = variant or {}
+    weapon_type = str(variant.get("type", "")).lower()
+    category = str(variant.get("category", "")).lower()
+    base = "/Lotus/Upgrades/Mods/Randomized/"
+    if "archgun" in weapon_type or "arch-gun" in weapon_type:
+        return base + "LotusArchgunRandomModRare"
+    if "shotgun" in weapon_type:
+        return base + "LotusShotgunRandomModRare"
+    if category == "melee" or "melee" in weapon_type:
+        return base + "PlayerMeleeWeaponRandomModRare"
+    if category == "secondary" or "pistol" in weapon_type:
+        return base + "LotusPistolRandomModRare"
+    return base + "LotusRifleRandomModRare"
+
+
+def _decode_riven_generated_name(
+    generated_name, export_upgrades, mod_path=None, fragments=None,
+):
+    """Decode positive stat codes from DE's generated Riven name grammar.
+
+    Two positives form ``prefix+suffix``; three form
+    ``prefix-prefix+suffix``. Ambiguous decodes return an empty list.
+    """
+    name = "".join(ch.lower() for ch in str(generated_name) if ch.isalnum())
+    if not name or not isinstance(export_upgrades, dict):
+        return []
+
+    definitions = export_upgrades
+    if mod_path:
+        definitions = {mod_path: export_upgrades.get(mod_path, {})}
+    else:
+        definitions = {
+            path: definition for path, definition in export_upgrades.items()
+            if "RandomModRare" in path
+        }
+
+    fragments = fragments or {}
+    candidates = set()
+    for definition in definitions.values():
+        entries = []
+        for entry in definition.get("upgradeEntries", []):
+            code = TAG_MAP.get(entry.get("tag"))
+            prefix_tag = str(entry.get("prefixTag", ""))
+            suffix_tag = str(entry.get("suffixTag", ""))
+            prefix = str(fragments.get(prefix_tag, prefix_tag)).lower()
+            suffix = str(fragments.get(suffix_tag, suffix_tag)).lower()
+            if code and prefix and suffix:
+                entries.append((code, prefix, suffix))
+
+        for first in entries:
+            for second in entries:
+                if first[0] == second[0]:
+                    continue
+                if first[1] + second[2] == name:
+                    candidates.add(tuple(sorted((first[0], second[0]))))
+                for third in entries:
+                    if len({first[0], second[0], third[0]}) < 3:
+                        continue
+                    if first[1] + second[1] + third[2] == name:
+                        candidates.add(tuple(sorted((first[0], second[0], third[0]))))
+
+    return list(next(iter(candidates))) if len(candidates) == 1 else []
+
+
+RIVEN_INT_MAX = 0x3FFFFFFF
+GOD_ROLL_THRESHOLD = 97.5
+
+
+def _valid_riven_stat_shape(positives, negatives):
+    """Whether OCR produced a physically possible unveiled Riven stat set."""
+    return (
+        len(positives) in (2, 3)
+        and len(negatives) in (0, 1)
+        and not (set(positives) & set(negatives))
+    )
 
 
 def _roll_perfectness(value: int) -> float:
     """Decode a riven stat Value int into a 0-100% perfectness score.
     0% = minimum roll (0.9x base stat), 100% = maximum roll (1.1x base stat).
     Formula verified against calamity-inc/browse.wf RivenParser source."""
-    signed = value if value < 2**31 else value - 2**32
-    signed = max(0, min(signed, INT32_MAX))
-    return round(signed / INT32_MAX * 100, 1)
+    # browse.wf RivenParser.rivenIntToFloat(): values outside the encoded
+    # 0..0x3FFFFFFF interval are malformed and resolve to the minimum.
+    if not isinstance(value, int) or not 0 <= value <= RIVEN_INT_MAX:
+        return 0.0
+    return round(value / RIVEN_INT_MAX * 100, 1)
+
+
+def _curse_perfectness(value: int) -> float:
+    """Decode curse quality; browse.wf grades curses at ``1 - position``."""
+    if not isinstance(value, int) or not 0 <= value <= RIVEN_INT_MAX:
+        return 0.0
+    return round(100.0 - _roll_perfectness(value), 1)
 
 
 def _parse_riven(upgrade, weapon_lookup):
@@ -164,7 +350,7 @@ def _parse_riven(upgrade, weapon_lookup):
 
     # Per-stat perfectness (0-100% between min and max roll)
     buff_pcts = [_roll_perfectness(b["Value"]) for b in fp.get("buffs", [])]
-    curse_pcts = [_roll_perfectness(c["Value"]) for c in fp.get("curses", [])]
+    curse_pcts = [_curse_perfectness(c["Value"]) for c in fp.get("curses", [])]
     all_pcts = buff_pcts + curse_pcts
     avg_perfectness = round(sum(all_pcts) / len(all_pcts), 1) if all_pcts else 0.0
 
@@ -182,7 +368,25 @@ def _parse_riven(upgrade, weapon_lookup):
 
 
 def _grade_riven(weapon_name, positives, negatives, riven_data, perfectness=0.0):
-    """Grade a riven against riven_good_rolls.json. Returns grade dict."""
+    """Compare a riven with a sourced profile. Returns an explainable result."""
+    metadata = riven_data.get("profile_metadata", {})
+    guidance_status = metadata.get("status", "unversioned")
+    profile_source = metadata.get("source", "Unknown profile source")
+    reviewed_at = metadata.get("reviewed_at")
+
+    def result(grade, label, score, **details):
+        if guidance_status == "historical_seed" and grade != "review":
+            label = f"ADVISORY · {label}"
+        return {
+            "grade": grade,
+            "label": label,
+            "score": score,
+            "guidance_status": guidance_status,
+            "profile_source": profile_source,
+            "reviewed_at": reviewed_at,
+            **details,
+        }
+
     data = None
     for cat in riven_data.get("categories", {}).values():
         if weapon_name in cat:
@@ -190,7 +394,15 @@ def _grade_riven(weapon_name, positives, negatives, riven_data, perfectness=0.0)
             break
 
     if data is None:
-        return {"grade": "unknown", "label": "Not in database", "score": 0}
+        return result(
+            "review", "REVIEW — no weapon profile", 0,
+            explanation="No profile exists for this weapon; no desirability verdict was made.",
+        )
+
+    metadata = data.get("profile_metadata", metadata)
+    guidance_status = metadata.get("status", "unversioned")
+    profile_source = metadata.get("source", "Unknown profile source")
+    reviewed_at = metadata.get("reviewed_at")
 
     good_combos = data.get("good_combos", [])
     safe_negs = set(data.get("safe_negatives", []))
@@ -219,7 +431,10 @@ def _grade_riven(weapon_name, positives, negatives, riven_data, perfectness=0.0)
             best_combo = combo
 
     if best_combo is None:
-        return {"grade": "reroll", "label": "❌ REROLL — no target stats", "score": 0}
+        return result(
+            "review", "REVIEW — profile has no target stats", 0,
+            explanation="The weapon profile contains no usable target-stat combinations.",
+        )
 
     mandatory = set(best_combo.get("mandatory", []))
     pick_from = set(best_combo.get("pick_from", []))
@@ -231,9 +446,12 @@ def _grade_riven(weapon_name, positives, negatives, riven_data, perfectness=0.0)
     risky_negs = [n for n in negatives if n not in safe_negs]
 
     if has_all_mandatory and optional_hits >= pick_n and not risky_negs:
-        if perfectness >= 75:
+        if perfectness >= GOD_ROLL_THRESHOLD:
             grade = "great"
-            label = "\u2605 GOD ROLL"      # 75%+ perfectness = god roll
+            # 97.5% is browse.wf's S-grade boundary. "God roll" remains our
+            # display wording, now tied to that documented top grade instead
+            # of the previous unsupported 75% cutoff.
+            label = "\u2605 GOD ROLL (S)"
         elif perfectness >= 40:
             grade = "great"
             label = "\u2605 GREAT"
@@ -256,22 +474,27 @@ def _grade_riven(weapon_name, positives, negatives, riven_data, perfectness=0.0)
         grade = "reroll"
         label = "\u21bb REROLL"
 
-    return {
-        "grade": grade,
-        "label": label,
-        "score": best_score,
-        "mandatory": list(mandatory),
-        "optional": list(pick_from),
-        "pick_n": pick_n,
-        "safe_negatives": list(safe_negs),
-    }
+    return result(
+        grade, label, best_score,
+        mandatory=sorted(mandatory),
+        optional=sorted(pick_from),
+        pick_n=pick_n,
+        safe_negatives=sorted(safe_negs),
+        risky_negatives=sorted(risky_negs),
+        explanation=(
+            f"Matched {len(mandatory & pos_set)}/{len(mandatory)} required stats and "
+            f"{optional_hits}/{pick_n} optional choices; "
+            f"{len(risky_negs)} negative stat(s) are outside the profile's safe list."
+        ),
+    )
 
 
 def process_inventory():
     """Read inventory.json, grade all rivens, return list of graded riven dicts."""
     inv = _load_json(INVENTORY_FILE, {})
-    riven_data = _load_json(RIVEN_DATA_FILE, {})
+    riven_data = load_riven_data()
     weapon_lookup = _build_weapon_lookup()
+    wfcd_items = _load_json(WFCD_CACHE, [])
     legend = riven_data.get("legend", {})
 
     upgrades = inv.get("Upgrades", [])
@@ -305,13 +528,26 @@ def process_inventory():
             "grade": grade_info["grade"],
             "label": grade_info["label"],
             "score": grade_info["score"],
+            "guidance_status": grade_info.get("guidance_status", "unversioned"),
+            "profile_source": grade_info.get("profile_source", "Unknown profile source"),
+            "reviewed_at": grade_info.get("reviewed_at"),
+            "explanation": grade_info.get("explanation", ""),
+            "mandatory": grade_info.get("mandatory", []),
+            "optional": grade_info.get("optional", []),
+            "pick_n": grade_info.get("pick_n", 0),
+            "safe_negatives": grade_info.get("safe_negatives", []),
+            "risky_negatives": grade_info.get("risky_negatives", []),
             "buff_pcts": parsed.get("buff_pcts", []),
             "curse_pcts": parsed.get("curse_pcts", []),
             "perfectness": parsed.get("perfectness", 0.0),
+            "weapon_variants": _weapon_variant_facts(parsed["weapon"], wfcd_items),
         })
 
     # Sort: great first, then by score descending
-    grade_order = {"great": 0, "good": 1, "ok": 2, "weak": 3, "reroll": 4, "unknown": 5}
+    grade_order = {
+        "great": 0, "good": 1, "ok": 2, "weak": 3, "reroll": 4,
+        "review": 5, "unknown": 5,
+    }
     results.sort(key=lambda r: (grade_order.get(r["grade"], 5), -r.get("score", 0)))
     return results
 
@@ -332,7 +568,16 @@ def write_state(rivens):
 
 def main():
     log("=== riven grader watcher started ===")
-    last_mtime = 0
+    # Starting from 0 meant the very first check after every restart always
+    # saw inventory.json's real mtime as "different", re-graded, and wrote a
+    # fresh timestamp - popping the overlay on every single app launch even
+    # when inventory.json hadn't actually changed in over a day. Starting
+    # from whatever the file's real mtime already is means only a genuine
+    # change *after* this watcher starts triggers a re-grade.
+    try:
+        last_mtime = INVENTORY_FILE.stat().st_mtime
+    except OSError:
+        last_mtime = 0
 
     while True:
         try:

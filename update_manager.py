@@ -18,12 +18,16 @@ Tier 3 — Live Market Prices (~5min):
 """
 
 import json
+import lzma
 import os
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
+from urllib.parse import quote
 from pathlib import Path
 from typing import Callable
 
@@ -39,7 +43,8 @@ EXPORT_MOD_SET       = WFINFO_DIR / "ExportModSet.json"
 DROP_DATA_CACHE      = WFINFO_DIR / "wfcd_drop_data_cache.json"
 DROP_DATA_INFO       = WFINFO_DIR / "wfcd_drop_data_info.json"
 RIVEN_DATA           = WFINFO_DIR / "riven_good_rolls.json"
-VENV_PYTHON          = WFINFO_DIR / ".venv/bin/python"
+RIVEN_NAME_FRAGMENTS = WFINFO_DIR / "riven_name_fragments.json"
+VENV_PYTHON          = Path(sys.executable)
 
 # ── Remote URLs ───────────────────────────────────────────────────────────
 WARFRAMESTAT_PRICES   = "https://api.warframestat.us/wfinfo/prices"
@@ -47,10 +52,13 @@ WARFRAMESTAT_FILTERED = "https://api.warframestat.us/wfinfo/filtered_items"
 WFCD_ALL_URL          = "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/All.json"
 CALAMITY_UPGRADES_URL = "https://raw.githubusercontent.com/calamity-inc/warframe-public-export-plus/senpai/ExportUpgrades.json"
 CALAMITY_MODSET_URL   = "https://raw.githubusercontent.com/calamity-inc/warframe-public-export-plus/senpai/ExportModSet.json"
-DROP_DATA_INFO_URL    = "http://drops.warframestat.us/data/info.json"
-DROP_DATA_MODS_URL    = "http://drops.warframestat.us/data/modLocations.json"
+DROP_DATA_INFO_URL    = "https://drops.warframestat.us/data/info.json"
+DROP_DATA_MODS_URL    = "https://drops.warframestat.us/data/modLocations.json"
+DE_PUBLIC_INDEX_URL   = "https://content.warframe.com/PublicExport/index_en.txt.lzma"
+DE_PUBLIC_MANIFEST    = "https://content.warframe.com/PublicExport/Manifest/"
 
 TIMEOUT = 30
+FETCH_ATTEMPTS = 3
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────
@@ -63,33 +71,99 @@ def _log(msg: str, cb: Callable | None):
 
 
 def _fetch(url: str, timeout: int = TIMEOUT) -> bytes:
-    req = urllib.request.Request(url, headers={"User-Agent": "kiedas-orbiter/1.0"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read()
+    if not url.startswith("https://"):
+        raise ValueError(f"refusing non-HTTPS update URL: {url}")
+    last_error = None
+    for attempt in range(1, FETCH_ATTEMPTS + 1):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "kiedas-orbiter/1.0"})
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                if getattr(r, "status", 200) != 200:
+                    raise urllib.error.HTTPError(url, r.status, "unexpected status", r.headers, None)
+                return r.read()
+        except Exception as error:
+            last_error = error
+            if attempt < FETCH_ATTEMPTS:
+                time.sleep(0.5 * (2 ** (attempt - 1)))
+    raise last_error
 
 
 def _fetch_json(url: str, timeout: int = TIMEOUT) -> dict | list:
     return json.loads(_fetch(url, timeout))
 
 
-def _safe_write(path: Path, data: bytes | str, min_size: int = 100) -> bool:
-    """Write to a temp file then atomically replace. Returns True on success."""
+def _official_export_url(filename: str) -> str:
+    index = lzma.decompress(_fetch(DE_PUBLIC_INDEX_URL)).decode("utf-8")
+    entry = next((line.strip() for line in index.splitlines()
+                  if line.startswith(filename + "!")), None)
+    if not entry:
+        raise ValueError(f"{filename} missing from DE public-export index")
+    return DE_PUBLIC_MANIFEST + quote(entry, safe="!_-")
+
+
+def _build_riven_name_fragments(cleaned, official):
+    """Join cleaned localization keys to DE's current English name fragments."""
+    official_entries = official.get("ExportUpgrades", [])
+    official_by_path = {
+        entry.get("uniqueName"): entry for entry in official_entries
+        if isinstance(entry, dict) and "RandomModRare" in entry.get("uniqueName", "")
+    }
+    fragments = {}
+    for path, definition in cleaned.items():
+        source = official_by_path.get(path)
+        if not isinstance(definition, dict) or not source:
+            continue
+        source_by_tag = {
+            entry.get("tag"): entry for entry in source.get("upgradeEntries", [])
+            if isinstance(entry, dict)
+        }
+        for entry in definition.get("upgradeEntries", []):
+            raw = source_by_tag.get(entry.get("tag"), {})
+            for field in ("prefixTag", "suffixTag"):
+                localization_key = entry.get(field)
+                fragment = raw.get(field)
+                if localization_key and fragment:
+                    fragments[localization_key] = fragment
+    return fragments
+
+
+def _entry_count(parsed) -> int:
+    if isinstance(parsed, list):
+        return len(parsed)
+    if isinstance(parsed, dict):
+        return sum(len(value) if isinstance(value, (list, dict)) else 1
+                   for value in parsed.values())
+    return 0
+
+
+def _safe_write(path: Path, data: bytes | str, min_size: int = 100,
+                min_entries: int = 1) -> bool:
+    """Validate JSON and atomically commit a same-directory temporary file."""
     if isinstance(data, str):
         data = data.encode()
     if len(data) < min_size:
         return False
-    tmp = Path(str(path) + ".new")
+    tmp = None
     try:
-        tmp.write_bytes(data)
-        # Validate JSON
-        json.loads(data)
-        # Backup old
+        parsed = json.loads(data)
+        if _entry_count(parsed) < min_entries:
+            return False
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.NamedTemporaryFile(
+            mode="wb", prefix=f".{path.name}.", suffix=".tmp",
+            dir=path.parent, delete=False,
+        ) as handle:
+            handle.write(data)
+            handle.flush()
+            os.fsync(handle.fileno())
+            tmp = Path(handle.name)
         if path.exists():
-            path.replace(Path(str(path) + ".previous"))
-        tmp.replace(path)
+            shutil.copy2(path, Path(str(path) + ".previous"))
+        os.replace(tmp, path)
         return True
     except Exception:
-        tmp.unlink(missing_ok=True)
+        if tmp is not None:
+            tmp.unlink(missing_ok=True)
         return False
 
 
@@ -119,7 +193,7 @@ def quick_update(log: Callable | None = None) -> dict:
     _log("Fetching prices from warframestat.us...", log)
     try:
         data = _fetch(WARFRAMESTAT_PRICES)
-        if _safe_write(PRICES_FILE, data, min_size=10_000):
+        if _safe_write(PRICES_FILE, data, min_size=1_000, min_entries=50):
             _log("  ✓ prices.json updated", log)
             results["prices"] = "updated"
         else:
@@ -135,7 +209,7 @@ def quick_update(log: Callable | None = None) -> dict:
     _log("Fetching item data from warframestat.us...", log)
     try:
         data = _fetch(WARFRAMESTAT_FILTERED)
-        if _safe_write(FILTERED_FILE, data, min_size=50_000):
+        if _safe_write(FILTERED_FILE, data, min_size=1_000, min_entries=20):
             _log("  ✓ filtered_items.json updated", log)
             results["filtered_items"] = "updated"
         else:
@@ -147,6 +221,30 @@ def quick_update(log: Callable | None = None) -> dict:
         _log(f"    synthesis: {'ok' if ok else 'failed'}", log)
         results["filtered_items"] = "synthesized" if ok else "failed"
 
+    return results
+
+
+def standard_update(log: Callable | None = None) -> dict:
+    """Refresh normal UI data, including the two Mod Collection exports."""
+    results = quick_update(log)
+    for key, label, url, path, minimum, entries in (
+        ("export_upgrades", "ExportUpgrades.json", CALAMITY_UPGRADES_URL,
+         EXPORT_UPGRADES, 10_000, 100),
+        ("export_modset", "ExportModSet.json", CALAMITY_MODSET_URL,
+         EXPORT_MOD_SET, 500, 10),
+    ):
+        _log(f"Fetching {label}...", log)
+        try:
+            data = _fetch(url, timeout=60)
+            if _safe_write(path, data, min_size=minimum, min_entries=entries):
+                _log(f"  ✓ {label} updated", log)
+                results[key] = "updated"
+            else:
+                _log(f"  ✗ {label}: invalid or incomplete response", log)
+                results[key] = "failed"
+        except Exception as error:
+            _log(f"  ✗ {label} failed: {error}", log)
+            results[key] = "failed"
     return results
 
 
@@ -195,6 +293,26 @@ def game_patch_update(log: Callable | None = None) -> dict:
     except Exception as e:
         _log(f"  ✗ ExportUpgrades.json failed: {e}", log)
         results["export_upgrades"] = "failed"
+
+    # Step 2b: resolve Riven name fragments from DE's current localized export.
+    # The cleaned cache keeps localization keys; the official English export
+    # supplies the actual acri/tis/etc. fragments behind those keys.
+    _log("Refreshing Riven naming fragments from DE public export...", log)
+    try:
+        cleaned = json.loads(EXPORT_UPGRADES.read_text())
+        official_url = _official_export_url("ExportUpgrades_en.json")
+        official = _fetch_json(official_url, timeout=60)
+        fragments = _build_riven_name_fragments(cleaned, official)
+        payload = json.dumps(fragments, indent=2, sort_keys=True) + "\n"
+        if _safe_write(RIVEN_NAME_FRAGMENTS, payload, min_size=1_000, min_entries=50):
+            _log(f"  ✓ Riven naming fragments updated ({len(fragments)} entries)", log)
+            results["riven_name_fragments"] = "updated"
+        else:
+            _log("  ✗ Riven naming fragments: incomplete generated mapping", log)
+            results["riven_name_fragments"] = "failed"
+    except Exception as e:
+        _log(f"  ✗ Riven naming fragments failed: {e}", log)
+        results["riven_name_fragments"] = "failed"
 
     # Step 3: ExportModSet.json from calamity-inc
     _log("Fetching ExportModSet.json from calamity-inc...", log)
@@ -303,3 +421,33 @@ def get_data_status() -> list[dict]:
          "age": age(WFINFO_DIR / "wm_prices_cache.json"),
          "ok": ok(WFINFO_DIR / "wm_prices_cache.json", 1), "tier": 3, "desc": "warframe.market live prices"},
     ]
+
+
+def _succeeded(results: dict) -> bool:
+    return all(value not in ("failed", False) for value in results.values())
+
+
+def main(argv=None) -> int:
+    import argparse
+    parser = argparse.ArgumentParser(description="Kieda's Orbiter data updater")
+    parser.add_argument(
+        "tier", nargs="?", choices=("quick", "standard", "patch", "market", "all"),
+        default="standard",
+    )
+    args = parser.parse_args(argv)
+    if args.tier == "quick":
+        results = quick_update()
+    elif args.tier == "standard":
+        results = standard_update()
+    elif args.tier == "patch":
+        results = game_patch_update()
+    elif args.tier == "market":
+        results = live_prices_update()
+    else:
+        results = game_patch_update()
+        results.update(live_prices_update())
+    return 0 if _succeeded(results) else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

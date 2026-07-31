@@ -19,11 +19,20 @@ from paths import DATA_DIR
 
 ACCEPTED_FILE = DATA_DIR / "accepted_disclaimer.json"
 
+# Bump this whenever DISCLAIMER_TEXT changes in a way users should actually
+# see and acknowledge again - has_accepted() checks this, not just the
+# "accepted" flag, so someone who clicked through an older version (e.g.
+# before the "Portal" icon explanation existed) gets re-shown the updated
+# text instead of silently having it treated as already acknowledged.
+# Jacob 2026-07-27 ("make sure in the popup we have people acknowledge...
+# about the portal program").
+CURRENT_VERSION = 2
+
 
 def has_accepted() -> bool:
     try:
         d = json.loads(ACCEPTED_FILE.read_text())
-        return bool(d.get("accepted"))
+        return bool(d.get("accepted")) and d.get("version") == CURRENT_VERSION
     except Exception:
         return False
 
@@ -33,7 +42,7 @@ def mark_accepted():
     ACCEPTED_FILE.write_text(json.dumps({
         "accepted": True,
         "timestamp": int(time.time()),
-        "version": 1,
+        "version": CURRENT_VERSION,
     }, indent=2))
 
 
@@ -61,6 +70,18 @@ Digital Extremes.</p>
 only to public community APIs — warframestat.us, warframe.market, WFCD on GitHub,
 and Calamity Inc. on GitHub — to retrieve game data. <b>Never your personal
 information.</b></p>
+
+<p style="color:#4a90d9; font-weight:700; margin-top:14px;">A "Portal" icon in your taskbar/tray is normal</p>
+<p>On Linux, the detector reads the game screen to run OCR (item/reward and Riven
+detection), using your desktop's own built-in screen-sharing service — often shown as
+an icon labeled "Portal" in the taskbar or system tray. <b>This is a normal part of
+your operating system, not something this app installed covertly or malware</b> — it's
+the same permission system that protects you from any app silently screenshotting your
+desktop, the same reason a video-call app shows a screen-share indicator. On some
+systems it may flash briefly and repeatedly (once per capture) rather than staying
+on continuously; only Reward detection and Riven grading ever trigger it, and only
+while actively watching for those specific game screens — it goes away entirely once
+the detector/app is closed.</p>
 
 <p style="color:#4a90d9; font-weight:700; margin-top:14px;">Prices are community estimates</p>
 <p>Platinum prices shown are sourced from warframe.market community listings. They are

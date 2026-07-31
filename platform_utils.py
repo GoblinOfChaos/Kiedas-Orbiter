@@ -30,13 +30,23 @@ def find_processes(pattern: str) -> List[psutil.Process]:
     process(es)" every time, even with a real stuck orbiter.exe still
     holding its global hotkey registration) - name() needs far less
     privilege than cmdline() there, so it still catches what cmdline
-    matching alone misses."""
+    matching alone misses.
+
+    Matches against each cmdline argument individually, not one big
+    joined string - `pattern in " ".join(cmdline)` could match across
+    the boundary between two unrelated arguments (e.g. one argument
+    ending in "...orb" followed by another starting "iter..." would
+    together contain "orbiter" despite neither argument alone
+    referencing it), and callers use fairly generic patterns like bare
+    "orbiter" (see kill_processes() call sites) that are already broad
+    enough without that additional false-positive surface. Jacob
+    2026-07-24 ("match by substring can kill unrelated processes")."""
     matches = []
     for proc in psutil.process_iter(["pid", "cmdline", "name"]):
         try:
-            cmdline = " ".join(proc.info["cmdline"] or [])
+            cmdline_parts = proc.info["cmdline"] or []
             name = proc.info["name"] or ""
-            if pattern in cmdline or pattern in name:
+            if any(pattern in part for part in cmdline_parts) or pattern in name:
                 matches.append(proc)
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             pass
@@ -141,6 +151,21 @@ def clean_env_for_launch(extra: Optional[dict] = None) -> dict:
         env.setdefault("WAYLAND_DISPLAY", "wayland-0")
         env.setdefault("XDG_CURRENT_DESKTOP", "KDE")
         env["XDG_SESSION_TYPE"] = "wayland"
+        # Force Qt to run the overlay through XWayland rather than as a
+        # native Wayland client. overlay.py's showEvent() only applies its
+        # EWMH "always above" X11 stacking hints when
+        # QApplication.platformName() == "xcb" - that code exists
+        # specifically because KWin doesn't reliably honor
+        # WindowStaysOnTopHint over a fullscreen game, but it silently
+        # never ran on native Wayland (the default when WAYLAND_DISPLAY is
+        # set), since nothing here ever requested xcb. Harmless for the
+        # non-GUI watcher scripts that also go through this function.
+        env["QT_QPA_PLATFORM"] = "xcb"
+        # The X11 stacking-hint code makes its own raw Xlib connection via
+        # $DISPLAY (not $WAYLAND_DISPLAY) - setdefault so an already-correct
+        # inherited value wins, falling back to the common single-session
+        # XWayland default only if nothing was inherited at all.
+        env.setdefault("DISPLAY", ":0")
         # Remove Flatpak-specific vars
         for key in ["FLATPAK_ID", "FLATPAK_SANDBOX_EXPORT_PATH"]:
             env.pop(key, None)

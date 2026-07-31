@@ -2,6 +2,24 @@ use reqwest::StatusCode;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::time::{Duration, SystemTime};
+
+const CACHE_MAX_AGE: Duration = Duration::from_secs(24 * 60 * 60);
+
+fn cache_is_fresh(path: &PathBuf) -> bool {
+    let Ok(metadata) = path.metadata() else {
+        return false;
+    };
+    let Ok(modified) = metadata.modified() else {
+        return false;
+    };
+    match SystemTime::now().duration_since(modified) {
+        Ok(age) => age <= CACHE_MAX_AGE,
+        // A clock adjustment put the file in the future; do not redownload it
+        // repeatedly until wall-clock time catches up.
+        Err(_) => true,
+    }
+}
 
 /// Local fallback paths relative to the project root (where the binary lives).
 fn local_fallback(filename: &str) -> Option<PathBuf> {
@@ -32,37 +50,68 @@ pub fn fetch_prices_and_items() -> Result<(PathBuf, PathBuf), anyhow::Error> {
 
 fn download_and_save(url: &str, filename: &str) -> Result<PathBuf, anyhow::Error> {
     let tmp_path = std::env::temp_dir().join(filename);
-    if tmp_path.exists() {
+    if cache_is_fresh(&tmp_path) {
         return Ok(tmp_path);
     }
 
-    let res = reqwest::blocking::get(url)?;
-    if res.status() == StatusCode::OK {
+    let download = (|| -> Result<(), anyhow::Error> {
+        let res = reqwest::blocking::get(url)?;
+        if res.status() != StatusCode::OK {
+            anyhow::bail!("HTTP {}", res.status());
+        }
+        let text = res.text()?;
+        let value: serde_json::Value = serde_json::from_str(&text)?;
+        if !value.is_array() {
+            anyhow::bail!("response is valid JSON but not the expected array");
+        }
         let mut file = OpenOptions::new()
             .write(true)
             .truncate(true)
             .create(true)
             .open(&tmp_path)?;
-        file.write_all(res.text()?.as_bytes())?;
+        file.write_all(text.as_bytes())?;
+        Ok(())
+    })();
+    if download.is_ok() {
         return Ok(tmp_path);
     }
 
-    // API returned non-200 (e.g. 503). Fall back to local project file.
-    let status = res.status();
+    // Network, HTTP, or response-validation failures retain a valid local
+    // project copy instead of aborting startup or caching an error page.
+    let failure = download.unwrap_err();
     if let Some(local) = local_fallback(filename) {
         eprintln!(
-            "Warning: {} returned {}. Using local fallback: {}",
+            "Warning: {} refresh failed ({}). Using local fallback: {}",
             url,
-            status,
+            failure,
             local.display()
         );
         return Ok(local);
     }
 
     anyhow::bail!(
-        "Failed to download {} (HTTP {}) and no local fallback found for {}",
+        "Failed to refresh {} ({}) and no local fallback found for {}",
         url,
-        status,
+        failure,
         filename
     )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::cache_is_fresh;
+    use std::fs;
+
+    #[test]
+    fn missing_cache_is_not_fresh_and_new_cache_is_fresh() {
+        let path = std::env::temp_dir().join(format!(
+            "wfinfo-cache-freshness-test-{}",
+            std::process::id()
+        ));
+        let _ = fs::remove_file(&path);
+        assert!(!cache_is_fresh(&path));
+        fs::write(&path, b"[]").unwrap();
+        assert!(cache_is_fresh(&path));
+        fs::remove_file(path).unwrap();
+    }
 }

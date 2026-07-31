@@ -9,8 +9,8 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 
-from paths import WFINFO_DIR
-INV = WFINFO_DIR / "inventory.json"
+from paths import WFINFO_DIR, get_inventory_path
+INV = get_inventory_path()
 FILT = WFINFO_DIR / "filtered_items.json"
 CACHE = WFINFO_DIR / "relic_name_mapping.json"
 OUT = WFINFO_DIR / "owned_relics.json"

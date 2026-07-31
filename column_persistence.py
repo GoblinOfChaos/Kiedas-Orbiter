@@ -4,9 +4,9 @@ Widths are saved to column_widths.json, keyed by a caller-chosen name so
 multiple tables in the same file (or across files) don't collide.
 """
 import json
-from pathlib import Path
+from paths import migrate_legacy_state_file
 
-_STORE_PATH = Path(__file__).parent / "column_widths.json"
+_STORE_PATH = migrate_legacy_state_file("column_widths.json")
 
 
 def _load_store():

@@ -7,7 +7,7 @@ from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QScrollArea,
     QFrame, QPushButton,
 )
-from theme import BG, BG_CARD, BG_HDR, GOLD, GOLD_BRIGHT as GOLD_B, SAP_MID as SAP, FG, DIM, GREEN
+from theme import get_palette
 
 CREDITS = [
     {
@@ -53,7 +53,7 @@ CREDITS = [
             {
                 "name": "44bananas & Xennethkeisere",
                 "url": "https://docs.google.com/spreadsheets/d/1zbaeJBuBn44cbVKzJins_E3hTDpnmvOk8heYN-G8yy8",
-                "role": "Community riven good-rolls spreadsheet — the definitive guide to which stat combinations are worth keeping for each weapon. The foundation of the Riven Grader.",
+                "role": "Historical community riven good-rolls spreadsheet used as the original 416-weapon seed dataset. Useful guidance, but not treated as timeless or definitive; see RIVEN_GRADING_RESEARCH.md.",
                 "contact": "Discord: 44bananas#9024, Xennethkeisere#0717",
             },
             {
@@ -76,8 +76,14 @@ CREDITS = [
             },
             {
                 "name": "warframe-api-helper",
-                "url": "https://github.com/glowseeker/warframe-api-helper",
+                "url": "https://github.com/Sainan/warframe-api-helper",
                 "role": "C++ helper binary that reads Warframe's game memory to extract inventory data without modifying game files.",
+                "contact": "github.com/Sainan",
+            },
+            {
+                "name": "Cephalon Kronos — glowseeker",
+                "url": "https://github.com/glowseeker/cephalon-kronos",
+                "role": "Reference implementation for locating and reading Warframe's in-memory EE.log ring buffer; the Python memory reader ports that scanning/deduplication approach.",
                 "contact": "github.com/glowseeker",
             },
         ],
@@ -148,6 +154,16 @@ def _link_btn(text, url):
 class CreditsTab(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
+        # These used to be imported once from theme.py's hardcoded
+        # sapphire-theme constants, so this tab stayed sapphire-colored
+        # no matter what theme was selected. Read fresh from the
+        # currently selected theme instead. Jacob 2026-07-23.
+        p = get_palette()
+        self._p = p
+        global BG, BG_CARD, BG_HDR, GOLD, GOLD_B, SAP, FG, DIM, GREEN
+        BG, BG_CARD, BG_HDR = p['bg'], p['bg_card'], p['bg_header']
+        GOLD, GOLD_B, SAP = p['gold'], p['gold_bright'], p['accent_mid']
+        FG, DIM, GREEN = p['fg'], p['fg_dim'], p['green']
         outer = QVBoxLayout(self)
         outer.setContentsMargins(0, 0, 0, 0)
 
@@ -181,7 +197,7 @@ class CreditsTab(QWidget):
 
         divider = QFrame()
         divider.setFrameShape(QFrame.HLine)
-        divider.setStyleSheet(f"color: #1e3a62; background: #1e3a62;")
+        divider.setStyleSheet(f"color: {p['border']}; background: {p['border']};")
         divider.setFixedHeight(1)
         main.addWidget(divider)
 
@@ -207,7 +223,7 @@ class CreditsTab(QWidget):
             for entry in section["entries"]:
                 card = QFrame()
                 card.setStyleSheet(
-                    f"background: {BG_CARD}; border: 1px solid #1e3a62; "
+                    f"background: {BG_CARD}; border: 1px solid {p['border']}; "
                     f"border-radius: 6px;"
                 )
                 card_layout = QVBoxLayout(card)

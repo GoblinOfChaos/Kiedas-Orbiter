@@ -9,10 +9,10 @@ Tracks: credits, plat, MR, owned prime parts count, owned prime sets count.
 import json
 import time
 from pathlib import Path
-from paths import DATA_DIR
+from paths import DATA_DIR, get_inventory_path
 
 WFINFO_DIR = Path(__file__).parent
-INVENTORY_FILE = WFINFO_DIR / "inventory.json"
+INVENTORY_FILE = get_inventory_path()
 OWNED_ITEMS_FILE = WFINFO_DIR / "owned_items.json"
 HISTORY_FILE = DATA_DIR / "stats_history.json"
 
@@ -26,25 +26,31 @@ def load_json(path, default):
         return default
 
 
-def count_prime_sets(owned: dict) -> int:
-    """Count how many complete prime sets you have (every part owned >= 1)."""
-    # Group parts by set name (strip trailing "Blueprint", " Neuroptics", etc.)
-    import re
-    set_parts: dict[str, list[int]] = {}
-    suffix_re = re.compile(
-        r"\s+(Blueprint|Neuroptics|Chassis|Systems|Harness|Wings|Carapace|Cerebrum|Blade|Guard|Hilt|Barrel|Receiver|Stock|Link|Handle|Gauntlet|Head|Motor|Ornament|Set)$",
-        re.IGNORECASE,
-    )
-    for part, count in owned.items():
-        # Only prime parts
-        if "Prime" not in part:
-            continue
-        set_name = suffix_re.sub("", part).strip()
-        set_parts.setdefault(set_name, []).append(count)
+def count_prime_sets(owned: dict, wfcd_items=None) -> int:
+    """Count craftable Prime sets using WFCD recipe component quantities."""
+    if wfcd_items is None:
+        wfcd_items = load_json(WFINFO_DIR / "wfcd_all_cache.json", [])
 
     complete = 0
-    for parts in set_parts.values():
-        if len(parts) >= 2 and all(c >= 1 for c in parts):
+    for item in wfcd_items:
+        if not isinstance(item, dict):
+            continue
+        name = item.get("name", "")
+        components = item.get("components") or []
+        if "Prime" not in name or not components:
+            continue
+
+        required_parts = []
+        for component in components:
+            component_name = component.get("name", "")
+            if not component_name or component_name in ("Orokin Cell", "Forma"):
+                continue
+            required = max(1, int(component.get("itemCount", 1) or 1))
+            required_parts.append((f"{name} {component_name}", required))
+
+        if (len(required_parts) >= 2
+                and all(int(owned.get(part, 0) or 0) >= required
+                        for part, required in required_parts)):
             complete += 1
     return complete
 

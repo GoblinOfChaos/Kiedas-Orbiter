@@ -11,6 +11,7 @@ from PySide6.QtWidgets import (
 )
 from column_persistence import apply_saved_widths, remember_widths
 from paths import WFINFO_DIR as BASE
+from theme import get_palette
 
 PRICES_FILE = BASE / 'prices.json'
 ITEMS_FILE  = BASE / 'filtered_items.json'
@@ -131,11 +132,12 @@ class MarketTab(QWidget):
             _a0 = QTableWidgetItem(row['name']); _a0.setTextAlignment(Qt.AlignLeft | Qt.AlignVCenter); self._table.setItem(r, 0, _a0)
             _a1 = QTableWidgetItem(row['eq']); _a1.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter); self._table.setItem(r, 1, _a1)
 
+            p = get_palette()
             plat_it = _sorted_item(row['plat'], numeric=True)
             if row['plat'] >= 20:
-                plat_it.setForeground(QColor('#2ecc71'))
+                plat_it.setForeground(QColor(p['green']))
             elif row['plat'] >= 5:
-                plat_it.setForeground(QColor('#f1c40f'))
+                plat_it.setForeground(QColor(p['orange']))
             self._table.setItem(r, 2, plat_it)
 
             self._table.setItem(r, 3, _sorted_item(row['duc'], numeric=True))
@@ -143,7 +145,7 @@ class MarketTab(QWidget):
 
             owned_it = _sorted_item(row['owned'], numeric=True)
             if row['owned'] > 0:
-                owned_it.setForeground(QColor('#3498db'))
+                owned_it.setForeground(QColor(p['accent']))
             self._table.setItem(r, 5, owned_it)
 
         self._table.setSortingEnabled(True)

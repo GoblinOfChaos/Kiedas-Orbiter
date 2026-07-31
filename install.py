@@ -275,7 +275,8 @@ else:
 section("Start menu / desktop entry")
 
 if IS_LINUX:
-    uid_val = os.getuid()
+    from autostart_migration import disable_legacy_autostart_entries
+
     icon_dir = Path.home() / ".local/share/icons/hicolor/scalable/apps"
     icon_dir.mkdir(parents=True, exist_ok=True)
     icon_src = WFINFO_DIR / "orbiter.svg"
@@ -288,15 +289,9 @@ if IS_LINUX:
     autostart_dir.mkdir(parents=True, exist_ok=True)
     apps_dir.mkdir(parents=True, exist_ok=True)
 
-    clean_env = (
-        f'env -i HOME="$HOME" USER="$USER" LOGNAME="$USER" SHELL=/bin/bash '
-        f'PATH="$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin" '
-        f'WAYLAND_DISPLAY=wayland-0 '
-        f'XDG_RUNTIME_DIR=/run/user/{uid_val} '
-        f'DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{uid_val}/bus '
-        f'XDG_DATA_HOME="$HOME/.local/share" XDG_CACHE_HOME="$HOME/.cache" '
-        f'XDG_CURRENT_DESKTOP=KDE XDG_SESSION_TYPE=wayland'
-    )
+    migrated = disable_legacy_autostart_entries(autostart_dir)
+    for old_path, backup_path in migrated:
+        info(f"Disabled legacy autostart entry: {old_path.name} (backup: {backup_path.name})")
 
     # Main app .desktop
     (apps_dir / "kiedas-orbiter.desktop").write_text(f"""[Desktop Entry]
@@ -313,28 +308,26 @@ Terminal=false
 Type=Application
 """)
 
-    # Overlay autostart
-    (autostart_dir / "orbiter-overlay.desktop").write_text(f"""[Desktop Entry]
-Icon=orbiter
+    # Detector, watcher, overlay, relic-recommend, riven, and fissure used
+    # to each get their own KDE session-level autostart entry here (started
+    # at login, regardless of whether the app was even open). As of
+    # 2026-07-16 that's superseded by in-app auto-start: each of those six
+    # features now has its own toggle in the app's Auto-Start settings
+    # panel (Status tab), all on by default, applied once when the app
+    # itself launches (see autostart_manager.py / missing-parts.py).
+    # Keeping both mechanisms would risk duplicate processes or orphaned
+    # overlays polling for a state file with no app around to feed it, so
+    # this generator intentionally no longer creates those six .desktop
+    # files. Only the update-checker sentinel (unrelated to these six,
+    # genuinely useful independent of whether the app is open) still gets
+    # a real login autostart entry.
+    (autostart_dir / "orbiter-helper-sentinel.desktop").write_text(f"""[Desktop Entry]
 Type=Application
-Name=Kieda's Orbiter Overlay
-Comment=Pop-up overlay for Warframe relic reward ownership
-Exec=/bin/bash -c '{clean_env} setsid {VENV_PYTHON} {WFINFO_DIR}/launcher.py overlay >> {Path.home()}/.local/share/kiedas-orbiter/overlay.log 2>&1 < /dev/null'
+Name=Kieda's Orbiter Helper Update Sentinel
+Exec=python3 {WFINFO_DIR}/helper-update-sentinel.py
+Icon=wfinfo
 X-GNOME-Autostart-enabled=true
-NoDisplay=true
-Terminal=false
-""")
-
-    # Watcher autostart
-    (autostart_dir / "orbiter-watcher.desktop").write_text(f"""[Desktop Entry]
-Icon=orbiter
-Type=Application
-Name=Kieda's Orbiter Warframe Watcher
-Comment=Watches for Warframe process and restarts the detector
-Exec=/bin/bash -c '{clean_env} setsid {VENV_PYTHON} {WFINFO_DIR}/launcher.py watcher >> {Path.home()}/.local/share/kiedas-orbiter/watcher.log 2>&1 < /dev/null'
-X-GNOME-Autostart-enabled=true
-NoDisplay=true
-Terminal=false
+Hidden=false
 """)
 
     # Symlink: ~/.local/share/wfinfo -> kiedas-orbiter (compatibility)

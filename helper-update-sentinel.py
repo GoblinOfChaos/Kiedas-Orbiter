@@ -1,37 +1,69 @@
 #!/usr/bin/env python3
-"""
-helper-update-sentinel.py - Watches glowseeker/cephalon-kronos for upstream
-commits. Sends a desktop notification when a fix lands so you know to click
-'Rebuild Helper' in the control panel.
-"""
+"""Notify when Sainan publishes a newer warframe-api-helper release asset."""
+
+import json
 import subprocess
+import sys
 import time
+import traceback
+import urllib.request
 from pathlib import Path
+
+from download_helper import (
+    API_HELPER_ASSET_NAME,
+    API_HELPER_REPO,
+    GITHUB_API_HELPER,
+    INSTALL_MANIFEST,
+)
 from paths import DATA_DIR
 
-HELPER_SRC = Path.home() / "helper-src"
 STATE_FILE = DATA_DIR / "helper-sentinel.state"
-LOG_FILE   = DATA_DIR / "helper-sentinel.log"
-ICON       = str(Path.home() / ".local/share/icons/hicolor/scalable/apps/orbiter.svg")
+LOG_FILE = DATA_DIR / "helper-sentinel.log"
+ICON = str(Path.home() / ".local/share/icons/hicolor/scalable/apps/orbiter.svg")
+CHECK_INTERVAL = 6 * 3600
 
-CHECK_INTERVAL = 6 * 3600    # every 6 hours
-BRANCH = "senpai"
 
 def log(msg):
     ts = time.strftime("%Y-%m-%d %H:%M:%S")
     LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(LOG_FILE, "a") as f:
-        f.write(f"[{ts}] {msg}\n")
+    with open(LOG_FILE, "a") as handle:
+        handle.write(f"[{ts}] {msg}\n")
 
-def run_git(*args, timeout=30):
+
+def _latest_asset():
+    asset_name = API_HELPER_ASSET_NAME.get(sys.platform)
+    if not asset_name:
+        return None
+    request = urllib.request.Request(
+        GITHUB_API_HELPER,
+        headers={
+            "User-Agent": "kiedas-orbiter/1.0",
+            "Accept": "application/vnd.github+json",
+        },
+    )
+    with urllib.request.urlopen(request, timeout=15) as response:
+        release = json.load(response)
+    asset = next(
+        (candidate for candidate in release.get("assets", [])
+         if candidate.get("name") == asset_name),
+        None,
+    )
+    if not asset or not asset.get("digest"):
+        raise ValueError(f"release has no verified metadata for {asset_name}")
+    return {
+        "version": release.get("tag_name", "?"),
+        "asset": asset_name,
+        "digest": asset["digest"],
+    }
+
+
+def _installed_digest():
     try:
-        r = subprocess.run(
-            ["git", *args], cwd=HELPER_SRC,
-            capture_output=True, text=True, timeout=timeout,
-        )
-        return r.returncode == 0, r.stdout.strip(), r.stderr.strip()
-    except Exception as e:
-        return False, "", str(e)
+        manifest = json.loads(INSTALL_MANIFEST.read_text())
+        return manifest.get("api_helper", {}).get("digest", "")
+    except Exception:
+        return ""
+
 
 def notify(title, body):
     try:
@@ -40,39 +72,42 @@ def notify(title, body):
             timeout=5,
         )
         log(f"Notified: {title}")
-    except Exception as e:
-        log(f"notify-send failed: {e}")
+    except Exception as error:
+        log(f"notify-send failed: {error}")
+
+
+def check_once():
+    latest = _latest_asset()
+    if latest is None:
+        return
+    installed = _installed_digest()
+    last_notified = STATE_FILE.read_text().strip() if STATE_FILE.exists() else ""
+    digest = latest["digest"]
+    if digest != installed and digest != last_notified:
+        notify(
+            "Helper update available",
+            f"Sainan published warframe-api-helper {latest['version']}.\n\n"
+            "Run: python download_helper.py --force",
+        )
+        STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+        STATE_FILE.write_text(digest)
+        log(f"Update available: {latest['version']} ({digest})")
+    else:
+        log(
+            f"No new helper release (latest={latest['version']}, "
+            f"installed={'known' if installed else 'unknown'})"
+        )
+
 
 def main():
-    log("=== sentinel started ===")
-    if not HELPER_SRC.exists():
-        log(f"helper-src not found at {HELPER_SRC} — exiting")
-        return
+    log(f"=== release sentinel started for {API_HELPER_REPO} ===")
     while True:
         try:
-            ok, _, err = run_git("fetch", "origin", BRANCH)
-            if not ok:
-                log(f"fetch failed: {err}")
-            else:
-                _, upstream, _ = run_git("rev-parse", f"origin/{BRANCH}")
-                _, local, _    = run_git("rev-parse", "HEAD")
-                last_notified  = STATE_FILE.read_text().strip() if STATE_FILE.exists() else ""
-
-                if upstream and local and upstream != local and upstream != last_notified:
-                    _, commits, _ = run_git("log", f"{local}..{upstream}", "--oneline")
-                    short_commits = commits[:300] if len(commits) > 300 else commits
-                    body = ("Sainan pushed new commits to warframe-api-helper:\n\n"
-                            + short_commits +
-                            "\n\nOpen Wfinfo Control and click 'Rebuild Helper' to apply.")
-                    notify("Helper update available", body)
-                    STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
-                    STATE_FILE.write_text(upstream)
-                    log(f"Notified: local={local[:8]} -> upstream={upstream[:8]}")
-                else:
-                    log(f"No new commits (local={local[:8] if local else '?'}, upstream={upstream[:8] if upstream else '?'})")
-        except Exception as e:
-            log(f"loop error: {e}")
+            check_once()
+        except Exception as error:
+            log(f"check failed: {error}\n{traceback.format_exc()}")
         time.sleep(CHECK_INTERVAL)
+
 
 if __name__ == "__main__":
     main()

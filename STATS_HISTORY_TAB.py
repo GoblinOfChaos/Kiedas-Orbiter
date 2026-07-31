@@ -14,7 +14,7 @@ from PySide6.QtWidgets import (
     QSizePolicy,
 )
 from column_persistence import apply_saved_widths, remember_widths
-from theme import BG_CARD, BG_PANEL, BG_INPUT, FG, DIM, GOLD, COLOR_GREAT, COLOR_BAD
+from theme import get_palette
 from paths import DATA_DIR
 
 HISTORY_FILE = DATA_DIR / "stats_history.json"
@@ -40,6 +40,16 @@ class StatsHistoryTab(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._history = []
+        # These used to be imported once from theme.py's hardcoded
+        # sapphire-theme constants, so this tab stayed sapphire-colored
+        # no matter what theme was selected. Read fresh from the
+        # currently selected theme instead. Jacob 2026-07-23.
+        p = get_palette()
+        self._p = p
+        global BG_CARD, BG_PANEL, BG_INPUT, FG, DIM, GOLD, COLOR_GREAT, COLOR_BAD
+        BG_CARD, BG_PANEL, BG_INPUT = p['bg_card'], p['bg_panel'], p['bg_input']
+        FG, DIM, GOLD = p['fg'], p['fg_dim'], p['gold']
+        COLOR_GREAT, COLOR_BAD = p['green'], p['red']
         self._setup_ui()
         self._load()
 
@@ -207,11 +217,11 @@ class StatsHistoryTab(QWidget):
                     item = QTableWidgetItem(fmt(delta))
                     item.setData(Qt.UserRole, delta)
                     if delta > 0:
-                        item.setForeground(QColor("#3eff3e"))
+                        item.setForeground(QColor(COLOR_GREAT))
                     elif delta < 0:
-                        item.setForeground(QColor("#ff6060"))
+                        item.setForeground(QColor(COLOR_BAD))
                     else:
-                        item.setForeground(QColor("#888888"))
+                        item.setForeground(QColor(DIM))
                 else:
                     item = QTableWidgetItem("—")
                 item.setTextAlignment(Qt.AlignCenter)

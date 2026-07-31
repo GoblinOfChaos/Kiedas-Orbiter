@@ -1,107 +1,93 @@
-# Kieda's Orbiter — Handoff to Zoo Code (2026-07-13)
+# Kieda's Orbiter — Handoff to Zoo Code (2026-07-22)
 
 ## Project
 
 **Kieda's Orbiter** — a Linux + Windows Warframe companion app (inventory tracking, relics, rivens, market prices, a relic-reward OCR overlay that watches EE.log and screenshots the reward screen).
 
 - **GitHub:** https://github.com/GoblinOfChaos/Kiedas-Orbiter
-- **Current version:** v1.2.14
 - **Language:** Python (PySide6 GUI, most of the app) + Rust (`orbiter`, the OCR detector binary — `src/bin/main.rs`)
-- **Owner:** Jacob (GoblinOfChaos) — no coding background, needs hands-on fixes and plain-English explanations, not code dumps to self-implement.
+- **Owner:** Jacob — no coding background, needs hands-on fixes and plain-English explanations, not code dumps to self-implement.
+- **Nothing in this session has been committed to git.** `git status` will show ~35 modified files and ~30 new untracked files. Standing rule: never commit unless Jacob explicitly asks.
 
-There's already a `.roo/rules/01-project-context.md` from an earlier session — **it's stale**, says the Rust binary can't be rebuilt due to a broken toolchain, which is no longer true (it builds cleanly with the standard toolchain, verified today). Don't trust it over this doc or the actual current code.
-
----
-
-## How I disappointed him this session
-
-Read this before touching anything else. These are real mistakes from today, not hedging:
-
-1. **Gave wrong instructions that wasted his time.** Told him he only needed the compiled-binary release zip, not the source zip — wrong, and it directly caused a multi-hour cycle of "why isn't my fix showing up" before either of us realized Python-side fixes need the source, not just the binary.
-2. **Asserted things I hadn't checked.** Claimed Windows CI builds "usually take ~10 minutes" and that a slow one was "probably cache eviction" — both fabricated, not based on real data. He caught it by pulling up the actual GitHub Actions history himself (every build had taken 22-28 min, consistently, forever).
-3. **Broke Linux while fixing Windows.** Added a `--hotkey` CLI flag and had the Python launcher unconditionally send it — which crashed outright on any `orbiter` binary older than that change, including his home Linux machine's. Should have made it backward-compatible (only send the flag when non-default) from the start, not as an emergency follow-up fix after he reported it broken.
-4. **Ran a third-party binary on my own sandbox without asking first**, early in the session — a real boundary violation. He revoked my standing permission to run outside programs without asking individually every time, which is now the standing rule (see Rules section below).
-5. **Repeatedly declared things "fixed" that weren't fully verified**, especially the F12 hotkey saga — it took ~5 separate rounds (kill-process-by-name fix, a 2-second relaunch delay, finally the actual Rust-side panic fix, then the version-mismatch confusion, then rebuilding a genuinely 4-day-stale binary) before it actually worked, and each intermediate round I was more confident than the evidence justified.
-6. **Missed the actual root cause for hours on the Linux detector.** The real problem — `target/release/orbiter` hadn't been rebuilt since **July 9th**, predating this entire session's Rust work — was sitting there checkable the whole time. I chased hotkey theories, VM guest-tool theories, and version-string theories before just checking the binary's own mtime.
-7. **`update_check.py` silently broken for who knows how long** — it defaulted to a bare relative `"VERSION"` path, which only resolves correctly if the process's *current working directory* happens to be the app's own folder. Fixed to use `Path(__file__).parent` instead, but this class of bug (relative path defaults instead of `Path(__file__).parent`-anchored ones) may exist elsewhere in the codebase — worth a sweep.
-8. **A stale nested folder (`Kiedas-Orbiter-1.2.14/`, an old incomplete extraction sitting inside the real project directory) caused real confusion** before being found and deleted — worth remembering as a category of bug: always check *which* copy of the code is actually being executed, not just whether "the code" is up to date somewhere.
-
-**Pattern to watch for:** most of today's wasted cycles trace back to *not verifying against ground truth before speaking* — assuming instead of checking a timestamp, a log line, a running process list, or real CI history. When Jacob pushes back with "did you actually check," that's usually because the honest answer is no.
+There's an older `ZOO_CODE_HANDOFF.md` from 2026-07-13 that Jacob deleted — this one replaces it. If you find it in git history, the "architecture facts" section from it is still accurate and reproduced below; the "how I disappointed him" section from that one is historical and not worth re-reading.
 
 ---
 
-## Rules Jacob has set (standing, not just for me)
+## IMPORTANT environment gotcha (read this first)
 
-- **No manual file edits from Jacob** — he has zero coding background. All changes go through the AI.
-- **No running external/third-party programs without asking first, every single time** — revoked after an unauthorized run this session. This includes compiling and running binaries, not just obviously "external" tools. (I did get explicit permission today to rebuild the Rust binary specifically — but ask again, don't assume standing permission carried forward.)
-- **Ask before assuming values** — don't guess at scope; check with him.
-- **One task at a time**, don't bundle unrelated changes into a single explanation/commit without flagging it.
-- **Standing permission to push patch-version release tags** (third digit only, e.g. v1.2.14 → v1.2.15) without asking each time — but **only if the change touches Rust source** (`src/bin/main.rs`). Pure Python/doc changes should just go to `main`, no release needed — cutting a release for a Python-only change wastes a ~25-30 min CI build for nothing. Major/minor version bumps still need explicit confirmation.
-- **Verify before claiming something is fixed.** Actually run the test, read the actual log, check the actual file timestamp — don't infer.
+Claude's Bash tool in the session that did this work runs in a **separate sandbox** from wherever Jacob actually launches the app (a `wfinfo` distrobox container). Early in this session, Claude misdiagnosed a broken `.venv` as needing a rebuild, rebuilt it from *its own sandbox's* Python — which is a different interpreter than the one in Jacob's real distrobox — and broke the app launch entirely. Had to be caught and reverted from a backup (`.venv.broken-*`).
 
----
+**Lesson: never assume your shell environment is the same one the user's app actually runs in.** If something claims to be "broken" in a way that seems too fundamental (can't import a package that's clearly installed), suspect an environment mismatch before touching anything destructive. Ask Jacob to run diagnostic commands in *his* terminal instead of trusting your own shell's results, when in doubt.
 
-## Architecture facts Zoo Code needs to know
-
-- **Two-part app:** Python (PySide6 GUI, ~everything the user sees) + a compiled Rust binary (`orbiter`/`orbiter.exe`, the OCR screenshot-and-match detector). They're versioned together but built completely separately.
-- **Only Rust changes need a new GitHub Release.** Python changes take effect the moment the `.py` file is saved/pulled — no rebuild, no release. This distinction was missed for the first several releases today (v1.2.9 through v1.2.12 were all cut for pure-Python changes that didn't need it).
-- **The Rust binary must be manually rebuilt (`cargo build --release --bin orbiter`) after any `main.rs` change**, in whatever environment is actually running the app. Pulling new Rust *source* does nothing to the *compiled binary* already sitting in `target/release/` — this was the actual root cause of hours of confusion today (mistake #6 above). **Always check the binary's own file modified date before assuming a fix is live.**
-- **Windows testing happens on a VM** (`C:\Users\jacob\Documents\Kiedas-Orbiter`, a plain git clone — he moved off OneDrive specifically because OneDrive's background sync was silently failing to fully overwrite files during zip extraction, causing multiple "I replaced it but the old version is still running" incidents). No Warframe install on that VM — he copies `inventory.json` + `EE.log` over from his real machine, so `warframe-api-helper.exe` will always report "Process not found" there (expected, not a bug — there's no live Warframe process for it to read from, unless a valid `token_cache.txt` is also copied over).
-- **Linux testing happens on his actual home machine**, at `/var/home/jedwards/wfinfo-ng` — this is also the same directory Claude Code's sandbox operates in, so source edits are immediate, no pull round-trip needed. The Rust binary there still needs manual rebuilding after `main.rs` changes, same as anywhere else.
-- **CI (`.github/workflows/release.yml`) builds both platforms on tag push.** Windows build was taking 22-28 minutes almost entirely due to a dead vcpkg binary cache (`x-gha` backend was silently deprecated by vcpkg upstream — printed a warning, not an error, so it went unnoticed for a long time). Switched to a filesystem-based cache via `actions/cache@v4` in commit `77da060`. **This is unconfirmed as of writing** — the v1.2.14 build was still in progress when the session ended. Check `gh run list --repo GoblinOfChaos/Kiedas-Orbiter --workflow=release.yml` and pull the actual archived job log for the literal "Cache hit"/"Cache not found" line before claiming it worked. Don't just assume.
+Related: `close_behavior` defaults to `"tray"` in `paths.py` — closing the main window doesn't fully quit the app, it minimizes to a system tray icon. If the tray icon itself isn't registering (StatusNotifierWatcher issues are common on some desktops), the app can end up invisibly running in the background with no way to bring it back via UI. When Jacob reports "I can't open the app" or "my fix isn't showing up," the first thing to check is whether a stale process is still running:
+```
+pkill -f missing-parts.py
+```
+Python doesn't hot-reload — every code change needs the app fully killed and relaunched, not just the window closed.
 
 ---
 
-## Known open bugs (real, not yet fixed)
+## What happened this session (2026-07-22, one long session)
 
-1. **Overlay display issue — partially diagnosed, not resolved.** I confirmed live (on the Linux machine) that the overlay's core logic works correctly: launched it fresh, wrote a synthetic detection state matching `test_overlay()`'s format, and it detected and displayed within 3 seconds (`overlay.log` showed `shown at (687,909) size 546x91, visible=True`). So the polling/show/hide logic itself isn't broken. But Jacob reports it "does nothing" every time he's tested it on his end. Next step: get his actual `overlay.log` output after clicking **Test Overlay** specifically (not "Restart Overlay," which is *supposed* to show nothing when idle — it only reacts to a real/test detection event). If his log shows the same "shown at..." line but nothing visibly appears, that's a display/window-manager-specific rendering issue. If it never logs "new detection" at all, the live app's overlay process isn't actually running the same code path I tested, or isn't staying alive.
-2. **Detector doesn't auto-start** — confirmed there is currently *zero* auto-start logic anywhere in `missing-parts.py`. The detector, overlay, and watcher all require a manual trigger (Reload Detector Config / Restart Overlay) every time the app opens. This needs real design input before implementing, not just a quick patch — questions to resolve with Jacob first: should it wait until Warframe is actually detected running (to avoid startup noise/hotkey-registration attempts when there's nothing to detect)? Should it be a toggle in Settings, given not everyone may want it? Should watcher.py handle this (it's already meant to be a process supervisor) rather than adding new logic to `missing-parts.py`? I did not implement this today specifically because rushing a change to core app-startup behavior risked being the sixth regression of the session — it deserves a real design conversation.
-3. **CI vcpkg cache fix unconfirmed** — see Architecture section above. Verify with real logs before trusting it.
-4. **Windows VM retest still pending** for the very latest fixes (backward-compat `--hotkey` guard, `update_check.py` path fix) — everything up to the last commit of the session needs a fresh pull + binary rebuild + retest on the VM.
-5. **Bazzite retest still pending** — Jacob's friend Cirby tested v1.2.5 on Bazzite Linux weeks ago and hasn't retested since; several relevant fixes have landed since then.
-6. **`main.rs.backup`** — a stray, untracked-but-present old file in the repo root (`Jun 5` per its mtime). Not part of the build (Cargo only compiles `src/bin/main.rs`), but confirm it's safe to delete rather than leaving it as a red herring for the next debugging session.
-7. **Possible other CWD-relative path bugs** — `update_check.py`'s bug (see mistake #7 above) suggests it's worth a quick audit for other places that default to a bare relative path string instead of anchoring to `Path(__file__).parent` / `WFINFO_DIR`.
+### Drop-location / acquisition-source data integration (the bulk of the work)
+Nearly every "Collectibles" and "Equipment" tab was showing "check wiki" or blank drop-location info even when real data existed somewhere. Fixed via:
 
----
+- **`drop_data.py`** (new file) — wraps `dropdata_cache.json` (WFCD/warframe-drop-data, an official DE-sourced random-drop-table dataset, refreshed via `refresh_dropdata_cache.py`). Exposes `find_drop_info(name)` and `find_component_drop_info(parent_name, component_name)` — the latter handles the fact that weapon/warframe components are keyed as `"<Item> <Part> Blueprint"` in the dataset, not just the bare part name (e.g. `"Enkaus Barrel Blueprint"`, not `"Barrel"`).
+- Wired into `ARCANE_TAB.py`, `AYATAN_TAB.py`, `MOD_COLLECTION_TAB.py`, `EPHEMERA_TAB.py`, `EMBLEM_TAB.py`, `CAPTURA_TAB.py`, `CONSERVATION_TAG_TAB.py`, and `equipment_tabs.py` (all 9 weapon/warframe/pet tabs).
+- For items that aren't random drops at all (Baro Ki'Teer rotations, Nightwave, Syndicate vendors, Dojo research, Kuva Lich/Sister mechanics, Conservation bait+cycle info, Founders-exclusive/permanently-unobtainable items, etc.) — real wiki research was done via many parallel background agents and written to a family of `component_overrides_*.json` files, then merged into **`component_acquisition_overrides.json`** (the one `equipment_tabs.py` actually loads) and per-tab override files (`component_overrides_emblem.json`, `component_overrides_ephemera.json`, `component_overrides_captura.json`, `component_overrides_conservation.json`, `mod_acquisition_overrides.json`).
+- **Coverage as of last count:** ~1,057 of 1,065 equipment blanks resolved, 235+ mods/arcanes, 118/119 emblems, 82/83 ephemera, 142/142 Captura scenes, 54/54 conservation tags. The handful of remaining blanks are genuinely unverifiable (a couple of items with no wiki page at all — possibly newer/unreleased content, e.g. "Ax-52", "Efv-5 Jupiter").
+- **These override files are hand-built data, not auto-refreshing.** If WFCD's dataset structure changes or new items get added to the game, `drop_data.py`'s lookups will silently return nothing for new items until someone re-runs the research pass. Not wired into any refresh/update pipeline — a good candidate for a future "check coverage" script.
 
-## Complete To-Do List
+### Wiki link validity (real bug, not just missing data)
+`build_wiki_url(name)` in `wiki_links.py` *guesses* a URL from the item's display name — this works for well-documented content (mods, arcanes, weapons, ephemera, conservation animals — all verified to have real individual pages) but **fails for Glyphs, Emblems, and Captura Scenes**, which mostly don't have individual wiki pages at all (confirmed live via direct fetch — e.g. `wiki.warframe.com/w/13angtv_Glyph` 404s). Fixed by pointing those three tabs' Wiki column at the real catalog pages instead:
+- Glyphs → `https://wiki.warframe.com/w/Glyphs`
+- Emblems → `https://wiki.warframe.com/w/Emblem`
+- Captura → `https://wiki.warframe.com/w/Captura`
 
-### Problems to fix (roughly priority order)
-1. **Overlay display issue — finish the diagnosis** (see "Known open bugs" #1). Get Jacob's real `overlay.log` from a Test Overlay click.
-2. **Detector/overlay/watcher auto-start** on app launch, both platforms — needs a design conversation with Jacob first (see #2 above), not just an implementation.
-3. Confirm the CI vcpkg cache fix actually works (read real archived logs, don't assume).
-4. Redo Windows VM retest with all of today's fixes.
-5. Get Cirby to retest on Bazzite with all of today's fixes.
-6. Audit for other CWD-relative-path bugs like the `update_check.py` one.
-7. Clean up leftover "wfinfo" internal naming (old project name, still scattered in places) — hold until Windows + Linux both verified clean first.
-8. Decide fate of `main.rs.backup`.
+**Not yet checked:** whether this same problem exists in other tabs beyond the handful spot-checked (Mods, Arcanes, Ephemera, Conservation, weapons/warframes all confirmed fine). If Jacob reports more dead wiki links, check whether the item type is "well-documented" or "mostly cosmetic/event-only" before assuming the per-item URL guess is safe.
 
-### Features, roughly smallest → biggest
-1. Real Windows installer (Inno Setup or NSIS) — currently it's just `Install Windows.bat` running a Python setup script, not a real packaged installer.
-2. Localization / multi-language support.
-3. Notification/alert system.
-4. Checklist/task syncing tied to EE.log parsing.
-5. Map markers.
-6. Kuva Lich / Requiem support (the largest single feature on the list).
+### Data-quality bugs fixed
+- **Emblem tab was missing 93 of 119 real emblems** — the filter checked `'Emblem' in uniqueName`, but most real emblems use `"Badge"` in their internal path (e.g. `/Lotus/Upgrades/Skins/Clan/OrbBadgeItem` for "Buried Debts Emblem") while the *display name* says "Emblem". Filter now checks the display name instead.
+- **Orion & Sirius Warframe listed twice** — it's one quest-reward item with two uniqueNames (`OrionSuit`/`SiriusSuit`), one per in-quest naming choice; only one is ever actually obtainable per account. `populate_equipment.py` now skips the `SiriusSuit` variant.
+- **Ephemera tab showing 5 fake "Coronet" cosmetics** — Kaithe-mount cosmetics that use `/Horse/` in their path instead of `kaithe`, so the existing Kaithe-exclusion filter missed them. Fixed.
+- **Ayatan tab had a duplicate "Orofusexf" entry** — a Market-listing wrapper (`/Lotus/StoreItems/...`) around the same item as Ayatan Anasa Sculpture, missing its display name in the cache. Excluded `/StoreItems/` paths.
+- **Descendia dashboard card showing raw internal codenames** (`RangedArcadiaOnly`, `DT_SHRINE_DEFENSE`, `NC_Darkness`) instead of readable text — the static lookup dict couldn't keep up with new codenames from the live worldstate mirror. Added `_humanize_descendia_code()` as a fallback (strips `DT_`/`NC_` prefixes, splits CamelCase) so unknown codenames degrade gracefully instead of leaking raw text.
+- **"Mastered" status was just "owned/used at all"**, not actual Mastery-Rank completion — Bonewidow/Voidrig (and anything else you've started but not fully ranked) showed as mastered incorrectly. Fixed in `populate_equipment.py` to check real XP thresholds (405,000 for weapons, 810,000 for Warframe-class items — the real Mastery Rank affinity-to-rank-30 constants), not simple ownership.
+- **Cephalon Fragments tab** had no way to tell "found" from "fully scanned/complete" — added `REGION_SCAN_TARGETS` (3 for Earth/Venus, 5 for most planets, 7 for Pluto/Deimos/Eris/Sedna, sourced from the wiki's Fragment page and cross-verified against Jacob's real save data) and a Status column showing Complete/In Progress.
+- **User Guide sidebar icon (📖) wasn't rendering** — it's a full-color emoji while every other sidebar icon is a simple BMP-safe symbol; likely a font-coverage issue. Swapped to `▤`. Also fixed a genuinely corrupted icon on Relic Planner (was showing a literal `�` replacement character) → `▥`.
+- **"Need" column in equipment tabs** now shows remaining-needed (recipe total minus what you already hold) for stackable resources, not just the flat recipe total — cross-references `inventory.json`'s `MiscItems`.
+- **Set Progress tab** header typo "Parts NEED" → "Parts Needed".
 
-### Already done this session (for context, don't redo)
-- Modular Weapons tracking (Zaw, Kitgun, Amp, MOA, Hound, K-Drive, Railjack)
-- Mod card art thumbnails in Mod Collection
-- Cephalon Fragments found-log
-- Descendia dashboard section
-- Mod Collection Slot/Weapon dropdown filters
-- Configurable screenshot hotkey (Settings → File Paths → Screenshot key), with a backward-compatibility guard so it doesn't break older binaries
-- Found/Not Found path indicator labels (existed already, were silently broken by a typo, now fixed)
-- `update_check.py`'s CWD-relative path bug
-- A long list of real bugs — see the git log for the full, honest list with root-cause explanations in each commit message (roughly commits `4a6f106` through the end of the session on `main`).
+### Performance
+**Mod Collection tab took several seconds to load** (~1,600 rows, each decoding+scaling a QPixmap synchronously). Fixed with an icon cache (many mods share identical card art across rank variants — was decoding duplicates) and chunked population via `QTimer.singleShot` so the UI paints and stays responsive instead of freezing for the whole load.
+
+### Dashboard / Status & Tools layout — IN PROGRESS, NOT CONFIRMED WORKING
+Jacob reported "a ton of wasted space" via screenshots with circled problem areas. Root cause: several `QGridLayout`/`QHBoxLayout` stretch factors were expanding a spacer to fill the *entire* card width (cards are wide — the dashboard is a 2-column grid with a 3:2 stretch ratio) instead of just pushing content to the edge of a naturally-sized row, leaving big dead gaps between related pieces of text (e.g. a mission name and its own timer).
+
+- First fix attempt (wrap-and-addStretch) just **relocated** the same dead space to a different spot in the same card — Jacob correctly called this out as not actually fixing anything, since he explicitly wants the space *used*, not hidden at a margin.
+- Second attempt: reworked `_build_cycles` and `_build_fissures` in `DASHBOARD_TAB.py` into 2-column grids (two locations/fissure-tiers per row instead of one narrow column) with bigger fonts (14-16px), so the cards genuinely use their width. Also bumped `STATUS_TAB.py`'s ACTIONS button size/font and confirmed the grid already had correct equal-column-stretch code from the first pass.
+- **This has not been visually confirmed by Jacob yet** — the last screenshot showing "still broken" for the Status & Tools ACTIONS grid may have been from a stale process that hadn't picked up the code changes (see the environment-gotcha section above). **Next step: get Jacob to do a genuinely fresh kill+relaunch and a new screenshot before doing anything else here.** Don't keep guessing at CSS/layout numbers blind — ask for a screenshot with specific areas circled/annotated like he's been doing, it's working well as a feedback loop.
 
 ---
 
-## Outside sources / references
+## Rules Jacob has set (standing)
 
-- **Cephalon Kronos** (github.com/glowseeker/cephalon-kronos) — a more mature reference Warframe companion app. Multiple times this session, checking its actual source (`inventoryParser.js`, `worldstateParser.js`, `warframeUtils.js`) resolved real ambiguity faster than reasoning from scratch — e.g. the real Warframe affinity/rank formula, the Zaw/Kitgun/Amp/MOA/Hound modular-part ownership model, and the Descendia mission-type/penance name mappings all came from reading Kronos's actual code, not guessing.
-- **WFCD** (github.com/WFCD) — the data source for `wfcd_all_cache.json` (`raw.githubusercontent.com/WFCD/warframe-items`), independent of and more reliable than `api.warframestat.us`, which has had real, confirmed outages this session.
-- **api.warframestat.us** — used for live worldstate (Dashboard tab) and `/wfinfo/prices/` + `/wfinfo/filtered_items/` (used by `update.py`). Has real outages (confirmed via direct `curl`, not assumed); it and WFCD's raw GitHub data are separate services and don't go down together.
-- **oracle.browse.wf/worldState.json** — a community mirror of Digital Extremes' raw worldstate feed, used for Descendia data specifically since `api.warframestat.us` doesn't cover it yet.
-- **Sainan/warframe-api-helper** (github.com/Sainan/warframe-api-helper) — third-party tool this app depends on for reading live inventory data from Warframe's own process memory / mobile API. Not part of this repo; downloaded via `download_helper.py`.
-- **Microsoft's vcpkg docs** (learn.microsoft.com/en-us/vcpkg/) — specifically the binary-caching pages, consulted directly when fixing the CI build-speed issue, since vcpkg's caching mechanisms have changed and old advice (`x-gha`) is now actively wrong and only warns instead of erroring.
+- **No manual file edits from Jacob** — zero coding background, all changes go through the AI.
+- **No running external/third-party programs without asking first, every single time.**
+- **Ask before assuming values** — don't guess at scope; check with him. Don't silently do a "good enough" version of a large task (e.g. don't skip real research and fall back to pattern-guessing) without saying so explicitly and explaining the tradeoff — he will call it out if the effort doesn't match what he asked for ("check wiki isnt acceptable if theres information available").
+- **One task at a time**, don't bundle unrelated changes into a single explanation without flagging it.
+- **Standing permission to push patch-version release tags** (third digit only) without asking each time — but only if the change touches Rust source (`src/bin/main.rs`). Pure Python/doc changes don't need a release.
+- **Verify before claiming something is fixed.** Actually check the real file, real data, real timestamp, real running process — don't infer. This session had a couple of cases (the venv rebuild, possibly the Status & Tools layout screenshot) where not verifying against the *actual* running environment cost real time.
+- **When giving Jacob a command to run, always fence it as a standalone copy-paste block**, never inline in prose — established preference from earlier sessions.
+- **Bash-tool commands and screenshots may come from a different environment than Jacob's real one** (see environment gotcha above) — when in doubt about whether something is really fixed, ask Jacob to check in his own terminal/his own running app rather than trusting a Bash-tool-side test alone.
+
+---
+
+## Architecture facts (still accurate from the 2026-07-13 handoff)
+
+- **Two-part app:** Python (PySide6 GUI) + a compiled Rust binary (`orbiter`/`orbiter.exe`, the OCR screenshot-and-match detector). Versioned together, built completely separately.
+- **Only Rust changes need a new GitHub Release / rebuild.** Python changes take effect the moment the file is saved — no rebuild needed, but the app process itself must be restarted (no hot-reload).
+- **The Rust binary must be manually rebuilt** (`cargo build --release --bin orbiter`) after any `src/` change, in whatever environment is actually running the app. Always check the binary's own mtime before assuming a Rust-side fix is live.
+- **Windows testing happens on a VM** at `C:\Users\jacob\Documents\Kiedas-Orbiter` (moved off OneDrive due to background-sync issues during zip extraction). No live Warframe process there — `warframe-api-helper.exe` will always report "Process not found" unless a valid `token_cache.txt` was also copied over. That's expected, not a bug.
+- **Linux testing happens on Jacob's actual home machine**, `/var/home/jedwards/wfinfo-ng`, inside a `wfinfo` distrobox container (see environment gotcha section — this is NOT the same environment Claude's own Bash tool runs in).
+- **Data files that get regenerated periodically** (via a "Refresh Inventory"/"Update Game Data" button in the app, backed by `populate_equipment.py` and similar scripts): `equipment_status.json`, `dropdata_cache.json`, `wfcd_all_cache.json`. Code changes to how these are *built* (e.g. the Mastery XP threshold fix, the Orion&Sirius dedup, the resource "owned" count) only take effect after the next refresh, not instantly — worth mentioning to Jacob when a fix depends on it.

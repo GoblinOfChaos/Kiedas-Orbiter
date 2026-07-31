@@ -66,8 +66,20 @@ def _find_qt_lib_dirs() -> list[str]:
     return dirs
 
 
-def _build_env() -> dict:
-    """Build the environment for child processes."""
+def _build_env(need_qt_libs: bool = True) -> dict:
+    """Build the environment for child processes.
+
+    need_qt_libs=False skips pointing LD_LIBRARY_PATH/QT_PLUGIN_PATH at the
+    venv's bundled PySide6 Qt - only the main GUI window (and overlay.py's
+    Qt fallback path) actually need that. The detector is a native Rust
+    binary with no Qt dependency of its own, but it shells out to the
+    HOST's spectacle/grim for screenshots - those need the HOST's Qt, and
+    inheriting the venv's mismatched Qt paths broke them every time.
+    Confirmed live 2026-07-20 via /proc/<pid>/environ on the actual running
+    detector process: it had the venv's LD_LIBRARY_PATH/QT_PLUGIN_PATH
+    (this function's old unconditional behavior) even after patching
+    launch-orbiter.sh separately to strip them - because THIS function,
+    not that script, is what actually builds the detector's launch env."""
     env = os.environ.copy()
 
     if IS_LINUX or IS_MAC:
@@ -94,21 +106,29 @@ def _build_env() -> dict:
         else:
             env["QT_QPA_PLATFORM"] = "offscreen"
 
-        # PySide6 needs its own Qt libs FIRST so they take precedence over
-        # any host Qt libs that might have mismatched private API versions.
-        qt_dirs = _find_qt_lib_dirs()
-        existing = env.get("LD_LIBRARY_PATH", "")
-        # Host libs for the Rust binary — AFTER venv Qt so Qt comes first
-        host_libs = "/run/host/usr/lib64:/run/host/usr/lib"
-        all_dirs = qt_dirs + [host_libs] + ([existing] if existing else [])
-        env["LD_LIBRARY_PATH"] = ":".join(all_dirs)
+        if need_qt_libs:
+            # PySide6 needs its own Qt libs FIRST so they take precedence
+            # over any host Qt libs that might have mismatched private API
+            # versions.
+            qt_dirs = _find_qt_lib_dirs()
+            existing = env.get("LD_LIBRARY_PATH", "")
+            all_dirs = qt_dirs + ([existing] if existing else [])
+            env["LD_LIBRARY_PATH"] = ":".join(all_dirs)
 
-        # Tell Qt to use only its own plugins, not any system ones
-        if qt_dirs:
-            qt_base = str(Path(qt_dirs[0]).parent)  # PySide6/ dir
-            env["QT_PLUGIN_PATH"] = qt_base + "/Qt/plugins"
-            # Prevent dlopen from finding host Qt via RPATH by shadowing it
-            env["LD_PRELOAD"] = ""  # clear any preloads that might interfere
+            # Tell Qt to use only its own plugins, not any system ones
+            if qt_dirs:
+                qt_base = str(Path(qt_dirs[0]).parent.parent)  # PySide6/ dir
+                env["QT_PLUGIN_PATH"] = qt_base + "/Qt/plugins"
+                # Prevent dlopen from finding host Qt via RPATH by shadowing it
+                env["LD_PRELOAD"] = ""  # clear any preloads that might interfere
+        else:
+            # Strip rather than trust whatever the parent process (e.g. the
+            # main GUI, launched with need_qt_libs=True) already had set -
+            # clean_env_for_launch()-style callers elsewhere just copy
+            # os.environ, so a polluted parent env otherwise leaks straight
+            # through untouched.
+            for k in ("LD_LIBRARY_PATH", "QT_PLUGIN_PATH", "LD_PRELOAD"):
+                env.pop(k, None)
 
         # Block notify-send (steals Warframe focus via desktop notification)
         import tempfile, stat
@@ -183,13 +203,13 @@ def launch_detector(extra_args: list = None):
         print("Build it with: cargo build --release --bin orbiter", file=sys.stderr)
         sys.exit(1)
 
-    env = _build_env()
+    env = _build_env(need_qt_libs=False)
     _exec_or_spawn([DETECTOR] + (extra_args or []), env)
 
 
 def launch_watcher():
     """Launch the warframe-watcher process manager."""
-    env = _build_env()
+    env = _build_env(need_qt_libs=False)
     _exec_or_spawn([PYTHONW, WFINFO_DIR / "warframe-watcher.py"], env)
 
 

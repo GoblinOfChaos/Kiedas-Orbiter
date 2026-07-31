@@ -37,13 +37,8 @@
   },
   "nameOverrides": {
     "MUSEUMDOGTAG": "Museum Dog Tag",
-    "MUSEUMDOGTAGCONSUMABLE": "Museum Dog Tag",
-    "GUILDGLYPHCONSUMABLENOCHARGES": "Guild Glyph (No Charges)",
-    "GUILDGLYPHCONSUMABLE": "Guild Glyph",
     "RESOURCESTESTPARTITEM": "Resource Test Part",
-    "RESOURCES_TEST_PART_ITEM": "Resource Test Part",
-    "MUSEUMDOG": "Museum Dog",
-    "CONSUMABLENOCHARGES": "Consumable (No Charges)"
+    "RESOURCES_TEST_PART_ITEM": "Resource Test Part"
   },
   "eras": {
     "Lith": "Lith",

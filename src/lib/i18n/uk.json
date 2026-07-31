@@ -174,7 +174,7 @@
   "ui": {
     "game_language": "Мова гри",
     "changing_language": "Зміна мови…",
-    "reloading": "Перезавантаження ігрових даних"
+    "reloading": "Перезавантаження ігрових даниц"
   },
   "_meta": {
     "source": "RIVEN_STAT_TRANSLATIONS + NAME_OVERRIDES (warframeUtils.js), ERA_TRANSLATIONS (worldstateParser.js), peely-pix-names.json, UI labels",

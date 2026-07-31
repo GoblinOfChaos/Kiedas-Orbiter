@@ -498,13 +498,8 @@ const FOLDER_OVERRIDES = {
 // Keyed by the leaf of the uniqueName path.
 const NAME_OVERRIDES = {
   'MUSEUMDOGTAG': 'Museum Dog Tag',
-  'MUSEUMDOGTAGCONSUMABLE': 'Museum Dog Tag',
-  'GUILDGLYPHCONSUMABLENOCHARGES': 'Guild Glyph (No Charges)',
-  'GUILDGLYPHCONSUMABLE': 'Guild Glyph',
   'RESOURCESTESTPARTITEM': 'Resource Test Part',
   'RESOURCES_TEST_PART_ITEM': 'Resource Test Part',
-  'MUSEUMDOG': 'Museum Dog',
-  'CONSUMABLENOCHARGES': 'Consumable (No Charges)',
 }
 export { NAME_OVERRIDES }
 

@@ -222,11 +222,8 @@ const FOLDER_OVERRIDES = {
 // Items without dict entries that produce ugly pascal-split names.
 const NAME_OVERRIDES = {
   'MUSEUMDOGTAG': 'Museum Dog Tag',
-  'MUSEUMDOGTAGCONSUMABLE': 'Museum Dog Tag',
-  'GUILDGLYPHCONSUMABLENOCHARGES': 'Guild Glyph (No Charges)',
-  'GUILDGLYPHCONSUMABLE': 'Guild Glyph',
   'RESOURCESTESTPARTITEM': 'Resource Test Part',
-  'MUSEUMDOG': 'Museum Dog',
+  'RESOURCES_TEST_PART_ITEM': 'Resource Test Part',
 }
 
 // Wayward items: display-name + description overrides keyed by full unique name.

@@ -488,9 +488,9 @@ class RivenGraderOverlay:
             # visible card OCR is ground truth for what's on screen right
             # now, so re-grade it directly and prefer that whenever OCR
             # consensus is available and it disagrees with the cached entry.
-            if stable and mode == "cycle" and card_texts:
+            if mode == "cycle" and card_texts:
                 live = _grade_visible_card(card_texts[0], old)
-                if live and live.get("guidance_status") != "ocr_uncertain":
+                if live:
                     live_signature = (set(live.get("positives", [])), set(live.get("negatives", [])))
                     old_signature = (set(old.get("positives", [])), set(old.get("negatives", [])))
                     if live_signature != old_signature:
@@ -498,9 +498,13 @@ class RivenGraderOverlay:
                         # reroll candidate (blank id, rerolls+1); this is
                         # actually the same riven's current live state, not a
                         # reroll, so keep its real identity/reroll count.
-                        live["id"] = old.get("id", "")
-                        live["rerolls"] = old.get("rerolls", 0)
-                        old = live
+                        # During fast rerolling, "stable" can stay false
+                        # while the screen already changed, so fall back to
+                        # live OCR whenever it decodes a valid stat shape.
+                        if stable or live.get("guidance_status") != "ocr_uncertain":
+                            live["id"] = old.get("id", "")
+                            live["rerolls"] = old.get("rerolls", 0)
+                            old = live
             self._current_riven = old
 
         geom = _cached_warframe_geom() or {}

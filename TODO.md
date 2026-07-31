@@ -1443,18 +1443,47 @@ completed; add new ones as they come up. Source of most items below: `CLAUDE_OVE
       process; that path has no `./` immediately before `orbiter`, so it
       isn't affected by this pattern). Verified via `python3 -m
       py_compile` on all three touched files.
-- [ ] DEFERRED BY JACOB 2026-07-28 — full port of Kronos's
-      memory-scan approach (read EE.log ring buffer via `/proc/<pid>/mem`
-      instead of file-watching, dynamic ring-buffer address discovery,
-      rework line-diffing for a circular buffer instead of an
-      append-only file) is a real architecture change affecting both
+- [x] DEFERRED BY JACOB 2026-07-28, TAKEN ON 2026-07-30 — full port of
+      Kronos's memory-scan approach (read EE.log ring buffer via
+      `/proc/<pid>/mem` instead of file-watching, dynamic ring-buffer
+      address discovery, rework line-diffing for a circular buffer instead
+      of an append-only file) is a real architecture change affecting both
       reward and Riven triggers, not a small patch - Kronos's own history
       shows ~22 commits to get it solid, including a rewrite from
       byte-level diffing to full-buffer-reparse-with-hash-dedup once
-      circular wraparound broke incremental diffing. Keeping the bounded
-      retry fix for now; this item is the flag to eventually revisit that
-      rewrite rather than continuing to patch file-watch edge cases one
-      at a time.
+      circular wraparound broke incremental diffing.
+      **CONNECTION FOUND 2026-07-30:** this item stopped being a pure
+      architecture nice-to-have and became the likely real fix for the
+      confirmed ~10s Riven trigger delay above. Checked AlecaFrame's actual
+      official Overwolf 2.6.90 client directly (already documented in
+      `RIVEN_GRADING_RESEARCH.md`): its primary reroll-screen trigger isn't
+      the EE.log line at all - it's Overwolf's own Game Events Provider
+      forwarding Warframe's `match_info.highlighted` event in real time via
+      `ItemJustHighlighted`, with the same EE.log line only as a secondary
+      signal. Jacob has never experienced AlecaFrame's overlay feeling
+      delayed. Overwolf's GEP can't be used directly (it only works for
+      apps built on Overwolf's own platform, a different tech stack
+      entirely), but it almost certainly gets that real-time data by
+      reading the game's process memory directly rather than waiting on a
+      disk write - the same category of technique as this deferred item.
+      Independent supporting evidence found directly in Kronos's own
+      `memory_scan.rs`: a code comment there says explicitly that too small
+      a memory read window on their ring-buffer reader "produc[ed] the
+      'hella delayed' riven overlay symptom" before they fixed it - the
+      exact symptom class this project is chasing, confirmed as a real,
+      previously-hit failure mode of this exact technique. See
+      `docs/superpowers/plans/2026-07-30-ee-log-memory-scan.md` for the
+      implementation plan.
+      **LIVE VERIFICATION 2026-07-31:** memory watching activated against
+      the real Warframe process with a validated 1 MiB ring-buffer window
+      (`VA 0x14289a900`). Three initial Riven-page opens produced the
+      provisional overlay in under one second instead of the previous
+      measured ~10-second wait. Six subsequent real relic reward screens
+      all appeared and populated in under two seconds, which Jacob considers
+      acceptable. Full Riven rolling remains blocked by a separate downstream
+      NEW OFFER grading failure (the fuzzy stat matcher falsely reads the
+      Arca Plasmor card title as `AMMO`); that does not invalidate the
+      memory-trigger timing result.
 
 ## 2026-07-28 — live Riven and endless-Defense verification
 
@@ -1800,6 +1829,19 @@ this sandbox - may not be needed on Jacob's actual dev machine/distrobox).
       were unaffected (confirmed correct in the same session, real
       4-reward captures at `state_id=0` and `state_id=1` both showed
       correct alignment per `overlay-gtk.log`).
+      **RECONFIRMED LIVE 2026-07-31:** during a six-relic memory-watcher
+      verification run, every reward overlay appeared and populated in under
+      two seconds, but the three-choice layout was still visibly off-center.
+      Jacob supplied a screenshot showing the overlay's three columns shifted
+      relative to Warframe's three reward cards. Timing passed; this geometry
+      bug remains open.
+      **TRIGGER-SEQUENCING OBSERVATION 2026-07-31:** during the same run,
+      `Capture attempt ...` log lines began during Warframe's three-second
+      countdown before the relic reward screen, while the regular mission room
+      was still visible. This may simply give the existing adaptive retries an
+      early start before the cards become readable; no incorrect output was
+      observed across the six attempts, so it is recorded as timing evidence,
+      not currently classified as a bug.
 
 ## Riven reroll overlay trigger fires ~10s late relative to the visible screen (2026-07-30)
 
@@ -1840,3 +1882,43 @@ this sandbox - may not be needed on Jacob's actual dev machine/distrobox).
       needing several real timed live tests rather than trusting log
       timestamps alone, since this exact flow already has a long history in
       this file of live measurement contradicting log-only inspection.
+
+## Riven close triggers a full 60s of visible screenshotting (2026-07-31)
+
+- [ ] **Logged only, not fixed.** Confirmed live during memory-scan-watcher
+      testing (not caused by that work - reproduced with hard evidence
+      before drawing that conclusion): after `Riven reroll screen closed`
+      fires, `riven_screen_watcher()`'s bounded false-close recovery window
+      (`RECOVERY_CHECKS = 60`, `src/bin/main.rs:722`, one xcap screenshot
+      per second) runs to completion every time - confirmed via
+      `orbiter.log`, exactly 60 `Screenshot via xcap monitor ...` lines
+      after the close line, then it genuinely stops (not a runaway loop).
+      This is working exactly as designed (a real false-close protection
+      added for a real past bug - see the `RECOVERY_CHECKS` history
+      earlier in this file), but the user-visible effect is a full minute
+      of the portal capture indicator flashing after simply backing out of
+      the Riven menu, which reads as broken/malware-like even though it
+      isn't - the same category of bad first impression already fixed once
+      for the *inactive* probe (see "Root cause of the earlier 'looks like
+      malware' report" above) but not yet addressed for this *post-close*
+      window. Worth a future pass to either shorten the window, replace
+      the per-second full screenshot with something cheaper (e.g. a
+      memory/EE.log activity check instead of a real capture) now that the
+      memory-scan watcher exists, or make the recovery period visually
+      silent somehow. Not urgent - purely cosmetic/trust, not a
+      correctness bug.
+      **FOLLOW-UP MEASUREMENT 2026-07-31:** Jacob reported screenshotting
+      still visibly running "over 2 minutes" after he'd left the Riven
+      screen (in-game, on the navigation screen). Re-confirmed directly
+      against a second live occurrence: the recovery window itself is
+      still correctly bounded (exactly 60 captures, then genuinely stops -
+      re-verified by watching `orbiter.log` stop growing for 15+ seconds
+      after the 60th). So the "2 minutes" isn't the recovery window alone
+      running long - it's two delays stacking: however long the 6-miss
+      close *detection* itself takes after Jacob actually leaves (anchor
+      OCR has to accumulate enough misses first), plus this full 60s
+      recovery window on top of that. Combined, that's a substantially
+      worse real-world experience than the 60s number alone suggests.
+      Reinforces that shortening/replacing this window (per the note
+      above) is worth prioritizing, not purely cosmetic severity-wise even
+      though it's not a correctness bug.

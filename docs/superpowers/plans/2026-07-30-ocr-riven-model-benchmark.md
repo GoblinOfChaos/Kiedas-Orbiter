@@ -36,7 +36,7 @@ A new `#[ignore]`d Rust test builds an engine for each present candidate, runs i
 - Create: `ocr-models-bench/v6-medium/PP-OCRv6_medium_det.mnn`, `ocr-models-bench/v6-medium/PP-OCRv6_medium_rec.mnn`, `ocr-models-bench/v6-medium/ppocr_keys_v6_medium.txt`
 - Modify: `.gitignore`
 
-- [ ] **Step 1: Download the candidate model files**
+- [x] **Step 1: Download the candidate model files**
 
 ```bash
 cd /var/home/jedwards/wfinfo-ng
@@ -62,7 +62,7 @@ curl -fL -o ocr-models-bench/v6-medium/ppocr_keys_v6_medium.txt \
   https://raw.githubusercontent.com/zibo-chen/rust-paddle-ocr/next/models/ppocr_keys_v6_medium.txt
 ```
 
-- [ ] **Step 2: Verify none of the downloads are truncated or Git-LFS pointer stubs**
+- [x] **Step 2: Verify none of the downloads are truncated or Git-LFS pointer stubs**
 
 ```bash
 cd /var/home/jedwards/wfinfo-ng
@@ -81,7 +81,7 @@ done
 
 Expected: `en_PP-OCRv5_mobile_rec_infer.mnn` ~3.9MB, `PP-OCRv6_small_det.mnn` ~5.0MB, `PP-OCRv6_small_rec.mnn` ~10.6MB, `PP-OCRv6_medium_det.mnn` ~31.1MB, `PP-OCRv6_medium_rec.mnn` ~38.4MB. If any file is only a few hundred bytes, the download failed (likely got an HTML error page instead of the binary) - stop and report back rather than proceeding with a broken model file.
 
-- [ ] **Step 3: Gitignore the benchmark models directory**
+- [x] **Step 3: Gitignore the benchmark models directory**
 
 Add to `.gitignore`, in the section near the existing `ExportModSet.json`/`ExportUpgrades.json` "auto-downloaded" comment (or a new clearly-labeled section):
 
@@ -91,7 +91,7 @@ Add to `.gitignore`, in the section near the existing `ExportModSet.json`/`Expor
 ocr-models-bench/
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git checkout -b plan/ocr-model-benchmark
@@ -110,7 +110,7 @@ git commit -m "Gitignore OCR model benchmark candidates directory"
 - Produces: `fn load_ocr_engine_from(det_path: &Path, rec_path: &Path, keys_path: &Path) -> Result<OcrEngine, anyhow::Error>`
 - `load_ocr_engine()` keeps its existing signature and behavior exactly, now implemented by calling the new function with the same hardcoded production paths it always used.
 
-- [ ] **Step 1: Refactor `load_ocr_engine()`**
+- [x] **Step 1: Refactor `load_ocr_engine()`**
 
 Find:
 
@@ -163,7 +163,7 @@ fn load_ocr_engine() -> Result<OcrEngine, anyhow::Error> {
 }
 ```
 
-- [ ] **Step 2: Build and run the existing suite to confirm this refactor changed nothing observable**
+- [x] **Step 2: Build and run the existing suite to confirm this refactor changed nothing observable**
 
 ```bash
 cd /var/home/jedwards/wfinfo-ng
@@ -173,7 +173,7 @@ cargo test --release --bin orbiter riven_ -- --nocapture
 
 Expected: identical pass count to before this task - this step must not change any test's outcome, since production model paths are untouched.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/ocr.rs
@@ -190,7 +190,7 @@ git commit -m "Parameterize load_ocr_engine() for the model-benchmark harness"
 **Interfaces:**
 - Consumes: `wfinfo::ocr::{load_ocr_engine_from, image_to_rows, normalize_string, OcrRow}`, `riven_card_rects()`, the existing corpus manifest/types.
 
-- [ ] **Step 1: Add the benchmark test**
+- [x] **Step 1: Add the benchmark test**
 
 ```rust
     #[test]
@@ -340,7 +340,7 @@ git commit -m "Parameterize load_ocr_engine() for the model-benchmark harness"
     }
 ```
 
-- [ ] **Step 2: Run the benchmark**
+- [x] **Step 2: Run the benchmark**
 
 ```bash
 cd /var/home/jedwards/wfinfo-ng
@@ -349,13 +349,24 @@ cargo test --release --bin orbiter ocr_model_benchmark -- --ignored --nocapture
 
 Expected: a printed table comparing all four models' corpus row-match accuracy and average per-call latency. Record this output somewhere durable (e.g. paste it into this plan file's own tracking, or a TODO.md follow-up entry) so the comparison isn't lost.
 
-- [ ] **Step 3: Run the normal (non-ignored) suite to confirm nothing else broke**
+Benchmark result (2026-07-30, release build, 7 labeled rows):
+
+| model | rows_ok | rows_total | avg_ms/call |
+|---|---:|---:|---:|
+| production (PP-OCRv5 mobile) | 7 | 7 | 132.6 |
+| PP-OCRv5 English-only recognition | 7 | 7 | 159.7 |
+| PP-OCRv6 small | 7 | 7 | 194.0 |
+| PP-OCRv6 medium | 7 | 7 | 570.3 |
+
+No production model was changed.
+
+- [x] **Step 3: Run the normal (non-ignored) suite to confirm nothing else broke**
 
 ```bash
 cargo test --release --bin orbiter riven_ -- --nocapture
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/bin/main.rs

@@ -386,14 +386,21 @@ fn filter_and_separate_parts_from_part_box_impl(
     // debug!("Even: {}", total_even / total);
     // debug!("Odd: {}", total_odd / total);
 
-    let box_width = filtered.width() / 4;
+    let mut box_width = filtered.width() / 4;
+    let mut box_stride = box_width;
     let box_height = filtered.height();
 
     let mut curr_left = 0;
     let mut player_count = 4;
 
     if total_odd > total_even {
-        curr_left = box_width / 2;
+        // Solo 3-reward screens are visibly wider-spaced than simply dropping
+        // one of the 4-grid columns; keep card width but add a fixed gap and
+        // center the group in the crop so card bounds match the UI layout.
+        let gap = box_width / 3;
+        box_stride = box_width + gap;
+        let required_width = box_stride.saturating_mul(3).saturating_sub(gap);
+        curr_left = (filtered.width().saturating_sub(required_width)) / 2;
         player_count = 3;
     }
 
@@ -402,7 +409,7 @@ fn filter_and_separate_parts_from_part_box_impl(
 
     let dynamic_image = DynamicImage::ImageRgb8(original);
     for i in 0..player_count {
-        let x = curr_left + i * box_width;
+        let x = curr_left + i as u32 * box_stride;
         let cropped = dynamic_image.crop_imm(x, 0, box_width, box_height);
         // cropped
         //     .save(format!("part-{}.png", i))

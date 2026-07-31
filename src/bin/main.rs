@@ -1951,28 +1951,59 @@ mod test {
         }
 
         let candidates = [
-            Candidate { label: "production (PP-OCRv5 mobile)", det: "ocr-models/PP-OCRv5_mobile_det.mnn", rec: "ocr-models/PP-OCRv5_mobile_rec.mnn", keys: "ocr-models/ppocr_keys_v5.txt" },
-            Candidate { label: "PP-OCRv5 English-only recognition", det: "ocr-models/PP-OCRv5_mobile_det.mnn", rec: "ocr-models-bench/en-v5/en_PP-OCRv5_mobile_rec_infer.mnn", keys: "ocr-models-bench/en-v5/ppocr_keys_en.txt" },
-            Candidate { label: "PP-OCRv6 small", det: "ocr-models-bench/v6-small/PP-OCRv6_small_det.mnn", rec: "ocr-models-bench/v6-small/PP-OCRv6_small_rec.mnn", keys: "ocr-models-bench/v6-small/ppocr_keys_v6_small.txt" },
-            Candidate { label: "PP-OCRv6 medium", det: "ocr-models-bench/v6-medium/PP-OCRv6_medium_det.mnn", rec: "ocr-models-bench/v6-medium/PP-OCRv6_medium_rec.mnn", keys: "ocr-models-bench/v6-medium/ppocr_keys_v6_medium.txt" },
+            Candidate {
+                label: "production (PP-OCRv5 mobile)",
+                det: "ocr-models/PP-OCRv5_mobile_det.mnn",
+                rec: "ocr-models/PP-OCRv5_mobile_rec.mnn",
+                keys: "ocr-models/ppocr_keys_v5.txt",
+            },
+            Candidate {
+                label: "PP-OCRv5 English-only recognition",
+                det: "ocr-models/PP-OCRv5_mobile_det.mnn",
+                rec: "ocr-models-bench/en-v5/en_PP-OCRv5_mobile_rec_infer.mnn",
+                keys: "ocr-models-bench/en-v5/ppocr_keys_en.txt",
+            },
+            Candidate {
+                label: "PP-OCRv6 small",
+                det: "ocr-models-bench/v6-small/PP-OCRv6_small_det.mnn",
+                rec: "ocr-models-bench/v6-small/PP-OCRv6_small_rec.mnn",
+                keys: "ocr-models-bench/v6-small/ppocr_keys_v6_small.txt",
+            },
+            Candidate {
+                label: "PP-OCRv6 medium",
+                det: "ocr-models-bench/v6-medium/PP-OCRv6_medium_det.mnn",
+                rec: "ocr-models-bench/v6-medium/PP-OCRv6_medium_rec.mnn",
+                keys: "ocr-models-bench/v6-medium/ppocr_keys_v6_medium.txt",
+            },
         ];
 
         let manifest_path = "test-images/riven-corpus/manifest.json";
-        let raw = read_to_string(manifest_path).unwrap_or_else(|e| panic!("failed to read {manifest_path}: {e}"));
-        let samples: Vec<CorpusSample> = serde_json::from_str(&raw).unwrap_or_else(|e| panic!("failed to parse {manifest_path}: {e}"));
+        let raw = read_to_string(manifest_path)
+            .unwrap_or_else(|e| panic!("failed to read {manifest_path}: {e}"));
+        let samples: Vec<CorpusSample> = serde_json::from_str(&raw)
+            .unwrap_or_else(|e| panic!("failed to parse {manifest_path}: {e}"));
 
-        println!("\n{:<32} {:>10} {:>10} {:>14}", "model", "rows_ok", "rows_total", "avg_ms/call");
+        println!(
+            "\n{:<32} {:>10} {:>10} {:>14}",
+            "model", "rows_ok", "rows_total", "avg_ms/call"
+        );
         for candidate in &candidates {
             let det = std::path::Path::new(candidate.det);
             let rec = std::path::Path::new(candidate.rec);
             let keys = std::path::Path::new(candidate.keys);
             if !det.exists() || !rec.exists() || !keys.exists() {
-                println!("{:<32} SKIPPED (model files not present - run Task 1's download step)", candidate.label);
+                println!(
+                    "{:<32} SKIPPED (model files not present - run Task 1's download step)",
+                    candidate.label
+                );
                 continue;
             }
             let engine = match load_ocr_engine_from(det, rec, keys) {
                 Ok(e) => e,
-                Err(e) => { println!("{:<32} FAILED TO LOAD: {e}", candidate.label); continue; }
+                Err(e) => {
+                    println!("{:<32} FAILED TO LOAD: {e}", candidate.label);
+                    continue;
+                }
             };
             let mut ocr = Some(engine);
             let mut exact_matches = 0usize;
@@ -1980,11 +2011,22 @@ mod test {
             let mut total_calls = 0u32;
             let mut total_elapsed = std::time::Duration::ZERO;
             for sample in &samples {
-                let labeled_cards: Vec<&CorpusCard> = sample.cards.iter().filter(|c| c.note.as_deref() != Some("TODO_LABEL")).collect();
-                if labeled_cards.is_empty() { continue; }
-                let mode = match sample.mode.as_str() { "Cycle" => RivenScreenMode::Cycle, "Confirm" => RivenScreenMode::Confirm, other => panic!("unknown mode {other} in manifest") };
+                let labeled_cards: Vec<&CorpusCard> = sample
+                    .cards
+                    .iter()
+                    .filter(|c| c.note.as_deref() != Some("TODO_LABEL"))
+                    .collect();
+                if labeled_cards.is_empty() {
+                    continue;
+                }
+                let mode = match sample.mode.as_str() {
+                    "Cycle" => RivenScreenMode::Cycle,
+                    "Confirm" => RivenScreenMode::Confirm,
+                    other => panic!("unknown mode {other} in manifest"),
+                };
                 let image_path = format!("test-images/riven-corpus/{}", sample.image);
-                let image = image::open(&image_path).unwrap_or_else(|e| panic!("failed to open {image_path}: {e}"));
+                let image = image::open(&image_path)
+                    .unwrap_or_else(|e| panic!("failed to open {image_path}: {e}"));
                 let rects = riven_card_rects(mode);
                 for (card, rect) in labeled_cards.iter().zip(rects.iter()) {
                     let crop = relative_crop(&image, rect.0, rect.1, rect.2, rect.3);
@@ -1992,15 +2034,36 @@ mod test {
                     let rows = image_to_rows(&mut ocr, &crop);
                     total_elapsed += start.elapsed();
                     total_calls += 1;
-                    let rows = match rows { Ok(rows) => rows, Err(_) => continue };
-                    let got: Vec<String> = rows.iter().map(|r| normalize_string(&r.text).to_ascii_lowercase()).collect();
-                    let expected: Vec<String> = card.rows.iter().map(|r| normalize_string(&r.raw_text).to_ascii_lowercase()).collect();
+                    let rows = match rows {
+                        Ok(rows) => rows,
+                        Err(_) => continue,
+                    };
+                    let got: Vec<String> = rows
+                        .iter()
+                        .map(|r| normalize_string(&r.text).to_ascii_lowercase())
+                        .collect();
+                    let expected: Vec<String> = card
+                        .rows
+                        .iter()
+                        .map(|r| normalize_string(&r.raw_text).to_ascii_lowercase())
+                        .collect();
                     total_rows += expected.len();
-                    for want in &expected { if got.iter().any(|g| g == want) { exact_matches += 1; } }
+                    for want in &expected {
+                        if got.iter().any(|g| g == want) {
+                            exact_matches += 1;
+                        }
+                    }
                 }
             }
-            let avg_ms = if total_calls > 0 { total_elapsed.as_secs_f64() * 1000.0 / total_calls as f64 } else { 0.0 };
-            println!("{:<32} {:>10} {:>10} {:>14.1}", candidate.label, exact_matches, total_rows, avg_ms);
+            let avg_ms = if total_calls > 0 {
+                total_elapsed.as_secs_f64() * 1000.0 / total_calls as f64
+            } else {
+                0.0
+            };
+            println!(
+                "{:<32} {:>10} {:>10} {:>14.1}",
+                candidate.label, exact_matches, total_rows, avg_ms
+            );
         }
         println!("\nThis is a measurement report only - no production model was changed.");
     }

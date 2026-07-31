@@ -1,0 +1,22 @@
+{
+  "profile_metadata": {
+    "schema_version": 1,
+    "source": "My own tested builds",
+    "reviewed_at": "2026-07-25"
+  },
+  "categories": {
+    "primary": {
+      "acceltra": {
+        "good_combos": [
+          {
+            "mandatory": ["CD"],
+            "pick_n": 2,
+            "pick_from": ["MS", "TOX", "CC", "FR"]
+          }
+        ],
+        "safe_negatives": ["IMP", "ZOOM"],
+        "notes": "Example only — replace with preferences validated against your build."
+      }
+    }
+  }
+}

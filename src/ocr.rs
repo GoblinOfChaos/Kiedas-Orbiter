@@ -386,8 +386,10 @@ fn filter_and_separate_parts_from_part_box_impl(
     // debug!("Even: {}", total_even / total);
     // debug!("Odd: {}", total_odd / total);
 
-    let box_width = filtered.width() / 4;
+    let slot_width = filtered.width() / 4;
+    let mut box_width = slot_width;
     let box_height = filtered.height();
+    let mut inner_inset = 0_u32;
 
     let mut curr_left = 0;
     let mut player_count = 4;
@@ -395,6 +397,13 @@ fn filter_and_separate_parts_from_part_box_impl(
     if total_odd > total_even {
         curr_left = box_width / 2;
         player_count = 3;
+        // 3-reward missions are spaced more loosely than 4-reward missions.
+        // Keep the same pitch between reward slots, but shrink each crop a little
+        // to keep a small gap so cards don't render edge-to-edge.
+        inner_inset = slot_width / 14; // ~7%
+        if inner_inset > 0 {
+            box_width = slot_width.saturating_sub(inner_inset.saturating_mul(2));
+        }
     }
 
     let mut images = Vec::new();
@@ -402,7 +411,7 @@ fn filter_and_separate_parts_from_part_box_impl(
 
     let dynamic_image = DynamicImage::ImageRgb8(original);
     for i in 0..player_count {
-        let x = curr_left + i * box_width;
+        let x = curr_left + i * slot_width + inner_inset;
         let cropped = dynamic_image.crop_imm(x, 0, box_width, box_height);
         // cropped
         //     .save(format!("part-{}.png", i))

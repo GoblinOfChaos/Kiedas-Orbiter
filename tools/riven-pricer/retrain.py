@@ -30,8 +30,20 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent.parent
 PIPELINE_DIR = REPO / "tools" / "riven-pricer" / "pipeline"
 PRICER_MODELS = REPO / "src-tauri" / "data" / "bin" / "pricer-models"
-VENV = Path("/tmp/riven-pricer-venv311")
+VENV = REPO / "tools" / "riven-pricer" / ".venv"
 PYTHON = VENV / "bin" / "python3"
+
+
+def find_python311():
+    """Return a Python 3.11 interpreter (TensorFlow needs 3.11; the system
+    default may be newer). Prefers an explicit python3.11 on PATH."""
+    for cand in ("python3.11", "python3.12"):
+        p = shutil.which(cand)
+        if p:
+            return p
+    if sys.version_info >= (3, 11):
+        return sys.executable
+    sys.exit("No Python 3.11+ interpreter found (tried python3.11, python3.12)")
 
 MODEL_FILES = [
     "price_model.onnx",
@@ -63,8 +75,13 @@ def run_py(script, cwd=None, args=None):
 def ensure_venv():
     if VENV.exists():
         return
-    print(f"\n── Setting up Python 3.11 venv at {VENV} ──")
-    subprocess.run([sys.executable, "-m", "venv", str(VENV)], check=True)
+    base_python = find_python311()
+    print(f"\n── Setting up Python 3.11 venv at {VENV} (base: {base_python}) ──")
+    subprocess.run([base_python, "-m", "venv", str(VENV)], check=True)
+    subprocess.run(
+        [str(PYTHON), "-m", "pip", "install", "--upgrade", "pip"],
+        check=True,
+    )
     subprocess.run(
         [str(PYTHON), "-m", "pip", "install",
          "tensorflow", "pandas", "scikit-learn", "tqdm",

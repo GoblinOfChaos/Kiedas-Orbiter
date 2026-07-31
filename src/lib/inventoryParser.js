@@ -228,6 +228,14 @@ const NAME_OVERRIDES = {
   'MUSEUMDOG': 'Museum Dog',
 }
 
+// Wayward items: display-name + description overrides keyed by full unique name.
+const RESOURCE_OVERRIDES = {
+  '/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag': {
+    name: 'Tethra Data Fragments',
+    description: 'Intercepted encrypted fragment of Grineer communications.',
+  },
+}
+
 // ─── Name / Image Resolution ─────────────────────────────────────────────────
 
 /**
@@ -263,7 +271,7 @@ function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
   const leaf = parts.at(-1) ?? path;
   const folder = parts.at(-2) ?? '';
-  if (NAME_OVERRIDES[leaf]) return NAME_OVERRIDES[leaf];
+  if (NAME_OVERRIDES[leaf] || NAME_OVERRIDES[leaf.toUpperCase()]) return NAME_OVERRIDES[leaf] || NAME_OVERRIDES[leaf.toUpperCase()];
 
   if (FOLDER_OVERRIDES[folder]) {
     const suffix = leaf.match(/(Prime|Vandal|Wraith|Prisma|Kuva|Tenet|Umbra)$/i)?.[0] ?? '';
@@ -891,6 +899,7 @@ export function parseInventory(raw, exports) {
   const EGear = useWI
     ? mergeWithOrig(exports.WI_Gear, 'ExportGear')
     : toMap(exports.ExportGear, 'ExportGear');
+  const EB = toMap(exports.ExportBundles, 'ExportBundles');
 
   // ── XP lookup ──
   // inventory.XPInfo contains per-item affinity totals, referenced by ItemType.
@@ -1541,15 +1550,20 @@ export function parseInventory(raw, exports) {
 
   const consumables = (raw.Consumables ?? []).map(c => {
     const cUn = c.ItemType;
-    const cEntry = EGear[cUn];
+    // Guild glyph consumables share the regular glyph prism export entry
+    // (inventory paths carry a "Guild" prefix the export table lacks)
+    const lookupUn = cUn?.includes('GuildGlyphConsumable')
+      ? cUn.replace('GuildGlyphConsumable', 'GlyphConsumable')
+      : cUn;
+    const cEntry = EGear[lookupUn];
     const cDescLoctag = cEntry?.description ?? '';
     const cRawDesc = cDescLoctag ? (dict[cDescLoctag] || dict['/' + cDescLoctag] || '') : '';
     const cDescription = cRawDesc ? cRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
     return {
       unique_name: cUn,
-      name: resolveName(cUn, dict, EGear, ER, ERecipe) || nameFromPath(cUn),
+      name: resolveName(lookupUn, dict, EGear, ER, ERecipe) || nameFromPath(cUn),
       description: cDescription,
-      image: resolveImage(cUn, EGear, ER, ERecipe),
+      image: resolveImage(lookupUn, EGear, ER, ERecipe),
       category: 'consumables',
       quantity: c.ItemCount ?? 1,
       owned: true
@@ -1651,13 +1665,18 @@ export function parseInventory(raw, exports) {
   for (const item of (raw.MiscItems ?? [])) {
     const un = item.ItemType ?? '';
     if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/') || un.includes('OroFusexOrnament')) continue;
-    const name = resolveName(un, dict, ER, ERel, EW, ES);
+    // Hidden test item — zero references anywhere, safe to drop
+    if (un.includes('TestPartItem')) continue;
+    const override = RESOURCE_OVERRIDES[un];
+    const name = override?.name || resolveName(un, dict, ER, ERel, EW, ES);
     const isPrimePart = /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum|Guard|Hilt)/i.test(name);
     if (!isPrimePart) {
       const entry = ER[un];
       const resDescLoctag = entry?.description ?? '';
       const resRawDesc = resDescLoctag ? (dict[resDescLoctag] || dict['/' + resDescLoctag] || '') : '';
-      const resDescription = resRawDesc ? resRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
+      const resDescription = override?.description
+        ? override.description
+        : (resRawDesc ? resRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '');
       const obj = { unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: 'resources', quantity: item.ItemCount ?? 1, owned: true };
       resources.push(obj);
     }
@@ -2118,7 +2137,7 @@ export function parseInventory(raw, exports) {
 
   const wishlist = (raw.Wishlist ?? []).map(w => {
     if (typeof w === 'string') {
-      const name = resolveName(w, dict, EW, EWf, ES, ER, ECust, EGear, EM, EA) || nameFromPath(w);
+      const name = resolveName(w, dict, EW, EWf, ES, ER, ECust, EGear, EM, EA, EB) || nameFromPath(w);
       return { unique_name: w, name };
     }
     return null;

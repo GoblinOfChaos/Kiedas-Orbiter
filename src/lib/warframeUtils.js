@@ -266,6 +266,61 @@ export function cleanBountyName(path) {
   // All words are filler — fall back to first meaningful looking chunk
   return words.filter(w => w.length > 1).join(' ') || words[0] || 'Bounty'
 }
+
+// Deimos jobType leaves (e.g. DeimosExcavateBounty) abbreviate the mission
+// type inside the dict key (DeimosBountyExcavName); map the few known forms.
+const DEIMOS_BOUNTY_ABBR = {
+  Excavate: 'Excav',
+  CrpSurvivor: 'CrpSurv',
+  GrnSurvivor: 'GrnSurv',
+  KeyPieces: 'Keys',
+  AreaDefense: 'AreaDef',
+  Assassinate: 'Assass',
+  Purify: 'Purify',
+}
+
+/**
+ * Resolve an open-world bounty jobType path to its official localized title
+ * (e.g. /Lotus/Types/Gameplay/Eidolon/Jobs/AttritionBountyExt →
+ * "CULL THE ENEMY"). The game dict stores these under three different key
+ * schemes per syndicate:
+ *   - Cetus:    /Lotus/Language/OstronJobs/{leaf}Title
+ *   - Vallis:   /Lotus/Language/SolarisJobs/{leaf minus Venus prefix}Title
+ *   - Deimos:   /Lotus/Language/InfestedMicroplanet/DeimosBounty{Type}Name
+ * Returns '' when the path isn't a known bounty job (caller falls back).
+ */
+export function resolveBountyTitle(path, dict) {
+  if (!path || !dict) return ''
+  const leaf = path.split('/').pop()
+  if (!leaf) return ''
+  // Cetus / Ostron
+  let key = `/Lotus/Language/OstronJobs/${leaf}Title`
+  let res = dict[key] || dict['/' + key]
+  if (res && !res.startsWith('/Lotus/')) return clean(res)
+
+  // Vallis / Solaris (leaf may be Venus{...} or NarmerVenus{...})
+  const solarisLeaf = leaf.replace(/^(Narmer)?Venus/, '')
+  key = `/Lotus/Language/SolarisJobs/${solarisLeaf}Title`
+  res = dict[key] || dict['/' + key]
+  if (!res && solarisLeaf.endsWith('s')) {
+    // e.g. VenusHelpingJobCaches → HelpingJobCacheTitle (dict uses singular)
+    const singular = solarisLeaf.slice(0, -1)
+    key = `/Lotus/Language/SolarisJobs/${singular}Title`
+    res = dict[key] || dict['/' + key]
+  }
+  if (res && !res.startsWith('/Lotus/')) return clean(res)
+
+  // Deimos / Entrati
+  const m = leaf.match(/^Deimos(.+)Bounty$/)
+  if (m) {
+    const type = DEIMOS_BOUNTY_ABBR[m[1]] ?? m[1]
+    key = `/Lotus/Language/InfestedMicroplanet/DeimosBounty${type}Name`
+    res = dict[key] || dict['/' + key]
+    if (res && !res.startsWith('/Lotus/')) return clean(res)
+  }
+
+  return ''
+}
 export function resolveChallengeDesc(path, dict, EC, ERg, allyPath = '') {
   if (!path) return ''
   const entry = EC[path]
@@ -442,7 +497,7 @@ function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
   const leaf = parts.at(-1) ?? path;
   const folder = parts.at(-2) ?? '';
-  if (NAME_OVERRIDES[leaf]) return NAME_OVERRIDES[leaf];
+  if (NAME_OVERRIDES[leaf] || NAME_OVERRIDES[leaf.toUpperCase()]) return NAME_OVERRIDES[leaf] || NAME_OVERRIDES[leaf.toUpperCase()];
 
   if (FOLDER_OVERRIDES[folder]) {
     const suffix = leaf.match(/(Prime|Vandal|Wraith|Prisma|Kuva|Tenet|Umbra)$/i)?.[0] ?? '';

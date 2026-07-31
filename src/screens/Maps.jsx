@@ -126,7 +126,7 @@ export default function Maps() {
   }, [])
 
 
-  const [useRawMap, setUseRawMap] = useState(true)
+  const [useRawMap, setUseRawMap] = useState(false)
   const activeMap = MAPS[parseInt(activeTab)]
   const mapFilename = useRawMap ? activeMap?.raw : activeMap?.labeled
   const { worldState, inventoryData } = useMonitoring()

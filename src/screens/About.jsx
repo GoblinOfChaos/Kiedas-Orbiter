@@ -19,6 +19,7 @@ const CREDITS = [
   { name: 'calamity-inc', desc: 'browse.wf & warframe-public-export-plus', href: 'https://github.com/calamity-inc' },
   { name: 'relics.run', desc: 'Daily price history / market engine data', href: 'https://relics.run' },
   { name: 'Sainan/warframe-api-helper', desc: 'Template for session token extraction', href: 'https://github.com/Sainan/warframe-api-helper' },
+  { name: 'WFCD/warframe-items', desc: 'warframe-items dataset (names, descriptions, images)', href: 'https://github.com/WFCD/warframe-items' },
   { name: 'warframetools.com', desc: 'Checklist inspiration', href: 'https://warframetools.com/Task-Checklist/' },
   { name: 'Warframe Wiki', desc: 'Game information reference', href: 'https://wiki.warframe.com' },
   { name: 'cjtho/WarframeRivenPricer', desc: 'Riven pricing with Neural Network', href: 'https://github.com/cjtho/WarframeRivenPricer' },

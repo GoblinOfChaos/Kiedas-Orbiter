@@ -42,6 +42,7 @@ import {
   cleanBountyName,
   resolveChallengeDesc,
   resolveChallengeFlavour,
+  resolveBountyTitle,
   resolveItemName,
   timeRemaining,
   timeSince
@@ -361,8 +362,8 @@ export default function Dashboard() {
       const data = locationBounties.CetusSyndicate || {}
       Object.entries(data).forEach(([key, list]) => {
         if (Array.isArray(list)) {
-          const main = list[0] ? cleanBountyName(list[0]) : 'Bounty'
-          const stages = list.map(p => resolveChallenge(p, dict, EC).replace(/^Cetus\s+/i, '')).join('\n')
+          const main = list[0] ? (resolveBountyTitle(list[0], dict) || cleanBountyName(list[0])) : 'Bounty'
+          const stages = list.map(p => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Cetus\s+/i, '')).join('\n')
           items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Tent', 'Pool ') })
         }
       })
@@ -370,8 +371,8 @@ export default function Dashboard() {
       const data = locationBounties.EntratiSyndicate || {}
       Object.entries(data).forEach(([key, list]) => {
         if (Array.isArray(list)) {
-          const main = list[0] ? cleanBountyName(list[0]) : 'Bounty'
-          const stages = list.map(p => resolveChallenge(p, dict, EC).replace(/^Deimos\s+/i, '')).join('\n')
+          const main = list[0] ? (resolveBountyTitle(list[0], dict) || cleanBountyName(list[0])) : 'Bounty'
+          const stages = list.map(p => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Deimos\s+/i, '')).join('\n')
           items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Chamber', 'Vault ').replace('Tent', 'Pool ') })
         }
       })
@@ -379,8 +380,8 @@ export default function Dashboard() {
       const data = locationBounties.SolarisSyndicate || {}
       Object.entries(data).forEach(([key, list]) => {
         if (Array.isArray(list)) {
-          const main = list[0] ? cleanBountyName(list[0]) : 'Bounty'
-          const stages = list.map(p => resolveChallenge(p, dict, EC).replace(/^Venus\s+/i, '').replace(/^Solaris\s+/i, '')).join('\n')
+          const main = list[0] ? (resolveBountyTitle(list[0], dict) || cleanBountyName(list[0])) : 'Bounty'
+          const stages = list.map(p => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Venus\s+/i, '').replace(/^Solaris\s+/i, '')).join('\n')
           items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Bounty', '').replace(/([A-Z])/g, ' $1').trim() })
         }
       })
@@ -1175,7 +1176,7 @@ export default function Dashboard() {
                   <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-bold text-kronos-text uppercase" title={item.name}>{item.name}</p>
+                  <p className="text-sm font-bold text-kronos-text uppercase truncate" title={item.name}>{item.name}</p>
                 </div>
               </div>
             ))}

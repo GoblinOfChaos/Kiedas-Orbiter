@@ -38,6 +38,9 @@ src-tauri/data/bin/*
 
 
 # Python cache in training pipeline
+
+# Riven pricer training venv (created by tools/riven-pricer/retrain.py)
+tools/riven-pricer/.venv/
 __pycache__/
 *.pyc
 

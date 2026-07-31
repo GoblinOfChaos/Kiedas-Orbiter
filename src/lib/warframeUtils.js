@@ -346,12 +346,17 @@ export function resolveChallengeDesc(path, dict, EC, ERg, allyPath = '') {
   }
 
   if (res) {
-    res = clean(res).replace(/\|COUNT\|/g, entry?.requiredCount || '')
+    // Strip OPEN_COLOR/CLOSE_COLOR marketing labels and the bare |ALLY| Bounty
+    // token BEFORE clean() (which would otherwise leave stray " Bounty"/
+    // "Antivirus Bounty" fragments), then substitute |COUNT| before it too.
+    res = res.replace(/\|OPEN_COLOR\|.*?\|CLOSE_COLOR\|/gs, '')
+    res = res.replace(/\|ALLY\|\s+Bounty/gi, '')
     if (allyPath) {
-      const allyName = resolveNode(allyPath, dict, ERg)
-      res = res.replace(/\|ALLY\|\s+Bounty/gi, '')
+      const allyName = resolveNode(allyPath, dict, ERg) || ''
       res = res.replace(/\|ALLY\|/g, allyName)
     }
+    res = res.replace(/\|COUNT\|/g, entry?.requiredCount || '')
+    res = clean(res)
     return res.replace(/\|[^|]*\|/g, '').replace(/\/[L|l]otus\/[^ ]*/g, '').trim()
   }
 
@@ -369,11 +374,14 @@ export function resolveChallengeFlavour(path, dict, EC, ERg, allyPath = '') {
   if (entry && entry.flavour) {
     let res = dict[entry.flavour] || dict['/' + entry.flavour]
     if (res) {
-      res = clean(res)
+      // Substitute |ALLY| BEFORE clean() strips it as markup, otherwise the
+      // flavor loses its subject (e.g. "Eleanor needs sniper cover" -> bare
+      // "needs sniper cover for this mission.").
       if (allyPath) {
-        const allyName = resolveNode(allyPath, dict, ERg)
+        const allyName = resolveNode(allyPath, dict, ERg) || ''
         res = res.replace(/\|ALLY\|/g, allyName)
       }
+      res = clean(res)
       return res.replace(/\|[^|]*\|/g, '').trim()
     }
   }

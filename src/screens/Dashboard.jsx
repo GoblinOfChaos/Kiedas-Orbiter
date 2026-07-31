@@ -251,7 +251,7 @@ export default function Dashboard() {
       if (loc) setLocationBounties(loc)
       if (cycle) setBountyCycle(cycle)
       setLastFetch(Date.now())
-    } catch {}
+    } catch { }
   }, [])
 
   useEffect(() => {
@@ -402,9 +402,9 @@ export default function Dashboard() {
               />
             )}
             {/* Darken the left transparent zone so overlaid text stays legible; the portrait is right/top anchored */}
-            <div className="absolute inset-0 left-0 right-[30%] bg-gradient-to-r from-black/65 via-black/40 to-transparent" />
+            <div className="absolute inset-0 left-0 right-[10%] bg-gradient-to-r from-black/65 via-black/40 to-transparent" />
             {/* Text spans the transparent-left width; stops short of the portrait */}
-            <div className="absolute inset-0 left-0 right-[30%] flex flex-col justify-between p-3 z-10">
+            <div className="absolute inset-0 left-0 right-[20%] flex flex-col justify-between p-3 z-10">
               <div className="flex items-start justify-between gap-2">
                 <p className="text-sm font-black text-white uppercase leading-tight flex-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">{it.name}</p>
                 {it.tier && <span className="text-[10px] font-bold text-kronos-accent uppercase bg-kronos-panel/70 px-1.5 rounded">{it.tier}</span>}

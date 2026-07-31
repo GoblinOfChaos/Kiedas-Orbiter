@@ -350,12 +350,17 @@ export default function Dashboard() {
         const mTypeMatch = b.challenge?.match(/\/(Vania|Hex|1999)([A-Z][a-z]+)/)
         const mTypeRaw = mTypeMatch ? mTypeMatch[2] : ''
         const mType = resolveMissionType(mTypeRaw, dict, ERg)
+        // Bounty card art lives in assets/ui/Bounty{Ally}.png; Lich bounties
+        // have no ally so they get the Techrot art.
+        const allyLeaf = b.ally ? b.ally.split('/').pop().replace(/AllyAgent$/, '') : ''
+        const img = allyLeaf ? `Bounty${allyLeaf}` : 'BountyTechrot'
         return {
           name: b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Unknown Bounty',
           desc: flavour,
           obj: obj,
           node: mType ? `${allyName} (${mType})` : allyName,
-          tier: b.rot ? `Rotation ${b.rot}` : ''
+          tier: b.rot ? `Rotation ${b.rot}` : '',
+          img
         }
       })
     } else if (bountyTab === 'cetus') {
@@ -386,13 +391,13 @@ export default function Dashboard() {
         }
       })
     }
-
     if (items.length === 0) return <div className="min-h-[80px] flex items-center justify-center"><p className="text-xs text-kronos-dim italic">No bounties available…</p></div>
 
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
         {items.map((it, idx) => (
           <div key={`${it.name}-${idx}`} className="bg-kronos-panel/40 p-3 rounded flex flex-col gap-1 border border-transparent hover:border-kronos-accent/30 transition-all">
+            {it.img && iconsPath && <img src={convertFileSrc(`${iconsPath}/${it.img}.png`)} alt={it.name} className="w-full h-24 object-cover object-top rounded mb-1" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />}
             <div className="flex justify-between items-start gap-2">
               <p className="text-xs font-bold text-kronos-accent uppercase leading-tight flex-1">{it.name}</p>
               <span className="text-[9px] text-kronos-dim uppercase bg-kronos-panel/60 px-1 rounded">{it.tier}</span>

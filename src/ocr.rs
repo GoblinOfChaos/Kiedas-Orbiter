@@ -459,18 +459,33 @@ pub fn normalize_string(string: &str) -> String {
 // line and squeezes everything into one strip, jumbling separate lines
 // together. Detection finds and separates each real line first, matching
 // how Kronos's own recognize_riven() handles its multi-line card content.
-fn load_ocr_engine() -> Result<OcrEngine, anyhow::Error> {
-    let det_path = Path::new("ocr-models/PP-OCRv5_mobile_det.mnn");
-    let rec_path = Path::new("ocr-models/PP-OCRv5_mobile_rec.mnn");
-    let keys_path = Path::new("ocr-models/ppocr_keys_v5.txt");
+/// Builds an OcrEngine from an arbitrary det/rec/charset model triple.
+/// Used both by load_ocr_engine() (the fixed production model) and by
+/// the model-benchmark harness (arbitrary candidate models) so engine
+/// construction isn't duplicated between them.
+pub fn load_ocr_engine_from(
+    det_path: &Path,
+    rec_path: &Path,
+    keys_path: &Path,
+) -> Result<OcrEngine, anyhow::Error> {
     if !det_path.exists() || !rec_path.exists() || !keys_path.exists() {
         anyhow::bail!(
-            "OCR model files not found (expected ocr-models/PP-OCRv5_mobile_det.mnn, \
-             PP-OCRv5_mobile_rec.mnn, and ppocr_keys_v5.txt relative to the current directory)"
+            "OCR model files not found (expected {}, {}, and {})",
+            det_path.display(),
+            rec_path.display(),
+            keys_path.display()
         );
     }
     OcrEngine::new(det_path, rec_path, keys_path, None)
         .map_err(|e| anyhow::anyhow!("could not initialize OCR engine: {e}"))
+}
+
+fn load_ocr_engine() -> Result<OcrEngine, anyhow::Error> {
+    load_ocr_engine_from(
+        Path::new("ocr-models/PP-OCRv5_mobile_det.mnn"),
+        Path::new("ocr-models/PP-OCRv5_mobile_rec.mnn"),
+        Path::new("ocr-models/ppocr_keys_v5.txt"),
+    )
 }
 
 pub fn image_to_string(

@@ -41,6 +41,10 @@ config.json
 ExportModSet.json
 ExportUpgrades.json
 
+# OCR model benchmark candidates (large, auto-downloaded, throwaway -
+# only a promoted winner would ever get committed, under ocr-models/)
+ocr-models-bench/
+
 # Test images
 *.png
 WFI test images/

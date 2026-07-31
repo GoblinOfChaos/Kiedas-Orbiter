@@ -779,9 +779,9 @@ function detectArcaneCategory(un, name) {
   return folder
 }
 
-export function parseInventory(raw, exports) {
+export function parseInventory(raw, exports, dict) {
   if (!raw || typeof raw !== 'object' || !exports) return { all: [] };
-  const dict = exports['dict.en'] ?? {};
+  dict = dict || exports?.['dict.en'] || {};
 
   const toMap = (data, wrapperKey) => {
     if (!data) return {};

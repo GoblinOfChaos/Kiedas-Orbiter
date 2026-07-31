@@ -197,7 +197,7 @@ export default function MirroredMonitoringProvider({ children }) {
   useEffect(() => {
     if (!exportData || !rawInventory) return
     try {
-      const parsed = parseInventory(rawInventory, exportData)
+      const parsed = parseInventory(rawInventory, exportData, dict)
       setInventoryData(parsed)
     } catch {
       console.error('[MirroredMonitoring] parseInventory failed')
@@ -440,8 +440,8 @@ export default function MirroredMonitoringProvider({ children }) {
   }
 
   // ── Memoized fields (mirrors MonitoringContext) ──
-  const dict = useMemo(() => exportData?.['dict.en'] ?? {}, [exportData])
-  const suppDict = useMemo(() => exportData?.['supp-dict-en'] ?? {}, [exportData])
+  const dict = useMemo(() => exportData?.dict ?? exportData?.['dict.en'] ?? {}, [exportData])
+  const suppDict = useMemo(() => exportData?.['supp-dict'] ?? exportData?.['supp-dict-en'] ?? {}, [exportData])
   const archimedeaMap = useMemo(() => buildArchimedeaMap(dict, suppDict), [dict, suppDict])
   const EC = useMemo(() => toMap(exportData?.ExportChallenges, 'ExportChallenges'), [exportData])
   const ERg = useMemo(() => buildERg(exportData), [exportData])
@@ -510,7 +510,7 @@ export default function MirroredMonitoringProvider({ children }) {
     if (!ed) return
     setTimeout(() => {
       try {
-        const parsed = parseInventory(raw, ed)
+        const parsed = parseInventory(raw, ed, dict)
         setInventoryData(parsed || null)
       } catch {
         setInventoryData(null)
@@ -519,7 +519,7 @@ export default function MirroredMonitoringProvider({ children }) {
       setLastUpdate(tsStr)
       localStorage.setItem('lastUpdate', tsStr)
     }, 0)
-  }, [exportData])
+  }, [exportData, dict])
 
   const hasCachedData = useCallback(async () => {
     if (hasCachedDataRef.current) return true

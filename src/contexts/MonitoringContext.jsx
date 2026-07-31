@@ -189,8 +189,8 @@ export function MonitoringProvider({ children }) {
   const startedRef = useRef(false)
 
   // ── Derived lookup maps ──────────────────────────────────────────────────────
-  const dict = useMemo(() => exportData?.['dict.en'] ?? {}, [exportData])
-  const suppDict = useMemo(() => exportData?.['supp-dict-en'] ?? {}, [exportData])
+  const dict = useMemo(() => exportData?.dict ?? exportData?.['dict.en'] ?? {}, [exportData])
+  const suppDict = useMemo(() => exportData?.['supp-dict'] ?? exportData?.['supp-dict-en'] ?? {}, [exportData])
   const archimedeaMap = useMemo(() => buildArchimedeaMap(dict, suppDict), [dict, suppDict])
   const EC = useMemo(() => toMap(exportData?.ExportChallenges, 'ExportChallenges'), [exportData])
   const ERg = useMemo(() => {
@@ -471,7 +471,7 @@ export function MonitoringProvider({ children }) {
     // Yield frame before heavy parseInventory to prevent UI freeze
     setTimeout(() => {
       try {
-        const parsed = parseInventory(raw, exports)
+        const parsed = parseInventory(raw, exports, dict)
         setInventoryData(parsed || null)
       } catch (err) {
         setInventoryData(null)
@@ -481,7 +481,7 @@ export function MonitoringProvider({ children }) {
       localStorage.setItem('lastUpdate', tsStr)
       invoke('relay_event', { event: 'sidebar-data-updated', payload: { ts: tsStr } }).catch(() => {})
     }, 0)
-  }, [exportData])
+  }, [exportData, dict])
 
   useEffect(() => {
     if (startedRef.current) return

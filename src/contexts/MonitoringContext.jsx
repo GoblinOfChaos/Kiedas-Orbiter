@@ -9,7 +9,7 @@ import { getPrice, getPricesBatch } from '../lib/marketEngine'
 import { resolveNode, resolveMissionType, resolveChallenge } from '../lib/warframeUtils'
 import { evaluateNotifications } from '../lib/notificationManager'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
-import { getSetting, setSetting } from '../lib/settings'
+import { loadSettings, getSetting, setSetting } from '../lib/settings'
 
 
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
@@ -187,6 +187,7 @@ export function MonitoringProvider({ children }) {
   const [fixProgress, setFixProgress] = useState({ checking: true })
   const cardInitStarted = useRef(false)
   const startedRef = useRef(false)
+  const localeRef = useRef('en')
 
   // ── Derived lookup maps ──────────────────────────────────────────────────────
   const dict = useMemo(() => exportData?.dict ?? exportData?.['dict.en'] ?? {}, [exportData])
@@ -482,15 +483,16 @@ export function MonitoringProvider({ children }) {
       invoke('relay_event', { event: 'sidebar-data-updated', payload: { ts: tsStr } }).catch(() => {})
     }, 0)
   }, [exportData, dict])
-
   useEffect(() => {
     if (startedRef.current) return
     startedRef.current = true
 
     ; (async () => {
+      await loadSettings()
+      localeRef.current = getSetting('gameLocale', 'en')
       setStatusText('Checking updates & assets…')
       const [updatesRes, exportsRes, mediaRes, pricerRes, spiRes, arbRes, descRes] = await Promise.allSettled([
-        invoke('check_exports'),
+        invoke('check_exports', { locale: localeRef.current, force: false }),
         invoke('load_all_exports'),
         invoke('check_media_assets'),
         invoke('check_pricer_models'),
@@ -578,11 +580,12 @@ export function MonitoringProvider({ children }) {
 
 
   const fetchWorldstate = useCallback(async () => {
+    const locale = localeRef.current
     try {
       const wsStr = await invoke('fetch_url', { url: OFFICIAL_API }).catch(() => null) || await invoke('fetch_url', { url: ORACLE_API }).catch(() => null)
       const ws = wsStr ? JSON.parse(wsStr) : null
       if (ws && dict) {
-        const parsed = parseWorldstate(ws, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, ExportUpgrades: exportData?.ExportUpgrades, archimedeaMap, descendiaDesc })
+        const parsed = parseWorldstate(ws, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, ExportUpgrades: exportData?.ExportUpgrades, archimedeaMap, descendiaDesc, locale })
         setWorldState(parsed)
       }
     } catch (err) { }

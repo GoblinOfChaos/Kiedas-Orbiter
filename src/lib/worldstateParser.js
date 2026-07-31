@@ -249,7 +249,7 @@ const CONQUEST_OVERRIDES = {
  *
  * @param {object} raw         The raw worldstate JSON object from Warframe's servers.
  * @param {object} options     Resolution helpers:
- *   - dict            Main localisation dictionary (dict.en)
+ *   - dict            Main localisation dictionary (from dict.json)
  *   - suppDict        Supplementary dictionary (from oracle.browse.wf)
  *   - ERg             ExportRegions: node name resolution
  *   - EC              ExportChallenges: Nightwave challenge text
@@ -264,7 +264,7 @@ const CONQUEST_OVERRIDES = {
  *   - archimedeaMap   Archimedea localized name map
  *   - descendiaDesc   Descendia description map (key → description text)
  */
-export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, bountyCycle, ES, ENWRawRewards, ExportImages, ExportUpgrades, archimedeaMap, descendiaDesc }) {
+export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, bountyCycle, ES, ENWRawRewards, ExportImages, ExportUpgrades, archimedeaMap, descendiaDesc, locale = 'en' }) {
 
   const nightwaveRewards = ENWRawRewards || []
   const imagesMap = ExportImages || {}
@@ -296,12 +296,38 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
     return resolveNode(key, dict, ERg)
   }
 
+// Relic era names — proper nouns not always in the dict.
+// Try dict lookup first (e.g. /Lotus/Language/Locations/Lith), then fall back to a
+// manual translation table keyed by the English era name.
+const ERA_TRANSLATIONS = {
+  Lith: { uk: 'Літ', fr: 'Lith', de: 'Lith', es: 'Lith', ru: 'Лит', zh: '利特', ja: 'リス', ko: '리스', pt: 'Lith', tr: 'Lith', th: 'ลิท', pl: 'Lith', it: 'Lith', en: 'Lith' },
+  Meso: { uk: 'Мезо', fr: 'Méso', de: 'Meso', es: 'Meso', ru: 'Мезо', zh: '梅索', ja: 'メソ', ko: '메소', pt: 'Méso', tr: 'Meso', th: 'เมโซ', pl: 'Meso', it: 'Meso', en: 'Meso' },
+  Neo:  { uk: 'Нео', fr: 'Néo', de: 'Neo', es: 'Neo', ru: 'Нео', zh: '神', ja: 'ネオ', ko: '네오', pt: 'Néo', tr: 'Neo', th: 'เนโอ', pl: 'Neo', it: 'Neo', en: 'Neo' },
+  Axi:  { uk: 'Аксі', fr: 'Axi', de: 'Axi', es: 'Axi', ru: 'Акси', zh: '阿克西', ja: 'アクシ', ko: '악시', pt: 'Axi', tr: 'Axi', th: 'แอกซี', pl: 'Axi', it: 'Axi', en: 'Axi' },
+  Requiem: { uk: 'Реквієм', fr: 'Requiem', de: 'Requiem', es: 'Requiem', ru: 'Реквием', zh: 'Requiem', ja: 'Requiem', ko: 'Requiem', pt: 'Requiem', tr: 'Requiem', th: 'Requiem', pl: 'Requiem', it: 'Requiem', en: 'Requiem' },
+  Omnia: { uk: 'Омнія', fr: 'Omnia', de: 'Omnia', es: 'Omnia', ru: 'Омниа', zh: 'Omnia', ja: 'Omnia', ko: 'Omnia', pt: 'Omnia', tr: 'Omnia', th: 'Omnia', pl: 'Omnia', it: 'Omnia', en: 'Omnia' },
+}
+
+function resolveRelicEra(eraName, dict, locale = 'en') {
+  if (!eraName) return 'Unknown'
+  // Try dict first (e.g. /Lotus/Language/Locations/Lith)
+  const dictKey = `/Lotus/Language/Locations/${eraName}`
+  const dictVal = dict?.[dictKey] || dict?.['/' + dictKey]
+  if (dictVal && !dictVal.startsWith('/Lotus/')) return dictVal.replace(/<[^>]*>/g, '').trim()
+  // Fall back to translation table
+  const translations = ERA_TRANSLATIONS[eraName]
+  if (translations) {
+    return translations[locale] || translations.en || eraName
+  }
+  return eraName
+}
+
   return {
     // News (from Events)
     news: (raw.Events || [])
       .filter(e => e.Date != null)
       .map(e => {
-        const raw_msg = e.Messages?.find(m => m.LanguageCode === 'en')?.Message || ''
+        const raw_msg = e.Messages?.find(m => (m.LanguageCode || '').toLowerCase() === locale.toLowerCase())?.Message || ''
         if (!raw_msg) return null
 
         const message = raw_msg.startsWith('/Lotus/Language/')
@@ -313,7 +339,7 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
           : (e.Date ? new Date(e.Date).getTime() : 0)
 
         // Try 'Links' array first (modern worldstate), fallback to 'Prop'
-        const linkRaw = e.Links?.find(l => l.LanguageCode === 'en')?.Link || e.Links?.[0]?.Link || e.Prop || ''
+        const linkRaw = e.Links?.find(l => (l.LanguageCode || '').toLowerCase() === locale.toLowerCase())?.Link || e.Links?.[0]?.Link || e.Prop || ''
         const link = (linkRaw.startsWith('http') || !linkRaw)
           ? linkRaw
           : `https://www.warframe.com${linkRaw.startsWith('/') ? '' : '/'}${linkRaw}`
@@ -359,17 +385,7 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
           defReward = null
         }
       }
-
-      const nodeEntry = ERg[i.Node]
-      const planet = nodeEntry?.systemName ? (dict[nodeEntry.systemName] || dict['/' + nodeEntry.systemName] || splitPascal(nodeEntry.systemName.split('/').at(-1))) : ''
-
       return {
-        id: i._id?.$oid || i._id,
-        node: resolveNode(i.Node, dict, ERg),
-        planet: planet,
-        missionType: resolveMissionType(i.MissionType || i.AttackerMissionInfo?.missionType || i.DefenderMissionInfo?.missionType, dict, ERg),
-        completed: i.Completed,
-        completion: pct,
         attacker: {
           reward: attReward,
           rewardText: resolveRewardText(attReward, dict, ERg, uniqueNameToName),
@@ -385,12 +401,12 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
 
     // Fissures (from ActiveMissions)
     fissures: (raw.ActiveMissions || []).map(f => {
-      const tierMap = { 'VoidT1': 'Lith', 'VoidT2': 'Meso', 'VoidT3': 'Neo', 'VoidT4': 'Axi', 'VoidT5': 'Requiem', 'VoidT6': 'Omnia' }
+      const era = resolveRelicEra(f.Modifier?.replace('VoidT', ''), dict, locale)
       return {
         id: f._id?.$oid || f._id,
         node: resolveNode(f.Node, dict, ERg),
         missionType: resolveMissionType(f.MissionType, dict, ERg),
-        tier: tierMap[f.Modifier] || f.Modifier?.replace('VoidT', 'Tier ') || 'Unknown',
+        tier: era,
         tierNum: parseInt(f.Modifier?.replace('VoidT', ''), 10) || 0,
         expiry: f.Expiry,
         activation: f.Activation,
@@ -401,7 +417,7 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
 
     // Void Storms
     voidStorms: (raw.VoidStorms || []).map(s => {
-      const tierMap = { 'VoidT1': 'Lith', 'VoidT2': 'Meso', 'VoidT3': 'Neo', 'VoidT4': 'Axi', 'VoidT5': 'Requiem', 'VoidT6': 'Omnia' }
+      const era = resolveRelicEra(s.ActiveMissionTier?.replace('VoidT', ''), dict, locale)
 
       let mType = resolveMissionType(s.MissionType, dict, ERg)
       if (!mType || mType === 'Unknown Mission') {
@@ -415,7 +431,7 @@ export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage,
         id: s._id?.$oid || s._id,
         node: resolveNode(s.Node, dict, ERg),
         missionType: mType || 'Skirmish',
-        tier: tierMap[s.ActiveMissionTier] || s.ActiveMissionTier?.replace('VoidT', 'Tier ') || 'Unknown',
+        tier: era,
         tierNum: parseInt(s.ActiveMissionTier?.replace('VoidT', ''), 10) || 0,
         expiry: s.Expiry,
         activation: s.Activation,

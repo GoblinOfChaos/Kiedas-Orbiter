@@ -129,6 +129,24 @@ export const MAPPING_TYPES = {
   '1999': '',
 }
 
+// Map from MAPPING_TYPES values to /Lotus/Language/Missions/MissionName_{key} dict paths
+const MISSION_NAME_KEYS = {
+  'Mobile Defense': 'MobileDefense',
+  'Spy': 'Spy',
+  'Assassination': 'Assassination',
+  'Sabotage': 'Sabotage',
+  'Survival': 'Survival',
+  'Defense': 'Defense',
+  'Extermination': 'Exterminate',
+  'Rescue': 'Rescue',
+  'Capture': 'Capture',
+  'Excavation': 'Excavation',
+  'Hijack': 'Retrieval',
+  'Interception': 'Territory',
+  'Disruption': 'Artifact',
+  'Recovery': 'Retrieval',
+}
+
 const clean = (s) => {
   if (!s || typeof s !== 'string') return ''
   return s.replace(/<[^>]*>/g, '').replace(/\|[^|]*\|/g, '').replace(/\\n/g, ' ').trim()
@@ -209,9 +227,30 @@ export function resolveNode(node, dict, ERg) {
  */
 export function resolveMissionType(raw, dict, ERg) {
   if (!raw) return ''
-  if (MAPPING_TYPES[raw] !== undefined) return MAPPING_TYPES[raw]
+  // Try direct mission name lookup in dict first (e.g. /Lotus/Language/Missions/MissionName_MobileDefense)
+  const missionKey = `/Lotus/Language/Missions/MissionName_${raw.replace('MT_', '')}`
+  if (dict[missionKey]) return clean(dict[missionKey])
+  // Fallback to MAPPING_TYPES (hardcoded English) then try to resolve via MISSION_NAME_KEYS
+  if (MAPPING_TYPES[raw] !== undefined) {
+    const english = MAPPING_TYPES[raw]
+    const mk = MISSION_NAME_KEYS[english]
+    if (mk) {
+      const localized = dict[`/Lotus/Language/Missions/MissionName_${mk}`]
+      if (localized) return clean(localized)
+    }
+    return english
+  }
   const resolved = resolveNode(raw, dict, ERg)
-  return MAPPING_TYPES[resolved] ?? resolved
+  const english = MAPPING_TYPES[resolved]
+  if (english !== undefined) {
+    const mk = MISSION_NAME_KEYS[english]
+    if (mk) {
+      const localized = dict[`/Lotus/Language/Missions/MissionName_${mk}`]
+      if (localized) return clean(localized)
+    }
+    return english
+  }
+  return resolved
 }
 
 
@@ -455,6 +494,60 @@ const FOLDER_OVERRIDES = {
   Fairy: 'Wisp', Jade: 'Nyx',
 };
 
+// Items that don't have dict entries and produce ugly pascal-split names.
+// Keyed by the leaf of the uniqueName path.
+const NAME_OVERRIDES = {
+  'MUSEUMDOGTAG': 'Museum Dog Tag',
+  'MUSEUMDOGTAGCONSUMABLE': 'Museum Dog Tag',
+  'GUILDGLYPHCONSUMABLENOCHARGES': 'Guild Glyph (No Charges)',
+  'GUILDGLYPHCONSUMABLE': 'Guild Glyph',
+  'RESOURCESTESTPARTITEM': 'Resource Test Part',
+  'RESOURCES_TEST_PART_ITEM': 'Resource Test Part',
+  'MUSEUMDOG': 'Museum Dog',
+  'CONSUMABLENOCHARGES': 'Consumable (No Charges)',
+}
+export { NAME_OVERRIDES }
+
+// Riven stat name translations — the dict doesn't contain these, so we maintain
+// a small manual table for the most common stats. Keyed by the English stat name.
+const RIVEN_STAT_TRANSLATIONS = {
+  'Melee Damage': { uk: 'Урон ближнього бою', fr: 'Dégâts mélée', de: 'Nahkampfschaden', es: 'Daño cuerpo a cuerpo', ru: 'Урон ближнего боя', zh: '近战伤害', ja: '近接ダメージ', ko: '근접 데미지', pt: 'Dano Corpo a Corpo', tr: 'Yakın Hasar', th: 'ดาเมจประชาน', pl: 'Obrażenia z bliskiego walki', it: 'Danni corpo a corpo', en: 'Melee Damage' },
+  'Critical Chance': { uk: 'Шанс кріт. удару', fr: 'Chance de critique', de: 'Kritische Trefferchance', es: 'Prob. crítico', ru: 'Шанс крит. попадания', zh: '暴击率', ja: 'クリティカル率', ko: '치명타 확률', pt: 'Chance Crítica', tr: 'Kritik Şans', th: 'โอกาสวิกฆาต', pl: 'Szansa krytyczna', it: 'Probabilità critica', en: 'Critical Chance' },
+  'Critical Damage': { uk: 'Кріт. урон', fr: 'Dégâts critiques', de: 'Kritischer Schaden', es: 'Daño crítico', ru: 'Крит. урон', zh: '暴击伤害', ja: 'クリティカルダメージ', ko: '치명타 데미지', pt: 'Dano Crítico', tr: 'Kritik Hasar', th: 'ดาเมจวิกฆาต', pl: 'Obrażenia krytyczne', it: 'Danni critici', en: 'Critical Damage' },
+  'Attack Speed': { uk: 'Швидкість атаки', fr: 'Vitesse d\'attaque', de: 'Angriffsgeschwindigkeit', es: 'Velocidad de ataque', ru: 'Скорость атаки', zh: '攻击速度', ja: '攻撃速度', ko: '공격 속도', pt: 'Velocidade de Ataque', tr: 'Saldırı Hızı', th: 'ความเร็วการโจมย์', pl: 'Prędkość ataku', it: 'Velocità di attacco', en: 'Attack Speed' },
+  'Status Chance': { uk: 'Шанс статусу', fr: 'Chance de statut', de: 'Status-Chance', es: 'Prob. de estado', ru: 'Шанс статуса', zh: '状态几率', ja: 'ステータス発生率', ko: '상태 확률', pt: 'Chance de Status', tr: 'Durum Şansı', th: 'โอกาสสถานะ', pl: 'Szansa na status', it: 'Probabilità stato', en: 'Status Chance' },
+  'Damage': { uk: 'Урон', fr: 'Dégâts', de: 'Schaden', es: 'Daño', ru: 'Урон', zh: '伤害', ja: 'ダメージ', ko: '데미지', pt: 'Dano', tr: 'Hasar', th: 'ดาเมจ', pl: 'Obrażenia', it: 'Danni', en: 'Damage' },
+  'Puncture': { uk: 'Проникання', fr: 'Perforation', de: 'Durchdringung', es: 'Perforación', ru: 'Проникание', zh: '穿透', ja: '貫通', ko: '관통', pt: 'Perfuração', tr: 'Delme', th: 'ทฤษฎีบังคับ', pl: 'Przenikanie', it: 'Perforazione', en: 'Puncture' },
+  'Slash': { uk: 'Різання', fr: 'Balafrure', de: 'Schlitz', es: 'Corte', ru: 'Резание', zh: '挥砍', ja: 'スラッシュ', ko: '슬래시', pt: 'Corte', tr: 'Kesme', th: 'การผ่า', pl: 'Rozcięcie', it: 'Fendente', en: 'Slash' },
+  'Impact': { uk: 'Вплив', fr: 'Impact', de: 'Aufprall', es: 'Impacto', ru: 'Воздействие', zh: '冲击', ja: 'インパクト', ko: '충격', pt: 'Impacto', tr: 'Etki', th: 'กระแทก', pl: 'Wpływ', it: 'Impatto', en: 'Impact' },
+  'Electricity': { uk: 'Електрика', fr: 'Électricité', de: 'Elektrizität', es: 'Electricidad', ru: 'Электричество', zh: '电伤', ja: '電気', ko: '전기', pt: 'Eletricidade', tr: 'Elektrik', th: 'ไฟฟ้า', pl: 'Elektryczność', it: 'Elettricità', en: 'Electricity' },
+  'Heat': { uk: 'Тепло', fr: 'Chaleur', de: 'Wärme', es: 'Calor', ru: 'Тепло', zh: '热伤', ja: 'ヒート', ko: '열기', pt: 'Calor', tr: 'Isı', th: 'ความร้อน', pl: 'Ciepło', it: 'Calore', en: 'Heat' },
+  'Cold': { uk: 'Холод', fr: 'Froid', de: 'Kälte', es: 'Frío', ru: 'Холод', zh: '冰伤', ja: 'コールド', ko: '냉기', pt: 'Friagem', tr: 'Soğuk', th: 'เย็น', pl: 'Zimno', it: 'Freddo', en: 'Cold' },
+  'Toxin': { uk: 'Токсини', fr: 'Toxique', de: 'Gift', es: 'Veneno', ru: 'Токсины', zh: '毒伤', ja: '毒', ko: '독성', pt: 'Toxina', tr: 'Zehir', th: 'สารอันตราย', pl: 'Toksyny', it: 'Veleno', en: 'Toxin' },
+  'Recoil': { uk: 'Відбив', fr: 'Recul', de: 'Rückstoß', es: 'Retroceso', ru: 'Отдача', zh: '后坐', ja: '反動', ko: '반동', pt: 'Recuo', tr: 'Geri Dönüş', th: 'การดังกับ', pl: 'Odrzut', it: 'Rinculo', en: 'Recoil' },
+  'Reload Speed': { uk: 'Швидкість перезарядки', fr: 'Vitesse de rechargement', de: 'Ladezeit', es: 'Velocidad de recarga', ru: 'Скорость перезарядки', zh: '装填速度', ja: 'リロード速度', ko: '재장전 속도', pt: 'Velocidade de Recarga', tr: 'Şarj Hızı', th: 'ความเร็วการโหลด', pl: 'Szybkość przeładowania', it: 'Velocità di ricarica', en: 'Reload Speed' },
+  'Magazine Capacity': { uk: 'Ємність магазину', fr: 'Capacité du chargeur', de: 'Magazingröße', es: 'Capacidad del cargador', ru: 'Ёмкость магазина', zh: '弹夹容量', ja: 'マガジン容量', ko: '탄창 용량', pt: 'Capacidade do Carregador', tr: 'Şarjörlü Kapasite', th: 'ความจุรายการ', pl: 'Pojemność magazynka', it: 'Capacità del caricatore', en: 'Magazine Capacity' },
+  'Ammo Maximum': { uk: 'Макс. боєприпасів', fr: 'Munitions max', de: 'Max. Munition', es: 'Munición máxima', ru: 'Макс. патронов', zh: '最大弹药', ja: '弾薬最大量', ko: '최대 탄약', pt: 'Munição Máxima', tr: 'Maks. Müzik', th: 'ราม์สูงสุด', pl: 'Maks. amunicja', it: 'Munizione massima', en: 'Ammo Maximum' },
+  'Multishot': { uk: 'Мультистріл', fr: 'Multi-coups', de: 'Mehrfachschuss', es: 'Disparo múltiple', ru: 'Мультистрел', zh: '多重射击', ja: 'マルチショット', ko: '멀티샷', pt: 'Tiro Múltiplo', tr: 'Çoklu Atış', th: 'การยิงหลายครั้ง', pl: 'Wielokrotne strzały', it: 'Tiro multiplo', en: 'Multishot' },
+  'Punch Through': { uk: 'Пробивання', fr: 'Perçage', de: 'Durchdringung', es: 'Perforación', ru: 'Пробивание', zh: '穿透', ja: 'パンチスルー', ko: '돌진', pt: 'Perfuração', tr: 'Delme', th: 'ทฤษฎีบังคับ', pl: 'Przenikanie', it: 'Perforazione', en: 'Punch Through' },
+  'Zoom': { uk: 'Зум', fr: 'Zoom', de: 'Zoom', es: 'Zoom', ru: 'Зум', zh: '变焦', ja: 'ズーム', ko: '줌', pt: 'Zoom', tr: 'Yakınlaştırma', th: 'ซูม', pl: 'Zoom', it: 'Zoom', en: 'Zoom' },
+  'Blast Radius': { uk: 'Радіус вибуху', fr: 'Rayon d\'explosion', de: 'Explosionsradius', es: 'Radio de explosión', ru: 'Радиус взрыва', zh: '爆炸半径', ja: '爆破半径', ko: '폭발 반경', pt: 'Raio de Explosão', tr: 'Patlama Yarıçapı', th: 'รัศมีการระเบิด', pl: 'Promień eksplozji', it: 'Raggio di esplosione', en: 'Blast Radius' },
+  'Range': { uk: 'Дальність', fr: 'Portée', de: 'Reichweite', es: 'Alcance', ru: 'Дальность', zh: '范围', ja: '射程', ko: '사거리', pt: 'Alcance', tr: 'Menzil', th: 'ระยะ', pl: 'Zasięg', it: 'Portata', en: 'Range' },
+  'Status Duration': { uk: 'Тривалість статусу', fr: 'Durée du statut', de: 'Status-Dauer', es: 'Duración de estado', ru: 'Длительность статуса', zh: '状态持续时间', ja: 'ステータス時間', ko: '상태 지속시간', pt: 'Duração de Status', tr: 'Durum Süresi', th: 'ระยะเวลาสถานะ', pl: 'Czas trwania statusu', it: 'Durata dello stato', en: 'Status Duration' },
+  'Damage to Corpus': { uk: 'Урон по Корпусу', fr: 'Dégâts aux Corpus', de: 'Schaden gegen Corpus', es: 'Daño a Corpus', ru: 'Урон по Корпусу', zh: '对 Corpus 伤害', ja: 'Corpus へのダメージ', ko: 'Corpus 대항 데미지', pt: 'Dano aos Corpus', tr: 'Corpus\'a Hasar', th: 'ดาเมจต่อ Corpus', pl: 'Obrażenia wobec Corpus', it: 'Danni ai Corpus', en: 'Damage to Corpus' },
+  'Damage to Grineer': { uk: 'Урон по Грінеерам', fr: 'Dégâts aux Grineer', de: 'Schaden gegen Grineer', es: 'Daño a Grineer', ru: 'Урон по Гринеерам', zh: '对 Grineer 伤害', ja: 'Grineer へのダメージ', ko: 'Grineer 대항 데미지', pt: 'Dano aos Grineer', tr: 'Grineer\'a Hasar', th: 'ดาเมจต่อ Grineer', pl: 'Obrażenia wobec Grineer', it: 'Danni ai Grineer', en: 'Damage to Grineer' },
+  'Damage to Infested': { uk: 'Урон по Зараженим', fr: 'Dégâts aux Infestés', de: 'Schaden gegen Infested', es: 'Daño a Infested', ru: 'Урон по Зараженным', zh: '对 Infested 伤害', ja: 'Infested へのダメージ', ko: 'Infested 대항 데미지', pt: 'Dano aos Infestados', tr: 'Infested\'e Hasar', th: 'ดาเมจต่อ Infested', pl: 'Obrażenia wobec Infested', it: 'Danni agli Infested', en: 'Damage to Infested' },
+  'Combo Duration': { uk: 'Тривалість комбо', fr: 'Durée du combo', de: 'Combo-Dauer', es: 'Duración del combo', ru: 'Длительность комбо', zh: '连击持续时间', ja: 'コンボ時間', ko: '콤보 지속시간', pt: 'Duração do Combo', tr: 'Kombo Süresi', th: 'ระยะเวลาคอมโบ', pl: 'Czas trwania combo', it: 'Durata del combo', en: 'Combo Duration' },
+  'Initial Combo': { uk: 'Початкове комбо', fr: 'Combo initial', de: 'Anfangs-Kombo', es: 'Combo inicial', ru: 'Начальное комбо', zh: '初始连击', ja: '初期コンボ', ko: '초기 콤보', pt: 'Combo Inicial', tr: 'Başlangıç Kombo', th: 'คอมโบเริ่มต้น', pl: 'Początkowe combo', it: 'Combo iniziale', en: 'Initial Combo' },
+  'Combo Count': { uk: 'Рахунок комбо', fr: 'Compteur de combo', de: 'Combo-Zähler', es: 'Conteo de combo', ru: 'Счётчик комбо', zh: '连击计数', ja: 'コンボカウント', ko: '콤보 카운트', pt: 'Contagem de Combo', tr: 'Kombo Sayısı', th: 'จำนวนคอมโบ', pl: 'Licznik combo', it: 'Contatore combo', en: 'Combo Count' },
+  'Combo Efficiency': { uk: 'Ефективність комбо', fr: 'Efficacité du combo', de: 'Combo-Effizienz', es: 'Eficiencia del combo', ru: 'Эффективность комбо', zh: '连击效率', ja: 'コンボ効率', ko: '콤보 효율성', pt: 'Eficiência do Combo', tr: 'Kombo Verimliliği', th: 'ประสิทธิภาพคอมโบ', pl: 'Efektywność combo', it: 'Efficienza del combo', en: 'Combo Efficiency' },
+  'Finisher Damage': { uk: 'Урон фінішера', fr: 'Dégâts de finisseur', de: 'Finisher-Schaden', es: 'Daño de finalizador', ru: 'Урон финишера', zh: '终结技伤害', ja: 'フィニッシャーダメージ', ko: '피니셔 데미지', pt: 'Dano de Finalizador', tr: 'Final Hasar', th: 'ดาเมจฟินิชเซอร์', pl: 'Obrażenia finalizera', it: 'Danni finalizzatori', en: 'Finisher Damage' },
+  'Projectile Speed': { uk: 'Швидкість снаряду', fr: 'Vitesse de projectile', de: 'Projektilgeschwindigkeit', es: 'Velocidad del proyectil', ru: 'Скорость снаряда', zh: '投射物速度', ja: '投射物速度', ko: '탄환 속도', pt: 'Velocidade do Projétil', tr: 'Mühimmat Hızı', th: 'ความเร็วของผลักษ์', pl: 'Prędkość pocisku', it: 'Velocità del proiettile', en: 'Projectile Speed' },
+  'Beam Length': { uk: 'Довжина луча', fr: 'Longueur du faisceau', de: 'Strahllänge', es: 'Longitud del haz', ru: 'Длина луча', zh: '光束长度', ja: 'ビーム長', ko: '빔 길이', pt: 'Comprimento do Feixe', tr: 'Işın Uzunluğu', th: 'ความยาวแสง', pl: 'Długość wiązki', it: 'Lunghezza del fascio', en: 'Beam Length' },
+  'Slide Crit Chance': { uk: 'Шанс кріт. удару під час ковзання', fr: 'Chance de critique glissade', de: 'Slide-Krit-Chance', es: 'Prob. crítico al resbalar', ru: 'Шанс крит. удара при скольжении', zh: '滑行暴击率', ja: 'スライドクリティカル率', ko: '슬라이드 치명타 확률', pt: 'Chance Crítica ao Deslizar', tr: 'Kaydırma Kritik Şansı', th: 'โอกาสวิกฆาตขณะเลียน', pl: 'Szansa krytyczna podczas ślizgu', it: 'Probabilità critica scivolata', en: 'Slide Crit Chance' },
+}
+export { RIVEN_STAT_TRANSLATIONS }
+
 const PART_SUFFIX_RE = /(Blueprint|Barrel|Receiver|Stock|Handle|Grip|String|Upper\s?Limb|Lower\s?Limb|Blade|Hilt|Gauntlet|Boot|Pouch|Stars|Band|Head|Carapace|Cerebrum|Systems|Chassis|Neuroptics)$/i;
 
 const BOOSTER_NAME_MAP = {
@@ -480,17 +573,6 @@ const BOOSTER_NAME_MAP = {
   'ModDropChance': 'Mod Drop Chance Booster',
 }
 
-// Items that don't have dict entries and produce ugly pascal-split names.
-const NAME_OVERRIDES = {
-  'MUSEUMDOGTAG': 'Museum Dog Tag',
-  'MUSEUMDOGTAGCONSUMABLE': 'Museum Dog Tag',
-  'GUILDGLYPHCONSUMABLENOCHARGES': 'Guild Glyph (No Charges)',
-  'GUILDGLYPHCONSUMABLE': 'Guild Glyph',
-  'RESOURCESTESTPARTITEM': 'Resource Test Part',
-  'MUSEUMDOG': 'Museum Dog',
-  'CONSUMABLENOCHARGES': 'Consumable (No Charges)',
-}
-export { NAME_OVERRIDES }
 export { BOOSTER_NAME_MAP };
 
 function splitPascal(str) {

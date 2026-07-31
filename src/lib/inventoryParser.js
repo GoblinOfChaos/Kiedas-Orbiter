@@ -21,6 +21,7 @@
  * parseInventory(raw, exports) → structured inventory object
  *   All other functions are internal helpers.
  */
+import { RIVEN_STAT_TRANSLATIONS } from './warframeUtils'
 
 // ─── Riven Tag Data ───────────────────────────────────────────────────────────
 //
@@ -779,7 +780,7 @@ function detectArcaneCategory(un, name) {
   return folder
 }
 
-export function parseInventory(raw, exports, dict) {
+export function parseInventory(raw, exports, dict, locale = 'en') {
   if (!raw || typeof raw !== 'object' || !exports) return { all: [] };
   dict = dict || exports?.['dict.en'] || {};
 
@@ -1865,10 +1866,13 @@ export function parseInventory(raw, exports, dict) {
         } else {
           displayVal = val * 100; // standard percentage
         }
-
         let tagName = RIVEN_STAT_MAP[s.Tag] || RIVEN_STAT_MAP[tag] || null;
         if (!tagName) {
           tagName = splitPascal(tag.replace(/^(Weapon|Avatar|Innate|Player|Mod)/g, '').replace(/Mod$/g, '').replace(/Damage$/, ' Damage').replace(/Faction/, 'Faction ').replace(/Melee/, '').trim()) || tag;
+        }
+        // Localize riven stat name if we have a translation
+        if (tagName && RIVEN_STAT_TRANSLATIONS[tagName]) {
+          tagName = RIVEN_STAT_TRANSLATIONS[tagName][locale] || RIVEN_STAT_TRANSLATIONS[tagName].en || tagName;
         }
 
         const isMultiplier = SPECIAL_FACTOR.has(tag) && !pos;

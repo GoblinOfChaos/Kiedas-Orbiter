@@ -1,6 +1,4 @@
-# Descendia Descriptions
-# Format: KEY: Description
-# Keys match Challenge values from the API
+# Challenge: Description
 
 VeryToxic: Enemies emit a damaging light aura that damages Tenno and allies who enter it.
 NC_Darkness: The lights have been turned off, causing darkness.
@@ -39,8 +37,6 @@ BasicLoot: Loot storage containers.
 FieryTrailRollers: All enemies are Rollers that leave behind a trail of fire.
 InfestedBoyband: Infested Boyband.
 Horse: Horse Combat Only.
-
-# New from worldstate — fill descriptions from game strings
 PowerHouse: Protect Excavators and keep them powered with Power Cells.
 FireChain: Enemies are connected by flaming beams, burning players on contact.
 JohnProdman: Defeat John Prodman.
@@ -60,9 +56,9 @@ MechCombatOnly: The player is forced to use Necramech against Rogue Necramechs.
 ShockingLeech: Leech, Shock, or Venomous Eximus variant.
 Oraxia: Defeat Oraxia boss.
 HeavyWeaponsOnly: Enemies are heavily resistant to all damage not dealt by Archguns or Rockets.
-ArbitersNightmareLich: Defeat a Sister of Parvos or Kuva Lich.
+ArbitersNightmareLich: Defeat a Sister of Parvos ## 6. Docs update (readme+wiki+architecture.md+webpage) (preferably one last time after all feature issues are done)or Kuva Lich.
 
-# Mission Type Descriptions
+# Mission Type: Description
 DT_EXTERMINATE: Kill a specific number of enemies.
 DT_BREAK_TARGETS: Destroy floating hologlobes.
 DT_ALCHEMY: Fill a Crucible using two elemental Amphors.

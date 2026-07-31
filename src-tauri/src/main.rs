@@ -161,8 +161,8 @@ const EXPORT_FILES: &[&str] = &[
     "ExportImages.json",
     "ExportTextIcons.json",
     "ExportFlavour.json",
-    "dict.en.json",
-    "supp-dict-en.json",
+    "dict.json",
+    "supp-dict.json",
 ];
 
 const BASE_URL: &str =
@@ -230,11 +230,19 @@ fn file_age_secs(path: &std::path::Path) -> u64 {
 /// Download or refresh all game data exports (JSON + TXT).
 /// Called by MonitoringContext on startup and on each monitoring cycle.
 /// JSON exports are refreshed every 24 h; TXT files every 6 h.
+/// Pass `force: true` to skip the age check and re-download all.
 #[tauri::command]
-async fn check_exports() -> Result<String, String> {
+async fn check_exports(locale: String, force: Option<bool>) -> Result<String, String> {
+    let force = force.unwrap_or(false);
     let export_dir = resolve_path("data/export");
     if !export_dir.exists() {
         fs::create_dir_all(&export_dir).map_err(|e| e.to_string())?;
+    }
+
+    // Clean up old locale-specific filenames if they exist
+    for old in &["dict.en.json", "supp-dict-en.json"] {
+        let old_path = export_dir.join(old);
+        let _ = fs::remove_file(&old_path);
     }
 
     let client = reqwest::Client::new();
@@ -243,13 +251,13 @@ async fn check_exports() -> Result<String, String> {
     // JSON exports - refresh once per day
     for file_name in EXPORT_FILES {
         let path = export_dir.join(file_name);
-        let needs_update = !path.exists() || file_age_secs(&path) > 86_400;
+        let needs_update = force || !path.exists() || file_age_secs(&path) > 86_400;
 
         if needs_update {
-            let url = if *file_name == "supp-dict-en.json" {
-                "https://oracle.browse.wf/dicts/en.json".to_string()
-            } else {
-                format!("{}/{}", BASE_URL, file_name)
+            let url = match *file_name {
+                "dict.json" => format!("{}/dict.{}.json", BASE_URL, locale),
+                "supp-dict.json" => format!("https://oracle.browse.wf/dicts/{}.json", locale),
+                _ => format!("{}/{}", BASE_URL, file_name),
             };
             download_file(&client, &url, &path).await.map_err(|e| {
                 format!("Failed to download {}: {}", file_name, e)
@@ -261,7 +269,7 @@ async fn check_exports() -> Result<String, String> {
     // TXT data files - refresh every 6 hours; failures are non-fatal
     for (file_name, url) in TXT_FILES {
         let path = export_dir.join(file_name);
-        let needs_update = !path.exists() || file_age_secs(&path) > 21_600;
+        let needs_update = force || !path.exists() || file_age_secs(&path) > 21_600;
 
         if needs_update {
             match download_file(&client, url, &path).await {
@@ -271,10 +279,10 @@ async fn check_exports() -> Result<String, String> {
         }
     }
 
-    // Drop data (warframe-drop-data) - refresh every 24 hours; non-fatal
+    // Drop data files (warframe-drop-data) - refresh every 24 hours; non-fatal
     for (file_name, url) in DROPDATA_FILES {
         let path = export_dir.join(file_name);
-        let needs_update = !path.exists() || file_age_secs(&path) > 86_400;
+        let needs_update = force || !path.exists() || file_age_secs(&path) > 86_400;
 
         if needs_update {
             match download_file(&client, url, &path).await {

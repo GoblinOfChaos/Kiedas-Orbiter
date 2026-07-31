@@ -656,8 +656,10 @@ export default function Dashboard() {
     }, {})
 
     const getCircuitImage = (ch) => {
+      // 1. Try resolveAnyImage (checks EI by uniqueName + nameToImage by lowered uniqueName from warframe-items)
       const byUnique = resolveAnyImage(ch.uniqueName, EI, nameToImage)
       if (byUnique) return byUnique
+      // 2. Try by display name (locale-dependent fallback — both nameToImage and ch.name are in same locale)
       const byName = nameToImage[ch.name.toLowerCase()]
       if (byName) return byName
       const normalize = (s) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]/g, '')

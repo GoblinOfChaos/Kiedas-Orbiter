@@ -82,6 +82,7 @@ export default function SettingsScreen() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
+  const [localeLoading, setLocaleLoading] = useState(false)
   const [tick, setTick] = useState(0)
   useEffect(() => {
     if (!isMonitoring) return
@@ -492,7 +493,7 @@ export default function SettingsScreen() {
     }
   }
 
-  return (
+  return (<>
     <PageLayout title="Settings">
       <div className="space-y-6">
 
@@ -863,6 +864,52 @@ export default function SettingsScreen() {
           </div>
         </Card>
 
+        {/* Game Locale */}
+        <Card glow className="p-5">
+          <div className="flex items-center gap-3 mb-6">
+            <div>
+              <h2 className="text-xl font-black uppercase tracking-tight">Game Language</h2>
+              <p className="text-[10px] text-kronos-dim uppercase font-bold tracking-widest mt-0.5">
+                Item names and descriptions in your language (reloads exports)
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-black uppercase text-kronos-text shrink-0">Locale</span>
+            <select
+              value={getSetting('gameLocale', 'en')}
+              onChange={async (e) => {
+                const locale = e.target.value
+                setLocaleLoading(true)
+                await setSetting('gameLocale', locale)
+                await invoke('check_exports', { locale, force: true })
+                window.location.reload()
+              }}
+              className="kronos-select text-xs font-mono font-bold bg-black/20 border-white/10 text-white rounded-lg px-2 py-1.5 focus:outline-none"
+            >
+              {[
+                { value: 'en', label: 'English' },
+                { value: 'de', label: 'Deutsch' },
+                { value: 'fr', label: 'Français' },
+                { value: 'es', label: 'Español' },
+                { value: 'it', label: 'Italiano' },
+                { value: 'pt', label: 'Português' },
+                { value: 'ru', label: 'Русский' },
+                { value: 'pl', label: 'Polski' },
+                { value: 'zh', label: '中文' },
+                { value: 'ko', label: '한국어' },
+                { value: 'ja', label: '日本語' },
+                { value: 'tc', label: '繁體中文' },
+                { value: 'th', label: 'ไทย' },
+                { value: 'tr', label: 'Türkçe' },
+                { value: 'uk', label: 'Українська' },
+              ].map(l => (
+                <option key={l.value} value={l.value}>{l.label}</option>
+              ))}
+            </select>
+          </div>
+        </Card>
+
         {/* In-Game Sidebar */}
         <Card glow className="p-5">
           <div className="flex items-center gap-3 mb-6">
@@ -1105,8 +1152,20 @@ export default function SettingsScreen() {
             </div>
           </div>
         </Card>
-
       </div>
+
     </PageLayout>
+
+      {/* Locale change loading overlay */}
+      {localeLoading && (
+        <div className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-8 h-8 border-2 border-kronos-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-sm font-bold text-white uppercase tracking-widest">Changing language…</p>
+            <p className="text-xs text-kronos-dim mt-1">Reloading game data</p>
+          </div>
+        </div>
+      )}
+    </>
   )
 }

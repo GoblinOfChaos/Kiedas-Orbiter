@@ -91,6 +91,7 @@ export default function MirroredMonitoringProvider({ children }) {
   const autoStartedRef = useRef(false)
   const processingRef = useRef(false)
   const hasCachedDataRef = useRef(false)
+  const localeRef = useRef('en')
 
   const setAutoStart = useCallback((val) => {
     const v = !!val
@@ -107,10 +108,16 @@ export default function MirroredMonitoringProvider({ children }) {
     ['peely-pix-names.json', 'PeelyPixNames'],
   ]
 
-  // ── Initial snapshot from backend ──
   useEffect(() => {
     if (loadedRef.current) return
     loadedRef.current = true
+
+    // Load settings for locale
+    import('../lib/settings').then(({ loadSettings, getSetting }) => {
+      loadSettings().then(() => {
+        localeRef.current = getSetting('gameLocale', 'en')
+      })
+    })
 
     // Lightweight path queries - these return static paths, no file I/O
     invoke('get_card_images_path').then(setCardImagesPath).catch(() => {})
@@ -131,6 +138,15 @@ export default function MirroredMonitoringProvider({ children }) {
             } catch { /* patch file not found, skip */ }
           }
         }
+
+        // Inject warframe-items pre-resolved data into exports (same as main MonitoringContext)
+        if (exports) {
+          exports.uniqueNameToName = { ...(exports.uniqueNameToName || {}), ...wiSupplement.uniqueNameToName }
+          exports.nameToImage = { ...(exports.nameToImage || {}), ...wiSupplement.nameToImage }
+          exports.WI_Supplement = wiSupplement
+        }
+
+        setExportData(exports)
 
         const [spiRes, arbRes, descRes] = await Promise.allSettled([
           invoke('load_txt_file', { name: 'sp-incursions.txt' }),
@@ -477,7 +493,8 @@ export default function MirroredMonitoringProvider({ children }) {
   const EI = eiResult.EI
 
   // ── Worldstate polling (after all memoized fields so deps are in scope) ──
-  const fetchWorldstate = useCallback(async () => {
+  const fetchWorldstate = useCallback(async (locale) => {
+    if (!locale) locale = 'en'
     try {
       const wsStr = await invoke('fetch_url', { url: OFFICIAL_API }).catch(() => null) || await invoke('fetch_url', { url: ORACLE_API }).catch(() => null)
       const ws = wsStr ? JSON.parse(wsStr) : null
@@ -486,6 +503,7 @@ export default function MirroredMonitoringProvider({ children }) {
           dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName,
           ES, ENWRawRewards, ExportImages, ExportUpgrades: exportData?.ExportUpgrades,
           archimedeaMap, descendiaDesc,
+          locale,
         })
         setWorldState(parsed)
       }
@@ -494,8 +512,8 @@ export default function MirroredMonitoringProvider({ children }) {
 
   useEffect(() => {
     if (Object.keys(dict || {}).length > 0) {
-      fetchWorldstate()
-      const iv = setInterval(fetchWorldstate, 60000)
+      fetchWorldstate(localeRef.current)
+      const iv = setInterval(() => fetchWorldstate(localeRef.current), 60000)
       return () => clearInterval(iv)
     }
   }, [fetchWorldstate, dict])

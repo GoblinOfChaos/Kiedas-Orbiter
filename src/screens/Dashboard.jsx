@@ -330,26 +330,18 @@ export default function Dashboard() {
       const key = bountyTab === 'holdfasts' ? 'ZarimanSyndicate' : 'EntratiLabSyndicate'
       const data = bountyCycle.bounties?.[key] || []
       items = data.map(b => {
-        const nodeName = b.node ? resolveNode(b.node, dict, ERg) : ''
-        const entry = b.node ? ERg[b.node] : null
-        const mType = entry ? resolveMissionType(entry.missionName || entry.missionType, dict, ERg) : ''
         return {
           name: b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Unknown Bounty',
           desc: b.challenge ? resolveChallengeFlavour(b.challenge, dict, EC, ERg) : '',
           obj: b.challenge ? resolveChallengeDesc(b.challenge, dict, EC, ERg) : '',
-          node: mType ? `${nodeName} (${mType})` : nodeName,
           tier: b.rot ? `Rotation ${b.rot}` : ''
         }
       })
     } else if (bountyTab === 'hex') {
       const data = bountyCycle.bounties?.HexSyndicate || []
       items = data.map(b => {
-        const allyName = b.ally ? resolveNode(b.ally, dict, ERg) : ''
-        let obj = b.challenge ? resolveChallengeDesc(b.challenge, dict, EC, ERg, b.ally) : ''
-        let flavour = b.challenge ? resolveChallengeFlavour(b.challenge, dict, EC, ERg, b.ally) : ''
-        const mTypeMatch = b.challenge?.match(/\/(Vania|Hex|1999)([A-Z][a-z]+)/)
-        const mTypeRaw = mTypeMatch ? mTypeMatch[2] : ''
-        const mType = resolveMissionType(mTypeRaw, dict, ERg)
+        const flavour = b.challenge ? resolveChallengeFlavour(b.challenge, dict, EC, ERg, b.ally) : ''
+        const obj = b.challenge ? resolveChallengeDesc(b.challenge, dict, EC, ERg, b.ally) : ''
         // Bounty card art lives in assets/ui/Bounty{Ally}.png; Lich bounties
         // have no ally so they get the Techrot art.
         const allyLeaf = b.ally ? b.ally.split('/').pop().replace(/AllyAgent$/, '') : ''
@@ -357,8 +349,7 @@ export default function Dashboard() {
         return {
           name: b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Unknown Bounty',
           desc: flavour,
-          obj: obj,
-          node: mType ? `${allyName} (${mType})` : allyName,
+          obj,
           tier: b.rot ? `Rotation ${b.rot}` : '',
           img
         }
@@ -394,17 +385,37 @@ export default function Dashboard() {
     if (items.length === 0) return <div className="min-h-[80px] flex items-center justify-center"><p className="text-xs text-kronos-dim italic">No bounties available…</p></div>
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
         {items.map((it, idx) => (
-          <div key={`${it.name}-${idx}`} className="bg-kronos-panel/40 p-3 rounded flex flex-col gap-1 border border-transparent hover:border-kronos-accent/30 transition-all">
-            {it.img && iconsPath && <img src={convertFileSrc(`${iconsPath}/${it.img}.png`)} alt={it.name} className="w-full h-24 object-cover object-top rounded mb-1" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />}
-            <div className="flex justify-between items-start gap-2">
-              <p className="text-xs font-bold text-kronos-accent uppercase leading-tight flex-1">{it.name}</p>
-              <span className="text-[9px] text-kronos-dim uppercase bg-kronos-panel/60 px-1 rounded">{it.tier}</span>
+          <div
+            key={`${it.name}-${idx}`}
+            className="relative rounded-lg border border-transparent hover:border-kronos-accent/30 transition-all group overflow-hidden min-h-[120px]"
+          >
+            {/* Bounty art — character portrait sits on the right; the left ~40% is transparent whitespace */}
+            {it.img && iconsPath && (
+              <img
+                src={convertFileSrc(`${iconsPath}/${it.img}.png`)}
+                alt={it.name}
+                className="absolute inset-0 w-full h-full object-contain"
+                style={{ objectPosition: 'right top' }}
+                onError={e => { e.target.style.display = 'none'; e.target.onerror = null }}
+              />
+            )}
+            {/* Darken only the transparent-left zone so overlaid text stays legible */}
+            <div className="absolute inset-y-0 left-0 w-[40%] bg-gradient-to-r from-black/65 via-black/40 to-transparent" />
+            {/* Text lives in that transparent-left region */}
+            <div className="absolute inset-y-0 left-0 w-[38%] flex flex-col justify-between p-3 z-10">
+              <div className="flex items-start justify-between gap-2">
+                <p className="text-sm font-black text-white uppercase leading-tight flex-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">{it.name}</p>
+                {it.tier && <span className="text-[10px] font-bold text-kronos-accent uppercase bg-kronos-panel/70 px-1.5 rounded">{it.tier}</span>}
+              </div>
+              {it.desc && <p className="text-xs text-kronos-text/90 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">{it.desc}</p>}
+              {it.obj && (
+                <p className="text-xs font-medium text-kronos-accent mt-auto leading-tight break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">
+                  Challenge: {it.obj}
+                </p>
+              )}
             </div>
-            {it.desc && <p className="text-[10px] text-kronos-text font-medium leading-tight">{it.desc}</p>}
-            {it.obj && <p className="text-[10px] text-kronos-text/60 italic leading-tight whitespace-pre-line">{it.obj}</p>}
-            {it.node && <p className="text-[10px] text-kronos-dim mt-auto pt-1 font-medium">{it.node}</p>}
           </div>
         ))}
       </div>
@@ -1181,7 +1192,7 @@ export default function Dashboard() {
                   <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-bold text-kronos-text uppercase truncate" title={item.name}>{item.name}</p>
+                  <p className="text-sm font-bold text-kronos-text uppercase" title={item.name}>{item.name}</p>
                 </div>
               </div>
             ))}
@@ -1557,7 +1568,7 @@ export default function Dashboard() {
                       <img src={resolveAnyImage(sale, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={e => { e.target.style.display = 'none'; e.target.onerror = null }} />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-bold text-kronos-text uppercase truncate" title={sale.item}>{sale.item}</p>
+                      <p className="text-sm font-bold text-kronos-text uppercase" title={sale.item}>{sale.item}</p>
                       <div className="flex items-center gap-2 mt-1">
                         <span className="text-sm text-kronos-dim line-through decoration-red-500/50">{sale.originalPrice}</span>
                         <span className="flex items-center gap-1 text-sm text-kronos-accent font-black">

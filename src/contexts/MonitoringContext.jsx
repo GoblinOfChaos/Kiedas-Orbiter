@@ -263,7 +263,11 @@ export function MonitoringProvider({ children }) {
     const toBrowseWf = (p) => {
       if (!p) return null
       if (p.startsWith('http://') || p.startsWith('https://')) return p
-      return `https://browse.wf${p.startsWith('/') ? '' : '/'}${p}`
+      const clean = p.startsWith('/') ? p : '/' + p
+      // content.warframe.com serves every export icon via its contentHash;
+      // browse.wf only mirrors a subset, so prefer the authoritative CDN.
+      const hash = exportData.ExportImages?.[clean]?.contentHash
+      return hash ? `https://content.warframe.com/PublicExport${clean}!${hash}` : `https://browse.wf${clean}`
     }
 
     const indexEntry = (e, k, t) => {
@@ -283,6 +287,18 @@ export function MonitoringProvider({ children }) {
           if (typeof iconPath === 'string' && iconPath.startsWith('https://browse.wf')) {
             iconPath = iconPath.replace('https://browse.wf', '')
           }
+        }
+      }
+
+      if (t === 'ExportBundles' && e.components?.length && !exportData.ExportImages?.[iconPath]?.contentHash) {
+        // Bundle icons sometimes lack a contentHash (newer bundles aren't
+        // mirrored); fall back to the first component whose icon resolves.
+        const customs = exportData.ExportCustoms || {}
+        for (const c of e.components) {
+          const cType = c.typeName || c.ItemType || ''
+          const entry = customs[cType] || customs[cType.replace('/StoreItems/', '/')]
+          const cIcon = entry?.icon
+          if (cIcon && exportData.ExportImages?.[cIcon]?.contentHash) { iconPath = cIcon; break }
         }
       }
 

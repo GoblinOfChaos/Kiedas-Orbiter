@@ -381,7 +381,15 @@ export default function MirroredMonitoringProvider({ children }) {
     const EI = {}
     const nameToImage = {}
     const uniqueNameToName = {}
-    const toBrowseWf = (p) => p ? `https://browse.wf${p.startsWith('/') ? '' : '/'}${p}` : null
+    const toBrowseWf = (p) => {
+      if (!p) return null
+      if (p.startsWith('http://') || p.startsWith('https://')) return p
+      const clean = p.startsWith('/') ? p : '/' + p
+      // content.warframe.com serves every export icon via its contentHash;
+      // browse.wf only mirrors a subset, so prefer the authoritative CDN.
+      const hash = ed.ExportImages?.[clean]?.contentHash
+      return hash ? `https://content.warframe.com/PublicExport${clean}!${hash}` : `https://browse.wf${clean}`
+    }
     const indexEntry = (e, k, t) => {
       const un = e.uniqueName || e.ItemType || k
       if (!un) return
@@ -395,6 +403,18 @@ export default function MirroredMonitoringProvider({ children }) {
           if (typeof iconPath === 'string' && iconPath.startsWith('https://browse.wf')) {
             iconPath = iconPath.replace('https://browse.wf', '')
           }
+        }
+      }
+
+      if (t === 'ExportBundles' && e.components?.length && !ed.ExportImages?.[iconPath]?.contentHash) {
+        // Bundle icons sometimes lack a contentHash (newer bundles aren't
+        // mirrored); fall back to the first component whose icon resolves.
+        const customs = ed.ExportCustoms || {}
+        for (const c of e.components) {
+          const cType = c.typeName || c.ItemType || ''
+          const entry = customs[cType] || customs[cType.replace('/StoreItems/', '/')]
+          const cIcon = entry?.icon
+          if (cIcon && ed.ExportImages?.[cIcon]?.contentHash) { iconPath = cIcon; break }
         }
       }
       const url = toBrowseWf(iconPath ?? '')

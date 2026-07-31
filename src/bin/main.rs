@@ -706,19 +706,14 @@ fn riven_screen_watcher(event_receiver: mpsc::Receiver<RivenLogEvent>) {
         // manual screenshot it closes the riven one, which then doesn't
         // reopen").
         let mut recovery_checks_remaining: u8 = 0;
-        // Was 6 (~6s of recovery on top of the ~6s it already takes to
-        // declare closed, so ~12s total tolerance) - a live session
-        // showed the anchor OCR (riven_menu_anchor_present) failing for
-        // well over a minute straight while Jacob was still genuinely on
-        // the Riven screen the whole time, exhausting the old recovery
-        // window entirely and leaving no overlay with no way back in
-        // short of a manual "kick" (screenshot + navigate away/back).
-        // Widened substantially - still bounded (not the old
-        // forever-screenshotting design), just generous enough to ride
-        // out a much longer OCR flakiness streak before finally giving
-        // up. Jacob 2026-07-27 ("why is this so hard... now theres just
-        // no overlay... but im on the riven screen").
-        const RECOVERY_CHECKS: u8 = 60;
+        // Was 6 (~6s of recovery on top of ~6s to confirm closure, so about
+        // 12s total). We observed one long flake window of >1 minute in one
+        // session, then fixed the primary open-trigger path separately. Keep a
+        // bounded retry now to avoid a “stuck in fullscreen screenshot mode”
+        // user-visible loop while still preserving a short false-close escape.
+        // 24 (~24s) is long enough for delayed visibility, short enough to
+        // keep the overlay behavior feeling responsive after real close.
+        const RECOVERY_CHECKS: u8 = 24;
         const RECOVERY_INTERVAL: Duration = Duration::from_secs(1);
         let mut last_capture = Instant::now() - Duration::from_secs(10);
         loop {

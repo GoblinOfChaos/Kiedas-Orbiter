@@ -1,4 +1,5 @@
 pub mod database;
+pub mod mem_log;
 pub mod ocr;
 pub mod ownership;
 pub mod statistics;

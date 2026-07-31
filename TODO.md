@@ -1485,6 +1485,54 @@ completed; add new ones as they come up. Source of most items below: `CLAUDE_OVE
       Arca Plasmor card title as `AMMO`); that does not invalidate the
       memory-trigger timing result.
 
+      **COMPLETE VALIDATION RECORD 2026-07-31:**
+
+      - Task 1 added `src/mem_log.rs` with Linux/Windows PID discovery,
+        readable-region scanning, ring-buffer scoring, process-memory reads,
+        validation, offset caching, and four pure-logic unit tests. The
+        library test command required the known sandbox workaround:
+        `LIBCLANG_PATH=/var/home/linuxbrew/.linuxbrew/Cellar/llvm/22.1.8/lib`.
+        Result: **4/4 tests passed**.
+      - Task 2 added `memory_log_watcher()` and wired it ahead of the existing
+        file watcher. It uses the existing reward/Riven classifiers and exact
+        channels, suppresses the initial backlog, deduplicates circular-buffer
+        lines, and falls back automatically when memory access/discovery fails.
+      - Release build passed on Linux. Focused Riven detector suite passed:
+        **12/12 tests**. `cargo fmt --all -- --check` and `git diff --check`
+        passed. Windows compilation/live memory access remains unverified.
+      - Live startup discovered a valid Warframe ring buffer at
+        `VA 0x14289a900`, **1,048,576 bytes**, and logged
+        `Memory-based EE.log watcher active`.
+      - Initial Riven-page openings: **3/3 provisional overlays under one
+        second** (previously measured at roughly 10 seconds). Stats populated
+        in about 3 seconds on attempts 1 and 2; attempt 3 showed immediate
+        raw OCR but the weapon was misread as `ArcaF Plasmor`, so owned-Riven
+        matching did not engage.
+      - Riven roll 1: memory `CycleRequested` at `04:38:38.815Z`; Confirm
+        first detected at `04:38:44.010Z` (~5.2s), stable OCR confirmed at
+        `04:38:49.983Z` (~11.2s). NEW OFFER remained stuck because generated
+        name `Argi-purado` decoded to `COLD/DTG/DTI`, while fuzzy OCR also
+        classified the `Arca Plasmor Argi-` heading as `AMMO`.
+      - Riven roll 2 reproduced the same blocker: `Acri-satipha` decoded to
+        `CD/HEAT/MS`, while OCR added false `AMMO` and `SD`; NEW OFFER again
+        never populated. Full rolling validation stopped after this
+        reproducible downstream matcher failure.
+      - Riven exit behavior: comparison collapsed correctly and the final
+        state became `visible:false`, but the existing false-close recovery
+        then performed exactly 60 screenshots at one-second intervals. A
+        second live occurrence showed the user-visible capture indicator can
+        last over two minutes when close-detection delay stacks on top of that
+        60-second recovery window. This remains logged, not fixed.
+      - Reward validation: **6/6 real relic reward screens** appeared and
+        populated in **under 2 seconds**, accepted as within range. Capture
+        attempts began during Warframe's approximately **3-second countdown**
+        while the regular mission room was still visible; adaptive retries
+        then bridged the transition successfully.
+      - Reward geometry: the **3-choice layout remains visibly off-center**;
+        the supplied live screenshot confirms the overlay's three columns do
+        not align with Warframe's three cards. Four-choice layouts remain
+        unaffected in prior live validation.
+
 ## 2026-07-28 — live Riven and endless-Defense verification
 
 - [x] Riven roller live test passed: immediate provisional overlay, graded

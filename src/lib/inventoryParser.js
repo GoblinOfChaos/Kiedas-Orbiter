@@ -780,7 +780,7 @@ function detectArcaneCategory(un, name) {
   return folder
 }
 
-export function parseInventory(raw, exports, dict, locale = 'en') {
+export function parseInventory(raw, exports, dict, locale = 'en', i18nData = null) {
   if (!raw || typeof raw !== 'object' || !exports) return { all: [] };
   dict = dict || exports?.['dict.en'] || {};
 
@@ -1870,8 +1870,10 @@ export function parseInventory(raw, exports, dict, locale = 'en') {
         if (!tagName) {
           tagName = splitPascal(tag.replace(/^(Weapon|Avatar|Innate|Player|Mod)/g, '').replace(/Mod$/g, '').replace(/Damage$/, ' Damage').replace(/Faction/, 'Faction ').replace(/Melee/, '').trim()) || tag;
         }
-        // Localize riven stat name if we have a translation
-        if (tagName && RIVEN_STAT_TRANSLATIONS[tagName]) {
+        // Localize riven stat name — prefer i18n JSON data, fall back to inline table
+        if (tagName && i18nData?.rivenStats?.[tagName]) {
+          tagName = i18nData.rivenStats[tagName] || tagName;
+        } else if (tagName && RIVEN_STAT_TRANSLATIONS[tagName]) {
           tagName = RIVEN_STAT_TRANSLATIONS[tagName][locale] || RIVEN_STAT_TRANSLATIONS[tagName].en || tagName;
         }
 

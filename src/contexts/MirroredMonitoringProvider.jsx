@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
+import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getAllRelicRewards } from '../lib/relicParser'
@@ -92,6 +93,7 @@ export default function MirroredMonitoringProvider({ children }) {
   const processingRef = useRef(false)
   const hasCachedDataRef = useRef(false)
   const localeRef = useRef('en')
+  const i18nRef = useRef(null)
 
   const setAutoStart = useCallback((val) => {
     const v = !!val
@@ -111,12 +113,11 @@ export default function MirroredMonitoringProvider({ children }) {
   useEffect(() => {
     if (loadedRef.current) return
     loadedRef.current = true
-
-    // Load settings for locale
-    import('../lib/settings').then(({ loadSettings, getSetting }) => {
-      loadSettings().then(() => {
-        localeRef.current = getSetting('gameLocale', 'en')
-      })
+    // Load settings for locale + i18n translations
+    import('../lib/settings').then(async ({ loadSettings, getSetting }) => {
+      await loadSettings()
+      localeRef.current = getSetting('gameLocale', 'en')
+      i18nRef.current = await loadLocale(localeRef.current)
     })
 
     // Lightweight path queries - these return static paths, no file I/O
@@ -213,7 +214,7 @@ export default function MirroredMonitoringProvider({ children }) {
   useEffect(() => {
     if (!exportData || !rawInventory) return
     try {
-      const parsed = parseInventory(rawInventory, exportData, dict)
+      const parsed = parseInventory(rawInventory, exportData, dict, localeRef.current, i18nRef.current)
       setInventoryData(parsed)
     } catch {
       console.error('[MirroredMonitoring] parseInventory failed')
@@ -528,7 +529,7 @@ export default function MirroredMonitoringProvider({ children }) {
     if (!ed) return
     setTimeout(() => {
       try {
-        const parsed = parseInventory(raw, ed, dict)
+        const parsed = parseInventory(raw, ed, dict, localeRef.current, i18nRef.current)
         setInventoryData(parsed || null)
       } catch {
         setInventoryData(null)

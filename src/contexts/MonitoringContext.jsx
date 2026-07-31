@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
+import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
@@ -188,6 +189,7 @@ export function MonitoringProvider({ children }) {
   const cardInitStarted = useRef(false)
   const startedRef = useRef(false)
   const localeRef = useRef('en')
+  const i18nRef = useRef(null)
 
   // ── Derived lookup maps ──────────────────────────────────────────────────────
   const dict = useMemo(() => exportData?.dict ?? exportData?.['dict.en'] ?? {}, [exportData])
@@ -472,7 +474,7 @@ export function MonitoringProvider({ children }) {
     // Yield frame before heavy parseInventory to prevent UI freeze
     setTimeout(() => {
       try {
-        const parsed = parseInventory(raw, exports, dict)
+        const parsed = parseInventory(raw, exports, dict, localeRef.current, i18nRef.current)
         setInventoryData(parsed || null)
       } catch (err) {
         setInventoryData(null)
@@ -490,6 +492,7 @@ export function MonitoringProvider({ children }) {
     ; (async () => {
       await loadSettings()
       localeRef.current = getSetting('gameLocale', 'en')
+      i18nRef.current = await loadLocale(localeRef.current)
       setStatusText('Checking updates & assets…')
       const [updatesRes, exportsRes, mediaRes, pricerRes, spiRes, arbRes, descRes] = await Promise.allSettled([
         invoke('check_exports', { locale: localeRef.current, force: false }),

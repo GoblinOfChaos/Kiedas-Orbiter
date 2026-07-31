@@ -22,6 +22,7 @@ use global_hotkey::{hotkey::HotKey, GlobalHotKeyEvent, GlobalHotKeyManager, HotK
 use image::DynamicImage;
 use log::{debug, error, info, warn};
 use notify::{Config, EventKind, RecommendedWatcher, RecursiveMode, Watcher};
+use wfinfo::mem_log;
 use wfinfo::ownership::{OwnedDb, Ownership};
 use wfinfo::{
     database::Database,
@@ -1202,6 +1203,157 @@ fn rewatch_with_retry(watcher: &mut RecommendedWatcher, path: &PathBuf, context:
     }
 }
 
+/// Same trigger classification as log_watcher(), but reads EE.log directly
+/// out of Warframe's process memory instead of tailing the file on disk.
+/// Returns true if a validated memory read was established and the watcher
+/// thread is now running; false if memory-based reading isn't usable right
+/// now (caller must fall back to the file-based log_watcher() in that case
+/// - this function never silently leaves both trigger paths inactive).
+fn memory_log_watcher(
+    event_sender: mpsc::Sender<CaptureRequest>,
+    riven_sender: mpsc::Sender<RivenLogEvent>,
+) -> bool {
+    let Some(pid) = mem_log::get_warframe_pid() else {
+        info!(
+            "Memory-based EE.log watcher: Warframe process not found, falling back to file watch"
+        );
+        return false;
+    };
+
+    let cache_path = data_dir().join("memory_offset_cache.txt");
+    let mut offsets = mem_log::load_offset_cache(&cache_path);
+    let mut raw = Vec::new();
+
+    let validated = match &offsets {
+        Some(o) => match mem_log::read_ring_buffer(pid, o, &mut raw) {
+            Ok(()) => mem_log::validate_buffer(&raw),
+            Err(_) => false,
+        },
+        None => false,
+    };
+
+    if !validated {
+        match mem_log::discover_ring_buffer(pid) {
+            Some((va, size)) => {
+                let found = mem_log::MemOffsets {
+                    buffer_va: va,
+                    buffer_size: size,
+                };
+                match mem_log::read_ring_buffer(pid, &found, &mut raw) {
+                    Ok(()) if mem_log::validate_buffer(&raw) => {
+                        mem_log::save_offset_cache(&cache_path, &found);
+                        offsets = Some(found);
+                    }
+                    _ => {
+                        info!("Memory-based EE.log watcher: discovered buffer failed validation, falling back to file watch");
+                        return false;
+                    }
+                }
+            }
+            None => {
+                info!("Memory-based EE.log watcher: could not discover ring buffer, falling back to file watch");
+                return false;
+            }
+        }
+    }
+
+    let Some(offsets) = offsets else {
+        return false;
+    };
+    info!(
+        "Memory-based EE.log watcher active (VA {:#x}, {} bytes)",
+        offsets.buffer_va, offsets.buffer_size
+    );
+
+    thread::spawn(move || {
+        let mut seen: std::collections::HashSet<u64> = std::collections::HashSet::new();
+        let mut seen_count = 0usize;
+        const SEEN_RESET_THRESHOLD: usize = 16_384;
+        let mut current_pid = pid;
+        let mut current_offsets = offsets;
+        let mut first_cycle = true;
+
+        loop {
+            if mem_log::read_ring_buffer(current_pid, &current_offsets, &mut raw).is_err() {
+                // Process likely gone or PID reused - try to rediscover.
+                thread::sleep(Duration::from_millis(500));
+                match mem_log::get_warframe_pid() {
+                    Some(new_pid) => {
+                        current_pid = new_pid;
+                        if let Some((va, size)) = mem_log::discover_ring_buffer(current_pid) {
+                            current_offsets = mem_log::MemOffsets {
+                                buffer_va: va,
+                                buffer_size: size,
+                            };
+                            mem_log::save_offset_cache(&cache_path, &current_offsets);
+                        }
+                    }
+                    None => {
+                        thread::sleep(Duration::from_secs(2));
+                    }
+                }
+                continue;
+            }
+
+            let text = String::from_utf8_lossy(&raw);
+            let mut riven_events = Vec::new();
+            let mut reward_screen_detected = false;
+
+            for line in text.split('\n') {
+                let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
+                if line.is_empty() || !line.starts_with(|c: char| c.is_ascii_digit()) {
+                    continue;
+                }
+                let mut hasher = std::collections::hash_map::DefaultHasher::new();
+                std::hash::Hash::hash(&line, &mut hasher);
+                let hash = std::hash::Hasher::finish(&hasher);
+                if !seen.insert(hash) {
+                    continue;
+                }
+                seen_count += 1;
+                if seen_count >= SEEN_RESET_THRESHOLD {
+                    seen.clear();
+                    seen_count = 0;
+                }
+
+                // First full-buffer read is a backlog dump, not new activity -
+                // classify lines to warm the hash set, but don't fire events.
+                if first_cycle {
+                    continue;
+                }
+
+                if is_reward_ready_line(line) {
+                    reward_screen_detected = true;
+                }
+                if let Some(event) = riven_log_event(line) {
+                    riven_events.push(event);
+                }
+            }
+
+            first_cycle = false;
+
+            for event in riven_events {
+                info!("Riven EE.log lifecycle event (memory): {event:?}");
+                if riven_sender.send(event).is_err() {
+                    error!("Riven event receiver dropped - stopping memory log watcher thread");
+                    return;
+                }
+            }
+            if reward_screen_detected {
+                info!("Reward-ready event detected (memory); starting adaptive capture");
+                if event_sender.send(CaptureRequest::Automatic).is_err() {
+                    error!("Event receiver dropped - stopping memory log watcher thread");
+                    return;
+                }
+            }
+
+            thread::sleep(Duration::from_millis(150));
+        }
+    });
+
+    true
+}
+
 fn log_watcher(
     path: PathBuf,
     event_sender: mpsc::Sender<CaptureRequest>,
@@ -1512,7 +1664,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     let (event_sender, event_receiver) = channel();
     let (riven_sender, riven_receiver) = channel();
 
-    log_watcher(log_path, event_sender.clone(), riven_sender);
+    if !memory_log_watcher(event_sender.clone(), riven_sender.clone()) {
+        info!("Falling back to file-based EE.log watcher");
+        log_watcher(log_path, event_sender.clone(), riven_sender);
+    }
     let hotkey = arguments.hotkey.parse().map_err(|e| {
         format!(
             "Invalid --hotkey value {:?}: {e:?} (expected something like \"F12\" or \"F11\")",

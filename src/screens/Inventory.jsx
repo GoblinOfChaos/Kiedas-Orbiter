@@ -930,7 +930,7 @@ export default function Inventory() {
                   const totalNeeded = set.parts.reduce((s, p) => s + (p.need ?? 1), 0)
                   const completion = Math.min(100, partsMet / totalNeeded * 100)
                   const isComplete = partsMet >= set.parts.length
-                  const bpPart = set.parts.find(p => p.name.includes('Blueprint'))
+                  const bpPart = set.parts.find(p => p.isBlueprint)
                   const bpCount = bpPart?.quantity ?? 0
                   const setsPossible = bpCount > 0 && isComplete ? bpCount : 0
                   const setValue = primePrices?.[set.setPath] ?? set.parts.reduce((sum, p) => sum + ((primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1)), 0)
@@ -983,7 +983,7 @@ export default function Inventory() {
                             {set.parts.map((part, pi) => {
                               const need = part.need ?? 1
                               const met = part.crafted !== undefined ? (part.crafted >= need) : (part.quantity >= need)
-                              const isBlueprint = part.name.includes('Blueprint')
+                              const isBlueprint = part.isBlueprint
                               const partPrice = primePrices?.[part.unique_name] ?? 0
                               const partNorm = part.unique_name ? part.unique_name.replace('/StoreItems/', '/') : '';
                               const partSourcesRaw = dropIndex?.[partNorm] || dropIndex?.['display:' + (part.name || '').toLowerCase().trim()] || [];

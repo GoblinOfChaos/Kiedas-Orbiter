@@ -519,7 +519,7 @@ export default function MirroredMonitoringProvider({ children }) {
     }
   }, [fetchWorldstate, dict])
 
-  const globalRewardPool = useMemo(() => getAllRelicRewards(exportData), [exportData])
+  const globalRewardPool = useMemo(() => getAllRelicRewards(exportData, localeRef.current), [exportData, localeRef.current])
   const dropIndex = useMemo(() => buildDropIndex(exportData), [exportData])
 
   const applyRaw = useCallback((raw, ts, exports) => {

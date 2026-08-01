@@ -329,7 +329,7 @@ export function MonitoringProvider({ children }) {
     return { EI, nameToImage, uniqueNameToName }
   }, [exportData, dict])
 
-  const globalRewardPool = useMemo(() => getAllRelicRewards(exportData), [exportData])
+  const globalRewardPool = useMemo(() => getAllRelicRewards(exportData, localeRef.current), [exportData, localeRef.current])
 
   const dropIndex = useMemo(() => buildDropIndex(exportData), [exportData])
 
@@ -833,7 +833,7 @@ const hasCachedData = useCallback(async () => {
     subs.push(listen('fissure-relic-phase', (e) => {
       const { squad_relics, squad_size } = e.payload
       const resolved = squad_relics.map(r => ({
-        ...r, ...parseRelicName(r.unique_name), rewards: getRelicRewards(r.unique_name, exportData)
+        ...r, ...parseRelicName(r.unique_name), rewards: getRelicRewards(r.unique_name, exportData, localeRef.current)
       }))
       fissureStateRef.current.squad_relics = resolved
       // Play relic sound once per session via Rust backend
@@ -851,7 +851,7 @@ const hasCachedData = useCallback(async () => {
       if (!local_reward) return
       const baseItem = fissureStateRef.current.squad_relics.flatMap(r => r.rewards).find(r => r.uniqueName === local_reward) || {}
       const platPrice = await getPrice(local_reward, baseItem.name, baseItem.ducats)
-      const inventory = getRewardInventoryContext(local_reward, inventoryData, exportData)
+      const inventory = getRewardInventoryContext(local_reward, inventoryData, exportData, localeRef.current)
       const reward = { uniqueName: local_reward, ...baseItem, platPrice, inventory }
       invoke('relay_event', { event: 'overlay-update-reward', payload: { local_reward: reward, squad_size } }).catch(() => { })
     }))

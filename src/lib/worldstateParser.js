@@ -455,9 +455,9 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
           if (type === 'CET_CHALLENGE') {
             name = resolveChallenge(ev.challenge || ev.Challenge, dict, EC);
             description = resolveChallengeDesc(ev.challenge || ev.Challenge, dict, EC, ERg);
-            name = resolveItemName(ev.reward || ev.Reward, mergedDict, uniqueNameToName);
+            name = resolveItemName(ev.reward || ev.Reward, mergedDict, uniqueNameToName, locale);
           } else if (type === 'CET_UPGRADE') {
-            name = resolveItemName(ev.upgrade || ev.Upgrade, mergedDict, uniqueNameToName);
+            name = resolveItemName(ev.upgrade || ev.Upgrade, mergedDict, uniqueNameToName, locale);
             description = resolveChallengeDesc(ev.upgrade || ev.Upgrade, dict, EC, ERg);
           } else if (type === 'CET_BIRTHDAY') {
             name = ev.name || ev.Name || 'Unknown';

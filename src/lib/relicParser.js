@@ -1,6 +1,7 @@
 /**
  * Logic for mapping Relic unique names (from logs) to game data and inventory context.
  */
+import { BLUEPRINT_SUFFIX } from './warframeUtils';
 
 // Helper: split PascalCase to spaced words
 function splitPascal(str) {
@@ -21,7 +22,7 @@ function cleanName(name) {
  * Resolve display name from uniqueName using exportData tables
  * Same logic as inventoryParser._resolveNameInternal
  */
-function resolveDisplayName(uniqueName, exportData) {
+function resolveDisplayName(uniqueName, exportData, locale = 'en') {
   if (!uniqueName) return '';
   // Normalize path: remove /StoreItems/ from log paths to match export data keys
   const normalizedKey = uniqueName.replace('/StoreItems/', '/');
@@ -68,9 +69,10 @@ function resolveDisplayName(uniqueName, exportData) {
 
     // Try resultType
     if (entry.resultType) {
-      const resultName = resolveDisplayName(entry.resultType, exportData);
-      if (uniqueName.toLowerCase().includes('blueprint') && !resultName.toLowerCase().includes('blueprint')) {
-        return resultName + ' Blueprint';
+      const resultName = resolveDisplayName(entry.resultType, exportData, locale);
+      const bpSuffix = BLUEPRINT_SUFFIX[locale] ?? ' Blueprint';
+      if (uniqueName.toLowerCase().includes('blueprint') && !resultName.toLowerCase().includes('blueprint') && !resultName.toLowerCase().includes(bpSuffix.trim().toLowerCase())) {
+        return resultName + bpSuffix;
       }
       return resultName;
     }
@@ -89,7 +91,7 @@ function resolveDisplayName(uniqueName, exportData) {
 /**
  * Gets all unique items that can drop from actual RELICS.
  */
-export function getAllRelicRewards(exportData) {
+export function getAllRelicRewards(exportData, locale = 'en') {
   if (!exportData || !exportData.ExportRelics || !exportData.ExportRewards) return [];
 
   const relicData = Array.isArray(exportData.ExportRelics) ? exportData.ExportRelics : Object.values(exportData.ExportRelics);
@@ -106,6 +108,7 @@ export function getAllRelicRewards(exportData) {
 
   const seen = new Set();
   const allItems = [];
+  const bpSuffix = BLUEPRINT_SUFFIX[locale] ?? ' Blueprint';
 
   for (const relic of relicData) {
     const manifestPath = relic.rewardManifest;
@@ -130,7 +133,7 @@ export function getAllRelicRewards(exportData) {
 
       allItems.push({
         uniqueName: un,
-        name: resolveDisplayName(un, exportData),
+        name: resolveDisplayName(un, exportData, locale),
         rarity: drop.rarity || 'COMMON',
         ducats: recipe?.primeSellingPrice || itemData?.primeSellingPrice || 0,
       });
@@ -142,7 +145,7 @@ export function getAllRelicRewards(exportData) {
   if (!seen.has(formaUn)) {
     allItems.push({
       uniqueName: formaUn,
-      name: 'Forma Blueprint',
+      name: 'Forma' + bpSuffix,
       rarity: 'COMMON',
       ducats: 0
     });
@@ -154,7 +157,7 @@ export function getAllRelicRewards(exportData) {
 /**
  * Extracts the 6 possible rewards for a relic.
  */
-export function getRelicRewards(relicUniqueName, exportData) {
+export function getRelicRewards(relicUniqueName, exportData, locale = 'en') {
   const toMap = (data) => {
     if (!data || !Array.isArray(data)) return data || {};
     const map = {};
@@ -188,7 +191,7 @@ export function getRelicRewards(relicUniqueName, exportData) {
 
     return {
       uniqueName: un,
-      name: resolveDisplayName(un, exportData),
+      name: resolveDisplayName(un, exportData, locale),
       rarity: item.rarity || 'COMMON',
       ducats: recipe?.primeSellingPrice || itemData?.primeSellingPrice || 0,
       icon: exportData.EI?.[un] || null,
@@ -201,12 +204,13 @@ export function getRelicRewards(relicUniqueName, exportData) {
 /**
  * Gets inventory and mastery context for a specific reward item.
  */
-export function getRewardInventoryContext(rewardUniqueName, inventoryData, exportData) {
+export function getRewardInventoryContext(rewardUniqueName, inventoryData, exportData, locale = 'en') {
   // Always compute parentName from item name, even without inventory
-  const itemName = resolveDisplayName(rewardUniqueName, exportData);
+  const itemName = resolveDisplayName(rewardUniqueName, exportData, locale);
   let parentName = itemName;
+  const bpSuffix = BLUEPRINT_SUFFIX[locale] ?? ' Blueprint';
   const suffixes = [
-    ' Blueprint', ' Neuroptics', ' Chassis', ' Systems',
+    bpSuffix, ' Neuroptics', ' Chassis', ' Systems',
     ' Barrel', ' Receiver', ' Stock', ' Grip', ' String',
     ' Limb', ' Blade', ' Hilt', ' Harness', ' Wings',
     ' Handle', ' Head', ' Link', ' Gauntlet', ' Pouch',
@@ -296,12 +300,11 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
         return iClean === aClean || iClean === rClean;
       })) {
         parentRecipe = bpRecipe;
-        parentRecipeUniqueName = bpUniqueName;
-        parentName = resolveDisplayName(bpRecipe.resultType, exportData).replace(/\s*Blueprint\s*$/i, '').trim();
+        parentName = resolveDisplayName(bpRecipe.resultType, exportData, locale).replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$'), '').trim();
         break;
       }
       // Pass 2: Fallback to string matching the result type
-      const resName = resolveDisplayName(bpRecipe.resultType, exportData).replace(/\s*Blueprint\s*$/i, '').trim();
+      const resName = resolveDisplayName(bpRecipe.resultType, exportData, locale).replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$'), '').trim();
       if (resName === parentName) {
         parentRecipe = bpRecipe;
         parentRecipeUniqueName = bpUniqueName;
@@ -310,7 +313,7 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
   }
 
   const subcomponents = (parentRecipe?.ingredients || []).map(ing => {
-    const ingName = resolveDisplayName(ing.ItemType, exportData);
+    const ingName = resolveDisplayName(ing.ItemType, exportData, locale);
     const ingBpUniqueName = bpLookup[ing.ItemType];
     const compIsResource = isGenericResource(ing.ItemType);
 

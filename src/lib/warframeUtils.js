@@ -537,6 +537,27 @@ const RIVEN_STAT_TRANSLATIONS = {
 }
 export { RIVEN_STAT_TRANSLATIONS }
 
+// Locale-aware suffix for recipe/blueprint names.
+// The Warframe game dict has no standalone "Blueprint" key, so we map it here.
+const BLUEPRINT_SUFFIX = {
+  en: ' Blueprint',
+  de: ' Blaupause',
+  es: ' Plano',
+  fr: ' Plan',
+  it: ' Progetto',
+  ja: ' 設計図',
+  ko: ' 설계도',
+  pl: ' Projekt',
+  pt: ' Projeto',
+  ru: ' Чертёж',
+  tc: ' 藍圖',
+  th: ' แบบแปลน',
+  tr: ' Proje',
+  uk: ' План',
+  zh: ' 蓝图',
+}
+export { BLUEPRINT_SUFFIX };
+
 const PART_SUFFIX_RE = /(Blueprint|Barrel|Receiver|Stock|Handle|Grip|String|Upper\s?Limb|Lower\s?Limb|Blade|Hilt|Gauntlet|Boot|Pouch|Stars|Band|Head|Carapace|Cerebrum|Systems|Chassis|Neuroptics)$/i;
 
 const BOOSTER_NAME_MAP = {
@@ -572,7 +593,7 @@ function splitPascal(str) {
 }
 export { splitPascal };
 
-function nameFromPath(path = '') {
+function nameFromPath(path = '', locale = 'en') {
   const parts = path.split('/').filter(Boolean);
   const leaf = parts.at(-1) ?? path;
   const folder = parts.at(-2) ?? '';
@@ -580,14 +601,16 @@ function nameFromPath(path = '') {
 
   if (FOLDER_OVERRIDES[folder]) {
     const suffix = leaf.match(/(Prime|Vandal|Wraith|Prisma|Kuva|Tenet|Umbra)$/i)?.[0] ?? '';
-    const bp = leaf.endsWith('Blueprint') ? ' Blueprint' : '';
+    const bp = leaf.endsWith('Blueprint') ? BLUEPRINT_SUFFIX[locale] ?? ' Blueprint' : '';
     return FOLDER_OVERRIDES[folder] + (suffix ? ' ' + suffix : '') + bp;
   }
 
   const stripped = leaf
     .replace(/(BaseSuit|PowerSuit|PrimeName|OperatorAmp|HoverboardSuit|MotorcyclePowerSuit|MoaPetPowerSuit|Blueprint)$/, '');
   const name = splitPascal(stripped).trim() || leaf;
-  return leaf.endsWith('Blueprint') && !name.endsWith('Blueprint') ? name + ' Blueprint' : name;
+  return leaf.endsWith('Blueprint') && !name.endsWith('Blueprint')
+    ? name + (BLUEPRINT_SUFFIX[locale] ?? ' Blueprint')
+    : name;
 }
 
 
@@ -596,12 +619,12 @@ function nameFromPath(path = '') {
  * display name string.  Resolution order:
  *  1. uniqueNameToName map → dict localisation
  *  2. Direct dict lookup
- *  3. nameFromPath() fallback
  */
-export function resolveItemName(path, dict, uniqueNameToName) {
+export function resolveItemName(path, dict, uniqueNameToName, locale = 'en') {
   if (!path) return ''
 
   const isBlueprint = path.includes('/Recipes/') || path.endsWith('Blueprint');
+  const bpSuffix = BLUEPRINT_SUFFIX[locale] ?? ' Blueprint';
 
   // Handle StoreItem paths by trying to resolve the actual item
   let actualPath = path;
@@ -666,17 +689,18 @@ export function resolveItemName(path, dict, uniqueNameToName) {
 
   // 5. nameFromPath (fallback)
   if (!resolved) {
-    const n = nameFromPath(actualPath);
+    const n = nameFromPath(actualPath, locale);
     if (n && !n.startsWith('/Lotus/')) resolved = n;
   }
 
   if (!resolved) resolved = clean(path);
 
-  if (isBlueprint && !resolved.toLowerCase().includes('blueprint')) {
-    return resolved + ' Blueprint';
+  if (isBlueprint && !resolved.toLowerCase().includes('blueprint') && !resolved.toLowerCase().includes(bpSuffix.trim().toLowerCase())) {
+    return resolved + bpSuffix;
   }
 
   return resolved;
+
 }
 
 

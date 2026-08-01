@@ -21,7 +21,7 @@
  * parseInventory(raw, exports) → structured inventory object
  *   All other functions are internal helpers.
  */
-import { RIVEN_STAT_TRANSLATIONS } from './warframeUtils'
+import { RIVEN_STAT_TRANSLATIONS, BLUEPRINT_SUFFIX } from './warframeUtils'
 
 // ─── Riven Tag Data ───────────────────────────────────────────────────────────
 //
@@ -251,6 +251,12 @@ const BOOSTER_NAME_MAP = {
   'ModDropChance': 'Mod Drop Chance Booster',
 }
 
+// Prime part paths end with the weapon name + part word (always English even in
+// localized builds), e.g. .../WeaponParts/AfurisPrimeBarrel.  Used to separate
+// prime parts from resources and to build prime-set component lists — matching
+// the localized display name instead (e.g. "Afuris Prime: Lauf") would miss them.
+const PRIME_PART_PATH_RE = /Prime.*?(Barrel|Receiver|Stock|Blade|Handle|Link|Gauntlet|Head|Disc|Grip|Boot|Chain|String|UpperLimb|LowerLimb|Carapace|Cerebrum|Systems|Chassis|Neuroptics|Guard|Hilt|Ornament|Stars|Holster|Pouch|Band|Blueprint)$/i;
+
 function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
   const leaf = parts.at(-1) ?? path;
@@ -272,8 +278,8 @@ function nameFromPath(path = '') {
  * with a depth of 0 to prevent runaway recursion on circular references.
  * Called by: createItem, relic reward mapping, riven parsing, and most of parseInventory.
  */
-function resolveName(un, dict, ...tables) {
-  return _resolveNameInternal(un, dict, 0, ...tables);
+function resolveName(un, dict, locale = 'en', ...tables) {
+  return _resolveNameInternal(un, dict, locale, 0, ...tables);
 }
 
 /**
@@ -285,7 +291,7 @@ function resolveName(un, dict, ...tables) {
  *  5. /Recipes/ path leaf match
  *  6. nameFromPath() fallback
  */
-function _resolveNameInternal(un, dict, depth, ...tables) {
+function _resolveNameInternal(un, dict, locale = 'en', depth, ...tables) {
   if (!un || depth > 5) return '';
   if (un.includes('DrifterPistol')) return 'Sirocco';
 
@@ -306,9 +312,10 @@ function _resolveNameInternal(un, dict, depth, ...tables) {
       }
     } else if (entry.resultType) {
       // If recipe has no name, try to resolve its resultType
-      let name = _resolveNameInternal(entry.resultType, dict, depth + 1, ...tables);
-      if (un.toLowerCase().endsWith('blueprint') && !name.toLowerCase().includes('blueprint')) {
-        name += ' Blueprint';
+      let name = _resolveNameInternal(entry.resultType, dict, locale, depth + 1, ...tables);
+      const bpSuffix = BLUEPRINT_SUFFIX[locale] ?? ' Blueprint';
+      if (un.toLowerCase().endsWith('blueprint') && !name.toLowerCase().includes('blueprint') && !name.toLowerCase().includes(bpSuffix.trim().toLowerCase())) {
+        name += bpSuffix;
       }
       return name;
     }
@@ -765,7 +772,7 @@ function detectArcaneCategory(un, name) {
 
 export function parseInventory(raw, exports, dict, locale = 'en', i18nData = null) {
   if (!raw || typeof raw !== 'object' || !exports) return { all: [] };
-  dict = dict || exports?.['dict.en'] || {};
+  dict = (dict && Object.keys(dict).length > 0) ? dict : (exports?.['dict.en'] || exports?.dict || {})
 
   const toMap = (data, wrapperKey) => {
     if (!data) return {};
@@ -1043,7 +1050,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       max_mastery_xp = limit * baseMasteryPerRank;
     }
 
-    let baseName = resolveName(un, dict, ...nameTbls);
+    let baseName = resolveName(un, dict, locale, ...nameTbls);
     if (un.includes('/BoardSuit')) baseName = 'Merulina';
 
     let name = baseName;
@@ -1064,7 +1071,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       if (un.includes('DrifterPistol')) name = 'Sirocco';
       else name = (customName && !customName.startsWith('/Lotus/')) ? customName : 'Operator Amp';
     } else {
-      components = fp?.components?.map(c => resolveName(c, dict, EW, ES, ER, EA)) ?? [];
+      components = fp?.components?.map(c => resolveName(c, dict, locale, EW, ES, ER, EA)) ?? [];
     }
 
     if (!image && fp?.components?.length > 0) {
@@ -1243,7 +1250,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // The deck/board is the mastery-granting part - find it by path, not position,
       // since ModularParts order varies and index 0 may be an engine (e.g. Hothead).
       const deckPart = (h.ModularParts ?? []).find(p => p.includes('Deck')) ?? h.ModularParts?.[0];
-      const baseName = deckPart ? resolveName(deckPart, dict, EW) : 'K-Drive';
+      const baseName = deckPart ? resolveName(deckPart, dict, locale, EW) : 'K-Drive';
       const image = deckPart ? resolveImage(deckPart, EW) : null;
       const customName = h.ItemName || h.CustomName || h.Details?.Name;
       const ownedCustomName = (customName && !customName.startsWith('/Lotus/') && customName !== baseName) ? customName : '';
@@ -1264,7 +1271,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const mastery_xp = rank * 200;
       kdrives.push({
         unique_name: deckPath,
-        name: resolveName(deckPath, dict, EW),
+        name: resolveName(deckPath, dict, locale, EW),
         image: resolveImage(deckPath, EW),
         category: 'kdrives',
         xp, rank, mastery_xp,
@@ -1400,7 +1407,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
       if (prismPath) {
         mKey = prismPath;
-        mName = resolveName(prismPath, dict, EW);
+        mName = resolveName(prismPath, dict, locale, EW);
         // Training amp barrel resolves to its internal name; normalise to "Mote Amp"
         if (un?.includes('TrainingAmp')) mName = 'Mote Amp';
       } else if (un?.includes('TrainingAmp')) {
@@ -1440,7 +1447,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     siroccoPath,
   ].filter(Boolean).forEach(prismPath => {
     if (ampMasteryItems[prismPath]) return; // already tracked from owned amps
-    let mName = resolveName(prismPath, dict, EW);
+    let mName = resolveName(prismPath, dict, locale, EW);
     if (prismPath.includes('SentAmpTraining')) mName = 'Mote Amp';
     if (prismPath.toLowerCase().includes('drifterpistol')) mName = 'Sirocco';
     const xp = xpMap[prismPath] ?? 0;
@@ -1472,7 +1479,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     const REMOVED_MOD = new Set([
       'Swift Deth', 'Tn Cross Attack', 'Boom Stick', 'Warrior',
     ]);
-    if (REMOVED_MOD.has(resolveName(un, dict, EA, EM) || nameFromPath(un))) return;
+    if (REMOVED_MOD.has(resolveName(un, dict, locale, EA, EM) || nameFromPath(un))) return;
     const isArcane = (un.includes('CosmeticEnhancers') && !un.includes('CosmeticEnhancers/Peculiars')) || un.includes('/Arcane/') || un.toLowerCase().includes('arcane');
     if (isArcane) {
       const arcEntry = EA[un]
@@ -1480,10 +1487,10 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const arcRank = arcFP?.lvl ?? 0
       const arcRankLimit = arcEntry?.levelStats?.length ? arcEntry.levelStats.length - 1 : 5
       const arcDesc = resolveArcaneDesc(arcEntry?.levelStats, dict)
-      const arcCat = detectArcaneCategory(un, resolveName(un, dict, EA, EM) || nameFromPath(un))
+      const arcCat = detectArcaneCategory(un, resolveName(un, dict, locale, EA, EM) || nameFromPath(un))
       arcanes.push({
         unique_name: un,
-        name: resolveName(un, dict, EA, EM) || nameFromPath(un),
+        name: resolveName(un, dict, locale, EA, EM) || nameFromPath(un),
         image: resolveImage(un, EA, EM),
         category: 'Arcanes',
         arcaneType: arcCat,
@@ -1554,7 +1561,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     const cDescription = cRawDesc ? cRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
     return {
       unique_name: cUn,
-      name: resolveName(lookupUn, dict, EGear, ER, ERecipe) || nameFromPath(cUn),
+      name: resolveName(lookupUn, dict, locale, EGear, ER, ERecipe) || nameFromPath(cUn),
       description: cDescription,
       image: resolveImage(lookupUn, EGear, ER, ERecipe),
       category: 'consumables',
@@ -1581,7 +1588,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   const seenPrimeSets = new Set();
   for (const [bpKey, recipe] of Object.entries(ERecipe ?? {})) {
     if (!recipe?.resultType) continue;
-    const resultName = resolveName(recipe.resultType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
+    const resultName = resolveName(recipe.resultType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
 
     // Check if this is a prime item (but not a component blueprint)
     if (!/Prime$/i.test(resultName)) continue;
@@ -1606,16 +1613,17 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
     // Add the main item blueprint (always include, even if not owned)
     const bpQty = primeItemCounts.get(bpKey) ?? 0;
-    setParts.push({ unique_name: bpKey, name: resultName + ' Blueprint', image: parentImage, quantity: bpQty, owned: bpQty > 0 });
+    setParts.push({ unique_name: bpKey, name: resultName + (BLUEPRINT_SUFFIX[locale] ?? ' Blueprint'), image: parentImage, quantity: bpQty, owned: bpQty > 0, isBlueprint: true });
     if (bpQty > 0) ownedCount += bpQty;
     totalCount += 1;
 
-    // Add prime components from recipe ingredients (exclude resources like orokin cells)
-    const isPrimeComponent = (name) => /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum|Guard|Hilt)/i.test(name);
+    // Add prime components from recipe ingredients (exclude resources like orokin cells).
+    // PRIME_PART_PATH_RE is module-scoped (see top of file).
+    const isPrimeComponent = (itemType) => PRIME_PART_PATH_RE.test(itemType.split('/').pop());
     const ingredientMap = new Map();
     for (const ing of (recipe.ingredients ?? [])) {
-      const ingName = resolveName(ing.ItemType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
-      if (!isPrimeComponent(ingName)) continue;
+      const ingName = resolveName(ing.ItemType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
+      if (!isPrimeComponent(ing.ItemType)) continue;
       const key = ing.ItemType;
       if (ingredientMap.has(key)) {
         ingredientMap.get(key).need += ing.ItemCount ?? 1;
@@ -1660,15 +1668,16 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/') || un.includes('OroFusexOrnament')) continue;
     // Hidden resource — user requested it be excluded (Tethra Data Fragments)
     if (un === '/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag') continue;
-    const name = override?.name || resolveName(un, dict, ER, ERel, EW, ES);
-    const isPrimePart = /Prime (Barrel|Receiver|Stock|Blade|Handle|Link|Neuroptics|Chassis|Systems|Blueprint|Carapace|Cerebrum|Guard|Hilt)/i.test(name);
+    const name = resolveName(un, dict, locale, ER, ERel, EW, ES);
+    // Prime parts are shown in the prime-sets tab, not as resources. Match the
+    // ItemType path (always English) — localized names like "Afuris Prime: Lauf"
+    // don't contain the English component words.
+    const isPrimePart = PRIME_PART_PATH_RE.test(un.split('/').pop());
     if (!isPrimePart) {
       const entry = ER[un];
       const resDescLoctag = entry?.description ?? '';
       const resRawDesc = resDescLoctag ? (dict[resDescLoctag] || dict['/' + resDescLoctag] || '') : '';
-      const resDescription = override?.description
-        ? override.description
-        : (resRawDesc ? resRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '');
+      const resDescription = resRawDesc ? resRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
       const obj = { unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: 'resources', quantity: item.ItemCount ?? 1, owned: true };
       resources.push(obj);
     }
@@ -1684,7 +1693,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
       return {
         uniqueName: un,
-        name: resolveName(un, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
+        name: resolveName(un, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
         rarity: r.rarity,
         tier: r.rarity === 'COMMON' ? 0 : (r.rarity === 'UNCOMMON' ? 1 : 2),
         ducats: recipe?.primeSellingPrice || itemData?.primeSellingPrice || 0
@@ -1762,7 +1771,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     ...(raw.Upgrades ?? []).filter(u => u.ItemType?.includes('Randomized')).map(u => {
       const fp = parseFP(u.UpgradeFingerprint);
       const weaponUn = fp.compat ?? fp.challenge?.compat ?? '';
-      const weaponName = weaponUn ? resolveName(weaponUn, dict, EW) : 'Unknown';
+      const weaponName = weaponUn ? resolveName(weaponUn, dict, locale, EW) : 'Unknown';
       const isChallenge = !!fp.challenge;
 
       let challengeText = '';
@@ -1994,7 +2003,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const rank = calculateRank(xp, 'weapons', un);
       const mastery_xp = rank * 100;
       const ownedCustomName = kitgunBarrelToCustomName[un]?.name || '';
-      const baseName = resolveName(un, dict, EW);
+      const baseName = resolveName(un, dict, locale, EW);
       return {
         unique_name: un,
         name: ownedCustomName ? `${baseName} (${ownedCustomName})` : baseName,
@@ -2009,7 +2018,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   const zawStrikes = Object.entries(EW)
     .filter(([un]) => un.includes('/Ostron/Melee/') && un.includes('/Tip') && !un.includes('PvP'))
     .map(([un]) => {
-      const baseName = resolveName(un, dict, EW);
+      const baseName = resolveName(un, dict, locale, EW);
       if (seenZawNames.has(baseName)) return null;
       seenZawNames.add(baseName);
       const xp = xpMap[un] ?? 0;
@@ -2036,7 +2045,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const rank = calculateRank(xp, 'moas', un);
       const mastery_xp = rank * 200;
       const ownedCustomName = moaHeadToCustomName[un]?.name || '';
-      const baseName = resolveName(un, dict, EW);
+      const baseName = resolveName(un, dict, locale, EW);
       return {
         unique_name: un,
         name: ownedCustomName ? `${baseName} (${ownedCustomName})` : baseName,
@@ -2055,7 +2064,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const rank = calculateRank(xp, 'hounds', un);
       const mastery_xp = rank * 200;
       const ownedCustomName = houndHeadToCustomName[un]?.name || '';
-      const baseName = resolveName(un, dict, EW);
+      const baseName = resolveName(un, dict, locale, EW);
       return {
         unique_name: un,
         name: ownedCustomName ? `${baseName} (${ownedCustomName})` : baseName,
@@ -2113,7 +2122,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (recipe.resultType?.includes('/Abilities/')) return;
     if (bpKey.includes('Quest')) return;
     if (bpKey.includes('HelmetBlueprint') || bpKey.includes('ChassisBlueprint') || bpKey.includes('SystemsBlueprint') || bpKey.includes('HarnessBlueprint') || bpKey.includes('WingsBlueprint')) return;
-    const resultName = resolveName(recipe.resultType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
+    const resultName = resolveName(recipe.resultType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
     (recipe.ingredients ?? []).forEach(ing => {
       if (!ing.ItemType) return;
       if (!neededForCrafting[ing.ItemType]) neededForCrafting[ing.ItemType] = [];
@@ -2134,7 +2143,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
   const wishlist = (raw.Wishlist ?? []).map(w => {
     if (typeof w === 'string') {
-      const name = resolveName(w, dict, EW, EWf, ES, ER, ECust, EGear, EM, EA, EB) || nameFromPath(w);
+      const name = resolveName(w, dict, locale, EW, EWf, ES, ER, ECust, EGear, EM, EA, EB) || nameFromPath(w);
       return { unique_name: w, name };
     }
     return null;
@@ -2240,7 +2249,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       Object.entries(ERecipe ?? {}).forEach(([bpKey, recipe]) => {
         if (!recipe || !recipe.resultType) return;
 
-        const resultName = resolveName(recipe.resultType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
+        const resultName = resolveName(recipe.resultType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
 
         // Skip Helminth abilities and quest items
         if (bpKey.includes('AbilityOverride')) return;
@@ -2276,7 +2285,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         // Get count of this BP owned
         const bpCount = primeItemCounts.get(bpKey) ?? 0;
 
-        const baseName = resultName.replace(' Blueprint', '').replace(' Prime', ' Prime');
+        const baseName = resultName.replace(BLUEPRINT_SUFFIX[locale] ?? ' Blueprint', '').replace(' Prime', ' Prime');
 
         // Check if player has the full item (owned)
         const ownedItem = nameToItem.get(baseName) ?? nameToItem.get(baseName + ' Prime');
@@ -2303,7 +2312,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
         // Check all ingredients - separate crafted vs blueprints
         const ingredients = (recipe.ingredients ?? []).map(ing => {
-          const ingName = resolveName(ing.ItemType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
+          const ingName = resolveName(ing.ItemType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
 
           let have = 0;
           let bpOwned = 0;
@@ -2329,7 +2338,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
               // Get sub-ingredients for tooltip
               subIngredients = bpRecipe.ingredients.map(subIng => ({
-                name: resolveName(subIng.ItemType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
+                name: resolveName(subIng.ItemType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
                 have: (resourceCounts[subIng.ItemType] ?? 0) + (ownedItemCounts[subIng.ItemType] ?? 0),
                 need: subIng.ItemCount ?? 1,
                 image: resolveImage(subIng.ItemType, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe)
@@ -2377,7 +2386,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const completionDate = p.CompletionDate?.$date?.$numberLong;
       const finishTime = completionDate ? parseInt(completionDate, 10) / 1000 : 0;
 
-      const name = resolveName(resultType, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
+      const name = resolveName(resultType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
 
       // Try to find if this is a subcomponent (Systems, Neuroptics, Chassis, Barrel, etc)
       // and find its "Parent" item.
@@ -2394,10 +2403,10 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       else if (name.includes(' Limb')) parentName = name.replace(' Limb', '');
       else if (name.includes(' Blade')) parentName = name.replace(' Blade', '');
       else if (name.includes(' Hilt')) parentName = name.replace(' Hilt', '');
-      else if (name.includes(' Blueprint')) parentName = name.replace(' Blueprint', '');
+      else if (name.includes(BLUEPRINT_SUFFIX[locale] ?? ' Blueprint')) parentName = name.replace(BLUEPRINT_SUFFIX[locale] ?? ' Blueprint', '');
 
       // Find the parent item in 'all' items to check ownership/mastery
-      const parentItem = all.find(i => i.name === parentName || i.name === (parentName + " Blueprint"));
+      const parentItem = all.find(i => i.name === parentName || i.name === (parentName + (BLUEPRINT_SUFFIX[locale] ?? ' Blueprint')));
 
       return {
         unique_name: p.ItemType,

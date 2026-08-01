@@ -11,6 +11,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { listen, emit } from '@tauri-apps/api/event'
 import { open as openDialog } from '@tauri-apps/plugin-dialog'
 import { loadSettings, getSetting, setSetting } from './lib/settings'
+import LanguagePicker from './components/LanguagePicker'
 
 const NAV_ITEMS = [
   { id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },
@@ -110,19 +111,19 @@ function OverlayApp() {
 function SetupScreen() {
   const [show, setShow] = useState(false)
   const [checked, setChecked] = useState(false)
-  const [ready, setReady] = useState(false)
-  const [cachePath, setCachePath] = useState('')
+  const [locale, setLocale] = useState('en')
   const hasStartedRef = useRef(false)
 
+  const { t } = useUi()
+
   useEffect(() => {
-    if (hasStartedRef.current) return
     loadSettings().then(async () => {
       if (hasStartedRef.current) return
       hasStartedRef.current = true
 
       if (!getSetting('disclaimer-accepted')) {
         setShow(true)
-        setCachePath(getSetting('warframe_cache_path', ''))
+        setLocale(getSetting('gameLocale', 'en'))
       }
 
       const savedHotkeys = getSetting('hotkeys', [])
@@ -152,6 +153,17 @@ function SetupScreen() {
     }
   }
 
+  const handleLocaleChange = async l => {
+    setLocale(l)
+    try {
+      await setSetting('gameLocale', l)
+      await invoke('check_exports', { locale: l, force: false })
+    } catch (err) {
+      console.error('Failed to switch game language:', err)
+    }
+    window.location.reload()
+  }
+
   const finish = async () => {
     if (!checked) return
     await setSetting('disclaimer-accepted', 'true')
@@ -164,7 +176,14 @@ function SetupScreen() {
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm">
       <div className="bg-kronos-bg border border-kronos-accent/20 rounded-2xl p-8 max-w-xl w-full mx-4 shadow-2xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-lg font-black uppercase tracking-tight text-kronos-accent mb-2">Welcome to Cephalon Kronos</h2>
-        <p className="text-xs text-kronos-dim mb-6">Let's get you set up. These paths are optional; you can configure them later in Settings.</p>
+        <p className="text-xs text-kronos-dim mb-6">Let's get you set up. Pick your language below; the paths are optional and can be configured later in Settings.</p>
+
+        {/* Language */}
+        <div className="mb-6">
+          <p className="text-sm font-black uppercase tracking-widest text-kronos-text/80 mb-2">{t('game_language')}</p>
+          <LanguagePicker value={locale} onChange={handleLocaleChange} />
+          <p className="mt-2 text-[10px] text-kronos-dim leading-relaxed">The app reloads to apply your language choice. You can change it anytime in Settings.</p>
+        </div>
 
         {/* Cache path */}
         <div className="mb-4">

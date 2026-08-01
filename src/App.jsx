@@ -113,18 +113,23 @@ function SetupScreen() {
   const [checked, setChecked] = useState(false)
   const [locale, setLocale] = useState('en')
   const hasStartedRef = useRef(false)
+  const [cachePath, setCachePath] = useState('')
+  const [ready, setReady] = useState(false)
 
   const { t } = useUi()
 
   useEffect(() => {
+    if (hasStartedRef.current) return
     loadSettings().then(async () => {
       if (hasStartedRef.current) return
       hasStartedRef.current = true
 
       if (!getSetting('disclaimer-accepted')) {
         setShow(true)
+        setCachePath(getSetting('warframe_cache_path', ''))
         setLocale(getSetting('gameLocale', 'en'))
       }
+
 
       const savedHotkeys = getSetting('hotkeys', [])
       const valid = savedHotkeys.filter(hk => hk.shortcut && hk.action)

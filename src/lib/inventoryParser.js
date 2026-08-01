@@ -21,7 +21,7 @@
  * parseInventory(raw, exports) → structured inventory object
  *   All other functions are internal helpers.
  */
-import { RIVEN_STAT_TRANSLATIONS, NAME_OVERRIDES } from './warframeUtils'
+import { RIVEN_STAT_TRANSLATIONS } from './warframeUtils'
 
 // ─── Riven Tag Data ───────────────────────────────────────────────────────────
 //
@@ -255,7 +255,7 @@ function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
   const leaf = parts.at(-1) ?? path;
   const folder = parts.at(-2) ?? '';
-  if (NAME_OVERRIDES[leaf] || NAME_OVERRIDES[leaf.toUpperCase()]) return NAME_OVERRIDES[leaf] || NAME_OVERRIDES[leaf.toUpperCase()];
+
 
   if (FOLDER_OVERRIDES[folder]) {
     const suffix = leaf.match(/(Prime|Vandal|Wraith|Prisma|Kuva|Tenet|Umbra)$/i)?.[0] ?? '';
@@ -842,6 +842,15 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         if (entry.levelStats && !EM[un].levelStats) EM[un].levelStats = entry.levelStats;
         if (entry.modSet && !EM[un].modSet) EM[un].modSet = entry.modSet;
       }
+    }
+  }
+  // Merge locale-specific ExportUpgrades from DE public manifest (localized levelStats)
+  // These override the English _fixed.json stats with proper translations.
+  if (exports.ExportUpgradesLocalized) {
+    const locArr = exports.ExportUpgradesLocalized.ExportUpgrades || exports.ExportUpgradesLocalized;
+    const locMap = toMap(locArr, 'ExportUpgrades');
+    for (const [un, entry] of Object.entries(locMap)) {
+      if (EM[un] && entry.levelStats) EM[un].levelStats = entry.levelStats;
     }
   }
   // Same for patched ExportAvionics

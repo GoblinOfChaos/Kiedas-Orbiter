@@ -494,13 +494,8 @@ const FOLDER_OVERRIDES = {
   Fairy: 'Wisp', Jade: 'Nyx',
 };
 
-// Hidden items (dev/test/internal) that produce ugly pascal-split names.
-// Keyed by the leaf of the uniqueName path. These items are not user-facing.
-const NAME_OVERRIDES = {
-  'RESOURCESTESTPARTITEM': 'Resource Test Part',
-  'RESOURCES_TEST_PART_ITEM': 'Resource Test Part',
-}
-export { NAME_OVERRIDES }
+// NAME_OVERRIDES is no longer needed — all previously-overridden items are
+// either hidden (MuseumDogTag, TestPartItem) or resolved by the game dict.
 
 // Riven stat name translations — the dict doesn't contain these, so we maintain
 // a small manual table for the most common stats. Keyed by the English stat name.
@@ -581,7 +576,7 @@ function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
   const leaf = parts.at(-1) ?? path;
   const folder = parts.at(-2) ?? '';
-  if (NAME_OVERRIDES[leaf] || NAME_OVERRIDES[leaf.toUpperCase()]) return NAME_OVERRIDES[leaf] || NAME_OVERRIDES[leaf.toUpperCase()];
+  // NAME_OVERRIDES was removed — all items it covered are hidden or dict-resolved
 
   if (FOLDER_OVERRIDES[folder]) {
     const suffix = leaf.match(/(Prime|Vandal|Wraith|Prisma|Kuva|Tenet|Umbra)$/i)?.[0] ?? '';

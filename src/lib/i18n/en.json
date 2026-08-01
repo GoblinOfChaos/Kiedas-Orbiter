@@ -35,10 +35,6 @@
     "Beam Length": "Beam Length",
     "Slide Crit Chance": "Slide Crit Chance"
   },
-  "nameOverrides": {
-    "RESOURCESTESTPARTITEM": "Resource Test Part",
-    "RESOURCES_TEST_PART_ITEM": "Resource Test Part"
-  },
   "eras": {
     "Lith": "Lith",
     "Meso": "Meso",

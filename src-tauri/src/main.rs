@@ -173,6 +173,38 @@ const TXT_FILES: &[(&str, &str)] = &[
     ("arbys.txt",         "https://browse.wf/arbys.txt"),
     ("sp-incursions.txt", "https://browse.wf/sp-incursions.txt"),
 ];
+// DE public manifest files (locale-specific ExportUpgrades/ExportAvionics)
+// are fetched from content.warframe.com/PublicExport/Manifest/ via the
+// index_{locale}.txt.lzma index which contains filename+contentHash pairs.
+// These give us localized levelStats for mod descriptions (the GitHub mirror
+// only ships English). ExportAvionics is not in the DE manifest, so it stays
+// English-only (see v0.8 MOD_STAT_TRANSLATIONS plan).
+const DE_MANIFEST_BASE: &str = "https://content.warframe.com/PublicExport";
+
+/// Fetch the DE manifest index for `locale`, extract the contentHash for
+/// `ExportUpgrades_{locale}.json`, and download that file to the export dir.
+/// Returns true if the file was successfully written. Failures are non-fatal
+/// (falls back to English _fixed.json stat descriptions).
+async fn download_locale_upgrades(client: &reqwest::Client, export_dir: &std::path::Path, locale: &str) -> Result<(), String> {
+    let index_url = format!("{}/index_{}.txt.lzma", DE_MANIFEST_BASE, locale);
+    let index_resp = client.get(&index_url).send().await.map_err(|e| e.to_string())?;
+    if !index_resp.status().is_success() {
+        return Err(format!("DE manifest index for {} returned HTTP {}", locale, index_resp.status()));
+    }
+    let index_bytes = index_resp.bytes().await.map_err(|e| e.to_string())?;
+    let index_text = decompress_lzma(&index_bytes).map_err(|e| format!("LZMA decompress index: {}", e))?;
+
+    // Format: "ExportUpgrades_de.json!00_<contentHash>" per line
+    let target_file = format!("ExportUpgrades_{}.json", locale);
+    let line = index_text.lines()
+        .find(|l| l.starts_with(&target_file))
+        .ok_or_else(|| format!("{} not found in manifest index", target_file))?;
+
+    let dest = export_dir.join(&target_file);
+    let file_url = format!("{}/Manifest/{}", DE_MANIFEST_BASE, line);
+    download_file(client, &file_url, &dest).await?;
+    Ok(())
+}
 
 // Drop data (warframe-drop-data) is an extra JSON file from a different source.
 // It's refreshed once per day like the main exports.
@@ -220,6 +252,15 @@ fn file_age_secs(path: &std::path::Path) -> u64 {
         .map(|d| d.as_secs())
         .unwrap_or(u64::MAX)
 }
+/// Decompress raw LZMA-compressed bytes (the DE manifest index is .txt.lzma).
+/// Returns the decompressed text.
+fn decompress_lzma(bytes: &[u8]) -> Result<String, String> {
+    use std::io::Read;
+    let mut decoder = xz2::read::XzDecoder::new(bytes);
+    let mut out = Vec::new();
+    decoder.read_to_end(&mut out).map_err(|e| e.to_string())?;
+    String::from_utf8(out).map_err(|e| format!("manifest index not UTF-8: {}", e))
+}
 
 // --- Tauri Commands ---
 //
@@ -263,6 +304,19 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
                 format!("Failed to download {}: {}", file_name, e)
             })?;
             updated_count += 1;
+        }
+    }
+
+    // DE public manifest: locale-specific ExportUpgrades_{locale}.json gives us
+    // localized mod descriptions (levelStats). Falls back to English _fixed.json.
+    if &locale != "en" {
+        let locale_path = export_dir.join(format!("ExportUpgrades_{}.json", locale));
+        let needs_update = force || !locale_path.exists() || file_age_secs(&locale_path) > 86_400;
+        if needs_update {
+            match download_locale_upgrades(&client, &export_dir, &locale).await {
+                Ok(_) => updated_count += 1,
+                Err(e) => eprintln!("Warning: could not download DE locale upgrades: {}", e),
+            }
         }
     }
 
@@ -474,7 +528,7 @@ async fn call_api_helper(_app_handle: tauri::AppHandle) -> Result<Value, String>
 /// (e.g. `{ "ExportWeapons": [...], "ExportWarframes": [...], ... }`).
 /// Called by MonitoringContext once on startup; passed to inventoryParser.js.
 #[tauri::command]
-async fn load_all_exports(app_handle: tauri::AppHandle) -> Result<Value, String> {
+async fn load_all_exports(app_handle: tauri::AppHandle, locale: String) -> Result<Value, String> {
     let export_dir = resolve_path("data/export");
 
     // Pre-resolve all paths (fast metadata ops, non-blocking)
@@ -529,6 +583,21 @@ async fn load_all_exports(app_handle: tauri::AppHandle) -> Result<Value, String>
     for handle in drop_handles {
         let (key, json) = handle.await.map_err(|e| e.to_string())??;
         result.insert(key, json);
+    }
+
+    // Locale-specific ExportUpgrades from DE public manifest (localized levelStats).
+    // Keyed as "ExportUpgradesLocalized" so the frontend merges it over English.
+    let locale_file = format!("ExportUpgrades_{}.json", locale);
+    let locale_path = export_dir.join(&locale_file);
+    if locale_path.exists() {
+        let locale_handle = tokio::task::spawn_blocking(move || -> Result<(String, Value), String> {
+            let file = fs::File::open(&locale_path).map_err(|e| e.to_string())?;
+            let json: Value = serde_json::from_reader(std::io::BufReader::new(file))
+                .map_err(|e| e.to_string())?;
+            Ok(("ExportUpgradesLocalized".to_string(), json))
+        });
+        let (lk, lv) = locale_handle.await.map_err(|e| e.to_string())??;
+        result.insert(lk, lv);
     }
 
     Ok(Value::Object(result))
@@ -1728,6 +1797,26 @@ fn load_all_exports_inner(app_handle: &tauri::AppHandle) -> Option<serde_json::V
                 Err(e) => eprintln!("[load_all_exports_inner] failed to parse {} ({}b): {}", key, path.metadata().map(|m| m.len()).unwrap_or(0), e),
             },
             Err(e) => eprintln!("[load_all_exports_inner] failed to open {}: {}", key, e),
+        }
+    }
+
+    // Load locale-specific ExportUpgrades from DE public manifest if available.
+    // Read locale from settings file (same source as sidebar_load_data caller).
+    let settings = std::fs::read_to_string(resolve_path("data/user/settings.json")).ok()
+        .and_then(|s| serde_json::from_str::<serde_json::Value>(&s).ok())
+        .unwrap_or_default();
+    let locale = settings.get("gameLocale").and_then(|v| v.as_str()).unwrap_or("en");
+    if locale != "en" {
+        let locale_file = format!("ExportUpgrades_{}.json", locale);
+        let locale_path = export_dir.join(&locale_file);
+        if locale_path.exists() {
+            match std::fs::File::open(&locale_path) {
+                Ok(file) => match serde_json::from_reader(std::io::BufReader::new(file)) {
+                    Ok(json) => { result.insert("ExportUpgradesLocalized".to_string(), json); }
+                    Err(e) => eprintln!("[load_all_exports_inner] failed to parse {}: {}", locale_file, e),
+                },
+                Err(e) => eprintln!("[load_all_exports_inner] failed to open {}: {}", locale_file, e),
+            }
         }
     }
 

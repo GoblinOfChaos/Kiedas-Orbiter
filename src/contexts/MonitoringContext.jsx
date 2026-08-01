@@ -496,7 +496,7 @@ export function MonitoringProvider({ children }) {
       setStatusText('Checking updates & assets…')
       const [updatesRes, exportsRes, mediaRes, pricerRes, spiRes, arbRes, descRes] = await Promise.allSettled([
         invoke('check_exports', { locale: localeRef.current, force: false }),
-        invoke('load_all_exports'),
+        invoke('load_all_exports', { locale: localeRef.current }),
         invoke('check_media_assets'),
         invoke('check_pricer_models'),
         invoke('load_txt_file', { name: 'sp-incursions.txt' }),

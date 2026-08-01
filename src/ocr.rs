@@ -386,21 +386,17 @@ fn filter_and_separate_parts_from_part_box_impl(
     // debug!("Even: {}", total_even / total);
     // debug!("Odd: {}", total_odd / total);
 
-    let mut box_width = filtered.width() / 4;
-    let mut box_stride = box_width;
+    let box_width = filtered.width() / 4;
     let box_height = filtered.height();
 
     let mut curr_left = 0;
+    let mut box_stride = box_width;
     let mut player_count = 4;
 
     if total_odd > total_even {
-        // Solo 3-reward screens are visibly wider-spaced than simply dropping
-        // one of the 4-grid columns; keep card width but add a fixed gap and
-        // center the group in the crop so card bounds match the UI layout.
-        let gap = box_width / 3;
-        box_stride = box_width + gap;
-        let required_width = box_stride.saturating_mul(3).saturating_sub(gap);
-        curr_left = (filtered.width().saturating_sub(required_width)) / 2;
+        let (left, stride) = three_reward_geometry(box_width, filtered.width());
+        curr_left = left;
+        box_stride = stride;
         player_count = 3;
     }
 
@@ -419,6 +415,81 @@ fn filter_and_separate_parts_from_part_box_impl(
     }
 
     (images, rects)
+}
+
+/// Left edge and stride (distance between successive card starts) for
+/// Warframe's solo 3-reward layout. Solo screens are visibly wider-spaced
+/// than simply dropping one column from the 4-reward grid - this keeps the
+/// same card width but adds a real gap between cards and centers the group
+/// in the crop so card bounds match the actual UI layout instead of three
+/// cards touching edge-to-edge.
+fn three_reward_geometry(box_width: u32, total_width: u32) -> (u32, u32) {
+    let gap = box_width / 3;
+    let stride = box_width + gap;
+    let required_width = stride.saturating_mul(3).saturating_sub(gap);
+    let left = (total_width.saturating_sub(required_width)) / 2;
+    (left, stride)
+}
+
+#[cfg(test)]
+mod three_reward_geometry_tests {
+    use super::three_reward_geometry;
+
+    #[test]
+    fn produces_a_real_gap_between_cards() {
+        let box_width = 316;
+        let total_width = 1264; // matches a real live 4-slot detection region
+        let (left, stride) = three_reward_geometry(box_width, total_width);
+        let gap = stride - box_width;
+        assert!(gap > 0, "cards must not touch edge-to-edge");
+        // Matches the real live capture this fix was verified against
+        // (TODO.md 2026-07-30): Warframe's real 3-card layout has visible
+        // gaps, not a subset of the 4-card grid squeezed together.
+        assert_eq!(gap, box_width / 3);
+        assert_eq!(left, 53);
+        assert_eq!(stride, 421);
+    }
+
+    #[test]
+    fn all_three_cards_stay_within_the_detection_region() {
+        let box_width = 316;
+        let total_width = 1264;
+        let (left, stride) = three_reward_geometry(box_width, total_width);
+        for i in 0..3u32 {
+            let x = left + i * stride;
+            assert!(
+                x + box_width <= total_width,
+                "card {i} (x={x}, width={box_width}) exceeds region width {total_width}"
+            );
+        }
+    }
+
+    #[test]
+    fn group_is_roughly_centered_in_the_region() {
+        let box_width = 316;
+        let total_width = 1264;
+        let (left, stride) = three_reward_geometry(box_width, total_width);
+        let right_margin = total_width - (left + 2 * stride + box_width);
+        // Left and right margins should be close (integer rounding can make
+        // them differ by at most a pixel or two), not wildly lopsided.
+        let diff = left.abs_diff(right_margin);
+        assert!(
+            diff <= 2,
+            "left margin {left} and right margin {right_margin} are not roughly centered"
+        );
+    }
+
+    #[test]
+    fn scales_with_a_different_region_width() {
+        // A different real detection-region width should still produce a
+        // positive gap and stay in bounds - not hardcoded to one resolution.
+        let box_width = 400;
+        let total_width = 1600;
+        let (left, stride) = three_reward_geometry(box_width, total_width);
+        assert!(stride > box_width);
+        let last_card_end = left + 2 * stride + box_width;
+        assert!(last_card_end <= total_width);
+    }
 }
 
 pub fn normalize_string(string: &str) -> String {

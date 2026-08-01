@@ -199,6 +199,7 @@ async fn download_locale_upgrades(client: &reqwest::Client, export_dir: &std::pa
     let line = index_text.lines()
         .find(|l| l.starts_with(&target_file))
         .ok_or_else(|| format!("{} not found in manifest index", target_file))?;
+    let line = line.trim();
 
     let dest = export_dir.join(&target_file);
     let file_url = format!("{}/Manifest/{}", DE_MANIFEST_BASE, line);
@@ -256,9 +257,10 @@ fn file_age_secs(path: &std::path::Path) -> u64 {
 /// Returns the decompressed text.
 fn decompress_lzma(bytes: &[u8]) -> Result<String, String> {
     use std::io::Read;
-    let mut decoder = xz2::read::XzDecoder::new(bytes);
+    let mut decoder = xz2::read::XzDecoder::new_multi_decoder(bytes);
     let mut out = Vec::new();
     decoder.read_to_end(&mut out).map_err(|e| e.to_string())?;
+
     String::from_utf8(out).map_err(|e| format!("manifest index not UTF-8: {}", e))
 }
 
@@ -317,9 +319,9 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
                 Ok(_) => updated_count += 1,
                 Err(e) => eprintln!("Warning: could not download DE locale upgrades: {}", e),
             }
+
         }
     }
-
     // TXT data files - refresh every 6 hours; failures are non-fatal
     for (file_name, url) in TXT_FILES {
         let path = export_dir.join(file_name);

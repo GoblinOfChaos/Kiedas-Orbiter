@@ -507,7 +507,6 @@ export function MonitoringProvider({ children }) {
       const exports = exportsRes.status === 'fulfilled' ? exportsRes.value : null
       const spiText = spiRes.status === 'fulfilled' ? spiRes.value : null
       const arbText = arbRes.status === 'fulfilled' ? arbRes.value : null
-
       // Temporary: use patched exports with levelStats until upstream ships them
       if (exports) {
         try {

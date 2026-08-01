@@ -319,7 +319,6 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
                 Ok(_) => updated_count += 1,
                 Err(e) => eprintln!("Warning: could not download DE locale upgrades: {}", e),
             }
-
         }
     }
     // TXT data files - refresh every 6 hours; failures are non-fatal

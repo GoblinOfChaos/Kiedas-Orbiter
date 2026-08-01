@@ -6,6 +6,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { convertFileSrc } from '@tauri-apps/api/core'
 import { getVersion } from '@tauri-apps/api/app'
 import { useUpdate } from '../contexts/UpdateContext'
+import { useUi } from '../contexts/UiContext'
 import { getSetting, setSetting, onSettingsChanged } from '../lib/settings'
 import { useTheme } from '../contexts/ThemeContext'
 import { useMonitoring } from '../contexts/MonitoringContext'
@@ -83,6 +84,7 @@ export default function SettingsScreen() {
   const [error, setError] = useState(null)
   const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
   const [localeLoading, setLocaleLoading] = useState(false)
+  const { t } = useUi()
   const [tick, setTick] = useState(0)
   useEffect(() => {
     if (!isMonitoring) return
@@ -494,7 +496,7 @@ export default function SettingsScreen() {
   }
 
   return (<>
-    <PageLayout title="Settings">
+    <PageLayout titleKey="screen.settings">
       <div className="space-y-6">
 
         {/* Theme Selector - Leaner version */}
@@ -868,9 +870,9 @@ export default function SettingsScreen() {
         <Card glow className="p-5">
           <div className="flex items-center gap-3 mb-6">
             <div>
-              <h2 className="text-xl font-black uppercase tracking-tight">Game Language</h2>
+              <h2 className="text-xl font-black uppercase tracking-tight">{t('game_language')}</h2>
               <p className="text-[10px] text-kronos-dim uppercase font-bold tracking-widest mt-0.5">
-                Item names and descriptions in your language (reloads exports)
+                {t('game_language_hint')}
               </p>
             </div>
           </div>
@@ -1161,8 +1163,8 @@ export default function SettingsScreen() {
         <div className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center">
           <div className="text-center">
             <div className="w-8 h-8 border-2 border-kronos-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-sm font-bold text-white uppercase tracking-widest">Changing language…</p>
-            <p className="text-xs text-kronos-dim mt-1">Reloading game data</p>
+            <p className="text-sm font-bold text-white uppercase tracking-widest">{t('changing_language')}</p>
+            <p className="text-xs text-kronos-dim mt-1">{t('reloading')}</p>
           </div>
         </div>
       )}

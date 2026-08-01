@@ -1,0 +1,66 @@
+import { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react'
+import { loadSettings, getSetting, onSettingsChanged } from '../lib/settings'
+import { loadLocale } from '../lib/i18n'
+
+/**
+ * UiContext — UI chrome (interface) translation.
+ *
+ * The `ui` section of src/lib/i18n/{locale}.json holds app-interface strings
+ * (nav labels, sync states, settings chrome).  The UI locale defaults to the
+ * game locale but can be overridden with a separate `uiLocale` setting.
+ *
+ * Every key falls back to English, so a partially-translated locale never
+ * renders raw keys.
+ */
+const UiContext = createContext(null)
+
+export function UiProvider({ children }) {
+  const [state, setState] = useState({ ui: {}, locale: 'en', ready: false, i18nData: null })
+  const stateRef = useRef(state)
+  stateRef.current = state
+
+  useEffect(() => {
+    let cancelled = false
+
+    const load = async () => {
+      try {
+        await loadSettings()
+        if (cancelled) return
+        const locale = getSetting('uiLocale') || getSetting('gameLocale') || 'en'
+        // Load English as the base so missing keys degrade gracefully.
+        const [enData, locData] = await Promise.all([
+          loadLocale('en'),
+          locale === 'en' ? Promise.resolve(null) : loadLocale(locale),
+        ])
+        if (cancelled) return
+        const merged = { ...(enData?.ui || {}), ...(locData?.ui || {}) }
+        setState({ ui: merged, locale, ready: true, i18nData: locData || enData })
+      } catch {
+        if (cancelled) return
+        setState({ ui: {}, locale: 'en', ready: true, i18nData: null })
+      }
+    }
+
+    load()
+    const unsub = onSettingsChanged(() => load())
+    return () => { cancelled = true; unsub() }
+  }, [])
+
+  const t = useCallback((key) => {
+    if (!key) return ''
+    const v = stateRef.current.ui[key]
+    return v != null && v !== '' ? v : key
+  }, [])
+
+  return (
+    <UiContext.Provider value={{ t, ...state }}>
+      {children}
+    </UiContext.Provider>
+  )
+}
+
+export function useUi() {
+  const ctx = useContext(UiContext)
+  if (!ctx) throw new Error('useUi must be used within a UiProvider')
+  return ctx
+}

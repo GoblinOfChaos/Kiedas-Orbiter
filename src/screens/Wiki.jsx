@@ -150,7 +150,7 @@ export default function Wiki() {
 
   return (
     <PageLayout
-      title="Wiki"
+      titleKey="screen.wiki"
       extra={
         <div className="flex items-center gap-1">
           {tabs.map(t => (

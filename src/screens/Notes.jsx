@@ -256,7 +256,7 @@ export default function Notes() {
   ]
 
   return (
-    <PageLayout title="Notes">
+    <PageLayout titleKey="screen.notes">
       <style>{`
         .dark-editor.kronos-editor {
           --accentBase: var(--color-accent);

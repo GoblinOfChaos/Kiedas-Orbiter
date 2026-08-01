@@ -64,7 +64,7 @@ export default function Adversaries() {
   }, [nemeses, showKilled])
 
   return (
-    <PageLayout title="Adversaries">
+    <PageLayout titleKey="screen.adversaries">
       <div className="space-y-6">
         {/* ── Progenitor Reference Table ── */}
         <Card glow className="p-4">

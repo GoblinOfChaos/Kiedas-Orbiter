@@ -888,7 +888,7 @@ export default function Inventory() {
 
   return (
     <PageLayout
-      title="Inventory"
+      titleKey="screen.inventory"
       subtitle={`Displaying ${visibleItems.length} / ${filteredItems.length} items`}
       extra={renderHeaderStats(inventoryData, iconsPath)}
       headerPanel={renderHeaderPanel()}

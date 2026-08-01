@@ -254,7 +254,7 @@ export default function Relics() {
 
   return (
     <PageLayout
-      title="Void Relics"
+      titleKey="screen.relics"
       subtitle={`Showing ${totalFilteredGroups} relic types · ${totalFilteredItems} total`}
       headerPanel={renderHeaderPanel()}
     >

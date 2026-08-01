@@ -89,7 +89,7 @@ export default function Mastery() {
 
   if (isInventoryLoading || (inventoryData === undefined)) {
     return (
-      <PageLayout title="Mastery">
+      <PageLayout titleKey="screen.mastery">
         <MonitorState isLoading className="py-20" />
       </PageLayout>
     )
@@ -97,7 +97,7 @@ export default function Mastery() {
 
   if (inventoryData === null) {
     return (
-      <PageLayout title="Mastery">
+      <PageLayout titleKey="screen.mastery">
         <MonitorState className="py-20" />
       </PageLayout>
     )
@@ -276,7 +276,7 @@ export default function Mastery() {
   )
 
   return (
-    <PageLayout title="Mastery">
+    <PageLayout titleKey="screen.mastery">
       <div className="space-y-8">
         {/* MR card */}
         <Card glow className="p-0 overflow-hidden border-kronos-accent/30 shadow-2xl">

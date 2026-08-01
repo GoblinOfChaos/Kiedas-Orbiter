@@ -767,7 +767,7 @@ export default function Checklist() {
   return (
     <>
       <ColorFilters config={SYNDICATE_CONFIG} />
-      <PageLayout title="Checklist" subtitle="Track daily and weekly activities">
+      <PageLayout titleKey="screen.checklist" subtitle="Track daily and weekly activities">
         {/* Focus Section - Full Width */}
         {hasInventory && (
           <div className="mb-6">

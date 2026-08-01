@@ -207,7 +207,7 @@ export default function Mods() {
 
   return (
     <PageLayout
-      title="Mods"
+      titleKey="screen.mods"
       subtitle={`${filtered.length} total · ${uniqueMods} unique · ${dupCount} duplicate`}
       headerPanel={renderHeaderPanel()}
     >

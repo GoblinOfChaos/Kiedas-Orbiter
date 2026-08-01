@@ -25,7 +25,7 @@ const _loaders = import.meta.glob('./i18n/*.json', { eager: false })
 export async function loadLocale(locale = 'en') {
   if (!locale || locale === 'en') locale = 'en'
   if (_cache[locale]) return _cache[locale]
-  const loader = _loaders[`/${locale}.json`]
+  const loader = _loaders[`./i18n/${locale}.json`]
   if (!loader && locale !== 'en') return loadLocale('en')
   if (!loader) return null
   const mod = await loader()

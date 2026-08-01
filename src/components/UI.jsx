@@ -2,6 +2,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X, AlertCircle, RefreshCw } from 'lucide-react';
+import { useUi } from '../contexts/UiContext'
 
 // Portal tooltip that follows trigger during scroll/resize
 export function TooltipPortal({ children, triggerRef, visible, position = 'right' }) {
@@ -89,6 +90,7 @@ export function Tooltip({ children, content, position = 'right' }) {
 // Monitor State Prompt
 // Unified "No inventory data found" component.
 export function MonitorState({ className = "", isLoading = false }) {
+  const { t } = useUi()
   const goToSettings = () => {
     const btn = document.getElementById('nav-settings')
       ?? document.querySelector('[data-nav="settings"]');
@@ -99,9 +101,9 @@ export function MonitorState({ className = "", isLoading = false }) {
     return (
       <div className={`flex flex-col items-center justify-center text-center p-8 bg-kronos-panel/10 rounded-xl border border-dashed border-white/10 ${className}`}>
         <RefreshCw size={48} className="text-kronos-accent animate-spin mb-4" />
-        <h3 className="text-xl font-bold uppercase mb-2">Inventory Loading...</h3>
+        <h3 className="text-xl font-bold uppercase mb-2">{t('loading.inventory')}</h3>
         <p className="text-sm text-kronos-dim max-w-xs uppercase font-medium">
-          Processing your game collection data.
+          {t('loading.processing')}
         </p>
       </div>
     );
@@ -110,12 +112,12 @@ export function MonitorState({ className = "", isLoading = false }) {
   return (
     <div className={`flex flex-col items-center justify-center text-center p-8 bg-kronos-panel/10 rounded-xl border border-dashed border-white/10 ${className}`}>
       <AlertCircle size={48} className="text-kronos-accent/30 mb-4" />
-      <h3 className="text-xl font-bold uppercase mb-2">No inventory data found.</h3>
+      <h3 className="text-xl font-bold uppercase mb-2">{t('loading.no_data')}</h3>
       <p className="text-sm text-kronos-dim mb-6 max-w-xs uppercase font-medium">
-        Sync your inventory to view your collection and progress.
+        {t('loading.no_data_hint')}
       </p>
       <Button onClick={goToSettings} className="px-8 font-black uppercase tracking-widest">
-        Go to Settings to Start Sync
+        {t('loading.go_settings')}
       </Button>
     </div>
   );
@@ -171,8 +173,8 @@ function BackToTopButton({ scrollRef }) {
   )
 }
 
-export function PageLayout({ title, subtitle, children, extra, headerPanel }) {
-  const { lastUpdate } = useMonitoring() || {}
+export function PageLayout({ title, titleKey, subtitle, children, extra, headerPanel }) {
+  const { t } = useUi()
   const scrollRef = useRef(null)
 
   return (
@@ -182,7 +184,7 @@ export function PageLayout({ title, subtitle, children, extra, headerPanel }) {
         <div className="px-8 pt-8 pb-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold uppercase tracking-tight">{title}</h1>
+              <h1 className="text-3xl font-bold uppercase tracking-tight">{titleKey ? t(titleKey) : title}</h1>
               {subtitle && <p className="text-kronos-dim mt-1 text-sm font-medium uppercase tracking-wide">{subtitle}</p>}
             </div>
             {extra && <div className="flex items-center gap-4">{extra}</div>}

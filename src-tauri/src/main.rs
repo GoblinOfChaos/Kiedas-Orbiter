@@ -25,6 +25,7 @@ mod pricer;
 mod mem_reader;
 
 mod memory_scan;
+mod weapon_i18n;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -2643,6 +2644,13 @@ async fn get_known_weapon_names() -> Vec<String> {
         .unwrap_or_default()
 }
 
+#[tauri::command]
+async fn get_localized_weapon_names(app: tauri::AppHandle, locale: String) -> Vec<weapon_i18n::WeaponNamePair> {
+    tauri::async_runtime::spawn_blocking(move || weapon_i18n::localized_weapon_names(&app, &locale))
+        .await
+        .unwrap_or_default()
+}
+
 #[cfg(target_os = "linux")]
 pub(crate) fn ensure_gtk_overlay_wrapper(window: &tauri::WebviewWindow) -> Result<(), String> {
     use gtk::prelude::*;
@@ -3374,6 +3382,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             estimate_riven_full,
             estimate_riven_full_batch,
             get_known_weapon_names,
+            get_localized_weapon_names,
             get_available_monitors,
             set_target_monitor,
             get_warframe_window_rect,

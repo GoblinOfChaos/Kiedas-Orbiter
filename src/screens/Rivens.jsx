@@ -264,7 +264,7 @@ export default function Rivens() {
 
   return (
     <PageLayout
-      title="Riven Mods"
+      titleKey="screen.rivens"
       subtitle={`${unveiledCount} unveiled · ${challengeCount} challenge · ${veiledCount} veiled · ${unveiledCount + challengeCount}/${capacity} capacity`}
       headerPanel={renderHeaderPanel()}
     >

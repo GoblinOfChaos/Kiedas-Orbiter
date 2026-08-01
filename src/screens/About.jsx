@@ -38,7 +38,7 @@ export default function About() {
   }
 
   return (
-    <PageLayout title="About">
+    <PageLayout titleKey="screen.about">
       <div className="space-y-6">
 
         {/* App Info */}

@@ -3,6 +3,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { listen } from '@tauri-apps/api/event'
 import { Tooltip } from '../UI'
 import MirroredMonitoringProvider from '../../contexts/MirroredMonitoringProvider'
+import { useUi } from '../../contexts/UiContext'
 import { useMonitoring } from '../../contexts/MonitoringContext'
 import { formatLastUpdate } from '../../lib/warframeUtils'
 import { loadSettings, getSetting, setSetting } from '../../lib/settings'
@@ -76,6 +77,7 @@ function SidebarContent() {
   const resizeRef = useRef(null)
 
   const uiIcon = useUIIcons(ICON_NAMES)
+  const { t } = useUi()
 
   useEffect(() => {
     loadSettings().then(() => {
@@ -163,7 +165,7 @@ function SidebarContent() {
               const isActive = activeTab === item.id
               return (
                 <div key={item.id} className="relative">
-                  <Tooltip content={item.label}>
+                  <Tooltip content={t(`nav.${item.id}`)}>
                     <button
                       data-nav={item.id}
                       onClick={() => setActiveTab(item.id)}
@@ -197,7 +199,7 @@ function SidebarContent() {
         </div>
         <div className="mt-auto flex-shrink-0 flex flex-col items-center gap-3 pt-4 border-t border-white/5 w-full">
           <div className="text-xs text-kronos-dim text-center whitespace-nowrap">
-            Last update:<br />{formatLastUpdate(lastUpdate)}
+            {t('last_update')}<br />{formatLastUpdate(lastUpdate)}
           </div>
           <div className={`w-3 h-3 rounded-full transition-all duration-300 relative group ${
             monitorResult === 'success' ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]'
@@ -206,7 +208,7 @@ function SidebarContent() {
               : 'bg-gray-600'
           }`}>
             <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${isRight ? 'right-full mr-3' : 'left-full ml-3'}`}>
-              {monitorResult === 'success' ? 'Inventory Sync' : monitorResult === 'cached' ? 'Using Cached Data' : monitorResult === 'error' ? 'Inventory Sync Error' : 'Inventory Sync Offline'}
+              {monitorResult === 'success' ? t('sync.success') : monitorResult === 'cached' ? t('sync.cached') : monitorResult === 'error' ? t('sync.error') : t('sync.offline')}
             </div>
           </div>
           <div className={`w-3 h-3 rounded-full transition-all duration-300 relative group ${
@@ -216,10 +218,10 @@ function SidebarContent() {
               : 'bg-gray-700'
           }`}>
             <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${isRight ? 'right-full mr-3' : 'left-full ml-3'}`}>
-              {scannerStatus === 'active' ? 'Scanner Active'
-                : scannerStatus === 'waiting' ? 'Waiting for Warframe...'
-                : scannerStatus === 'stale_offset' ? 'Scanner Offset Stale'
-                : 'Scanner Idle'}
+              {scannerStatus === 'active' ? t('scanner.active')
+                : scannerStatus === 'waiting' ? t('scanner.waiting')
+                : scannerStatus === 'stale_offset' ? t('scanner.stale')
+                : t('scanner.idle')}
             </div>
           </div>
         </div>

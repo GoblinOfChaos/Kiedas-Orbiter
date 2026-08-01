@@ -232,7 +232,7 @@ export default function Collectibles() {
   }, [loreFragmentScans, uiPath, openSubpanel])
 
   return (
-    <PageLayout title="Collectibles">
+    <PageLayout titleKey="screen.collectibles">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 pb-4">
         {seriesCards.map(({ key, ...card }) => <ProgressCard key={key} {...card} />)}
         {markerCards.map(({ key, ...card }) => <ProgressCard key={key} {...card} />)}

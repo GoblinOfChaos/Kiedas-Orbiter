@@ -5,6 +5,7 @@ import { ThemeProvider } from './contexts/ThemeContext'
 import { MonitoringProvider } from './contexts/MonitoringContext'
 import { UpdateProvider, useUpdate } from './contexts/UpdateContext'
 import { Tooltip } from './components/UI'
+import { UiProvider, useUi } from './contexts/UiContext'
 import { AlertTriangle, FolderOpen } from 'lucide-react'
 import { invoke } from '@tauri-apps/api/core'
 import { listen, emit } from '@tauri-apps/api/event'
@@ -88,14 +89,16 @@ function OverlayApp() {
   return (
     <ThemeProvider>
       <UpdateProvider>
-        <main
-          className="h-screen w-screen overflow-hidden"
-          style={{ background: 'transparent' }}
-        >
-          <Suspense fallback={null}>
-            <OverlayRouter />
-          </Suspense>
-        </main>
+        <UiProvider>
+          <main
+            className="h-screen w-screen overflow-hidden"
+            style={{ background: 'transparent' }}
+          >
+            <Suspense fallback={null}>
+              <OverlayRouter />
+            </Suspense>
+          </main>
+        </UiProvider>
       </UpdateProvider>
     </ThemeProvider>
   )
@@ -217,6 +220,7 @@ function AppContent() {
   const [scannerStatus, setScannerStatus] = useState('idle') // 'idle' | 'waiting' | 'active'
 
   const { uiIcon } = useUIIcons(ICON_NAMES)
+  const { t } = useUi()
 
   useEffect(() => {
     // Poll scanner status every 2s so sidebar dot stays in sync
@@ -309,7 +313,7 @@ function AppContent() {
                   {item.id === 'settings' && updateState.status === 'available' && (
                     <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full z-10 shadow-[0_0_6px_rgba(239,68,68,0.8)]" />
                   )}
-                  <Tooltip content={item.label}>
+                  <Tooltip content={t(`nav.${item.id}`)}>
                     <button
                       id={item.id === 'settings' ? 'nav-settings' : undefined}
                       onClick={() => setActiveTab(item.id)}
@@ -343,11 +347,10 @@ function AppContent() {
             })}
           </div>
         </div>
-
         {/* Status dots */}
         <div className="mt-auto flex-shrink-0 flex flex-col items-center gap-3 pt-4 border-t border-white/5 w-full">
           <div className="text-xs text-kronos-dim text-center whitespace-nowrap">
-            Last update:<br />
+            {t('last_update')}<br />
             {formatLastUpdate(lastUpdate)}
           </div>
           {/* API monitoring dot */}
@@ -360,7 +363,7 @@ function AppContent() {
             `}
           >
             <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${sidebarActive && sidebarSide === 'right' ? 'right-full mr-3' : 'left-full ml-3'}`}>
-              {monitorResult === 'success' ? 'Inventory Sync' : monitorResult === 'cached' ? 'Using Cached Data' : monitorResult === 'error' ? 'Inventory Sync Error' : 'Inventory Sync Offline'}
+              {monitorResult === 'success' ? t('sync.success') : monitorResult === 'cached' ? t('sync.cached') : monitorResult === 'error' ? t('sync.error') : t('sync.offline')}
             </div>
           </div>
           {/* Scanner dot */}
@@ -374,10 +377,10 @@ function AppContent() {
             `}
           >
             <div className={`absolute top-1/2 -translate-y-1/2 px-3 py-2 glass-panel rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[9999] shadow-2xl bg-kronos-bg border border-white/10 font-black uppercase text-[10px] tracking-widest text-kronos-accent ${sidebarActive && sidebarSide === 'right' ? 'right-full mr-3' : 'left-full ml-3'}`}>
-              {scannerStatus === 'active' ? 'Scanner Active' :
-                scannerStatus === 'waiting' ? 'Waiting for Warframe...' :
-                  scannerStatus === 'stale_offset' ? 'Scanner Offset Stale' :
-                    'Scanner Idle'}
+              {scannerStatus === 'active' ? t('scanner.active') :
+                scannerStatus === 'waiting' ? t('scanner.waiting') :
+                  scannerStatus === 'stale_offset' ? t('scanner.stale') :
+                    t('scanner.idle')}
             </div>
           </div>
         </div>
@@ -454,8 +457,10 @@ export default function App() {
     <ThemeProvider>
       <MonitoringProvider>
         <UpdateProvider>
-          <SetupScreen />
-          <AppContent />
+          <UiProvider>
+            <SetupScreen />
+            <AppContent />
+          </UiProvider>
         </UpdateProvider>
       </MonitoringProvider>
     </ThemeProvider>

@@ -1301,7 +1301,7 @@ export default function Dashboard() {
   if (loading && !worldstate) {
     return (
       <PageLayout
-        title="Dashboard"
+        titleKey="screen.dashboard"
         extra={(
           <Button variant="ghost" onClick={fetchBounties} disabled={loading} className="h-12 w-12 !p-0 !px-0 !py-0">
             <RefreshCw size={28} strokeWidth={3} className="animate-spin text-kronos-accent" />
@@ -1318,7 +1318,7 @@ export default function Dashboard() {
 
   return (
     <PageLayout
-      title="Dashboard"
+      titleKey="screen.dashboard"
       extra={(
         <div className="flex items-center gap-3 relative">
           <button

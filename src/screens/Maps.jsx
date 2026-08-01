@@ -520,7 +520,7 @@ export default function Maps() {
   const selectedMarkerConfig = selectedMarker ? configsForCurrentMap.find(c => c.id === selectedMarker.configId) : null
   const nextMarkerNum = selectedMarkerConfig ? getNextLabelNum(selectedMarkerConfig.markers) : 1
   return (
-    <PageLayout title="Maps">
+    <PageLayout titleKey="screen.maps">
       <div className="absolute inset-0 flex flex-col">
         <div className="flex flex-1 min-h-0 gap-2 px-8 pb-8">
           <div className="flex-1 min-h-0 relative">

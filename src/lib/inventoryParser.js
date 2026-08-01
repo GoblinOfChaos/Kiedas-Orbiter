@@ -21,7 +21,7 @@
  * parseInventory(raw, exports) → structured inventory object
  *   All other functions are internal helpers.
  */
-import { RIVEN_STAT_TRANSLATIONS, BLUEPRINT_SUFFIX } from './warframeUtils'
+import { BLUEPRINT_SUFFIX } from './warframeUtils'
 
 // ─── Riven Tag Data ───────────────────────────────────────────────────────────
 //
@@ -1870,11 +1870,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         if (!tagName) {
           tagName = splitPascal(tag.replace(/^(Weapon|Avatar|Innate|Player|Mod)/g, '').replace(/Mod$/g, '').replace(/Damage$/, ' Damage').replace(/Faction/, 'Faction ').replace(/Melee/, '').trim()) || tag;
         }
-        // Localize riven stat name — prefer i18n JSON data, fall back to inline table
+        // Localize riven stat name — from the per-locale i18n table
+        // (src/lib/i18n/{locale}.json, seeded from
+        // scripts/riven-stat-translations.seed.json).
         if (tagName && i18nData?.rivenStats?.[tagName]) {
           tagName = i18nData.rivenStats[tagName] || tagName;
-        } else if (tagName && RIVEN_STAT_TRANSLATIONS[tagName]) {
-          tagName = RIVEN_STAT_TRANSLATIONS[tagName][locale] || RIVEN_STAT_TRANSLATIONS[tagName].en || tagName;
         }
 
         const isMultiplier = SPECIAL_FACTOR.has(tag) && !pos;

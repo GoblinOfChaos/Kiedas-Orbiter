@@ -1,212 +1,18 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { listen } from '@tauri-apps/api/event'
 import { invoke } from '@tauri-apps/api/core'
+import { useUi } from '../../contexts/UiContext'
+import { loadSettings, getSetting } from '../../lib/settings'
+import {
+  cleanStatName,
+  displayStatName,
+  parseRivenOcr,
+  foldVariants,
+  buildStatAliases,
+  garbageReForLocale,
+} from '../../lib/rivenOcrI18n'
 
-const RIVEN_W = 360
-const RIVEN_H = 320
-
-const STAT_TO_PRICER = {
-  'Critical Chance': 'critical_chance',
-  'Critical Damage': 'critical_damage',
-  'Damage': 'base_damage_/_melee_damage',
-  'Melee Damage': 'base_damage_/_melee_damage',
-  'Multishot': 'multishot',
-  'Attack Speed': 'fire_rate_/_attack_speed',
-  'Fire Rate': 'fire_rate_/_attack_speed',
-  'Status Chance': 'status_chance',
-  'Status Duration': 'status_duration',
-  'Range': 'range',
-  'Puncture': 'puncture_damage',
-  'Slash': 'slash_damage',
-  'Impact': 'impact_damage',
-  'Heat': 'heat_damage',
-  'Cold': 'cold_damage',
-  'Electricity': 'electric_damage',
-  'Toxin': 'toxin_damage',
-  'Reload Speed': 'reload_speed',
-  'Magazine Capacity': 'magazine_capacity',
-  'Ammo Maximum': 'ammo_maximum',
-  'Punch Through': 'punch_through',
-  'Projectile Speed': 'projectile_speed',
-  'Initial Combo': 'channeling_damage',
-  'Combo Duration': 'combo_duration',
-  'Finisher Damage': 'finisher_damage',
-  'Damage to Corpus': 'damage_vs_corpus',
-  'Damage to Grineer': 'damage_vs_grineer',
-  'Damage to Infested': 'damage_vs_infested',
-  'Recoil': 'recoil',
-  'Slide Crit Chance': 'critical_chance_on_slide_attack',
-  'Combo Efficiency': 'channeling_efficiency',
-  'Zoom': 'zoom',
-  'Blast Radius': 'explosion_radius',
-  'Beam Length': 'beam_length',
-  'Combo Count': 'chance_to_gain_combo_count',
-  'Combo Count Chance': 'chance_to_gain_combo_count',
-}
-
-function cleanStatName(raw) {
-  if (!raw) return ''
-  const trimmed = raw.trim()
-  // 1. exact match against original
-  const exact = STAT_TO_PRICER[trimmed]
-  if (exact) return exact.toLowerCase().replace(/\s+/g, '_')
-
-  // 2. case-insensitive exact match
-  for (const [key, val] of Object.entries(STAT_TO_PRICER)) {
-    if (trimmed.toLowerCase() === key.toLowerCase()) return val.toLowerCase().replace(/\s+/g, '_')
-  }
-
-  // 3. strip common OCR noise (leading vowels 'a', 'e', etc.) and retry
-  const deNoised = trimmed.replace(/^[aAeEiIoOuU]+/, '')
-  for (const [key, val] of Object.entries(STAT_TO_PRICER)) {
-    if (deNoised.toLowerCase() === key.toLowerCase()) return val.toLowerCase().replace(/\s+/g, '_')
-  }
-
-  // 4. substring: known stat name contained in raw, or raw contained in known name
-  for (const [key, val] of Object.entries(STAT_TO_PRICER)) {
-    const kl = key.toLowerCase()
-    const rl = trimmed.toLowerCase()
-    if (rl.includes(kl) || kl.includes(rl)) return val.toLowerCase().replace(/\s+/g, '_')
-  }
-
-  // 5. fallback: aggressively clean
-  return trimmed
-    .replace(/^[aAeEiIoOuU]+/, '')
-    .replace(/[^a-zA-Z ]/g, '')
-    .trim().toLowerCase().replace(/\s+/g, '_')
-}
-
-/// Returns a human-readable display name for a stat matching the STAT_TO_PRICER keys.
-function displayStatName(raw) {
-  if (!raw) return ''
-  const trimmed = raw.trim()
-  // Try exact case-insensitive match and return the properly-cased key
-  for (const key of Object.keys(STAT_TO_PRICER)) {
-    if (trimmed.toLowerCase() === key.toLowerCase()) return key
-  }
-  // Try with leading vowel stripped (OCR artifact like "AHeat")
-  const deNoised = trimmed.replace(/^[aAeEiIoOuU]+/, '')
-  for (const key of Object.keys(STAT_TO_PRICER)) {
-    if (deNoised.toLowerCase() === key.toLowerCase()) return key
-  }
-  // Try substring match
-  for (const key of Object.keys(STAT_TO_PRICER)) {
-    const kl = key.toLowerCase()
-    const rl = trimmed.toLowerCase()
-    if (rl.includes(kl) || kl.includes(rl)) return key
-  }
-  // Fallback: just clean up the raw OCR text
-  return trimmed.replace(/^[aAeEiIoOuU]+/, '')
-}
-
-function parseRivenOcr(text) {
-  const clean = text
-    .replace(/^\[[^\]]*\]\s*/, '')
-    .replace(/^[\dA-Z]{1,3}\s*\|\s*/, '')
-  const parts = clean.split('|').map(s => s.trim()).filter(Boolean)
-  if (parts.length === 0) return null
-
-  let weaponName = ''
-  let mr = ''
-  let rolls = 0
-  const stats = []
-  let i = 0
-
-  const GC_GARBAGE = /^(mod|drain|capacity|polarity|roll|reroll|counter|rerolls|riven)$/i
-
-  while (i < parts.length) {
-    const p = parts[i]
-    if (/^MR\s/i.test(p)) {
-      mr = p.replace(/^MR\s*/i, '').trim()
-      i++; continue
-    }
-    if (/^\d+$/.test(p)) {
-      rolls = parseInt(p)
-      i++; continue
-    }
-    if (/^[+\-xX]\s*[\d.,]+[x%]?/.test(p)) break
-    if (GC_GARBAGE.test(p)) { i++; continue }
-    if (weaponName) weaponName += ' ' + p
-    else weaponName = p
-    i++
-  }
-
-  // Clean any remaining garbage from the weapon name (e.g. "MOD DRAIN" as one part)
-  weaponName = weaponName
-    // Strip leading mod-drain number (e.g. "18-Aksomati" → "Aksomati")
-    .replace(/^\d+\s*[-–—]\s*/, '')
-    .replace(/\s+(mod(\s+drain)?|drain|capacity|polarity)\s*\d*/gi, '')
-    .replace(/\s+(roll(\s+counter)?|counter|reroll|rerolls)\s*\d*/gi, '')
-    .replace(/\s+riven\s*$/i, '')
-    .replace(/\s*\(.*?\)\s*/g, '')
-    .trim()
-
-  // Build a quick lookup of known stat names (lowercase)
-  const KNOWN_STAT_NAMES = new Set(Object.keys(STAT_TO_PRICER).map(k => k.toLowerCase()))
-
-  // Phase 2: parse stat pairs (value followed by name parts)
-  let pendingValue = null
-
-  const flushStat = () => {
-    if (pendingValue !== null) {
-      stats.push({ value: pendingValue, name: pendingName.replace(/\s+/g, ' ').trim() || '?' })
-      pendingValue = null
-    }
-  }
-
-  let pendingName = ''
-
-  while (i < parts.length) {
-    const p = parts[i]
-
-    if (/^MR\s/i.test(p)) {
-      mr = p.replace(/^MR\s*/i, '').trim()
-      i++
-      continue
-    }
-
-    if (/^[+\-xX]\s*[\d.,]+[x%]?/.test(p)) {
-      flushStat()
-      const m = p.match(/^([+\-xX]\s*[\d.,]+[x%]?)\s*(.*)/)
-      pendingValue = m ? m[1].replace(/\s+/g, '').replace(',', '.') : p.replace(/\s+/g, '')
-      pendingName = m ? m[2].trim() : ''
-      i++
-      continue
-    }
-
-    if (GC_GARBAGE.test(p)) { i++; continue }
-
-    if (/^\(?x\d/i.test(p) || /[x×]\d/i.test(p) || /^for\s/i.test(p) || /^heavy/i.test(p)) {
-      if (pendingName) pendingName += ' ' + p
-      i++
-      continue
-    }
-
-    if (/^\d+$/.test(p)) {
-      rolls = parseInt(p)
-      i++; continue
-    }
-
-    // If this part is a known stat name and we already have a stat in progress,
-    // flush it so the known name starts a new stat (handles missing value separators).
-    const pl = p.toLowerCase().replace(/^[^a-zA-Z]+/, '').replace(/[^a-zA-Z]+$/, '')
-    if (pl && KNOWN_STAT_NAMES.has(pl) && pendingName && pendingValue !== null) {
-      flushStat()
-      pendingName = p
-      i++
-      continue
-    }
-
-    if (pendingName) pendingName += ' ' + p
-    else pendingName = p
-    i++
-  }
-
-  flushStat()
-
-  return { name: weaponName, mr, rolls, stats, raw: text }
-}
 
 export default function RivenOverlay() {
   const label = getCurrentWindow().label
@@ -217,12 +23,16 @@ export default function RivenOverlay() {
   const showingRef = useRef(false)
   const knownWeaponsRef = useRef([])
   const knownWeaponsLowerRef = useRef([])
+  const localizedWeaponsRef = useRef([])
 
   const [parsed, setParsed] = useState(null)
   const [ocrLoading, setOcrLoading] = useState(false)
   const [estimatedPrice, setEstimatedPrice] = useState(null)
   const [rivenInfo, setRivenInfo] = useState(null)
   const [knownWeapons, setKnownWeapons] = useState([])
+  const { locale, i18nData } = useUi()
+  const statAliases = useMemo(() => buildStatAliases(locale, i18nData?.rivenStats), [locale, i18nData])
+  const garbageRe = useMemo(() => garbageReForLocale(locale), [locale])
 
   useEffect(() => {
     invoke('get_known_weapon_names').then(names => {
@@ -232,19 +42,53 @@ export default function RivenOverlay() {
     }).catch(() => { })
   }, [])
 
+  useEffect(() => {
+    loadSettings().then(() => {
+      const gameLocale = getSetting('gameLocale', 'en')
+      invoke('get_localized_weapon_names', { locale: gameLocale }).then(pairs => {
+        localizedWeaponsRef.current = (pairs || []).map(p => ({
+          variants: foldVariants(p.localized),
+          english: p.english,
+        }))
+      }).catch(() => { })
+    })
+  }, [])
+
   function extractWeaponName(ocrName) {
     if (!ocrName) return ''
     const known = knownWeaponsRef.current
     const knownLower = knownWeaponsLowerRef.current
-    // Strip common garbage suffixes: mod drain, capacity, polarity, reroll counter, etc.
     let cleaned = ocrName
-      .replace(/\s+(mod(\s+drain)?|drain|capacity|polarity)\s*\d*$/i, '')
-      .replace(/\s+(roll(\s+counter)?|counter|reroll|rerolls)\s*\d*$/i, '')
+      .replace(/\s+(mod(\s+drain)?|drain|capacity|polarity|kapazität|polarität|capacité|polarité)\s*\d*$/i, '')
+      .replace(/\s+(roll(\s+counter)?|counter|reroll|rerolls|neuausrichtung|neuausrichtungen|relance|relances)\s*\d*$/i, '')
       .replace(/\s+riven$/i, '')
       .replace(/\s*\(.*?\)\s*$/, '')
       .trim()
     if (!cleaned) cleaned = ocrName
     const lower = cleaned.toLowerCase()
+
+    // 0. localized weapon-name match (game-language OCR text → English name)
+    const loc = localizedWeaponsRef.current
+    if (loc.length) {
+      const [folded, expanded, tight] = foldVariants(cleaned)
+      const hasVariant = (w) => w.variants.includes(folded) || w.variants.includes(expanded) || w.variants.includes(tight)
+      // exact match on any variant
+      for (const w of loc) {
+        if (hasVariant(w)) return w.english
+      }
+      // longest prefix match (folded)
+      let bestLoc = ''
+      for (const w of loc) {
+        if (folded.startsWith(w.variants[0]) && w.english.length > bestLoc.length) bestLoc = w.english
+      }
+      if (bestLoc) return bestLoc
+      // longest substring match (folded)
+      bestLoc = ''
+      for (const w of loc) {
+        if (folded.includes(w.variants[0]) && w.english.length > bestLoc.length) bestLoc = w.english
+      }
+      if (bestLoc) return bestLoc
+    }
 
     // Helper: try to match `lower` against known weapons, return longest match or null
     const tryMatch = (str) => {
@@ -305,8 +149,8 @@ export default function RivenOverlay() {
   const doPricing = useCallback((p) => {
     if (!p || !p.stats.length) { setEstimatedPrice(null); setRivenInfo(null); return }
     const weaponName = extractWeaponName(p.name || '')
-    const pos = p.stats.filter(s => !s.value.startsWith('-')).map(s => cleanStatName(s.name))
-    const neg = p.stats.filter(s => s.value.startsWith('-') || /^x/i.test(s.value)).map(s => cleanStatName(s.name))
+    const pos = p.stats.filter(s => !s.value.startsWith('-')).map(s => cleanStatName(s.name, statAliases))
+    const neg = p.stats.filter(s => s.value.startsWith('-') || /^x/i.test(s.value)).map(s => cleanStatName(s.name, statAliases))
 
     console.log('[PRICER] weaponName:', weaponName)
     console.log('[PRICER] pos:', pos)
@@ -328,7 +172,7 @@ export default function RivenOverlay() {
         setEstimatedPrice(info?.price ?? null)
       }
     }).catch(console.error)
-  }, [])
+  }, [statAliases])
 
   const doOcr = useCallback((pos) => {
     if (!aliveRef.current) return
@@ -338,14 +182,14 @@ export default function RivenOverlay() {
     invoke('ocr_riven_card', { position: pos })
       .then((res) => {
         if (aliveRef.current) {
-          const p = parseRivenOcr(res.text)
+          const p = parseRivenOcr(res.text, garbageRe)
           setParsed(p)
           doPricing(p)
         }
       })
       .catch(() => { if (aliveRef.current) setParsed({ name: '', mr: '', stats: [], raw: '[OCR failed]' }) })
       .finally(() => { if (aliveRef.current) setOcrLoading(false) })
-  }, [doPricing])
+  }, [doPricing, garbageRe])
 
   const show = useCallback(() => {
     if (showingRef.current) return
@@ -373,7 +217,7 @@ export default function RivenOverlay() {
         if (aliveRef.current) {
           setVisible(true)
           setOcrLoading(false)
-          const p = parseRivenOcr(payload)
+          const p = parseRivenOcr(payload, garbageRe)
           setParsed(p)
           doPricing(p)
         }
@@ -427,7 +271,7 @@ export default function RivenOverlay() {
         unsubs.forEach(p => p.then(f => f()))
       }
     }
-  }, [isNew, show, hide, doOcr, doPricing, label])
+  }, [isNew, show, hide, doOcr, doPricing, label, garbageRe])
 
   if (!visible) return null
 
@@ -490,7 +334,7 @@ export default function RivenOverlay() {
                   {parsed.stats.map((s, i) => (
                     <div key={i} className="flex justify-between items-center px-2.5 py-1.5 rounded bg-white/[0.03]">
                       <span className="text-[12px] text-zinc-200 font-medium truncate pr-2">
-                        {displayStatName(s.name)}
+                        {displayStatName(s.name, statAliases)}
                       </span>
                       <span className={`text-[13px] font-black whitespace-nowrap ${posClass(s.value)}`}>
                         {fmtVal(s.value)}

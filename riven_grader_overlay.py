@@ -505,6 +505,23 @@ class RivenGraderOverlay:
                             live["id"] = old.get("id", "")
                             live["rerolls"] = old.get("rerolls", 0)
                             old = live
+                        else:
+                            # Live OCR disagrees with the cached snapshot but
+                            # isn't confident enough to trust yet - never fall
+                            # through to displaying the now-known-stale cached
+                            # stats. Confirmed live 2026-07-30/31 (issue #7):
+                            # CURRENT ROLL showed stats matching neither
+                            # visible card because this exact branch fell
+                            # through to the stale `old` with nothing to
+                            # override it. Suppress to a neutral card instead;
+                            # the next stable capture resolves it for real.
+                            old = None
+                else:
+                    # Live grading failed outright (no readable stats this
+                    # frame) - the cached snapshot is unverified against
+                    # what's actually on screen, so don't display it as if
+                    # it were confirmed current.
+                    old = None
             self._current_riven = old
 
         geom = _cached_warframe_geom() or {}

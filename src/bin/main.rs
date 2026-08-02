@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::collections::{HashSet, VecDeque};
 use std::thread::sleep;
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use std::{error::Error, str::FromStr};
@@ -1140,6 +1140,19 @@ fn run_detection(db: &Database, owned: &OwnedDb) -> bool {
 // generic ProjectionRewardChoice SWF creation line is intentionally excluded.
 const REWARD_SCREEN_OPEN_EVENT: &str = "VoidProjections: OpenVoidProjectionRewardScreen";
 
+// How far behind the last recorded position log_watcher() re-reads on every
+// cycle, so a line that lands in the narrow race window between a
+// metadata().len() snapshot and the read loop reaching true EOF gets a
+// second chance to be seen instead of being silently skipped forever. A
+// single EE.log line is well under 1KB; this comfortably covers a burst of
+// several lines without meaningfully increasing per-cycle read cost.
+const LOG_WATCHER_SAFETY_MARGIN_BYTES: u64 = 8192;
+// How many recently-processed line contents to remember for de-duplication
+// against the safety-margin re-read above. Each EE.log line carries its own
+// relative-timestamp prefix, so an exact string match here only ever means
+// "already processed", never a genuine repeated event.
+const LOG_WATCHER_RECENT_LINES_CAPACITY: usize = 64;
+
 fn is_reward_ready_line(line: &str) -> bool {
     line.contains(REWARD_SCREEN_OPEN_EVENT)
 }
@@ -1376,6 +1389,13 @@ fn log_watcher(
 
     thread::spawn(move || {
         debug!("Position: {}", position);
+        // Lines re-read because of LOG_WATCHER_SAFETY_MARGIN below need to
+        // be recognized and skipped rather than reprocessed as new events -
+        // each EE.log line carries its own relative timestamp prefix, so a
+        // genuine duplicate string only occurs from this overlap, never
+        // from two distinct real game events.
+        let mut recent_lines: VecDeque<String> =
+            VecDeque::with_capacity(LOG_WATCHER_RECENT_LINES_CAPACITY);
 
         let (tx, rx) = mpsc::channel();
         let mut watcher = match RecommendedWatcher::new(
@@ -1467,13 +1487,39 @@ fn log_watcher(
                         rewatch_with_retry(&mut watcher, &path, "detected rotation");
                     }
 
-                    if let Err(err) = f.seek(SeekFrom::Start(position)) {
+                    // Seek from a point slightly BEFORE our last recorded
+                    // position, not exactly at it. Found live 2026-08-02:
+                    // one real reward-screen line (confirmed present in
+                    // EE.log, confirmed absent from this watcher's output)
+                    // was silently lost between two otherwise-correctly-
+                    // detected events, with no error logged anywhere.
+                    // Root cause: `position` was previously set to
+                    // `current_len`, a metadata().len() snapshot taken
+                    // BEFORE this read - if Warframe appends more lines
+                    // between that snapshot and the read loop actually
+                    // reaching true EOF, the recorded position undershoots
+                    // what was truly available, and whatever landed in
+                    // that gap is never revisited. Cephalon Kronos hit the
+                    // same class of bug tailing its EE.log ring buffer
+                    // (commit bcb44b1d, "replace byte-level delta-diff
+                    // with full-buffer re-parse + hash dedup") and fixed it
+                    // by not trusting a single monotonic cursor. This
+                    // applies the same idea here: re-read a safety margin
+                    // of already-seen bytes every cycle and use
+                    // `recent_lines` (below) to skip ones already
+                    // processed, so a line landing in that snapshot race
+                    // window gets a second chance to be seen instead of
+                    // being silently skipped forever.
+                    let seek_from = position.saturating_sub(LOG_WATCHER_SAFETY_MARGIN_BYTES);
+                    if let Err(err) = f.seek(SeekFrom::Start(seek_from)) {
                         error!("Could not seek EE.log: {}", err);
                         continue;
                     }
 
                     let mut reward_screen_detected = false;
                     let mut riven_events = Vec::new();
+                    let mut lines_read = 0usize;
+                    let mut lines_skipped_as_duplicate = 0usize;
 
                     let reader = BufReader::new(std::io::Read::by_ref(&mut f));
                     for line in reader.lines() {
@@ -1484,6 +1530,14 @@ fn log_watcher(
                                 continue;
                             }
                         };
+                        lines_read += 1;
+                        if recent_lines.contains(&line) {
+                            // Already processed this exact line in a prior
+                            // cycle - re-read only because of the safety
+                            // margin above, not a new event.
+                            lines_skipped_as_duplicate += 1;
+                            continue;
+                        }
                         // debug!("> {:?}", line);
                         // This RMI opens the actual relic reward flow about five seconds
                         // before `Got rewards`. Unlike SWF creation, it is not emitted by
@@ -1494,6 +1548,10 @@ fn log_watcher(
                         }
                         if let Some(event) = riven_log_event(&line) {
                             riven_events.push(event);
+                        }
+                        recent_lines.push_back(line);
+                        if recent_lines.len() > LOG_WATCHER_RECENT_LINES_CAPACITY {
+                            recent_lines.pop_front();
                         }
                     }
 
@@ -1517,8 +1575,30 @@ fn log_watcher(
                         }
                     }
 
-                    position = current_len;
-                    debug!("Log position: {}", position);
+                    // Actual bytes consumed by the reader above, not the
+                    // pre-read metadata() snapshot - see the comment on the
+                    // seek above for why this distinction is the fix.
+                    let new_position = match f.stream_position() {
+                        Ok(pos) => pos,
+                        Err(err) => {
+                            error!(
+                                "Could not read EE.log stream position, falling back to \
+                                 pre-read length: {err}"
+                            );
+                            current_len
+                        }
+                    };
+                    debug!(
+                        "Log position: {} -> {} (seek_from={}, current_len={}, lines_read={}, \
+                         duplicates_skipped={})",
+                        position,
+                        new_position,
+                        seek_from,
+                        current_len,
+                        lines_read,
+                        lines_skipped_as_duplicate
+                    );
+                    position = new_position;
                 }
                 Ok(Ok(_)) => {}
                 Ok(Err(err)) => error!("EE.log watch error: {err}"),

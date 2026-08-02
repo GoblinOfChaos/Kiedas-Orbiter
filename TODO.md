@@ -1890,6 +1890,14 @@ this sandbox - may not be needed on Jacob's actual dev machine/distrobox).
       early start before the cards become readable; no incorrect output was
       observed across the six attempts, so it is recorded as timing evidence,
       not currently classified as a bug.
+      **RECONFIRMED LIVE AFTER TRIGGER FIX 2026-07-31:** a fresh relic run
+      successfully triggered and displayed the overlay, confirming the event
+      matcher fix. The reward overlay remains visibly off-center relative to
+      Warframe's two-card layout (both cards are shifted right); keep the
+      reward-card geometry correction open.
+      **RECONFIRMED LIVE 4-CARD 2026-07-31:** a four-choice relic reward
+      appeared with the overlay correctly aligned and adjusted. The remaining
+      geometry validation is specifically the three-choice layout.
 
 ## Riven reroll overlay trigger fires ~10s late relative to the visible screen (2026-07-30)
 
@@ -1970,3 +1978,258 @@ this sandbox - may not be needed on Jacob's actual dev machine/distrobox).
       Reinforces that shortening/replacing this window (per the note
       above) is worth prioritizing, not purely cosmetic severity-wise even
       though it's not a correctness bug.
+
+## CURRENT ROLL displays stale data that does not match the visible card (2026-07-31)
+
+- [ ] **Logged only, not fixed. Jacob: "this is unacceptable."** Confirmed
+      with two live screenshots, both showing the CURRENT ROLL panel
+      (`riven_grader_overlay.py`) displaying stat text that matches
+      **neither** card actually visible on screen at the time - not a
+      1-second flicker, a genuinely wrong persistent display.
+
+      **Screenshot 1 (Cycle mode, single card):**
+      - Overlay CURRENT ROLL: `Arca Plasmor` / `ADVISORY · BAD` /
+        `+Damage · +Reload Speed · +Status Duration` /
+        `GOOD +Damage` / `OFF-TARGET +Reload Speed` /
+        `OFF-TARGET +Status Duration` / `MISSING REQUIRED +Multishot` /
+        `95 rerolls  Tenet Arca Plasmor · attenuation 0.55`
+      - Actual visible game card: `Arca Plasmor Acri-satipha` /
+        `+49.8% Critical Damage` / `+47.6% Heat` / `+65.4% Multishot` /
+        `-39.8% Status Duration` / `MR 15` / reroll counter `95`
+      - These share zero real stats: overlay claims
+        Damage/Reload Speed/Status Duration-as-positive; the actual card
+        shows Critical Damage/Heat/Multishot as positives and Status
+        Duration as the **negative** (opposite sign from what the overlay
+        implies). Reroll count matches (95 = 95), so this is genuinely the
+        same Riven/session, just showing a stale prior snapshot instead of
+        what's actually equipped right now.
+
+      **Screenshot 2 (Confirm mode, dual card, captured ~1 reroll later):**
+      - Overlay CURRENT ROLL: `Arca Plasmor` / `ADVISORY · BAD` /
+        `+Damage · +Damage to Corpus · +Heat` / `GOOD +Damage` /
+        `OFF-TARGET +Damage to Corpus` / `OFF-TARGET +Heat` /
+        `MISSING REQUIRED +Multishot` /
+        `96 rerolls  Tenet Arca Plasmor · attenuation 0.55`
+      - Overlay NEW OFFER: stuck on `Reading Riven stats...`, never
+        populated for the rest of the observed session.
+      - Actual visible left/current game card: `Arca Plasmor Acri-satipha`
+        (same card as screenshot 1) / `+49.8% Critical Damage` /
+        `+47.6% Heat` / `+65.4% Multishot` / `-39.8% Status Duration` /
+        reroll counter `97`.
+      - Actual visible right/new-offer game card: `Arca Plasmor Croninok` /
+        `+1.7 Punch Through` / `+57.6% Fire Rate (x2 for Bows)` /
+        `-25.5% Critical Chance` / reroll counter `97`.
+      - Overlay shows a **third**, still-different stat combination
+        (Damage/Damage to Corpus/Heat) matching neither visible card. Its
+        displayed reroll count (`96`) is exactly one behind the actual
+        current card's reroll count (`97`) - consistent with the overlay
+        being permanently one reroll cycle stale, not a one-off glitch.
+
+      Jacob's own description, verbatim: **"if you do it quickly the game
+      just doesn't update the current roll"** - rapid rerolling appears to
+      prevent the live-OCR override from ever catching up at all.
+
+      **Suspected code path** (not yet confirmed - needs real
+      investigation, not a guess-fix): `riven_grader_overlay.py`'s
+      `_poll()` (~line 470-504). `old` starts as the cached entry from
+      `riven-graded.json` (written by the separate, slower
+      `riven_grader_watcher.py` / `inventory.json` refresh cycle - can be
+      arbitrarily stale). There's supposed to be a live-correction step:
+      `if stable and mode == "cycle" and card_texts: live =
+      _grade_visible_card(card_texts[0], old); if live and
+      live.get("guidance_status") != "ocr_uncertain": ... old = live` -
+      this should overwrite the stale cached `old` with a fresh grade of
+      what's actually on screen, but evidently is not firing (or not
+      firing fast enough relative to rapid rerolling) in these two
+      captures.
+
+      **Open questions for investigation, not yet answered:**
+      1. Is `_grade_visible_card(card_texts[0], old)` actually being
+         called during Cycle mode display in these sessions, or is some
+         earlier condition (`stable`, `mode == "cycle"`, non-empty
+         `card_texts`) failing silently and skipping the correction
+         entirely?
+      2. When it is called, is it returning `None` or
+         `guidance_status == "ocr_uncertain"` every time (which would
+         explain the override never applying) - and if so, why? Note this
+         session **also** shipped a same-day change to
+         `_grade_visible_card`'s line filtering (`_looks_like_stat_line()`,
+         added to fix a different confirmed bug - a false `AMMO` match
+         from the heading line poisoning the generated-name cross-check).
+         That fix was validated against the two specific failing OCR
+         captures it targeted, but was **not** validated against this
+         stale-CURRENT-ROLL symptom - rule in or out whether it made this
+         symptom more likely by being too strict about which lines count
+         as stat lines.
+      3. Why is the overlay's reroll count consistently exactly one behind
+         the real card's reroll count, both times observed? This is a
+         specific, reproducible offset, not random staleness - suggests
+         the correction logic is either reading `card_texts` from the
+         previous poll cycle instead of the current one, or `old` is being
+         reassigned somewhere with an off-by-one relative to when the
+         fresh capture actually lands.
+      4. NEW OFFER never leaving `Reading Riven stats...` in screenshot 2
+         at all, for the rest of the observed session - is this the same
+         root cause as the CURRENT ROLL staleness (the live grading path
+         broadly not completing), or a separate failure specific to the
+         New Offer side of `_poll()`?
+
+      **Not yet done:** no code changes attempted for this specific bug -
+      Jacob asked to stop live-testing and log it precisely instead of
+      guess-fixing under time pressure. Needs real investigation with
+      fresh eyes (add targeted logging around the `live =
+      _grade_visible_card(...)` call and its result before touching
+      anything), not another live-tested patch attempt.
+
+## Riven remediation pass started (2026-07-30)
+
+- [x] Added targeted `live current grade start/result` logging around the
+      visible-card correction path. It records mode, card count, cached
+      reroll count, raw OCR, guidance status, and decoded stat sets.
+- [x] Prevented a cached inventory snapshot from being rendered as the visible
+      current card when stable live grading returns no result or an
+      OCR-uncertain result. The UI falls back to a neutral OCR card until a
+      valid live grade exists; NEW OFFER grading retains cached identity only
+      as its grading reference.
+- [x] Added exact-first fuzzy weapon matching for OCR insertions such as
+      `ArcaF Plasmor`, with unit coverage for exact, inserted-noise, unrelated,
+      and empty inputs. Python tests: 21 passed.
+- [x] Reduced post-close OCR recovery from 60 screenshots (60 seconds) to 12
+      bounded checks. EE.log lifecycle events remain event-driven and are still
+      handled immediately.
+- [x] Corrected 3-card reward geometry using the documented Warframe layout:
+      retain quarter-width cards, but place their centers across thirds so the
+      three rectangles have visible gaps instead of touching. Four-card
+      quarter-slot geometry is unchanged. Added deterministic geometry tests
+      for both layouts.
+- [ ] Live validation remains required: rapid reroll/confirm/cancel, close
+      indicator duration, and 3-card/4-card reward layouts.
+
+## Follow-up live failure: reward capture starts before cards exist (2026-07-31)
+
+- [ ] **Observed live, fix applied but not yet retested.** The reward-ready
+      memory event fired correctly, but all six automatic captures were still
+      mission-room frames and were rejected with `OCR resolved zero known
+      rewards`. The latest failed PNG visibly shows the Defense room, not the
+      reward screen. This explains why no relic reward overlay appeared.
+- [x] Extended automatic reward capture from 6 attempts at 250ms spacing to 12
+      attempts at 500ms spacing, giving the early EE.log trigger a bounded
+      longer reveal window while avoiding unbounded desktop capture.
+- [x] Added startup cleanup in `relic_recommend_watcher.py`: it now writes a
+      hidden state immediately on launch. This prevents a stale visible
+      recommendation file from surviving a Warframe/watcher relaunch and
+      repeatedly reopening the recommender.
+
+## Latest relic attempt: no reward trigger observed (2026-07-31)
+
+- [x] **Root cause identified.** The live EE.log emitted
+      `VoidProjections: OpenVoidProjectionRewardScreen - PostMigration: 0`,
+      while `src/bin/main.rs` only matched the older
+      `OpenVoidProjectionRewardScreenRMI` spelling. The watcher was active but
+      could never classify the current event as reward-ready.
+- [x] Broadened the specific reward-screen matcher to the shared
+      `VoidProjections: OpenVoidProjectionRewardScreen` prefix. The generic
+      `ProjectionRewardChoice.swf` creation line remains excluded, preventing
+      the known endless-mission false trigger. Focused release test passes.
+- [x] Rebuilt/relaunched the installed Orbiter binary and ran one relic
+      mission: the fresh reward trigger and overlay were confirmed live.
+- [x] **Adaptive-capture retest confirmed 2026-08-01:** two fresh relic
+      rewards triggered capture and succeeded on attempt 2, after 3.27s and
+      3.13s respectively. Attempt 1 correctly rejected the still-loading
+      mission/reward frame; the later retry published the state file.
+- [ ] **Subsequent live relic run had no overlay (2026-08-01):** do not count
+      the prior successful runs as this test. No new reward-trigger or capture
+      lines were present after the latest run, so this remains an intermittent
+      trigger/runtime failure and needs a fresh log-correlated reproduction.
+- [x] **Fresh correlated run 2026-08-01 05:31Z:** reward trigger fired,
+      attempts 1-3 correctly rejected frames with zero known rewards, and
+      attempt 4 published the state file successfully after 7.116s. This
+      confirms the bounded adaptive retry can bridge the early trigger to the
+      visible reward cards; the remaining concern is intermittent runs where
+      no trigger/capture lines appear at all.
+- [x] **Latest live relic mission produced no overlay and no reward-capture
+      attempt.** After the run, `orbiter.log` contained no new `Reward-ready
+      event detected`, `Capture attempt`, `Wrote state file`, or rejection
+      lines; `latest-detection.json` remained the old July 30 file. This is
+      therefore not evidence that the 12-attempt adaptive OCR change failed:
+      the reward handler was never reached (or the running process was not the
+      expected updated watcher). Verify process/build/runtime state, then
+      repeat one relic mission with the live log tail before changing OCR.
+- [ ] The supplied Riven screenshot remains a separate issue: the visible new
+      card is readable, but `riven-screen.json` was still `stable:false`, so the
+      overlay correctly showed `NEW OFFER · PROVISIONAL`. A fresh build/live
+      retest is needed to see whether the longer OCR consensus window or the
+      live-grade diagnostics resolves it.
+- [x] Adjusted Riven OCR consensus to ignore the changing MR/reroll badge line
+      (`MR 15 0100` versus `MR 15 0101`) while retaining weapon/stat text for
+      identity. Added a regression test; focused Rust Riven tests pass.
+- [x] Removed stale NEW OFFER reuse: failed offers are now cleared instead of
+      carrying forward from an earlier comparison, and a confirmed roll is
+      promoted only after grading the card Rust emitted for that confirmation.
+      If that transitional card is not gradeable yet, the overlay suppresses
+      it until the next stable cycle capture rather than showing an unpicked
+      offer.
+- [x] Suppressed cached CURRENT ROLL data during unstable OCR/animation frames.
+      Rapid rolls could briefly render the cached previous offer before the
+      left card had been live-graded; unstable frames now show neutral
+      provisional OCR instead of labeling cached stats as current.
+- [x] Changed the neutral fallback text to `Reading Riven stats — please
+      wait…` so transitional frames do not look like a real card.
+- [x] Reworked Riven placement to fixed vertical slots matching the supplied
+      layout: CURRENT ROLL is always in the lower-left slot; NEW OFFER appears
+      in the upper-left slot only during Confirm mode. Cycle mode uses only the
+      lower slot, and Confirm mode uses one fixed-width vertical stack instead
+      of switching between wide horizontal and narrow layouts.
+- [x] Split CURRENT ROLL and NEW OFFER into separate top-level overlay windows.
+      Each can now be shown/hidden independently in the requested upper/lower
+      slots. Both windows are marked non-focusable to reduce the chance of the
+      overlay consuming Warframe keyboard input (including `E`).
+- [x] Corrected Confirm-mode positioning so the CURRENT ROLL window uses the
+      lower slot and NEW OFFER uses the upper slot. A first split-window build
+      accidentally applied the upper coordinates to both windows, causing the
+      overlap shown in live testing.
+- [x] Narrowed both independent cards from 520px to 380px and enabled stat/
+      grade wrapping so they occupy the taller, narrower red-box regions
+      without covering the in-game Riven cards.
+- [x] Unified both window widths with the same explicit scaled card width and
+      slightly increased typography. Wrapped content now grows vertically
+      instead of allowing CURRENT ROLL and NEW OFFER to size differently.
+
+## Claude handoff — memory watcher and relic validation (2026-08-01)
+
+### Completed and live-confirmed
+
+- Memory-based EE.log watcher starts successfully and uses the discovered
+  Warframe ring buffer.
+- Riven opening/rolling behavior and the fixed two-window layout were live
+  tested; the remaining Riven concern is downstream OCR/provisional grading,
+  not the memory trigger.
+- Relic reward trigger matcher now accepts both Warframe event spellings:
+  `OpenVoidProjectionRewardScreenRMI` and the current
+  `OpenVoidProjectionRewardScreen - PostMigration: 0` form. The focused Rust
+  regression test passes.
+- Adaptive reward capture was live-correlated: early attempts rejected
+  mission/loading frames, then attempt 2 or 4 succeeded once cards existed
+  (examples: 3.13s, 3.27s, and 7.116s). A four-card reward overlay was also
+  confirmed correctly aligned.
+
+### Still open, do not mark complete
+
+- Three-card relic reward geometry remains visibly off-center; four-card
+  geometry is confirmed correct.
+- Some later relic runs produced no overlay and no new trigger/capture lines.
+  This is an intermittent trigger/process/runtime issue, distinct from the
+  adaptive OCR timing path. Do not infer OCR failure when no `Reward-ready`
+  line exists.
+
+### Next owner action
+
+1. Reproduce one no-overlay run with a fresh `tail -F` log started before the
+   mission; classify it as (a) no trigger, (b) trigger plus all rejected
+   captures, or (c) state written but GTK not shown.
+2. For a no-trigger case, inspect the running process/binary and memory watcher
+   lifecycle before changing OCR or retry timing.
+3. Fix and live-test the three-card geometry separately.
+
+The latest source changes are intentionally uncommitted alongside the existing
+dirty worktree; preserve unrelated edits when committing or branching.

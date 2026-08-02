@@ -389,16 +389,8 @@ fn filter_and_separate_parts_from_part_box_impl(
     let box_width = filtered.width() / 4;
     let box_height = filtered.height();
 
-    let mut curr_left = 0;
-    let mut box_stride = box_width;
-    let mut player_count = 4;
-
-    if total_odd > total_even {
-        let (left, stride) = three_reward_geometry(box_width, filtered.width());
-        curr_left = left;
-        box_stride = stride;
-        player_count = 3;
-    }
+    let player_count = if total_odd > total_even { 3 } else { 4 };
+    let (curr_left, box_stride) = reward_geometry(box_width, filtered.width(), player_count);
 
     let mut images = Vec::new();
     let mut rects = Vec::new();
@@ -418,65 +410,94 @@ fn filter_and_separate_parts_from_part_box_impl(
 }
 
 /// Left edge and stride (distance between successive card starts) for
-/// Warframe's solo 3-reward layout. Solo screens are visibly wider-spaced
-/// than simply dropping one column from the 4-reward grid - this keeps the
-/// same card width but adds a real gap between cards and centers the group
-/// in the crop so card bounds match the actual UI layout instead of three
-/// cards touching edge-to-edge.
-fn three_reward_geometry(box_width: u32, total_width: u32) -> (u32, u32) {
-    let gap = box_width / 3;
-    let stride = box_width + gap;
-    let required_width = stride.saturating_mul(3).saturating_sub(gap);
-    let left = (total_width.saturating_sub(required_width)) / 2;
-    (left, stride)
+/// Warframe's reward layout, generalized across player counts instead of
+/// special-casing 3 vs 4. The full 4-card region (`total_width`) is treated
+/// as a fixed box; it's divided into `player_count` equal-width slots, and
+/// the real card (`box_width`, always the 4-grid card width - Warframe
+/// doesn't resize the card itself for fewer players) is centered within
+/// each slot. For `player_count == 4`, each slot is exactly `box_width`
+/// wide, so this reduces to the original zero-gap 4-card behavior
+/// unchanged. For fewer players, each slot is wider than the card, which
+/// naturally produces a centered gap without a guessed magic-number gap
+/// value - Jacob 2026-08-01 ("that becomes the box... when there's three or
+/// two, it goes centered in that box").
+fn reward_geometry(box_width: u32, total_width: u32, player_count: u32) -> (u32, u32) {
+    let slot_width = total_width / player_count.max(1);
+    let inset = slot_width.saturating_sub(box_width) / 2;
+    (inset, slot_width)
 }
 
 #[cfg(test)]
-mod three_reward_geometry_tests {
-    use super::three_reward_geometry;
+mod reward_geometry_tests {
+    use super::reward_geometry;
 
     #[test]
-    fn produces_a_real_gap_between_cards() {
+    fn four_players_reduces_to_the_original_zero_gap_grid() {
         let box_width = 316;
         let total_width = 1264; // matches a real live 4-slot detection region
-        let (left, stride) = three_reward_geometry(box_width, total_width);
+        let (left, stride) = reward_geometry(box_width, total_width, 4);
+        assert_eq!(left, 0);
+        assert_eq!(stride, box_width);
+    }
+
+    #[test]
+    fn three_players_produces_a_real_gap_between_cards() {
+        let box_width = 316;
+        let total_width = 1264;
+        let (left, stride) = reward_geometry(box_width, total_width, 3);
         let gap = stride - box_width;
         assert!(gap > 0, "cards must not touch edge-to-edge");
-        // Matches the real live capture this fix was verified against
-        // (TODO.md 2026-07-30): Warframe's real 3-card layout has visible
-        // gaps, not a subset of the 4-card grid squeezed together.
-        assert_eq!(gap, box_width / 3);
-        assert_eq!(left, 53);
+        assert_eq!(left, 52);
         assert_eq!(stride, 421);
     }
 
     #[test]
-    fn all_three_cards_stay_within_the_detection_region() {
+    fn two_players_also_centers_with_a_larger_gap() {
         let box_width = 316;
         let total_width = 1264;
-        let (left, stride) = three_reward_geometry(box_width, total_width);
-        for i in 0..3u32 {
-            let x = left + i * stride;
-            assert!(
-                x + box_width <= total_width,
-                "card {i} (x={x}, width={box_width}) exceeds region width {total_width}"
-            );
+        let (left, stride) = reward_geometry(box_width, total_width, 2);
+        let gap = stride - box_width;
+        assert!(gap > 0);
+        // Fewer players means a wider slot per card, so the gap should grow
+        // as player count drops - not a fixed guessed number.
+        let (_, three_stride) = reward_geometry(box_width, total_width, 3);
+        assert!(stride > three_stride);
+        assert_eq!(left, 158);
+        assert_eq!(stride, 632);
+    }
+
+    #[test]
+    fn all_cards_stay_within_the_detection_region_for_any_player_count() {
+        let box_width = 316;
+        let total_width = 1264;
+        for player_count in 2..=4u32 {
+            let (left, stride) = reward_geometry(box_width, total_width, player_count);
+            for i in 0..player_count {
+                let x = left + i * stride;
+                assert!(
+                    x + box_width <= total_width,
+                    "player_count={player_count} card {i} (x={x}, width={box_width}) \
+                     exceeds region width {total_width}"
+                );
+            }
         }
     }
 
     #[test]
-    fn group_is_roughly_centered_in_the_region() {
+    fn group_is_centered_in_the_region() {
         let box_width = 316;
         let total_width = 1264;
-        let (left, stride) = three_reward_geometry(box_width, total_width);
-        let right_margin = total_width - (left + 2 * stride + box_width);
-        // Left and right margins should be close (integer rounding can make
-        // them differ by at most a pixel or two), not wildly lopsided.
-        let diff = left.abs_diff(right_margin);
-        assert!(
-            diff <= 2,
-            "left margin {left} and right margin {right_margin} are not roughly centered"
-        );
+        for player_count in 2..=4u32 {
+            let (left, stride) = reward_geometry(box_width, total_width, player_count);
+            let last_card_end = left + (player_count - 1) * stride + box_width;
+            let right_margin = total_width - last_card_end;
+            let diff = left.abs_diff(right_margin);
+            assert!(
+                diff <= 2,
+                "player_count={player_count}: left margin {left} and right margin \
+                 {right_margin} are not roughly centered"
+            );
+        }
     }
 
     #[test]
@@ -485,7 +506,7 @@ mod three_reward_geometry_tests {
         // positive gap and stay in bounds - not hardcoded to one resolution.
         let box_width = 400;
         let total_width = 1600;
-        let (left, stride) = three_reward_geometry(box_width, total_width);
+        let (left, stride) = reward_geometry(box_width, total_width, 3);
         assert!(stride > box_width);
         let last_card_end = left + 2 * stride + box_width;
         assert!(last_card_end <= total_width);

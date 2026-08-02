@@ -1840,34 +1840,3 @@ this sandbox - may not be needed on Jacob's actual dev machine/distrobox).
       needing several real timed live tests rather than trusting log
       timestamps alone, since this exact flow already has a long history in
       this file of live measurement contradicting log-only inspection.
-
-## 2026-08-01 (evening) - Live test list (blocking PR #18 and #19 merge)
-
-  The following need a real live Warframe session to confirm before further
-  merges/closures. PR #18 and PR #19 are held open (not merged) until their
-  items below are confirmed - both touch behavior that can only be verified
-  live, not via unit tests.
-
-  1. **PR #18 (stale CURRENT ROLL / NEW OFFER fix, supersedes #14 and #9)**
-     - needs a rapid-reroll session (same shape as the one that produced
-       issue #7) to confirm CURRENT ROLL no longer shows stale data and
-       NEW OFFER doesn't resurrect a previously-rejected offer.
-  2. **PR #19 (two-window overlay layout)** - not yet live-tested; confirm
-     CURRENT ROLL and NEW OFFER render correctly as separate fixed-position
-     windows during a real reroll session.
-  3. **Issue #3 - intermittent late reward-choice overlay trigger** -
-     retest now that PR #16 (trigger spelling + capture window widening)
-     is merged; check whether it's resolved or still reproduces.
-  4. **Issue #5 - Riven reroll overlay fires late relative to the visible
-     screen** - needs a timed live session to check whether this is still
-     happening post-fixes.
-  5. **Issue #4 - 3-reward overlay misalignment** - retest once PR #13
-     (general reward-centering geometry) merges, on a real solo (3-reward)
-     mission.
-  6. **Issue #12 - reward overlay intermittently invisible despite
-     successful detection** - stacking-race hypothesis, not yet confirmed
-     live; needs a session where it reproduces to check overlay/window-manager
-     behavior.
-  7. **Issue #6 - 60s of visible screenshotting on Riven close** - should
-     now be much shorter after PR #15's 60->12 recovery-window reduction;
-     confirm the actual visible duration live.

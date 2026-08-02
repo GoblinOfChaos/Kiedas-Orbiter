@@ -57,6 +57,7 @@ from riven_grader_watcher import (
     load_riven_data,
 )
 from riven_stat_matching import VISIBLE_STAT_PHRASES as _VISIBLE_STAT_CODES
+from riven_stat_matching import fuzzy_contains as _fuzzy_contains
 from riven_stat_matching import match_stat_phrase as _match_stat_phrase
 RIVEN_GRADE_DATA = load_riven_data()
 RIVEN_UPGRADE_DATA = _load_json(EXPORT_UPGRADES_FILE, {})
@@ -158,11 +159,16 @@ def _match_riven(card_text, rivens):
     """Match visible OCR to an owned Riven by its weapon compatibility name."""
     haystack = _ocr_key(card_text)
     matches = []
+    fuzzy_matches = []
     for riven in rivens:
         weapon_key = _ocr_key(riven.get("weapon", ""))
         if weapon_key and weapon_key in haystack:
             matches.append((len(weapon_key), riven))
-    return max(matches, key=lambda pair: pair[0])[1] if matches else None
+        elif weapon_key and _fuzzy_contains(haystack, weapon_key):
+            fuzzy_matches.append((len(weapon_key), riven))
+    if matches:
+        return max(matches, key=lambda pair: pair[0])[1]
+    return max(fuzzy_matches, key=lambda pair: pair[0])[1] if fuzzy_matches else None
 
 
 def _clean_ocr_lines(text):
@@ -205,6 +211,26 @@ def _generated_name_from_card(text, weapon=""):
     return parts[0]
 
 
+def _looks_like_stat_line(line):
+    """True only for lines that could plausibly be a real numeric stat row
+    (e.g. "+52.3% Electricity", "x0.87 Damage to Infested") - never a
+    heading, generated-name fragment, or MR/reroll-count badge line.
+
+    Guards stat-phrase matching from ever running on non-stat text at all:
+    a weapon-name heading can incidentally contain a short fuzzy match
+    (e.g. "Plasmor" fuzzy-matching the 4-letter phrase "AMMO") which then
+    poisons the generated-name cross-check and gets the card stuck in
+    REVIEW forever. Confirmed live 2026-07-30/31 - two separate NEW OFFER
+    cards never graded because their heading line ("Arca Plasmor Acri-",
+    "Arca Plasmor Vexi-") produced a bogus AMMO match this way. Every real
+    stat line has a percent sign or an "x" multiplier next to its digits;
+    no heading/name/badge line ever does.
+    """
+    if not re.search(r"\d", line):
+        return False
+    return "%" in line or bool(re.search(r"x\s*\d", line.lower()))
+
+
 def _grade_visible_card(text, old_riven):
     """Grade visible reroll stats. Perfectness is unavailable pre-confirmation."""
     if not old_riven:
@@ -213,6 +239,8 @@ def _grade_visible_card(text, old_riven):
     negatives = []
     displays = {}
     for line in _clean_ocr_lines(text):
+        if not _looks_like_stat_line(line):
+            continue
         key = _ocr_key(line)
         code = _match_stat_phrase(key)
         if not code:

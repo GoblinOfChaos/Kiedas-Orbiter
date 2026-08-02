@@ -35,3 +35,14 @@ def test_one_edit_short_phrase_still_resolves():
 def test_weighted_distance_prefers_confusable_substitutions():
     assert matching._substitution_cost("1", "l") < matching._substitution_cost("1", "q")
     assert matching._substitution_cost("0", "o") < matching._substitution_cost("0", "x")
+
+
+def test_fuzzy_contains_keeps_exact_matches_and_recovers_ocr_insertion():
+    assert matching.fuzzy_contains("ArcaPlasmor", "ArcaPlasmor")
+    assert matching.fuzzy_contains("ArcaFPlasmor", "ArcaPlasmor")
+
+
+def test_fuzzy_contains_rejects_unrelated_and_empty_values():
+    assert not matching.fuzzy_contains("TenetKuva", "ArcaPlasmor")
+    assert not matching.fuzzy_contains("", "ArcaPlasmor")
+    assert not matching.fuzzy_contains("ArcaPlasmor", "")

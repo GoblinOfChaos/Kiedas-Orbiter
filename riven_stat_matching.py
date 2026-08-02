@@ -108,6 +108,24 @@ def _best_window_distance(key: str, phrase: str) -> float:
     return best
 
 
+def fuzzy_contains(haystack: str, needle: str, max_relative_distance: float = 0.25) -> bool:
+    """Return whether ``needle`` occurs in ``haystack`` with OCR-tolerant noise.
+
+    Exact substring matching remains the fast and authoritative path.  The
+    fuzzy fallback compares windows near the needle length and only accepts a
+    bounded edit distance, preventing short unrelated words from matching a
+    weapon name by accident.
+    """
+    key = "".join(ch.lower() for ch in str(haystack) if ch.isalnum())
+    target = "".join(ch.lower() for ch in str(needle) if ch.isalnum())
+    if not key or not target:
+        return False
+    if target in key:
+        return True
+    distance = _best_window_distance(key, target)
+    return distance <= min(2.0, len(target) * max_relative_distance)
+
+
 CONFIDENT_ABSOLUTE_THRESHOLD = 2.0
 CONFIDENT_LENGTH_RATIO = 0.3
 AMBIGUITY_MARGIN = 0.75

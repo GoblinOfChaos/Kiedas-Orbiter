@@ -133,23 +133,31 @@ def _gdk_lib():
 def _get_x11_ids(window):
     """Returns (xdisplay_ptr, xid) for a realized GTK window, or None if
     this isn't actually an X11/XWayland window (e.g. GDK_BACKEND wasn't
-    honored, or no display)."""
+    honored, or no display). Every early-return is logged - a silent None
+    here means the entire always-on-top mechanism no-ops for the rest of
+    the show sequence with nothing else in the log to explain why the
+    overlay never became visible (the exact shape of issue #12)."""
     window.realize()
     gdk_win = window.get_window()
     if gdk_win is None:
+        _log_monitor_debug("_get_x11_ids: window.get_window() is None after realize() - cannot apply overlay hints")
         return None
     display = Gdk.Display.get_default()
     if not isinstance(display, GdkX11.X11Display):
+        _log_monitor_debug(f"_get_x11_ids: default display is {display.__class__.__name__ if display else None}, not GdkX11.X11Display - GDK_BACKEND=x11 not honored?")
         return None
     try:
         xid = gdk_win.get_xid()
     except AttributeError:
+        _log_monitor_debug("_get_x11_ids: gdk_win.get_xid() raised AttributeError")
         return None
     gdklib = _gdk_lib()
     if gdklib is None:
+        _log_monitor_debug("_get_x11_ids: libgdk-3 could not be loaded")
         return None
     xdisplay = gdklib.gdk_x11_get_default_xdisplay()
     if not xdisplay:
+        _log_monitor_debug("_get_x11_ids: gdk_x11_get_default_xdisplay() returned NULL")
         return None
     return (xdisplay, xid)
 
@@ -171,6 +179,7 @@ def _apply_overlay_hints(window, xdisplay, xid, already_mapped, pos=None):
     right spot instead of KWin's own default placement running at all."""
     lib = _lib()
     if lib is None:
+        _log_monitor_debug("_apply_overlay_hints: libX11 could not be loaded, no hints applied")
         return
     xa_atom = 4
     xa_cardinal = 6
@@ -215,6 +224,7 @@ def _raise_x11(window):
     xdisplay, xid = ids
     lib = _lib()
     if lib is None:
+        _log_monitor_debug("_raise_x11: libX11 could not be loaded, XRaiseWindow not called")
         return
     xd = ctypes.c_void_p(xdisplay)
     lib.XRaiseWindow(xd, xid)
@@ -228,6 +238,7 @@ def _force_position_x11(window, x, y):
     xdisplay, xid = ids
     lib = _lib()
     if lib is None:
+        _log_monitor_debug("_force_position_x11: libX11 could not be loaded, XMoveWindow not called")
         return
     xd = ctypes.c_void_p(xdisplay)
     lib.XMoveWindow(xd, xid, int(x), int(y))
@@ -241,8 +252,8 @@ def _reassert_on_top(window):
     _raise_x11(window)
     try:
         window.set_keep_above(True)
-    except Exception:
-        pass
+    except Exception as e:
+        _log_monitor_debug(f"_reassert_on_top: set_keep_above(True) raised {e!r}")
 
 
 def setup_overlay_window(window):
@@ -258,8 +269,10 @@ def setup_overlay_window(window):
     if gdk_win is not None:
         try:
             gdk_win.set_override_redirect(True)
-        except Exception:
-            pass
+        except Exception as e:
+            _log_monitor_debug(f"setup_overlay_window: set_override_redirect(True) raised {e!r} - window stays under KWin's normal management")
+    else:
+        _log_monitor_debug("setup_overlay_window: window.get_window() is None after realize() - override-redirect not applied")
     window.connect("focus-out-event", lambda w, e: (_reassert_on_top(w), False)[1])
 
 
@@ -289,6 +302,15 @@ def show_at(window, x, y, width=None, height=None):
 
     _force_position_x11(window, x, y)
     _reassert_on_top(window)
+    # Final ground-truth check: what GTK itself believes happened, logged
+    # unconditionally so a "detection succeeded but nothing visible" run
+    # (issue #12) always has a record of whether the window ended up
+    # mapped/visible from GTK's own perspective, not just whether the hint
+    # calls above ran without raising.
+    _log_monitor_debug(
+        f"show_at: final state mapped={window.get_mapped()} visible={window.get_visible()} "
+        f"position={window.get_position()} requested=({x},{y})"
+    )
 
 
 def apply_position(window, x, y):

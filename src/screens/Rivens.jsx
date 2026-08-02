@@ -157,10 +157,13 @@ export default function Rivens() {
     if (toFetch.length === 0) return
 
     const inputs = toFetch.map(r => {
-      const pos = (r.stats || []).filter(s => s.positive).map(s => STAT_TO_PRICER[s.tag] || s.tag.toLowerCase().replace(/\s+/g, '_'))
-      const neg = (r.stats || []).filter(s => !s.positive).map(s => STAT_TO_PRICER[s.tag] || s.tag.toLowerCase().replace(/\s+/g, '_'))
+      // Pricer model keys are English — localized stat names / weapon names
+      // (RU "Урон ближнего боя", "Скиайати") would never match.
+      const statKey = (s) => STAT_TO_PRICER[s.statKey || s.tag] || (s.statKey || s.tag).toLowerCase().replace(/\s+/g, '_')
+      const pos = (r.stats || []).filter(s => s.positive).map(statKey)
+      const neg = (r.stats || []).filter(s => !s.positive).map(statKey)
       return {
-        weapon_name: r.weapon_name || r.name.replace(/ Riven.*$/, ''),
+        weapon_name: r.weapon_name_en || r.weapon_name || r.name.replace(/ Riven.*$/, ''),
         re_rolls: r.rerolls ?? 0,
         positive1: pos[0] || null,
         positive2: pos[1] || null,

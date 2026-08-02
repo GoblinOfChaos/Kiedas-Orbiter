@@ -368,7 +368,13 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
     if (mod.description && mod.description.length > 0) return mod.description;
     if (mod.levelStats && Array.isArray(mod.levelStats)) {
       const max = mod.levelStats[mod.levelStats.length - 1];
-      if (max && Array.isArray(max.stats)) return max.stats.map(s => s.replace(/<LINE_SEPARATOR>[\r\n]*/g, '')).join('\n');
+      if (max && Array.isArray(max.stats)) {
+        const joined = max.stats.map(s => s.replace(/<LINE_SEPARATOR>[\r\n]*/g, '')).join('\n');
+        // DE ships augment descriptions with a redundant "<Name> Augment: "
+        // prefix baked into the localized stats; strip it (the title already
+        // shows the mod name).
+        return joined.replace(/^[^\n]*? Augment: /, '');
+      }
     }
     return '';
   })()

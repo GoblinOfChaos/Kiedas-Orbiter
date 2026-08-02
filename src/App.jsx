@@ -373,7 +373,7 @@ function AppContent() {
         </div>
         {/* Status dots */}
         <div className="mt-auto flex-shrink-0 flex flex-col items-center gap-3 pt-4 border-t border-white/5 w-full">
-          <div className="text-xs text-kronos-dim text-center whitespace-nowrap">
+          <div className="text-xs text-kronos-dim text-center leading-snug px-1">
             {t('last_update')}<br />
             {formatLastUpdate(lastUpdate)}
           </div>

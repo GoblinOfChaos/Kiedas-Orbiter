@@ -472,6 +472,14 @@ function detectModFrame(un, rarity, modName) {
   const n = (modName ?? '').toLowerCase();
   const check = (str) => u.includes(str.toLowerCase()) || n.includes(str.toLowerCase())
   if (u.includes('/fusers/')) return 'Fuser';
+  // Path-based family markers (locale-independent): localized names would
+  // otherwise miss the English name checks below. Verified zero collisions:
+  // Galvanized = *SPMod paths, Amalgam = /DualSource/, Archon = /Kahl/,
+  // Grimoire/Tome = /Grimoire/.
+  if (/SPMod$/i.test(u)) return 'Galvanized';
+  if (u.includes('/DualSource/')) return 'Amalgam';
+  if (u.includes('/Kahl/')) return 'Archon';
+  if (u.includes('/Grimoire/')) return 'Tome';
   if (check('Galvanized')) return 'Galvanized';
   if (check('Amalgam')) return 'Amalgam';
   if (check('Peculiar')) return 'Peculiar';
@@ -807,7 +815,16 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const origMap = toMap(exports[origKey], origKey);
       for (const [un, origEntry] of Object.entries(origMap)) {
         if (map[un]) {
-          // Supplement WI entry with original fields it doesn't have
+          // Supplement WI entry with original fields it doesn't have.
+          // Names: WI entries pre-resolve names to English literals, which
+          // would defeat dict-based localization. When the original export
+          // entry carries a dict loctag that resolves in the active locale
+          // dict, prefer it so resolveName() localizes the name.
+          const origName = origEntry?.name;
+          const locValue = (typeof origName === 'string' && origName.startsWith('/Lotus/')) ? dict[origName] : null;
+          if (locValue && !locValue.startsWith('/Lotus/')) {
+            map[un].name = origName;
+          }
           for (const [k, v] of Object.entries(origEntry)) {
             if (map[un][k] === undefined && v !== undefined) {
               map[un][k] = v;
@@ -857,7 +874,14 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     const locArr = exports.ExportUpgradesLocalized.ExportUpgrades || exports.ExportUpgradesLocalized;
     const locMap = toMap(locArr, 'ExportUpgrades');
     for (const [un, entry] of Object.entries(locMap)) {
-      if (EM[un] && entry.levelStats) EM[un].levelStats = entry.levelStats;
+      if (!EM[un]) continue;
+      if (entry.levelStats) EM[un].levelStats = entry.levelStats;
+      // Locale manifests (e.g. TR) ship mod/augment names as literal
+      // translations. The dict only resolves these to English, so prefer the
+      // manifest's literal name (non-loctag) whenever one exists.
+      if (typeof entry.name === 'string' && entry.name && !entry.name.startsWith('/Lotus/')) {
+        EM[un].name = entry.name;
+      }
     }
   }
   // Same for patched ExportAvionics
@@ -1872,7 +1896,9 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         }
         // Localize riven stat name — from the per-locale i18n table
         // (src/lib/i18n/{locale}.json, seeded from
-        // scripts/riven-stat-translations.seed.json).
+        // scripts/riven-stat-translations.seed.json). Keep the English name
+        // as statKey — the price model matches on English keys only.
+        const statKey = tagName;
         if (tagName && i18nData?.rivenStats?.[tagName]) {
           tagName = i18nData.rivenStats[tagName] || tagName;
         }
@@ -1886,6 +1912,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           value: valueStr,
           positive: pos,
           rawTag: s.Tag,
+          statKey,
           isPercent: !isMultiplier && !SPECIAL_ONE_DP.has(tag)
         };
       };
@@ -1926,6 +1953,9 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         category: 'rivens',
         weapon_type: rivenWeaponType(weaponUn || u.ItemType),
         weapon_name: weaponName,
+        // English weapon name for the price model (localized names like
+        // "Скиайати" never match the model's English keys).
+        weapon_name_en: exports.WI_Weapons?.[weaponUn]?.name || nameFromPath(weaponUn) || weaponName,
         name: rivenFullName,
         veiled: false,
         rank: parseInt(fp.lvl || u.UpgradeLevel || 0, 10),

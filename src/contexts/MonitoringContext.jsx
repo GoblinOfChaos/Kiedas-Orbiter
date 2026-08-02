@@ -326,6 +326,16 @@ export function MonitoringProvider({ children }) {
         else Object.entries(data).forEach(([k, v]) => indexEntry(v, k, tbl))
       }
     })
+
+    // wfcd supplement fallback: English display-name → image keys, so items
+    // whose localized dict key is missing (e.g. FR Dual Toxocyst/Dual Ichor
+    // base names) still resolve. Localized keys above take priority.
+    const wiSupp = exportData?.WI_Supplement?.nameToImage
+    if (wiSupp) {
+      for (const [k, v] of Object.entries(wiSupp)) {
+        if (nameToImage[k] === undefined) nameToImage[k] = v
+      }
+    }
     return { EI, nameToImage, uniqueNameToName }
   }, [exportData, dict])
 
@@ -1056,8 +1066,17 @@ const hasCachedData = useCallback(async () => {
     const cachePath = savedPath || await invoke('detect_warframe_cache').catch(() => null)
     if (cachePath && inventoryData?.mods?.length) {
       setFixProgress({ phase: 'extracting', current: 0, total: 1, current_file: '' })
-      const p = await invoke('ensure_card_images', { cachePath })
-      setCardImagesPath(p)
+      try {
+        const p = await invoke('ensure_card_images', { cachePath })
+        localStorage.setItem('kronos_card_images_path', p)
+        localStorage.setItem('kronos_card_images_ready', '1')
+        setCardImagesPath(p)
+      } catch (err) {
+        // Extraction failure (e.g. stale cache path) must not leave the UI
+        // stuck on "extracting" forever — fall back to regular card images.
+        console.error('retryCardImages: ensure_card_images failed:', err)
+        setFixProgress({ phase: 'done', current: 1, total: 1, current_file: '' })
+      }
     } else {
       setFixProgress({ phase: 'done', current: 1, total: 1, current_file: '' })
     }
@@ -1081,10 +1100,24 @@ const hasCachedData = useCallback(async () => {
 
       const savedPath = getSetting('warframe_cache_path', '')
       const cachePath = savedPath || await invoke('detect_warframe_cache').catch(() => null)
-      if (cachePath) {
+      // Already extracted+fixed in a previous session? Skip the pipeline —
+      // locale switches remount this effect and used to re-run the full
+      // extraction, hanging on "extracting" when the cache path went stale.
+      const knownRoot = localStorage.getItem('kronos_card_images_path') || ''
+      if (knownRoot && localStorage.getItem('kronos_card_images_ready') === '1') {
+        setCardImagesPath(knownRoot)
+        setFixProgress({ phase: 'done', current: 1, total: 1, current_file: '' })
+      } else if (cachePath) {
         setFixProgress({ phase: 'extracting', current: 0, total: 1, current_file: '' })
-        const p = await invoke('ensure_card_images', { cachePath })
-        setCardImagesPath(p)
+        try {
+          const p = await invoke('ensure_card_images', { cachePath })
+          localStorage.setItem('kronos_card_images_path', p)
+          localStorage.setItem('kronos_card_images_ready', '1')
+          setCardImagesPath(p)
+        } catch (err) {
+          console.error('card images init: ensure_card_images failed:', err)
+          setFixProgress({ phase: 'done', current: 1, total: 1, current_file: '' })
+        }
       } else {
         setFixProgress({ phase: 'done', current: 1, total: 1, current_file: '' })
       }

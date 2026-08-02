@@ -689,7 +689,7 @@ export default function Inventory() {
       ]
       return items
     }
-    if (activeTab === 'all') return (inventoryData.all ?? []).filter(i => i.category !== 'rivens')
+    if (activeTab === 'all') return (inventoryData.all ?? []).filter(i => i.category !== 'rivens' && i.category !== 'Arcanes')
     return inventoryData[activeTab] ?? []
   }, [inventoryData, activeTab, uiPath, primePrices])
 

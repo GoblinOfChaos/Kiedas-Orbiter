@@ -453,6 +453,16 @@ export default function MirroredMonitoringProvider({ children }) {
         else Object.entries(data).forEach(([k, v]) => indexEntry(v, k, tbl))
       }
     })
+
+    // wfcd supplement fallback: English display-name → image keys, so items
+    // whose localized dict key is missing (e.g. FR Dual Toxocyst/Dual Ichor
+    // base names) still resolve. Localized keys above take priority.
+    const wiSupp = ed.WI_Supplement?.nameToImage
+    if (wiSupp) {
+      for (const [k, v] of Object.entries(wiSupp)) {
+        if (nameToImage[k] === undefined) nameToImage[k] = v
+      }
+    }
     return { EI, nameToImage, uniqueNameToName }
   }
 

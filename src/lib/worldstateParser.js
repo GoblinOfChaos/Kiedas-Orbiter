@@ -308,8 +308,15 @@ const ERA_TRANSLATIONS = {
   Omnia: { uk: 'Омнія', fr: 'Omnia', de: 'Omnia', es: 'Omnia', ru: 'Омниа', zh: 'Omnia', ja: 'Omnia', ko: 'Omnia', pt: 'Omnia', tr: 'Omnia', th: 'Omnia', pl: 'Omnia', it: 'Omnia', en: 'Omnia' },
 }
 
+// VoidTier modifier values come through as "1".."6" ("VoidT1" etc.) - map to
+// the English era name so ERA_TRANSLATIONS / dict lookups can localize them.
+// 6 = Omnia fissures (added with the Omnia void cascade update).
+const TIER_TO_ERA = { '1': 'Lith', '2': 'Meso', '3': 'Neo', '4': 'Axi', '5': 'Requiem', '6': 'Omnia' }
+
 function resolveRelicEra(eraName, dict, locale = 'en') {
   if (!eraName) return 'Unknown'
+  // Numeric VoidTier -> era name ("4Hard" -> "Axi" for Steel Path fissures)
+  eraName = eraName.replace(/^\d+/, d => TIER_TO_ERA[d] || d).replace(/Hard$/i, '')
   // Try dict first (e.g. /Lotus/Language/Locations/Lith)
   const dictKey = `/Lotus/Language/Locations/${eraName}`
   const dictVal = dict?.[dictKey] || dict?.['/' + dictKey]
@@ -321,6 +328,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   }
   return eraName
 }
+
 
   return {
     // News (from Events)
@@ -386,6 +394,10 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
         }
       }
       return {
+        id: i._id?.$oid || i._id,
+        node: resolveNode(i.Node, dict, ERg),
+        completed: i.Completed,
+        completion: pct,
         attacker: {
           reward: attReward,
           rewardText: resolveRewardText(attReward, dict, ERg, uniqueNameToName),

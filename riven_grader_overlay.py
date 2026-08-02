@@ -338,6 +338,8 @@ class RivenGraderOverlay:
         self.window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
         self.window.set_decorated(False)
         self.window.set_resizable(False)
+        self.window.set_accept_focus(False)
+        self.window.set_focus_on_map(False)
         self.window.set_size_request(380, -1)
 
         # override-redirect + focus-lost AOT keeper is required to remain
@@ -362,6 +364,30 @@ class RivenGraderOverlay:
 
         self._setup_ui()
         self.window.set_opacity(0.95)
+
+        # NEW OFFER is a separate top-level window so it can occupy the upper
+        # slot independently of CURRENT ROLL. Both windows are explicitly
+        # non-focusable; the overlay must never consume Warframe keyboard
+        # input while it is being raised above the game.
+        self.new_window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
+        self.new_window.set_decorated(False)
+        self.new_window.set_resizable(False)
+        self.new_window.set_accept_focus(False)
+        self.new_window.set_focus_on_map(False)
+        setup_overlay_window(self.new_window)
+        self._new_css_provider = Gtk.CssProvider()
+        self._new_css_provider.load_from_data(_riven_css().encode())
+        Gtk.StyleContext.add_provider_for_screen(
+            self.new_window.get_screen(), self._new_css_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+        )
+        self._new_content = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        self._new_content.set_margin_top(6)
+        self._new_content.set_margin_bottom(6)
+        self._new_content.set_margin_start(8)
+        self._new_content.set_margin_end(8)
+        self.new_window.add(self._new_content)
+        self.new_window.set_opacity(0.95)
 
         GLib.timeout_add(POLL_INTERVAL_MS, self._poll)
         log(f"started, polling {STATE_FILE}")
@@ -406,6 +432,10 @@ class RivenGraderOverlay:
     def _clear_content(self):
         for child in self._content.get_children():
             self._content.remove(child)
+
+    def _clear_new_content(self):
+        for child in self._new_content.get_children():
+            self._new_content.remove(child)
 
     def _poll(self):
         try:
@@ -486,6 +516,7 @@ class RivenGraderOverlay:
 
     def _show_reroll_screen(self, mode, cards, rivens, stable=True, variant_text=""):
         self._clear_content()
+        self._clear_new_content()
         card_texts = [str(card) for card in cards]
         old = self._current_riven
         if old is None:
@@ -517,7 +548,18 @@ class RivenGraderOverlay:
             # now, so re-grade it directly and prefer that whenever OCR
             # consensus is available and it disagrees with the cached entry.
             if stable and card_texts:
+                log(
+                    f"live current grade start: mode={mode} cards={len(card_texts)} "
+                    f"cached_rerolls={grade_reference.get('rerolls')} "
+                    f"text={card_texts[0]!r}"
+                )
                 live = _grade_visible_card(card_texts[0], grade_reference)
+                log(
+                    f"live current grade result: mode={mode} "
+                    f"result={(live or {}).get('guidance_status') if live else 'none'} "
+                    f"positives={(live or {}).get('positives') if live else None} "
+                    f"negatives={(live or {}).get('negatives') if live else None}"
+                )
                 if live and live.get("guidance_status") != "ocr_uncertain":
                     live_signature = (set(live.get("positives", [])), set(live.get("negatives", [])))
                     old_signature = (set(grade_reference.get("positives", [])), set(grade_reference.get("negatives", [])))
@@ -544,16 +586,24 @@ class RivenGraderOverlay:
 
         geom = _cached_warframe_geom() or {}
         scale = _scale_for_geom(geom)
-        self._css_provider.load_from_data(_riven_css(scale).encode())
+        card_width = round(340 * scale)
+        text_scale = scale * 1.08
+        self._css_provider.load_from_data(_riven_css(text_scale).encode())
+        self._new_css_provider.load_from_data(_riven_css(text_scale).encode())
+        self.window.set_size_request(card_width, -1)
+        self.new_window.set_size_request(card_width, -1)
+        self._content.set_size_request(card_width, -1)
+        self._new_content.set_size_request(card_width, -1)
         monitor = _target_monitor()
         mx, my = monitor_origin(monitor)
         game_width = int(geom.get("width") or 1920)
         game_height = int(geom.get("height") or 1080)
 
         if mode == "cycle":
-            self.window.set_size_request(round(520 * scale), -1)
             self._last_left = round(game_width * 0.05)
-            self._last_top = round(game_height * 0.27)
+            # Fixed lower slot: CURRENT ROLL stays in the same place whether
+            # the comparison screen is open or not.
+            self._last_top = round(game_height * 0.48)
             if old:
                 self._content.pack_start(self._make_riven_row(old), False, False, 0)
             else:
@@ -567,12 +617,13 @@ class RivenGraderOverlay:
                     False, False, 0,
                 )
         elif mode == "confirm":
-            self.window.set_size_request(round(1040 * scale), -1)
-            # Keep the panel below the header OCR crop (top 13%) and above all
-            # card/action crops. It can be present in the desktop bitmap but
-            # cannot cover any pixels the detector reads.
-            self._last_left = round(game_width * 0.19)
-            self._last_top = round(game_height * 0.15)
+            # Fixed two-slot layout: NEW OFFER occupies the upper slot and
+            # CURRENT ROLL the lower slot. Keeping one narrow window and a
+            # vertical stack avoids the large left/right mode jump.
+            self._last_left = round(game_width * 0.05)
+            # This window is CURRENT ROLL; NEW OFFER is positioned separately
+            # below at the upper slot in the final apply_position call.
+            self._last_top = round(game_height * 0.48)
             candidates = []
             if stable and grade_reference:
                 old_signature = (set(grade_reference.get("positives", [])), set(grade_reference.get("negatives", [])))
@@ -612,25 +663,21 @@ class RivenGraderOverlay:
                 self._new_offer = candidates[0]
             else:
                 self._new_offer = None
-            comparison = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
-            comparison.set_homogeneous(True)
-            comparison.pack_start(
+            self._content.pack_start(
                 self._labeled_card(
                     "CURRENT ROLL",
                     self._make_riven_row(old) if old else self._make_ocr_card(
                         "CURRENT ROLL", card_texts[0] if (stable and card_texts) else ""
                     ),
-                ),
-                True, True, 0,
+                ), False, False, 0,
             )
-            comparison.pack_start(
+            self._new_content.pack_start(
                 self._labeled_card(
                     "NEW OFFER" if stable else "NEW OFFER · PROVISIONAL",
                     self._make_riven_row(new_riven) if new_riven else
                     self._make_ocr_card("NEW ROLL", ""),
-                ), True, True, 0,
+                ), False, False, 0,
             )
-            self._content.pack_start(comparison, False, False, 0)
         else:
             self._hide()
             return
@@ -638,11 +685,24 @@ class RivenGraderOverlay:
         self._age_lbl.set_text("live reroll" if stable else "verifying OCR…")
         self._content.show_all()
         self.window.show_all()
+        if mode == "confirm":
+            self._new_content.show_all()
+            self.new_window.show_all()
+        else:
+            self.new_window.hide()
         # Position AFTER show_all() finalizes real size for this frame's
         # content - see Overlay._show_rewards in overlay_gtk.py for why
         # (Kronos's confirmed KWin ConfigureNotify-reorder fix, 647ffd7).
         apply_position(self.window, mx + self._last_left, my + self._last_top)
+        if mode == "confirm":
+            apply_position(
+                self.new_window,
+                mx + self._last_left,
+                my + round(game_height * 0.12),
+            )
         raise_and_keep_on_top(self.window)
+        if mode == "confirm":
+            raise_and_keep_on_top(self.new_window)
         log(f"showing {mode} Riven reroll overlay")
         GLib.idle_add(self._log_window_state, mode)
 
@@ -758,6 +818,8 @@ class RivenGraderOverlay:
         )
         grade_lbl.get_style_context().add_class("grade")
         grade_lbl.set_xalign(1)
+        grade_lbl.set_line_wrap(True)
+        grade_lbl.set_max_width_chars(18)
         top.pack_end(grade_lbl, False, False, 0)
         box.pack_start(top, False, False, 0)
 
@@ -784,6 +846,8 @@ class RivenGraderOverlay:
             stats_lbl.set_text(stats_text)
         stats_lbl.get_style_context().add_class("stats")
         stats_lbl.set_xalign(0)
+        stats_lbl.set_line_wrap(True)
+        stats_lbl.set_max_width_chars(30)
         box.pack_start(stats_lbl, False, False, 0)
 
         legend = RIVEN_GRADE_DATA.get("legend", {})
@@ -839,6 +903,7 @@ class RivenGraderOverlay:
 
     def _hide(self):
         self.window.hide()
+        self.new_window.hide()
         self._hide_source = None
         return False
 

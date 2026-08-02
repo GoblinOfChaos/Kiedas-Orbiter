@@ -210,6 +210,17 @@ def _write_state(data):
     STATE_FILE.write_text(json.dumps(data))
 
 
+def _hide_stale_state_on_startup():
+    """Clear a visible picker state left behind by a previous process.
+
+    The watcher tails EE.log from its end, so after Warframe or the watcher is
+    relaunched it cannot replay the old picker-close line. Without an explicit
+    reset, the GTK overlay keeps rendering the previous recommendation list
+    and its periodic refresh makes it appear to pop up repeatedly.
+    """
+    _write_state({"visible": False, "timestamp": int(time.time())})
+
+
 class _State:
     """Holds the watcher's mutable state so both the memory-reading path
     and the file-tailing fallback can share identical line-processing
@@ -293,6 +304,7 @@ def main():
         return
 
     state = _State()
+    _hide_stale_state_on_startup()
 
     # Memory-reading (reads Warframe's in-RAM log ring buffer directly,
     # sidestepping the disk-write lag that file-tailing is exposed to -

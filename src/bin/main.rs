@@ -660,7 +660,15 @@ fn case_insensitive_replace(haystack: &str, needle: &str, replacement: &str) -> 
 }
 
 fn riven_ocr_tokens(text: &str) -> HashSet<String> {
-    let scrubbed = scrub_riven_ocr(text);
+    // The MR/reroll badge is animation-sensitive and its digits are often
+    // read one frame apart (e.g. `MR 15 0100` vs `MR 15 0101`). It is metadata,
+    // not card identity or stat content, so exclude that line from consensus.
+    let card_text = text
+        .lines()
+        .filter(|line| !line.to_ascii_lowercase().contains("mr "))
+        .collect::<Vec<_>>()
+        .join("\n");
+    let scrubbed = scrub_riven_ocr(&card_text);
     scrubbed
         .split(|ch: char| !ch.is_alphanumeric())
         .map(str::to_lowercase)
@@ -707,19 +715,17 @@ fn riven_screen_watcher(event_receiver: mpsc::Receiver<RivenLogEvent>) {
         // manual screenshot it closes the riven one, which then doesn't
         // reopen").
         let mut recovery_checks_remaining: u8 = 0;
-        // Was 6 (~6s of recovery on top of the ~6s it already takes to
-        // declare closed, so ~12s total tolerance) - a live session
-        // showed the anchor OCR (riven_menu_anchor_present) failing for
-        // well over a minute straight while Jacob was still genuinely on
-        // the Riven screen the whole time, exhausting the old recovery
-        // window entirely and leaving no overlay with no way back in
-        // short of a manual "kick" (screenshot + navigate away/back).
-        // Widened substantially - still bounded (not the old
-        // forever-screenshotting design), just generous enough to ride
-        // out a much longer OCR flakiness streak before finally giving
-        // up. Jacob 2026-07-27 ("why is this so hard... now theres just
-        // no overlay... but im on the riven screen").
-        const RECOVERY_CHECKS: u8 = 60;
+        // Keep a short false-close grace period, but do not leave the
+        // desktop capture indicator active for a full minute after the user
+        // has genuinely left the menu. Lifecycle events are still handled
+        // immediately by the receiver above, so this is only a bounded OCR
+        // fallback for a missed/false close. (2026-07-27's widening to 60
+        // was itself a real fix for real anchor-OCR flakiness - see
+        // TODO.md - but a live 2026-07-31 session showed the user-visible
+        // cost of a full 60s indicator was worse than the failure mode it
+        // was guarding against, especially once close-detection delay
+        // stacks on top of it.)
+        const RECOVERY_CHECKS: u8 = 12;
         const RECOVERY_INTERVAL: Duration = Duration::from_secs(1);
         let mut last_capture = Instant::now() - Duration::from_secs(10);
         loop {
@@ -2163,6 +2169,15 @@ mod test {
         let clean = "Critical Chance +97% Damage to Grineer x1.5 Toxin Infested Zoom";
         let misread = "Critica1 Chance +97% DamageTo Grlneer x1.5 Toxln 1nfested Zo0m";
         assert_eq!(riven_ocr_tokens(clean), riven_ocr_tokens(misread));
+    }
+
+    #[test]
+    fn riven_consensus_ignores_changing_mastery_and_reroll_badge() {
+        let first =
+            riven_ocr_tokens("Arca Plasmor Acri-satipha\n+49.8% Critical Damage\nMR 15 0100");
+        let next =
+            riven_ocr_tokens("Arca Plasmor Acri-satipha\n+49.8% Critical Damage\nMR 15 0101");
+        assert_eq!(first, next);
     }
 
     #[test]

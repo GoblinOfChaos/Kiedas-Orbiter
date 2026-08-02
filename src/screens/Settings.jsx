@@ -13,6 +13,7 @@ import { useMonitoring } from '../contexts/MonitoringContext'
 import { formatLastUpdate } from '../lib/warframeUtils'
 import { PageLayout, Card, Button, Toggle } from '../components/UI'
 import NotificationManager from '../components/NotificationManager'
+import LanguagePicker from '../components/LanguagePicker'
 
 function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
   const [recording, setRecording] = useState(false)
@@ -875,40 +876,16 @@ export default function SettingsScreen() {
                 {t('game_language_hint')}
               </p>
             </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-black uppercase text-kronos-text shrink-0">Locale</span>
-            <select
-              value={getSetting('gameLocale', 'en')}
-              onChange={async (e) => {
-                const locale = e.target.value
-                setLocaleLoading(true)
-                await setSetting('gameLocale', locale)
-                await invoke('check_exports', { locale, force: true })
-                window.location.reload()
-              }}
-              className="kronos-select text-xs font-mono font-bold bg-black/20 border-white/10 text-white rounded-lg px-2 py-1.5 focus:outline-none"
-            >
-              {[
-                { value: 'en', label: 'English' },
-                { value: 'de', label: 'Deutsch' },
-                { value: 'fr', label: 'Français' },
-                { value: 'es', label: 'Español' },
-                { value: 'it', label: 'Italiano' },
-                { value: 'pt', label: 'Português' },
-                { value: 'ru', label: 'Русский' },
-                { value: 'pl', label: 'Polski' },
-                { value: 'zh', label: '中文' },
-                { value: 'ko', label: '한국어' },
-                { value: 'ja', label: '日本語' },
-                { value: 'tc', label: '繁體中文' },
-                { value: 'th', label: 'ไทย' },
-                { value: 'tr', label: 'Türkçe' },
-                { value: 'uk', label: 'Українська' },
-              ].map(l => (
-                <option key={l.value} value={l.value}>{l.label}</option>
-              ))}
-            </select>
+          <LanguagePicker
+            value={getSetting('gameLocale', 'en')}
+            onChange={async (locale) => {
+              if (locale === getSetting('gameLocale', 'en')) return
+              setLocaleLoading(true)
+              await setSetting('gameLocale', locale)
+              await invoke('check_exports', { locale, force: true })
+              window.location.reload()
+            }}
+          />
           </div>
         </Card>
 

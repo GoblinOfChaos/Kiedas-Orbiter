@@ -2264,3 +2264,25 @@ dirty worktree; preserve unrelated edits when committing or branching.
   7. **Issue #6 - 60s of visible screenshotting on Riven close** - should
      now be much shorter after PR #15's 60->12 recovery-window reduction;
      confirm the actual visible duration live.
+
+## 2026-08-02 - Round-4 no-overlay root-caused: EE.log watcher dropped one line
+
+  Live evidence: a relic mission's round-4 reward screen had no overlay
+  even though Warframe's own EE.log confirms it fired (5 reward-screen
+  trigger lines in the session; `log_watcher()` in `src/bin/main.rs` only
+  turned 4 into a `Reward-ready` detection). Not a process crash - the
+  process stayed running and correctly caught the very next reward screen
+  9 minutes later. Root cause: `position` was set to a `metadata().len()`
+  snapshot taken BEFORE the read loop ran, so a line appended between that
+  snapshot and the reader reaching true EOF could be silently skipped.
+  Cephalon Kronos hit the same bug class tailing its own EE.log ring
+  buffer (commit `bcb44b1d`) and fixed it by abandoning a single trusted
+  cursor in favor of full re-scan + dedup - applied the same idea:
+  8KB safety-margin re-read each cycle, actual `stream_position()` instead
+  of the pre-read snapshot, bounded recent-lines dedup, and per-cycle
+  debug logging of the seek/read range.
+
+  8. **PR #21 (EE.log watcher missed-line fix)** - not yet live-tested;
+     needs a multi-round relic session (4+ rounds) to confirm no reward
+     screen goes without an overlay again, and to see the new per-cycle
+     debug logging in action if it happens again despite the fix.

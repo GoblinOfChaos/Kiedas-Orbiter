@@ -455,8 +455,26 @@ class RivenGraderOverlay:
             # previewed-then-cancelled roll into CURRENT ROLL - the mode
             # transition alone can't tell "confirmed" and "cancelled" apart,
             # only Rust's EE.log-driven SelectionConfirmed event can.
-            if screen.get("just_confirmed") and self._new_offer:
-                self._current_riven = self._new_offer
+            if screen.get("just_confirmed"):
+                # Re-grade the card Rust publishes for the confirmed
+                # transition before promoting anything. `_new_offer` may be
+                # from an earlier comparison if the previous offer never
+                # reached a valid grade; promoting it caused CURRENT ROLL to
+                # resurrect an unpicked card. If the transition OCR is not
+                # gradeable yet, keep a neutral card and wait for the next
+                # stable cycle capture instead of displaying stale stats.
+                confirmed = None
+                if screen.get("cards") and self._current_riven:
+                    confirmed = _grade_visible_card(
+                        str(screen["cards"][0]), self._current_riven
+                    )
+                if confirmed and confirmed.get("guidance_status") != "ocr_uncertain":
+                    confirmed["id"] = self._current_riven.get("id", "")
+                    self._current_riven = confirmed
+                    log("promoted freshly graded confirmed card")
+                else:
+                    self._new_offer = None
+                    log("confirmed card not gradeable yet; suppressed stale new offer")
             self._new_offer = None
             self._show_reroll_screen(
                 mode, screen.get("cards", []), graded.get("rivens", []),
@@ -473,13 +491,23 @@ class RivenGraderOverlay:
         if old is None:
             old = next((_match_riven(text, rivens) for text in card_texts
                         if _match_riven(text, rivens)), None)
+        grade_reference = dict(old) if old else None
+        if not stable:
+            # During the animation/consensus interval, cached inventory data
+            # may refer to the previous offer and is not safe to label as the
+            # visible CURRENT ROLL. Render neutral OCR/provisional cards until
+            # the detector publishes a stable frame and live grading has run.
+            old = None
+            self._current_riven = None
         if old:
             old = dict(old)
+            grade_reference = dict(old)
             selected_variant = _match_weapon_variant(
                 variant_text, old.get("weapon_variants", [])
             )
             if selected_variant:
                 old["selected_variant"] = selected_variant
+                grade_reference["selected_variant"] = selected_variant
             # `old` may be stale: it comes from the separate, slower
             # inventory.json refresh cycle, which can lag well behind the
             # live in-game roll (a live test showed CURRENT ROLL displaying
@@ -488,20 +516,31 @@ class RivenGraderOverlay:
             # visible card OCR is ground truth for what's on screen right
             # now, so re-grade it directly and prefer that whenever OCR
             # consensus is available and it disagrees with the cached entry.
-            if stable and mode == "cycle" and card_texts:
-                live = _grade_visible_card(card_texts[0], old)
+            if stable and card_texts:
+                live = _grade_visible_card(card_texts[0], grade_reference)
                 if live and live.get("guidance_status") != "ocr_uncertain":
                     live_signature = (set(live.get("positives", [])), set(live.get("negatives", [])))
-                    old_signature = (set(old.get("positives", [])), set(old.get("negatives", [])))
+                    old_signature = (set(grade_reference.get("positives", [])), set(grade_reference.get("negatives", [])))
                     if live_signature != old_signature:
                         # _grade_visible_card assumes it's grading a new
                         # reroll candidate (blank id, rerolls+1); this is
                         # actually the same riven's current live state, not a
                         # reroll, so keep its real identity/reroll count.
-                        live["id"] = old.get("id", "")
-                        live["rerolls"] = old.get("rerolls", 0)
+                        live["id"] = grade_reference.get("id", "")
+                        live["rerolls"] = grade_reference.get("rerolls", 0)
                         old = live
+                elif mode in ("cycle", "confirm"):
+                    # Never show a known-but-stale inventory snapshot as the
+                    # visible current roll. The OCR card remains available as
+                    # a neutral fallback until a valid live grade arrives.
+                    log("live current grade unavailable; suppressing cached stats")
+                    old = None
             self._current_riven = old
+
+        # If live grading was unavailable, keep the suppressed state rather
+        # than resurrecting the cached snapshot on the next poll.
+        if old is None and stable and card_texts:
+            self._current_riven = None
 
         geom = _cached_warframe_geom() or {}
         scale = _scale_for_geom(geom)
@@ -535,8 +574,8 @@ class RivenGraderOverlay:
             self._last_left = round(game_width * 0.19)
             self._last_top = round(game_height * 0.15)
             candidates = []
-            if stable and old:
-                old_signature = (set(old.get("positives", [])), set(old.get("negatives", [])))
+            if stable and grade_reference:
+                old_signature = (set(grade_reference.get("positives", [])), set(grade_reference.get("negatives", [])))
                 # Confirm-mode card_texts is [current/left, new-offer/right]
                 # (matches src/bin/main.rs's card_rects order: index 0 is
                 # the left rect at x=0.245, index 1 the right rect at
@@ -555,7 +594,7 @@ class RivenGraderOverlay:
                 # opposite cards").
                 new_offer_text = card_texts[1] if len(card_texts) > 1 else None
                 if new_offer_text is not None:
-                    candidate = _grade_visible_card(new_offer_text, old)
+                    candidate = _grade_visible_card(new_offer_text, grade_reference)
                     if candidate and candidate.get("guidance_status") == "ocr_uncertain":
                         log(
                             f"new offer stuck: {candidate.get('explanation', '(no reason given)')} "
@@ -566,9 +605,13 @@ class RivenGraderOverlay:
                         set(candidate.get("negatives", [])),
                     ) != old_signature:
                         candidates.append(candidate)
-            new_riven = candidates[0] if candidates else self._new_offer
+            # A failed grade must not reuse an offer from a previous confirm
+            # screen; that was the source of old, unpicked cards reappearing.
+            new_riven = candidates[0] if candidates else None
             if candidates:
                 self._new_offer = candidates[0]
+            else:
+                self._new_offer = None
             comparison = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
             comparison.set_homogeneous(True)
             comparison.pack_start(
@@ -632,7 +675,9 @@ class RivenGraderOverlay:
         box.set_margin_end(7)
         frame.add(box)
         lines = _clean_ocr_lines(text)
-        label = Gtk.Label(label="\n".join(lines) if lines else "Reading Riven stats…")
+        label = Gtk.Label(
+            label="\n".join(lines) if lines else "Reading Riven stats — please wait…"
+        )
         label.set_xalign(0)
         label.set_line_wrap(True)
         label.set_max_width_chars(36)

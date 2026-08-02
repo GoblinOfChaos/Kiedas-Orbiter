@@ -1135,7 +1135,10 @@ fn run_detection(db: &Database, owned: &OwnedDb) -> bool {
     }
 }
 
-const REWARD_SCREEN_OPEN_EVENT: &str = "VoidProjections: OpenVoidProjectionRewardScreenRMI";
+// Warframe has emitted both the older RMI-suffixed spelling and the current
+// PostMigration form. Both identify the actual reward-screen opening; the
+// generic ProjectionRewardChoice SWF creation line is intentionally excluded.
+const REWARD_SCREEN_OPEN_EVENT: &str = "VoidProjections: OpenVoidProjectionRewardScreen";
 
 fn is_reward_ready_line(line: &str) -> bool {
     line.contains(REWARD_SCREEN_OPEN_EVENT)
@@ -1688,8 +1691,13 @@ fn main() -> Result<(), Box<dyn Error>> {
         arguments.pre_capture_sleep_ms
     );
 
-    const AUTOMATIC_CAPTURE_ATTEMPTS: usize = 6;
-    const RETRY_INTERVAL_MS: u64 = 250;
+    // The memory EE.log trigger is intentionally early (it can precede the
+    // visible reward cards by the end-of-mission countdown plus reveal
+    // animation). Keep retries bounded, but allow enough time for the cards
+    // to actually exist in the captured frame. Six fast attempts were live-
+    // observed to capture only the mission room and reject every frame.
+    const AUTOMATIC_CAPTURE_ATTEMPTS: usize = 12;
+    const RETRY_INTERVAL_MS: u64 = 500;
 
     while let Ok(request) = event_receiver.recv() {
         let current_signature = file_signature(&owned_path);
@@ -2229,6 +2237,7 @@ mod test {
     fn reward_trigger_ignores_endless_continue_transition() {
         let real_reward = [
             "Sys [Info]: VoidProjections: OpenVoidProjectionRewardScreenRMI",
+            "Sys [Info]: VoidProjections: OpenVoidProjectionRewardScreen - PostMigration: 0",
             "Sys [Info]: Created /Lotus/Interface/ProjectionRewardChoice.swf",
             "Script [Info]: ProjectionRewardChoice.lua: Relic rewards initialized",
             "Script [Info]: ProjectionRewardChoice.lua: Got rewards",
@@ -2244,7 +2253,7 @@ mod test {
                 .iter()
                 .filter(|line| is_reward_ready_line(line))
                 .count(),
-            1
+            2
         );
         assert!(!continue_transition
             .iter()

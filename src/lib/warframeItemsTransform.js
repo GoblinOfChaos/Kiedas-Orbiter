@@ -44,7 +44,7 @@ function itemsToMap(items) {
       polarity: item.polarity,
       baseDrain: item.baseDrain,
       compatName: item.compatName,
-      omegaAttenuation: item.disposition,
+      omegaAttenuation: item.omegaAttenuation,
       masteryReq: item.masteryReq,
       excludeFromCodex: item.excludeFromCodex,
       variantType: item.isPrime ? 'VT_PRIME' : undefined,

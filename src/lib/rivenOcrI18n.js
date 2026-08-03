@@ -58,7 +58,7 @@ export function foldVariants(str) {
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   const folded = lower
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ß/g, 's')
-  const tight = folded.replace(/[^a-z0-9]/g, '')
+  const tight = folded.replace(/[^\p{L}\p{N}]/gu, '')
   return [folded, expanded, tight]
 }
 

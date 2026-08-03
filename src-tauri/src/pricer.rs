@@ -343,8 +343,17 @@ fn run_inference(pricer: &RivenPricer, input: &RivenInput) -> Option<(f32, f32)>
     let url_name = pricer.weapon_name_to_url.get(&key)
         .map(|s| s.as_str())
         .unwrap_or(&key);
-    let weapon_idx = *pricer.weapon_vocab.get(url_name)
-        .unwrap_or(&pricer.mask_index);
+    let weapon_idx = match pricer.weapon_vocab.get(url_name) {
+        Some(idx) => *idx,
+        // Unknown weapon (localized name, typo, or a model-unknown item):
+        // do NOT fall back to the <NONE> mask — that slot makes the model
+        // emit a population-average price with no weapon_rank, which the UI
+        // shows as a fake value with "weapon rank n/a". Report nothing.
+        None => {
+            eprintln!("[PRICER] unknown weapon '{}' (url '{}') — no estimate", input.weapon_name, url_name);
+            return None;
+        }
+    };
 
     let attr_slots = [&input.positive1, &input.positive2, &input.positive3, &input.negative];
     let mut attr_indices = [pricer.mask_index; 4];

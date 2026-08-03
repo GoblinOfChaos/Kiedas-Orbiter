@@ -142,6 +142,8 @@ export function MonitoringProvider({ children }) {
 
   const [lastUpdate, setLastUpdate] = useState(localStorage.getItem('lastUpdate') || null)
   const [rawInventory, setRawInventory] = useState(null)
+  const rawInventoryRef = useRef(null)
+  const exportDataRef = useRef(null)
   const [inventoryData, setInventoryData] = useState(undefined)
   const [isInventoryLoading, setIsInventoryLoading] = useState(false)
   const allPricesRef = useRef({})
@@ -477,14 +479,16 @@ export function MonitoringProvider({ children }) {
 
 
 
-  const applyRaw = useCallback((raw, ts, exports = exportData) => {
+  const applyRaw = useCallback((raw, ts, exports) => {
     if (!raw) return
     setRawInventory(raw)
-    if (!exports) return
+    rawInventoryRef.current = raw
+    const ed = exports || exportDataRef.current || exportData
+    if (!ed) return
     // Yield frame before heavy parseInventory to prevent UI freeze
     setTimeout(() => {
       try {
-        const parsed = parseInventory(raw, exports, dict, localeRef.current, i18nRef.current)
+        const parsed = parseInventory(raw, ed, dict, localeRef.current, i18nRef.current)
         setInventoryData(parsed || null)
       } catch (err) {
         setInventoryData(null)
@@ -538,6 +542,7 @@ export function MonitoringProvider({ children }) {
       // Set exports immediately (no wfcd blocking) — defer the wfcd load to
       // the background so the shell UI renders without a 15s hitch.
       setExportData(exports)
+      exportDataRef.current = exports
 
       if (exports) {
         loadWarframeItemsMaps().then(({ maps: wiMaps, supplement: wiSupplement }) => {
@@ -546,6 +551,14 @@ export function MonitoringProvider({ children }) {
           enhanced.nameToImage = { ...enhanced.nameToImage, ...wiSupplement.nameToImage }
           enhanced.WI_Supplement = wiSupplement
           setExportData(enhanced)
+          exportDataRef.current = enhanced
+          // wfcd English names (WI_Weapons) attach in the background after
+          // the initial parse, so riven weapon_name_en fell back to code
+          // paths ("CrpHeavyRifle") which never match the price model.
+          // Re-parse with the enhanced exports once wfcd has landed.
+          if (rawInventoryRef.current) {
+            applyRaw(rawInventoryRef.current, undefined, enhanced)
+          }
         })
       }
       setSpIncursions(spiText || '')
@@ -575,7 +588,7 @@ export function MonitoringProvider({ children }) {
 
       if (invRes[0].status === 'fulfilled' && invRes[0].value) {
         const result = invRes[0].value
-        applyRaw(result[0], result[1], exports || {})
+        applyRaw(result[0], result[1])
         hasCachedDataRef.current = true
         setStatusText('Loaded cached data')
       } else {

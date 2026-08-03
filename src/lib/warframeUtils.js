@@ -116,6 +116,9 @@ export const MAPPING_TYPES = {
   'MT_RESCUE': 'Rescue',
   'MT_CAPTURE': 'Capture',
   'MT_EXCAVATION': 'Excavation',
+  // Live worldstate sends MT_EXCAVATE for excavation fissures (the older
+  // MT_EXCAVATION code still appears in node data).
+  'MT_EXCAVATE': 'Excavation',
   'MT_HIJACK': 'Hijack',
   'MT_INTERCEPTION': 'Interception',
   'MT_ARTIFACT': 'Disruption',
@@ -127,6 +130,26 @@ export const MAPPING_TYPES = {
   'Vania': '',
   'Hex': '',
   '1999': '',
+  'MT_ALCHEMY': 'Alchemy',
+  'ALCHEMY': 'Alchemy',
+  'MT_CORRUPTION': 'Corruption',
+  'CORRUPTION': 'Corruption',
+  'MT_EXCAVATE': 'Excavation',
+  'EXCAVATE': 'Excavation',
+  'MT_SURVIVAL': 'Survival',
+  'SURVIVAL': 'Survival',
+  'MT_VOID_FLOOD': 'Void Flood',
+  'VOID_FLOOD': 'Void Flood',
+  'MT_VOID_CASCADE': 'Void Cascade',
+  'VOID_CASCADE': 'Void Cascade',
+  'MT_VOID_ARMAGEDDON': 'Void Armageddon',
+  'VOID_ARMAGEDDON': 'Void Armageddon',
+  'MT_ASSAULT': 'Assault',
+  'ASSAULT': 'Assault',
+  'MT_PURSUIT': 'Pursuit',
+  'PURSUIT': 'Pursuit',
+  'MT_RUSH': 'Rush',
+  'RUSH': 'Rush',
 }
 
 // Map from MAPPING_TYPES values to /Lotus/Language/Missions/MissionName_{key} dict paths
@@ -145,6 +168,14 @@ const MISSION_NAME_KEYS = {
   'Interception': 'Territory',
   'Disruption': 'Artifact',
   'Recovery': 'Retrieval',
+  'Alchemy': 'Alchemy',
+  'Corruption': 'Corruption',
+  'Void Flood': 'VoidFlood',
+  'Void Cascade': 'VoidCascade',
+  'Void Armageddon': 'VoidArmageddon',
+  'Assault': 'Assault',
+  'Pursuit': 'Pursuit',
+  'Rush': 'Rush',
 }
 
 const clean = (s) => {
@@ -227,9 +258,17 @@ export function resolveNode(node, dict, ERg) {
  */
 export function resolveMissionType(raw, dict, ERg) {
   if (!raw) return ''
-  // Try direct mission name lookup in dict first (e.g. /Lotus/Language/Missions/MissionName_MobileDefense)
-  const missionKey = `/Lotus/Language/Missions/MissionName_${raw.replace('MT_', '')}`
-  if (dict[missionKey]) return clean(dict[missionKey])
+  // The worldstate sends ALLCAPS MT_ codes (MT_SURVIVAL, MT_EXCAVATE,
+  // MT_ALCHEMY, MT_CORRUPTION…) but DE ships the dict keys PascalCase
+  // (MissionName_Survival, MissionName_Alchemy…). Try the PascalCase form
+  // first so newer mission types (Alchemy, Corruption, Assault…) localize.
+  const pascal = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : s
+  const code = raw.replace('MT_', '')
+  const pascalKey = `/Lotus/Language/Missions/MissionName_${pascal(code)}`
+  if (dict[pascalKey]) return clean(dict[pascalKey])
+  // Some mirrors store ALLCAPS keys — try the raw code form too.
+  const rawKey = `/Lotus/Language/Missions/MissionName_${code}`
+  if (dict[rawKey]) return clean(dict[rawKey])
   // Fallback to MAPPING_TYPES (hardcoded English) then try to resolve via MISSION_NAME_KEYS
   if (MAPPING_TYPES[raw] !== undefined) {
     const english = MAPPING_TYPES[raw]

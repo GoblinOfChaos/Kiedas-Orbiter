@@ -304,8 +304,8 @@ const ERA_TRANSLATIONS = {
   Meso: { uk: 'Мезо', fr: 'Méso', de: 'Meso', es: 'Meso', ru: 'Мезо', zh: '梅索', ja: 'メソ', ko: '메소', pt: 'Méso', tr: 'Meso', th: 'เมโซ', pl: 'Meso', it: 'Meso', en: 'Meso' },
   Neo:  { uk: 'Нео', fr: 'Néo', de: 'Neo', es: 'Neo', ru: 'Нео', zh: '神', ja: 'ネオ', ko: '네오', pt: 'Néo', tr: 'Neo', th: 'เนโอ', pl: 'Neo', it: 'Neo', en: 'Neo' },
   Axi:  { uk: 'Аксі', fr: 'Axi', de: 'Axi', es: 'Axi', ru: 'Акси', zh: '阿克西', ja: 'アクシ', ko: '악시', pt: 'Axi', tr: 'Axi', th: 'แอกซี', pl: 'Axi', it: 'Axi', en: 'Axi' },
-  Requiem: { uk: 'Реквієм', fr: 'Requiem', de: 'Requiem', es: 'Requiem', ru: 'Реквием', zh: 'Requiem', ja: 'Requiem', ko: 'Requiem', pt: 'Requiem', tr: 'Requiem', th: 'Requiem', pl: 'Requiem', it: 'Requiem', en: 'Requiem' },
-  Omnia: { uk: 'Омнія', fr: 'Omnia', de: 'Omnia', es: 'Omnia', ru: 'Омниа', zh: 'Omnia', ja: 'Omnia', ko: 'Omnia', pt: 'Omnia', tr: 'Omnia', th: 'Omnia', pl: 'Omnia', it: 'Omnia', en: 'Omnia' },
+  Requiem: { uk: 'Реквієм', fr: 'Requiem', de: 'Requiem', es: 'Requiem', ru: 'Реквием', zh: 'Requiem', ja: 'レクイエム', ko: 'Requiem', pt: 'Requiem', tr: 'Requiem', th: 'Requiem', pl: 'Requiem', it: 'Requiem', en: 'Requiem' },
+  Omnia: { uk: 'Омнія', fr: 'Omnia', de: 'Omnia', es: 'Omnia', ru: 'Омниа', zh: 'Omnia', ja: 'オムニア', ko: 'Omnia', pt: 'Omnia', tr: 'Omnia', th: 'Omnia', pl: 'Omnia', it: 'Omnia', en: 'Omnia' },
 }
 
 // VoidTier modifier values come through as "1".."6" ("VoidT1" etc.) - map to
@@ -317,17 +317,64 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   if (!eraName) return 'Unknown'
   // Numeric VoidTier -> era name ("4Hard" -> "Axi" for Steel Path fissures)
   eraName = eraName.replace(/^\d+/, d => TIER_TO_ERA[d] || d).replace(/Hard$/i, '')
+  const translations = ERA_TRANSLATIONS[eraName]
+  const tableValue = translations ? (translations[locale] || translations.en || eraName) : null
   // Try dict first (e.g. /Lotus/Language/Locations/Lith)
   const dictKey = `/Lotus/Language/Locations/${eraName}`
   const dictVal = dict?.[dictKey] || dict?.['/' + dictKey]
-  if (dictVal && !dictVal.startsWith('/Lotus/')) return dictVal.replace(/<[^>]*>/g, '').trim()
+  if (dictVal && !dictVal.startsWith('/Lotus/')) {
+    const cleaned = dictVal.replace(/<[^>]*>/g, '').trim()
+    // Mirrors ship the English proper noun for some eras (Lith -> "Lith" in
+    // the ja dict) even though the game localizes them. When the dict value
+    // just echoes the English name, prefer the translation table.
+    if (cleaned.toLowerCase() !== eraName.toLowerCase()) return cleaned
+  }
   // Fall back to translation table
-  const translations = ERA_TRANSLATIONS[eraName]
   if (translations) {
-    return translations[locale] || translations.en || eraName
+    return tableValue
   }
   return eraName
 }
+
+  // The EndlessXpSchedule sends DE's short names (e.g. "DualToxocyst") which
+  // are neither uniqueName paths nor dict keys. Curate the weapon names and
+  // fall back to the warframe Suits/{Name}Name pattern; unresolved entries
+  // stay English via resolveItemName.
+  const CIRCUIT_NAME_KEYS = {
+    Torid: '/Lotus/Language/ClanTech/Torid',
+    DualToxocyst: '/Lotus/Language/Items/InfestedLexName',
+    DualIchor: '/Lotus/Language/Weapons/InfestedDualAxeName',
+    Miter: '/Lotus/Language/Items/TnoMiterName',
+    Panthera: '/Lotus/Language/Items/PantheraName',
+    Atomos: '/Lotus/Language/Items/GrnHeatGunName',
+    Nekros: '/Lotus/Language/Suits/NecroName',
+    Valkyr: '/Lotus/Language/Suits/BerserkerName',
+    Oberon: '/Lotus/Language/Suits/PaladinName',
+    Nyx: '/Lotus/Language/Suits/MagicianName',
+    Equinox: '/Lotus/Language/Suits/YinYangName',
+    Mirage: '/Lotus/Language/Suits/HarlequinName',
+    Hydroid: '/Lotus/Language/Suits/PirateName',
+    Zephyr: '/Lotus/Language/Suits/TenguName',
+    Trinity: '/Lotus/Language/Suits/PriestName',
+    Limbo: '/Lotus/Language/Suits/AntiMatterName',
+    Baruuk: '/Lotus/Language/Suits/PacifistName',
+    Ivara: '/Lotus/Language/Suits/RangerName',
+    Khora: '/Lotus/Language/Suits/TrapperName',
+    Chroma: '/Lotus/Language/Suits/DragonName',
+    Atlas: '/Lotus/Language/Suits/BrawlerName',
+    Titania: '/Lotus/Language/Suits/FairyName',
+    Gara: '/Lotus/Language/Suits/GlassName',
+    Nidus: '/Lotus/Language/Suits/InfestationName',
+    Octavia: '/Lotus/Language/Suits/BardName',
+    Harrow: '/Lotus/Language/Suits/PriestName',
+  }
+  const resolveCircuitName = (short) => {
+    if (!short) return short
+    const dictKey = CIRCUIT_NAME_KEYS[short] || `/Lotus/Language/Suits/${short}Name`
+    const loc = mergedDict[dictKey] || mergedDict['/' + dictKey]
+    if (loc && !loc.startsWith('/Lotus/')) return clean(loc)
+    return resolveItemName(short, mergedDict, uniqueNameToName, locale)
+  }
 
 
   return {
@@ -698,7 +745,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
         return {
           category: isHard ? 'Steel Path' : 'Normal',
           choices: (c.Choices || []).map(choice => ({
-            name: resolveItemName(choice, mergedDict, uniqueNameToName),
+            name: resolveCircuitName(choice),
             uniqueName: choice
           }))
         }

@@ -815,6 +815,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const origMap = toMap(exports[origKey], origKey);
       for (const [un, origEntry] of Object.entries(origMap)) {
         if (map[un]) {
+          // Copy the entry before mutating — map is a shallow spread of the WI
+          // map, so entries are shared references; writing into them in place
+          // would poison exports.WI_* with loctags for later readers (riven
+          // weapon_name_en must stay English for the price model).
+          map[un] = { ...map[un] };
           // Supplement WI entry with original fields it doesn't have.
           // Names: WI entries pre-resolve names to English literals, which
           // would defeat dict-based localization. When the original export
@@ -825,8 +830,17 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           if (locValue && !locValue.startsWith('/Lotus/')) {
             map[un].name = origName;
           }
+          // Same as names: WI descriptions are pre-resolved to English literals
+          // by warframe-items; when the original export carries a dict loctag that
+          // resolves in the active locale dict, prefer the lockey so the desc
+          // localizes (e.g. Adarza Kavat's English flavor text → Turkish).
+          const origDesc = origEntry?.description;
+          const descLocValue = (typeof origDesc === 'string' && origDesc.startsWith('/Lotus/')) ? dict[origDesc] : null;
+          if (descLocValue && !descLocValue.startsWith('/Lotus/')) {
+            map[un].description = origDesc;
+          }
           for (const [k, v] of Object.entries(origEntry)) {
-            if (map[un][k] === undefined && v !== undefined) {
+            if ((map[un][k] === undefined || map[un][k] === null) && v != null) {
               map[un][k] = v;
             }
           }

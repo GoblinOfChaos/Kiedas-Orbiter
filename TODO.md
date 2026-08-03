@@ -2336,3 +2336,18 @@ dirty worktree; preserve unrelated edits when committing or branching.
   11. **PR #22 (memory watcher cycle diagnostics)** - not yet live-tested;
       needs a session with `WFINFO_LOG=debug` running to actually catch
       the bug in the act, since it's purely diagnostic, not a fix.
+
+  12. **Root-caused finding #9 above (positioning regression) - PR #23.**
+      Jacob confirmed directly: "something's messing up the overlay is
+      that I've moved it" - not a window-manager bug at all. The reward
+      overlay's dragged position was a single monitor-relative offset
+      reused identically across every reward count; a drag saved during
+      a 4-item round replayed as-is on 2-/3-item rounds on a different
+      monitor, landing nowhere near that round's actual boxes. Fixed by
+      keying the saved position file per reward count instead of one
+      shared file (`overlay-gtk-position.json` for 4, `-2`/`-3` suffixed
+      files for smaller counts) - `gtk_overlay_drag.py`'s `enable_drag()`
+      now accepts a callable position_file, resolved fresh per drag.
+      **Not yet live-tested** - needs a session where Jacob drags each
+      reward-count layout separately and confirms they hold position
+      independently afterward.

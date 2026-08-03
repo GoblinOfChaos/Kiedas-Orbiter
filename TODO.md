@@ -2286,3 +2286,53 @@ dirty worktree; preserve unrelated edits when committing or branching.
      needs a multi-round relic session (4+ rounds) to confirm no reward
      screen goes without an overlay again, and to see the new per-cycle
      debug logging in action if it happens again despite the fix.
+
+## 2026-08-02 (night) - Live relic session findings: 2nd bug class + positioning regression
+
+  Live relic mission run tonight, memory-based EE.log watcher active
+  (not the file-based one PR #21 fixed). Two real, separate findings:
+
+  9. **Reward-overlay positioning regression - overlay renders in the
+     top-left corner, not near the actual reward boxes.** Confirmed on
+     both a 3-item and a 2-item reward round. `overlay-gtk.log` shows the
+     window being commanded to a position near the real boxes
+     (`window_pos=(root_x=2565, root_y=124)`, computed from the OCR
+     rects) for both rounds, but Jacob directly observed it rendering in
+     the top-left corner instead - meaning either the window manager is
+     silently overriding/undoing the position after GTK reports it
+     applied, or something resets it back to a default corner shortly
+     after. `x11_overlay.py`'s existing diagnostic logging (added earlier
+     tonight for issue #12) produced zero output for either round -
+     every step in the show sequence reported success, so this isn't an
+     API-level failure our current instrumentation can catch; it needs
+     new diagnostics specifically comparing "position we told the window
+     to go to" against "position it actually ends up at a moment later"
+     (e.g. re-reading `window.get_position()` or the raw X geometry a
+     short delay after the show sequence completes, not just
+     immediately after issuing the position calls). Also worth checking
+     whether this is new because PR #13's generalized geometry changed
+     card widths/positions in a way that interacts differently with the
+     WM than the old hardcoded 3-card path did.
+
+  10. **A second, distinct "reward screen never detected" bug - not the
+      one PR #21 fixed.** A ~9.5 minute gap with zero `Reward-ready`
+      events between two otherwise-working rounds; the missed round had
+      4 reward items. Tonight's session used `memory_log_watcher()`
+      (`src/bin/main.rs`), which already does full-buffer rescan + hash
+      dedup every 150ms cycle - a design that should already be immune
+      to the incremental-cursor bug PR #21 fixed in the file-based
+      watcher. No error, no crash, nothing abnormal logged for that
+      round. Leading theory (unconfirmed): a full-buffer overwrite
+      landing between two 150ms polls during a bursty scene-load
+      transition, losing the target line before it was ever captured in
+      any snapshot - but the read window is already the 1MB cap
+      (`src/mem_log.rs` `MAX_READ_SIZE`), which is a lot of text to fully
+      overwrite in 150ms, so this needs real evidence, not more
+      speculation. PR #22 adds debug-level per-cycle logging
+      (buffer_len/total_lines/new_lines/seen_count) so a repeat
+      occurrence leaves an actual trace instead of requiring
+      after-the-fact timing reconstruction.
+
+  11. **PR #22 (memory watcher cycle diagnostics)** - not yet live-tested;
+      needs a session with `WFINFO_LOG=debug` running to actually catch
+      the bug in the act, since it's purely diagnostic, not a fix.

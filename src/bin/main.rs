@@ -1307,18 +1307,22 @@ fn memory_log_watcher(
             let text = String::from_utf8_lossy(&raw);
             let mut riven_events = Vec::new();
             let mut reward_screen_detected = false;
+            let mut total_lines_this_cycle = 0usize;
+            let mut new_lines_this_cycle = 0usize;
 
             for line in text.split('\n') {
                 let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
                 if line.is_empty() || !line.starts_with(|c: char| c.is_ascii_digit()) {
                     continue;
                 }
+                total_lines_this_cycle += 1;
                 let mut hasher = std::collections::hash_map::DefaultHasher::new();
                 std::hash::Hash::hash(&line, &mut hasher);
                 let hash = std::hash::Hasher::finish(&hasher);
                 if !seen.insert(hash) {
                     continue;
                 }
+                new_lines_this_cycle += 1;
                 seen_count += 1;
                 if seen_count >= SEEN_RESET_THRESHOLD {
                     seen.clear();
@@ -1355,6 +1359,27 @@ fn memory_log_watcher(
                     return;
                 }
             }
+
+            // Live evidence 2026-08-02: a reward screen fired in-game but
+            // this watcher never detected it, while the rounds immediately
+            // before and after it worked fine - no crash, no error. Unlike
+            // log_watcher()'s incremental-cursor bug (fixed separately),
+            // this watcher already re-scans the whole ring buffer every
+            // cycle, which should make it immune to that class of bug -
+            // the leading theory is a full-buffer overwrite between two
+            // polls (Warframe can write in bursts during scene loads), but
+            // that's unconfirmed. Logging real per-cycle counters at debug
+            // level so a repeat occurrence leaves actual evidence (an
+            // unusually high new_lines spike right before a miss, or a
+            // gap in total_lines suggesting a read landed mid-overwrite)
+            // instead of requiring after-the-fact timing reconstruction.
+            debug!(
+                "Memory watcher cycle: buffer_len={} total_lines={} new_lines={} seen_count={}",
+                raw.len(),
+                total_lines_this_cycle,
+                new_lines_this_cycle,
+                seen_count
+            );
 
             thread::sleep(Duration::from_millis(150));
         }

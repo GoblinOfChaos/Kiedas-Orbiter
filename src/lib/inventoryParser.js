@@ -25,17 +25,20 @@ import { BLUEPRINT_SUFFIX } from './warframeUtils'
 
 // ─── Riven Tag Data ───────────────────────────────────────────────────────────
 //
-// Per-weapon-type base values, prefixes, and suffixes for every riven stat.
-// Ported from calamity-inc/warframe-riven-info/riven_tags.json.
-// Used by the riven stat formula in parseInventory to calculate displayed values.
-const RIVEN_TAGS = { "LotusArchgunRandomModRare": [{ "tag": "WeaponArmorPiercingDamageMod", "value": 0.01, "prefix": "insi", "suffix": "cak" }, { "tag": "WeaponCritChanceMod", "value": 0.0111, "prefix": "crita", "suffix": "cron" }, { "tag": "WeaponCritDamageMod", "value": 0.0089, "prefix": "acri", "suffix": "tis" }, { "tag": "WeaponElectricityDamageMod", "value": 0.0133, "prefix": "vexi", "suffix": "tio" }, { "tag": "WeaponFireDamageMod", "value": 0.0133, "prefix": "igni", "suffix": "pha" }, { "tag": "WeaponFireRateMod", "value": 0.00667, "prefix": "croni", "suffix": "dra" }, { "tag": "WeaponFreezeDamageMod", "value": 0.0133, "prefix": "geli", "suffix": "do" }, { "tag": "WeaponImpactDamageMod", "value": 0.01, "prefix": "magna", "suffix": "ton" }, { "tag": "WeaponProcTimeMod", "value": 0.01111, "prefix": "deci", "suffix": "des" }, { "tag": "WeaponSlashDamageMod", "value": 0.01, "prefix": "sci", "suffix": "sus" }, { "tag": "WeaponStunChanceMod", "value": 0.0067, "prefix": "hexa", "suffix": "dex" }, { "tag": "WeaponToxinDamageMod", "value": 0.0133, "prefix": "toxi", "suffix": "tox" }, { "tag": "WeaponAmmoMaxMod", "value": 0.0111, "prefix": "ampi", "suffix": "bin" }, { "tag": "WeaponClipMaxMod", "value": 0.0067, "prefix": "arma", "suffix": "tin" }, { "tag": "WeaponDamageAmountMod", "value": 0.0111, "prefix": "visi", "suffix": "ata" }, { "tag": "WeaponFireIterationsMod", "value": 0.0067, "prefix": "sati", "suffix": "can" }, { "tag": "WeaponPunctureDepthMod", "value": 0.03, "prefix": "lexi", "suffix": "nok" }, { "tag": "WeaponRecoilReductionMod", "value": -0.01, "prefix": "zeti", "suffix": "mag" }, { "tag": "WeaponReloadSpeedMod", "value": 0.0111, "prefix": "feva", "suffix": "tak" }, { "tag": "WeaponFactionDamageCorpus", "value": 0.005, "prefix": "manti", "suffix": "tron" }, { "tag": "WeaponFactionDamageGrineer", "value": 0.005, "prefix": "argi", "suffix": "con" }, { "tag": "WeaponZoomFovMod", "value": 0.006666, "prefix": "hera", "suffix": "lis" }], "LotusModularMeleeRandomModRare": [{ "tag": "WeaponMeleeDamageMod", "value": 0.0183, "prefix": "visi", "suffix": "ata" }, { "tag": "WeaponArmorPiercingDamageMod", "value": 0.0133, "prefix": "insi", "suffix": "cak" }, { "tag": "WeaponImpactDamageMod", "value": 0.0133, "prefix": "magna", "suffix": "ton" }, { "tag": "WeaponSlashDamageMod", "value": 0.0133, "prefix": "sci", "suffix": "sus" }, { "tag": "WeaponCritChanceMod", "value": 0.02, "prefix": "crita", "suffix": "cron" }, { "tag": "WeaponCritDamageMod", "value": 0.01, "prefix": "acri", "suffix": "tis" }, { "tag": "WeaponElectricityDamageMod", "value": 0.01, "prefix": "vexi", "suffix": "tio" }, { "tag": "WeaponFireDamageMod", "value": 0.01, "prefix": "igni", "suffix": "pha" }, { "tag": "WeaponFreezeDamageMod", "value": 0.01, "prefix": "geli", "suffix": "do" }, { "tag": "WeaponToxinDamageMod", "value": 0.01, "prefix": "toxi", "suffix": "tox" }, { "tag": "WeaponProcTimeMod", "value": 0.01111, "prefix": "deci", "suffix": "des" }, { "tag": "WeaponMeleeFactionDamageCorpus", "value": 0.005, "prefix": "manti", "suffix": "tron" }, { "tag": "WeaponMeleeFactionDamageGrineer", "value": 0.005, "prefix": "argi", "suffix": "con" }, { "tag": "WeaponMeleeFactionDamageInfested", "value": 0.005, "prefix": "pura", "suffix": "ada" }, { "tag": "WeaponFireRateMod", "value": 0.0061, "prefix": "croni", "suffix": "dra" }, { "tag": "WeaponStunChanceMod", "value": 0.01, "prefix": "hexa", "suffix": "dex" }, { "tag": "ComboDurationMod", "value": 0.09, "prefix": "tempi", "suffix": "nem" }, { "tag": "SlideAttackCritChanceMod", "value": 0.013334, "prefix": "pleci", "suffix": "nent" }, { "tag": "WeaponMeleeRangeIncMod", "value": 0.02158, "prefix": "locti", "suffix": "tor" }, { "tag": "WeaponMeleeFinisherDamageMod", "value": 0.0133, "prefix": "exi", "suffix": "cta" }, { "tag": "WeaponMeleeComboEfficiencyMod", "value": 0.00816, "prefix": "forti", "suffix": "us" }, { "tag": "WeaponMeleeComboInitialBonusMod", "value": 0.27224, "prefix": "para", "suffix": "um" }, { "tag": "WeaponMeleeComboPointsOnHitMod", "value": -0.01165 }, { "tag": "WeaponMeleeComboBonusOnHitMod", "value": 0.00653, "prefix": "laci", "suffix": "nus" }], "LotusModularPistolRandomModRare": [{ "tag": "WeaponArmorPiercingDamageMod", "value": 0.01333, "prefix": "insi", "suffix": "cak" }, { "tag": "WeaponCritChanceMod", "value": 0.016666, "prefix": "crita", "suffix": "cron" }, { "tag": "WeaponCritDamageMod", "value": 0.01, "prefix": "acri", "suffix": "tis" }, { "tag": "WeaponElectricityDamageMod", "value": 0.01, "prefix": "vexi", "suffix": "tio" }, { "tag": "WeaponFireDamageMod", "value": 0.01, "prefix": "igni", "suffix": "pha" }, { "tag": "WeaponFireRateMod", "value": 0.0083, "prefix": "croni", "suffix": "dra" }, { "tag": "WeaponFreezeDamageMod", "value": 0.01, "prefix": "geli", "suffix": "do" }, { "tag": "WeaponImpactDamageMod", "value": 0.013333, "prefix": "magna", "suffix": "ton" }, { "tag": "WeaponProcTimeMod", "value": 0.01111, "prefix": "deci", "suffix": "des" }, { "tag": "WeaponSlashDamageMod", "value": 0.013333, "prefix": "sci", "suffix": "sus" }, { "tag": "WeaponStunChanceMod", "value": 0.01, "prefix": "hexa", "suffix": "dex" }, { "tag": "WeaponToxinDamageMod", "value": 0.01, "prefix": "toxi", "suffix": "tox" }, { "tag": "WeaponAmmoMaxMod", "value": 0.01, "prefix": "ampi", "suffix": "bin" }, { "tag": "WeaponClipMaxMod", "value": 0.005555, "prefix": "arma", "suffix": "tin" }, { "tag": "WeaponDamageAmountMod", "value": 0.0244, "prefix": "visi", "suffix": "ata" }, { "tag": "WeaponFireIterationsMod", "value": 0.0133, "prefix": "sati", "suffix": "can" }, { "tag": "WeaponProjectileSpeedMod", "value": 0.01, "prefix": "conci", "suffix": "nak" }, { "tag": "WeaponPunctureDepthMod", "value": 0.03, "prefix": "lexi", "suffix": "nok" }, { "tag": "WeaponRecoilReductionMod", "value": -0.01, "prefix": "zeti", "suffix": "mag" }, { "tag": "WeaponReloadSpeedMod", "value": 0.005555, "prefix": "feva", "suffix": "tak" }, { "tag": "WeaponFactionDamageCorpus", "value": 0.005, "prefix": "manti", "suffix": "tron" }, { "tag": "WeaponFactionDamageGrineer", "value": 0.005, "prefix": "argi", "suffix": "con" }, { "tag": "WeaponFactionDamageInfested", "value": 0.005, "prefix": "pura", "suffix": "ada" }, { "tag": "WeaponZoomFovMod", "value": 0.0089, "prefix": "hera", "suffix": "lis" }], "LotusPistolRandomModRare": [{ "tag": "WeaponArmorPiercingDamageMod", "value": 0.01333, "prefix": "insi", "suffix": "cak" }, { "tag": "WeaponCritChanceMod", "value": 0.016666, "prefix": "crita", "suffix": "cron" }, { "tag": "WeaponCritDamageMod", "value": 0.01, "prefix": "acri", "suffix": "tis" }, { "tag": "WeaponElectricityDamageMod", "value": 0.01, "prefix": "vexi", "suffix": "tio" }, { "tag": "WeaponFireDamageMod", "value": 0.01, "prefix": "igni", "suffix": "pha" }, { "tag": "WeaponFireRateMod", "value": 0.0083, "prefix": "croni", "suffix": "dra" }, { "tag": "WeaponFreezeDamageMod", "value": 0.01, "prefix": "geli", "suffix": "do" }, { "tag": "WeaponImpactDamageMod", "value": 0.013333, "prefix": "magna", "suffix": "ton" }, { "tag": "WeaponProcTimeMod", "value": 0.01111, "prefix": "deci", "suffix": "des" }, { "tag": "WeaponSlashDamageMod", "value": 0.013333, "prefix": "sci", "suffix": "sus" }, { "tag": "WeaponStunChanceMod", "value": 0.01, "prefix": "hexa", "suffix": "dex" }, { "tag": "WeaponToxinDamageMod", "value": 0.01, "prefix": "toxi", "suffix": "tox" }, { "tag": "WeaponAmmoMaxMod", "value": 0.01, "prefix": "ampi", "suffix": "bin" }, { "tag": "WeaponClipMaxMod", "value": 0.005555, "prefix": "arma", "suffix": "tin" }, { "tag": "WeaponDamageAmountMod", "value": 0.0244, "prefix": "visi", "suffix": "ata" }, { "tag": "WeaponFireIterationsMod", "value": 0.0133, "prefix": "sati", "suffix": "can" }, { "tag": "WeaponProjectileSpeedMod", "value": 0.01, "prefix": "conci", "suffix": "nak" }, { "tag": "WeaponPunctureDepthMod", "value": 0.03, "prefix": "lexi", "suffix": "nok" }, { "tag": "WeaponRecoilReductionMod", "value": -0.01, "prefix": "zeti", "suffix": "mag" }, { "tag": "WeaponReloadSpeedMod", "value": 0.005555, "prefix": "feva", "suffix": "tak" }, { "tag": "WeaponFactionDamageCorpus", "value": 0.005, "prefix": "manti", "suffix": "tron" }, { "tag": "WeaponFactionDamageGrineer", "value": 0.005, "prefix": "argi", "suffix": "con" }, { "tag": "WeaponFactionDamageInfested", "value": 0.005, "prefix": "pura", "suffix": "ada" }, { "tag": "WeaponZoomFovMod", "value": 0.0089, "prefix": "hera", "suffix": "lis" }], "LotusRifleRandomModRare": [{ "tag": "WeaponArmorPiercingDamageMod", "value": 0.01333, "prefix": "insi", "suffix": "cak" }, { "tag": "WeaponCritChanceMod", "value": 0.016666, "prefix": "crita", "suffix": "cron" }, { "tag": "WeaponCritDamageMod", "value": 0.013333, "prefix": "acri", "suffix": "tis" }, { "tag": "WeaponElectricityDamageMod", "value": 0.01, "prefix": "vexi", "suffix": "tio" }, { "tag": "WeaponFireDamageMod", "value": 0.01, "prefix": "igni", "suffix": "pha" }, { "tag": "WeaponFireRateMod", "value": 0.00667, "prefix": "croni", "suffix": "dra" }, { "tag": "WeaponFreezeDamageMod", "value": 0.01, "prefix": "geli", "suffix": "do" }, { "tag": "WeaponImpactDamageMod", "value": 0.013333, "prefix": "magna", "suffix": "ton" }, { "tag": "WeaponProcTimeMod", "value": 0.01111, "prefix": "deci", "suffix": "des" }, { "tag": "WeaponSlashDamageMod", "value": 0.013333, "prefix": "sci", "suffix": "sus" }, { "tag": "WeaponStunChanceMod", "value": 0.01, "prefix": "hexa", "suffix": "dex" }, { "tag": "WeaponToxinDamageMod", "value": 0.01, "prefix": "toxi", "suffix": "tox" }, { "tag": "WeaponAmmoMaxMod", "value": 0.00555, "prefix": "ampi", "suffix": "bin" }, { "tag": "WeaponClipMaxMod", "value": 0.005555, "prefix": "arma", "suffix": "tin" }, { "tag": "WeaponDamageAmountMod", "value": 0.018333, "prefix": "visi", "suffix": "ata" }, { "tag": "WeaponFireIterationsMod", "value": 0.01, "prefix": "sati", "suffix": "can" }, { "tag": "WeaponProjectileSpeedMod", "value": 0.01, "prefix": "conci", "suffix": "nak" }, { "tag": "WeaponPunctureDepthMod", "value": 0.03, "prefix": "lexi", "suffix": "nok" }, { "tag": "WeaponRecoilReductionMod", "value": -0.01, "prefix": "zeti", "suffix": "mag" }, { "tag": "WeaponReloadSpeedMod", "value": 0.005555, "prefix": "feva", "suffix": "tak" }, { "tag": "WeaponFactionDamageCorpus", "value": 0.005, "prefix": "manti", "suffix": "tron" }, { "tag": "WeaponFactionDamageGrineer", "value": 0.005, "prefix": "argi", "suffix": "con" }, { "tag": "WeaponFactionDamageInfested", "value": 0.005, "prefix": "pura", "suffix": "ada" }, { "tag": "WeaponZoomFovMod", "value": 0.006666, "prefix": "hera", "suffix": "lis" }], "LotusShotgunRandomModRare": [{ "tag": "WeaponArmorPiercingDamageMod", "value": 0.01333, "prefix": "insi", "suffix": "cak" }, { "tag": "WeaponCritChanceMod", "value": 0.01, "prefix": "crita", "suffix": "cron" }, { "tag": "WeaponCritDamageMod", "value": 0.01, "prefix": "acri", "suffix": "tis" }, { "tag": "WeaponElectricityDamageMod", "value": 0.01, "prefix": "vexi", "suffix": "tio" }, { "tag": "WeaponFireDamageMod", "value": 0.01, "prefix": "igni", "suffix": "pha" }, { "tag": "WeaponFireRateMod", "value": 0.01, "prefix": "croni", "suffix": "dra" }, { "tag": "WeaponFreezeDamageMod", "value": 0.01, "prefix": "geli", "suffix": "do" }, { "tag": "WeaponImpactDamageMod", "value": 0.013333, "prefix": "magna", "suffix": "ton" }, { "tag": "WeaponProcTimeMod", "value": 0.01111, "prefix": "deci", "suffix": "des" }, { "tag": "WeaponSlashDamageMod", "value": 0.013333, "prefix": "sci", "suffix": "sus" }, { "tag": "WeaponStunChanceMod", "value": 0.01, "prefix": "hexa", "suffix": "dex" }, { "tag": "WeaponToxinDamageMod", "value": 0.01, "prefix": "toxi", "suffix": "tox" }, { "tag": "WeaponAmmoMaxMod", "value": 0.01, "prefix": "ampi", "suffix": "bin" }, { "tag": "WeaponClipMaxMod", "value": 0.005555, "prefix": "arma", "suffix": "tin" }, { "tag": "WeaponDamageAmountMod", "value": 0.0183, "prefix": "visi", "suffix": "ata" }, { "tag": "WeaponFireIterationsMod", "value": 0.0133, "prefix": "sati", "suffix": "can" }, { "tag": "WeaponProjectileSpeedMod", "value": 0.01, "prefix": "conci", "suffix": "nak" }, { "tag": "WeaponPunctureDepthMod", "value": 0.03, "prefix": "lexi", "suffix": "nok" }, { "tag": "WeaponRecoilReductionMod", "value": -0.01, "prefix": "zeti", "suffix": "mag" }, { "tag": "WeaponReloadSpeedMod", "value": 0.005555, "prefix": "feva", "suffix": "tak" }, { "tag": "WeaponFactionDamageCorpus", "value": 0.005, "prefix": "manti", "suffix": "tron" }, { "tag": "WeaponFactionDamageGrineer", "value": 0.005, "prefix": "argi", "suffix": "con" }, { "tag": "WeaponFactionDamageInfested", "value": 0.005, "prefix": "pura", "suffix": "ada" }], "PlayerMeleeWeaponRandomModRare": [{ "tag": "WeaponMeleeDamageMod", "value": 0.0183, "prefix": "visi", "suffix": "ata" }, { "tag": "WeaponArmorPiercingDamageMod", "value": 0.0133, "prefix": "insi", "suffix": "cak" }, { "tag": "WeaponImpactDamageMod", "value": 0.0133, "prefix": "magna", "suffix": "ton" }, { "tag": "WeaponSlashDamageMod", "value": 0.0133, "prefix": "sci", "suffix": "sus" }, { "tag": "WeaponCritChanceMod", "value": 0.02, "prefix": "crita", "suffix": "cron" }, { "tag": "WeaponCritDamageMod", "value": 0.01, "prefix": "acri", "suffix": "tis" }, { "tag": "WeaponElectricityDamageMod", "value": 0.01, "prefix": "vexi", "suffix": "tio" }, { "tag": "WeaponFireDamageMod", "value": 0.01, "prefix": "igni", "suffix": "pha" }, { "tag": "WeaponFreezeDamageMod", "value": 0.01, "prefix": "geli", "suffix": "do" }, { "tag": "WeaponToxinDamageMod", "value": 0.01, "prefix": "toxi", "suffix": "tox" }, { "tag": "WeaponProcTimeMod", "value": 0.01111, "prefix": "deci", "suffix": "des" }, { "tag": "WeaponMeleeFactionDamageCorpus", "value": 0.005, "prefix": "manti", "suffix": "tron" }, { "tag": "WeaponMeleeFactionDamageGrineer", "value": 0.005, "prefix": "argi", "suffix": "con" }, { "tag": "WeaponMeleeFactionDamageInfested", "value": 0.005, "prefix": "pura", "suffix": "ada" }, { "tag": "WeaponFireRateMod", "value": 0.0061, "prefix": "croni", "suffix": "dra" }, { "tag": "WeaponStunChanceMod", "value": 0.01, "prefix": "hexa", "suffix": "dex" }, { "tag": "ComboDurationMod", "value": 0.09, "prefix": "tempi", "suffix": "nem" }, { "tag": "SlideAttackCritChanceMod", "value": 0.013334, "prefix": "pleci", "suffix": "nent" }, { "tag": "WeaponMeleeRangeIncMod", "value": 0.02158, "prefix": "locti", "suffix": "tor" }, { "tag": "WeaponMeleeFinisherDamageMod", "value": 0.0133, "prefix": "exi", "suffix": "cta" }, { "tag": "WeaponMeleeComboEfficiencyMod", "value": 0.00816, "prefix": "forti", "suffix": "us" }, { "tag": "WeaponMeleeComboInitialBonusMod", "value": 0.27224, "prefix": "para", "suffix": "um" }, { "tag": "WeaponMeleeComboPointsOnHitMod", "value": -0.01165 }, { "tag": "WeaponMeleeComboBonusOnHitMod", "value": 0.00653, "prefix": "laci", "suffix": "nus" }] };
+// Per-riven-type stat bases, affix syllables, and localized label keys are
+// derived at parse time from ExportUpgrades' /Lotus/Upgrades/Mods/Randomized/
+// entries (see buildRivenTagInfo in parseInventory) — DE's own data, verified
+// byte-identical to the riven_tags.json tables this replaces. The export's
+// upgradeValues[0].value, prefixTag/suffixTag, and locTag drive the stat
+// formula, the constructed riven name, and the dict-resolved localized label.
 // ─── Riven Display Helpers ────────────────────────────────────────────────────
 //
-// RIVEN_STAT_MAP  : internal tag name → human-readable stat label (e.g. "WeaponCritChanceMod" → "Critical Chance")
-// RIVEN_AFFIXES   : internal tag name → prefix/suffix syllables used to build the riven's constructed name
-//                   (e.g. CritChance → prefix "Crita", suffix "cron").
-//                   These are the same syllables the game uses; the constructed name comes from combining
-//                   the prefix of the primary buff with the suffix of the secondary buff.
+// RIVEN_STAT_MAP  : internal tag name → English stat label, used as the English
+//                   statKey for the price model (matches English keys only) and
+//                   as a last-resort display fallback. The localized display
+//                   name is resolved from the game dict via the export's stat
+//                   locTag (see buildRivenTagInfo below), which replaces the
+//                   old per-locale hand-translated rivenStats tables.
 
 const RIVEN_STAT_MAP = {
   'WeaponMeleeDamageMod': 'Melee Damage',
@@ -92,32 +95,16 @@ const RIVEN_STAT_MAP = {
   'WeaponMeleeComboBonusOnHitMod': 'Combo Count',
 };
 
-const RIVEN_AFFIXES = {
-  'WeaponMeleeDamageMod': { pre: 'Visi', suf: 'ata' },
-  'WeaponDamageAmountMod': { pre: 'Visi', suf: 'ata' },
-  'WeaponCritChanceMod': { pre: 'Crita', suf: 'cron' },
-  'WeaponCritDamageMod': { pre: 'Acri', suf: 'tis' },
-  'WeaponFireRateMod': { pre: 'Croni', suf: 'dra' },
-  'WeaponSpeedMod': { pre: 'Croni', suf: 'dra' },
-  'WeaponStunChanceMod': { pre: 'Hexa', suf: 'dex' },
-  'WeaponStatusChanceMod': { pre: 'Hexa', suf: 'dex' },
-  'WeaponElectricityDamageMod': { pre: 'Vexi', suf: 'tio' },
-  'WeaponFireDamageMod': { pre: 'Igni', suf: 'pha' },
-  'WeaponFreezeDamageMod': { pre: 'Geli', suf: 'do' },
-  'WeaponToxinDamageMod': { pre: 'Toxi', suf: 'tox' },
-  'WeaponSlashDamageMod': { pre: 'Sci', suf: 'sus' },
-  'WeaponPunctureDamageMod': { pre: 'Insi', suf: 'cak' },
-  'WeaponImpactDamageMod': { pre: 'Magna', suf: 'ton' },
-  'WeaponMultishotMod': { pre: 'Sati', suf: 'can' },
-  'WeaponReloadSpeedMod': { pre: 'Feva', suf: 'tak' },
-  'WeaponClipMaxMod': { pre: 'Arma', suf: 'tin' },
-  'WeaponRangeMod': { pre: 'Locti', suf: 'tor' },
-  'WeaponMeleeRangeIncMod': { pre: 'Locti', suf: 'tor' },
-  'WeaponZoomFovMod': { pre: 'Hera', suf: 'lis' },
-  'WeaponRecoilReductionMod': { pre: 'Zeti', suf: 'mag' },
-  'WeaponProjectileSpeedMod': { pre: 'Conci', suf: 'nak' },
-  'WeaponPunchThroughMod': { pre: 'Lexi', suf: 'nok' },
-};
+/** Clean a dict stat label for display: drop value tokens (%|val|, |STAT1|),
+ *  HTML color tags, and the seconds glue DE appends (|val|sn). */
+function cleanStatLabel(raw) {
+  if (!raw || typeof raw !== 'string' || raw.startsWith('/Lotus/')) return '';
+  return raw
+    .replace(/<[^>]*>/g, '')
+    .replace(/%?\|(?:val|STAT\d+)\|(?:sn|s)?\s*/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
 
 // ─── Rank / XP Helpers ───────────────────────────────────────────────────────
 
@@ -803,6 +790,40 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     return arr || {};
   };
 
+  // ── Riven tag info (export-derived) ──
+  // Per-riven-type stat bases, affix syllables, and dict lockeys, rebuilt from
+  // ExportUpgrades' /Lotus/Upgrades/Mods/Randomized/<type> entries on every
+  // parse (cheap: ~10ms). The old hardcoded riven_tags.json blob and
+  // per-locale rivenStats tables are gone — DE's own data and dict strings
+  // now drive the riven stat formula, constructed name, and labels.
+  const buildRivenTagInfo = () => {
+    const info = {};
+    const upMap = toMap(exports.ExportUpgrades, 'ExportUpgrades');
+    for (const [un, entry] of Object.entries(upMap)) {
+      if (!un.includes('/Randomized/')) continue;
+      const typeName = un.split('/').pop();
+      const byTag = info[typeName] = info[typeName] || {};
+      for (const ue of entry.upgradeEntries || []) {
+        const uv = ue.upgradeValues && ue.upgradeValues[0];
+        const syllable = (k) => {
+          if (!k) return '';
+          const v = dict[k] || dict[k.replace(/^\//, '')] || '';
+          return v && !v.startsWith('/Lotus/') ? v.replace(/<[^>]*>/g, '').trim() : '';
+        };
+        byTag[ue.tag] = {
+          value: uv?.value ?? 0.01,
+          prefix: syllable(ue.prefixTag),
+          suffix: syllable(ue.suffixTag),
+          canBeBuff: !!ue.canBeBuff,
+          canBeCurse: !!ue.canBeCurse,
+          locTag: uv?.locTag || null,
+        };
+      }
+    }
+    return info;
+  };
+  const rivenTagInfo = buildRivenTagInfo();
+
   // ── warframe-items data (pre-resolved names, descriptions, images) ──
   // When WI maps are available (injected by MonitoringContext), they serve as
   // the primary lookup source.  Entries missing from WI are supplemented from
@@ -843,6 +864,20 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
             if ((map[un][k] === undefined || map[un][k] === null) && v != null) {
               map[un][k] = v;
             }
+          }
+          // Icons: prefer the original export's INTERNAL card path
+          // (/Lotus/Interface/Cards/Images/...) over warframe-items' remote
+          // wikiaThumbnail. Internal paths join onto the locally-exported
+          // cardImagesPath (convertFileSrc(cardImagesPath + iconPath)); the
+          // remote URL only gets mangled into `card-imageshttps://...` 404s.
+          const origIcon = origEntry?.icon;
+          if (
+            typeof origIcon === 'string' &&
+            origIcon.startsWith('/Lotus/') &&
+            typeof map[un].icon === 'string' &&
+            /^https?:\/\//.test(map[un].icon)
+          ) {
+            map[un].icon = origIcon;
           }
         } else {
           // Entry only in original data
@@ -912,10 +947,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
   // Manual icon overrides for mods whose export data lacks an icon field
-  // (e.g. Railjack avionics, some Antivirus/Immortal variants)
+  // (e.g. Railjack avionics, some Antivirus/Immortal variants). An internal
+  // /Lotus/... card path beats a remote wikiaThumbnail so the local export is
+  // used instead of a mangled card-imageshttps://... remote URL.
   if (exports.ModIconMap) {
     for (const [un, iconPath] of Object.entries(exports.ModIconMap)) {
-      if (EM[un] && !EM[un].icon) {
+      if (EM[un] && (!EM[un].icon || /^https?:\/\//.test(EM[un].icon))) {
         EM[un].icon = iconPath;
       }
     }
@@ -1861,10 +1898,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const attenuation = 1.5 * dispo * 10;
       const curseAtten = Math.pow(1.25, nCurses);
 
-      // Base values from riven_tags keyed by riven type (last path segment)
+      // Per-type stat data from ExportUpgrades (see rivenTagInfo above),
+      // keyed by riven type (last path segment).
       const rivenTypeName = u.ItemType.split('/').pop(); // e.g. LotusRifleRandomModRare
-      const rivenTagList = RIVEN_TAGS[rivenTypeName] ?? [];
-      const getBase = (tag) => rivenTagList.find(e => e.tag === tag)?.value ?? 0.01;
+      const rivenTagList = rivenTagInfo[rivenTypeName] ?? {};
+      const getBase = (tag) => rivenTagList[tag]?.value ?? 0.01;
 
       const formatStat = (s, pos) => {
         const tag = s.Tag.split('/').pop();
@@ -1904,18 +1942,18 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         } else {
           displayVal = val * 100; // standard percentage
         }
-        let tagName = RIVEN_STAT_MAP[s.Tag] || RIVEN_STAT_MAP[tag] || null;
-        if (!tagName) {
-          tagName = splitPascal(tag.replace(/^(Weapon|Avatar|Innate|Player|Mod)/g, '').replace(/Mod$/g, '').replace(/Damage$/, ' Damage').replace(/Faction/, 'Faction ').replace(/Melee/, '').trim()) || tag;
+        // English statKey first — the price model matches on English keys only.
+        // Display label resolves from the game dict (DE's own strings) via the
+        // export's stat locTag; falls back to the per-locale i18n rivenStats
+        // table, then the English key.
+        const statKey = RIVEN_STAT_MAP[s.Tag] || RIVEN_STAT_MAP[tag]
+          || splitPascal(tag.replace(/^(Weapon|Avatar|Innate|Player|Mod)/g, '').replace(/Mod$/g, '').replace(/Damage$/, ' Damage').replace(/Faction/, 'Faction ').replace(/Melee/, '').trim()) || tag;
+        let tagName = '';
+        const statLoc = rivenTagList[tag]?.locTag;
+        if (statLoc) {
+          tagName = cleanStatLabel(dict[statLoc] || dict[statLoc.replace(/^\//, '')]);
         }
-        // Localize riven stat name — from the per-locale i18n table
-        // (src/lib/i18n/{locale}.json, seeded from
-        // scripts/riven-stat-translations.seed.json). Keep the English name
-        // as statKey — the price model matches on English keys only.
-        const statKey = tagName;
-        if (tagName && i18nData?.rivenStats?.[tagName]) {
-          tagName = i18nData.rivenStats[tagName] || tagName;
-        }
+        if (!tagName) tagName = i18nData?.rivenStats?.[statKey] || statKey;
 
         const isMultiplier = SPECIAL_FACTOR.has(tag) && !pos;
         let valueStr = (displayVal * finalSign).toFixed(isMultiplier ? 2 : 1);
@@ -1935,7 +1973,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
       let rivenFullName = `${weaponName} Riven`;
       if (!isChallenge && (fp.buffs ?? []).length > 0) {
-        const getTagEntry = (tag) => rivenTagList.find(e => e.tag === tag);
+        const getTagEntry = (tag) => rivenTagList[tag];
         const sortedBuffs = [...(fp.buffs ?? [])].sort((a, b) => {
           if (a.Value === b.Value) {
             return (getTagEntry(a.Tag)?.value ?? 0) - (getTagEntry(b.Tag)?.value ?? 0);

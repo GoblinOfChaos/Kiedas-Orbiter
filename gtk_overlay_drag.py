@@ -42,6 +42,17 @@ def enable_drag(window, _anchor_edges_unused, position_file, default_position):
         absolute (x, y) now, so anchor edges are meaningless here.
     default_position: {"top": int, "left": int} starting position, treated
         as literal (x, y) offsets relative to the window's target monitor.
+    position_file: a Path, OR a zero-arg callable returning a Path -
+        resolved fresh on every load/save rather than captured once.
+        The reward overlay needs this: a drag saved while showing a
+        4-item round was silently being replayed against 2- and 3-item
+        rounds too (same monitor-relative offset, wrong for a
+        differently-positioned set of boxes) - confirmed live 2026-08-02
+        ("something's messing up the overlay is that I've moved it").
+        Callable support lets that overlay key the saved position by
+        however many rewards are currently shown, without changing the
+        other three overlays that only ever have one fixed layout and
+        still just pass a plain Path.
     """
     window.add_events(
         Gdk.EventMask.BUTTON_PRESS_MASK
@@ -49,16 +60,20 @@ def enable_drag(window, _anchor_edges_unused, position_file, default_position):
         | Gdk.EventMask.POINTER_MOTION_MASK
     )
 
+    def _resolve_position_file():
+        return position_file() if callable(position_file) else position_file
+
     def _load_saved():
         try:
-            return json.loads(position_file.read_text())
+            return json.loads(_resolve_position_file().read_text())
         except Exception:
             return None
 
     def _save(pos):
         try:
-            position_file.parent.mkdir(parents=True, exist_ok=True)
-            position_file.write_text(json.dumps(pos))
+            target = _resolve_position_file()
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(json.dumps(pos))
         except OSError:
             pass
 

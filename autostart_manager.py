@@ -16,6 +16,7 @@ from pathlib import Path
 from paths import CONFIG_FILE, DATA_DIR, WFINFO_DIR, build_detector_args
 from platform_utils import launch_detached, clean_env_for_launch, kill_processes, is_running, IS_LINUX
 from autostart_migration import disable_legacy_autostart_entries
+import service_registry
 
 VENV_PYTHON = WFINFO_DIR / (".venv/Scripts/python.exe" if _sys.platform == "win32" else ".venv/bin/python")
 LOG_FILE = DATA_DIR / "autostart-manager.log"
@@ -121,6 +122,19 @@ def set_autostart(feature: str, enabled: bool):
 
 
 def is_feature_running(feature: str) -> bool:
+    # Registry first: precise, PID-based, immune to the substring
+    # false-positive class fixed in platform_utils._matches_pattern()
+    # (confirmed live 2026-08-03 - a diagnostic shell one-liner whose own
+    # text happened to mention "target/release/orbiter" was counted as a
+    # running detector). Only falls back to the substring scan when there
+    # is no registry entry at all - e.g. right after upgrading to this
+    # version, or a feature started outside this app's own launch
+    # functions - since "no info" must not be treated as "definitely not
+    # running".
+    registered = service_registry.is_registered_process_alive(feature)
+    if registered is not None:
+        return registered
+
     components = _REQUIRED_COMPONENTS.get(feature)
     if components is not None:
         return all(any(is_running(pattern) for pattern in alternatives)
@@ -132,6 +146,7 @@ def stop_feature(feature: str, reason: str = "unspecified"):
     _log(f"STOP {feature} (reason: {reason})")
     for pattern in _PROCESS_PATTERNS.get(feature, []):
         kill_processes(pattern)
+    service_registry.clear_registration(feature)
 
 
 def _start_detector():
@@ -160,63 +175,71 @@ def _start_detector():
         # own libs via normal host ld.so resolution.
         env = clean_env_for_launch()
         env.pop("LD_LIBRARY_PATH", None)
-        launch_detached(["./launch-orbiter.sh"] + args, cwd=WFINFO_DIR,
-                         env=env, log_file=log_file)
+        proc = launch_detached(["./launch-orbiter.sh"] + args, cwd=WFINFO_DIR,
+                                env=env, log_file=log_file)
     else:
-        launch_detached([str(WFINFO_DIR / "orbiter.exe")] + args, cwd=WFINFO_DIR,
-                         log_file=log_file)
+        proc = launch_detached([str(WFINFO_DIR / "orbiter.exe")] + args, cwd=WFINFO_DIR,
+                                log_file=log_file)
+    service_registry.record_launch("detector", proc.pid)
 
 
 def _start_watcher():
-    launch_detached(
+    proc = launch_detached(
         [str(VENV_PYTHON), str(WFINFO_DIR / "launcher.py"), "watcher"],
         cwd=WFINFO_DIR, env=clean_env_for_launch(), log_file=DATA_DIR / "watcher.log",
     )
+    service_registry.record_launch("watcher", proc.pid)
 
 
 def _start_overlay():
     # overlay.py's own main() already does its own pid-file singleton kill
     # of any prior instance, so no need to kill_processes() first here.
-    launch_detached(
+    proc = launch_detached(
         [str(VENV_PYTHON), str(WFINFO_DIR / "launcher.py"), "overlay"],
         cwd=WFINFO_DIR, env=clean_env_for_launch(), log_file=DATA_DIR / "overlay.log",
     )
+    service_registry.record_launch("overlay", proc.pid)
 
 
 def _start_relic_recommend():
     # Stdlib-only script, no Qt - doesn't need clean_env_for_launch(),
     # matching the plain `python3 relic_recommend_watcher.py` autostart
     # entries this replaces.
-    launch_detached(
+    proc = launch_detached(
         [str(VENV_PYTHON), str(WFINFO_DIR / "relic_recommend_watcher.py")],
         cwd=WFINFO_DIR, log_file=DATA_DIR / "relic-recommend-watcher.log",
     )
+    service_registry.record_launch("relic_recommend", proc.pid)
 
 
 def _start_riven():
-    launch_detached(
+    watcher_proc = launch_detached(
         [str(VENV_PYTHON), str(WFINFO_DIR / "riven_grader_watcher.py")],
         cwd=WFINFO_DIR, log_file=DATA_DIR / "riven-grader-watcher.log",
     )
+    service_registry.record_launch("riven", watcher_proc.pid, component="watcher")
     # Now GTK, not Qt - no more LD_LIBRARY_PATH override for PySide6's
     # bundled Qt libs. That override is not just unneeded now but actively
     # risky to keep: it could make this GTK/Cairo process pick up
     # mismatched library versions shadowed from the old Qt bundle dir.
-    launch_detached(
+    overlay_proc = launch_detached(
         [str(VENV_PYTHON), str(WFINFO_DIR / "riven_grader_overlay.py")],
         cwd=WFINFO_DIR, env=clean_env_for_launch(), log_file=DATA_DIR / "riven-overlay.log",
     )
+    service_registry.record_launch("riven", overlay_proc.pid, component="overlay")
 
 
 def _start_fissure():
-    launch_detached(
+    watcher_proc = launch_detached(
         [str(VENV_PYTHON), str(WFINFO_DIR / "fissure_watcher.py")],
         cwd=WFINFO_DIR, log_file=DATA_DIR / "fissure-watcher.log",
     )
-    launch_detached(
+    service_registry.record_launch("fissure", watcher_proc.pid, component="watcher")
+    overlay_proc = launch_detached(
         [str(VENV_PYTHON), str(WFINFO_DIR / "fissure_overlay.py")],
         cwd=WFINFO_DIR, env=clean_env_for_launch(), log_file=DATA_DIR / "fissure-overlay.log",
     )
+    service_registry.record_launch("fissure", overlay_proc.pid, component="overlay")
 
 
 _STARTERS = {

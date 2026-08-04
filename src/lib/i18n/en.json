@@ -751,6 +751,7 @@
   "riven_card.rolls": "rolls",
   "relics.bp_close": "BP)",
   "toast.more": "MORE",
-  "maps.adding_markers": "Adding markers to “{name}”"
+  "maps.adding_markers": "Adding markers to “{name}”",
+  "riven_card.tier_weapon": "Weapon"
  }
 }

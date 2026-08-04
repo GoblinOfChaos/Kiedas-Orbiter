@@ -151,7 +151,7 @@ export default function ToastOverlay({ position }) {
       {!IS_LINUX && queue.length > 0 &&
       <div className="notif-enter flex items-center justify-center px-4 py-1 rounded-lg bg-kronos-panel/40 border border-white/5 self-center mt-1 scale-90 opacity-60">
           <span className="text-[9px] font-black text-white uppercase tracking-[0.25em]">
-            + {queue.length} More
+            + {queue.length} {t('toast.more')}
           </span>
         </div>
       }

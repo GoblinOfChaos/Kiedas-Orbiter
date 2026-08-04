@@ -367,7 +367,7 @@ export default function RivenOverlay() {
                   const roll = rivenInfo.grade === 'S' ? 'Perfect' : rivenInfo.grade === 'A' ? 'Good' : rivenInfo.grade === 'B' ? 'Average' : rivenInfo.grade === 'C' ? 'Mediocre' : 'Bad';
                   return (
                     <span className="text-[11px] font-bold text-zinc-200 uppercase tracking-wider">
-                          {tier} Weapon &middot; {roll}{t('riven_card.rolls')}
+                          {tier} {t('riven_card.tier_weapon')} &middot; {roll}{t('riven_card.rolls')}
                     </span>);
 
                 })() :

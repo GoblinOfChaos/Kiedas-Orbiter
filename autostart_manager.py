@@ -331,21 +331,35 @@ def _can_attempt_restart(feature: str, now: float) -> bool:
     return last is None or (now - last) >= _ALWAYS_ON_RESTART_BACKOFF_SECONDS
 
 
+# Deliberately excludes "watcher" even though it's ALWAYS_ON_OPEN.
+# reconcile_always_on() is called FROM WITHIN warframe-watcher.py's own
+# loop - having it try to determine "is watcher alive?" via a shared
+# registry file it also writes to is inherently fragile (that file can
+# briefly disagree with reality across the write/read race between two
+# instances), and if it ever false-negatives, the process spawns a
+# *second* copy of itself, which then runs the same check and can spawn
+# a third, and so on. Live-reproduced 2026-08-04: a single manual test
+# call produced 11 concurrent warframe-watcher.py processes within about
+# a minute, each launching roughly every 5s (the reconcile tick
+# interval) - a real, actively-worsening runaway loop, not theoretical.
+# A process cannot reliably self-diagnose "am I alive" through a side
+# channel anyway - if this code is executing at all, the answer is
+# trivially yes. See health.py's HealthWidget for how a stalled (not
+# dead) watcher is surfaced instead, from the separate GUI process.
+_SELF_RESTARTABLE_ALWAYS_ON = ["detector"]
+
+
 def reconcile_always_on():
     """Call this repeatedly, same as reconcile_warframe_gated() - restarts
-    detector/watcher if either dies mid-session. Unlike the Warframe-gated
-    features, these have no reconciliation at all today: apply_autostart()
-    only starts them once, at app launch. Confirmed live 2026-08-02: the
+    detector if it dies mid-session. Unlike the Warframe-gated features,
+    it has no reconciliation at all otherwise: apply_autostart() only
+    starts it once, at app launch. Confirmed live 2026-08-02: the
     detector silently stopped writing to orbiter.log mid-session (no
     crash trace, no error) and nothing restarted it for the rest of the
     night, breaking reward detection for every subsequent relic round
-    until a human noticed via direct log/process inspection. watcher
-    itself is included here too even though it can't practically restart
-    its own process from within its own loop - see the note in
-    warframe-watcher.py's main() for why the GUI process is what actually
-    surfaces a stalled watcher instead."""
+    until a human noticed via direct log/process inspection."""
     now = time.time()
-    for feature in ALWAYS_ON_OPEN:
+    for feature in _SELF_RESTARTABLE_ALWAYS_ON:
         if not get_autostart(feature) or is_feature_running(feature):
             continue
         if not _can_attempt_restart(feature, now):

@@ -56,7 +56,26 @@ def test_reconcile_always_on_restarts_dead_feature(monkeypatch):
     started = []
     monkeypatch.setattr(am, "start_feature", lambda feature, reason="": started.append(feature))
     am.reconcile_always_on()
-    assert set(started) == set(am.ALWAYS_ON_OPEN)
+    assert set(started) == set(am._SELF_RESTARTABLE_ALWAYS_ON)
+
+
+def test_reconcile_always_on_never_targets_watcher(monkeypatch):
+    # Live bug found 2026-08-04: reconcile_always_on() ran from inside
+    # warframe-watcher.py's own loop and included "watcher" as a restart
+    # target - a process trying to determine "am I alive" through a
+    # shared registry file it also writes to. A single false negative
+    # spawned a second watcher, which spawned a third, and so on: 11
+    # concurrent processes within about a minute. "watcher" must never
+    # appear in the self-restartable set, regardless of what
+    # is_feature_running() reports.
+    monkeypatch.setattr(am, "_last_always_on_restart_attempt", {})
+    monkeypatch.setattr(am, "get_autostart", lambda feature: True)
+    monkeypatch.setattr(am, "is_feature_running", lambda feature: False)
+    started = []
+    monkeypatch.setattr(am, "start_feature", lambda feature, reason="": started.append(feature))
+    am.reconcile_always_on()
+    assert "watcher" not in started
+    assert "watcher" not in am._SELF_RESTARTABLE_ALWAYS_ON
 
 
 def test_reconcile_always_on_leaves_running_features_alone(monkeypatch):

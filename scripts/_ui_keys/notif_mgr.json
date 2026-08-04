@@ -1,0 +1,9 @@
+{
+  "ui": {
+    "ui.notif_mgr.not_configured": "No notifications configured. Add one below.",
+    "ui.notif_mgr.add_notification": "+ Add Notification",
+    "ui.notif_mgr.session_log": "Session Log",
+    "ui.notif_mgr.session_empty": "No notifications fired in this session.",
+    "ui.notif_mgr.msg": "MSG"
+  }
+}

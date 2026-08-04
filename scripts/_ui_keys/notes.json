@@ -1,0 +1,27 @@
+{
+  "ui": {
+    "notes.click_to_rename": "Click to rename",
+    "notes.new_note_default": "New Note.md",
+    "notes.new_note_n": "New Note {n}.md",
+    "notes.name_exists": "A note with that name already exists",
+    "notes.lang_javascript": "JavaScript",
+    "notes.lang_typescript": "TypeScript",
+    "notes.lang_jsx": "JSX",
+    "notes.lang_tsx": "TSX",
+    "notes.lang_css": "CSS",
+    "notes.lang_html": "HTML",
+    "notes.lang_json": "JSON",
+    "notes.lang_bash": "Bash",
+    "notes.lang_python": "Python",
+    "notes.lang_rust": "Rust",
+    "notes.lang_plain_text": "Plain text",
+    "notes.delete_note_title": "Delete Note?",
+    "notes.delete_named": "Delete {name}?",
+    "notes.cancel": "Cancel",
+    "notes.delete": "Delete",
+    "notes.new_note": "New note",
+    "notes.open_notes_folder": "Open notes folder",
+    "notes.saved": "Saved",
+    "notes.select_or_create": "Select or create a note"
+  }
+}

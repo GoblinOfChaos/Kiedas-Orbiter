@@ -15,41 +15,42 @@
  * - Real-time auto-saving (or manual save depending on config).
  * - Click-to-rename filenames.
  */
-import { useState, useRef, useEffect, useCallback } from 'react'
-import { FileText, Plus, X, FolderOpen } from 'lucide-react'
-import { PageLayout, Card, Button } from '../components/UI'
-import { invoke } from '@tauri-apps/api/core'
-import { open, save } from '@tauri-apps/plugin-dialog'
-import { MDXEditor } from '@mdxeditor/editor'
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { useUi } from '../contexts/UiContext'
+import { FileText, Plus, X, FolderOpen } from 'lucide-react';
+import { PageLayout, Card, Button } from '../components/UI';
+import { invoke } from '@tauri-apps/api/core';
+import { open, save } from '@tauri-apps/plugin-dialog';
+import { MDXEditor } from '@mdxeditor/editor';
 import {
   headingsPlugin, listsPlugin, quotePlugin, thematicBreakPlugin,
   markdownShortcutPlugin, linkPlugin, linkDialogPlugin, tablePlugin,
   codeBlockPlugin, codeMirrorPlugin, diffSourcePlugin,
   toolbarPlugin, BoldItalicUnderlineToggles, BlockTypeSelect,
   CreateLink, InsertTable, InsertThematicBreak, ListsToggle,
-  UndoRedo, CodeToggle, DiffSourceToggleWrapper, Separator
-} from '@mdxeditor/editor'
-import '@mdxeditor/editor/style.css'
+  UndoRedo, CodeToggle, DiffSourceToggleWrapper, Separator } from
+'@mdxeditor/editor';
+import '@mdxeditor/editor/style.css';
 
 // Inline editable title - click to rename
 function EditableTitle({ filename, onRename }) {
-  const [editing, setEditing] = useState(false)
-  const [val, setVal] = useState(filename.replace('.md', ''))
-  const inputRef = useRef(null)
+  const [editing, setEditing] = useState(false);
+  const [val, setVal] = useState(filename.replace('.md', ''));
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    setVal(filename.replace('.md', ''))
-  }, [filename])
+    setVal(filename.replace('.md', ''));
+  }, [filename]);
 
   const commit = () => {
-    setEditing(false)
-    const trimmed = val.trim()
+    setEditing(false);
+    const trimmed = val.trim();
     if (trimmed && trimmed !== filename.replace('.md', '')) {
-      onRename(filename, trimmed)
+      onRename(filename, trimmed);
     } else {
-      setVal(filename.replace('.md', ''))
+      setVal(filename.replace('.md', ''));
     }
-  }
+  };
 
   if (editing) {
     return (
@@ -57,187 +58,188 @@ function EditableTitle({ filename, onRename }) {
         ref={inputRef}
         autoFocus
         value={val}
-        onChange={e => setVal(e.target.value)}
+        onChange={(e) => setVal(e.target.value)}
         onBlur={commit}
-        onKeyDown={e => {
-          if (e.key === 'Enter') commit()
-          if (e.key === 'Escape') { setEditing(false); setVal(filename.replace('.md', '')) }
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') commit();
+          if (e.key === 'Escape') {setEditing(false);setVal(filename.replace('.md', ''));}
         }}
-        className="text-lg font-semibold bg-transparent border-b border-kronos-accent/50 outline-none text-kronos-text w-48 pb-0.5"
-      />
-    )
+        className="text-lg font-semibold bg-transparent border-b border-kronos-accent/50 outline-none text-kronos-text w-48 pb-0.5" />);
+
+
   }
 
   return (
     <button
       onClick={() => setEditing(true)}
       className="flex items-center gap-2 text-lg font-semibold hover:text-kronos-accent transition-colors group"
-      title="Click to rename"
-    >
+      title={t('notes.click_to_rename')}>
+      
       <FileText size={18} />
       {val}
-    </button>
-  )
+    </button>);
+
 }
 
 export default function Notes() {
-  const [files, setFiles] = useState([])
-  const [activeFile, setActiveFile] = useState(null)
-  const [content, setContent] = useState('')
-  const [saving, setSaving] = useState(false)
-  const [renamingTab, setRenamingTab] = useState(null)
-  const [renameVal, setRenameVal] = useState('')
-  const [fileToDelete, setFileToDelete] = useState(null)
-  const latestContentRef = useRef('')
-  const isDirtyRef = useRef(false)
-  const activeFileRef = useRef(null)
+  const { t } = useUi()
+  const [files, setFiles] = useState([]);
+  const [activeFile, setActiveFile] = useState(null);
+  const [content, setContent] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [renamingTab, setRenamingTab] = useState(null);
+  const [renameVal, setRenameVal] = useState('');
+  const [fileToDelete, setFileToDelete] = useState(null);
+  const latestContentRef = useRef('');
+  const isDirtyRef = useRef(false);
+  const activeFileRef = useRef(null);
 
   const loadFiles = async () => {
     try {
-      const list = await invoke('list_notes')
-      setFiles(list)
-      if (list.length > 0 && !activeFileRef.current) selectFile(list[0])
-    } catch (err) { console.error('list_notes failed:', err) }
-  }
+      const list = await invoke('list_notes');
+      setFiles(list);
+      if (list.length > 0 && !activeFileRef.current) selectFile(list[0]);
+    } catch (err) {console.error('list_notes failed:', err);}
+  };
 
-  useEffect(() => { loadFiles() }, [])
+  useEffect(() => {loadFiles();}, []);
 
   const saveIfDirty = useCallback(async (filename, currentContent) => {
-    if (!filename || !isDirtyRef.current) return
+    if (!filename || !isDirtyRef.current) return;
     try {
-      await invoke('save_note', { filename, content: currentContent })
-      isDirtyRef.current = false
-      return true
+      await invoke('save_note', { filename, content: currentContent });
+      isDirtyRef.current = false;
+      return true;
     } catch (err) {
-      console.error('save_note failed:', err)
-      return false
+      console.error('save_note failed:', err);
+      return false;
     }
-  }, [])
+  }, []);
 
   // Save note when switching to another tab or unmounting
   useEffect(() => {
     return () => {
       if (activeFileRef.current) {
-        saveIfDirty(activeFileRef.current, latestContentRef.current).catch(() => { })
+        saveIfDirty(activeFileRef.current, latestContentRef.current).catch(() => {});
       }
-    }
-  }, [saveIfDirty])
+    };
+  }, [saveIfDirty]);
 
   const selectFile = useCallback(async (filename) => {
     if (activeFileRef.current && activeFileRef.current !== filename) {
-      await saveIfDirty(activeFileRef.current, latestContentRef.current)
+      await saveIfDirty(activeFileRef.current, latestContentRef.current);
     }
     if (!filename) {
-      setActiveFile(null); setContent('')
-      latestContentRef.current = ''; isDirtyRef.current = false; activeFileRef.current = null
-      return
+      setActiveFile(null);setContent('');
+      latestContentRef.current = '';isDirtyRef.current = false;activeFileRef.current = null;
+      return;
     }
     try {
-      const text = await invoke('read_note', { filename })
-      latestContentRef.current = text
-      isDirtyRef.current = false
-      activeFileRef.current = filename
-      setContent(text)
-      setActiveFile(filename)
-    } catch (err) { console.error('read_note failed:', err) }
-  }, [saveIfDirty])
+      const text = await invoke('read_note', { filename });
+      latestContentRef.current = text;
+      isDirtyRef.current = false;
+      activeFileRef.current = filename;
+      setContent(text);
+      setActiveFile(filename);
+    } catch (err) {console.error('read_note failed:', err);}
+  }, [saveIfDirty]);
 
   useEffect(() => {
-    if (!activeFile) return
+    if (!activeFile) return;
     const iv = setInterval(async () => {
-      if (!activeFileRef.current || !isDirtyRef.current) return
+      if (!activeFileRef.current || !isDirtyRef.current) return;
 
-      setSaving(true)
-      const saved = await saveIfDirty(activeFileRef.current, latestContentRef.current)
+      setSaving(true);
+      const saved = await saveIfDirty(activeFileRef.current, latestContentRef.current);
       if (saved) {
-        setTimeout(() => setSaving(false), 2000)
+        setTimeout(() => setSaving(false), 2000);
       } else {
-        setSaving(false)
+        setSaving(false);
       }
-    }, 15_000)
-    return () => clearInterval(iv)
-  }, [activeFile, saveIfDirty])
+    }, 15_000);
+    return () => clearInterval(iv);
+  }, [activeFile, saveIfDirty]);
 
   const newFile = async () => {
-    let name = 'New Note.md', n = 2
-    while (files.includes(name)) name = `New Note ${n++}.md`
+    let name = 'New Note.md',n = 2;
+    while (files.includes(name)) name = `New Note ${n++}.md`;
     try {
-      await invoke('save_note', { filename: name, content: '# New Note\n' })
-      const list = await invoke('list_notes')
-      setFiles(list); selectFile(name)
-    } catch { }
-  }
+      await invoke('save_note', { filename: name, content: '# New Note\n' });
+      const list = await invoke('list_notes');
+      setFiles(list);selectFile(name);
+    } catch {}
+  };
 
 
   const handleRename = useCallback(async (oldName, newName) => {
-    if (!newName.trim() || newName === oldName.replace('.md', '')) return
-    const finalName = newName.endsWith('.md') ? newName : `${newName}.md`
-    if (files.includes(finalName)) { alert('A note with that name already exists'); return }
+    if (!newName.trim() || newName === oldName.replace('.md', '')) return;
+    const finalName = newName.endsWith('.md') ? newName : `${newName}.md`;
+    if (files.includes(finalName)) {alert('A note with that name already exists');return;}
     try {
-      const src = activeFile === oldName ? latestContentRef.current : await invoke('read_note', { filename: oldName })
-      await invoke('save_note', { filename: finalName, content: src })
-      await invoke('delete_note', { filename: oldName })
-      const list = await invoke('list_notes')
-      setFiles(list)
+      const src = activeFile === oldName ? latestContentRef.current : await invoke('read_note', { filename: oldName });
+      await invoke('save_note', { filename: finalName, content: src });
+      await invoke('delete_note', { filename: oldName });
+      const list = await invoke('list_notes');
+      setFiles(list);
       if (activeFile === oldName) {
-        activeFileRef.current = finalName
-        setActiveFile(finalName)
-        isDirtyRef.current = false
+        activeFileRef.current = finalName;
+        setActiveFile(finalName);
+        isDirtyRef.current = false;
       }
-    } catch (err) { console.error('rename failed:', err) }
-  }, [files, activeFile])
+    } catch (err) {console.error('rename failed:', err);}
+  }, [files, activeFile]);
 
   const handleTabRename = useCallback((oldName, rawNewName) => {
-    handleRename(oldName, rawNewName)
-    setRenamingTab(null)
-  }, [handleRename])
+    handleRename(oldName, rawNewName);
+    setRenamingTab(null);
+  }, [handleRename]);
 
   const confirmDelete = async () => {
-    if (!fileToDelete) return
+    if (!fileToDelete) return;
     try {
-      const wasActive = fileToDelete === activeFileRef.current
+      const wasActive = fileToDelete === activeFileRef.current;
       if (wasActive) {
-        setActiveFile(null)
-        setContent('')
-        latestContentRef.current = ''
-        activeFileRef.current = null
+        setActiveFile(null);
+        setContent('');
+        latestContentRef.current = '';
+        activeFileRef.current = null;
       }
 
-      await invoke('delete_note', { filename: fileToDelete })
-      const list = await invoke('list_notes')
-      setFiles(list)
+      await invoke('delete_note', { filename: fileToDelete });
+      const list = await invoke('list_notes');
+      setFiles(list);
 
       if (wasActive) {
-        if (list.length > 0) selectFile(list[0])
-        else { setActiveFile(null); setContent(''); latestContentRef.current = ''; activeFileRef.current = null }
+        if (list.length > 0) selectFile(list[0]);else
+        {setActiveFile(null);setContent('');latestContentRef.current = '';activeFileRef.current = null;}
       }
     } catch (err) {
-      console.error('Delete failed:', err)
-    }
-    finally { setFileToDelete(null) }
-  }
+      console.error('Delete failed:', err);
+    } finally
+    {setFileToDelete(null);}
+  };
 
   const plugins = [
-    headingsPlugin(),
-    listsPlugin(),
-    quotePlugin(),
-    thematicBreakPlugin(),
-    markdownShortcutPlugin(),
-    linkPlugin(),
-    linkDialogPlugin(),
-    tablePlugin(),
-    codeBlockPlugin({ defaultCodeBlockLanguage: '' }),
-    codeMirrorPlugin({
-      codeBlockLanguages: {
-        js: 'JavaScript', ts: 'TypeScript', jsx: 'JSX', tsx: 'TSX',
-        css: 'CSS', html: 'HTML', json: 'JSON', bash: 'Bash',
-        py: 'Python', rs: 'Rust', '': 'Plain text'
-      }
-    }),
-    diffSourcePlugin({ viewMode: 'rich-text' }),
-    toolbarPlugin({
-      toolbarContents: () => (
-        <DiffSourceToggleWrapper>
+  headingsPlugin(),
+  listsPlugin(),
+  quotePlugin(),
+  thematicBreakPlugin(),
+  markdownShortcutPlugin(),
+  linkPlugin(),
+  linkDialogPlugin(),
+  tablePlugin(),
+  codeBlockPlugin({ defaultCodeBlockLanguage: '' }),
+  codeMirrorPlugin({
+    codeBlockLanguages: {
+      js: 'JavaScript', ts: 'TypeScript', jsx: 'JSX', tsx: 'TSX',
+      css: 'CSS', html: 'HTML', json: 'JSON', bash: 'Bash',
+      py: 'Python', rs: 'Rust', '': 'Plain text'
+    }
+  }),
+  diffSourcePlugin({ viewMode: 'rich-text' }),
+  toolbarPlugin({
+    toolbarContents: () =>
+    <DiffSourceToggleWrapper>
           <UndoRedo />
           <Separator />
           <BlockTypeSelect />
@@ -251,9 +253,9 @@ export default function Notes() {
           <CreateLink />
           <InsertTable />
         </DiffSourceToggleWrapper>
-      )
-    }),
-  ]
+
+  })];
+
 
   return (
     <PageLayout titleKey="screen.notes">
@@ -426,98 +428,98 @@ export default function Notes() {
         .kronos-editor .mdxeditor-diff-editor del { background: rgba(239,68,68,0.15) !important; }
       `}</style>
 
-      {fileToDelete && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      {fileToDelete &&
+      <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
           <Card className="max-w-md w-full p-6 text-center border-red-500/20 shadow-2xl">
-            <h2 className="text-xl font-bold mb-2">Delete Note?</h2>
-            <p className="text-kronos-dim mb-6">Delete <span className="text-kronos-text font-bold">{fileToDelete}</span>?</p>
+            <h2 className="text-xl font-bold mb-2">{t('notes.delete_note_title')}</h2>
+            <p className="text-kronos-dim mb-6">{t('notes.delete')}<span className="text-kronos-text font-bold">{fileToDelete}</span>?</p>
             <div className="flex gap-4 justify-center">
-              <Button variant="secondary" onClick={() => setFileToDelete(null)}>Cancel</Button>
-              <Button onClick={confirmDelete} className="bg-red-500/20 text-red-500 hover:bg-red-500 hover:text-white border-red-500/50">Delete</Button>
+              <Button variant="secondary" onClick={() => setFileToDelete(null)}>{t('notes.cancel')}</Button>
+              <Button onClick={confirmDelete} className="bg-red-500/20 text-red-500 hover:bg-red-500 hover:text-white border-red-500/50">{t('notes.delete')}</Button>
             </div>
           </Card>
         </div>
-      )}
+      }
 
       <Card className="p-4 h-full flex flex-col">
         {/* Tab strip */}
         <div className="flex items-center gap-1.5 overflow-x-auto shrink-0 pb-3" style={{ scrollbarWidth: 'thin' }}>
-          {files.map(f => {
-            const isActive = f === activeFile
+          {files.map((f) => {
+            const isActive = f === activeFile;
             if (renamingTab === f) {
               return (
                 <div key={f} className="flex items-center gap-1 bg-kronos-panel rounded px-2 py-1 shrink-0">
                   <input autoFocus value={renameVal}
-                    onChange={e => setRenameVal(e.target.value)}
-                    onKeyDown={e => {
-                      if (e.key === 'Enter') handleTabRename(f, renameVal)
-                      if (e.key === 'Escape') setRenamingTab(null)
-                    }}
-                    onBlur={() => setRenamingTab(null)}
-                    className="bg-transparent text-sm text-kronos-text outline-none w-24"
-                  />
-                </div>
-              )
+                  onChange={(e) => setRenameVal(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleTabRename(f, renameVal);
+                    if (e.key === 'Escape') setRenamingTab(null);
+                  }}
+                  onBlur={() => setRenamingTab(null)}
+                  className="bg-transparent text-sm text-kronos-text outline-none w-24" />
+                  
+                </div>);
+
             }
             return (
               <div key={f}
-                onClick={() => selectFile(f)}
-                onDoubleClick={() => { setRenamingTab(f); setRenameVal(f.replace('.md', '')) }}
-                className={`group/tab flex items-center gap-1 px-3 py-1.5 rounded cursor-pointer shrink-0 text-sm transition-colors select-none
-                  ${isActive
-                    ? 'bg-kronos-accent/15 text-kronos-accent font-medium'
-                    : 'bg-kronos-panel/40 text-kronos-dim hover:bg-kronos-panel/70 hover:text-kronos-text'}`}
-              >
+              onClick={() => selectFile(f)}
+              onDoubleClick={() => {setRenamingTab(f);setRenameVal(f.replace('.md', ''));}}
+              className={`group/tab flex items-center gap-1 px-3 py-1.5 rounded cursor-pointer shrink-0 text-sm transition-colors select-none
+                  ${isActive ?
+              'bg-kronos-accent/15 text-kronos-accent font-medium' :
+              'bg-kronos-panel/40 text-kronos-dim hover:bg-kronos-panel/70 hover:text-kronos-text'}`}>
+                
                 <span className="truncate max-w-[120px]">{f.replace('.md', '')}</span>
-                <button onClick={e => { e.stopPropagation(); setFileToDelete(f) }}
-                  className="opacity-0 group-hover/tab:opacity-100 transition-opacity p-0.5 text-kronos-dim hover:text-red-400 ml-0.5 rounded">
+                <button onClick={(e) => {e.stopPropagation();setFileToDelete(f);}}
+                className="opacity-0 group-hover/tab:opacity-100 transition-opacity p-0.5 text-kronos-dim hover:text-red-400 ml-0.5 rounded">
                   <X size={12} />
                 </button>
-              </div>
-            )
+              </div>);
+
           })}
           <button onClick={newFile}
-            className="shrink-0 p-1.5 rounded hover:bg-kronos-panel/40 text-kronos-dim hover:text-kronos-accent transition-colors"
-            title="New note"
-          >
+          className="shrink-0 p-1.5 rounded hover:bg-kronos-panel/40 text-kronos-dim hover:text-kronos-accent transition-colors"
+          title={t('notes.new_note')}>
+            
             <Plus size={14} />
           </button>
           <div className="flex items-center gap-0.5 ml-1 pl-1 border-l border-white/5">
             <button onClick={() => invoke('open_notes_folder')}
-              className="shrink-0 p-1.5 rounded hover:bg-kronos-panel/40 text-kronos-dim hover:text-kronos-accent transition-colors"
-              title="Open notes folder">
+            className="shrink-0 p-1.5 rounded hover:bg-kronos-panel/40 text-kronos-dim hover:text-kronos-accent transition-colors"
+            title={t('notes.open_notes_folder')}>
               <FolderOpen size={14} />
             </button>
           </div>
         </div>
 
         {/* Title row + Editor */}
-        {activeFile ? (
-          <>
+        {activeFile ?
+        <>
             <div className="flex items-center gap-2 shrink-0 pb-3">
               <EditableTitle filename={activeFile} onRename={handleRename} />
-              <div className={`ml-auto text-xs transition-opacity duration-500 ${saving ? 'opacity-100 text-kronos-accent' : 'opacity-0'}`}>Saved</div>
+              <div className={`ml-auto text-xs transition-opacity duration-500 ${saving ? 'opacity-100 text-kronos-accent' : 'opacity-0'}`}>{t('notes.saved')}</div>
             </div>
 
             <MDXEditor
-              key={activeFile}
-              markdown={content}
-              onChange={val => {
-                latestContentRef.current = val;
-                isDirtyRef.current = true;
-              }}
-              autoFocus={{ defaultSelection: 'end', preventScroll: true }}
-              plugins={plugins}
-              className="dark-theme dark-editor kronos-editor"
-              contentEditableClassName="prose-kronos-content custom-scrollbar"
-            />
-          </>
-        ) : (
-          <div className="flex items-center justify-center h-full text-kronos-dim">
-            Select or create a note
-          </div>
-        )}
+            key={activeFile}
+            markdown={content}
+            onChange={(val) => {
+              latestContentRef.current = val;
+              isDirtyRef.current = true;
+            }}
+            autoFocus={{ defaultSelection: 'end', preventScroll: true }}
+            plugins={plugins}
+            className="dark-theme dark-editor kronos-editor"
+            contentEditableClassName="prose-kronos-content custom-scrollbar" />
+          
+          </> :
+
+        <div className="flex items-center justify-center h-full text-kronos-dim">{t('notes.select_or_create')}
+
+        </div>
+        }
       </Card>
-    </PageLayout>
-  )
+    </PageLayout>);
+
 }

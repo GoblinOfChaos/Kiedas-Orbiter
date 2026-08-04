@@ -1,0 +1,26 @@
+{
+  "ui": {
+    "rivens.type_all": "All",
+    "rivens.type_rifle": "Rifle",
+    "rivens.type_pistol": "Pistol",
+    "rivens.type_melee": "Melee",
+    "rivens.type_shotgun": "Shotgun",
+    "rivens.type_sniper": "Sniper",
+    "rivens.type_kitgun": "Kitgun",
+    "rivens.type_zaw": "Zaw",
+    "rivens.type_archgun": "Archgun",
+    "rivens.state_all": "All States",
+    "rivens.state_unveiled": "Unveiled",
+    "rivens.state_challenge": "Challenge",
+    "rivens.state_veiled": "Veiled",
+    "rivens.sort_name": "Name",
+    "rivens.sort_plat": "Plat",
+    "rivens.sort_grade": "Grade",
+    "rivens.search_placeholder": "Search rivens…",
+    "rivens.unveiled_count": "{n} unveiled",
+    "rivens.challenge_count": "{n} challenge",
+    "rivens.veiled_count": "{n} veiled",
+    "rivens.capacity": "{a}/{b} capacity",
+    "rivens.no_match": "No rivens match your filters"
+  }
+}

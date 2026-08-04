@@ -32,6 +32,9 @@ importers:
       '@uiw/react-md-editor':
         specifier: ^4.0.11
         version: 4.0.11(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      country-flag-icons:
+        specifier: ^1.6.20
+        version: 1.6.20
       lucide-react:
         specifier: ^0.344.0
         version: 0.344.0(react@18.3.1)
@@ -49,7 +52,7 @@ importers:
         version: 1.1269.87(warframe-worldstate-data@2.25.0)
       warframe-public-export-plus:
         specifier: latest
-        version: 0.6.7
+        version: 0.6.8
     devDependencies:
       '@tauri-apps/cli':
         specifier: ^2
@@ -1431,6 +1434,9 @@ packages:
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
+  country-flag-icons@1.6.20:
+    resolution: {integrity: sha512-py8JiEKzjhYw6HPJ0L7SxLgCYim36UPRTZX43/kqGueUCZLSvnrqAiwW8HtQibur7mdkFQUkjOgdK+o/9FBtaw==}
+
   crelt@1.0.6:
     resolution: {integrity: sha512-VQ2MBenTq1fWZUH9DJNGti7kKv6EeAuYr3cLwxUWhIu1baTaXh4Ib5W2CqHVqib4/MqbYGJqiL3Zb8GJZr3l4g==}
 
@@ -2436,8 +2442,8 @@ packages:
     peerDependencies:
       warframe-worldstate-data: ^2.24
 
-  warframe-public-export-plus@0.6.7:
-    resolution: {integrity: sha512-Ybe14BSi1WBIBmZNsNoaUqX5ZvrljcqY+4yuXcexz9ajZaSaSeJk9LDtEF5fZU0iCzhyKmOLCokCp16Kb+2ABw==}
+  warframe-public-export-plus@0.6.8:
+    resolution: {integrity: sha512-5f6Yeplc9eXm7WhBHuFhA+HTimeZ7AncQvfVE1lGRMua2SUtPMkyGCA02kaxKdrsCq+GWJYCblMCmulCbndkpQ==}
 
   warframe-worldstate-data@2.25.0:
     resolution: {integrity: sha512-orgH0ZTrGeZaU300VqUdMETpAARrePDmBIQlrsmch10cmOyPL/tykFO44JacMYYC2xSoyz+n7irFwx5pTyWA1w==}
@@ -4056,6 +4062,8 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
+  country-flag-icons@1.6.20: {}
+
   crelt@1.0.6: {}
 
   css-selector-parser@3.3.0: {}
@@ -5529,7 +5537,7 @@ snapshots:
     dependencies:
       warframe-worldstate-data: 2.25.0
 
-  warframe-public-export-plus@0.6.7: {}
+  warframe-public-export-plus@0.6.8: {}
 
   warframe-worldstate-data@2.25.0: {}
 

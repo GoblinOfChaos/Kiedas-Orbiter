@@ -1,0 +1,17 @@
+{
+  "ui": {
+    "ui.setup.welcome": "Welcome to Cephalon Kronos",
+    "ui.setup.intro": "Let's get you set up: pick your game language below and configure the path to Cache.Windows (optional).",
+    "ui.setup.game_assets": "Game Assets",
+    "ui.setup.optional": "(optional)",
+    "ui.setup.cache_folder_placeholder": "Select Cache.Windows folder...",
+    "ui.setup.browse": "Browse",
+    "ui.setup.game_assets_hint": "Use game assets for cleaner mod cards.",
+    "ui.setup.disclaimer_title": "Disclaimer",
+    "ui.setup.disclaimer_text": "This app reads session tokens from game memory. Digital Extremes has not approved this application.",
+    "ui.setup.accept_text": "I understand and accept the risks described above.",
+    "ui.setup.continue": "Continue",
+    "ui.setup.scanner": "Scanner",
+    "ui.setup.scanner_hooked": "Log scanner hooked into Warframe"
+  }
+}

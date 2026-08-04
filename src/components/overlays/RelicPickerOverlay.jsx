@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
+import { useUi } from '../../contexts/UiContext'
 import { listen } from '@tauri-apps/api/event'
 import { invoke } from '@tauri-apps/api/core'
 
 export default function RelicPickerOverlay() {
+  const { t } = useUi()
   const [relics, setRelics] = useState(null)
   const [windowVisible, setWindowVisible] = useState(false)
   const windowVisibleRef = useRef(false)

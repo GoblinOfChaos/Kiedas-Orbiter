@@ -1,0 +1,12 @@
+{
+  "ui": {
+    "ui.relic_reward.analyzing": "Analyzing...",
+    "ui.relic_reward.plat": "Plat",
+    "ui.relic_reward.owned": "Owned",
+    "ui.relic_reward.ducats": "Ducats",
+    "ui.relic_reward.bp": "BP",
+    "ui.relic_reward.mastered": "Mastered",
+    "ui.relic_reward.mastered_yes": "MASTERED",
+    "ui.relic_reward.mastered_no": "UNMASTERED"
+  }
+}

@@ -1,4 +1,5 @@
 import { useMemo, useEffect, useState, useCallback, useRef } from 'react'
+import { useUi } from '../contexts/UiContext'
 import { invoke, convertFileSrc } from '@tauri-apps/api/core'
 import { PageLayout } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
@@ -121,6 +122,7 @@ function ProgressCard({ icon, label, subtitle, count, total, color, onClick }) {
 }
 
 export default function Collectibles() {
+  const { t } = useUi()
   const { inventoryData, dict } = useMonitoring()
   const [uiPath, setUiPath] = useState('')
   const [selectedCat, setSelectedCat] = useState(null)

@@ -1,0 +1,6 @@
+{
+  "ui": {
+    "ui.toast.more": "+{n} MORE",
+    "ui.toast.more_soft": "+ {n} More"
+  }
+}

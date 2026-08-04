@@ -1,4 +1,5 @@
 import React, { Suspense, lazy } from 'react'
+import { useUi } from '../../contexts/UiContext'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import ToastOverlay from './ToastOverlay'
 import SidebarOverlay from './SidebarOverlay'
@@ -14,6 +15,7 @@ const LABEL_TO_POS = {
 }
 
 export default function OverlayRouter() {
+  const { t } = useUi()
   const label = getCurrentWindow().label
 
   if (LABEL_TO_POS[label]) {

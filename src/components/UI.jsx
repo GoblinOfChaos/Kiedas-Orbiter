@@ -2,98 +2,98 @@
 import { useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X, AlertCircle, RefreshCw } from 'lucide-react';
-import { useUi } from '../contexts/UiContext'
+import { useUi } from '../contexts/UiContext';
 
 // Portal tooltip that follows trigger during scroll/resize
 export function TooltipPortal({ children, triggerRef, visible, position = 'right' }) {
-  const [coords, setCoords] = useState({ top: 0, left: 0 })
-  const [opacity, setOpacity] = useState(0)
+  const [coords, setCoords] = useState({ top: 0, left: 0 });
+  const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
-    if (!triggerRef.current || !visible) return
+    if (!triggerRef.current || !visible) return;
 
     const updatePos = () => {
-      if (!triggerRef.current) return
-      const rect = triggerRef.current.getBoundingClientRect()
-      
+      if (!triggerRef.current) return;
+      const rect = triggerRef.current.getBoundingClientRect();
+
       if (position === 'right') {
         setCoords({
           top: rect.top + window.scrollY + rect.height / 2,
           left: rect.right + window.scrollX + 8
-        })
+        });
       } else if (position === 'top') {
         setCoords({
           top: rect.top + window.scrollY - 8,
           left: rect.left + window.scrollX + rect.width / 2
-        })
+        });
       } else if (position === 'bottom') {
         setCoords({
           top: rect.bottom + window.scrollY + 8,
           left: rect.left + window.scrollX + rect.width / 2
-        })
+        });
       }
-    }
+    };
 
-    updatePos()
-    window.addEventListener('scroll', updatePos, true)
-    window.addEventListener('resize', updatePos)
+    updatePos();
+    window.addEventListener('scroll', updatePos, true);
+    window.addEventListener('resize', updatePos);
     return () => {
-      window.removeEventListener('scroll', updatePos, true)
-      window.removeEventListener('resize', updatePos)
-    }
-  }, [triggerRef, visible, position])
+      window.removeEventListener('scroll', updatePos, true);
+      window.removeEventListener('resize', updatePos);
+    };
+  }, [triggerRef, visible, position]);
 
   useEffect(() => {
-    if (visible) setOpacity(1)
-    else setOpacity(0)
-  }, [visible])
+    if (visible) setOpacity(1);else
+    setOpacity(0);
+  }, [visible]);
 
-  if (!visible && opacity === 0) return null
+  if (!visible && opacity === 0) return null;
 
   return createPortal(
     <div
       className="fixed z-[9999] pointer-events-none bg-kronos-bg border border-white/10 rounded-lg px-3 py-2 shadow-2xl glass-panel font-black uppercase text-[10px] tracking-widest text-kronos-accent whitespace-nowrap transition-opacity duration-200"
-      style={{ 
-        top: coords.top, 
-        left: coords.left, 
+      style={{
+        top: coords.top,
+        left: coords.left,
         transform: position === 'right' ? 'translateY(-50%)' : 'translateX(-50%) translateY(-100%)',
-        opacity 
-      }}
-    >
+        opacity
+      }}>
+      
       {children}
     </div>,
     document.body
-  )
+  );
 }
 
 export function Tooltip({ children, content, position = 'right' }) {
-  const triggerRef = useRef(null)
-  const [visible, setVisible] = useState(false)
+  const triggerRef = useRef(null);
+  const [visible, setVisible] = useState(false);
 
   return (
     <>
-      <div 
+      <div
         ref={triggerRef}
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
-        className="inline-block"
-      >
+        className="inline-block">
+        
         {children}
       </div>
       <TooltipPortal triggerRef={triggerRef} visible={visible} position={position}>
         {content}
       </TooltipPortal>
-    </>
-  )
+    </>);
+
 }
 
 // Monitor State Prompt
 // Unified "No inventory data found" component.
 export function MonitorState({ className = "", isLoading = false }) {
-  const { t } = useUi()
+  const { t } = useUi();
   const goToSettings = () => {
-    const btn = document.getElementById('nav-settings')
-      ?? document.querySelector('[data-nav="settings"]');
+    const btn = document.getElementById('nav-settings') ??
+    document.querySelector('[data-nav="settings"]');
     btn?.click();
   };
 
@@ -105,8 +105,8 @@ export function MonitorState({ className = "", isLoading = false }) {
         <p className="text-sm text-kronos-dim max-w-xs uppercase font-medium">
           {t('loading.processing')}
         </p>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -119,8 +119,8 @@ export function MonitorState({ className = "", isLoading = false }) {
       <Button onClick={goToSettings} className="px-8 font-black uppercase tracking-widest">
         {t('loading.go_settings')}
       </Button>
-    </div>
-  );
+    </div>);
+
 }
 
 // Card Component
@@ -133,49 +133,49 @@ export function Card({ children, className = '', glow = false, ...props }) {
         ${glow ? 'glow-hover' : ''}
         ${className}
       `}
-      {...props}
-    >
+      {...props}>
+      
       {children}
-    </div>
-  )
+    </div>);
+
 }
 
 // Page Layout Component
-import { useMonitoring } from '../contexts/MonitoringContext'
-import { ChevronUp } from 'lucide-react'
+import { useMonitoring } from '../contexts/MonitoringContext';
+import { ChevronUp } from 'lucide-react';
 
 function BackToTopButton({ scrollRef }) {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const container = scrollRef.current
-    if (!container) return
+    const container = scrollRef.current;
+    if (!container) return;
 
     const handleScroll = () => {
-      setVisible(container.scrollTop > 200)
-    }
+      setVisible(container.scrollTop > 200);
+    };
 
-    container.addEventListener('scroll', handleScroll)
-    handleScroll()
-    return () => container.removeEventListener('scroll', handleScroll)
-  }, [scrollRef])
+    container.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [scrollRef]);
 
-  if (!visible) return null
+  if (!visible) return null;
 
   return (
     <button
       onClick={() => scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
       className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-kronos-accent text-kronos-bg shadow-lg hover:scale-110 transition-transform"
-      title="Back to top"
-    >
+      title={t('ui.comp.back_to_top')}>
+      
       <ChevronUp size={20} strokeWidth={2.5} />
-    </button>
-  )
+    </button>);
+
 }
 
 export function PageLayout({ title, titleKey, subtitle, children, extra, headerPanel }) {
-  const { t } = useUi()
-  const scrollRef = useRef(null)
+  const { t } = useUi();
+  const scrollRef = useRef(null);
 
   return (
     <div className="h-full flex flex-col">
@@ -195,17 +195,17 @@ export function PageLayout({ title, titleKey, subtitle, children, extra, headerP
       {/* Scrollable Content Area */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 pb-8 pt-0 min-h-0 flex flex-col custom-scrollbar">
         <div className="relative flex-1 min-h-0 flex flex-col">
-          {headerPanel && (
-            <div className="sticky top-0 z-30 py-4 bg-kronos-bg -mx-8 px-8 border-b border-white/5 mb-6">
+          {headerPanel &&
+          <div className="sticky top-0 z-30 py-4 bg-kronos-bg -mx-8 px-8 border-b border-white/5 mb-6">
               {headerPanel}
             </div>
-          )}
+          }
           {children}
         </div>
       </div>
       <BackToTopButton scrollRef={scrollRef} />
-    </div>
-  )
+    </div>);
+
 }
 
 // Empty State Component
@@ -219,8 +219,8 @@ export function EmptyState({ icon: Icon, title, description }) {
         <h2 className="text-2xl font-bold mb-2">{title}</h2>
         {description && <p className="text-kronos-dim">{description}</p>}
       </div>
-    </div>
-  )
+    </div>);
+
 }
 
 // Card Header Component
@@ -230,16 +230,16 @@ export function CardHeader({ icon: Icon, imageSrc, title, action }) {
   return (
     <div className={`flex items-center ${action ? 'justify-between' : 'gap-2'} mb-2`}>
       <div className="flex items-center gap-2">
-        {imageSrc ? (
-          <img src={imageSrc} className="w-5 h-5 object-contain flex-shrink-0" alt="" />
-        ) : Icon ? (
-          <Icon size={20} className="text-kronos-accent flex-shrink-0" />
-        ) : null}
+        {imageSrc ?
+        <img src={imageSrc} className="w-5 h-5 object-contain flex-shrink-0" alt="" /> :
+        Icon ?
+        <Icon size={20} className="text-kronos-accent flex-shrink-0" /> :
+        null}
         <p className="font-bold text-sm uppercase">{title}</p>
       </div>
       {action && <div className="flex-shrink-0">{action}</div>}
-    </div>
-  )
+    </div>);
+
 }
 
 // Button Component
@@ -253,8 +253,8 @@ export function Button({
   const variants = {
     primary: 'bg-kronos-accent hover:bg-kronos-accent-secondary text-kronos-bg glow-hover',
     secondary: 'glass-panel hover:bg-kronos-panel/80 text-kronos-text',
-    ghost: 'hover:bg-kronos-panel/40 text-kronos-dim hover:text-kronos-text',
-  }
+    ghost: 'hover:bg-kronos-panel/40 text-kronos-dim hover:text-kronos-text'
+  };
 
   return (
     <button
@@ -266,11 +266,11 @@ export function Button({
         ${className}
       `}
       disabled={disabled}
-      {...props}
-    >
+      {...props}>
+      
       {children}
-    </button>
-  )
+    </button>);
+
 }
 
 // Input Component
@@ -284,36 +284,36 @@ export function Input({ className = '', ...props }) {
         transition-shadow duration-200
         ${className}
       `}
-      {...props}
-    />
-  )
+      {...props} />);
+
+
 }
 
 // Tab/Category/Filter Component
 export function Tabs({ tabs, activeTab, onChange, className = '', fullWidth = false }) {
   return (
     <div
-      className={`flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5 ${className}`}
-    >
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => onChange(tab.id)}
-              className={`
+      className={`flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5 ${className}`}>
+      
+          {tabs.map((tab) =>
+      <button
+        key={tab.id}
+        onClick={() => onChange(tab.id)}
+        className={`
                 px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center justify-center gap-1.5
                 ${fullWidth ? 'flex-1' : ''}
-                ${(Array.isArray(activeTab) ? activeTab.includes(tab.id) : activeTab === tab.id)
-                  ? 'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]'
-                  : 'text-kronos-dim hover:text-white hover:bg-white/5'
-                }
-              `}
-            >
+                ${(Array.isArray(activeTab) ? activeTab.includes(tab.id) : activeTab === tab.id) ?
+        'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]' :
+        'text-kronos-dim hover:text-white hover:bg-white/5'}
+              `
+        }>
+        
               {tab.icon && <img src={tab.icon} className="w-5 h-5 object-contain" alt="" />}
               {tab.label}
             </button>
-          ))}
-    </div>
-  );
+      )}
+    </div>);
+
 }
 
 // Select Component
@@ -325,40 +325,40 @@ export function Select({ options, value, onChange, label, className = '' }) {
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full bg-kronos-panel/30 border border-white/5 rounded-xl px-4 py-2 text-sm font-bold appearance-none focus:outline-none focus:glow-border transition-all cursor-pointer text-kronos-text"
-        >
-          {options.map((opt) => (
-            <option key={opt.id} value={opt.id} className="bg-kronos-bg text-kronos-text">
+          className="w-full bg-kronos-panel/30 border border-white/5 rounded-xl px-4 py-2 text-sm font-bold appearance-none focus:outline-none focus:glow-border transition-all cursor-pointer text-kronos-text">
+          
+          {options.map((opt) =>
+          <option key={opt.id} value={opt.id} className="bg-kronos-bg text-kronos-text">
               {opt.label}
             </option>
-          ))}
+          )}
         </select>
         <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-kronos-dim">
           <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 // Modal Component
 export function Modal({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl' }) {
   useEffect(() => {
-    if (isOpen) document.body.style.overflow = 'hidden'
-    else document.body.style.overflow = 'unset'
-    return () => { document.body.style.overflow = 'unset' }
-  }, [isOpen])
+    if (isOpen) document.body.style.overflow = 'hidden';else
+    document.body.style.overflow = 'unset';
+    return () => {document.body.style.overflow = 'unset';};
+  }, [isOpen]);
 
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div
         className="absolute inset-0"
-        onClick={onClose}
-      />
+        onClick={onClose} />
+      
       <div className={`relative w-full ${maxWidth} bg-kronos-bg border border-white/5 rounded-xl shadow-2xl flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200 overflow-hidden`}>
         <div className="p-6 border-b border-white/5 flex items-center justify-between flex-shrink-0">
           <div>
@@ -366,8 +366,8 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl'
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-white/5 rounded-full transition-colors text-kronos-dim hover:text-white"
-          >
+            className="p-2 hover:bg-white/5 rounded-full transition-colors text-kronos-dim hover:text-white">
+            
             <X size={20} />
           </button>
         </div>
@@ -375,8 +375,8 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl'
           {children}
         </div>
       </div>
-    </div>
-  )
+    </div>);
+
 }
 
 // Toggle Component
@@ -386,8 +386,8 @@ export function Toggle({ checked, onChange, label, description }) {
       role="switch"
       aria-checked={checked}
       onClick={() => onChange(!checked)}
-      className="flex items-center justify-between w-full text-left group"
-    >
+      className="flex items-center justify-between w-full text-left group">
+      
       <div>
         {label && <span className="text-sm font-medium">{label}</span>}
         {description && <p className="text-xs text-kronos-dim mt-0.5">{description}</p>}
@@ -396,17 +396,17 @@ export function Toggle({ checked, onChange, label, description }) {
         className={`
           relative w-11 h-6 rounded-full transition-colors duration-200 flex-shrink-0
           ${checked ? 'bg-kronos-accent' : 'bg-white/10'}
-        `}
-      >
+        `}>
+        
         <span
           className={`
             absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200
             ${checked ? 'translate-x-5' : 'translate-x-0'}
-          `}
-        />
+          `} />
+        
       </div>
-    </button>
-  )
+    </button>);
+
 }
 
 // Stat Card Component
@@ -419,8 +419,8 @@ export function StatCard({ icon: Icon, label, value, subtext }) {
       </div>
       <div className="text-2xl font-bold mb-1">{value}</div>
       {subtext && <div className="text-sm text-kronos-dim">{subtext}</div>}
-    </Card>
-  )
+    </Card>);
+
 }
 
 // Item Card
@@ -432,30 +432,30 @@ export function ItemCard({ item }) {
 
       <div className="text-sm space-y-1">
         <div className="flex justify-between">
-          <span className="text-kronos-dim">Rank</span>
+          <span className="text-kronos-dim">{t('ui.comp.rank')}</span>
           <span>{item.mastery?.current_rank}/{item.mastery?.max_rank}</span>
         </div>
 
         <div className="flex justify-between">
-          <span className="text-kronos-dim">Mastered</span>
+          <span className="text-kronos-dim">{t('ui.comp.mastered')}</span>
           <span className={item.mastery?.mastered ? 'text-green-500' : 'text-gray-500'}>
             {item.mastery?.mastered ? '✓' : '✗'}
           </span>
         </div>
 
-        {item.forma_count > 0 && (
-          <div className="flex justify-between">
-            <span className="text-kronos-dim">Forma</span>
+        {item.forma_count > 0 &&
+        <div className="flex justify-between">
+            <span className="text-kronos-dim">{t('ui.comp.forma')}</span>
             <span>{item.forma_count}</span>
           </div>
-        )}
+        }
 
-        {item.subsumed && (
-          <div className="text-purple-400 text-xs">
+        {item.subsumed &&
+        <div className="text-purple-400 text-xs">
             ⚗️ Subsumed
           </div>
-        )}
+        }
       </div>
-    </Card>
-  )
+    </Card>);
+
 }

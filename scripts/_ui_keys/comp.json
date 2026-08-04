@@ -1,0 +1,9 @@
+{
+  "ui": {
+    "ui.comp.back_to_top": "Back to top",
+    "ui.comp.rank": "Rank",
+    "ui.comp.mastered": "Mastered",
+    "ui.comp.forma": "Forma",
+    "ui.comp.subsumed": "Subsumed"
+  }
+}

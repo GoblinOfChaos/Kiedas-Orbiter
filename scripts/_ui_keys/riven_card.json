@@ -1,0 +1,23 @@
+{
+  "ui": {
+    "ui.riven_card.veiled": "Veiled",
+    "ui.riven_card.challenge": "Challenge",
+    "ui.riven_card.mr": "MR {mr}",
+    "ui.riven_card.weapon_rank": "Weapon Rank",
+    "ui.riven_card.avg_value": "Avg Value",
+    "ui.riven_card.your_value": "Your Value",
+    "ui.riven_card.reroll_potential": "Reroll Potential",
+    "ui.riven_card.na": "N/A",
+    "ui.riven_card.tier_meta": "Meta",
+    "ui.riven_card.tier_popular": "Popular",
+    "ui.riven_card.tier_average": "Average",
+    "ui.riven_card.tier_niche": "Niche",
+    "ui.riven_card.tier_unpopular": "Unpopular",
+    "ui.riven_card.roll_perfect": "perfect",
+    "ui.riven_card.roll_good": "Good",
+    "ui.riven_card.roll_average": "Average",
+    "ui.riven_card.roll_mediocre": "Mediocre",
+    "ui.riven_card.roll_bad": "Bad",
+    "ui.riven_card.tier_weapon_rolls": "{tier} weapon, {roll} rolls"
+  }
+}

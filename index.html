@@ -6,6 +6,13 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cephalon Kronos</title>
+  <style>
+    /* Kill white FOUC on reload: paint dark synchronously before JS-injected CSS arrives.
+       The is-overlay inline script below overrides this to transparent when needed. */
+    html {
+      background-color: #04060b;
+    }
+  </style>
   <script>
     (function () {
       var params = new URLSearchParams(window.location.search);

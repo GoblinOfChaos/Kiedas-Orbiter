@@ -1,0 +1,21 @@
+{
+  "ui": {
+    "ui.riven_overlay.scanning": "Scanning...",
+    "ui.riven_overlay.avg_value": "Average Value",
+    "ui.riven_overlay.your_value": "Your Value",
+    "ui.riven_overlay.reroll_potential": "Reroll Potential",
+    "ui.riven_overlay.tier_meta": "Meta",
+    "ui.riven_overlay.tier_popular": "Popular",
+    "ui.riven_overlay.tier_average": "Average",
+    "ui.riven_overlay.tier_niche": "Niche",
+    "ui.riven_overlay.tier_unpopular": "Unpopular",
+    "ui.riven_overlay.roll_perfect": "Perfect",
+    "ui.riven_overlay.roll_good": "Good",
+    "ui.riven_overlay.roll_average": "Average",
+    "ui.riven_overlay.roll_mediocre": "Mediocre",
+    "ui.riven_overlay.roll_bad": "Bad",
+    "ui.riven_overlay.tier_weapon_rolls": "{tier} Weapon · {roll} rolls",
+    "ui.riven_overlay.waiting_price": "Waiting for price data...",
+    "ui.riven_overlay.waiting_card": "Waiting for card..."
+  }
+}

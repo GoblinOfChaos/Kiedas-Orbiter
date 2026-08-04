@@ -465,6 +465,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
         id: f._id?.$oid || f._id,
         node: resolveNode(f.Node, dict, ERg),
         missionType: resolveMissionType(f.MissionType, dict, ERg),
+        missionTypeCode: f.MissionType, // raw MT_ code for locale-independent filtering
         tier: era,
         tierNum: parseInt(f.Modifier?.replace('VoidT', ''), 10) || 0,
         expiry: f.Expiry,

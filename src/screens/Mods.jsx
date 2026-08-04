@@ -9,21 +9,6 @@ import ModCard from '../components/ModCard';
 const CARD_WIDTH = 200;
 const COL_GAP = 50;
 
-const SORT_OPTIONS = [
-{ id: 'name', label: 'Name' },
-{ id: 'rank', label: 'Rank' },
-{ id: 'quantity', label: 'Count' },
-{ id: 'rarity', label: 'Rarity' },
-{ id: 'value', label: 'Value (Maxed)' }];
-
-
-const CATEGORIES = [
-'All', 'Warframe', 'Primary', 'Secondary', 'Melee',
-'Sentinels', 'Beasts', 'Stance', 'Aura', 'Exilus',
-'Railjack', 'Archgun', 'Archmelee', 'Parazon',
-'Augment', 'Antique', 'Vehicles', 'Arcanes'];
-
-
 const TYPE_TO_CATEGORY = {
   Rifle: 'Primary', Shotgun: 'Primary', Primary: 'Primary', Bows: 'Primary',
   Pistol: 'Secondary', Secondary: 'Secondary',
@@ -54,6 +39,19 @@ function extractModCategory(un) {
 
 export default function Mods() {
   const { t } = useUi()
+  const CATEGORIES = [
+    t('mods.cat_all'), t('mods.cat_warframe'), t('mods.cat_primary'), t('mods.cat_secondary'), t('mods.cat_melee'),
+    t('mods.cat_sentinels'), t('mods.cat_beasts'), t('mods.cat_stance'), t('mods.cat_aura'), t('mods.cat_exilus'),
+    t('mods.cat_railjack'), t('mods.cat_archgun'), t('mods.cat_archmelee'), t('mods.cat_parazon'),
+    t('mods.cat_augment'), t('mods.cat_antique'), t('mods.cat_vehicles'), t('mods.cat_arcanes')];
+
+  const SORT_OPTIONS = [
+    { id: 'name', label: t('mods.sort_name') },
+    { id: 'rank', label: t('mods.sort_rank') },
+    { id: 'quantity', label: t('mods.sort_count') },
+    { id: 'rarity', label: t('mods.sort_rarity') },
+    { id: 'value', label: t('mods.sort_value') }];
+
   const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading, priceFetchProgress } = useMonitoring();
   const [framesPath, setFramesPath] = useState('');
   const [iconsPath, setIconsPath] = useState('');

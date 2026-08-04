@@ -28,7 +28,14 @@ import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 // Legendary ranks (MR31+) each cost 147,500 XP.
 
 // MR title lookup - wiki Module:MasteryRank
-const MR_CLASSES = ['Unranked', 'Initiate', 'Novice', 'Disciple', 'Seeker', 'Hunter', 'Eagle', 'Tiger', 'Dragon', 'Sage', 'Master'];
+// Slug index = Math.ceil(rank / 3); maps to the mastery.title_* i18n keys.
+const MR_TITLE_SLUGS = ['', 'initiate', 'novice', 'disciple', 'seeker', 'hunter', 'eagle', 'tiger', 'dragon', 'sage', 'master'];
+function mrTitleKey(rank) {
+  if (rank === 0) return 'mastery.title_unranked';
+  if (rank === 30) return 'mastery.title_true_master';
+  if (rank < 30) return `mastery.title_${MR_TITLE_SLUGS[Math.ceil(rank / 3)] ?? 'master'}`;
+  return 'mastery.title_legendary';
+}
 const RANK_NAMES = [
 "Unranked", "Initiate", "SilverInitiate", "GoldInitiate",
 "Novice", "SilverNovice", "GoldNovice",
@@ -40,14 +47,6 @@ const RANK_NAMES = [
 "Dragon", "SilverDragon", "GoldDragon",
 "Sage", "SilverSage", "GoldSage",
 "Master", "MiddleMaster", "GrandMaster"];
-
-
-function getMRTitle(rank) {
-  if (rank === 0) return 'Unranked';
-  if (rank === 30) return 'True Master';
-  if (rank < 30) return MR_CLASSES[Math.ceil(rank / 3)] ?? 'Master';
-  return `Legendary ${rank - 30}`;
-}
 
 function getMRIcon(rank, basePath) {
   if (!basePath) return '';
@@ -164,22 +163,22 @@ export default function Mastery() {
   };
 
   const itemCompletion = [
-  { label: 'Warframe', ...getStats('warframes') },
-  { label: 'Primary', ...getStats('primary') },
-  { label: 'Secondary', ...getStats('secondary') },
-  { label: 'Melee', ...getStats('melee') },
-  { label: 'Kitgun', ...getStats('kitguns') },
-  { label: 'Zaw', ...getStats('zaws') },
-  { label: 'Amp', ...getStats('amps') },
-  { label: 'Sentinel', ...getStats('sentinels') },
-  { label: 'Sentinel Weapon', ...getStats('companion_weapons') },
-  { label: 'Companions', ...getStats('companions') },
+  { label: t('mastery.cat_warframe'), ...getStats('warframes') },
+  { label: t('mastery.cat_primary'), ...getStats('primary') },
+  { label: t('mastery.cat_secondary'), ...getStats('secondary') },
+  { label: t('mastery.cat_melee'), ...getStats('melee') },
+  { label: t('mastery.cat_kitgun'), ...getStats('kitguns') },
+  { label: t('mastery.cat_zaw'), ...getStats('zaws') },
+  { label: t('mastery.cat_amp'), ...getStats('amps') },
+  { label: t('mastery.cat_sentinel'), ...getStats('sentinels') },
+  { label: t('mastery.cat_sentinel_weapon'), ...getStats('companion_weapons') },
+  { label: t('mastery.cat_companions'), ...getStats('companions') },
   // 'Robotic' summary row removed - Companions is now the canonical merged row.
-  { label: 'Archwing', ...getStats('archwings') },
-  { label: 'Archgun', ...getStats('archgun') },
-  { label: 'Archmelee', ...getStats('archmelee') },
-  { label: 'Necramech', ...getStats('necramechs') },
-  { label: 'K-Drive', ...getStats('kdrives') }];
+  { label: t('mastery.cat_archwing'), ...getStats('archwings') },
+  { label: t('mastery.cat_archgun'), ...getStats('archgun') },
+  { label: t('mastery.cat_archmelee'), ...getStats('archmelee') },
+  { label: t('mastery.cat_necramech'), ...getStats('necramechs') },
+  { label: t('mastery.cat_kdrive'), ...getStats('kdrives') }];
 
 
   const rjIntrinsics = (intrinsics ?? []).filter((i) => i.name.startsWith('Railjack'));
@@ -187,7 +186,7 @@ export default function Mastery() {
 
   const intrinsicCompletion = [
   {
-    label: 'Railjack Intrinsic',
+    label: t('mastery.cat_railjack_intrinsic'),
     mastered: rjIntrinsics.reduce((s, i) => s + i.rank, 0),
     total: 50,
     earnedXP: rjIntrinsics.reduce((s, i) => s + i.mastery_xp, 0),
@@ -195,7 +194,7 @@ export default function Mastery() {
     type: 'intrinsic'
   },
   {
-    label: 'Drifter Intrinsic',
+    label: t('mastery.cat_drifter_intrinsic'),
     mastered: drifterIntrinsics.reduce((s, i) => s + i.rank, 0),
     total: 40,
     earnedXP: drifterIntrinsics.reduce((s, i) => s + i.mastery_xp, 0),
@@ -208,7 +207,7 @@ export default function Mastery() {
   const starchartTotal = starchartData.total ?? 0;
   const starchartCompletion = [
   {
-    label: 'Starchart',
+    label: t('mastery.cat_starchart'),
     mastered: starchartData.origin ?? 0,
     total: starchartTotal,
     earnedXP: starchartData.origin_xp ?? 0,
@@ -217,7 +216,7 @@ export default function Mastery() {
     nodeType: 'origin'
   },
   {
-    label: 'The Steel Path',
+    label: t('mastery.cat_steel_path'),
     mastered: starchartData.steel_path ?? 0,
     total: starchartTotal,
     earnedXP: starchartData.steel_path_xp ?? 0,
@@ -242,8 +241,8 @@ export default function Mastery() {
   const xpUntilNext = Math.max(0, xpNeeded - xpIntoRank);
   const progress = masteryProgress;
   const isRankUpReady = progress >= 100;
-  const currentTitle = getMRTitle(currentRank);
-  const nextTitle = getMRTitle(nextRank);
+  const currentTitle = t(mrTitleKey(currentRank), currentRank > 30 ? { n: currentRank - 30 } : undefined);
+  const nextTitle = t(mrTitleKey(nextRank), nextRank > 30 ? { n: nextRank - 30 } : undefined);
 
   const Section = ({ title, items, gridCols = "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6" }) =>
   <div className="space-y-3">

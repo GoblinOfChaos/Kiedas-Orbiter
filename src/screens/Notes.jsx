@@ -232,9 +232,9 @@ export default function Notes() {
   codeBlockPlugin({ defaultCodeBlockLanguage: '' }),
   codeMirrorPlugin({
     codeBlockLanguages: {
-      js: 'JavaScript', ts: 'TypeScript', jsx: 'JSX', tsx: 'TSX',
-      css: 'CSS', html: 'HTML', json: 'JSON', bash: 'Bash',
-      py: 'Python', rs: 'Rust', '': 'Plain text'
+      js: t('notes.lang_js'), ts: t('notes.lang_ts'), jsx: t('notes.lang_jsx'), tsx: t('notes.lang_tsx'),
+      css: t('notes.lang_css'), html: t('notes.lang_html'), json: t('notes.lang_json'), bash: t('notes.lang_bash'),
+      py: t('notes.lang_py'), rs: t('notes.lang_rs'), '': t('notes.lang_plain')
     }
   }),
   diffSourcePlugin({ viewMode: 'rich-text' }),

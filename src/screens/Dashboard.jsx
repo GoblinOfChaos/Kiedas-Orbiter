@@ -927,7 +927,7 @@ export default function Dashboard() {
 
             })() :
             <div className="h-full flex items-center justify-center">
-                <p className="text-[10px] text-kronos-dim/40 italic text-center">Select a<br />{t('ui.dashboard.day')}</p>
+                <p className="text-[10px] text-kronos-dim/40 italic text-center">{t('ui.dashboard.select_a')}<br />{t('ui.dashboard.day')}</p>
               </div>
             }
           </div>
@@ -1292,8 +1292,7 @@ export default function Dashboard() {
 
         })}
         {expiry &&
-        <p className="text-[10px] text-kronos-dim mt-2 text-right font-mono tracking-tighter">{t('dashboard.rotates_in')}
-          {timeRemaining(expiry).toUpperCase()}
+        <p className="text-[10px] text-kronos-dim mt-2 text-right font-mono tracking-tighter">{t('ui.dashboard.rotates_in').replace('{time}', timeRemaining(expiry).toUpperCase())}
           </p>
         }
       </div>);

@@ -678,22 +678,22 @@ export default function SettingsScreen() {
                     } />
                     <span className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${monitorResult === 'success' ? 'text-green-400' : monitorResult === 'cached' ? 'text-yellow-400' : monitorResult === 'error' ? 'text-red-400' : 'text-zinc-600'}`}>
                       {monitorResult === 'success' ?
-                      `Syncing${(() => {
+                      t('sync.syncing') + (() => {
                         const ms = Math.max(0, (nextRetryAt || (lastUpdate ? parseInt(lastUpdate) + 180000 : 0)) - Date.now());
                         const m = Math.floor(ms / 60000);
                         const s = Math.floor(ms % 60000 / 1000);
-                        return ms > 0 ? ` (next update in ${m > 0 ? `${m}m ${s}s` : `${s}s`})` : '';
-                      })()}` :
+                        return ms > 0 ? t('sync.next_update', { time: m > 0 ? `${m}m ${s}s` : `${s}s` }) : '';
+                      })() :
                       monitorResult === 'cached' ?
-                      `Waiting for Warframe${nextRetryAt ? (() => {
+                      t('sync.waiting') + (nextRetryAt ? (() => {
                         const ms = Math.max(0, nextRetryAt - Date.now());
                         const m = Math.floor(ms / 60000);
                         const s = Math.floor(ms % 60000 / 1000);
-                        return ` (next attempt in ${m > 0 ? `${m}m ${s}s` : `${s}s`})`;
-                      })() : ''}` :
+                        return t('sync.next_attempt', { time: m > 0 ? `${m}m ${s}s` : `${s}s` });
+                      })() : '') :
                       monitorResult === 'error' ?
-                      'Sync Error' :
-                      'Idle'}
+                      t('sync.error') :
+                      t('sync.idle')}
                     </span>
                     <button onClick={manualRefresh} className="p-1 hover:bg-white/10 rounded transition-colors" title={t('settings.manual_refresh')}>
                       <RefreshCw size={10} className="text-kronos-dim" />

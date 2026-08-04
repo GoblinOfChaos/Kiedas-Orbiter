@@ -11,6 +11,7 @@ import { resolveNode, resolveMissionType, resolveChallenge } from '../lib/warfra
 import { evaluateNotifications } from '../lib/notificationManager'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
 import { loadSettings, getSetting, setSetting } from '../lib/settings'
+import { useUi } from './UiContext'
 
 
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
@@ -127,6 +128,7 @@ function getUpcomingArbies(arbys, ERg, dict, arbyTiers, count = 10) {
 const MonitoringContext = createContext(null)
 
 export function MonitoringProvider({ children }) {
+  const { t } = useUi()
   const [exportData, setExportData] = useState(null)
   const [isMonitoring, setIsMonitoring] = useState(false)
   const [monitorResult, setMonitorResult] = useState('idle') // 'idle' | 'success' | 'error'
@@ -379,13 +381,13 @@ export function MonitoringProvider({ children }) {
 
     // On first real data, mark everything as seen - no startup flood
     if (!notifInitRef.current) {
-      const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle })
+      const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle, t })
       for (const r of results) {
         notifiedRef.current.notifMgr.add(`${r.notifId}::${r.title}::${r.message}`)
       }
       return
     }
-    const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle })
+    const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle, t })
 
     // Fire each new notification individually; play sound in main window first
     for (const r of results) {
@@ -439,37 +441,37 @@ export function MonitoringProvider({ children }) {
   useEffect(() => {
     window.__KRONOS_NOTIF_HELPERS = { getCurrentArby, getUpcomingArbies, ARBY_TIERS, resolveNode }
     window.__checklistTasks = [
-      { id: 'baro', label: "Baro Ki'Teer" },
-      { id: 'sortie', label: 'Sortie' },
-      { id: 'foundry', label: 'Check Foundry' },
-      { id: 'syndicates', label: 'Syndicate Standing' },
-      { id: 'focus', label: 'Daily Focus Cap' },
-      { id: 'steel_path', label: 'Steel Path Incursions' },
-      { id: 'acrithis_daily', label: 'Acrithis Daily' },
-      { id: 'ticker', label: "Ticker's Railjack Crew" },
-      { id: 'marie', label: "Marie's Shop" },
-      { id: 'grandmother', label: "Grandmother's Tokens" },
-      { id: 'yonta_daily', label: 'Yonta: Daily Voidplumes' },
-      { id: 'voca', label: 'Loid: Voca' },
-      { id: 'nightwave', label: 'Nightwave Missions' },
-      { id: 'nightwave_spend', label: 'Nightwave Shop' },
-      { id: 'ayatan', label: "Maroo's Ayatan Hunt" },
-      { id: 'clem', label: 'Help Clem' },
-      { id: 'narmer', label: 'Help Kahl: Break Narmer' },
-      { id: 'archon', label: 'Archon Hunt' },
-      { id: 'circuit', label: 'Duviri Circuit' },
-      { id: 'circuit_sp', label: 'Duviri Circuit SP' },
-      { id: 'pulses', label: 'Pulses: Netracell & Archimedea' },
-      { id: 'calendar', label: '1999 Calendar' },
-      { id: 'invigorations', label: 'Helminth Invigoration' },
-      { id: 'descendia', label: 'Descendia' },
-      { id: 'descendia_sp', label: 'Descendia SP' },
-      { id: 'palladino', label: "Palladino's Shop" },
-      { id: 'yonta_weekly', label: 'Yonta: Weekly Shop' },
-      { id: 'acrithis_weekly', label: 'Acrithis Weekly' },
-      { id: 'teshin', label: 'Teshin Shop' },
-      { id: 'bird3', label: 'Bird 3 Shop' },
-      { id: 'nightcap', label: 'Nightcap Shop' },
+      { id: 'baro', label: "Baro Ki'Teer", labelKey: 'ui.dashboard.baro_kiteer' },
+      { id: 'sortie', label: 'Sortie', labelKey: 'ui.dashboard.sortie' },
+      { id: 'foundry', label: 'Check Foundry', labelKey: 'checklist.task_foundry' },
+      { id: 'syndicates', label: 'Syndicate Standing', labelKey: 'checklist.task_syndicates' },
+      { id: 'focus', label: 'Daily Focus Cap', labelKey: 'checklist.task_focus' },
+      { id: 'steel_path', label: 'Steel Path Incursions', labelKey: 'ui.dashboard.sp_incursions' },
+      { id: 'acrithis_daily', label: 'Acrithis Daily', labelKey: 'checklist.task_acrithis_daily' },
+      { id: 'ticker', label: "Ticker's Railjack Crew", labelKey: 'checklist.task_ticker' },
+      { id: 'marie', label: "Marie's Shop", labelKey: 'checklist.task_marie' },
+      { id: 'grandmother', label: "Grandmother's Tokens", labelKey: 'checklist.task_grandmother' },
+      { id: 'yonta_daily', label: 'Yonta: Daily Voidplumes', labelKey: 'checklist.task_yonta_daily' },
+      { id: 'voca', label: 'Loid: Voca', labelKey: 'checklist.task_voca' },
+      { id: 'nightwave', label: 'Nightwave Missions', labelKey: 'checklist.task_nightwave' },
+      { id: 'nightwave_spend', label: 'Nightwave Shop', labelKey: 'checklist.task_nightwave_spend' },
+      { id: 'ayatan', label: "Maroo's Ayatan Hunt", labelKey: 'checklist.task_ayatan' },
+      { id: 'clem', label: 'Help Clem', labelKey: 'checklist.task_clem' },
+      { id: 'narmer', label: 'Help Kahl: Break Narmer', labelKey: 'checklist.task_narmer' },
+      { id: 'archon', label: 'Archon Hunt', labelKey: 'ui.dashboard.archon_hunt' },
+      { id: 'circuit', label: 'Duviri Circuit', labelKey: 'checklist.task_circuit' },
+      { id: 'circuit_sp', label: 'Duviri Circuit SP', labelKey: 'checklist.task_circuit_sp' },
+      { id: 'pulses', label: 'Pulses: Netracell & Archimedea', labelKey: 'checklist.task_pulses' },
+      { id: 'calendar', label: '1999 Calendar', labelKey: 'checklist.task_calendar' },
+      { id: 'invigorations', label: 'Helminth Invigoration', labelKey: 'checklist.task_invigorations' },
+      { id: 'descendia', label: 'Descendia', labelKey: 'checklist.task_descendia' },
+      { id: 'descendia_sp', label: 'Descendia SP', labelKey: 'checklist.task_descendia_sp' },
+      { id: 'palladino', label: "Palladino's Shop", labelKey: 'checklist.task_palladino' },
+      { id: 'yonta_weekly', label: 'Yonta: Weekly Shop', labelKey: 'checklist.task_yonta_weekly' },
+      { id: 'acrithis_weekly', label: 'Acrithis Weekly', labelKey: 'checklist.task_acrithis_weekly' },
+      { id: 'teshin', label: 'Teshin Shop', labelKey: 'checklist.task_teshin' },
+      { id: 'bird3', label: 'Bird 3 Shop', labelKey: 'checklist.task_bird3' },
+      { id: 'nightcap', label: 'Nightcap Shop', labelKey: 'checklist.task_nightcap' },
     ]
     return () => {
       window.__KRONOS_NOTIF_HELPERS = null
@@ -521,11 +523,12 @@ export function MonitoringProvider({ children }) {
       const exports = exportsRes.status === 'fulfilled' ? exportsRes.value : null
       const spiText = spiRes.status === 'fulfilled' ? spiRes.value : null
       const arbText = arbRes.status === 'fulfilled' ? arbRes.value : null
-      // Temporary: use patched exports with levelStats until upstream ships them
+      // Retired in v0.8: ExportUpgrades_fixed.json patched file — the DE
+      // manifest now ships levelStats for every locale including English
+      // (downloaded as ExportUpgrades_{locale}.json by check_exports).
       if (exports) {
         try {
           for (const [fname, key] of [
-            ['ExportUpgrades_fixed.json', 'ExportUpgradesFixed'],
             ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'],
             ['mod-icon-map.json', 'ModIconMap'],
             ['peely-pix-map.json', 'PeelyPixMap'],

@@ -12,52 +12,7 @@ import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '..
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 
-const INVENTORY_TABS = [
-{ id: 'all', label: 'All' },
-{ id: 'warframes', label: 'Warframes' },
-{ id: 'weapons', label: 'Weapons' },
-{ id: 'companions', label: 'Companions' },
-{ id: 'companion_weapons', label: 'Companion Weapons' },
-{ id: 'archweapons', label: 'Archweapons' },
-{ id: 'vehicles', label: 'Vehicles' },
-{ id: 'amps', label: 'Amps' },
-{ id: 'resources', label: 'Resources' },
-{ id: 'prime_parts', label: 'Prime Sets' },
-{ id: 'ayatan', label: 'Ayatan' }];
 
-
-const FILTER_CONFIG = {
-  all: ['owned', 'mastered'],
-  warframes: ['owned', 'mastered', 'subsumed', 'prime'],
-  weapons: ['owned', 'mastered', 'prime', 'primary', 'secondary', 'melee', 'incarnon'],
-  companions: ['owned', 'mastered'],
-  companion_weapons: ['owned', 'mastered'],
-  archweapons: ['owned', 'mastered'],
-  vehicles: ['owned', 'mastered', 'archwing', 'kdrive', 'necramech'],
-  amps: ['owned', 'mastered'],
-  mods: ['owned'],
-  prime_parts: ['owned', 'mastered'],
-  resources: ['owned'],
-  ayatan: ['socketed']
-};
-
-const TRIPLE_FILTERS = new Set(['owned', 'mastered', 'subsumed', 'socketed', 'prime']);
-const NEG_LABELS = { owned: 'Unowned', mastered: 'Unmastered', subsumed: 'Unsubsumed', socketed: 'Unsocketed', prime: 'Base' };
-
-const SORT_CONFIG = {
-  all: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
-  warframes: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
-  weapons: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
-  companions: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
-  companion_weapons: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
-  archweapons: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
-  vehicles: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
-  amps: [{ id: 'name', label: 'Name' }, { id: 'xp', label: 'XP' }],
-  mods: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }, { id: 'rank', label: 'Rank' }],
-  prime_parts: [{ id: 'name', label: 'Name' }, { id: 'completion', label: 'Completion' }, { id: 'value', label: 'Value' }],
-  resources: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }],
-  ayatan: [{ id: 'name', label: 'Name' }, { id: 'quantity', label: 'Count' }]
-};
 
 const ITEMS_PER_PAGE = 48;
 
@@ -552,6 +507,58 @@ function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFound
 }
 export default function Inventory() {
   const { t } = useUi()
+  const INVENTORY_TABS = [
+  { id: 'all', label: t('ui.inventory.tab_all') },
+  { id: 'warframes', label: t('ui.inventory.tab_warframes') },
+  { id: 'weapons', label: t('ui.inventory.tab_weapons') },
+  { id: 'companions', label: t('ui.inventory.tab_companions') },
+  { id: 'companion_weapons', label: t('ui.inventory.tab_companion_weapons') },
+  { id: 'archweapons', label: t('ui.inventory.tab_archweapons') },
+  { id: 'vehicles', label: t('ui.inventory.tab_vehicles') },
+  { id: 'amps', label: t('ui.inventory.tab_amps') },
+  { id: 'resources', label: t('ui.inventory.tab_resources') },
+  { id: 'prime_parts', label: t('ui.inventory.tab_prime_parts') },
+  { id: 'ayatan', label: t('ui.inventory.tab_ayatan') }];
+
+
+  const FILTER_CONFIG = {
+    all: ['owned', 'mastered'],
+    warframes: ['owned', 'mastered', 'subsumed', 'prime'],
+    weapons: ['owned', 'mastered', 'prime', 'primary', 'secondary', 'melee', 'incarnon'],
+    companions: ['owned', 'mastered'],
+    companion_weapons: ['owned', 'mastered'],
+    archweapons: ['owned', 'mastered'],
+    vehicles: ['owned', 'mastered', 'archwing', 'kdrive', 'necramech'],
+    amps: ['owned', 'mastered'],
+    mods: ['owned'],
+    prime_parts: ['owned', 'mastered'],
+    resources: ['owned'],
+    ayatan: ['socketed']
+  };
+
+  const TRIPLE_FILTERS = new Set(['owned', 'mastered', 'subsumed', 'socketed', 'prime']);
+  const NEG_LABELS = {
+    owned: t('ui.inventory.filter_owned'),
+    mastered: t('ui.inventory.filter_mastered'),
+    subsumed: t('ui.inventory.filter_subsumed'),
+    socketed: t('ui.inventory.filter_socketed'),
+    prime: t('ui.inventory.filter_prime')
+  };
+
+  const SORT_CONFIG = {
+    all: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
+    warframes: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
+    weapons: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
+    companions: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
+    companion_weapons: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
+    archweapons: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
+    vehicles: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
+    amps: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
+    mods: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }, { id: 'rank', label: t('ui.inventory.sort_rank') }],
+    prime_parts: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'completion', label: t('ui.inventory.sort_completion') }, { id: 'value', label: t('ui.inventory.sort_value') }],
+    resources: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],
+    ayatan: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }]
+  };
   const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, ExportImages } = useMonitoring();
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');

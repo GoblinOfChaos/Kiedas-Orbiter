@@ -26,37 +26,37 @@ import { useMonitoring } from '../contexts/MonitoringContext';
 import { invoke, convertFileSrc } from '@tauri-apps/api/core';
 
 const tasks = [
-{ id: 'baro', label: 'Baro Ki\'Teer', reset: 'baro' },
-{ id: 'sortie', label: 'Sortie', reset: 'daily' },
-{ id: 'foundry', label: 'Check Foundry', reset: 'daily' },
-{ id: 'syndicates', label: 'Syndicate Standing', reset: 'daily' },
-{ id: 'focus', label: 'Daily Focus Cap', reset: 'daily' },
-{ id: 'steel_path', label: 'Steel Path Incursions', reset: 'daily' },
-{ id: 'acrithis_daily', label: 'Acrithis Daily', reset: 'daily' },
-{ id: 'ticker', label: 'Ticker\'s Railjack Crew', reset: 'daily' },
-{ id: 'marie', label: 'Marie\'s Shop', reset: 'daily' },
-{ id: 'grandmother', label: 'Grandmother\'s Tokens', reset: 'other' },
-{ id: 'yonta_daily', label: 'Yonta: Daily Voidplumes', reset: 'other' },
-{ id: 'voca', label: 'Loid: Voca', reset: 'other' },
-{ id: 'nightwave', label: 'Nightwave Missions', reset: 'weekly' },
-{ id: 'nightwave_spend', label: 'Nightwave Shop', reset: 'weekly' },
-{ id: 'ayatan', label: "Maroo's Ayatan Hunt", reset: 'weekly' },
-{ id: 'clem', label: "Help Clem", reset: 'weekly' },
-{ id: 'narmer', label: 'Help Kahl: Break Narmer', reset: 'weekly' },
-{ id: 'archon', label: 'Archon Hunt', reset: 'weekly' },
-{ id: 'circuit', label: 'Duviri Circuit', reset: 'weekly' },
-{ id: 'circuit_sp', label: 'Duviri Circuit SP', reset: 'weekly' },
-{ id: 'pulses', label: 'Pulses: Netracell & Archimedea', reset: 'weekly' },
-{ id: 'calendar', label: '1999 Calendar', reset: 'weekly' },
-{ id: 'invigorations', label: 'Helminth Invigoration', reset: 'weekly' },
-{ id: 'descendia', label: 'Descendia', reset: 'weekly' },
-{ id: 'descendia_sp', label: 'Descendia SP', reset: 'weekly' },
-{ id: 'palladino', label: 'Palladino\'s Shop', reset: 'weekly' },
-{ id: 'yonta_weekly', label: 'Yonta: Weekly Shop', reset: 'weekly' },
-{ id: 'acrithis_weekly', label: 'Acrithis Weekly', reset: 'weekly' },
-{ id: 'teshin', label: 'Teshin Shop', reset: 'weekly' },
-{ id: 'bird3', label: 'Bird 3 Shop', reset: 'weekly' },
-{ id: 'nightcap', label: 'Nightcap Shop', reset: 'weekly' }];
+{ id: 'baro', label: 'Baro Ki\'Teer', labelKey: 'ui.dashboard.baro_kiteer', reset: 'baro' },
+{ id: 'sortie', label: 'Sortie', labelKey: 'ui.dashboard.sortie', reset: 'daily' },
+{ id: 'foundry', label: 'Check Foundry', labelKey: 'checklist.task_foundry', reset: 'daily' },
+{ id: 'syndicates', label: 'Syndicate Standing', labelKey: 'checklist.task_syndicates', reset: 'daily' },
+{ id: 'focus', label: 'Daily Focus Cap', labelKey: 'checklist.task_focus', reset: 'daily' },
+{ id: 'steel_path', label: 'Steel Path Incursions', labelKey: 'ui.dashboard.sp_incursions', reset: 'daily' },
+{ id: 'acrithis_daily', label: 'Acrithis Daily', labelKey: 'checklist.task_acrithis_daily', reset: 'daily' },
+{ id: 'ticker', label: 'Ticker\'s Railjack Crew', labelKey: 'checklist.task_ticker', reset: 'daily' },
+{ id: 'marie', label: 'Marie\'s Shop', labelKey: 'checklist.task_marie', reset: 'daily' },
+{ id: 'grandmother', label: 'Grandmother\'s Tokens', labelKey: 'checklist.task_grandmother', reset: 'other' },
+{ id: 'yonta_daily', label: 'Yonta: Daily Voidplumes', labelKey: 'checklist.task_yonta_daily', reset: 'other' },
+{ id: 'voca', label: 'Loid: Voca', labelKey: 'checklist.task_voca', reset: 'other' },
+{ id: 'nightwave', label: 'Nightwave Missions', labelKey: 'checklist.task_nightwave', reset: 'weekly' },
+{ id: 'nightwave_spend', label: 'Nightwave Shop', labelKey: 'checklist.task_nightwave_spend', reset: 'weekly' },
+{ id: 'ayatan', label: "Maroo's Ayatan Hunt", labelKey: 'checklist.task_ayatan', reset: 'weekly' },
+{ id: 'clem', label: "Help Clem", labelKey: 'checklist.task_clem', reset: 'weekly' },
+{ id: 'narmer', label: 'Help Kahl: Break Narmer', labelKey: 'checklist.task_narmer', reset: 'weekly' },
+{ id: 'archon', label: 'Archon Hunt', labelKey: 'ui.dashboard.archon_hunt', reset: 'weekly' },
+{ id: 'circuit', label: 'Duviri Circuit', labelKey: 'checklist.task_circuit', reset: 'weekly' },
+{ id: 'circuit_sp', label: 'Duviri Circuit SP', labelKey: 'checklist.task_circuit_sp', reset: 'weekly' },
+{ id: 'pulses', label: 'Pulses: Netracell & Archimedea', labelKey: 'checklist.task_pulses', reset: 'weekly' },
+{ id: 'calendar', label: '1999 Calendar', labelKey: 'checklist.task_calendar', reset: 'weekly' },
+{ id: 'invigorations', label: 'Helminth Invigoration', labelKey: 'checklist.task_invigorations', reset: 'weekly' },
+{ id: 'descendia', label: 'Descendia', labelKey: 'checklist.task_descendia', reset: 'weekly' },
+{ id: 'descendia_sp', label: 'Descendia SP', labelKey: 'checklist.task_descendia_sp', reset: 'weekly' },
+{ id: 'palladino', label: 'Palladino\'s Shop', labelKey: 'checklist.task_palladino', reset: 'weekly' },
+{ id: 'yonta_weekly', label: 'Yonta: Weekly Shop', labelKey: 'checklist.task_yonta_weekly', reset: 'weekly' },
+{ id: 'acrithis_weekly', label: 'Acrithis Weekly', labelKey: 'checklist.task_acrithis_weekly', reset: 'weekly' },
+{ id: 'teshin', label: 'Teshin Shop', labelKey: 'checklist.task_teshin', reset: 'weekly' },
+{ id: 'bird3', label: 'Bird 3 Shop', labelKey: 'checklist.task_bird3', reset: 'weekly' },
+{ id: 'nightcap', label: 'Nightcap Shop', labelKey: 'checklist.task_nightcap', reset: 'weekly' }];
 
 
 const AFFILIATION_TAGS = {
@@ -309,7 +309,7 @@ const TaskCard = ({ task, completed, hidden, onToggle, onHide, timeLeft, nextRes
       
       <div className="flex items-start justify-between mb-1">
         <span className={`text-[14px] ${completed ? 'line-through text-kronos-dim' : ''}`}>
-          {task.label}
+          {task.labelKey ? t(task.labelKey) : task.label}
         </span>
         <span className="text-[10px] px-1.5 py-0.5 rounded text-kronos-accent flex-shrink-0" style={{ backgroundColor: 'rgba(var(--color-accent-rgb), 0.2)' }}>
           {resetLabels[task.reset]}
@@ -760,6 +760,7 @@ export default function Checklist() {
     window.__checklistTasks = allTasks.map((t) => ({
       id: t.id,
       label: t.label,
+      labelKey: t.labelKey,
       reset: t.reset,
       nextResetTime: t.nextResetTime
     }));

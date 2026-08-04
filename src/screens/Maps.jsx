@@ -22,8 +22,8 @@ const MAPS = [
 { name: 'Duviri', raw: 'Duviri_map_with_caves.png', labeled: 'Duviri_map_with_caves.png' }];
 
 
-const PLACEHOLDER = `data:image/svg+xml;utf8,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect fill="#0b0b0b" width="100%" height="100%"/><text x="50%" y="50%" fill="#cccccc" font-size="20" text-anchor="middle" dominant-baseline="middle">Image unavailable</text></svg>'
+const placeholderSvg = (text) => `data:image/svg+xml;utf8,${encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect fill="#0b0b0b" width="100%" height="100%"/><text x="50%" y="50%" fill="#cccccc" font-size="20" text-anchor="middle" dominant-baseline="middle">${text}</text></svg>`
 )}`;
 
 const MIN_FIT_FRACTION = 1.0;
@@ -697,10 +697,10 @@ export default function Maps() {
                 }}>
                   <img
                     ref={imgRef}
-                    src={mapsPath ? convertFileSrc(`${mapsPath}/${mapFilename}`) : PLACEHOLDER}
+                    src={mapsPath ? convertFileSrc(`${mapsPath}/${mapFilename}`) : placeholderSvg(t('maps.image_unavailable'))}
                     alt={MAPS[parseInt(activeTab)].name}
                     onLoad={onImgLoad}
-                    onError={(e) => {e.currentTarget.onerror = null;e.currentTarget.src = PLACEHOLDER;}}
+                    onError={(e) => {e.currentTarget.onerror = null;e.currentTarget.src = placeholderSvg(t('maps.image_unavailable'));}}
                     style={{ width: '100%', height: '100%', display: 'block', userSelect: 'none', pointerEvents: 'none', maxWidth: 'none', maxHeight: 'none' }}
                     draggable={false} />
                   

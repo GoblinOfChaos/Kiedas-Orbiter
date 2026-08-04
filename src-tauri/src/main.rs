@@ -311,15 +311,15 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
     }
 
     // DE public manifest: locale-specific ExportUpgrades_{locale}.json gives us
-    // localized mod descriptions (levelStats). Falls back to English _fixed.json.
-    if &locale != "en" {
-        let locale_path = export_dir.join(format!("ExportUpgrades_{}.json", locale));
-        let needs_update = force || !locale_path.exists() || file_age_secs(&locale_path) > 86_400;
-        if needs_update {
-            match download_locale_upgrades(&client, &export_dir, &locale).await {
-                Ok(_) => updated_count += 1,
-                Err(e) => eprintln!("Warning: could not download DE locale upgrades: {}", e),
-            }
+    // localized mod descriptions (levelStats). English uses the same manifest
+    // file (ExportUpgrades_en.json), which supersedes the bundled
+    // ExportUpgrades_fixed.json patch (retired in v0.8).
+    let locale_path = export_dir.join(format!("ExportUpgrades_{}.json", locale));
+    let needs_update = force || !locale_path.exists() || file_age_secs(&locale_path) > 86_400;
+    if needs_update {
+        match download_locale_upgrades(&client, &export_dir, &locale).await {
+            Ok(_) => updated_count += 1,
+            Err(e) => eprintln!("Warning: could not download DE locale upgrades: {}", e),
         }
     }
     // TXT data files - refresh every 6 hours; failures are non-fatal

@@ -46,10 +46,16 @@ export function UiProvider({ children }) {
     return () => { cancelled = true; unsub() }
   }, [])
 
-  const t = useCallback((key) => {
+  const t = useCallback((key, params) => {
     if (!key) return ''
-    const v = stateRef.current.ui[key]
-    return v != null && v !== '' ? v : key
+    let v = stateRef.current.ui[key]
+    if (v == null || v === '') v = key
+    if (params && typeof params === 'object') {
+      for (const [k, val] of Object.entries(params)) {
+        v = v.split(`{${k}}`).join(String(val ?? ''))
+      }
+    }
+    return v
   }, [])
 
   return (

@@ -129,9 +129,9 @@ export default function NotificationManager() {
           onChange={(e) => {if (e.target.value) {handleAdd(e.target.value);e.target.value = '';}}}
           className="w-full kronos-select text-sm">
           
-          <option value="">+ Add Notification</option>
-          {triggerDefs.map((t) =>
-          <option key={t.id} value={t.id}>{t.label}</option>
+          <option value="">{t('ui.notif_mgr.add_notification')}</option>
+          {triggerDefs.map((d) =>
+          <option key={d.id} value={d.id}>{d.labelKey ? t(d.labelKey) : d.label}</option>
           )}
         </select>
       </div>
@@ -179,10 +179,12 @@ export default function NotificationManager() {
 }
 
 function NotificationRow({ notif, def, onDelete, onToggle, onConfigChange, onMultiSelect }) {
+  const { t } = useUi()
+  const defLabel = def.labelKey ? t(def.labelKey) : def.label
   return (
     <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
       <div className="flex items-center justify-between gap-3">
-        <span className="text-sm font-bold text-kronos-text uppercase shrink-0 min-w-[140px]">{def.label}</span>
+        <span className="text-sm font-bold text-kronos-text uppercase shrink-0 min-w-[140px]">{defLabel}</span>
 
         <div className="flex-1 flex items-center gap-3 flex-wrap">
           {def.columns.map((col) =>
@@ -191,7 +193,7 @@ function NotificationRow({ notif, def, onDelete, onToggle, onConfigChange, onMul
             <div className="flex items-center gap-1 flex-wrap">
                   {col.options.map((opt) => {
                 const val = typeof opt === 'string' ? opt : opt.value;
-                const label = typeof opt === 'string' ? opt : opt.label;
+                const label = typeof opt === 'string' ? opt : (opt.labelKey ? t(opt.labelKey) : opt.label);
                 const selected = (notif.config[col.key] || []).includes(val);
                 return (
                   <button
@@ -211,7 +213,7 @@ function NotificationRow({ notif, def, onDelete, onToggle, onConfigChange, onMul
             }
               {col.type === 'number' &&
             <div className="flex items-center gap-1">
-                  <span className="text-[10px] text-kronos-dim uppercase">{col.label}</span>
+                  <span className="text-[10px] text-kronos-dim uppercase">{col.labelKey ? t(col.labelKey) : col.label}</span>
                   <input
                 type="number"
                 value={notif.config[col.key] ?? col.default ?? 0}
@@ -222,7 +224,7 @@ function NotificationRow({ notif, def, onDelete, onToggle, onConfigChange, onMul
             }
               {col.type === 'checklist-tasks' && <ChecklistTaskSelect notif={notif} col={col} onMultiSelect={onMultiSelect} />}
               {(!col.type || col.type === 'info') &&
-            <span className="text-[10px] text-kronos-dim italic">{col.label}</span>
+            <span className="text-[10px] text-kronos-dim italic">{col.labelKey ? t(col.labelKey) : col.label}</span>
             }
             </div>
           )}
@@ -243,23 +245,24 @@ function NotificationRow({ notif, def, onDelete, onToggle, onConfigChange, onMul
 }
 
 function ChecklistTaskSelect({ notif, col, onMultiSelect }) {
+  const { t } = useUi()
   const tasks = window.__checklistTasks || [];
 
   return (
     <div className="flex flex-wrap gap-1">
-      {tasks.map((t) => {
-        const isOn = (notif.config?.taskFilter || []).includes(t.id);
+      {tasks.map((task) => {
+        const isOn = (notif.config?.taskFilter || []).includes(task.id);
         return (
           <button
-            key={t.id}
-            onClick={() => onMultiSelect(notif.id, col.key, t.id)}
+            key={task.id}
+            onClick={() => onMultiSelect(notif.id, col.key, task.id)}
             className={`text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border transition-all ${
             isOn ?
             'bg-kronos-accent/20 border-kronos-accent text-kronos-accent' :
             'border-white/10 text-kronos-dim hover:border-white/20'}`
             }>
             
-            {t.label}
+            {task.labelKey ? t(task.labelKey) : task.label}
           </button>);
 
       })}

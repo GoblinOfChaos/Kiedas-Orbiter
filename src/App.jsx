@@ -479,14 +479,14 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <MonitoringProvider>
-        <UpdateProvider>
-          <UiProvider>
+      <UiProvider>
+        <MonitoringProvider>
+          <UpdateProvider>
             <SetupScreen />
             <AppContent />
-          </UiProvider>
-        </UpdateProvider>
-      </MonitoringProvider>
+          </UpdateProvider>
+        </MonitoringProvider>
+      </UiProvider>
     </ThemeProvider>);
 
 }

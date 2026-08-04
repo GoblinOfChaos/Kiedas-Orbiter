@@ -30,7 +30,7 @@ export default function RivenOverlay() {
   const [estimatedPrice, setEstimatedPrice] = useState(null);
   const [rivenInfo, setRivenInfo] = useState(null);
   const [knownWeapons, setKnownWeapons] = useState([]);
-  const { locale, i18nData } = useUi();
+  const { locale, i18nData, t } = useUi();
   const statAliases = useMemo(() => buildStatAliases(locale, i18nData?.rivenStats), [locale, i18nData]);
   const garbageRe = useMemo(() => garbageReForLocale(locale), [locale]);
 

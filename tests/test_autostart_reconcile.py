@@ -1,7 +1,34 @@
 import json
 import time
 
+import pytest
+
 import autostart_manager as am
+
+
+@pytest.fixture(autouse=True)
+def isolate_autostart_log(tmp_path, monkeypatch):
+    """Keep reconciliation diagnostics out of the live application log."""
+    log_file = tmp_path / "autostart-manager.log"
+    monkeypatch.setattr(am, "LOG_FILE", log_file)
+    return log_file
+
+
+def test_reconcile_diagnostics_use_isolated_log(
+    monkeypatch, isolate_autostart_log
+):
+    monkeypatch.setattr(
+        am,
+        "_last_always_on_restart_attempt",
+        {"detector": time.time()},
+    )
+    monkeypatch.setattr(am, "get_autostart", lambda feature: True)
+    monkeypatch.setattr(am, "is_feature_running", lambda feature: False)
+
+    am.reconcile_always_on()
+
+    assert "blocked by backoff" in isolate_autostart_log.read_text()
+    assert isolate_autostart_log.parent != am.DATA_DIR
 
 
 def test_heartbeat_age_seconds_none_when_file_missing(tmp_path, monkeypatch):

@@ -12,6 +12,7 @@ drifting out of sync with each other.
 import sys as _sys
 import time
 from pathlib import Path
+from typing import Optional
 
 from paths import CONFIG_FILE, DATA_DIR, WFINFO_DIR, build_detector_args
 from platform_utils import launch_detached, clean_env_for_launch, kill_processes, is_running, IS_LINUX
@@ -295,6 +296,63 @@ _STOP_DEBOUNCE_TICKS = 3
 _not_running_streak = 0
 _tick_count = 0
 
+HEARTBEAT_FILE = DATA_DIR / "watcher-heartbeat.json"
+
+# Minimum seconds between restart attempts for the same always-on feature -
+# without this, a feature that dies immediately after every restart attempt
+# (a real crash-on-launch bug, not a transient blip) would get relaunched
+# every single reconcile tick, hammering the system instead of surfacing
+# the actual problem.
+_ALWAYS_ON_RESTART_BACKOFF_SECONDS = 30
+_last_always_on_restart_attempt: dict = {}
+
+
+def _write_heartbeat():
+    import json
+    try:
+        HEARTBEAT_FILE.write_text(json.dumps({"tick": _tick_count, "last_beat": time.time()}))
+    except OSError:
+        pass
+
+
+def heartbeat_age_seconds() -> Optional[float]:
+    """Seconds since the reconciliation loop last ticked, or None if the
+    heartbeat file doesn't exist yet (loop never ran) or is unreadable."""
+    import json
+    try:
+        data = json.loads(HEARTBEAT_FILE.read_text())
+        return time.time() - float(data["last_beat"])
+    except (OSError, json.JSONDecodeError, KeyError, ValueError, TypeError):
+        return None
+
+
+def _can_attempt_restart(feature: str, now: float) -> bool:
+    last = _last_always_on_restart_attempt.get(feature)
+    return last is None or (now - last) >= _ALWAYS_ON_RESTART_BACKOFF_SECONDS
+
+
+def reconcile_always_on():
+    """Call this repeatedly, same as reconcile_warframe_gated() - restarts
+    detector/watcher if either dies mid-session. Unlike the Warframe-gated
+    features, these have no reconciliation at all today: apply_autostart()
+    only starts them once, at app launch. Confirmed live 2026-08-02: the
+    detector silently stopped writing to orbiter.log mid-session (no
+    crash trace, no error) and nothing restarted it for the rest of the
+    night, breaking reward detection for every subsequent relic round
+    until a human noticed via direct log/process inspection. watcher
+    itself is included here too even though it can't practically restart
+    its own process from within its own loop - see the note in
+    warframe-watcher.py's main() for why the GUI process is what actually
+    surfaces a stalled watcher instead."""
+    now = time.time()
+    for feature in ALWAYS_ON_OPEN:
+        if not get_autostart(feature) or is_feature_running(feature):
+            continue
+        if not _can_attempt_restart(feature, now):
+            continue
+        _last_always_on_restart_attempt[feature] = now
+        start_feature(feature, reason="reconcile_always_on (not running)")
+
 
 def reconcile_warframe_gated():
     """Call this repeatedly (e.g. every few seconds from a QTimer) rather
@@ -314,6 +372,12 @@ def reconcile_warframe_gated():
     _tick_count += 1
     if _tick_count % 12 == 0:  # roughly once a minute at the 5s interval
         _log(f"heartbeat: tick={_tick_count} warframe_up={is_warframe_running()} streak={_not_running_streak}")
+    # Persisted every tick (not just the once-a-minute log line above) so
+    # a caller in a different process (the GUI's Status tab) can detect
+    # this loop stalling out entirely - the exact failure mode from
+    # 2026-08-02, where this whole loop stopped with no trace and nothing
+    # else noticed for over 12 hours.
+    _write_heartbeat()
 
     warframe_up = is_warframe_running()
     if warframe_up:

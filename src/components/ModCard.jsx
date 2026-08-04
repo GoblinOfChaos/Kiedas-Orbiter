@@ -254,6 +254,7 @@ const Charges = memo(function Charges({ modFrame, rank, maxRank, framesPath, car
 
 const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPath, width = 180, exportTextIcons, platValue, pricesLoading = false, hideCategory = false }) {
   const isSticker = mod._isSticker;
+  const { t } = useUi();
   const mf = mod.modFrame || 'Normal Common';
   const custom = CUSTOM.has(mf);
   const color = mf === 'Tektolyst' ? TEKTOLYST_TEXT_COLORS[mod.name] || TIER_COLORS[mf] || '#FFFFFF' : TIER_COLORS[mf] || '#FFFFFF';

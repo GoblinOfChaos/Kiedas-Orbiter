@@ -293,6 +293,7 @@ export default function RelicRewardOverlay() {
 }
 
 function LoadingSlot() {
+  const { t } = useUi();
   return (
     <div className="flex-1 bg-white/5 rounded-xl border border-dashed border-white/10 flex flex-col items-center justify-center p-2 text-center min-h-[140px] mx-1">
       <Loader2 size={12} className="animate-spin text-kronos-accent mb-1" />
@@ -462,6 +463,7 @@ function PriceBadge({ label, value, color, iconSrc }) {
 
 function ComponentRow({ comp }) {
   const { have = 0, need = 1, bpCount = 0, isResource, isDroppedReward, name } = comp;
+  const { t } = useUi();
   const satisfied = have >= need;
 
   const rowClasses = isDroppedReward ?

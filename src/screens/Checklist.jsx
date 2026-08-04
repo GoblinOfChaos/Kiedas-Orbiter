@@ -382,6 +382,7 @@ const FACTION_TAGS = new Set(['steel', 'perrin', 'arbiters', 'suda', 'veil', 'ne
 
 const StandingCard = ({ standing, affiliation, earnedStanding, rankCap, dailyCap, iconUrl, localIconUrl, supportedSyndicate, syndicateConfig, hoveredTag, onHover }) => {
   const rank = affiliation?.Title ?? 0;
+  const { t } = useUi();
   const tagKey = standing.tag || standing.color;
   const config = syndicateConfig[tagKey] || { bg: '#1a1a2e', accent: '#a0a0a0' };
   const isNegative = rank < 0;

@@ -35,6 +35,7 @@ import '@mdxeditor/editor/style.css';
 // Inline editable title - click to rename
 function EditableTitle({ filename, onRename }) {
   const [editing, setEditing] = useState(false);
+  const { t } = useUi();
   const [val, setVal] = useState(filename.replace('.md', ''));
   const inputRef = useRef(null);
 

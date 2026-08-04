@@ -120,6 +120,7 @@ const modFrameBotMap = {
 
 function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFoundryFilters }) {
   const { isInventoryLoading, ExportImages, dropIndex } = useMonitoring();
+  const { t } = useUi();
   const [width, setWidth] = useState(600);
   const [isResizing, setIsResizing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -1367,6 +1368,7 @@ export default function Inventory() {
 function renderHeaderStats(inventoryData, iconsPath) {
   if (!inventoryData?.account) return null;
   const { credits, platinum, forma, aura_forma, stance_forma, umbra_forma, orokin_reactor, orokin_catalyst, endo } = inventoryData.account;
+  const { t } = useUi();
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
   const StatWidget = ({ icon, label, value, accent = 'text-kronos-dim', tooltip = null }) =>
   <div className="flex items-stretch gap-1.5 min-w-[50px] relative group">

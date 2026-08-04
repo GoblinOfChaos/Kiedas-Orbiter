@@ -2351,3 +2351,24 @@ dirty worktree; preserve unrelated edits when committing or branching.
       **Not yet live-tested** - needs a session where Jacob drags each
       reward-count layout separately and confirms they hold position
       independently afterward.
+
+## 2026-08-03 - Queued feature: Nightwave + Deep/Temporal Archimedea tracking
+
+  Not started - Jacob asked to queue this, not implement yet.
+
+  1. **Nightwave task tracking** - show which current Nightwave
+     (weekly/daily) challenges are still incomplete, so Jacob can see at
+     a glance what's left to focus on this act/week.
+  2. **Deep Archimedea** - show the current week's mission list and the
+     loadout each mission requires (deviations/decrees interact with
+     specific frame/weapon choices).
+  3. **Temporal Archimedea** - same as above: current mission list +
+     required loadout per mission.
+
+  Needs research before implementation: confirm what real-time source
+  actually exposes current Nightwave/Archimedea state (WFCD-style static
+  data won't have rotating weekly content) - likely the same category of
+  work as the existing warframestat.us/WFCD drop-data integration this
+  project already uses elsewhere, or Warframe's own API if reachable.
+  Check for prior art (Kronos, other companion apps) before designing
+  anything new, per standing research-first direction.

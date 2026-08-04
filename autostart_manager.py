@@ -380,7 +380,28 @@ def reconcile_always_on():
             )
             continue
         _last_always_on_restart_attempt[feature] = now
-        start_feature(feature, reason="reconcile_always_on (not running)")
+        try:
+            start_feature(feature, reason="reconcile_always_on (not running)")
+        except Exception as e:
+            # This must be impossible to lose. Live mystery 2026-08-04:
+            # detector stayed "not running" indefinitely with no restart
+            # attempt visible anywhere in the logs, despite the in-memory
+            # backoff dict proving an attempt DID happen. Leading theory:
+            # launch_detached()'s own open(log_file, "ab") raised (file-
+            # descriptor exhaustion left over from the runaway
+            # watcher-duplication bug fixed earlier the same session),
+            # and the resulting exception's error message got silently
+            # swallowed by log()'s own OSError guard (warframe-watcher.py,
+            # hardened specifically so a logging failure can't kill the
+            # loop) - which in this one case meant a real launch failure
+            # left zero trace anywhere. _log() goes through the same
+            # write path and could suffer the same fate, so this also
+            # prints directly to stderr (captured into watcher.log's own
+            # redirected output by launch_detached(), a completely
+            # separate path from _log()'s explicit file open) as a second,
+            # independent channel for exactly this failure mode.
+            print(f"reconcile_always_on: start_feature({feature!r}) raised {e!r}", file=_sys.stderr, flush=True)
+            _log(f"reconcile_always_on: start_feature({feature!r}) raised {e!r}")
 
 
 def reconcile_warframe_gated():

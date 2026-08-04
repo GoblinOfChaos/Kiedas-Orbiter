@@ -49,6 +49,25 @@ def test_restart_backoff_allows_retry_after_window(monkeypatch):
     assert am._can_attempt_restart("detector", now=1031.0) is True
 
 
+def test_reconcile_always_on_survives_start_feature_raising(monkeypatch, capsys):
+    # Live mystery 2026-08-04: detector never came back after dying, with
+    # zero trace anywhere - leading theory is start_feature() (via
+    # launch_detached()'s own file open) raised, and the resulting error
+    # message got silently lost too. This must never propagate and kill
+    # the whole watcher loop, and must be visible on stderr even if the
+    # normal _log() write path is also somehow failing.
+    monkeypatch.setattr(am, "_last_always_on_restart_attempt", {})
+    monkeypatch.setattr(am, "get_autostart", lambda feature: True)
+    monkeypatch.setattr(am, "is_feature_running", lambda feature: False)
+
+    def _raise(feature, reason=""):
+        raise OSError("simulated: too many open files")
+
+    monkeypatch.setattr(am, "start_feature", _raise)
+    am.reconcile_always_on()  # must not raise
+    assert "simulated: too many open files" in capsys.readouterr().err
+
+
 def test_reconcile_always_on_restarts_dead_feature(monkeypatch):
     monkeypatch.setattr(am, "_last_always_on_restart_attempt", {})
     monkeypatch.setattr(am, "get_autostart", lambda feature: True)

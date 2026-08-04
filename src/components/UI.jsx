@@ -146,6 +146,7 @@ import { ChevronUp } from 'lucide-react';
 
 function BackToTopButton({ scrollRef }) {
   const [visible, setVisible] = useState(false);
+  const { t } = useUi();
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -426,6 +427,7 @@ export function StatCard({ icon: Icon, label, value, subtext }) {
 // Item Card
 // Reusable card to display item details (warframes / weapons etc.).
 export function ItemCard({ item }) {
+  const { t } = useUi();
   return (
     <Card glow className="p-4">
       <h3 className="font-bold mb-2">{item.display_name}</h3>

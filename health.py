@@ -30,6 +30,7 @@ GREY = FG_DIM
 
 
 from platform_utils import get_pid, is_running
+import autostart_manager
 
 
 def pgrep_first(pattern):
@@ -117,7 +118,23 @@ class HealthWidget(QGroupBox):
             ("warframe", "Warframe.x64.exe",      "Warframe"),
         ]:
             pid = pgrep_first(pattern)
-            if pid:
+            if pid and key == "watcher":
+                # A process existing isn't proof its reconciliation loop is
+                # actually still ticking - it could be alive but stuck.
+                # Cross-check the heartbeat file it's supposed to be
+                # writing every ~5s (autostart_manager.reconcile_warframe_
+                # gated()) rather than trusting pid existence alone. This
+                # is also what would have caught 2026-08-02's silent death
+                # if the process itself had stayed alive but stopped
+                # ticking, rather than exiting outright.
+                age = autostart_manager.heartbeat_age_seconds()
+                if age is None:
+                    self.rows[key].setText(self._c('⚠ running, but no heartbeat recorded yet', YELLOW))
+                elif age > 30:
+                    self.rows[key].setText(self._c(f'✗ STALLED - last heartbeat {fmt_age(age)}', RED))
+                else:
+                    self.rows[key].setText(self._c(f'✓ running (heartbeat {fmt_age(age)})', GREEN))
+            elif pid:
                 et = proc_elapsed(pid)
                 extra = ""
                 if key == "orbiter":

@@ -360,9 +360,24 @@ def reconcile_always_on():
     until a human noticed via direct log/process inspection."""
     now = time.time()
     for feature in _SELF_RESTARTABLE_ALWAYS_ON:
-        if not get_autostart(feature) or is_feature_running(feature):
+        autostart_on = get_autostart(feature)
+        running = is_feature_running(feature)
+        can_attempt = _can_attempt_restart(feature, now)
+        if not autostart_on or running:
             continue
-        if not _can_attempt_restart(feature, now):
+        if not can_attempt:
+            # Diagnostic for the live mystery 2026-08-04: detector stayed
+            # "not running" for well over a minute in real usage with no
+            # restart attempt logged at all, despite this exact function
+            # working correctly when called manually. Logging the blocked
+            # case (not just the successful one) turns that into directly
+            # observable evidence instead of more inference from outside.
+            last_attempt = _last_always_on_restart_attempt.get(feature)
+            _log(
+                f"reconcile_always_on: {feature} not running but restart "
+                f"blocked by backoff (last_attempt={last_attempt}, "
+                f"now={now}, elapsed={now - last_attempt if last_attempt else None})"
+            )
             continue
         _last_always_on_restart_attempt[feature] = now
         start_feature(feature, reason="reconcile_always_on (not running)")

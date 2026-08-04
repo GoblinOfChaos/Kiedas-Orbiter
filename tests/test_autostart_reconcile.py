@@ -103,6 +103,19 @@ def test_reconcile_always_on_respects_backoff_on_repeated_death(monkeypatch):
     assert len(started) == first_round  # no new attempts within the backoff window
 
 
+def test_reconcile_always_on_logs_when_backoff_blocks_a_restart(monkeypatch):
+    monkeypatch.setattr(am, "_last_always_on_restart_attempt", {})
+    monkeypatch.setattr(am, "get_autostart", lambda feature: True)
+    monkeypatch.setattr(am, "is_feature_running", lambda feature: False)
+    monkeypatch.setattr(am, "start_feature", lambda feature, reason="": None)
+    logged = []
+    monkeypatch.setattr(am, "_log", lambda msg: logged.append(msg))
+    am.reconcile_always_on()  # first call succeeds, no log expected yet
+    assert logged == []
+    am.reconcile_always_on()  # second call, still dead, blocked by backoff
+    assert any("blocked by backoff" in msg for msg in logged)
+
+
 def test_reconcile_always_on_skips_disabled_autostart(monkeypatch):
     monkeypatch.setattr(am, "_last_always_on_restart_attempt", {})
     monkeypatch.setattr(am, "get_autostart", lambda feature: False)

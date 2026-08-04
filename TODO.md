@@ -2372,3 +2372,49 @@ dirty worktree; preserve unrelated edits when committing or branching.
   project already uses elsewhere, or Warframe's own API if reachable.
   Check for prior art (Kronos, other companion apps) before designing
   anything new, per standing research-first direction.
+
+## 2026-08-03 (night) - Service-lifecycle refactor: Phases 1-2 done
+
+  Jacob requested the "full refactor" after two audit files
+  (`claude_audit_findings.json`, `claude_fix_suggestions.json` - both
+  legitimate and accurate, unlike an earlier `audit_report.txt` that
+  described an unrelated Angular/RabbitMQ codebase and was disregarded).
+  Full plan written to
+  `docs/superpowers/plans/2026-08-03-service-lifecycle-refactor.md`,
+  phased per the audit's own priority order. Two phases implemented and
+  PR'd tonight; deliberately stopped there rather than pushing through
+  all five phases in one sitting, per the plan's own "each phase its own
+  PR, don't destabilize the app" constraint.
+
+  - **PR #24** - fixed the actual concrete bug found while diagnosing
+    tonight's "Status tab says online but nothing is really running"
+    report: `is_running()`'s substring matching counted a diagnostic
+    `python -c "..."` one-liner as a running orbiter/overlay process,
+    because its own inline script text happened to mention those path
+    patterns. Live-reproduced, not theoretical.
+  - **PR #25** (stacked on #24) - Phase 1, `FIX-PROCESS-01`: structured
+    PID-based service registry (`service_registry.py`), replacing
+    substring-scan liveness checks with precise PID + `create_time()`
+    comparison. Falls back to the substring scan only when there's no
+    registry entry at all.
+  - **PR #26** (stacked on #25) - Phase 2, `FIX-PROCESS-02`: directly
+    fixes two live-confirmed silent-death bugs - (1) `detector`/`watcher`
+    were never reconciled after their one-time launch at app start, so a
+    mid-session death (like orbiter's tonight) was never noticed or
+    recovered; (2) `warframe-watcher.py`'s own `log()` had no safety net
+    against its own write failing from inside an exception handler,
+    which is the likely exact mechanism behind the "STOP ... reason:
+    unspecified, then 12+ hours of total silence" bug from earlier
+    tonight. Also adds a persisted heartbeat so a stalled-but-alive
+    watcher is distinguishable from a genuinely dead one.
+
+  **Not yet live-tested** - all three PRs need a real session:
+  confirm the Status tab agrees with reality, deliberately kill
+  orbiter/watcher mid-session and confirm `reconcile_always_on()`
+  brings them back, and confirm the heartbeat-staleness display works.
+
+  Phases 3 (error diagnostics), 4 (atomic config writes), and 5 (update-
+  pipeline robustness) remain unimplemented - see the plan doc for scope.
+  The audit's package-reorganization suggestion (`FIX-ARCH-01`/`02`) was
+  deliberately excluded from the plan entirely - see "Deliberately
+  excluded" in the plan doc for why.

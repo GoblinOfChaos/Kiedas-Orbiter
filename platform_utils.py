@@ -46,11 +46,30 @@ def find_processes(pattern: str) -> List[psutil.Process]:
         try:
             cmdline_parts = proc.info["cmdline"] or []
             name = proc.info["name"] or ""
-            if any(pattern in part for part in cmdline_parts) or pattern in name:
+            if any(_matches_pattern(part, pattern) for part in cmdline_parts) or _matches_pattern(name, pattern):
                 matches.append(proc)
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             pass
     return matches
+
+
+def _matches_pattern(text: str, pattern: str) -> bool:
+    """Stricter than a bare substring check - requires `pattern` to be the
+    whole `text`, or a trailing path/name segment of it, not merely
+    contained anywhere within a larger blob of unrelated text.
+
+    Live bug found 2026-08-03: a `python -c "...target/release/orbiter..."`
+    diagnostic one-liner got counted as a running orbiter process, because
+    the previous per-argument check (see find_processes()'s own docstring
+    for the earlier cross-argument-boundary fix this builds on) only
+    guarded against a pattern spanning across two separate cmdline
+    arguments - it didn't guard against the pattern appearing in the
+    *middle* of a single large argument, which is exactly what an inline
+    `-c` script or any other long argument value looks like. Anchoring to
+    "equals or ends with" closes that gap while still matching the real
+    launch invocations these patterns exist for (e.g. an argv ending in
+    "target/release/orbiter", "/overlay.py", or "./orbiter")."""
+    return text == pattern or text.endswith(pattern)
 
 
 def is_running(pattern: str) -> bool:

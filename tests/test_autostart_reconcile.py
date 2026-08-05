@@ -134,6 +134,36 @@ def test_reconcile_always_on_leaves_running_features_alone(monkeypatch):
     assert started == []
 
 
+def test_reconcile_always_on_logs_nothing_when_healthy(monkeypatch):
+    # The unconditional per-evaluation diagnostic line should only ever
+    # appear while a feature is actually down - a healthy running feature
+    # must not spam the log every 5s tick forever.
+    monkeypatch.setattr(am, "_last_always_on_restart_attempt", {})
+    monkeypatch.setattr(am, "get_autostart", lambda feature: True)
+    monkeypatch.setattr(am, "is_feature_running", lambda feature: True)
+    logged = []
+    monkeypatch.setattr(am, "_log", lambda msg: logged.append(msg))
+    am.reconcile_always_on()
+    assert logged == []
+
+
+def test_reconcile_always_on_logs_every_evaluation_while_down(monkeypatch):
+    # Live mystery 2026-08-04: the function restarts detector correctly
+    # every time it's called by hand, but the real continuously-running
+    # watcher process never seems to fire it at all after a real death,
+    # with zero errors anywhere. This unconditional log (not just the
+    # blocked-by-backoff case) must fire on every single evaluation while
+    # the feature is down, so a future occurrence has complete evidence.
+    monkeypatch.setattr(am, "_last_always_on_restart_attempt", {})
+    monkeypatch.setattr(am, "get_autostart", lambda feature: True)
+    monkeypatch.setattr(am, "is_feature_running", lambda feature: False)
+    monkeypatch.setattr(am, "start_feature", lambda feature, reason="": None)
+    logged = []
+    monkeypatch.setattr(am, "_log", lambda msg: logged.append(msg))
+    am.reconcile_always_on()
+    assert any("evaluated" in msg and "running=False" in msg for msg in logged)
+
+
 def test_reconcile_always_on_respects_backoff_on_repeated_death(monkeypatch):
     # A feature that's dead every single tick (a real crash-on-launch,
     # not a transient blip) must not be restarted on every tick - only
@@ -156,8 +186,9 @@ def test_reconcile_always_on_logs_when_backoff_blocks_a_restart(monkeypatch):
     monkeypatch.setattr(am, "start_feature", lambda feature, reason="": None)
     logged = []
     monkeypatch.setattr(am, "_log", lambda msg: logged.append(msg))
-    am.reconcile_always_on()  # first call succeeds, no log expected yet
-    assert logged == []
+    am.reconcile_always_on()  # first call succeeds - logs the unconditional
+    # per-evaluation line, but not a "blocked by backoff" line yet
+    assert not any("blocked by backoff" in msg for msg in logged)
     am.reconcile_always_on()  # second call, still dead, blocked by backoff
     assert any("blocked by backoff" in msg for msg in logged)
 

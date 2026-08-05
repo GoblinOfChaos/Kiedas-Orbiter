@@ -9,6 +9,7 @@ that knows how to launch or stop each one - avoids the two call sites
 drifting out of sync with each other.
 """
 
+import os
 import sys as _sys
 import time
 from pathlib import Path
@@ -363,6 +364,20 @@ def reconcile_always_on():
         autostart_on = get_autostart(feature)
         running = is_feature_running(feature)
         can_attempt = _can_attempt_restart(feature, now)
+        if not running:
+            # Unconditional (whenever down, not just the blocked-by-backoff
+            # case) - live mystery 2026-08-04: this function restarts
+            # detector correctly every single time it's called by hand,
+            # but the real continuously-running watcher process never
+            # fires it at all after a real death, with zero errors logged
+            # anywhere. This makes every single evaluation visible so the
+            # next natural occurrence has complete evidence instead of
+            # requiring manual intervention to even get a data point.
+            _log(
+                f"reconcile_always_on: {feature} evaluated - autostart_on={autostart_on} "
+                f"running={running} can_attempt={can_attempt} "
+                f"dict_id={id(_last_always_on_restart_attempt)} pid={os.getpid()}"
+            )
         if not autostart_on or running:
             continue
         if not can_attempt:

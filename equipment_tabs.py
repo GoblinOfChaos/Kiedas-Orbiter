@@ -48,7 +48,7 @@ def _status_colors():
 
 
 COLOR_COMPONENT = QColor("#e8c96a")
-COLOR_RESOURCE  = QColor("#888888")
+COLOR_SATISFIED = QColor("#888888")
 COLOR_DROP      = QColor("#cdd4ff")
 
 TAB_ORDER = [
@@ -336,14 +336,20 @@ class EquipmentTabBuilder:
         owned = c.get("owned", 0)
         res = is_resource(cn)
 
-        # For stackable resources (Nano Spores, Plastids, etc.) the Need
-        # column shows how many MORE are needed (recipe total minus what
-        # you already hold), not the flat recipe total - Jacob 2026-07-22
-        # asked whether "need 5, have 2" shows 5 or 3. Non-resource parts
-        # (Blueprint/Barrel/...) aren't stackable inventory counts the
-        # same way, so those keep showing the plain recipe count.
-        if res and owned:
+        # The Need column shows how many MORE are needed (recipe total
+        # minus what you already hold), not the flat recipe total -
+        # Jacob 2026-07-22 asked whether "need 5, have 2" shows 5 or 3.
+        # Originally gated to stackable resources (Nano Spores, Plastids,
+        # ...) only, on the assumption that non-resource parts (Blueprint/
+        # Barrel/...) "aren't stackable inventory counts the same way" -
+        # but they ARE tracked the same way (see populate_equipment.py's
+        # resource_counts), so gating on is_resource() just hid real
+        # ownership data for those parts. Jacob 2026-08-05 ("Shedu
+        # Blueprint shows as not owned despite owning it").
+        satisfied = False
+        if owned:
             remaining = max(0, cnt - owned)
+            satisfied = remaining == 0
             need_text = f"x{remaining} (of {cnt}, have {owned:,})" if remaining else f"Have {owned:,}/{cnt:,} \u2713"
         else:
             need_text = f"x{cnt}"
@@ -369,7 +375,13 @@ class EquipmentTabBuilder:
         row[1] = need_text
         row[col_count - 1] = source_text
         cnode = QTreeWidgetItem(row)
-        col = COLOR_RESOURCE if res else COLOR_COMPONENT
+        # Grey means "you have enough of this" regardless of whether it's
+        # a stackable resource or a discrete part (Blueprint/Barrel/...) -
+        # previously this colored by resource-vs-component type instead,
+        # which coincidentally looked ownership-related but wasn't. Jacob
+        # 2026-08-05 ("only the things I have enough of should be greyed
+        # out, not by if its item or resource").
+        col = COLOR_SATISFIED if satisfied else COLOR_COMPONENT
         for i in range(col_count):
             cnode.setForeground(i, QBrush(col))
         cnode.setToolTip(col_count - 1, source_text)

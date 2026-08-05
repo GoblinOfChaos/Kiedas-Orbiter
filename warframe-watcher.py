@@ -28,7 +28,7 @@ def log(msg):
         # to take down the thing it's trying to log about.
         pass
 
-from platform_utils import get_pid
+from platform_utils import get_pid, reap_zombie_children
 import autostart_manager
 
 
@@ -68,6 +68,12 @@ def main():
             # mid-session - previously nothing ever re-checked these two
             # after apply_autostart()'s one-time launch at app start.
             autostart_manager.reconcile_always_on()
+            # A crashed child launched by THIS process (e.g. a detector
+            # restarted by reconcile_always_on() above) lingers as a
+            # zombie in the process list until reaped - see
+            # platform_utils.reap_zombie_children()'s own docstring for
+            # the live symptom this fixes.
+            reap_zombie_children()
         except Exception as e:
             # Without this, any unexpected error here (a psutil hiccup, a
             # transient permission error, etc.) kills the whole watcher loop

@@ -1179,6 +1179,21 @@ def main():
             print(f"[autostart] error: {e}", file=sys.stderr)
     QTimer.singleShot(500, _apply_autostart)
 
+    # Reaps zombies left behind by children THIS process launched (the
+    # initial detector/watcher from apply_autostart() above) if either
+    # crashes before warframe-watcher.py's own reconcile loop (which
+    # reaps its own children) gets a chance to replace it. Live-confirmed
+    # 2026-08-04: a crashed-then-auto-restarted detector left the old
+    # crashed process visible as a permanent second "orbiter" entry in
+    # Task Manager, since nothing had ever called wait() on it.
+    def _reap_zombies():
+        from platform_utils import reap_zombie_children
+        reap_zombie_children()
+    _zombie_reap_timer = QTimer()
+    _zombie_reap_timer.timeout.connect(_reap_zombies)
+    _zombie_reap_timer.start(30_000)
+    app._zombie_reap_timer = _zombie_reap_timer  # keep a reference alive
+
     # The other four (overlay, relic-recommend, riven, fissure) only make
     # sense while Warframe is actually running. Reconciling this used to
     # run from a QTimer here in the GUI process, but confirmed live

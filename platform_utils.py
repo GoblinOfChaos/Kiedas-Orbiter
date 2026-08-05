@@ -20,6 +20,39 @@ IS_LINUX   = sys.platform.startswith("linux")
 IS_MAC     = sys.platform == "darwin"
 
 
+# ── Zombie reaping ─────────────────────────────────────────────────────────
+
+def reap_zombie_children() -> int:
+    """Reap any of this process's own children that have already exited,
+    so a crashed detector/watcher/overlay doesn't linger as a permanent
+    zombie in the process list. Live-confirmed 2026-08-04: after a
+    crashed orbiter got correctly restarted (the actual liveness-check
+    bug fixed separately in service_registry.py), the old crashed
+    process was still visible in Task Manager as a second "orbiter"
+    entry - nothing ever called wait() on it. launch_detached() uses
+    start_new_session=True on Linux, which detaches the child from the
+    calling *terminal*, not from the calling *process* - it's still a
+    real child in the process tree, and the OS keeps a zombie's PID
+    entry (with its exit status) around until the parent explicitly
+    reaps it via wait()/waitpid(). No-op on Windows (no zombie-process
+    concept there). Safe to call frequently - WNOHANG makes this
+    non-blocking, and it does nothing when there's nothing to reap."""
+    if IS_WINDOWS:
+        return 0
+    reaped = 0
+    try:
+        while True:
+            pid, _status = os.waitpid(-1, os.WNOHANG)
+            if pid == 0:
+                break
+            reaped += 1
+    except ChildProcessError:
+        # No children at all (nothing launched yet, or all already reaped)
+        # - not an error, just nothing to do.
+        pass
+    return reaped
+
+
 # ── Process detection ─────────────────────────────────────────────────────
 
 def find_processes(pattern: str) -> List[psutil.Process]:

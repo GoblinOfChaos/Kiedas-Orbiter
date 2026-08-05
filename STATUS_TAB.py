@@ -122,6 +122,7 @@ LOG_FILE = DATA_DIR / "overlay.log"
 
 from platform_utils import is_running, kill_processes
 import autostart_manager
+import service_registry
 from toggle_switch import ToggleSwitch
 
 
@@ -1451,6 +1452,18 @@ class StatusTab(QWidget):
             + kill_processes("orbiter.exe")
             + kill_processes("./orbiter")
         )
+        # Live bug found 2026-08-04: this launch path never told the
+        # service registry (added the same day) about the process it
+        # kills/starts. Real symptom: clicking this button genuinely
+        # restarted a working orbiter, but the Status display kept
+        # reporting "detector: offline" forever afterward - the registry
+        # still held the old, now-dead PID with no way to learn a new one
+        # replaced it outside autostart_manager's own launch functions.
+        # Clearing it here (rather than leaving a stale entry) means
+        # is_feature_running() correctly falls back to the substring scan
+        # for the moment right after this kill, until _reload_config_launch
+        # records the new PID below.
+        service_registry.clear_registration("detector")
         self.cmd_text.append(f"Stopped {killed} running orbiter process(es).")
         # QTimer instead of time.sleep — this runs on the GUI thread, and a
         # real sleep() here would freeze the whole window for a few seconds.
@@ -1475,16 +1488,19 @@ class StatusTab(QWidget):
                 # launch-orbiter.sh handles Bazzite/gamescope-specific setup
                 # (DISPLAY detection, host libs, portal bus) that Windows
                 # simply doesn't need — there we can launch the exe directly.
-                launch_detached(["./launch-orbiter.sh"] + args, cwd=WFINFO_DIR,
-                                 env=clean_env_for_launch(), log_file=log_file)
+                proc = launch_detached(["./launch-orbiter.sh"] + args, cwd=WFINFO_DIR,
+                                        env=clean_env_for_launch(), log_file=log_file)
             else:
-                launch_detached([str(WFINFO_DIR / "orbiter.exe")] + args, cwd=WFINFO_DIR,
-                                 log_file=log_file)
+                proc = launch_detached([str(WFINFO_DIR / "orbiter.exe")] + args, cwd=WFINFO_DIR,
+                                        log_file=log_file)
         except OSError as e:
             self.cmd_text.append(f"ERROR: failed to launch orbiter: {e}")
             self.lbl_status.setText("Failed")
             self._set_buttons_enabled(True)
             return
+        # See the note on the kill step above - without this, the Status
+        # display never learns about the process this button just started.
+        service_registry.record_launch("detector", proc.pid)
         QTimer.singleShot(2000, self._reload_config_report)
 
     def _reload_config_report(self):

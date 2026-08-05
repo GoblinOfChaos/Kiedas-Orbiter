@@ -57,19 +57,6 @@ TAB_ORDER = [
     "Sentinel", "Sentinel Weapon", "Pet",
 ]
 
-RESOURCE_HINTS = {
-    "cell", "forma", "salvage", "polymer", "ferrite", "alloy", "plate",
-    "circuit", "rubedo", "neurode", "mutagen", "plasm", "thrax",
-    "bundle", "mass", "morphics", "oxium", "control module",
-    "argon", "tellurium", "kuva", "fieldron", "detonite",
-    "nano spore", "plastid", "cryotic", "gallium", "nitain",
-}
-
-def is_resource(component_name):
-    """True if this 'component' is really a generic crafting material."""
-    lower = component_name.lower()
-    return any(h in lower for h in RESOURCE_HINTS)
-
 def _center_cols(tree_item, col_count):
     """Column 0 (name/component/source) stays left-aligned; every other
     column is centered - matches the alignment convention already used
@@ -334,15 +321,18 @@ class EquipmentTabBuilder:
         cn = c.get("name", "")
         cnt = c.get("count", 1)
         owned = c.get("owned", 0)
-        res = is_resource(cn)
 
-        # For stackable resources (Nano Spores, Plastids, etc.) the Need
-        # column shows how many MORE are needed (recipe total minus what
-        # you already hold), not the flat recipe total - Jacob 2026-07-22
-        # asked whether "need 5, have 2" shows 5 or 3. Non-resource parts
-        # (Blueprint/Barrel/...) aren't stackable inventory counts the
-        # same way, so those keep showing the plain recipe count.
-        if res and owned:
+        # The Need column shows how many MORE are needed (recipe total
+        # minus what you already hold), not the flat recipe total -
+        # Jacob 2026-07-22 asked whether "need 5, have 2" shows 5 or 3.
+        # Originally gated to stackable resources (Nano Spores, Plastids,
+        # ...) only, on the assumption that non-resource parts (Blueprint/
+        # Barrel/...) "aren't stackable inventory counts the same way" -
+        # but they ARE tracked the same way (see populate_equipment.py's
+        # resource_counts), so gating on is_resource() just hid real
+        # ownership data for those parts. Jacob 2026-08-05 ("Shedu
+        # Blueprint shows as not owned despite owning it").
+        if owned:
             remaining = max(0, cnt - owned)
             need_text = f"x{remaining} (of {cnt}, have {owned:,})" if remaining else f"Have {owned:,}/{cnt:,} \u2713"
         else:

@@ -178,13 +178,20 @@ def main():
     print(f"  Subsumed warframes: {len(subsumed_set)}")
 
     # Owned quantities of stackable resources (Nano Spores, Plastids,
-    # etc.), keyed by uniqueName - lets the "Need" column show how many
+    # etc.) AND crafted-component parts (Blueprints, Barrels, Receivers,
+    # ...), keyed by uniqueName - lets the "Need" column show how many
     # more are still needed instead of always the full recipe amount.
+    # Blueprints specifically live in inventory.json's Recipes category,
+    # not MiscItems - reading MiscItems alone (the original behavior)
+    # meant an owned Blueprint always showed as "still needed x1" even
+    # though the player already had it. Jacob 2026-08-05 ("Shedu Blueprint
+    # shows as not owned despite owning it").
     resource_counts = {}
-    for entry in (inventory.get('MiscItems') or []):
-        u = entry.get('ItemType', '')
-        if u:
-            resource_counts[u] = entry.get('ItemCount', 0)
+    for cat in ('MiscItems', 'Recipes'):
+        for entry in (inventory.get(cat) or []):
+            u = entry.get('ItemType', '')
+            if u:
+                resource_counts[u] = resource_counts.get(u, 0) + entry.get('ItemCount', 0)
     print(f"  Tracked resource types: {len(resource_counts)}")
 
     cache = {}

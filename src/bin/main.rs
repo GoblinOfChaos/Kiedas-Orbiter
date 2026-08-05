@@ -1613,6 +1613,46 @@ struct Arguments {
     pre_capture_sleep_ms: u64,
 }
 
+/// Xlib's default X error handler calls exit() on any X protocol error,
+/// process-wide, with no way to catch it as a normal Rust error - see the
+/// call site in main() for the live crash this fixes. Replaces it with a
+/// handler that logs and survives instead.
+#[cfg(target_os = "linux")]
+unsafe extern "C" fn x11_error_handler(
+    _display: *mut x11_dl::xlib::Display,
+    event: *mut x11_dl::xlib::XErrorEvent,
+) -> std::os::raw::c_int {
+    if let Some(event) = event.as_ref() {
+        error!(
+            "X11 error (survived, not fatal): error_code={} request_code={} minor_code={}",
+            event.error_code, event.request_code, event.minor_code
+        );
+    } else {
+        error!("X11 error (survived, not fatal): null event");
+    }
+    0
+}
+
+#[cfg(target_os = "linux")]
+fn install_x11_error_handler() {
+    // Xlib::open() dynamically loads libX11 - matches how global-hotkey's
+    // own x11-dl backend loads it, so this doesn't add a new runtime
+    // dependency, just an earlier call into the same library before
+    // anything else (global-hotkey included) gets a chance to leave the
+    // default fatal handler in place.
+    match x11_dl::xlib::Xlib::open() {
+        Ok(xlib) => unsafe {
+            (xlib.XSetErrorHandler)(Some(x11_error_handler));
+        },
+        Err(e) => {
+            warn!(
+                "Could not load libX11 to install a survivable X error handler: {e} \
+                 (an X protocol error, e.g. a failed hotkey grab, could still crash the process)"
+            );
+        }
+    }
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
     let arguments = Arguments::parse();
     // HOME doesn't exist on Windows (it's USERPROFILE there), and this used
@@ -1651,6 +1691,27 @@ fn main() -> Result<(), Box<dyn Error>> {
         .format_module_path(false)
         .format_target(false)
         .init();
+
+    // Must happen before anything touches X11 (specifically before
+    // hotkey_watcher()'s GlobalHotKeyManager::new()/register() calls
+    // below). Live-confirmed 2026-08-04: a global-hotkey registration
+    // that fails at the X protocol level (XGrabKey requests are
+    // asynchronous - failure arrives as a later X error event, not as
+    // register()'s immediate return value) was crashing the entire
+    // process instantly with "X Error of failed request: BadAccess ...
+    // X_GrabKey", completely bypassing the already-existing Result
+    // handling around register() below - because Xlib's *default* X
+    // error handler (installed automatically unless something
+    // overrides it, which global-hotkey 0.4.2's x11-dl backend does
+    // not) calls exit() on any X protocol error. This happened
+    // repeatedly across multiple different hotkeys (F12, then F11 after
+    // switching to work around a suspected Steam conflict) - the
+    // hotkey choice was never the real issue, the crash-on-any-X-error
+    // behavior was. Installing our own handler here makes any future
+    // X protocol error (this one or otherwise) a logged, survivable
+    // event instead of an instant process death.
+    #[cfg(target_os = "linux")]
+    install_x11_error_handler();
 
     // Screenshots are taken via spectacle/grim (Wayland-native portal).
     // No X11/XCB connection is made, so gamescope never releases its input grab.

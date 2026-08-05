@@ -4331,6 +4331,7 @@ dependencies = [
  "serde",
  "serde-aux",
  "serde_json",
+ "x11-dl",
  "xcap",
 ]
 

@@ -310,9 +310,9 @@ class Tracker(QWidget):
                 if hasattr(page, '_built') and not page._built:
                     try:
                         real = page._factory()
-                    except Exception:
+                    except Exception as e:
                         import traceback; traceback.print_exc()
-                        real = QLabel("Failed to load")
+                        real = QLabel(f"Failed to load: {e}")
                     stack.removeWidget(page)
                     stack.insertWidget(_idx, real)
                     page.deleteLater()

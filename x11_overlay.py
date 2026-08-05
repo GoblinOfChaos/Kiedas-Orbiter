@@ -62,6 +62,8 @@ loses input focus (controller stops responding) while an overlay is shown.
 """
 import ctypes
 import ctypes.util
+import json
+import sys
 import time
 
 import gi
@@ -354,7 +356,6 @@ def _log_monitor_debug(msg):
     # 2026-07-27 to pin down exactly where monitor-origin resolution goes
     # wrong before attempting a fix - see project_overlay_windowing_direction
     # memory / TODO.md for context.
-    import sys
     print(f"[x11_overlay debug] {msg}", file=sys.stderr, flush=True)
 
 
@@ -424,7 +425,6 @@ def move_to_monitor(window, monitor, position_file, default_position):
     """Select `monitor` for `window` and show/move it to whatever (left,
     top) offset gtk_overlay_drag.py last persisted to `position_file` (or
     `default_position` if there's no saved position yet)."""
-    import json
     try:
         pos = json.loads(position_file.read_text())
         left = pos.get("left", default_position.get("left", 0))

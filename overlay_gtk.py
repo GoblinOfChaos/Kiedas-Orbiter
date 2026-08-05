@@ -30,6 +30,8 @@ for now.
 
 import json
 import os
+
+import psutil
 from datetime import datetime
 import sys
 import time
@@ -45,6 +47,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib, Gdk  # noqa: E402
 
 from paths import DATA_DIR, WFINFO_DIR  # noqa: E402
+from platform_utils import _matches_pattern  # noqa: E402
 from theme import get_palette  # noqa: E402
 from x11_overlay import (  # noqa: E402
     setup_overlay_window, monitor_origin, move_to_monitor, target_monitor,
@@ -739,8 +742,6 @@ def _enforce_singleton():
     accumulated - confirmed live: a `ps aux` after several restarts showed
     an overlay_gtk.py with no overlay.py parent anywhere in the process
     list. This mirrors overlay.py's own pid-file pattern exactly."""
-    import os
-    import psutil
     pid_path = DATA_DIR / "overlay-gtk.pid"
     pid_path.parent.mkdir(parents=True, exist_ok=True)
     try:
@@ -758,7 +759,7 @@ def _enforce_singleton():
                 # PID files don't check process identity/start time
                 # before signaling").
                 cmdline = " ".join(proc.cmdline())
-                if "overlay_gtk.py" in cmdline:
+                if any(_matches_pattern(part, "overlay_gtk.py") for part in proc.cmdline()):
                     proc.terminate()
                     log(f"killed previous overlay_gtk.py instance (pid {old_pid})")
                     time.sleep(0.3)

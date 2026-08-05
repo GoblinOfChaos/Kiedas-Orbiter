@@ -9,6 +9,7 @@ that knows how to launch or stop each one - avoids the two call sites
 drifting out of sync with each other.
 """
 
+import json
 import os
 import sys as _sys
 import time
@@ -97,7 +98,6 @@ _REQUIRED_COMPONENTS = {
 
 
 def _load_config() -> dict:
-    import json
     try:
         return json.loads(CONFIG_FILE.read_text())
     except Exception:
@@ -105,7 +105,6 @@ def _load_config() -> dict:
 
 
 def _save_config(cfg: dict):
-    import json
     try:
         CONFIG_FILE.write_text(json.dumps(cfg, indent=2))
     except Exception:
@@ -309,7 +308,6 @@ _last_always_on_restart_attempt: dict = {}
 
 
 def _write_heartbeat():
-    import json
     try:
         HEARTBEAT_FILE.write_text(json.dumps({"tick": _tick_count, "last_beat": time.time()}))
     except OSError:
@@ -319,7 +317,6 @@ def _write_heartbeat():
 def heartbeat_age_seconds() -> Optional[float]:
     """Seconds since the reconciliation loop last ticked, or None if the
     heartbeat file doesn't exist yet (loop never ran) or is unreadable."""
-    import json
     try:
         data = json.loads(HEARTBEAT_FILE.read_text())
         return time.time() - float(data["last_beat"])

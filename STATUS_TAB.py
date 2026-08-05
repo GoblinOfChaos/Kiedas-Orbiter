@@ -1395,6 +1395,7 @@ class StatusTab(QWidget):
         """Walk the QStackedWidget and call _load_data() or _load() on every
         already-built tab so inventory changes appear without restarting."""
         reloaded = []
+        failed = []
         try:
             stack = self.parent()
             while stack and not hasattr(stack, 'count'):
@@ -1411,14 +1412,20 @@ class StatusTab(QWidget):
                         try:
                             getattr(w, method)()
                             reloaded.append(type(w).__name__)
-                        except Exception:
-                            pass
+                        except Exception as e:
+                            failed.append(type(w).__name__)
+                            print(f"[STATUS_TAB] {type(w).__name__}.{method}() failed: {e}",
+                                  file=sys.stderr)
                         break
         except Exception:
             pass
         if reloaded:
             self.cmd_text.append(
                 f"\n✓ Reloaded tabs: {', '.join(reloaded)}"
+            )
+        if failed:
+            self.cmd_text.append(
+                f"\n✗ Failed to reload: {', '.join(failed)}"
             )
 
     # ── Button handlers ───────────────────────────────────────────────────

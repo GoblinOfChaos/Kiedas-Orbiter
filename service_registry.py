@@ -74,10 +74,10 @@ def clear_registration(feature: str) -> None:
 
 def is_registered_process_alive(feature: str) -> Optional[bool]:
     """Returns True if every recorded component for `feature` is still
-    alive with a matching cmdline, False if the registry has entries but
-    at least one is dead/mismatched, or None if there's no registry entry
-    at all (caller should fall back to the substring-based scan in that
-    case - "no info" is not the same as "definitely dead")."""
+    alive with a matching create_time(), False if the registry has entries
+    but at least one is dead/mismatched, or None if there's no registry
+    entry at all (caller should fall back to the substring-based scan in
+    that case - "no info" is not the same as "definitely dead")."""
     entries = _load_entries(feature)
     if not entries:
         return None

@@ -202,7 +202,16 @@ class Overlay:
         self.last_state_id = _existing_state_id(STATE_FILE)
         self.crafted_parts = self._load_crafted_parts()
         self._hide_source = None
-        self._position_file = DATA_DIR / "overlay-gtk-position.json"
+        # Keyed by reward count, not a single shared file - a drag saved
+        # while showing a 4-item round was silently being replayed as the
+        # position for 2- and 3-item rounds too (same monitor-relative
+        # offset applied regardless of where that round's boxes actually
+        # are), which is what made the overlay look like it had jumped to
+        # the top-left corner on smaller reward counts. Confirmed live
+        # 2026-08-02. 4 keeps the original filename so an existing
+        # correctly-calibrated 4-item drag isn't lost by this change.
+        self._current_reward_count = 4
+        self._position_file = self._position_file_for(4)
 
         self.window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
         self.window.set_decorated(False)
@@ -217,7 +226,7 @@ class Overlay:
         enable_drag(
             self.window,
             None,
-            self._position_file,
+            lambda: self._position_file_for(self._current_reward_count),
             {"top": 780, "left": 700},
         )
 
@@ -240,6 +249,10 @@ class Overlay:
 
         GLib.timeout_add(POLL_INTERVAL_MS, self._poll)
         log(f"started, polling {STATE_FILE}")
+
+    def _position_file_for(self, count):
+        suffix = "" if count == 4 else f"-{count}"
+        return DATA_DIR / f"overlay-gtk-position{suffix}.json"
 
     def _set_hbox_margins(self, scale):
         self.hbox.set_margin_top(round(14 * scale))
@@ -311,6 +324,12 @@ class Overlay:
         mx, my = monitor_origin(monitor)
 
         shown = rewards[:4]
+        # Must happen before self._position_file is read anywhere below -
+        # a saved drag position is only valid for the reward count it was
+        # dragged at (see _position_file_for's docstring context in
+        # __init__).
+        self._current_reward_count = len(shown)
+        self._position_file = self._position_file_for(len(shown))
         # Real per-box width from the Rust detector (added 2026-07-20) is a
         # much more direct scaling reference than warframe_geom's overall
         # resolution - it's the actual measured box, not an approximation.

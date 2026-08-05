@@ -52,6 +52,7 @@ from theme import get_palette  # noqa: E402
 from x11_overlay import (  # noqa: E402
     setup_overlay_window, monitor_origin, move_to_monitor, target_monitor,
     show_at, apply_position, raise_and_keep_on_top,
+    resolve_target_monitor,
 )
 
 STATE_FILE = DATA_DIR / "latest-detection.json"
@@ -164,40 +165,8 @@ def _existing_state_id(path):
     return data.get("seq", data.get("timestamp"))
 
 
-def _cached_warframe_geom():
-    """The relic-reward detector (latest-detection.json) is the only one of
-    the three overlay data sources that actually records Warframe's window
-    geometry - relic-recommend.json and fissure-overlay.json don't. Reusing
-    this one cached value for all three overlays' monitor targeting (rather
-    than only the reward overlay knowing where Warframe actually is) is what
-    keeps all three landing on the same monitor instead of drifting apart."""
-    try:
-        return json.loads(STATE_FILE.read_text()).get("warframe")
-    except (OSError, json.JSONDecodeError):
-        return None
-
-
 def _target_monitor(warframe_geom=None):
-    """Pick the Gdk.Monitor the overlay should appear on.
-
-    Priority matches overlay.py's _target_screen(): config.json
-    overlay_monitor = <index> wins outright; "auto" (the default) finds
-    whichever monitor actually contains Warframe's own window, using the
-    geometry the detector already reports in the state file - without
-    this, gtk-layer-shell just picks whatever the compositor considers the
-    default output, which isn't necessarily the monitor Warframe is on.
-    Falls back to the cached geometry from the reward detector's own state
-    file when the caller doesn't have its own (relic-recommend and fissure
-    overlays don't track Warframe's window themselves).
-    """
-    if warframe_geom is None:
-        warframe_geom = _cached_warframe_geom()
-
-    display = Gdk.Display.get_default()
-    if display is None:
-        return None
-    cfg = _load_config()
-    return target_monitor(display, cfg.get("overlay_monitor", "auto"), warframe_geom)
+    return resolve_target_monitor(_load_config(), warframe_geom)
 
 
 class Overlay:

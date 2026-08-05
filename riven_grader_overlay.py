@@ -27,13 +27,14 @@ os.environ.setdefault("GDK_BACKEND", "x11")
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GLib, Gdk  # noqa: E402
+from gi.repository import Gtk, GLib  # noqa: E402
 
 from paths import DATA_DIR, WFINFO_DIR  # noqa: E402
 from theme import get_palette  # noqa: E402
 from x11_overlay import (  # noqa: E402
-    setup_overlay_window, monitor_origin, move_to_monitor, target_monitor,
+    setup_overlay_window, monitor_origin, move_to_monitor,
     apply_position, raise_and_keep_on_top,
+    cached_warframe_geom, resolve_target_monitor,
 )
 
 STATE_FILE = DATA_DIR / "riven-graded.json"
@@ -123,21 +124,8 @@ def _load_config():
         return {}
 
 
-def _cached_warframe_geom():
-    try:
-        state = json.loads((DATA_DIR / "latest-detection.json").read_text())
-        return state.get("warframe")
-    except (OSError, json.JSONDecodeError):
-        return None
-
-
 def _target_monitor():
-    display = Gdk.Display.get_default()
-    if display is None:
-        return None
-    cfg = _load_config()
-    warframe_geom = _cached_warframe_geom()
-    return target_monitor(display, cfg.get("overlay_monitor", "auto"), warframe_geom)
+    return resolve_target_monitor(_load_config())
 
 
 def _existing_ts():
@@ -531,7 +519,7 @@ class RivenGraderOverlay:
                         old = live
             self._current_riven = old
 
-        geom = _cached_warframe_geom() or {}
+        geom = cached_warframe_geom() or {}
         scale = _scale_for_geom(geom)
         self._css_provider.load_from_data(_riven_css(scale).encode())
         monitor = _target_monitor()

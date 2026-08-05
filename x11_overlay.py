@@ -71,6 +71,8 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("GdkX11", "3.0")
 from gi.repository import Gdk, GdkX11
 
+from paths import DATA_DIR
+
 _libx11 = None
 
 
@@ -419,6 +421,44 @@ def target_monitor(display, configured_monitor, warframe_geom=None):
         fg = fallback.get_geometry()
         _log_monitor_debug(f"fallback monitor -> {fg.x},{fg.y},{fg.width},{fg.height}")
     return fallback
+
+
+def cached_warframe_geom():
+    """The relic-reward detector (latest-detection.json) is the only
+    overlay data source that actually records Warframe's window geometry -
+    relic-recommend.json and fissure-overlay.json don't. Reusing this one
+    cached value for all overlays' monitor targeting (rather than each
+    overlay tracking Warframe's window itself) is what keeps them all
+    landing on the same monitor instead of drifting apart. Shared here
+    (previously duplicated near-identically in overlay_gtk.py,
+    fissure_overlay.py, and riven_grader_overlay.py) so a fix in one place
+    fixes all overlays."""
+    try:
+        state = json.loads((DATA_DIR / "latest-detection.json").read_text())
+        return state.get("warframe")
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def resolve_target_monitor(cfg, warframe_geom=None):
+    """Pick the Gdk.Monitor an overlay should appear on.
+
+    Priority matches overlay.py's _target_screen(): config.json
+    overlay_monitor = <index> wins outright; "auto" (the default) finds
+    whichever monitor actually contains Warframe's own window, using the
+    geometry the detector already reports in the state file - without
+    this, an override-redirect window just appears wherever it was created
+    rather than following Warframe. Falls back to the cached geometry from
+    the reward detector's own state file when the caller doesn't have its
+    own (relic-recommend and fissure overlays don't track Warframe's
+    window themselves).
+    """
+    display = Gdk.Display.get_default()
+    if display is None:
+        return None
+    if warframe_geom is None:
+        warframe_geom = cached_warframe_geom()
+    return target_monitor(display, cfg.get("overlay_monitor", "auto"), warframe_geom)
 
 
 def move_to_monitor(window, monitor, position_file, default_position):

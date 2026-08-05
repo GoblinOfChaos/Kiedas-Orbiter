@@ -24,11 +24,14 @@ os.environ.setdefault("GDK_BACKEND", "x11")
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GLib, Gdk  # noqa: E402
+from gi.repository import Gtk, GLib  # noqa: E402
 
 from paths import DATA_DIR, WFINFO_DIR  # noqa: E402
 from theme import get_palette  # noqa: E402
-from x11_overlay import setup_overlay_window, move_to_monitor, target_monitor, raise_and_keep_on_top  # noqa: E402
+from x11_overlay import (  # noqa: E402
+    setup_overlay_window, move_to_monitor, raise_and_keep_on_top,
+    resolve_target_monitor,
+)
 
 STATE_FILE = DATA_DIR / "fissure-overlay.json"
 from paths import CONFIG_FILE
@@ -80,25 +83,8 @@ def _load_config():
         return {}
 
 
-def _cached_warframe_geom():
-    """This overlay's own state file doesn't track Warframe's window
-    geometry - only the relic-reward detector's does. Reusing that same
-    cached value (matching overlay_gtk.py's identical helper) is what
-    keeps all three overlays landing on the same monitor."""
-    try:
-        state = json.loads((DATA_DIR / "latest-detection.json").read_text())
-        return state.get("warframe")
-    except (OSError, json.JSONDecodeError):
-        return None
-
-
 def _target_monitor():
-    display = Gdk.Display.get_default()
-    if display is None:
-        return None
-    cfg = _load_config()
-    warframe_geom = _cached_warframe_geom()
-    return target_monitor(display, cfg.get("overlay_monitor", "auto"), warframe_geom)
+    return resolve_target_monitor(_load_config())
 
 
 def _expiry_str(expiry_iso):

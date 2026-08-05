@@ -48,7 +48,7 @@ def _status_colors():
 
 
 COLOR_COMPONENT = QColor("#e8c96a")
-COLOR_RESOURCE  = QColor("#888888")
+COLOR_SATISFIED = QColor("#888888")
 COLOR_DROP      = QColor("#cdd4ff")
 
 TAB_ORDER = [
@@ -56,6 +56,19 @@ TAB_ORDER = [
     "Archwing", "Necramech",
     "Sentinel", "Sentinel Weapon", "Pet",
 ]
+
+RESOURCE_HINTS = {
+    "cell", "forma", "salvage", "polymer", "ferrite", "alloy", "plate",
+    "circuit", "rubedo", "neurode", "mutagen", "plasm", "thrax",
+    "bundle", "mass", "morphics", "oxium", "control module",
+    "argon", "tellurium", "kuva", "fieldron", "detonite",
+    "nano spore", "plastid", "cryotic", "gallium", "nitain",
+}
+
+def is_resource(component_name):
+    """True if this 'component' is really a generic crafting material."""
+    lower = component_name.lower()
+    return any(h in lower for h in RESOURCE_HINTS)
 
 def _center_cols(tree_item, col_count):
     """Column 0 (name/component/source) stays left-aligned; every other
@@ -321,6 +334,7 @@ class EquipmentTabBuilder:
         cn = c.get("name", "")
         cnt = c.get("count", 1)
         owned = c.get("owned", 0)
+        res = is_resource(cn)
 
         # The Need column shows how many MORE are needed (recipe total
         # minus what you already hold), not the flat recipe total -
@@ -332,8 +346,10 @@ class EquipmentTabBuilder:
         # resource_counts), so gating on is_resource() just hid real
         # ownership data for those parts. Jacob 2026-08-05 ("Shedu
         # Blueprint shows as not owned despite owning it").
+        satisfied = False
         if owned:
             remaining = max(0, cnt - owned)
+            satisfied = remaining == 0
             need_text = f"x{remaining} (of {cnt}, have {owned:,})" if remaining else f"Have {owned:,}/{cnt:,} \u2713"
         else:
             need_text = f"x{cnt}"
@@ -359,7 +375,13 @@ class EquipmentTabBuilder:
         row[1] = need_text
         row[col_count - 1] = source_text
         cnode = QTreeWidgetItem(row)
-        col = COLOR_RESOURCE if res else COLOR_COMPONENT
+        # Grey means "you have enough of this" regardless of whether it's
+        # a stackable resource or a discrete part (Blueprint/Barrel/...) -
+        # previously this colored by resource-vs-component type instead,
+        # which coincidentally looked ownership-related but wasn't. Jacob
+        # 2026-08-05 ("only the things I have enough of should be greyed
+        # out, not by if its item or resource").
+        col = COLOR_SATISFIED if satisfied else COLOR_COMPONENT
         for i in range(col_count):
             cnode.setForeground(i, QBrush(col))
         cnode.setToolTip(col_count - 1, source_text)

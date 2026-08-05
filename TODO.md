@@ -2418,3 +2418,15 @@ dirty worktree; preserve unrelated edits when committing or branching.
   The audit's package-reorganization suggestion (`FIX-ARCH-01`/`02`) was
   deliberately excluded from the plan entirely - see "Deliberately
   excluded" in the plan doc for why.
+
+## 2026-08-04 (night) - Bug: not all owned items are being detected
+
+  Not started - logged only, per Jacob. Example given: he owns the Shedu
+  Blueprint, but the app reports it as not owned. Needs investigation into
+  the ownership-detection/inventory-sync pipeline (owned_items.json,
+  whatever populates it from the game/API) to find why some genuinely-owned
+  items aren't being recognized - unclear yet whether this is a data-sync
+  staleness issue, a name-matching issue (e.g. Shedu Blueprint specifically
+  failing to match against WFCD/warframestat.us naming), or something else.
+  Needs a live repro session and/or a look at owned_items.json's actual
+  content for this specific item before guessing at a cause.

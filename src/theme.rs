@@ -126,52 +126,6 @@ impl Theme {
                 color_difference((primary, test)) < 0.2 || color_difference((secondary, test)) < 0.2
             }
         }
-
-        // hsv.hue.abs_diff_eq(&primary.hue, 4.0) && hsv.saturation >= 0.25 && hsv.value >= 0.42
-
-        // match self {
-        //     Theme::Vitruvian => {
-        //         test.hue.abs_diff_eq(&primary.hue, 4.0)
-        //             && test.saturation >= 0.25
-        //             && test.lightness >= 0.42
-        //     }
-        //     Theme::Stalker => {
-        //         test.hue.abs_diff_eq(&primary.hue, 4.0) && test.saturation >= 0.55
-        //             || test.hue.abs_diff_eq(&secondary.hue, 4.0)
-        //                 && test.saturation >= 0.66
-        //                 && test.lightness >= 0.25
-        //     }
-        //     Theme::Baruuk => {
-        //         test.hue.abs_diff_eq(&primary.hue, 2.0)
-        //             && test.saturation > 0.25
-        //             && test.lightness > 0.5
-        //     }
-        //     Theme::Corpus => {
-        //         test.hue.abs_diff_eq(&primary.hue, 3.0)
-        //             && test.saturation >= 0.35
-        //             && test.lightness >= 0.42
-        //     }
-        //     Theme::Fortuna => {
-        //         test.hue.abs_diff_eq(&primary.hue, 3.0) && test.lightness >= 0.35
-        //             || test.hue.abs_diff_eq(&secondary.hue, 4.0)
-        //                 && test.saturation >= 0.2
-        //                 && test.lightness >= 0.15
-        //     }
-        //     Theme::Grineer => todo!(),
-        //     Theme::Lotus => {
-        //         test.hue.abs_diff_eq(&primary.hue, 5.0)
-        //             && test.saturation >= 0.65
-        //             && primary.lightness.abs_diff_eq(&test.lightness, 0.1)
-        //     }
-        //     Theme::Nidus => todo!(),
-        //     Theme::Orokin => todo!(),
-        //     Theme::Tenno => todo!(),
-        //     Theme::HighContrast => todo!(),
-        //     Theme::Legacy => todo!(),
-        //     Theme::Equinox => todo!(),
-        //     Theme::DarkLotus => todo!(),
-        //     Theme::Zephyr => todo!(),
-        // }
     }
 
     pub fn primary(&self) -> Hsl {

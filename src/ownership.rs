@@ -2,7 +2,6 @@ use std::collections::HashMap;
 use std::fs::read_to_string;
 use std::io;
 use std::path::Path;
-use std::process::Command;
 
 use log::{info, warn};
 use serde::Deserialize;
@@ -26,7 +25,12 @@ impl Ownership {
     pub fn colored(&self) -> String {
         match self {
             Ownership::Owned(n) => format!("\x1b[1;32mOWNED x{}\x1b[0m", n),
-            Ownership::Need => "\x1b[1;32mNEED\x1b[0m".to_string(),
+            // Was the same green as OWNED, making the two visually
+            // indistinguishable in orbiter.log's "--- relic reward
+            // ownership ---" output. Red matches the "you don't have
+            // this" meaning and is distinct from OWNED's green and
+            // UNKNOWN's yellow.
+            Ownership::Need => "\x1b[1;31mNEED\x1b[0m".to_string(),
             Ownership::Unknown => "\x1b[33mUNKNOWN\x1b[0m".to_string(),
         }
     }
@@ -72,29 +76,4 @@ impl OwnedDb {
             Some(&n) => Ownership::Owned(n),
         }
     }
-}
-
-// Unix-specific notification function (Linux/macOS only)
-#[cfg(not(target_os = "windows"))]
-pub fn notify(title: &str, body: &str, urgency: &str) {
-    // --transient: don't steal focus or persist in notification centre
-    // --hint=int:transient:1: extra hint for notification daemons that need it
-    let _ = Command::new("notify-send")
-        .args([
-            "--app-name=wfinfo",
-            "--urgency",
-            urgency,
-            "--expire-time=4500",
-            "--transient",
-            "--hint=int:transient:1",
-            title,
-            body,
-        ])
-        .spawn();
-}
-
-// Windows version: no-op since notify-send doesn't exist on Windows
-#[cfg(target_os = "windows")]
-pub fn notify(_title: &str, _body: &str, _urgency: &str) {
-    // Silent success — notifications aren't supported on Windows
 }

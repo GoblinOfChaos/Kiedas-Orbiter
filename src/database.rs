@@ -151,40 +151,6 @@ impl Database {
         Bucket::new(items)
     }
 
-    pub fn single_relic_value(&self, relic: &Relic, refinement: Refinement) -> f32 {
-        let common_chance = refinement.common_chance();
-        let uncommon_chance = refinement.uncommon_chance();
-        let rare_chance = refinement.rare_chance();
-
-        let value = 0.0
-            + self.find_item_exact(&relic.common1).unwrap().platinum * common_chance
-            + self.find_item_exact(&relic.common2).unwrap().platinum * common_chance
-            + self.find_item_exact(&relic.common3).unwrap().platinum * common_chance
-            + self.find_item_exact(&relic.uncommon1).unwrap().platinum * uncommon_chance
-            + self.find_item_exact(&relic.uncommon2).unwrap().platinum * uncommon_chance
-            + self.find_item_exact(&relic.rare1).unwrap().platinum * rare_chance;
-
-        let item_names = [
-            (&relic.common1, common_chance),
-            (&relic.common2, common_chance),
-            (&relic.common3, common_chance),
-            (&relic.uncommon1, uncommon_chance),
-            (&relic.uncommon2, uncommon_chance),
-            (&relic.rare1, rare_chance),
-        ];
-        let value2: f32 = item_names
-            .into_iter()
-            .map(|(name, chance)| {
-                let plat = self.find_item_exact(name).unwrap().platinum;
-                println!("{plat} * {chance}");
-                plat * chance
-            })
-            .sum();
-        println!("{value} vs {value2}");
-
-        value
-    }
-
     pub fn shared_relic_value(
         &self,
         relic: &Relic,

@@ -27,8 +27,8 @@ use wfinfo::ownership::{OwnedDb, Ownership};
 use wfinfo::{
     database::Database,
     ocr::{
-        image_to_rows, image_to_string, normalize_string, reward_image_to_reward_names,
-        reward_image_to_reward_names_with_rects, score_rows, OCR,
+        image_to_rows, image_to_string, normalize_string, reward_image_to_reward_names_with_rects,
+        score_rows, OCR,
     },
     utils::fetch_prices_and_items,
 };
@@ -1566,25 +1566,6 @@ fn hotkey_watcher(hotkey: HotKey, event_sender: mpsc::Sender<CaptureRequest>) {
     });
 }
 
-#[allow(dead_code)]
-fn benchmark() -> Result<(), Box<dyn Error>> {
-    for _ in 0..10 {
-        let image = image::open("input3.png").unwrap();
-        println!("Converted");
-        let text = reward_image_to_reward_names(image, None);
-        println!("got names");
-        let text = text.iter().map(|s| normalize_string(s));
-        println!("{:#?}", text);
-    }
-    // clean up tesseract
-    drop(
-        OCR.lock()
-            .unwrap_or_else(|poisoned| poisoned.into_inner())
-            .take(),
-    );
-    Ok(())
-}
-
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
 struct Arguments {
@@ -1820,9 +1801,8 @@ mod test {
     use image::ImageReader as Reader;
     use ocr_rs::OcrEngine;
     use rayon::prelude::*;
-    use wfinfo::ocr::detect_theme;
-    use wfinfo::ocr::extract_parts;
     use wfinfo::ocr::image_to_rows;
+    use wfinfo::ocr::reward_image_to_reward_names;
     use wfinfo::testing::Label;
 
     use super::*;
@@ -2483,39 +2463,6 @@ mod test {
         );
     }
 
-    // #[test]
-    #[allow(dead_code)]
-    fn wfi_images_exact() {
-        let labels: BTreeMap<String, Label> =
-            serde_json::from_str(&read_to_string("WFI test images/labels.json").unwrap()).unwrap();
-        for (filename, label) in labels {
-            let image = Reader::open("WFI test images/".to_string() + &filename)
-                .unwrap()
-                .decode()
-                .unwrap();
-            let text = reward_image_to_reward_names(image, None);
-            let text: Vec<_> = text.iter().map(|s| normalize_string(s)).collect();
-            println!("{:#?}", text);
-
-            let db = Database::load_from_file(None, None);
-            let items: Vec<_> = text.iter().map(|s| db.find_item(s, None)).collect();
-            println!("{:#?}", items);
-            println!("{}", filename);
-
-            let item_names = items
-                .iter()
-                .map(|item| item.map(|item| item.drop_name.clone()));
-
-            for (result, expectation) in item_names.zip(label.items) {
-                if expectation.is_empty() {
-                    assert_eq!(result, None)
-                } else {
-                    assert_eq!(result, Some(expectation))
-                }
-            }
-        }
-    }
-
     #[test]
     fn wfi_images_99_percent() {
         // `WFI test images/labels.json` (the expected-answers manifest) is
@@ -2576,29 +2523,5 @@ mod test {
 
         let success_rate = success_count as f32 / total as f32;
         assert!(success_rate > 0.95, "Success rate: {success_rate}");
-    }
-
-    // #[test]
-    #[allow(dead_code)]
-    fn images() {
-        let tests = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-        for i in tests {
-            let image = Reader::open(format!("test-images/{}.png", i))
-                .unwrap()
-                .decode()
-                .unwrap();
-
-            let theme = detect_theme(&image);
-            println!("Theme: {:?}", theme);
-
-            let parts = extract_parts(&image, theme);
-
-            let mut ocr: Option<OcrEngine> = None;
-            for part in parts {
-                let text = image_to_string(&mut ocr, &part).expect("Failed to get text");
-                println!("{}", text);
-            }
-            println!("=================");
-        }
     }
 }

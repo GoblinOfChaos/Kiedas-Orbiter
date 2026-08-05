@@ -38,6 +38,7 @@ LOG_FILE = DATA_DIR / "overlay.log"
 
 
 from platform_utils import is_running, kill_processes
+import service_registry
 
 
 def pgrep(pattern):
@@ -435,6 +436,11 @@ class ControlPanel(QWidget):
             + kill_processes("orbiter.exe")
             + kill_processes("./orbiter")
         )
+        # See the matching fix in STATUS_TAB.py (2026-08-04) - this launch
+        # path never told the service registry about the process it
+        # kills/starts, so the Status display could report "offline"
+        # forever after a real, working restart via this button.
+        service_registry.clear_registration("detector")
         self.cmd_text.append(f"Stopped {killed} running orbiter process(es).")
         # QTimer instead of time.sleep — this runs on the GUI thread, and a
         # real sleep() here would freeze the whole window for a few seconds.
@@ -460,16 +466,17 @@ class ControlPanel(QWidget):
                 # launch-orbiter.sh handles Bazzite/gamescope-specific setup
                 # (DISPLAY detection, host libs, portal bus) that Windows
                 # simply doesn't need — there we can launch the exe directly.
-                launch_detached(["./launch-orbiter.sh"] + args, cwd=WFINFO_DIR,
-                                 env=clean_env_for_launch(), log_file=log_file)
+                proc = launch_detached(["./launch-orbiter.sh"] + args, cwd=WFINFO_DIR,
+                                        env=clean_env_for_launch(), log_file=log_file)
             else:
-                launch_detached([str(WFINFO_DIR / "orbiter.exe")] + args, cwd=WFINFO_DIR,
-                                 log_file=log_file)
+                proc = launch_detached([str(WFINFO_DIR / "orbiter.exe")] + args, cwd=WFINFO_DIR,
+                                        log_file=log_file)
         except OSError as e:
             self.cmd_text.append(f"ERROR: failed to launch orbiter: {e}")
             self.lbl_status.setText("Failed")
             self._set_buttons_enabled(True)
             return
+        service_registry.record_launch("detector", proc.pid)
         QTimer.singleShot(2000, self._reload_config_report)
 
     def _reload_config_report(self):

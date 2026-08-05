@@ -2,6 +2,8 @@ import os
 import subprocess
 import sys
 
+import psutil
+
 import service_registry
 
 
@@ -38,6 +40,24 @@ def test_pid_reuse_with_mismatched_create_time_reports_not_alive(tmp_path, monke
     entries[0]["create_time"] = entries[0]["create_time"] - 999999
     service_registry._save_entries("detector", entries)
     assert service_registry.is_registered_process_alive("detector") is False
+
+
+def test_zombie_pid_reports_not_alive(tmp_path, monkeypatch):
+    monkeypatch.setattr(service_registry, "REGISTRY_DIR", tmp_path)
+
+    class ZombieProcess:
+        def status(self):
+            return psutil.STATUS_ZOMBIE
+
+        def create_time(self):
+            return 123.0
+
+    monkeypatch.setattr(service_registry.psutil, "pid_exists", lambda pid: True)
+    monkeypatch.setattr(service_registry.psutil, "Process", lambda pid: ZombieProcess())
+
+    assert service_registry._entry_alive(
+        {"pid": 12345, "create_time": 123.0}
+    ) is False
 
 
 def test_create_time_stable_across_cmdline_change_from_exec(tmp_path, monkeypatch):

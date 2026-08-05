@@ -97,6 +97,13 @@ def _entry_alive(entry: dict) -> bool:
         return True
     try:
         proc = psutil.Process(pid)
+        # A defunct child still has a PID and retains its original
+        # create_time() until the parent reaps it, but the service is no
+        # longer running. Treat zombies as dead so reconciliation can
+        # restart a crashed process instead of trusting a stale registry
+        # entry forever.
+        if proc.status() == psutil.STATUS_ZOMBIE:
+            return False
         current_create_time = proc.create_time()
     except (psutil.NoSuchProcess, psutil.AccessDenied):
         return False

@@ -5,15 +5,15 @@ import json
 import sys
 import threading
 import time
-from collections import defaultdict
 from pathlib import Path
 
 import sys as _wfi_sys
 from pathlib import Path as _WfiPath
 _wfi_sys.path.insert(0, str(_WfiPath(__file__).parent))
 from theme import WFINFO_STYLESHEET, get_theme, load_theme, save_theme, THEMES, THEME_DESCRIPTIONS, get_palette
-from mastery import is_mastered
 from column_persistence import apply_saved_widths, remember_widths
+import inventory_data
+from inventory_data import ERAS, RARITY_FIELDS, CRAFTED_FILE
 
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QBrush, QColor, QIcon
@@ -23,25 +23,12 @@ from PySide6.QtWidgets import (
     QMessageBox, QTabWidget, QDialog, QProgressBar, QPushButton,
     QSystemTrayIcon, QMenu,
 )
-from paths import DATA_DIR, WFINFO_DIR, get_close_behavior, get_inventory_path, set_close_behavior
+from paths import DATA_DIR, WFINFO_DIR, get_close_behavior, set_close_behavior
 
 WFINFO_ICON = str(WFINFO_DIR / ("orbiter.ico" if sys.platform == "win32" else "orbiter.svg"))
 
 HOME = Path.home()
-OWNED_FILE = WFINFO_DIR / "owned_items.json"
-ITEMS_FILE = WFINFO_DIR / "filtered_items.json"
-PRICES_FILE = WFINFO_DIR / "prices.json"
-INVENTORY_FILE = get_inventory_path()
-WFCD_CACHE = WFINFO_DIR / "wfcd_all_cache.json"
-CRAFTED_FILE = DATA_DIR / "crafted-before.json"
-OWNED_RELICS_FILE = WFINFO_DIR / "owned_relics.json"
 
-ERAS = ["Lith", "Meso", "Neo", "Axi", "Vanguard"]
-RARITY_FIELDS = {
-    "rare1": "Rare",
-    "uncommon1": "Uncommon", "uncommon2": "Uncommon",
-    "common1": "Common", "common2": "Common", "common3": "Common",
-}
 RARITY_COLORS = {"Rare": "#d4af37", "Uncommon": "#67d164", "Common": "#aaaaaa"}
 INTACT_CHANCES = {"Rare": 0.0203, "Uncommon": 0.1100, "Common": 0.2533}
 
@@ -177,53 +164,27 @@ class Tracker(QWidget):
             if avail:
                 self.move(avail.center().x() - width // 2, avail.center().y() - height // 2)
 
-        try:
-            self.items_data = json.loads(ITEMS_FILE.read_text())
-        except Exception:
+        inventory_data.reload()
+        if not inventory_data.DATA.items_data:
             # First launch, or install.py's data download never completed —
             # try to self-heal by fetching it now instead of hard-failing.
             try:
                 from update_manager import quick_update
                 quick_update()
-                self.items_data = json.loads(ITEMS_FILE.read_text())
-            except Exception as e:
-                QMessageBox.critical(
-                    self, "Load failed",
-                    f"Couldn't load or download Warframe item data "
-                    f"(filtered_items.json): {e}\n\n"
-                    f"Check your internet connection, then try again, or run "
-                    f"update.py manually."
-                )
-                QApplication.quit()
-                return
-        try:
-            self.owned = json.loads(OWNED_FILE.read_text())
-        except (OSError, json.JSONDecodeError):
-            # No inventory synced yet (fresh install, or Warframe hasn't been
-            # launched with the helper running) — treat as owning nothing.
-            self.owned = {}
-        try:
-            self.crafted = set(json.loads(CRAFTED_FILE.read_text()))
-        except (OSError, json.JSONDecodeError):
-            self.crafted = set()
-        try:
-            price_list = json.loads(PRICES_FILE.read_text())
-            self.prices = {}
-            for it in price_list:
-                if isinstance(it, dict) and "name" in it:
-                    try:
-                        self.prices[it["name"]] = float(it.get("custom_avg") or 0)
-                    except (TypeError, ValueError):
-                        self.prices[it["name"]] = 0.0
-        except (OSError, json.JSONDecodeError, KeyError):
-            self.prices = {}
-        try:
-            self.owned_relics = json.loads(OWNED_RELICS_FILE.read_text())
-        except (OSError, json.JSONDecodeError):
-            self.owned_relics = {}
-
-        self._build_indices()
-        self.auto_crafted = self._auto_detect_crafted()
+                inventory_data.reload()
+            except Exception:
+                pass
+        if not inventory_data.DATA.items_data:
+            QMessageBox.critical(
+                self, "Load failed",
+                f"Couldn't load or download Warframe item data "
+                f"(filtered_items.json).\n\n"
+                f"Check your internet connection, then try again, or run "
+                f"update.py manually."
+            )
+            QApplication.quit()
+            return
+        self._sync_from_shared_data()
         self._build_all_rows()
 
         layout = QVBoxLayout(self)
@@ -379,7 +340,20 @@ class Tracker(QWidget):
                 builder = EquipmentTabBuilder(_w.QTabWidget())
                 if not builder.reload_data():
                     return _w.QLabel(f"No equipment data yet — refresh inventory first")
-                return builder._build_tab(name, builder.data.get(name, []))
+                widget = builder._build_tab(name, builder.data.get(name, []))
+
+                def _load_data():
+                    if not builder.reload_data():
+                        return
+                    tree = builder.trees.get(name)
+                    if tree is None:
+                        return
+                    tree.clear()
+                    col_count = tree.columnCount()
+                    for it in builder.data.get(name, []):
+                        tree.addTopLevelItem(builder._build_item_node(it, col_count))
+                widget._load_data = _load_data
+                return widget
             _add_page(eq_name, _eq_factory, _eq_icons.get(eq_name, ""))
 
         # ── System section ─────────────────────────────────────────────────
@@ -493,71 +467,23 @@ class Tracker(QWidget):
                 f"border-left: 3px solid {p['accent']}; font-weight: 600; }}"
             )
 
-    def _build_indices(self):
-        self.part_to_relics = defaultdict(list)
-        for era in ERAS:
-            era_data = self.items_data.get("relics", {}).get(era, {})
-            for rname, relic in era_data.items():
-                vaulted = bool(relic.get("vaulted", False))
-                for field, rarity in RARITY_FIELDS.items():
-                    p = relic.get(field)
-                    if p:
-                        self.part_to_relics[p].append((era, rname, rarity, vaulted))
-        self.part_to_eq = {}
-        self.part_ducats = {}
-        self.eq_info = {}
-        for eq_name, eq in self.items_data.get("eqmt", {}).items():
-            self.eq_info[eq_name] = {"type": eq.get("type", "?"), "vaulted": bool(eq.get("vaulted", False))}
-            for pname, pdata in eq.get("parts", {}).items():
-                self.part_to_eq[pname] = eq_name
-                self.part_ducats[pname] = pdata.get("ducats", 0) if isinstance(pdata, dict) else 0
-
-    def _auto_detect_crafted(self):
-        auto = {}
-        try:
-            inv = json.loads(INVENTORY_FILE.read_text())
-        except (OSError, json.JSONDecodeError):
-            return auto
-        try:
-            wfcd = json.loads(WFCD_CACHE.read_text())
-        except (OSError, json.JSONDecodeError):
-            return auto
-        path_to_item = {}
-        items_list = wfcd if isinstance(wfcd, list) else (wfcd.get("items", []) if isinstance(wfcd, dict) else [])
-        for item in items_list:
-            if isinstance(item, dict):
-                u, n = item.get("uniqueName"), item.get("name")
-                if u and n:
-                    path_to_item[u] = item
-        paths = set()
-        for cat in ["Suits", "LongGuns", "Pistols", "Melee", "SpaceSuits", "SpaceGuns", "SpaceMelee", "Sentinels", "SentinelWeapons", "MechSuits"]:
-            for it in inv.get(cat, []) or []:
-                if isinstance(it, dict):
-                    p = it.get("ItemType")
-                    if p:
-                        paths.add(p)
-        for it in inv.get("XPInfo", []) or []:
-            if isinstance(it, dict):
-                p = it.get("ItemType")
-                item = path_to_item.get(p, {})
-                if p and is_mastered(
-                    it.get("XP", 0), p, item.get("type", ""), item.get("maxLevelCap")
-                ):
-                    paths.add(p)
-        eq_names = set()
-        for p in paths:
-            n = path_to_item.get(p, {}).get("name")
-            if n and "Prime" in n:
-                eq_names.add(n)
-        for eq_name in eq_names:
-            eq = self.items_data.get("eqmt", {}).get(eq_name)
-            if not eq:
-                continue
-            for pname in eq.get("parts", {}).keys():
-                auto[pname] = eq_name
-                if not pname.endswith(" Blueprint"):
-                    auto[pname + " Blueprint"] = eq_name
-        return auto
+    def _sync_from_shared_data(self):
+        """Pull the latest values from the shared inventory_data cache -
+        called once at startup and again by _load_data() whenever
+        STATUS_TAB's Refresh Data reload reaches this tab, so this widget
+        never holds a private snapshot that can drift out of sync with
+        what Inventory > Equipment tabs are showing for the same items."""
+        d = inventory_data.DATA
+        self.items_data = d.items_data
+        self.owned = d.owned
+        self.crafted = d.crafted
+        self.prices = d.prices
+        self.owned_relics = d.owned_relics
+        self.auto_crafted = d.auto_crafted
+        self.part_to_relics = d.part_to_relics
+        self.part_to_eq = d.part_to_eq
+        self.part_ducats = d.part_ducats
+        self.eq_info = d.eq_info
 
     def _build_all_rows(self):
         self.all_rows = []
@@ -646,6 +572,7 @@ class Tracker(QWidget):
         legend.setStyleSheet("padding: 6px; color: #ccc;")
         layout.addWidget(legend)
         self.refresh_parts()
+        w._load_data = self._reload_parts_tab
         return w
 
     def _relic_status(self, era, name, vaulted_fallback):
@@ -845,9 +772,7 @@ class Tracker(QWidget):
         dlg.exec()
 
     # ============ Set Progress tab ============
-    def _build_sets_tab(self):
-        w = QWidget()
-        layout = QVBoxLayout(w)
+    def _compute_set_data(self):
         sd = []
         for eq_name, eq in self.items_data.get("eqmt", {}).items():
             total = owned = crafted_n = need = 0
@@ -867,6 +792,27 @@ class Tracker(QWidget):
             sd.append({"name": eq_name, "type": eq.get("type", "?"), "vaulted": eq.get("vaulted", False),
                        "total": total, "owned": owned, "crafted": crafted_n, "need": need, "done": done,
                        "pct": done / total * 100 if total else 0})
+        return sd
+
+    def _reload_parts_tab(self):
+        """_load_data() hook so STATUS_TAB's "Refresh Data" reload loop
+        actually reaches this tab - see inventory_data.py's module
+        docstring for why it didn't before."""
+        inventory_data.reload()
+        self._sync_from_shared_data()
+        self._build_all_rows()
+        self.refresh_parts()
+
+    def _reload_sets_tab(self):
+        inventory_data.reload()
+        self._sync_from_shared_data()
+        self._set_data = self._compute_set_data()
+        self._refresh_sets()
+
+    def _build_sets_tab(self):
+        w = QWidget()
+        layout = QVBoxLayout(w)
+        sd = self._compute_set_data()
 
         fr = QHBoxLayout()
         fr.addWidget(QLabel("Search:"))
@@ -891,14 +837,31 @@ class Tracker(QWidget):
         h = self.set_table.horizontalHeader()
         for c in range(6):
             h.setSectionResizeMode(c, QHeaderView.Interactive)
+        h.setSectionsClickable(True)
+        h.setSortIndicatorShown(True)
+        h.sectionClicked.connect(self._on_set_header_clicked)
         layout.addWidget(self.set_table)
         apply_saved_widths(self.set_table, "set_table", [200, 90, 40, 140, 100, 220])
         remember_widths(self.set_table, "set_table")
         self._set_data = sd
+        self._set_sort_column = None
+        self._set_sort_reverse = False
         self.set_search.textChanged.connect(self._refresh_sets)
         self.set_filter.currentTextChanged.connect(self._refresh_sets)
         self._refresh_sets()
+        w._load_data = self._reload_sets_tab
         return w
+
+    def _on_set_header_clicked(self, col):
+        if self._set_sort_column == col:
+            self._set_sort_reverse = not self._set_sort_reverse
+        else:
+            self._set_sort_column = col
+            self._set_sort_reverse = False
+        self.set_table.horizontalHeader().setSortIndicator(
+            col, Qt.DescendingOrder if self._set_sort_reverse else Qt.AscendingOrder
+        )
+        self._refresh_sets()
 
     def _refresh_sets(self):
         q = self.set_search.text().lower()
@@ -916,7 +879,18 @@ class Tracker(QWidget):
             if flt == "Complete only" and s["need"] > 0:
                 continue
             filtered.append(s)
-        filtered.sort(key=lambda s: (-s["pct"], s["name"]))
+        sort_keys = {
+            0: lambda s: s["name"].lower(),
+            1: lambda s: s["type"].lower(),
+            2: lambda s: s["vaulted"],
+            3: lambda s: s["pct"],
+            4: lambda s: s["done"],
+            5: lambda s: s["need"],
+        }
+        if getattr(self, "_set_sort_column", None) is not None:
+            filtered.sort(key=sort_keys[self._set_sort_column], reverse=self._set_sort_reverse)
+        else:
+            filtered.sort(key=lambda s: (-s["pct"], s["name"]))
 
         self.set_table.setRowCount(len(filtered))
         for i, s in enumerate(filtered):

@@ -14,9 +14,9 @@ from column_persistence import apply_saved_widths, remember_widths
 from paths import DATA_DIR, CACHE_DIR
 from wiki_links import build_wiki_url, open_wiki_url, _wiki_log
 from drop_data import find_drop_info, find_component_drop_info
+import inventory_data
 import theme
 
-EQUIPMENT_FILE = DATA_DIR / "equipment_status.json"
 IMAGE_CACHE_DIR = CACHE_DIR / "item_images"
 
 # Wiki-verified acquisition text for items/components that aren't random
@@ -102,13 +102,15 @@ class EquipmentTabBuilder:
         self.ingredient_index = {}
 
     def reload_data(self):
-        if EQUIPMENT_FILE.exists():
-            try:
-                self.data = json.loads(EQUIPMENT_FILE.read_text())
-                self.ingredient_index = self._build_ingredient_index()
-                return True
-            except json.JSONDecodeError:
-                pass
+        # Sourced from the shared inventory_data cache (single reload()
+        # call refreshes every equipment/inventory-derived tab at once)
+        # instead of independently reading equipment_status.json here -
+        # see inventory_data.py's module docstring for why that mattered.
+        inventory_data.reload()
+        if inventory_data.DATA.equipment_status:
+            self.data = inventory_data.DATA.equipment_status
+            self.ingredient_index = self._build_ingredient_index()
+            return True
         self.data = {}
         self.ingredient_index = {}
         return False

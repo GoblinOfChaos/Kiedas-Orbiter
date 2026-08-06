@@ -30,6 +30,30 @@ LOG_FILE = DATA_DIR / "riven-grader-watcher.log"
 
 POLL_INTERVAL = 2.0  # seconds
 
+
+def _resolve_tag_code(tag, is_melee=False):
+    """Resolve one DE internal stat tag to a riven_good_rolls.json code,
+    correcting for tags DE reuses with a different real meaning on melee
+    weapons.
+
+    Confirmed live 2026-08-06: a Dual Keres (melee) new-offer card visibly
+    read "+47.8% Attack Speed", but the generated-name decode uniquely
+    resolved to Fire Rate instead - which is not even a possible melee
+    Riven stat. Checked the real melee upgrade-pool export data directly:
+    it contains a `WeaponFireRateMod`-tagged entry and NO
+    `WeaponAttackSpeedMod` entry at all - DE's own internal fingerprint tag
+    for melee Attack Speed is the same `WeaponFireRateMod` string used for
+    ranged Fire Rate, just with a different real-world meaning depending on
+    weapon category. Same class of bug as the already-fixed
+    WeaponPunctureDamageMod/Punch Through mismap below. TAG_MAP alone
+    can't express this since it has no weapon-category context - callers
+    must pass whether the weapon is melee.
+    """
+    if tag == "WeaponFireRateMod" and is_melee:
+        return "AS"
+    return TAG_MAP.get(tag)
+
+
 # Maps internal DE stat tag names → riven_good_rolls.json codes
 TAG_MAP = {
     "WeaponCritDamageMod": "CD",
@@ -65,6 +89,17 @@ TAG_MAP = {
     "WeaponSlideCritChanceMod": "SLIDE",
     "WeaponImpactDamageMod": "IMP",
     "WeaponPunctureDamageMod": "PUNC",
+    # Despite the name, this is DE's real internal tag for Puncture damage
+    # in every actual RandomModRare pool (Rifle/Pistol/Shotgun/Archgun/
+    # Melee) - confirmed 2026-08-06 directly against ExportUpgrades.json:
+    # its own prefixTag/suffixTag are PuncturePrefix/PunctureSuffix and its
+    # upgradeValues locTag is /Lotus/Language/Upgrades/WeaponPunctureDamage.
+    # "WeaponPunctureDamageMod" above never actually occurs in any pool's
+    # entries - same pattern as the documented Punch Through/Puncture
+    # tag-name confusion elsewhere in this file. Without this, any real
+    # Puncture-damage Riven fails both the generated-name decode and
+    # owned-Riven inventory parsing.
+    "WeaponArmorPiercingDamageMod": "PUNC",
     "WeaponSlashDamageMod": "SLASH",
     "DamageNewImpactMod": "IMP",
     "DamageNewPunctureMod": "PUNC",
@@ -82,6 +117,15 @@ TAG_MAP = {
     "WeaponMeleeFactionDamageInfested": "DTI",
     "WeaponMeleeComboEfficiencyMod": "EFF",
     "WeaponMeleeComboInitialBonusMod": "IC",
+    # Confirmed 2026-08-06 directly against ExportUpgrades.json: this tag's
+    # own prefixTag/suffixTag/locTag (MeleeComboGainBonusPrefix/Suffix,
+    # /Lotus/Language/Upgrades/MeleeComboGainExtraChance) are the exact
+    # same real stat as CCC (Additional Combo Count Chance) - the stat
+    # whose OCR vocabulary gap caused a live "stuck reading riven stats
+    # forever" bug fixed earlier the same night. Without this mapping, a
+    # real owned CCC Riven fails to parse from inventory data even though
+    # OCR/name-decode can now read it live.
+    "WeaponMeleeComboBonusOnHitMod": "CCC",
     "WeaponFreezeDamageMod": "COLD",
     "WeaponFireDamageMod": "HEAT",
     # Tag name says "Puncture" but this is DE's actual internal tag for
@@ -271,10 +315,11 @@ def _decode_riven_generated_name(
 
     fragments = fragments or {}
     candidates = set()
-    for definition in definitions.values():
+    for path, definition in definitions.items():
+        is_melee = "melee" in path.lower()
         entries = []
         for entry in definition.get("upgradeEntries", []):
-            code = TAG_MAP.get(entry.get("tag"))
+            code = _resolve_tag_code(entry.get("tag"), is_melee)
             prefix_tag = str(entry.get("prefixTag", ""))
             suffix_tag = str(entry.get("suffixTag", ""))
             prefix = str(fragments.get(prefix_tag, prefix_tag)).lower()
@@ -341,9 +386,10 @@ def _parse_riven(upgrade, weapon_lookup):
 
     weapon_key = compat.split("/")[-1].lower()
     weapon_name = weapon_lookup.get(weapon_key, weapon_key)
+    is_melee = "melee" in compat.lower()
 
-    positives = [TAG_MAP.get(b["Tag"], b["Tag"]) for b in fp.get("buffs", [])]
-    negatives = [TAG_MAP.get(c["Tag"], c["Tag"]) for c in fp.get("curses", [])]
+    positives = [_resolve_tag_code(b["Tag"], is_melee) or b["Tag"] for b in fp.get("buffs", [])]
+    negatives = [_resolve_tag_code(c["Tag"], is_melee) or c["Tag"] for c in fp.get("curses", [])]
     rerolls = fp.get("rerolls", 0)
     polarity = POLARITY_MAP.get(fp.get("pol", ""), fp.get("pol", ""))
     item_id = upgrade.get("ItemId", {}).get("$oid", "")

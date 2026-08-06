@@ -19,11 +19,21 @@ def test_curse_perfectness_uses_browse_wf_inverse_scale():
 def test_semantically_unrelated_tags_are_not_reduced_to_good_roll_codes():
     for tag in (
         "ComboDurationMod",
-        "WeaponMeleeComboBonusOnHitMod",
         "WeaponLifestealMod",
         "WeaponFactionDamageCorrupted",
     ):
         assert tag not in grader.TAG_MAP
+
+
+def test_weapon_melee_combo_bonus_on_hit_maps_to_ccc():
+    """WeaponMeleeComboBonusOnHitMod looks semantically unrelated by name
+    alone (why it was originally excluded here 2026-07-30), but its own
+    ExportUpgrades.json prefixTag/suffixTag/locTag (MeleeComboGainBonus-
+    Prefix/Suffix, /Lotus/Language/Upgrades/MeleeComboGainExtraChance) are
+    the exact same real stat as CCC (Additional Combo Count Chance),
+    confirmed live 2026-08-06 - this is direct evidence from the export
+    data itself, not a name-similarity guess."""
+    assert grader.TAG_MAP.get("WeaponMeleeComboBonusOnHitMod") == "CCC"
 
 
 def test_god_roll_uses_browse_wf_s_grade_boundary():

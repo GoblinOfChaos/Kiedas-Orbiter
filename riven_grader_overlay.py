@@ -201,8 +201,9 @@ def _generated_name_from_card(text, weapon=""):
 
 def _looks_like_stat_line(line):
     """True only for lines that could plausibly be a real numeric stat row
-    (e.g. "+52.3% Electricity", "x0.87 Damage to Infested") - never a
-    heading, generated-name fragment, or MR/reroll-count badge line.
+    (e.g. "+52.3% Electricity", "x0.87 Damage to Infested",
+    "+25.5 Initial Combo") - never a heading, generated-name fragment, or
+    MR/reroll-count badge line.
 
     Guards stat-phrase matching from ever running on non-stat text at all:
     a weapon-name heading can incidentally contain a short fuzzy match
@@ -210,13 +211,49 @@ def _looks_like_stat_line(line):
     poisons the generated-name cross-check and gets the card stuck in
     REVIEW forever. Confirmed live 2026-07-30/31 - two separate NEW OFFER
     cards never graded because their heading line ("Arca Plasmor Acri-",
-    "Arca Plasmor Vexi-") produced a bogus AMMO match this way. Every real
-    stat line has a percent sign or an "x" multiplier next to its digits;
-    no heading/name/badge line ever does.
+    "Arca Plasmor Vexi-") produced a bogus AMMO match this way. Most real
+    stat lines have a percent sign or an "x" multiplier next to their
+    digits - but Initial Combo is a flat, unitless bonus with neither
+    ("+25.5 Initial Combo"), confirmed live 2026-08-06 causing the entire
+    line to be silently dropped and the card to fall back to raw
+    unformatted OCR text forever (only the card's other stat was ever
+    counted, permanently failing the 2-3 positive shape check). A leading
+    "+<digits>" is otherwise never seen on a heading/name/badge line, so
+    it is safe to accept as a stat line too.
     """
     if not re.search(r"\d", line):
         return False
-    return "%" in line or bool(re.search(r"x\s*\d", line.lower()))
+    return (
+        "%" in line
+        or bool(re.search(r"x\s*\d", line.lower()))
+        or bool(re.search(r"\+\s*\d", line))
+    )
+
+
+def _merge_wrapped_stat_lines(lines):
+    """Fold a wrapped stat-name continuation back onto its value line.
+
+    Warframe sometimes wraps a long stat name across two lines in the card
+    UI - e.g. "+82.1% Additional Combo" / "Count Chance" for the real stat
+    "Additional Combo Count Chance". Per-line phrase matching only ever saw
+    "Additional Combo" alone, which is too short to fuzzy-match the full
+    phrase, so the stat was silently dropped and the card got stuck failing
+    shape validation (1 positive instead of 2) forever. A continuation line
+    has no digit of its own and immediately follows a real stat line, which
+    a genuine heading/MR-badge line never does.
+    """
+    merged = []
+    for line in lines:
+        if (
+            merged
+            and _looks_like_stat_line(merged[-1])
+            and not _looks_like_stat_line(line)
+            and not re.search(r"\d", line)
+        ):
+            merged[-1] = f"{merged[-1]} {line}"
+        else:
+            merged.append(line)
+    return merged
 
 
 def _grade_visible_card(text, old_riven):
@@ -226,7 +263,7 @@ def _grade_visible_card(text, old_riven):
     positives = []
     negatives = []
     displays = {}
-    for line in _clean_ocr_lines(text):
+    for line in _merge_wrapped_stat_lines(_clean_ocr_lines(text)):
         if not _looks_like_stat_line(line):
             continue
         key = _ocr_key(line)
@@ -350,6 +387,16 @@ class RivenGraderOverlay:
         self._hide_source = None
         self._current_riven = None
         self._new_offer = None
+        # Tracks the highest real reroll count seen this Riven-screen
+        # session, independent of self._current_riven. self._current_riven
+        # gets nulled whenever a single frame's OCR grade is uncertain (to
+        # avoid displaying stale STATS), but that must not also throw away
+        # how many real rerolls have happened this session - graded.json's
+        # cached count lags behind live rerolling (it only updates on the
+        # next slow inventory.json refresh), so re-matching from it after a
+        # suppression can resurrect an outdated, too-low reroll count. Only
+        # reset when the Riven screen actually closes.
+        self._live_rerolls_floor = 0
 
         self.window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
         self.window.set_decorated(False)
@@ -482,6 +529,7 @@ class RivenGraderOverlay:
             if not screen.get("visible"):
                 self._current_riven = None
                 self._new_offer = None
+                self._live_rerolls_floor = 0
                 self._hide()
                 return True
             mode = screen.get("mode")
@@ -517,6 +565,9 @@ class RivenGraderOverlay:
                 if confirmed and confirmed.get("guidance_status") != "ocr_uncertain":
                     confirmed["id"] = self._current_riven.get("id", "")
                     self._current_riven = confirmed
+                    self._live_rerolls_floor = max(
+                        self._live_rerolls_floor, confirmed.get("rerolls", 0)
+                    )
                     log("promoted freshly graded confirmed card")
                 else:
                     self._new_offer = None
@@ -538,6 +589,13 @@ class RivenGraderOverlay:
         if old is None:
             old = next((_match_riven(text, rivens) for text in card_texts
                         if _match_riven(text, rivens)), None)
+        if old and old.get("rerolls", 0) < self._live_rerolls_floor:
+            # A fresh match from graded.json (or a re-adopted cached entry)
+            # can carry a real reroll count that is behind what this same
+            # session has already live-observed - never regress the
+            # displayed count backwards mid-session.
+            old = dict(old)
+            old["rerolls"] = self._live_rerolls_floor
         grade_reference = dict(old) if old else None
         if not stable:
             # During the animation/consensus interval, cached inventory data
@@ -677,6 +735,13 @@ class RivenGraderOverlay:
             new_riven = candidates[0] if candidates else None
             if candidates:
                 self._new_offer = candidates[0]
+                # A genuinely new offer means a real reroll was just spent
+                # in-game, whether or not the player ends up confirming it -
+                # advance the floor now so CURRENT ROLL doesn't fall behind
+                # once this becomes the confirmed roll.
+                self._live_rerolls_floor = max(
+                    self._live_rerolls_floor, self._new_offer.get("rerolls", 0)
+                )
             else:
                 self._new_offer = None
             self._content.pack_start(

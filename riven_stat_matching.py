@@ -24,6 +24,7 @@ VISIBLE_STAT_PHRASES = (
     ("statuschance", "SC"),
     ("projectilespeed", "PFS"),
     ("punchthrough", "PT"),
+    ("additionalcombocountchance", "CCC"),
     ("initialcombo", "IC"),
     ("heavyattackefficiency", "EFF"),
     ("attackspeed", "AS"),

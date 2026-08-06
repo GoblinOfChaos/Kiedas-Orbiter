@@ -728,6 +728,35 @@ fn riven_screen_watcher(event_receiver: mpsc::Receiver<RivenLogEvent>) {
         const RECOVERY_CHECKS: u8 = 12;
         const RECOVERY_INTERVAL: Duration = Duration::from_secs(1);
         let mut last_capture = Instant::now() - Duration::from_secs(10);
+
+        // One-shot startup probe: this loop is otherwise purely event-driven
+        // (see the `if !active` gate below), reacting only to a fresh
+        // EE.log transition line. If the app is started or restarted while
+        // the player is already sitting inside the Riven reroll screen,
+        // there is no such fresh line left to react to - the real "Opened"
+        // event was already written to EE.log before this process existed,
+        // and it will not repeat just because the player is still looking
+        // at the same screen. Confirmed live 2026-08-06 via a gdb thread
+        // backtrace of a stuck-forever process: the watcher thread was
+        // correctly idling exactly as designed, it simply had no event left
+        // to wait for. A single screenshot check here, taken exactly once
+        // at startup and never repeated, activates capture immediately in
+        // that case using the same detect_riven_screen() the main loop
+        // already uses every cycle - without reintroducing the continuous
+        // once-a-second idle polling that was removed for looking like
+        // malware (Jacob 2026-07-26: constant screenshot-indicator spam).
+        // If nothing is open, this finds nothing and costs one screenshot.
+        if let Some((mode, cards, variant)) = take_screenshot(false)
+            .as_ref()
+            .and_then(|image| detect_riven_screen(image))
+        {
+            info!("Riven reroll screen already open at startup: {mode:?}; verifying OCR");
+            active = true;
+            misses = 0;
+            write_riven_screen_state(Some(mode), &[], &variant, false);
+            pending_signature = Some((mode, cards, variant));
+        }
+
         loop {
             // Handles one lifecycle event, mutating the loop's own state.
             // Defined fresh each iteration (cheap - no allocation captured)

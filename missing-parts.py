@@ -556,6 +556,11 @@ class Tracker(QWidget):
         h = self.parts_table.horizontalHeader()
         for c in range(9):
             h.setSectionResizeMode(c, QHeaderView.Interactive)
+        h.setSectionsClickable(True)
+        h.setSortIndicatorShown(True)
+        h.sectionClicked.connect(self._on_parts_header_clicked)
+        self._parts_sort_column = None
+        self._parts_sort_reverse = False
         self.parts_table.itemChanged.connect(self._on_item_changed)
         self.parts_table.cellClicked.connect(self._on_part_cell_clicked)
         layout.addWidget(self.parts_table)
@@ -591,6 +596,23 @@ class Tracker(QWidget):
             return 0, "#F44336", "vaulted"
         return 0, "#FFC107", "farmable"
 
+    def _row_has_owned_relic(self, r):
+        return any(
+            self.owned_relics.get(f"{era} {nm}", {}).get("owned", 0) > 0
+            for era, nm, _, _ in r["relics"]
+        )
+
+    def _on_parts_header_clicked(self, col):
+        if self._parts_sort_column == col:
+            self._parts_sort_reverse = not self._parts_sort_reverse
+        else:
+            self._parts_sort_column = col
+            self._parts_sort_reverse = False
+        self.parts_table.horizontalHeader().setSortIndicator(
+            col, Qt.DescendingOrder if self._parts_sort_reverse else Qt.AscendingOrder
+        )
+        self.refresh_parts()
+
     def refresh_parts(self):
         q = self.search.text().lower()
         era_f = self.era_combo.currentText()
@@ -619,6 +641,20 @@ class Tracker(QWidget):
             if (era_f != "Any" or non_vaulted) and not relics:
                 continue
             filtered.append((r, relics))
+
+        parts_sort_keys = {
+            0: lambda pair: pair[0]["equipment"].lower(),
+            1: lambda pair: pair[0]["type"].lower(),
+            2: lambda pair: pair[0]["eq_vaulted"],
+            3: lambda pair: pair[0]["part"].lower(),
+            4: lambda pair: pair[0]["plat"] or 0,
+            5: lambda pair: pair[0]["ducats"] or 0,
+            6: lambda pair: pair[0]["part"] in self.crafted or pair[0]["part"] in self.auto_crafted,
+            7: lambda pair: self._row_has_owned_relic(pair[0]),
+            8: lambda pair: len(pair[0]["relics"]),
+        }
+        if getattr(self, "_parts_sort_column", None) is not None:
+            filtered.sort(key=parts_sort_keys[self._parts_sort_column], reverse=self._parts_sort_reverse)
 
         self.parts_table.blockSignals(True)
         self.parts_table.setRowCount(len(filtered))
@@ -660,10 +696,7 @@ class Tracker(QWidget):
             self.parts_table.setItem(i, 6, chk)
             self._row_to_part[i] = r["part"]
             # Have? column - any owned relic that drops this part?
-            has_owned_relic = any(
-                self.owned_relics.get(f"{era} {nm}", {}).get("owned", 0) > 0
-                for era, nm, _, _ in r["relics"]
-            )
+            has_owned_relic = self._row_has_owned_relic(r)
             have_item = QTableWidgetItem("✓" if has_owned_relic else "")
             have_item.setTextAlignment(Qt.AlignCenter)
             if has_owned_relic:
@@ -981,6 +1014,11 @@ class Tracker(QWidget):
         h = self.r_table.horizontalHeader()
         for c in range(6):
             h.setSectionResizeMode(c, QHeaderView.Interactive)
+        h.setSectionsClickable(True)
+        h.setSortIndicatorShown(True)
+        h.sectionClicked.connect(self._on_relic_header_clicked)
+        self._r_sort_column = None
+        self._r_sort_reverse = False
         self.r_table.cellDoubleClicked.connect(self._on_relic_row_click)
         layout.addWidget(self.r_table)
         apply_saved_widths(self.r_table, "r_table", [90, 160, 40, 90, 90, 260])
@@ -1018,6 +1056,17 @@ class Tracker(QWidget):
                               "ev_total": ev_t, "ev_need": ev_n, "need_drops": need_drops})
         return stats
 
+    def _on_relic_header_clicked(self, col):
+        if self._r_sort_column == col:
+            self._r_sort_reverse = not self._r_sort_reverse
+        else:
+            self._r_sort_column = col
+            self._r_sort_reverse = False
+        self.r_table.horizontalHeader().setSortIndicator(
+            col, Qt.DescendingOrder if self._r_sort_reverse else Qt.AscendingOrder
+        )
+        self._refresh_relics()
+
     def _refresh_relics(self):
         era_f = self.r_era.currentText()
         non_vaulted = self.r_filter.currentIndex() == 0
@@ -1031,7 +1080,18 @@ class Tracker(QWidget):
             if owned_only and self.owned_relics.get(f"{s['era']} {s['name']}", {}).get("owned", 0) == 0:
                 continue
             filtered.append(s)
-        filtered.sort(key=lambda s: -s["ev_need"])
+        r_sort_keys = {
+            0: lambda s: s["era"],
+            1: lambda s: s["name"].lower(),
+            2: lambda s: s["vaulted"],
+            3: lambda s: s["ev_need"],
+            4: lambda s: s["ev_total"],
+            5: lambda s: len(s["need_drops"]),
+        }
+        if getattr(self, "_r_sort_column", None) is not None:
+            filtered.sort(key=r_sort_keys[self._r_sort_column], reverse=self._r_sort_reverse)
+        else:
+            filtered.sort(key=lambda s: -s["ev_need"])
         self.r_table.setRowCount(len(filtered))
         for i, s in enumerate(filtered):
             _rt0 = QTableWidgetItem(s["era"])

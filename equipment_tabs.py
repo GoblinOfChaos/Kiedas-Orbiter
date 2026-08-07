@@ -221,6 +221,18 @@ class EquipmentTabBuilder:
         for it in items:
             tree.addTopLevelItem(self._build_item_node(it, col_count))
 
+        # Column-header sort, matching Arcanes/Modular Weapons (both plain
+        # QTableWidget with setSortingEnabled(True)) - every other Equipment
+        # tab had no sort at all since this was never wired up here. Enabled
+        # after population (not before) so it doesn't re-sort on every
+        # addTopLevelItem call. All cells here are plain QTreeWidgetItem
+        # text (no embedded widgets like Set Progress's QProgressBar), so
+        # Qt's native per-column sort - which also keeps each item's
+        # component children nested under it, just reordered among
+        # siblings - works directly without the manual sectionClicked
+        # wiring Set Progress needed (PR #39).
+        tree.setSortingEnabled(True)
+
         # Auto-resize all columns to content after populating
         for col in range(col_count):
             tree.resizeColumnToContents(col)

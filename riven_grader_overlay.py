@@ -322,12 +322,40 @@ def _grade_visible_card(text, old_riven):
     if decoded:
         visible_positive_set = set(positives)
         decoded_set = set(decoded)
-        if visible_positive_set and not visible_positive_set <= decoded_set:
+        # The generated name encodes EVERY rolled attribute, not just the
+        # positives - a 2-positive+curse riven still gets a 3-syllable name
+        # (the curse fills the 3rd slot the same as a 3rd positive would).
+        # Blindly assigning the whole decoded set as "positives" (the old
+        # behaviour) silently turned the curse into a fake 3rd positive
+        # whenever OCR correctly caught it as a curse. Only reclassify when
+        # OCR itself already flagged one of the decoded stats as negative -
+        # NOT merely because decoded has one more stat than OCR found as
+        # visible positives, since that's equally (and more commonly, per
+        # the animation/wrap issues documented above) explained by OCR
+        # simply missing a real 3rd positive, which the name-decode is
+        # precisely meant to recover.
+        curse_id = None
+        in_name_negatives = [n for n in negatives if n in decoded_set]
+        if in_name_negatives:
+            curse_id = in_name_negatives[0]
+
+        if curse_id:
+            positive_ids = decoded_set - {curse_id}
+            negatives[:] = [curse_id]
+        else:
+            positive_ids = decoded_set
+            # No curse encoded in the name: any "negative" OCR still found is
+            # animation sign-noise on a positive line (the field bug rivenforge
+            # calls out for its own "Zetiata" roll), not a real curse - drop it
+            # rather than reject an otherwise-good read.
+            negatives[:] = [n for n in negatives if n not in decoded_set]
+
+        if visible_positive_set and not visible_positive_set <= positive_ids:
             return review(
-                f"Generated name {generated_name!r} decodes to {sorted(decoded_set)}, "
+                f"Generated name {generated_name!r} decodes to {sorted(positive_ids)}, "
                 f"but visible stat OCR read {sorted(visible_positive_set)}."
             )
-        positives[:] = decoded
+        positives[:] = sorted(positive_ids)
         legend = RIVEN_GRADE_DATA.get("legend", {})
         for code in positives:
             # The generated name is deterministic and more trustworthy than

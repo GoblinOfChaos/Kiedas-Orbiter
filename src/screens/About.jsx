@@ -48,7 +48,7 @@ export default function About() {
           <div className="flex items-center gap-4 mb-4">
             <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
               <img
-                src={uiPath ? convertFileSrc(`${uiPath}/IconKronos.png`) : ''}
+                src={uiPath ? convertFileSrc(`${uiPath}/IconKieda.png`) : ''}
                 alt="Cephalon Kronos"
                 className="w-full h-full object-contain" />
               

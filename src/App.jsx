@@ -30,7 +30,7 @@ const NAV_ITEMS = [
 { id: 'about', icon: 'IconInfo.png', label: 'About' }];
 
 
-const ICON_NAMES = [...NAV_ITEMS.map((i) => i.icon), 'IconKronos.png'];
+const ICON_NAMES = [...NAV_ITEMS.map((i) => i.icon), 'IconKieda.png'];
 
 function useUIIcons(iconNames) {
   const [iconCache, setIconCache] = useState({});
@@ -323,7 +323,7 @@ function AppContent() {
         {/* Logo */}
         <div className="mb-4 flex-shrink-0">
           <div className="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden">
-            <img src={uiIcon('IconKronos.png')} alt="Cephalon Kronos" className="w-full h-full object-contain" />
+            <img src={uiIcon('IconKieda.png')} alt="Kieda's Orbiter" className="w-full h-full object-contain" />
           </div>
         </div>
 

@@ -25,7 +25,7 @@ const NAV_ITEMS = [
   { id: 'about', icon: 'IconInfo.png', label: 'About' },
 ]
 
-const ICON_NAMES = [...NAV_ITEMS.map(i => i.icon), 'IconKronos.png']
+const ICON_NAMES = [...NAV_ITEMS.map(i => i.icon), 'IconKieda.png']
 
 const Dashboard = lazy(() => import('../../screens/Dashboard'))
 const Inventory = lazy(() => import('../../screens/Inventory'))
@@ -156,7 +156,7 @@ function SidebarContent() {
       <nav className={`glass-panel w-20 flex flex-col items-center py-6 gap-4 z-40 relative flex-shrink-0 ${isRight ? 'border-l' : 'border-r'} border-white/5`}>
         <div className="mb-4 flex-shrink-0">
           <div className="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden">
-            <img src={uiIcon('IconKronos.png')} alt="" className="w-full h-full object-contain" />
+            <img src={uiIcon('IconKieda.png')} alt="" className="w-full h-full object-contain" />
           </div>
         </div>
         <div className="flex-1 w-full overflow-y-auto py-2 custom-scrollbar">

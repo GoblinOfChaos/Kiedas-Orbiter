@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "แอปนี้อ่านหน่วยความทรงจำเท่านั้น; จะไม่ปรับปรุงมันหรือไฟล์เกมเลย",
     "about.subtitle": "ติดตามสินค้าคงคลัง เรลิก โมดริเวน และ Mastery ของคุณพร้อมกับสถานะโลกแบบเรียลไทม์พร้อมเคานท์ดาว ฟิสเจอร์ การปกคลุม และอื่นๆ อีกมากมาย",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "ใช้งานที่ความเสี่ยงของคุณเอง",
     "adversaries.nemesis_history": "ประวัติ Nemesis",
     "adversaries.no_nemeses": "ไม่มี Nemesis ที่บันทึกไว้",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "แอปนี้อ่านโทเคนเซสชั่นจากหน่วยความทรงจำของเกม Digital Extremes ไม่ได้อนุมัติแอปนี้",
     "ui.setup.disclaimer_title": "ข้อจำกัด",
     "ui.setup.game_assets": "ของมีอยู่",
-    "ui.setup.welcome": "ยินดีต้อนรับสู่ Cephalon Kronos",
+    "ui.setup.welcome": "ยินดีต้อนรับสู่ Kieda's Orbiter",
     "wiki.refresh": "รีเฟรชแท็บนี้"
   }
 }

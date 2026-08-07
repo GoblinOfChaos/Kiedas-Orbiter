@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "Bu uygulama yalnızca belleği okur; asla değiştirmez veya oyun dosyalarını etkilemez.",
     "about.subtitle": "Envanterinizi, kalıntılarınızı, rivenlerinizi ve mastery'inizi, canlı bir dünya durumu ile timer'lar, kırıklar, müzakereler ve daha fazlasıyla takip edin.",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "Kendi sorumluluğunuza kullanın.",
     "adversaries.nemesis_history": "Nemesis Geçmişi",
     "adversaries.no_nemeses": "Kaydedilmiş nemesis yok.",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "Bu uygulama oyun belleğinden oturum belirteçleri okur. Digital Extremes bu uygulamayı onaylamamıştır.",
     "ui.setup.disclaimer_title": "Uyarı",
     "ui.setup.game_assets": "Oyun Varlıkları",
-    "ui.setup.welcome": "Cephalon Kronos'a hoş geldiniz",
+    "ui.setup.welcome": "Kieda's Orbiter'a hoş geldiniz",
     "wiki.refresh": "Bu sekmesi yenile"
   }
 }

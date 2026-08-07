@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "本應用程式僅讀取記憶體；絕不修改遊戲記憶體或遊戲檔案。",
     "about.subtitle": "在直播世界狀態旁追蹤您的物品欄、遺物、裂罅和精通，包含計時器、裂隙、仲裑等更多。",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "請自行承擔風險。",
     "adversaries.nemesis_history": "Nemesis 歷史",
     "adversaries.no_nemeses": "尚未記錄任何 Nemesis。",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "本應用程式會從遊戲記憶體中讀取會話令牌。Digital Extremes 尚未批准本應用程式。",
     "ui.setup.disclaimer_title": "Disclaimer",
     "ui.setup.game_assets": "Game Assets",
-    "ui.setup.welcome": "Welcome to Cephalon Kronos",
+    "ui.setup.welcome": "Welcome to Kieda's Orbiter",
     "wiki.refresh": "刷新此分頁"
   }
 }

@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "Додаток лише читає пам'ять; він ніколи не змінює її чи файли гри.",
     "about.subtitle": "Відстежуйте інвентар, реліквії, рівени та майстерність разом із живим світовим станом з таймерами, розломами, арбітражами та багатьма іншим.",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "Використовуйте за власний ризик.",
     "adversaries.nemesis_history": "Історія немеси",
     "adversaries.no_nemeses": "Немеси не записані.",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "Цей додаток читає токени сесії з пам'яті гри. Digital Extremes не схвалила цей додаток.",
     "ui.setup.disclaimer_title": "Дисклеймер",
     "ui.setup.game_assets": "Ігрові ресурси",
-    "ui.setup.welcome": "Ласкаво просимо до Cephalon Kronos",
+    "ui.setup.welcome": "Ласкаво просимо до Kieda's Orbiter",
     "wiki.refresh": "Оновити цю вкладку"
   }
 }

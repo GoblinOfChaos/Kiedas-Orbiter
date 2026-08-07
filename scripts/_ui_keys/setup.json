@@ -1,6 +1,6 @@
 {
   "ui": {
-    "ui.setup.welcome": "Welcome to Cephalon Kronos",
+    "ui.setup.welcome": "Welcome to Kieda's Orbiter",
     "ui.setup.intro": "Let's get you set up: pick your game language below and configure the path to Cache.Windows (optional).",
     "ui.setup.game_assets": "Game Assets",
     "ui.setup.optional": "(optional)",

@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "このアプリはメモリを読み取るだけであり、決して変更したりゲームファイルを変更したりすることはありません。",
     "about.subtitle": "ライブなワールドステートとタイマー、ブリッジ、アビビショナリ等とともに、インベントリ、遺物、リヴェン、マスタリーを追跡できます。",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "自己責任で使用してください。",
     "adversaries.nemesis_history": "ネメシスの履歴",
     "adversaries.no_nemeses": "ネメシスが記録されていません。",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "このアプリはゲームメモリからセッショントークンを読み取ります。Digital Extremesはこのアプリを承認していません。",
     "ui.setup.disclaimer_title": "免責事項",
     "ui.setup.game_assets": "ゲームアセット",
-    "ui.setup.welcome": "Cephalon Kronosへようこそ",
+    "ui.setup.welcome": "Kieda's Orbiterへようこそ",
     "wiki.refresh": "このタブを更新"
   }
 }

@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "O aplicativo apenas lê a memória; ele nunca modifica-a ou arquivos do jogo.",
     "about.subtitle": "Acompanhe seu inventário, relics, rivens e maestria ao lado de um estado mundial ao vivo com temporizadores, fissuras, arbitragens e mais.",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "Use por sua conta e risco.",
     "adversaries.nemesis_history": "Histórico de Nemeses",
     "adversaries.no_nemeses": "Nenhum nêmesis registrado.",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "Este aplicativo lê tokens de sessão da memória do jogo. A Digital Extremes não aprovou este aplicativo.",
     "ui.setup.disclaimer_title": "Aviso Legal",
     "ui.setup.game_assets": "Recursos do Jogo",
-    "ui.setup.welcome": "Bem-vindo ao Cephalon Kronos",
+    "ui.setup.welcome": "Bem-vindo ao Kieda's Orbiter",
     "wiki.refresh": "Atualizar esta aba"
   }
 }

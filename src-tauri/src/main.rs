@@ -636,7 +636,7 @@ async fn list_notes(app_handle: tauri::AppHandle) -> Result<Vec<String>, String>
     // If no notes exist, create the Welcome note
     if notes.is_empty() {
         let welcome_name = "Welcome.md".to_string();
-        let welcome_content = r#"# Welcome to Cephalon Kronos
+        let welcome_content = r#"# Welcome to Kieda's Orbiter
 
 This is a showcase of the **Notes** feature. You can use this space to either write your own notes or import guides from elsewhere.
 
@@ -2120,7 +2120,7 @@ async fn download_appimage_update(url: String) -> Result<String, String> {
     let temp_path = parent.join(format!(".{}.partial", filename));
 
     let client = reqwest::Client::builder()
-        .user_agent("Cephalon-Kronos-Updater")
+        .user_agent("KiedasOrbiter-Updater")
         .build()
         .map_err(|e| e.to_string())?;
     let response = client

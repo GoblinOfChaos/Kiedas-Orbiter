@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "L'applicazione legge semplicemente la memoria; non la modifica mai, né i file di gioco.",
     "about.subtitle": "Segui il tuo inventario, le reliquie, i riven e il mastery accanto a un mondo live con timer, fenditure, arbitrati e altro.",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "Usalo a tuo rischio.",
     "adversaries.nemesis_history": "Cronologia dei Nemesi",
     "adversaries.no_nemeses": "Nessun nemesi registrato.",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "Questa app legge i token di sessione dalla memoria di gioco. Digital Extremes non ha approvato questa applicazione.",
     "ui.setup.disclaimer_title": "Avviso legale",
     "ui.setup.game_assets": "Risorse di gioco",
-    "ui.setup.welcome": "Benvenuto a Cephalon Kronos",
+    "ui.setup.welcome": "Benvenuto a Kieda's Orbiter",
     "wiki.refresh": "Aggiorna questa scheda"
   }
 }

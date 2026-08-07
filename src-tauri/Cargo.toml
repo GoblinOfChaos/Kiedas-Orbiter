@@ -56,6 +56,13 @@ send_wrapper = "0.6"
 alloc-no-stdlib = { git = "https://github.com/dropbox/rust-alloc-no-stdlib.git", rev = "6032b6a9b20e03737135c55a0270ccffcc1438ef" }
 alloc-stdlib = { git = "https://github.com/dropbox/rust-alloc-no-stdlib.git", rev = "6032b6a9b20e03737135c55a0270ccffcc1438ef" }
 brotli-decompressor = { git = "https://github.com/dropbox/rust-brotli-decompressor.git", tag = "5.0.1", version = "=5.0.1" }
+# zune-jpeg 0.5.15 (pulled in transitively by the `image` crate) fails to
+# compile on newer rustc: a bare `warn!(...)` macro call used as a block's
+# tail statement (missing trailing semicolon) no longer expands cleanly.
+# No published fix exists yet, so this vendors a local copy with the one
+# missing semicolon added (see vendor/zune-jpeg/src/mcu_prog.rs). Remove
+# this patch once upstream ships a real fix.
+zune-jpeg = { path = "vendor/zune-jpeg" }
 
 [target.'cfg(target_os = "linux")'.dependencies]
 gtk = "0.18"

@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "Die App liest lediglich den Speicher; sie ändert ihn oder Spieldateien niemals.",
     "about.subtitle": "Verwalte dein Inventar, Relikte, Rivens und Meisterschaft neben einem Live-Weltstatus mit Timern, Springbrücken, Schiedsgerichten und vielem mehr.",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "Nutzung auf eigene Gefahr.",
     "adversaries.nemesis_history": "Nemesis-Verlauf",
     "adversaries.no_nemeses": "Keine Nemesis aufgezeichnet.",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "Diese App liest Sitzungstoken aus dem Spiele Speicher. Digital Extremes hat diese Anwendung nicht genehmigt.",
     "ui.setup.disclaimer_title": "Haftungsausschluss",
     "ui.setup.game_assets": "Spiel-Assets",
-    "ui.setup.welcome": "Willkommen bei Cephalon Kronos",
+    "ui.setup.welcome": "Willkommen bei Kieda's Orbiter",
     "wiki.refresh": "Diesen Tab aktualisieren"
   }
 }

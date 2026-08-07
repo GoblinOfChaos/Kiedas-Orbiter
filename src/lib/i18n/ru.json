@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "Приложение только читает память; оно никогда не изменяет её или игровые файлы.",
     "about.subtitle": "Отслеживайте инвентарь, реликвии, ривены и освоение наряду с живым состоянием мира с таймерами, трещинами, арбитражами и многим другим.",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "Используйте на свой страх и риск.",
     "adversaries.nemesis_history": "История немезид",
     "adversaries.no_nemeses": "Нет записей о немезидах.",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "Это приложение читает токены сеанса из памяти игры. Digital Extremes не одобрило это приложение.",
     "ui.setup.disclaimer_title": "Отказ от ответственности",
     "ui.setup.game_assets": "Игровые ресурсы",
-    "ui.setup.welcome": "Добро пожаловать в Cephalon Kronos",
+    "ui.setup.welcome": "Добро пожаловать в Kieda's Orbiter",
     "wiki.refresh": "Обновить эту вкладку"
   }
 }

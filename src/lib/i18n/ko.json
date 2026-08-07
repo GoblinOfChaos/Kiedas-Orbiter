@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "이 앱은 메모리만 읽을 뿐입니다. 절대 수정하지 않으며 게임 파일도 변경하지 않습니다.",
     "about.subtitle": "타이머, 균열, 중재 및 더 많은 기능이 있는 실시간 월드스테이트와 함께 인벤토리, 성유물, 리븐, 명성을 추적합니다.",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "본인의 책임으로 사용하십시오.",
     "adversaries.nemesis_history": "네메시스 역사",
     "adversaries.no_nemeses": "기록된 네메시스가 없습니다.",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "이 앱은 게임 메모리에서 세션 토큰을 읽어옵니다. Digital Extremes는 이 애플리케이션을 승인하지 않았습니다.",
     "ui.setup.disclaimer_title": "면책 조항",
     "ui.setup.game_assets": "게임 에셋",
-    "ui.setup.welcome": "Cephalon Kronos에 오신 것을 환영합니다",
+    "ui.setup.welcome": "Kieda's Orbiter에 오신 것을 환영합니다",
     "wiki.refresh": "이 탭 새로고침"
   }
 }

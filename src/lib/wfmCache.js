@@ -29,7 +29,7 @@ async function fetchWfmItems() {
   const headers = {
     'Platform': 'pc',
     'Accept': 'application/json',
-    'User-Agent': 'Cephalon-Kronos/0.6.0',
+    'User-Agent': 'KiedasOrbiter/0.7.0',
   };
   const response = await tauriFetch('https://api.warframe.market/v2/items', { method: 'GET', headers });
   if (!response.ok) return null;
@@ -245,7 +245,7 @@ async function tryFetchPrice(slug, maxRank = null) {
   const headers = {
     'Platform': 'pc',
     'Accept': 'application/json',
-    'User-Agent': 'Cephalon-Kronos/0.6.0',
+    'User-Agent': 'KiedasOrbiter/0.7.0',
     'Crossplay': 'true'
   };
 

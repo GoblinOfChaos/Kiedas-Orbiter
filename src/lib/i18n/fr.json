@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "L'application ne fait que lire la mémoire ; elle ne la modifie jamais ni les fichiers du jeu.",
     "about.subtitle": "Suivez votre inventaire, vos reliques, vos rivens et votre maîtrise aux côtés d'un état du monde en direct avec des chronomètres, des fissures, des arbitrages et plus encore.",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "Utilisez à vos propres risques.",
     "adversaries.nemesis_history": "Historique des Nemesis",
     "adversaries.no_nemeses": "Aucun nemesis enregistré.",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "Cette application lit les jetons de session depuis la mémoire du jeu. Digital Extremes n'a pas approuvé cette application.",
     "ui.setup.disclaimer_title": "Avertissement",
     "ui.setup.game_assets": "Ressources du jeu",
-    "ui.setup.welcome": "Bienvenue dans Cephalon Kronos",
+    "ui.setup.welcome": "Bienvenue dans Kieda's Orbiter",
     "wiki.refresh": "Actualiser cet onglet"
   }
 }

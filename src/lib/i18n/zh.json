@@ -153,7 +153,7 @@
     "about.github": "GitHub",
     "about.read_only": "本应用仅读取内存；绝不会修改内存或游戏文件。",
     "about.subtitle": "在实时世界状态的计时器、裂隙、仲裁等之旁，追踪你的物品栏、遗物、裂罅与精专进度。",
-    "about.title": "Cephalon Kronos",
+    "about.title": "Kieda's Orbiter",
     "about.use_at_own_risk": "请自行承担风险。",
     "adversaries.nemesis_history": "宿敌历史",
     "adversaries.no_nemeses": "未记录任何宿敌。",
@@ -574,7 +574,7 @@
     "ui.setup.disclaimer_text": "本应用从游戏内存中读取会话令牌。Digital Extremes 尚未审核本应用。",
     "ui.setup.disclaimer_title": "免责声明",
     "ui.setup.game_assets": "游戏资源",
-    "ui.setup.welcome": "欢迎使用 Cephalon Kronos",
+    "ui.setup.welcome": "欢迎使用 Kieda's Orbiter",
     "wiki.refresh": "刷新此标签"
   }
 }

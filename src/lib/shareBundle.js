@@ -26,7 +26,7 @@ export async function exportBundle({ configs, mapId, mapName }) {
 
   const path = await save({
     defaultPath: defaultName,
-    filters: [{ name: 'Kronos Markers', extensions: ['json'] }],
+    filters: [{ name: 'Kieda Markers', extensions: ['json'] }],
   })
   if (!path) return false
 
@@ -42,7 +42,7 @@ export async function exportBundle({ configs, mapId, mapName }) {
  */
 export async function importBundle() {
   const path = await open({
-    filters: [{ name: 'Kronos Markers', extensions: ['json'] }],
+    filters: [{ name: 'Kieda Markers', extensions: ['json'] }],
     multiple: false,
     directory: false,
   })

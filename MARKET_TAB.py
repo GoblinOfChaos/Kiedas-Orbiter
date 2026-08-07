@@ -99,13 +99,21 @@ class MarketTab(QWidget):
         except Exception:
             owned = {}
 
-        # part -> (equipment, ducats)
+        # part -> (equipment, ducats). Warframe/Archwing components also
+        # have a separate tradeable "<part> Blueprint" market listing
+        # (synthesize_wfinfo_data.py adds it to prices.json) that isn't a
+        # key in eq['parts'] itself - register it too, or those rows show
+        # a blank Equipment column despite having real price data.
         part_eq = {}
         part_duc = {}
         for eq_name, eq in eqmt.items():
             for pname, pdata in (eq.get('parts') or {}).items():
+                ducats = pdata.get('ducats', 0) if isinstance(pdata, dict) else 0
                 part_eq[pname] = eq_name
-                part_duc[pname] = pdata.get('ducats', 0) if isinstance(pdata, dict) else 0
+                part_duc[pname] = ducats
+                if not pname.endswith(' Blueprint'):
+                    part_eq.setdefault(f'{pname} Blueprint', eq_name)
+                    part_duc.setdefault(f'{pname} Blueprint', ducats)
 
         self._rows = []
         for name, plat in prices.items():

@@ -69,6 +69,18 @@ CANCEL_MARKER = "TennoShipInputFilter"
 # guarantee the picker screen is gone no matter what state we thought we
 # were in, so treat it as an unconditional force-close.
 LOAD_MARKER = "EnterState: Loading"
+# Fires for Warframe's Defense wave-continue/extract countdown screen -
+# confirmed live 2026-08-06 directly against EE.log: that screen is built
+# on the same generic ThemedProjectionManager UI framework as the real
+# relic-selection screen and triggers the exact same OPEN_MARKER line
+# (PopulateInventoryGrid), with no equip-confirm dialog ever following it
+# since it isn't a relic screen at all. That left the overlay stuck
+# visible through several subsequent Defense rounds with no CLOSE_MARKER/
+# CANCEL_MARKER/LOAD_MARKER ever firing to correct it (the player never
+# left the mission, so no level load happened either). This line is
+# unique to the countdown screen and never appears near a genuine relic
+# pick, so treat it as an unconditional force-close like LOAD_MARKER.
+PROJECTION_COUNTDOWN_MARKER = "ProjectionsCountdown.lua: Initialize timer"
 
 POLL_INTERVAL = 1.0
 
@@ -271,6 +283,14 @@ class _State:
             _write_state({"visible": False, "timestamp": int(time.time())})
         elif self.picker_open and LOAD_MARKER in line:
             log("level load started, force-hiding relic overlay (safety net)")
+            self.picker_open = False
+            self.last_recs = None
+            _write_state({"visible": False, "timestamp": int(time.time())})
+        elif self.picker_open and PROJECTION_COUNTDOWN_MARKER in line:
+            log(
+                "Defense continue/extract countdown detected; "
+                "force-hiding relic overlay (false-trigger safety net)"
+            )
             self.picker_open = False
             self.last_recs = None
             _write_state({"visible": False, "timestamp": int(time.time())})

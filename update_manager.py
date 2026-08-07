@@ -40,6 +40,8 @@ FILTERED_FILE        = WFINFO_DIR / "filtered_items.json"
 WFCD_CACHE           = WFINFO_DIR / "wfcd_all_cache.json"
 EXPORT_UPGRADES      = WFINFO_DIR / "ExportUpgrades.json"
 EXPORT_MOD_SET       = WFINFO_DIR / "ExportModSet.json"
+EXPORT_ARCANES       = WFINFO_DIR / "ExportArcanes.json"
+DICT_EN              = WFINFO_DIR / "dict.en.json"
 DROP_DATA_CACHE      = WFINFO_DIR / "wfcd_drop_data_cache.json"
 DROP_DATA_INFO       = WFINFO_DIR / "wfcd_drop_data_info.json"
 RIVEN_DATA           = WFINFO_DIR / "riven_good_rolls.json"
@@ -52,6 +54,8 @@ WARFRAMESTAT_FILTERED = "https://api.warframestat.us/wfinfo/filtered_items"
 WFCD_ALL_URL          = "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/All.json"
 CALAMITY_UPGRADES_URL = "https://raw.githubusercontent.com/calamity-inc/warframe-public-export-plus/senpai/ExportUpgrades.json"
 CALAMITY_MODSET_URL   = "https://raw.githubusercontent.com/calamity-inc/warframe-public-export-plus/senpai/ExportModSet.json"
+CALAMITY_ARCANES_URL  = "https://raw.githubusercontent.com/calamity-inc/warframe-public-export-plus/senpai/ExportArcanes.json"
+CALAMITY_DICT_EN_URL  = "https://raw.githubusercontent.com/calamity-inc/warframe-public-export-plus/senpai/dict.en.json"
 DROP_DATA_INFO_URL    = "https://drops.warframestat.us/data/info.json"
 DROP_DATA_MODS_URL    = "https://drops.warframestat.us/data/modLocations.json"
 DE_PUBLIC_INDEX_URL   = "https://content.warframe.com/PublicExport/index_en.txt.lzma"
@@ -232,6 +236,10 @@ def standard_update(log: Callable | None = None) -> dict:
          EXPORT_UPGRADES, 10_000, 100),
         ("export_modset", "ExportModSet.json", CALAMITY_MODSET_URL,
          EXPORT_MOD_SET, 500, 10),
+        ("export_arcanes", "ExportArcanes.json", CALAMITY_ARCANES_URL,
+         EXPORT_ARCANES, 10_000, 50),
+        ("dict_en", "dict.en.json", CALAMITY_DICT_EN_URL,
+         DICT_EN, 100_000, 1000),
     ):
         _log(f"Fetching {label}...", log)
         try:
@@ -313,6 +321,36 @@ def game_patch_update(log: Callable | None = None) -> dict:
     except Exception as e:
         _log(f"  ✗ Riven naming fragments failed: {e}", log)
         results["riven_name_fragments"] = "failed"
+
+    # Step 2c: ExportArcanes.json + dict.en.json from calamity-inc (covers
+    # arcanes/projections that DE's regular Public Export and WFCD's
+    # warframe-items scraper don't have at all, e.g. new Tektolyst arcanes)
+    _log("Fetching ExportArcanes.json from calamity-inc...", log)
+    try:
+        data = _fetch(CALAMITY_ARCANES_URL, timeout=60)
+        if _safe_write(EXPORT_ARCANES, data, min_size=10_000):
+            count = len(json.loads(data))
+            _log(f"  ✓ ExportArcanes.json updated ({count:,} entries)", log)
+            results["export_arcanes"] = "updated"
+        else:
+            _log("  ✗ ExportArcanes.json: too small or invalid", log)
+            results["export_arcanes"] = "failed"
+    except Exception as e:
+        _log(f"  ✗ ExportArcanes.json failed: {e}", log)
+        results["export_arcanes"] = "failed"
+
+    _log("Fetching dict.en.json from calamity-inc...", log)
+    try:
+        data = _fetch(CALAMITY_DICT_EN_URL, timeout=60)
+        if _safe_write(DICT_EN, data, min_size=100_000):
+            _log("  ✓ dict.en.json updated", log)
+            results["dict_en"] = "updated"
+        else:
+            _log("  ✗ dict.en.json: too small or invalid", log)
+            results["dict_en"] = "failed"
+    except Exception as e:
+        _log(f"  ✗ dict.en.json failed: {e}", log)
+        results["dict_en"] = "failed"
 
     # Step 3: ExportModSet.json from calamity-inc
     _log("Fetching ExportModSet.json from calamity-inc...", log)

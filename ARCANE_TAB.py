@@ -2,11 +2,20 @@
 """Arcane tab: shows all arcanes (Warframe/Melee/Primary/Secondary/Operator/
 Amp/Zaw/Kitgun/Bow/Shotgun) with owned counts. Filter to show only missing.
 
-Unlike mods, arcanes live directly in wfcd_all_cache.json (both catalog
-and drop data), not a separate ExportUpgrades/ExportModSet source - and
-their inventory ownership is tracked the same way as mods, under
-inventory.json's RawUpgrades (arcanes and mods share the same
-/Lotus/Upgrades/... path namespace in the game's own data)."""
+Catalog is merged from two sources:
+- ExportArcanes.json + dict.en.json (calamity-inc/warframe-public-export-plus,
+  fetched via update_manager.py): the authoritative list of arcane
+  uniqueNames/rarity, including newer arcanes (e.g. the "Zid-an" Tektolyst
+  projection arcanes) that WFCD's warframe-items scraper doesn't have at all.
+- wfcd_all_cache.json: supplies type-bucket (Warframe Arcane, Primary
+  Arcane, etc.) and drop location, which ExportArcanes.json doesn't carry.
+An arcane present in ExportArcanes.json but missing from wfcd's catalog
+still gets a row, with type/drop-location left as "Unknown" rather than
+being silently dropped.
+
+Ownership is tracked the same way as mods, under inventory.json's
+RawUpgrades (arcanes and mods share the same /Lotus/Upgrades/... path
+namespace in the game's own data)."""
 import json
 from pathlib import Path
 
@@ -19,6 +28,7 @@ from paths import get_inventory_path
 from column_persistence import apply_saved_widths, remember_widths
 from wiki_links import build_wiki_url, open_wiki_url
 from drop_data import find_drop_info
+from inventory_upgrades import count_owned_upgrades
 
 # wfcd_all_cache.json contains leftover unimplemented/test entries under
 # real arcane types - confirmed live 2026-07-21 against the actual wiki
@@ -32,7 +42,7 @@ FAKE_ARCANE_NAMES = {
 ARCANE_TYPES = {
     'Arcane', 'Amp Arcane', 'Bow Arcane', 'Kitgun Arcane', 'Melee Arcane',
     'Operator Arcane', 'Primary Arcane', 'Secondary Arcane',
-    'Shotgun Arcane', 'Warframe Arcane', 'Zaw Arcane',
+    'Shotgun Arcane', 'Warframe Arcane', 'Zaw Arcane', 'Peculiar Mod',
 }
 
 
@@ -86,14 +96,37 @@ class ArcaneTab(QWidget):
     def _load(self):
         base = Path(__file__).parent
         inventory = self._load_json(get_inventory_path()) or {}
-        self._owned = {
-            u['ItemType']: u.get('ItemCount', 0)
-            for u in inventory.get('RawUpgrades', [])
-            if isinstance(u, dict) and u.get('ItemType')
-        }
+        self._owned = count_owned_upgrades(inventory)
 
         wfcd = self._load_json(base / 'wfcd_all_cache.json') or []
         items = wfcd if isinstance(wfcd, list) else (wfcd.get('items') or wfcd.get('data') or [])
+
+        # wfcd_by_uname supplies type-bucket + drop location for any
+        # uniqueName it recognizes as an arcane.
+        wfcd_by_uname = {}
+        types_seen = set()
+        for item in items:
+            if not isinstance(item, dict) or item.get('type') not in ARCANE_TYPES:
+                continue
+            uname = item.get('uniqueName', '')
+            name = item.get('name', '')
+            if not uname or not name or name in FAKE_ARCANE_NAMES:
+                continue
+            atype = item.get('type', '')
+            types_seen.add(atype)
+            locations = sorted({d.get('location') for d in (item.get('drops') or []) if d.get('location')})
+            wfcd_by_uname[uname] = {
+                'name': name, 'type': atype,
+                'drop_location': '; '.join(locations) if locations else '',
+                'rarity': item.get('rarity', ''),
+            }
+
+        # ExportArcanes.json (calamity-inc) is the authoritative uniqueName
+        # list, including newer arcanes WFCD's scraper hasn't caught yet
+        # (e.g. the "Zid-an" Tektolyst projection arcanes). Names are
+        # stored as localization keys, resolved via dict.en.json.
+        export_arcanes = self._load_json(base / 'ExportArcanes.json') or {}
+        dict_en = self._load_json(base / 'dict.en.json') or {}
 
         # Keyed by name (not uniqueName) - confirmed live 2026-07-21 that
         # "Arcane Steadfast" appeared 5 times identically in the table.
@@ -104,21 +137,8 @@ class ArcaneTab(QWidget):
         # rather than just keeping the first, in case ownership happens to
         # be tracked under a different one of the variant uniqueNames.
         by_name = {}
-        types_seen = set()
-        for item in items:
-            if not isinstance(item, dict):
-                continue
-            if item.get('type') not in ARCANE_TYPES:
-                continue
-            uname = item.get('uniqueName', '')
-            name = item.get('name', '')
-            if not uname or not name or name in FAKE_ARCANE_NAMES:
-                continue
-            atype = item.get('type', '')
-            types_seen.add(atype)
-            rarity = item.get('rarity', '')
-            locations = sorted({d.get('location') for d in (item.get('drops') or []) if d.get('location')})
-            drop_location = '; '.join(locations) if locations else (find_drop_info(name) or 'No drop data (check wiki)')
+
+        def add_entry(uname, name, atype, rarity, drop_location):
             owned_count = self._owned.get(uname, 0)
             if name in by_name:
                 by_name[name]['owned'] += owned_count
@@ -127,6 +147,30 @@ class ArcaneTab(QWidget):
                     'name': name, 'type': atype, 'rarity': rarity,
                     'drop_location': drop_location, 'owned': owned_count,
                 }
+
+        seen_unames = set()
+        for uname, entry in export_arcanes.items():
+            if not isinstance(entry, dict):
+                continue
+            name = dict_en.get(entry.get('name', ''), '') or entry.get('name', '')
+            if not name or name in FAKE_ARCANE_NAMES:
+                continue
+            seen_unames.add(uname)
+            wfcd_entry = wfcd_by_uname.get(uname)
+            atype = wfcd_entry['type'] if wfcd_entry else 'Unknown'
+            types_seen.add(atype)
+            drop_location = (wfcd_entry['drop_location'] if wfcd_entry else '') \
+                or find_drop_info(name) or 'No drop data (check wiki)'
+            rarity = (wfcd_entry['rarity'] if wfcd_entry else '') or entry.get('rarity', '').title()
+            add_entry(uname, name, atype, rarity, drop_location)
+
+        # Anything wfcd knows about that calamity-inc's export doesn't
+        # (shouldn't normally happen, but don't silently drop it).
+        for uname, wfcd_entry in wfcd_by_uname.items():
+            if uname in seen_unames:
+                continue
+            drop_location = wfcd_entry['drop_location'] or find_drop_info(wfcd_entry['name']) or 'No drop data (check wiki)'
+            add_entry(uname, wfcd_entry['name'], wfcd_entry['type'], wfcd_entry['rarity'], drop_location)
 
         self._arcanes = list(by_name.values())
         self._arcanes.sort(key=lambda a: a['name'])

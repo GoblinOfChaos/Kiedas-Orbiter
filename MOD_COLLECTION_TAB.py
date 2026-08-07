@@ -14,6 +14,7 @@ from column_persistence import apply_saved_widths, remember_widths
 from paths import CACHE_DIR, get_inventory_path
 from wiki_links import build_wiki_url, open_wiki_url
 from drop_data import find_drop_info
+from inventory_upgrades import count_owned_upgrades
 
 # Real, wiki-verified acquisition text for mods that aren't random drops
 # at all (Baro Ki'Teer, Arbitration vendor, Nightwave, companion precepts,
@@ -133,11 +134,7 @@ class ModCollectionTab(QWidget):
     def _load(self):
         base = Path(__file__).parent
         inventory = self._load_json(get_inventory_path()) or {}
-        self._owned = {
-            u['ItemType']: u.get('ItemCount', 0)
-            for u in inventory.get('RawUpgrades', [])
-            if isinstance(u, dict) and u.get('ItemType')
-        }
+        self._owned = count_owned_upgrades(inventory)
         wfcd_names, wfcd_drops, wfcd_images = self._load_wfcd_data(base / 'wfcd_all_cache.json')
         upgrades = self._load_json(base / 'ExportUpgrades.json') or {}
         mod_sets = self._load_json(base / 'ExportModSet.json') or {}

@@ -39,8 +39,10 @@ Kronos is missing that wfinfo-ng already has or needs:
   Cephalon Kronos as the base, plus README credit, satisfying MIT's
   "include copyright notice" condition and the spirit of "clearly labeled
   as different, full credit given."
-- Rebrand app name, icon, window title, splash — swap glowseeker-branded
-  assets for new ones. Keep Kronos's UI/layout/CSS (the part being kept
+- Rebrand app name to **Kieda's Orbiter** (window title, `tauri.conf.json`
+  `productName`/identifier, package.json name, splash, About/Credits
+  screen, README), icon, and any other glowseeker/Cephalon Kronos naming
+  surfaced in the UI. Keep Kronos's UI/layout/CSS (the part being kept
   intentionally).
 
 ## Cross-platform requirement

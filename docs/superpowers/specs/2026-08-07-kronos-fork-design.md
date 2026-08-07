@@ -14,11 +14,20 @@ Kronos is missing that wfinfo-ng already has or needs:
    today. Kronos only shows aggregate found/total counts per category
    (`src/screens/Collectibles.jsx`). Needs a wiki-sourced per-item dataset
    (name, category, location/coordinates) and new list UI.
-
-Kronos's existing riven market-price grading (ONNX model, local/portable,
-`src-tauri/src/pricer.rs`) and relic-picker need-ranking gap are already
-covered/superseded by adopting Kronos wholesale — no separate feature work
-needed there beyond what's inherited.
+3. Relic recommend/picker overlay (`RelicPickerOverlay.jsx`) — currently
+   sorts only by raw ducat/plat EV (`ducat_top`/`plat_top` columns, no
+   ownership or need awareness). Add the need-based ranking wfinfo-ng
+   already does (`relic_recommend_watcher.py`'s `ev_need` — value still
+   missing from parts you don't own/haven't crafted) as an additional
+   sort/column alongside the existing ducat/plat views, not a replacement.
+4. Riven grading (`RivenCard.jsx` grade badge, `src-tauri/src/pricer.rs`
+   `grade_from_cdf`) — currently grades S/A/B/C/D purely from where the
+   ONNX-predicted price falls in the market price distribution. Change
+   the *grade* to be computed from wfinfo-ng's stat-based grading logic
+   (`riven_grader_watcher.py`'s `_grade_riven`, matched against the
+   Megrim & Valkyrial good-combo data) instead. Keep Kronos's ONNX price
+   estimate displayed as-is (e.g. "~340p est.") — it's just no longer
+   what drives the tier label.
 
 ## Licensing / attribution requirements
 
@@ -38,9 +47,6 @@ needed there beyond what's inherited.
 
 - No porting of wfinfo-ng's Python feature code (different stack; behavior
   knowledge carries over, code does not).
-- No new riven-grading work — Kronos's ONNX-based grading is adopted as-is.
-- No changes to Kronos's relic-picker overlay logic — out of scope unless
-  a future gap is found after living with it.
 - Collectibles dataset sourcing (which wiki/guide, data format) is a
   research sub-step inside this plan, not pre-solved here.
 
@@ -54,7 +60,13 @@ needed there beyond what's inherited.
 5. Source a per-item collectible + location dataset (wiki-derived) and
    build a Collectibles detail view (per-item list, not just aggregate
    counts) alongside Kronos's existing category progress cards.
-6. Decide retirement plan for wfinfo-ng (archive vs keep running in
+6. Add need-based sort to the relic recommend/picker overlay, porting
+   the `ev_need` ranking logic from `relic_recommend_watcher.py`, as an
+   additional option alongside Kronos's existing ducat/plat top lists.
+7. Swap the riven grade-badge source from ONNX-price-CDF to wfinfo-ng's
+   stat-based `_grade_riven` logic, ported into Rust/React, while keeping
+   the existing ONNX price estimate displayed alongside the new grade.
+8. Decide retirement plan for wfinfo-ng (archive vs keep running in
    parallel during transition).
 
 ## Testing

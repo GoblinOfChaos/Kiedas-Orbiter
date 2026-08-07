@@ -1,8 +1,8 @@
 [package]
-name = "cephalon-kronos"
+name = "kiedas-orbiter"
 version = "0.7.0"
-description = "A cross-platform desktop companion for Warframe"
-authors = ["glowseeker"]
+description = "A cross-platform desktop companion for Warframe, forked from Cephalon Kronos"
+authors = ["Jacob Edwards", "glowseeker (original Cephalon Kronos)"]
 license = ""
 repository = ""
 edition = "2021"
@@ -70,7 +70,7 @@ winreg = "0.52"
 
 
 [[bin]]
-name = "cephalon-kronos"
+name = "kiedas-orbiter"
 path = "src/main.rs"
 
 [target.'cfg(target_os = "macos")'.dependencies]

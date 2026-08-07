@@ -1,7 +1,7 @@
 {
-  "productName": "Cephalon Kronos",
+  "productName": "Kieda's Orbiter",
   "version": "../package.json",
-  "identifier": "com.glowseeker.cephalonkronos",
+  "identifier": "com.jacob.kiedasorbiter",
   "build": {
     "beforeDevCommand": "pnpm dev",
     "beforeBuildCommand": "pnpm build",
@@ -15,7 +15,7 @@
         "label": "main",
         "fullscreen": false,
         "resizable": true,
-        "title": "Cephalon Kronos",
+        "title": "Kieda's Orbiter",
         "width": 1200,
         "height": 800,
         "minWidth": 900,
@@ -24,7 +24,7 @@
       },
       {
         "label": "overlay-tl",
-        "title": "Cephalon Kronos Notification",
+        "title": "Kieda's Orbiter Notification",
         "url": "/?overlay=true",
         "width": 440,
         "height": 1,
@@ -39,7 +39,7 @@
       },
       {
         "label": "overlay-tc",
-        "title": "Cephalon Kronos Notification",
+        "title": "Kieda's Orbiter Notification",
         "url": "/?overlay=true",
         "width": 440,
         "height": 1,
@@ -54,7 +54,7 @@
       },
       {
         "label": "overlay-tr",
-        "title": "Cephalon Kronos Notification",
+        "title": "Kieda's Orbiter Notification",
         "url": "/?overlay=true",
         "width": 440,
         "height": 1,
@@ -69,7 +69,7 @@
       },
       {
         "label": "overlay-riven-current",
-        "title": "Cephalon Kronos Overlay",
+        "title": "Kieda's Orbiter Overlay",
         "url": "/?overlay=true",
         "width": 360,
         "height": 320,
@@ -84,7 +84,7 @@
       },
       {
         "label": "overlay-riven-new",
-        "title": "Cephalon Kronos Overlay",
+        "title": "Kieda's Orbiter Overlay",
         "url": "/?overlay=true",
         "width": 360,
         "height": 320,
@@ -99,7 +99,7 @@
       },
       {
         "label": "overlay-relic",
-        "title": "Cephalon Kronos Overlay",
+        "title": "Kieda's Orbiter Overlay",
         "url": "/?overlay=true",
         "width": 640,
         "height": 140,
@@ -114,7 +114,7 @@
       },
       {
         "label": "overlay-relic-picker",
-        "title": "Cephalon Kronos Overlay",
+        "title": "Kieda's Orbiter Overlay",
         "url": "/?overlay=true",
         "width": 480,
         "height": 400,
@@ -129,7 +129,7 @@
       },
       {
         "label": "overlay-sidebar",
-        "title": "Cephalon Kronos Overlay",
+        "title": "Kieda's Orbiter Overlay",
         "url": "/?overlay=true",
         "width": 400,
         "height": 600,
@@ -172,7 +172,7 @@
   },
   "plugins": {
     "updater": {
-      "active": true,
+      "active": false,
       "dialog": true,
       "endpoints": [
         "https://github.com/glowseeker/cephalon-kronos/releases/latest/download/updater.json"

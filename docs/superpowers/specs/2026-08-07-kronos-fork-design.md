@@ -43,6 +43,18 @@ Kronos is missing that wfinfo-ng already has or needs:
   assets for new ones. Keep Kronos's UI/layout/CSS (the part being kept
   intentionally).
 
+## Cross-platform requirement
+
+Kronos currently ships Windows, Linux, and macOS builds (per its README;
+macOS untested upstream, Linux noted as potentially unstable across
+distros). The fork must keep working on every platform Kronos currently
+supports — no feature added in this plan (Relic Planner, collectibles
+dataset, need-sort overlay, stat-based riven grading) may be Linux-only
+or introduce a platform-specific dependency without an equivalent path on
+Windows/macOS. Each feature step's testing includes a build/run check on
+Windows (Jacob's existing VM test setup) in addition to Linux, before
+being considered done.
+
 ## Scope boundaries (out of scope for this plan)
 
 - No porting of wfinfo-ng's Python feature code (different stack; behavior

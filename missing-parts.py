@@ -32,6 +32,21 @@ HOME = Path.home()
 RARITY_COLORS = {"Rare": "#d4af37", "Uncommon": "#67d164", "Common": "#aaaaaa"}
 INTACT_CHANCES = {"Rare": 0.0203, "Uncommon": 0.1100, "Common": 0.2533}
 
+# Akimbo duals require owning 2x fully-BUILT copies of their base single
+# pistol to craft - a different mechanic than a normal relic-drop part
+# (own the complete weapon, not farm a drop), which this app doesn't track
+# anywhere. Per WFCD's component data, these are the only Prime items with
+# that requirement (see #73). Shown as an info note only (tooltip), not
+# folded into the part-counting math, since the base pistol itself isn't a
+# relic drop with a "count" this app can verify - Jacob 2026-08-06 chose
+# the lighter-weight option over building a whole new requirement type.
+AKIMBO_BASE_REQUIREMENTS = {
+    "Akbronco Prime": ("Bronco Prime", 2),
+    "Aklex Prime": ("Lex Prime", 2),
+    "Akmagnus Prime": ("Magnus Prime", 2),
+    "Akvasto Prime": ("Vasto Prime", 2),
+}
+
 
 def _lookup_with_bp(d, part):
     """Look up part in dict, trying with/without ' Blueprint' suffix."""
@@ -663,6 +678,10 @@ class Tracker(QWidget):
         for i, (r, relics) in enumerate(filtered):
             _pt0 = QTableWidgetItem(r["equipment"])
             _pt0.setTextAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+            akimbo_req = AKIMBO_BASE_REQUIREMENTS.get(r["equipment"])
+            if akimbo_req:
+                base_name, base_count = akimbo_req
+                _pt0.setToolTip(f"Also requires {base_count}x fully-built {base_name} (not tracked above - own the complete weapon, not a relic drop)")
             self.parts_table.setItem(i, 0, _pt0)
             _pt1 = QTableWidgetItem(r["type"]); _pt1.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
             self.parts_table.setItem(i, 1, _pt1)
@@ -935,6 +954,10 @@ class Tracker(QWidget):
         for i, s in enumerate(filtered):
             _st0 = QTableWidgetItem(s["name"])
             _st0.setTextAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+            akimbo_req = AKIMBO_BASE_REQUIREMENTS.get(s["name"])
+            if akimbo_req:
+                base_name, base_count = akimbo_req
+                _st0.setToolTip(f"Also requires {base_count}x fully-built {base_name} (not tracked above - own the complete weapon, not a relic drop)")
             self.set_table.setItem(i, 0, _st0)
             _st1 = QTableWidgetItem(s["type"]); _st1.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
             self.set_table.setItem(i, 1, _st1)

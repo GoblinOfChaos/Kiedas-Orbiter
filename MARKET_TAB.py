@@ -106,6 +106,14 @@ class MarketTab(QWidget):
         # a blank Equipment column despite having real price data.
         part_eq = {}
         part_duc = {}
+        # Warframe/Archwing components (Chassis/Neuroptics/Systems) only
+        # ever trade on warframe.market in Blueprint form - the bare
+        # component name isn't a real listing and can never carry a price.
+        # Track those so they're excluded below instead of cluttering the
+        # table with permanently-0p duplicate rows next to their real
+        # "<part> Blueprint" row. Jacob 2026-08-06 ("you can only sell the
+        # blueprint").
+        not_sellable_bare = set()
         for eq_name, eq in eqmt.items():
             for pname, pdata in (eq.get('parts') or {}).items():
                 ducats = pdata.get('ducats', 0) if isinstance(pdata, dict) else 0
@@ -114,9 +122,13 @@ class MarketTab(QWidget):
                 if not pname.endswith(' Blueprint'):
                     part_eq.setdefault(f'{pname} Blueprint', eq_name)
                     part_duc.setdefault(f'{pname} Blueprint', ducats)
+                    if eq.get('type') in ('Warframes', 'Archwing'):
+                        not_sellable_bare.add(pname)
 
         self._rows = []
         for name, plat in prices.items():
+            if name in not_sellable_bare:
+                continue
             eq = part_eq.get(name, '')
             duc = part_duc.get(name, 0)
             ratio = round(plat / duc, 2) if duc > 0 else 0.0

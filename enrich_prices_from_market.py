@@ -15,19 +15,54 @@ SLUGS_CACHE = os.path.join(WFINFO_DIR, "market_slugs_cache.json")
 BLACKLIST_FILE = os.path.join(WFINFO_DIR, "market_blacklist.json")
 CACHE_MAX_HOURS = 24
 RATE_DELAY = 0.35
+RETRIES = 3
+
+# A real browser UA, not "wfinfo-ng/1.0" - matches the value
+# tennoworth/tennoworth's scripts/wfm_common.py documents as required
+# because Cloudflare 1015-blocks generic UAs in front of api.warframe.market.
+# Couldn't reproduce a block from this machine on either UA (2026-08-02), so
+# this is precautionary hardening adopted from their documented fix, not a
+# confirmed live bug here.
+USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0"
 
 def get_json(url):
     req = urllib.request.Request(url, headers={
-        "User-Agent": "wfinfo-ng/1.0",
+        "User-Agent": USER_AGENT,
         "Accept": "application/json",
         "Language": "en",
         "Platform": "pc"})
-    with urllib.request.urlopen(req, timeout=15) as r:
-        return json.loads(r.read())
+    last_error = None
+    for attempt in range(RETRIES):
+        try:
+            with urllib.request.urlopen(req, timeout=15) as r:
+                return json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < RETRIES - 1:
+                time.sleep(2 ** attempt)
+                last_error = e
+                continue
+            raise
+        except (urllib.error.URLError, TimeoutError) as e:
+            if attempt < RETRIES - 1:
+                time.sleep(2 ** attempt)
+                last_error = e
+                continue
+            raise
+    raise last_error
+
+# warframe.market's own catalog slugs for these specific items don't match
+# what our normal name->slug conversion produces - either a WFM-side typo
+# ("reciever") or an item this project's own name differs on. Applied by
+# exact display name before url_name() runs. Found 2026-08-06 auditing why
+# real, definitely-tradeable items stayed at 0p after a full enrichment run.
+NAME_OVERRIDES = {
+    "Kompressa Prime Receiver": "Kompressa Prime Reciever",
+}
 
 def url_name(part):
-    s = part.lower()
-    for ch in (" ", "-", "&"):
+    part = NAME_OVERRIDES.get(part, part)
+    s = part.lower().replace("&", "and")
+    for ch in (" ", "-"):
         s = s.replace(ch, "_")
     return s.replace("'", "").replace("__", "_").strip("_")
 

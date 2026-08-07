@@ -36,7 +36,32 @@ def synthesize():
             cn = c.get('name','')
             if not is_relic_part(c):
                 excluded[cn] += 1; continue
-            key = cn if cn.startswith(name) else f"{name} {cn}"
+            # Akimbo duals (Akbronco/Aklex/Akmagnus/Akvasto Prime) list
+            # their paired single-pistol component twice with ducats=None
+            # and a name that doesn't start with the dual's own name (e.g.
+            # "Bronco Prime" under "Akbronco Prime") - the only components
+            # in the whole WFCD Prime dataset missing a ducat value.
+            # Requiring "own 2x built Bronco Prime" isn't a normal relic
+            # drop part this app tracks, and concatenating the names
+            # produces a garbled key ("Akbronco Prime Bronco Prime") that
+            # collides both entries into one, silently losing the real
+            # x2 requirement, and matches no real market listing either -
+            # only Blueprint/Link/Set are actually tradeable for these.
+            if c.get('ducats') is None:
+                excluded[cn] += 1; continue
+            # Kavasa Prime Kubrow Collar's "Kavasa Prime Band"/"Kavasa
+            # Prime Buckle" components already carry their own full Prime
+            # item name (just not prefixed with the full equipment name,
+            # which itself has "Kubrow Collar" after "Kavasa Prime") -
+            # prepending the equipment name on top produced a garbled key
+            # ("Kavasa Prime Kubrow Collar Kavasa Prime Band") matching no
+            # real market listing (real slugs are just "kavasa_prime_band"/
+            # "kavasa_prime_buckle"). Checking for "Prime" in the
+            # component's own name (true for these two, false for every
+            # generic component name like "Barrel"/"Blueprint"/"Chassis"
+            # across the rest of the dataset) distinguishes an
+            # already-complete name from one that needs the prefix.
+            key = cn if (cn.startswith(name) or 'Prime' in cn) else f"{name} {cn}"
             parts[key] = {'ducats': int(c.get('ducats',0) or 0),
                           'count': int(c.get('itemCount',1) or 1)}
         if parts:

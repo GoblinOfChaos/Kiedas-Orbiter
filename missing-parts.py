@@ -486,24 +486,28 @@ class Tracker(QWidget):
         self.eq_info = d.eq_info
 
     def _build_all_rows(self):
+        # Iterates required parts per equipment (not self.owned.items()) so a
+        # part you own SOME but not ENOUGH of (e.g. 1 of 2 required Barrels)
+        # still shows up as NEED - same undercounting bug as issue #49's Set
+        # Progress tab, just reached via a different starting collection.
+        # Previously this skipped any part with owned count != 0 entirely.
         self.all_rows = []
-        for part, info in self.owned.items():
-            cnt = info if isinstance(info, int) else 0
-            if cnt != 0:
-                continue
-            eq = self.part_to_eq.get(part)
-            relics = list(self.part_to_relics.get(part, []))
-            if (not eq or not relics) and part.endswith(" Blueprint"):
-                s = part[:-len(" Blueprint")]
-                if not eq:
-                    eq = self.part_to_eq.get(s)
-                if not relics:
-                    relics = list(self.part_to_relics.get(s, []))
-            eq = eq or "(unknown)"
-            meta = self.eq_info.get(eq, {"type": "?", "vaulted": False})
-            plat = self.prices.get(part, self.prices.get(part[:-len(" Blueprint")] if part.endswith(" Blueprint") else (part + " Blueprint"), 0))
-            ducats = self.part_ducats.get(part, self.part_ducats.get(part[:-len(" Blueprint")] if part.endswith(" Blueprint") else (part + " Blueprint"), 0))
-            self.all_rows.append({"equipment": eq, "type": meta["type"], "eq_vaulted": meta["vaulted"], "part": part, "relics": relics, "plat": plat, "ducats": ducats})
+        for eq_name, eq in self.items_data.get("eqmt", {}).items():
+            meta = self.eq_info.get(eq_name, {"type": eq.get("type", "?"), "vaulted": bool(eq.get("vaulted", False))})
+            for part, pinfo in eq.get("parts", {}).items():
+                required = pinfo.get("count", 1) if isinstance(pinfo, dict) else 1
+                target = part if part in self.owned else (part + " Blueprint" if (part + " Blueprint") in self.owned else part)
+                cnt = self.owned.get(target, 0) if isinstance(self.owned.get(target), int) else 0
+                if cnt >= required or target in self.crafted or target in self.auto_crafted:
+                    continue
+                relics = list(self.part_to_relics.get(part, []))
+                if not relics and part.endswith(" Blueprint"):
+                    relics = list(self.part_to_relics.get(part[:-len(" Blueprint")], []))
+                plat = self.prices.get(part, self.prices.get(part[:-len(" Blueprint")] if part.endswith(" Blueprint") else (part + " Blueprint"), 0))
+                ducats = self.part_ducats.get(part, self.part_ducats.get(part[:-len(" Blueprint")] if part.endswith(" Blueprint") else (part + " Blueprint"), 0))
+                shortfall = required - cnt
+                display_part = f"{part} x{shortfall}" if shortfall > 1 else part
+                self.all_rows.append({"equipment": eq_name, "type": meta["type"], "eq_vaulted": meta["vaulted"], "part": part, "display_part": display_part, "relics": relics, "plat": plat, "ducats": ducats})
         self.all_rows.sort(key=lambda r: (r["equipment"], r["part"]))
 
     # ============ Missing Parts tab ============
@@ -630,7 +634,7 @@ class Tracker(QWidget):
             v.setForeground(QBrush(QColor("#888")))
             v.setTextAlignment(Qt.AlignCenter)
             self.parts_table.setItem(i, 2, v)
-            part_item = QTableWidgetItem(r["part"])
+            part_item = QTableWidgetItem(r.get("display_part", r["part"]))
             part_item.setToolTip("Click to see which relics drop this part")
             self.parts_table.setItem(i, 3, part_item)
             self._row_to_relics[i] = r["relics"]
@@ -776,16 +780,18 @@ class Tracker(QWidget):
         sd = []
         for eq_name, eq in self.items_data.get("eqmt", {}).items():
             total = owned = crafted_n = need = 0
-            for pname in eq.get("parts", {}).keys():
-                total += 1
+            for pname, pinfo in eq.get("parts", {}).items():
+                required = pinfo.get("count", 1) if isinstance(pinfo, dict) else 1
+                total += required
                 target = pname if pname in self.owned else (pname + " Blueprint" if (pname + " Blueprint") in self.owned else pname)
                 cnt = self.owned.get(target, 0) if isinstance(self.owned.get(target), int) else 0
-                if cnt > 0:
-                    owned += 1
-                elif target in self.crafted or target in self.auto_crafted:
-                    crafted_n += 1
+                if target in self.crafted or target in self.auto_crafted:
+                    crafted_n += required
+                elif cnt >= required:
+                    owned += required
                 else:
-                    need += 1
+                    owned += cnt
+                    need += required - cnt
             if total == 0:
                 continue
             done = owned + crafted_n
@@ -920,12 +926,14 @@ class Tracker(QWidget):
             self.set_table.setItem(i, 4, _st4)
             need_names = []
             eq = self.items_data.get("eqmt", {}).get(s["name"], {})
-            for pname in eq.get("parts", {}).keys():
+            for pname, pinfo in eq.get("parts", {}).items():
+                required = pinfo.get("count", 1) if isinstance(pinfo, dict) else 1
                 target = pname if pname in self.owned else (pname + " Blueprint" if (pname + " Blueprint") in self.owned else pname)
                 cnt = self.owned.get(target, 0) if isinstance(self.owned.get(target), int) else 0
-                if cnt == 0 and target not in self.crafted and target not in self.auto_crafted:
+                if cnt < required and target not in self.crafted and target not in self.auto_crafted:
                     short = pname.replace(s["name"] + " ", "")
-                    need_names.append(short)
+                    shortfall = required - cnt
+                    need_names.append(f"{short} x{shortfall}" if shortfall > 1 else short)
             _st5 = QTableWidgetItem(", ".join(need_names) if need_names else "-")
             _st5.setTextAlignment(Qt.AlignLeft | Qt.AlignVCenter)
             self.set_table.setItem(i, 5, _st5)

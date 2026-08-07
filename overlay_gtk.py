@@ -465,6 +465,12 @@ class Overlay:
             )
 
         raise_and_keep_on_top(self.window)
+        # This path shows via show_all()/apply_position()/raise_and_keep_on_top(),
+        # not x11_overlay.show_at() - so show_at()'s own "final state" log line
+        # never fires here. Mirroring it so a future miss (issue #12) has the
+        # same GTK-ground-truth record show_at() callers already get.
+        log(f"reward show: final state mapped={self.window.get_mapped()} "
+            f"visible={self.window.get_visible()} position={self.window.get_position()}")
         selected_geo = monitor.get_geometry() if monitor is not None else None
         log(f"reward placement backend={Gdk.Display.get_default().__class__.__name__} "
             f"warframe={warframe_geom} monitor={selected_geo} "

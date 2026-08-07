@@ -37,7 +37,8 @@ def synthesize():
             if not is_relic_part(c):
                 excluded[cn] += 1; continue
             key = cn if cn.startswith(name) else f"{name} {cn}"
-            parts[key] = {'ducats': int(c.get('ducats',0) or 0)}
+            parts[key] = {'ducats': int(c.get('ducats',0) or 0),
+                          'count': int(c.get('itemCount',1) or 1)}
         if parts:
             eqmt[name] = {'type': TYPE_MAP[cat],
                           'vaulted': bool(item.get('vaulted',False)),

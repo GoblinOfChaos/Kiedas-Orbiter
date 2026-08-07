@@ -11,6 +11,7 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError
 
 from paths import WFINFO_DIR
+from mastery import is_mastered
 
 WFCD_URL = "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/All.json"
 CACHE_PATH = WFINFO_DIR / "wfcd_all_cache.json"
@@ -110,9 +111,76 @@ def build_path_to_dropname(wfcd_items, drop_names):
     return mapping
 
 
-def extract_owned(inventory, path_to_dropname, drop_names=None):
+def build_dropname_to_parent(wfcd_items, drop_names):
+    """drop_name -> (parent weapon uniqueName, parent item type).
+
+    Mirrors build_path_to_dropname's candidate-name construction so a part
+    name here always matches the same drop_name it was mapped under there.
+    """
+    import sys
+    mapping = {}
+    for item in wfcd_items:
+        if not isinstance(item, dict):
+            continue
+        pname = item.get("name", "")
+        puniq = item.get("uniqueName", "")
+        ptype = item.get("type", "") or item.get("category", "")
+        if not puniq:
+            continue
+        for c in item.get("components", []) or []:
+            if not isinstance(c, dict):
+                continue
+            cn = c.get("name", "")
+            for cand in (
+                f"{pname} {cn}".strip(),
+                f"{pname} {cn} Blueprint".strip(),
+                cn,
+            ):
+                if cand in drop_names:
+                    mapping[cand] = (puniq, ptype)
+    print(f"  Mapped {len(mapping)} parts to a parent weapon.", file=sys.stderr)
+    return mapping
+
+
+def find_mastered_parents(inventory, dropname_to_parent):
+    """drop_names whose parent weapon is already fully mastered.
+
+    A weapon's component parts (Blade/Handle/Blueprint/etc.) get consumed
+    once the weapon is built in the Foundry - their loose inventory counts
+    correctly drop to 0 afterward. extract_owned() alone therefore reports
+    a genuinely mastered weapon's parts as "NEED" forever, since it only
+    counts currently-held loose parts. Confirmed live 2026-08-06: Masseter
+    Prime Blade showed as NEED in the reward overlay despite the weapon
+    being fully mastered. Same root cause as the already-fixed "Afentis
+    Prime showed as needed despite being mastered" bug (PR #39) - that fix
+    lives in the separate Python GUI's inventory_data.py, which this
+    standalone Rust-reward-overlay pipeline (owned_items.json) never
+    shared. XPInfo persists after a part/weapon is later sold or
+    dismantled, so checking it - rather than current loose part counts -
+    is what makes "already mastered, never needed again" durable.
+    """
+    xp_by_unique = {}
+    for entry in inventory.get("XPInfo") or []:
+        u = entry.get("ItemType", "")
+        if u:
+            xp_by_unique[u] = max(xp_by_unique.get(u, 0), entry.get("XP", 0))
+
+    mastered = set()
+    for drop_name, (parent_uniq, parent_type) in dropname_to_parent.items():
+        xp = xp_by_unique.get(parent_uniq, 0)
+        if xp and is_mastered(xp, parent_uniq, parent_type):
+            mastered.add(drop_name)
+    return mastered
+
+
+def extract_owned(inventory, path_to_dropname, drop_names=None, mastered_parents=None):
     """All drop_names start at 0; bump every name mapped from each matched
-    inventory path. (path_to_dropname now returns lists of names per path.)"""
+    inventory path. (path_to_dropname now returns lists of names per path.)
+
+    A drop_name whose parent weapon is already mastered is never reported
+    as NEED, even if its own loose part count is currently 0 - see
+    find_mastered_parents() for why raw counts alone are insufficient.
+    """
     owned = {name: 0 for name in (drop_names or [])}
     categories = ("MiscItems", "Recipes", "Consumables")
     for cat in categories:
@@ -126,6 +194,8 @@ def extract_owned(inventory, path_to_dropname, drop_names=None):
             count = int(entry.get("ItemCount", 0))
             for name in path_to_dropname.get(path, []):
                 owned[name] = owned.get(name, 0) + count
+    for name in (mastered_parents or ()):
+        owned[name] = max(owned.get(name, 0), 1)
     return owned
 
 
@@ -163,8 +233,14 @@ def main():
         for n in sorted(uncovered)[:5]:
             log(f"    {n}")
 
+    log("Building drop_name -> parent weapon mapping...")
+    dropname_to_parent = build_dropname_to_parent(wfcd_items, drop_names)
+    mastered_parents = find_mastered_parents(inventory, dropname_to_parent)
+    if mastered_parents:
+        log(f"  {len(mastered_parents)} parts already owned via a mastered parent weapon.")
+
     log("Extracting owned counts from inventory...")
-    owned = extract_owned(inventory, path_to_dropname, drop_names)
+    owned = extract_owned(inventory, path_to_dropname, drop_names, mastered_parents)
 
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(owned, f, indent=2, sort_keys=True)

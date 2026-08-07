@@ -11,12 +11,13 @@
  */
 import { useState, useEffect } from 'react';
 import { useUi } from '../contexts/UiContext'
-import { AlertTriangle, Github, MessageCircle } from 'lucide-react';
+import { AlertTriangle, Github } from 'lucide-react';
 import { PageLayout, Card } from '../components/UI';
 import { invoke, convertFileSrc } from '@tauri-apps/api/core';
 import { version } from '../../package.json';
 
 const CREDITS = [
+{ name: 'glowseeker/cephalon-kronos', desc: 'Kieda\'s Orbiter is a fork of Cephalon Kronos, used under the MIT License (see LICENSE)', href: 'https://github.com/glowseeker/cephalon-kronos' },
 { name: 'calamity-inc', desc: 'browse.wf & warframe-public-export-plus', href: 'https://github.com/calamity-inc' },
 { name: 'relics.run', desc: 'Daily price history / market engine data', href: 'https://relics.run' },
 { name: 'Sainan/warframe-api-helper', desc: 'Template for session token extraction', href: 'https://github.com/Sainan/warframe-api-helper' },
@@ -49,9 +50,9 @@ export default function About() {
             <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
               <img
                 src={uiPath ? convertFileSrc(`${uiPath}/IconKieda.png`) : ''}
-                alt="Cephalon Kronos"
+                alt="Kieda's Orbiter"
                 className="w-full h-full object-contain" />
-              
+
             </div>
             <div>
               <h2 className="text-2xl font-bold">{t('about.title')}</h2>
@@ -61,19 +62,15 @@ export default function About() {
           <p className="text-kronos-text/90 mb-4 leading-relaxed text-sm">{t('about.subtitle')}
 
           </p>
+          <p className="text-kronos-text/70 mb-4 text-xs leading-relaxed">
+            Kieda's Orbiter is a fork of <button onClick={() => handleOpenLink('https://github.com/glowseeker/cephalon-kronos')} className="text-kronos-accent hover:underline cursor-pointer font-medium">Cephalon Kronos</button> by glowseeker, used under the MIT License. See the Credits section below and the project's LICENSE file for full attribution.
+          </p>
           <div className="flex gap-3">
             <button
-              onClick={() => handleOpenLink('https://github.com/glowseeker/cephalon-kronos')}
+              onClick={() => handleOpenLink('https://github.com/GoblinOfChaos/Kiedas-Orbiter')}
               className="inline-flex items-center gap-2 text-kronos-accent hover:text-kronos-accent-secondary transition-colors text-sm font-medium cursor-pointer">
-              
-              <Github size={18} />{t('about.github')}
 
-            </button>
-            <button
-              onClick={() => handleOpenLink('https://discord.gg/9GjkZ9aXwy')}
-              className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition-colors text-sm font-medium cursor-pointer">
-              
-              <MessageCircle size={18} />{t('about.discord')}
+              <Github size={18} />{t('about.github')}
 
             </button>
           </div>

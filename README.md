@@ -1,6 +1,11 @@
-# Cephalon Kronos
+# Kieda's Orbiter
+
+> Kieda's Orbiter is a fork of [Cephalon Kronos](https://github.com/glowseeker/cephalon-kronos)
+> by glowseeker, used under the MIT License (Commons Clause applies only to the
+> bundled warframe-api-helper binary — see [LICENSE](./LICENSE)).
 
 <p align="center">
+  <!-- TODO: update these badge URLs to GoblinOfChaos/Kiedas-Orbiter once a release exists there -->
   <img src="https://img.shields.io/github/v/release/glowseeker/cephalon-kronos?label=Release&color=cbd5e1" alt="Release">
   <img src="https://img.shields.io/github/downloads/glowseeker/cephalon-kronos/total?label=Downloads&color=94a3b8" alt="Downloads">
   <img src="https://img.shields.io/badge/Windows%20|%20Linux%20|%20macOS-0865e0" alt="Platform">
@@ -10,7 +15,7 @@
 
 An open-source desktop companion for Warframe built with React, Rust, and Tauri.
 
-Cephalon Kronos tracks your inventory, relics, rivens and mastery progress,
+Kieda's Orbiter tracks your inventory, relics, rivens and mastery progress,
 provides live world-state data, and real-time OCR-powered overlays and notifications.
 
 ## Features
@@ -54,15 +59,15 @@ This app is built on a cross-platform stack consisting of Tauri and React. It re
 2. No, it does not have any ads.
 
 ### Does it do ... ?
-Probably; most information that the game exposes is made use of to an extent. For a full list, check the wiki under [features](https://github.com/glowseeker/cephalon-kronos/wiki/Features). If there's something you'd like to see get added or you found a bug, feel free to open an issue on the [issues page](https://github.com/glowseeker/cephalon-kronos/issues).
+Probably; most information that the game exposes is made use of to an extent. For a full list, check the wiki under [features](https://github.com/GoblinOfChaos/Kiedas-Orbiter/wiki/Features). If there's something you'd like to see get added or you found a bug, feel free to open an issue on the [issues page](https://github.com/GoblinOfChaos/Kiedas-Orbiter/issues).
 
 ## Installation & Usage
 
-1. Download the version for your OS from the [releases page](https://github.com/glowseeker/cephalon-kronos/releases/latest).
+1. Download the version for your OS from the [releases page](https://github.com/GoblinOfChaos/Kiedas-Orbiter/releases/latest).
 2. **Windows:** Run the setup and install in preferred folder. **Linux / macOS:** Move the binary into its own folder. 
 3. Launch Warframe.
 4. Open the app, go to **Settings**, and start syncing.
-5. For issues, check the [wiki](https://github.com/glowseeker/cephalon-kronos/wiki).
+5. For issues, check the [wiki](https://github.com/GoblinOfChaos/Kiedas-Orbiter/wiki).
 
 ## Build from Source
 

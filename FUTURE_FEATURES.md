@@ -24,3 +24,11 @@ Feature request: add an explicit "start automatically when app
 launches" option for each background service (inventory sync, log
 scanner), independent of just remembering the toggle's last visual
 state - matching the autostart control wfinfo-ng offered.
+
+## Baro Ki'Teer ownership indicator
+
+Baro Ki'Teer's inventory screen lists his current offerings but doesn't
+show whether you already own each item, unlike Equipment/Mods/Arcanes
+tabs which do. Feature request: cross-reference Baro's offer list
+against owned inventory the same way those other tabs do, so it's
+clear at a glance what you still need from him.

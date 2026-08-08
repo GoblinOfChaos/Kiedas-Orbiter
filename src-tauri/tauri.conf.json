@@ -156,7 +156,7 @@
   "bundle": {
     "active": true,
     "targets": [
-      "nsis",
+      "msi",
       "dmg",
       "appimage",
       "deb"

@@ -21,3 +21,18 @@ every render as a result, but that alone shouldn't hang the UI.
 Needs proper debugging: reproduce with Tauri devtools enabled
 (`devtools` feature in Cargo.toml) to get an actual JS stack/error
 instead of guessing from a source read.
+
+## Riven overlay misreads "Critical Chance when Sliding" as plain Critical Chance
+
+Reported by Jacob 2026-08-07 (via a friend's report): the riven
+overlay's stat OCR/matching reads the conditional stat "Critical
+Chance when Sliding" as the base "Critical Chance" stat instead - a
+mismatch between a conditional/qualified stat and its base version.
+
+This is in Kronos's own riven stat parsing (not yet touched - the
+planned swap to wfinfo-ng's stat-based grading, per
+docs/superpowers/specs/2026-08-07-kronos-fork-design.md in wfinfo-ng,
+hasn't happened yet). Worth checking whether wfinfo-ng's own
+`riven_stat_matching.py`/TAG_MAP has this same conditional-stat
+confusion before porting the grading logic over, so it isn't
+inherited into Kieda's Orbiter.

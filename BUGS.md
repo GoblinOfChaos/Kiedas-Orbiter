@@ -1,5 +1,33 @@
 # Known bugs (convert to GitHub issues once this repo is pushed)
 
+## NSIS installer packaging fails on Windows (fresh toolchain)
+
+Found 2026-08-07 building on a clean Windows VM (nothing cached): the
+Rust app itself compiles and runs fine
+(`target\release\kiedas-orbiter.exe` works, branding confirmed), but
+`pnpm tauri build`'s NSIS installer-packaging step fails:
+
+```
+!insertmacro macro "NSISCOMCALL" requires 4 parameter(s), passed 7!
+Error in macro IsShortcutTarget on macroline 11
+Error in script "...\nsis\x64\installer.nsi" on line 1758 -- aborting
+failed to bundle project: The system cannot find the file specified. (os error 2)
+```
+
+Happened right after the bundler freshly auto-downloaded NSIS 3.11
+and `nsis_tauri_utils` v0.5.3 (both first-time downloads, nothing
+pre-cached) - looks like a version-compatibility break between a very
+new NSIS core and that plugin build's expected NSISCOMCALL calling
+convention. Couldn't find a documented fix via web search in the time
+spent. Workaround for now: none needed for build *verification*, but
+this blocks actually producing a distributable Windows installer.
+
+Fix ideas to try later: pin an older NSIS version instead of letting
+the bundler auto-download latest (e.g. via a `NSIS_DIR` env var
+pointing at a manually-installed older NSIS), or check for a newer
+`nsis_tauri_utils` release built against NSIS 3.11's plugin ABI, or
+try the `msi` bundle target (WiX) as an alternative to NSIS entirely.
+
 ## Checklist tab freezes the whole app (Linux)
 
 Reported by Jacob 2026-08-07: clicking the Checklist tab in the Linux

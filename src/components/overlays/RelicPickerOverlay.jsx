@@ -55,7 +55,7 @@ export default function RelicPickerOverlay() {
   return (
     <div className="w-full h-full bg-zinc-900 flex flex-col">
       <div className="flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-[540px]">
+        <div className="w-full">
           <div className="flex gap-3">
             <Column items={relics.ducat_top} title={`Top Ducat EV${eraSuffix}`} accent="text-amber-400" valueKey="evDucats" suffix="" />
             <Column items={relics.plat_top} title={`Top Plat EV${eraSuffix}`} accent="text-blue-400" valueKey="evPlat" suffix="p" />
@@ -72,7 +72,7 @@ export default function RelicPickerOverlay() {
 function Column({ items, title, accent, valueKey, suffix }) {
   return (
     <div className="flex-1 min-w-0">
-      <div className={`text-[10px] font-black uppercase tracking-widest text-center mb-1.5 ${accent}`}>
+      <div className={`text-[11px] font-black uppercase tracking-widest text-center mb-1.5 ${accent}`}>
         {title}
       </div>
       <div className="flex flex-col gap-1">
@@ -80,12 +80,13 @@ function Column({ items, title, accent, valueKey, suffix }) {
           <div
             key={item.name}
             className="flex items-center justify-between px-2.5 py-1.5 rounded bg-black/40 border border-white/5"
+            title={item.name}
           >
             <div className="flex items-center gap-1.5 min-w-0 flex-1">
-              <span className="text-[9px] font-black text-kronos-dim w-3 flex-shrink-0">{i + 1}.</span>
-              <span className="text-[12px] font-bold text-white truncate">{item.name}</span>
+              <span className="text-[10px] font-black text-kronos-dim w-3 flex-shrink-0">{i + 1}.</span>
+              <span className="text-[13px] font-bold text-white truncate">{item.name}</span>
             </div>
-            <span className={`text-[10px] font-black flex-shrink-0 ml-1 ${accent}`}>
+            <span className={`text-[11px] font-black flex-shrink-0 ml-1 ${accent}`}>
               {item[valueKey]}{suffix}
             </span>
           </div>

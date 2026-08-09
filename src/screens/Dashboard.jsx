@@ -1153,6 +1153,14 @@ export default function Dashboard() {
       return set;
     }, [inventoryData]);
 
+    // TEMP DEBUG for issue #79 - remove once ownership matching is confirmed working
+    if (inventory?.length) {
+      console.log('[BARO DEBUG] Baro items:', inventory.map((i) => ({ name: i.item, uniqueName: i.uniqueName })));
+      console.log('[BARO DEBUG] Owned unique_names sample (first 20):', Array.from(ownedUniqueNames).slice(0, 20));
+      console.log('[BARO DEBUG] Owned set size:', ownedUniqueNames.size);
+      console.log('[BARO DEBUG] Matches:', inventory.map((i) => ({ name: i.item, uniqueName: i.uniqueName, owned: ownedUniqueNames.has(i.uniqueName) })));
+    }
+
     return (
       <Modal
         isOpen={showBaroModal}

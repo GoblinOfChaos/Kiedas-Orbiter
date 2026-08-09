@@ -64,31 +64,22 @@ pub struct SidebarSavedState {
 // --- Path Resolution ---
 //
 // In dev builds, paths are resolved relative to the Cargo manifest directory so
-// that assets sit alongside the source tree.  In release builds they're resolved
-// relative to the executable so the installed app is self-contained.
-// When running from an AppImage, the mounted FS is read-only, but the APPIMAGE
-// relative to the real file -- we use its parent dir for writable data so
-// everything stays in one portable folder.
+// that assets sit alongside the source tree.
+//
+// In release builds, writable data (settings, cached inventory, etc.) lives in
+// a stable OS-standard per-user data directory (e.g. ~/.local/share on Linux,
+// %APPDATA% on Windows, ~/Library/Application Support on macOS), independent
+// of where the app binary/AppImage itself is located. This used to live next
+// to the app binary/AppImage file for "portable install" convenience, but that
+// meant every AppImage rebuild (dev) or app update to a new file (production)
+// silently wiped the user's settings, since the data directory was tied to
+// the app file's own location rather than a persistent OS location. See
+// GitHub issue #85.
+//
+// get_legacy_data_root() is kept only to support one-time migration of
+// existing installs from the old app-adjacent location.
 
-fn get_app_root() -> PathBuf {
-    if cfg!(debug_assertions) {
-        PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-    } else if let Ok(appimage_path) = std::env::var("APPIMAGE") {
-        let path = PathBuf::from(appimage_path);
-        path.parent().map(|p| p.to_path_buf()).unwrap_or(PathBuf::from("."))
-    } else {
-        std::env::current_exe()
-            .map(|p| p.parent().unwrap_or(Path::new(".")).to_path_buf())
-            .unwrap_or_else(|_| PathBuf::from("."))
-    }
-}
-
-/// Returns the writable data root.
-/// Portable on all platforms -- data always lives next to the app.
-/// - AppImage: directory containing the .AppImage file
-/// - macOS .app: directory containing the .app bundle
-/// - Everything else: directory containing the binary
-pub fn get_data_root() -> PathBuf {
+fn get_legacy_data_root() -> PathBuf {
     if let Ok(appimage_path) = std::env::var("APPIMAGE") {
         return PathBuf::from(appimage_path)
             .parent()
@@ -109,7 +100,53 @@ pub fn get_data_root() -> PathBuf {
         }
     }
 
-    get_app_root()
+    std::env::current_exe()
+        .map(|p| p.parent().unwrap_or(Path::new(".")).to_path_buf())
+        .unwrap_or_else(|_| PathBuf::from("."))
+}
+
+/// Recursively copy a directory tree. Used only for one-time migration from
+/// the legacy app-adjacent data location to the stable OS data directory.
+fn copy_dir_recursive(src: &Path, dst: &Path) -> std::io::Result<()> {
+    fs::create_dir_all(dst)?;
+    for entry in fs::read_dir(src)? {
+        let entry = entry?;
+        let path = entry.path();
+        let dest_path = dst.join(entry.file_name());
+        if path.is_dir() {
+            copy_dir_recursive(&path, &dest_path)?;
+        } else {
+            fs::copy(&path, &dest_path)?;
+        }
+    }
+    Ok(())
+}
+
+/// Returns the writable data root.
+pub fn get_data_root() -> PathBuf {
+    if cfg!(debug_assertions) {
+        return PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    }
+
+    let stable_root = dirs::data_dir()
+        .map(|d| d.join("kiedas-orbiter"))
+        .unwrap_or_else(get_legacy_data_root);
+
+    // One-time migration: if the stable location has no settings yet, but the
+    // legacy app-adjacent location has existing data, copy it over.
+    let stable_settings = stable_root.join("data/user/settings.json");
+    if !stable_settings.exists() {
+        let legacy_data_dir = get_legacy_data_root().join("data");
+        if legacy_data_dir.exists() {
+            if let Err(e) = copy_dir_recursive(&legacy_data_dir, &stable_root.join("data")) {
+                eprintln!("[data migration] Failed to migrate legacy data: {e}");
+            } else {
+                eprintln!("[data migration] Migrated existing data from {:?} to {:?}", legacy_data_dir, stable_root.join("data"));
+            }
+        }
+    }
+
+    stable_root
 }
 
 /// Build an absolute path from a path relative to the writable data root.

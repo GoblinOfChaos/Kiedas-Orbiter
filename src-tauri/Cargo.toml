@@ -50,6 +50,7 @@ active-win-pos-rs = "0.10.1"
 # no glibc version requirement on Linux, and no load-dynamic hang on any platform.
 tract-onnx = "0.21"
 send_wrapper = "0.6"
+dirs = "6.0.0"
 
 
 [patch.crates-io]

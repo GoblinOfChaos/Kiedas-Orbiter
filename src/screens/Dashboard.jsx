@@ -1146,6 +1146,13 @@ export default function Dashboard() {
     const vt = worldstate?.voidTrader;
     const inventory = vt?.inventory;
 
+    const ownedUniqueNames = useMemo(() => {
+      const set = new Set();
+      for (const item of inventoryData?.all ?? []) if (item.unique_name) set.add(item.unique_name);
+      for (const item of inventoryData?.mods ?? []) if (item.unique_name) set.add(item.unique_name);
+      return set;
+    }, [inventoryData]);
+
     return (
       <Modal
         isOpen={showBaroModal}
@@ -1153,10 +1160,17 @@ export default function Dashboard() {
         title={t('ui.dashboard.baro_inventory')}>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {inventory?.map((item, idx) =>
+          {inventory?.map((item, idx) => {
+            const owned = item.uniqueName && ownedUniqueNames.has(item.uniqueName);
+            return (
           <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
-              <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
+              <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0 relative">
                 <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                {owned &&
+                <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
+                    <Check size={10} className="text-black" />
+                  </div>
+                }
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.item}>{item.item}</p>
@@ -1172,7 +1186,8 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-          )}
+            );
+          })}
         </div>
       </Modal>);
 

@@ -148,7 +148,9 @@
       "assetProtocol": {
         "enable": true,
         "scope": [
-          "**"
+          "**",
+          "**/*",
+          "/**"
         ]
       }
     }

@@ -41,6 +41,7 @@ export const STAT_TO_PRICER = {
   'Slide Crit Chance': 'critical_chance_on_slide_attack',
   'Critical Chance when Sliding': 'critical_chance_on_slide_attack',
   'Critical Chance while Sliding': 'critical_chance_on_slide_attack',
+  'Critical Chance for Slide Attack': 'critical_chance_on_slide_attack',
   'Combo Efficiency': 'channeling_efficiency',
   'Zoom': 'zoom',
   'Blast Radius': 'explosion_radius',

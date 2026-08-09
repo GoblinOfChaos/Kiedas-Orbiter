@@ -11,6 +11,9 @@ import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers } from 'lu
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { getAcquisitionInfo } from '../lib/acquisitionInfo';
+import { loadAcquisitionData } from '../lib/acquisitionData';
+import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
 
 
 
@@ -560,6 +563,15 @@ export default function Inventory() {
     ayatan: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }]
   };
   const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, ExportImages } = useMonitoring();
+  const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
+  const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
+  useEffect(() => {
+    invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
+      .then((bytes) => setAcquisitionOverrides(JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))))
+      .catch(() => setAcquisitionOverrides({ components: {}, mods: {} }));
+    loadAcquisitionData().then(() => setAcquisitionDataReady(true));
+  }, []);
+  const { openKey, toggle, close } = useAcquisitionDrawer();
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilterSortPanel, setShowFilterSortPanel] = useState(false);
@@ -775,6 +787,13 @@ export default function Inventory() {
 
   const visibleItems = useMemo(() => filteredItems.slice(0, visibleCount), [filteredItems, visibleCount]);
 
+  const openItem = useMemo(() => {
+    if (!openKey || !acquisitionDataReady) return null;
+    const item = visibleItems.find((it) => it.unique_name === openKey);
+    if (!item) return null;
+    return { displayName: item.name, info: getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides) };
+  }, [openKey, acquisitionDataReady, visibleItems, dropIndex, acquisitionOverrides]);
+
   const modBg = useCallback((mf, item) => {
     if (!framesPath) return '';
     if (mf === 'Tektolyst') {
@@ -897,12 +916,13 @@ export default function Inventory() {
 
 
   return (
+    <>
     <PageLayout
       titleKey="screen.inventory"
       subtitle={`Displaying ${visibleItems.length} / ${filteredItems.length} items`}
       extra={renderHeaderStats(inventoryData, iconsPath)}
       headerPanel={renderHeaderPanel()}>
-      
+
       <div className="flex flex-col gap-6 flex-1 min-h-0">
         {inventoryData === undefined ?
         <MonitorState isLoading className="py-20" /> :
@@ -1134,7 +1154,7 @@ export default function Inventory() {
             const isPrimePart = item.category === 'prime_parts';
             const isModOrResource = ['mods', 'resources', 'arcanes'].includes(item.category);
             return (
-              <Card key={item.unique_name + idx} glow={!isUnowned} className={`relative p-0 overflow-hidden flex min-h-40 group transition-all duration-300 ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
+              <Card key={item.unique_name + idx} glow={!isUnowned} onClick={() => toggle(item.unique_name)} className={`relative p-0 overflow-hidden flex min-h-40 group transition-all duration-300 cursor-pointer ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
 
                     {/* Image column */}
                     <div className={`w-32 flex-shrink-0 relative overflow-hidden border-r border-white/5 flex items-center justify-center ${isModFrame(item) ? '' : 'bg-kronos-panel/30 p-3'}`}>
@@ -1368,7 +1388,9 @@ export default function Inventory() {
         {visibleCount < filteredItems.length && <div className="flex justify-center py-8"><Button onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}>{t('ui.inventory.load_more_items')}</Button></div>}
       </div>
       <FoundryPanel isOpen={showFoundry} onClose={() => setShowFoundry(false)} inventoryData={inventoryData} foundryFilters={foundryFilters} setFoundryFilters={setFoundryFilters} />
-    </PageLayout>);
+    </PageLayout>
+    {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
+    </>);
 
 }
 

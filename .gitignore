@@ -60,3 +60,4 @@ lib/soup/
 
 # Tauri v2 generated schemas (auto-generated, do not commit)
 src-tauri/gen/
+.superpowers/

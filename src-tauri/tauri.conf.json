@@ -117,7 +117,7 @@
         "title": "Kieda's Orbiter Overlay",
         "url": "/?overlay=true",
         "width": 620,
-        "height": 240,
+        "height": 290,
         "decorations": false,
         "transparent": false,
         "alwaysOnTop": true,

@@ -803,7 +803,7 @@ pub fn hide_sidebar_internal(app_handle: &AppHandle) {
 fn overlay_size(label: &str) -> (f64, f64) {
     match label {
         "overlay-relic" => (640.0, 140.0),
-        "overlay-relic-picker" => (620.0, 240.0),
+        "overlay-relic-picker" => (620.0, 290.0),
         "overlay-riven-current" | "overlay-riven-new" => (360.0, 300.0),
         _ => (440.0, 1.0),
     }

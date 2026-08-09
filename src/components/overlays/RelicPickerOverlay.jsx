@@ -79,14 +79,13 @@ function Column({ items, title, accent, valueKey, suffix }) {
         {items?.map((item, i) => (
           <div
             key={item.name}
-            className="flex items-center justify-between px-2.5 py-1.5 rounded bg-black/40 border border-white/5"
-            title={item.name}
+            className="flex items-start justify-between gap-1.5 px-2.5 py-1.5 rounded bg-black/40 border border-white/5"
           >
-            <div className="flex items-center gap-1.5 min-w-0 flex-1">
-              <span className="text-[10px] font-black text-kronos-dim w-3 flex-shrink-0">{i + 1}.</span>
-              <span className="text-[13px] font-bold text-white truncate">{item.name}</span>
+            <div className="flex items-start gap-1.5 min-w-0 flex-1">
+              <span className="text-[10px] font-black text-kronos-dim w-3 flex-shrink-0 leading-tight pt-px">{i + 1}.</span>
+              <span className="text-[13px] font-bold text-white leading-tight break-words">{item.name}</span>
             </div>
-            <span className={`text-[11px] font-black flex-shrink-0 ml-1 ${accent}`}>
+            <span className={`text-[11px] font-black flex-shrink-0 leading-tight pt-px ${accent}`}>
               {item[valueKey]}{suffix}
             </span>
           </div>

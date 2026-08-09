@@ -1,10 +1,11 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useUi } from '../contexts/UiContext'
-import { Search, ArrowUpDown, Filter, Layers } from 'lucide-react';
-import { PageLayout, Input, Button, Tabs, MonitorState } from '../components/UI';
+import { Search, ArrowUpDown, Filter, Layers, Info } from 'lucide-react';
+import { PageLayout, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import ModCard from '../components/ModCard';
+import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 
 const CARD_WIDTH = 200;
 const COL_GAP = 50;
@@ -52,7 +53,14 @@ export default function Mods() {
     { id: 'rarity', label: t('mods.sort_rarity') },
     { id: 'value', label: t('mods.sort_value') }];
 
-  const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading, priceFetchProgress } = useMonitoring();
+  const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading, priceFetchProgress, dropIndex } = useMonitoring();
+
+  const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
+  useEffect(() => {
+    invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
+      .then((bytes) => setAcquisitionOverrides(JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))))
+      .catch(() => setAcquisitionOverrides({ components: {}, mods: {} }));
+  }, []);
   const [framesPath, setFramesPath] = useState('');
   const [iconsPath, setIconsPath] = useState('');
 
@@ -281,19 +289,48 @@ export default function Mods() {
             justifyContent: 'center'
           }}>
           
-            {visible.map((mod, i) =>
-          <ModCard
-            key={`${mod.unique_name}_${mod.rank}_${i}`}
-            mod={mod}
-            framesPath={framesPath}
-            iconsPath={iconsPath}
-            cardImagesPath={cardImagesPath}
-            width={CARD_WIDTH}
-            exportTextIcons={ExportTextIcons}
-            platValue={modPrices?.[mod.unique_name] ?? 0}
-            pricesLoading={loadingPrices} />
+            {visible.map((mod, i) => {
+              const acquisition = getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides);
+              return (
+          <div key={`${mod.unique_name}_${mod.rank}_${i}`} className="relative">
+            <ModCard
+              mod={mod}
+              framesPath={framesPath}
+              iconsPath={iconsPath}
+              cardImagesPath={cardImagesPath}
+              width={CARD_WIDTH}
+              exportTextIcons={ExportTextIcons}
+              platValue={modPrices?.[mod.unique_name] ?? 0}
+              pricesLoading={loadingPrices} />
+            {acquisition &&
+            <Tooltip
+              position="bottom"
+              content={
+              <div className="max-w-[260px] max-h-[200px] overflow-y-auto space-y-1">
+                  <p className="text-[9px] font-black uppercase text-kronos-accent">{t('ui.inventory.drop_sources')}</p>
+                  {acquisition.sources.map((s, si) =>
+                  s.type === 'override' ?
+                  <p key={si} className="text-[9px] text-kronos-text leading-tight">{s.text}</p> :
+                  s.type === 'relic' ?
+                  <p key={si} className="text-[9px] text-kronos-text leading-tight">{s.relicName || s.relicManifest} ({s.rarity ? s.rarity.charAt(0).toUpperCase() + s.rarity.slice(1).toLowerCase() : ''})</p> :
+                  s.type === 'mission' ?
+                  <p key={si} className="text-[9px] text-kronos-text leading-tight">{s.nodeName}{s.rotation ? ` (Rot ${s.rotation})` : ''}</p> :
+                  s.type === 'enemy' ?
+                  <p key={si} className="text-[9px] text-kronos-text leading-tight">{s.enemyName}</p> :
+                  s.type === 'bounty' ?
+                  <p key={si} className="text-[9px] text-kronos-text leading-tight">{s.bountyLevel}{s.rotation ? ` Rot ${s.rotation}` : ''}</p> :
+                  null
+                  )}
+                </div>
+              }>
+              <span className="absolute top-1 left-1 z-10 p-0.5 rounded bg-black/40 text-kronos-dim/70 hover:text-kronos-accent transition-colors cursor-help">
+                <Info size={11} />
+              </span>
+            </Tooltip>
+            }
+          </div>);
 
-          )}
+            })}
           </div>
           {visibleCount < filtered.length &&
         <div className="flex justify-center py-8">

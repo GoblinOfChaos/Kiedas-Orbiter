@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useUi } from '../contexts/UiContext'
-import { Search, Filter, ArrowUpDown } from 'lucide-react';
-import { PageLayout, Input, Card, Tabs, MonitorState } from '../components/UI';
+import { Search, Filter, ArrowUpDown, Info } from 'lucide-react';
+import { PageLayout, Input, Card, Tabs, MonitorState, Tooltip } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import BackToTop from '../components/BackToTop';
@@ -93,6 +93,15 @@ export default function Rivens() {
   const [pricingCache, setPricingCache] = useState({});
   const [retryTick, setRetryTick] = useState(0);
   const pricingRef = useRef({});
+  const [rivenAcquisitionNote, setRivenAcquisitionNote] = useState('');
+  useEffect(() => {
+    invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
+      .then((bytes) => {
+        const parsed = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)));
+        setRivenAcquisitionNote(parsed.rivens_general || '');
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});
@@ -270,7 +279,20 @@ export default function Rivens() {
   return (
     <PageLayout
       titleKey="screen.rivens"
-      subtitle={`${unveiledCount} unveiled · ${challengeCount} challenge · ${veiledCount} veiled · ${unveiledCount + challengeCount}/${capacity} capacity`}
+      subtitle={
+        <span className="inline-flex items-center gap-1.5">
+          {`${unveiledCount} unveiled · ${challengeCount} challenge · ${veiledCount} veiled · ${unveiledCount + challengeCount}/${capacity} capacity`}
+          {rivenAcquisitionNote &&
+          <Tooltip
+            position="bottom"
+            content={<p className="text-[10px] text-kronos-text leading-tight max-w-[260px]">{rivenAcquisitionNote}</p>}>
+            <span className="text-kronos-dim/70 hover:text-kronos-accent transition-colors cursor-help normal-case tracking-normal">
+              <Info size={13} />
+            </span>
+          </Tooltip>
+          }
+        </span>
+      }
       headerPanel={renderHeaderPanel()}>
       
       <div className="space-y-4 pt-2">

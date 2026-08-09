@@ -1146,12 +1146,10 @@ export default function Dashboard() {
     const vt = worldstate?.voidTrader;
     const inventory = vt?.inventory;
 
-    const ownedUniqueNames = useMemo(() => {
-      const set = new Set();
-      for (const item of inventoryData?.all ?? []) if (item.unique_name) set.add(item.unique_name);
-      for (const item of inventoryData?.mods ?? []) if (item.unique_name) set.add(item.unique_name);
-      return set;
-    }, [inventoryData]);
+    const ownedUniqueNames = useMemo(
+      () => new Set(inventoryData?.allOwnedItemTypes ?? []),
+      [inventoryData]
+    );
 
     // Baro's manifest uses the purchasable "/Lotus/StoreItems/..." variant of
     // an item's path, while owned inventory is keyed by the actual item path

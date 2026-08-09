@@ -2265,6 +2265,30 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     archweapons, necramechs, amps, mods, arcanes, relics, resources, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
     kitgunChambers, zawStrikes, moaHeads, houndHeads,
 
+    // ── Comprehensive owned-item-path set ──
+    // Scans every top-level array in the raw inventory for {ItemType: ...}
+    // entries, regardless of which field it's under. This exists so that
+    // "do I own this DE item path" checks (Baro's offer list, future
+    // collectibles/cosmetics tracking, etc.) don't depend on us having
+    // explicitly parsed that specific category (Suits, Mods, FlavourItems,
+    // WeaponSkins, ...) into its own named field first - anything DE returns
+    // with an ItemType, known or not yet wired up, ends up in this set.
+    // Does NOT replace the category-specific parsed arrays above (all,
+    // mods, etc.) which carry richer per-item data (rank, name, image) -
+    // this is purely for "owned: yes/no" lookups by raw unique_name.
+    allOwnedItemTypes: (() => {
+      const set = new Set();
+      for (const value of Object.values(raw)) {
+        if (!Array.isArray(value)) continue;
+        for (const entry of value) {
+          if (entry && typeof entry === 'object' && typeof entry.ItemType === 'string') {
+            set.add(entry.ItemType);
+          }
+        }
+      }
+      return Array.from(set);
+    })(),
+
     // ── Ayatan / Endo ──
     fusionTreasures: raw.FusionTreasures ?? [],
     amberStarCount,

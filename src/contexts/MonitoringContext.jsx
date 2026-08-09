@@ -603,6 +603,16 @@ export function MonitoringProvider({ children }) {
       if (autoStartRef.current) {
         startMonitoring().catch(() => {})
       }
+
+      // Log scanner autostart: the Settings screen's toggle only starts/stops
+      // the scanner on user interaction and unmounts when navigating away, so
+      // the saved "on" state was never actually resumed on app launch. Mirror
+      // inventory-sync autostart above, at the app root, so it happens exactly
+      // once regardless of which screen is active. Settings are already
+      // loaded by this point (awaited above), so getSetting is safe to read.
+      if (getSetting('fissure_overlay_enabled')) {
+        invoke('start_log_scanner').catch(() => {})
+      }
     })()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 

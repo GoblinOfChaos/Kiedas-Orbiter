@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useUi } from '../contexts/UiContext'
-import { Search, Filter, ArrowUpDown, Info } from 'lucide-react';
-import { PageLayout, Input, Card, Tabs, MonitorState, Tooltip } from '../components/UI';
+import { Search, Filter, ArrowUpDown } from 'lucide-react';
+import { PageLayout, Input, Card, Tabs, MonitorState } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import BackToTop from '../components/BackToTop';
 import RivenCard from '../components/RivenCard';
+import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
 
 const TYPE_TABS = [
 { id: 'all', label: 'All' },
@@ -93,15 +94,16 @@ export default function Rivens() {
   const [pricingCache, setPricingCache] = useState({});
   const [retryTick, setRetryTick] = useState(0);
   const pricingRef = useRef({});
-  const [rivenAcquisitionNote, setRivenAcquisitionNote] = useState('');
+  const [rivensGeneralNote, setRivensGeneralNote] = useState('');
   useEffect(() => {
     invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
       .then((bytes) => {
         const parsed = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)));
-        setRivenAcquisitionNote(parsed.rivens_general || '');
+        setRivensGeneralNote(parsed.rivens_general || '');
       })
       .catch(() => {});
   }, []);
+  const { openKey, toggle, close } = useAcquisitionDrawer();
 
   useEffect(() => {
     invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});
@@ -211,6 +213,22 @@ export default function Rivens() {
   const veiledCount = allRivens.filter((r) => r.veiled).length;
   const capacity = inventoryData?.account?.riven_capacity ?? 0;
 
+  // Rivens have no per-weapon drop data anywhere (confirmed during #80) -
+  // every riven shows the same general-sources note rather than a per-item
+  // lookup, unlike Mods/Inventory which use getAcquisitionInfo.
+  const openItem = useMemo(() => {
+    if (!openKey) return null;
+    const riven = filtered.find((r, idx) => String(idx) === openKey);
+    if (!riven) return null;
+    return {
+      displayName: riven.name,
+      info: {
+        sources: rivensGeneralNote ? [{ type: 'override', text: rivensGeneralNote }] : [],
+        wikiLink: { url: 'https://wiki.warframe.com/w/Riven_Mods', isDirect: true },
+      },
+    };
+  }, [openKey, filtered, rivensGeneralNote]);
+
   const renderHeaderPanel = () =>
   <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
@@ -277,24 +295,12 @@ export default function Rivens() {
 
 
   return (
+    <>
     <PageLayout
       titleKey="screen.rivens"
-      subtitle={
-        <span className="inline-flex items-center gap-1.5">
-          {`${unveiledCount} unveiled · ${challengeCount} challenge · ${veiledCount} veiled · ${unveiledCount + challengeCount}/${capacity} capacity`}
-          {rivenAcquisitionNote &&
-          <Tooltip
-            position="bottom"
-            content={<p className="text-[10px] text-kronos-text leading-tight max-w-[260px]">{rivenAcquisitionNote}</p>}>
-            <span className="text-kronos-dim/70 hover:text-kronos-accent transition-colors cursor-help normal-case tracking-normal">
-              <Info size={13} />
-            </span>
-          </Tooltip>
-          }
-        </span>
-      }
+      subtitle={`${unveiledCount} unveiled · ${challengeCount} challenge · ${veiledCount} veiled · ${unveiledCount + challengeCount}/${capacity} capacity`}
       headerPanel={renderHeaderPanel()}>
-      
+
       <div className="space-y-4 pt-2">
         {isInventoryLoading ?
         <MonitorState isLoading className="py-20" /> :
@@ -315,11 +321,15 @@ export default function Rivens() {
           justifyContent: 'center'
         }}>
             {filtered.map((riven, idx) =>
-          <RivenCard key={idx} riven={riven} framesPath={framesPath} iconsPath={iconsPath} width={200} estimate={pricingCache[rivenKeys.get(riven)]} />
+          <div key={idx} className="cursor-pointer" onClick={() => toggle(String(idx))}>
+            <RivenCard riven={riven} framesPath={framesPath} iconsPath={iconsPath} width={200} estimate={pricingCache[rivenKeys.get(riven)]} />
+          </div>
           )}
           </div>
         }
       </div>
-    </PageLayout>);
+    </PageLayout>
+    {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
+    </>);
 
 }

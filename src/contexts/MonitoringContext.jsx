@@ -971,13 +971,16 @@ const hasCachedData = useCallback(async () => {
       ocrActiveRef.current = false
     }))
 
-    subs.push(listen('relic-picker-opened', (e) => {
-      if (!inventoryData?.relics) return
-      const voidTier = e.payload?.void_tier
+    // Builds the ducat/plat/need top-5 lists for the relic picker overlay.
+    // "Need" EV zeroes out rewards the player already owns or has crafted,
+    // so a relic's value reflects only what's still missing - mirrors
+    // wfinfo-ng's relic_recommend_watcher.py ev_need concept.
+    const buildRelicPickerPayload = (voidTier) => {
       let relics = inventoryData.relics
       if (voidTier && voidTier !== 'Omnia') {
         relics = relics.filter(r => r.era === voidTier)
       }
+      const ed = exportDataRef.current
       const enriched = relics.map(r => {
         const sortedRewards = (r.rewards || []).map(rw => ({
           ...rw,
@@ -985,11 +988,30 @@ const hasCachedData = useCallback(async () => {
         }))
         const evPlat = getRelicEV(sortedRewards, 'Intact', 1, 'plat')
         const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')
-        return { name: r.name, era: r.era, evPlat: Math.round(evPlat), evDucats: Math.round(evDucats) }
+
+        const neededRewards = sortedRewards.map(rw => {
+          const ctx = getRewardInventoryContext(rw.uniqueName, inventoryData, ed, localeRef.current)
+          const isSatisfied = ctx?.isOwned || (ctx?.craftedCount ?? 0) > 0
+          return isSatisfied ? { ...rw, plat: 0, ducats: 0 } : rw
+        })
+        const evPlatNeed = getRelicEV(neededRewards, 'Intact', 1, 'plat')
+        const evDucatsNeed = getRelicEV(neededRewards, 'Intact', 1, 'ducats')
+
+        return {
+          name: r.name, era: r.era,
+          evPlat: Math.round(evPlat), evDucats: Math.round(evDucats),
+          evPlatNeed: Math.round(evPlatNeed), evDucatsNeed: Math.round(evDucatsNeed),
+        }
       })
       const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 5)
       const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 5)
-      const payload = { ducat_top: ducatTop, plat_top: platTop, era: voidTier }
+      const needTop = [...enriched].sort((a, b) => b.evDucatsNeed - a.evDucatsNeed).slice(0, 5)
+      return { ducat_top: ducatTop, plat_top: platTop, need_top: needTop, era: voidTier }
+    }
+
+    subs.push(listen('relic-picker-opened', (e) => {
+      if (!inventoryData?.relics) return
+      const payload = buildRelicPickerPayload(e.payload?.void_tier)
       invoke('show_overlay_window', { label: 'overlay-relic-picker' }).catch(() => {})
       invoke('relay_event', { event: 'relic-picker-data', payload }).catch(() => {})
     }))
@@ -997,22 +1019,7 @@ const hasCachedData = useCallback(async () => {
     subs.push(listen('relic-picker-tier', (e) => {
       const voidTier = e.payload?.tier
       if (!voidTier || !inventoryData?.relics) return
-      let relics = inventoryData.relics
-      if (voidTier && voidTier !== 'Omnia') {
-        relics = relics.filter(r => r.era === voidTier)
-      }
-      const enriched = relics.map(r => {
-        const sortedRewards = (r.rewards || []).map(rw => ({
-          ...rw,
-          plat: allPricesRef.current[rw.uniqueName] ?? 0,
-        }))
-        const evPlat = getRelicEV(sortedRewards, 'Intact', 1, 'plat')
-        const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')
-        return { name: r.name, era: r.era, evPlat: Math.round(evPlat), evDucats: Math.round(evDucats) }
-      })
-      const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 5)
-      const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 5)
-      const payload = { ducat_top: ducatTop, plat_top: platTop, era: voidTier }
+      const payload = buildRelicPickerPayload(voidTier)
       invoke('relay_event', { event: 'relic-picker-data', payload }).catch(() => {})
     }))
 

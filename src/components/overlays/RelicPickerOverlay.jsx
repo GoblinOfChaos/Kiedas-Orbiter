@@ -31,7 +31,7 @@ export default function RelicPickerOverlay() {
 
     subs.push(listen('relic-picker-data', (e) => {
       const data = e.payload
-      if (data?.ducat_top || data?.plat_top) {
+      if (data?.ducat_top || data?.plat_top || data?.need_top) {
         setRelics(data)
         showWindow(true)
       }
@@ -55,10 +55,13 @@ export default function RelicPickerOverlay() {
   return (
     <div className="w-full h-full bg-zinc-900 flex flex-col">
       <div className="flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-[360px]">
+        <div className="w-full max-w-[540px]">
           <div className="flex gap-3">
-            <Column items={relics.ducat_top} title={`Top Ducat EV${eraSuffix}`} accent="text-amber-400" />
-            <Column items={relics.plat_top} title={`Top Plat EV${eraSuffix}`} accent="text-blue-400" />
+            <Column items={relics.ducat_top} title={`Top Ducat EV${eraSuffix}`} accent="text-amber-400" valueKey="evDucats" suffix="" />
+            <Column items={relics.plat_top} title={`Top Plat EV${eraSuffix}`} accent="text-blue-400" valueKey="evPlat" suffix="p" />
+            {relics.need_top &&
+              <Column items={relics.need_top} title={`Top Need EV${eraSuffix}`} accent="text-green-400" valueKey="evDucatsNeed" suffix="" />
+            }
           </div>
         </div>
       </div>
@@ -66,7 +69,7 @@ export default function RelicPickerOverlay() {
   )
 }
 
-function Column({ items, title, accent }) {
+function Column({ items, title, accent, valueKey, suffix }) {
   return (
     <div className="flex-1 min-w-0">
       <div className={`text-[10px] font-black uppercase tracking-widest text-center mb-1.5 ${accent}`}>
@@ -83,7 +86,7 @@ function Column({ items, title, accent }) {
               <span className="text-[12px] font-bold text-white truncate">{item.name}</span>
             </div>
             <span className={`text-[10px] font-black flex-shrink-0 ml-1 ${accent}`}>
-              {title.startsWith('Top Ducat') ? `${item.evDucats}` : `${item.evPlat}p`}
+              {item[valueKey]}{suffix}
             </span>
           </div>
         ))}

@@ -19,89 +19,126 @@
 
 ---
 
-### Task 1: Build the `warframe-items`-backed acquisition data module
+### Task 1: Extract `warframe-items` data into a bundled static JSON, build the lookup module
+
+**IMPORTANT - architecture correction made before implementation started:** the
+original version of this task assumed `warframe-items`' category JSON files
+could be `import`ed directly into the Vite-bundled frontend. This is wrong -
+verified before writing any code that `warframe-items`' `package.json`
+`exports` field only allows `warframe-items` (root) and `warframe-items/utilities`
+as import specifiers (subpath imports like `warframe-items/data/json/Mods.json`
+are blocked), AND the root `index.mjs` entry point itself uses Node's `fs`/`path`
+directly (`readFileSync`, `readdirSync`) - it's built for a Node.js runtime, not
+a browser/webview bundle, and cannot be imported into this app's frontend code
+at all. This is corrected below: a one-time Node script extracts the needed
+fields into a lean static JSON file, bundled the same way `acquisition_overrides.json`
+already is (via `read_file_bytes`), rather than trying to live-import the package.
 
 **Files:**
+- Create: `scripts/extract-warframe-items-acquisition.mjs` (one-time/re-runnable extraction script, run manually with plain `node`, not part of the Vite build)
+- Create: `src-tauri/data/assets/data/warframe-items-acquisition.json` (generated output, committed to the repo like the other files in this directory)
 - Create: `src/lib/acquisitionData.js`
 
 **Interfaces:**
-- Produces: `getItemDrops(uniqueName) -> AcquisitionSource[] | null` where `AcquisitionSource = {type: 'drop', location: string, dropType: string, rarity: string, chance: number}`. Also `getWikiLink(uniqueName) -> {url: string, isDirect: boolean} | null`.
+- Produces: `loadAcquisitionData() -> Promise<void>` (call once, e.g. in a screen's mount effect, before using the functions below - matches this app's existing pattern of loading bundled JSON via `read_file_bytes` in a `useEffect`, e.g. `acquisitionOverrides` in Mods.jsx). `getItemDrops(uniqueName) -> AcquisitionSource[] | null` where `AcquisitionSource = {type: 'drop', location: string, dropType: string, rarity: string, chance: number}` (returns `null`/empty until `loadAcquisitionData()` has resolved). `getWikiLink(uniqueName, displayName) -> {url: string, isDirect: boolean}`.
 
-- [ ] **Step 1: Category files (already confirmed, no need to re-check)**
-
-Full listing of `node_modules/warframe-items/data/json/`: `Arcanes.json`, `Arch-Gun.json`, `Arch-Melee.json`, `Archwing.json`, `Enemy.json`, `Fish.json`, `Gear.json`, `Glyphs.json`, `i18n.json`, `Melee.json`, `Misc.json`, `Mods.json`, `Node.json`, `Pets.json`, `Primary.json`, `Quests.json`, `Railjack.json`, `Relics.json`, `Resources.json`, `Secondary.json`, `Sentinels.json`, `SentinelWeapons.json`, `Sigils.json`, `Skins.json`, `Warframes.json`.
-
-For this app's needs (mods, arcanes, weapons, warframes, companions), import: `Mods.json`, `Arcanes.json`, `Warframes.json`, `Primary.json`, `Secondary.json`, `Melee.json`, `Archwing.json`, `Arch-Gun.json`, `Arch-Melee.json`, `Sentinels.json`, `SentinelWeapons.json`. Skip `Fish.json`/`Gear.json`/`Glyphs.json`/`Pets.json`/`Railjack.json`/`Sigils.json`/`Skins.json`/`Node.json`/`Enemy.json`/`Misc.json`/`Quests.json`/`Resources.json`/`i18n.json` for this pass — not covered by any of the three screens this plan wires up (Mods/Rivens/Inventory equipment); add later if a future tab needs them.
-
-- [ ] **Step 2: Write the failing test for the drops lookup**
+- [ ] **Step 1: Write the extraction script**
 
 ```js
-// Run manually via `node --input-type=module -e "..."` since this repo has no
-// test framework installed (confirmed during #80's implementation) - write
-// this as a one-off verification script, not a committed test file.
-import { getItemDrops } from './src/lib/acquisitionData.js';
+// scripts/extract-warframe-items-acquisition.mjs
+//
+// One-time (re-runnable) extraction of the fields this app needs from the
+// warframe-items npm package into a lean static JSON file, since
+// warframe-items itself uses Node's fs/path directly and can't be imported
+// into the Vite-bundled frontend. Re-run this script (`node
+// scripts/extract-warframe-items-acquisition.mjs`) whenever warframe-items
+// is updated to a newer version, to refresh the bundled data.
+import { readFileSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
 
-const result = getItemDrops('/Lotus/Powersuits/Trinity/LinkAugmentCard');
-console.assert(Array.isArray(result), 'should return an array for a known item');
-console.assert(result.length > 0, 'should have at least one drop source');
-console.assert(result[0].location, 'each source should have a location');
-console.log('PASS:', JSON.stringify(result, null, 2));
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const pkgDataDir = resolve(__dirname, '../node_modules/warframe-items/data/json');
+const outPath = resolve(__dirname, '../src-tauri/data/assets/data/warframe-items-acquisition.json');
 
-const missing = getItemDrops('/Lotus/NotARealItem');
-console.assert(missing === null, 'should return null for unknown items');
-console.log('PASS: unknown item returns null');
+// Categories covering the three screens this feature wires up (Mods, Rivens,
+// Inventory equipment) - Rivens has no per-weapon data in warframe-items
+// (confirmed during #80), so no Relics/Riven-specific category is needed here.
+const CATEGORIES = [
+  'Mods', 'Arcanes', 'Warframes', 'Primary', 'Secondary', 'Melee',
+  'Archwing', 'Arch-Gun', 'Arch-Melee', 'Sentinels', 'SentinelWeapons',
+];
+
+const extracted = [];
+for (const category of CATEGORIES) {
+  const items = JSON.parse(readFileSync(resolve(pkgDataDir, `${category}.json`), 'utf-8'));
+  for (const item of items) {
+    if (!item.uniqueName) continue;
+    if (!Array.isArray(item.drops) || item.drops.length === 0) {
+      if (!item.wikiAvailable) continue; // nothing useful to extract for this item
+    }
+    extracted.push({
+      uniqueName: item.uniqueName,
+      name: item.name,
+      drops: item.drops || [],
+      wikiaUrl: item.wikiaUrl || null,
+      wikiAvailable: !!item.wikiAvailable,
+    });
+  }
+}
+
+writeFileSync(outPath, JSON.stringify(extracted), 'utf-8');
+console.log(`Extracted ${extracted.length} items with acquisition data to ${outPath}`);
 ```
 
-- [ ] **Step 3: Run it to confirm it fails**
+- [ ] **Step 2: Run the extraction script and verify the output**
 
 ```bash
 cd /var/home/jedwards/kiedas-orbiter
-node --input-type=module -e "import('./src/lib/acquisitionData.js')" 2>&1
+node scripts/extract-warframe-items-acquisition.mjs
+python3 -c "
+import json
+d = json.load(open('src-tauri/data/assets/data/warframe-items-acquisition.json'))
+print('total items:', len(d))
+sample = [i for i in d if i['drops']][0]
+print(sample)
+"
 ```
-Expected: FAIL (module doesn't exist).
+Expected: prints a total item count in the low thousands, and one sample item with a non-empty `drops` array.
 
-- [ ] **Step 4: Implement `acquisitionData.js`**
+- [ ] **Step 3: Write the frontend lookup module**
 
 ```js
 // src/lib/acquisitionData.js
 //
-// Builds a uniqueName -> drop-sources lookup from the warframe-items npm
-// package's bundled JSON (already a dependency, previously unused). This is
-// the primary acquisition data source per docs/superpowers/specs/
-// 2026-08-09-acquisition-info-drawer-design.md - richer than dropIndex
-// (dropsParser.js), which only covers relic-table drops.
-
-import mods from 'warframe-items/data/json/Mods.json';
-import arcanes from 'warframe-items/data/json/Arcanes.json';
-// Add the remaining category imports confirmed in Step 1 - primary/secondary/
-// melee/archwing/arch-gun/arch-melee/sentinels/warframes/relics, following
-// the exact same import pattern.
-
-const ALL_CATEGORIES = [mods, arcanes /*, ...remaining category arrays from Step 1 */];
+// Loads the pre-extracted warframe-items data (scripts/extract-warframe-items-acquisition.mjs)
+// via the same bundled-JSON pattern this app already uses elsewhere
+// (invoke('read_file_bytes', ...)). This is the primary acquisition data
+// source per docs/superpowers/specs/2026-08-09-acquisition-info-drawer-design.md.
+import { invoke } from '@tauri-apps/api/core';
 
 let itemIndex = null;
+let loadPromise = null;
 
-function buildIndex() {
-  const index = new Map();
-  for (const category of ALL_CATEGORIES) {
-    for (const item of category) {
-      if (item.uniqueName) index.set(item.uniqueName, item);
-    }
-  }
-  return index;
-}
-
-function getIndex() {
-  if (!itemIndex) itemIndex = buildIndex();
-  return itemIndex;
+export function loadAcquisitionData() {
+  if (itemIndex) return Promise.resolve();
+  if (loadPromise) return loadPromise;
+  loadPromise = invoke('read_file_bytes', { relative: 'data/assets/data/warframe-items-acquisition.json' })
+    .then((bytes) => {
+      const arr = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)));
+      itemIndex = new Map(arr.map((item) => [item.uniqueName, item]));
+    })
+    .catch(() => { itemIndex = new Map(); });
+  return loadPromise;
 }
 
 /**
  * Returns this item's drop sources (enemy/mission/relic), ranked by chance
- * descending, or null if warframe-items has no entry or no drops for it.
+ * descending, or null if nothing is loaded yet or warframe-items has no
+ * drops for it. Synchronous - call loadAcquisitionData() first and await it.
  */
 export function getItemDrops(uniqueName) {
-  const item = getIndex().get(uniqueName);
+  const item = itemIndex?.get(uniqueName);
   if (!item || !Array.isArray(item.drops) || item.drops.length === 0) return null;
 
   return [...item.drops]
@@ -122,7 +159,7 @@ export function getItemDrops(uniqueName) {
  * links - though here we get a direct link for free when it's vetted).
  */
 export function getWikiLink(uniqueName, displayName) {
-  const item = getIndex().get(uniqueName);
+  const item = itemIndex?.get(uniqueName);
   if (item?.wikiAvailable && item.wikiaUrl) {
     return { url: item.wikiaUrl, isDirect: true };
   }
@@ -131,24 +168,36 @@ export function getWikiLink(uniqueName, displayName) {
 }
 ```
 
-- [ ] **Step 5: Run the verification script again to confirm it passes**
+- [ ] **Step 4: Verify the module against the real extracted data**
 
 ```bash
 cd /var/home/jedwards/kiedas-orbiter
 node --input-type=module -e "
-import { getItemDrops, getWikiLink } from './src/lib/acquisitionData.js';
-console.log(getItemDrops('/Lotus/Powersuits/Trinity/LinkAugmentCard'));
-console.log(getItemDrops('/Lotus/NotARealItem'));
-console.log(getWikiLink('/Lotus/Powersuits/Trinity/LinkAugmentCard'));
-"
+import fs from 'fs';
+globalThis.__TAURI_TEST_BYTES__ = fs.readFileSync('./src-tauri/data/assets/data/warframe-items-acquisition.json');
+" 2>&1
 ```
-Expected: first call prints a non-empty sorted array, second prints `null`, third prints `{url: 'https://wiki.warframe.com/w/Abating_Link', isDirect: true}`.
 
-- [ ] **Step 6: Commit**
+This module calls `invoke()` from `@tauri-apps/api/core`, which only works inside a real Tauri webview - it cannot be exercised standalone with plain `node` the way Tasks elsewhere in this plan verify pure-logic modules. Instead, verify by reading the file directly and checking the same logic inline:
 
 ```bash
-git add src/lib/acquisitionData.js
-git commit -m "Add warframe-items-backed acquisition data lookup"
+node --input-type=module -e "
+import fs from 'fs';
+const arr = JSON.parse(fs.readFileSync('./src-tauri/data/assets/data/warframe-items-acquisition.json', 'utf-8'));
+const index = new Map(arr.map((item) => [item.uniqueName, item]));
+const item = index.get('/Lotus/Powersuits/Trinity/LinkAugmentCard');
+console.log('found item:', !!item);
+console.log('drops:', item?.drops?.length);
+console.log('wikiaUrl:', item?.wikiaUrl);
+"
+```
+Expected: `found item: true`, a positive drop count, and a valid wiki URL. This confirms the data shape `acquisitionData.js`'s real `invoke()`-based loading will consume once run inside the actual app (verified end-to-end in Task 4's manual verification, which does run inside the real webview).
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add scripts/extract-warframe-items-acquisition.mjs src-tauri/data/assets/data/warframe-items-acquisition.json src/lib/acquisitionData.js
+git commit -m "Add warframe-items acquisition data: extraction script + bundled JSON + lookup module"
 ```
 
 ---
@@ -159,7 +208,7 @@ git commit -m "Add warframe-items-backed acquisition data lookup"
 - Modify: `src/lib/acquisitionInfo.js`
 
 **Interfaces:**
-- Consumes: `getItemDrops`, `getWikiLink` (Task 1).
+- Consumes: `getItemDrops`, `getWikiLink` (Task 1) — both are synchronous and read from `acquisitionData.js`'s in-memory cache, so callers of `getAcquisitionInfo` must have already called and awaited `loadAcquisitionData()` (Task 1) at least once, typically in their screen's mount effect (see Tasks 4-6) - otherwise `getItemDrops` returns `null` even for items that do have data, since the cache hasn't loaded yet.
 - Produces: `getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData) -> {sources: AcquisitionSource[], wikiLink: {url, isDirect}}` — return shape changes from #80 (previously `{sources} | null`) to always include a `wikiLink`, and to never return `null` (the "drawer still opens, shows wiki link" design decision means callers no longer need to handle a null case for "nothing known" - there's always at least the wiki link).
 
 - [ ] **Step 1: Update the priority order and always include a wiki link**
@@ -366,16 +415,23 @@ Remove the `Tooltip`/`Info` icon block added in commit `ce6ed8c` (the `<Tooltip 
 ```jsx
 import { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
 import AcquisitionDrawer from '../components/AcquisitionDrawer';
+import { loadAcquisitionData } from '../lib/acquisitionData';
 
 // Inside the Mods component:
 const { openKey, toggle, close } = useAcquisitionDrawer();
+const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
+useEffect(() => {
+  loadAcquisitionData().then(() => setAcquisitionDataReady(true));
+}, []);
 const openItem = useMemo(() => {
-  if (!openKey) return null;
+  if (!openKey || !acquisitionDataReady) return null;
   const mod = visible.find((m) => m.unique_name === openKey);
   if (!mod) return null;
   return { displayName: mod.name, info: getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides) };
-}, [openKey, visible, dropIndex, acquisitionOverrides]);
+}, [openKey, acquisitionDataReady, visible, dropIndex, acquisitionOverrides]);
 ```
+
+(`acquisitionDataReady` guards against `openItem` computing before `loadAcquisitionData()` resolves - without it, a very fast click right after mount could read `getItemDrops`'s not-yet-populated cache and silently fall through to the override/dropIndex sources instead of warframe-items' richer data.)
 
 - [ ] **Step 3: Make each card clickable, replacing the old wrapper**
 
@@ -530,20 +586,24 @@ import AcquisitionDrawer from '../components/AcquisitionDrawer';
 // component name/location during implementation - Inventory.jsx has
 // multiple exported pieces per earlier research (FoundryPanel etc.), find
 // the one rendering the `visibleItems.map` grid at line ~1132):
+import { loadAcquisitionData } from '../lib/acquisitionData';
+
 const { openKey, toggle, close } = useAcquisitionDrawer();
 const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
+const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
 useEffect(() => {
   invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
     .then((bytes) => setAcquisitionOverrides(JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))))
     .catch(() => setAcquisitionOverrides({ components: {}, mods: {} }));
+  loadAcquisitionData().then(() => setAcquisitionDataReady(true));
 }, []);
 
 const openItem = useMemo(() => {
-  if (!openKey) return null;
+  if (!openKey || !acquisitionDataReady) return null;
   const item = visibleItems.find((it) => it.unique_name === openKey);
   if (!item) return null;
   return { displayName: item.name, info: getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides) };
-}, [openKey, visibleItems, dropIndex, acquisitionOverrides]);
+}, [openKey, acquisitionDataReady, visibleItems, dropIndex, acquisitionOverrides]);
 ```
 
 - [ ] **Step 3: Add the click handler to the card**

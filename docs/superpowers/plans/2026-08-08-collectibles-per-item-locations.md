@@ -4,7 +4,9 @@
 
 **Goal:** Extend Collectibles' existing per-category `Subpanel` drill-down (currently placeholder text like "Found X of Y" / "Area 1, Bit 3") to show real item names and acquisition locations, sourced from a new wiki-derived dataset — for series collectibles and discovered-marker collectibles specifically (fragments already show real names).
 
-**Architecture:** No existing per-item location data exists anywhere in this codebase or wfinfo-ng — this is genuinely new data sourcing, not a port. Build a static JSON dataset (name, category, location/coordinates per item) bundled with the app, and extend `Subpanel`'s existing per-item list rendering (already built, just fed placeholder data today) to read real names + locations from it.
+**Architecture — confirmed by external research (2026-08-08):** Checked whether a reusable structured dataset already exists before committing to manual entry. Finding: no WFCD repo (`warframe-items`, `warframe-worldstate-data`) or existing open-source companion tool has per-item collectible *locations* (WFCD/DE export data has names/IDs/drop-chance data, but not physical tile-spawn locations). One unverified lead: the Warframe Wiki runs a Cargo query extension (`wiki.warframe.com/api.php`, `action=cargoquery`) that *might* expose a structured Sculptures/collectibles table with a location field — this wasn't confirmed (API fetches were blocked from the research environment) and needs a one-time manual browser check (Task 1 Step 1a below) before falling back to manual wiki-prose data entry. If the Cargo table exists, a one-time scripted pull replaces most of the manual entry in Step 2; if not, manual entry (using WFCD/DE export names as the canonical item key, per research) is the only viable path.
+
+No existing per-item location data exists anywhere in this codebase or wfinfo-ng — either way, this is new data sourcing, not a port. Build a static JSON dataset (name, category, location/coordinates per item) bundled with the app, and extend `Subpanel`'s existing per-item list rendering (already built, just fed placeholder data today) to read real names + locations from it.
 
 **Tech Stack:** React 18 (existing `Collectibles.jsx`/`Subpanel` structure), a new static JSON data file. No Rust changes needed unless the dataset needs to live in `src-tauri/data` for bundling consistency with other data files (decided in Task 1).
 
@@ -20,7 +22,7 @@
 ### Task 1: Source and structure the per-item collectible dataset
 
 **Files:**
-- Create: `src-tauri/data/collectible_locations.json` (or `src/lib/data/` if this repo keeps static JSON client-side elsewhere — confirm by checking where similar static app data lives, e.g. `riven_good_rolls.json`'s eventual home from the riven-grading plan, or existing files like `mod-icon-map.json` referenced in `MonitoringContext.jsx`)
+- Create: `src-tauri/data/collectible_locations.json` (confirm this is the right home by checking where similar static app data lives, e.g. `mod-icon-map.json` referenced in `MonitoringContext.jsx`)
 
 **Interfaces:**
 - Produces: a JSON file shaped `{ [categoryKey]: { [itemKey]: { name: string, location: string, coordinates?: string } } }`, where `categoryKey` matches the existing `CATEGORIES` array's keys in `Collectibles.jsx` (e.g. `series`, `markers`), and `itemKey` matches whatever identifier the current placeholder logic already uses per item (e.g. the bit-index for markers) so it can be looked up without changing the existing counting/progress logic.
@@ -28,6 +30,10 @@
 - [ ] **Step 1: Read `Collectibles.jsx` in full to confirm exact category/item key conventions**
 
 Read `src/screens/Collectibles.jsx` completely (`CATEGORIES` array lines 7-32, `Subpanel` lines 40-87, the `seriesCards`/`markerCards`/`fragmentCards` builders lines 155-234) to nail down: what identifies a "series" item and a "marker" item today (even as placeholders) — e.g. is a marker identified by a bit-index number, a raw internal name, something else? The dataset's keys must match these exactly or the lookup in Task 2 won't connect.
+
+- [ ] **Step 1a: Check whether the Warframe Wiki's Cargo query API has a structured locations table (do this before manual entry)**
+
+In a browser, visit `https://wiki.warframe.com/wiki/Special:CargoTables` and look for a table covering Sculptures/collectibles (name varies — check for anything like `Sculptures`, `Collectibles`, or similar). If one exists with a location field, query it via `https://wiki.warframe.com/api.php?action=cargoquery&tables=<TableName>&fields=<fields>&format=json` to pull structured data directly instead of hand-copying from prose pages — this replaces most of Step 2's manual work if it pans out. If no such table exists (or it lacks location data), proceed to Step 2's manual sourcing as planned.
 
 - [ ] **Step 2: Source the data**
 

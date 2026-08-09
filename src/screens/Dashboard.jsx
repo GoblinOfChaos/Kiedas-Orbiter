@@ -1153,13 +1153,17 @@ export default function Dashboard() {
       return set;
     }, [inventoryData]);
 
-    // TEMP DEBUG for issue #79 - remove once ownership matching is confirmed working
-    if (inventory?.length) {
-      console.log('[BARO DEBUG] Baro items:', inventory.map((i) => ({ name: i.item, uniqueName: i.uniqueName })));
-      console.log('[BARO DEBUG] Owned unique_names sample (first 20):', Array.from(ownedUniqueNames).slice(0, 20));
-      console.log('[BARO DEBUG] Owned set size:', ownedUniqueNames.size);
-      console.log('[BARO DEBUG] Matches:', inventory.map((i) => ({ name: i.item, uniqueName: i.uniqueName, owned: ownedUniqueNames.has(i.uniqueName) })));
-    }
+    // Baro's manifest uses the purchasable "/Lotus/StoreItems/..." variant of
+    // an item's path, while owned inventory is keyed by the actual item path
+    // ("/Lotus/Upgrades/..." etc, no "StoreItems" segment) - strip it before
+    // matching, or every Baro item would show as unowned regardless of
+    // actual ownership.
+    const isBaroItemOwned = (uniqueName) => {
+      if (!uniqueName) return false;
+      if (ownedUniqueNames.has(uniqueName)) return true;
+      const normalized = uniqueName.replace('/Lotus/StoreItems/', '/Lotus/');
+      return ownedUniqueNames.has(normalized);
+    };
 
     return (
       <Modal
@@ -1169,7 +1173,7 @@ export default function Dashboard() {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {inventory?.map((item, idx) => {
-            const owned = item.uniqueName && ownedUniqueNames.has(item.uniqueName);
+            const owned = isBaroItemOwned(item.uniqueName);
             return (
           <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
               <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0 relative">

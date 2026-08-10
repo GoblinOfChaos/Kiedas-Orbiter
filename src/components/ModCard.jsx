@@ -4,7 +4,11 @@ import { Box } from 'lucide-react';
 import { useState, useMemo, memo } from 'react';
 
 const CUSTOM = new Set(['Requiem', 'Tome', 'Antivirus', 'Potency', 'Tektolyst']);
-const NO_SIDE = new Set(['Amalgam', 'Peculiar']);
+// Frames whose asset pack has no SideLight.png / CornerLights.png at all -
+// requesting them 403s (no such file) and spams the console for no visual
+// benefit, since the <img> just fails silently either way.
+const NO_SIDE = new Set(['Amalgam', 'Peculiar', 'Archon', 'Arcanes']);
+const NO_CORNER = new Set(['Galvanized', 'Arcanes', 'Archon']);
 const CARD_RATIO = 290 / 409;
 const CANVAS_W = 290;
 const CANVAS_H = 409;
@@ -199,7 +203,7 @@ function renderDesc(text, textColor, iconsPath, tagIconMap) {
 }
 
 function u(base, folder, file) {
-  return base ? convertFileSrc(`${base}/${folder}/${file}`) : null;
+  return base ? convertFileSrc(`${base}/${folder}/${String(file).replace(/^\/+/, '')}`) : null;
 }
 
 function Img({ src, className, style }) {
@@ -260,7 +264,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const color = mf === 'Tektolyst' ? TEKTOLYST_TEXT_COLORS[mod.name] || TIER_COLORS[mf] || '#FFFFFF' : TIER_COLORS[mf] || '#FFFFFF';
   const tektolystGroup = mf === 'Tektolyst' ? TEKTOLYST_COLOR_GROUPS[mod.name] || 'Silver' : null;
   const cardScale = width / 180;
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
 
   const tagIconMap = useMemo(() => {
     if (!exportTextIcons) return {};
@@ -364,7 +368,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const sl = custom || NO_SIDE.has(mf) ? null : f('SideLight');
   const bk = custom && mf !== 'Requiem' && mf !== 'Antivirus' && mf !== 'Potency' ? null : !mod.baseDrain ? null : f('RightBacker');
   const lt = custom || hideCategory ? null : f('LowerTab');
-  const cl = custom ? null : f('CornerLights');
+  const cl = custom || NO_CORNER.has(mf) ? null : f('CornerLights');
 
   const rank = mod.rank ?? 0;
   const desc = (() => {

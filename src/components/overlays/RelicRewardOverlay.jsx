@@ -312,7 +312,7 @@ const FISSURE_BONUS_REWARDS = new Set([
 function RewardSlot({ confirmed, isLocal, price }) {
   const [iconsPath, setIconsPath] = useState('');
   useEffect(() => {invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});}, []);
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
   const item = confirmed?.item;
   const inv = item?.inventory || {};
   const isRequiem = item?.isRequiem;

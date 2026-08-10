@@ -19,7 +19,7 @@ const POLARITY_FILES = {
 };
 
 function u(base, folder, file) {
-  return base ? convertFileSrc(`${base}/${folder}/${file}`) : null;
+  return base ? convertFileSrc(`${base}/${folder}/${String(file).replace(/^\/+/, '')}`) : null;
 }
 
 function SafeImg({ src, className, style, onError }) {
@@ -50,7 +50,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
   }, []);
 
   const f = (file) => u(framesPath, mf, file);
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
   const bg = f('Background.png') || f('SilverBackground.png');
   const ft = f('FrameTop.png') || f('RivenFrameTop.png');
   const fb = f('FrameBottom.png');

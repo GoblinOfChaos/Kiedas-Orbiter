@@ -144,7 +144,7 @@ export default function Relics() {
     return { displayName: item.name, info: getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides) };
   }, [openKey, acquisitionDataReady, grouped, dropIndex, acquisitionOverrides]);
 
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
 
   const eraTabs = ['All', ...ERA_ORDER, 'Other'].
   filter((e) => e === 'All' || relics.some((r) => r.era === e)).

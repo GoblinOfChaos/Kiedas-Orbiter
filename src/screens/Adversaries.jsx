@@ -39,7 +39,7 @@ const ELEMENT_COLORS = {
 };
 
 function iconSrc(iconsPath, name) {
-  return iconsPath ? convertFileSrc(`${iconsPath}/${name}Symbol.png`) : null;
+  return iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}Symbol.png`) : null;
 }
 
 function stripPrime(name) {

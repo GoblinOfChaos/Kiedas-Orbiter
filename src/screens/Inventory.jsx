@@ -1398,7 +1398,7 @@ function renderHeaderStats(inventoryData, iconsPath) {
   if (!inventoryData?.account) return null;
   const { credits, platinum, forma, aura_forma, stance_forma, umbra_forma, orokin_reactor, orokin_catalyst, endo } = inventoryData.account;
   const { t } = useUi();
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
   const StatWidget = ({ icon, label, value, accent = 'text-kronos-dim', tooltip = null }) =>
   <div className="flex items-stretch gap-1.5 min-w-[50px] relative group">
       {icon && <img src={icon} className="w-[30px] object-contain flex-shrink-0 self-stretch" alt="" />}

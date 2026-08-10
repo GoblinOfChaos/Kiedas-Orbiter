@@ -19,6 +19,7 @@ const NAV_ITEMS = [
 { id: 'mods', icon: 'Mods.png', label: 'Mods' },
 { id: 'rivens', icon: 'IconRiven.png', label: 'Rivens' },
 { id: 'relics', icon: 'IconRelic.png', label: 'Relics' },
+{ id: 'relic-planner', icon: 'IconRelic.png', label: 'Relic Planner' },
 { id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },
 { id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
 { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
@@ -71,6 +72,7 @@ const SettingsScreen = lazy(() => import('./screens/Settings'));
 const About = lazy(() => import('./screens/About'));
 const Rivens = lazy(() => import('./screens/Rivens'));
 const Relics = lazy(() => import('./screens/Relics'));
+const RelicPlanner = lazy(() => import('./screens/RelicPlanner'));
 const Mods = lazy(() => import('./screens/Mods'));
 const Collectibles = lazy(() => import('./screens/Collectibles'));
 const Wiki = lazy(() => import('./screens/Wiki'));
@@ -304,6 +306,7 @@ function AppContent() {
     inventory: <Inventory />,
     rivens: <Rivens />,
     relics: <Relics />,
+    'relic-planner': <RelicPlanner />,
     mods: <Mods />,
     mastery: <Mastery />,
     notes: <Notes />,

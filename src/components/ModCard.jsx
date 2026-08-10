@@ -372,7 +372,13 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
 
   const rank = mod.rank ?? 0;
   const desc = (() => {
-    if (mod.description && mod.description.length > 0) return mod.description;
+    // Some exports ship a trigger-only description (e.g. "On Respawn:")
+    // with no actual effect text - the complete effect only exists in
+    // levelStats. A description is trigger-only if it's just a label
+    // ending in ":" with nothing meaningful after it.
+    const description = mod.description?.trim() ?? '';
+    const isTriggerOnly = /:\s*$/.test(description);
+    if (description.length > 0 && !isTriggerOnly) return mod.description;
     if (mod.levelStats && Array.isArray(mod.levelStats)) {
       const max = mod.levelStats[mod.levelStats.length - 1];
       if (max && Array.isArray(max.stats)) {
@@ -383,7 +389,9 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
         return joined.replace(/^[^\n]*? Augment: /, '');
       }
     }
-    return '';
+    // No usable levelStats either - fall back to the trigger-only label
+    // rather than showing nothing.
+    return description;
   })();
   const cat = mod.category || '';
   const displayCompleteLine = mod.max_rank > 0 && rank >= mod.max_rank && mf !== 'Arcanes' && (mf === 'Tektolyst' || !custom);

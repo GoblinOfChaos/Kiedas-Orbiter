@@ -14,6 +14,7 @@ import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
+import ModCard from '../components/ModCard';
 
 
 
@@ -519,6 +520,10 @@ export default function Inventory() {
   { id: 'archweapons', label: t('ui.inventory.tab_archweapons') },
   { id: 'vehicles', label: t('ui.inventory.tab_vehicles') },
   { id: 'amps', label: t('ui.inventory.tab_amps') },
+  { id: 'arcanes', label: 'Arcanes' },
+  { id: 'peely_pix', label: 'Peely Pix' },
+  { id: 'consumables', label: 'Consumables' },
+  { id: 'landing_craft', label: 'Landing Craft' },
   { id: 'resources', label: t('ui.inventory.tab_resources') },
   { id: 'prime_parts', label: t('ui.inventory.tab_prime_parts') },
   { id: 'ayatan', label: t('ui.inventory.tab_ayatan') }];
@@ -533,6 +538,10 @@ export default function Inventory() {
     archweapons: ['owned', 'mastered'],
     vehicles: ['owned', 'mastered', 'archwing', 'kdrive', 'necramech'],
     amps: ['owned', 'mastered'],
+    arcanes: ['owned'],
+    peely_pix: ['owned'],
+    consumables: ['owned'],
+    landing_craft: ['owned'],
     mods: ['owned'],
     prime_parts: ['owned', 'mastered'],
     resources: ['owned'],
@@ -557,12 +566,16 @@ export default function Inventory() {
     archweapons: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
     vehicles: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
     amps: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
+    arcanes: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }, { id: 'rank', label: t('ui.inventory.sort_rank') }],
+    peely_pix: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],
+    consumables: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],
+    landing_craft: [{ id: 'name', label: t('ui.inventory.sort_name') }],
     mods: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }, { id: 'rank', label: t('ui.inventory.sort_rank') }],
     prime_parts: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'completion', label: t('ui.inventory.sort_completion') }, { id: 'value', label: t('ui.inventory.sort_value') }],
     resources: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],
     ayatan: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }]
   };
-  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, ExportImages } = useMonitoring();
+  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, ExportImages, ExportTextIcons, cardImagesPath } = useMonitoring();
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
   const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
   useEffect(() => {
@@ -711,6 +724,12 @@ export default function Inventory() {
 
       return items;
     }
+    if (activeTab === 'peely_pix') {
+      return inventoryData.peely_pix ?? [];
+    }
+    if (activeTab === 'arcanes') return inventoryData.arcanes_catalog ?? [];
+    if (activeTab === 'consumables') return inventoryData.consumables_catalog ?? [];
+    if (activeTab === 'landing_craft') return inventoryData.landing_craft_catalog ?? [];
     if (activeTab === 'all') return (inventoryData.all ?? []).filter((i) => i.category !== 'rivens' && i.category !== 'Arcanes');
     return inventoryData[activeTab] ?? [];
   }, [inventoryData, activeTab, uiPath, primePrices]);
@@ -908,9 +927,16 @@ export default function Inventory() {
 
       {/* Category Tabs */}
       <Tabs tabs={INVENTORY_TABS.map((t) => {
-      const iconMap = { warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', prime_parts: 'PrimeParts', ayatan: 'Ayatan' };
+      const iconMap = { warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', arcanes: 'Arcanes', peely_pix: 'Mods', consumables: 'Resources', landing_craft: 'Vehicles', prime_parts: 'PrimeParts', ayatan: 'Ayatan' };
       const iconName = iconMap[t.id] || t.label;
-      return { ...t, icon: iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null };
+      const peelyPackPath = '/Lotus/Interface/Icons/StoreIcons/Resources/1999Wf/StickerPack.png';
+      const peelyPackHash = ExportImages?.[peelyPackPath]?.contentHash;
+      const icon = t.id === 'peely_pix'
+        ? peelyPackHash
+          ? `https://content.warframe.com/PublicExport${peelyPackPath}!${peelyPackHash}`
+          : `https://browse.wf${peelyPackPath}`
+        : iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null;
+      return { ...t, icon };
     })} activeTab={activeTab} onChange={(id) => {setActiveTab(id);setCurrentFilters({});setSortCriteria('name');setSortDirection('asc');}} />
     </div>;
 
@@ -930,7 +956,7 @@ export default function Inventory() {
         <MonitorState className="py-20" /> :
 
         filteredItems.length === 0 ?
-        <div className="text-center py-20 text-kronos-dim">{t('inventory.no_items_found')}{tabLabel.toLowerCase()}.</div> :
+        <div className="text-center py-20 text-kronos-dim">{t('inventory.no_items_found')} {tabLabel}.</div> :
         activeTab === 'prime_parts' ?
         <>
               {priceFetchProgress &&
@@ -1152,7 +1178,21 @@ export default function Inventory() {
               {visibleItems.map((item, idx) => {
             const isUnowned = !item.owned;
             const isPrimePart = item.category === 'prime_parts';
-            const isModOrResource = ['mods', 'resources', 'arcanes'].includes(item.category);
+            const isModOrResource = ['mods', 'resources', 'Arcanes', 'arcanes', 'peely_pix', 'consumables', 'landing_craft'].includes(item.category);
+            if (activeTab === 'arcanes') {
+              return (
+                <div key={item.unique_name + idx} className={`relative cursor-pointer flex justify-center rounded-xl ${isUnowned ? 'grayscale opacity-60' : ''}`} onClick={() => toggle(item.unique_name)}>
+                  <ModCard
+                    mod={item}
+                    framesPath={framesPath}
+                    iconsPath={iconsPath}
+                    cardImagesPath={cardImagesPath}
+                    width={200}
+                    exportTextIcons={ExportTextIcons}
+                    pricesLoading={false} />
+                </div>
+              );
+            }
             return (
               <Card key={item.unique_name + idx} glow={!isUnowned} onClick={() => toggle(item.unique_name)} className={`relative p-0 overflow-hidden flex min-h-40 group transition-all duration-300 cursor-pointer ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
 

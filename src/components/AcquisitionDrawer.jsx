@@ -2,6 +2,42 @@ import { useState, useCallback } from 'react';
 import { Info, ExternalLink } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
 
+function getSourceLabel(source) {
+  if (!source) return 'Unknown source';
+
+  const rotation = source.rotation ? ` Rot ${source.rotation}` : '';
+  switch (source.type) {
+    case 'override':
+      return source.text || 'Known source';
+    case 'drop':
+      return [source.location, source.dropType && `(${source.dropType})`].filter(Boolean).join(' ') || 'Known drop source';
+    case 'relic':
+      return `${source.relicName || source.relicManifest || 'Relic'}${source.rarity ? ` (${source.rarity})` : ''}`;
+    case 'mission':
+      return `${source.nodeName || source.node || source.missionType || 'Mission'}${rotation}`;
+    case 'enemy':
+      return source.enemyName || source.enemy || 'Enemy drop';
+    case 'bounty':
+      return `${source.bountyLevel || 'Bounty'}${rotation}`;
+    case 'sortie':
+      return `Sortie${source.rarity ? ` (${source.rarity})` : ''}`;
+    case 'transient':
+      return `${source.objectiveName || 'Arbitration reward'}${rotation}`;
+    case 'key':
+      return `${source.keyName || 'Key reward'}${rotation}`;
+    case 'syndicate':
+      return source.place ? `${source.syndicateName || 'Syndicate'} - ${source.place}` : (source.syndicateName || 'Syndicate');
+    case 'avatar':
+      return source.sourceName || 'Enemy drop';
+    default:
+      // Keep the drawer useful if a new drops.wf source type is added before
+      // its specialized display text is implemented.
+      return source.location || source.nodeName || source.node || source.name ||
+        source.sourceName || source.objectiveName || source.syndicateName ||
+        source.enemyName || source.text || source.type || 'Known source';
+  }
+}
+
 /**
  * Manages which item's acquisition info is currently shown in the drawer.
  * Clicking the open item's own card again closes it; clicking a different
@@ -46,12 +82,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
             {info.sources.map((s, i) => (
               <div key={i} className="flex items-center justify-between px-3 py-2 rounded bg-black/30 border border-white/5">
                 <span className="text-xs text-kronos-text truncate">
-                  {s.type === 'override' ? s.text :
-                   s.type === 'drop' ? `${s.location}${s.dropType ? ` (${s.dropType})` : ''}` :
-                   s.type === 'relic' ? `${s.relicName || s.relicManifest} (${s.rarity || ''})` :
-                   s.type === 'mission' ? `${s.nodeName}${s.rotation ? ` Rot ${s.rotation}` : ''}` :
-                   s.type === 'enemy' ? s.enemyName :
-                   s.type === 'bounty' ? `${s.bountyLevel}${s.rotation ? ` Rot ${s.rotation}` : ''}` : ''}
+                  {getSourceLabel(s)}
                 </span>
                 {typeof s.chance === 'number' &&
                   <span className="text-[10px] font-bold text-kronos-accent flex-shrink-0 ml-2">{(s.chance * 100).toFixed(1)}%</span>

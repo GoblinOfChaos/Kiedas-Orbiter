@@ -46,7 +46,7 @@ export default function Mods() {
     t('mods.cat_all'), t('mods.cat_warframe'), t('mods.cat_primary'), t('mods.cat_secondary'), t('mods.cat_melee'),
     t('mods.cat_sentinels'), t('mods.cat_beasts'), t('mods.cat_stance'), t('mods.cat_aura'), t('mods.cat_exilus'),
     t('mods.cat_railjack'), t('mods.cat_archgun'), t('mods.cat_archmelee'), t('mods.cat_parazon'),
-    t('mods.cat_augment'), t('mods.cat_antique'), t('mods.cat_vehicles'), t('mods.cat_arcanes')];
+    t('mods.cat_augment'), t('mods.cat_antique'), t('mods.cat_vehicles')];
 
   const SORT_OPTIONS = [
     { id: 'name', label: t('mods.sort_name') },
@@ -73,10 +73,11 @@ export default function Mods() {
   const [sortCriteria, setSortCriteria] = useState('name');
   const [sortDirection, setSortDirection] = useState('asc');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [ownershipFilter, setOwnershipFilter] = useState('all');
   const [maxRankOnly, setMaxRankOnly] = useState(false);
   const [hideConclave, setHideConclave] = useState(false);
   const [visibleCount, setVisibleCount] = useState(60);
-  const mods = [...(inventoryData?.mods ?? []), ...(inventoryData?.arcanes ?? [])];
+  const mods = inventoryData?.mods_catalog ?? inventoryData?.mods ?? [];
   const modPrices = allPrices;
   const loadingPrices = isPriceLoading;
 
@@ -90,7 +91,7 @@ export default function Mods() {
 
   useEffect(() => {
     setVisibleCount(60);
-  }, [searchQuery, selectedCategory, maxRankOnly, hideConclave]);
+  }, [searchQuery, selectedCategory, ownershipFilter, maxRankOnly, hideConclave]);
 
   const filtered = useMemo(() => {
     let items = mods;
@@ -104,6 +105,11 @@ export default function Mods() {
     }
     if (selectedCategory !== 'All') {
       items = items.filter((m) => m.category === selectedCategory);
+    }
+    if (ownershipFilter === 'owned') {
+      items = items.filter((m) => m.owned);
+    } else if (ownershipFilter === 'unowned') {
+      items = items.filter((m) => !m.owned);
     }
     if (maxRankOnly) {
       items = items.filter((m) => m.rank >= m.max_rank);
@@ -130,7 +136,7 @@ export default function Mods() {
       return sortDirection === 'asc' ? av < bv ? -1 : av > bv ? 1 : 0 : av < bv ? 1 : av > bv ? -1 : 0;
     });
     return sorted;
-  }, [mods, searchQuery, selectedCategory, maxRankOnly, sortCriteria, sortDirection]);
+  }, [mods, searchQuery, selectedCategory, ownershipFilter, maxRankOnly, sortCriteria, sortDirection]);
 
   const visible = filtered.slice(0, visibleCount);
   const uniqueMods = new Set(filtered.map((m) => m.name)).size;
@@ -184,6 +190,11 @@ export default function Mods() {
         <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
           <Filter size={14} className="text-kronos-dim mx-1" />
           <div className="flex gap-1">
+            <button
+            onClick={() => setOwnershipFilter((value) => value === 'all' ? 'owned' : value === 'owned' ? 'unowned' : 'all')}
+            className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+            >{ownershipFilter === 'unowned' ? 'Unowned' : 'Owned'}
+            </button>
             <button
             onClick={() => setMaxRankOnly((v) => !v)}
             className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${maxRankOnly ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>{t('mods.max_rank')}
@@ -302,10 +313,10 @@ export default function Mods() {
             justifyContent: 'center'
           }}>
           
-            {visible.map((mod, i) => (
+          {visible.map((mod, i) => (
           <div
             key={`${mod.unique_name}_${mod.rank}_${i}`}
-            className="relative cursor-pointer"
+            className={`relative cursor-pointer ${mod.owned ? '' : 'grayscale opacity-60'}`}
             onClick={() => toggle(mod.unique_name)}>
             <ModCard
               mod={mod}

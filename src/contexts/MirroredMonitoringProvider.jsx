@@ -138,6 +138,10 @@ export default function MirroredMonitoringProvider({ children }) {
               if (bytes) exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
             } catch { /* patch file not found, skip */ }
           }
+          try {
+            const acquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/warframe-items-acquisition.json' })
+            exports.AcquisitionItems = JSON.parse(new TextDecoder().decode(new Uint8Array(acquisitionBytes)))
+          } catch { /* acquisition catalog is optional */ }
         }
 
         // Inject warframe-items pre-resolved data into exports (same as main MonitoringContext)

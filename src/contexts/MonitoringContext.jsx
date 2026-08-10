@@ -539,6 +539,10 @@ export function MonitoringProvider({ children }) {
               exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
             }
           }
+          const acquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/warframe-items-acquisition.json' }).catch(() => null)
+          if (acquisitionBytes) {
+            exports.AcquisitionItems = JSON.parse(new TextDecoder().decode(new Uint8Array(acquisitionBytes)))
+          }
         } catch { }
       }
 

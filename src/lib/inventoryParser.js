@@ -579,7 +579,7 @@ function resolveArcaneDesc(levelStats, dict) {
       return String(val)
     })
   }).filter(Boolean)
-  return parts.join('; ')
+  return parts.join('; ').replace(/<[^>]*>/g, '').trim()
 }
 
 const ARCANE_CATEGORY_FOLDER = {
@@ -972,6 +972,10 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   const EA = useWI
     ? mergeWithOrig(exports.WI_Arcanes, 'ExportArcanes')
     : toMap(exports.ExportArcanes, 'ExportArcanes');
+  // Keep the DE export maps available as authoritative identity/name sources.
+  // The optional warframe-items maps can contain generic or stale display names
+  // for some Arcanes and Gear entries, even when their unique names match.
+  const EAOrig = toMap(exports.ExportArcanes, 'ExportArcanes');
   const ER = useWI
     ? mergeWithOrig(exports.WI_Resources, 'ExportResources')
     : toMap(exports.ExportResources, 'ExportResources');
@@ -986,6 +990,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   const EGear = useWI
     ? mergeWithOrig(exports.WI_Gear, 'ExportGear')
     : toMap(exports.ExportGear, 'ExportGear');
+  const EGearOrig = toMap(exports.ExportGear, 'ExportGear');
   const EB = toMap(exports.ExportBundles, 'ExportBundles');
 
   // ── XP lookup ──
@@ -1374,6 +1379,26 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     .filter(i => i.ItemType?.includes('/RailJack/DefaultHarness'))
     .map(i => ({ ...createItem(i.ItemType, 'plexus', [EW], [EW], i), name: 'Railjack Plexus' }));
 
+  const landingCraftIcons = {
+    DefaultShip: 'Liset',
+    NoraShip: 'Nightwave',
+    ZarimanShip: 'ZarimanShip',
+  };
+  const landing_craft = (raw.Ships ?? []).map((ship) => {
+    const leaf = ship.ItemType?.split('/').pop() ?? '';
+    const iconLeaf = landingCraftIcons[leaf] ?? leaf;
+    const iconPath = `/Lotus/Interface/Icons/StoreIcons/PlayerShip/Ships/${iconLeaf}.png`;
+    const hash = exports.ExportImages?.[iconPath]?.contentHash;
+    return {
+      unique_name: ship.ItemType,
+      name: leaf === 'DefaultShip' ? 'Liset' : leaf === 'NoraShip' ? 'Nightwave' : leaf === 'ZarimanShip' ? 'Parallax' : nameFromPath(ship.ItemType),
+      image: hash ? `https://content.warframe.com/PublicExport${iconPath}!${hash}` : `https://browse.wf${iconPath}`,
+      category: 'landing_craft',
+      quantity: ship.ItemCount ?? 1,
+      owned: true,
+    };
+  });
+
   const intrinsics = [];
   if (raw.PlayerSkills) {
     const rjKeys = ['LPS_TACTICAL', 'LPS_PILOTING', 'LPS_ENGINEERING', 'LPS_GUNNERY', 'LPS_COMMAND'];
@@ -1558,7 +1583,17 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   const arcanes = [], mods = [];
   const rawUpgrades = raw.RawUpgrades ?? [];
   const upgrades = raw.Upgrades ?? [];
-  [...rawUpgrades, ...upgrades].forEach(u => {
+  // RawUpgrades is the stack-summary view (ItemCount), while Upgrades is the
+  // per-instance view (ItemId/UpgradeFingerprint). When both contain an item
+  // type, the raw summary is the aggregate duplicate of the detailed entries.
+  // Keep raw-only types so stackable mods that have no individual records are
+  // still shown.
+  const detailedTypes = new Set(upgrades.map(u => u.ItemType).filter(Boolean));
+  const modRecords = [
+    ...upgrades,
+    ...rawUpgrades.filter(u => !detailedTypes.has(u.ItemType)),
+  ];
+  modRecords.forEach(u => {
     const un = u.ItemType;
     if (!un || un.includes('Randomized') || un.includes('RandomMod')) return;
 
@@ -1614,8 +1649,15 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       }
       if (exports.PeelyPixNames?.[un]) {
         const ppn = exports.PeelyPixNames[un];
+        const stickerPath = exports.PeelyPixMap?.[un];
+        const stickerHash = stickerPath && exports.ExportImages?.[stickerPath]?.contentHash;
         mod.name = ppn.name;
         mod.description = ppn.description;
+        mod.image = stickerPath
+          ? stickerHash
+            ? `https://content.warframe.com/PublicExport${stickerPath}!${stickerHash}`
+            : `https://browse.wf${stickerPath}`
+          : mod.image;
         mod._isSticker = true;
       }
       let modSet = entry?.modSet;
@@ -1635,13 +1677,188 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   });
 
+  const canonicalUniqueName = (un) => un?.replace('/StoreItems/', '/') ?? un;
+
+  // Build the complete Mods catalog from the export, then overlay the richer
+  // owned records parsed above. This keeps unowned cards searchable while
+  // preserving owned rank, quantity, forma, and fingerprint data.
+  const acquisitionModsByKey = new Map();
+  for (const item of exports.AcquisitionItems ?? []) {
+    const un = item?.uniqueName;
+    if (!un || (!un.includes('/Upgrades/Mods/') && !un.includes('AugmentCard'))) continue;
+    if (!item.wikiAvailable && !(item.drops?.length > 0)) continue;
+    acquisitionModsByKey.set(canonicalUniqueName(un), item);
+  }
+  const ownedModsByKey = new Map();
+  for (const mod of mods) {
+    const key = canonicalUniqueName(mod.unique_name);
+    const previous = ownedModsByKey.get(key);
+    if (!previous || (mod.quantity ?? 0) > (previous.quantity ?? 0) || (mod.rank ?? 0) > (previous.rank ?? 0)) {
+      ownedModsByKey.set(key, mod);
+    }
+  }
+  const modsByName = new Map();
+  for (const [un, entry] of Object.entries(EM)) {
+    if (!un || un.includes('Randomized') || un.includes('RandomMod')) continue;
+    const isArcane = (un.includes('CosmeticEnhancers') && !un.includes('CosmeticEnhancers/Peculiars')) || un.includes('/Arcane/') || un.toLowerCase().includes('arcane');
+    if (isArcane) continue;
+    const owned = ownedModsByKey.get(canonicalUniqueName(un));
+    const acquisition = acquisitionModsByKey.get(canonicalUniqueName(un));
+    if (acquisitionModsByKey.size && !acquisition && !owned) continue;
+    const mod = owned ? { ...owned } : createItem(un, 'mods', [EM], [EM]);
+    const name = mod.name || nameFromPath(un);
+    if (!name || name.startsWith('/Lotus/')) {
+      if (!owned) continue;
+    }
+    mod.rarity = entry?.rarity ?? mod.rarity ?? '';
+    mod.polarity = entry?.polarity ?? mod.polarity ?? null;
+    mod.modFrame = mod.modFrame || detectModFrame(un, mod.rarity, name);
+    if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
+    const descLoctag = entry?.description ?? '';
+    const rawDesc = descLoctag
+      ? (descLoctag.startsWith('/Lotus/')
+          ? (dict[descLoctag] || dict['/' + descLoctag] || '')
+          : descLoctag)
+      : '';
+    if (!mod.description) mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
+    mod.levelStats = entry?.levelStats ?? mod.levelStats ?? null;
+    mod.category = extractModCategory(entry?.type, un, entry) || mod.category || 'mods';
+    mod.baseDrain = entry?.baseDrain ?? mod.baseDrain ?? null;
+    mod.icon = entry?.icon ?? mod.icon ?? null;
+    if (!mod.image) mod.image = resolveImage(un, EM);
+    mod.owned = !!owned;
+    mod.quantity = owned?.quantity ?? 0;
+    mod.unique_name = un;
+    if (exports.PeelyPixNames?.[un]) {
+      const ppn = exports.PeelyPixNames[un];
+      const stickerPath = exports.PeelyPixMap?.[un];
+      const stickerHash = stickerPath && exports.ExportImages?.[stickerPath]?.contentHash;
+      mod.name = ppn.name;
+      mod.description = ppn.description;
+      mod.image = stickerPath
+        ? stickerHash
+          ? `https://content.warframe.com/PublicExport${stickerPath}!${stickerHash}`
+          : `https://browse.wf${stickerPath}`
+        : mod.image;
+      mod._isSticker = true;
+    }
+    mod._acquisitionWikiAvailable = acquisition?.wikiAvailable === true;
+    const nameKey = mod.name?.trim().toLowerCase();
+    if (!nameKey) {
+      if (owned) modsByName.set(canonicalUniqueName(un), mod);
+      continue;
+    }
+    const existing = modsByName.get(nameKey);
+    const shouldReplace = !existing ||
+      (!existing.owned && mod.owned) ||
+      (!existing.image && mod.image) ||
+      (!existing._acquisitionWikiAvailable && mod._acquisitionWikiAvailable);
+    if (shouldReplace) modsByName.set(nameKey, mod);
+  }
+  for (const [key, mod] of ownedModsByKey) {
+    const nameKey = mod.name?.trim().toLowerCase();
+    if (!nameKey) continue;
+    const existing = modsByName.get(nameKey);
+    if (!existing || !existing.owned || (!existing.image && mod.image)) {
+      modsByName.set(nameKey, { ...mod, owned: true });
+    }
+  }
+  const mods_catalog = Array.from(modsByName.values());
+
+  const ownedArcaneMap = new Map();
+  const ownedArcaneNameMap = new Map();
+  for (const arcane of arcanes) {
+    const key = canonicalUniqueName(arcane.unique_name);
+    const current = ownedArcaneMap.get(key) ?? { quantity: 0, rank: 0 };
+    current.quantity += arcane.quantity ?? 1;
+    current.rank = Math.max(current.rank, arcane.rank ?? 0);
+    ownedArcaneMap.set(key, current);
+    const nameKey = arcane.name?.toLowerCase();
+    if (nameKey) {
+      const named = ownedArcaneNameMap.get(nameKey) ?? { quantity: 0, rank: 0 };
+      named.quantity += arcane.quantity ?? 1;
+      named.rank = Math.max(named.rank, arcane.rank ?? 0);
+      ownedArcaneNameMap.set(nameKey, named);
+    }
+  }
+  const acquisitionArcaneNames = new Set(
+    (exports.AcquisitionItems ?? [])
+      .filter(item => item?.uniqueName?.includes('/Upgrades/CosmeticEnhancers/'))
+      .map(item => item.name?.trim().toLowerCase())
+      .filter(Boolean)
+  );
+  // The checked-in acquisition catalog can lag the live DE export. These
+  // current Arcanes are present in ExportArcanes but absent from that older
+  // catalog, so retain them without reopening the known phantom entries.
+  for (const name of ['secondary cryogenic', 'pax soar']) {
+    acquisitionArcaneNames.add(name);
+  }
+  const arcanesByName = new Map();
+  for (const [un, entry] of Object.entries(EAOrig)) {
+    const name = resolveName(un, dict, locale, EAOrig, EA, EM) || nameFromPath(un);
+    const nameKey = name.toLowerCase();
+    const owned = ownedArcaneMap.get(canonicalUniqueName(un))
+      ?? ownedArcaneNameMap.get(nameKey)
+      ?? { quantity: 0, rank: 0 };
+    // ExportArcanes includes internal/retired entries. The acquisition catalog
+    // is the maintained in-game allowlist; preserve an owned item even if it
+    // is not present there so ownership is never silently lost.
+    if (acquisitionArcaneNames.size && !acquisitionArcaneNames.has(nameKey) && !owned.quantity) continue;
+    // Listener/helper entries such as Steadfast's four ability listeners have
+    // no level data and are not standalone Arcanes.
+    if (!entry?.levelStats?.length && !owned.quantity) continue;
+    const candidate = {
+      unique_name: un,
+      name,
+      image: resolveImage(un, EAOrig, EA, EM),
+      category: 'Arcanes',
+      arcaneType: detectArcaneCategory(un, name),
+      quantity: owned.quantity,
+      rank: owned.rank,
+      max_rank: entry?.levelStats?.length ? entry.levelStats.length - 1 : 5,
+      owned: owned.quantity > 0,
+      rarity: (entry?.rarity || '').toLowerCase(),
+      icon: entry?.icon ?? null,
+      modFrame: 'Arcanes',
+      description: resolveArcaneDesc(entry?.levelStats, dict),
+      levelStats: entry?.levelStats ?? null,
+    };
+    const existing = arcanesByName.get(nameKey);
+    if (!existing || (!existing.owned && candidate.owned) || (!existing.description && candidate.description)) {
+      arcanesByName.set(nameKey, candidate);
+    }
+  }
+  const arcanes_catalog = Array.from(arcanesByName.values());
+
+  const ownedPeelyMap = new Map(mods.filter(m => m._isSticker).map(m => [m.unique_name, m]));
+  const peely_pix = Object.entries(exports.PeelyPixNames ?? {}).map(([un, data]) => {
+    const owned = ownedPeelyMap.get(un);
+    const stickerPath = exports.PeelyPixMap?.[un];
+    const stickerHash = stickerPath && exports.ExportImages?.[stickerPath]?.contentHash;
+    return {
+      unique_name: un,
+      name: data.name,
+      description: data.description,
+      image: stickerPath
+        ? stickerHash
+          ? `https://content.warframe.com/PublicExport${stickerPath}!${stickerHash}`
+          : `https://browse.wf${stickerPath}`
+        : owned?.image ?? null,
+      category: 'peely_pix',
+      quantity: owned?.quantity ?? 0,
+      owned: !!owned,
+      _isSticker: true,
+    };
+  });
+
+  const canonicalConsumableName = (un) => canonicalUniqueName(un
+    ?.replace('GuildGlyphConsumableNoCharges', 'GlyphConsumable')
+    ?.replace('GlyphConsumableNoCharges', 'GlyphConsumable'));
   const consumables = (raw.Consumables ?? []).map(c => {
     const cUn = c.ItemType;
     // Guild glyph consumables share the regular glyph prism export entry
     // (inventory paths carry a "Guild" prefix the export table lacks)
-    const lookupUn = cUn?.includes('GuildGlyphConsumable')
-      ? cUn.replace('GuildGlyphConsumable', 'GlyphConsumable')
-      : cUn;
+    const lookupUn = canonicalConsumableName(cUn);
     const cEntry = EGear[lookupUn];
     const cDescLoctag = cEntry?.description ?? '';
     const cRawDesc = cDescLoctag ? (dict[cDescLoctag] || dict['/' + cDescLoctag] || '') : '';
@@ -1654,6 +1871,74 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       category: 'consumables',
       quantity: c.ItemCount ?? 1,
       owned: true
+    };
+  });
+
+  const ownedConsumableMap = new Map(consumables.map(item => [canonicalConsumableName(item.unique_name), item]));
+  // A crafted consumable is considered owned when its blueprint is owned, even
+  // if the crafted item itself is not currently in the inventory. This is how
+  // the Foundry represents items such as the Nightfall Apothic.
+  for (const recipe of raw.Recipes ?? []) {
+    const recipeKey = canonicalUniqueName(recipe.ItemType);
+    const recipeEntry = ERecipe[recipeKey] ?? ERecipe[recipe.ItemType];
+    const resultType = recipeEntry?.resultType;
+    if (!resultType || !EGearOrig[resultType]) continue;
+    const existing = ownedConsumableMap.get(canonicalUniqueName(resultType));
+    ownedConsumableMap.set(canonicalUniqueName(resultType), {
+      ...(existing ?? {}),
+      unique_name: resultType,
+      quantity: (existing?.quantity ?? 0) + (recipe.ItemCount ?? 1),
+      owned: true,
+      blueprintOwned: true,
+    });
+  }
+  const consumablesByName = new Map();
+  for (const [un, entry] of Object.entries(EGearOrig)) {
+    const owned = ownedConsumableMap.get(canonicalConsumableName(un));
+    const name = resolveName(un, dict, locale, EGearOrig, EGear, ER, ERecipe) || nameFromPath(un);
+    const descLoctag = entry?.description ?? '';
+    const description = descLoctag.startsWith('/Lotus/')
+      ? (dict[descLoctag] || dict['/' + descLoctag] || '')
+      : descLoctag;
+    const candidate = {
+      unique_name: un,
+      name,
+      description: description.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim(),
+      image: resolveImage(un, EGearOrig, EGear, ER, ERecipe),
+      category: 'consumables',
+      quantity: owned?.quantity ?? 0,
+      owned: !!owned,
+      blueprintOwned: !!owned?.blueprintOwned,
+    };
+    const nameKey = name.toLowerCase();
+    const existing = consumablesByName.get(nameKey);
+    if (!existing || (!existing.owned && candidate.owned) || (existing.unique_name.endsWith('NoCharges') && !candidate.unique_name.endsWith('NoCharges'))) {
+      consumablesByName.set(nameKey, candidate);
+    }
+  }
+  const consumables_catalog = Array.from(consumablesByName.values());
+
+  const landingCraftCatalog = [
+    ['DefaultShip', 'Liset', 'Liset'],
+    ['MantisShip', 'Mantis', 'Mantis'],
+    ['ScimitarShip', 'Scimitar', 'Scimitar'],
+    ['XiphosShip', 'Xiphos', 'Xiphos'],
+    ['NoraShip', 'Nightwave', 'Nightwave'],
+    ['ZarimanShip', 'Parallax', 'ZarimanShip'],
+  ];
+  const ownedLandingCraft = new Map((raw.Ships ?? []).map(ship => [ship.ItemType?.split('/').pop(), ship]));
+  const landing_craft_catalog = landingCraftCatalog.map(([leaf, name, iconLeaf]) => {
+    const owned = ownedLandingCraft.get(leaf);
+    const un = owned?.ItemType ?? `/Lotus/Types/Items/Ships/${leaf}`;
+    const iconPath = `/Lotus/Interface/Icons/StoreIcons/PlayerShip/Ships/${iconLeaf}.png`;
+    const hash = exports.ExportImages?.[iconPath]?.contentHash;
+    return {
+      unique_name: un,
+      name,
+      image: hash ? `https://content.warframe.com/PublicExport${iconPath}!${hash}` : `https://browse.wf${iconPath}`,
+      category: 'landing_craft',
+      quantity: owned?.ItemCount ?? 0,
+      owned: !!owned,
     };
   });
 
@@ -2283,7 +2568,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     companion_weapons,
     vehicles: [...archwings, ...kdrives], // Compatibility
     archwings, kdrives,
-    archweapons, necramechs, amps, mods, arcanes, relics, resources, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
+    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, consumables, consumables_catalog, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
     kitgunChambers, zawStrikes, moaHeads, houndHeads,
 
     // ── Comprehensive owned-item-path set ──

@@ -3216,6 +3216,19 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             _ => {}
         })
         .setup(|app| {
+            // Explicitly grant the asset:// protocol scope access to the writable
+            // data root, using the canonicalized path. This works around a bug
+            // where Tauri's scope check canonicalizes the requested path (resolving
+            // OS-level symlinks like /home -> /var/home on this system) before
+            // matching it against the configured glob patterns in tauri.conf.json,
+            // which caused persistent 403s regardless of how permissive those
+            // patterns were.
+            let data_root = get_data_root();
+            let canonical_root = std::fs::canonicalize(&data_root).unwrap_or(data_root);
+            if let Err(e) = app.asset_protocol_scope().allow_directory(&canonical_root, true) {
+                eprintln!("[asset scope] Failed to allow directory {:?}: {e}", canonical_root);
+            }
+
             crate::log_scanner::log_app_start(&app.handle());
             let ah = app.handle().clone();
             // Register the frontend-ready listener BEFORE the blocking

@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Info, ExternalLink } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
-import { useUi } from '../contexts/UiContext';
 
 /**
  * Manages which item's acquisition info is currently shown in the drawer.
@@ -22,7 +21,6 @@ export function useAcquisitionDrawer() {
 }
 
 export default function AcquisitionDrawer({ item, onClose }) {
-  const { t } = useUi();
   if (!item) return null;
   const { displayName, info } = item;
 
@@ -39,7 +37,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
             <h3 className="text-sm font-black uppercase tracking-widest text-kronos-text">{displayName}</h3>
           </div>
           <button onClick={onClose} className="text-kronos-dim hover:text-kronos-text text-xs font-bold uppercase">
-            {t('ui.common.close') || 'Close'}
+            Close
           </button>
         </div>
 

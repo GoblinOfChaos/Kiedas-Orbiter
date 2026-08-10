@@ -31,7 +31,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-kronos-bg/98 backdrop-blur-md border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.4)]">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-kronos-bg border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.4)]">
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">

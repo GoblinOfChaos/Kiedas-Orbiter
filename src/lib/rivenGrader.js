@@ -94,24 +94,55 @@ export function getRivenStatGrade(riven, weaponNameEn) {
   const hasAllMandatory = [...bestCombo.mandatory].every((m) => posSet.has(m));
   const riskyNegs = negatives.filter((n) => !safeNegs.has(n));
 
+  // Per-stat assessment, matching wfinfo-ng's riven_grader_overlay.py card:
+  // each of the riven's actual stats gets a status label, plus any missing
+  // mandatory stats the roll never got.
+  const assessment = [];
+  for (const p of positives) {
+    if (bestCombo.mandatory.has(p) || bestCombo.pickFrom.has(p)) {
+      assessment.push({ status: 'good', text: `+${p}` });
+    } else {
+      assessment.push({ status: 'off-target', text: `+${p}` });
+    }
+  }
+  for (const n of negatives) {
+    if (safeNegs.has(n)) {
+      assessment.push({ status: 'safe-negative', text: `-${n}` });
+    } else {
+      assessment.push({ status: 'risky-negative', text: `-${n}` });
+    }
+  }
+  for (const m of bestCombo.mandatory) {
+    if (!posSet.has(m)) assessment.push({ status: 'missing-required', text: `+${m}` });
+  }
+
+  const result = (grade, tier, label) => ({
+    grade, tier, label, assessment,
+    mandatory: [...bestCombo.mandatory],
+    optional: [...bestCombo.pickFrom],
+    pickN: bestCombo.pickN,
+    riskyNegatives: riskyNegs,
+    safeNegatives: [...safeNegs],
+  });
+
   if (hasAllMandatory && optionalHits >= bestCombo.pickN && riskyNegs.length === 0) {
     if ((riven.perfectness ?? 0) >= GOD_ROLL_THRESHOLD) {
-      return { grade: 'S', tier: 'great', label: '★ God Roll' };
+      return result('S', 'great', '★ God Roll');
     }
-    return { grade: 'A', tier: 'great', label: '★ Great' };
+    return result('A', 'great', '★ Great');
   }
   if (hasAllMandatory && optionalHits >= Math.max(1, bestCombo.pickN - 1) && riskyNegs.length === 0) {
-    return { grade: 'B', tier: 'good', label: '▲ Good' };
+    return result('B', 'good', '▲ Good');
   }
   if (hasAllMandatory && riskyNegs.length === 0) {
-    return { grade: 'C', tier: 'ok', label: '■ OK' };
+    return result('C', 'ok', '■ OK');
   }
   if (hasAllMandatory && riskyNegs.length > 0) {
-    return { grade: 'C', tier: 'ok', label: '■ OK — risky neg' };
+    return result('C', 'ok', '■ OK — risky neg');
   }
   const mandatoryHitCount = [...bestCombo.mandatory].filter((m) => posSet.has(m)).length;
   if (mandatoryHitCount > 0) {
-    return { grade: 'D', tier: 'weak', label: '▼ Weak' };
+    return result('D', 'weak', '▼ Weak');
   }
-  return { grade: 'D', tier: 'reroll', label: '↻ Reroll' };
+  return result('D', 'reroll', '↻ Reroll');
 }

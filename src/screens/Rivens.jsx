@@ -6,6 +6,8 @@ import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import BackToTop from '../components/BackToTop';
 import RivenCard from '../components/RivenCard';
+import RivenGradeDrawer from '../components/RivenGradeDrawer';
+import { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
 import { loadRivenGoodRolls, getRivenStatGrade } from '../lib/rivenGrader';
 
 const TYPE_TABS = [
@@ -118,6 +120,9 @@ export default function Rivens() {
     for (const r of allRivens) m.set(r, rivenKey(r));
     return m;
   }, [allRivens]);
+
+  const { openKey, toggle, close } = useAcquisitionDrawer();
+  const openRiven = useMemo(() => allRivens.find((r) => rivenKeys.get(r) === openKey) ?? null, [allRivens, rivenKeys, openKey]);
 
   const filtered = useMemo(() => {
     let list = allRivens.filter((r) => {
@@ -280,6 +285,7 @@ export default function Rivens() {
 
 
   return (
+    <>
     <PageLayout
       titleKey="screen.rivens"
       subtitle={`${unveiledCount} unveiled · ${challengeCount} challenge · ${veiledCount} veiled · ${unveiledCount + challengeCount}/${capacity} capacity`}
@@ -305,11 +311,15 @@ export default function Rivens() {
           justifyContent: 'center'
         }}>
             {filtered.map((riven, idx) =>
-          <RivenCard key={idx} riven={riven} framesPath={framesPath} iconsPath={iconsPath} width={200} estimate={pricingCache[rivenKeys.get(riven)]} statGrade={statGrades.get(riven)} />
+          <div key={idx} className="cursor-pointer" onClick={() => toggle(rivenKeys.get(riven))}>
+              <RivenCard riven={riven} framesPath={framesPath} iconsPath={iconsPath} width={200} estimate={pricingCache[rivenKeys.get(riven)]} statGrade={statGrades.get(riven)} />
+            </div>
           )}
           </div>
         }
       </div>
-    </PageLayout>);
+    </PageLayout>
+    {openRiven && <RivenGradeDrawer riven={openRiven} statGrade={statGrades.get(openRiven)} onClose={close} />}
+    </>);
 
 }

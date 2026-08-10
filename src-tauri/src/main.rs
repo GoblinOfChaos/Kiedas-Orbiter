@@ -1528,7 +1528,11 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
         let output = cmd.output().map_err(|e| format!("Failed to launch Warframe-Exporter-CLI: {e}"))?;
         if !output.status.success() {
             let stderr = String::from_utf8_lossy(&output.stderr);
-            return Err(format!("Warframe-Exporter-CLI failed: {stderr}"));
+            let stdout = String::from_utf8_lossy(&output.stdout);
+            return Err(format!(
+                "Warframe-Exporter-CLI failed (exit {:?}, bin: {:?}, cache: {}): stdout=[{}] stderr=[{}]",
+                output.status.code(), bin_path, cache_path, stdout.trim(), stderr.trim()
+            ));
         }
     }
 

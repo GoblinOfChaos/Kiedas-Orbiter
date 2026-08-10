@@ -1455,29 +1455,10 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
     let writable_bin = resolve_path(&relative_bin);
     let bundled_bin = resolve_bundled_path(app_handle, &relative_bin);
 
-    #[cfg(target_os = "linux")]
-    let (writable_bin, bundled_bin) = {
-        let appimage_name = "data/bin/Warframe-Exporter-CLI_Linux.AppImage";
-        let wb = if !writable_bin.exists() {
-            resolve_path(appimage_name)
-        } else {
-            writable_bin
-        };
-        let bb = if bundled_bin.as_ref().map_or(true, |p| !p.exists()) {
-            resolve_bundled_path(app_handle, appimage_name)
-        } else {
-            bundled_bin
-        };
-        (wb, bb)
-    };
-
     let bin_path = if writable_bin.exists() {
         writable_bin
     } else if let Some(b) = bundled_bin.clone().filter(|p| p.exists()) {
-        // Copy out of the (read-only, and on Linux potentially
-        // apostrophe-containing FUSE-mount-path) bundle into the writable
-        // data root, so we're never executing the nested AppImage directly
-        // from inside our own outer AppImage's mount point.
+        // Copy out of the read-only bundle into the writable data root.
         if let Some(parent) = writable_bin.parent() {
             std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
         }
@@ -1508,17 +1489,15 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
 
         #[cfg(target_os = "linux")]
         {
-            cmd.env("APPIMAGE_EXTRACT_AND_RUN", "1");
-            cmd.env_remove("APPDIR");
-            cmd.env_remove("APPIMAGE");
             // Our own outer AppImage's AppRun script points these at its
-            // OWN bundled libs before launching us. Left inherited, the
-            // nested Warframe-Exporter-CLI AppImage picks up incompatible
-            // shared libraries and crashes on startup with no output
-            // (observed as exit status None - killed by signal - with
-            // empty stdout/stderr).
+            // bundled libraries before launching us. Do not let the raw
+            // exporter CLI resolve its system dependencies from that
+            // unrelated library directory.
             cmd.env_remove("LD_LIBRARY_PATH");
             cmd.env_remove("OWD");
+            cmd.env_remove("APPIMAGE_EXTRACT_AND_RUN");
+            cmd.env_remove("APPDIR");
+            cmd.env_remove("APPIMAGE");
         }
 
         cmd.arg("--cache-dir")
@@ -1590,7 +1569,9 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
         let mut ui_cmd = std::process::Command::new(&bin_path);
         #[cfg(target_os = "linux")]
         {
-            ui_cmd.env("APPIMAGE_EXTRACT_AND_RUN", "1");
+            ui_cmd.env_remove("LD_LIBRARY_PATH");
+            ui_cmd.env_remove("OWD");
+            ui_cmd.env_remove("APPIMAGE_EXTRACT_AND_RUN");
             ui_cmd.env_remove("APPDIR");
             ui_cmd.env_remove("APPIMAGE");
         }

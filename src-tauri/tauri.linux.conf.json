@@ -8,7 +8,7 @@
       "data/assets/ocr/**/*",
       "data/assets/data/**/*",
       "data/assets/audio/**/*",
-      "data/bin/Warframe-Exporter-CLI*",
+      "data/bin/Warframe-Exporter-CLI",
       "data/assets/wfcd/**/*"
     ],
     "linux": {

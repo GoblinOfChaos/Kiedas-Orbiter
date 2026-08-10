@@ -203,7 +203,9 @@ function renderDesc(text, textColor, iconsPath, tagIconMap) {
 }
 
 function u(base, folder, file) {
-  return base ? convertFileSrc(`${base}/${folder}/${String(file).replace(/^\/+/, '')}`) : null;
+  if (!base) return null;
+  const parts = [base, folder, file].filter((p) => p !== '' && p != null).map((p, i) => i === 0 ? String(p) : String(p).replace(/^\/+|\/+$/g, ''));
+  return convertFileSrc(parts.join('/'));
 }
 
 function Img({ src, className, style }) {

@@ -6,6 +6,7 @@ import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import BackToTop from '../components/BackToTop';
 import RivenCard from '../components/RivenCard';
+import { loadRivenGoodRolls, getRivenStatGrade } from '../lib/rivenGrader';
 
 const TYPE_TABS = [
 { id: 'all', label: 'All' },
@@ -92,13 +93,25 @@ export default function Rivens() {
   const [framesPath, setFramesPath] = useState('');
   const [pricingCache, setPricingCache] = useState({});
   const [retryTick, setRetryTick] = useState(0);
+  const [statGradesReady, setStatGradesReady] = useState(false);
   const pricingRef = useRef({});
   useEffect(() => {
     invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});
     invoke('get_mod_frames_path').then((p) => setFramesPath(p)).catch(() => {});
+    loadRivenGoodRolls().then(() => setStatGradesReady(true));
   }, []);
 
   const allRivens = useMemo(() => inventoryData?.rivens ?? [], [inventoryData]);
+
+  const statGrades = useMemo(() => {
+    if (!statGradesReady) return new Map();
+    const m = new Map();
+    for (const r of allRivens) {
+      const weaponKey = r.weapon_name_en || r.weapon_name || r.name.replace(/ Riven.*$/, '');
+      m.set(r, getRivenStatGrade(r, weaponKey));
+    }
+    return m;
+  }, [allRivens, statGradesReady]);
 
   const rivenKeys = useMemo(() => {
     const m = new Map();
@@ -137,8 +150,8 @@ export default function Rivens() {
         return (pa - pb) * dir;
       }
       if (sortCriteria === 'grade') {
-        const ga = ea?.grade ?? 'F';
-        const gb = eb?.grade ?? 'F';
+        const ga = statGrades.get(a)?.grade ?? 'F';
+        const gb = statGrades.get(b)?.grade ?? 'F';
         const diff = ((GRADE_ORDER[ga] ?? 99) - (GRADE_ORDER[gb] ?? 99)) * dir;
         if (diff !== 0) return diff;
         const pa = ea?.price ?? -1;
@@ -147,7 +160,7 @@ export default function Rivens() {
       }
       return 0;
     });
-  }, [allRivens, searchQuery, activeType, activeState, sortCriteria, sortDirection]);
+  }, [allRivens, searchQuery, activeType, activeState, sortCriteria, sortDirection, statGrades]);
 
   // Batch price all unveiled rivens in a single invoke call
   useEffect(() => {
@@ -292,7 +305,7 @@ export default function Rivens() {
           justifyContent: 'center'
         }}>
             {filtered.map((riven, idx) =>
-          <RivenCard key={idx} riven={riven} framesPath={framesPath} iconsPath={iconsPath} width={200} estimate={pricingCache[rivenKeys.get(riven)]} />
+          <RivenCard key={idx} riven={riven} framesPath={framesPath} iconsPath={iconsPath} width={200} estimate={pricingCache[rivenKeys.get(riven)]} statGrade={statGrades.get(riven)} />
           )}
           </div>
         }

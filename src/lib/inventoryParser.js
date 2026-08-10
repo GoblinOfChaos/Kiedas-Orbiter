@@ -40,7 +40,7 @@ import { BLUEPRINT_SUFFIX } from './warframeUtils'
 //                   locTag (see buildRivenTagInfo below), which replaces the
 //                   old per-locale hand-translated rivenStats tables.
 
-const RIVEN_STAT_MAP = {
+export const RIVEN_STAT_MAP = {
   'WeaponMeleeDamageMod': 'Melee Damage',
   'WeaponCritChanceMod': 'Critical Chance',
   'WeaponCritDamageMod': 'Critical Damage',
@@ -1971,13 +1971,21 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         let valueStr = (displayVal * finalSign).toFixed(isMultiplier ? 2 : 1);
         if (isMultiplier) valueStr = `x ${valueStr}`;
 
+        // 0-100% roll quality: how close this stat's raw Value landed to the
+        // maximum possible roll (buffs) or minimum possible roll (curses,
+        // where a "better" curse is a smaller magnitude). Used for stat-based
+        // riven grading (perfectness threshold for "God Roll").
+        const rollFrac = rivenIntToFloat(s.Value);
+        const perfectness = Math.round((pos ? rollFrac : 1 - rollFrac) * 1000) / 10;
+
         return {
           tag: tagName,
           value: valueStr,
           positive: pos,
           rawTag: s.Tag,
           statKey,
-          isPercent: !isMultiplier && !SPECIAL_ONE_DP.has(tag)
+          isPercent: !isMultiplier && !SPECIAL_ONE_DP.has(tag),
+          perfectness
         };
       };
 
@@ -2026,6 +2034,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         rerolls: fp.rerolls ?? u.RerollCount ?? 0,
         polarity: fp.pol ?? rivenEntry?.polarity ?? null,
         stats,
+        perfectness: stats.length ? Math.round(stats.reduce((sum, s) => sum + s.perfectness, 0) / stats.length * 10) / 10 : 0,
         challenge: challengeText,
         owned: true,
         mr: fp.lvlReq ?? EW[weaponUn]?.masteryReq ?? 0

@@ -1565,7 +1565,6 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
             continue;
         }
         std::fs::create_dir_all(&ui_dir).ok();
-        let _ = std::fs::write(&sentinel, b"1");
         let mut ui_cmd = std::process::Command::new(&bin_path);
         #[cfg(target_os = "linux")]
         {
@@ -1594,7 +1593,25 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
             const CREATE_NO_WINDOW: u32 = 0x08000000;
             ui_cmd.creation_flags(CREATE_NO_WINDOW);
         }
-        let _ = ui_cmd.output();
+        // Only mark this icon set as done if the extraction actually
+        // succeeded and produced files - otherwise a crash/segfault mid-run
+        // permanently locks in an empty/partial directory forever (the
+        // sentinel used to be written unconditionally before the command
+        // even ran).
+        match ui_cmd.output() {
+            Ok(out) if out.status.success() && walk_dir_count(&ui_dir) > 0 => {
+                let _ = std::fs::write(&sentinel, b"1");
+            }
+            Ok(out) => {
+                eprintln!(
+                    "ensure_card_images: UI icon extraction for {} produced no files (exit {:?}): {}",
+                    internal_path, out.status.code(), String::from_utf8_lossy(&out.stderr).trim()
+                );
+            }
+            Err(e) => {
+                eprintln!("ensure_card_images: failed to launch UI icon extraction for {}: {e}", internal_path);
+            }
+        }
         extracted = walk_dir_count(&output_dir);
     }
 

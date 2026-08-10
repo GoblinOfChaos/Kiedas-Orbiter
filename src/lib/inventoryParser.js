@@ -1639,7 +1639,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
             ? (dict[descLoctag] || dict['/' + descLoctag] || '')
             : descLoctag)
         : '';
-      mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').trim() : '';
+      mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/\\n/g, '\n').trim() : '';
       mod.levelStats = entry?.levelStats ?? null;
       mod.category = extractModCategory(entry?.type, un, entry);
       mod.baseDrain = entry?.baseDrain ?? null;
@@ -1720,7 +1720,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           ? (dict[descLoctag] || dict['/' + descLoctag] || '')
           : descLoctag)
       : '';
-    if (!mod.description) mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
+    if (!mod.description) mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').replace(/\\n/g, '\n').trim() : '';
     mod.levelStats = entry?.levelStats ?? mod.levelStats ?? null;
     mod.category = extractModCategory(entry?.type, un, entry) || mod.category || 'mods';
     mod.baseDrain = entry?.baseDrain ?? mod.baseDrain ?? null;

@@ -363,15 +363,27 @@ function getSuffixIndex(tbl) {
   return suffixIndexCache.get(tbl)
 }
 
+let activeExportImages = null;
+
 function resolveImage(un, ...tables) {
+  const imageMap = activeExportImages;
+
+  const imageUrl = (icon) => {
+    if (icon.startsWith('http://') || icon.startsWith('https://')) return icon;
+    const path = icon.startsWith('/') ? icon : `/${icon}`;
+    const hash = imageMap?.[path]?.contentHash;
+    return hash
+      ? `https://content.warframe.com/PublicExport${path}!${hash}`
+      : `https://browse.wf${path}`;
+  };
+
   // Check exact match first
   for (const tbl of tables) {
     if (!tbl) continue;
     const entry = tbl?.[un];
     if (entry && (entry.icon || entry.thumbnail)) {
       const icon = entry.icon ?? entry.thumbnail;
-      if (icon.startsWith('http://') || icon.startsWith('https://')) return icon;
-      return `https://browse.wf${icon.startsWith('/') ? '' : '/'}${icon}`;
+      return imageUrl(icon);
     }
   }
 
@@ -384,8 +396,7 @@ function resolveImage(un, ...tables) {
       const matchKey = suffixIndex.get(leaf)
       if (matchKey && (tbl[matchKey]?.icon || tbl[matchKey]?.thumbnail)) {
         const icon = tbl[matchKey].icon ?? tbl[matchKey].thumbnail;
-        if (icon.startsWith('http://') || icon.startsWith('https://')) return icon;
-        return `https://browse.wf${icon.startsWith('/') ? '' : '/'}${icon}`;
+        return imageUrl(icon);
       }
     }
   }
@@ -766,6 +777,7 @@ function detectArcaneCategory(un, name) {
 }
 
 export function parseInventory(raw, exports, dict, locale = 'en', i18nData = null) {
+  activeExportImages = exports?.ExportImages ?? null;
   if (!raw || typeof raw !== 'object' || !exports) return { all: [] };
   dict = (dict && Object.keys(dict).length > 0) ? dict : (exports?.['dict.en'] || exports?.dict || {})
 

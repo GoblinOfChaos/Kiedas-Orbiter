@@ -1474,7 +1474,16 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
     let bin_path = if writable_bin.exists() {
         writable_bin
     } else if let Some(b) = bundled_bin.clone().filter(|p| p.exists()) {
-        b
+        // Copy out of the (read-only, and on Linux potentially
+        // apostrophe-containing FUSE-mount-path) bundle into the writable
+        // data root, so we're never executing the nested AppImage directly
+        // from inside our own outer AppImage's mount point.
+        if let Some(parent) = writable_bin.parent() {
+            std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+        }
+        std::fs::copy(&b, &writable_bin)
+            .map_err(|e| format!("Failed to copy bundled {:?} to {:?}: {e}", b, writable_bin))?;
+        writable_bin
     } else {
         return Err(format!(
             "Warframe-Exporter-CLI not found. Writable: {:?}, Bundled: {:?}",

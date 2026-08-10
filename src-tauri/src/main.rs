@@ -1502,6 +1502,14 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
             cmd.env("APPIMAGE_EXTRACT_AND_RUN", "1");
             cmd.env_remove("APPDIR");
             cmd.env_remove("APPIMAGE");
+            // Our own outer AppImage's AppRun script points these at its
+            // OWN bundled libs before launching us. Left inherited, the
+            // nested Warframe-Exporter-CLI AppImage picks up incompatible
+            // shared libraries and crashes on startup with no output
+            // (observed as exit status None - killed by signal - with
+            // empty stdout/stderr).
+            cmd.env_remove("LD_LIBRARY_PATH");
+            cmd.env_remove("OWD");
         }
 
         cmd.arg("--cache-dir")

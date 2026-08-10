@@ -22,13 +22,25 @@ import { PageLayout, Input, Card, Tabs, MonitorState, Select } from '../componen
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { getRelicEV } from '../lib/relicParser';
+import { getAcquisitionInfo } from '../lib/acquisitionInfo';
+import { loadAcquisitionData } from '../lib/acquisitionData';
+import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
 
 const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem'];
 const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
 
 export default function Relics() {
   const { t } = useUi()
-  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress } = useMonitoring();
+  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex } = useMonitoring();
+  const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
+  const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
+  useEffect(() => {
+    invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
+      .then((bytes) => setAcquisitionOverrides(JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))))
+      .catch(() => setAcquisitionOverrides({ components: {}, mods: {} }));
+    loadAcquisitionData().then(() => setAcquisitionDataReady(true));
+  }, []);
+  const { openKey, toggle, close } = useAcquisitionDrawer();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeEra, setActiveEra] = useState('All');
   const [activeQuality, setActiveQuality] = useState('All');
@@ -123,6 +135,14 @@ export default function Relics() {
 
   const totalFilteredGroups = baseFiltered.length;
   const totalFilteredItems = baseFiltered.reduce((s, r) => s + Object.values(r.refinements || {}).reduce((a, b) => a + b, 0), 0);
+
+  const openItem = useMemo(() => {
+    if (!openKey || !acquisitionDataReady) return null;
+    const allGrouped = Object.values(grouped).flat();
+    const item = allGrouped.find((r) => r.unique_name === openKey);
+    if (!item) return null;
+    return { displayName: item.name, info: getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides) };
+  }, [openKey, acquisitionDataReady, grouped, dropIndex, acquisitionOverrides]);
 
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
 
@@ -255,11 +275,12 @@ export default function Relics() {
 
 
   return (
+    <>
     <PageLayout
       titleKey="screen.relics"
       subtitle={`Showing ${totalFilteredGroups} relic types · ${totalFilteredItems} total`}
       headerPanel={renderHeaderPanel()}>
-      
+
       <div className="space-y-4 pt-2">
         {isInventoryLoading ?
         <MonitorState isLoading className="py-20" /> :
@@ -327,7 +348,8 @@ export default function Relics() {
                     <Card
                       key={item.unique_name + idx}
                       glow
-                      className="flex group p-1 transition-all duration-300 relative overflow-hidden">
+                      onClick={() => toggle(item.unique_name)}
+                      className="flex group p-1 transition-all duration-300 relative overflow-hidden cursor-pointer">
                       
                           {/* Left: Metadata Stack*/}
                           <div className="w-24 flex-shrink-0 flex flex-col items-center text-center mr-4 py-1">
@@ -434,6 +456,8 @@ export default function Relics() {
           </>
         }
       </div>
-    </PageLayout>);
+    </PageLayout>
+    {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
+    </>);
 
 }

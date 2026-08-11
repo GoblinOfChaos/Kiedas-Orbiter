@@ -21,7 +21,7 @@ import { Search, AlertCircle, Users, Zap, TrendingUp, Coins, ArrowUpDown } from 
 import { PageLayout, Input, Card, Tabs, MonitorState, Select } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
-import { getRelicEV } from '../lib/relicParser';
+import { getRelicEV, getRelicCatalog } from '../lib/relicParser';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
@@ -31,7 +31,7 @@ const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
 
 export default function Relics() {
   const { t } = useUi()
-  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex } = useMonitoring();
+  const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex } = useMonitoring();
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
   const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
   useEffect(() => {
@@ -42,6 +42,7 @@ export default function Relics() {
   }, []);
   const { openKey, toggle, close } = useAcquisitionDrawer();
   const [searchQuery, setSearchQuery] = useState('');
+  const [ownershipFilter, setOwnershipFilter] = useState('all'); // 'all' | 'owned' | 'unowned'
   const [activeEra, setActiveEra] = useState('All');
   const [activeQuality, setActiveQuality] = useState('All');
   const [squadSize, setSquadSize] = useState(1);
@@ -54,9 +55,39 @@ export default function Relics() {
   useEffect(() => {invoke('get_ui_path').then((p) => setUiPath(p)).catch(() => {});}, []);
   useEffect(() => {invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});}, []);
 
-  const relics = inventoryData?.relics ?? [];
+  const ownedRelics = inventoryData?.relics ?? [];
+
+  // When showing unowned relics too, merge the full catalog (every relic
+  // the game has, per getRelicCatalog) with owned data - inventory parsing
+  // only ever produces relics the account actually has.
+  const relics = useMemo(() => {
+    if (ownershipFilter === 'owned' || !exportData) return ownedRelics;
+    const ownedByKey = new Map(ownedRelics.map((r) => {
+      const category = (r.name || '').replace(new RegExp(`^${r.era}\\s+`, 'i'), '').replace(/\s+Relic$/i, '').trim();
+      return [`${r.era} ${category}`, r];
+    }));
+    return getRelicCatalog(exportData, 'en').map((c) => {
+      const existing = ownedByKey.get(`${c.era} ${c.name}`);
+      if (existing) return existing;
+      return {
+        unique_name: c.uniqueName,
+        name: `${c.era} ${c.name} Relic`,
+        era: c.era,
+        description: '',
+        image: null,
+        category: 'relics',
+        refinements: { Intact: 0, Exceptional: 0, Flawless: 0, Radiant: 0 },
+        rewards: c.rewards,
+        owned: false,
+        vaulted: c.vaulted,
+      };
+    });
+  }, [ownedRelics, exportData, ownershipFilter]);
 
   const baseFiltered = relics.filter((r) => {
+    const matchOwnership = ownershipFilter === 'all' || (ownershipFilter === 'owned' ? r.owned : !r.owned);
+    if (!matchOwnership) return false;
+
     const matchEra = activeEra === 'All' || r.era === activeEra;
     if (!matchEra) return false;
 
@@ -168,6 +199,15 @@ export default function Relics() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="pl-12 bg-black/20 border-white/5 h-[42px]" />
         
+        </div>
+
+        {/* Ownership Filter */}
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+          <button
+            onClick={() => setOwnershipFilter((v) => v === 'all' ? 'owned' : v === 'owned' ? 'unowned' : 'all')}
+            className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+            {ownershipFilter === 'unowned' ? 'Unowned' : ownershipFilter === 'owned' ? 'Owned' : 'All'}
+          </button>
         </div>
 
         {/* Squad Size */}
@@ -349,13 +389,16 @@ export default function Relics() {
                       key={item.unique_name + idx}
                       glow
                       onClick={() => toggle(item.unique_name)}
-                      className="flex group p-1 transition-all duration-300 relative overflow-hidden cursor-pointer">
-                      
+                      className={`flex group p-1 transition-all duration-300 relative overflow-hidden cursor-pointer ${item.owned ? '' : 'grayscale opacity-60'}`}>
+
                           {/* Left: Metadata Stack*/}
                           <div className="w-24 flex-shrink-0 flex flex-col items-center text-center mr-4 py-1">
                             <h4 className="font-black text-[11px] uppercase tracking-tight text-kronos-accent mb-1 truncate w-full px-1">
                               {item.name.replace(' Relic', '')}
                             </h4>
+                            {item.vaulted === true &&
+                              <span className="text-[8px] font-black uppercase text-red-400 tracking-wider">Vaulted</span>
+                            }
 
                             <div className="flex-1 flex items-center justify-center p-1 min-h-0 min-w-0">
                               {item.image &&

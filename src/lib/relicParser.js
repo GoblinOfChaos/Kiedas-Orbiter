@@ -202,6 +202,50 @@ export function getRelicRewards(relicUniqueName, exportData, locale = 'en') {
 }
 
 /**
+ * Build one row per distinct relic from the complete export catalog.
+ * Inventory parsing intentionally contains only relics the account owns, so
+ * planner screens must use this catalog and merge owned counts separately.
+ */
+export function getRelicCatalog(exportData, locale = 'en') {
+  if (!exportData?.ExportRelics || !exportData?.ExportRewards) return [];
+
+  const relics = Array.isArray(exportData.ExportRelics)
+    ? exportData.ExportRelics.map((entry) => [entry.uniqueName || entry.ItemType, entry])
+    : Object.entries(exportData.ExportRelics);
+  const seen = new Set();
+  const catalog = [];
+
+  for (const [uniqueName, entry] of relics) {
+    if (!uniqueName || !entry) continue;
+
+    const era = entry.era || parseRelicName(uniqueName).era;
+    const category = entry.category || parseRelicName(uniqueName).name;
+    if (!era || !category || era === 'Unknown') continue;
+
+    const key = `${era} ${category}`;
+    if (seen.has(key)) continue;
+
+    const rewards = getRelicRewards(uniqueName, exportData, locale);
+    if (!rewards.length) continue;
+
+    seen.add(key);
+    catalog.push({
+      key,
+      uniqueName,
+      name: category,
+      era,
+      rewards,
+      // DE export variants differ in whether this field is present. Keep an
+      // unknown value unknown instead of labelling an unverified relic as
+      // farmable.
+      vaulted: entry.vaulted ?? entry.isVaulted ?? null,
+    });
+  }
+
+  return catalog;
+}
+
+/**
  * Gets inventory and mastery context for a specific reward item.
  */
 export function getRewardInventoryContext(rewardUniqueName, inventoryData, exportData, locale = 'en') {
@@ -300,6 +344,7 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
         return iClean === aClean || iClean === rClean;
       })) {
         parentRecipe = bpRecipe;
+        parentRecipeUniqueName = bpUniqueName;
         parentName = resolveDisplayName(bpRecipe.resultType, exportData, locale).replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$'), '').trim();
         break;
       }
@@ -392,9 +437,22 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     const pNorm = normalizeUN(parentRecipeUniqueName);
     parentBpCount = inventoryData.prime_parts?.find(i => normalizeUN(i.unique_name) === pNorm)?.quantity ?? 0;
     const prNorm = normalizeUN(parentRecipe.resultType);
-    const pCrafted = (inventoryData.all?.find(i => normalizeUN(i.unique_name) === prNorm))
-      || (inventoryData.prime_parts?.find(i => normalizeUN(i.unique_name) === prNorm));
-    parentCraftedCount = pCrafted?.quantity ?? 0;
+    const parentDisplayName = resolveDisplayName(parentRecipe.resultType, exportData, locale)
+      .replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$'), '').trim().toLowerCase();
+    const equipmentEntries = [
+      ...(inventoryData.all || []),
+      ...(inventoryData.primary || []),
+      ...(inventoryData.secondary || []),
+      ...(inventoryData.melee || []),
+      ...(inventoryData.warframes || []),
+    ];
+    const parentMatches = equipmentEntries.filter((item) =>
+      normalizeUN(item.unique_name) === prNorm
+      || item.name?.replace(/\s+Blueprint$/i, '').trim().toLowerCase() === parentDisplayName
+    );
+    const pCrafted = parentMatches.find((item) => item.mastered || item.owned || (item.quantity ?? 0) > 0)
+      || parentMatches[0];
+    parentCraftedCount = pCrafted?.quantity ?? (pCrafted?.owned ? 1 : 0);
     parentIsMastered = pCrafted?.mastered ?? false;
   } else {
     parentBpCount = recipe ? stock : 0;

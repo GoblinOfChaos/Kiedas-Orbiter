@@ -891,6 +891,21 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           ) {
             map[un].icon = origIcon;
           }
+          // Relic category/era: warframe-items' relic data doesn't reliably
+          // track DE's newer Requiem/Immortal relic categorization (I/II/
+          // III/IV/Eterna instead of the classic era-lettered categories) -
+          // it can carry a stale/generic category for these keys, which the
+          // generic "only fill in undefined fields" merge above would never
+          // override since the field isn't actually undefined. DE's own
+          // export is authoritative for these short categorical labels
+          // (unlike names/descriptions, which need dict-loctag handling),
+          // so always prefer it here. Confirmed live 2026-08-10: without
+          // this, all four Requiem I-IV relics collapsed into one garbled
+          // "Requiem Relics Relic" group instead of four separate ones.
+          if (origKey === 'ExportRelics') {
+            if (origEntry?.category != null) map[un].category = origEntry.category;
+            if (origEntry?.era != null) map[un].era = origEntry.era;
+          }
         } else {
           // Entry only in original data
           map[un] = origEntry;
@@ -2084,10 +2099,13 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
   // ── Relics ──────────────────────────────────────────────────────────────────
   const relicGroups = {};
-  (raw.MiscItems ?? []).filter(i => i.ItemType?.includes('/Projections/') || i.ItemType?.includes('/Upgrades/Relic/')).forEach(item => {
+  const relicInventoryItems = Object.values(raw).flatMap((value) => Array.isArray(value) ? value : [])
+    .filter((item) => /\/Projections\/|\/Upgrades\/Relic\/|T5VoidProjection/i.test(item.ItemType || ''));
+  relicInventoryItems.forEach(item => {
     const un = item.ItemType;
     if (!un) return;
-    const entry = ERel[un];
+    const normalizedUn = un.replace('/StoreItems/', '/');
+    const entry = ERel[un] || ERel[normalizedUn];
 
     // Determine refinement level
     const qualityMap = { 'VPQ_BRONZE': 'Intact', 'VPQ_SILVER': 'Exceptional', 'VPQ_GOLD': 'Flawless', 'VPQ_PLATINUM': 'Radiant' };
@@ -2860,7 +2878,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
  */
 function relicNameFromPath(path, ERel = {}) {
   const leaf = path.split('/').at(-1) ?? path;
-  const entry = ERel[path];
+  const entry = ERel[path] || ERel[path.replace('/StoreItems/', '/')];
 
   const qualityMap = {
     'Bronze': 'Intact',
@@ -2906,7 +2924,16 @@ function relicNameFromPath(path, ERel = {}) {
         break;
       }
     }
-    const baseName = splitPascal(rest).replace(/Relic$/, '').trim();
+    let baseName = splitPascal(rest).replace(/Relic$/, '').trim();
+    // Requiem relics use T5VoidProjectionImmortalA/B/C/D and the newer
+    // T5VoidProjectionImmortalOmniA naming instead of ordinary lettered
+    // Void relic categories. Keep them grouped as the game's I-IV/Eterna
+    // relics even when the matching export entry is unavailable.
+    if (tierMatch[1] === '5') {
+      const requiemMatch = rest.match(/^Immortal(OmniA?|A|B|C|D)/i);
+      const requiemNames = { A: 'I', B: 'II', C: 'III', D: 'IV', Omni: 'Eterna', OmniA: 'Eterna' };
+      if (requiemMatch) baseName = requiemNames[requiemMatch[1]] || baseName;
+    }
     return `${era} ${baseName} Relic${quality ? ` (${quality})` : ''}`;
   }
 

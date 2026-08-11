@@ -19,7 +19,7 @@ const NAV_ITEMS = [
 { id: 'mods', icon: 'Mods.png', label: 'Mods' },
 { id: 'rivens', icon: 'IconRiven.png', label: 'Rivens' },
 { id: 'relics', icon: 'IconRelic.png', label: 'Relics' },
-{ id: 'relic-planner', icon: 'IconRelic.png', label: 'Relic Planner' },
+{ id: 'relic-planner', icon: 'VoidSymbol.png', label: 'Relic Planner' },
 { id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },
 { id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
 { id: 'maps', icon: 'IconMap.png', label: 'Maps' },

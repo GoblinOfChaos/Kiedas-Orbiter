@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { Search, X, Trash2 } from 'lucide-react';
 import { PageLayout, Card, Input, Button, Toggle, MonitorState } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
-import { getAllRelicRewards, getRewardInventoryContext } from '../lib/relicParser';
+import { getAllRelicRewards, getRelicCatalog, getRewardInventoryContext } from '../lib/relicParser';
 
 export default function RelicPlanner() {
   const { inventoryData, exportData, isInventoryLoading } = useMonitoring();
@@ -17,9 +17,44 @@ export default function RelicPlanner() {
     return getAllRelicRewards(exportData, 'en').sort((a, b) => a.name.localeCompare(b.name));
   }, [exportData]);
 
-  const isSatisfied = (uniqueName) => {
+  const relicCatalog = useMemo(() => getRelicCatalog(exportData, 'en'), [exportData]);
+
+  const ownedRelics = useMemo(() => {
+    const owned = new Map();
+    for (const relic of inventoryData?.relics || []) {
+      const baseName = (relic.name || '')
+        .replace(new RegExp(`^${relic.era}\\s+`, 'i'), '')
+        .replace(/\s+Relic$/i, '')
+        .trim();
+      const key = `${relic.era} ${baseName}`;
+      const ownedCount = Object.values(relic.refinements || {}).reduce((sum, count) => sum + (count || 0), 0);
+      owned.set(key, { ...relic, ownedCount });
+    }
+    return owned;
+  }, [inventoryData]);
+
+  const getPartStatus = (uniqueName, displayName) => {
     const ctx = getRewardInventoryContext(uniqueName, inventoryData, exportData, 'en');
-    return ctx?.isOwned || (ctx?.craftedCount ?? 0) > 0;
+    const normalize = (value) => value?.replace('/StoreItems/', '/').toLowerCase();
+    const normalizeName = (value) => value?.replace(/\s+Blueprint$/i, '').trim().toLowerCase();
+    const inventoryEntries = [
+      ...(inventoryData?.prime_parts || []),
+      ...Object.values(inventoryData?.primeSets || {}).flatMap((set) => set.parts || []),
+      ...(inventoryData?.all || []),
+      ...(inventoryData?.resources || []),
+    ];
+    const directMatches = inventoryEntries.filter((item) => normalize(item.unique_name) === normalize(uniqueName)
+      || normalizeName(item.name) === normalizeName(displayName));
+    const direct = directMatches.find((item) => item.owned || item.mastered || (item.quantity ?? 0) > 0 || (item.crafted ?? 0) > 0)
+      || directMatches[0];
+    const directCrafted = direct?.crafted ?? 0;
+    const currentStock = Math.max(ctx?.stock ?? 0, direct?.quantity ?? 0, directCrafted);
+    const directOwned = !!direct?.owned || currentStock > 0;
+    const everObtained = directOwned
+      || (ctx?.craftedCount ?? 0) > 0
+      || !!ctx?.isMastered
+      || !!direct?.mastered;
+    return { currentStock, directOwned, everObtained };
   };
 
   const filteredParts = useMemo(() => {
@@ -42,38 +77,45 @@ export default function RelicPlanner() {
   const addAllMissing = () => {
     // "Missing" (per wfinfo-ng parity) only excludes currently-owned stock,
     // not prior crafts - distinct from "Add Never Obtained" below.
-    const toAdd = allParts.filter((p) => {
-      if (needKeys.has(p.uniqueName)) return false;
-      const ctx = getRewardInventoryContext(p.uniqueName, inventoryData, exportData, 'en');
-      return !ctx?.isOwned;
-    });
+    const statuses = allParts.map((p) => ({ part: p, status: getPartStatus(p.uniqueName, p.name) }));
+    const toAdd = statuses.filter(({ part, status }) => {
+      if (needKeys.has(part.uniqueName)) return false;
+      return !status.directOwned;
+    }).map(({ part }) => part);
     if (toAdd.length) setNeed((prev) => [...prev, ...toAdd]);
   };
 
   const addNeverObtained = () => {
-    const toAdd = allParts.filter((p) => !needKeys.has(p.uniqueName) && !isSatisfied(p.uniqueName));
+    const statuses = allParts.map((p) => ({ part: p, status: getPartStatus(p.uniqueName, p.name) }));
+    const toAdd = statuses.filter(({ part, status }) => !needKeys.has(part.uniqueName) && !status.everObtained).map(({ part }) => part);
     if (toAdd.length) setNeed((prev) => [...prev, ...toAdd]);
   };
 
   const results = useMemo(() => {
-    if (!inventoryData?.relics || needKeys.size === 0) return [];
+    if (!relicCatalog.length || needKeys.size === 0) return [];
     const out = [];
-    for (const relic of inventoryData.relics) {
-      const ownedCount = Object.values(relic.refinements || {}).reduce((a, b) => a + b, 0);
+    for (const relic of relicCatalog) {
+      const owned = ownedRelics.get(relic.key)
+        || [...ownedRelics.values()].find((candidate) => candidate.era === relic.era
+          && (candidate.name || '')
+            .replace(new RegExp(`^${candidate.era}\\s+`, 'i'), '')
+            .replace(/\s+Relic$/i, '').trim() === relic.name);
+      const ownedCount = owned?.ownedCount || 0;
       if (ownedOnly && ownedCount === 0) continue;
       const matches = (relic.rewards || []).filter((rw) => needKeys.has(rw.uniqueName));
       if (matches.length === 0) continue;
       out.push({
-        key: relic.unique_name,
+        key: relic.key,
         name: relic.name,
         era: relic.era,
         ownedCount,
         matches,
+        vaulted: relic.vaulted,
       });
     }
     out.sort((a, b) => (b.ownedCount - a.ownedCount) || (b.matches.length - a.matches.length));
     return out;
-  }, [inventoryData, needKeys, ownedOnly]);
+  }, [relicCatalog, ownedRelics, needKeys, ownedOnly]);
 
   const ownedShown = results.filter((r) => r.ownedCount > 0).length;
 
@@ -81,9 +123,9 @@ export default function RelicPlanner() {
 
   return (
     <PageLayout title="Relic Planner" subtitle="Find which relics give you a part you need">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr_1.5fr] gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.5fr)] gap-4 min-w-0">
         {/* Left: part picker */}
-        <Card glow className="p-4 flex flex-col min-h-0" style={{ maxHeight: 640 }}>
+        <Card glow className="p-4 flex flex-col min-h-0 min-w-0 overflow-hidden" style={{ maxHeight: 640 }}>
           <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim mb-2">Prime Parts</h2>
           <div className="relative mb-2">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} />
@@ -104,7 +146,7 @@ export default function RelicPlanner() {
         </Card>
 
         {/* Middle: need list */}
-        <Card glow className="p-4 flex flex-col min-h-0" style={{ maxHeight: 640 }}>
+        <Card glow className="p-4 flex flex-col min-h-0 min-w-0 overflow-hidden" style={{ maxHeight: 640 }}>
           <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim mb-2">Need List</h2>
           <div className="flex-1 overflow-y-auto space-y-1 min-h-0 mb-3">
             {need.length === 0 ?
@@ -136,7 +178,7 @@ export default function RelicPlanner() {
         </Card>
 
         {/* Right: matching relics */}
-        <Card glow className="p-4 flex flex-col min-h-0" style={{ maxHeight: 640 }}>
+        <Card glow className="p-4 flex flex-col min-h-0 min-w-0 overflow-hidden" style={{ maxHeight: 640 }}>
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">Best Relics</h2>
             <Toggle checked={ownedOnly} onChange={setOwnedOnly} label="Owned relics only" />
@@ -151,7 +193,7 @@ export default function RelicPlanner() {
                   <div className="flex items-center justify-between gap-2">
                     <span className="text-xs font-bold text-kronos-text">{r.era} {r.name}</span>
                     <span className="text-[10px] font-bold text-kronos-dim flex-shrink-0">
-                      {r.matches.length} needed · {r.ownedCount} owned
+                      {r.matches.length} needed · {r.ownedCount} owned{r.vaulted === true ? ' · vaulted' : ''}
                     </span>
                   </div>
                   <p className="text-[11px] text-kronos-accent mt-0.5 truncate">{r.matches.map((m) => m.name).join(', ')}</p>

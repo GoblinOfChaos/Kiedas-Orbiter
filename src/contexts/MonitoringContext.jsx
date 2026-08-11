@@ -975,13 +975,15 @@ const hasCachedData = useCallback(async () => {
       ocrActiveRef.current = false
     }))
 
-    // Builds the ducat/plat/need top-5 lists for the relic picker overlay.
-    // "Need" EV zeroes out rewards the player already owns or has crafted,
-    // so a relic's value reflects only what's still missing - mirrors
-    // wfinfo-ng's relic_recommend_watcher.py ev_need concept.
+    // Builds the relic picker overlay payload. "Need"/"missing" zeroes out
+    // rewards the player already owns or has crafted, so a relic's value
+    // reflects only what's still missing - mirrors wfinfo-ng's
+    // relic_recommend_watcher.py ev_need concept.
+    const RELIC_ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem']
     const buildRelicPickerPayload = (voidTier) => {
+      const knownSingleEra = voidTier && voidTier !== 'Omnia'
       let relics = inventoryData.relics
-      if (voidTier && voidTier !== 'Omnia') {
+      if (knownSingleEra) {
         relics = relics.filter(r => r.era === voidTier)
       }
       const ed = exportDataRef.current
@@ -993,9 +995,11 @@ const hasCachedData = useCallback(async () => {
         const evPlat = getRelicEV(sortedRewards, 'Intact', 1, 'plat')
         const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')
 
+        let missingCount = 0
         const neededRewards = sortedRewards.map(rw => {
           const ctx = getRewardInventoryContext(rw.uniqueName, inventoryData, ed, localeRef.current)
           const isSatisfied = ctx?.isOwned || (ctx?.craftedCount ?? 0) > 0
+          if (!isSatisfied) missingCount++
           return isSatisfied ? { ...rw, plat: 0, ducats: 0 } : rw
         })
         const evPlatNeed = getRelicEV(neededRewards, 'Intact', 1, 'plat')
@@ -1005,12 +1009,40 @@ const hasCachedData = useCallback(async () => {
           name: r.name, era: r.era,
           evPlat: Math.round(evPlat), evDucats: Math.round(evDucats),
           evPlatNeed: Math.round(evPlatNeed), evDucatsNeed: Math.round(evDucatsNeed),
+          missingCount,
         }
       })
-      const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 5)
-      const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 5)
-      const needTop = [...enriched].sort((a, b) => b.evDucatsNeed - a.evDucatsNeed).slice(0, 5)
-      return { ducat_top: ducatTop, plat_top: platTop, need_top: needTop, era: voidTier }
+
+      if (knownSingleEra) {
+        const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 5)
+        const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 5)
+        const needTop = [...enriched].sort((a, b) => b.evDucatsNeed - a.evDucatsNeed).slice(0, 5)
+        return { ducat_top: ducatTop, plat_top: platTop, need_top: needTop, era: voidTier }
+      }
+
+      // Era unknown (or Omnia) pre-mission: one compact row per era instead
+      // of a flat top-5 mixing every era together - the era genuinely can't
+      // be detected before the mission starts (confirmed live 2026-08-10,
+      // matches wfinfo-ng's own documented limitation), so group by era
+      // instead of trying to filter to one.
+      const byEra = RELIC_ERA_ORDER
+        .map(era => {
+          const eraRelics = enriched.filter(r => r.era === era)
+          if (eraRelics.length === 0) return null
+          const bestDucat = [...eraRelics].sort((a, b) => b.evDucats - a.evDucats)[0]
+          const bestPlat = [...eraRelics].sort((a, b) => b.evPlat - a.evPlat)[0]
+          const bestMissing = [...eraRelics]
+            .filter(r => r.missingCount > 0)
+            .sort((a, b) => (b.missingCount - a.missingCount) || (b.evDucatsNeed - a.evDucatsNeed))[0]
+          return {
+            era,
+            ducat: bestDucat && bestDucat.evDucats > 0 ? { name: bestDucat.name, value: bestDucat.evDucats } : null,
+            plat: bestPlat && bestPlat.evPlat > 0 ? { name: bestPlat.name, value: bestPlat.evPlat } : null,
+            missing: bestMissing ? { name: bestMissing.name, count: bestMissing.missingCount } : null,
+          }
+        })
+        .filter(Boolean)
+      return { by_era: byEra, era: voidTier }
     }
 
     subs.push(listen('relic-picker-opened', (e) => {

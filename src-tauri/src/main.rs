@@ -2532,7 +2532,10 @@ async fn load_settings() -> Result<Value, String> {
         return Ok(serde_json::json!({}));
     }
     let content = fs::read_to_string(path).map_err(|e| e.to_string())?;
-    serde_json::from_str(&content).map_err(|e| e.to_string())
+    // An empty or corrupt file (e.g. a crash mid-write) shouldn't hard-fail
+    // settings loading for the whole app - fall back to an empty object,
+    // same as the load_settings_sync() helper already does.
+    Ok(serde_json::from_str(&content).unwrap_or_default())
 }
 
 #[derive(serde::Serialize)]

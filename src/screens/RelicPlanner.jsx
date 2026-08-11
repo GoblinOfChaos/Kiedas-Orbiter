@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { Search, X, Trash2 } from 'lucide-react';
 import { PageLayout, Card, Input, Button, Toggle, MonitorState } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
-import { getAllRelicRewards, getRelicCatalog, getRewardInventoryContext } from '../lib/relicParser';
+import { getAllRelicRewards, getRelicCatalog, getPartObtainedStatus } from '../lib/relicParser';
 
 export default function RelicPlanner() {
   const { inventoryData, exportData, isInventoryLoading } = useMonitoring();
@@ -34,29 +34,8 @@ export default function RelicPlanner() {
     return owned;
   }, [inventoryData]);
 
-  const getPartStatus = (uniqueName, displayName) => {
-    const ctx = getRewardInventoryContext(uniqueName, inventoryData, exportData, 'en');
-    const normalize = (value) => value?.replace('/StoreItems/', '/').toLowerCase();
-    const normalizeName = (value) => value?.replace(/\s+Blueprint$/i, '').trim().toLowerCase();
-    const inventoryEntries = [
-      ...(inventoryData?.prime_parts || []),
-      ...Object.values(inventoryData?.primeSets || {}).flatMap((set) => set.parts || []),
-      ...(inventoryData?.all || []),
-      ...(inventoryData?.resources || []),
-    ];
-    const directMatches = inventoryEntries.filter((item) => normalize(item.unique_name) === normalize(uniqueName)
-      || normalizeName(item.name) === normalizeName(displayName));
-    const direct = directMatches.find((item) => item.owned || item.mastered || (item.quantity ?? 0) > 0 || (item.crafted ?? 0) > 0)
-      || directMatches[0];
-    const directCrafted = direct?.crafted ?? 0;
-    const currentStock = Math.max(ctx?.stock ?? 0, direct?.quantity ?? 0, directCrafted);
-    const directOwned = !!direct?.owned || currentStock > 0;
-    const everObtained = directOwned
-      || (ctx?.craftedCount ?? 0) > 0
-      || !!ctx?.isMastered
-      || !!direct?.mastered;
-    return { currentStock, directOwned, everObtained };
-  };
+  const getPartStatus = (uniqueName, displayName) =>
+    getPartObtainedStatus(uniqueName, displayName, inventoryData, exportData, 'en');
 
   const filteredParts = useMemo(() => {
     const q = partSearch.trim().toLowerCase();

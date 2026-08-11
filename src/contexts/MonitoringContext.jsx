@@ -4,7 +4,7 @@ import { parseInventory } from '../lib/inventoryParser'
 import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
-import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
+import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, getPartObtainedStatus, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/marketEngine'
 import { resolveNode, resolveMissionType, resolveChallenge } from '../lib/warframeUtils'
@@ -997,27 +997,12 @@ const hasCachedData = useCallback(async () => {
 
         let missingCount = 0
         const neededRewards = sortedRewards.map(rw => {
-          const ctx = getRewardInventoryContext(rw.uniqueName, inventoryData, ed, localeRef.current)
-          // isMastered matters here too, not just isOwned/craftedCount: once
-          // a parent weapon/warframe is built and mastered, its component
-          // parts commonly get sold/consumed, so raw stock correctly reads
-          // 0 - but the player already has what they needed from this
-          // relic and doesn't need to farm it again. Confirmed live
-          // 2026-08-10: Lith S18 flagged as "1 part" missing despite the
-          // user having fully owned/mastered everything from it.
-          const isSatisfied = ctx?.isOwned || (ctx?.craftedCount ?? 0) > 0 || ctx?.isMastered
-          if (!isSatisfied) missingCount++
-          // Temporary targeted diagnostic for the mastered-item-still-shown-
-          // as-missing report. Remove once the user's runtime payload
-          // identifies why isMastered isn't resolving for some rewards.
-          if (typeof console !== 'undefined') {
-            console.warn('[RELIC MISSING DIAGNOSTIC]', r.name, rw.uniqueName, {
-              isOwned: ctx?.isOwned, craftedCount: ctx?.craftedCount,
-              isMastered: ctx?.isMastered, parentName: ctx?.parentName,
-              isSatisfied,
-            })
-          }
-          return isSatisfied ? { ...rw, plat: 0, ducats: 0 } : rw
+          // Shared with the Relic Planner screen's "Never Obtained" check
+          // (getPartObtainedStatus) so the two can't drift out of sync with
+          // each other again - confirmed live 2026-08-10 that they had.
+          const { everObtained } = getPartObtainedStatus(rw.uniqueName, rw.name, inventoryData, ed, localeRef.current)
+          if (!everObtained) missingCount++
+          return everObtained ? { ...rw, plat: 0, ducats: 0 } : rw
         })
         const evPlatNeed = getRelicEV(neededRewards, 'Intact', 1, 'plat')
         const evDucatsNeed = getRelicEV(neededRewards, 'Intact', 1, 'ducats')

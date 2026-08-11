@@ -493,6 +493,43 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
 }
 
 /**
+ * Whether a relic reward has ever been "obtained" - owned, crafted, or its
+ * parent frame/weapon mastered. Combines getRewardInventoryContext()'s
+ * parent-mastery resolution with a direct inventory-item lookup (matching
+ * by uniqueName or display name against prime_parts/primeSets/all/
+ * resources and checking that matched item's own owned/mastered/quantity
+ * fields directly) - the direct lookup catches cases the parent-recipe
+ * resolution chain misses. Single source of truth for this check so the
+ * relic picker overlay and Relic Planner screen can't drift out of sync
+ * with each other again (confirmed live 2026-08-10: they had, before this
+ * was unified - Yareli Prime Neuroptics/Gyre Prime Systems showed correctly
+ * in one and not the other).
+ */
+export function getPartObtainedStatus(uniqueName, displayName, inventoryData, exportData, locale = 'en') {
+  const ctx = getRewardInventoryContext(uniqueName, inventoryData, exportData, locale);
+  const normalize = (value) => value?.replace('/StoreItems/', '/').toLowerCase();
+  const normalizeName = (value) => value?.replace(/\s+Blueprint$/i, '').trim().toLowerCase();
+  const inventoryEntries = [
+    ...(inventoryData?.prime_parts || []),
+    ...Object.values(inventoryData?.primeSets || {}).flatMap((set) => set.parts || []),
+    ...(inventoryData?.all || []),
+    ...(inventoryData?.resources || []),
+  ];
+  const directMatches = inventoryEntries.filter((item) => normalize(item.unique_name) === normalize(uniqueName)
+    || normalizeName(item.name) === normalizeName(displayName));
+  const direct = directMatches.find((item) => item.owned || item.mastered || (item.quantity ?? 0) > 0 || (item.crafted ?? 0) > 0)
+    || directMatches[0];
+  const directCrafted = direct?.crafted ?? 0;
+  const currentStock = Math.max(ctx?.stock ?? 0, direct?.quantity ?? 0, directCrafted);
+  const directOwned = !!direct?.owned || currentStock > 0;
+  const everObtained = directOwned
+    || (ctx?.craftedCount ?? 0) > 0
+    || !!ctx?.isMastered
+    || !!direct?.mastered;
+  return { currentStock, directOwned, everObtained };
+}
+
+/**
  * Drop probabilities for each refinement level.
  * Common: 3 items, Uncommon: 2 items, Rare: 1 item.
  * [Common_Individual, Uncommon_Individual, Rare_Individual]

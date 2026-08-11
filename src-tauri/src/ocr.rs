@@ -1010,11 +1010,29 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             let ok3 = valid3 == 3;
             let ok2 = valid2 == 2;
 
+            // A near-miss on the largest config - exactly one anchor still
+            // below threshold, but clearly a real card mid-render (score
+            // well above zero) rather than an empty slot - should not be
+            // downgraded to a smaller config that happens to match on a
+            // subset of the same anchors. Confirmed live 2026-08-10: a real
+            // 4-card screen scored 3 anchors above 0.87 and the 4th at
+            // 0.473 (min_score 0.80) on the same attempt that a coincidental
+            // 2-slot match, using two of those same confident anchors,
+            // locked in "2 slots detected" before the 4th card finished
+            // rendering.
+            const NEAR_MISS_FLOOR: f32 = 0.30;
+            let config4_near_miss = valid4 == 3
+                && CONFIG_4.iter().all(|&i| slot_scores[i] >= NEAR_MISS_FLOOR);
+
             // Priority-based deduction:
-            // Larger squad sizes are checked first. If 4 valid icons are found, 
+            // Larger squad sizes are checked first. If 4 valid icons are found,
             // it is a 4-slot layout, regardless of what sub-configurations match.
             let deduced_size = if ok4 {
                 4
+            } else if config4_near_miss {
+                // Give the last card another attempt to settle instead of
+                // locking in a smaller config.
+                continue;
             } else if ok3 {
                 3
             } else if ok2 {

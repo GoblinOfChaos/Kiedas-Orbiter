@@ -7,6 +7,7 @@ import { getAllRelicRewards, getRelicCatalog, getRewardInventoryContext } from '
 export default function RelicPlanner() {
   const { inventoryData, exportData, isInventoryLoading } = useMonitoring();
   const [partSearch, setPartSearch] = useState('');
+  const [partFilter, setPartFilter] = useState('all'); // 'all' | 'never-obtained' | 'missing'
   const [need, setNeed] = useState([]); // array of {uniqueName, name}
   const [ownedOnly, setOwnedOnly] = useState(false);
 
@@ -59,9 +60,14 @@ export default function RelicPlanner() {
 
   const filteredParts = useMemo(() => {
     const q = partSearch.trim().toLowerCase();
-    if (!q) return allParts;
-    return allParts.filter((p) => p.name.toLowerCase().includes(q));
-  }, [allParts, partSearch]);
+    let parts = q ? allParts.filter((p) => p.name.toLowerCase().includes(q)) : allParts;
+    if (partFilter === 'never-obtained') {
+      parts = parts.filter((p) => !getPartStatus(p.uniqueName, p.name).everObtained);
+    } else if (partFilter === 'missing') {
+      parts = parts.filter((p) => !getPartStatus(p.uniqueName, p.name).directOwned);
+    }
+    return parts;
+  }, [allParts, partSearch, partFilter, inventoryData, exportData]);
 
   const needKeys = useMemo(() => new Set(need.map((n) => n.uniqueName)), [need]);
 
@@ -131,6 +137,21 @@ export default function RelicPlanner() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} />
             <Input placeholder="Search parts..." value={partSearch} onChange={(e) => setPartSearch(e.target.value)} className="pl-9 h-9 text-xs" />
           </div>
+          <div className="flex gap-1 mb-2 p-1 bg-black/20 rounded-lg border border-white/5">
+            {[
+              { id: 'all', label: 'All' },
+              { id: 'never-obtained', label: 'Never Obtained' },
+              { id: 'missing', label: 'Missing' },
+            ].map((f) => (
+              <button
+                key={f.id}
+                onClick={() => setPartFilter(f.id)}
+                className={`flex-1 px-2 py-1 rounded text-[10px] font-black uppercase transition-all ${partFilter === f.id ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
           <div className="flex-1 overflow-y-auto space-y-1 min-h-0">
             {filteredParts.map((p) => (
               <button
@@ -196,7 +217,13 @@ export default function RelicPlanner() {
                       {r.matches.length} needed · {r.ownedCount} owned{r.vaulted === true ? ' · vaulted' : ''}
                     </span>
                   </div>
-                  <p className="text-[11px] text-kronos-accent mt-0.5 truncate">{r.matches.map((m) => m.name).join(', ')}</p>
+                  <div className="mt-1 flex flex-wrap gap-1">
+                    {r.matches.map((m) => (
+                      <span key={m.uniqueName} className="text-[11px] font-bold text-kronos-accent bg-kronos-accent/10 border border-kronos-accent/20 rounded px-1.5 py-0.5">
+                        {m.name}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>

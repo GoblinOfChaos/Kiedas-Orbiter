@@ -1007,6 +1007,16 @@ const hasCachedData = useCallback(async () => {
           // user having fully owned/mastered everything from it.
           const isSatisfied = ctx?.isOwned || (ctx?.craftedCount ?? 0) > 0 || ctx?.isMastered
           if (!isSatisfied) missingCount++
+          // Temporary targeted diagnostic for the mastered-item-still-shown-
+          // as-missing report. Remove once the user's runtime payload
+          // identifies why isMastered isn't resolving for some rewards.
+          if (typeof console !== 'undefined') {
+            console.warn('[RELIC MISSING DIAGNOSTIC]', r.name, rw.uniqueName, {
+              isOwned: ctx?.isOwned, craftedCount: ctx?.craftedCount,
+              isMastered: ctx?.isMastered, parentName: ctx?.parentName,
+              isSatisfied,
+            })
+          }
           return isSatisfied ? { ...rw, plat: 0, ducats: 0 } : rw
         })
         const evPlatNeed = getRelicEV(neededRewards, 'Intact', 1, 'plat')

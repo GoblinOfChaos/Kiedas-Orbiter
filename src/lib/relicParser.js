@@ -433,19 +433,20 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
   let parentCraftedCount = 0;
   let parentIsMastered = false;
 
+  const equipmentEntries = [
+    ...(inventoryData.all || []),
+    ...(inventoryData.primary || []),
+    ...(inventoryData.secondary || []),
+    ...(inventoryData.melee || []),
+    ...(inventoryData.warframes || []),
+  ];
+
   if (parentRecipe && parentRecipeUniqueName) {
     const pNorm = normalizeUN(parentRecipeUniqueName);
     parentBpCount = inventoryData.prime_parts?.find(i => normalizeUN(i.unique_name) === pNorm)?.quantity ?? 0;
     const prNorm = normalizeUN(parentRecipe.resultType);
     const parentDisplayName = resolveDisplayName(parentRecipe.resultType, exportData, locale)
       .replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$'), '').trim().toLowerCase();
-    const equipmentEntries = [
-      ...(inventoryData.all || []),
-      ...(inventoryData.primary || []),
-      ...(inventoryData.secondary || []),
-      ...(inventoryData.melee || []),
-      ...(inventoryData.warframes || []),
-    ];
     const parentMatches = equipmentEntries.filter((item) =>
       normalizeUN(item.unique_name) === prNorm
       || item.name?.replace(/\s+Blueprint$/i, '').trim().toLowerCase() === parentDisplayName
@@ -458,6 +459,24 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     parentBpCount = recipe ? stock : 0;
     parentCraftedCount = craftedCount;
     parentIsMastered = isMastered;
+  }
+
+  // Direct fallback, independent of the recipe-ingredient reverse lookup
+  // above (which can fail to find a match for reasons not always worth
+  // chasing case-by-case): if the *name* this component's suffix-stripping
+  // already resolved to (e.g. "Yareli Prime Neuroptics Blueprint" ->
+  // "Yareli Prime") matches a mastered piece of equipment, the component is
+  // satisfied - full prime mastered implies every one of its components was
+  // crafted at least once, regardless of whether the recipe-matching chain
+  // above found the connection. Confirmed live 2026-08-10: Yareli Prime
+  // Neuroptics/Gyre Prime Systems stayed flagged as missing despite both
+  // parent frames being mastered, because the recipe reverse-lookup never
+  // resolved for them.
+  if (!parentIsMastered && parentName) {
+    const parentNameLower = parentName.trim().toLowerCase();
+    if (equipmentEntries.some((item) => item.name?.trim().toLowerCase() === parentNameLower && item.mastered)) {
+      parentIsMastered = true;
+    }
   }
 
   return {

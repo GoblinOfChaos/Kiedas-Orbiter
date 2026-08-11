@@ -998,7 +998,14 @@ const hasCachedData = useCallback(async () => {
         let missingCount = 0
         const neededRewards = sortedRewards.map(rw => {
           const ctx = getRewardInventoryContext(rw.uniqueName, inventoryData, ed, localeRef.current)
-          const isSatisfied = ctx?.isOwned || (ctx?.craftedCount ?? 0) > 0
+          // isMastered matters here too, not just isOwned/craftedCount: once
+          // a parent weapon/warframe is built and mastered, its component
+          // parts commonly get sold/consumed, so raw stock correctly reads
+          // 0 - but the player already has what they needed from this
+          // relic and doesn't need to farm it again. Confirmed live
+          // 2026-08-10: Lith S18 flagged as "1 part" missing despite the
+          // user having fully owned/mastered everything from it.
+          const isSatisfied = ctx?.isOwned || (ctx?.craftedCount ?? 0) > 0 || ctx?.isMastered
           if (!isSatisfied) missingCount++
           return isSatisfied ? { ...rw, plat: 0, ducats: 0 } : rw
         })

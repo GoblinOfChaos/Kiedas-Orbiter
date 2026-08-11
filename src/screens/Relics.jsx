@@ -43,6 +43,7 @@ export default function Relics() {
   const { openKey, toggle, close } = useAcquisitionDrawer();
   const [searchQuery, setSearchQuery] = useState('');
   const [ownershipFilter, setOwnershipFilter] = useState('all'); // 'all' | 'owned' | 'unowned'
+  const [vaultedFilter, setVaultedFilter] = useState('all'); // 'all' | 'vaulted' | 'unvaulted' | 'unknown'
   const [activeEra, setActiveEra] = useState('All');
   const [activeQuality, setActiveQuality] = useState('All');
   const [squadSize, setSquadSize] = useState(1);
@@ -87,6 +88,12 @@ export default function Relics() {
   const baseFiltered = relics.filter((r) => {
     const matchOwnership = ownershipFilter === 'all' || (ownershipFilter === 'owned' ? r.owned : !r.owned);
     if (!matchOwnership) return false;
+
+    const matchVaulted = vaultedFilter === 'all'
+      || (vaultedFilter === 'vaulted' && r.vaulted === true)
+      || (vaultedFilter === 'unvaulted' && r.vaulted === false)
+      || (vaultedFilter === 'unknown' && r.vaulted == null);
+    if (!matchVaulted) return false;
 
     const matchEra = activeEra === 'All' || r.era === activeEra;
     if (!matchEra) return false;
@@ -261,6 +268,27 @@ export default function Relics() {
         <div className="flex items-center gap-2">
           <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">{t('relics.owned')}</span>
           <Tabs tabs={qualityTabs} activeTab={activeQuality} onChange={setActiveQuality} />
+        </div>
+
+        {/* DE export variants may omit vaulted status; keep unknown distinct. */}
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Vault</span>
+          <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
+            {[
+              { id: 'all', label: 'All' },
+              { id: 'vaulted', label: 'Vaulted' },
+              { id: 'unvaulted', label: 'Unvaulted' },
+              { id: 'unknown', label: 'Unknown' },
+            ].map((filter) => (
+              <button
+                key={filter.id}
+                onClick={() => setVaultedFilter(filter.id)}
+                className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${vaultedFilter === filter.id ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Sort Controls */}

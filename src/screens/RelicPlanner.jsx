@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react';
-import { Search, X, Trash2 } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+import { Search, X, Trash2, Package, Sparkles } from 'lucide-react';
 import { PageLayout, Card, Input, Button, Toggle, MonitorState } from '../components/UI';
+import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { getAllRelicRewards, getRelicCatalog, getPartObtainedStatus } from '../lib/relicParser';
 
@@ -10,6 +11,13 @@ export default function RelicPlanner() {
   const [partFilter, setPartFilter] = useState('all'); // 'all' | 'never-obtained' | 'missing'
   const [need, setNeed] = useState([]); // array of {uniqueName, name}
   const [ownedOnly, setOwnedOnly] = useState(false);
+  const [iconsPath, setIconsPath] = useState('');
+
+  useEffect(() => {
+    invoke('get_icons_path').then((path) => setIconsPath(path)).catch(() => {});
+  }, []);
+
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
 
   // Full catalog of distinct prime parts (not just ones from owned relics),
   // ported from wfinfo-ng's RELIC_PLANNER_TAB.py part picker.
@@ -103,15 +111,34 @@ export default function RelicPlanner() {
   }, [relicCatalog, ownedRelics, needKeys, ownedOnly]);
 
   const ownedShown = results.filter((r) => r.ownedCount > 0).length;
+  const ownedParts = allParts.filter((p) => getPartStatus(p.uniqueName, p.name).directOwned).length;
 
   if (isInventoryLoading) return <PageLayout title="Relic Planner"><MonitorState isLoading className="py-20" /></PageLayout>;
 
   return (
     <PageLayout title="Relic Planner" subtitle="Find which relics give you a part you need">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+        {[
+          { label: 'Prime parts', value: allParts.length, icon: Package },
+          { label: 'Selected', value: need.length, icon: Sparkles },
+          { label: 'Owned matches', value: `${ownedShown}/${results.length}`, icon: Package },
+        ].map(({ label, value, icon: Icon }) => (
+          <Card key={label} className="p-3 flex items-center gap-3 bg-kronos-panel/30">
+            <div className="p-2 rounded-lg bg-kronos-accent/10 text-kronos-accent"><Icon size={16} /></div>
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">{label}</p>
+              <p className="text-lg font-black text-kronos-text leading-none mt-1">{value}</p>
+            </div>
+          </Card>
+        ))}
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.5fr)] gap-4 min-w-0">
         {/* Left: part picker */}
         <Card glow className="p-4 flex flex-col min-h-0 min-w-0 overflow-hidden" style={{ maxHeight: 640 }}>
-          <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim mb-2">Prime Parts</h2>
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">Prime Parts</h2>
+            <span className="text-[10px] font-black text-kronos-accent">{ownedParts} owned</span>
+          </div>
           <div className="relative mb-2">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} />
             <Input placeholder="Search parts..." value={partSearch} onChange={(e) => setPartSearch(e.target.value)} className="pl-9 h-9 text-xs" />
@@ -137,9 +164,12 @@ export default function RelicPlanner() {
                 key={p.uniqueName}
                 onClick={() => addPart(p)}
                 disabled={needKeys.has(p.uniqueName)}
-                className={`w-full text-left px-2.5 py-1.5 rounded text-xs border ${needKeys.has(p.uniqueName) ? 'bg-kronos-accent/10 border-kronos-accent/30 text-kronos-dim' : 'bg-black/20 border-white/5 text-kronos-text hover:border-kronos-accent/40 hover:bg-black/30'}`}
+                className={`w-full text-left px-2.5 py-2 rounded-lg text-xs border transition-colors ${needKeys.has(p.uniqueName) ? 'bg-kronos-accent/10 border-kronos-accent/30 text-kronos-dim' : 'bg-black/20 border-white/5 text-kronos-text hover:border-kronos-accent/40 hover:bg-black/30'}`}
               >
-                {p.name}
+                <span className="flex items-center justify-between gap-2">
+                  <span className="truncate">{p.name}</span>
+                  {getPartStatus(p.uniqueName, p.name).directOwned && <span className="text-[9px] font-black uppercase text-green-400/80">Owned</span>}
+                </span>
               </button>
             ))}
           </div>
@@ -147,10 +177,16 @@ export default function RelicPlanner() {
 
         {/* Middle: need list */}
         <Card glow className="p-4 flex flex-col min-h-0 min-w-0 overflow-hidden" style={{ maxHeight: 640 }}>
-          <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim mb-2">Need List</h2>
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">Need List</h2>
+            <span className="text-[10px] font-black text-kronos-accent">{need.length} selected</span>
+          </div>
           <div className="flex-1 overflow-y-auto space-y-1 min-h-0 mb-3">
             {need.length === 0 ?
-              <p className="text-xs text-kronos-dim italic">Add parts from the left to search relics for them.</p>
+              <div className="flex flex-col items-center justify-center text-center gap-2 py-10 px-3">
+                <Sparkles size={22} className="text-kronos-dim/60" />
+                <p className="text-xs text-kronos-dim italic">Add parts from the left to search relics for them.</p>
+              </div>
             :
               need.map((n) => (
                 <div key={n.uniqueName} className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded bg-black/20 border border-white/5">
@@ -180,7 +216,10 @@ export default function RelicPlanner() {
         {/* Right: matching relics */}
         <Card glow className="p-4 flex flex-col min-h-0 min-w-0 overflow-hidden" style={{ maxHeight: 640 }}>
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">Best Relics</h2>
+            <div className="flex items-center gap-2">
+              <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">Best Relics</h2>
+              {need.length > 0 && <span className="px-1.5 py-0.5 rounded bg-kronos-accent/10 text-kronos-accent text-[9px] font-black">{results.length}</span>}
+            </div>
             <Toggle checked={ownedOnly} onChange={setOwnedOnly} label="Owned relics only" />
           </div>
           {need.length === 0 ?
@@ -189,13 +228,17 @@ export default function RelicPlanner() {
           <>
             <div className="flex-1 overflow-y-auto space-y-1.5 min-h-0">
               {results.map((r) => (
-                <div key={r.key} className={`px-3 py-2 rounded border ${r.ownedCount > 0 ? 'bg-green-500/10 border-green-500/20' : 'bg-black/20 border-white/5'}`}>
+                <div key={r.key} className={`px-3 py-2.5 rounded-lg border transition-colors ${r.ownedCount > 0 ? 'bg-green-500/10 border-green-500/20' : 'bg-black/20 border-white/5'}`}>
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-bold text-kronos-text">{r.era} {r.name}</span>
+                    <span className="flex items-center gap-2 min-w-0">
+                      {iconSrc(r.era) && <img src={iconSrc(r.era)} alt="" className="w-5 h-5 object-contain opacity-80" />}
+                      <span className="text-xs font-bold text-kronos-text truncate">{r.era} {r.name}</span>
+                    </span>
                     <span className="text-[10px] font-bold text-kronos-dim flex-shrink-0">
-                      {r.matches.length} needed · {r.ownedCount} owned{r.vaulted === true ? ' · vaulted' : ''}
+                      {r.matches.length} needed · {r.ownedCount} owned
                     </span>
                   </div>
+                  {r.vaulted === true && <span className="inline-block mt-1 text-[9px] font-black uppercase tracking-wider text-amber-400/80">Vaulted</span>}
                   <div className="mt-1 flex flex-wrap gap-1">
                     {r.matches.map((m) => (
                       <span key={m.uniqueName} className="text-[11px] font-bold text-kronos-accent bg-kronos-accent/10 border border-kronos-accent/20 rounded px-1.5 py-0.5">

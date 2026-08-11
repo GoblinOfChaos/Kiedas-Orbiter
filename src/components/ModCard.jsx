@@ -13,6 +13,16 @@ const CARD_RATIO = 290 / 409;
 const CANVAS_W = 290;
 const CANVAS_H = 409;
 
+// These four text-description icons are part of DE's ExportTextIcons table but
+// are not present in the bundled UI asset pack. Use the authoritative public
+// export CDN for these known gaps instead of generating local 403 requests.
+const MISSING_TAG_ICON_CDN = {
+  'FocusCleanNaramon_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanNaramon_d.png',
+  'FocusCleanMadurai_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanMadurai_d.png',
+  'Energy_d.png': 'https://browse.wf/Lotus/Interface/Graphics/Abilities/AbilityIcon/Energy_d.png',
+  'HildrynEnergyShield.png': 'https://browse.wf/Lotus/Interface/Graphics/Abilities/HildrynEnergyShield.png',
+};
+
 const TIER_COLORS = {
   'Normal Common': '#CA9A87',
   'Normal Uncommon': '#FFFFFF',
@@ -145,7 +155,7 @@ const POLARITY_FILES = {
   'AP_ANY': 'PolarityUniversal.png'
 };
 
-function renderDesc(text, textColor, iconsPath, tagIconMap) {
+function renderDesc(text, textColor, iconsPath, tagIconMap, resolveTagIcon) {
   if (!text) return null;
   const normalized = text.replace(/\r\n/g, '\n');
   const parts = normalized.split(/(<[A-Z_]+>)/);
@@ -165,7 +175,7 @@ function renderDesc(text, textColor, iconsPath, tagIconMap) {
       } else {
         const iconFile = tagIconMap?.[tagName];
         if (iconFile && iconsPath) {
-          elements.push(<img key={elements.length} src={u(iconsPath, '', iconFile)} style={{ width: '11px', height: '11px', display: 'inline', verticalAlign: 'middle' }} alt="" onError={(e) => e.target.style.display = 'none'} />);
+          elements.push(<img key={elements.length} src={resolveTagIcon(iconFile)} style={{ width: '11px', height: '11px', display: 'inline', verticalAlign: 'middle' }} alt="" onError={(e) => e.target.style.display = 'none'} />);
         }
         currentColor = null;
         currentTag = null;
@@ -186,7 +196,7 @@ function renderDesc(text, textColor, iconsPath, tagIconMap) {
           const rest = spaceIdx >= 0 ? line.slice(spaceIdx) : '';
           elements.push(
             <span key={`${elements.length}-color`} style={{ color: currentColor, display: 'inline-flex', alignItems: 'center', gap: '1px' }}>
-                {iconFile && iconsPath ? <img src={u(iconsPath, '', iconFile)} style={{ width: '11px', height: '11px', flexShrink: 0 }} alt="" onError={(e) => e.target.style.display = 'none'} /> : null}
+                {iconFile && (iconsPath || MISSING_TAG_ICON_CDN[iconFile]) ? <img src={resolveTagIcon(iconFile)} style={{ width: '11px', height: '11px', flexShrink: 0 }} alt="" onError={(e) => e.target.style.display = 'none'} /> : null}
                 <span>{word}</span>
               </span>
           );
@@ -267,6 +277,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const tektolystGroup = mf === 'Tektolyst' ? TEKTOLYST_COLOR_GROUPS[mod.name] || 'Silver' : null;
   const cardScale = width / 180;
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
+  const resolveTagIcon = (name) => MISSING_TAG_ICON_CDN[name] || iconSrc(name);
 
   const tagIconMap = useMemo(() => {
     if (!exportTextIcons) return {};
@@ -462,7 +473,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
             </p>
             {hasDesc &&
           <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color, fontSize: `${11 * cardScale}px` }}>
-                {renderDesc(desc, color, iconsPath, tagIconMap)}
+                {renderDesc(desc, color, iconsPath, tagIconMap, resolveTagIcon)}
               </p>
           }
           </div>
@@ -485,7 +496,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
             </p>
             {hasDesc &&
           <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color, fontSize: `${10 * cardScale}px` }}>
-                {renderDesc(desc, color, iconsPath, tagIconMap)}
+                {renderDesc(desc, color, iconsPath, tagIconMap, resolveTagIcon)}
               </p>
           }
             {mod.max_rank > 0 &&
@@ -535,7 +546,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
             </p>
             {hasDesc &&
           <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color, fontSize: `${11 * cardScale}px` }}>
-                {renderDesc(desc, color, iconsPath, tagIconMap)}
+                {renderDesc(desc, color, iconsPath, tagIconMap, resolveTagIcon)}
               </p>
           }
           </div>

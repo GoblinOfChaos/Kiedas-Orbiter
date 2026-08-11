@@ -1005,11 +1005,13 @@ const hasCachedData = useCallback(async () => {
         const evPlatNeed = getRelicEV(neededRewards, 'Intact', 1, 'plat')
         const evDucatsNeed = getRelicEV(neededRewards, 'Intact', 1, 'ducats')
 
+        const ownedCount = Object.values(r.refinements || {}).reduce((sum, c) => sum + (c || 0), 0)
+
         return {
           name: r.name, era: r.era,
           evPlat: Math.round(evPlat), evDucats: Math.round(evDucats),
           evPlatNeed: Math.round(evPlatNeed), evDucatsNeed: Math.round(evDucatsNeed),
-          missingCount,
+          missingCount, ownedCount,
         }
       })
 
@@ -1027,7 +1029,9 @@ const hasCachedData = useCallback(async () => {
       // instead of trying to filter to one.
       const byEra = RELIC_ERA_ORDER
         .map(era => {
-          const eraRelics = enriched.filter(r => r.era === era)
+          // Only relics you actually own at least one copy of are eligible
+          // to be recommended - you can't bring one you don't have.
+          const eraRelics = enriched.filter(r => r.era === era && r.ownedCount > 0)
           if (eraRelics.length === 0) return null
           const bestDucat = [...eraRelics].sort((a, b) => b.evDucats - a.evDucats)[0]
           const bestPlat = [...eraRelics].sort((a, b) => b.evPlat - a.evPlat)[0]

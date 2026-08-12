@@ -91,7 +91,9 @@ export default function AcquisitionDrawer({ item, onClose }) {
             ))}
           </div>
         :
-          <p className="text-xs text-kronos-dim italic">No specific source known - try the wiki link below.</p>
+          <p className="text-xs text-kronos-dim italic">
+            {info.vaulted ? 'Relic is Vaulted, no drop locations' : 'No specific source known - try the wiki link below.'}
+          </p>
         }
 
         <button

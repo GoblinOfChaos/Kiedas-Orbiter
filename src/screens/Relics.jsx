@@ -179,7 +179,15 @@ export default function Relics() {
     const allGrouped = Object.values(grouped).flat();
     const item = allGrouped.find((r) => r.unique_name === openKey);
     if (!item) return null;
-    return { displayName: item.name, info: getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides) };
+    const info = getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides);
+    // Vaulted relics genuinely have no active drop source - say so
+    // explicitly instead of the generic "no specific source known"
+    // fallback, which reads like a data gap rather than an accurate
+    // "this isn't obtainable right now" answer.
+    if (item.vaulted === true && info.sources.length === 0) {
+      return { displayName: item.name, info: { ...info, vaulted: true } };
+    }
+    return { displayName: item.name, info };
   }, [openKey, acquisitionDataReady, grouped, dropIndex, acquisitionOverrides]);
 
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;

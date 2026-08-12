@@ -123,15 +123,24 @@ function addNamedSource(index, nameMap, itemName, source) {
   }
 
   // Try without trailing " Relic" (DropsAll names relics "Axi A21 Relic",
-  // but ExportRelics display names are "Axi A21" - era + category)
-  if (!found && lc.endsWith(' relic')) {
+  // but ExportRelics display names are "Axi A21" - era + category). A
+  // relic has 4 real per-quality DE uniqueNames (Bronze/Silver/Gold/
+  // Platinum) but the app's own relic objects only carry a synthetic
+  // "<Era> <Category> Relic" id with no way to know which quality-specific
+  // path to look up - so always ALSO file this source under a "display:"
+  // key for the era+category, not just under the real per-quality
+  // uniqueNames tryName() resolves. Without this, a successful tryName()
+  // match short-circuited the display: fallback entirely, so the app's
+  // relic screens could never find data that genuinely existed in the
+  // index. Confirmed live 2026-08-11: dropIndex had 86-145 real sources
+  // filed correctly per quality-variant uniqueName, completely unreachable
+  // by the app's actual relic query.
+  if (lc.endsWith(' relic')) {
     const without = lc.slice(0, -6)
-    found = tryName(without)
-    if (!found) {
-      const fallbackKey = 'display:' + without
-      if (!index[fallbackKey]) index[fallbackKey] = []
-      index[fallbackKey].push(source)
-    }
+    found = tryName(without) || found
+    const fallbackKey = 'display:' + without
+    if (!index[fallbackKey]) index[fallbackKey] = []
+    index[fallbackKey].push(source)
   }
 
   // If nothing matched, store under the original name

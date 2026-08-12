@@ -117,6 +117,11 @@ function processDropsAll(index, DropsAll, nameMap) {
   if (!DropsAll || typeof DropsAll !== 'object') return
 
   // ── missionRewards: planet -> node -> rotation -> rewards ──────────────
+  // Two shapes exist in the drops.wf feed:
+  //   1. dict:  { A: [...], B: [...], C: [...], D: [...] }
+  //   2. list:  [...flat entries...] (e.g. Assassination/Raid nodes)
+  // The flat-list shape was silently ignored before, dropping a large
+  // portion of mission drop sources from the index.
   const missionRewards = DropsAll.missionRewards
   if (missionRewards && typeof missionRewards === 'object') {
     for (const [planet, nodes] of Object.entries(missionRewards)) {
@@ -125,20 +130,26 @@ function processDropsAll(index, DropsAll, nameMap) {
         if (!nodeData || !nodeData.rewards) continue
         const gameMode = nodeData.gameMode || ''
         const rewards = nodeData.rewards
-        for (const rotation of ['A', 'B', 'C', 'D']) {
-          const entries = rewards[rotation]
-          if (!Array.isArray(entries)) continue
-          for (const entry of entries) {
-            addNamedSource(index, nameMap, entry.itemName, {
-              type: 'mission',
-              node: nodeName,
-              nodeName: nodeName,
-              missionType: gameMode,
-              rotation: rotation === 'A' ? null : rotation,
-              chance: normChance(entry.chance),
-              itemCount: 1,
-              source: 'drops.wf',
-            })
+        const addEntry = (entry, rotation) => {
+          if (!entry || !entry.itemName) return
+          addNamedSource(index, nameMap, entry.itemName, {
+            type: 'mission',
+            node: nodeName,
+            nodeName: nodeName,
+            missionType: gameMode,
+            rotation: rotation === 'A' ? null : rotation,
+            chance: normChance(entry.chance),
+            itemCount: 1,
+            source: 'drops.wf',
+          })
+        }
+        if (Array.isArray(rewards)) {
+          for (const entry of rewards) addEntry(entry, null)
+        } else if (typeof rewards === 'object') {
+          for (const rotation of ['A', 'B', 'C', 'D']) {
+            const entries = rewards[rotation]
+            if (!Array.isArray(entries)) continue
+            for (const entry of entries) addEntry(entry, rotation)
           }
         }
       }

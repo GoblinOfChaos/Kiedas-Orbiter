@@ -8,6 +8,19 @@
 //   4. wiki-search fallback (empty sources)
 //
 // Usage: node scripts/audit-acquisition-fallbacks.mjs
+//
+// KNOWN BLIND SPOT (2026-08-11): this script hand-replicates
+// buildDropIndex/getAcquisitionInfo's logic rather than importing the real
+// functions, and its replica has drifted from the real implementation at
+// least once already - it reported success for relic drop sources while
+// the live app still showed most relics falling through to the wiki
+// fallback (the real bug: sources were being indexed under real per-
+// quality DE uniqueNames the app can never query with, not under the
+// "display:<era> <category>" key the app's synthetic relic ids need -
+// fixed in 2476a81). If verifying a fix to dropsParser.js/
+// acquisitionInfo.js specifically, prefer importing and calling the real
+// buildDropIndex()/getAcquisitionInfo() functions directly against real
+// bundled export data instead of trusting this script's own totals.
 import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';

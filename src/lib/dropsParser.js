@@ -51,6 +51,25 @@ function buildNameToUniqueNameMap(exportData, dict) {
       }
     }
   }
+  // Index ExportRelics by their display name (era + category). Relic entries
+  // have no name/uniqueName/displayName fields - the uniqueName is the dict
+  // key - so they were never indexed before, meaning DropsAll's "Axi A21
+  // Relic" mission rewards could never resolve to a relic uniqueName, and
+  // relic cards fell through to the wiki fallback. Build the display name
+  // from era + category (e.g. "Axi A21").
+  const relics = exportData.ExportRelics
+  if (relics && typeof relics === 'object') {
+    const relicEntries = Array.isArray(relics) ? relics : Object.entries(relics)
+    for (const [relicUn, relic] of relicEntries) {
+      if (!relic) continue
+      const era = relic.era || ''
+      const category = relic.category || ''
+      if (!era || !category) continue
+      const displayName = `${era} ${category}`.toLowerCase()
+      if (!map[displayName]) map[displayName] = []
+      map[displayName].push(relicUn)
+    }
+  }
   return map
 }
 
@@ -98,6 +117,18 @@ function addNamedSource(index, nameMap, itemName, source) {
     found = tryName(withBp)
     if (!found) {
       const fallbackKey = 'display:' + withBp
+      if (!index[fallbackKey]) index[fallbackKey] = []
+      index[fallbackKey].push(source)
+    }
+  }
+
+  // Try without trailing " Relic" (DropsAll names relics "Axi A21 Relic",
+  // but ExportRelics display names are "Axi A21" - era + category)
+  if (!found && lc.endsWith(' relic')) {
+    const without = lc.slice(0, -6)
+    found = tryName(without)
+    if (!found) {
+      const fallbackKey = 'display:' + without
       if (!index[fallbackKey]) index[fallbackKey] = []
       index[fallbackKey].push(source)
     }

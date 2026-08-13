@@ -245,10 +245,12 @@ async fn download_locale_upgrades(client: &reqwest::Client, export_dir: &std::pa
     Ok(())
 }
 
-// Drop data (warframe-drop-data) is an extra JSON file from a different source.
-// It's refreshed once per day like the main exports.
+// Drop data (warframe-drop-data) and Varzia's live rotation are extra JSON
+// files from the WFCD-maintained warframestat.us APIs. Refreshed once per day
+// like the main exports.
 const DROPDATA_FILES: &[(&str, &str)] = &[
     ("DropsAll.json", "https://drops.warframestat.us/data/all.json"),
+    ("VaultTrader.json", "https://api.warframestat.us/pc/vaultTrader"),
 ];
 
 // --- Shared Download Helper ---
@@ -2534,8 +2536,12 @@ async fn load_settings() -> Result<Value, String> {
     let content = fs::read_to_string(path).map_err(|e| e.to_string())?;
     // An empty or corrupt file (e.g. a crash mid-write) shouldn't hard-fail
     // settings loading for the whole app - fall back to an empty object,
-    // same as the load_settings_sync() helper already does.
-    Ok(serde_json::from_str(&content).unwrap_or_default())
+    // same as the load_settings_sync() helper already does. A file whose
+    // content is literally "null" parses successfully as Value::Null (not
+    // a parse error), so unwrap_or_default() alone doesn't catch it - the
+    // frontend then crashes on Object.keys(null). Normalize both cases.
+    let parsed: Value = serde_json::from_str(&content).unwrap_or_default();
+    Ok(if parsed.is_object() { parsed } else { serde_json::json!({}) })
 }
 
 #[derive(serde::Serialize)]

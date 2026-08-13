@@ -772,8 +772,6 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
       return now >= start && now < end
     }).map(f => {
       const itemName = resolveItemName(f.TypeName, mergedDict, uniqueNameToName);
-      if (itemName !== (f.ItemType || f.TypeName || '').split('/').pop()) console.warn('[wsParser] flashSale item resolved', { typeName: f.TypeName, item: itemName });
-      else console.warn('[wsParser] flashSale item UNRESOLVED', { typeName: f.TypeName, item: itemName });
       return {
       item: itemName,
       uniqueName: f.TypeName,

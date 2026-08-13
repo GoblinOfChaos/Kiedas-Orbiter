@@ -23,8 +23,8 @@ export function onSettingsChanged(fn) {
  */
 export async function loadSettings() {
   try {
-    const settings = await invoke('load_settings')
-    
+    const settings = await invoke('load_settings') || {}
+
     // Migration logic: if settings are empty, try to pull from localStorage
     if (Object.keys(settings).length === 0) {
       const legacy = {}

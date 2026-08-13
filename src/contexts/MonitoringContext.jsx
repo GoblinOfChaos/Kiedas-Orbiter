@@ -7,7 +7,7 @@ import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, getPartObtainedStatus, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/marketEngine'
-import { resolveNode, resolveMissionType, resolveChallenge } from '../lib/warframeUtils'
+import { resolveNode, resolveMissionType, resolveChallenge, resolveAnyImage } from '../lib/warframeUtils'
 import { evaluateNotifications } from '../lib/notificationManager'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
 import { loadSettings, getSetting, setSetting } from '../lib/settings'
@@ -188,6 +188,7 @@ export function MonitoringProvider({ children }) {
   const processingRef = useRef(false)
   const isMonitoringRef = useRef(false)
   const hasCachedDataRef = useRef(false)
+  const hasLoadedOnceRef = useRef(false)
   const [cardImagesPath, setCardImagesPath] = useState('')
   const [fixProgress, setFixProgress] = useState({ checking: true })
   const cardInitStarted = useRef(false)
@@ -665,7 +666,12 @@ const hasCachedData = useCallback(async () => {
   const callApiHelper = useCallback(async () => {
     if (busyRef.current) return
     busyRef.current = true
-    setIsInventoryLoading(true)
+    // Only show the loading skeleton for the very first load - periodic
+    // background refreshes (every startMonitoring interval) update data
+    // silently. Toggling this on every refresh was swapping every screen's
+    // whole content tree in and out, which reset scroll position on every
+    // periodic sync.
+    if (!hasLoadedOnceRef.current) setIsInventoryLoading(true)
     try {
       const raw = await invoke('call_api_helper')
       if (raw && typeof raw === 'object' && raw.Suits) {
@@ -689,6 +695,7 @@ const hasCachedData = useCallback(async () => {
       return 'error'
     } finally {
       busyRef.current = false
+      hasLoadedOnceRef.current = true
       setIsInventoryLoading(false)
     }
   }, [applyRaw, hasCachedData])
@@ -892,7 +899,8 @@ const hasCachedData = useCallback(async () => {
       const baseItem = fissureStateRef.current.squad_relics.flatMap(r => r.rewards).find(r => r.uniqueName === local_reward) || {}
       const platPrice = await getPrice(local_reward, baseItem.name, baseItem.ducats)
       const inventory = getRewardInventoryContext(local_reward, inventoryData, exportData, localeRef.current)
-      const reward = { uniqueName: local_reward, ...baseItem, platPrice, inventory }
+      inventory.subcomponents = (inventory.subcomponents || []).map((c) => ({ ...c, image: resolveAnyImage(c.uniqueName, EI, nameToImage) }))
+      const reward = { uniqueName: local_reward, ...baseItem, icon: EI[local_reward], platPrice, inventory }
       invoke('relay_event', { event: 'overlay-update-reward', payload: { local_reward: reward, squad_size } }).catch(() => { })
     }))
 
@@ -953,6 +961,7 @@ const hasCachedData = useCallback(async () => {
         if (bestMatch) {
           const platPrice = await getPrice(bestMatch.uniqueName, bestMatch.name, bestMatch.ducats || 0);
           const inventory = getRewardInventoryContext(bestMatch.uniqueName, inventoryData, exportData);
+          inventory.subcomponents = (inventory.subcomponents || []).map((c) => ({ ...c, image: resolveAnyImage(c.uniqueName, EI, nameToImage) }))
           return { slot: res.slot, confirmed_reward: bestMatch.name, item: { ...bestMatch, icon: EI[bestMatch.uniqueName], platPrice, inventory } };
         }
         return null;

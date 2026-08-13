@@ -2,6 +2,7 @@
  * Logic for mapping Relic unique names (from logs) to game data and inventory context.
  */
 import { BLUEPRINT_SUFFIX } from './warframeUtils';
+import { BARO_RELIC_NAMES } from './baroRelics';
 
 // Helper: split PascalCase to spaced words
 function splitPascal(str) {
@@ -16,6 +17,21 @@ function splitPascal(str) {
 function cleanName(name) {
   if (!name) return '';
   return name.replace(/<[^>]*>/g, '').trim();
+}
+
+// DE's relic export normally represents vault state with a `vaultedAt`
+// timestamp rather than a boolean. A future timestamp means the relic is
+// still available; no timestamp means DE has not scheduled a vault for it.
+function getRelicVaultedStatus(entry, relicKey) {
+  // DE's export carries no vault metadata at all for Baro-exclusive relics
+  // (sold directly, never in the mission drop pool) - they're always vaulted.
+  if (BARO_RELIC_NAMES.includes(relicKey)) return true;
+  if (typeof entry?.vaulted === 'boolean') return entry.vaulted;
+  if (typeof entry?.isVaulted === 'boolean') return entry.isVaulted;
+  if (Number.isFinite(entry?.vaultedAt)) {
+    return entry.vaultedAt <= Math.floor(Date.now() / 1000);
+  }
+  return false;
 }
 
 /**
@@ -238,7 +254,7 @@ export function getRelicCatalog(exportData, locale = 'en') {
       // DE export variants differ in whether this field is present. Keep an
       // unknown value unknown instead of labelling an unverified relic as
       // farmable.
-      vaulted: entry.vaulted ?? entry.isVaulted ?? null,
+      vaulted: getRelicVaultedStatus(entry, key),
     });
   }
 
@@ -509,14 +525,11 @@ export function getPartObtainedStatus(uniqueName, displayName, inventoryData, ex
   const ctx = getRewardInventoryContext(uniqueName, inventoryData, exportData, locale);
   const normalize = (value) => value?.replace('/StoreItems/', '/').toLowerCase();
   const normalizeName = (value) => value?.replace(/\s+Blueprint$/i, '').trim().toLowerCase();
-  const inventoryEntries = [
-    ...(inventoryData?.prime_parts || []),
-    ...Object.values(inventoryData?.primeSets || {}).flatMap((set) => set.parts || []),
-    ...(inventoryData?.all || []),
-    ...(inventoryData?.resources || []),
+  const inventoryEntries = getPartInventoryIndex(inventoryData);
+  const directMatches = [
+    ...(inventoryEntries.byUnique.get(normalize(uniqueName)) || []),
+    ...(inventoryEntries.byName.get(normalizeName(displayName)) || []),
   ];
-  const directMatches = inventoryEntries.filter((item) => normalize(item.unique_name) === normalize(uniqueName)
-    || normalizeName(item.name) === normalizeName(displayName));
   const direct = directMatches.find((item) => item.owned || item.mastered || (item.quantity ?? 0) > 0 || (item.crafted ?? 0) > 0)
     || directMatches[0];
   const directCrafted = direct?.crafted ?? 0;
@@ -527,6 +540,40 @@ export function getPartObtainedStatus(uniqueName, displayName, inventoryData, ex
     || !!ctx?.isMastered
     || !!direct?.mastered;
   return { currentStock, directOwned, everObtained };
+}
+
+// Planner and overlay can ask about hundreds of parts during one render. Keep
+// the normalized inventory indexes per parsed inventory identity so ownership
+// checks remain O(1) lookups instead of rebuilding and scanning four arrays for
+// every part.
+const partInventoryIndexes = new WeakMap();
+function getPartInventoryIndex(inventoryData) {
+  if (!inventoryData || typeof inventoryData !== 'object') return { byUnique: new Map(), byName: new Map() };
+  const cached = partInventoryIndexes.get(inventoryData);
+  if (cached) return cached;
+  const normalize = (value) => value?.replace('/StoreItems/', '/').toLowerCase();
+  const normalizeName = (value) => value?.replace(/\s+Blueprint$/i, '').trim().toLowerCase();
+  const byUnique = new Map();
+  const byName = new Map();
+  const entries = [
+    ...(inventoryData.prime_parts || []),
+    ...Object.values(inventoryData.primeSets || {}).flatMap((set) => set.parts || []),
+    ...(inventoryData.all || []),
+    ...(inventoryData.resources || []),
+    // Requiem relic rewards are mods (Lohk, Netra, Isos, etc.) - `mods` is
+    // its own array, not folded into `all`, so it must be scanned too or
+    // Requiem mods the player owns always resolve as never-obtained.
+    ...(inventoryData.mods || []),
+  ];
+  for (const item of entries) {
+    const unique = normalize(item.unique_name);
+    const name = normalizeName(item.name);
+    if (unique) byUnique.set(unique, [...(byUnique.get(unique) || []), item]);
+    if (name) byName.set(name, [...(byName.get(name) || []), item]);
+  }
+  const index = { byUnique, byName };
+  partInventoryIndexes.set(inventoryData, index);
+  return index;
 }
 
 /**

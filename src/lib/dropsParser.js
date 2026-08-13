@@ -1,3 +1,5 @@
+import { BARO_RELIC_NAMES } from './baroRelics'
+
 function buildNameToUniqueNameMap(exportData, dict) {
   const map = {}
   const tables = [
@@ -8,6 +10,9 @@ function buildNameToUniqueNameMap(exportData, dict) {
     'ExportAvionics',
     'ExportArcanes',
     'ExportResources',
+    'ExportFocusUpgrades',
+    'ExportModSet',
+    'ExportUpgradesLocalized',
     'ExportRelics',
     'ExportCustoms',
     'ExportGear',
@@ -17,11 +22,19 @@ function buildNameToUniqueNameMap(exportData, dict) {
   ]
   // Index items with direct uniqueName + name fields
   for (const tblName of tables) {
-    const data = exportData[tblName]
+    const rawData = exportData[tblName]
+    const data = rawData?.[tblName] ?? rawData
     if (!data) continue
-    const items = Array.isArray(data) ? data : Object.values(data)
-    for (const item of items) {
-      if (!item || !item.uniqueName) continue
+    const items = Array.isArray(data)
+      ? data.map((item) => [null, item])
+      : Object.entries(data)
+    for (const [entryKey, item] of items) {
+      if (!item) continue
+      // Several DE export tables (notably ExportUpgrades and some resource
+      // tables) use the unique name as the object key and omit an inner
+      // uniqueName field. DropsAll names still need to resolve to that key.
+      const itemUniqueName = item.uniqueName || item.ItemType || entryKey
+      if (!itemUniqueName) continue
       const locKey = item.name || item.displayName
       if (!locKey) continue
       const resolved = dict[locKey] || dict['/' + locKey] || ''
@@ -29,7 +42,7 @@ function buildNameToUniqueNameMap(exportData, dict) {
       if (displayName && !displayName.startsWith('/')) {
         const key = displayName.toLowerCase()
         if (!map[key]) map[key] = []
-        map[key].push(item.uniqueName)
+        map[key].push(itemUniqueName)
       }
     }
   }
@@ -435,6 +448,26 @@ function processDropsAll(index, DropsAll, nameMap) {
   }
 }
 
+// Baro-only relics have no active mission drop table in DropsAll (they're
+// sold directly by Baro, not dropped) - give their relic cards a truthful
+// source instead of falling through to the generic "no specific source" text.
+function processBaroRelics(index) {
+  const source = {
+    type: 'syndicate',
+    syndicateName: "Baro Ki'Teer",
+    place: 'Void Trader (Baro relic)',
+    source: 'baro',
+  }
+  for (const relicName of BARO_RELIC_NAMES) {
+    for (const key of [`display:${relicName.toLowerCase()}`, `display:${relicName.toLowerCase()} relic`]) {
+      if (!index[key]) index[key] = []
+      if (!index[key].some((existing) => JSON.stringify(existing) === JSON.stringify(source))) {
+        index[key].push(source)
+      }
+    }
+  }
+}
+
 export function buildDropIndex(exportData) {
   if (!exportData) return {}
 
@@ -514,6 +547,7 @@ export function buildDropIndex(exportData) {
   // ── New: warframe-drop-data ────────────────────────────────────────────
   const DropsAll = exportData.DropsAll
   processDropsAll(index, DropsAll, nameMap)
+  processBaroRelics(index)
 
   return index
 }

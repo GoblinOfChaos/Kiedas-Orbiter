@@ -32,18 +32,25 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
 
   const norm = dropIndexKey?.replace('/StoreItems/', '/');
   const displayLower = displayName?.toLowerCase().trim();
-  const dropSources = dropIndex?.[norm] || dropIndex?.[dropIndexKey] ||
-    (displayLower ? dropIndex?.['display:' + displayLower] : null) ||
-    // Relics have no real DE uniqueName the app can key on - their
-    // unique_name/name is a synthetic "<Era> <Category> Relic" string
-    // (inventoryParser.js). dropsParser.js indexes relic drop sources
-    // under the "<era> <category>" display key with the trailing " relic"
-    // already stripped (DropsAll's own mission-reward names say "Axi A21
-    // Relic", but ExportRelics' display name is just "Axi A21"), so query
-    // the same stripped form here too - confirmed live 2026-08-11 that
-    // without this, essentially no relics could ever match despite the
-    // index actually having their data.
-    (displayLower?.endsWith(' relic') ? dropIndex?.['display:' + displayLower.slice(0, -6)] : null);
+  const displayKeys = displayLower ? [
+    'display:' + displayLower,
+    ...(displayLower.endsWith(' relic') ? ['display:' + displayLower.slice(0, -6)] : []),
+  ] : [];
+  // Sources can exist under a real quality-specific DE path and under the
+  // synthetic display key used by the relic cards. Merge all keys so a
+  // partial exact match cannot hide mission sources in the fallback key.
+  const sourceKeys = [norm, dropIndexKey, ...displayKeys].filter(Boolean);
+  const dropSources = [];
+  const seenSources = new Set();
+  for (const key of sourceKeys) {
+    for (const source of dropIndex?.[key] || []) {
+      const signature = JSON.stringify(source);
+      if (!seenSources.has(signature)) {
+        seenSources.add(signature);
+        dropSources.push(source);
+      }
+    }
+  }
   if (dropSources && dropSources.length > 0) {
     return { sources: dropSources, wikiLink: getWikiLink(dropIndexKey, displayName) };
   }

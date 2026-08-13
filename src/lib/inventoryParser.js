@@ -508,11 +508,11 @@ const TYPE_TO_EXPORT_CATEGORY = {
 }
 
 const TYPE_TO_CATEGORY = {
-  Rifle: 'Rifle', Shotgun: 'Shotgun', Primary: 'Primary', Bows: 'Bows',
-  Pistol: 'Pistol', Secondary: 'Secondary',
-  Melee: 'Melee', Sword: 'Sword', Glaive: 'Glaive', Heavy: 'Heavy', NoFire: 'Melee',
+  Rifle: 'Primary', Shotgun: 'Primary', Primary: 'Primary', Bows: 'Primary',
+  Pistol: 'Secondary', Secondary: 'Secondary',
+  Melee: 'Melee', Sword: 'Melee', Glaive: 'Melee', Heavy: 'Melee', NoFire: 'Melee',
   Warframe: 'Warframe', Avatar: 'Warframe', Necramech: 'Vehicles', Necromech: 'Vehicles',
-  Sentinel: 'Sentinel', Sentinels: 'Sentinel',
+  Sentinel: 'Sentinels', Sentinels: 'Sentinels',
   Kubrow: 'Beasts', Kavat: 'Beasts',
   Beast: 'Beasts', Beasts: 'Beasts',
   Stance: 'Stance',
@@ -1210,13 +1210,18 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         : limit,
       mastery_xp,
       max_mastery_xp,
-      owned: !!sourceItem || !!xpMap[un],
+      // Warframe keeps lifetime affinity XP for a weapon even after it's sold
+      // or dissolved (mastery fodder) - xpMap having an entry means "was
+      // ranked up at some point", not "currently in inventory". `owned` must
+      // reflect current possession only; `mastered` above already carries
+      // the lifetime-XP signal correctly.
+      owned: !!sourceItem,
       mastered,
       subsumed: subsumedSet.has(un),
       is_prime: entry?.variantType === 'VT_PRIME' || /Prime$/i.test(un.split('/').filter(Boolean).at(-1) ?? ''),
       is_incarnon: incarnonSet.has(un),
       incarnon_evolution_level: evolutionLevels.get(un) ?? -1,
-      quantity: sourceItem?.ItemCount ?? (sourceItem || xpMap[un] ? 1 : 0),
+      quantity: sourceItem?.ItemCount ?? (sourceItem ? 1 : 0),
       formas: sourceItem?.Polarized ?? 0,
       components,
       ...sourceItem
@@ -2674,6 +2679,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
       // name → item index for O(1) lookups inside the recipe loop
       const nameToItem = new Map(all.map(i => [i.name, i]));
+      const equipmentCategories = new Set([
+        'warframes', 'primary', 'secondary', 'melee', 'sentinels', 'moas',
+        'hounds', 'beasts', 'robotics', 'companions', 'companion_weapons',
+        'archwings', 'archweapons', 'necramechs', 'kdrives', 'amps',
+      ]);
 
       // Process each recipe
       Object.entries(ERecipe ?? {}).forEach(([bpKey, recipe]) => {
@@ -2693,8 +2703,20 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         const isMainItemBP = (bpKey.includes('/Recipes/WarframeRecipes/') || bpKey.includes('/Recipes/ArchwingRecipes/')) && !bpKey.includes('Component');
         const isOwned = bpKey in ownedItemCounts;
 
-        // Show if owned, OR if it's a main item BP with owned components
-        let showBP = isOwned;
+        // The Foundry catalog needs every equipment recipe so an unowned item
+        // can still show its component circles and missing quantities. Keep
+        // non-equipment recipes out of the catalog, while retaining the
+        // existing owned/component-based behavior for other recipe consumers.
+        const catalogItem = nameToItem.get(resultName.replace(BLUEPRINT_SUFFIX[locale] ?? ' Blueprint', ''))
+          ?? nameToItem.get(resultName.replace(BLUEPRINT_SUFFIX[locale] ?? ' Blueprint', '') + ' Prime');
+        // Some modular companion parts (for example Aegron Gyro) have an
+        // export identity that does not resolve through the display-name
+        // index. Use the authoritative export tables as a second signal so
+        // their recipes are not dropped before the Foundry can display them.
+        const isExportedEquipment = [EW, EWf, ES].some((table) =>
+          table && Object.prototype.hasOwnProperty.call(table, recipe.resultType)
+        );
+        let showBP = isOwned || equipmentCategories.has(catalogItem?.category) || isExportedEquipment;
 
         // If it's a main BP and player doesn't own it, check if they own any component BPs for it
         if (isMainItemBP && !isOwned) {

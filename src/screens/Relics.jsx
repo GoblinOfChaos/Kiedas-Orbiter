@@ -43,7 +43,7 @@ export default function Relics() {
   const { openKey, toggle, close } = useAcquisitionDrawer();
   const [searchQuery, setSearchQuery] = useState('');
   const [ownershipFilter, setOwnershipFilter] = useState('all'); // 'all' | 'owned' | 'unowned'
-  const [vaultedFilter, setVaultedFilter] = useState('all'); // 'all' | 'vaulted' | 'unvaulted' | 'unknown'
+  const [vaultedFilter, setVaultedFilter] = useState('all'); // 'all' | 'vaulted' | 'unvaulted'
   const [activeEra, setActiveEra] = useState('All');
   const [activeQuality, setActiveQuality] = useState('All');
   const [squadSize, setSquadSize] = useState(1);
@@ -91,8 +91,7 @@ export default function Relics() {
 
     const matchVaulted = vaultedFilter === 'all'
       || (vaultedFilter === 'vaulted' && r.vaulted === true)
-      || (vaultedFilter === 'unvaulted' && r.vaulted === false)
-      || (vaultedFilter === 'unknown' && r.vaulted == null);
+      || (vaultedFilter === 'unvaulted' && r.vaulted === false);
     if (!matchVaulted) return false;
 
     const matchEra = activeEra === 'All' || r.era === activeEra;
@@ -278,7 +277,6 @@ export default function Relics() {
           <Tabs tabs={qualityTabs} activeTab={activeQuality} onChange={setActiveQuality} />
         </div>
 
-        {/* DE export variants may omit vaulted status; keep unknown distinct. */}
         <div className="flex items-center gap-2">
           <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Vault</span>
           <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
@@ -286,7 +284,6 @@ export default function Relics() {
               { id: 'all', label: 'All' },
               { id: 'vaulted', label: 'Vaulted' },
               { id: 'unvaulted', label: 'Unvaulted' },
-              { id: 'unknown', label: 'Unknown' },
             ].map((filter) => (
               <button
                 key={filter.id}

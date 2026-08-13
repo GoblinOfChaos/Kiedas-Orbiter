@@ -9,21 +9,13 @@
 //
 // Usage: node scripts/audit-acquisition-fallbacks.mjs
 //
-// KNOWN BLIND SPOT (2026-08-11): this script hand-replicates
-// buildDropIndex/getAcquisitionInfo's logic rather than importing the real
-// functions, and its replica has drifted from the real implementation at
-// least once already - it reported success for relic drop sources while
-// the live app still showed most relics falling through to the wiki
-// fallback (the real bug: sources were being indexed under real per-
-// quality DE uniqueNames the app can never query with, not under the
-// "display:<era> <category>" key the app's synthetic relic ids need -
-// fixed in 2476a81). If verifying a fix to dropsParser.js/
-// acquisitionInfo.js specifically, prefer importing and calling the real
-// buildDropIndex()/getAcquisitionInfo() functions directly against real
-// bundled export data instead of trusting this script's own totals.
+// This remains a Node-compatible audit copy because the browser source uses
+// extensionless Vite imports. Keep the lookup logic below synchronized with
+// acquisitionInfo.js and test it against the same export files the app loads.
 import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { BARO_RELIC_NAMES } from '../src/lib/baroRelics.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -46,13 +38,17 @@ function loadExport(name) {
     return null;
   }
 }
-const exportData = {
-  ExportRegions: loadExport('ExportRegions.json'),
-  ExportRewards: loadExport('ExportRewards.json'),
-  ExportRelics: loadExport('ExportRelics.json'),
-  dict: loadExport('dict.json'),
-  DropsAll: loadExport('DropsAll.json'),
-};
+const exportData = {};
+for (const name of [
+  'ExportRegions', 'ExportRewards', 'ExportRelics', 'ExportRecipes',
+  'ExportWarframes', 'ExportWeapons', 'ExportSentinels', 'ExportUpgrades',
+  'ExportAvionics', 'ExportArcanes', 'ExportResources', 'ExportCustoms',
+  'ExportGear', 'ExportFlavour', 'ExportSyndicates', 'ExportBoosterPacks',
+  'dict', 'DropsAll',
+]) {
+  exportData[name] = loadExport(`${name}.json`);
+}
+exportData.ExportUpgradesLocalized = loadExport('ExportUpgrades_en.json');
 
 // ── Replicate buildDropIndex (from src/lib/dropsParser.js) ────────────────
 function buildNameToUniqueNameMap(exportData, dict) {
@@ -60,15 +56,21 @@ function buildNameToUniqueNameMap(exportData, dict) {
   const tables = [
     'ExportWarframes', 'ExportWeapons', 'ExportSentinels', 'ExportUpgrades',
     'ExportAvionics', 'ExportArcanes', 'ExportResources', 'ExportRelics',
+    'ExportFocusUpgrades', 'ExportModSet', 'ExportUpgradesLocalized',
     'ExportCustoms', 'ExportGear', 'ExportFlavour', 'ExportSyndicates',
     'ExportBoosterPacks',
   ];
   for (const tblName of tables) {
-    const data = exportData[tblName];
+    const rawData = exportData[tblName];
+    const data = rawData?.[tblName] ?? rawData;
     if (!data) continue;
-    const items = Array.isArray(data) ? data : Object.values(data);
-    for (const item of items) {
-      if (!item || !item.uniqueName) continue;
+    const items = Array.isArray(data)
+      ? data.map((item) => [null, item])
+      : Object.entries(data);
+    for (const [entryKey, item] of items) {
+      if (!item) continue;
+      const itemUniqueName = item.uniqueName || item.ItemType || entryKey;
+      if (!itemUniqueName) continue;
       const locKey = item.name || item.displayName;
       if (!locKey) continue;
       const resolved = dict[locKey] || dict['/' + locKey] || '';
@@ -76,7 +78,7 @@ function buildNameToUniqueNameMap(exportData, dict) {
       if (displayName && !displayName.startsWith('/')) {
         const key = displayName.toLowerCase();
         if (!map[key]) map[key] = [];
-        map[key].push(item.uniqueName);
+        map[key].push(itemUniqueName);
       }
     }
   }
@@ -383,6 +385,16 @@ function processDropsAll(index, DropsAll, nameMap) {
   }
 }
 
+function processBaroRelics(index) {
+  const source = { type: 'syndicate', syndicateName: "Baro Ki'Teer", place: 'Void Trader (Baro relic)', source: 'baro' };
+  for (const relicName of BARO_RELIC_NAMES) {
+    for (const key of [`display:${relicName.toLowerCase()}`, `display:${relicName.toLowerCase()} relic`]) {
+      if (!index[key]) index[key] = [];
+      if (!index[key].some((existing) => JSON.stringify(existing) === JSON.stringify(source))) index[key].push(source);
+    }
+  }
+}
+
 function buildDropIndex(exportData) {
   if (!exportData) return {};
   const ERg = exportData.ExportRegions;
@@ -440,6 +452,7 @@ function buildDropIndex(exportData) {
   }
   const DropsAll = exportData.DropsAll;
   processDropsAll(index, DropsAll, nameMap);
+  processBaroRelics(index);
   return index;
 }
 
@@ -460,16 +473,31 @@ function getAcquisitionInfo(dropIndexKey, displayName) {
   const overrideText = overrides?.mods?.[displayName] ?? overrides?.components?.[dropIndexKey];
   if (overrideText) return { stage: 'override', sources: [{ type: 'override', text: overrideText }] };
   const norm = dropIndexKey?.replace('/StoreItems/', '/');
-  const dropSources = dropIndex?.[norm] || dropIndex?.[dropIndexKey] ||
-    (displayName ? dropIndex?.['display:' + displayName.toLowerCase().trim()] : null);
+  const displayLower = displayName?.toLowerCase().trim();
+  const displayKeys = displayLower ? [
+    'display:' + displayLower,
+    ...(displayLower.endsWith(' relic') ? ['display:' + displayLower.slice(0, -6)] : []),
+  ] : [];
+  const sourceKeys = [norm, dropIndexKey, ...displayKeys].filter(Boolean);
+  const dropSources = [];
+  const seenSources = new Set();
+  for (const key of sourceKeys) {
+    for (const source of dropIndex?.[key] || []) {
+      const signature = JSON.stringify(source);
+      if (!seenSources.has(signature)) {
+        seenSources.add(signature);
+        dropSources.push(source);
+      }
+    }
+  }
   if (dropSources && dropSources.length > 0) return { stage: 'dropIndex', sources: dropSources };
   return { stage: 'wiki-fallback', sources: [] };
 }
 
-// ── Gather the items each screen would show ───────────────────────────────
-// Mods screen: inventoryData.mods_catalog ?? inventoryData.mods
-// Relics screen: getRelicCatalog(exportData) merged with owned
-// Inventory screen: various catalogs
+// ── Gather the items each screen can show ─────────────────────────────────
+// The warframe-items categories provide broad coverage for Mods/Inventory.
+// Relics are additionally built from DE's complete ExportRelics catalog so
+// the report uses the same one-row-per-relic shape as src/screens/Relics.jsx.
 
 // For the audit, we use the full warframe-items data as a proxy for what
 // the screens can show (mods, relics, weapons, etc.), since we don't have
@@ -480,7 +508,7 @@ const wiBase = resolve(ROOT, 'node_modules/warframe-items/data/json');
 const auditCategories = [
   'Mods', 'Arcanes', 'Warframes', 'Primary', 'Secondary', 'Melee',
   'Archwing', 'Arch-Gun', 'Arch-Melee', 'Sentinels', 'SentinelWeapons',
-  'Relics', 'Gear', 'Resources', 'Fish', 'Sigils', 'Skins', 'Misc',
+  'Gear', 'Resources', 'Fish', 'Sigils', 'Skins', 'Misc',
   'Railjack', 'Pets', 'Quests',
 ];
 
@@ -514,6 +542,28 @@ for (const cat of auditCategories) {
       fallbackDetails.push({ cat, uniqueName: item.uniqueName, name, reason, inExtraction, hasWIDrops, inDropIndex: !!inDropIndex });
     }
   }
+}
+
+const relicEntries = exportData.ExportRelics && typeof exportData.ExportRelics === 'object'
+  ? Object.entries(exportData.ExportRelics) : [];
+const seenRelics = new Set();
+for (const [uniqueName, entry] of relicEntries) {
+  if (!entry?.era || !entry.category) continue;
+  const key = `${entry.era} ${entry.category}`;
+  if (seenRelics.has(key)) continue;
+  seenRelics.add(key);
+  const name = `${key} Relic`;
+  const res = getAcquisitionInfo(uniqueName, name);
+  if (res.stage === 'wiki-fallback') {
+    const vaulted = Number.isFinite(entry.vaultedAt) && entry.vaultedAt <= Math.floor(Date.now() / 1000);
+    fallbackDetails.push({
+      cat: 'Relics', uniqueName, name,
+      reason: vaulted ? 'vaulted relic has no active drop source' : 'relic has no matched drop source',
+      inExtraction: itemIndex.has(uniqueName), hasWIDrops: false,
+      inDropIndex: false, vaulted,
+    });
+  }
+  results[res.stage].push({ cat: 'Relics', uniqueName, name });
 }
 
 // ── Report ────────────────────────────────────────────────────────────────
@@ -551,6 +601,72 @@ const report = {
   totals: Object.fromEntries(Object.entries(results).map(([k, v]) => [k, v.length])),
   fallbackDetails,
 };
-const { writeFileSync } = await import('node:fs');
+const { mkdirSync, writeFileSync } = await import('node:fs');
 writeFileSync(outPath, JSON.stringify(report, null, 2), 'utf-8');
 console.log(`\nFull report written to ${outPath}`);
+
+// A human-facing list of the exact literal fallback message. Vaulted relics
+// are intentionally excluded because the drawer shows a different, accurate
+// message for them ("Relic is Vaulted, no drop locations").
+const literalFallbacks = fallbackDetails
+  .filter((item) => item.reason !== 'vaulted relic has no active drop source')
+  .sort((a, b) => a.cat.localeCompare(b.cat) || a.name.localeCompare(b.name) || a.uniqueName.localeCompare(b.uniqueName));
+const byCategory = {};
+for (const item of literalFallbacks) (byCategory[item.cat] ||= []).push(item);
+const markdown = [
+  '# Acquisition drawer: literal wiki-fallback list',
+  '',
+  `Generated: ${new Date().toISOString()}`,
+  '',
+  'These are the audited items that reach `No specific source known - try the wiki link below.`.',
+  'Vaulted relics are excluded because they use the separate vaulted message.',
+  '',
+  `Total: **${literalFallbacks.length}**`,
+  '',
+];
+for (const [category, items] of Object.entries(byCategory)) {
+  markdown.push(`## ${category} (${items.length})`, '');
+  markdown.push('| Name | Unique name | Reason |', '|---|---|---|');
+  for (const item of items) {
+    markdown.push(`| ${item.name.replace(/\|/g, '\\|')} | \`${item.uniqueName}\` | ${item.reason} |`);
+  }
+  markdown.push('');
+}
+const markdownPath = resolve(ROOT, 'scripts/data-sources/acquisition-wiki-fallback-list.md');
+writeFileSync(markdownPath, markdown.join('\n'), 'utf-8');
+console.log(`Human-readable fallback list written to ${markdownPath}`);
+
+// Also emit one file per category so large audits can be reviewed incrementally.
+const byTypeDir = resolve(ROOT, 'scripts/data-sources/acquisition-wiki-fallback-by-type');
+mkdirSync(byTypeDir, { recursive: true });
+const slugify = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const typeIndex = [
+  '# Acquisition drawer fallback list by type',
+  '',
+  `Generated: ${new Date().toISOString()}`,
+  '',
+  `Total literal-fallback entries: **${literalFallbacks.length}**`,
+  '',
+  '| Type | Count | File |',
+  '|---|---:|---|',
+];
+for (const [category, items] of Object.entries(byCategory).sort(([a], [b]) => a.localeCompare(b))) {
+  const filename = `${slugify(category)}.md`;
+  const lines = [
+    `# ${category} — literal wiki-fallback items`,
+    '',
+    'These items reach `No specific source known - try the wiki link below.` in the audited acquisition chain.',
+    '',
+    `Total: **${items.length}**`,
+    '',
+    '| Name | Unique name | Reason |',
+    '|---|---|---|',
+    ...items.map((item) => `| ${item.name.replace(/\|/g, '\\|')} | \`${item.uniqueName}\` | ${item.reason} |`),
+    '',
+  ];
+  writeFileSync(resolve(byTypeDir, filename), lines.join('\n'), 'utf-8');
+  typeIndex.push(`| ${category} | ${items.length} | [${filename}](./${filename}) |`);
+}
+typeIndex.push('');
+writeFileSync(resolve(byTypeDir, 'README.md'), typeIndex.join('\n'), 'utf-8');
+console.log(`Per-type fallback files written to ${byTypeDir}`);

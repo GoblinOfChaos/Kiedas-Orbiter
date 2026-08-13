@@ -45,6 +45,11 @@ pub struct AppState {
     pub active_wiki_tab: Arc<parking_lot::Mutex<std::collections::HashMap<String, String>>>,
     pub wiki_tabs: parking_lot::Mutex<Vec<WikiTabInfo>>,
     pub main_window_monitor: parking_lot::Mutex<Option<tauri::Monitor>>,
+    // Serializes every settings.json read-modify-write across all windows.
+    // Without this, two windows racing their own independent read-then-write
+    // (main, sidebar overlay, relic overlay all persist settings on startup)
+    // can silently drop each other's keys - confirmed live data loss.
+    pub settings_lock: Arc<Mutex<()>>,
 }
 
 #[derive(Default, Clone)]
@@ -2433,14 +2438,53 @@ fn log_timing(label: String) {
 }
 
 /// Save a JSON settings object to data/user/settings.json.
+///
+/// This replaces the whole file with exactly what the caller passes in, so
+/// it's only safe for callers that just read the latest state first (see
+/// set_setting below for the common single-key update, which is atomic).
 #[tauri::command]
 async fn save_settings(app_handle: tauri::AppHandle, settings: Value) -> Result<(), String> {
+    let state = app_handle.state::<AppState>();
+    let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
     let settings_dir = resolve_path("data/user");
     if !settings_dir.exists() {
         fs::create_dir_all(&settings_dir).map_err(|e| e.to_string())?;
     }
     let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
     fs::write(settings_dir.join("settings.json"), content).map_err(|e| e.to_string())?;
+    drop(_guard);
+    app_handle.emit("settings-changed", ()).map_err(|e| e.to_string())
+}
+
+/// Atomically update a single settings key: read the current file, merge in
+/// this one key, write it back - all while holding settings_lock, so two
+/// windows updating different keys at the same moment can never drop each
+/// other's write (unlike a JS-side read-then-save_settings round trip,
+/// which has no way to serialize across separate window/webview contexts).
+#[tauri::command]
+async fn set_setting(app_handle: tauri::AppHandle, key: String, value: Value) -> Result<(), String> {
+    let state = app_handle.state::<AppState>();
+    let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
+    let settings_dir = resolve_path("data/user");
+    if !settings_dir.exists() {
+        fs::create_dir_all(&settings_dir).map_err(|e| e.to_string())?;
+    }
+    let path = settings_dir.join("settings.json");
+    let mut settings: Value = if path.exists() {
+        fs::read_to_string(&path)
+            .ok()
+            .and_then(|s| serde_json::from_str(&s).ok())
+            .unwrap_or_default()
+    } else {
+        serde_json::json!({})
+    };
+    if !settings.is_object() {
+        settings = serde_json::json!({});
+    }
+    settings[key] = value;
+    let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
+    fs::write(&path, content).map_err(|e| e.to_string())?;
+    drop(_guard);
     app_handle.emit("settings-changed", ()).map_err(|e| e.to_string())
 }
 
@@ -3229,6 +3273,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             main_window_monitor: parking_lot::Mutex::new(None),
             active_wiki_tab: Arc::new(parking_lot::Mutex::new(std::collections::HashMap::new())),
             wiki_tabs: parking_lot::Mutex::new(Vec::new()),
+            settings_lock: Arc::new(Mutex::new(())),
         })
         .on_window_event(|window, event| match event {
             tauri::WindowEvent::CloseRequested { api, .. } => {
@@ -3450,6 +3495,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             download_appimage_update,
             get_platform_info,
             save_settings,
+            set_setting,
             load_settings,
             log_terminal,
             set_hotkeys,

@@ -68,17 +68,21 @@ export async function loadSettings() {
 /**
  * Update a specific setting and persist it.
  *
- * Always re-reads from disk first instead of trusting this window's
- * in-memory cache: multiple windows (main, sidebar overlay, relic overlay)
- * each keep their own cachedSettings, and writing a stale snapshot back
- * silently erases whatever keys another window saved in the meantime
- * (confirmed live: warframe_cache_path and a first-run flag were lost this
- * way after a rebuild - one window's stale cache clobbered another's write).
+ * Delegates the read-modify-write to a single Rust command (set_setting)
+ * that holds a backend-side mutex for the whole operation. A JS-side
+ * "read fresh, then save_settings" isn't enough on its own: multiple
+ * windows (main, sidebar overlay, relic overlay) each run their own JS
+ * context, so two windows can both read-fresh within milliseconds of each
+ * other and then each save, with the second call clobbering the first's
+ * key - confirmed live (warframe_cache_path and a first-run flag were
+ * wiped this way after a rebuild). Only a lock shared across windows,
+ * which only the single Rust backend process can hold, closes that gap.
  */
 export async function setSetting(key, value) {
-  const fresh = await invoke('load_settings').catch(() => cachedSettings || {}) || {}
-  cachedSettings = { ...fresh, [key]: value }
-  await saveSettings(cachedSettings)
+  await invoke('set_setting', { key, value }).catch((err) => console.error('Failed to save setting:', err))
+  // Optimistic local update for this window's synchronous getSetting() reads;
+  // other windows pick up the real change via the settings-changed listener.
+  cachedSettings = { ...(cachedSettings || {}), [key]: value }
 }
 
 /**

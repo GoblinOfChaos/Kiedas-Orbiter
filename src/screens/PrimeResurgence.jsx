@@ -3,6 +3,7 @@ import { Search } from 'lucide-react'
 import { PageLayout, Card, Input } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { resolveAnyImage } from '../lib/warframeUtils'
+import ItemImage from '../components/ItemImage'
 
 // Bundle packages (e.g. "MegaPrimeVault/MPVRevenantPrimeSinglePack") aren't
 // individually-owned inventory items - only the direct StoreItems entries
@@ -23,11 +24,7 @@ function ItemCard({ item }) {
         <p className="text-[13px] font-medium truncate">{item.name}</p>
       </div>
       <div className={`relative h-[100px] flex items-center justify-center px-2 ${owned ? '' : 'grayscale opacity-70'}`}>
-        {item.icon ?
-          <img src={item.icon} alt="" className="max-w-full max-h-full object-contain" onError={(e) => { e.target.style.display = 'none' }} />
-        :
-          <div className="w-full h-full bg-white/5 rounded-lg" />
-        }
+        <ItemImage src={item.icon} className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full bg-white/5 rounded-lg" />
         <span className={`absolute bottom-1 left-1 text-[8px] font-black rounded-full px-1.5 py-0.5 ${owned ? 'bg-emerald-400 text-black' : 'bg-black/60 text-kronos-dim'}`}>{owned ? 'OWNED' : 'MISSING'}</span>
         {typeof item.ducats === 'number' &&
           <span className="absolute bottom-1 right-1 text-[8px] font-black rounded-full px-1.5 py-0.5 bg-black/60 text-amber-300">{item.ducats}d</span>

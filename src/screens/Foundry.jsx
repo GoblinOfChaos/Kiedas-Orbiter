@@ -3,6 +3,7 @@ import { Check, Hammer, Search, Star } from 'lucide-react'
 import { PageLayout, Card, Input, Tabs, MonitorState } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { resolveAnyImage } from '../lib/warframeUtils'
+import ItemImage from '../components/ItemImage'
 
 const CATEGORIES = [
   { id: 'all', label: 'All', keys: null },
@@ -57,14 +58,14 @@ function ItemCard({ item, recipe, selected, onClick }) {
     </div>
     <div className="relative h-[112px] flex items-center px-2">
       <div className={`relative w-[45%] h-full flex items-end justify-center ${owned ? '' : 'grayscale opacity-70'}`}>
-        {item.image ? <img src={item.image} alt="" className="max-w-full max-h-full object-contain object-bottom" onError={(e) => { e.currentTarget.style.display = 'none' }} /> : <div className="w-full h-full bg-white/5 rounded-lg" />}
+        <ItemImage src={item.image} className="max-w-full max-h-full object-contain object-bottom" placeholderClassName="w-full h-full bg-white/5 rounded-lg" />
         <span className={`absolute bottom-1 left-1 text-[8px] font-black rounded-full px-1.5 py-0.5 ${owned ? 'bg-emerald-400 text-black' : 'bg-black/60 text-kronos-dim'}`}>{owned ? 'OWNED' : 'MISSING'}</span>
       </div>
       <div className="w-[55%] flex flex-wrap items-center justify-center gap-1 px-1">
         {components.map((component) => {
           const complete = component.have >= component.need
           return <span key={component.itemType || component.name} className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 flex items-center justify-center ${complete ? 'border-emerald-400' : 'border-white/15 bg-black/15'}`} title={`${component.name}: ${formatCount(component.have)}/${formatCount(component.need)}`}>
-            {component.image ? <img src={component.image} alt="" className="w-6 h-6 sm:w-7 sm:h-7 object-contain rounded-full" /> : <span className="w-5 h-5 rounded-full bg-white/10" />}
+            <ItemImage src={component.image} className="w-6 h-6 sm:w-7 sm:h-7 object-contain rounded-full" placeholderClassName="w-5 h-5 rounded-full bg-white/10" />
             <span className={`absolute -bottom-1 -right-1 text-[7px] rounded-full px-0.5 leading-3 min-w-5 text-center font-black ${complete ? 'bg-emerald-400 text-black' : 'bg-black text-white/70'}`}>{formatCount(component.have)}/{formatCount(component.need)}</span>
           </span>
         })}
@@ -84,7 +85,7 @@ function RecipeDrawer({ item, recipe, onClose }) {
       <div className="max-w-6xl mx-auto px-6 py-4 max-h-[52vh] overflow-y-auto">
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-3 min-w-0">
-            {item.image && <img src={item.image} alt="" className="w-12 h-12 object-contain rounded-lg bg-black/20" />}
+            <ItemImage src={item.image} className="w-12 h-12 object-contain rounded-lg bg-black/20" placeholderClassName="" />
             <div className="min-w-0"><h2 className="font-black uppercase truncate">{item.name}</h2><p className="text-[10px] text-kronos-dim uppercase">{item.category || 'Equipment'}</p></div>
           </div>
           <button onClick={onClose} className="text-kronos-dim hover:text-white text-xs font-bold uppercase">Close</button>
@@ -100,7 +101,7 @@ function RecipeDrawer({ item, recipe, onClose }) {
             {(recipe.ingredients || []).map((ingredient) => {
               const complete = ingredient.have >= ingredient.need
               return <div key={ingredient.itemType || ingredient.name} className="flex items-center gap-2 rounded-lg bg-black/20 p-2">
-                {ingredient.image && <img src={ingredient.image} alt="" className="w-8 h-8 object-contain" />}
+                <ItemImage src={ingredient.image} className="w-8 h-8 object-contain" placeholderClassName="" />
                 <span className="text-[11px] flex-1 truncate">{ingredient.name}</span>
                 <span className={`text-[10px] font-black ${complete ? 'text-emerald-400' : 'text-red-400'}`}>{formatCount(ingredient.have)}/{formatCount(ingredient.need)}</span>
               </div>

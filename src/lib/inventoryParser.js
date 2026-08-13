@@ -546,6 +546,14 @@ function extractModCategory(exportType, un, entry) {
     if (un.includes('/Pets/BeastWeapons/')) return 'Beasts'
     const m2 = un.match(/\/Mods\/(?:Sets|PvPMods)\/([^/]+)/)
     if (m2 && TYPE_TO_CATEGORY[m2[1]]) return TYPE_TO_CATEGORY[m2[1]]
+    // AP_TACTIC polarity means Exilus slot mods. Real Exilus mods (Rush,
+    // Handspring, Maglev, ...) live under the same /Mods/Warframe/ path as
+    // every other Warframe mod, so this must be checked before the generic
+    // path fallback below - otherwise the generic match always wins and
+    // classifies them as plain 'Warframe' mods, silently emptying the
+    // Exilus category of everything but the few whose uniqueName literally
+    // contains "ExilusMod" (checked above).
+    if (entry?.polarity === 'AP_TACTIC') return 'Exilus'
     const m = un.match(/\/Mods\/([^/]+)/)
     if (m && TYPE_TO_CATEGORY[m[1]]) return TYPE_TO_CATEGORY[m[1]]
   }
@@ -555,8 +563,6 @@ function extractModCategory(exportType, un, entry) {
   if (exportType && exportType !== '---' && TYPE_TO_EXPORT_CATEGORY[exportType]) {
     return TYPE_TO_EXPORT_CATEGORY[exportType]
   }
-  // AP_TACTIC polarity means Exilus slot mods (last resort - don't override explicit type/checks)
-  if (entry?.polarity === 'AP_TACTIC') return 'Exilus'
   return null
 }
 
@@ -1723,8 +1729,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     const isArcane = (un.includes('CosmeticEnhancers') && !un.includes('CosmeticEnhancers/Peculiars')) || un.includes('/Arcane/') || un.toLowerCase().includes('arcane');
     if (isArcane) continue;
     const owned = ownedModsByKey.get(canonicalUniqueName(un));
+    // The acquisition dataset is for enrichment (how-to-get info) below)
+    // only - it must never gate whether a mod appears in the browsable
+    // catalog at all. Its coverage is thin for whole categories (Stance,
+    // Exilus, etc.), and gating on it silently dropped every unowned mod
+    // in those categories from the list entirely.
     const acquisition = acquisitionModsByKey.get(canonicalUniqueName(un));
-    if (acquisitionModsByKey.size && !acquisition && !owned) continue;
     const mod = owned ? { ...owned } : createItem(un, 'mods', [EM], [EM]);
     const name = mod.name || nameFromPath(un);
     if (!name || name.startsWith('/Lotus/')) {

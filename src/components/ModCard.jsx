@@ -276,7 +276,11 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const color = mf === 'Tektolyst' ? TEKTOLYST_TEXT_COLORS[mod.name] || TIER_COLORS[mf] || '#FFFFFF' : TIER_COLORS[mf] || '#FFFFFF';
   const tektolystGroup = mf === 'Tektolyst' ? TEKTOLYST_COLOR_GROUPS[mod.name] || 'Silver' : null;
   const cardScale = width / 180;
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
+  const iconSrc = (name) => {
+    if (!iconsPath) return null;
+    const cleanName = String(name).replace(/^\/+/, '');
+    return convertFileSrc(`${iconsPath}/${cleanName.endsWith('.png') ? cleanName : `${cleanName}.png`}`);
+  };
   const resolveTagIcon = (name) => MISSING_TAG_ICON_CDN[name] || iconSrc(name);
 
   const tagIconMap = useMemo(() => {

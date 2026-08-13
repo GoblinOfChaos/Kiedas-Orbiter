@@ -16,6 +16,7 @@ import LanguagePicker from './components/LanguagePicker';
 const NAV_ITEMS = [
 { id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },
 { id: 'inventory', icon: 'IconInventory.png', label: 'Inventory' },
+{ id: 'foundry', icon: 'IconFoundry.png', label: 'Foundry' },
 { id: 'mods', icon: 'Mods.png', label: 'Mods' },
 { id: 'rivens', icon: 'IconRiven.png', label: 'Rivens' },
 { id: 'relics', icon: 'IconRelic.png', label: 'Relics' },
@@ -24,6 +25,7 @@ const NAV_ITEMS = [
 { id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
 { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
 { id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
+{ id: 'prime-resurgence', icon: 'BaroKiTeerFlat.png', label: 'Prime Resurgence' },
 { id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
 { id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },
 { id: 'wiki', icon: 'Wiki.png', label: 'Wiki' },
@@ -64,6 +66,7 @@ function useUIIcons(iconNames) {
 // Screens (lazy-loaded, main window only)
 const Dashboard = lazy(() => import('./screens/Dashboard'));
 const Inventory = lazy(() => import('./screens/Inventory'));
+const Foundry = lazy(() => import('./screens/Foundry'));
 const Mastery = lazy(() => import('./screens/Mastery'));
 const Notes = lazy(() => import('./screens/Notes'));
 const Maps = lazy(() => import('./screens/Maps'));
@@ -75,6 +78,7 @@ const Relics = lazy(() => import('./screens/Relics'));
 const RelicPlanner = lazy(() => import('./screens/RelicPlanner'));
 const Mods = lazy(() => import('./screens/Mods'));
 const Collectibles = lazy(() => import('./screens/Collectibles'));
+const PrimeResurgence = lazy(() => import('./screens/PrimeResurgence'));
 const Wiki = lazy(() => import('./screens/Wiki'));
 const Adversaries = lazy(() => import('./screens/Adversaries'));
 // Overlay (separate window, no monitoring context needed)
@@ -304,6 +308,7 @@ function AppContent() {
   const screens = {
     dashboard: <Dashboard />,
     inventory: <Inventory />,
+    foundry: <Foundry />,
     rivens: <Rivens />,
     relics: <Relics />,
     'relic-planner': <RelicPlanner />,
@@ -312,6 +317,7 @@ function AppContent() {
     notes: <Notes />,
     maps: <Maps />,
     collectibles: <Collectibles />,
+    'prime-resurgence': <PrimeResurgence />,
     checklist: <Checklist />,
     settings: <SettingsScreen />,
     about: <About />,

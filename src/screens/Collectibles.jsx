@@ -70,9 +70,12 @@ function Subpanel({ cat, items, onClose }) {
             <div className="divide-y divide-white/5">
               {items.map((item, i) => (
                 <div key={item.key ?? i} className="flex items-center gap-3 px-4 py-2.5">
-                  <div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.found ? 'bg-emerald-400' : 'bg-white/10'}`} />
+                  <div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.found === true ? 'bg-emerald-400' : item.found === null ? 'bg-amber-300/60' : 'bg-white/10'}`} title={item.found === null ? 'Individual scan status unavailable' : undefined} />
                   {item.icon && <img src={item.icon} alt="" className="w-7 h-7 rounded object-cover flex-shrink-0" />}
-                  <span className="text-sm text-white/80 truncate flex-1">{item.name}</span>
+                  <div className="min-w-0 flex-1">
+                    <span className="block text-sm text-white/80 truncate">{item.name}</span>
+                    {item.location && <span className="block text-xs text-kronos-dim truncate">{item.location}</span>}
+                  </div>
                   {item.found && (
                     <svg className="w-4 h-4 text-emerald-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
                   )}
@@ -127,8 +130,12 @@ export default function Collectibles() {
   const [uiPath, setUiPath] = useState('')
   const [selectedCat, setSelectedCat] = useState(null)
   const [subpanelItems, setSubpanelItems] = useState([])
+  const [collectibleLocations, setCollectibleLocations] = useState({})
   useEffect(() => {
     invoke('get_ui_path').then(setUiPath).catch(() => { })
+    invoke('read_file_bytes', { relative: 'data/assets/data/collectible-locations.json' })
+      .then((bytes) => setCollectibleLocations(JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))))
+      .catch(() => setCollectibleLocations({}))
   }, [])
 
   const collectibleSeries = inventoryData?.collectibleSeries ?? []
@@ -164,11 +171,21 @@ export default function Collectibles() {
     }
     return {
       ...card,
-      onClick: () => openSubpanel(card, () => [
-        { key: 'placeholder', name: `Found ${card.count} of ${card.total}`, found: true },
-      ]),
+      onClick: () => openSubpanel(card, () => Array.from({ length: card.total }, (_, i) => {
+        const itemKey = `${Math.floor(i / 4) + 1}-${(i % 4) + 1}`
+        const data = collectibleLocations.series?.[cat.key]?.[itemKey]
+        return {
+          key: itemKey,
+          name: data?.name || `${cat.label} ${itemKey}`,
+          location: data?.location,
+          // The game payload reports a fixed 90-slot bitset, but does not
+          // expose the mapping from those slots to the current 56 Kurias.
+          // Leave individual status unknown until that mapping is sourced.
+          found: null,
+        }
+      })),
     }
-  }), [collectibleSeries, uiPath, openSubpanel])
+  }), [collectibleSeries, collectibleLocations, uiPath, openSubpanel])
 
   const markerCards = useMemo(() => CATEGORIES.filter(c => c.type === 'marker').map((cat) => {
     const m = discoveredMarkers.find(m => m.tag === cat.key)

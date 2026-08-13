@@ -69,7 +69,7 @@ export default function Relics() {
     }));
     return getRelicCatalog(exportData, 'en').map((c) => {
       const existing = ownedByKey.get(`${c.era} ${c.name}`);
-      if (existing) return existing;
+      if (existing) return { ...existing, vaulted: c.vaulted };
       return {
         unique_name: c.uniqueName,
         name: `${c.era} ${c.name} Relic`,

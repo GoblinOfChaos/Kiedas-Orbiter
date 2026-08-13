@@ -12,41 +12,13 @@ import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/Acquisiti
 const CARD_WIDTH = 200;
 const COL_GAP = 50;
 
-const TYPE_TO_CATEGORY = {
-  Rifle: 'Primary', Shotgun: 'Primary', Primary: 'Primary', Bows: 'Primary',
-  Pistol: 'Secondary', Secondary: 'Secondary',
-  Melee: 'Melee', Sword: 'Melee', Glaive: 'Melee', Heavy: 'Melee', NoFire: 'Melee',
-  Warframe: 'Warframe', Avatar: 'Warframe', Necramech: 'Vehicles', Necromech: 'Vehicles',
-  Sentinel: 'Sentinels', Sentinels: 'Sentinels',
-  Beast: 'Beasts', Beasts: 'Beasts',
-  Stance: 'Stance',
-  Aura: 'Aura',
-  Exilus: 'Exilus',
-  Railjack: 'Railjack', Avionic: 'Railjack',
-  Archwing: 'Archgun', Archgun: 'Archgun',
-  Archmelee: 'Archmelee',
-  Parazon: 'Parazon', Hack: 'Parazon', DataSpike: 'Parazon', Nemesis: 'Parazon',
-  Augment: 'Augment',
-  Antique: 'Antique', Antiques: 'Antique', Immortal: 'Antique',
-  KDrive: 'Vehicles', Vehicles: 'Vehicles', Hoverboard: 'Vehicles'
-};
-
-function extractModCategory(un) {
-  if (!un) return null;
-  const m2 = un.match(/\/Mods\/(?:Sets|PvPMods)\/([^/]+)/);
-  if (m2 && TYPE_TO_CATEGORY[m2[1]]) return TYPE_TO_CATEGORY[m2[1]];
-  const m = un.match(/\/Mods\/([^/]+)/);
-  if (!m) return null;
-  return TYPE_TO_CATEGORY[m[1]] || null;
-}
-
 export default function Mods() {
   const { t } = useUi()
   const CATEGORIES = [
     t('mods.cat_all'), t('mods.cat_warframe'), t('mods.cat_primary'), t('mods.cat_secondary'), t('mods.cat_melee'),
     t('mods.cat_sentinels'), t('mods.cat_beasts'), t('mods.cat_stance'), t('mods.cat_aura'), t('mods.cat_exilus'),
     t('mods.cat_railjack'), t('mods.cat_archgun'), t('mods.cat_archmelee'), t('mods.cat_parazon'),
-    t('mods.cat_augment'), t('mods.cat_antique'), t('mods.cat_vehicles')];
+    t('mods.cat_augment'), t('mods.cat_antique'), t('mods.cat_vehicles'), 'Arcanes'];
 
   const SORT_OPTIONS = [
     { id: 'name', label: t('mods.sort_name') },
@@ -77,7 +49,10 @@ export default function Mods() {
   const [maxRankOnly, setMaxRankOnly] = useState(false);
   const [hideConclave, setHideConclave] = useState(false);
   const [visibleCount, setVisibleCount] = useState(60);
-  const mods = inventoryData?.mods_catalog ?? inventoryData?.mods ?? [];
+  const mods = useMemo(() => [
+    ...(inventoryData?.mods_catalog ?? inventoryData?.mods ?? []),
+    ...(inventoryData?.arcanes_catalog ?? []),
+  ], [inventoryData]);
   const modPrices = allPrices;
   const loadingPrices = isPriceLoading;
 

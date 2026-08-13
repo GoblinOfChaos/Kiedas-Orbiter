@@ -9,6 +9,12 @@ function getSourceLabel(source) {
   switch (source.type) {
     case 'override':
       return source.text || 'Known source';
+    case 'wiki':
+      return source.text || 'Wiki acquisition information';
+    case 'wiki-status':
+      return source.text || 'Warframe Wiki status';
+    case 'blueprint':
+      return `${source.location || 'Foundry'}${source.blueprintName ? ` - ${source.blueprintName}` : ''}`;
     case 'drop':
       return [source.location, source.dropType && `(${source.dropType})`].filter(Boolean).join(' ') || 'Known drop source';
     case 'relic':

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useUi } from '../../contexts/UiContext'
 import { Card } from '../UI';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Check } from 'lucide-react';
 import { listen } from '@tauri-apps/api/event';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { getPrice } from '../../lib/marketEngine';
@@ -321,10 +321,12 @@ function RewardSlot({ confirmed, isLocal, price }) {
   const subcomponents = inv.subcomponents || [];
   const displayName = confirmed.confirmed_reward;
   const isCountLayout = isRequiem || isForma || FISSURE_BONUS_REWARDS.has(displayName);
+  const itemIcon = item?.icon || null;
 
   if (isCountLayout) {
     return (
       <div className="rounded-xl border overflow-hidden flex flex-col mx-1 transition-all border-white/5 bg-black/40 min-h-[180px]">
+        <ItemArt icon={itemIcon} owned={inv.craftedCount} />
         <div className="px-2.5 pt-2.5">
           <div className="text-[11px] font-black text-white uppercase leading-tight mb-3 text-center tracking-tight">
             {displayName}
@@ -349,6 +351,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
   // Normal items - original structure unchanged
   return (
     <div className="rounded-xl border overflow-hidden flex flex-col mx-1 transition-all border-white/5 bg-black/40">
+      <ItemArt icon={itemIcon} owned={inv.craftedCount} />
       {/* Reward Name */}
       <div className="px-2.5 pt-2.5 pb-2">
         <div className="text-[11px] font-black text-white uppercase leading-tight mb-2 text-center tracking-tight">
@@ -396,18 +399,34 @@ function RewardSlot({ confirmed, isLocal, price }) {
       {/* Divider */}
       {!isRequiem && <div className="border-t border-white/5" />}
 
-      {/* Component card a la foundry */}
+      {/* Component circles a la foundry */}
       {!isRequiem && subcomponents.length > 0 &&
-      <div className="bg-black/20">
-          <div className="divide-y divide-white/5">
-            {subcomponents.map((comp, idx) =>
-          <ComponentRow key={idx} comp={comp} />
-          )}
-          </div>
+      <div className="flex flex-wrap items-center justify-center gap-1.5 px-2.5 pb-2.5">
+          {subcomponents.map((comp, idx) => <ComponentBadge key={idx} comp={comp} />)}
         </div>
       }
     </div>);
 
+}
+
+function ItemArt({ icon, owned }) {
+  if (!icon) return null;
+  return (
+    <div className="relative bg-black/30 border-b border-white/5">
+      <img
+        src={icon}
+        alt=""
+        className="w-full h-24 object-contain p-2"
+        onError={(e) => { e.target.closest('.relative').style.display = 'none'; }}
+      />
+      {owned > 0 &&
+      <div className="absolute top-1 left-1 flex items-center gap-1 px-1.5 py-0.5 rounded bg-green-500/20 border border-green-500/40 text-green-300 text-[8px] font-black uppercase">
+        <Check size={9} />
+        {owned > 1 ? `${owned} Owned` : 'Owned'}
+      </div>
+      }
+    </div>
+  );
 }
 
 function Badge({ label, count, isMastered, canMastered = true }) {
@@ -461,49 +480,27 @@ function PriceBadge({ label, value, color, iconSrc }) {
 
 }
 
-function ComponentRow({ comp }) {
-  const { have = 0, need = 1, bpCount = 0, isResource, isDroppedReward, name } = comp;
-  const { t } = useUi();
+function ComponentBadge({ comp }) {
+  const { have = 0, need = 1, isDroppedReward, name, image } = comp;
   const satisfied = have >= need;
-
-  const rowClasses = isDroppedReward ?
-  'bg-amber-500/10 border-t border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.1)] relative z-10' :
-  satisfied ?
-  'bg-green-500/5 border-t border-white/5' :
-  'bg-black/20 border-t border-white/5';
-
-  const dotClasses = isDroppedReward ?
-  'bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.8)]' :
-  satisfied ?
-  'bg-green-500' :
-  'bg-red-500';
-
-  const nameClasses = isDroppedReward ?
-  'text-amber-100 drop-shadow-[0_0_3px_rgba(245,158,11,0.5)]' :
-  satisfied ?
-  'text-zinc-200' :
-  'text-zinc-500';
-
-  const fractionalClasses = isDroppedReward ?
-  'text-amber-400 drop-shadow-[0_0_3px_rgba(245,158,11,0.5)]' :
-  satisfied ?
-  'text-green-400' :
-  'text-red-400';
+  const ringClass = isDroppedReward
+    ? 'border-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.5)]'
+    : satisfied
+    ? 'border-emerald-400'
+    : 'border-white/15 bg-black/15';
+  const countClass = isDroppedReward
+    ? 'bg-amber-400 text-black'
+    : satisfied
+    ? 'bg-emerald-400 text-black'
+    : 'bg-black text-white/70';
 
   return (
-    <div className={`flex items-center gap-2 px-2.5 py-1.5 ${rowClasses}`}>
-      <div className={`w-2 h-2 rounded-full flex-shrink-0 ${dotClasses}`} />
-      <span className={`text-[11px] font-medium flex-1 leading-tight ${nameClasses}`}>
-        {name}
-      </span>
-      <span className={`text-[11px] font-black font-mono flex-shrink-0 ${fractionalClasses}`}>
-        {have}/{need}
-      </span>
-      {comp.hasBlueprint &&
-      <span className={`text-[9px] font-black flex-shrink-0 ${bpCount > 0 ? 'text-kronos-accent' : 'text-kronos-dim opacity-50'}`}>
-          ({bpCount}{t('relics.bp_close')}
-      </span>
-      }
-    </div>);
-
+    <span
+      className={`relative w-9 h-9 rounded-full border-2 flex items-center justify-center ${ringClass}`}
+      title={`${name}: ${have}/${need}`}
+    >
+      {image ? <img src={image} alt="" className="w-7 h-7 object-contain rounded-full" /> : <span className="w-5 h-5 rounded-full bg-white/10" />}
+      <span className={`absolute -bottom-1 -right-1 text-[7px] rounded-full px-0.5 leading-3 min-w-5 text-center font-black ${countClass}`}>{have}/{need}</span>
+    </span>
+  );
 }

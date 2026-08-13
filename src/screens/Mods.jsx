@@ -16,9 +16,9 @@ export default function Mods() {
   const { t } = useUi()
   const CATEGORIES = [
     t('mods.cat_all'), t('mods.cat_warframe'), t('mods.cat_primary'), t('mods.cat_secondary'), t('mods.cat_melee'),
-    t('mods.cat_sentinels'), t('mods.cat_beasts'), t('mods.cat_stance'), t('mods.cat_aura'), t('mods.cat_exilus'),
+    t('mods.cat_sentinels'), t('mods.cat_robotic'), t('mods.cat_beasts'), t('mods.cat_stance'), t('mods.cat_aura'), t('mods.cat_exilus'),
     t('mods.cat_railjack'), t('mods.cat_archgun'), t('mods.cat_archmelee'), t('mods.cat_parazon'),
-    t('mods.cat_augment'), t('mods.cat_antique'), t('mods.cat_vehicles'), 'Arcanes'];
+    t('mods.cat_augment'), t('mods.cat_antique'), t('mods.cat_tome'), t('mods.cat_vehicles'), 'Arcanes'];
 
   const SORT_OPTIONS = [
     { id: 'name', label: t('mods.sort_name') },
@@ -78,7 +78,13 @@ export default function Mods() {
         return q.every((w) => (m.name ?? '').toLowerCase().includes(w) || descText.toLowerCase().includes(w));
       });
     }
-    if (selectedCategory !== 'All') {
+    if (selectedCategory === t('mods.cat_exilus')) {
+      // Exilus-slot compatibility cuts across mod families (a Tome mod, a
+      // Warframe mod, etc. can all be Exilus-slotted) - match the trait
+      // directly instead of a single exclusive category, so a mod like
+      // Fass Canticle shows under both Tome and Exilus.
+      items = items.filter((m) => m.isExilus);
+    } else if (selectedCategory !== t('mods.cat_all')) {
       items = items.filter((m) => m.category === selectedCategory);
     }
     if (ownershipFilter === 'owned') {

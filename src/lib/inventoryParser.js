@@ -532,12 +532,19 @@ function extractModCategory(exportType, un, entry) {
   if (un) {
     // Check for Kubrow/Kavat deeper in path (these have SENTINEL export type)
     if (un.includes('/Kubrow/') || un.includes('/Kavat/')) return 'Beasts'
+    // MOA/Hound (Zanuka) precept mods - their own category, not lumped into
+    // the generic Sentinels bucket they'd otherwise fall through to.
+    if (un.includes('/MoaPets/') || un.includes('/ZanukaPets/')) return 'Robotic'
+    // Requiem mods live under /Grimoire/, not /Mods/ at all, so none of the
+    // path-based checks below (which all require "/Mods/") ever match them -
+    // they'd otherwise fall through to whatever generic check catches them
+    // next (AP_TACTIC -> Exilus for some, export-type fallback -> Secondary
+    // for others), scattering one mod set across unrelated categories.
+    if (un.includes('/Grimoire/')) return 'Tome'
     // All mods under /Immortal/ are Parazon mods (Requiem + Antivirus)
     if (un.includes('/Immortal/')) return 'Parazon'
     // Archwing melee needs explicit check before /Mods/Archwing/ matches Archwing→Archgun
     if (un.includes('/Archwing/Melee/')) return 'Archmelee'
-    // Exilus mods
-    if (un.includes('ExilusMod')) return 'Exilus'
     // Augment mods/cards
     if (un.includes('AugmentCard') || un.includes('AugmentMod')) return 'Augment'
     // Killswitch mods
@@ -546,14 +553,6 @@ function extractModCategory(exportType, un, entry) {
     if (un.includes('/Pets/BeastWeapons/')) return 'Beasts'
     const m2 = un.match(/\/Mods\/(?:Sets|PvPMods)\/([^/]+)/)
     if (m2 && TYPE_TO_CATEGORY[m2[1]]) return TYPE_TO_CATEGORY[m2[1]]
-    // AP_TACTIC polarity means Exilus slot mods. Real Exilus mods (Rush,
-    // Handspring, Maglev, ...) live under the same /Mods/Warframe/ path as
-    // every other Warframe mod, so this must be checked before the generic
-    // path fallback below - otherwise the generic match always wins and
-    // classifies them as plain 'Warframe' mods, silently emptying the
-    // Exilus category of everything but the few whose uniqueName literally
-    // contains "ExilusMod" (checked above).
-    if (entry?.polarity === 'AP_TACTIC') return 'Exilus'
     const m = un.match(/\/Mods\/([^/]+)/)
     if (m && TYPE_TO_CATEGORY[m[1]]) return TYPE_TO_CATEGORY[m[1]]
   }
@@ -564,6 +563,15 @@ function extractModCategory(exportType, un, entry) {
     return TYPE_TO_EXPORT_CATEGORY[exportType]
   }
   return null
+}
+
+// Exilus-slot compatibility is a trait that cuts across mod families (a
+// Tome mod, a Warframe mod, a Primary mod, etc. can all be Exilus-slotted),
+// not a family of its own - so this is tracked separately from
+// extractModCategory's result instead of overriding it. A mod like Fass
+// Canticle needs to show as both Tome AND Exilus, not one or the other.
+function isModExilus(un, entry) {
+  return !!un && (un.includes('ExilusMod') || entry?.polarity === 'AP_TACTIC')
 }
 
 function resolveArcaneDesc(levelStats, dict) {
@@ -1668,6 +1676,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/\\n/g, '\n').trim() : '';
       mod.levelStats = entry?.levelStats ?? null;
       mod.category = extractModCategory(entry?.type, un, entry);
+      mod.isExilus = isModExilus(un, entry);
       mod.baseDrain = entry?.baseDrain ?? null;
       mod.icon = entry?.icon ?? null;
       if (!mod.icon && exports.PeelyPixMap?.[un]) {
@@ -1753,6 +1762,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (!mod.description) mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').replace(/\\n/g, '\n').trim() : '';
     mod.levelStats = entry?.levelStats ?? mod.levelStats ?? null;
     mod.category = extractModCategory(entry?.type, un, entry) || mod.category || 'mods';
+    mod.isExilus = isModExilus(un, entry) || mod.isExilus || false;
     mod.baseDrain = entry?.baseDrain ?? mod.baseDrain ?? null;
     mod.icon = entry?.icon ?? mod.icon ?? null;
     if (!mod.image) mod.image = resolveImage(un, EM);

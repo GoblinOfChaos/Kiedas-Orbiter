@@ -2718,8 +2718,13 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         );
         let showBP = isOwned || equipmentCategories.has(catalogItem?.category) || isExportedEquipment;
 
-        // If it's a main BP and player doesn't own it, check if they own any component BPs for it
-        if (isMainItemBP && !isOwned) {
+        // If it's a main BP and player doesn't own it, also show it when they
+        // own any component BPs for it - but only to ADD to showBP, never to
+        // narrow it back: showBP may already be true from the broadened
+        // equipment check above (isExportedEquipment/equipmentCategories),
+        // which must always win for unowned main items like an un-crafted
+        // Warframe with zero components owned yet.
+        if (isMainItemBP && !isOwned && !showBP) {
           const base = bpKey.replace('/Lotus/Types/Recipes/WarframeRecipes/', '').replace('/Lotus/Types/Recipes/ArchwingRecipes/', '').replace('Blueprint', '');
           const prefix = bpKey.includes('ArchwingRecipes') ? '/Lotus/Types/Recipes/ArchwingRecipes/' : '/Lotus/Types/Recipes/WarframeRecipes/';
           const componentBPs = [

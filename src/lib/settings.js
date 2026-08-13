@@ -67,10 +67,17 @@ export async function loadSettings() {
 
 /**
  * Update a specific setting and persist it.
+ *
+ * Always re-reads from disk first instead of trusting this window's
+ * in-memory cache: multiple windows (main, sidebar overlay, relic overlay)
+ * each keep their own cachedSettings, and writing a stale snapshot back
+ * silently erases whatever keys another window saved in the meantime
+ * (confirmed live: warframe_cache_path and a first-run flag were lost this
+ * way after a rebuild - one window's stale cache clobbered another's write).
  */
 export async function setSetting(key, value) {
-  if (!cachedSettings) await loadSettings()
-  cachedSettings[key] = value
+  const fresh = await invoke('load_settings').catch(() => cachedSettings || {}) || {}
+  cachedSettings = { ...fresh, [key]: value }
   await saveSettings(cachedSettings)
 }
 

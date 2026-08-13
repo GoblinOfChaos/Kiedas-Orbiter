@@ -3,6 +3,7 @@
  */
 import { BLUEPRINT_SUFFIX } from './warframeUtils';
 import { BARO_RELIC_NAMES } from './baroRelics';
+import { REQUIEM_MOD_ALIASES } from './requiemModAliases';
 
 // Helper: split PascalCase to spaced words
 function splitPascal(str) {
@@ -526,8 +527,9 @@ export function getPartObtainedStatus(uniqueName, displayName, inventoryData, ex
   const normalize = (value) => value?.replace('/StoreItems/', '/').toLowerCase();
   const normalizeName = (value) => value?.replace(/\s+Blueprint$/i, '').trim().toLowerCase();
   const inventoryEntries = getPartInventoryIndex(inventoryData);
+  const resolvedUniqueName = REQUIEM_MOD_ALIASES[normalize(uniqueName)] || uniqueName;
   const directMatches = [
-    ...(inventoryEntries.byUnique.get(normalize(uniqueName)) || []),
+    ...(inventoryEntries.byUnique.get(normalize(resolvedUniqueName)) || []),
     ...(inventoryEntries.byName.get(normalizeName(displayName)) || []),
   ];
   const direct = directMatches.find((item) => item.owned || item.mastered || (item.quantity ?? 0) > 0 || (item.crafted ?? 0) > 0)

@@ -127,7 +127,7 @@ export default function Mods() {
     if (!openKey || !acquisitionDataReady) return null;
     const mod = visible.find((m) => m.unique_name === openKey);
     if (!mod) return null;
-    return { displayName: mod.name, info: getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides) };
+    return { uniqueName: mod.unique_name, displayName: mod.name, info: getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides) };
   }, [openKey, acquisitionDataReady, visible, dropIndex, acquisitionOverrides]);
 
   const handleSortChange = (id) => {

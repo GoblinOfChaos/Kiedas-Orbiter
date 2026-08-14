@@ -184,9 +184,9 @@ export default function Relics() {
     // fallback, which reads like a data gap rather than an accurate
     // "this isn't obtainable right now" answer.
     if (item.vaulted === true && info.sources.length === 0) {
-      return { displayName: item.name, info: { ...info, vaulted: true } };
+      return { uniqueName: item.unique_name, displayName: item.name, info: { ...info, vaulted: true } };
     }
-    return { displayName: item.name, info };
+    return { uniqueName: item.unique_name, displayName: item.name, info };
   }, [openKey, acquisitionDataReady, grouped, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, exportVendorIndex]);
 
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;

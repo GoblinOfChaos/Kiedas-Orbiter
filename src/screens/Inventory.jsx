@@ -376,7 +376,7 @@ export default function Inventory() {
     if (!openKey || !acquisitionDataReady) return null;
     const item = visibleItems.find((it) => it.unique_name === openKey);
     if (!item) return null;
-    return { displayName: item.name, info: getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, undefined, undefined, undefined, exportVendorIndex, alwaysAvailableIndex) };
+    return { uniqueName: item.unique_name, displayName: item.name, info: getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, undefined, undefined, undefined, exportVendorIndex, alwaysAvailableIndex) };
   }, [openKey, acquisitionDataReady, visibleItems, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, exportVendorIndex]);
 
   const modBg = useCallback((mf, item) => {

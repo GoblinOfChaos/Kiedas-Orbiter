@@ -102,7 +102,7 @@ export default function Cosmetics() {
     if (!openKey || !overrides) return null
     const item = items.find((candidate) => candidate.uniqueName === openKey)
     if (!item) return null
-    return { displayName: item.name, info: getAcquisitionInfo(item.uniqueName, item.name, dropIndex, overrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex) }
+    return { uniqueName: item.uniqueName, displayName: item.name, info: getAcquisitionInfo(item.uniqueName, item.name, dropIndex, overrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex) }
   }, [openKey, overrides, items, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, glyphSupplementIndex])
 
   if (!exportData) return <PageLayout title="Cosmetics"><Card className="p-8 text-center text-kronos-dim">Loading cosmetics...</Card></PageLayout>

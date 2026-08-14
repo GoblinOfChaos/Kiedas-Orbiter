@@ -1,6 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Info, ExternalLink } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
+import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from '../lib/codexSupplement';
 
 function getSourceLabel(source) {
   if (!source) return 'Unknown source';
@@ -65,8 +66,28 @@ export function useAcquisitionDrawer() {
 }
 
 export default function AcquisitionDrawer({ item, onClose }) {
+  const displayName = item?.displayName;
+  const uniqueName = item?.uniqueName;
+  const [codexInfo, setCodexInfo] = useState(null);
+  const [codexLoading, setCodexLoading] = useState(false);
+  const baseInfo = item?.info;
+
+  useEffect(() => {
+    setCodexInfo(null);
+    if (!uniqueName || !baseInfo || !isGenericAcquisition(baseInfo)) return undefined;
+    let cancelled = false;
+    setCodexLoading(true);
+    fetchCodexDetail(uniqueName).then((detail) => {
+      if (!cancelled) setCodexInfo(codexDetailToAcquisition(detail));
+    }).finally(() => {
+      if (!cancelled) setCodexLoading(false);
+    });
+    return () => { cancelled = true; };
+  }, [uniqueName, baseInfo]);
+
   if (!item) return null;
-  const { displayName, info } = item;
+
+  const info = codexInfo || baseInfo;
 
   const openWikiLink = () => {
     invoke('open_url', { url: info.wikiLink.url }).catch(console.error);
@@ -106,6 +127,8 @@ export default function AcquisitionDrawer({ item, onClose }) {
               </div>
             ))}
           </div>
+        : codexLoading ?
+          <p className="text-xs text-kronos-dim italic">Checking item data…</p>
         :
           <p className="text-xs text-kronos-dim italic">
             {info.vaulted ? 'Relic is Vaulted, no drop locations' : 'No specific source known - try the wiki link below.'}

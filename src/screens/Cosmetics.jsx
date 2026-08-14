@@ -46,7 +46,7 @@ function CosmeticCard({ item, onAcquire }) {
 }
 
 export default function Cosmetics() {
-  const { exportData, rawInventory, EI, nameToImage, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex } = useMonitoring()
+  const { exportData, rawInventory, EI, nameToImage, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex } = useMonitoring()
   const [search, setSearch] = useState('')
   const [kindFilter, setKindFilter] = useState('all')
   const [ownershipFilter, setOwnershipFilter] = useState('all')
@@ -82,8 +82,8 @@ export default function Cosmetics() {
     if (!openKey || !overrides) return null
     const item = items.find((candidate) => candidate.uniqueName === openKey)
     if (!item) return null
-    return { displayName: item.name, info: getAcquisitionInfo(item.uniqueName, item.name, dropIndex, overrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex) }
-  }, [openKey, overrides, items, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex])
+    return { displayName: item.name, info: getAcquisitionInfo(item.uniqueName, item.name, dropIndex, overrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex) }
+  }, [openKey, overrides, items, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex])
 
   if (!exportData) return <PageLayout title="Cosmetics"><Card className="p-8 text-center text-kronos-dim">Loading cosmetics...</Card></PageLayout>
 

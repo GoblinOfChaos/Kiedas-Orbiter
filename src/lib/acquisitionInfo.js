@@ -62,22 +62,42 @@ export function buildRecipeResultIndex(exportData) {
 }
 
 /**
- * Maps a cosmetic's uniqueName to its real Platinum price, for items
- * ExportCustoms confirms are actually sold in the in-game Market - i.e. NOT
- * marked excludeFromMarket and with a real platinumCost. excludeFromMarket
- * is only ever present as `true` in the export (never `false`); its absence
- * plus a real platinumCost is what marks an item as genuinely purchasable
- * (confirmed by checking the full export: 1,933 items have a platinumCost
- * but are excludeFromMarket:true - bundle sub-components, not directly
- * buyable - vs 1,405 with no excludeFromMarket key and a real price).
+ * Maps an item's uniqueName to its real Platinum price, for items the DE
+ * exports confirm are directly sold in the in-game Market - i.e. NOT marked
+ * excludeFromMarket and with a real platinumCost. ExportCustoms contains the
+ * bulk of cosmetic entries, while ExportFlavour contains directly purchasable
+ * emotes, animation sets, note packs, backgrounds, and other flavour items.
+ * excludeFromMarket is only ever present as `true` in the export (never
+ * `false`); its absence plus a real platinumCost is what marks an item as
+ * genuinely purchasable. This deliberately excludes priced bundle
+ * components, which are handled by buildBundleIndex instead.
  */
 export function buildMarketIndex(exportData) {
   const index = new Map();
-  const customs = exportData?.ExportCustoms;
-  if (!customs || typeof customs !== 'object') return index;
-  for (const [uniqueName, entry] of Object.entries(customs)) {
-    if (!entry?.excludeFromMarket && entry?.platinumCost > 0) {
-      index.set(canonicalPath(uniqueName), entry.platinumCost);
+  for (const tableName of ['ExportCustoms', 'ExportFlavour']) {
+    const table = exportData?.[tableName];
+    if (!table || typeof table !== 'object') continue;
+    for (const [uniqueName, entry] of Object.entries(table)) {
+      if (!entry?.excludeFromMarket && entry?.platinumCost > 0) {
+        index.set(canonicalPath(uniqueName), entry.platinumCost);
+      }
+    }
+  }
+  return index;
+}
+
+/**
+ * DE marks free/default customization entries with alwaysAvailable. Keep
+ * these separate from Market prices so a zero-cost entry cannot be mistaken
+ * for a missing price or a priced bundle component.
+ */
+export function buildAlwaysAvailableIndex(exportData) {
+  const index = new Set();
+  for (const tableName of ['ExportCustoms', 'ExportFlavour']) {
+    const table = exportData?.[tableName];
+    if (!table || typeof table !== 'object') continue;
+    for (const [uniqueName, entry] of Object.entries(table)) {
+      if (entry?.alwaysAvailable === true) index.add(canonicalPath(uniqueName));
     }
   }
   return index;
@@ -199,7 +219,7 @@ export function buildWikiBaroIndex(data) {
   return buildDisplayNameIndex(data, () => true);
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex) {
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops, wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -294,6 +314,13 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (exportVendorIndex?.has(canonicalPath(dropIndexKey))) {
     return {
       sources: [{ type: 'non-drop', text: 'Available from an in-game vendor.' }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  if (alwaysAvailableIndex?.has(canonicalPath(dropIndexKey))) {
+    return {
+      sources: [{ type: 'non-drop', text: 'Available directly in the in-game customization menu.' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

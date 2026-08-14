@@ -19,6 +19,12 @@ function buildNameToUniqueNameMap(exportData, dict) {
     'ExportFlavour',
     'ExportSyndicates',
     'ExportBoosterPacks',
+    'ExportKeys',
+    'ExportMisc',
+    'ExportDrones',
+    'ExportRailjackWeapons',
+    'ExportFusionBundles',
+    'ExportRewards',
   ]
   // Index items with direct uniqueName + name fields
   for (const tblName of tables) {

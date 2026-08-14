@@ -34,11 +34,19 @@ const canonicalPath = (v) => v?.replace('/StoreItems/', '/') || v;
 
 /**
  * Maps a craftable equipment's own uniqueName (the finished Warframe/weapon)
- * to true if ExportRecipes has a blueprint whose resultType builds it - e.g.
- * most base Warframes/weapons aren't themselves "dropped", only their
- * blueprint + component parts are (which are separately tracked items with
- * their own acquisition entries). Build once per exportData change and pass
- * into getAcquisitionInfo, mirroring how dropIndex is built once in
+ * to true if ExportRecipes has a blueprint whose resultType builds it AND
+ * that blueprint has real ingredients - e.g. most base Warframes/weapons
+ * aren't themselves "dropped", only their blueprint + component parts are
+ * (which are separately tracked items with their own acquisition entries).
+ * Requiring ingredients.length > 0 matters: Kuva/Tenet Lich weapons and
+ * Railjack ship-feature items also have a resultType entry in ExportRecipes
+ * with an EMPTY ingredients list (confirmed: 50 such entries, all either
+ * Lich/Sister weapons or Railjack features) - DE's internal plumbing for
+ * finalizing them after conversion, not a real Foundry build. Without this
+ * check those were wrongly labeled "Built in the Foundry" when the actual
+ * source is defeating a Kuva Lich / Sister of Parvos, confirmed live by the
+ * user on Tenet Envoy. Build once per exportData change and pass into
+ * getAcquisitionInfo, mirroring how dropIndex is built once in
  * MonitoringContext rather than per-call.
  */
 export function buildRecipeResultIndex(exportData) {
@@ -46,7 +54,9 @@ export function buildRecipeResultIndex(exportData) {
   const recipes = exportData?.ExportRecipes;
   if (!recipes || typeof recipes !== 'object') return index;
   for (const recipe of Object.values(recipes)) {
-    if (recipe?.resultType) index.add(canonicalPath(recipe.resultType));
+    if (recipe?.resultType && Array.isArray(recipe.ingredients) && recipe.ingredients.length > 0) {
+      index.add(canonicalPath(recipe.resultType));
+    }
   }
   return index;
 }

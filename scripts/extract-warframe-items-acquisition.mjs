@@ -40,7 +40,13 @@ for (const category of CATEGORIES) {
     // ExportRecipes export, and covers items ExportRecipes matching misses
     // (e.g. many Skins/alt helmets), so it's worth keeping even without
     // drops or a wiki page.
-    const craftable = Array.isArray(item.components) && item.components.length > 0;
+    // length > 1 (not just > 0) matters: Kuva/Tenet Lich weapons and Braton
+    // also carry a components array, but with exactly one entry - just the
+    // blueprint itself, no real materials (confirmed live: Tenet Envoy was
+    // wrongly labeled "Built in the Foundry" when the actual source is
+    // defeating a Sister of Parvos, not gathering resources). A real
+    // Foundry recipe always needs the blueprint plus at least one material.
+    const craftable = Array.isArray(item.components) && item.components.length > 1;
     if (!hasDrops && !item.wikiAvailable && !craftable) continue; // nothing useful to extract for this item
     extracted.push({
       uniqueName: item.uniqueName,

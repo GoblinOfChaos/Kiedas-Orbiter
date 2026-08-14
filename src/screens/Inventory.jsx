@@ -143,7 +143,7 @@ export default function Inventory() {
     resources: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],
     ayatan: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }]
   };
-  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, marketIndex, bundleIndex, vendorIndex, ExportImages, ExportTextIcons, cardImagesPath } = useMonitoring();
+  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, marketIndex, bundleIndex, ExportImages, ExportTextIcons, cardImagesPath } = useMonitoring();
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
   const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
   useEffect(() => {
@@ -376,8 +376,8 @@ export default function Inventory() {
     if (!openKey || !acquisitionDataReady) return null;
     const item = visibleItems.find((it) => it.unique_name === openKey);
     if (!item) return null;
-    return { displayName: item.name, info: getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, vendorIndex) };
-  }, [openKey, acquisitionDataReady, visibleItems, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, vendorIndex]);
+    return { displayName: item.name, info: getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex) };
+  }, [openKey, acquisitionDataReady, visibleItems, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex]);
 
   const modBg = useCallback((mf, item) => {
     if (!framesPath) return '';

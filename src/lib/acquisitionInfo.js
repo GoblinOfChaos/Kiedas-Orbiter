@@ -82,46 +82,6 @@ export function buildMarketIndex(exportData) {
  * component appears in is kept - good enough for "here's where to get it",
  * doesn't need to be exhaustive.
  */
-// Vendor manifest keys have no dict-lookup display name of their own -
-// unlike bundles, the readable name only exists baked into the manifest's
-// own identifier (e.g. "FishmongerVendorManifest", "JadeShadowsEventVendorManifest").
-// Strips the generic "VendorManifest"/"ShopManifest"/"Manifest" suffix and
-// splits PascalCase into words - a straight text transform of the source's
-// own name, not a guess about what the vendor is.
-function prettifyVendorName(manifestKey) {
-  const raw = manifestKey?.split('/').pop() || ''
-  const stripped = raw.replace(/Manifest/g, '').replace(/Vendor$/, '') || raw
-  return stripped
-    .replace(/([a-z])([A-Z])/g, '$1 $2')
-    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
-    .replace(/([a-zA-Z])(\d)/g, '$1 $2')
-    .replace(/(\d)([a-zA-Z])/g, '$1 $2')
-    .replace(/\s+/g, ' ')
-    .trim()
-}
-
-/**
- * Maps a storeItem's uniqueName to the vendor that sells it, from
- * ExportVendors.json - not previously fetched by this app, added
- * specifically for this. Each vendor manifest lists items[].storeItem;
- * only the first vendor an item appears in is kept, same "good enough to
- * point the user somewhere real" approach as buildBundleIndex.
- */
-export function buildVendorIndex(exportData) {
-  const index = new Map()
-  const vendors = exportData?.ExportVendors
-  if (!vendors || typeof vendors !== 'object') return index
-  for (const [manifestKey, manifest] of Object.entries(vendors)) {
-    if (!Array.isArray(manifest?.items)) continue
-    const vendorName = prettifyVendorName(manifestKey)
-    for (const item of manifest.items) {
-      const key = canonicalPath(item?.storeItem)
-      if (key && !index.has(key)) index.set(key, vendorName)
-    }
-  }
-  return index
-}
-
 export function buildBundleIndex(exportData) {
   const index = new Map();
   const bundles = exportData?.ExportBundles;
@@ -139,7 +99,7 @@ export function buildBundleIndex(exportData) {
   return index;
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, vendorIndex) {
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops, wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -199,14 +159,6 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (bundleName) {
     return {
       sources: [{ type: 'non-drop', text: `Sold as part of the "${bundleName}" Market bundle.` }],
-      wikiLink: getWikiLink(dropIndexKey, displayName),
-    };
-  }
-
-  const vendorName = vendorIndex?.get(canonicalPath(dropIndexKey));
-  if (vendorName) {
-    return {
-      sources: [{ type: 'non-drop', text: `Sold by ${vendorName}.` }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

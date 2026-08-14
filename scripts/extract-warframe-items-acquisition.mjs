@@ -33,15 +33,22 @@ for (const category of CATEGORIES) {
   const items = JSON.parse(readFileSync(resolve(pkgDataDir, `${category}.json`), 'utf-8'));
   for (const item of items) {
     if (!item.uniqueName) continue;
-    if (!Array.isArray(item.drops) || item.drops.length === 0) {
-      if (!item.wikiAvailable) continue; // nothing useful to extract for this item
-    }
+    const hasDrops = Array.isArray(item.drops) && item.drops.length > 0;
+    // components[] means warframe-items itself has a real Foundry recipe for
+    // this item (real ingredients + a blueprint sub-component, verified
+    // against sampled entries) - a separate representation from DE's own
+    // ExportRecipes export, and covers items ExportRecipes matching misses
+    // (e.g. many Skins/alt helmets), so it's worth keeping even without
+    // drops or a wiki page.
+    const craftable = Array.isArray(item.components) && item.components.length > 0;
+    if (!hasDrops && !item.wikiAvailable && !craftable) continue; // nothing useful to extract for this item
     extracted.push({
       uniqueName: item.uniqueName,
       name: item.name,
       drops: item.drops || [],
       wikiaUrl: item.wikiaUrl || null,
       wikiAvailable: !!item.wikiAvailable,
+      craftable,
     });
   }
 }

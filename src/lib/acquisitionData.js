@@ -40,6 +40,18 @@ export function getItemDrops(uniqueName) {
 }
 
 /**
+ * True if warframe-items has a real Foundry recipe (ingredients + a
+ * blueprint sub-component) embedded on this item - a separate
+ * representation from DE's own ExportRecipes export, covering items an
+ * ExportRecipes.resultType match misses (many Skins/alt helmets in
+ * particular). Not itself a drop source, but a fact worth surfacing instead
+ * of the generic "no source known" fallback.
+ */
+export function isCraftable(uniqueName) {
+  return !!itemIndex?.get(uniqueName)?.craftable;
+}
+
+/**
  * Returns a wiki link for this item - direct if warframe-items marks it as
  * available, otherwise a search link (never a dead end, per design decision
  * to prefer search's lower maintenance burden over occasional broken direct

@@ -1,4 +1,4 @@
-import { getItemDrops, getWikiLink } from './acquisitionData';
+import { getItemDrops, getWikiLink, isCraftable } from './acquisitionData';
 
 /**
  * Shared "how do I get this" lookup, reused across Mods/Rivens/Inventory.
@@ -20,11 +20,11 @@ import { getItemDrops, getWikiLink } from './acquisitionData';
  * mount effect) before this returns real warframe-items data.
  */
 // Path patterns that definitionally aren't drop-table acquisitions - safe to
-// label without guessing, unlike Skins/Sigils/Misc/Gear/Resources, which are
-// too heterogeneous (Market purchase, syndicate rank, event reward, quest
-// reward, all mixed under the same paths) to classify correctly from the
-// uniqueName alone. Mislabeling those would give wrong acquisition guidance,
-// so they're left showing the generic wiki fallback instead of a guess.
+// label without guessing. Items acquired via Market purchase, syndicate
+// rank, or event reward are too heterogeneous to classify from the
+// uniqueName alone (mislabeling those would give wrong guidance), so most
+// Skins/Sigils/Misc still fall through to the generic fallback - except
+// the subset that isCraftable() below catches via a real Foundry recipe.
 const NON_DROP_PATTERNS = [
   { test: (un) => un?.includes('/Upgrades/Focus/'), text: 'Unlocked via the Focus tree, not obtained from a drop.' },
   { test: (un) => /\/Types\/Keys\/.*KeyChain$/.test(un || ''), text: 'Awarded from completing this quest.' },
@@ -92,7 +92,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return { sources: [{ type: 'non-drop', text: nonDrop.text }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
-  if (recipeResultIndex?.has(canonicalPath(dropIndexKey))) {
+  if (recipeResultIndex?.has(canonicalPath(dropIndexKey)) || isCraftable(dropIndexKey)) {
     return {
       sources: [{ type: 'non-drop', text: 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),

@@ -51,7 +51,29 @@ export function buildRecipeResultIndex(exportData) {
   return index;
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex) {
+/**
+ * Maps a cosmetic's uniqueName to its real Platinum price, for items
+ * ExportCustoms confirms are actually sold in the in-game Market - i.e. NOT
+ * marked excludeFromMarket and with a real platinumCost. excludeFromMarket
+ * is only ever present as `true` in the export (never `false`); its absence
+ * plus a real platinumCost is what marks an item as genuinely purchasable
+ * (confirmed by checking the full export: 1,933 items have a platinumCost
+ * but are excludeFromMarket:true - bundle sub-components, not directly
+ * buyable - vs 1,405 with no excludeFromMarket key and a real price).
+ */
+export function buildMarketIndex(exportData) {
+  const index = new Map();
+  const customs = exportData?.ExportCustoms;
+  if (!customs || typeof customs !== 'object') return index;
+  for (const [uniqueName, entry] of Object.entries(customs)) {
+    if (!entry?.excludeFromMarket && entry?.platinumCost > 0) {
+      index.set(canonicalPath(uniqueName), entry.platinumCost);
+    }
+  }
+  return index;
+}
+
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops, wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -95,6 +117,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (recipeResultIndex?.has(canonicalPath(dropIndexKey)) || isCraftable(dropIndexKey)) {
     return {
       sources: [{ type: 'non-drop', text: 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.' }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const marketPrice = marketIndex?.get(canonicalPath(dropIndexKey));
+  if (marketPrice) {
+    return {
+      sources: [{ type: 'non-drop', text: `Sold in the in-game Market for ${marketPrice} Platinum.` }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

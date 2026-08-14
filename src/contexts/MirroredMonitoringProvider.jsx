@@ -3,7 +3,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
-import { buildRecipeResultIndex, buildMarketIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex } from '../lib/acquisitionInfo'
+import { buildRecipeResultIndex, buildMarketIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getAllRelicRewards } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
@@ -147,6 +147,12 @@ export default function MirroredMonitoringProvider({ children }) {
             const wikiSigilBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-sigils-acquisition.json' })
             exports.WikiSigilAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(wikiSigilBytes)))
           } catch { /* wiki Sigil data is optional */ }
+          for (const [file, key] of [['wiki-vendors-acquisition.json', 'WikiVendorAcquisition'], ['wiki-tennogen-acquisition.json', 'WikiTennoGenAcquisition'], ['wiki-baro-acquisition.json', 'WikiBaroAcquisition']]) {
+            try {
+              const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${file}` })
+              exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
+            } catch { /* optional Wiki module */ }
+          }
         }
 
         // Inject warframe-items pre-resolved data into exports (same as main MonitoringContext)
@@ -547,6 +553,10 @@ export default function MirroredMonitoringProvider({ children }) {
 
   const wikiSigilIndex = useMemo(() => buildWikiSigilIndex(exportData?.WikiSigilAcquisition), [exportData])
 
+  const wikiVendorIndex = useMemo(() => buildWikiVendorIndex(exportData?.WikiVendorAcquisition), [exportData])
+  const wikiTennoGenIndex = useMemo(() => buildWikiTennoGenIndex(exportData?.WikiTennoGenAcquisition), [exportData])
+  const wikiBaroIndex = useMemo(() => buildWikiBaroIndex(exportData?.WikiBaroAcquisition), [exportData])
+
   const applyRaw = useCallback((raw, ts, exports) => {
     if (!raw) return
     setRawInventory(raw)
@@ -698,7 +708,7 @@ export default function MirroredMonitoringProvider({ children }) {
     cardImagesPath, fixProgress,
     dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
     ExportImages, ExportTextIcons, masteryProgress,
-    EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex,
+    EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex,
     arbyTiers: ARBY_TIERS,
     setAutoStart, startMonitoring: startMonitoringFn,
     stopMonitoring: stopMonitoringFn,     manualRefresh: async () => {
@@ -717,7 +727,7 @@ export default function MirroredMonitoringProvider({ children }) {
       spIncursions, arbys, archonModifiers, arbitrationModifiers,
       dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
       ExportImages, ExportTextIcons, masteryProgress,
-      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex,
+      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex,
       allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices])
 
   return (

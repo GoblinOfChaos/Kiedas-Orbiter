@@ -159,7 +159,28 @@ export function buildWikiSigilIndex(data) {
   return index;
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex) {
+function buildDisplayNameIndex(data, transform) {
+  const index = new Map();
+  if (!data || typeof data !== 'object') return index;
+  for (const [name, value] of Object.entries(data)) {
+    if (typeof name === 'string' && name.trim()) index.set(name.toLowerCase().trim(), transform(value));
+  }
+  return index;
+}
+
+export function buildWikiVendorIndex(data) {
+  return buildDisplayNameIndex(data, (vendors) => Array.isArray(vendors) ? vendors.filter(Boolean) : []);
+}
+
+export function buildWikiTennoGenIndex(data) {
+  return buildDisplayNameIndex(data, (entry) => entry && typeof entry === 'object' ? entry : null);
+}
+
+export function buildWikiBaroIndex(data) {
+  return buildDisplayNameIndex(data, () => true);
+}
+
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops, wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -239,6 +260,31 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (wikiSigilCategory) {
     return {
       sources: [{ type: 'non-drop', text: `Listed under ${wikiSigilCategory} on the Warframe wiki.` }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const vendors = wikiVendorIndex?.get(displayLower);
+  if (vendors?.length) {
+    return {
+      sources: [{ type: 'non-drop', text: `Sold by ${vendors.join(' and ')}.` }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const tennoGen = wikiTennoGenIndex?.get(displayLower);
+  if (tennoGen) {
+    const price = tennoGen.pcPrice || tennoGen.consolePrice;
+    const priceText = price ? ` for ${price}` : '';
+    return {
+      sources: [{ type: 'non-drop', text: `TennoGen skin - purchased via Steam Workshop/console store${priceText}.` }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  if (wikiBaroIndex?.has(displayLower)) {
+    return {
+      sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer." }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

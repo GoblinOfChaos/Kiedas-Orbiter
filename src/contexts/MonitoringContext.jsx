@@ -3,7 +3,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
-import { buildRecipeResultIndex, buildMarketIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex } from '../lib/acquisitionInfo'
+import { buildRecipeResultIndex, buildMarketIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, getPartObtainedStatus, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
@@ -359,6 +359,10 @@ export function MonitoringProvider({ children }) {
 
   const wikiSigilIndex = useMemo(() => buildWikiSigilIndex(exportData?.WikiSigilAcquisition), [exportData])
 
+  const wikiVendorIndex = useMemo(() => buildWikiVendorIndex(exportData?.WikiVendorAcquisition), [exportData])
+  const wikiTennoGenIndex = useMemo(() => buildWikiTennoGenIndex(exportData?.WikiTennoGenAcquisition), [exportData])
+  const wikiBaroIndex = useMemo(() => buildWikiBaroIndex(exportData?.WikiBaroAcquisition), [exportData])
+
   // Audio unlock (bypass autoplay policy)
   useEffect(() => {
     const unlockAudio = () => {
@@ -558,6 +562,10 @@ export function MonitoringProvider({ children }) {
           const wikiSigilBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-sigils-acquisition.json' }).catch(() => null)
           if (wikiSigilBytes) {
             exports.WikiSigilAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(wikiSigilBytes)))
+          }
+          for (const [file, key] of [['wiki-vendors-acquisition.json', 'WikiVendorAcquisition'], ['wiki-tennogen-acquisition.json', 'WikiTennoGenAcquisition'], ['wiki-baro-acquisition.json', 'WikiBaroAcquisition']]) {
+            const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${file}` }).catch(() => null)
+            if (bytes) exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
           }
         } catch { }
       }
@@ -1228,7 +1236,7 @@ const hasCachedData = useCallback(async () => {
   return (
     <MonitoringContext.Provider value={{
       exportData, spIncursions, arbys, archonModifiers, arbitrationModifiers,
-      dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex,
+      dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, nextRetryAt, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
       masteryProgress, allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices,
       startMonitoring, stopMonitoring, manualRefresh, callApiHelper,

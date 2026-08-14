@@ -7,9 +7,15 @@ import ItemImage from '../components/ItemImage'
 
 // Bundle packages (e.g. "MegaPrimeVault/MPVRevenantPrimeSinglePack") aren't
 // individually-owned inventory items - only the direct StoreItems entries
-// (Warframes, weapons, cosmetics) they contain are trackable.
+// (Warframes, weapons, cosmetics) they contain are trackable. Void
+// Projection entries are relic-tier reward tokens (spend Aya for a random
+// item from that relic tier's Bronze/Silver/Gold pool) - not a real item
+// either, so they never resolve to owned and have no icon of their own.
 function isBundlePackage(uniqueName) {
-  return uniqueName?.startsWith('/Lotus/Types/StoreItems/Packages/')
+  return (
+    uniqueName?.startsWith('/Lotus/Types/StoreItems/Packages/') ||
+    uniqueName?.startsWith('/Lotus/StoreItems/Types/Game/Projections/')
+  )
 }
 
 function normalize(uniqueName) {

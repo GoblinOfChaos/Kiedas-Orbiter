@@ -227,6 +227,7 @@ const EXPORT_FILES: &[&str] = &[
     "ExportImages.json",
     "ExportTextIcons.json",
     "ExportFlavour.json",
+    "ExportVendors.json",
     "dict.json",
     "supp-dict.json",
 ];

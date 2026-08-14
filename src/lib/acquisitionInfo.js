@@ -317,7 +317,21 @@ export function buildWikiBaroIndex(data) {
   return buildDisplayNameIndex(data, () => true);
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex) {
+/**
+ * Supplemental browse.wf Glyph data is keyed by DE uniqueName and contains
+ * human-maintained promo codes, creator links, and acquisition notes.
+ */
+export function buildGlyphSupplementIndex(data) {
+  const index = new Map();
+  if (!data || typeof data !== 'object') return index;
+  for (const [uniqueName, entry] of Object.entries(data)) {
+    const key = canonicalPath(uniqueName);
+    if (key && entry && typeof entry === 'object') index.set(key, entry);
+  }
+  return index;
+}
+
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops, wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -453,6 +467,22 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (wikiBaroIndex?.has(displayLower)) {
     return {
       sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer." }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const glyph = glyphSupplementIndex?.get(canonicalPath(dropIndexKey));
+  if (glyph) {
+    const details = [];
+    if (glyph.promo_code) details.push(`Promo code: ${glyph.promo_code}.`);
+    if (glyph.markdown) details.push(glyph.markdown);
+    if (glyph.twitch) details.push(`Twitch: ${glyph.twitch}`);
+    if (glyph.youtube) details.push(`YouTube: ${glyph.youtube}`);
+    if (glyph.twitter) details.push(`Twitter: ${glyph.twitter}`);
+    if (glyph.discord) details.push(`Discord: ${glyph.discord}`);
+    if (glyph['other-site']) details.push(`More information: ${glyph['other-site']}`);
+    return {
+      sources: [{ type: 'non-drop', text: details.length ? `Creator Glyph. ${details.join(' ')}` : 'Creator Glyph. See the linked creator source for availability.' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

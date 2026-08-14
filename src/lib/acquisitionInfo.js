@@ -40,46 +40,126 @@ const canonicalPath = (v) => v?.replace('/StoreItems/', '/') || v;
  * (which are separately tracked items with their own acquisition entries).
  * Requiring ingredients.length > 0 matters: Kuva/Tenet Lich weapons and
  * Railjack ship-feature items also have a resultType entry in ExportRecipes
- * with an EMPTY ingredients list (confirmed: 50 such entries, all either
- * Lich/Sister weapons or Railjack features) - DE's internal plumbing for
- * finalizing them after conversion, not a real Foundry build. Without this
- * check those were wrongly labeled "Built in the Foundry" when the actual
- * source is defeating a Kuva Lich / Sister of Parvos, confirmed live by the
- * user on Tenet Envoy. Build once per exportData change and pass into
- * getAcquisitionInfo, mirroring how dropIndex is built once in
- * MonitoringContext rather than per-call.
+ * with an EMPTY ingredients list - DE's internal plumbing for finalizing
+ * them after conversion, not a real Foundry build. The two genuine
+ * blueprint-only weapon recipes (Braton and Lato) are admitted explicitly.
+ * Without this check those internal entries were wrongly labeled "Built in
+ * the Foundry" when the actual source is defeating a Kuva Lich / Sister of
+ * Parvos, confirmed live by the user on Tenet Envoy. Build once per exportData
+ * change and pass into getAcquisitionInfo, mirroring how dropIndex is built
+ * once in MonitoringContext rather than per-call.
  */
 export function buildRecipeResultIndex(exportData) {
-  const index = new Set();
+  const index = new Map();
   const recipes = exportData?.ExportRecipes;
   if (!recipes || typeof recipes !== 'object') return index;
-  for (const recipe of Object.values(recipes)) {
-    if (recipe?.resultType && Array.isArray(recipe.ingredients) && recipe.ingredients.length > 0) {
-      index.add(canonicalPath(recipe.resultType));
+
+  // ExportRecipes only stores ingredient uniqueNames. Resolve those through
+  // the same DE export/dict data used by the Foundry screen so the drawer can
+  // say "2x Bolto" instead of exposing internal paths.
+  const dict = exportData?.dict || {};
+  const nameByUniqueName = new Map();
+  for (const tableName of [
+    'ExportWeapons', 'ExportWarframes', 'ExportSentinels', 'ExportResources',
+    'ExportGear', 'ExportCustoms', 'ExportFlavour', 'ExportUpgrades',
+  ]) {
+    const table = exportData?.[tableName];
+    if (!table || typeof table !== 'object') continue;
+    for (const [uniqueName, entry] of Object.entries(table)) {
+      if (!entry?.name) continue;
+      const resolved = dict[entry.name] || entry.name;
+      if (resolved && !String(resolved).startsWith('/')) {
+        nameByUniqueName.set(canonicalPath(uniqueName), String(resolved).replace(/<[^>]*>/g, '').trim());
+      }
+    }
+  }
+
+  for (const [blueprintName, recipe] of Object.entries(recipes)) {
+    // Braton and Lato are real blueprint-only Foundry recipes in the export.
+    // Other zero-ingredient entries are DE's internal Lich/Tenet/Railjack
+    // finalization plumbing and must not be presented as craftable weapons.
+    const blueprintOnly = /\/(?:Braton|Lato)Blueprint$/.test(blueprintName);
+    if (recipe?.resultType && Array.isArray(recipe.ingredients) && (recipe.ingredients.length > 0 || blueprintOnly)) {
+      const ingredients = recipe.ingredients.map((ingredient) => {
+        const itemType = canonicalPath(ingredient?.ItemType || ingredient?.itemType);
+        return {
+          itemType,
+          count: ingredient?.ItemCount ?? ingredient?.itemCount ?? 1,
+          name: nameByUniqueName.get(itemType) || itemType,
+        };
+      }).filter((ingredient) => ingredient.itemType);
+      index.set(canonicalPath(recipe.resultType), {
+        blueprintCost: recipe.creditsCost,
+        buildCost: recipe.buildPrice,
+        buildTime: recipe.buildTime,
+        rushCost: recipe.skipBuildTimePrice,
+        blueprintOnly,
+        ingredients,
+      });
     }
   }
   return index;
 }
 
+function formatCredits(value) {
+  return Number.isFinite(Number(value)) ? `${Number(value).toLocaleString()} Credits` : null;
+}
+
+function formatBuildTime(seconds) {
+  const totalMinutes = Math.round(Number(seconds) / 60);
+  if (!Number.isFinite(totalMinutes) || totalMinutes <= 0) return null;
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  if (hours && minutes) return `${hours}h ${minutes}m`;
+  if (hours) return `${hours}h`;
+  return `${minutes}m`;
+}
+
+function formatRecipeAcquisition(recipe) {
+  const details = ['Built in the Foundry from a blueprint.'];
+  const blueprintCost = formatCredits(recipe?.blueprintCost);
+  const buildCost = formatCredits(recipe?.buildCost);
+  if (blueprintCost) details.push(`Blueprint: ${blueprintCost}.`);
+  if (buildCost) details.push(`Build cost: ${buildCost}.`);
+  const buildTime = formatBuildTime(recipe?.buildTime);
+  if (buildTime) details.push(`Build time: ${buildTime}.`);
+  if (recipe?.rushCost > 0) details.push(`Rush: ${recipe.rushCost} Platinum.`);
+
+  const ingredientCounts = new Map();
+  for (const ingredient of recipe?.ingredients || []) {
+    const key = ingredient.itemType || ingredient.name;
+    const current = ingredientCounts.get(key);
+    if (current) current.count += Number(ingredient.count) || 1;
+    else ingredientCounts.set(key, { name: ingredient.name, count: Number(ingredient.count) || 1 });
+  }
+  const ingredients = [...ingredientCounts.values()]
+    .map(({ name, count }) => `${count}x ${name}`)
+    .join(', ');
+  if (ingredients) details.push(`Components: ${ingredients}.`);
+  return details.join(' ');
+}
+
 /**
- * Maps an item's uniqueName to its real Platinum price, for items the DE
- * exports confirm are directly sold in the in-game Market - i.e. NOT marked
- * excludeFromMarket and with a real platinumCost. ExportCustoms contains the
- * bulk of cosmetic entries, while ExportFlavour contains directly purchasable
- * emotes, animation sets, note packs, backgrounds, and other flavour items.
- * excludeFromMarket is only ever present as `true` in the export (never
- * `false`); its absence plus a real platinumCost is what marks an item as
- * genuinely purchasable. This deliberately excludes priced bundle
- * components, which are handled by buildBundleIndex instead.
+ * Maps an item's uniqueName to its real in-game Market price, for entries the
+ * DE exports confirm are directly purchasable - i.e. NOT marked
+ * excludeFromMarket and with a real platinumCost or creditsCost. ExportCustoms
+ * contains the bulk of cosmetic entries, while the equipment tables cover
+ * weapon/Warframe/Sentinel/Gear purchases. This deliberately excludes priced
+ * bundle components, which are handled by buildBundleIndex instead.
  */
 export function buildMarketIndex(exportData) {
   const index = new Map();
-  for (const tableName of ['ExportCustoms', 'ExportFlavour']) {
+  for (const tableName of ['ExportCustoms', 'ExportFlavour', 'ExportWeapons', 'ExportWarframes', 'ExportSentinels', 'ExportGear']) {
     const table = exportData?.[tableName];
     if (!table || typeof table !== 'object') continue;
     for (const [uniqueName, entry] of Object.entries(table)) {
       if (!entry?.excludeFromMarket && entry?.platinumCost > 0) {
-        index.set(canonicalPath(uniqueName), entry.platinumCost);
+        index.set(canonicalPath(uniqueName), { amount: entry.platinumCost, currency: 'Platinum' });
+      } else if (!entry?.excludeFromMarket && entry?.creditsCost > 0) {
+        // Starter weapons use creditsCost for direct in-game purchases. A
+        // recipe's blueprint credit cost is handled by the recipe branch
+        // before this index is consulted.
+        index.set(canonicalPath(uniqueName), { amount: entry.creditsCost, currency: 'Credits' });
       }
     }
   }
@@ -260,17 +340,25 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return { sources: [{ type: 'non-drop', text: nonDrop.text }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
-  if (recipeResultIndex?.has(canonicalPath(dropIndexKey)) || isCraftable(dropIndexKey)) {
+  const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey));
+  if (recipe || isCraftable(dropIndexKey)) {
     return {
-      sources: [{ type: 'non-drop', text: 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.' }],
+      sources: [{
+        type: 'non-drop',
+        text: recipe
+          ? formatRecipeAcquisition(recipe)
+          : 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.',
+      }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
 
   const marketPrice = marketIndex?.get(canonicalPath(dropIndexKey));
   if (marketPrice) {
+    const amount = typeof marketPrice === 'number' ? marketPrice : marketPrice.amount;
+    const currency = typeof marketPrice === 'number' ? 'Platinum' : marketPrice.currency;
     return {
-      sources: [{ type: 'non-drop', text: `Sold in the in-game Market for ${marketPrice} Platinum.` }],
+      sources: [{ type: 'non-drop', text: `Sold in the in-game Market for ${Number(amount).toLocaleString()} ${currency}.` }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

@@ -46,6 +46,11 @@ function getSourceLabel(source) {
   }
 }
 
+function getProvenanceLabel(source) {
+  if (!source?.source) return null;
+  return source.source;
+}
+
 /**
  * Manages which item's acquisition info is currently shown in the drawer.
  * Clicking the open item's own card again closes it; clicking a different
@@ -99,9 +104,10 @@ export default function AcquisitionDrawer({ item, onClose }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-40 overflow-y-auto">
             {info.sources.map((s, i) => (
               <div key={i} className="flex items-center justify-between px-3 py-2 rounded bg-black/30 border border-white/5">
-                <span className="text-xs text-kronos-text truncate">
-                  {getSourceLabel(s)}
-                </span>
+                <div className="min-w-0">
+                  <span className="block text-xs text-kronos-text truncate">{getSourceLabel(s)}</span>
+                  {getProvenanceLabel(s) && <span className="block mt-0.5 text-[9px] uppercase tracking-wider text-kronos-dim truncate">Source: {getProvenanceLabel(s)}</span>}
+                </div>
                 {typeof s.chance === 'number' &&
                   <span className="text-[10px] font-bold text-kronos-accent flex-shrink-0 ml-2">{(s.chance * 100).toFixed(1)}%</span>
                 }

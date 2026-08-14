@@ -334,12 +334,12 @@ export function buildGlyphSupplementIndex(data) {
 export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
-    return { sources: itemDrops, wikiLink: getWikiLink(dropIndexKey, displayName) };
+    return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   const overrideText = overridesData?.mods?.[displayName] ?? overridesData?.components?.[dropIndexKey];
   if (overrideText) {
-    return { sources: [{ type: 'override', text: overrideText }], wikiLink: getWikiLink(dropIndexKey, displayName) };
+    return { sources: [{ type: 'override', text: overrideText, source: 'manual override' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   const norm = dropIndexKey?.replace('/StoreItems/', '/');
@@ -369,7 +369,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
 
   const nonDrop = NON_DROP_PATTERNS.find((p) => p.test(dropIndexKey));
   if (nonDrop) {
-    return { sources: [{ type: 'non-drop', text: nonDrop.text }], wikiLink: getWikiLink(dropIndexKey, displayName) };
+    return { sources: [{ type: 'non-drop', text: nonDrop.text, source: 'DE export path rule' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey));
@@ -377,6 +377,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return {
       sources: [{
         type: 'non-drop',
+        source: 'DE export',
         text: recipe
           ? formatRecipeAcquisition(recipe)
           : 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.',
@@ -391,7 +392,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     const amount = typeof marketPrice === 'number' ? marketPrice : marketPrice.amount;
     const currency = typeof marketPrice === 'number' ? 'Platinum' : marketPrice.currency;
     return {
-      sources: [{ type: 'non-drop', text: `Sold in the in-game Market for ${Number(amount).toLocaleString()} ${currency}.` }],
+      sources: [{ type: 'non-drop', text: `Sold in the in-game Market for ${Number(amount).toLocaleString()} ${currency}.`, source: 'DE export' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -399,7 +400,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const bundleName = bundleIndex?.get(canonicalPath(dropIndexKey));
   if (bundleName) {
     return {
-      sources: [{ type: 'non-drop', text: `Sold as part of the "${bundleName}" Market bundle.` }],
+      sources: [{ type: 'non-drop', text: `Sold as part of the "${bundleName}" Market bundle.`, source: 'DE export' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -413,13 +414,13 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     const text = favour.standingCost > 0
       ? `Sold by ${favour.syndicateName} at Rank ${favour.level}+ for ${favour.standingCost} standing.`
       : `Unlocked at Rank ${favour.level} with ${favour.syndicateName}.`;
-    return { sources: [{ type: 'non-drop', text }], wikiLink: getWikiLink(dropIndexKey, displayName) };
+    return { sources: [{ type: 'non-drop', text, source: 'DE export' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   const wikiSigilCategory = wikiSigilIndex?.get(displayLower);
   if (wikiSigilCategory) {
     return {
-      sources: [{ type: 'non-drop', text: `Listed under ${wikiSigilCategory} on the Warframe wiki.` }],
+      sources: [{ type: 'non-drop', text: `Listed under ${wikiSigilCategory} on the Warframe wiki.`, source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -427,14 +428,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const vendors = wikiVendorIndex?.get(displayLower);
   if (vendors?.length) {
     return {
-      sources: [{ type: 'non-drop', text: `Sold by ${vendors.join(' and ')}.` }],
+      sources: [{ type: 'non-drop', text: `Sold by ${vendors.join(' and ')}.`, source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
 
   if (exportVendorIndex?.has(canonicalPath(dropIndexKey))) {
     return {
-      sources: [{ type: 'non-drop', text: 'Available from an in-game vendor.' }],
+      sources: [{ type: 'non-drop', text: 'Available from an in-game vendor.', source: 'DE export' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -442,14 +443,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const variantAcquisition = VARIANT_ACQUISITION_PATTERNS.find((p) => p.test(dropIndexKey, displayName));
   if (variantAcquisition) {
     return {
-      sources: [{ type: 'non-drop', text: variantAcquisition.text }],
+      sources: [{ type: 'non-drop', text: variantAcquisition.text, source: 'DE export variant identity' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
 
   if (alwaysAvailableIndex?.has(canonicalPath(dropIndexKey))) {
     return {
-      sources: [{ type: 'non-drop', text: 'Available directly in the in-game customization menu.' }],
+      sources: [{ type: 'non-drop', text: 'Available directly in the in-game customization menu.', source: 'DE export' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -459,14 +460,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     const price = tennoGen.pcPrice || tennoGen.consolePrice;
     const priceText = price ? ` for ${price}` : '';
     return {
-      sources: [{ type: 'non-drop', text: `TennoGen skin - purchased via Steam Workshop/console store${priceText}.` }],
+      sources: [{ type: 'non-drop', text: `TennoGen skin - purchased via Steam Workshop/console store${priceText}.`, source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
 
   if (wikiBaroIndex?.has(displayLower)) {
     return {
-      sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer." }],
+      sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -482,7 +483,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     if (glyph.discord) details.push(`Discord: ${glyph.discord}`);
     if (glyph['other-site']) details.push(`More information: ${glyph['other-site']}`);
     return {
-      sources: [{ type: 'non-drop', text: details.length ? `Creator Glyph. ${details.join(' ')}` : 'Creator Glyph. See the linked creator source for availability.' }],
+      sources: [{ type: 'non-drop', text: details.length ? `Creator Glyph. ${details.join(' ')}` : 'Creator Glyph. See the linked creator source for availability.', source: 'browse.wf' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

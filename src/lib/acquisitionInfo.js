@@ -30,6 +30,24 @@ const NON_DROP_PATTERNS = [
   { test: (un) => /\/Types\/Keys\/.*KeyChain$/.test(un || ''), text: 'Awarded from completing this quest.' },
 ];
 
+// Stable variant families with a known acquisition route. These are shared
+// path/name rules, not item-specific overrides. More specific curated vendor
+// and Baro sources are checked first below.
+const VARIANT_ACQUISITION_PATTERNS = [
+  {
+    test: (un, name) => /\/KuvaLich\//.test(un || '') || /^Kuva\s/i.test(name || ''),
+    text: 'Acquired by defeating a Kuva Lich carrying this weapon.',
+  },
+  {
+    test: (un, name) => /\/BoardExec\//.test(un || '') || /^Tenet\s/i.test(name || ''),
+    text: 'Acquired by defeating a Sister of Parvos carrying this weapon.',
+  },
+  {
+    test: (un, name) => /\/InfestedLich\//.test(un || '') || /^(?:Dual\s+)?Coda\s/i.test(name || ''),
+    text: 'Acquired by defeating an Infested Lich carrying this weapon.',
+  },
+];
+
 const canonicalPath = (v) => v?.replace('/StoreItems/', '/') || v;
 
 /**
@@ -403,6 +421,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (exportVendorIndex?.has(canonicalPath(dropIndexKey))) {
     return {
       sources: [{ type: 'non-drop', text: 'Available from an in-game vendor.' }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const variantAcquisition = VARIANT_ACQUISITION_PATTERNS.find((p) => p.test(dropIndexKey, displayName));
+  if (variantAcquisition) {
+    return {
+      sources: [{ type: 'non-drop', text: variantAcquisition.text }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

@@ -9,6 +9,8 @@ function getSourceLabel(source) {
   switch (source.type) {
     case 'override':
       return source.text || 'Known source';
+    case 'non-drop':
+      return source.text || 'Not obtained from a drop table';
     case 'wiki':
       return source.text || 'Wiki acquisition information';
     case 'wiki-status':

@@ -19,6 +19,17 @@ import { getItemDrops, getWikiLink } from './acquisitionData';
  * awaited loadAcquisitionData() at least once (typically in their screen's
  * mount effect) before this returns real warframe-items data.
  */
+// Path patterns that definitionally aren't drop-table acquisitions - safe to
+// label without guessing, unlike Skins/Sigils/Misc/Gear/Resources, which are
+// too heterogeneous (Market purchase, syndicate rank, event reward, quest
+// reward, all mixed under the same paths) to classify correctly from the
+// uniqueName alone. Mislabeling those would give wrong acquisition guidance,
+// so they're left showing the generic wiki fallback instead of a guess.
+const NON_DROP_PATTERNS = [
+  { test: (un) => un?.includes('/Upgrades/Focus/'), text: 'Unlocked via the Focus tree, not obtained from a drop.' },
+  { test: (un) => /\/Types\/Keys\/.*KeyChain$/.test(un || ''), text: 'Awarded from completing this quest.' },
+];
+
 export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
@@ -53,6 +64,11 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   }
   if (dropSources && dropSources.length > 0) {
     return { sources: dropSources, wikiLink: getWikiLink(dropIndexKey, displayName) };
+  }
+
+  const nonDrop = NON_DROP_PATTERNS.find((p) => p.test(dropIndexKey));
+  if (nonDrop) {
+    return { sources: [{ type: 'non-drop', text: nonDrop.text }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   return { sources: [], wikiLink: getWikiLink(dropIndexKey, displayName) };

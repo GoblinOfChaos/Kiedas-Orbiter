@@ -63,14 +63,19 @@ export default function Cosmetics() {
   const items = useMemo(() => {
     const customs = exportData?.ExportCustoms
     const dict = exportData?.dict || {}
-    if (!customs || typeof customs !== 'object') return []
-    return Object.entries(customs).flatMap(([uniqueName, entry]) => {
+    const skinItems = customs && typeof customs === 'object' ? Object.entries(customs).flatMap(([uniqueName, entry]) => {
       if (!/\/Upgrades\/Skins\//i.test(uniqueName)) return []
       const kind = isSigil(uniqueName) ? 'Sigil' : 'Skin'
       const name = dict[entry?.name] || entry?.name
       if (!name) return []
       return [{ uniqueName, name, kind, owned: owned.has(normalize(uniqueName)), icon: resolveAnyImage(uniqueName, EI, nameToImage) }]
+    }) : []
+    const glyphItems = Object.entries(exportData?.WI_Glyphs || {}).flatMap(([uniqueName, entry]) => {
+      const name = entry?.name
+      if (!uniqueName || !name) return []
+      return [{ uniqueName, name, kind: 'Glyph', owned: owned.has(normalize(uniqueName)), icon: entry.icon || resolveAnyImage(uniqueName, EI, nameToImage) }]
     })
+    return [...skinItems, ...glyphItems]
   }, [exportData, owned, EI, nameToImage])
 
   const filtered = useMemo(() => {
@@ -88,11 +93,11 @@ export default function Cosmetics() {
   if (!exportData) return <PageLayout title="Cosmetics"><Card className="p-8 text-center text-kronos-dim">Loading cosmetics...</Card></PageLayout>
 
   return (
-    <PageLayout title="Cosmetics" subtitle={`${items.filter((item) => item.owned).length} / ${items.length} owned - skins and sigils`}>
+    <PageLayout title="Cosmetics" subtitle={`${items.filter((item) => item.owned).length} / ${items.length} owned - skins, sigils, and glyphs`}>
       <div className="mb-4 flex flex-col gap-3">
         <div className="relative max-w-sm"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder="Search cosmetics..." value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>
         <div className="flex flex-wrap gap-1 rounded-xl border border-white/5 bg-black/20 p-1 self-start">
-          {['all', 'skin', 'sigil'].map((value) => <button key={value} type="button" onClick={() => setKindFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${kindFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value === 'all' ? 'All' : `${value}s`}</button>)}
+          {['all', 'skin', 'sigil', 'glyph'].map((value) => <button key={value} type="button" onClick={() => setKindFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${kindFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value === 'all' ? 'All' : `${value}s`}</button>)}
           <span className="mx-1 border-l border-white/10" />
           {['all', 'owned', 'missing'].map((value) => <button key={value} type="button" onClick={() => setOwnershipFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${ownershipFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value[0].toUpperCase() + value.slice(1)}</button>)}
         </div>

@@ -19,6 +19,7 @@ const NAV_ITEMS = [
   { id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
   { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
   { id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
+  { id: 'cosmetics', icon: 'GrimoireMarker.png', label: 'Cosmetics' },
   { id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
   { id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },
   { id: 'wiki', icon: 'Wiki.png', label: 'Wiki' },
@@ -40,6 +41,7 @@ const Rivens = lazy(() => import('../../screens/Rivens'))
 const Relics = lazy(() => import('../../screens/Relics'))
 const Mods = lazy(() => import('../../screens/Mods'))
 const Collectibles = lazy(() => import('../../screens/Collectibles'))
+const Cosmetics = lazy(() => import('../../screens/Cosmetics'))
 const Wiki = lazy(() => import('../../screens/Wiki'))
 const Adversaries = lazy(() => import('../../screens/Adversaries'))
 
@@ -143,6 +145,7 @@ function SidebarContent() {
     notes: <Notes />,
     maps: <Maps />,
     collectibles: <Collectibles />,
+    cosmetics: <Cosmetics />,
     checklist: <Checklist />,
     adversaries: <Adversaries />,
     wiki: <Wiki />,

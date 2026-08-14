@@ -25,6 +25,7 @@ const NAV_ITEMS = [
 { id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
 { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
 { id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
+{ id: 'cosmetics', icon: 'GrimoireMarker.png', label: 'Cosmetics' },
 { id: 'prime-resurgence', icon: 'BaroKiTeerFlat.png', label: 'Prime Resurgence' },
 { id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
 { id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },
@@ -78,6 +79,7 @@ const Relics = lazy(() => import('./screens/Relics'));
 const RelicPlanner = lazy(() => import('./screens/RelicPlanner'));
 const Mods = lazy(() => import('./screens/Mods'));
 const Collectibles = lazy(() => import('./screens/Collectibles'));
+const Cosmetics = lazy(() => import('./screens/Cosmetics'));
 const PrimeResurgence = lazy(() => import('./screens/PrimeResurgence'));
 const Wiki = lazy(() => import('./screens/Wiki'));
 const Adversaries = lazy(() => import('./screens/Adversaries'));
@@ -317,6 +319,7 @@ function AppContent() {
     notes: <Notes />,
     maps: <Maps />,
     collectibles: <Collectibles />,
+    cosmetics: <Cosmetics />,
     'prime-resurgence': <PrimeResurgence />,
     checklist: <Checklist />,
     settings: <SettingsScreen />,

@@ -11,6 +11,21 @@ import ItemImage from '../components/ItemImage'
 const normalize = (uniqueName) => uniqueName?.replace('/StoreItems/', '/').toLowerCase()
 const isSigil = (uniqueName) => /\/Upgrades\/Skins\/Sigils\//i.test(uniqueName || '')
 
+function cosmeticType(uniqueName, icon, kind) {
+  if (kind !== 'Skin') return kind
+  const value = `${uniqueName || ''} ${icon || ''}`.toLowerCase()
+  if (/primaryweapons/.test(value)) return 'Primary'
+  if (/secondaryweapons/.test(value)) return 'Secondary'
+  if (/meleeweapons/.test(value)) return 'Melee'
+  if (/archwing/.test(value)) return 'Archwing'
+  if (/sentinel/.test(value)) return 'Sentinel'
+  if (/syandana/.test(value)) return 'Syandana'
+  if (/armor/.test(value)) return 'Armor'
+  if (/animationsets/.test(value)) return 'Animation'
+  if (/warframe|\/upgrades\/skins\/(?:[a-z]+)\//.test(value) && !/weapons/.test(value)) return 'Warframe'
+  return 'Other'
+}
+
 function ownedUniqueNames(rawInventory) {
   const owned = new Set()
   for (const bucket of ['WeaponSkins', 'FlavourItems', 'MiscItems', 'ShipDecorations']) {
@@ -68,19 +83,19 @@ export default function Cosmetics() {
       const kind = isSigil(uniqueName) ? 'Sigil' : 'Skin'
       const name = dict[entry?.name] || entry?.name
       if (!name) return []
-      return [{ uniqueName, name, kind, owned: owned.has(normalize(uniqueName)), icon: resolveAnyImage(uniqueName, EI, nameToImage) }]
+      return [{ uniqueName, name, kind, type: cosmeticType(uniqueName, entry?.icon, kind), owned: owned.has(normalize(uniqueName)), icon: resolveAnyImage(uniqueName, EI, nameToImage) }]
     }) : []
     const glyphItems = Object.entries(exportData?.WI_Glyphs || {}).flatMap(([uniqueName, entry]) => {
       const name = entry?.name
       if (!uniqueName || !name) return []
-      return [{ uniqueName, name, kind: 'Glyph', owned: owned.has(normalize(uniqueName)), icon: entry.icon || resolveAnyImage(uniqueName, EI, nameToImage) }]
+      return [{ uniqueName, name, kind: 'Glyph', type: 'Glyph', owned: owned.has(normalize(uniqueName)), icon: entry.icon || resolveAnyImage(uniqueName, EI, nameToImage) }]
     })
     return [...skinItems, ...glyphItems]
   }, [exportData, owned, EI, nameToImage])
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
-    return items.filter((item) => (!q || item.name.toLowerCase().includes(q)) && (kindFilter === 'all' || item.kind.toLowerCase() === kindFilter) && (ownershipFilter === 'all' || (ownershipFilter === 'owned' ? item.owned : !item.owned))).sort((a, b) => a.name.localeCompare(b.name))
+    return items.filter((item) => (!q || item.name.toLowerCase().includes(q)) && (kindFilter === 'all' || item.type.toLowerCase() === kindFilter) && (ownershipFilter === 'all' || (ownershipFilter === 'owned' ? item.owned : !item.owned))).sort((a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name))
   }, [items, search, kindFilter, ownershipFilter])
 
   const openItem = useMemo(() => {
@@ -97,7 +112,7 @@ export default function Cosmetics() {
       <div className="mb-4 flex flex-col gap-3">
         <div className="relative max-w-sm"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder="Search cosmetics..." value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>
         <div className="flex flex-wrap gap-1 rounded-xl border border-white/5 bg-black/20 p-1 self-start">
-          {['all', 'skin', 'sigil', 'glyph'].map((value) => <button key={value} type="button" onClick={() => setKindFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${kindFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value === 'all' ? 'All' : `${value}s`}</button>)}
+          {['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'glyph', 'sigil', 'other'].map((value) => <button key={value} type="button" onClick={() => setKindFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${kindFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value === 'all' ? 'All' : value}</button>)}
           <span className="mx-1 border-l border-white/10" />
           {['all', 'owned', 'missing'].map((value) => <button key={value} type="button" onClick={() => setOwnershipFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${ownershipFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value[0].toUpperCase() + value.slice(1)}</button>)}
         </div>

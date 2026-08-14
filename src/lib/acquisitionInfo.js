@@ -143,7 +143,23 @@ export function buildSyndicateIndex(exportData) {
   return index;
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex) {
+/**
+ * Maps a Sigil display name to the curated category from the wiki's
+ * Module:Sigils/data export. The generated asset is keyed by display name
+ * because that is the key used by the source module.
+ */
+export function buildWikiSigilIndex(data) {
+  const index = new Map();
+  if (!data || typeof data !== 'object') return index;
+  for (const [name, category] of Object.entries(data)) {
+    if (typeof name === 'string' && typeof category === 'string' && category.trim()) {
+      index.set(name.toLowerCase().trim(), category.trim());
+    }
+  }
+  return index;
+}
+
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops, wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -217,6 +233,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       ? `Sold by ${favour.syndicateName} at Rank ${favour.level}+ for ${favour.standingCost} standing.`
       : `Unlocked at Rank ${favour.level} with ${favour.syndicateName}.`;
     return { sources: [{ type: 'non-drop', text }], wikiLink: getWikiLink(dropIndexKey, displayName) };
+  }
+
+  const wikiSigilCategory = wikiSigilIndex?.get(displayLower);
+  if (wikiSigilCategory) {
+    return {
+      sources: [{ type: 'non-drop', text: `Listed under ${wikiSigilCategory} on the Warframe wiki.` }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
   }
 
   return { sources: [], wikiLink: getWikiLink(dropIndexKey, displayName) };

@@ -1,0 +1,1958 @@
+{
+  "Acheta Signa": {
+    "pcPrice": "$3.49",
+    "consolePrice": "60"
+  },
+  "Ak-Sura Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Akmagnus Dakila Skin": {
+    "pcPrice": "40",
+    "consolePrice": "40"
+  },
+  "Akmagnus Hivelight Skin": {
+    "pcPrice": "40",
+    "consolePrice": "40"
+  },
+  "Alocana Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Chemtank Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Aquiros Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Arcosolium Arca Plasmor Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "50"
+  },
+  "Arcturus Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Armalyst Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Aropanex Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Asakage Shoulder Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Ash Bai Hu Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Ash Carabid Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Ash Ichneumon Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Ash Ryuga Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Ash Tsukuyomi Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Asteria Chest Armor": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Atlas Arhat Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Atlas Blade Of The Lotus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Atlas Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Atlas Monolith Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Atlas Telamon Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Aures Diadem": {
+    "pcPrice": "$1.99",
+    "consolePrice": "N/A"
+  },
+  "Aures Earpiece": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Avyrdi Shoulder Armor": {
+    "pcPrice": "$2.49",
+    "consolePrice": "50"
+  },
+  "Ayla Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Banshee Blade Of The Lotus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Banshee Dominia Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Banshee Echo Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Banshee Sonority Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Baruuk Bedouin Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Baruuk Blade Of The Lotus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Baruuk Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Baruuk Peacemaker Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Baruuk Shiraan Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Baruuk Zamariu Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Blaze Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Bodo Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Boltara Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Caerulea Oculus": {
+    "pcPrice": "$2.99",
+    "consolePrice": "35"
+  },
+  "Caliban Scion Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Centurio Signa": {
+    "pcPrice": "$3.49",
+    "consolePrice": "60"
+  },
+  "Chroma Drevni Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Chroma Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Chroma Kaiju Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Chroma Morkai Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Chroma Tarrasque Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Chroma Thyrus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Chroma Vojnik Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "N/A"
+  },
+  "Citrine Celestis Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Corachrix Shoulder Pauldrons": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Corail Diadem": {
+    "pcPrice": "$2.99",
+    "consolePrice": "35"
+  },
+  "Corona Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Covenant Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Cryona Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Dagath Voiddax Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Dagath Yhavan Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Dagger Crubbak Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Deru Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Despot Cape Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Diablillo Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Disconnect Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Diva Chest Plate": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Dominus Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Draugen Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Dual Zoren Combustion Skin": {
+    "pcPrice": "40",
+    "consolePrice": "40"
+  },
+  "Dual Zoren Kuberus Skin": {
+    "pcPrice": "40",
+    "consolePrice": "40"
+  },
+  "Due Volpi Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Eklis Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Ember Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Ember Ignition Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Ember Magesty Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Ember Technopyre Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Endocitos Shoulder Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Equinox Divisa Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Equinox Insomnia Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Equinox Megaera Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Equinox Omni Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Eternalia Tower Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Eucyon Chest Plate": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Excalibur Apex Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Excalibur Arturius Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Excalibur Blade Of The Lotus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Excalibur Caduto Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Excalibur Corpra Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Excalibur Exaltation Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Excalibur Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Excalibur Ion Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Excalibur Isurus Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Excalibur Ogrant Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Excalibur Ronin Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Excalibur Sentient Slayer Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "165"
+  },
+  "Excalibur Vespula Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "N/A"
+  },
+  "Ezriel Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Fei Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Fhan'epak Chest Plate": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Frost Emperor Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Frost Grost Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "165"
+  },
+  "Frost Hailstorm Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "165"
+  },
+  "Frost Himavat Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Frost Hisame Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Frost Ion Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Frost Jotun Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Frost Manta-Z Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Frost Strigid Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Frost Summit Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Frost Vojnik Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "N/A"
+  },
+  "Frost Zastruga Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Galatine Claymire Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Galatine Magesty Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Gara Adora Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Gara Rouen Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Gara Silica Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Gara Zamariu Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Garasu Diadem": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Garasu Earpiece": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Garasu Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Garuda Sakhura Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Garuda Successor Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Garuda Tengushin Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Garuda Tiamat Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Gauss Agito Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Gauss Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Gauss Nitrolyst Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Gauss Profitas Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Gothica Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Graxx Spitefire Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Grendel Moloch Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Gyre Kuvael Monarch Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Haemadys Mask": {
+    "pcPrice": "TBA",
+    "consolePrice": "TBA"
+  },
+  "Hammer Axonnak Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Hammer Maulleus Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Hammer Ogun Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Harrow Algalyst Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Harrow Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Harrow Hieropha Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Harrow Profitas Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Harrow Veles Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Heavy Blade Arashi Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Heavy Blade Dogma Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Heavy Blade Grimstone Cleaver Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Heavy Blade Ion Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Heavy Blade Karv'r Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Heavy Blade Kilzorath Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Heavy Blade Mithra Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Heavy Blade Mizar Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Heavy Blade Obanakk Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Heavy Blade Suprema Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Heavy Blade Tengoken Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Hildryn Sarcostema Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Hildryn Sigrun Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Hydroid Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Hydroid Karkinos Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Hydroid Poseidon Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Hydroid Rorqual Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Icarius Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Inaros Horus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Inaros Kephri Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Inaros Ozymandias Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Incognito Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Incubus Ribbon Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Inflatable Shoulder Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Ion Shoulder Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Irya Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Ivara Arcuata Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Ivara Astrea Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Ivara Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Ivara Kuvael Huntress Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Ivara Youkai Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Ivara Zamariu Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Jat Kittag Noxious Hammer Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Jattuk Mantle": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Jotunheim Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Jotunheim Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Jotunheim Music Shoulder Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Jotunheim Music Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Katix Earpiece": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Khora Fiera Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Khora Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Khora Laveau Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Khora Mithra Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Khora Miyabi Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Kiritsune Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "N/A"
+  },
+  "Kishikami Chest Armor": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Konvalyst Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Kronen Arit Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Krtrima Chest Armor": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Krtrima Leg Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Krtrima Shoulder Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Kullervo Ascophilia Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Kunshu Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Kuva Pump Chest Plate": {
+    "pcPrice": "$2.49",
+    "consolePrice": "N/A"
+  },
+  "Lamassu Shoulder Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Laprosys Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Lavos Kuvael Alchemist Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Lavos Yersin Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Limbo Aureolus Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Limbo Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Limbo Vasiona Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Limbo Venari Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Limbo Vistyxio Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Liset Hellkite Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Liset Herulyst Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Liset Lumis Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Liset Maltzur Oculus Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Liset Mithra Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Liset Protege Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Liset Quilate Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Liset Vammatar Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Loki Erebus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Loki Ersatz Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Loki Incubus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Loki Jotunheim Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Loki Kodama Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Loki Lupu Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Loki Rogue Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Longsword Arit Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Longsword Dero Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Longsword Eisen Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Longsword Ezriel Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Longsword Insidia Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Longsword Ion Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Longsword Tengushen Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Lumis Earpiece": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Lumis Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Lunarius Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Machete Kuther Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Machete Udjyat's Serpent Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Mag Alata Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "165"
+  },
+  "Mag Anthro Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Mag Celestis Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mag Corpra Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mag Ferro Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mag Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mag Induction Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Mag Knaita Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Mag Orbit Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mag Toroidal Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Magnus Dakila Skin": {
+    "pcPrice": "40",
+    "consolePrice": "40"
+  },
+  "Magnus Hivelight Skin": {
+    "pcPrice": "40",
+    "consolePrice": "40"
+  },
+  "Maharliqa Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Mantis Lilieae Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Mantis Vammatar Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Mesa Dead Eye Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Mesa Devil Ranger Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mesa Falcon Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Mesa Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mesa Insomnia Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mesa Kudegra Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mesa Marlet Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mesa Mesnificent Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mirage Graxx Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Mirage Jolli Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Mirage Kitsune Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mirage Kuvael Jester Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mirage Mithra Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mirage Morgaine Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Mirage Sigyn Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "N/A"
+  },
+  "Mithra Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Mushussu Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Naru Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nekros Ausirylyst Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nekros Charon Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Nekros Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nekros Ion Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nekros Lazarus Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Nezha Devine Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Nezha Dracun Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nezha Yaksha Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nidus Kuvael Scrounger Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nidus Night Hunter Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nidus Technocyst Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Night Hunter Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nikana Khatuun Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nikana Krtrima Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nikana Minos Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nikana Mithra Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nikana Shinigami Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nikana Ungulata Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nova Corpra Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nova Cygni Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "N/A"
+  },
+  "Nova Device Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "N/A"
+  },
+  "Nova Fusion Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Nova Gnova Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "N/A"
+  },
+  "Nova Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nova Lamia Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Nova Lamia Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Nova Mithra Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nova Netrastelle Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nova Stinger Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "165"
+  },
+  "Nova Tachyon Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nova Visage Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nsaru Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nyx Ampulex Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Nyx Ascophilia Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "N/A"
+  },
+  "Nyx Athena Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nyx Aurelia Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nyx Aures Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nyx Carnifex Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nyx Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nyx Saikou Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Nyx Technopsyche Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Oberon Blade Of The Lotus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Oberon Destrier Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Oberon Ferosh Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Oberon Taurus Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Oberon Wendigo Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Oberon Youkai Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Octavia Diva Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Octavia Giocoso Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Octavia Mandachoralyst Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Octavia Netrahymn Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Octavia Youkai Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Officium Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Opticor Mithra Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "50"
+  },
+  "Optima Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "N/A"
+  },
+  "Oraxia Agamva Helmet": {
+    "pcPrice": "TBA",
+    "consolePrice": "TBA"
+  },
+  "Orthos Magesty Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Papillon Oculus": {
+    "pcPrice": "$2.99",
+    "consolePrice": "35"
+  },
+  "Paxis Chest Plate": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Paxis Shoulder Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Paxis Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Piercing Eye Chest Armor": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Piercing Eye Shoulder Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Pistris Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Polearm Aphria Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Polearm Diva Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Polearm Kalynex Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Polearm Ion Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Polearm Jotunheim Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Polearm Lahnss Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Polearm Lympharis Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Polearm Osiris Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Polearm Phorcys Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Polearm Skopos Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Polearm Ulcerated Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Praesidum Mask": {
+    "pcPrice": "$2.99",
+    "consolePrice": "35"
+  },
+  "Pragmatica Signa": {
+    "pcPrice": "$3.49",
+    "consolePrice": "60"
+  },
+  "Protea Kollapsar Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Protea Technochron Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Qorvex Sarcophago Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Raigo Chest Armor": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Raiji Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Ranulyst Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Rapier Arashi Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Rapier Ferita Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Rapier Ni'Duhl Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Rau Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Repala Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Retrorolyst Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Revenant Ahriman Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Revenant Draugen Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Revenant Immortuos Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Revenant Tenebrus Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Revenant Wight Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Rhino Blade Of The Lotus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Rhino Graxx Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Rhino Ion Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Rhino Mastodon Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Rhino Scarab Sect Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Rhino Teutonic Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Rhino Vojnik Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Rhino Warlust Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Rhodora Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Rota Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Sari Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Sarva Harness Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Saryn Amalgama Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Saryn Belladonna Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Saryn Blade Of The Lotus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Saryn Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Saryn Integra Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Saryn Ion Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Saryn Napellus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Saryn Night Hunter Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Saryn Nita's Moda Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "165"
+  },
+  "Saryn Velenosa Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Scapulis Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Sciathin Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Scindo Combustion Skin": {
+    "pcPrice": "40",
+    "consolePrice": "40"
+  },
+  "Scindo Kuberus Skin": {
+    "pcPrice": "40",
+    "consolePrice": "40"
+  },
+  "Sclera Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Scylla Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Senvictis Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Seraphim Chest Plate": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Seraphim Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Sethar Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Setka Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Sevagoth Ezriel Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Shiroku Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Shurihoshi Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Sildarg Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Skana Infested Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Solida Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Sovereign Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Spicularis Spurs": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Spicularis Mandible Mask": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Spicularis Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Staff Eklypsa Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Styanax Ares Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Styanax Huzarr Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Styanax Raevuz Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Stygean Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Styx Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Sybaris Overload Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "50"
+  },
+  "Sydeko Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Tenui Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Teplo Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Titania Lympharis Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Titania Pixialyst Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Titania Unseelie Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Titania Viraji Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Tonaca Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Tonfa Ba'geth Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Tonfa Hades Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Tonfa Yamex Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Trinity Ancyra Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Trinity Blade Of The Lotus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Trinity Knightess Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Trinity Messiah Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Trinity Nightingale Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Tsujinasa Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Two-Handed Nikana Arashi Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Two-Handed Nikana Ksara Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Undercutter Nikana Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Valesti Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Valkyr Cheetah Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Valkyr Delusion Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Valkyr Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Valkyr Ion Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Valkyr Leonessa Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Valkyr Mithra Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Vauban Bonaparte Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Vauban Chapelon Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Vauban Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Vauban Suppressor Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Vectis Sharpshooter Skin": {
+    "pcPrice": "40",
+    "consolePrice": "40"
+  },
+  "Vectis Silferer Skin": {
+    "pcPrice": "40",
+    "consolePrice": "40"
+  },
+  "Vikasa Aegis Chest Armor": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Vikasa Shoulder Plates": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Volt Amp Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "165"
+  },
+  "Volt Arrester Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Volt Capacitor Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Volt Fulgursor Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Volt Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Volt Relay Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Volt Technoshock Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Volt Thales Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Volt Zener Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Voruna Demionna Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Voruna Kuvael Drahkaanis Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Vuoto Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Whip Jotunheim Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Whip Wuush Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Wisp Celestis Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Wisp Coven Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Wisp Damas Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Wisp Delusion Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Wisp Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Wisp Raevuz Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Wisp Sycorax Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Wisp Zamariu Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Wukong Auman Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Wukong Mithra Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Wukong Piercing Eye Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Wukong Xingzhe Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "75"
+  },
+  "Xaku Deathea Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Xairaks Chest Armor": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Xairaks Leg Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  },
+  "Xikonos Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Xiphos Lilieae Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Xulatu Chest Armor": {
+    "pcPrice": "$2.49",
+    "consolePrice": "45"
+  },
+  "Yareli Batomorpha Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Yureilyst Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Zaikhya Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Zamariu Signa": {
+    "pcPrice": "$3.49",
+    "consolePrice": "60"
+  },
+  "Zamariu Syandana": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
+  },
+  "Zenoriu Earpiece": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Zenoriu Mask": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Zenoriu Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Zephyr Blade Of The Lotus Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Zephyr Graxx Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Zephyr Hagoromo Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Zephyr Migisi Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Zephyr Monsoon Helmet": {
+    "pcPrice": "$5.99",
+    "consolePrice": "N/A"
+  },
+  "Zephyr Skeiron Skin": {
+    "pcPrice": "$4.99",
+    "consolePrice": "90"
+  },
+  "Zephyr Strafe Skin": {
+    "pcPrice": "$6.99",
+    "consolePrice": "165"
+  },
+  "Zhivira Shoulder Armor": {
+    "pcPrice": "$2.99",
+    "consolePrice": "50"
+  }
+}

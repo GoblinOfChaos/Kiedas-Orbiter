@@ -73,7 +73,33 @@ export function buildMarketIndex(exportData) {
   return index;
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex) {
+/**
+ * Maps a cosmetic's uniqueName to the display name of a Market bundle it's
+ * sold in - ExportBundles.json (already fetched for other purposes, never
+ * inspected for this) lists each bundle's components[].typeName. Bundle
+ * display names are dict-lookup keys, resolved via exportData.dict (same
+ * pattern used by relicParser.js/dropsParser.js). Only the first bundle a
+ * component appears in is kept - good enough for "here's where to get it",
+ * doesn't need to be exhaustive.
+ */
+export function buildBundleIndex(exportData) {
+  const index = new Map();
+  const bundles = exportData?.ExportBundles;
+  const dict = exportData?.dict || {};
+  if (!bundles || typeof bundles !== 'object') return index;
+  for (const bundle of Object.values(bundles)) {
+    if (!Array.isArray(bundle?.components)) continue;
+    const bundleName = dict[bundle.name] || bundle.name;
+    if (!bundleName) continue;
+    for (const component of bundle.components) {
+      const key = canonicalPath(component?.typeName);
+      if (key && !index.has(key)) index.set(key, bundleName);
+    }
+  }
+  return index;
+}
+
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops, wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -125,6 +151,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (marketPrice) {
     return {
       sources: [{ type: 'non-drop', text: `Sold in the in-game Market for ${marketPrice} Platinum.` }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const bundleName = bundleIndex?.get(canonicalPath(dropIndexKey));
+  if (bundleName) {
+    return {
+      sources: [{ type: 'non-drop', text: `Sold as part of the "${bundleName}" Market bundle.` }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

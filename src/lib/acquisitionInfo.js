@@ -310,7 +310,18 @@ export function buildExportVendorIndex(exportData) {
 }
 
 export function buildWikiTennoGenIndex(data) {
-  return buildDisplayNameIndex(data, (entry) => entry && typeof entry === 'object' ? entry : null);
+  const index = buildDisplayNameIndex(data, (entry) => entry && typeof entry === 'object' ? entry : null);
+  // The wiki module commonly stores one TennoGen record for the purchasable
+  // skin while DE exports the matching helmet as a separate cosmetic item.
+  // Alias only the exact paired "Skin" -> "Helmet" form; do not fuzzy-match
+  // arbitrary cosmetic names.
+  for (const [name, value] of [...index.entries()]) {
+    if (name.endsWith(' skin')) {
+      const helmet = `${name.slice(0, -5)} helmet`;
+      if (!index.has(helmet)) index.set(helmet, value);
+    }
+  }
+  return index;
 }
 
 export function buildWikiBaroIndex(data) {

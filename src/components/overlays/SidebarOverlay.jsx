@@ -19,7 +19,7 @@ const NAV_ITEMS = [
   { id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
   { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
   { id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
-  { id: 'cosmetics', icon: 'GrimoireMarker.png', label: 'Cosmetics' },
+  { id: 'cosmetics', icon: 'Appearance.png', label: 'Cosmetics' },
   { id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
   { id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },
   { id: 'wiki', icon: 'Wiki.png', label: 'Wiki' },

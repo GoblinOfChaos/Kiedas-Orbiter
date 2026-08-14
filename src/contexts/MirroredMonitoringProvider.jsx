@@ -3,7 +3,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
-import { buildRecipeResultIndex, buildMarketIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex } from '../lib/acquisitionInfo'
+import { buildRecipeResultIndex, buildMarketIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex, buildExportVendorIndex } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getAllRelicRewards } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
@@ -556,6 +556,7 @@ export default function MirroredMonitoringProvider({ children }) {
   const wikiVendorIndex = useMemo(() => buildWikiVendorIndex(exportData?.WikiVendorAcquisition), [exportData])
   const wikiTennoGenIndex = useMemo(() => buildWikiTennoGenIndex(exportData?.WikiTennoGenAcquisition), [exportData])
   const wikiBaroIndex = useMemo(() => buildWikiBaroIndex(exportData?.WikiBaroAcquisition), [exportData])
+  const exportVendorIndex = useMemo(() => buildExportVendorIndex(exportData), [exportData])
 
   const applyRaw = useCallback((raw, ts, exports) => {
     if (!raw) return
@@ -708,7 +709,7 @@ export default function MirroredMonitoringProvider({ children }) {
     cardImagesPath, fixProgress,
     dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
     ExportImages, ExportTextIcons, masteryProgress,
-    EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex,
+    EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex,
     arbyTiers: ARBY_TIERS,
     setAutoStart, startMonitoring: startMonitoringFn,
     stopMonitoring: stopMonitoringFn,     manualRefresh: async () => {
@@ -727,7 +728,7 @@ export default function MirroredMonitoringProvider({ children }) {
       spIncursions, arbys, archonModifiers, arbitrationModifiers,
       dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
       ExportImages, ExportTextIcons, masteryProgress,
-      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex,
+      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex,
       allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices])
 
   return (

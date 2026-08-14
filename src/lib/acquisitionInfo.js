@@ -172,6 +172,25 @@ export function buildWikiVendorIndex(data) {
   return buildDisplayNameIndex(data, (vendors) => Array.isArray(vendors) ? vendors.filter(Boolean) : []);
 }
 
+/**
+ * ExportVendors is authoritative that an item is present in an in-game vendor
+ * manifest, but its manifest key is an internal identifier rather than a
+ * player-facing vendor name. Keep that distinction explicit: use this only
+ * for a generic vendor-source fallback, never for fabricated vendor labels.
+ */
+export function buildExportVendorIndex(exportData) {
+  const index = new Set();
+  const vendors = exportData?.ExportVendors;
+  if (!vendors || typeof vendors !== 'object') return index;
+  for (const vendor of Object.values(vendors)) {
+    for (const item of vendor?.items || []) {
+      const key = canonicalPath(item?.storeItem);
+      if (key) index.add(key);
+    }
+  }
+  return index;
+}
+
 export function buildWikiTennoGenIndex(data) {
   return buildDisplayNameIndex(data, (entry) => entry && typeof entry === 'object' ? entry : null);
 }
@@ -180,7 +199,7 @@ export function buildWikiBaroIndex(data) {
   return buildDisplayNameIndex(data, () => true);
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex) {
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops, wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -268,6 +287,13 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (vendors?.length) {
     return {
       sources: [{ type: 'non-drop', text: `Sold by ${vendors.join(' and ')}.` }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  if (exportVendorIndex?.has(canonicalPath(dropIndexKey))) {
+    return {
+      sources: [{ type: 'non-drop', text: 'Available from an in-game vendor.' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

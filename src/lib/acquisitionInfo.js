@@ -109,7 +109,41 @@ export function buildBundleIndex(exportData) {
   return index;
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex) {
+/**
+ * Maps an item's uniqueName to its syndicate rank offering - ExportSyndicates
+ * .json (already fetched, never inspected for this) has a favours[] array
+ * per syndicate with real storeItem/standingCost/requiredLevel/rankUpReward
+ * fields. rankUpReward:true means auto-granted on reaching that rank (e.g.
+ * the Cavia "Assistant/Scholar/Researcher" title sigils - previously
+ * believed to have no available source anywhere); rankUpReward:false means
+ * a standing-cost offering, some not covered by DropsAll.syndicates (e.g.
+ * smaller event syndicates like RadioLegion tiers). Syndicate display names
+ * are dict-lookup keys, resolved via exportData.dict.
+ */
+export function buildSyndicateIndex(exportData) {
+  const index = new Map();
+  const syndicates = exportData?.ExportSyndicates;
+  const dict = exportData?.dict || {};
+  if (!syndicates || typeof syndicates !== 'object') return index;
+  for (const syndicate of Object.values(syndicates)) {
+    if (!Array.isArray(syndicate?.favours)) continue;
+    const syndicateName = dict[syndicate.name] || syndicate.name;
+    if (!syndicateName) continue;
+    for (const favour of syndicate.favours) {
+      const key = canonicalPath(favour?.storeItem);
+      if (!key || index.has(key)) continue;
+      index.set(key, {
+        syndicateName,
+        level: favour.requiredLevel,
+        rankUp: !!favour.rankUpReward,
+        standingCost: favour.standingCost,
+      });
+    }
+  }
+  return index;
+}
+
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops, wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -171,6 +205,18 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       sources: [{ type: 'non-drop', text: `Sold as part of the "${bundleName}" Market bundle.` }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
+  }
+
+  const favour = syndicateIndex?.get(canonicalPath(dropIndexKey));
+  if (favour) {
+    // rankUpReward doesn't mean "free" - 1,393 of 1,412 rankUpReward:true
+    // entries still have a real standingCost (confirmed against the full
+    // export), so it only means "unlocked for purchase at this rank", same
+    // as rankUpReward:false. Base the wording on the actual cost instead.
+    const text = favour.standingCost > 0
+      ? `Sold by ${favour.syndicateName} at Rank ${favour.level}+ for ${favour.standingCost} standing.`
+      : `Unlocked at Rank ${favour.level} with ${favour.syndicateName}.`;
+    return { sources: [{ type: 'non-drop', text }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   return { sources: [], wikiLink: getWikiLink(dropIndexKey, displayName) };

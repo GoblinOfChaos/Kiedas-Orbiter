@@ -25,7 +25,15 @@ export async function loadSettings() {
   try {
     const settings = await invoke('load_settings') || {}
 
-    // Migration logic: if settings are empty, try to pull from localStorage
+    // Migration logic: if settings are empty, try to pull from localStorage.
+    // This path does a full destructive overwrite via saveSettings(), so it
+    // depends on load_settings never returning an empty read for a file
+    // that actually has content - previously true only most of the time,
+    // since fs::write() truncates before writing and load_settings had no
+    // lock, so a read landing mid-write from any other window would see a
+    // truncated file and come back empty here, triggering this branch to
+    // wipe real settings. load_settings now holds settings_lock too, so an
+    // empty result here is the file's real content, not a torn read.
     if (Object.keys(settings).length === 0) {
       const legacy = {}
       const keys = [

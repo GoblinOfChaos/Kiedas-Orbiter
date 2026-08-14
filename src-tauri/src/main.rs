@@ -159,6 +159,29 @@ fn resolve_path(relative: &str) -> PathBuf {
     get_data_root().join(relative)
 }
 
+/// Write JSON to `path` via a temp-file-then-rename so a process killed
+/// mid-write (e.g. the window closed while a background task is writing)
+/// can never leave a truncated/corrupt file behind - rename is atomic on
+/// the same filesystem, so readers only ever see the old complete content
+/// or the new complete content, never a partial write. Plain fs::write()
+/// truncates in place first, so a kill between truncate and write-complete
+/// permanently corrupts the file for every future launch, which no amount
+/// of in-process locking can undo since the damage is already on disk
+/// before the next process starts.
+fn write_json_atomic(path: &std::path::Path, value: &Value) -> Result<(), String> {
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+    let tmp = path.with_file_name(format!(
+        "{}.tmp",
+        path.file_name().and_then(|n| n.to_str()).unwrap_or("settings.json")
+    ));
+    let content = serde_json::to_string_pretty(value).map_err(|e| e.to_string())?;
+    std::fs::write(&tmp, content).map_err(|e| e.to_string())?;
+    std::fs::rename(&tmp, path).map_err(|e| e.to_string())?;
+    Ok(())
+}
+
 /// Build an absolute path from a path relative to the bundled app root.
 /// Used as fallback when writable data root doesn't have the file yet (e.g. AppImage first run).
 fn resolve_bundled_path(app_handle: &tauri::AppHandle, relative: &str) -> Option<PathBuf> {
@@ -1949,6 +1972,7 @@ fn set_notification_sound(state: tauri::State<'_, AppState>, sound: String) -> R
     *current = sound.clone();
     
     // Also persist to settings file
+    let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
     let settings_path = resolve_path("data/user/settings.json");
     let mut settings: Value = if settings_path.exists() {
         let content = std::fs::read_to_string(&settings_path).map_err(|e| e.to_string())?;
@@ -1957,14 +1981,8 @@ fn set_notification_sound(state: tauri::State<'_, AppState>, sound: String) -> R
         serde_json::json!({})
     };
     settings["notif_sound"] = serde_json::json!(sound);
-    let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-    
-    // Ensure directory exists
-    if let Some(parent) = settings_path.parent() {
-        std::fs::create_dir_all(parent).ok();
-    }
-    std::fs::write(&settings_path, content).map_err(|e| e.to_string())?;
-    
+    write_json_atomic(&settings_path, &settings)?;
+
     Ok(())
 }
 
@@ -2447,11 +2465,7 @@ async fn save_settings(app_handle: tauri::AppHandle, settings: Value) -> Result<
     let state = app_handle.state::<AppState>();
     let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
     let settings_dir = resolve_path("data/user");
-    if !settings_dir.exists() {
-        fs::create_dir_all(&settings_dir).map_err(|e| e.to_string())?;
-    }
-    let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-    fs::write(settings_dir.join("settings.json"), content).map_err(|e| e.to_string())?;
+    write_json_atomic(&settings_dir.join("settings.json"), &settings)?;
     drop(_guard);
     app_handle.emit("settings-changed", ()).map_err(|e| e.to_string())
 }
@@ -2482,8 +2496,7 @@ async fn set_setting(app_handle: tauri::AppHandle, key: String, value: Value) ->
         settings = serde_json::json!({});
     }
     settings[key] = value;
-    let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-    fs::write(&path, content).map_err(|e| e.to_string())?;
+    write_json_atomic(&path, &settings)?;
     drop(_guard);
     app_handle.emit("settings-changed", ()).map_err(|e| e.to_string())
 }
@@ -2510,9 +2523,10 @@ fn get_monitoring_active(app_handle: tauri::AppHandle) -> bool {
 #[tauri::command]
 fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, persist: bool) -> Result<(), String> {
     eprintln!("[set_sidebar_width] called width={}, side={}, persist={}", width, side, persist);
+    let state = app_handle.state::<AppState>();
     if persist {
-        let settings_dir = resolve_path("data/user");
-        let path = settings_dir.join("settings.json");
+        let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
+        let path = resolve_path("data/user/settings.json");
         let mut settings: serde_json::Value = if path.exists() {
             std::fs::read_to_string(&path)
                 .ok()
@@ -2525,14 +2539,9 @@ fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, per
             obj.insert("sidebar_width".to_string(), serde_json::json!(width));
             obj.insert("sidebar_side".to_string(), serde_json::json!(side.clone()));
         }
-        if !settings_dir.exists() {
-            std::fs::create_dir_all(&settings_dir).map_err(|e| e.to_string())?;
-        }
-        let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-        let _ = std::fs::write(path, content);
+        let _ = write_json_atomic(&path, &settings);
+        drop(_guard);
     }
-
-    let state = app_handle.state::<AppState>();
     let saved_active;
     let mon_x;
     let mon_y;
@@ -2571,8 +2580,18 @@ fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, per
 
 /// Load the JSON settings object from data/user/settings.json.
 /// Returns an empty object if the file doesn't exist.
+///
+/// Takes settings_lock even though this is a read: fs::write() in
+/// save_settings/set_setting truncates before writing (not an atomic
+/// temp-file-rename), so an unguarded read here can land mid-write and see
+/// a truncated/empty file. The frontend treats an empty read as "fresh
+/// install, migrate from localStorage" and does a destructive full
+/// overwrite - confirmed live as the actual cause of repeated settings
+/// loss even after every write path was already serialized.
 #[tauri::command]
-async fn load_settings() -> Result<Value, String> {
+async fn load_settings(app_handle: tauri::AppHandle) -> Result<Value, String> {
+    let state = app_handle.state::<AppState>();
+    let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
     let path = resolve_path("data/user/settings.json");
     if !path.exists() {
         return Ok(serde_json::json!({}));
@@ -2637,6 +2656,7 @@ async fn auto_detect_warframe_monitor(state: tauri::State<'_, AppState>) -> Resu
         if cx >= mx && cx < mx + mw && cy >= my && cy < my + mh {
             // Persist to state and settings
             *state.target_monitor.lock().unwrap() = Some(idx);
+            let guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
             let settings_path = crate::resolve_path("data/user/settings.json");
             let mut settings: serde_json::Value = if settings_path.exists() {
                 std::fs::read_to_string(&settings_path)
@@ -2647,10 +2667,8 @@ async fn auto_detect_warframe_monitor(state: tauri::State<'_, AppState>) -> Resu
                 serde_json::json!({})
             };
             settings["fissure_target_monitor"] = serde_json::json!(idx);
-            if let Some(parent) = settings_path.parent() {
-                std::fs::create_dir_all(parent).ok();
-            }
-            let _ = std::fs::write(&settings_path, serde_json::to_string_pretty(&settings).unwrap());
+            let _ = write_json_atomic(&settings_path, &settings);
+            drop(guard);
             return Ok(Some(idx));
         }
     }
@@ -2690,6 +2708,7 @@ fn set_target_monitor(state: tauri::State<'_, AppState>, monitor: Value) -> Resu
     *current = new_val;
     
     // Also persist to settings file
+    let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
     let settings_path = resolve_path("data/user/settings.json");
     let mut settings: Value = if settings_path.exists() {
         let content = std::fs::read_to_string(&settings_path).map_err(|e| e.to_string())?;
@@ -2698,13 +2717,8 @@ fn set_target_monitor(state: tauri::State<'_, AppState>, monitor: Value) -> Resu
         serde_json::json!({})
     };
     settings["fissure_target_monitor"] = monitor;
-    let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-    
-    if let Some(parent) = settings_path.parent() {
-        std::fs::create_dir_all(parent).ok();
-    }
-    std::fs::write(&settings_path, content).map_err(|e| e.to_string())?;
-    
+    write_json_atomic(&settings_path, &settings)?;
+
     Ok(())
 }
 
@@ -3410,12 +3424,22 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
                              crate::ocr::capture_monitor_image(&ah, &mon).map(|_| ())
                         })();
                         if status.is_ok() {
+                            // This runs as a background task on every launch,
+                            // racing against every window's own settings writes
+                            // during startup - it was reading+writing the file
+                            // directly with no lock at all, unlike every other
+                            // write path, and could clobber keys written by a
+                            // window in the gap between this task's read and
+                            // write. Must hold the same lock those paths do.
+                            let state = ah.state::<AppState>();
+                            let _guard = state.settings_lock.lock().unwrap_or_else(|e| e.into_inner());
                             let path = resolve_path("data/user/settings.json");
                             let mut s = load_settings_sync();
                             if let Some(obj) = s.as_object_mut() {
                                 obj.insert("screenshot_probe_granted".into(), serde_json::json!(true));
-                                let _ = std::fs::write(&path, serde_json::to_string_pretty(&s).unwrap());
+                                let _ = write_json_atomic(&path, &s);
                             }
+                            drop(_guard);
                         }
                         eprintln!("[OCR] Screenshot probe: {}", if status.is_ok() { "granted" } else { "denied" });
                     });

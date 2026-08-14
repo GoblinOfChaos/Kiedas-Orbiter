@@ -24,7 +24,10 @@ function ownedUniqueNames(rawInventory) {
 
 function CosmeticCard({ item, onAcquire }) {
   return (
-    <Card className={`overflow-hidden ${item.owned ? 'border-emerald-500/60' : 'border-white/10'}`}>
+    <Card
+      className={`overflow-hidden cursor-pointer transition-colors hover:border-kronos-accent/40 ${item.owned ? 'border-emerald-500/60' : 'border-white/10'}`}
+      onClick={() => onAcquire(item.uniqueName)}
+    >
       <div className="relative h-48 flex items-center justify-center bg-black/20">
         <ItemImage src={item.icon} alt={item.name} className="max-h-44 max-w-[90%] object-contain" placeholderClassName="w-full h-full bg-white/5" />
         <span className={`absolute bottom-2 left-2 rounded-full px-2 py-1 text-[9px] font-black ${item.owned ? 'bg-emerald-400 text-black' : 'bg-black/70 text-kronos-dim'}`}>
@@ -34,7 +37,7 @@ function CosmeticCard({ item, onAcquire }) {
       </div>
       <div className="p-3">
         <p className="truncate text-sm font-black" title={item.name}>{item.name}</p>
-        <button type="button" onClick={() => onAcquire(item)} className="mt-3 w-full rounded-lg border border-kronos-accent/30 px-3 py-2 text-[10px] font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">
+        <button type="button" onClick={(e) => { e.stopPropagation(); onAcquire(item.uniqueName); }} className="mt-3 w-full rounded-lg border border-kronos-accent/30 px-3 py-2 text-[10px] font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">
           Acquisition
         </button>
       </div>

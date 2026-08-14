@@ -72,6 +72,16 @@ export default function AcquisitionDrawer({ item, onClose }) {
     invoke('open_url', { url: info.wikiLink.url }).catch(console.error);
   };
 
+  const recipe = info.recipe;
+  const formatCredits = (value) => Number.isFinite(Number(value)) ? `${Number(value).toLocaleString()} Credits` : null;
+  const formatDuration = (seconds) => {
+    const totalMinutes = Math.round(Number(seconds) / 60);
+    if (!Number.isFinite(totalMinutes) || totalMinutes <= 0) return null;
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return hours && minutes ? `${hours}h ${minutes}m` : hours ? `${hours}h` : `${minutes}m`;
+  };
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-kronos-bg border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.4)]">
       <div className="max-w-6xl mx-auto px-6 py-4">
@@ -102,6 +112,26 @@ export default function AcquisitionDrawer({ item, onClose }) {
           <p className="text-xs text-kronos-dim italic">
             {info.vaulted ? 'Relic is Vaulted, no drop locations' : 'No specific source known - try the wiki link below.'}
           </p>
+        }
+
+        {recipe &&
+          <div className="mt-3 rounded bg-black/20 border border-white/5 px-3 py-2">
+            <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-kronos-dim">
+              {formatCredits(recipe.blueprintCost) && <span>Blueprint: <strong className="text-kronos-text">{formatCredits(recipe.blueprintCost)}</strong></span>}
+              {formatCredits(recipe.buildCost) && <span>Build: <strong className="text-kronos-text">{formatCredits(recipe.buildCost)}</strong></span>}
+              {formatDuration(recipe.buildTime) && <span>Time: <strong className="text-kronos-text">{formatDuration(recipe.buildTime)}</strong></span>}
+              {recipe.rushCost > 0 && <span>Rush: <strong className="text-kronos-text">{recipe.rushCost} Platinum</strong></span>}
+            </div>
+            {recipe.ingredients?.length > 0 &&
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {recipe.ingredients.map((ingredient, i) => (
+                  <span key={`${ingredient.itemType || ingredient.name}-${i}`} className="rounded bg-white/5 px-2 py-1 text-[10px] text-kronos-text">
+                    {ingredient.count}x {ingredient.name}
+                  </span>
+                ))}
+              </div>
+            }
+          </div>
         }
 
         <button

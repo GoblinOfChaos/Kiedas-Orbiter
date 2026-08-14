@@ -349,6 +349,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
           ? formatRecipeAcquisition(recipe)
           : 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.',
       }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

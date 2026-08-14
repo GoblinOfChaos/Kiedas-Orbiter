@@ -31,7 +31,7 @@ const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
 
 export default function Relics() {
   const { t } = useUi()
-  const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex } = useMonitoring();
+  const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex } = useMonitoring();
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
   const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
   useEffect(() => {
@@ -178,7 +178,7 @@ export default function Relics() {
     const allGrouped = Object.values(grouped).flat();
     const item = allGrouped.find((r) => r.unique_name === openKey);
     if (!item) return null;
-    const info = getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides);
+    const info = getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex);
     // Vaulted relics genuinely have no active drop source - say so
     // explicitly instead of the generic "no specific source known"
     // fallback, which reads like a data gap rather than an accurate
@@ -187,7 +187,7 @@ export default function Relics() {
       return { displayName: item.name, info: { ...info, vaulted: true } };
     }
     return { displayName: item.name, info };
-  }, [openKey, acquisitionDataReady, grouped, dropIndex, acquisitionOverrides]);
+  }, [openKey, acquisitionDataReady, grouped, dropIndex, acquisitionOverrides, recipeResultIndex]);
 
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
 

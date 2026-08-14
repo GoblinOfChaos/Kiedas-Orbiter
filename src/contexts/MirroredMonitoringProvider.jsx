@@ -3,6 +3,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
+import { buildRecipeResultIndex } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getAllRelicRewards } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
@@ -535,6 +536,7 @@ export default function MirroredMonitoringProvider({ children }) {
 
   const globalRewardPool = useMemo(() => getAllRelicRewards(exportData, localeRef.current), [exportData, localeRef.current])
   const dropIndex = useMemo(() => buildDropIndex(exportData), [exportData])
+  const recipeResultIndex = useMemo(() => buildRecipeResultIndex(exportData), [exportData])
 
   const applyRaw = useCallback((raw, ts, exports) => {
     if (!raw) return
@@ -687,7 +689,7 @@ export default function MirroredMonitoringProvider({ children }) {
     cardImagesPath, fixProgress,
     dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
     ExportImages, ExportTextIcons, masteryProgress,
-    EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex,
+    EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex,
     arbyTiers: ARBY_TIERS,
     setAutoStart, startMonitoring: startMonitoringFn,
     stopMonitoring: stopMonitoringFn,     manualRefresh: async () => {
@@ -706,7 +708,7 @@ export default function MirroredMonitoringProvider({ children }) {
       spIncursions, arbys, archonModifiers, arbitrationModifiers,
       dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
       ExportImages, ExportTextIcons, masteryProgress,
-      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex,
+      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex,
       allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices])
 
   return (

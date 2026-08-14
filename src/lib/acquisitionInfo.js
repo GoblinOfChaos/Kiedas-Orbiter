@@ -30,7 +30,28 @@ const NON_DROP_PATTERNS = [
   { test: (un) => /\/Types\/Keys\/.*KeyChain$/.test(un || ''), text: 'Awarded from completing this quest.' },
 ];
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData) {
+const canonicalPath = (v) => v?.replace('/StoreItems/', '/') || v;
+
+/**
+ * Maps a craftable equipment's own uniqueName (the finished Warframe/weapon)
+ * to true if ExportRecipes has a blueprint whose resultType builds it - e.g.
+ * most base Warframes/weapons aren't themselves "dropped", only their
+ * blueprint + component parts are (which are separately tracked items with
+ * their own acquisition entries). Build once per exportData change and pass
+ * into getAcquisitionInfo, mirroring how dropIndex is built once in
+ * MonitoringContext rather than per-call.
+ */
+export function buildRecipeResultIndex(exportData) {
+  const index = new Set();
+  const recipes = exportData?.ExportRecipes;
+  if (!recipes || typeof recipes !== 'object') return index;
+  for (const recipe of Object.values(recipes)) {
+    if (recipe?.resultType) index.add(canonicalPath(recipe.resultType));
+  }
+  return index;
+}
+
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops, wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -69,6 +90,13 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const nonDrop = NON_DROP_PATTERNS.find((p) => p.test(dropIndexKey));
   if (nonDrop) {
     return { sources: [{ type: 'non-drop', text: nonDrop.text }], wikiLink: getWikiLink(dropIndexKey, displayName) };
+  }
+
+  if (recipeResultIndex?.has(canonicalPath(dropIndexKey))) {
+    return {
+      sources: [{ type: 'non-drop', text: 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.' }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
   }
 
   return { sources: [], wikiLink: getWikiLink(dropIndexKey, displayName) };

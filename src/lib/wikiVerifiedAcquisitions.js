@@ -511,4 +511,9 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://wiki.warframe.com/w/Armor_%28Cosmetic%29',
     source: 'Warframe Wiki Armor (Cosmetic) Prime Access table + local export Nimandi Prime component record',
   }],
+  ['/Lotus/Upgrades/Skins/Runner/GaussPrimeHelmet', {
+    text: 'Gauss Prime Access accessory: the Gauss Prime Blazargaze Helmet was included in the Prime Accessories package and is a Prime Access bonus item.',
+    url: 'https://www.warframe.com/en/news/gauss-prime-access',
+    source: 'Warframe.com Gauss Prime Access announcement',
+  }],
 ]);

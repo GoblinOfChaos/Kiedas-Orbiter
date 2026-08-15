@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T08:07:33.279Z
+Generated: 2026-08-15T08:09:35.044Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12781**
+Items with concrete acquisition records: **12782**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **365**
+Records without concrete acquisition evidence: **364**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -112,7 +112,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Galatine Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianGalatine` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Galatine_Obsidian_Skin |
 | Galatine Rubedo Plated Skin | `/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoGalatineCamo` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Galatine_Rubedo_Plated_Skin |
 | Gas City Lobby Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileGasCitySpawnTwo` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Gas_City_Lobby_Scene |
-| Gauss Prime Helmet | `/Lotus/Upgrades/Skins/Runner/GaussPrimeHelmet` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Gauss_Prime_Helmet |
 | Gauvan Umbra Sekhara | `/Lotus/Upgrades/Skins/Clan/ExcaliburUmbraBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Gauvan_Umbra_Sekhara |
 | Gcx 2023 Glyph | `/Lotus/Types/AvatarImages/AvatarImageGamingCommunityExpo` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Gcx_2023_Glyph |
 | Gcx 2024 Glyph | `/Lotus/Types/AvatarImages/AvatarImageGamingCommunityExpoTwentyFour` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Gcx_2024_Glyph |
@@ -458,7 +457,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8714
+- non-drop: 8715
 - override: 620
 - relic: 339
 - sortie: 1

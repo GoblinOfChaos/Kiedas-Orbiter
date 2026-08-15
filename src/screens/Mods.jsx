@@ -27,7 +27,7 @@ export default function Mods() {
     { id: 'rarity', label: t('mods.sort_rarity') },
     { id: 'value', label: t('mods.sort_value') }];
 
-  const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading, priceFetchProgress, dropIndex } = useMonitoring();
+  const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex } = useMonitoring();
 
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
   const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
@@ -124,8 +124,8 @@ export default function Mods() {
     if (!openKey || !acquisitionDataReady) return null;
     const mod = visible.find((m) => m.unique_name === openKey);
     if (!mod) return null;
-    return { uniqueName: mod.unique_name, displayName: mod.name, info: getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides) };
-  }, [openKey, acquisitionDataReady, visible, dropIndex, acquisitionOverrides]);
+    return { uniqueName: mod.unique_name, displayName: mod.name, info: getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex) };
+  }, [openKey, acquisitionDataReady, visible, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex]);
 
   const handleSortChange = (id) => {
     if (id === sortCriteria) {

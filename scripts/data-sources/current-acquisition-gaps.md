@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:25:19.933Z
+Generated: 2026-08-15T05:28:31.546Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12108**
+Items with concrete acquisition records: **12126**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1038**
+Records without concrete acquisition evidence: **1020**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -526,13 +526,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Missile Battery | `/Lotus/Types/Restoratives/LisetLaserTurret` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Missile_Battery |
 | Moa Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2021MoaGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/MOA_Tennobaum_Glyph |
 | MOD SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/ModsFeatureItem` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/MOD_SEGMENT |
-| Monotone Ember Glyph | `/Lotus/Types/AvatarImages/AvatarImageBadgeEmber` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Monotone_Ember_Glyph |
-| Monotone Kullervo Glyph | `/Lotus/Types/AvatarImages/AvatarImageBadgeKulervo` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Monotone_Kullervo_Glyph |
-| Monotone Mesa Glyph | `/Lotus/Types/AvatarImages/AvatarImageBadgeMesa` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Monotone_Mesa_Glyph |
-| Monotone Octavia Glyph | `/Lotus/Types/AvatarImages/AvatarImageBadgeOctavia` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Monotone_Octavia_Glyph |
-| Monotone Rhino Glyph | `/Lotus/Types/AvatarImages/AvatarImageBadgeRhino` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Monotone_Rhino_Glyph |
-| Monotone Styanax Glyph | `/Lotus/Types/AvatarImages/AvatarImageBadgeStynax` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Monotone_Styanax_Glyph |
-| Monotone Xaku Glyph | `/Lotus/Types/AvatarImages/AvatarImageBadgeXaku` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Monotone_Xaku_Glyph |
 | Monquis Sigil | `/Lotus/Upgrades/Skins/Sigils/MonquisSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Monquis_Sigil |
 | Moon Leader Emblem | `/Lotus/Upgrades/Skins/Clan/LeaderBadgeMoonItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Moon_Leader_Emblem |
 | Mother's Mask | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodLotusWisp` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mother%27s_Mask |
@@ -805,17 +798,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Stalker In Action Glyph | `/Lotus/Types/AvatarImages/AvatarImageStalkerAction` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Stalker_In_Action_Glyph |
 | Stalker Smoke Screen Sigil | `/Lotus/Upgrades/Skins/Sigils/NWStalkerSigil` | ExportCustoms | Listed under Nightwave Sigils on the Warframe wiki. | Stalker Smoke Screen Sigil |
 | Stalker's Lair Scene | `/Lotus/Types/Items/PhotoBooth/JadeShadows/PhotoboothTileStalkerCave` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Stalker%27s_Lair_Scene |
-| Star Days Amir Glyph | `/Lotus/Types/AvatarImages/AvatarImageAmirValentine` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star_Days_Amir_Glyph |
-| Star Days Aoi Glyph | `/Lotus/Types/AvatarImages/AvatarImageAoiValentine` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star_Days_Aoi_Glyph |
-| Star Days Arthur Glyph | `/Lotus/Types/AvatarImages/AvatarImageArthurValentine` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star_Days_Arthur_Glyph |
-| Star Days Cervulite Pat Glyph | `/Lotus/Types/AvatarImages/AvatarImageStarDaysCervulitePat` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star_Days_Cervulite_Pat_Glyph |
-| Star Days Eleanor Glyph | `/Lotus/Types/AvatarImages/AvatarImageEleanorValentine` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star_Days_Eleanor_Glyph |
-| Star Days Gyre Glyph | `/Lotus/Types/AvatarImages/AvatarImageValentine2023Gyre` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star_Days_Gyre_Glyph |
-| Star Days Kavat Glyph | `/Lotus/Types/AvatarImages/AvatarImageValentine2023Kavat` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star_Days_Kavat_Glyph |
-| Star Days Lettie Glyph | `/Lotus/Types/AvatarImages/AvatarImageLettieValentine` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star_Days_Lettie_Glyph |
-| Star Days Qorvex Heart Glyph | `/Lotus/Types/AvatarImages/AvatarImageStarDaysQorvexHeart` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star_Days_Qorvex_Heart_Glyph |
-| Star Days Quincy Glyph | `/Lotus/Types/AvatarImages/AvatarImageQuincyValentine` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star_Days_Quincy_Glyph |
-| Star Days Ticker Glyph | `/Lotus/Types/AvatarImages/AvatarImageValentine2023Ticker` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star_Days_Ticker_Glyph |
 | Star-Child Diadem | `/Lotus/Upgrades/Skins/Operator/Accessories/UmbraTiara` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Star-Child_Diadem |
 | STARBOARD NACELLE | `/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackNacelleRightFeatureItem` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/STARBOARD_NACELLE |
 | Starglaze Shards | `/Lotus/Upgrades/Skins/Glass/GlassDeluxeWings` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Starglaze Shards |
@@ -1131,7 +1113,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8054
+- non-drop: 8072
 - override: 607
 - relic: 339
 - sortie: 1

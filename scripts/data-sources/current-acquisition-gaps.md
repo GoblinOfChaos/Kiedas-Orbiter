@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:18:52.549Z
+Generated: 2026-08-15T05:19:21.215Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13200**
-Items with concrete acquisition records: **12063**
+Items with concrete acquisition records: **12069**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1087**
+Records without concrete acquisition evidence: **1081**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -45,7 +45,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Amir's Shades | `/Lotus/Upgrades/Skins/Volt/WF1999VoltAuxHat` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Amir's Shades |
 | Ankyros Phased Skin | `/Lotus/Upgrades/Skins/Promo/Void/AnkyrosVoidSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ankyros_Phased_Skin |
 | Ankyros Prominence Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/TwitchAnkyros` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ankyros_Prominence_Skin |
-| Aoi Origami Glyph | `/Lotus/Types/AvatarImages/AvatarImageNightwaveAoi` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Aoi_Origami_Glyph |
 | Aqua Heart Emblem | `/Lotus/Upgrades/Skins/Promo/Seasonal/DogDays2025BadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Aqua_Heart_Emblem |
 | Archimedean Diadem | `/Lotus/Upgrades/Skins/Operator/Accessories/YontaCrownFacialAcc` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Archimedean_Diadem |
 | Arid Fear Emblem | `/Lotus/Upgrades/Skins/Clan/CorpusVoidBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Arid Fear Emblem |
@@ -111,7 +110,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Capit XIV Kalika | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal14C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Capit XIV Kalika |
 | Capit XV Phloios | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal15C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Capit XV Phloios |
 | Capit XVI Perigone | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal16C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Capit XVI Perigone |
-| Caroling Octavia Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCarolingOctavia` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Caroling_Octavia_Glyph |
 | Cephalon Cy Glyph | `/Lotus/Types/AvatarImages/ImageCephalonCy` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cephalon_Cy_Glyph |
 | Cephalon Simaris Glyph | `/Lotus/Types/AvatarImages/ImageCephalonSimaris` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cephalon_Simaris_Glyph |
 | Chat Moderator Glyph | `/Lotus/Types/AvatarImages/AvatarImageChatModerator` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Chat_Moderator_Glyph |
@@ -173,7 +171,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Conquera United Glyph | `/Lotus/Types/AvatarImages/AvatarImageConqueraGlyphUpdated` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_United_Glyph |
 | Conquera United Sigil | `/Lotus/Upgrades/Skins/Sigils/QTCC2023ConqueraSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_United_Sigil |
 | Conquera Uplift Syandana | `/Lotus/Upgrades/Skins/Scarves/ZephyrQTCCSyandana` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Conquera Uplift Syandana |
-| Contrathermal Companion Glyph | `/Lotus/Types/AvatarImages/FireIceCompanionGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Contrathermal_Companion_Glyph |
 | Converted Coda Sigil | `/Lotus/Upgrades/Skins/Sigils/InfLichConvertedSigil` | ExportCustoms | Listed under Enemy Drop Sigils on the Warframe wiki. | Converted Coda Sigil |
 | Cookie Boot Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieBoot` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Boot_Glyph |
 | Corinth Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianCorinth` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Corinth_Obsidian_Skin |
@@ -288,7 +285,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Excalibur Dex Helmet | `/Lotus/Upgrades/Skins/Excalibur/ExcaliburDexHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Dex_Helmet |
 | Excalibur Dex In Action Glyph | `/Lotus/Types/AvatarImages/ImageDexAnniversary` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Dex_In_Action_Glyph |
 | Excalibur Graxx-V2 Helmet | `/Lotus/Upgrades/Skins/Excalibur/SWRFourGraxxAltHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Graxx-V2_Helmet |
-| Excalibur Jade Glyph | `/Lotus/Types/AvatarImages/AvatarImageExcaliburActionXbox` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Jade_Glyph |
 | Excalibur Mask | `/Lotus/Upgrades/Skins/Ostron/ExcaliburMask` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Mask |
 | Excalibur Obsidian | `/Lotus/Upgrades/Skins/Sony/ExcaliburPSPlusSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Obsidian |
 | Excalibur Obsidian Azura Glyph | `/Lotus/Types/AvatarImages/AvatarImageExcaliburActionSony` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Obsidian_Azura_Glyph |
@@ -306,9 +302,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Excalibur Voidshell Helmet | `/Lotus/Upgrades/Skins/Excalibur/ExcaliburVeilBreakerHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Voidshell_Helmet |
 | Excalibur Zato Helmet | `/Lotus/Upgrades/Skins/Excalibur/ExcaliburDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Zato_Helmet |
 | Factions Recall Glyph | `/Lotus/Types/AvatarImages/TenYearAnniversaryWeek2Glyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Factions_Recall_Glyph |
-| Father Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20FatherGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Father_Tennobaum_Glyph |
 | Ferreusdemon Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageFerreusDemon` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/FerreusDemon_Glyph |
-| Festive Floof Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphFestiveFloof` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Festive_Floof_Glyph |
 | Fibonacci Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaFibonacci` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Fibonacci Sigil |
 | Fibonacci Sketch Glyph | `/Lotus/Types/AvatarImages/Events/EventGlyphCaviaFibonacci` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Fibonacci_Sketch_Glyph |
 | Fizzbang Flourish | `/Lotus/Upgrades/Mods/Hoverboard/HBFireWorksMod` | ExportUpgrades | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Fizzbang_Flourish |
@@ -1180,7 +1174,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8005
+- non-drop: 8011
 - override: 607
 - relic: 342
 - sortie: 1

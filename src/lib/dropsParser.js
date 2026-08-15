@@ -474,6 +474,31 @@ function processBaroRelics(index) {
   }
 }
 
+// ExportUpgrades includes synthetic mod-set marker records such as
+// `AmarSetMod`. They are displayed in the Mods catalog, but their actual
+// member mods carry the acquisition rows. Mirror those rows onto the marker
+// so clicking the set entry does not fall through to the generic Wiki text.
+function processModSetSources(index, exportData) {
+  const upgrades = exportData?.ExportUpgrades
+  if (!upgrades || typeof upgrades !== 'object') return
+
+  for (const [memberKey, member] of Object.entries(upgrades)) {
+    const modSet = member?.modSet
+    if (!modSet) continue
+    const memberSources = index[memberKey.replace('/StoreItems/', '/')] || []
+    if (memberSources.length === 0) continue
+
+    const setKey = modSet.replace('/StoreItems/', '/')
+    if (!index[setKey]) index[setKey] = []
+    for (const source of memberSources) {
+      const signature = JSON.stringify(source)
+      if (!index[setKey].some((existing) => JSON.stringify(existing) === signature)) {
+        index[setKey].push(source)
+      }
+    }
+  }
+}
+
 export function buildDropIndex(exportData) {
   if (!exportData) return {}
 
@@ -554,6 +579,7 @@ export function buildDropIndex(exportData) {
   const DropsAll = exportData.DropsAll
   processDropsAll(index, DropsAll, nameMap)
   processBaroRelics(index)
+  processModSetSources(index, exportData)
 
   return index
 }

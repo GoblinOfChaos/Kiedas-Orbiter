@@ -182,6 +182,18 @@ export function buildExaltedWeaponIndex(exportData) {
       index.set(key, names);
     }
   }
+  // Sentinel weapons are defined by the same DE export relationship: a
+  // sentinel's defaultWeapon is granted with that sentinel (for example,
+  // Artax with Taxon and Deconstructor with Helios). Preserve this exact
+  // relationship instead of presenting a misleading generic Wiki fallback.
+  for (const sentinel of Object.values(exportData?.ExportSentinels || {})) {
+    const sentinelName = resolveName(sentinel);
+    const key = canonicalPath(sentinel?.defaultWeapon);
+    if (!sentinelName || !key) continue;
+    const names = index.get(key) || [];
+    if (!names.includes(sentinelName)) names.push(sentinelName);
+    index.set(key, names);
+  }
   return index;
 }
 
@@ -474,6 +486,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
   const overrideText = overridesData?.mods?.[displayName]
     ?? overridesData?.components?.[dropIndexKey]
+    ?? overridesData?.components?.[displayName]
     ?? overridesData?.components?.[`${displayName}|Blueprint`];
   // Some historical overrides intentionally record an unresolved lookup as
   // `UNKNOWN (...)`. That is audit evidence, not an acquisition route, and
@@ -516,11 +529,6 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return { sources: dropSources, wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
-  const nonDrop = NON_DROP_PATTERNS.find((p) => p.test(dropIndexKey));
-  if (nonDrop) {
-    return { sources: [{ type: 'non-drop', text: nonDrop.text, source: 'DE export path rule' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
-  }
-
   // Explicit Wiki acquisition prose is more useful than a generic recipe
   // summary because it can explain how the blueprint is obtained or unlocked.
   const wikiPageAcquisition = wikiPageAcquisitionIndex?.get(displayLower) || bundledWikiPageIndex.get(displayLower);
@@ -550,6 +558,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
+  }
+
+  // Apply only after concrete Wiki/vendor evidence has had a chance to win.
+  // For example, Focus lens paths have a stable DE classification, but a
+  // specific vendor record is more useful than the broad Focus-tree label.
+  const nonDrop = NON_DROP_PATTERNS.find((p) => p.test(dropIndexKey));
+  if (nonDrop) {
+    return { sources: [{ type: 'non-drop', text: nonDrop.text, source: 'DE export path rule' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   if (recipe || isCraftable(dropIndexKey)) {

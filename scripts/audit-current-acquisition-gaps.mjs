@@ -16,6 +16,8 @@ const canonical = (value) => value?.replace('/StoreItems/', '/') || value;
 
 const acquisitionItems = readJson(resolve(ASSET_ROOT, 'warframe-items-acquisition.json'));
 const acquisitionByPath = new Map(acquisitionItems.map((item) => [canonical(item.uniqueName), item]));
+const userInventory = readJson(resolve(process.env.HOME, '.local/share/kiedas-orbiter/data/user/inventory.json'));
+const ownedResourcePaths = new Set((userInventory.MiscItems || []).map((item) => canonical(item?.ItemType)).filter(Boolean));
 const overrides = readJson(resolve(ASSET_ROOT, 'acquisition_overrides.json'));
 const exportData = {};
 for (const name of [
@@ -150,11 +152,25 @@ function addItem(uniqueName, name, category) {
   });
 }
 
-for (const item of acquisitionItems) addItem(item.uniqueName, item.name, item.category || item.type || 'warframe-items');
+for (const item of acquisitionItems) {
+  const key = canonical(item.uniqueName);
+  if (exportData.ExportResources?.[key] && !ownedResourcePaths.has(key)) continue;
+  addItem(key, item.name, item.category || item.type || 'warframe-items');
+}
 for (const [tableName, table] of Object.entries(exportData)) {
   if (!ITEM_TABLES.has(tableName) || !table || typeof table !== 'object') continue;
   for (const [key, entry] of Object.entries(table)) {
     if (!entry || typeof entry !== 'object') continue;
+    // Inventory.jsx renders resources from the current save's MiscItems, not
+    // every resource definition in ExportResources. Keep the audit aligned
+    // with that real catalog rather than auditing thousands of unrendered
+    // decorations, internal tokens, and future-only definitions.
+    if (tableName === 'ExportResources' && !ownedResourcePaths.has(canonical(key))) continue;
+    // Cosmetics.jsx renders skins/sigils from ExportCustoms and glyphs from
+    // WFCD. Other ExportCustoms/ExportFlavour entries are not catalog cards.
+    if (tableName === 'ExportCustoms' && !/\/Upgrades\/Skins\//i.test(key)) continue;
+    if (tableName === 'ExportFlavour') continue;
+    if (tableName === 'ExportSyndicates') continue;
     const uniqueName = entry.uniqueName || entry.ItemType || key;
     addItem(uniqueName, displayNameFor(uniqueName, entry), tableName);
   }

@@ -1,6 +1,19 @@
 {
-  "generated": "2026-08-15T04:05:26.643Z",
+  "generated": "2026-08-15T04:18:08.451Z",
   "items": [
+    {
+      "name": "Aspirant Syandana",
+      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/ZorbaScarf",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1632613,
+      "title": "Aspirant Syandana",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Aspirant_Syandana",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Obtained during limited time event Operation: Atramentum for 60  Nightmare Tatters."
+      }
+    },
     {
       "name": "Boolean Syandana",
       "uniqueName": "/Lotus/Upgrades/Skins/Scarves/CephSyandana",
@@ -12,19 +25,6 @@
       "acquisition": {
         "section": "Acquisition",
         "text": "Obtained from the following  Nightwave season(s):"
-      }
-    },
-    {
-      "name": "Conclave",
-      "uniqueName": "/Lotus/Syndicates/ConclaveSyndicate",
-      "category": "ExportSyndicates",
-      "pageId": 195367,
-      "title": "Conclave",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Conclave",
-      "acquisition": {
-        "section": "Lead acquisition statement",
-        "text": "Conclave is a neutral Syndicate led by the Conclave Master, Teshin Dax. Teshin resides within the Conclave Hall of each Relay. He is the one responsible for the management of the Conclave PvP System, providing incentives through various rewards that can be earned through Conclave battles."
       }
     },
     {
@@ -41,16 +41,29 @@
       }
     },
     {
-      "name": "Dax Lustratus Shoulder Plates",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/DaxFlaredArmor/DaxFlaredAArmor",
+      "name": "Dex Pixia Hawkmoth Skin",
+      "uniqueName": "/Lotus/Upgrades/Skins/Fairy/TitaniaDeluxeArchwingPistolsSkin",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 1634105,
-      "title": "Dax Lustratus Shoulder Plates",
+      "pageId": 1568720,
+      "title": "Dex Pixia Hawkmoth Skin",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Dax_Lustratus_Shoulder_Plates",
+      "url": "https://wiki.warframe.com/w/Dex_Pixia_Hawkmoth_Skin",
       "acquisition": {
         "section": "Acquisition",
-        "text": "Obtainable from the following Operations:"
+        "text": "The Dex Pixia Hawkmoth Skin is only available in the Market as part of the Titania Empress Skin for  165 or Titania Empress Collection for  275."
+      }
+    },
+    {
+      "name": "Epitaph Raya Skin",
+      "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/CosmosEpitaphSkin",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1630266,
+      "title": "Epitaph Raya Skin",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Epitaph_Raya_Skin",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "This skin could be obtained by reaching Rank 17 in Nightwave: Nora's Mix Volume 9, available from May 21st, 2025 and to October 27th, 2025."
       }
     },
     {
@@ -80,16 +93,16 @@
       }
     },
     {
-      "name": "Lacera Scorn Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Events/AcolyteStalkerMios",
+      "name": "Loiaus Chest Medallion",
+      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauPurpleHeartMedalC",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 913418,
-      "title": "Lacera Scorn Skin",
+      "pageId": 1634106,
+      "title": "Loiaus Chest Medallion",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Lacera_Scorn_Skin",
+      "url": "https://wiki.warframe.com/w/Loiaus_Chest_Medallion",
       "acquisition": {
         "section": "Acquisition",
-        "text": "The Lacera Scorn Skin is a unique skin for the  Lacera. It was obtained from Operation: Shadow Debt after completing 15 waves against the final challenger."
+        "text": "Obtainable from the following Operations:"
       }
     },
     {
@@ -106,55 +119,55 @@
       }
     },
     {
-      "name": "Protovyre Apex Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/NarmerEvolvingSyandanaCCape",
+      "name": "Monarcierro Day of the Dead Syandana",
+      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/DOTD2025MonarchSyandana",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632435,
-      "title": "Protovyre Apex Syandana",
+      "pageId": 1635108,
+      "title": "Monarcierro Day of the Dead Syandana",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Protovyre_Apex_Syandana",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Collect a total of 75 Void Relics and Aya from missions with Protovyre Emergent Syandana equipped. Purchasing Relic Packs does not count."
-      }
-    },
-    {
-      "name": "Raya Aurora Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/Twitch2023Ephemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631093,
-      "title": "Raya Aurora Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Raya_Aurora_Ephemera",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Awarded from reaching certain ranks in Nightwave:"
-      }
-    },
-    {
-      "name": "Saturn Six Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoWolfBackpack",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1407232,
-      "title": "Saturn Six Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Saturn_Six_Syandana",
+      "url": "https://wiki.warframe.com/w/Monarcierro_Day_of_the_Dead_Syandana",
       "acquisition": {
         "section": "Acquisition",
         "text": "Obtained from the following  Nightwave season(s):"
       }
     },
     {
-      "name": "Volatile Motes",
-      "uniqueName": "/Lotus/Types/Gameplay/JadeShadows/Resources/AscensionEventResourceItem",
-      "category": "ExportResources",
-      "pageId": 1585685,
-      "title": "Volatile Motes",
+      "name": "Protovyre Emergent Ephemera",
+      "uniqueName": "/Lotus/Upgrades/Skins/Effects/NarmerEvolvingEphemeraB",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1604455,
+      "title": "Protovyre Emergent Ephemera",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Volatile_Motes",
+      "url": "https://wiki.warframe.com/w/Protovyre_Emergent_Ephemera",
       "acquisition": {
         "section": "Acquisition",
-        "text": "Volatile Motes can be obtained by:"
+        "text": "Earn 250,000 Focus from Focus Lens with Protovyre Ephemera equipped. Focus conversion from Eidolon Shards does not count."
+      }
+    },
+    {
+      "name": "Verv Atelia Syandana",
+      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/Twitch2021Syandana",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1632533,
+      "title": "Verv Atelia Syandana",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Verv_Atelia_Syandana",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Purchase from Varzia for 10  Aya."
+      }
+    },
+    {
+      "name": "War Prime",
+      "uniqueName": "/Lotus/Weapons/Tenno/Melee/Swords/PrimeWar/PrimeWarWeapon",
+      "category": "ExportWeapons",
+      "pageId": 1640673,
+      "title": "War Prime",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/War_Prime",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "War Prime is acquired upon crafting Hunhow's Trinket, which can be purchased from Hunhow in Pontis Tower after Jade Shadows: Constellations with 12  Emerald Talent and 12  Crimson Talent, awarded from the Uranus Proxima. It comes with a Weapon Slot and a pre-installed  Orokin Catalyst."
       }
     }
   ]

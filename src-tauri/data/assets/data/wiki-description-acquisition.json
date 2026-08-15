@@ -185,5 +185,33 @@
   "/Lotus/Types/AvatarImages/Events/EventGlyphCaviaBirdThree": {
     "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
     "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Types/AvatarImages/Warframes/Cyte09SupporterGlyph": {
+    "text": "Included in the 1999 Cyte-09 Bullseye Bundle, purchasable for real-world currency.",
+    "source": "Warframe.com Update 38: Warframe: 1999"
+  },
+  "/Lotus/Upgrades/Skins/CaliberChicks/AshGeminiCaliberChicksRifleSkin": {
+    "text": "Purchase with Emerald Talents from the secret vendor in Pontis Tower.",
+    "source": "Warframe.com Update 43: Jade Shadows: Constellations"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Daggers/AshGeminiDaggerSkin": {
+    "text": "Purchase with Emerald Talents from the secret vendor in Pontis Tower.",
+    "source": "Warframe.com Update 43: Jade Shadows: Constellations"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Throwable/AshGeminiKunaiSkin": {
+    "text": "Purchase with Emerald Talents from the secret vendor in Pontis Tower.",
+    "source": "Warframe.com Update 43: Jade Shadows: Constellations"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/LongGuns/AshGeminiVectisSkin": {
+    "text": "Purchase with Emerald Talents from the secret vendor in Pontis Tower.",
+    "source": "Warframe.com Update 43: Jade Shadows: Constellations"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Claws/GarudaGeminiClawsSkin": {
+    "text": "Purchase with Crimson Talents from the secret vendor in Pontis Tower.",
+    "source": "Warframe.com Update 43: Jade Shadows: Constellations"
+  },
+  "/Lotus/Upgrades/Skins/Koumei/KoumeiWarfanSkin": {
+    "text": "Included in the free Ambimanus Pack awarded for logging into the Nintendo Switch 2 version of Warframe during its launch promotion.",
+    "source": "Warframe.com Warframe on Switch 2 Available Now"
   }
 }

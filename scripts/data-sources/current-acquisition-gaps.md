@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:13:34.456Z
+Generated: 2026-08-15T05:13:56.438Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11944**
+Items with concrete acquisition records: **11954**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1212**
+Records without concrete acquisition evidence: **1202**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -667,11 +667,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | NEXIFERA ECHO-LURE | `/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaLureGearItem` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/NEXIFERA_ECHO-LURE |
 | NEXIFERA PHEROMONE GLAND | `/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaRarityBoost` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/NEXIFERA_PHEROMONE_GLAND |
 | Nezha Empyrean Helmet | `/Lotus/Upgrades/Skins/Nezha/NezhaDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nezha_Empyrean_Helmet |
-| Nezha Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageNezhaPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nezha_Prime_Glyph_-_Bright |
-| Nezha Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageNezhaPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nezha_Prime_Glyph_-_Dark |
 | Nidus Phryke Helmet | `/Lotus/Upgrades/Skins/Infestation/NidusDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nidus_Phryke_Helmet |
-| Nidus Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageNidusPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nidus_Prime_Glyph_-_Bright |
-| Nidus Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageNidusPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nidus_Prime_Glyph_-_Dark |
 | Nidus Voidshell Helmet | `/Lotus/Upgrades/Skins/Infestation/NidusVoidShellHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nidus_Voidshell_Helmet |
 | Nightwave Earpieces | `/Lotus/Upgrades/Skins/Operator/Accessories/NoraEarpiece` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nightwave_Earpieces |
 | Nightwave Leggings | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultNightSuit` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nightwave_Leggings |
@@ -692,22 +688,16 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Nova Aozakura Helmet | `/Lotus/Upgrades/Skins/AntiMatter/NovaDeluxeAoandonHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nova_Aozakura_Helmet |
 | Nova Asuri Helmet | `/Lotus/Upgrades/Skins/AntiMatter/NovaDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nova_Asuri_Helmet |
 | Nova Atomica Helmet | `/Lotus/Upgrades/Skins/AntiMatter/NovaDeluxeIIHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nova_Atomica_Helmet |
-| Nova Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageNovaPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nova_Prime_Glyph_-_Bright |
-| Nova Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageNovaPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nova_Prime_Glyph_-_Dark |
 | Nova Voidshell Helmet | `/Lotus/Upgrades/Skins/AntiMatter/NovaVoidShellHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nova_Voidshell_Helmet |
 | Nusku Dual Pistol Skin | `/Lotus/Upgrades/Skins/Ember/EmberDeluxeDualPistolSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nusku_Dual_Pistol_Skin |
 | Nvidia Braton | `/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Nvidia Braton |
 | Nymphaea Glyph | `/Lotus/Types/AvatarImages/Image2019Twitter` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nymphaea_Glyph |
 | Nyx Nemesis Helmet | `/Lotus/Upgrades/Skins/Jade/NyxNemesisHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nyx_Nemesis_Helmet |
 | Nyx Pasithea Helmet | `/Lotus/Upgrades/Skins/Jade/NyxDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nyx_Pasithea_Helmet |
-| Nyx Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageNyxPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nyx_Prime_Glyph_-_Bright |
-| Nyx Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageNyxPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nyx_Prime_Glyph_-_Dark |
 | Oberon Blade of the Lotus Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWOberonBotLArmArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Oberon_Blade_of_the_Lotus_Armor |
 | Oberon Feyarch Helmet | `/Lotus/Upgrades/Skins/Paladin/PaladinDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Oberon_Feyarch_Helmet |
 | Oberon Obsidian Helmet | `/Lotus/Upgrades/Skins/Paladin/OberonPS4Helmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Oberon_Obsidian_Helmet |
 | Oberon Obsidian Markhor Helmet | `/Lotus/Upgrades/Skins/Paladin/OberonPS4Alt2Helmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Oberon_Obsidian_Markhor_Helmet |
-| Oberon Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageOberonPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Oberon_Prime_Glyph_-_Bright |
-| Oberon Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageOberonPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Oberon_Prime_Glyph_-_Dark |
 | Oberon Wendigo Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWOberonWendigoArmArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Oberon Wendigo Armor |
 | Oberon Youkai Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWOberonYoukaiArmArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Oberon Youkai Armor |
 | Obsidian Azura Chest Plate | `/Lotus/Upgrades/Skins/Armor/Sony/OAArmorC` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Obsidian_Azura_Chest_Plate |
@@ -1305,7 +1295,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7880
+- non-drop: 7890
 - override: 607
 - relic: 345
 - sortie: 1

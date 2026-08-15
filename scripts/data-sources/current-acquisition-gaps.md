@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:11:56.878Z
+Generated: 2026-08-15T05:12:21.861Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11904**
+Items with concrete acquisition records: **11914**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1252**
+Records without concrete acquisition evidence: **1242**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -308,8 +308,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Eleanor Accolade Glyph | `/Lotus/Types/AvatarImages/AvatarImageEleanorAccoladeGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Eleanor_Accolade_Glyph |
 | Elfame Bow Skin | `/Lotus/Upgrades/Skins/Deluxe/CalibanDeluxeBowSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Elfame_Bow_Skin |
 | Ember Heirloom Helmet | `/Lotus/Upgrades/Skins/Ember/EmberHeirloomHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ember_Heirloom_Helmet |
-| Ember Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageEmberPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ember_Prime_Glyph_-_Bright |
-| Ember Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageEmberPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ember_Prime_Glyph_-_Dark |
 | Ember Pyraxis Chest Plate | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/EmberDeluxeIIChestArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Ember Pyraxis Chest Plate |
 | Ember Pyraxis Helmet | `/Lotus/Upgrades/Skins/Ember/EmberDeluxeIIHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ember_Pyraxis_Helmet |
 | Ember Pyraxis Shoulder Pads | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/EmberDeluxeIIArmArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Ember Pyraxis Shoulder Pads |
@@ -325,8 +323,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Entrati Mech Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Mech` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Entrati_Mech_Glyph |
 | Entrati Proxy Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Drone` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Entrati_Proxy_Glyph |
 | Equinox Antonym Helmet | `/Lotus/Upgrades/Skins/YinYang/EquinoxDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Equinox_Antonym_Helmet |
-| Equinox Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageEquinoxPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Equinox_Prime_Glyph_-_Bright |
-| Equinox Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageEquinoxPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Equinox_Prime_Glyph_-_Dark |
 | Erznung Emblem | `/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemC` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Erznung_Emblem |
 | EUROPA NAV SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/EuropaNavigationFeatureItem` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/EUROPA_NAV_SEGMENT |
 | Evergreen Sigil | `/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014D` | ExportCustoms | Listed under Tactical Alert Sigils on the Warframe wiki. | Evergreen Sigil |
@@ -343,8 +339,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Excalibur Onyx Helmet | `/Lotus/Upgrades/Skins/SteamEsteem/EsteemExcaliburHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Onyx_Helmet |
 | Excalibur Opal Glyph | `/Lotus/Types/AvatarImages/AvatarImageExcaliburActionNintendo` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Opal_Glyph |
 | Excalibur Opal Helmet | `/Lotus/Upgrades/Skins/Excalibur/NintendoExcaliburHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Opal_Helmet |
-| Excalibur Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageExcaliburPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Prime_Glyph_-_Bright |
-| Excalibur Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageExcaliburPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Prime_Glyph_-_Dark |
 | Excalibur Prisma Helmet | `/Lotus/Upgrades/Skins/VoidTrader/VTExcaliburHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Prisma_Helmet |
 | Excalibur Prominence Helmet | `/Lotus/Upgrades/Skins/Promo/Twitch/ExcaliburTwitchSkinHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Prominence_Helmet |
 | Excalibur Prominence Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/ExcaliburTwitchSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Prominence_Skin |
@@ -379,8 +373,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Frost Heirloom Helmet | `/Lotus/Upgrades/Skins/Frost/FrostHeirloomHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Frost_Heirloom_Helmet |
 | Frost Hisame Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWHisameArmArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Frost Hisame Armor |
 | Frost Ion Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWIonFrostArmArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Frost Ion Armor |
-| Frost Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageFrostPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Frost_Prime_Glyph_-_Bright |
-| Frost Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageFrostPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Frost_Prime_Glyph_-_Dark |
 | Frost Strigid Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWFrostStrigidArmArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Frost Strigid Armor |
 | Frost Voidshell Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/FrostVoidshellArmArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Frost Voidshell Armor |
 | Frost Voidshell Helmet | `/Lotus/Upgrades/Skins/Frost/FrostVoidShellHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Frost_Voidshell_Helmet |
@@ -390,8 +382,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Galatine Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianGalatine` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Galatine_Obsidian_Skin |
 | Galatine Rubedo Plated Skin | `/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoGalatineCamo` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Galatine_Rubedo_Plated_Skin |
 | Gara Kaleida Helmet | `/Lotus/Upgrades/Skins/Glass/GlassDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Gara_Kaleida_Helmet |
-| Gara Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageGaraPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Gara_Prime_Glyph_-_Bright |
-| Gara Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageGaraPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Gara_Prime_Glyph_-_Dark |
 | Gargoyle's Cry Emblem | `/Lotus/Upgrades/Skins/Clan/EntratiEventEmblemItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Gargoyle%27s_Cry_Emblem |
 | Garuda Hinsa Helmet | `/Lotus/Upgrades/Skins/Garuda/GarudaDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Garuda_Hinsa_Helmet |
 | Garuda Hinsa Talons Skin | `/Lotus/Upgrades/Skins/Garuda/GarudaDeluxeClawsSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Garuda_Hinsa_Talons_Skin |
@@ -1345,7 +1335,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7840
+- non-drop: 7850
 - override: 607
 - relic: 345
 - sortie: 1

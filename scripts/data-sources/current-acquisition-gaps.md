@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:09:03.025Z
+Generated: 2026-08-15T05:10:50.571Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11890**
+Items with concrete acquisition records: **11894**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1266**
+Records without concrete acquisition evidence: **1262**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -40,7 +40,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Akomeogi Warfan Skin | `/Lotus/Upgrades/Skins/Koumei/KoumeiWarfanSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Akomeogi_Warfan_Skin |
 | Akvasto Phased Skin | `/Lotus/Upgrades/Skins/Promo/Void/AkvastosVoidSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Akvasto_Phased_Skin |
 | Alabaster Skin | `/Lotus/Upgrades/Skins/Excalibur/ExcaliburPrimeAlabasterSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Alabaster Skin |
-| Albrecht's Treasures Glyph | `/Lotus/Types/AvatarImages/KalymosGrimoireGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Albrecht%27s_Treasures_Glyph |
 | All Mad Here Glyph | `/Lotus/Types/AvatarImages/Seasonal/Halloween2019CheshireKavat` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/All_Mad_Here_Glyph |
 | Alliance Sigil | `/Lotus/Upgrades/Skins/Sigils/AllianceSigilBasic` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Alliance_Sigil |
 | Amalgam Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionAmalgam` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Amalgam_Glyph |
@@ -48,13 +47,11 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Amir's Shades | `/Lotus/Upgrades/Skins/Volt/WF1999VoltAuxHat` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Amir's Shades |
 | Ankyros Phased Skin | `/Lotus/Upgrades/Skins/Promo/Void/AnkyrosVoidSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ankyros_Phased_Skin |
 | Ankyros Prominence Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/TwitchAnkyros` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ankyros_Prominence_Skin |
-| Aoi Accolade Glyph | `/Lotus/Types/AvatarImages/AvatarImageAoiAccoladeGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Aoi_Accolade_Glyph |
 | Aoi Origami Glyph | `/Lotus/Types/AvatarImages/AvatarImageNightwaveAoi` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Aoi_Origami_Glyph |
 | Aqua Heart Emblem | `/Lotus/Upgrades/Skins/Promo/Seasonal/DogDays2025BadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Aqua_Heart_Emblem |
 | Archimedean Diadem | `/Lotus/Upgrades/Skins/Operator/Accessories/YontaCrownFacialAcc` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Archimedean_Diadem |
 | Arid Fear Emblem | `/Lotus/Upgrades/Skins/Clan/CorpusVoidBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Arid Fear Emblem |
 | Armilla Emblem | `/Lotus/Upgrades/Skins/Clan/PvpRepBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Armilla_Emblem |
-| Arthur Accolade Glyph | `/Lotus/Types/AvatarImages/AvatarImageArthurAccoladeGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Arthur_Accolade_Glyph |
 | Asa Phased Syandana | `/Lotus/Upgrades/Skins/Scarves/EnergyScarfVoidSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Asa_Phased_Syandana |
 | Ascrien Sigil | `/Lotus/Upgrades/Skins/Sigils/NightwaveCalibanDeluxeSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ascrien_Sigil |
 | Ash Koga Helmet | `/Lotus/Upgrades/Skins/Ninja/NinjaDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ash_Koga_Helmet |
@@ -90,7 +87,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Beckonsnare | `/Lotus/Types/Restoratives/Consumable/Eidolon/LandscapeTrapLightGear` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Beckonsnare |
 | Big Bytes Pizza Sigil | `/Lotus/Upgrades/Skins/Sigils/NightwavePizzaSigil` | ExportCustoms | Listed under Nightwave Sigils on the Warframe wiki. | Big Bytes Pizza Sigil |
 | Bird 3 Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Bird 3 Sigil |
-| Bird 3 Sketch Glyph | `/Lotus/Types/AvatarImages/Events/EventGlyphCaviaBirdThree` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Bird_3_Sketch_Glyph |
 | Blade and Gun Sigil | `/Lotus/Upgrades/Skins/Sigils/BladeAndGunSigil` | ExportCustoms | Listed under Community Event Sigils on the Warframe wiki. | Blade and Gun Sigil |
 | Bladeswarm Braton Skin | `/Lotus/Upgrades/Skins/CaliberChicks/AshGeminiCaliberChicksRifleSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Bladeswarm_Braton_Skin |
 | Bladeswarm Karyst Skin | `/Lotus/Upgrades/Skins/Weapons/Daggers/AshGeminiDaggerSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Bladeswarm_Karyst_Skin |
@@ -1359,7 +1355,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7826
+- non-drop: 7830
 - override: 607
 - relic: 345
 - sortie: 1

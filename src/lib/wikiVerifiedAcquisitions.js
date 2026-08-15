@@ -4,6 +4,46 @@
 // an acquisition route by accident.
 export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   [
+    '/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosSkin',
+    {
+      text: 'Nora’s Mix Volume 9 reward at Rank 30; the reward included the Xaku Raya Skin and Xaku Raya Helmet.',
+      url: 'https://wiki.warframe.com/w/Nightwave/Nora%27s_Mix_Volume_9',
+      source: 'Warframe Wiki (Nora’s Mix Volume 9) + local export skin/helmet relationship',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosHelmet',
+    {
+      text: 'Nora’s Mix Volume 9 reward at Rank 30, included with the Xaku Raya Skin.',
+      url: 'https://wiki.warframe.com/w/Nightwave/Nora%27s_Mix_Volume_9',
+      source: 'Warframe Wiki (Nora’s Mix Volume 9) + local export skin/helmet relationship',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Trapper/VaubanHeirloomHelmet',
+    {
+      text: 'Included with the Vauban Heirloom Skin in the Vauban Heirloom Collection; the local export lists the skin at 225 Platinum and the collection at 400 Platinum.',
+      url: 'https://www.warframe.com/en/patch-notes/pc/41-1-0',
+      source: 'Warframe.com Update 41.1: Vauban Heirloom + local export skin/component records',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Trapper/VaubanHeirloomAux',
+    {
+      text: 'Included with the Vauban Heirloom Skin in the Vauban Heirloom Collection; the Overcoat can be switched to its sleeveless variant in the Auxiliary options.',
+      url: 'https://www.warframe.com/en/patch-notes/pc/41-1-0',
+      source: 'Warframe.com Update 41.1: Vauban Heirloom + local export skin/component records',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Trapper/VaubanHeirloomAuxSleeveless',
+    {
+      text: 'The sleeveless Overcoat option is included with the Vauban Heirloom Skin in the Vauban Heirloom Collection.',
+      url: 'https://www.warframe.com/en/patch-notes/pc/41-1-0',
+      source: 'Warframe.com Update 41.1: Vauban Heirloom + local export skin/component records',
+    },
+  ],
+  [
     '/Lotus/Upgrades/Skins/Necramech/VoidrigDOTDSkin',
     {
       text: 'Purchased from Daughter during Nights of Naberus for 100 Mother Tokens; the linked Day of the Dead Necramech Helmet is granted with the skin.',

@@ -1,17 +1,17 @@
 {
-  "generated": "2026-08-15T04:18:08.451Z",
+  "generated": "2026-08-15T04:28:31.921Z",
   "items": [
     {
-      "name": "Aspirant Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/ZorbaScarf",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632613,
-      "title": "Aspirant Syandana",
+      "name": "Apoc",
+      "uniqueName": "/Lotus/Weapons/CrewShip/MassDriver/AutoCannon/AutoCannon",
+      "category": "warframe-items",
+      "pageId": 1544154,
+      "title": "Apoc",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Aspirant_Syandana",
+      "url": "https://wiki.warframe.com/w/Apoc",
       "acquisition": {
         "section": "Acquisition",
-        "text": "Obtained during limited time event Operation: Atramentum for 60  Nightmare Tatters."
+        "text": "<div class=\"tabbertab\"style=\"width: 60%;\"><tabber>"
       }
     },
     {
@@ -24,7 +24,7 @@
       "url": "https://wiki.warframe.com/w/Boolean_Syandana",
       "acquisition": {
         "section": "Acquisition",
-        "text": "Obtained from the following  Nightwave season(s):"
+        "text": "Obtained from the following {{Faction|Nightwave}} season(s):"
       }
     },
     {
@@ -37,33 +37,85 @@
       "url": "https://wiki.warframe.com/w/Crimson_Talent",
       "acquisition": {
         "section": "Acquisition",
-        "text": "After completing Jade Shadows: Constellations, Scoria's Angel node becomes available. It can be started either from within Pontis Tower, or directly from Railjack Navigation."
+        "text": "After completing [[Jade Shadows: Constellations]], [[Scoria's Angel]] node becomes available. It can be started either from within [[Pontis Tower]], or directly from Railjack Navigation."
       }
     },
     {
-      "name": "Dex Pixia Hawkmoth Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Fairy/TitaniaDeluxeArchwingPistolsSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1568720,
-      "title": "Dex Pixia Hawkmoth Skin",
+      "name": "Crisma Toroid",
+      "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidCamperItem",
+      "category": "ExportResources",
+      "pageId": 1376302,
+      "title": "Crisma Toroid",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Dex_Pixia_Hawkmoth_Skin",
+      "url": "https://wiki.warframe.com/w/Crisma_Toroid",
       "acquisition": {
-        "section": "Acquisition",
-        "text": "The Dex Pixia Hawkmoth Skin is only available in the Market as part of the Titania Empress Skin for  165 or Titania Empress Collection for  275."
+        "section": "Drop Locations",
+        "text": "{{DropLocations}}"
       }
     },
     {
-      "name": "Epitaph Raya Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/CosmosEpitaphSkin",
+      "name": "Dax Lustratus Shoulder Plates",
+      "uniqueName": "/Lotus/Upgrades/Skins/Armor/DaxFlaredArmor/DaxFlaredAArmor",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 1630266,
-      "title": "Epitaph Raya Skin",
+      "pageId": 1634105,
+      "title": "Dax Lustratus Shoulder Plates",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Epitaph_Raya_Skin",
+      "url": "https://wiki.warframe.com/w/Dax_Lustratus_Shoulder_Plates",
       "acquisition": {
         "section": "Acquisition",
-        "text": "This skin could be obtained by reaching Rank 17 in Nightwave: Nora's Mix Volume 9, available from May 21st, 2025 and to October 27th, 2025."
+        "text": "Obtainable from the following [[Operations]]:"
+      }
+    },
+    {
+      "name": "Daybreak Vanquished Banner",
+      "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/DaybreakGrnBannerScarf",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1632502,
+      "title": "Daybreak Vanquished Banner",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Daybreak_Vanquished_Banner",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Obtained from the following {{Faction|Nightwave}} season(s):"
+      }
+    },
+    {
+      "name": "Deathmark Shoulder Armor",
+      "uniqueName": "/Lotus/Upgrades/Skins/Armor/StalkerShoulderArmor/StalkerShoulderArmorA",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1633477,
+      "title": "Deathmark Shoulder Armor",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Deathmark_Shoulder_Armor",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Obtained from the following {{Faction|Nightwave}} season(s):"
+      }
+    },
+    {
+      "name": "Dominus Aureus",
+      "uniqueName": "/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemEvent",
+      "category": "ExportResources",
+      "pageId": 1599133,
+      "title": "Dominus Aureus",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Dominus_Aureus",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Dominus Aureus can be obtained by:"
+      }
+    },
+    {
+      "name": "Ferment Bladder",
+      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosGenericInfestedFishPartItem",
+      "category": "ExportResources",
+      "pageId": 1525674,
+      "title": "Ferment Bladder",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Ferment_Bladder",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Ferment Bladders can be obtained by filleting following [[Deimos]] fish with Daughter:"
       }
     },
     {
@@ -76,7 +128,33 @@
       "url": "https://wiki.warframe.com/w/Glacia_Syandana",
       "acquisition": {
         "section": "Acquisition",
-        "text": "Obtained from the following  Nightwave season(s):"
+        "text": "Obtained from the following {{Faction|Nightwave}} season(s):"
+      }
+    },
+    {
+      "name": "Glaive Daybreak Skin",
+      "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/DayBreakGlaiveSkin",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1630145,
+      "title": "Glaive Daybreak Skin",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Glaive_Daybreak_Skin",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "This skin could be obtained by reaching Rank 2 in [[Nightwave#Nora%27s_Mix_Volume_6|Nightwave: Nora's Mix Volume 6]], available from May 15th, 2024 and to September 3rd, 2024."
+      }
+    },
+    {
+      "name": "Hidden Messages",
+      "uniqueName": "/Lotus/Types/Keys/MirageQuest/MirageQuestKeyChain",
+      "category": "warframe-items",
+      "pageId": 511099,
+      "title": "Hidden Messages",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Hidden_Messages",
+      "acquisition": {
+        "section": "Lead acquisition statement",
+        "text": "{{QuestTopNav}}\n{{QuestInfobox\n|name        = Hidden Messages\n|image       = HiddenMessages.png\n|introduced  = {{ver|14.0}}\n|type        = Side Quest\nWarframe Quest\n|requirement = [[Junction|Sedna Junction]]\n|internalname = /Lotus/Types/Keys/MirageQuest/MirageQuestKeyChain\n|reward      = {{WF|Mirage}} Neuroptics<br>Mirage System<br>Mirage Chassis\n|replayable  = f\n}}\n{{Quote|Seek out the Warframe Mirage|Quest Description}}'''Hidden Messages''' is a side [[Quest]], released in {{ver|14.0}}. The {{Faction|Tenno}} must decipher cryptic poems and solve riddles to locate the {{WF|Mirage}} [[Warframe]].\n==Walkthrough==\n{{Spoiler|Please finish the quest before proceeding.}}\nIn order to unlock this quest, the player must complete the [[Eris]] to [[Sedna]] [[Junction]]. Upon completion, the player will be awarded with the Hidden Messages Quest, which can be started from the [[Codex]].\n\n===Riddle One===\nUpon starting the quest, [[Ordis]] delivers an inbox message to the player, reciting an inscribed riddle:\n\n{{Quote|Three parts, three acts, three riddles for thee &ndash;<br />\nto revive the one wielding fantasy<br />\nAncient gods so cruel, once ruled from on high<br />\nCan you name their peak where the land meets the sky?}}\n\n{{CustomCollapsible|Riddle One Answer|RiddleOne}}\nThe answer to this riddle is '''[[Olympus]], [[Mars]]'''. In Greek Mythology, [[wikipedia:Mount Olympus|Mount Olympus]], the highest mountain in Greece, was considered as the only place where the land scrapes the sky &ndash; At the same time, Mount Olympus is known as the home of the twelve Olympian gods of the ancient Greek world. Olympus Mons, which is located on Mars in real life, is also the tallest mountain in the solar system.\n\nOlympus on Mars is an [[Exterminate]] mission using the [[Infested Ship]] tileset, with {{Faction|Infested}} enemies around level 30.\n{{CustomCollapsible/End}}\n\nDuring the mission corresponding to this riddle, the [[Lotus]] receives cryptic transmissions about a Warframe fighting {{Faction|Sentient|Sentients}} during [[The Old War]], undeterred by the overwhelming odds in spite of the Lotus's orders to retreat.\n\nAfter completing the mission, the player will receive the '''Mirage Neuroptics Blueprint'''.\n\n===Riddle Two===\n[[Ordis]] discovers another transcription alongside the Neuroptics blueprint:\n\n{{Quote|To build the one you think witty,<br />\nseek the nymph who sang oh so pretty.<br />\nShe lured him in with her song and grin,<br />\nhis wife must've thought it a pity.}}\n\n{{CustomCollapsible|Riddle Two Answer|RiddleTwo}}\n'''[[Calypso]], [[Saturn]]'''. In Greek Mythology, [[wikipedia:Calypso (mythology)|Calypso]] was a nymph who is popularly remembered for her role in Homer's epic poem, Odyssey. It is said that Calypso enchanted her singing to trap the fabled Greek hero Odysseus in her island and make him her immortal husband &ndash; forcing Odysseus to be separated from his wife, Penelope.\n\nCalypso on Saturn is a 15-minute [[Survival]] mission set in an [[Infested Ship]], with more [[Infested]] enemies of level 28-35.\n{{CustomCollapsible/End}}\n\nThe Lotus receives more cryptic transmissions where the Warframe has been captured by the enemy, unable to be saved.\n\nThe mission rewards the '''Mirage Systems Blueprint'''.\n\n===Riddle Three===\nThe Systems blueprint reveals one final riddle:\n\n{{Quote|One more act before your prize is caught.<br />\nAn ancient sea creature, take a whirl or not?<br />\nLook for the monster that swallowed sailors of yore.<br />\nMake a mistake and you're sunk. Nothing more.}}\n\n{{CustomCollapsible|Riddle Three Answer|RiddleThree}}\n'''[[Charybdis]], [[Sedna]]'''. In Greek Mythology, [[wikipedia:Charybdis|Charybdis]] was a sea monster, later rationalized as a whirlpool and considered a shipping hazard in Strait of Messina. It is said that three times a day, Charybdis swallowed a huge amount of water, before belching it back out again, creating large whirlpools capable of dragging a ship or even a galleon underwater.\n\nCharybdis on Sedna is a [[Hive Sabotage]], with enemies of level 30-40.\n{{CustomCollapsible/End}}\n\nThe Lotus receives the last of the components, the '''Mirage Chassis Blueprint''', as Mirage tells the Lotus not to despair before she is disintegrated by the enemy.\n\nWith the final component in hand, Ordis reads out the last transcription:\n\n{{Quote|Three acts complete, the end draws near,<br/>\nsoon Mirage will cause fear.<br/>\nMemory lost, to be reborn,<br/>\na new warrior rises, duty sworn.}}\n\nThe quest is considered completed and player can start building {{WF|Mirage}} with her blueprint from the [[Market]].\n\n==Media==\n{{VideoGallery\n|{{YouTube|rifq3sqLOxA|size=300px}}\n|{{YouTube|ocqtETIueuI|size=300px}}\n|{{YouTube|cqOcnQ4Xb0g|size=300px}}\n}}\n\n==Patch History==\n{{Scrollbox/Article|\n{{ver|35.5}}\n;Quest Changes\n\n'''Other Quest Changes:'''\n*The riddles from Hidden Messages will now appear in the TennoGuide to help players more easily find them. (or to help those who accidentally deleted the inbox messages -- oops!).\n\n{{ver|30.9}}\n*Fixed the Hidden Messages quest guide inadvertently taking players to the proper Planet for the riddle.\n\n{{ver|30.3}}\n*The Hidden Messages Quest no longer requires you to finish crafting the Warframe components to move onto the next stage of the Quest. Simply earning the Blueprint is now enough to progress.\n\n{{ver|30.0.8}}\n*Hidden Messages Quest communications will now automatically open the Inbox.\n\n{{ver|29.5}}\n*Fixed crash after completing the first stage of Hidden Messages.\n\n{{ver|22}}\n*Players who have the blueprints for The Limbo Theorem, Hidden Messages, or Patient Zero will now automatically receive the quest itself upon logging in. The blueprints will be removed and if they were under construction, the resources and credits will be refunded (except for the argon crystals for The Limbo Theorem, sorry!).\n\n{{ver|14}}\n*Introduced.\n}}\n{{QuestNav}}\n\n[[es:Mensajes ocultos]]\n[[pt:Mensagens Ocultas]]\n[[fr:Messages Cachés]]\n[[Category:Quest]]\n[[Category:Lore]]\n[[Category:Mirage]]\n[[Category:Update 14]]\n[[Category:Real-World References]]"
       }
     },
     {
@@ -89,20 +167,7 @@
       "url": "https://wiki.warframe.com/w/Kyndryn_Gunblade_Skin",
       "acquisition": {
         "section": "Acquisition",
-        "text": "This skin is purchasable as a recurring event reward, for the following:"
-      }
-    },
-    {
-      "name": "Loiaus Chest Medallion",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauPurpleHeartMedalC",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1634106,
-      "title": "Loiaus Chest Medallion",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Loiaus_Chest_Medallion",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Obtainable from the following Operations:"
+        "text": "This skin is purchasable as a recurring [[event]] reward, for the following:"
       }
     },
     {
@@ -128,46 +193,150 @@
       "url": "https://wiki.warframe.com/w/Monarcierro_Day_of_the_Dead_Syandana",
       "acquisition": {
         "section": "Acquisition",
-        "text": "Obtained from the following  Nightwave season(s):"
+        "text": "Obtained from the following {{Faction|Nightwave}} season(s):"
       }
     },
     {
-      "name": "Protovyre Emergent Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/NarmerEvolvingEphemeraB",
+      "name": "Patient Zero",
+      "uniqueName": "/Lotus/Types/Keys/InfestedAladVQuest/InfestedAladVQuestKeyChain",
+      "category": "warframe-items",
+      "pageId": 596164,
+      "title": "Patient Zero",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Patient_Zero",
+      "acquisition": {
+        "section": "Lead acquisition statement",
+        "text": "{{QuestTopNav}}\n{{QuestInfobox\n|name        = Patient Zero\n|image       = PatientZero.png\n|introduced  = {{ver|15.5}}\n|type        = Side Quest\n|internalname = /Lotus/Types/Keys/InfestedAladVQuest/InfestedAladVQuestKeyChain\n|reward      = [[Mutalist Alad V Assassinate Key|Mutalist Alad V Key]] Blueprint\n|requirement = Completed [[Once Awake]]<br>Unlocked [[Eris]]\n|replayable  =\n}}\n{{Quote|Find Alad V's laboratory and put a stop to his madness.|Quest description}}\n'''Patient Zero''' is a side [[Quest]], released in {{ver|15.5}}. The {{Faction|Tenno}} must find and locate {{E|Mutalist Alad V}}'s lab near [[Eris]] to stop his plans of dominating the Origin System. \n==Synopsis==\nCoinciding with the events in [[Operation: Mutalist Incursions]], [[Alad V]], now turned [[Mutalist Alad V|Mutalist]], continues to thrive and populate his Mutalist creations throughout the Origin System. The {{Faction|Tenno}} attempts to triangulate Alad's location by [[Hive Sabotage|sabotaging Infested ships]]. Eventually, they reach Alad's lab and destroy it, after which he unveils his newest creation: a {{WF|Mesa}} Warframe [[Infested Mesa|controlled]] by the {{Faction|Infested|Infestation}}. Putting Mesa out of her misery, the Tenno obtains information on Alad's true location. They eventually [[Assassination|assassinate]] Mutalist Alad V on an Infested Corpus ship, drifting in orbit around [[Eris]].\n\nRemarkably, Alad V survived, but the Tenno crippled his ability to deal further damage with his experiments on the Infestation.\n\n==Walkthrough==\n{{Spoiler|Please finish the quest before proceeding.}}\nIn order to unlock this quest, the player must complete the [[Pluto]] to [[Eris]] [[Junction]]. Upon completion, the player will be awarded with the Patient Zero Quest, which can be started from the [[Codex]].\n\n{{Quote|Tenno, \n\nAlad V's infested ships are slamming into populated centers all around the system. He's using these ships like spore pods to spread his Mutalist plague. Everyone is affected. Equally concerning are the new strains of Infested he's using in this attack. \n\nThere are two courses of action. First, we must extinguish each Infestation at its source. I will be issuing Bounties, so that we can cut down as many of these new Infested as possible. Pay attention to your Navigation Console for updates. \n\nSecondly, we need you to deal with the source of the problem. I have sent you the details of a mission to locate Alad V and destroy his lab. \n\nLeft unchecked this plague will spread out of control. You must start immediately, there is no time to waste.|The Lotus}}\n\n===Mutalist Empire: [[Naeglar]], [[Eris]]===\nThe Tenno receives an inbox message from [[Alad V]] himself, heavily infected by the Infestation, announcing the now-evolved {{Faction|Infested}} species.\n\n{{quote|Hello, inhabitants of the Origin System!\n\nIt is my singular pleasure to announce that today is the first day of a new empire. An empire populated not by Corpus, not by Grineer, and certainly not by Tenno. No, the Mutalist Empire will be populated by you. A glorious new you, baptized by Mutalist Flesh.\n\nYou call this a disease, an infestation? I call it Unity, one army under me. Welcome to your new species.|Alad V}}\nUpon hearing the news, the Lotus immediately sends the Tenno to a [[Corpus Ship]] on Naeglar, Eris to extract data that would reveal what the {{Faction|Corpus}} know about Alad V who had been searching for him for months due to his devastating attacks on their ships, playing out as a [[Spy]] mission. Once the second datamass has been collected, Alad V contacts the Tenno about appreciating his \"gift\" to them, signaling the arrival of {{Faction|Infested}} units on board the ship that will fight both Tenno and Corpus alike.\n\nThe data collected from the Corpus reveals that Alad V has gotten hold of another Warframe, with plans to infect it.\n\n===Triangulation I: [[Brugia]], [[Eris]]===\nIn order to triangulate Alad V's location, the Lotus sends the Tenno to [[Hive Sabotage|sabotage]] three [[Infested Ship]]s, with the first ship being located on Brugia, Eris. Once again Alad V contacts the player during the mission, telling them of his plans for evolution and further spreading the Infestation. Lotus comments that the Infestation is changing Alad V's mind, making him think like an Infested.\n\n===Triangulation II: [[Saxis]], [[Eris]]===\nThe [[Hive Sabotage]] mission takes place on Saxis, Eris. Here, Alad V expresses his admiration for his Mutalists, and details his plans on making a ''Mutalist Warframe''. At the end of the mission, a nervous Ordis asks whether it is possible for a Warframe to be infested.\n\n===Triangulation III: [[Kala-azar]], [[Eris]]===\nThe third and final [[Hive Sabotage]] mission is set on Kala-azar, Eris. Alad V now expresses his complete disregard of Corpus philosophy by denouncing the ideals of profit. At the conclusion of the mission, the Lotus finally finishes tracking down the location of Alad V's laboratory.\n\nAt this point, Lotus, referring to how Alad V seems to have changed, remarks that the Infestation has gotten to his mind and that he is not using the Infested as a weapon, he ''is'' Infested.\n\n===Mutalist Warframe: [[Xini]], [[Eris]]===\nWith the laboratory's location uncovered, the Lotus sends in the Tenno to Xini, Eris, to destroy the lab, ensuring that Alad V cannot create any more Mutalist Infested even if he has already escaped from the area. Players are tasked with a [[Sabotage]] mission aboard a [[Corpus Ship]] to destroy its reactor core.\n\nAfter the reactor core is destroyed, Alad V will send in an {{E|Infested Mesa}} against the player to show off his work. The Lotus immediately insists that the Mesa, was in fact ''\"not a Tenno. That's a hollow Warframe being puppeted by Infested flesh. Put it out of its misery.\"'' The Infested Mesa uses her Regulator Pistols and a {{Weapon|Plasma Sword}} as her weapons, and can parry player attacks. Players must kill the Infested Mesa before they can continue to extraction.\n\nCompleting the mission rewards the [[Mutalist Alad V Assassinate Key]] blueprint, allowing the player to hunt for {{E|Mutalist Alad V}} himself and farm {{WF|Mesa}} components.\n\n{{Quote|Tenno, \n\nBy destroying Alad V's ship you have destroyed his ability to make new Infested. Now you need to go after the man himself. He's on the run and it's up to you to track him down. Use the attached tracker to find him. \n\nGood Luck Tenno.|The Lotus}}\n\n==Trivia==\n* ''Patient Zero'' is a medical science term commonly used for the initial patient in the investigation of an epidemic.\n* In the past, when the player had to face Infested Mesa in the final part of the quest, she used Regulator Pistols and a {{Weapon|Plasma Sword}} as her weapons, and could parry player attacks.\n** Even though infested Mesa is a pseudo-boss, melee finishers could be used on it, allowing for a quick dispatch.\n\n==Media==\n{{VideoGallery\n|{{YouTube|MagEyeijG74|size=300px}}\n|{{YouTube|QTXmdvqX6P4|size=300px}}\n}}\n\n==Patch History==\n{{Scrollbox/Article|\n{{ver|25.7}}\n*Added the ability to replay\n\n{{ver|22}}\n*Players who have the blueprints for The Limbo Theorem, Hidden Messages, or Patient Zero will now automatically receive the quest itself upon logging in. The blueprints will be removed and if they were under construction, the resources and credits will be refunded (except for the argon crystals for The Limbo Theorem, sorry!).\n\n{{ver|15.5}}\n*Introduced.\n}}\n\n{{QuestNav}}\n\n[[de:Patient Zero]]\n[[es:Paciente cero]]\n[[pt:Paciente Zero]]\n[[zh:零號病患]]\n[[Category:Quest]]\n[[Category:Update 15]]\n[[Category:Mesa]]"
+      }
+    },
+    {
+      "name": "Pulsar",
+      "uniqueName": "/Lotus/Weapons/CrewShip/Laser/PulseLaser/PulseLaser",
+      "category": "warframe-items",
+      "pageId": 1544158,
+      "title": "Pulsar",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Pulsar",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "<div class=\"tabbertab\" style=\"width:60%\"><tabber>"
+      }
+    },
+    {
+      "name": "Raya Aurora Ephemera",
+      "uniqueName": "/Lotus/Upgrades/Skins/Effects/Twitch2023Ephemera",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604455,
-      "title": "Protovyre Emergent Ephemera",
+      "pageId": 1631093,
+      "title": "Raya Aurora Ephemera",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Protovyre_Emergent_Ephemera",
+      "url": "https://wiki.warframe.com/w/Raya_Aurora_Ephemera",
       "acquisition": {
         "section": "Acquisition",
-        "text": "Earn 250,000 Focus from Focus Lens with Protovyre Ephemera equipped. Focus conversion from Eidolon Shards does not count."
+        "text": "Awarded from reaching certain ranks in [[Nightwave]]:"
       }
     },
     {
-      "name": "Verv Atelia Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/Twitch2021Syandana",
+      "name": "Raya Sigma Syandana",
+      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnRailjackCosmosSyandana",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632533,
-      "title": "Verv Atelia Syandana",
+      "pageId": 1632503,
+      "title": "Raya Sigma Syandana",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Verv_Atelia_Syandana",
+      "url": "https://wiki.warframe.com/w/Raya_Sigma_Syandana",
       "acquisition": {
         "section": "Acquisition",
-        "text": "Purchase from Varzia for 10  Aya."
+        "text": "Obtained from the following {{Faction|Nightwave}} season(s):"
       }
     },
     {
-      "name": "War Prime",
-      "uniqueName": "/Lotus/Weapons/Tenno/Melee/Swords/PrimeWar/PrimeWarWeapon",
-      "category": "ExportWeapons",
-      "pageId": 1640673,
-      "title": "War Prime",
+      "name": "Saturn Six Syandana",
+      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoWolfBackpack",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1407232,
+      "title": "Saturn Six Syandana",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/War_Prime",
+      "url": "https://wiki.warframe.com/w/Saturn_Six_Syandana",
       "acquisition": {
         "section": "Acquisition",
-        "text": "War Prime is acquired upon crafting Hunhow's Trinket, which can be purchased from Hunhow in Pontis Tower after Jade Shadows: Constellations with 12  Emerald Talent and 12  Crimson Talent, awarded from the Uranus Proxima. It comes with a Weapon Slot and a pre-installed  Orokin Catalyst."
+        "text": "Obtained from the following {{Faction|Nightwave}} season(s):"
+      }
+    },
+    {
+      "name": "Spore Ephemera",
+      "uniqueName": "/Lotus/Upgrades/Skins/Effects/InfestedEphemeraA",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1604467,
+      "title": "Spore Ephemera",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Spore_Ephemera",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Awarded from reaching certain ranks in [[Nightwave]]:"
+      }
+    },
+    {
+      "name": "Stelflare Syandana",
+      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnPyraV2Syandana",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1632501,
+      "title": "Stelflare Syandana",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Stelflare_Syandana",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Obtained from the following {{Faction|Nightwave}} season(s):"
+      }
+    },
+    {
+      "name": "The Limbo Theorem",
+      "uniqueName": "/Lotus/Types/Keys/LimboQuest/LimboQuestKeyChain",
+      "category": "warframe-items",
+      "pageId": 570807,
+      "title": "The Limbo Theorem",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/The_Limbo_Theorem",
+      "acquisition": {
+        "section": "Lead acquisition statement",
+        "text": "{{Spoiler}}\n{{QuestTopNav}}\n{{QuestInfobox\n|name        = The Limbo Theorem\n|image       = TheLimboTheorem.png\n|introduced  = {{ver|15}}\n|type        = Side Quest\nWarframe Quest\n|requirement = Obtain an [[Archwing]]\n[[Jupiter]] - Europa [[Junction]]\n|internalname = /Lotus/Types/Keys/LimboQuest/LimboQuestKeyChain\n|reward      = {{WF|Limbo}} Neuroptics<br>Limbo System<br>Limbo Chassis\n|replayable  = f\n}}\n{{Quote|The Limbo Theorem quest cannot be completed without an Archwing\n\nPiece together the Limbo Theorem to uncover its source|Quest Description}}\n'''The Limbo Theorem''' is a side [[Quest]], released in {{ver|15}}. It tasks the player with uncovering a mysterious theorem left behind by the {{WF|Limbo}} [[Warframe]]. \n\n==Walkthrough==\n{{Spoiler|Please finish the quest before proceeding.}}\nIn order to unlock this quest, the player must complete the [[Jupiter]] to [[Europa]] [[Junction]]. Upon completion, the player will be awarded with the The Limbo Theorem Quest, which can be started from the [[Codex]].\n\n===Nonsense: [[Syrtis]], [[Mars]]===\n[[Ordis]] sends the player an inbox message, confused about the incomplete Limbo Theorem. The message contains a blueprint for the [[Limbo Theorem|Limbo Neuroptics Theorem Key]], which requires three [[Proof Fragment]]s to craft.\n\nHe then directs the player to Syrtis, Mars to tap into {{Faction|Grineer}} communication towers in the hopes of successfully scanning for the Limbo signal. This is a single round [[Archwing]] [[Interception]] mission. However, the primary objective of the mission is not in the Interception mission itself (which provides no reward), but in collecting Proof Fragments that drop from killed enemies, which resemble Energy Orbs.\n\n1 Proof Fragment are required to craft a Limbo Theorem key, but players are not prompted that they've collected enough meaning they must manually check the Foundry. A total of 3 fragments are required for the whole quest, and players are allowed to repeat the mission until the quest is complete to continue farming for fragments. Fragments can be traded between players.\n\n{{BuildRequire\n|buildcredits = 6,500\n|build1 = Proof Fragment\n|build1amount = 1\n|buildtime = 10\n|buildtimeunit = sec\n|buildrush = 0\n}}\n\nWhile crafting, Ordis initially expresses curiosity of the Limbo Theorem, only to be annoyed by even more nonsense the supposed evidence provided. He will lead the player to the only coordinate that he managed to obtain from the proof.\n\n===Rift Plane: [[Cambria]], [[Earth]]===\nThe player is directed to Cambria, Earth on an [[Excavation]] mission to check out Ordis' lead. This mission requires the player to excavate 300 {{Resource|Cryotic}} (3 full extractors), after which the player is rewarded with the '''Limbo Neuroptics Blueprint'''. Once obtained, Ordis will rethink his opinion on the Theorem and will attempt to make more sense of it.\n\nUpon returning to the Orbiter, Ordis discovers a [[Limbo Theorem|Limbo Systems Theorem]]. The player must return to Syrtis, Mars to gather 1 more [[Proof Fragment]]s to craft it.\n\nAfter Limbo Systems Theorem is completed, Ordis will send the player another coordinate. He will also extrapolate his findings about the existence of the Rift, and its connection to Limbo.\n\n===Magician of Math: [[Martialis]], [[Mars]]===\nThe player will undertake another [[Excavation]] mission to extract the '''Limbo Systems Blueprint''' on Martialis, Mars.\n\nAfter completing the mission, the player will receive a [[Limbo Theorem|Limbo Chassis Theorem]]. Once again, it requires 1 {{Resource|Proof Fragment}}. Meanwhile, Ordis rethinks his opinion on the theorem and shows anticipation.\n\n===Final Jump: [[Ose]], [[Europa]]===\nThe player is finally directed to Ose, Europa to conduct a final [[Excavation]] mission in search of '''Limbo Chassis Blueprint'''.\n\nOrdis eagerly reads the rest of the Theorem, only to find out Limbo made a grave miscalculation that ended in disaster, and urges the player to exercise caution with the Warframe. The quest is considered completed and player can start building {{WF|Limbo}} with his blueprint from the [[Market]].\n\n==Notes==\n*It is '''not''' possible to obtain Limbo's components by joining the [[Excavation]] missions that reward his parts without actively doing the Quest.\n\n==Patch History==\n{{Scrollbox/Article|\n{{ver|38.6}}\n*Fixed a dialogue typo in the Limbo Theorem Quest.\n\n{{ver|35.5}}\n;Quest Changes\n\n'''Quest Blueprint Build Times:'''\n\nWe reduced the following Quest-related blueprint crafting time to 10 seconds, and updated the Rush Cost to be 0 Platinum:\n*Limbo Theorem Components (The Limbo Theorem)\n\n{{ver|34}}\n;Quest Improvements\n\n'''Misc. Quest Changes:'''\n*<u>The Limbo Theorem:</u> Reduced Limbo Blueprint craft times from 12 hours to 1 minute. We are also reducing the number of Proof fragments required for the Theorem Blueprints from 3 to 1. \n\n{{ver|32}}\n*Fixed missing Ordis dialog subtitles in the Limbo Theorem quest.\n\n{{ver|31.7.2}}\n*Fixed missing Ordis dialog subtitles in the Limbo Theorem.\n\n{{ver|30.3}}\n*The Limbo Theorem Quests no longer requires you to finish crafting the Warframe components to move onto the next stage of the Quest. Simply earning the Blueprint is now enough to progress.\n\n{{ver|29.8}}\n*Fixed an edge case in The Limbo Theorem Quest that can leave you unable to progress, putting you into an inescapable state of limbo (ar ar ar).\n\n{{ver|22}}\n*Players who have the blueprints for The Limbo Theorem, Hidden Messages, or Patient Zero will now automatically receive the quest itself upon logging in. The blueprints will be removed and if they were under construction, the resources and credits will be refunded (except for the argon crystals for The Limbo Theorem, sorry!).\n\n{{ver|21}}\n*The Limbo Theorem Excavation missions will now guarantee one of the Blueprints at the end of 3 extractors as an End of Mission reward.\n\n{{ver|15}}\n*Introduced.\n}}\n{{QuestNav}}\n\n[[es:El teorema de Limbo]]\n[[fr:Le Théorème de Limbo]]\n[[pt:O Teorema Limbo]]\n[[Category:Lore]]\n[[Category:Quest]]\n[[Category:Limbo]]\n[[Category:Update 15]]"
+      }
+    },
+    {
+      "name": "The Silver Grove",
+      "uniqueName": "/Lotus/Types/Keys/FairyQuest/FairyQuestKeyChain",
+      "category": "warframe-items",
+      "pageId": 1038460,
+      "title": "The Silver Grove",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/The_Silver_Grove",
+      "acquisition": {
+        "section": "Lead acquisition statement",
+        "text": "{{For|the tile in [[Grineer Forest]]|Silver Grove}}\n{{QuestTopNav}}\n{{QuestInfobox\n|name        = The Silver Grove\n|image       = TheSilverGrove.png\n|introduced  = {{ver|The Silver Grove}}\n|type        = Side Quest\nWarframe Quest\n|reward      = {{WF|Titania}} Blueprint & Parts\n|internalname = /Lotus/Types/Keys/FairyQuest/FairyQuestKeyChain\n|requirement = [[The Second Dream]] Complete <br> Mastery Rank 7\n|replayable  =\n}}\n{{Quote|New Loka seeks help protecting a sacred forest from Grineer incursions, but are they ready to face the forest's true nature?|Quest Description}}\n'''The Silver Grove''' is a side [[Quest]], released in {{ver|The Silver Grove}}. The {{Faction|Tenno}} work with {{Faction|New Loka}} to uncover an ancient, mysterious power on [[Earth]].\n\n==Walkthrough==\n{{Spoiler|Please finish the quest before proceeding.}}The Silver Grove quest can only be unlocked once players have completed [[The Second Dream]] and are [[Mastery Rank]] 7 or higher.\n\nThe quest is started by visiting {{Faction|New Loka}} inside a [[relay]] and by asking their leader [[Amaryn]] about \"''The Silver Grove''\". She explains that the {{Faction|Grineer}} seek to defile Earth's purest location, the aforementioned Silver Grove, and that New Loka have a plan to awaken the ancient defenses that guard the place. The quest can then be activated via the Quest menu on the [[Codex]].\n\n===Nightfall Apothic===\nOn accepting the quest, players will receive a blueprint for a '''Nightfall Apothic'''. In order to craft the Apothic, players must physically interact with specific plants found throughout the Origin System.\n\n{{BuildRequire\n|build1 = Morphics\n|build1amount = 2\n|build2 = Dusklight Sarracenia\n|build2amount = 2\n|build3 = Moonlight Dragonlily\n|build3amount = 6\n|build4 = Sunlight Threshcone\n|build4amount = 12\n|buildtime = 10\n|buildtimeunit = sec\n|researchcredits = 500\n|buildcredits = 500\n|buildrush = 0\n|buildrushunit = Platinum\n}}\n\n*The {{Resource|Dusklight Sarracenia}} can be found in swampy waters in [[Grineer Shipyard]] missions, which are most commonly found on [[Ceres]].\n*Both {{Resource|Moonlight Dragonlily|Moonlight Dragonlilies}} and {{Resource|Sunlight Threshcone|Sunlight Threshcones}} can be found on [[Grineer Forest]] missions on [[Earth]], however the Moonlight Dragonlilies can only be found during the tileset's nighttime phase, and Sunlight Threshcones can only be found during the daytime phase.\n\nAlong with the blueprint, players will also be shown a voice imprint included with the Apothic, which details the log of an unnamed female {{Faction|Orokin}}-era researcher.\n\n{{CustomCollapsible|Nightfall Apothic imprint|Night| | }}\n{{Quote|My bags are packed, I'm all set to leave. I can't believe I'll be working with one of my childhood heroes, Archimidean [[Margulis]]! On comms she said she needed the best Infestation biologist there was... I think my knees almost gave out!\n\nAs I log this, I look out the stained plastic of my field tent into the dead-yellow sky of Earth. I smell the vague Sulphur and toxins leaking through the seals, yet somehow I'm going to miss this place. Leaving her feels like I'm giving up my dream. My dream to see green and blue return to this sick and dying mother of us all. \n\nBut I'm frustrated with my lack of progress. I've tried everything to accelerate the ailing vegetation, to guide and nurture the soil, but nothing comes of it. I need a change. Now I have that opportunity... and thanks to Margulis, I'm relieved I won't be drafted into some Orokin War project.}}\n{{CustomCollapsible/End}}\n\nOnce the Apothic has been crafted and then equipped on a player's [[Arsenal#Gear|Gear]], players are then tasked with visiting '''E Prime''' on Earth in order to find a small shrine, where players must fight past {{Faction|Grineer}} patrols to locate it, with Amaryn occasionally giving out pointers as to its location.\n\nUpon locating the shrine, players must then anoint the large stone altar on the top of the shrine, which will consume the Apothic (the altar only requires one player to consume their apothic even though the objective \"Anoint the Altar\" appears for all players in the party). This prompts a disembodied voice &ndash; whom Amaryn believes to be the Grove's sacred voice &ndash; to suddenly speak out, demanding the Tenno to know what they are doing. A hostile {{WF|Loki}} {{E|Knave Specter}} and its clones will suddenly appear and attack, which players must kill in order to extract.\n\nCompleting this mission will grant players a '''Titania Systems Blueprint''', along with the blueprint for the next Apothic.\n\n===Twilight Apothic===\nOn receiving the blueprint for the '''Twilight Apothic''', players must once again hunt down for the plants needed to craft it.\n\n{{BuildRequire\n|buildcredits = 500\n|build1 = Morphics\n|build1amount = 2\n|build2 = Moonlight Jadeleaf\n|build2amount = 2\n|build3 = Ruk's Claw\n|build3amount = 6\n|build4 = Lunar Pitcher\n|build4amount = 6\n|buildtime = 10\n|buildtimeunit = sec\n|buildrush = 0\n|buildrushunit = Platinum\n|researchcredits = 500\n}}\n\n*{{Resource|Moonlight Jadeleaf}} can rarely be found on the [[Grineer Forest]] tileset on [[Earth]], but only during the tileset's nighttime phase.\n*{{Resource|Ruk's Claw}} can be commonly found on the [[Grineer Settlement]] tileset on [[Mars]], usually on walls and corners.\n*{{Resource|Lunar Pitcher}} can be commonly found on the [[Orokin Moon]] tileset on [[Lua]], either in vases or amongst the rubble.\n\nThe Twilight Apothic blueprint also contains a voice imprint, which [[Ordis]] will bring up for the player to read:\n\n{{CustomCollapsible|Twilight Apothic imprint|Twilight| | }}\n{{Quote|My childhood dream has become a nightmare. I don't blame [[Margulis]], she's as much a victim as the children we're working with. At first the project seemed therapeutic and nurturing. I was myself. But now... Transference therapy is being turned into a weapon. Now I build these vile weapons called \"Warframes\" all for one purpose: death. I've become everything I hate. \n\nI long for the discomfort of my damp tent. The sick, aimless trees... the barren soil... I know I left my soul back there. \n\nTitania is the next Warframe I've been commanded to build, but in secret I've been siphoning resources from that project. I have an idea. A way back to that wounded land I call home. A way for me to forget this war and remember what I was.}}\n{{CustomCollapsible/End}}\n\nAmaryn wonders why the Apothic is 'vandalized' by the presence of the imprint. Nonetheless, she details her plan to seed Earth with the plants found in the Silver Grove due to their purity, while Ordis expresses his wonder at the Silver Grove, stating he's never scanned anything like it on previous missions to Earth.\n\nPlayers must return to E Prime upon crafting and equipping the Twilight Apothic to repeat the previous process of anointing the shrine. This time, the disembodied voice outright tells the Tenno to get out, and sends a {{WF|Saryn}} {{E|Orphid Specter}} to kill the Tenno. Once the Specter is defeated, the disembodied voice cries out for Titania, pleading her to wake it up. Amaryn is shaken by its words, no longer believing it to be a sacred voice, but a human voice.\n\nUpon extraction, players will receive the '''Titania Chassis Blueprint''', and the final Apothic blueprint.\n\n===Sunrise Apothic===\nOnce more, players must find the plants that make up the ingredients for the '''Sunrise Apothic'''.\n\n{{BuildRequire\n|buildcredits = 500\n|build1 = Morphics\n|build1amount = 2\n|build2 = Sunlight Jadeleaf\n|build2amount = 2\n|build3 = Frostleaf\n|build3amount = 8\n|build4 = Vestan Moss\n|build4amount = 12\n|buildtime = 10\n|buildtimeunit = sec\n|buildrush = 0\n|buildrushunit = Platinum\n}}\n\n*{{Resource|Sunlight Jadeleaf}} can rarely be found on the [[Grineer Forest]] tileset on [[Earth]], usually in watery areas, but only during the tileset's daytime phase.\n*{{Resource|Frostleaf}} can be found in large batches by cliffs and valleys on the [[Corpus Outpost]] tileset on [[Venus]], [[Neptune]] and [[Pluto]]. Note that the plant does not always spawn. If you can't find any, simply restart the mission and try again. It can sometimes take a couple of tries.\n*{{Resource|Vestan Moss}} can be found scattered on rocks on the [[Grineer Asteroid]] tileset, commonly found on [[Mercury]], [[Phobos]], [[Saturn]], [[Uranus]] and [[Sedna]]. Check under the stairs too.\n\nAs with the previous Apothics, Ordis discovers a voice imprint within it, which he displays to the player:\n\n{{CustomCollapsible|Sunrise Apothic imprint|Sun| | }}\n{{Quote|[[Ballas]] is beyond pleased... but when I look at what I've built... at Titania, I feel sick creep up my throat. I hate her, a killer made by a healer. No more. I'm going back to where I belong, no matter the cost. I'm going back to the trees to find myself again. \n\nThese past weeks, I've been secretly testing Transference on myself. I can only survive short bursts - linking to Titania the way only Tenno can stand. I've never felt anything like it. A tortured presence, like an evil ink, staining my mind. But... it worked. I'm going to use this wrong to make right. \n\nI'll stowaway with Earth-bound cargo. Just my apothics and these slapdash Somatics I've stolen. By nightfall I'll be home again in my tent under those bitter, acid skies. This time I'm going to fix it. I will seed a mighty forest, stronger than history... and by my will, use it to bring life.}}\n{{CustomCollapsible/End}}\n\nAmaryn reacts with horrific disbelief at the imprint, realizing that the Silver Grove is not the pure and natural sanctuary she believed it to be, but another artificial creation. Disgusted, Amaryn pulls out of the mission. Ordis, however, urges the Tenno to complete their mission, stating his disagreement with Amaryn's dogmatic beliefs, and how the Tenno are proof one's actions are more important than one's origins.\n\nUpon crafting the Sunrise Apothic, players must return to the Silver Grove one final time with the Sunrise Apothic equipped. The voice of the Grove will converse with Amaryn, asking the leader if she would rather see the forest she swore to protect burn just to spite the Grove itself; Amaryn has difficulty responding. Once the shrine is anointed, the voice will call out again, declaring that it has gained clarity enough to realize the Tenno is not Titania, but another protector much like her. However, the Grove has no power to stop the remaining guardian, and the player is then attacked by an {{WF|Oberon}} {{E|Feyarch Specter}}.\n\nOnce the Specter is defeated, the voice bids the player to flee while it holds off the coming Grineer, but Amaryn will bid the Tenno to stay and defend the Shrine until its defenses are fully activated. The player must then defend the Shrine for 2 minutes while it is attacked by {{Faction|Grineer}}, including {{E|Napalm|Napalms}}, {{E|Flameblade|Flameblades}}, {{E|Elite Lancer|Elite Lancers}} and {{E|Hyekka Master|Hyekka Masters}}. The voice of the Grove admires that the Tenno fights with the same energy that Titania once did.\n\nWith the Shrine completely defended, the voice introduces itself as '''Silvana''', the [[Archimedean]] responsible for both Titania and the Silver Grove, now permanently bound to the latter by Transference. When the Orokin learned that she pilfered their resources to create the grove, a battalion of Dax soldiers was sent to burn down the forest, but they were cut down by Titania. Titania's wounds claimed her in this battle, and she died in the Silver Grove, protecting the woman who hated her the most &ndash; Silvana. Amaryn vows that the player will allow Titania to fly once more, earning Silvana's gratitude.\n\nUpon extraction, players will receive the '''Titania Neuroptics Blueprint'''. Amaryn will also send a message to the player's inbox, declaring that the New Loka will need to change its doctrines moving forward to be more accepting of the truth, and giving the Tenno a '''Titania Blueprint''', thus completing the quest.\n\nPlayers can continue to encounter the [[Silver Grove Shrine]] on any [[Earth]] mission that uses the [[Grineer Forest]] tileset, with the [[Lotus]] detecting its presence once players have reached a tile connected to it. They can continue to offer Apothic to spawn more Specters; the mods they drop appear as a question mark ('''?''') until the mission is completed.\n\n==Notes==\n*The player does not need to be allied with New Loka to obtain the quest.\n*Similar to [[Sands of Inaros]], the main quest mission for The Silver Grove is not randomized, but is instead fixed, making it easy to memorize the layout of the map upon returning to it.\n*If you don't receive the blueprint in the mail after completing the quest, it will be there after logging out and back in again.\n*Never use Apothic if you have not started the quest mission, as it will spawn Knave Specter but not provide the blueprint or the next step in quest while consuming Apothic.\n*If players sold the Apothic blueprints before DE made them unsellable, there is no way for players to re-obtain them, aside from submitting a support ticket and asking for the items to be re-added to the players inventory.\n*During the quest, the specters will not drop anything. After completing the quest, the Apothics can still be crafted and used in the Silver Grove to summon specters which are guaranteed to drop a mod.\n\n==Tips==\n*[[Resource Booster]]s will double the amount of plants looted.\n*{{Companion|Oxylus}}'s {{M|Botanist}} will autonomously loot plants.\n*The best node for obtaining the Earth plants  ({{Resource|Moonlight Dragonlily|Moonlight Dragonlilies}}, {{Resource|Sunlight Threshcone|Sunlight Threshcones}}, {{Resource|Moonlight Jadeleaf}}, and {{Resource|Sunlight Jadeleaf}}) is [[Mantle|Mantle on Earth]]. Completing the capture quickly will allow you to focus on finding the plants.\n*The best node for obtaining the other plants are also capture missions for the same reason, with the best nodes being :\n**{{Resource|Dusklight Sarracenia}} - [[Pallas|''Pallas on Ceres'']]. \n**{{Resource|Ruk's Claw}} - [[Ara|''Ara on Mars'']].\n**{{Resource|Lunar Pitcher}} - [[Copernicus|''Copernicus on Lua'']].\n**{{Resource|Frostleaf}} - [[Venera|''Venera on Venus'']]. <small>Keep in mind Frostleaf does not always spawn, so if you might have to restart the mission a few times</small>.  \n**{{Resource|Vestan Moss}} - [[Elion|''Elion on Mercury'']].\n*As a few of the plants required for ingredients in this quest - namely {{Resource|Sunlight Threshcone|Sunlight Threshcones}}, {{Resource|Sunlight Jadeleaf|Sunlight Jadeleaves}}, {{Resource|Moonlight Dragonlily|Moonlight Dragonlilies}} and {{Resource|Moonlight Jadeleaf|Moonlight Jadeleaves}} - can only appear during particular phases of the [[Grineer Forest]]'s day and night cycle, it is important to note when each particular cycle takes place in order to minimize the time needed to hunt down the required plants. The day/night cycle now follows the one at Cetus and can be found on the navigation menu when hovering over Cetus. Prior to Update 38.5, this would have been every 4 hours.\n\nA good resource to find out how long until the time shifts is [//hub.warframestat.us/#/ https://hub.warframestat.us]\n\nHere is a [https://www.reddit.com/r/Warframe/comments/84huj6/i_made_a_compact_list_for_farming_the_stuff_for/ more compact list] of everything needed for all Apothics and the best places to farm them.\n\n==Media==\n{{VideoGallery\n|{{YouTube|c_as-IR7Xhw|size=302px}}\n|{{YouTube|vgblff_dMVo|size=302px}}\n|{{YouTube|j1SP980zROs|size=302px}}\n|{{YouTube|AbzzlsFicnE|size=302px}}\n}}\n\n{{YouTube|4x-14Sv8Vu4|size=335px|align=center}}\n\n==Patch History==\n{{Scrollbox/Article|\n{{ver|40}}\n*Fixed a crash in the Silver Grove Quest when fighting the Knave Specter.\n\n{{ver|39}}\n*Players will no longer have to scan plants to earn their extracts. \n**Now, plants like Moonlight Dragonlily and Ruk’s Claw will have a “Hold to Collect” context action to pick them up in-mission. \n**Oxylus’ Botanist Precept has been changed to automatically pick any plants within  50m over 2s (at max rank). \n**This also applies to the Silver Grove Quest, which requires players to collect certain plant resources to progress. The objective descriptions have been updated to specify “gathering” instead of “scanning”. \n**''The scanning mechanic was overly complicated for new players, so this simplification should benefit Plant Extract gathering for Tenno across the board.''\n\n{{ver|38}}\n*Fixed excess screen shake on Apothic dioramas during The Silver Grove Quest.\n\n{{ver|35.5}}\n;Quest Changes\n'''Quest Blueprint Build Times:'''\n\nWe reduced the following Quest-related blueprint crafting time to 10 seconds, and updated the Rush Cost to be 0 Platinum:\n*Nightfall Apothic, Twilight Apothic, Sunrise Apothic (The Silver Grove)\n\n{{ver|31.5}}\n*Fixed the input icons and labels being hard to read in the Silver Grove quest diorama.\n\n{{ver|29.10.8}}\n*Fixed a harmless error that would occur at various stages in the Silver Grove Quest.\n\n{{ver|27.3.16}}\n*Fixed a script error that could affect people playing the Silver Grove Quest when joining other missions or quitting the game.\n\n{{ver|25.7}}\n*Added the ability to replay\n\n{{ver|25.3.3}}\n*Fixed an issue with a game freeze that would occur if you left the relay before accepting the Silver Grove quest. \n\n{{ver|25.3.2}}\n*Fixed incorrect quest requirement for the Silver Grove when reading it in Russian.﻿﻿\n\n{{ver|Update: The Silver Grove}}\n*Introduced.\n}}\n{{QuestNav}}\n\n[[es:La arboleda plateada]]\n[[it:Il Bosco d'Argento]]\n[[pt:O Bosque Prateado]]\n[[zh:落銀樹庭]]\n[[Category:Quest]]\n[[Category:Update 19]]\n[[Category:Titania]]"
+      }
+    },
+    {
+      "name": "Verv Ephemera",
+      "uniqueName": "/Lotus/Upgrades/Skins/Effects/TwitchEphemera",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1604481,
+      "title": "Verv Ephemera",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Verv_Ephemera",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Available for '''1 {{Resource|Regal Aya}}''' on Varzia's Prime Resurgence Market."
+      }
+    },
+    {
+      "name": "Waveform Ephemera",
+      "uniqueName": "/Lotus/Upgrades/Skins/Effects/NightwaveIntermissionEphemera",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1604482,
+      "title": "Waveform Ephemera",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Waveform_Ephemera",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Awarded from reaching certain ranks in [[Nightwave]]."
       }
     }
   ]

@@ -40,7 +40,7 @@ function extractAcquisition(text) {
 async function queryBatch(batch) {
   const params = new URLSearchParams({
     action: 'query', format: 'json', redirects: '1',
-    prop: 'extracts|info', explaintext: '1', inprop: 'url',
+    prop: 'revisions|info', rvprop: 'content', rvslots: 'main', inprop: 'url',
     titles: batch.map((item) => item.name).join('|'),
   });
   const response = await fetch(`${API}?${params}`);
@@ -51,7 +51,7 @@ async function queryBatch(batch) {
     title: page.title || null,
     missing: Boolean(page.missing),
     url: page.fullurl || null,
-    acquisition: extractAcquisition(page.extract),
+    acquisition: extractAcquisition(page.revisions?.[0]?.slots?.main?.['*']),
   }));
 }
 

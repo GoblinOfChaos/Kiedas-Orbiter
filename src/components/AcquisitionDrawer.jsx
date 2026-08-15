@@ -87,10 +87,17 @@ export default function AcquisitionDrawer({ item, onClose }) {
 
   if (!item) return null;
 
-  const info = codexInfo || baseInfo;
+  // Codex fallback responses contain only the enriched source/recipe data;
+  // they do not carry the local resolver's wikiLink. Preserve the local link
+  // when Codex replaces the base info so opening a generic drawer can never
+  // crash the whole React tree.
+  const info = codexInfo
+    ? { ...baseInfo, ...codexInfo, wikiLink: codexInfo.wikiLink || baseInfo?.wikiLink }
+    : baseInfo;
+  const wikiLink = info?.wikiLink;
 
   const openWikiLink = () => {
-    invoke('open_url', { url: info.wikiLink.url }).catch(console.error);
+    if (wikiLink?.url) invoke('open_url', { url: wikiLink.url }).catch(console.error);
   };
 
   const recipe = info.recipe;
@@ -116,7 +123,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
           </button>
         </div>
 
-        {info.sources.length > 0 ?
+        {info?.sources?.length > 0 ?
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-40 overflow-y-auto">
             {info.sources.map((s, i) => (
               <div key={i} className="flex items-center justify-between px-3 py-2 rounded bg-black/30 border border-white/5">
@@ -160,7 +167,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
           className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-bold text-kronos-dim hover:text-kronos-accent transition-colors"
         >
           <ExternalLink size={12} />
-          {info.wikiLink.isDirect ? 'View on Warframe Wiki' : 'Search Warframe Wiki'}
+          {wikiLink?.isDirect ? 'View on Warframe Wiki' : 'Search Warframe Wiki'}
         </button>
       </div>
     </div>

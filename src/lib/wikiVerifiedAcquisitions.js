@@ -4,6 +4,78 @@
 // an acquisition route by accident.
 export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   [
+    '/Lotus/Upgrades/Skins/Necramech/VoidrigDOTDSkin',
+    {
+      text: 'Purchased from Daughter during Nights of Naberus for 100 Mother Tokens; the linked Day of the Dead Necramech Helmet is granted with the skin.',
+      url: 'https://warframe.fandom.com/wiki/Necramech',
+      source: 'Warframe Wiki (Necramech) + local export skin/helmet relationship',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Necramech/VoidrigDOTDHelmet',
+    {
+      text: 'Granted with the Day of the Dead Necramech Skin, which is purchased from Daughter during Nights of Naberus for 100 Mother Tokens.',
+      url: 'https://warframe.fandom.com/wiki/Necramech',
+      source: 'Warframe Wiki (Necramech) + local export skin/helmet relationship',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Necramech/TefilahIridosSkin',
+    {
+      text: 'Prime Gaming Drop 12: claim the Iridos Collection through a linked Prime Gaming and Warframe account; the drop included the Iridos Voidrig Necramech Skin and its helmet.',
+      url: 'https://www.warframe.com/en/news/prime-gaming-iridos-collection',
+      source: 'Warframe.com Prime Gaming Iridos Collection + local export skin/helmet relationship',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Necramech/TefilahIridosHelmet',
+    {
+      text: 'Prime Gaming Drop 12: claim the Iridos Collection through a linked Prime Gaming and Warframe account; the drop included the Iridos Voidrig Necramech Skin and this helmet.',
+      url: 'https://www.warframe.com/en/news/prime-gaming-iridos-collection',
+      source: 'Warframe.com Prime Gaming Iridos Collection + local export skin/helmet relationship',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Bard/BardTwitchSkin',
+    {
+      text: 'Prime Gaming Drop 1: the Octavia Iridos Bundle, available through November 14, 2023, included Octavia Iridos Skin and the Octavia Iridos Mix Helmet.',
+      url: 'https://www.warframe.com/en/news/prime-gaming-iridos-collection',
+      source: 'Warframe.com Prime Gaming Iridos Collection',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Bard/BardTwitchAltHelmet',
+    {
+      text: 'Included in the Octavia Iridos Bundle from Prime Gaming, available through November 14, 2023, as the Octavia Iridos Mix Helmet.',
+      url: 'https://www.warframe.com/en/news/prime-gaming-iridos-collection',
+      source: 'Warframe.com Prime Gaming Iridos Collection',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Necramech/NecramechSnakeSkin',
+    {
+      text: 'Purchased from the Necraloid Syndicate’s Necramech Embellishments offerings for 60 Platinum.',
+      url: 'https://warframe.fandom.com/wiki/Necramech',
+      source: 'Warframe Wiki (Necramech) + local export skin/helmet relationship',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Necramech/NecramechSnakeHelmet',
+    {
+      text: 'Granted with the Snake Necramech Skin, purchased from the Necraloid Syndicate’s Necramech Embellishments offerings for 60 Platinum.',
+      url: 'https://warframe.fandom.com/wiki/Necramech',
+      source: 'Warframe Wiki (Necramech) + local export skin/helmet relationship',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Sigils/NecramechSigilSnake',
+    {
+      text: 'Purchased from the Necraloid Syndicate’s Necramech Embellishments offerings for 40 Platinum.',
+      url: 'https://warframe.fandom.com/wiki/Necramech',
+      source: 'Warframe Wiki (Necramech)',
+    },
+  ],
+  [
     '/Lotus/Upgrades/Skins/Operator/Skirts/SkirtLasrianB',
     {
       text: 'Included in the Chymerist Collection (130 Platinum), or obtained with the corresponding Chymerist Apparel purchase for 25 Platinum; the Operator and Drifter versions are linked in the export.',

@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:13:56.438Z
+Generated: 2026-08-15T05:14:18.987Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11954**
+Items with concrete acquisition records: **11964**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1202**
+Records without concrete acquisition evidence: **1192**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -720,8 +720,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Octavia Iridos Mix Helmet | `/Lotus/Upgrades/Skins/Bard/BardTwitchAltHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Octavia_Iridos_Mix_Helmet |
 | Octavia Iridos Skin | `/Lotus/Upgrades/Skins/Bard/BardTwitchSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Octavia_Iridos_Skin |
 | Octavia Maestra Helmet | `/Lotus/Upgrades/Skins/Bard/OctaviaDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Octavia_Maestra_Helmet |
-| Octavia Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageOctaviaPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Octavia_Prime_Glyph_-_Bright |
-| Octavia Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageOctaviaPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Octavia_Prime_Glyph_-_Dark |
 | Odonata Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianStandardArchwingSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Odonata_Obsidian_Skin |
 | Ogris Iridos Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/OgrisTwitchSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ogris_Iridos_Skin |
 | Okina Emblem | `/Lotus/Upgrades/Skins/Clan/PS5OkinaBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Okina_Emblem |
@@ -788,8 +786,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Protea Caladrius Helmet | `/Lotus/Upgrades/Skins/Odalisk/ProteaDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Protea_Caladrius_Helmet |
 | Protea Immortal Helmet | `/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Protea_Immortal_Helmet |
 | Protea Immortal Skin | `/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Protea_Immortal_Skin |
-| Protea Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageProteaPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Protea_Prime_Glyph_-_Bright |
-| Protea Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageProteaPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Protea_Prime_Glyph_-_Dark |
 | Protea Voidshell Helmet | `/Lotus/Upgrades/Skins/Odalisk/ProteaVoidShellHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Protea_Voidshell_Helmet |
 | Proto Necramech Helmet | `/Lotus/Upgrades/Skins/Necramech/VoidrigDSChromaHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Proto_Necramech_Helmet |
 | Provvok Obsidian Shoulder Guard | `/Lotus/Upgrades/Skins/Armor/GrnFaceMaskArmour/ObsidianFaceMaskArmour` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Provvok_Obsidian_Shoulder_Guard |
@@ -812,8 +808,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Regor Recall Glyph | `/Lotus/Types/AvatarImages/TenYearAnniversaryWeek5Glyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Regor_Recall_Glyph |
 | Reshef Vipaza | `/Lotus/Upgrades/Skins/Infestation/NidusDeluxeHipCloth` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Reshef Vipaza |
 | Revenant Mephisto Helmet | `/Lotus/Upgrades/Skins/Revenant/RevenantDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Revenant_Mephisto_Helmet |
-| Revenant Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageRevenantPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Revenant_Prime_Glyph_-_Bright |
-| Revenant Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageRevenantPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Revenant_Prime_Glyph_-_Dark |
 | RHINO BRONZE SKIN | `/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/RHINO_BRONZE_SKIN |
 | Rhino Deathwatch Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeV2Helmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Deathwatch_Helmet |
 | Rhino Deathwatch Wings | `/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeV2Wings` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Rhino Deathwatch Wings |
@@ -821,8 +815,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Rhino Heirloom Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoHeirloomHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Heirloom_Helmet |
 | Rhino Jade Helmet | `/Lotus/Upgrades/Skins/Promo/Microsoft/JadeRhinoHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Jade_Helmet |
 | Rhino Palatine Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Palatine_Helmet |
-| Rhino Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageRhinoPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Prime_Glyph_-_Bright |
-| Rhino Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageRhinoPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Prime_Glyph_-_Dark |
 | Rhino Rubedo Plated Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkinHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Rubedo_Plated_Helmet |
 | Rhino Rubedo Plated Skin | `/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Rubedo_Plated_Skin |
 | Rhino Voidshell Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoChameleonAHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Voidshell_Helmet |
@@ -837,8 +829,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Saita Prime Sleeves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Saita_Prime_Sleeves |
 | Saita Prime Suit | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Saita_Prime_Suit |
 | Saryn Orphid Helmet | `/Lotus/Upgrades/Skins/Saryn/SarynDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Saryn_Orphid_Helmet |
-| Saryn Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageSarynPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Saryn_Prime_Glyph_-_Bright |
-| Saryn Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageSarynPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Saryn_Prime_Glyph_-_Dark |
 | Saryn Prime Helmet | `/Lotus/Upgrades/Skins/Saryn/WF1999SarynHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Saryn_Prime_Helmet |
 | Saryn Voidshell Helmet | `/Lotus/Upgrades/Skins/Saryn/SarynChameleonBHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Saryn_Voidshell_Helmet |
 | Saryn Yuheng Helmet | `/Lotus/Upgrades/Skins/Saryn/SarynLunarNewYearHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Saryn_Yuheng_Helmet |
@@ -1295,7 +1285,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7890
+- non-drop: 7900
 - override: 607
 - relic: 345
 - sortie: 1

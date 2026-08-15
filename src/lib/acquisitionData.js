@@ -6,6 +6,7 @@ import { invoke } from '@tauri-apps/api/core';
 
 let itemIndex = null;
 let loadPromise = null;
+const canonicalPath = (value) => value?.replace('/StoreItems/', '/') || value;
 
 export function loadAcquisitionData() {
   if (itemIndex) return Promise.resolve();
@@ -25,7 +26,7 @@ export function loadAcquisitionData() {
  * drops for it. Synchronous - call loadAcquisitionData() first and await it.
  */
 export function getItemDrops(uniqueName) {
-  const item = itemIndex?.get(uniqueName);
+  const item = itemIndex?.get(uniqueName) || itemIndex?.get(canonicalPath(uniqueName));
   if (!item || !Array.isArray(item.drops) || item.drops.length === 0) return null;
 
   return [...item.drops]
@@ -48,7 +49,35 @@ export function getItemDrops(uniqueName) {
  * of the generic "no source known" fallback.
  */
 export function isCraftable(uniqueName) {
-  return !!itemIndex?.get(uniqueName)?.craftable;
+  return !!(itemIndex?.get(uniqueName) || itemIndex?.get(canonicalPath(uniqueName)))?.craftable;
+}
+
+/**
+ * Returns the complete fallback recipe retained from warframe-items when the
+ * DE ExportRecipes resultType index has no matching entry. This is especially
+ * useful for cosmetic and alternate-helmet recipes that are present in the
+ * item catalog but absent from the local ExportRecipes mapping.
+ */
+export function getItemRecipe(uniqueName) {
+  const item = itemIndex?.get(uniqueName) || itemIndex?.get(canonicalPath(uniqueName));
+  if (!item?.craftable || !Array.isArray(item.components)) return null;
+
+  const ingredients = item.components
+    .filter((component) => component && component.uniqueName && !/^blueprint$/i.test(component.name || ''))
+    .map((component) => ({
+      itemType: component.uniqueName,
+      count: Number(component.itemCount) || 1,
+      name: component.name || component.uniqueName,
+    }));
+  if (ingredients.length === 0) return null;
+
+  return {
+    blueprintCost: item.bpCost,
+    buildCost: item.buildPrice,
+    buildTime: item.buildTime,
+    rushCost: item.skipBuildTimePrice,
+    ingredients,
+  };
 }
 
 /**
@@ -58,7 +87,7 @@ export function isCraftable(uniqueName) {
  * links - though here we get a direct link for free when it's vetted).
  */
 export function getWikiLink(uniqueName, displayName) {
-  const item = itemIndex?.get(uniqueName);
+  const item = itemIndex?.get(uniqueName) || itemIndex?.get(canonicalPath(uniqueName));
   if (item?.wikiAvailable && item.wikiaUrl) {
     return { url: item.wikiaUrl, isDirect: true };
   }

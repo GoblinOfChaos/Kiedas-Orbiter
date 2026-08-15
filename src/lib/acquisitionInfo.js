@@ -1,4 +1,4 @@
-import { getItemDrops, getWikiLink, isCraftable } from './acquisitionData';
+import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisitionData';
 
 /**
  * Shared "how do I get this" lookup, reused across Mods/Rivens/Inventory.
@@ -50,6 +50,10 @@ const VARIANT_ACQUISITION_PATTERNS = [
 
 const canonicalPath = (v) => v?.replace('/StoreItems/', '/') || v;
 
+function cleanResolvedName(value) {
+  return typeof value === 'string' ? value.replace(/<[^>]*>/g, '').trim() : '';
+}
+
 /**
  * Maps a craftable equipment's own uniqueName (the finished Warframe/weapon)
  * to true if ExportRecipes has a blueprint whose resultType builds it AND
@@ -75,22 +79,42 @@ export function buildRecipeResultIndex(exportData) {
   // ExportRecipes only stores ingredient uniqueNames. Resolve those through
   // the same DE export/dict data used by the Foundry screen so the drawer can
   // say "2x Bolto" instead of exposing internal paths.
-  const dict = exportData?.dict || {};
-  const nameByUniqueName = new Map();
+  const dict = exportData?.dict || exportData?.['dict.en'] || {};
+  const entriesByUniqueName = new Map();
   for (const tableName of [
     'ExportWeapons', 'ExportWarframes', 'ExportSentinels', 'ExportResources',
     'ExportGear', 'ExportCustoms', 'ExportFlavour', 'ExportUpgrades',
+    'ExportArcanes', 'ExportKeys', 'ExportMisc', 'ExportRailjackWeapons',
   ]) {
     const table = exportData?.[tableName];
     if (!table || typeof table !== 'object') continue;
     for (const [uniqueName, entry] of Object.entries(table)) {
-      if (!entry?.name) continue;
-      const resolved = dict[entry.name] || entry.name;
-      if (resolved && !String(resolved).startsWith('/')) {
-        nameByUniqueName.set(canonicalPath(uniqueName), String(resolved).replace(/<[^>]*>/g, '').trim());
-      }
+      if (entry && typeof entry === 'object') entriesByUniqueName.set(canonicalPath(uniqueName), entry);
     }
   }
+
+  const nameCache = new Map();
+  const resolveName = (uniqueName, depth = 0) => {
+    const key = canonicalPath(uniqueName);
+    if (!key || depth > 5) return '';
+    if (nameCache.has(key)) return nameCache.get(key);
+    const entry = entriesByUniqueName.get(key);
+    const locKey = entry?.name || entry?.displayName;
+    const resolved = cleanResolvedName(locKey ? (dict[locKey] || dict[`/${locKey}`] || locKey) : '');
+    if (resolved && !resolved.startsWith('/')) {
+      nameCache.set(key, resolved);
+      return resolved;
+    }
+    if (entry?.resultType) {
+      const resultName = resolveName(entry.resultType, depth + 1);
+      if (resultName) {
+        nameCache.set(key, resultName);
+        return resultName;
+      }
+    }
+    nameCache.set(key, '');
+    return '';
+  };
 
   for (const [blueprintName, recipe] of Object.entries(recipes)) {
     // Braton and Lato are real blueprint-only Foundry recipes in the export.
@@ -103,7 +127,7 @@ export function buildRecipeResultIndex(exportData) {
         return {
           itemType,
           count: ingredient?.ItemCount ?? ingredient?.itemCount ?? 1,
-          name: nameByUniqueName.get(itemType) || itemType,
+          name: resolveName(itemType) || itemType,
         };
       }).filter((ingredient) => ingredient.itemType);
       index.set(canonicalPath(recipe.resultType), {
@@ -383,7 +407,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return { sources: [{ type: 'non-drop', text: nonDrop.text, source: 'DE export path rule' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
-  const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey));
+  const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
   if (recipe || isCraftable(dropIndexKey)) {
     return {
       sources: [{

@@ -55,6 +55,17 @@ for (const category of CATEGORIES) {
       wikiaUrl: item.wikiaUrl || null,
       wikiAvailable: !!item.wikiAvailable,
       craftable,
+      ...(craftable ? {
+        buildPrice: Number.isFinite(item.buildPrice) ? item.buildPrice : null,
+        buildTime: Number.isFinite(item.buildTime) ? item.buildTime : null,
+        skipBuildTimePrice: Number.isFinite(item.skipBuildTimePrice) ? item.skipBuildTimePrice : null,
+        bpCost: Number.isFinite(item.bpCost) ? item.bpCost : null,
+        components: (item.components || []).map((component) => ({
+          uniqueName: component.uniqueName || null,
+          name: component.name || null,
+          itemCount: Number.isFinite(component.itemCount) ? component.itemCount : 1,
+        })),
+      } : {}),
     });
   }
 }

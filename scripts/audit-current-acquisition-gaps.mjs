@@ -44,7 +44,7 @@ const ITEM_TABLES = new Set([
 // Baro-name constant so the exported functions remain the app's functions.
 const acquisitionSource = readFileSync(resolve(ROOT, 'src/lib/acquisitionInfo.js'), 'utf8')
   .replace(
-    "import { getItemDrops, getWikiLink, isCraftable } from './acquisitionData';",
+    "import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisitionData';",
     `const acquisitionIndex = ${JSON.stringify([...acquisitionByPath.entries()])};
      const acquisitionMap = new Map(acquisitionIndex);
      const getItemDrops = (uniqueName) => {
@@ -53,6 +53,12 @@ const acquisitionSource = readFileSync(resolve(ROOT, 'src/lib/acquisitionInfo.js
        return [...item.drops].sort((a, b) => (b.chance ?? 0) - (a.chance ?? 0)).map((d) => ({ type: 'drop', location: d.location, dropType: d.type, rarity: d.rarity, chance: d.chance, source: 'warframe-items' }));
      };
      const isCraftable = (uniqueName) => !!acquisitionMap.get(uniqueName?.replace('/StoreItems/', '/') || uniqueName)?.craftable;
+     const getItemRecipe = (uniqueName) => {
+       const item = acquisitionMap.get(uniqueName?.replace('/StoreItems/', '/') || uniqueName);
+       if (!item?.craftable || !Array.isArray(item.components)) return null;
+       const ingredients = item.components.filter((component) => component?.uniqueName && !/^blueprint$/i.test(component.name || '')).map((component) => ({ itemType: component.uniqueName, count: Number(component.itemCount) || 1, name: component.name || component.uniqueName }));
+       return ingredients.length ? { blueprintCost: item.bpCost, buildCost: item.buildPrice, buildTime: item.buildTime, rushCost: item.skipBuildTimePrice, ingredients } : null;
+     };
      const getWikiLink = (uniqueName, displayName) => ({ url: displayName || uniqueName, isDirect: false });`,
   );
 const acquisition = await import(`data:text/javascript;base64,${Buffer.from(acquisitionSource).toString('base64')}`);

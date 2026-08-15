@@ -1,6 +1,6 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T04:41:41.415Z
+Generated: 2026-08-15T04:43:41.046Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 

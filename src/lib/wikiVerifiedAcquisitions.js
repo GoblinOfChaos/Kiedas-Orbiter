@@ -689,4 +689,99 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://www.warframe.com/uk/news/renown-collection',
     source: 'Warframe.com Renown Collection announcement + local export exact component record',
   }]),
+  ['/Lotus/Upgrades/Skins/Frumentarius/FrumentariusSkin', {
+    text: 'Default Cyte-09 appearance; acquire Cyte-09’s blueprint from The Hex quest, with component blueprints from Höllvania Central Mall Bounties or Amir of The Hex for Standing, then build Cyte-09 in the Foundry.',
+    url: 'https://warframe.fandom.com/wiki/Cyte-09',
+    source: 'WARFRAME Wiki Cyte-09 acquisition + official The Hex quest reward record + local export default skin relationship',
+  }],
+  ...[
+    ['/Lotus/Upgrades/Skins/Trapper/VaubanVoidSkin', 'Vauban Phased Skin'],
+    ['/Lotus/Upgrades/Skins/Trapper/VaubanVoidSkinHelmet', 'Vauban Phased Helmet'],
+    ['/Lotus/Upgrades/Skins/Promo/Void/TigrisVoidSkin', 'Tigris Phased Skin'],
+    ['/Lotus/Upgrades/Skins/Promo/Void/VastoVoidSkin', 'Vasto Phased Skin'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was a Steam Winter Sale 2013 crafting reward; these Phased cosmetics are no longer craftable, but existing copies can be traded through Steam or bought on the Steam Community Market.`,
+    url: 'https://warframe.fandom.com/wiki/Phased_Skins',
+    source: 'WARFRAME Wiki Phased Skins acquisition record + local export exact component record',
+  }]),
+  ['/Lotus/Upgrades/Skins/Events/BlackoutOrthos', {
+    text: 'Unreleased Phased Orthos Skin; the Wiki records no acquisition route.',
+    url: 'https://warframe.fandom.com/wiki/Phased_Skins',
+    source: 'WARFRAME Wiki Phased Skins unreleased-item record + local export exact object',
+  }],
+  ['/Lotus/Upgrades/Skins/Motorcycle/MotorcycleNightwaveSkin', {
+    text: 'Nightwave reward from Nora’s Mix Volume 8; earn Acts to rank up and claim it from the reward track.',
+    url: 'https://www.warframe.com/en/news/nightwave-noras-mix-vol-8',
+    source: 'Warframe.com Nora’s Mix Volume 8 reward list + local export exact livery record',
+  }],
+  ['/Lotus/Upgrades/Skins/Halloween/DOTD2025OperatorMask', {
+    text: 'Nightwave reward from Nora’s Mix: Dreams of the Dead; earn Acts to rank up and claim the Kayota Day of the Dead Mask.',
+    url: 'https://www.warframe.com/en/news/nightwave-dreams-of-the-dead-arrives-october-27',
+    source: 'Warframe.com Dreams of the Dead reward list + local export exact mask record',
+  }],
+  ['/Lotus/Upgrades/Skins/Halloween/DOTD2025TaxonSkin', {
+    text: 'Nightwave reward from Nora’s Mix: Dreams of the Dead; earn Acts to rank up and claim the Taxon Day of the Dead Skin.',
+    url: 'https://www.warframe.com/en/news/nightwave-dreams-of-the-dead-arrives-october-27',
+    source: 'Warframe.com Dreams of the Dead reward list + local export exact Taxon skin record',
+  }],
+  ['/Lotus/Upgrades/Skins/Catbrows/Armor/VermillionKavatArmor', {
+    text: 'Nightwave reward from Nora’s Mix Volume 5, and a returning reward in Nora’s Mix: Dreams of the Dead; earn Acts and claim it from the Nightwave reward track.',
+    url: 'https://www.warframe.com/th/amp/nightwave-noras-mix-vol-5',
+    source: 'Warframe.com Nora’s Mix Volume 5 and Dreams of the Dead reward lists + local export exact armor record',
+  }],
+  ['/Lotus/Types/Items/PhotoBooth/JadeShadows/PhotoboothTileStalkerCave', {
+    text: 'Granted by Hunhow in the Inbox after completing The Jade Shadows quest.',
+    url: 'https://warframe.fandom.com/wiki/Jade_Shadows',
+    source: 'WARFRAME Wiki Jade Shadows quest rewards + local export exact Captura scene record',
+  }],
+  ['/Lotus/Types/Items/MiscItems/PhotoboothTilePurgatory', {
+    text: 'Granted as a reward for completing The Deadlock Protocol quest; the scene depicts the Granum Void.',
+    url: 'https://wiki.warframe.com/w/The_Deadlock_Protocol/Transcript',
+    source: 'WARFRAME Wiki Deadlock Protocol record + local export exact Captura scene record',
+  }],
+  ['/Lotus/Types/Items/PhotoBooth/CinematicTiles/YareliPrimeEndPose', {
+    text: 'Automatically granted when you craft or purchase Yareli Prime; this Captura scene is exclusive to Yareli Prime.',
+    url: 'https://www.warframe.com/de/patch-notes/pc/40-0-0',
+    source: 'Warframe.com The Vallis Undermind update notes + local export exact Captura scene record',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/BossSigilNefAnyo', {
+    text: 'Awarded for defeating Nef Anyo; the Boss Sigil was added to Nef Anyo’s reward inventory with the other Boss Sigils.',
+    url: 'https://www.warframe.com/es/patch-notes/pc/16-0-0',
+    source: 'Warframe.com Sanctuary update notes + local export exact Boss Sigil record',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/DogDays2023ASigil', {
+    text: 'Awarded for completing the first Dog Days mission; during the fifth Dog Days appearance it was the first-mission reward alongside Nakak Pearls and Credits.',
+    url: 'https://warframe.fandom.com/wiki/Dog_Days',
+    source: 'WARFRAME Wiki Dog Days reward table + local export exact sigil record',
+  }],
+  ...[
+    ['/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorC', 'Dendra Obsidian Chest Plate'],
+    ['/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorL', 'Dendra Obsidian Knee Plates'],
+    ['/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorA', 'Dendra Obsidian Shoulder Plates'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was included in the time-limited Ultimate Obsidian Collection for PlayStation.`,
+    url: 'https://www.warframe.com/en/news/ultimate-obsidian-collection',
+    source: 'Warframe.com Ultimate Obsidian Collection announcement + local export exact component record',
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Skins/Scarves/ObsidianKyropteraScarf', 'Obsidian Kyroptera Syandana'],
+    ['/Lotus/Upgrades/Skins/Weapons/GreatSword/XB1BallasSword', 'Paracesis Obsidian Skin'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was a PlayStation Anniversary reward, claimed from the in-game Market for 1 Credit during its limited-time availability.`,
+    url: 'https://www.warframe.com/en/news/playstation-anniversary',
+    source: 'Warframe.com PlayStation Anniversary reward schedule + local export exact component record',
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Skins/Sony/ObsidianSonicor', 'Sonicor Obsidian Skin'],
+    ['/Lotus/Upgrades/Skins/Sony/ObsidianSerro', 'Serro Obsidian Skin'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was included in the time-limited PlayStation Renown Pack XVI.`,
+    url: 'https://www.warframe.com/en/news/renown-pack-xvi-available-now',
+    source: 'Warframe.com Renown Pack XVI announcement + local export exact component record',
+  }]),
+  ['/Lotus/Upgrades/Skins/Sony/ObsidianGlaive', {
+    text: 'Formerly included in the original PlayStation Plus starter pack; the Glaive Obsidian Skin is a PlayStation-exclusive cosmetic and is no longer a current general Market route.',
+    url: 'https://warframe.fandom.com/wiki/Glaive',
+    source: 'WARFRAME Wiki Glaive acquisition and skin record + local export exact skin record',
+  }],
 ]);

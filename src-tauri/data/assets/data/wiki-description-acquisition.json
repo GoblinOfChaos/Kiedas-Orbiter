@@ -213,5 +213,53 @@
   "/Lotus/Upgrades/Skins/Koumei/KoumeiWarfanSkin": {
     "text": "Included in the free Ambimanus Pack awarded for logging into the Nintendo Switch 2 version of Warframe during its launch promotion.",
     "source": "Warframe.com Warframe on Switch 2 Available Now"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TwitchPromo2021Sigil": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Clan/TwitchPromo2021BadgeItem": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Kubrows/Armor/Twitch2021IfritKubrowArmor": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TwitchProminenceSigil": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Catbrows/Armor/Twitch2021MyrdinCatbrowArmor": {
+    "text": "Available via Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release 2"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageLokiActionTwitch": {
+    "text": "Available via Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release 2"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/AkjagaraIridosSkin": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/OgrisTwitchSkin": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/PyranaTwitchSkin": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/ExcaliburTwitchSkin": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TwitchAnkyros": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageOctaviaActionTwitch": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
   }
 }

@@ -497,5 +497,17 @@
   "/Lotus/Upgrades/Skins/Operator/Accessories/StalkerAccessoriesEarpiece": {
     "text": "Nightwave: Nora's Mix Vol. 7 rank 28 reward.",
     "source": "Warframe.com Nightwave: Nora's Mix Vol. 7"
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS4Braton": {
+    "text": "Originally included in the PlayStation 4 Ultimate Fan Pack pre-order bonus; no longer obtainable through that promotion.",
+    "source": "PlayStation Blog Warframe PS4 Pre-order Bonuses Detailed"
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS4Mk1Braton": {
+    "text": "Originally included in the PlayStation 4 Ultimate Fan Pack pre-order bonus; no longer obtainable through that promotion.",
+    "source": "PlayStation Blog Warframe PS4 Pre-order Bonuses Detailed"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWSonorityArmLeftArmor": {
+    "text": "Included with the TennoGen Banshee Sonority Skin; obtain the skin through the Steam/TennoGen Market (or the console Market equivalent).",
+    "source": "Warframe.com Shrine of the Eidolon Hotfix 22.17.4"
   }
 }

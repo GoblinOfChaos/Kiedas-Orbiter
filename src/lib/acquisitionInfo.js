@@ -194,6 +194,17 @@ export function buildExaltedWeaponIndex(exportData) {
     if (!names.includes(sentinelName)) names.push(sentinelName);
     index.set(key, names);
   }
+  // Some export entries are alternate modes of one weapon rather than
+  // separately acquired equipment. The DE bayonet relationship identifies
+  // Vinquibus (Melee) as the alternate of Vinquibus exactly.
+  for (const weapon of Object.values(exportData?.ExportWeapons || {})) {
+    const primaryName = resolveName(weapon);
+    const key = canonicalPath(weapon?.bayonetOtherWeaponType);
+    if (!primaryName || !key) continue;
+    const names = index.get(key) || [];
+    if (!names.includes(primaryName)) names.push(primaryName);
+    index.set(key, names);
+  }
   return index;
 }
 

@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T04:21:12.987Z
+Generated: 2026-08-15T04:23:04.032Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13220**
-Items with concrete acquisition records: **11733**
+Items with concrete acquisition records: **11737**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1437**
+Records without concrete acquisition evidence: **1433**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -782,9 +782,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Monotone Xaku Glyph | `/Lotus/Types/AvatarImages/AvatarImageBadgeXaku` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Monotone_Xaku_Glyph |
 | Monquis Sigil | `/Lotus/Upgrades/Skins/Sigils/MonquisSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Monquis_Sigil |
 | Moon Leader Emblem | `/Lotus/Upgrades/Skins/Clan/LeaderBadgeMoonItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Moon_Leader_Emblem |
-| Mote Brace | `/Lotus/Weapons/Sentients/OperatorAmplifiers/SentTrainingAmplifier/SentAmpTrainingGrip` | ExportWeapons | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mote_Brace |
-| Mote Prism | `/Lotus/Weapons/Sentients/OperatorAmplifiers/SentTrainingAmplifier/SentAmpTrainingBarrel` | warframe-items | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Mote Prism |
-| Mote Scaffold | `/Lotus/Weapons/Sentients/OperatorAmplifiers/SentTrainingAmplifier/SentAmpTrainingChassis` | ExportWeapons | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mote_Scaffold |
 | Mother Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20MotherGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mother_Tennobaum_Glyph |
 | MOTHER TOKEN | `/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/MOTHER_TOKEN |
 | Mother's Mask | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodLotusWisp` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mother%27s_Mask |
@@ -1352,7 +1349,6 @@ Dreams of the Dead Cred |
 | Verv Rubico Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/TwitchRubicoSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Verv_Rubico_Skin |
 | Verv Sigil | `/Lotus/Upgrades/Skins/Sigils/TwitchPromo2021Sigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Verv_Sigil |
 | Veso-R Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2021NutcorpusGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Veso-R_Tennobaum_Glyph |
-| Vinquibus (Melee) | `/Lotus/Weapons/Tenno/Bayonet/TnBayonetMeleeWeapon` | ExportWeapons | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Vinquibus (Melee) |
 | Viper Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianViper` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Viper_Obsidian_Skin |
 | Viper Rubedo Plated Skin | `/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoViperCamo` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Viper_Rubedo_Plated_Skin |
 | VIRIDIAN NEXIFERA TAG | `/Lotus/Types/Items/Deimos/AnimalTagInfestedNexiferaUncommon` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/VIRIDIAN_NEXIFERA_TAG |
@@ -1532,11 +1528,11 @@ Dreams of the Dead Cred |
 - enemy: 58
 - key: 7
 - mission: 294
-- non-drop: 7664
-- override: 604
+- non-drop: 7666
+- override: 607
 - relic: 345
 - sortie: 1
 - status: 42
 - syndicate: 292
-- transient: 54
+- transient: 53
 

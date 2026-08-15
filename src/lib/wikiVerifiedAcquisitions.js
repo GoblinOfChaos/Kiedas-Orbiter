@@ -809,4 +809,19 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://warframe.fandom.com/wiki/The_Sacrifice',
     source: 'WARFRAME Wiki The Sacrifice reward record + local export exact scene record',
   }],
+  ['/Lotus/Types/Items/MiscItems/PhotoboothTileTWWTeshinEnding', {
+    text: 'Unlocked by completing The War Within for the first time; the scene is added to Captura and is retroactively granted to players who had already completed the quest.',
+    url: 'https://warframe.fandom.com/wiki/Captura',
+    source: 'WARFRAME Wiki Captura patch history + local export exact scene record',
+  }],
+  ['/Lotus/Types/Items/MiscItems/PhotoboothTileDrifterCamp', {
+    text: 'Unlocked after completing The New War quest.',
+    url: 'https://warframe.fandom.com/wiki/Captura',
+    source: 'WARFRAME Wiki Captura scene list + local export exact scene record',
+  }],
+  ['/Lotus/Types/Items/MiscItems/PhotoboothTileGasCitySpawnTwo', {
+    text: 'Obtained from the special violet Captura-scene locker in a solved Corpus Gas City secret room; open the symbol door by activating its consoles in sequence.',
+    url: 'https://warframe.fandom.com/wiki/Corpus_Gas_City',
+    source: 'WARFRAME Wiki Corpus Gas City secret-room route + local export exact scene record',
+  }],
 ]);

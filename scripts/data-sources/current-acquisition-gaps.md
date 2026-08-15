@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T08:33:04.210Z
+Generated: 2026-08-15T08:35:09.209Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12869**
+Items with concrete acquisition records: **12872**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **277**
+Records without concrete acquisition evidence: **274**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -99,7 +99,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | FUSELAGE | `/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHullFeatureItem` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/FUSELAGE |
 | GALATINE BRONZE SKIN | `/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoGalatineCamo` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/GALATINE_BRONZE_SKIN |
 | Galatine Rubedo Plated Skin | `/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoGalatineCamo` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Galatine_Rubedo_Plated_Skin |
-| Gas City Lobby Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileGasCitySpawnTwo` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Gas_City_Lobby_Scene |
 | Gauvan Umbra Sekhara | `/Lotus/Upgrades/Skins/Clan/ExcaliburUmbraBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Gauvan_Umbra_Sekhara |
 | Gcx 2023 Glyph | `/Lotus/Types/AvatarImages/AvatarImageGamingCommunityExpo` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Gcx_2023_Glyph |
 | Gcx 2024 Glyph | `/Lotus/Types/AvatarImages/AvatarImageGamingCommunityExpoTwentyFour` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Gcx_2024_Glyph |
@@ -264,7 +263,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | TennoVIP East Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoVIP2024Sigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TennoVIP_East_Sigil |
 | The Baron | `/Lotus/Upgrades/Skins/Mustache/Stache05` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Baron |
 | The Dastard | `/Lotus/Upgrades/Skins/Mustache/Stache06` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Dastard |
-| The Drifter Camp Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDrifterCamp` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Drifter_Camp_Scene |
 | The Gentleman | `/Lotus/Upgrades/Skins/Mustache/Stache` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Gentleman |
 | The Illusionist | `/Lotus/Upgrades/Skins/Mustache/Stache08` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Illusionist |
 | The Index Emblem | `/Lotus/Upgrades/Skins/Clan/IndexEventBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Index_Emblem |
@@ -274,7 +272,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | The Shopkeep | `/Lotus/Upgrades/Skins/Mustache/Stache07` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Shopkeep |
 | The Tusker | `/Lotus/Upgrades/Skins/Mustache/Stache02` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Tusker |
 | The Villain | `/Lotus/Upgrades/Skins/Mustache/Stache04` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Villain |
-| The War Within Choice Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileTWWTeshinEnding` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_War_Within_Choice_Scene |
 | Tigris Onyx Skin | `/Lotus/Upgrades/Skins/SteamEsteem/EsteemTigris` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Tigris_Onyx_Skin |
 | Top Hat & Monocle Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageSzczebrzeszyniarz` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Top_Hat_%26_Monocle_Glyph |
 | Traciens Glaive Skin | `/Lotus/Upgrades/Skins/Deluxe/ProteaDeluxeGlaiveSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Traciens_Glaive_Skin |
@@ -370,7 +367,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8802
+- non-drop: 8805
 - override: 620
 - relic: 339
 - sortie: 1

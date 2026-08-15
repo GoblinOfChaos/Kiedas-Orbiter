@@ -294,6 +294,22 @@
     "text": "Included in the PlayStation Plus Booster Pack II.",
     "source": "Warframe.com PlayStation Plus Booster Pack II"
   },
+  "/Lotus/Upgrades/Skins/Scarves/EnergyScarfVoidSkin": {
+    "text": "Originally awarded as a crafting reward during the Steam Winter Sale 2013; currently unavailable, but tradeable through Steam.",
+    "source": "WARFRAME Wiki Phased Skins"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NightwaveCalibanDeluxeSigil": {
+    "text": "Reward from Nightwave: Nora's Mix: Time Tempests.",
+    "source": "Warframe.com Nightwave: Time Tempests"
+  },
+  "/Lotus/Upgrades/Skins/Ninja/NinjaDeluxeHelmet": {
+    "text": "Included with the Ash Koga Skin; purchase the Ash Koga Skin from the in-game Market.",
+    "source": "ExportCustoms additionalItems + Warframe.com The Glast Gambit"
+  },
+  "/Lotus/Upgrades/Skins/Ninja/AshDeluxeHelmet": {
+    "text": "Included with the Ash Shroud Skin; purchase the Ash Shroud Skin from the in-game Market or the Ash Shroud Collection.",
+    "source": "ExportCustoms additionalItems + WARFRAME Wiki Ash Shroud Collection"
+  },
   "/Lotus/Types/AvatarImages/AvatarImageOctaviaActionTwitch": {
     "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
     "source": "Warframe.com Iridos Collection Re-release"

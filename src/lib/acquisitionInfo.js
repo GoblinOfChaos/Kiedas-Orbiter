@@ -6,6 +6,7 @@ import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisi
 import bundledWikiBaroAcquisition from '../../src-tauri/data/assets/data/wiki-baro-acquisition.json';
 import bundledWikiResourceAcquisition from '../../src-tauri/data/assets/data/wiki-resources-acquisition.json';
 import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-page-acquisition.json';
+import { WIKI_VERIFIED_ACQUISITIONS } from './wikiVerifiedAcquisitions';
 
 const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map((name) => [name.toLowerCase().trim(), true]));
 const bundledWikiResourceIndex = new Map(Object.entries(bundledWikiResourceAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
@@ -538,6 +539,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   }
   if (dropSources && dropSources.length > 0) {
     return { sources: dropSources, wikiLink: getWikiLink(dropIndexKey, displayName) };
+  }
+
+  const verifiedAggregateWiki = WIKI_VERIFIED_ACQUISITIONS.get(canonicalPath(dropIndexKey));
+  if (verifiedAggregateWiki) {
+    return {
+      sources: [{ type: 'non-drop', text: verifiedAggregateWiki.text, source: verifiedAggregateWiki.source }],
+      wikiLink: { url: verifiedAggregateWiki.url, isDirect: true },
+    };
   }
 
   // Explicit Wiki acquisition prose is more useful than a generic recipe

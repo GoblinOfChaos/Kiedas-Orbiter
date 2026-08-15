@@ -1,0 +1,40 @@
+// Exact acquisition statements verified against aggregate Warframe Wiki
+// source pages when an item's individual page does not expose the statement.
+// Keep these keyed by DE uniqueName so similarly named objects cannot inherit
+// an acquisition route by accident.
+export const WIKI_VERIFIED_ACQUISITIONS = new Map([
+  [
+    '/Lotus/Types/AvatarImages/Community10YearOrdisGlyph',
+    {
+      text: 'Part of the 10 Year Anniversary Community Art Pack, purchased in the Market for 70 Platinum.',
+      url: 'https://wiki.warframe.com/w/Glyph',
+      source: 'Warframe Wiki (Glyph)',
+    },
+  ],
+  ['/Lotus/Types/AvatarImages/AvatarImageBuriedDebts', { text: 'Redeem the promo code THEDEADHAVEDEBTS from Operation: Buried Debts.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/ImageCephalonCy', { text: 'Twitch, Mixer, or Steam Drop for watching an official Warframe stream for 30 minutes during the launch of Update 27.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/ImageCephalonSimaris', { text: "Exclusively awarded to winners of Simaris' Sanctuary Showdown during TennoCon 2018, distributed via a code card after the event.", url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/CherryTreeGlyph', { text: 'Twitch Drop for watching Partner streams for 1 hour during the launch of Update 23.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/Warframes/CitrineActionGlyph', { text: 'Awarded from the Gift from the Lotus alert on April 5, 2023.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Dethcube', { text: 'Included in the Gruesome Glyph Bundle, sold in the Market for 65 Platinum during Halloween since 2021.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageValentine2017A', { text: 'Included in the Donwyn Glyph Pack, sold in the Market for 80 Platinum during Valentines 2017.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageValentine2017B', { text: 'Included in the Donwyn Glyph Pack, sold in the Market for 80 Platinum during Valentines 2017.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageValentine2017C', { text: 'Included in the Donwyn Glyph Pack, sold in the Market for 80 Platinum during Valentines 2017.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageValentine2017D', { text: 'Included in the Donwyn Glyph Pack, sold in the Market for 80 Platinum during Valentines 2017.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageValentine2017E', { text: 'Included in the Donwyn Glyph Pack, sold in the Market for 80 Platinum during Valentines 2017.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageValentine2020Alad', { text: 'Included in Donwyn Glyph Pack II, sold in the Market for 60 Platinum.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageValentine2020Clem', { text: 'Included in Donwyn Glyph Pack II, sold in the Market for 60 Platinum.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageValentine2020Key', { text: 'Included in Donwyn Glyph Pack II, sold in the Market for 60 Platinum.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageValentine2020Kuva', { text: 'Included in Donwyn Glyph Pack II, sold in the Market for 60 Platinum.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/TenYearAnniversaryWeek2Glyph', { text: 'Given to all players who completed the Recall Ten-Zero quests during the July 19–August 25 anniversary period.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/ImageDeadlockProtocolB', { text: 'Redeem the promo code aungelecette-dlp, issued June 11, 2020.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/ImageGengzi', { text: 'Available from the Market for 1 Credit from January 23–31, 2020; Lunar New Year exclusive.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Grineer', { text: 'Included in the Gruesome Glyph Bundle, sold in the Market for 65 Platinum during Halloween since 2021.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageInktober', { text: "Given to all eligible participants of Halloween's Tennotober contest.", url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/TenYearAnniversaryWeek4Glyph', { text: 'Given to all players who completed the Recall Ten-Zero quests during the July 19–August 25 anniversary period.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageGlyphJingleKavat', { text: 'Included in Winter Glyph Pack IV, sold for 90 Platinum during Christmas 2019.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageGlyphJollyGrendel', { text: 'Included in Winter Glyph Pack IV, sold for 90 Platinum during Christmas 2019.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/Xmas2021GrinoalieGlyph', { text: 'Tennobaum 2022 milestone reward.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/ImageKhoraInAction', { text: "Nightwave reward from Nora's Mix Volume 6.", url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageOroKitty', { text: 'Rewarded upon scanning 75% of Kuria.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+]);

@@ -3,6 +3,7 @@
 // a second copy of its classification rules.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const EXPORT_ROOT = resolve(process.env.HOME, '.local/share/kiedas-orbiter/data/export');
@@ -44,6 +45,7 @@ const readAsset = (name) => readJson(resolve(ASSET_ROOT, name));
 const bundledWikiBaroAcquisition = readAsset('wiki-baro-acquisition.json');
 const bundledWikiResourceAcquisition = readAsset('wiki-resources-acquisition.json');
 const bundledWikiPageAcquisition = readAsset('wiki-page-acquisition.json');
+const verifiedAcquisitions = await import(pathToFileURL(resolve(ROOT, 'src/lib/wikiVerifiedAcquisitions.js')).href);
 
 const ITEM_TABLES = new Set([
   'ExportArcanes', 'ExportAvionics', 'ExportCustoms', 'ExportFlavour',
@@ -87,6 +89,10 @@ const acquisitionSource = readFileSync(resolve(ROOT, 'src/lib/acquisitionInfo.js
   .replace(
     "import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-page-acquisition.json';",
     `const bundledWikiPageAcquisition = ${JSON.stringify(bundledWikiPageAcquisition)};`,
+  )
+  .replace(
+    "import { WIKI_VERIFIED_ACQUISITIONS } from './wikiVerifiedAcquisitions';",
+    `const WIKI_VERIFIED_ACQUISITIONS = new Map(${JSON.stringify([...verifiedAcquisitions.WIKI_VERIFIED_ACQUISITIONS.entries()])});`,
   )
   .replace(
     "import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisitionData';",

@@ -72,6 +72,20 @@ function cleanResolvedName(value) {
   return typeof value === 'string' ? value.replace(/<[^>]*>/g, '').trim() : '';
 }
 
+// Wiki module keys and DE display names occasionally differ only in Unicode
+// punctuation (for example, curly versus straight apostrophes). Normalize
+// those identity-only differences while retaining the actual item wording.
+function normalizeDisplayName(value) {
+  return typeof value === 'string'
+    ? value.normalize('NFKC')
+      .replace(/[’‘]/g, "'")
+      .replace(/[–—]/g, '-')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase()
+    : '';
+}
+
 /**
  * Maps a craftable equipment's own uniqueName (the finished Warframe/weapon)
  * to true if ExportRecipes has a blueprint whose resultType builds it AND
@@ -360,8 +374,9 @@ export function buildWikiSigilIndex(data) {
   const index = new Map();
   if (!data || typeof data !== 'object') return index;
   for (const [name, category] of Object.entries(data)) {
-    if (typeof name === 'string' && typeof category === 'string' && category.trim()) {
-      index.set(name.toLowerCase().trim(), category.trim());
+    const key = normalizeDisplayName(name);
+    if (key && typeof category === 'string' && category.trim()) {
+      index.set(key, category.trim());
     }
   }
   return index;
@@ -371,7 +386,8 @@ function buildDisplayNameIndex(data, transform) {
   const index = new Map();
   if (!data || typeof data !== 'object') return index;
   for (const [name, value] of Object.entries(data)) {
-    if (typeof name === 'string' && name.trim()) index.set(name.toLowerCase().trim(), transform(value));
+    const key = normalizeDisplayName(name);
+    if (key) index.set(key, transform(value));
   }
   return index;
 }
@@ -517,7 +533,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   }
 
   const norm = dropIndexKey?.replace('/StoreItems/', '/');
-  const displayLower = displayName?.toLowerCase().trim();
+  const displayLower = normalizeDisplayName(displayName);
   const displayKeys = displayLower ? [
     'display:' + displayLower,
     ...(displayLower.endsWith(' relic') ? ['display:' + displayLower.slice(0, -6)] : []),

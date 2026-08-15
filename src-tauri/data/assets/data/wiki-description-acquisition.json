@@ -509,5 +509,17 @@
   "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWSonorityArmLeftArmor": {
     "text": "Included with the TennoGen Banshee Sonority Skin; obtain the skin through the Steam/TennoGen Market (or the console Market equivalent).",
     "source": "Warframe.com Shrine of the Eidolon Hotfix 22.17.4"
+  },
+  "/Lotus/Upgrades/Skins/Clan/OrbBadgeItem": {
+    "text": "Operation: Buried Debts reward at 5 Thermia Fracture points; the operation is currently unavailable.",
+    "source": "Warframe.com Operation: Buried Debts + Warframe Wiki Operation: Buried Debts"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/OrbSigil": {
+    "text": "Operation: Buried Debts reward at 75 Thermia Fracture points; the operation is currently unavailable.",
+    "source": "Warframe.com Operation: Buried Debts + Warframe Wiki Operation: Buried Debts"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilShadowgrapher": {
+    "text": "Reward from Operation: Atramentum, exchanged for Nightmare Tatters at Aspirant Zorba; the operation is currently unavailable.",
+    "source": "Warframe.com Operation: Atramentum is Live"
   }
 }

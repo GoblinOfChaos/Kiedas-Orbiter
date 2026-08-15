@@ -1738,6 +1738,20 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     const isArcane = (un.includes('CosmeticEnhancers') && !un.includes('CosmeticEnhancers/Peculiars')) || un.includes('/Arcane/') || un.toLowerCase().includes('arcane');
     if (isArcane) continue;
     const owned = ownedModsByKey.get(canonicalUniqueName(un));
+    // DE's export retains hidden, unreleased, and removed mod definitions so
+    // old clients can decode them. They are not obtainable catalog items and
+    // must not appear as unowned cards with a fake Wiki fallback. Keep owned
+    // copies visible so inventory data is never silently discarded.
+    const UNOBTAINABLE_UNOWNED_MODS = new Set([
+      '/Lotus/Powersuits/Banshee/SonarPvPAugmentCard',
+      '/Lotus/Upgrades/Mods/Sentinel/Kubrow/ChargerFinisherMod',
+      '/Lotus/Upgrades/Mods/Shotgun/Expert/WeaponCritChanceModExpert',
+      '/Lotus/Upgrades/Mods/Rifle/Expert/SniperReloadDamageModExpert',
+      '/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponElectricityDamageModExpert',
+      '/Lotus/Upgrades/Mods/Warframe/Expert/AvatarShieldRechargeRateModExpert',
+      '/Lotus/Upgrades/Mods/Syndicate/BallisticaMod',
+    ]);
+    if (!owned && UNOBTAINABLE_UNOWNED_MODS.has(canonicalUniqueName(un))) continue;
     // The acquisition dataset is for enrichment (how-to-get info) below)
     // only - it must never gate whether a mod appears in the browsable
     // catalog at all. Its coverage is thin for whole categories (Stance,

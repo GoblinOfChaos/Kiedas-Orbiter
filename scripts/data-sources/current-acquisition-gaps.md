@@ -1,11 +1,11 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T02:20:40.544Z
+Generated: 2026-08-15T03:43:52.055Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
-Catalog items audited: **16977**
-Resolved items: **16977**
+Catalog items audited: **16970**
+Resolved items: **16970**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 
@@ -31,11 +31,11 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 74
 - key: 18
 - mission: 438
-- non-drop: 9171
-- override: 233
+- non-drop: 8855
+- override: 569
 - relic: 583
 - sortie: 2
-- status: 3138
-- syndicate: 436
+- status: 3124
+- syndicate: 423
 - transient: 84
 

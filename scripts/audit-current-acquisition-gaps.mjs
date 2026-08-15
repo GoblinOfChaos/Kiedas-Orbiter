@@ -42,6 +42,19 @@ const ITEM_TABLES = new Set([
   'ExportUpgrades', 'ExportWarframes', 'ExportWeapons',
 ]);
 
+// These export definitions are hidden/unreleased/removed placeholders, not
+// obtainable unowned catalog objects. The Mods screen applies the same
+// exclusion while preserving owned copies.
+const UNOBTAINABLE_UNOWNED_MODS = new Set([
+  '/Lotus/Powersuits/Banshee/SonarPvPAugmentCard',
+  '/Lotus/Upgrades/Mods/Sentinel/Kubrow/ChargerFinisherMod',
+  '/Lotus/Upgrades/Mods/Shotgun/Expert/WeaponCritChanceModExpert',
+  '/Lotus/Upgrades/Mods/Rifle/Expert/SniperReloadDamageModExpert',
+  '/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponElectricityDamageModExpert',
+  '/Lotus/Upgrades/Mods/Warframe/Expert/AvatarShieldRechargeRateModExpert',
+  '/Lotus/Upgrades/Mods/Syndicate/BallisticaMod',
+]);
+
 // The browser source uses Vite extensionless imports. Replace only those
 // imports with the real bundled acquisition data and the already-tested
 // Baro-name constant so the exported functions remain the app's functions.
@@ -114,6 +127,7 @@ const catalog = new Map();
 function addItem(uniqueName, name, category) {
   const key = canonical(uniqueName);
   if (!key || !name || name.startsWith('/Lotus/')) return;
+  if (UNOBTAINABLE_UNOWNED_MODS.has(key)) return;
   if (!catalog.has(key)) catalog.set(key, { uniqueName: key, name, category });
 }
 

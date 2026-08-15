@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T08:05:29.919Z
+Generated: 2026-08-15T08:07:33.279Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12778**
+Items with concrete acquisition records: **12781**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **368**
+Records without concrete acquisition evidence: **365**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -220,9 +220,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Nef Anyo Sigil | `/Lotus/Upgrades/Skins/Sigils/BossSigilNefAnyo` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Nef_Anyo_Sigil |
 | Nightwave Livery | `/Lotus/Upgrades/Skins/Motorcycle/MotorcycleNightwaveSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Nightwave Livery |
 | Nikana Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianNikana` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Nikana_Obsidian_Skin |
-| Nimandi Prime Chest Plate | `/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorC` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Nimandi Prime Chest Plate |
-| Nimandi Prime Leg Plates | `/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorL` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Nimandi Prime Leg Plates |
-| Nimandi Prime Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorA` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Nimandi Prime Shoulder Plates |
 | Nusku Dual Pistol Skin | `/Lotus/Upgrades/Skins/Ember/EmberDeluxeDualPistolSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Nusku_Dual_Pistol_Skin |
 | Nvidia Braton | `/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Nvidia Braton |
 | Obsidian Azura Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Azura_Syandana |
@@ -461,7 +458,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8711
+- non-drop: 8714
 - override: 620
 - relic: 339
 - sortie: 1

@@ -496,4 +496,19 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://www.warframe.com/en/news/renown-pack-xii-available-now',
     source: 'Warframe.com Renown Pack XII announcement + local export Obsidian Azura armor component record',
   }],
+  ['/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorC', {
+    text: 'Nimandi Prime armor piece included through Lavos Prime Access; the local export identifies this object as the Chest Plate.',
+    url: 'https://wiki.warframe.com/w/Armor_%28Cosmetic%29',
+    source: 'Warframe Wiki Armor (Cosmetic) Prime Access table + local export Nimandi Prime component record',
+  }],
+  ['/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorL', {
+    text: 'Nimandi Prime armor piece included through Lavos Prime Access; the local export identifies this object as the Leg Plates.',
+    url: 'https://wiki.warframe.com/w/Armor_%28Cosmetic%29',
+    source: 'Warframe Wiki Armor (Cosmetic) Prime Access table + local export Nimandi Prime component record',
+  }],
+  ['/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorA', {
+    text: 'Nimandi Prime armor piece included through Lavos Prime Access; the local export identifies this object as the Shoulder Plates.',
+    url: 'https://wiki.warframe.com/w/Armor_%28Cosmetic%29',
+    source: 'Warframe Wiki Armor (Cosmetic) Prime Access table + local export Nimandi Prime component record',
+  }],
 ]);

@@ -451,4 +451,34 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://www.warframe.com/th/amp/nightwave-noras-mix-vol-5',
     source: 'Warframe.com Nightwave: Nora\'s Mix Volume 5 announcement',
   }],
+  ['/Lotus/Upgrades/Skins/DexTheSecond/ObsidianDexDakra', {
+    text: 'PlayStation anniversary reward: available from the in-game Market for 1 Credit during the scheduled anniversary week.',
+    url: 'https://www.warframe.com/th/news/playstation-anniversary',
+    source: 'Warframe.com PlayStation Anniversary announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Sony/ObsidianDexFuris', {
+    text: 'PlayStation anniversary reward: available from the in-game Market for 1 Credit during the scheduled anniversary week.',
+    url: 'https://www.warframe.com/th/news/playstation-anniversary',
+    source: 'Warframe.com PlayStation Anniversary announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Weapons/GreatSword/PS4BallasSword', {
+    text: 'PlayStation anniversary reward: available from the in-game Market for 1 Credit during the scheduled anniversary week.',
+    url: 'https://www.warframe.com/th/news/playstation-anniversary',
+    source: 'Warframe.com PlayStation Anniversary announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/DexTheSecond/NintendoDexDakra', {
+    text: 'Nintendo Switch anniversary Alert reward; the official schedule listed it as Alert #2 with 10,000 Credits.',
+    url: 'https://www.warframe.com/en/news/2-ko',
+    source: 'Warframe.com 2 Year Anniversary on Nintendo Switch announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Weapons/GreatSword/SWIBallasSword', {
+    text: 'Included in the Nintendo Switch anniversary Inbox rewards; the announcement lists the Paracesis Opal Skin as a free login reward.',
+    url: 'https://www.warframe.com/en/news/2-ko',
+    source: 'Warframe.com 2 Year Anniversary on Nintendo Switch announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Scarves/NintendoTurtleNeckScarf', {
+    text: 'Nintendo Switch anniversary Alert reward; the official schedule listed it as Alert #3 with 10,000 Credits.',
+    url: 'https://www.warframe.com/en/news/2-ko',
+    source: 'Warframe.com 2 Year Anniversary on Nintendo Switch announcement',
+  }],
 ]);

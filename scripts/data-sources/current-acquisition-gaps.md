@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T08:01:06.516Z
+Generated: 2026-08-15T08:03:28.977Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12769**
+Items with concrete acquisition records: **12775**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **377**
+Records without concrete acquisition evidence: **371**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -77,9 +77,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Dendra Obsidian Leg Guard | `/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncLArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dendra_Obsidian_Leg_Guard |
 | Dendra Obsidian Shoulder Guard | `/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncAArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dendra_Obsidian_Shoulder_Guard |
 | Depths Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImagedepths` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Depths_Glyph |
-| Dex Dakra Obsidian Skin | `/Lotus/Upgrades/Skins/DexTheSecond/ObsidianDexDakra` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dex_Dakra_Obsidian_Skin |
-| Dex Dakra Opal Skin | `/Lotus/Upgrades/Skins/DexTheSecond/NintendoDexDakra` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dex_Dakra_Opal_Skin |
-| Dex Furis Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianDexFuris` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dex_Furis_Obsidian_Skin |
 | Diamond Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/DiamondWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Diamond Sentinel Wings |
 | Digital Extremes Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphDELogo` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Digital_Extremes_Glyph |
 | Disciple's Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeDiscipleItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Disciple%27s_Emblem |
@@ -244,7 +241,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Okina Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Okina_Obsidian_Skin |
 | Old Blood Emblem | `/Lotus/Upgrades/Skins/Clan/LichKillerBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Old_Blood_Emblem |
 | Ollie’s Rocket Livery | `/Lotus/Upgrades/Skins/Motorcycle/MotorcycleOllieSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Ollie%E2%80%99s_Rocket_Livery |
-| Opal Imperator Syandana | `/Lotus/Upgrades/Skins/Scarves/NintendoTurtleNeckScarf` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Opal_Imperator_Syandana |
 | Operator Atmosphor | `/Lotus/Upgrades/Skins/Operator/Accessories/TauBreathingShell` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Operator_Atmosphor |
 | OperatorCustomization | `/Lotus/Upgrades/Skins/Operator/OperatorCustomization` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/OperatorCustomization |
 | Orcus Prime Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/DethcubePrimeWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Orcus_Prime_Wings |
@@ -255,8 +251,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Owned Peely Pak | `/Lotus/Types/Items/MiscItems/1999FreeStickersPack` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Owned_Peely_Pak |
 | Para Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/ParrotWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Para_Sentinel_Wings |
 | Paracesis Jade Skin | `/Lotus/Upgrades/Skins/Weapons/GreatSword/XB1BallasSword` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Paracesis_Jade_Skin |
-| Paracesis Obsidian Skin | `/Lotus/Upgrades/Skins/Weapons/GreatSword/PS4BallasSword` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Paracesis_Obsidian_Skin |
-| Paracesis Opal Skin | `/Lotus/Upgrades/Skins/Weapons/GreatSword/SWIBallasSword` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Paracesis_Opal_Skin |
 | Parotia Syandana | `/Lotus/Upgrades/Skins/Scarves/TnSparrowCape` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Parotia_Syandana |
 | Partner Quittance | `/Lotus/Types/Items/SyndicateDogTags/PerrinRareDogTag` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Partner Quittance |
 | Pennant Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianPennant` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Pennant_Obsidian_Skin |
@@ -470,7 +464,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8702
+- non-drop: 8708
 - override: 620
 - relic: 339
 - sortie: 1

@@ -289,5 +289,33 @@
   "/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaRarityBoost": {
     "text": "Purchase from Son in the Necralisk on Deimos for Entrati Standing.",
     "source": "WARFRAME Wiki Echo-Lure acquisition"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018A": {
+    "text": "Available in the Winter Glyph Pack in the in-game Market during the Winter Solstice seasonal sale.",
+    "source": "Warframe.com Winter Solstice 2018"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018B": {
+    "text": "Available in the Winter Glyph Pack in the in-game Market during the Winter Solstice seasonal sale.",
+    "source": "Warframe.com Winter Solstice 2018"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018C": {
+    "text": "Available in the Winter Glyph Pack in the in-game Market during the Winter Solstice seasonal sale.",
+    "source": "Warframe.com Winter Solstice 2018"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018D": {
+    "text": "Available in the Winter Glyph Pack in the in-game Market during the Winter Solstice seasonal sale.",
+    "source": "Warframe.com Winter Solstice 2018"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018E": {
+    "text": "Available in the Winter Glyph Pack in the in-game Market during the Winter Solstice seasonal sale.",
+    "source": "Warframe.com Winter Solstice 2018"
+  },
+  "/Lotus/Types/AvatarImages/ImageEightYearAnniversary": {
+    "text": "Redeem the Year 8 Anniversary Glyph promo code.",
+    "source": "Warframe Forums Free Promocodes and Content Creator Glyphs"
+  },
+  "/Lotus/Types/AvatarImages/ImageNineYearAnniversary": {
+    "text": "Redeem the NineYear22 promo code.",
+    "source": "Warframe Forums Free Promocodes and Content Creator Glyphs"
   }
 }

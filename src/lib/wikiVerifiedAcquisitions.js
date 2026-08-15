@@ -4,6 +4,46 @@
 // an acquisition route by accident.
 export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   [
+    '/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultPrimeB',
+    {
+      text: 'Component of the Commodore Prime Suit, included in the Zephyr Prime Accessories package during Zephyr Prime Access; the local export links this Drifter/Operator piece to its Prime armor counterpart.',
+      url: 'https://www.warframe.com/news/zephyr-prime-access-begins-march-20',
+      source: 'Warframe.com Zephyr Prime Access announcement + local export Commodore Prime component records',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeB',
+    {
+      text: 'Component of the Commodore Prime Suit, included in the Zephyr Prime Accessories package during Zephyr Prime Access; the local export links this Drifter/Operator piece to its Prime armor counterpart.',
+      url: 'https://www.warframe.com/news/zephyr-prime-access-begins-march-20',
+      source: 'Warframe.com Zephyr Prime Access announcement + local export Commodore Prime component records',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeB',
+    {
+      text: 'Component of the Commodore Prime Suit, included in the Zephyr Prime Accessories package during Zephyr Prime Access; the local export links this Drifter/Operator piece to its Prime armor counterpart.',
+      url: 'https://www.warframe.com/news/zephyr-prime-access-begins-march-20',
+      source: 'Warframe.com Zephyr Prime Access announcement + local export Commodore Prime component records',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeB',
+    {
+      text: 'Component of the Commodore Prime Suit, included in the Zephyr Prime Accessories package during Zephyr Prime Access; the local export links this Drifter/Operator piece to its Prime armor counterpart.',
+      url: 'https://www.warframe.com/news/zephyr-prime-access-begins-march-20',
+      source: 'Warframe.com Zephyr Prime Access announcement + local export Commodore Prime component records',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeB',
+    {
+      text: 'Component of the Commodore Prime Suit, included in the Zephyr Prime Accessories package during Zephyr Prime Access; the local export links this Drifter/Operator piece to its Prime armor counterpart.',
+      url: 'https://www.warframe.com/news/zephyr-prime-access-begins-march-20',
+      source: 'Warframe.com Zephyr Prime Access announcement + local export Commodore Prime component records',
+    },
+  ],
+  [
     '/Lotus/Upgrades/Skins/Dagath/DagathDeluxeLNYHelmet',
     {
       text: 'Included with the Dagath Yfari Skin; the skin is sold individually in the in-game Market for 165 Platinum, and the local export links this helmet as its component.',

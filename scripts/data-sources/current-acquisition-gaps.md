@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:16:23.983Z
+Generated: 2026-08-15T05:17:26.727Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
-Catalog items audited: **13203**
-Items with concrete acquisition records: **12017**
+Catalog items audited: **13200**
+Items with concrete acquisition records: **12043**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1136**
+Records without concrete acquisition evidence: **1107**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -164,28 +164,10 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Community On-Lyne Packet Glyph | `/Lotus/Types/AvatarImages/AvatarImagePacketGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_On-lyne_Packet_Glyph |
 | Community On-Lyne Zeke Glyph | `/Lotus/Types/AvatarImages/AvatarImageZekeGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_On-lyne_Zeke_Glyph |
 | Community Radiant On-Lyne Logo Glyph | `/Lotus/Types/AvatarImages/AvatarImageLogoGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Radiant_On-lyne_Logo_Glyph |
-| Community Tennobaum 1999 Mug Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityTennobaum1999Mug` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_1999_Mug_Glyph |
-| Community Tennobaum Aoi Glyph | `/Lotus/Types/AvatarImages/AvatarImageTennobaumAoi` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Aoi_Glyph |
-| Community Tennobaum Cozy Stalker Glyph | `/Lotus/Types/AvatarImages/AvatarImageTennobaumCozyStalker` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Cozy_Stalker_Glyph |
-| Community Tennobaum Frost Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityTennobaumFrost` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Frost_Glyph |
-| Community Tennobaum Grimoire Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityTennobaumGrimoire` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Grimoire_Glyph |
-| Community Tennobaum Jade Glyph | `/Lotus/Types/AvatarImages/AvatarImageTennobaumJade` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Jade_Glyph |
-| Community Tennobaum Kubrow Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityTennobaumKubrow` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Kubrow_Glyph |
-| Community Tennobaum Man In The Cookie Glyph | `/Lotus/Types/AvatarImages/AvatarImageTennobaumManintheCookie` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Man_in_the_Cookie_Glyph |
-| Community Tennobaum Relic Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityTennobaumRelic` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Relic_Glyph |
-| Community Tennobaum Vauban Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityTennobaumVauban` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Vauban_Glyph |
-| Community Tennobaum Vulpaphyla Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityTennobaumVulpaphyla` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Vulpaphyla_Glyph |
-| Community Tennobaum Zephyr Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityTennobaumZephyr` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Zephyr_Glyph |
 | Conclave Sigil | `/Lotus/Upgrades/Skins/Sigils/OpticorConclaveVariantSigil` | ExportCustoms | Listed under Conclave Sigils on the Warframe wiki. | Conclave Sigil |
 | Conclave Sigil | `/Lotus/Upgrades/Skins/Sigils/SyndicateSigilConclaveA` | ExportCustoms | Listed under Conclave Sigils on the Warframe wiki. | Conclave Sigil |
 | Conquera Cherry Tree Ink | `/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoH` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Cherry_Tree_Ink |
 | Conquera Emblem | `/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Emblem |
-| Conquera Glyph | `/Lotus/Types/AvatarImages/ImageConquera` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Glyph |
-| Conquera Glyph I | `/Lotus/Types/AvatarImages/ImageConquera2021C` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Glyph_I |
-| Conquera Glyph Ii | `/Lotus/Types/AvatarImages/ImageConquera2021D` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Glyph_II |
-| Conquera Glyph Iii | `/Lotus/Types/AvatarImages/ImageConquera2021A` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Glyph_III |
-| Conquera Glyph Iv | `/Lotus/Types/AvatarImages/ImageConquera2021B` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Glyph_IV |
-| Conquera Glyph V | `/Lotus/Types/AvatarImages/ImageConquera2022A` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Glyph_V |
 | Conquera Magnolia Ink | `/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoI` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Magnolia_Ink |
 | Conquera Ordis Glyph | `/Lotus/Types/AvatarImages/AvatarImageConqueraOrdis` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Ordis_Glyph |
 | Conquera Sigil | `/Lotus/Upgrades/Skins/Sigils/ConqueraSigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Conquera Sigil |
@@ -195,17 +177,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Contrathermal Companion Glyph | `/Lotus/Types/AvatarImages/FireIceCompanionGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Contrathermal_Companion_Glyph |
 | Converted Coda Sigil | `/Lotus/Upgrades/Skins/Sigils/InfLichConvertedSigil` | ExportCustoms | Listed under Enemy Drop Sigils on the Warframe wiki. | Converted Coda Sigil |
 | Cookie Boot Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieBoot` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Boot_Glyph |
-| Cookie Corpus Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieCorpus` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Corpus_Glyph |
-| Cookie Dethcube Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieDethcube` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Dethcube_Glyph |
-| Cookie Excalibur Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageGlyphCookieExcalibur` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Excalibur_Glyph |
-| Cookie Fortuna Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageGlyphCookieFortuna` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Fortuna_Glyph |
-| Cookie Grineer Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieGrineer` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Grineer_Glyph |
-| Cookie K-Drive Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageGlyphCookieKdrive` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_K-Drive_Glyph |
-| Cookie Lotus Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieLotus` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Lotus_Glyph |
-| Cookie Nef Anyo Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageGlyphCookieNef` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Nef_Anyo_Glyph |
-| Cookie Orb Vallis Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageGlyphCookieOrbVallis` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Orb_Vallis_Glyph |
-| Cookie Stalker Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageGlyphCookieStalker` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Stalker_Glyph |
-| Cookie Void Key Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieVoidKey` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Void_Key_Glyph |
 | Corinth Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianCorinth` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Corinth_Obsidian_Skin |
 | Crestbear Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageCrestbear` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Crestbear_Glyph |
 | Crewman Staredown Glyph | `/Lotus/Types/AvatarImages/ImageYouTubeCorpusA` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Crewman_Staredown_Glyph |
@@ -1229,9 +1200,9 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 7956
+- non-drop: 7985
 - override: 607
-- relic: 345
+- relic: 342
 - sortie: 1
 - status: 42
 - syndicate: 292

@@ -310,6 +310,26 @@
     "text": "Included with the Ash Shroud Skin; purchase the Ash Shroud Skin from the in-game Market or the Ash Shroud Collection.",
     "source": "ExportCustoms additionalItems + WARFRAME Wiki Ash Shroud Collection"
   },
+  "/Lotus/Upgrades/Skins/Brawler/AtlasDeluxeHelmet": {
+    "text": "Included with the Atlas Karst Skin; purchase the Atlas Karst Skin from the in-game Market or the Atlas Karst Collection.",
+    "source": "ExportCustoms additionalItems + Warframe.com Atlas Karst Collection"
+  },
+  "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeHelmet": {
+    "text": "Included with the Banshee Soprana Skin; purchase the Banshee Soprana Skin from the in-game Market.",
+    "source": "ExportCustoms additionalItems + Warframe.com Update 18.9"
+  },
+  "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeArmLeftArmor": {
+    "text": "Included with the Banshee Soprana Skin; purchase the Banshee Soprana Skin from the in-game Market.",
+    "source": "ExportCustoms additionalItems + Warframe.com Update 18.9"
+  },
+  "/Lotus/Upgrades/Skins/Pacifist/BaruukDeluxeHelmet": {
+    "text": "Included with the Baruuk Doan Skin; purchase the Baruuk Doan Skin from the in-game Market or the Baruuk Doan Collection.",
+    "source": "ExportCustoms additionalItems + Warframe.com The Duviri Paradox"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooNightwaveCommando": {
+    "text": "Reward from Nightwave: Nora's Mix Vol. 8.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 8"
+  },
   "/Lotus/Types/AvatarImages/AvatarImageOctaviaActionTwitch": {
     "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
     "source": "Warframe.com Iridos Collection Re-release"

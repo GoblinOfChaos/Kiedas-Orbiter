@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:07:59.722Z
+Generated: 2026-08-15T05:09:03.025Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11888**
+Items with concrete acquisition records: **11890**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1268**
+Records without concrete acquisition evidence: **1266**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -227,7 +227,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Cookie Stalker Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageGlyphCookieStalker` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Stalker_Glyph |
 | Cookie Void Key Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieVoidKey` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cookie_Void_Key_Glyph |
 | Corinth Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianCorinth` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Corinth_Obsidian_Skin |
-| Corrupted Heavy Gunner Specter | `/Lotus/Types/Restoratives/Consumable/CorruptedHeavyGunnerBall` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Corrupted_Heavy_Gunner_Specter |
 | Creepy Clem Glyph | `/Lotus/Types/AvatarImages/Seasonal/Halloween2019CreepyClem` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Creepy_Clem_Glyph |
 | Crestbear Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageCrestbear` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Crestbear_Glyph |
 | Crewman Staredown Glyph | `/Lotus/Types/AvatarImages/ImageYouTubeCorpusA` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Crewman_Staredown_Glyph |
@@ -275,7 +274,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Dendra Obsidian Leg Guard | `/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncLArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dendra_Obsidian_Leg_Guard |
 | Dendra Obsidian Shoulder Guard | `/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncAArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dendra_Obsidian_Shoulder_Guard |
 | Depths Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImagedepths` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Depths_Glyph |
-| Desert Skate Specter | `/Lotus/Types/Restoratives/Consumable/SkateBall` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Desert_Skate_Specter |
 | Dethgloop Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Dethcube` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dethgloop_Glyph |
 | Dex Dakra Jade Skin | `/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDexDakra` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dex_Dakra_Jade_Skin |
 | Dex Dakra Obsidian Skin | `/Lotus/Upgrades/Skins/DexTheSecond/ObsidianDexDakra` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dex_Dakra_Obsidian_Skin |
@@ -1361,7 +1359,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7824
+- non-drop: 7826
 - override: 607
 - relic: 345
 - sortie: 1

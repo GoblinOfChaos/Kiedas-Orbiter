@@ -49,6 +49,11 @@
     "text": "After completing Jade Shadows: Constellations, complete the Scoria's Angel node in Uranus Proxima to receive 12–16 Crimson Talent (18–22 on Steel Path). Additional Crimson Talent can be rewarded for taking down all targets during the Ramsled transition phase.",
     "url": "https://wiki.warframe.com/w/Crimson_Talent"
   },
+  "Carpet Bomb": {
+    "section": "Acquisition",
+    "text": "Carpet Bomb is the Air Support ability included with the Scimitar landing craft. The Scimitar's main blueprint is purchased from the Market; its Avionics, Engines, and Fuselage blueprints come from Zanuka Hunter, Stalker or Shadow Stalker, and the Grustrag Three respectively.",
+    "url": "https://warframe.fandom.com/wiki/Scimitar"
+  },
   "Alpha Corruptor": {
     "section": "Acquisition",
     "text": "During Operation: Sling-Stone, Alpha Corruptors were acquired by defeating Infested enemies; Ancient Infested dropped the Alpha and Beta variants.",
@@ -104,10 +109,30 @@
     "text": "Fillet Amniophysi, Aquapulmo, Barbisteo, Cryptosuctus, Glutinox, Kymaeros, Ostimyr, or Vitreospina caught in the Cambion Drift at Daughter in the Necralisk. It can also appear in Daughter's rotating Daily Special for Platinum.",
     "url": "https://wiki.warframe.com/w/Ferment_Bladder"
   },
+  "Dreamers": {
+    "section": "Acquisition",
+    "text": "Dreamers is the Air Support ability included with the Nightwave landing craft. Nightwave is awarded at Rank 3 in Nightwave: Nora's Mix Volume 8; it was also previously available in Series 3 and Nora's Mix Volume 2.",
+    "url": "https://wiki.warframe.com/w/Nightwave_(Landing_Craft)"
+  },
   "Kahl Beacon": {
     "section": "Acquisition",
     "text": "Kahl Beacon is the Air Support ability included with the Skaut landing craft. The Skaut is purchased from the Market after completing Veilbreaker or from Chipper in Kahl's Garrison for 120 Stock at Rank 5 (Home).",
     "url": "https://wiki.warframe.com/w/Skaut"
+  },
+  "Med-Tower": {
+    "section": "Acquisition",
+    "text": "Med-Tower is the Air Support ability included with the Mantis landing craft. The Mantis blueprint is purchased from the Market; its component blueprints come from Reinforced and Rare Storage Containers, with Avionics in Orokin containers, Engines in Grineer containers, and the Fuselage in Corpus containers.",
+    "url": "https://wiki.warframe.com/w/Mantis"
+  },
+  "Orokin Eye": {
+    "section": "Acquisition",
+    "text": "Orokin Eye is the Air Support ability included with the Parallax landing craft. Parallax can be purchased complete from the Market, or built from a Market blueprint with component blueprints obtained as rare drops from Zariman Ten Zero Reinforced Carrypod Storage Containers.",
+    "url": "https://wiki.warframe.com/w/Parallax"
+  },
+  "Override": {
+    "section": "Acquisition",
+    "text": "Override is the default Air Support ability included with the Liset, the landing craft unlocked during the Vor's Prize quest.",
+    "url": "https://warframe.fandom.com/wiki/Liset"
   },
   "Glacia Syandana": {
     "section": "Acquisition",
@@ -163,6 +188,11 @@
     "section": "Acquisition",
     "text": "Obtained during the Sands of Inaros quest, which begins after acquiring and crafting its quest blueprint.",
     "url": "https://wiki.warframe.com/w/Sands_of_Inaros"
+  },
+  "Sentry Gun": {
+    "section": "Acquisition",
+    "text": "Sentry Gun is the Air Support ability included with the Xiphos landing craft. The Xiphos can be purchased complete from the Market, or built from its Market blueprint with component blueprints obtained from three-cache Sabotage or Exterminate missions.",
+    "url": "https://warframe.fandom.com/wiki/Xiphos"
   },
   "Spore Ephemera": {
     "section": "Acquisition",

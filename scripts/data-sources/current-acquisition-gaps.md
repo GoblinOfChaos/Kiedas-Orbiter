@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T04:51:08.539Z
+Generated: 2026-08-15T04:53:55.857Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
-Catalog items audited: **13207**
-Items with concrete acquisition records: **11827**
+Catalog items audited: **13206**
+Items with concrete acquisition records: **11832**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1330**
+Records without concrete acquisition evidence: **1324**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -139,7 +139,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Capit XV Phloios | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal15C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Capit XV Phloios |
 | Capit XVI Perigone | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal16C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Capit XVI Perigone |
 | Caroling Octavia Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCarolingOctavia` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Caroling_Octavia_Glyph |
-| Carpet Bomb | `/Lotus/Types/Restoratives/LisetBarrage` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Carpet Bomb |
 | Caustic Cryptilex Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedMaggotRare` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Caustic_Cryptilex_Tag |
 | Cephalon Cy Glyph | `/Lotus/Types/AvatarImages/ImageCephalonCy` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cephalon_Cy_Glyph |
 | Cephalon Simaris Glyph | `/Lotus/Types/AvatarImages/ImageCephalonSimaris` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cephalon_Simaris_Glyph |
@@ -320,7 +319,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Donwyn Glyph Viii | `/Lotus/Types/AvatarImages/AvatarImageValentine2020Key` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Donwyn_Glyph_VIII |
 | Drakgoon Bronze Skin | `/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoDrakgoonCamo` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Drakgoon_Bronze_Skin |
 | Drakgoon Rubedo Plated Skin | `/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoDrakgoonCamo` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Drakgoon_Rubedo_Plated_Skin |
-| Dreamers | `/Lotus/Types/Restoratives/LisetStun` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Dreamers |
 | Drifter Escuchon Apparel | `/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultCalDeluxe` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Drifter_Escuchon_Apparel |
 | Drifter Escuchon Greaves | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultCalDeluxe` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Drifter_Escuchon_Greaves |
 | Drifter Escuchon Hood | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultCalDeluxe` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Drifter_Escuchon_Hood |
@@ -684,7 +682,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Mastery Sigil | `/Lotus/Upgrades/Skins/Sigils/MasteryStoneSigil` | ExportCustoms | Listed under Purchasable Sigils on the Warframe wiki. | Mastery Sigil |
 | Mausolon Supulchrax Skin | `/Lotus/Upgrades/Skins/Necramech/MechWeapon/MechEventMausolonSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mausolon_Supulchrax_Skin |
 | Maxim Medallion | `/Lotus/Types/Items/SyndicateDogTags/ArbitersRareDogTag` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Maxim Medallion |
-| Med-Tower | `/Lotus/Types/Restoratives/LisetMedStation` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Med-Tower |
 | Medjay Predasite Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedPredatorRare` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Medjay Predasite Tag |
 | Merulina Pandea Skin | `/Lotus/Upgrades/Skins/Yareli/MerulinaDeluxe` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Merulina_Pandea_Skin |
 | Mesa High Noon Glyph | `/Lotus/Types/AvatarImages/MesaHighNoonGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mesa_High_Noon_Glyph |
@@ -859,7 +856,6 @@ Dreams of the Dead Cred |
 | OperatorCustomization | `/Lotus/Upgrades/Skins/Operator/OperatorCustomization` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/OperatorCustomization |
 | Orcus Prime Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/DethcubePrimeWingsRight` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Orcus_Prime_Wings |
 | Orokin Archive | `/Lotus/Types/Items/MiscItems/ArchWingNavCode` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Orokin Archive |
-| Orokin Eye | `/Lotus/Types/Restoratives/LisetGoldenInstinct` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Orokin Eye |
 | Orokin Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionOrokin` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Orokin_Glyph |
 | Orowyrm Arena Simulacrum | `/Lotus/Types/Items/DangerRoom/DangerRoomTileDuviriDragonArena` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Orowyrm_Arena_Simulacrum |
 | Orowyrm's Rage Sigil | `/Lotus/Upgrades/Skins/Sigils/DuvDragonSigil` | ExportCustoms | Listed under Nightwave Sigils on the Warframe wiki. | Orowyrm's Rage Sigil |
@@ -867,7 +863,6 @@ Dreams of the Dead Cred |
 | Orthos Phased Skin | `/Lotus/Upgrades/Skins/Events/BlackoutOrthos` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Orthos_Phased_Skin |
 | Ostia Vasca Kavat Tag | `/Lotus/Types/Items/Eidolon/AnimalTagVampireKavatCommon` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ostia_Vasca_Kavat_Tag |
 | Ostron Community Sigil | `/Lotus/Upgrades/Skins/Sigils/OstronCommunitySigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Ostron Community Sigil |
-| Override | `/Lotus/Types/Restoratives/LisetAutoHack` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Override |
 | Owned Peely Pak | `/Lotus/Types/Items/MiscItems/1999FreeStickersPack` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Owned_Peely_Pak |
 | Palatine Iron Skin Override | `/Lotus/Upgrades/Skins/Rhino/RhinoIronSkinDeluxe` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Palatine_Iron_Skin_Override |
 | Para Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/ParrotWingsRight` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Para_Sentinel_Wings |
@@ -991,7 +986,6 @@ Dreams of the Dead Cred |
 | Seal Of Honoring IV | `/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil` | ExportCustoms | Listed under XBox One Anniversary Sigils on the Warframe wiki. | Seal Of Honoring IV |
 | Send More Dax Glyph | `/Lotus/Types/AvatarImages/Seasonal/Halloween2019GhoulGrave` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Send_More_Dax_Glyph |
 | Sentinel Stover Tag | `/Lotus/Types/Items/Solaris/AnimalTagStoverCommon` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Sentinel Stover Tag |
-| Sentry Gun | `/Lotus/Types/Restoratives/LisetTurret` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Sentry Gun |
 | Serro Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianSerro` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Serro_Obsidian_Skin |
 | Servio V Sporoi | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal5C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Servio V Sporoi |
 | Servio VI Kalika | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal6C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Servio VI Kalika |
@@ -1425,11 +1419,11 @@ Dreams of the Dead Cred |
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7762
+- non-drop: 7768
 - override: 607
 - relic: 345
 - sortie: 1
 - status: 42
 - syndicate: 292
-- transient: 51
+- transient: 50
 

@@ -77,4 +77,13 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   ['/Lotus/Types/AvatarImages/TennoCon2025Glyph', { text: 'Exclusive to players who purchased the physical or digital TennoCon 2025 ticket.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
   ['/Lotus/Types/AvatarImages/TennoCon2021MerchGlyph', { text: 'Part of the purchasable TennoCon 2021 merch pack, obtained with its redeemable code.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
   ['/Lotus/Types/AvatarImages/TennoCon2022MerchGlyph', { text: 'Part of the purchasable TennoCon 2022 merch pack, obtained with its redeemable code.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/ImageDeadlockProtocolA', { text: 'Redeem the promo code GOLDEN, issued before the launch of The Deadlock Protocol.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageZarimanLogo', { text: 'Redeem the promo code REMEMBERUS, issued April 28, 2022.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/Xmas2021MaggotGlyph', { text: 'Tennobaum 2022 milestone reward.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/Xmas2021MoaGlyph', { text: 'Tennobaum 2022 milestone reward.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/Xmas2021NutcorpusGlyph', { text: 'Tennobaum 2022 milestone reward.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/Xmas2023ThraxGlyph', { text: 'Tennobaum 2023 milestone reward.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/Xmas2023BombastineGlyph', { text: 'Part of the Duviri Community Art Pack, sold in the Market for 40 Platinum; the glyph is also available individually for 20 Platinum.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/ImageDexAnniversary', { text: 'Reward from the 7th Year Anniversary alert.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/AvatarImageConqueraGlyphUpdated', { text: 'Available from the Market for 1 Credit during the Conquera campaign.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
 ]);

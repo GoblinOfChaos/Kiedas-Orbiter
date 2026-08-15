@@ -405,13 +405,57 @@ export function buildWikiVendorIndex(data) {
  * for a generic vendor-source fallback, never for fabricated vendor labels.
  */
 export function buildExportVendorIndex(exportData) {
-  const index = new Set();
+  const index = new Map();
   const vendors = exportData?.ExportVendors;
   if (!vendors || typeof vendors !== 'object') return index;
+  const dict = exportData?.dict || exportData?.['dict.en'] || {};
+  const exportedNames = new Map();
+  for (const tableName of ['ExportResources', 'ExportMisc', 'ExportGear', 'ExportCustoms', 'ExportUpgrades']) {
+    for (const [uniqueName, entry] of Object.entries(exportData?.[tableName] || {})) {
+      const name = cleanResolvedName(entry?.name ? (dict[entry.name] || dict[`/${entry.name}`] || entry.name) : '');
+      if (name) exportedNames.set(canonicalPath(uniqueName), name);
+    }
+  }
+  const display = (value) => {
+    const canonical = canonicalPath(value);
+    return exportedNames.get(canonical) || cleanResolvedName(value ? (dict[value] || dict[`/${value}`] || value) : '');
+  };
+  const vendorLabel = (manifestName) => {
+    if (/\/Duviri\/AcrithisVendorManifest$/.test(manifestName)) return 'Acrithis in Duviri';
+    if (/\/DeimosHalloweenVendorManifest$/.test(manifestName)) return 'Naberus event vendor in the Necralisk';
+    if (/\/RadioLegionIntermission\d+VendorManifest$/.test(manifestName)) return 'Nora Nightwave Cred offerings';
+    if (/\/FocusSchools\/MaduraiVendorManifest$/.test(manifestName)) return 'Madurai Focus vendor';
+    if (/\/FocusSchools\/NaramonVendorManifest$/.test(manifestName)) return 'Naramon Focus vendor';
+    if (/\/FocusSchools\/UnairuVendorManifest$/.test(manifestName)) return 'Unairu Focus vendor';
+    if (/\/FocusSchools\/VazarinVendorManifest$/.test(manifestName)) return 'Vazarin Focus vendor';
+    if (/\/FocusSchools\/ZenurikVendorManifest$/.test(manifestName)) return 'Zenurik Focus vendor';
+    if (/\/IronwakeDondaVendorManifest$/.test(manifestName)) return 'Donda in Iron Wake';
+    if (/\/Ostron\/MaskSalesmanManifest$/.test(manifestName)) return 'Mask Salesman in Cetus';
+    if (/\/TriadDecorationsVendorManifest$/.test(manifestName)) return 'Triad Decorations vendor';
+    if (/\/TriadEventVendorManifest$/.test(manifestName)) return 'Triad event vendor';
+    return 'an in-game vendor';
+  };
+  const priceText = (item) => {
+    const prices = (item?.itemPrices || []).map((price) => {
+      const currency = display(price.ItemType) || price.ItemType;
+      return `${price.ItemCount}x ${currency}`;
+    });
+    if (item?.focusXpCost?.cost) prices.push(`${item.focusXpCost.cost.toLocaleString()} Focus XP`);
+    if (item?.numRandomItemPrices) prices.push('a vendor-selected resource cost');
+    return prices.length ? ` Price listed in the export: ${prices.join(' and ')}.` : '';
+  };
   for (const vendor of Object.values(vendors)) {
     for (const item of vendor?.items || []) {
       const key = canonicalPath(item?.storeItem);
-      if (key) index.add(key);
+      if (!key) continue;
+      const manifestName = Object.entries(vendors).find(([, candidate]) => candidate === vendor)?.[0] || '';
+      const route = {
+        text: `Listed by ${vendorLabel(manifestName)}.${priceText(item)}`,
+        source: `DE export vendor manifest ${manifestName || 'record'}`,
+      };
+      const routes = index.get(key) || [];
+      if (!routes.some((candidate) => candidate.text === route.text)) routes.push(route);
+      index.set(key, routes);
     }
   }
   return index;
@@ -767,9 +811,10 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   // than the more specific resource/blueprint records above so adding the
   // vendor export cannot replace a concrete location already known for an
   // item such as Ignia or Maphica.
-  if (exportVendorIndex?.has(canonicalPath(dropIndexKey))) {
+  const exportVendorRoutes = exportVendorIndex?.get(canonicalPath(dropIndexKey));
+  if (exportVendorRoutes?.length) {
     return {
-      sources: [{ type: 'non-drop', text: 'Available from an in-game vendor.', source: 'DE export' }],
+      sources: exportVendorRoutes.map((route) => ({ type: 'non-drop', ...route })),
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

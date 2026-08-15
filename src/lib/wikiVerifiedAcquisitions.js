@@ -481,4 +481,19 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://www.warframe.com/en/news/2-ko',
     source: 'Warframe.com 2 Year Anniversary on Nintendo Switch announcement',
   }],
+  ['/Lotus/Upgrades/Skins/Armor/Sony/OAArmorC', {
+    text: 'Included in the PlayStation-exclusive Renown Pack XII, which granted the Obsidian Azura Armor set and 170 Platinum.',
+    url: 'https://www.warframe.com/en/news/renown-pack-xii-available-now',
+    source: 'Warframe.com Renown Pack XII announcement + local export Obsidian Azura armor component record',
+  }],
+  ['/Lotus/Upgrades/Skins/Armor/Sony/OAArmorL', {
+    text: 'Included in the PlayStation-exclusive Renown Pack XII, which granted the Obsidian Azura Armor set and 170 Platinum.',
+    url: 'https://www.warframe.com/en/news/renown-pack-xii-available-now',
+    source: 'Warframe.com Renown Pack XII announcement + local export Obsidian Azura armor component record',
+  }],
+  ['/Lotus/Upgrades/Skins/Armor/Sony/OAArmorA', {
+    text: 'Included in the PlayStation-exclusive Renown Pack XII, which granted the Obsidian Azura Armor set and 170 Platinum.',
+    url: 'https://www.warframe.com/en/news/renown-pack-xii-available-now',
+    source: 'Warframe.com Renown Pack XII announcement + local export Obsidian Azura armor component record',
+  }],
 ]);

@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T08:03:28.977Z
+Generated: 2026-08-15T08:05:29.919Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12775**
+Items with concrete acquisition records: **12778**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **371**
+Records without concrete acquisition evidence: **368**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -225,9 +225,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Nimandi Prime Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorA` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Nimandi Prime Shoulder Plates |
 | Nusku Dual Pistol Skin | `/Lotus/Upgrades/Skins/Ember/EmberDeluxeDualPistolSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Nusku_Dual_Pistol_Skin |
 | Nvidia Braton | `/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Nvidia Braton |
-| Obsidian Azura Chest Plate | `/Lotus/Upgrades/Skins/Armor/Sony/OAArmorC` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Azura_Chest_Plate |
-| Obsidian Azura Leg Plates | `/Lotus/Upgrades/Skins/Armor/Sony/OAArmorL` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Azura_Leg_Plates |
-| Obsidian Azura Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/Sony/OAArmorA` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Azura_Shoulder_Plates |
 | Obsidian Azura Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Azura_Syandana |
 | Obsidian Corvus Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianCrowSyandana` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Corvus_Syandana |
 | Obsidian Deko Chest Plate | `/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorC` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Deko_Chest_Plate |
@@ -464,7 +461,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8708
+- non-drop: 8711
 - override: 620
 - relic: 339
 - sortie: 1

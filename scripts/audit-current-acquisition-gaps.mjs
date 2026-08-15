@@ -143,6 +143,7 @@ const indexes = {
   relicState: acquisition.buildRelicStateIndex(exportData),
   exportVendor: acquisition.buildExportVendorIndex(exportData),
   glyph: acquisition.buildGlyphSupplementIndex(readAsset('browse-wf-glyphs.json')),
+  component: acquisition.buildExportComponentIndex(exportData),
 };
 
 function displayNameFor(uniqueName, entry) {
@@ -258,6 +259,7 @@ function resolveItem(item) {
     indexes.wikiPage,
     indexes.status,
     indexes.exalted,
+    indexes.component,
   );
   const texts = (info.sources || []).map((source) => source.text || '').filter(Boolean);
   const genericFoundry = texts.some((text) => text === 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.');

@@ -507,7 +507,35 @@ export function buildGlyphSupplementIndex(data) {
   return index;
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex) {
+// ExportCustoms records the relationship between a market/Prime/TennoGen
+// parent customization and its separately rendered child objects (helmets,
+// armor pieces, operator counterparts, etc.) in `additionalItems`. Keep this
+// relationship keyed by exact DE uniqueName so a child can inherit only its
+// own parent's already-resolved acquisition route.
+export function buildExportComponentIndex(exportData) {
+  const index = new Map();
+  const dict = exportData?.dict || exportData?.['dict.en'] || {};
+  const cleanName = (value) => cleanResolvedName(value ? (dict[value] || dict[`/${value}`] || value) : '');
+  for (const tableName of ['ExportCustoms', 'ExportGear', 'ExportResources', 'ExportUpgrades']) {
+    for (const [parentUniqueName, entry] of Object.entries(exportData?.[tableName] || {})) {
+      if (!Array.isArray(entry?.additionalItems)) continue;
+      const parent = canonicalPath(parentUniqueName);
+      const parentDisplayName = cleanName(entry.name);
+      if (!parent || !parentDisplayName) continue;
+      for (const childUniqueName of entry.additionalItems) {
+        const child = canonicalPath(childUniqueName);
+        // A child can be shared by multiple Gemini skins. Do not select an
+        // arbitrary parent in that case; ambiguity is not acquisition proof.
+        if (child && !index.has(child)) index.set(child, { parentUniqueName: parent, parentDisplayName });
+        else if (child) index.set(child, null);
+      }
+    }
+  }
+  for (const [key, value] of index) if (!value) index.delete(key);
+  return index;
+}
+
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -760,6 +788,49 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       sources: [{ type: 'non-drop', text: details.length ? `Creator Glyph. ${details.join(' ')}` : 'Creator Glyph. See the linked creator source for availability.', source: 'browse.wf' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
+  }
+
+  // A direct export component relationship is concrete evidence only when
+  // the parent itself resolves to a concrete acquisition route. Resolve the
+  // parent with component propagation disabled to avoid circular inheritance.
+  const component = exportComponentIndex?.get(canonicalPath(dropIndexKey));
+  if (component) {
+    const parentInfo = getAcquisitionInfo(
+      component.parentUniqueName,
+      component.parentDisplayName,
+      dropIndex,
+      overridesData,
+      recipeResultIndex,
+      marketIndex,
+      bundleIndex,
+      syndicateIndex,
+      wikiSigilIndex,
+      wikiVendorIndex,
+      wikiTennoGenIndex,
+      wikiBaroIndex,
+      exportVendorIndex,
+      alwaysAvailableIndex,
+      glyphSupplementIndex,
+      wikiBlueprintIndex,
+      wikiResearchIndex,
+      relicStateIndex,
+      wikiResourceIndex,
+      wikiPageAcquisitionIndex,
+      wikiAcquisitionStatusIndex,
+      exaltedWeaponIndex,
+      undefined,
+    );
+    const parentSource = parentInfo.sources?.find((source) => source?.text && source.type !== 'status');
+    if (parentSource) {
+      return {
+        sources: [{
+          type: 'non-drop',
+          text: `Included with ${component.parentDisplayName}. ${parentSource.text}`,
+          source: `DE export additionalItems relationship + ${parentSource.source || 'parent acquisition record'}`,
+        }],
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
   }
 
   const wikiStatus = wikiAcquisitionStatusIndex?.get(canonicalPath(dropIndexKey));

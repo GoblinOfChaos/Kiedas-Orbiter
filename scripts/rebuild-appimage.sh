@@ -48,6 +48,7 @@ EOF
 RESOURCE_DIR="$BUNDLE_DIR/Kieda's Orbiter.AppDir/usr/lib/kiedas-orbiter"
 mkdir -p "$RESOURCE_DIR"
 cp -a "$REPO/src-tauri/target/release/data" "$RESOURCE_DIR/"
+test -f "$RESOURCE_DIR/data/assets/data/wiki-baro-acquisition.json"
 
 "$LINUXDEPLOY" \
   --appdir "Kieda's Orbiter.AppDir" \
@@ -57,6 +58,8 @@ cp -a "$REPO/src-tauri/target/release/data" "$RESOURCE_DIR/"
   --icon-filename "kiedas-orbiter" \
   --output appimage \
   --plugin gtk
+
+test -f "Kieda's Orbiter.AppDir/usr/lib/kiedas-orbiter/data/assets/data/wiki-baro-acquisition.json"
 
 echo "==> Copying result to both shortcut paths"
 cp "Kieda's_Orbiter-x86_64.AppImage" "Kieda's Orbiter_0.7.0_amd64.AppImage"

@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:10:50.571Z
+Generated: 2026-08-15T05:11:56.878Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11894**
+Items with concrete acquisition records: **11904**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1262**
+Records without concrete acquisition evidence: **1252**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -55,8 +55,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Asa Phased Syandana | `/Lotus/Upgrades/Skins/Scarves/EnergyScarfVoidSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Asa_Phased_Syandana |
 | Ascrien Sigil | `/Lotus/Upgrades/Skins/Sigils/NightwaveCalibanDeluxeSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ascrien_Sigil |
 | Ash Koga Helmet | `/Lotus/Upgrades/Skins/Ninja/NinjaDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ash_Koga_Helmet |
-| Ash Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageAshPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ash_Prime_Glyph_-_Bright |
-| Ash Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageAshPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ash_Prime_Glyph_-_Dark |
 | Ash Shroud Helmet | `/Lotus/Upgrades/Skins/Ninja/AshDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ash_Shroud_Helmet |
 | Aspirant Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilZorba` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Aspirant Sigil |
 | Athletic Disc Player and Towel | `/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAthletic` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Athletic_Disc_Player_and_Towel |
@@ -65,22 +63,16 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Athletic Sleeves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAthletic` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Athletic_Sleeves |
 | Atlas Karst Helmet | `/Lotus/Upgrades/Skins/Brawler/AtlasDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Atlas_Karst_Helmet |
 | Atlas Poly Glyph | `/Lotus/Types/AvatarImages/AvatarImageLowPolyAtlas` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Atlas_Poly_Glyph |
-| Atlas Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageAtlasPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Atlas_Prime_Glyph_-_Bright |
-| Atlas Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageAtlasPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Atlas_Prime_Glyph_-_Dark |
 | Atramentum Emblem | `/Lotus/Upgrades/Skins/Clan/ShadowgrapherEventBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Atramentum_Emblem |
 | Atramentum Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilShadowgrapher` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Atramentum Sigil |
 | Baneful Blades | `/Lotus/Upgrades/Skins/PaxDuviricus/PaxDuviricusBodyBlades` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Baneful_Blades |
 | Banshee Blade of the Lotus Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWBansheeBotLArmLeftArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Banshee_Blade_of_the_Lotus_Armor |
-| Banshee Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageBansheePrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Banshee_Prime_Glyph_-_Bright |
-| Banshee Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageBansheePrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Banshee_Prime_Glyph_-_Dark |
 | Banshee Sonority Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWSonorityArmLeftArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Banshee_Sonority_Armor |
 | Banshee Soprana Helmet | `/Lotus/Upgrades/Skins/Decree/BansheeDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Banshee_Soprana_Helmet |
 | Banshee Soprana Shoulder Armor | `/Lotus/Upgrades/Skins/Decree/BansheeDeluxeArmLeftArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Banshee_Soprana_Shoulder_Armor |
 | Banshee Voidshell Armor | `/Lotus/Upgrades/Skins/Decree/BansheeVoidShellArmLeftArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Banshee_Voidshell_Armor |
 | Banshee Voidshell Helmet | `/Lotus/Upgrades/Skins/Decree/BansheeVoidShellHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Banshee_Voidshell_Helmet |
 | Baruuk Doan Helmet | `/Lotus/Upgrades/Skins/Pacifist/BaruukDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Baruuk_Doan_Helmet |
-| Baruuk Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageBaruukPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Baruuk_Prime_Glyph_-_Bright |
-| Baruuk Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageBaruukPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Baruuk_Prime_Glyph_-_Dark |
 | Baruuk Prime Helmet | `/Lotus/Upgrades/Skins/Pacifist/BaruukPrimeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Baruuk_Prime_Helmet |
 | BaseOperatorAnims | `/Lotus/Upgrades/Skins/Operator/AnimationSets/BaseOperatorAnims` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/BaseOperatorAnims |
 | Battlecry Ink | `/Lotus/Upgrades/Skins/Operator/Tattoos/TattooNightwaveCommando` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Battlecry_Ink |
@@ -137,8 +129,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Chitoid Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/InfNightWaveWingsRight` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Chitoid_Sentinel_Wings |
 | Chroma Dynasty Helmet | `/Lotus/Upgrades/Skins/Dragon/ChromaDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Chroma_Dynasty_Helmet |
 | Chroma Dynasty Wings | `/Lotus/Upgrades/Skins/Dragon/ChromaDeluxeWings` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Chroma Dynasty Wings |
-| Chroma Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageChromaPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Chroma_Prime_Glyph_-_Bright |
-| Chroma Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageChromaPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Chroma_Prime_Glyph_-_Dark |
 | Chroma Zunlong Helmet | `/Lotus/Upgrades/Skins/Dragon/ChromaLNYHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Chroma_Zunlong_Helmet |
 | Chroma Zunlong Wings | `/Lotus/Upgrades/Skins/Dragon/ChromaLNYWings` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Chroma Zunlong Wings |
 | Chrysalis Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/InfestedWingsRight` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Chrysalis_Sentinel_Wings |
@@ -1355,7 +1345,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7830
+- non-drop: 7840
 - override: 607
 - relic: 345
 - sortie: 1

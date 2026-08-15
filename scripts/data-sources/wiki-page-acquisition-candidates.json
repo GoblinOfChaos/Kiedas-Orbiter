@@ -1,0 +1,460 @@
+{
+  "generated": "2026-08-15T03:51:10.575Z",
+  "items": [
+    {
+      "name": "Aklato Day of the Dead Skin",
+      "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenAklato",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1630360,
+      "title": "Aklato Day of the Dead Skin",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Aklato_Day_of_the_Dead_Skin",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for  20 or as part of Day of the Dead Weapon Skin Pack  175"
+      }
+    },
+    {
+      "name": "Batoten",
+      "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeaponIP",
+      "category": "warframe-items, ExportWeapons",
+      "pageId": 1549481,
+      "title": "Batoten",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Batoten",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "The Batoten is automatically acquired upon claiming a Hound configured with the Dorma Model. Note that this weapon also takes up one Sentinel inventory slot."
+      }
+    },
+    {
+      "name": "Broca Prominence Syandana",
+      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnLargeCapeTwitch",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1632526,
+      "title": "Broca Prominence Syandana",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Broca_Prominence_Syandana",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Purchase from Varzia for 10  Aya."
+      }
+    },
+    {
+      "name": "Dax Lustratus Shoulder Plates",
+      "uniqueName": "/Lotus/Upgrades/Skins/Armor/DaxFlaredArmor/DaxFlaredAArmor",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1634105,
+      "title": "Dax Lustratus Shoulder Plates",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Dax_Lustratus_Shoulder_Plates",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Obtainable from the following Operations:"
+      }
+    },
+    {
+      "name": "Deth Machine Rifle",
+      "uniqueName": "/Lotus/Types/Sentinels/SentinelWeapons/DethMachineRifle",
+      "category": "warframe-items, ExportWeapons",
+      "pageId": 222469,
+      "title": "Deth Machine Rifle",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Deth_Machine_Rifle",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "The Deth Machine Rifle is automatically acquired upon obtaining  Dethcube. Note that this weapon also takes up one Companion inventory slot."
+      }
+    },
+    {
+      "name": "Dominus Aureus",
+      "uniqueName": "/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemEvent",
+      "category": "ExportResources",
+      "pageId": 1599133,
+      "title": "Dominus Aureus",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Dominus_Aureus",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Dominus Aureus can be obtained by:"
+      }
+    },
+    {
+      "name": "Emerald Talent",
+      "uniqueName": "/Lotus/Types/JadeShadowsPart2Mission/Gameplay/Resources/AshFavor",
+      "category": "ExportResources",
+      "pageId": 1640605,
+      "title": "Emerald Talent",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Emerald_Talent",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "After completing Jade Shadows: Constellations, The Kuva Wytch node becomes available. The mission can be started either from within Pontis Tower, or directly from Railjack Navigation."
+      }
+    },
+    {
+      "name": "Excalibur Obsidian Azura Skin",
+      "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ObsidianExcaliburSkinB",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1631332,
+      "title": "Excalibur Obsidian Azura Skin",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Excalibur_Obsidian_Azura_Skin",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "The Excalibur Obsidian Azura Skin was available through the PlayStation store via the Obisidan Azura Collection."
+      }
+    },
+    {
+      "name": "Fragor Tekelu Skin",
+      "uniqueName": "/Lotus/Upgrades/Skins/Ornate/TekeluFragorSkin",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1631189,
+      "title": "Fragor Tekelu Skin",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Fragor_Tekelu_Skin",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Was previously available from Gift from the Lotus in 2019."
+      }
+    },
+    {
+      "name": "Gara Prime Theme",
+      "uniqueName": "/Lotus/Types/Items/SongItems/GaraPrimeSongItem",
+      "category": "ExportResources",
+      "pageId": 1586752,
+      "title": "Gara Prime Theme",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Gara_Prime_Theme",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "The Somachord version of the theme can be bought from Varzia for 5  Aya."
+      }
+    },
+    {
+      "name": "Glacia Syandana",
+      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/IceSpikeCape",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1632500,
+      "title": "Glacia Syandana",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Glacia_Syandana",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Obtained from the following  Nightwave season(s):"
+      }
+    },
+    {
+      "name": "Helminth Charger",
+      "uniqueName": "/Lotus/Types/Game/KubrowPet/ChargerKubrowPetPowerSuit",
+      "category": "warframe-items, ExportSentinels",
+      "pageId": 1104857,
+      "title": "Helminth Charger",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Helminth_Charger",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "The player must have completed the Howl of the Kubrow quest in order to have an operating Incubator on the Orbiter, as well as have acquired a Kubrow Egg from Kubrow Dens on the Grineer Forest tilesets of Earth and a built Incubator Power Core whose blueprint can be obtained from the Market."
+      }
+    },
+    {
+      "name": "Karotic Signa",
+      "uniqueName": "/Lotus/Upgrades/Skins/Crowns/GarudaBloodCrown",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1640706,
+      "title": "Karotic Signa",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Karotic_Signa",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Acquired by activating 5 consoles in a short timespan in the The Kuva Wytch (in the opposing opponent's capital ship) and entering a normally locked secret room just before the Bloodfrenzied Sister miniboss spawn room. The player has roughly 40 seconds to bypass all consoles, otherwise, the consoles will reset, undoing player progression. They don't have to be interacted in order, but it is advised."
+      }
+    },
+    {
+      "name": "Kyndryn Gunblade Skin",
+      "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Redeemer/TnSpikeGunbladeSkin",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1635960,
+      "title": "Kyndryn Gunblade Skin",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Kyndryn_Gunblade_Skin",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "This skin is purchasable as a recurring event reward, for the following:"
+      }
+    },
+    {
+      "name": "Lato Prime",
+      "uniqueName": "/Lotus/Weapons/Tenno/Pistol/LatoPrime",
+      "category": "warframe-items, ExportWeapons",
+      "pageId": 2539,
+      "title": "Lato Prime",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Lato_Prime",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "In the global build of the game, the Lato Prime was only available to owners of the Grand Master Founders package that was offered between December 19, 2012 and November 1, 2013."
+      }
+    },
+    {
+      "name": "Loiaus Chest Medallion",
+      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauPurpleHeartMedalC",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1634106,
+      "title": "Loiaus Chest Medallion",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Loiaus_Chest_Medallion",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Obtainable from the following Operations:"
+      }
+    },
+    {
+      "name": "Mag Amethyst Skin",
+      "uniqueName": "/Lotus/Upgrades/Skins/Mag/DiscordMag",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1631307,
+      "title": "Mag Amethyst Skin",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Mag_Amethyst_Skin",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "The Mag Amethyst Skin was available through the Discord store via the Reverence Pack, along with Excalibur Amethyst Skin & Volt Amethyst Skin."
+      }
+    },
+    {
+      "name": "Mausolon",
+      "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Primary/ThanoTechArchLongGun/ThanoTechLongGun",
+      "category": "warframe-items, ExportWeapons",
+      "pageId": 1523869,
+      "title": "Mausolon",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Mausolon",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "A built Mausolon is automatically acquired upon claiming any Necramech, either the Voidrig or the Bonewidow, from the Foundry. Functioning as their default weapon option, the Mausolon also comes with the necessary Gravimag already pre-installed."
+      }
+    },
+    {
+      "name": "Naberus Shoulder Armor",
+      "uniqueName": "/Lotus/Upgrades/Skins/Armor/Halloween2014Wings/Halloween2014ArmArmor",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1632787,
+      "title": "Naberus Shoulder Armor",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Naberus_Shoulder_Armor",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "This armor is purchaseable from the Market for  50."
+      }
+    },
+    {
+      "name": "Nidus Prime Theme",
+      "uniqueName": "/Lotus/Types/Items/SongItems/NidusPrimeSongItem",
+      "category": "ExportResources",
+      "pageId": 1586760,
+      "title": "Nidus Prime Theme",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Nidus_Prime_Theme",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "The Somachord version of the theme can be bought from Varzia for 5  Aya."
+      }
+    },
+    {
+      "name": "Nulwarden Syandana (Void-swept)",
+      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TC2025EvolvedOrokinScarf",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1635114,
+      "title": "Nulwarden Syandana (Void-swept)",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Nulwarden_Syandana_(Void-swept)",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Purchasing the Nulwarden Syandana from Varzia for 1  Regal Aya will automatically add this to your inventory."
+      }
+    },
+    {
+      "name": "Ocular Stem-Root",
+      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishFPartItem",
+      "category": "ExportResources",
+      "pageId": 1543639,
+      "title": "Ocular Stem-Root",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Ocular_Stem-Root",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Ocular Stem-Roots can be obtained by filleting  Flagellocanths through Daughter in the Necralisk."
+      }
+    },
+    {
+      "name": "Pareidola Ephemera",
+      "uniqueName": "/Lotus/Upgrades/Skins/Effects/InkEphemeraB",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1631095,
+      "title": "Pareidola Ephemera",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Pareidola_Ephemera",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Can be purchased during Operation: Atramentum from Aspirant Zorba in any Relays for 65  Nightmare Tatters once Community Progress has reached 60%."
+      }
+    },
+    {
+      "name": "Proof Fragment",
+      "uniqueName": "/Lotus/Types/Items/MiscItems/Beacon",
+      "category": "ExportResources",
+      "pageId": 749940,
+      "title": "Proof Fragment",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Proof_Fragment",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "They can be obtained by killing the enemies from the quest, where the fragments take up the form of Nav Coordinates.  A total of 9 fragments are required to build all the keys needed to complete the quest."
+      }
+    },
+    {
+      "name": "Pyrus Essence",
+      "uniqueName": "/Lotus/Types/Items/RelayRebuild/PhaseOneFireElement",
+      "category": "ExportResources",
+      "pageId": 1344175,
+      "title": "Pyrus Essence",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Pyrus_Essence",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Pyrus Essence can be gained on either Earth, Mercury, Ceres, or Saturn by knocking down and capturing Pyrus Essence Carrier, Eximus-like units that drop Pyrus Essence upon being captured."
+      }
+    },
+    {
+      "name": "Revenant Prime Theme",
+      "uniqueName": "/Lotus/Types/Items/SongItems/RevenantPrimeSongItem",
+      "category": "ExportResources",
+      "pageId": 1586763,
+      "title": "Revenant Prime Theme",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Revenant_Prime_Theme",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "The Somachord version of the theme can be bought from Varzia for 5  Aya."
+      }
+    },
+    {
+      "name": "Saturated Muscle Mass",
+      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishCPartItem",
+      "category": "ExportResources",
+      "pageId": 1525836,
+      "title": "Saturated Muscle Mass",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Saturated_Muscle_Mass",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Saturated Muscle Mass can be obtained by filleting Kymaeros and Ostimyr (both from the Cambion Drift) at Daughter in the Necralisk."
+      }
+    },
+    {
+      "name": "Scrubber Exa Brain",
+      "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishExaBrainItem",
+      "category": "ExportResources",
+      "pageId": 1363160,
+      "title": "Scrubber Exa Brain",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Scrubber_Exa_Brain",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Exa Brains are acquired by dismantling Scrubbers caught through Fishing. Go to The Business in Fortuna, select the desired amount of Scrubbers available, and select the \"Dismantle\" option to extract the components."
+      }
+    },
+    {
+      "name": "Spore Ephemera",
+      "uniqueName": "/Lotus/Upgrades/Skins/Effects/InfestedEphemeraA",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1604467,
+      "title": "Spore Ephemera",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Spore_Ephemera",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Awarded from reaching certain ranks in Nightwave:"
+      }
+    },
+    {
+      "name": "Tammpet Sugatra",
+      "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/Sugotchi1999MeleeDangle",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1631267,
+      "title": "Tammpet Sugatra",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Tammpet_Sugatra",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Acquired from achieving Nightwave Nora's Mix Volume 8: Rank 22."
+      }
+    },
+    {
+      "name": "TennoCon 2016 Syandana",
+      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoConScarf",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1632606,
+      "title": "TennoCon 2016 Syandana",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/TennoCon_2016_Syandana",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Originally obtained as a bonus code from purchasing a physical TennoCon 2016 ticket. Now no longer available."
+      }
+    },
+    {
+      "name": "Tink Dissipator Coil",
+      "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/SolarisFishDissipatorCoilItem",
+      "category": "ExportResources",
+      "pageId": 1363158,
+      "title": "Tink Dissipator Coil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Tink_Dissipator_Coil",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Tink Dissipator Coils are acquired by dismantling Tinks caught through Fishing. Go to The Business in Fortuna, select the desired amount of Tinks available, and select the \"Dismantle\" option to extract the components."
+      }
+    },
+    {
+      "name": "Vauban Prime Theme",
+      "uniqueName": "/Lotus/Types/Items/SongItems/VaubanPrimeSongItem",
+      "category": "ExportResources",
+      "pageId": 1586764,
+      "title": "Vauban Prime Theme",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Vauban_Prime_Theme",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "The Somachord version of the theme can be bought from Varzia for 5  Aya."
+      }
+    },
+    {
+      "name": "Vestigial Motes",
+      "uniqueName": "/Lotus/Types/Gameplay/JadeShadows/Resources/AscensionResourceItem",
+      "category": "ExportResources",
+      "pageId": 1585435,
+      "title": "Vestigial Motes",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Vestigial_Motes",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Completing Ascension missions on Brutus, Uranus, awarded in quantities of 11-14 (16-18 on The Steel Path)."
+      }
+    },
+    {
+      "name": "Wisp Dex Skin",
+      "uniqueName": "/Lotus/Upgrades/Skins/Wisp/DexWispSkin",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": 1557796,
+      "title": "Wisp Dex Skin",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Wisp_Dex_Skin",
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "The Wisp Dex Skin was available for logging in to Warframe from March 28, 2022 to May 2, 2022, and for defeating John Prodman in his Gift of the Lotus - Stolen! Assassination from May 19th, 2023 to June 2, 2023."
+      }
+    }
+  ]
+}

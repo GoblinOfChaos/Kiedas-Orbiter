@@ -5,21 +5,17 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const ROOT = resolve(import.meta.dirname, '..');
-const gapsPath = resolve(ROOT, 'scripts/data-sources/current-acquisition-gaps.md');
+const evidencePath = resolve(ROOT, 'scripts/data-sources/acquisition-item-evidence.json');
 const outputPath = resolve(ROOT, 'scripts/data-sources/wiki-page-acquisition-audit.json');
 const reportPath = resolve(ROOT, 'scripts/data-sources/wiki-page-acquisition-audit.md');
-const appAssetPath = resolve(ROOT, 'src-tauri/data/assets/data/wiki-page-acquisition.json');
-const statusAssetPath = resolve(ROOT, 'src-tauri/data/assets/data/wiki-acquisition-status.json');
 const API = 'https://wiki.warframe.com/api.php';
 const BATCH_SIZE = 50;
 const CONCURRENCY = 4;
 
-const gapText = readFileSync(gapsPath, 'utf8');
-const items = [...gapText.matchAll(/^\| (.*?) \| `([^`]+)` \| ([^|]+) \|/gm)]
-  .map((match) => ({ name: match[1], uniqueName: match[2], category: match[3].trim() }));
-function readObject(path) {
-  try { return JSON.parse(readFileSync(path, 'utf8')); } catch { return {}; }
-}
+const evidence = JSON.parse(readFileSync(evidencePath, 'utf8'));
+const items = evidence.items
+  .filter((item) => item.auditStatus === 'wiki-status-no-acquisition-evidence')
+  .map(({ displayName: name, uniqueName, sourcedCategories }) => ({ name, uniqueName, category: sourcedCategories.join(', ') }));
 
 function extractAcquisition(text) {
   if (typeof text !== 'string') return null;
@@ -77,22 +73,11 @@ const stats = {
   errors: results.filter((item) => item.error).length,
 };
 writeFileSync(outputPath, `${JSON.stringify({ generated: new Date().toISOString(), stats, items: results }, null, 2)}\n`);
-const appAcquisition = readObject(appAssetPath);
-for (const item of results) {
-  const text = item.acquisition?.text?.trim();
-  if (!text || text.length < 40 || /:\s*$/.test(text) || appAcquisition[item.name]) continue;
-  appAcquisition[item.name] = { section: item.acquisition.section, text, url: item.url };
-}
-writeFileSync(appAssetPath, `${JSON.stringify(appAcquisition, null, 2)}\n`);
-const statusIndex = readObject(statusAssetPath);
-for (const item of results) {
-  if (!statusIndex[item.uniqueName]) statusIndex[item.uniqueName] = {
-    displayName: item.name,
-    pageFound: !item.missing && !item.error,
-    url: item.url || null,
-  };
-}
-writeFileSync(statusAssetPath, `${JSON.stringify(statusIndex, null, 2)}\n`);
+// Discovery only: candidates are reviewed against the exact export path before
+// they are promoted into app data. This prevents a page snippet or stale Wiki
+// prose from becoming an acquisition claim automatically.
+const candidatesPath = resolve(ROOT, 'scripts/data-sources/wiki-page-acquisition-candidates.json');
+writeFileSync(candidatesPath, `${JSON.stringify({ generated: new Date().toISOString(), items: results.filter((item) => item.acquisition) }, null, 2)}\n`);
 
 const byCategory = new Map();
 for (const item of results) {
@@ -105,12 +90,12 @@ for (const item of results) {
 const lines = [
   '# Wiki page acquisition audit', '',
   `Generated: ${new Date().toISOString()}`, '',
-  `Remaining app gaps checked: **${stats.total}**`,
+  `Status-only records checked: **${stats.total}**`,
   `Wiki pages found: **${stats.pages}**`,
   `Pages with an explicit Acquisition section: **${stats.acquisitionSections}**`,
   `Missing pages: **${stats.missingPages}**`,
   `Query errors: **${stats.errors}**`, '',
-  'This is a discovery list. Acquisition prose is not imported automatically because it requires source-quality review.', '',
+  'This is a discovery list. Acquisition prose is not imported automatically because it requires source-quality review against the exact DE export object.', '',
   '## By category', '', '| Category | Gaps | Pages | Acquisition sections |', '|---|---:|---:|---:|',
   ...[...byCategory.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([category, value]) => `| ${category} | ${value.total} | ${value.pages} | ${value.sections} |`), '',
   '## Items with Acquisition sections', '', '| Name | Unique name | Category | Wiki page | Acquisition text |', '|---|---|---|---|---|',
@@ -121,7 +106,5 @@ const lines = [
   ...results.filter((item) => item.missing || item.error).map((item) => `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.error || 'page not found'} |`), '',
 ];
 writeFileSync(reportPath, `${lines.join('\n')}\n`);
-console.log(`\nWrote ${outputPath} and ${reportPath}`);
-console.log(`Wrote ${appAssetPath} with ${Object.keys(appAcquisition).length} actionable entries`);
-console.log(`Wrote ${statusAssetPath} with ${Object.keys(statusIndex).length} page statuses`);
-console.log(JSON.stringify({ ...stats, actionableEntries: Object.keys(appAcquisition).length }));
+console.log(`\nWrote ${outputPath}, ${reportPath}, and ${candidatesPath}`);
+console.log(JSON.stringify({ ...stats, candidates: results.filter((item) => item.acquisition).length }));

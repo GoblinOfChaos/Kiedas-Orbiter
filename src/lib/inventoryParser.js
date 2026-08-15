@@ -1751,7 +1751,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       '/Lotus/Upgrades/Mods/Warframe/Expert/AvatarShieldRechargeRateModExpert',
       '/Lotus/Upgrades/Mods/Syndicate/BallisticaMod',
     ]);
-    if (!owned && UNOBTAINABLE_UNOWNED_MODS.has(canonicalUniqueName(un))) continue;
+    const isEmptyArtifactPlaceholder = entry?.name === '/Lotus/Language/Items/EmptyArtifact' && entry?.excludeFromCodex === true;
+    if (!owned && (UNOBTAINABLE_UNOWNED_MODS.has(canonicalUniqueName(un)) || isEmptyArtifactPlaceholder)) continue;
     // The acquisition dataset is for enrichment (how-to-get info) below)
     // only - it must never gate whether a mod appears in the browsable
     // catalog at all. Its coverage is thin for whole categories (Stance,

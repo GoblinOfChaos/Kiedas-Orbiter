@@ -8,6 +8,7 @@ const ROOT = resolve(import.meta.dirname, '..');
 const EXPORT_ROOT = resolve(process.env.HOME, '.local/share/kiedas-orbiter/data/export');
 const ASSET_ROOT = resolve(ROOT, 'src-tauri/data/assets/data');
 const OUTPUT = resolve(ROOT, 'scripts/data-sources/current-acquisition-gaps.md');
+const EVIDENCE_OUTPUT = resolve(ROOT, 'scripts/data-sources/acquisition-item-evidence.json');
 
 const readJson = (path) => JSON.parse(readFileSync(path, 'utf8'));
 const loadExport = (name) => readJson(resolve(EXPORT_ROOT, `${name}.json`));
@@ -54,6 +55,13 @@ const UNOBTAINABLE_UNOWNED_MODS = new Set([
   '/Lotus/Upgrades/Mods/Warframe/Expert/AvatarShieldRechargeRateModExpert',
   '/Lotus/Upgrades/Mods/Syndicate/BallisticaMod',
 ]);
+for (const tableName of ['ExportUpgrades', 'ExportAvionics']) {
+  for (const [key, entry] of Object.entries(exportData[tableName] || {})) {
+    if (entry?.name === '/Lotus/Language/Items/EmptyArtifact' && entry?.excludeFromCodex === true) {
+      UNOBTAINABLE_UNOWNED_MODS.add(canonical(key));
+    }
+  }
+}
 
 // The browser source uses Vite extensionless imports. Replace only those
 // imports with the real bundled acquisition data and the already-tested
@@ -127,8 +135,18 @@ const catalog = new Map();
 function addItem(uniqueName, name, category) {
   const key = canonical(uniqueName);
   if (!key || !name || name.startsWith('/Lotus/')) return;
-  if (UNOBTAINABLE_UNOWNED_MODS.has(key)) return;
-  if (!catalog.has(key)) catalog.set(key, { uniqueName: key, name, category });
+  const existing = catalog.get(key);
+  if (existing) {
+    existing.sourcedCategories = [...new Set([...(existing.sourcedCategories || []), category])];
+    return;
+  }
+  catalog.set(key, {
+    uniqueName: key,
+    name,
+    category,
+    unavailablePlaceholder: UNOBTAINABLE_UNOWNED_MODS.has(key),
+    sourcedCategories: [category],
+  });
 }
 
 for (const item of acquisitionItems) addItem(item.uniqueName, item.name, item.category || item.type || 'warframe-items');
@@ -147,6 +165,27 @@ try {
   const combined = readJson(resolve(ROOT, 'src-tauri/data/assets/wfcd/wfcd-combined.json'));
   for (const item of combined.Glyphs || []) addItem(item.uniqueName, item.name, 'Glyphs');
 } catch { /* Glyphs are optional for older bundles */ }
+
+// Cosmetics.jsx renders every ExportCustoms skin/sigil plus every WFCD Glyph.
+for (const [uniqueName, entry] of Object.entries(exportData.ExportCustoms || {})) {
+  if (!/\/Upgrades\/Skins\//i.test(uniqueName)) continue;
+  addItem(uniqueName, displayNameFor(uniqueName, entry), 'Cosmetics');
+}
+
+function screensFor(item) {
+  const categories = item.sourcedCategories || [];
+  const screens = new Set();
+  if (categories.includes('Cosmetics')) screens.add('Cosmetics');
+  if (categories.includes('Glyphs')) screens.add('Cosmetics');
+  if (categories.includes('Relics')) screens.add('Relics');
+  if (categories.includes('ExportUpgrades') || categories.includes('ExportAvionics')) screens.add('Mods');
+  if (!screens.size || categories.some((category) => category === 'warframe-items' || /^Export(Weapons|Warframes|Sentinels|Gear|Resources|Misc|RailjackWeapons|Drones|Keys|Customs)$/.test(category))) {
+    screens.add('Inventory');
+  }
+  const recipe = indexes.recipe?.get(item.uniqueName);
+  if (recipe || acquisitionByPath.get(item.uniqueName)?.craftable) screens.add('Foundry');
+  return [...screens].sort();
+}
 
 function resolveItem(item) {
   const info = acquisition.getAcquisitionInfo(
@@ -179,12 +218,74 @@ function resolveItem(item) {
 
 const genericWiki = [];
 const genericFoundry = [];
+const unavailablePlaceholders = [];
+const unverifiedStatus = [];
 const resolvedCounts = {};
+const evidence = [];
 for (const item of [...catalog.values()].sort((a, b) => a.name.localeCompare(b.name) || a.uniqueName.localeCompare(b.uniqueName))) {
   const result = resolveItem(item);
   if (result.genericFoundry) genericFoundry.push({ ...item, text: result.texts.find((text) => text.startsWith('Built in the Foundry')) });
-  if (!result.info.sources?.length) genericWiki.push({ ...item, wiki: result.info.wikiLink?.url || '', reason: 'sources=[]; drawer displays generic wiki/no-info fallback' });
-  else resolvedCounts[result.info.sources[0].type || 'unknown'] = (resolvedCounts[result.info.sources[0].type || 'unknown'] || 0) + 1;
+  if (item.unavailablePlaceholder) unavailablePlaceholders.push({ ...item, reason: 'DE export placeholder is hidden from unowned Mods catalog; owned copies remain visible.' });
+  const sourceRecords = result.info.sources || [];
+  const statusRecord = sourceRecords.find((source) => source.type === 'status');
+  if (!sourceRecords.length) {
+    if (!item.unavailablePlaceholder) genericWiki.push({ ...item, wiki: result.info.wikiLink?.url || '', reason: 'sources=[]; drawer displays generic wiki/no-info fallback' });
+  } else if (statusRecord && !item.unavailablePlaceholder) {
+    unverifiedStatus.push({ ...item, text: statusRecord.text, wiki: result.info.wikiLink?.url || '' });
+  } else {
+    resolvedCounts[sourceRecords[0].type || 'unknown'] = (resolvedCounts[sourceRecords[0].type || 'unknown'] || 0) + 1;
+  }
+
+  const exportEvidence = [];
+  for (const tableName of ITEM_TABLES) {
+    const table = exportData[tableName];
+    const entry = table?.[item.uniqueName];
+    if (!entry || typeof entry !== 'object') continue;
+    exportEvidence.push({ table: tableName, key: item.uniqueName, fields: {
+      name: entry.name ?? null,
+      resultType: entry.resultType ?? null,
+      type: entry.type ?? null,
+      category: entry.category ?? null,
+      craftable: entry.craftable ?? null,
+      marketCost: entry.marketCost ?? null,
+      buildPrice: entry.buildPrice ?? null,
+      buildTime: entry.buildTime ?? null,
+      codexSecret: entry.codexSecret ?? null,
+      excludeFromCodex: entry.excludeFromCodex ?? null,
+      introducedAt: entry.introducedAt ?? null,
+    } });
+  }
+  const acquisitionRecord = acquisitionByPath.get(item.uniqueName);
+  evidence.push({
+    uniqueName: item.uniqueName,
+    displayName: item.name,
+    screens: screensFor(item),
+    sourcedCategories: item.sourcedCategories,
+    unavailablePlaceholder: !!item.unavailablePlaceholder,
+    exportEvidence,
+    acquisitionEvidence: acquisitionRecord ? {
+      uniqueName: acquisitionRecord.uniqueName,
+      category: acquisitionRecord.category ?? null,
+      craftable: !!acquisitionRecord.craftable,
+      drops: (acquisitionRecord.drops ?? []).map((drop) => ({
+        location: drop.location ?? null,
+        type: drop.type ?? null,
+        chance: drop.chance ?? null,
+        rarity: drop.rarity ?? null,
+      })),
+      components: (acquisitionRecord.components ?? []).map((component) => ({
+        uniqueName: component.uniqueName ?? null,
+        name: component.name ?? null,
+        itemCount: component.itemCount ?? null,
+      })),
+    } : null,
+    resolved: {
+      sourceRecords,
+      wikiLink: result.info.wikiLink || null,
+      recipe: result.info.recipe || null,
+    },
+    auditStatus: item.unavailablePlaceholder ? 'unobtainable-placeholder' : (statusRecord ? 'wiki-status-no-acquisition-evidence' : (sourceRecords.length ? 'verified-source-record' : 'unresolved')),
+  });
 }
 
 const lines = [
@@ -195,9 +296,11 @@ const lines = [
   'This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.',
   '',
   `Catalog items audited: **${catalog.size}**`,
-  `Resolved items: **${catalog.size - genericWiki.length}**`,
+  `Items with concrete acquisition records: **${catalog.size - genericWiki.length - unavailablePlaceholders.length - unverifiedStatus.length}**`,
   `Generic wiki / no-info items: **${genericWiki.length}**`,
   `Generic Foundry sentence items: **${genericFoundry.length}**`,
+  `Unobtainable export placeholders: **${unavailablePlaceholders.length}**`,
+  `Wiki-status records without acquisition evidence: **${unverifiedStatus.length}**`,
   '',
   'The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.',
   '',
@@ -213,6 +316,18 @@ const lines = [
   '|---|---|---|---|',
   ...(genericWiki.length ? genericWiki.map((item) => `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.reason} |`) : ['| None |  |  |  |']),
   '',
+  '## Wiki status records without acquisition evidence',
+  '',
+  '| Name | Unique name | Category | Current status text | Wiki |',
+  '|---|---|---|---|---|',
+  ...(unverifiedStatus.length ? unverifiedStatus.map((item) => `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.text.replaceAll('|', '\\|')} | ${item.wiki} |`) : ['| None |  |  |  |  |']),
+  '',
+  '## Unobtainable export placeholders',
+  '',
+  '| Name | Unique name | Category | Treatment |',
+  '|---|---|---|---|',
+  ...(unavailablePlaceholders.length ? unavailablePlaceholders.map((item) => `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.reason} |`) : ['| None |  |  |  |']),
+  '',
   '## Resolved source-stage counts',
   '',
   ...Object.entries(resolvedCounts).sort(([a], [b]) => a.localeCompare(b)).map(([stage, count]) => `- ${stage}: ${count}`),
@@ -221,5 +336,9 @@ const lines = [
 
 mkdirSync(dirname(OUTPUT), { recursive: true });
 writeFileSync(OUTPUT, `${lines.join('\n')}\n`);
-console.log(`Audited ${catalog.size} catalog items: ${genericWiki.length} generic/no-info, ${genericFoundry.length} generic Foundry.`);
+// Keep the machine-readable ledger compact; jq/any JSON viewer can format it
+// for inspection without inflating the checked-in artifact.
+writeFileSync(EVIDENCE_OUTPUT, `${JSON.stringify({ generatedAt: new Date().toISOString(), itemCount: evidence.length, items: evidence })}\n`);
+console.log(`Audited ${catalog.size} exact export/WFCD objects: ${catalog.size - genericWiki.length - unverifiedStatus.length - unavailablePlaceholders.length} concrete, ${genericWiki.length} generic/no-info, ${unverifiedStatus.length} status-only, ${genericFoundry.length} generic Foundry, ${unavailablePlaceholders.length} unavailable placeholders.`);
 console.log(`Wrote ${OUTPUT}`);
+console.log(`Wrote ${EVIDENCE_OUTPUT}`);

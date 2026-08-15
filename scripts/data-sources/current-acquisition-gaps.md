@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T08:45:22.864Z
+Generated: 2026-08-15T08:47:59.060Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12885**
+Items with concrete acquisition records: **12890**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **261**
+Records without concrete acquisition evidence: **256**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -72,7 +72,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Depths Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImagedepths` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Depths_Glyph |
 | Digital Extremes Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphDELogo` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Digital_Extremes_Glyph |
 | Disciple's Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeDiscipleItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Disciple%27s_Emblem |
-| Dome Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/DomeWingsRight` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Sentinel_Accessory_Pack |
 | Drakgoon Bronze Skin | `/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoDrakgoonCamo` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Drakgoon_Bronze_Skin |
 | Drakgoon Rubedo Plated Skin | `/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoDrakgoonCamo` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Drakgoon_Rubedo_Plated_Skin |
 | Drip Squad 4 Life Emblem | `/Lotus/Upgrades/Skins/Clan/1999CommunityARGBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Drip_Squad_4_Life_Emblem |
@@ -89,7 +88,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Ferreusdemon Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageFerreusDemon` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Ferreusdemon_Glyph |
 | Fizzbang Flourish | `/Lotus/Upgrades/Mods/Hoverboard/HBFireWorksMod` | ExportUpgrades | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Fizzbang_Flourish |
 | Flaming Sigil | `/Lotus/Upgrades/Skins/Sigils/FireSigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Flaming_Sigil |
-| Flawless Seed | `/Lotus/Types/Items/SyndicateDogTags/NewLokaRareDogTag` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Syndicate_Medallions |
 | Flickering Sigil | `/Lotus/Upgrades/Skins/Sigils/SparkSigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Flickering_Sigil |
 | Forma Sigil | `/Lotus/Upgrades/Skins/Sigils/FormaSigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Forma_Sigil |
 | Frost Globe Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphSnowGlobeFrost` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Frost_Globe_Glyph |
@@ -126,8 +124,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Infestation Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionInfested` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Infestation_Glyph |
 | Infested Deimos Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionDeimos` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Infested_Deimos_Glyph |
 | Infested Sun Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Monster` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Infested_Sun_Glyph |
-| Insign III Phloios | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal3C` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Insign_Bundle |
-| Insign IV Perigone | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal4C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Insign IV Perigone |
+| Insign IV Perigone | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal4C` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Insign_Bundle |
 | Jade Broca Syandana | `/Lotus/Upgrades/Skins/Scarves/TnLargeCapeXbox` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Jade_Broca_Syandana |
 | Jet Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/JetWingsRight` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Sentinel_Accessory_Pack_2 |
 | Ki'Teer Razza Elixis Syandana | `/Lotus/Upgrades/Skins/Scarves/BaroCape2RazzaExilisScarf` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Ki%27Teer_Razza_Elixis_Syandana |
@@ -217,10 +214,9 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Scorpion Specter | `/Lotus/Types/Restoratives/Consumable/MacheteWomanBall` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Scorpion_Specter |
 | Seal Of Honoring | `/Lotus/Upgrades/Skins/Sigils/XBoneOneYearSigil` | ExportCustoms | Listed under XBox One Anniversary Sigils on the Warframe wiki. | Seal Of Honoring |
 | Seal Of Honoring III | `/Lotus/Upgrades/Skins/Sigils/XBoneThreeYearSigil` | ExportCustoms | Listed under XBox One Anniversary Sigils on the Warframe wiki. | Seal Of Honoring III |
-| Servio V Sporoi | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal5C` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Insign_Bundle |
 | Servio VI Kalika | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal6C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Servio VI Kalika |
 | Servio VII Phloios | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal7C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Servio VII Phloios |
-| Servio VIII Perigone | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal8C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Servio VIII Perigone |
+| Servio VIII Perigone | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal8C` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Insign_Bundle |
 | Sevagoth Prime Helmet | `/Lotus/Upgrades/Skins/Wraith/SevagothPrimeHelmet` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Sevagoth_Prime_Helmet |
 | Shadow Leader Emblem | `/Lotus/Upgrades/Skins/Clan/LeaderBadgeShadowItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Shadow_Leader_Emblem |
 | SINGLE STAFF SKIN | `/Lotus/Upgrades/Skins/Promo/ChangYou/CYSingleStaffSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/SINGLE_STAFF_SKIN |
@@ -238,8 +234,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | TAIL SECTION | `/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackTailFeatureItem` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TAIL_SECTION |
 | Tcn Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageTCN` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Tcn_Glyph |
 | Tempestarii Railjack Skin | `/Lotus/Upgrades/Skins/RailJack/RailjackGhostSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Tempestarii_Railjack_Skin |
-| Tenens IX Sporoi | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal9C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Tenens IX Sporoi |
-| Tenens X Kalika | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal10C` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Insign_Bundle |
+| Tenens IX Sporoi | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal9C` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Insign_Bundle |
 | Tenens XI Phloios | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal11C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Tenens XI Phloios |
 | Tenens XII Perigone | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal12C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Tenens XII Perigone |
 | Teng Dual Dagger Skin | `/Lotus/Upgrades/Skins/Nezha/NezhaDeluxeDualDaggerSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Teng_Dual_Dagger_Skin |
@@ -354,7 +349,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8818
+- non-drop: 8823
 - override: 620
 - relic: 339
 - sortie: 1

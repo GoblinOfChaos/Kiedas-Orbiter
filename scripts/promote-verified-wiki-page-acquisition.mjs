@@ -45,6 +45,11 @@ const records = {
     text: 'Included in the Ictus Sentinel Pack, purchasable from the Market for 93 Platinum.',
     url: 'https://wiki.warframe.com/w/Ictus_Sentinel_Pack',
   },
+  'Dome Sentinel Wings': {
+    section: 'Acquisition',
+    text: 'Included in the Sentinel Accessory Pack, purchasable from the Market for 85 Platinum.',
+    url: 'https://wiki.warframe.com/w/Sentinel_Accessory_Pack',
+  },
   'Insign II Kalika': {
     section: 'Acquisition',
     text: 'Included in the Insign Bundle. Purchase the bundle from Roathe in La Cathédrale for 150 Maphica, then unlock Insign II Kalika by equipping an Honoria with Insign I Sporoi equipped.',
@@ -53,6 +58,21 @@ const records = {
   'Grandis XX Perigone': {
     section: 'Acquisition',
     text: 'Included in the Insign Bundle. Purchase the bundle from Roathe in La Cathédrale for 150 Maphica, then unlock Grandis XX Perigone by completing Elite Temporal Archimedea on your own with Grandis XIX Phloios equipped.',
+    url: 'https://wiki.warframe.com/w/Insign_Bundle',
+  },
+  'Insign III Phloios': {
+    section: 'Acquisition',
+    text: 'Included in the Insign Bundle. Purchase the bundle from Roathe in La Cathédrale for 150 Maphica, then unlock Insign III Phloios by killing 150 enemies with melee weapons while Insign II Kalika is equipped.',
+    url: 'https://wiki.warframe.com/w/Insign_Bundle',
+  },
+  'Servio V Sporoi': {
+    section: 'Acquisition',
+    text: 'Included in the Insign Bundle. Purchase the bundle from Roathe in La Cathédrale for 150 Maphica, then unlock Servio V Sporoi by completing The Descendia with Insign IV Perigone equipped.',
+    url: 'https://wiki.warframe.com/w/Insign_Bundle',
+  },
+  'Tenens X Kalika': {
+    section: 'Acquisition',
+    text: 'Included in the Insign Bundle. Purchase the bundle from Roathe in La Cathédrale for 150 Maphica, then unlock Tenens X Kalika by defeating Janus Captain Vor with Tenens IX Sporoi equipped.',
     url: 'https://wiki.warframe.com/w/Insign_Bundle',
   },
   'General Insignia': {
@@ -66,6 +86,11 @@ const records = {
     url: 'https://wiki.warframe.com/w/Syndicate_Medallions',
   },
   'Partner Quittance': {
+    section: 'Acquisition',
+    text: 'Found as a rare Syndicate Medallion pickup in daily Syndicate Alert missions; rare medallions grant 5,000 standing. Syndicate Medallions can also be Daily Tribute rewards.',
+    url: 'https://wiki.warframe.com/w/Syndicate_Medallions',
+  },
+  'Flawless Seed': {
     section: 'Acquisition',
     text: 'Found as a rare Syndicate Medallion pickup in daily Syndicate Alert missions; rare medallions grant 5,000 standing. Syndicate Medallions can also be Daily Tribute rewards.',
     url: 'https://wiki.warframe.com/w/Syndicate_Medallions',

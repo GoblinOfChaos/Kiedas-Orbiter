@@ -1841,8 +1841,8 @@
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal4C": {
     "displayName": "Insign IV Perigone",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Necramech/TefilahIridosHelmet": {
     "displayName": "Iridos Voidrig Necramech Helmet",
@@ -3516,8 +3516,8 @@
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal8C": {
     "displayName": "Servio VIII Perigone",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Wraith/SevagothDeluxeHelmet": {
     "displayName": "Sevagoth Glaukus Helmet",
@@ -3901,8 +3901,8 @@
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal9C": {
     "displayName": "Tenens IX Sporoi",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal10C": {
     "displayName": "Tenens X Kalika",

@@ -281,5 +281,13 @@
   "/Lotus/Upgrades/Skins/Promo/PCGamer/PCGamerDarkSwordDaggerHybridSkin": {
     "text": "Redeem the PCGamingShow2016 promo code.",
     "source": "Warframe Forums Free Promocodes and Content Creator Glyphs"
+  },
+  "/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaLureGearItem": {
+    "text": "Purchase from Son in the Necralisk on Deimos for Entrati Standing.",
+    "source": "WARFRAME Wiki Echo-Lure acquisition"
+  },
+  "/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaRarityBoost": {
+    "text": "Purchase from Son in the Necralisk on Deimos for Entrati Standing.",
+    "source": "WARFRAME Wiki Echo-Lure acquisition"
   }
 }

@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:00:59.592Z
+Generated: 2026-08-15T05:01:39.908Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11835**
+Items with concrete acquisition records: **11836**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1321**
+Records without concrete acquisition evidence: **1320**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -393,7 +393,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Flaming Sigil | `/Lotus/Upgrades/Skins/Sigils/FireSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Flaming_Sigil |
 | Flawless Seed | `/Lotus/Types/Items/SyndicateDogTags/NewLokaRareDogTag` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Flawless Seed |
 | Flickering Sigil | `/Lotus/Upgrades/Skins/Sigils/SparkSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Flickering_Sigil |
-| Flossy Sawgaw Tag | `/Lotus/Types/Items/Solaris/AnimalTagSawgawCommon` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Flossy Sawgaw Tag |
 | For My Brothers Glyph | `/Lotus/Types/AvatarImages/KahlSupporterPackGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/For_My_Brothers_Glyph |
 | For My Brothers Patch Glyph | `/Lotus/Types/AvatarImages/KahlStatueGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/For_My_Brothers_Patch_Glyph |
 | Forma Sigil | `/Lotus/Upgrades/Skins/Sigils/FormaSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Forma_Sigil |
@@ -1416,7 +1415,7 @@ Dreams of the Dead Cred |
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7771
+- non-drop: 7772
 - override: 607
 - relic: 345
 - sortie: 1

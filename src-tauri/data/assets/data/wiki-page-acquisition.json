@@ -14,6 +14,11 @@
     "text": "Obtained from Nightwave: Series 3 at Rank 28, Nora's Choice at Rank 25, or Nora's Mix Volume 5 at Rank 14.",
     "url": "https://wiki.warframe.com/w/Boolean_Syandana"
   },
+  "A Fishing Spear": {
+    "section": "Acquisition",
+    "text": "Fishing spears are purchased from the landscape fishing suppliers: Fisher Hai-Luk in Cetus, The Business in Fortuna, or Daughter in the Necralisk, using the associated faction's Standing.",
+    "url": "https://wiki.warframe.com/w/Fishing"
+  },
   "Aerospri Dex Pixia Skin": {
     "section": "Acquisition",
     "text": "The Aerospri Dex Pixia Skin is only available in the Market as part of the Titania Donann Skin for  165 or Titania Donann Collection for  195.",
@@ -43,6 +48,16 @@
     "section": "Acquisition",
     "text": "After completing Jade Shadows: Constellations, complete the Scoria's Angel node in Uranus Proxima to receive 12–16 Crimson Talent (18–22 on Steel Path). Additional Crimson Talent can be rewarded for taking down all targets during the Ramsled transition phase.",
     "url": "https://wiki.warframe.com/w/Crimson_Talent"
+  },
+  "Alpha Corruptor": {
+    "section": "Acquisition",
+    "text": "During Operation: Sling-Stone, Alpha Corruptors were acquired by defeating Infested enemies; Ancient Infested dropped the Alpha and Beta variants.",
+    "url": "https://wiki.warframe.com/w/Corruptor"
+  },
+  "Beta Corruptor": {
+    "section": "Acquisition",
+    "text": "During Operation: Sling-Stone, Beta Corruptors were acquired by defeating Infested enemies; Ancient Infested dropped the Alpha and Beta variants.",
+    "url": "https://wiki.warframe.com/w/Corruptor"
   },
   "Crisma Toroid": {
     "section": "Acquisition",
@@ -88,6 +103,11 @@
     "section": "Acquisition",
     "text": "Fillet Amniophysi, Aquapulmo, Barbisteo, Cryptosuctus, Glutinox, Kymaeros, Ostimyr, or Vitreospina caught in the Cambion Drift at Daughter in the Necralisk. It can also appear in Daughter's rotating Daily Special for Platinum.",
     "url": "https://wiki.warframe.com/w/Ferment_Bladder"
+  },
+  "Kahl Beacon": {
+    "section": "Acquisition",
+    "text": "Kahl Beacon is the Air Support ability included with the Skaut landing craft. The Skaut is purchased from the Market after completing Veilbreaker or from Chipper in Kahl's Garrison for 120 Stock at Rank 5 (Home).",
+    "url": "https://wiki.warframe.com/w/Skaut"
   },
   "Glacia Syandana": {
     "section": "Acquisition",
@@ -139,6 +159,11 @@
     "text": "Obtained from Series 1 or Intermission II of Nightwave at Rank 28. It can also occasionally be purchased from the Nightwave Cred Offering store for 75 Creds.",
     "url": "https://wiki.warframe.com/w/Saturn_Six_Syandana"
   },
+  "Sacred Vessel": {
+    "section": "Acquisition",
+    "text": "Obtained during the Sands of Inaros quest, which begins after acquiring and crafting its quest blueprint.",
+    "url": "https://wiki.warframe.com/w/Sands_of_Inaros"
+  },
   "Spore Ephemera": {
     "section": "Acquisition",
     "text": "Awarded at Rank 19 in Series 2: The Emissary, Rank 18 in Intermission III, Rank 27 in Nora's Mix Volume 4, or Rank 7 in Nora's Mix: Dreams of the Dead.",
@@ -148,6 +173,11 @@
     "section": "Acquisition",
     "text": "Obtained from Nora's Mix Volume 5 at Rank 30.",
     "url": "https://wiki.warframe.com/w/Stelflare_Syandana"
+  },
+  "Stable Corruptor": {
+    "section": "Acquisition",
+    "text": "During Operation: Sling-Stone, Stable Corruptors were acquired by defeating Infested enemies; light Infested units most commonly dropped this variant.",
+    "url": "https://wiki.warframe.com/w/Corruptor"
   },
   "The Limbo Theorem": {
     "section": "Quest acquisition",

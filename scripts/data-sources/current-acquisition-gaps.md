@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T04:48:00.547Z
+Generated: 2026-08-15T04:51:08.539Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
-Catalog items audited: **13209**
-Items with concrete acquisition records: **11823**
+Catalog items audited: **13207**
+Items with concrete acquisition records: **11827**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1336**
+Records without concrete acquisition evidence: **1330**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -31,7 +31,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 |---|---|---|---|---|
 | 10 Year Anniversary Community Sigil | `/Lotus/Upgrades/Skins/Sigils/Community10YearAnniversarySigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/10_Year_Anniversary_Community_Sigil |
 | 17173 EMBLEM | `/Lotus/Upgrades/Skins/Clan/CY17173MediaBadge` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/17173_EMBLEM |
-| A Fishing Spear | `/Lotus/Types/Restoratives/Consumable/BaseSpearFishingSpear` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/A_Fishing_Spear |
 | Aetigo Tail | `/Lotus/Upgrades/Skins/Horse/ErsatzHorseTailDefaultA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Aetigo_Tail |
 | Afuris Verv Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/Twitch2021AfurisSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Afuris_Verv_Skin |
 | Air Martial | `/Lotus/Upgrades/Mods/PvPMods/Melee/AirborneMeleeAutoTargetBonus` | ExportUpgrades | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Air_Martial |
@@ -44,7 +43,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Albrecht's Treasures Glyph | `/Lotus/Types/AvatarImages/KalymosGrimoireGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Albrecht%27s_Treasures_Glyph |
 | All Mad Here Glyph | `/Lotus/Types/AvatarImages/Seasonal/Halloween2019CheshireKavat` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/All_Mad_Here_Glyph |
 | Alliance Sigil | `/Lotus/Upgrades/Skins/Sigils/AllianceSigilBasic` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Alliance_Sigil |
-| Alpha Corruptor | `/Lotus/Types/Restoratives/Consumable/AlphaCorruptor` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Alpha Corruptor |
 | Alpine Monitor Sawgaw Tag | `/Lotus/Types/Items/Solaris/AnimalTagSawgawUncommon` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Alpine_Monitor_Sawgaw_Tag |
 | Amalgam Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionAmalgam` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Amalgam_Glyph |
 | AMETHYST NEXIFERA TAG | `/Lotus/Types/Items/Deimos/AnimalTagInfestedNexiferaCommon` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/AMETHYST_NEXIFERA_TAG |
@@ -96,7 +94,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Bau Vasca Kavat Tag | `/Lotus/Types/Items/Eidolon/AnimalTagVampireKavatUncommon` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Bau Vasca Kavat Tag |
 | Beckonsnare | `/Lotus/Types/Restoratives/Consumable/Eidolon/LandscapeTrapLightGear` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Beckonsnare |
 | Belric Crystal Fragment | `/Lotus/Types/Items/MiscItems/LastWishItems/BlueCrystal` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Belric Crystal Fragment |
-| Beta Corruptor | `/Lotus/Types/Restoratives/Consumable/BetaCorruptor` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Beta Corruptor |
 | Big Bytes Pizza Sigil | `/Lotus/Upgrades/Skins/Sigils/NightwavePizzaSigil` | ExportCustoms | Listed under Nightwave Sigils on the Warframe wiki. | Big Bytes Pizza Sigil |
 | Bird 3 Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Bird 3 Sigil |
 | Bird 3 Sketch Glyph | `/Lotus/Types/AvatarImages/Events/EventGlyphCaviaBirdThree` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Bird_3_Sketch_Glyph |
@@ -578,7 +575,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Jingle Kavat Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphJingleKavat` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Jingle_Kavat_Glyph |
 | Jolly Grendel Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphJollyGrendel` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Jolly_Grendel_Glyph |
 | Judgement Points | `/Lotus/Types/Items/MiscItems/KelaArenaToken` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Judgement Points |
-| Kahl Beacon | `/Lotus/Types/Restoratives/LisetKahl` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Kahl Beacon |
 | Kahl-175 Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2021GrinoalieGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Kahl-175_Tennobaum_Glyph |
 | Karak Wraith Barrel | `/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithBarrel` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Karak_Wraith_Barrel |
 | Karnolyth Necramech Helmet | `/Lotus/Upgrades/Skins/Necramech/InfestedNecraMechHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Karnolyth_Necramech_Helmet |
@@ -950,7 +946,6 @@ Dreams of the Dead Cred |
 | Roathe's Oblivion Arena | `/Lotus/Types/Items/DangerRoom/DangerRoomTileDevilTowerUrielArena` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Roathe%27s_Oblivion_Arena |
 | Rogue Condroc Tag | `/Lotus/Types/Items/Eidolon/AnimalTagCondrocUncommon` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rogue_Condroc_Tag |
 | Roots n’ Fruits | `/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerNokkoA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Roots_n%E2%80%99_Fruits |
-| Sacred Vessel | `/Lotus/Types/Keys/MummyQuest/MummyArtifact01GearItem` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Sacred Vessel |
 | Saita Prime Hood | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Saita_Prime_Hood |
 | Saita Prime Leggings | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Saita_Prime_Leggings |
 | Saita Prime Sleeves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Saita_Prime_Sleeves |
@@ -1052,7 +1047,6 @@ Dreams of the Dead Cred |
 | Splash and Dash Sigil | `/Lotus/Upgrades/Skins/Sigils/DogDays2023ASigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Splash_and_Dash_Sigil |
 | Splashdown Sigil | `/Lotus/Upgrades/Skins/Sigils/DogDays2025Sigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Splashdown_Sigil |
 | Spotted Bolarola Tag | `/Lotus/Types/Items/Solaris/AnimalTagBolarolaCommon` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Spotted Bolarola Tag |
-| Stable Corruptor | `/Lotus/Types/Restoratives/Consumable/StableCorruptor` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Stable Corruptor |
 | Stalker In Action Glyph | `/Lotus/Types/AvatarImages/AvatarImageStalkerAction` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Stalker_In_Action_Glyph |
 | Stalker Smoke Screen Sigil | `/Lotus/Upgrades/Skins/Sigils/NWStalkerSigil` | ExportCustoms | Listed under Nightwave Sigils on the Warframe wiki. | Stalker Smoke Screen Sigil |
 | Stalker's Lair Scene | `/Lotus/Types/Items/PhotoBooth/JadeShadows/PhotoboothTileStalkerCave` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Stalker%27s_Lair_Scene |
@@ -1431,11 +1425,11 @@ Dreams of the Dead Cred |
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7756
+- non-drop: 7762
 - override: 607
 - relic: 345
 - sortie: 1
 - status: 42
 - syndicate: 292
-- transient: 53
+- transient: 51
 

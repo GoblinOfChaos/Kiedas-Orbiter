@@ -6,11 +6,13 @@ import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisi
 import bundledWikiBaroAcquisition from '../../src-tauri/data/assets/data/wiki-baro-acquisition.json';
 import bundledWikiResourceAcquisition from '../../src-tauri/data/assets/data/wiki-resources-acquisition.json';
 import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-page-acquisition.json';
+import bundledWikiDescriptionAcquisition from '../../src-tauri/data/assets/data/wiki-description-acquisition.json';
 import { WIKI_VERIFIED_ACQUISITIONS } from './wikiVerifiedAcquisitions';
 
 const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map((name) => [name.toLowerCase().trim(), true]));
 const bundledWikiResourceIndex = new Map(Object.entries(bundledWikiResourceAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
 const bundledWikiPageIndex = new Map(Object.entries(bundledWikiPageAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
+const bundledWikiDescriptionIndex = new Map(Object.entries(bundledWikiDescriptionAcquisition).map(([uniqueName, text]) => [uniqueName.replace('/StoreItems/', '/'), text]));
 
 /**
  * Shared "how do I get this" lookup, reused across Mods/Rivens/Inventory.
@@ -574,6 +576,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       wikiLink: wikiPageAcquisition.url
         ? { url: wikiPageAcquisition.url, isDirect: true }
         : getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const wikiDescriptionAcquisition = bundledWikiDescriptionIndex.get(canonicalPath(dropIndexKey));
+  if (wikiDescriptionAcquisition) {
+    return {
+      sources: [{ type: 'non-drop', text: wikiDescriptionAcquisition, source: 'Warframe Wiki Repo (WFCD exact uniqueName description)' }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
 

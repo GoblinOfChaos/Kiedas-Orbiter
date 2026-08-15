@@ -45,6 +45,7 @@ const readAsset = (name) => readJson(resolve(ASSET_ROOT, name));
 const bundledWikiBaroAcquisition = readAsset('wiki-baro-acquisition.json');
 const bundledWikiResourceAcquisition = readAsset('wiki-resources-acquisition.json');
 const bundledWikiPageAcquisition = readAsset('wiki-page-acquisition.json');
+const bundledWikiDescriptionAcquisition = readAsset('wiki-description-acquisition.json');
 const verifiedAcquisitions = await import(pathToFileURL(resolve(ROOT, 'src/lib/wikiVerifiedAcquisitions.js')).href);
 
 const ITEM_TABLES = new Set([
@@ -89,6 +90,10 @@ const acquisitionSource = readFileSync(resolve(ROOT, 'src/lib/acquisitionInfo.js
   .replace(
     "import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-page-acquisition.json';",
     `const bundledWikiPageAcquisition = ${JSON.stringify(bundledWikiPageAcquisition)};`,
+  )
+  .replace(
+    "import bundledWikiDescriptionAcquisition from '../../src-tauri/data/assets/data/wiki-description-acquisition.json';",
+    `const bundledWikiDescriptionAcquisition = ${JSON.stringify(bundledWikiDescriptionAcquisition)};`,
   )
   .replace(
     "import { WIKI_VERIFIED_ACQUISITIONS } from './wikiVerifiedAcquisitions';",

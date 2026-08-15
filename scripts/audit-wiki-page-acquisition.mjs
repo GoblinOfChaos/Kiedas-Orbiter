@@ -47,9 +47,14 @@ async function queryBatch(batch) {
   const response = await fetch(`${API}?${params}`);
   if (!response.ok) throw new Error(`Wiki query failed: ${response.status}`);
   const payload = await response.json();
+  const redirects = new Map((payload.query?.redirects || []).map((redirect) => [
+    String(redirect.from || '').toLowerCase(),
+    String(redirect.to || '').toLowerCase(),
+  ]));
   return Object.values(payload.query?.pages || {}).map((page) => ({
     pageId: Number.isFinite(Number(page.pageid)) ? Number(page.pageid) : null,
     title: page.title || null,
+    redirectFrom: [...redirects.entries()].find(([, target]) => target === String(page.title || '').toLowerCase())?.[0] || null,
     // Missing pages are returned as synthetic -1 pages with an empty
     // `missing` value, so Boolean(page.missing) is not a valid presence test.
     missing: page.pageid == null || Number(page.pageid) < 1 || Object.prototype.hasOwnProperty.call(page, 'missing'),
@@ -72,11 +77,17 @@ async function worker() {
     }
   const byTitle = new Map(pages.filter((page) => page.title).map((page) => [page.title.toLowerCase(), page]));
     for (const item of batch) {
-      const page = byTitle.get(item.name.toLowerCase());
+      const page = byTitle.get(item.name.toLowerCase())
+        || byTitle.get(redirectsTarget(pages, item.name));
       results.push({ ...item, ...(page || { missing: true, pageId: null, title: null, url: null, acquisition: null }) });
     }
     process.stdout.write(`Audited ${Math.min(results.length, items.length)}/${items.length}\r`);
   }
+}
+
+function redirectsTarget(pages, sourceTitle) {
+  const source = sourceTitle.toLowerCase();
+  return pages.find((page) => page.redirectFrom === source)?.title?.toLowerCase() || '';
 }
 await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 results.sort((a, b) => a.name.localeCompare(b.name) || a.uniqueName.localeCompare(b.uniqueName));
@@ -94,7 +105,8 @@ writeFileSync(outputPath, `${JSON.stringify({ generated: new Date().toISOString(
 // an empty `missing` field. Boolean(page.missing) therefore misclassifies it
 // as present. Keep the runtime status asset tied to the same exact API result
 // used by this audit, and require a real positive page id for pageFound.
-const status = {};
+const existingStatus = JSON.parse(readFileSync(statusAssetPath, 'utf8'));
+const status = { ...existingStatus };
 for (const item of results) {
   if (item.error) continue;
   status[item.uniqueName] = {

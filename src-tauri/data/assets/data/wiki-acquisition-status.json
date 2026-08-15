@@ -381,8 +381,8 @@
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal14C": {
     "displayName": "Capit XIV Kalika",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal15C": {
     "displayName": "Capit XV Phloios",
@@ -911,8 +911,8 @@
   },
   "/Lotus/Upgrades/Skins/Sentinels/Wings/DomeWingsRight": {
     "displayName": "Dome Sentinel Wings",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Sentinel_Accessory_Pack"
   },
   "/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoDrakgoonCamo": {
     "displayName": "Drakgoon Bronze Skin",
@@ -1231,8 +1231,8 @@
   },
   "/Lotus/Types/Items/SyndicateDogTags/NewLokaRareDogTag": {
     "displayName": "Flawless Seed",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Syndicate_Medallions"
   },
   "/Lotus/Upgrades/Skins/Sigils/SparkSigil": {
     "displayName": "Flickering Sigil",
@@ -1456,13 +1456,13 @@
   },
   "/Lotus/Types/Restoratives/Consumable/GlyphConsumable": {
     "displayName": "Glyph Prism",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Glyph"
   },
   "/Lotus/Types/Restoratives/Consumable/GlyphConsumableNoCharges": {
     "displayName": "Glyph Prism",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Glyph"
   },
   "/Lotus/Upgrades/Skins/Sigils/TwoToneSigil": {
     "displayName": "Glyphed Sigil",
@@ -1836,8 +1836,8 @@
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal3C": {
     "displayName": "Insign III Phloios",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal4C": {
     "displayName": "Insign IV Perigone",
@@ -1896,8 +1896,8 @@
   },
   "/Lotus/Upgrades/Skins/Sentinels/Wings/JetWingsRight": {
     "displayName": "Jet Sentinel Wings",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Sentinel_Accessory_Pack_2"
   },
   "/Lotus/Upgrades/Skins/Necramech/InfestedNecraMechHelmet": {
     "displayName": "Karnolyth Necramech Helmet",
@@ -2096,8 +2096,8 @@
   },
   "/Lotus/Upgrades/Skins/Sigils/MasterySigil": {
     "displayName": "Legacy Mastery Sigil",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Sigils"
   },
   "/Lotus/Types/AvatarImages/AvatarImageGlyphLegendaryQuasars": {
     "displayName": "Legendary Quasars Glyph",
@@ -2666,8 +2666,8 @@
   },
   "/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin": {
     "displayName": "Nvidia Braton",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Braton"
   },
   "/Lotus/Upgrades/Skins/Jade/NyxNemesisHelmet": {
     "displayName": "Nyx Nemesis Helmet",
@@ -3501,8 +3501,8 @@
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal5C": {
     "displayName": "Servio V Sporoi",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal6C": {
     "displayName": "Servio VI Kalika",
@@ -3906,8 +3906,8 @@
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal10C": {
     "displayName": "Tenens X Kalika",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal11C": {
     "displayName": "Tenens XI Phloios",

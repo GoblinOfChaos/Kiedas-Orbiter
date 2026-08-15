@@ -450,7 +450,10 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const overrideText = overridesData?.mods?.[displayName]
     ?? overridesData?.components?.[dropIndexKey]
     ?? overridesData?.components?.[`${displayName}|Blueprint`];
-  if (overrideText) {
+  // Some historical overrides intentionally record an unresolved lookup as
+  // `UNKNOWN (...)`. That is audit evidence, not an acquisition route, and
+  // must not be rendered as if it tells the player how to obtain the item.
+  if (overrideText && !/^UNKNOWN\b/i.test(overrideText.trim())) {
     return { sources: [{ type: 'override', text: overrideText, source: 'manual override' }], recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 

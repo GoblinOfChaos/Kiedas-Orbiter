@@ -160,6 +160,31 @@ export function buildRecipeResultIndex(exportData) {
   return index;
 }
 
+// ExportWarframes lists each ability weapon in `exalted`. This is direct DE
+// relationship data: these weapons are granted as part of the owning frame,
+// not independently acquired Foundry items or drop-table rewards.
+export function buildExaltedWeaponIndex(exportData) {
+  const index = new Map();
+  const dict = exportData?.dict || {};
+  const resolveName = (entry) => {
+    const key = entry?.name || entry?.displayName;
+    const value = key ? (dict[key] || dict[`/${key}`] || key) : '';
+    return typeof value === 'string' ? value.replace(/<[^>]*>/g, '').trim() : '';
+  };
+  for (const frame of Object.values(exportData?.ExportWarframes || {})) {
+    const frameName = resolveName(frame);
+    if (!frameName || !Array.isArray(frame?.exalted)) continue;
+    for (const weapon of frame.exalted) {
+      const key = canonicalPath(weapon);
+      if (!key) continue;
+      const names = index.get(key) || [];
+      if (!names.includes(frameName)) names.push(frameName);
+      index.set(key, names);
+    }
+  }
+  return index;
+}
+
 function formatCredits(value) {
   return Number.isFinite(Number(value)) ? `${Number(value).toLocaleString()} Credits` : null;
 }
@@ -440,7 +465,7 @@ export function buildGlyphSupplementIndex(data) {
   return index;
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex) {
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -455,6 +480,15 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   // must not be rendered as if it tells the player how to obtain the item.
   if (overrideText && !/^UNKNOWN\b/i.test(overrideText.trim())) {
     return { sources: [{ type: 'override', text: overrideText, source: 'manual override' }], recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
+  }
+
+  const exaltedFrames = exaltedWeaponIndex?.get(canonicalPath(dropIndexKey));
+  if (exaltedFrames?.length) {
+    return {
+      sources: [{ type: 'non-drop', text: `Granted with ${exaltedFrames.join(' or ')}.`, source: 'DE export' }],
+      recipe: recipe || null,
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
   }
 
   const norm = dropIndexKey?.replace('/StoreItems/', '/');

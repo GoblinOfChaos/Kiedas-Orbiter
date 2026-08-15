@@ -106,6 +106,7 @@ const dropIndex = dropsModule.buildDropIndex(exportData);
 
 const indexes = {
   recipe: acquisition.buildRecipeResultIndex(exportData),
+  exalted: acquisition.buildExaltedWeaponIndex(exportData),
   market: acquisition.buildMarketIndex(exportData),
   always: acquisition.buildAlwaysAvailableIndex(exportData),
   bundle: acquisition.buildBundleIndex(exportData),
@@ -210,6 +211,7 @@ function resolveItem(item) {
     indexes.resource,
     indexes.wikiPage,
     indexes.status,
+    indexes.exalted,
   );
   const texts = (info.sources || []).map((source) => source.text || '').filter(Boolean);
   const genericFoundry = texts.some((text) => text === 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.');
@@ -263,6 +265,16 @@ for (const item of [...catalog.values()].sort((a, b) => a.name.localeCompare(b.n
     } });
   }
   const acquisitionRecord = acquisitionByPath.get(item.uniqueName);
+  const mismatches = [];
+  if (acquisitionRecord && canonical(acquisitionRecord.uniqueName) !== item.uniqueName) {
+    mismatches.push({ type: 'acquisition-identity', detail: `warframe-items uniqueName ${acquisitionRecord.uniqueName} does not equal catalog path ${item.uniqueName}` });
+  }
+  if (result.info.recipe && acquisitionRecord && !acquisitionRecord.craftable) {
+    mismatches.push({ type: 'recipe-craftable-flag', detail: 'resolver has an export recipe but warframe-items marks the item non-craftable' });
+  }
+  if (sourceRecords.some((source) => source.type === 'drop') && !(acquisitionRecord?.drops?.length)) {
+    mismatches.push({ type: 'drop-source-coverage', detail: 'resolver has a drop source that is not represented in this item record\'s warframe-items drops' });
+  }
   evidence.push({
     uniqueName: item.uniqueName,
     displayName: item.name,
@@ -291,6 +303,10 @@ for (const item of [...catalog.values()].sort((a, b) => a.name.localeCompare(b.n
       wikiLink: result.info.wikiLink || null,
       recipe: result.info.recipe || null,
     },
+    exportRelationships: {
+      exaltedWith: indexes.exalted?.get(item.uniqueName) || [],
+    },
+    mismatches,
     auditStatus: item.unavailablePlaceholder ? 'unobtainable-placeholder' : ((statusRecord || weakSourceRecord) ? 'wiki-status-no-acquisition-evidence' : (sourceRecords.length ? 'verified-source-record' : 'unresolved')),
   });
 }

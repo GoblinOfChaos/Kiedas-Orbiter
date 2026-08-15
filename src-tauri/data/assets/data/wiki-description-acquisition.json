@@ -529,5 +529,173 @@
   "/Lotus/Upgrades/Skins/Sigils/LotusHeartSigil": {
     "text": "Purchase from the in-game Market for 1 Credit.",
     "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/OpticorConclaveVariantSigil": {
+    "text": "Purchase from Teshin using Conclave Standing.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SyndicateSigilConclaveA": {
+    "text": "Purchase from Teshin using Conclave Standing.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ConqueraSigil": {
+    "text": "Redeem the promo code Conquer; the code was retired after November 2, 2020.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/RadioLegionSigil": {
+    "text": "Nightwave: Intermission III rank 8 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WolfSigil": {
+    "text": "Nightwave: Series 1 — The Wolf of Saturn Six rank 1 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NoraSeasonTwoSigil": {
+    "text": "Nightwave: Series 2 — The Emissary rank 2 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/GlassmakerSigil": {
+    "text": "Nightwave: Series 3 — Glassmaker rank 2 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DuvDragonSigil": {
+    "text": "Nightwave: Nora's Mix Volume 4 rank 2 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NWStalkerSigil": {
+    "text": "Nightwave: Nora's Mix Volume 7 rank 2 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/KelaEventSigil": {
+    "text": "Operation: Rathuum reward for collecting at least 10 Judgment Points; the operation is currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilIndex": {
+    "text": "The Index Preview reward for achieving a score of at least 100 in a High Risk match; the event is currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ConclaveTacAlertSigilA": {
+    "text": "Reward from the first phase of the Quick Steel Conclave Alert in February 2017; the alert is currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilAmalgam": {
+    "text": "Awarded for completing the second mission of Operation: Hostile Mergers; the operation is currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FortunaSigil": {
+    "text": "Redeem the promo code SOLARISUNITED; the code was retired in early 2019.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/OstronCommunitySigil": {
+    "text": "Gifted to PC players who logged in from October 25 through November 1, 2017; the promotion is over.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DawnsEarlyLightSigil": {
+    "text": "Earned during The Great Eidolon Hunt by watching a Warframe stream while the streamer completed the By the Dawn's Early Light achievement; the event is over.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilDisciple": {
+    "text": "Granted to players who purchased the Founder Disciple package; the Founders program is closed.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilHunter": {
+    "text": "Granted to players who purchased the Founder Hunter package; the Founders program is closed.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilMaster": {
+    "text": "Granted to players who purchased the Founder Master package; the Founders program is closed.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilGrandMaster": {
+    "text": "Granted to players who purchased the Founder Grand Master package; the Founders program is closed.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/MasteryStoneSigil": {
+    "text": "Purchase from the in-game Market for 1 Credit.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014D": {
+    "text": "Reward from one of the Christmas-themed Tactical Alerts that ran in December 2014; the alerts are currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014B": {
+    "text": "Reward from one of the Christmas-themed Tactical Alerts that ran in December 2014; the alerts are currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014C": {
+    "text": "Reward from one of the Christmas-themed Tactical Alerts that ran in December 2014; the alerts are currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014A": {
+    "text": "Reward from one of the Christmas-themed Tactical Alerts that ran in December 2014; the alerts are currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EnergySigilA": {
+    "text": "Reward from the Escalation phase of eligible Tactical Alerts, including Phoenix Intercept, Emergency Exit, Project Undermine, and Proxy Rebellion; it was also a Nightwave Intermission I rank-up reward.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoLivePromoSigil": {
+    "text": "Given to attendees of TennoLive, TennoVIP, or TennoCon events; the specific event promotion is no longer active.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoGenSigil": {
+    "text": "Awarded to players whose TennoGen skin was implemented in the game.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/RadioLegionSigil": {
+    "text": "Nightwave: Intermission III rank 8 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/StarterPackASigil": {
+    "text": "Included in an earlier Warframe Starter Pack; that pack was discontinued on June 25, 2019.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/StarterPackLotusSigil": {
+    "text": "Included in the previous Starter Pack from June 25, 2019 through August 25, 2020; that pack is no longer available.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/KuvaLichSigil": {
+    "text": "Awarded after successfully defeating a Kuva Lich by converting it.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/CorpusLichSigil": {
+    "text": "Awarded after successfully defeating a Sister of Parvos by converting her.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ScarSigil": {
+    "text": "Reward for completing The Second Dream quest.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Winter2016Sigil": {
+    "text": "Gifted to all Tenno during December 2016 after the first Tennobaum donation milestone was reached.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WikiaSigil": {
+    "text": "Awarded to administrators and moderators of the Warframe Wiki.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TranslatorSigil": {
+    "text": "Awarded to players who contributed to Warframe translations.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaDeluxeHelmet": {
+    "text": "Part of the Chroma Dynasty Skin; purchase the skin from the in-game Market for 165 Platinum, or as part of the Chroma Dynasty Collection for 225 Platinum.",
+    "source": "Warframe Wiki Chroma Dynasty Skin"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaDeluxeWings": {
+    "text": "Optional wings included with the Chroma Dynasty Skin; purchase the skin from the in-game Market for 165 Platinum, or as part of the Chroma Dynasty Collection for 225 Platinum.",
+    "source": "Warframe Wiki Chroma Dynasty Skin"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWBansheeBotLArmLeftArmor": {
+    "text": "Included with the Banshee Blade of the Lotus Skin; on PC the skin is purchased through Steam/TennoGen, while on consoles it is purchased from the in-game Marketplace for 165 Platinum.",
+    "source": "Warframe Wiki Banshee Blade of the Lotus Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sentient/CalibanDeluxeHelmet": {
+    "text": "Part of the Caliban Orfeo Skin; purchase the skin from the in-game Market for 165 Platinum, or as part of the Caliban Orfeo Collection for 315 Platinum.",
+    "source": "Warframe Wiki Caliban Orfeo Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sentient/CalibanDeluxeAuxFloater": {
+    "text": "Optional auxiliary included with the Caliban Orfeo Skin; purchase the skin from the in-game Market for 165 Platinum, or as part of the Caliban Orfeo Collection for 315 Platinum.",
+    "source": "Warframe Wiki Caliban Orfeo Skin"
   }
 }

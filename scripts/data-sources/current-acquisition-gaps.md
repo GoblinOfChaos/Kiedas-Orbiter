@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T08:29:37.275Z
+Generated: 2026-08-15T08:33:04.210Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12864**
+Items with concrete acquisition records: **12869**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **282**
+Records without concrete acquisition evidence: **277**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -64,13 +64,11 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Dante's Delight Glyph | `/Lotus/Types/AvatarImages/AvatarImageDanteGlyph` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dante%27s_Delight_Glyph |
 | Darkfreack Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageDarkfreack` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Darkfreack_Glyph |
 | Deca Heirloom Glyph | `/Lotus/Types/AvatarImages/HeirloomGlyph` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Deca_Heirloom_Glyph |
-| Deck 12 Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDeckTwelve` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Deck_12_Scene |
 | Deimos Crypt Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosBurialChamber` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Deimos_Crypt_Scene |
 | Deimos Depths Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosCalamity` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Deimos_Depths_Scene |
 | Deimos Forsaken Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosForsaken` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Deimos_Forsaken_Scene |
 | Deimos Heart Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosHeart` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Deimos_Heart_Scene |
 | Deimos Membrane Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosSchism` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Deimos_Membrane_Scene |
-| Deimos Necralisk Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosHub` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Deimos_Necralisk_Scene |
 | Deimos Verge Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosSpawn` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Deimos_Verge_Scene |
 | Depths Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImagedepths` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Depths_Glyph |
 | Diamond Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/DiamondWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Diamond Sentinel Wings |
@@ -192,7 +190,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Obsidian Samia Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianSamiaScarf` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Samia_Syandana |
 | Obsidian Sedai Syandana | `/Lotus/Upgrades/Skins/Scarves/PS5Syandana` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Sedai_Syandana |
 | Old Blood Emblem | `/Lotus/Upgrades/Skins/Clan/LichKillerBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Old_Blood_Emblem |
-| Ollie’s Rocket Livery | `/Lotus/Upgrades/Skins/Motorcycle/MotorcycleOllieSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Ollie%E2%80%99s_Rocket_Livery |
 | Operator Atmosphor | `/Lotus/Upgrades/Skins/Operator/Accessories/TauBreathingShell` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Operator_Atmosphor |
 | OperatorCustomization | `/Lotus/Upgrades/Skins/Operator/OperatorCustomization` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/OperatorCustomization |
 | Orcus Prime Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/DethcubePrimeWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Orcus_Prime_Wings |
@@ -266,7 +263,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | TennoVIP 2026 Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoVIP2026Sigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TennoVIP_2026_Sigil |
 | TennoVIP East Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoVIP2024Sigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TennoVIP_East_Sigil |
 | The Baron | `/Lotus/Upgrades/Skins/Mustache/Stache05` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Baron |
-| The Cold Below Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileWraithQuestArena` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Cold_Below_Scene |
 | The Dastard | `/Lotus/Upgrades/Skins/Mustache/Stache06` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Dastard |
 | The Drifter Camp Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDrifterCamp` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Drifter_Camp_Scene |
 | The Gentleman | `/Lotus/Upgrades/Skins/Mustache/Stache` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/The_Gentleman |
@@ -285,7 +281,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Twin Grakatas Opal Skin | `/Lotus/Upgrades/Skins/GrineerAssaultRifle/NintendoGrineerAssaultRifleSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Twin_Grakatas_Opal_Skin |
 | Twin Vipers Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianTwinVipers` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Twin_Vipers_Obsidian_Skin |
 | Twin Vipers Rubedo Plated Skin | `/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoAkimboViperCamo` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Twin_Vipers_Rubedo_Plated_Skin |
-| Umbra's Courtyard Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileSacrificeCourtyard` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Umbra%27s_Courtyard_Scene |
 | Unlock Arbitrations | `/Lotus/Types/Items/UnlockArbitrationKeyItem` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Unlock_Arbitrations |
 | Unreal Tournament Glyph | `/Lotus/Types/AvatarImages/AvatarImageUnrealTournament` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Unreal_Tournament_Glyph |
 | Vasero Apex Sekhara | `/Lotus/Upgrades/Skins/Clan/ZarimanEvolvingSekharaBadgeItemC` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Vasero_Apex_Sekhara |
@@ -375,7 +370,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8797
+- non-drop: 8802
 - override: 620
 - relic: 339
 - sortie: 1

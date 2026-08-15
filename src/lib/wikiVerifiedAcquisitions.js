@@ -784,4 +784,29 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://warframe.fandom.com/wiki/Glaive',
     source: 'WARFRAME Wiki Glaive acquisition and skin record + local export exact skin record',
   }],
+  ['/Lotus/Upgrades/Skins/Motorcycle/MotorcycleOllieSkin', {
+    text: 'Complete Ollie’s Crash Course in 1:30 or less to receive Ollie’s Rocket Livery for the Atomicycle.',
+    url: 'https://www.warframe.com/en/patch-notes/psn/38-5-0',
+    source: 'Warframe.com Techrot Encore update notes + local export exact livery record',
+  }],
+  ['/Lotus/Types/Items/MiscItems/PhotoboothTileDeckTwelve', {
+    text: 'Drops from the Exploiter Orb fight in Orb Vallis; the scene is the Deck 12 Captura scene.',
+    url: 'https://forums.warframe.com/topic/1087343-has-anyone-acquired-the-deck-12-captura-scene-from-exploiter/',
+    source: 'Warframe Forums report of the in-game tooltip and Exploiter Orb route + local export exact scene record',
+  }],
+  ['/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosHub', {
+    text: 'Awarded for completing the Heart of Deimos quest.',
+    url: 'https://www.warframe.com/en/news/deimos-captura-yarismasi',
+    source: 'Warframe.com Captura of Deimos announcement + local export exact scene record',
+  }],
+  ['/Lotus/Types/Items/MiscItems/PhotoboothTileWraithQuestArena', {
+    text: 'Granted in the Inbox for completing The Call of the Tempestarii quest.',
+    url: 'https://forums.warframe.com/topic/1260225-call-of-the-tempestari-quest-feedback/',
+    source: 'Warframe Forums quest reward confirmation + local export exact scene record',
+  }],
+  ['/Lotus/Types/Items/MiscItems/PhotoboothTileSacrificeCourtyard', {
+    text: 'Granted in the Inbox after completing The Sacrifice quest.',
+    url: 'https://warframe.fandom.com/wiki/The_Sacrifice',
+    source: 'WARFRAME Wiki The Sacrifice reward record + local export exact scene record',
+  }],
 ]);

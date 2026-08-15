@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:14:50.867Z
+Generated: 2026-08-15T05:15:36.917Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13203**
-Items with concrete acquisition records: **11981**
+Items with concrete acquisition records: **12003**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1172**
+Records without concrete acquisition evidence: **1150**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -106,10 +106,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Buried Debts Emblem | `/Lotus/Upgrades/Skins/Clan/OrbBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Buried_Debts_Emblem |
 | Buried Debts Glyph | `/Lotus/Types/AvatarImages/AvatarImageBuriedDebts` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Buried_Debts_Glyph |
 | Buried Debts Sigil | `/Lotus/Upgrades/Skins/Sigils/OrbSigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Buried Debts Sigil |
-| Calavera Glyph I | `/Lotus/Types/AvatarImages/AvatarImageHalloween2016A` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Calavera_Glyph_I |
-| Calavera Glyph Ii | `/Lotus/Types/AvatarImages/AvatarImageHalloween2016B` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Calavera_Glyph_II |
-| Calavera Glyph Iii | `/Lotus/Types/AvatarImages/AvatarImageHalloween2016C` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Calavera_Glyph_III |
-| Calavera Glyph Iv | `/Lotus/Types/AvatarImages/AvatarImageHalloween2016D` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Calavera_Glyph_IV |
 | Caliban In Action Glyph | `/Lotus/Types/AvatarImages/ImageCalibanInAction` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Caliban_In_Action_Glyph |
 | Caliban Orfeo Helmet | `/Lotus/Upgrades/Skins/Sentient/CalibanDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Caliban_Orfeo_Helmet |
 | Caliban Orfeo Scapulus | `/Lotus/Upgrades/Skins/Sentient/CalibanDeluxeAuxFloater` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Caliban Orfeo Scapulus |
@@ -273,7 +269,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Digital Extremes Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphDELogo` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Digital_Extremes_Glyph |
 | Disciple Sigil | `/Lotus/Upgrades/Skins/Sigils/FounderSigilDisciple` | ExportCustoms | Listed under Founder Sigils on the Warframe wiki. | Disciple Sigil |
 | Disciple's Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeDiscipleItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Disciple%27s_Emblem |
-| Dog Days Glyph | `/Lotus/Types/AvatarImages/ImagePopsicleGrineerPurple` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dog_Days_Glyph |
 | Dog Days Kavat Glyph | `/Lotus/Types/AvatarImages/DogDaysKavatGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dog_Days_Kavat_Glyph |
 | Dog Days Kubrow Glyph | `/Lotus/Types/AvatarImages/DogDaysKubrowGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dog_Days_Kubrow_Glyph |
 | Dome Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/DomeWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Dome Sentinel Wings |
@@ -902,10 +897,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Snowlit Glyph | `/Lotus/Types/AvatarImages/AvatarImageCreatorSnowLit` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Snowlit_Glyph |
 | Solaris Emblem | `/Lotus/Upgrades/Skins/Clan/SolarisBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Solaris_Emblem |
 | Solstice Conclave Emblem | `/Lotus/Upgrades/Skins/Clan/HolidayDeathMatchBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Solstice_Conclave_Emblem |
-| Solstice Glyph I | `/Lotus/Types/AvatarImages/AvatarImageWinter2016A` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Solstice_Glyph_I |
-| Solstice Glyph Ii | `/Lotus/Types/AvatarImages/AvatarImageWinter2016B` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Solstice_Glyph_II |
-| Solstice Glyph Iii | `/Lotus/Types/AvatarImages/AvatarImageWinter2016C` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Solstice_Glyph_III |
-| Solstice Glyph Iv | `/Lotus/Types/AvatarImages/AvatarImageWinter2016D` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Solstice_Glyph_IV |
 | Solstice Sigil | `/Lotus/Upgrades/Skins/Sigils/Winter2016Sigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Solstice_Sigil |
 | Somber Stalker Sigil | `/Lotus/Upgrades/Skins/Sigils/SomberStalkerSigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Somber Stalker Sigil |
 | Son Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20SonGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Son_Tennobaum_Glyph |
@@ -1137,19 +1128,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Warframe Wiki Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageTennoChronicler` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Warframe_Wiki_Glyph |
 | Warframefanchannel Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageWarframeFanChannel` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/WarframeFanChannel_Glyph |
 | Werefested Glyph | `/Lotus/Types/AvatarImages/Seasonal/Halloween2019Werefested` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Werefested_Glyph |
-| Winter Glyph I | `/Lotus/Types/AvatarImages/AvatarImageWinterB2016A` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_I |
-| Winter Glyph Ii | `/Lotus/Types/AvatarImages/AvatarImageWinterB2016B` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_II |
-| Winter Glyph Iii | `/Lotus/Types/AvatarImages/AvatarImageWinterB2016C` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_III |
-| Winter Glyph Iv | `/Lotus/Types/AvatarImages/AvatarImageWinterB2016D` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_IV |
-| Winter Glyph Ix | `/Lotus/Types/AvatarImages/AvatarImageWinter2017B` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_IX |
-| Winter Glyph V | `/Lotus/Types/AvatarImages/AvatarImageWinterB2016E` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_V |
-| Winter Glyph Vi | `/Lotus/Types/AvatarImages/AvatarImageWinterB2016F` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_VI |
-| Winter Glyph Vii | `/Lotus/Types/AvatarImages/AvatarImageWinterB2016G` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_VII |
-| Winter Glyph Viii | `/Lotus/Types/AvatarImages/AvatarImageWinter2017A` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_VIII |
-| Winter Glyph X | `/Lotus/Types/AvatarImages/AvatarImageWinter2017C` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_X |
-| Winter Glyph Xi | `/Lotus/Types/AvatarImages/AvatarImageWinter2017D` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_XI |
-| Winter Glyph Xii | `/Lotus/Types/AvatarImages/AvatarImageWinter2017E` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_XII |
-| Winter Glyph Xiii | `/Lotus/Types/AvatarImages/AvatarImageWinter2017F` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_XIII |
 | Winter Glyph Xiv | `/Lotus/Types/AvatarImages/AvatarImageWinter2018A` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_XIV |
 | Winter Glyph Xv | `/Lotus/Types/AvatarImages/AvatarImageWinter2018B` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_XV |
 | Winter Glyph Xvi | `/Lotus/Types/AvatarImages/AvatarImageWinter2018C` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Winter_Glyph_XVI |
@@ -1265,7 +1243,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 7920
+- non-drop: 7942
 - override: 607
 - relic: 345
 - sortie: 1

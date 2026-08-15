@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T08:09:35.044Z
+Generated: 2026-08-15T08:11:54.543Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12782**
+Items with concrete acquisition records: **12785**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **364**
+Records without concrete acquisition evidence: **361**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -165,7 +165,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Labor Of Love Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphLaborAward` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Labor_Of_Love_Glyph |
 | Lato Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/PS4Lato` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Lato_Obsidian_Skin |
 | Lato Vandal Day of the Dead Skin | `/Lotus/Upgrades/Skins/Halloween/HalloweenLatoVandal` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Lato_Vandal_Day_of_the_Dead_Skin |
-| Lavos Prime Skin | `/Lotus/Upgrades/Skins/Alchemist/LavosPrimeSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Lavos_Prime_Skin |
 | Legacy Mastery Sigil | `/Lotus/Upgrades/Skins/Sigils/MasterySigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Legacy Mastery Sigil |
 | Legendary Quasars Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphLegendaryQuasars` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Legendary_Quasars_Glyph |
 | Lepus Headgear | `/Lotus/Upgrades/Skins/Events/BunnyEars` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Lepus_Headgear |
@@ -382,11 +381,9 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Warframe Runway Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageWarframeRunway` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Warframe_Runway_Glyph |
 | Warframe Wiki Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageTennoChronicler` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Warframe_Wiki_Glyph |
 | Warframefanchannel Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageWarframeFanChannel` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Warframefanchannel_Glyph |
-| Wisp Prime Shroud | `/Lotus/Upgrades/Skins/Wisp/WispPrimeDefaultCape` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Wisp_Prime_Shroud |
 | Wyrm Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianWyrm` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Wyrm_Obsidian_Skin |
 | Yamako Rubedo Plated Syandana | `/Lotus/Upgrades/Skins/Scarves/RubedoDinoSpikeScarf` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Yamako_Rubedo_Plated_Syandana |
 | Yareli and Merulina Prime Scene | `/Lotus/Types/Items/PhotoBooth/CinematicTiles/YareliPrimeEndPose` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Yareli_and_Merulina_Prime_Scene |
-| Yareli Prime Skin | `/Lotus/Upgrades/Skins/Yareli/YareliPrimeSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Yareli_Prime_Skin |
 | Year of The Rooster Sigil | `/Lotus/Upgrades/Skins/Sigils/CNYRoosterCYSigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Year_of_The_Rooster_Sigil |
 | Year Ten Anniversary Glyph | `/Lotus/Types/AvatarImages/ImageTenYearAnniversary` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Year_Ten_Anniversary_Glyph |
 | Yomo Obsidian Syandana | `/Lotus/Upgrades/Skins/Scarves/PS4ArmScarf` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Yomo_Obsidian_Syandana |
@@ -457,7 +454,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8715
+- non-drop: 8718
 - override: 620
 - relic: 339
 - sortie: 1

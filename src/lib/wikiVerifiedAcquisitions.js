@@ -516,4 +516,19 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://www.warframe.com/en/news/gauss-prime-access',
     source: 'Warframe.com Gauss Prime Access announcement',
   }],
+  ['/Lotus/Upgrades/Skins/Alchemist/LavosPrimeSkin', {
+    text: 'Default Prime appearance associated with Lavos Prime; acquire Lavos Prime through Prime Access or by earning and opening its Void Relics.',
+    url: 'https://www.warframe.com/en/news/prime-access-de-lavos',
+    source: 'Warframe.com Lavos Prime Access announcement + local export Lavos Prime skin record',
+  }],
+  ['/Lotus/Upgrades/Skins/Wisp/WispPrimeDefaultCape', {
+    text: 'Default Prime Shroud associated with Wisp Prime; acquire Wisp Prime through Prime Access or by earning and opening its Void Relics.',
+    url: 'https://www.warframe.com/en/news/accesso-wisp-prime',
+    source: 'Warframe.com Wisp Prime Access announcement + local export Wisp Prime default cape record',
+  }],
+  ['/Lotus/Upgrades/Skins/Yareli/YareliPrimeSkin', {
+    text: 'Default Prime appearance associated with Yareli Prime; acquire Yareli Prime through Prime Access or by earning and opening its Void Relics.',
+    url: 'https://www.warframe.com/en/news/accesso-yareli-prime',
+    source: 'Warframe.com Yareli Prime Access announcement + local export Yareli Prime skin record',
+  }],
 ]);

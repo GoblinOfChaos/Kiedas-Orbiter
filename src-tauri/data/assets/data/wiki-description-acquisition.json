@@ -149,5 +149,41 @@
   "/Lotus/Types/AvatarImages/ImageElevenYearAnniversary": {
     "text": "Anniversary login reward: log in during the 11 Year Anniversary celebration to earn it.",
     "source": "Warframe.com Update 35.5: Dante Unbound"
+  },
+  "/Lotus/Types/AvatarImages/ImageTwelveYearAnniversary": {
+    "text": "Anniversary login reward: log in during the 12 Year Anniversary celebration to earn it.",
+    "source": "Warframe.com 12 Year Anniversary"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/YontaCrownFacialAcc": {
+    "text": "Operation: Atramentum reward.",
+    "source": "Warframe.com Operation: Atramentum"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ShadowgrapherEventBadgeItem": {
+    "text": "Operation: Atramentum reward.",
+    "source": "Warframe.com Operation: Atramentum"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilZorba": {
+    "text": "Operation: Atramentum reward.",
+    "source": "Warframe.com Operation: Atramentum"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaFibonacci": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaTagfer": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Upgrades/Skins/Clan/EntratiEventEmblemItem": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Types/AvatarImages/Events/EventGlyphCaviaBirdThree": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
   }
 }

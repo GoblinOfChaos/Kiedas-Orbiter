@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:07:16.885Z
+Generated: 2026-08-15T05:07:59.722Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11885**
+Items with concrete acquisition records: **11888**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1271**
+Records without concrete acquisition evidence: **1268**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -481,7 +481,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Gynfas Tail | `/Lotus/Upgrades/Skins/Horse/DagathDeluxeLNYHorseTail` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Gynfas_Tail |
 | Gyre In Action Glyph | `/Lotus/Types/AvatarImages/ImageGyreInAction` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Gyre_In_Action_Glyph |
 | Gyre Vortengeist Helmet | `/Lotus/Upgrades/Skins/Gyre/GyreDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Gyre_Vortengeist_Helmet |
-| Haav | `/Lotus/Types/Items/Fish/Duviri/DuviriFishCItem` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Haav |
 | Harka Kubrow Armor | `/Lotus/Upgrades/Skins/Kubrows/Armor/NightwaveSeason5HarkaKubrowArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Harka_Kubrow_Armor |
 | Harrier Hood | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultDeluxeA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Harrier_Hood |
 | Harrier Legs | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultDeluxeA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Harrier_Legs |
@@ -518,7 +517,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Iahgames Braton | `/Lotus/Upgrades/Skins/IAHGames/IAHGamesBratonSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Iahgames_Braton |
 | Ictus Prime Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/IctusPrimeWingsRight` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ictus_Prime_Wings |
 | Ictus Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/IctusWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Ictus Sentinel Wings |
-| Inaak | `/Lotus/Types/Items/Fish/Duviri/DuviriFishAItem` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Inaak |
 | Inaros Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageInarosPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Inaros_Prime_Glyph_-_Bright |
 | Inaros Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageInarosPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Inaros_Prime_Glyph_-_Dark |
 | Inaros Ramses Helmet | `/Lotus/Upgrades/Skins/Sandman/InarosDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Inaros_Ramses_Helmet |
@@ -696,7 +694,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | MuseumDogTag | `/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/MuseumDogTag |
 | Mutalist Incursions Emblem | `/Lotus/Upgrades/Skins/Clan/MutalistIncursionsBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mutalist_Incursions_Emblem |
 | N00blshowtek Glyph | `/Lotus/Types/AvatarImages/AvatarImageCreatorN00blShowtek` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/N00blshowtek_Glyph |
-| Namaes | `/Lotus/Types/Items/Fish/Duviri/DuviriFishDItem` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Namaes |
 | Naramon Emblem | `/Lotus/Upgrades/Skins/Clan/Focus/NaramonBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Naramon_Emblem |
 | Naramon Paint A | `/Lotus/Upgrades/Skins/Operator/MakeupMasks/NaramonMaskA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Naramon_Paint_A |
 | Naramon Paint B | `/Lotus/Upgrades/Skins/Operator/MakeupMasks/NaramonMaskB` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Naramon_Paint_B |
@@ -1364,7 +1361,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7821
+- non-drop: 7824
 - override: 607
 - relic: 345
 - sortie: 1

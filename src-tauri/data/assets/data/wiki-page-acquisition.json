@@ -746,4 +746,7 @@
   "GRANDMOTHER TOKEN": { "section": "Acquisition", "text": "Obtainable by trading other Entrati Family Tokens with Grandmother, finding the token in the Cambion Drift, or trading a random assortment of Cambion Drift resources with Grandmother through Mend the Family.", "url": "https://wiki.warframe.com/w/Grandmother_Token" },
   "MOTHER TOKEN": { "section": "Acquisition", "text": "Obtainable from Mother’s Cambion Drift Bounties, by finding the token in the Cambion Drift, or by trading a random assortment of Cambion Drift resources with Grandmother through Mend the Family.", "url": "https://wiki.warframe.com/w/Mother_Token" },
   "SON TOKEN": { "section": "Acquisition", "text": "Obtainable by trading Conservation Tags with Son, finding the token in the Cambion Drift, donating a maxed or gilded Predasite or Vulpaphyla, or trading a random assortment of Cambion Drift resources with Grandmother through Mend the Family.", "url": "https://wiki.warframe.com/w/Son_Token" }
+  ,"Haav": { "section": "Acquisition", "text": "Caught while fishing in Duviri.", "url": "https://wiki.warframe.com/w/Fishing" },
+  "Inaak": { "section": "Acquisition", "text": "Caught while fishing in Duviri.", "url": "https://wiki.warframe.com/w/Fishing" },
+  "Namaes": { "section": "Acquisition", "text": "Caught while fishing in Duviri.", "url": "https://wiki.warframe.com/w/Fishing" }
   }

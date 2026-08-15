@@ -61,7 +61,7 @@ function CosmeticCard({ item, onAcquire }) {
 }
 
 export default function Cosmetics() {
-  const { exportData, rawInventory, EI, nameToImage, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, exportVendorIndex, glyphSupplementIndex } = useMonitoring()
+  const { exportData, rawInventory, EI, nameToImage, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportVendorIndex, glyphSupplementIndex } = useMonitoring()
   const [search, setSearch] = useState('')
   const [kindFilter, setKindFilter] = useState('all')
   const [ownershipFilter, setOwnershipFilter] = useState('all')
@@ -102,8 +102,8 @@ export default function Cosmetics() {
     if (!openKey || !overrides) return null
     const item = items.find((candidate) => candidate.uniqueName === openKey)
     if (!item) return null
-    return { uniqueName: item.uniqueName, displayName: item.name, info: getAcquisitionInfo(item.uniqueName, item.name, dropIndex, overrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, undefined, wikiResourceIndex, wikiPageAcquisitionIndex) }
-  }, [openKey, overrides, items, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, exportVendorIndex, glyphSupplementIndex])
+    return { uniqueName: item.uniqueName, displayName: item.name, info: getAcquisitionInfo(item.uniqueName, item.name, dropIndex, overrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, undefined, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex) }
+  }, [openKey, overrides, items, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportVendorIndex, glyphSupplementIndex])
 
   if (!exportData) return <PageLayout title="Cosmetics"><Card className="p-8 text-center text-kronos-dim">Loading cosmetics...</Card></PageLayout>
 

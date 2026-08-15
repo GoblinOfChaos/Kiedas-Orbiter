@@ -368,6 +368,16 @@ export function buildWikiPageAcquisitionIndex(data) {
   return buildDisplayNameIndex(data, (entry) => entry && typeof entry === 'object' ? entry : null);
 }
 
+export function buildWikiAcquisitionStatusIndex(data) {
+  const index = new Map();
+  if (!data || typeof data !== 'object') return index;
+  for (const [uniqueName, entry] of Object.entries(data)) {
+    const key = canonicalPath(uniqueName);
+    if (key && entry && typeof entry === 'object') index.set(key, entry);
+  }
+  return index;
+}
+
 export function buildRelicStateIndex(exportData) {
   const index = new Map();
   for (const [uniqueName, relic] of Object.entries(exportData?.ExportRelics || {})) {
@@ -413,7 +423,7 @@ export function buildGlyphSupplementIndex(data) {
   return index;
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex) {
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -582,7 +592,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const wikiPageAcquisition = wikiPageAcquisitionIndex?.get(displayLower);
   if (wikiPageAcquisition?.text) {
     return {
-      sources: [{ type: 'non-drop', text: wikiPageAcquisition.text, source: 'Warframe Wiki' }],
+      sources: [{ type: 'non-drop', text: wikiPageAcquisition.text, source: wikiPageAcquisition.source || 'Warframe Wiki' }],
       wikiLink: wikiPageAcquisition.url
         ? { url: wikiPageAcquisition.url, isDirect: true }
         : getWikiLink(dropIndexKey, displayName),
@@ -610,6 +620,19 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return {
       sources: [{ type: 'non-drop', text: details.length ? `Creator Glyph. ${details.join(' ')}` : 'Creator Glyph. See the linked creator source for availability.', source: 'browse.wf' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const wikiStatus = wikiAcquisitionStatusIndex?.get(canonicalPath(dropIndexKey));
+  if (wikiStatus) {
+    const text = wikiStatus.pageFound
+      ? 'A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section.'
+      : 'No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data.';
+    return {
+      sources: [{ type: 'status', text, source: 'Acquisition audit' }],
+      wikiLink: wikiStatus.url
+        ? { url: wikiStatus.url, isDirect: true }
+        : getWikiLink(dropIndexKey, displayName),
     };
   }
 

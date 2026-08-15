@@ -82,6 +82,7 @@ const indexes = {
   research: acquisition.buildWikiResearchIndex(readAsset('wiki-research-acquisition.json')),
   resource: acquisition.buildWikiResourceIndex(readAsset('wiki-resources-acquisition.json')),
   wikiPage: acquisition.buildWikiPageAcquisitionIndex(readAsset('wiki-page-acquisition.json')),
+  status: acquisition.buildWikiAcquisitionStatusIndex(readAsset('wiki-acquisition-status.json')),
   relicState: acquisition.buildRelicStateIndex(exportData),
   exportVendor: acquisition.buildExportVendorIndex(exportData),
   glyph: acquisition.buildGlyphSupplementIndex(readAsset('browse-wf-glyphs.json')),
@@ -140,6 +141,7 @@ function resolveItem(item) {
     indexes.relicState,
     indexes.resource,
     indexes.wikiPage,
+    indexes.status,
   );
   const texts = (info.sources || []).map((source) => source.text || '').filter(Boolean);
   const genericFoundry = texts.some((text) => text === 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.');

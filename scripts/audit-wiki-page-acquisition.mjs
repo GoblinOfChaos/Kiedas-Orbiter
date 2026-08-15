@@ -9,6 +9,7 @@ const gapsPath = resolve(ROOT, 'scripts/data-sources/current-acquisition-gaps.md
 const outputPath = resolve(ROOT, 'scripts/data-sources/wiki-page-acquisition-audit.json');
 const reportPath = resolve(ROOT, 'scripts/data-sources/wiki-page-acquisition-audit.md');
 const appAssetPath = resolve(ROOT, 'src-tauri/data/assets/data/wiki-page-acquisition.json');
+const statusAssetPath = resolve(ROOT, 'src-tauri/data/assets/data/wiki-acquisition-status.json');
 const API = 'https://wiki.warframe.com/api.php';
 const BATCH_SIZE = 50;
 const CONCURRENCY = 4;
@@ -16,6 +17,9 @@ const CONCURRENCY = 4;
 const gapText = readFileSync(gapsPath, 'utf8');
 const items = [...gapText.matchAll(/^\| (.*?) \| `([^`]+)` \| ([^|]+) \|/gm)]
   .map((match) => ({ name: match[1], uniqueName: match[2], category: match[3].trim() }));
+function readObject(path) {
+  try { return JSON.parse(readFileSync(path, 'utf8')); } catch { return {}; }
+}
 
 function extractAcquisition(text) {
   if (typeof text !== 'string') return null;
@@ -73,13 +77,22 @@ const stats = {
   errors: results.filter((item) => item.error).length,
 };
 writeFileSync(outputPath, `${JSON.stringify({ generated: new Date().toISOString(), stats, items: results }, null, 2)}\n`);
-const appAcquisition = {};
+const appAcquisition = readObject(appAssetPath);
 for (const item of results) {
   const text = item.acquisition?.text?.trim();
   if (!text || text.length < 40 || /:\s*$/.test(text) || appAcquisition[item.name]) continue;
   appAcquisition[item.name] = { section: item.acquisition.section, text, url: item.url };
 }
 writeFileSync(appAssetPath, `${JSON.stringify(appAcquisition, null, 2)}\n`);
+const statusIndex = readObject(statusAssetPath);
+for (const item of results) {
+  if (!statusIndex[item.uniqueName]) statusIndex[item.uniqueName] = {
+    displayName: item.name,
+    pageFound: !item.missing && !item.error,
+    url: item.url || null,
+  };
+}
+writeFileSync(statusAssetPath, `${JSON.stringify(statusIndex, null, 2)}\n`);
 
 const byCategory = new Map();
 for (const item of results) {
@@ -110,4 +123,5 @@ const lines = [
 writeFileSync(reportPath, `${lines.join('\n')}\n`);
 console.log(`\nWrote ${outputPath} and ${reportPath}`);
 console.log(`Wrote ${appAssetPath} with ${Object.keys(appAcquisition).length} actionable entries`);
+console.log(`Wrote ${statusAssetPath} with ${Object.keys(statusIndex).length} page statuses`);
 console.log(JSON.stringify({ ...stats, actionableEntries: Object.keys(appAcquisition).length }));

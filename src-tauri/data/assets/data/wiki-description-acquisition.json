@@ -261,5 +261,25 @@
   "/Lotus/Types/AvatarImages/AvatarImageOctaviaActionTwitch": {
     "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
     "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDexFuris": {
+    "text": "Xbox 6th Anniversary Alert #3 reward.",
+    "source": "Warframe.com 6th Anniversary on Xbox"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDexDakra": {
+    "text": "Xbox 6th Anniversary Alert #4 reward.",
+    "source": "Warframe.com 6th Anniversary on Xbox"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Nintendo/NintendoAklatoSkin": {
+    "text": "Included in the Nintendo Switch-exclusive Esteem Pack V.",
+    "source": "Warframe.com Esteem Pack V Available Now"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneScytheSkin": {
+    "text": "Available for 1 Credit in the in-game Market during the Winter holiday sale.",
+    "source": "Warframe.com Winter in Warframe"
+  },
+  "/Lotus/Upgrades/Skins/Promo/PCGamer/PCGamerDarkSwordDaggerHybridSkin": {
+    "text": "Redeem the PCGamingShow2016 promo code.",
+    "source": "Warframe Forums Free Promocodes and Content Creator Glyphs"
   }
 }

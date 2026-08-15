@@ -4,6 +4,38 @@
 // an acquisition route by accident.
 export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   [
+    '/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxCArmor',
+    {
+      text: 'Component of Daurus Prime Armor, included in the Styanax Prime Accessories Pack and Styanax Prime Access Complete Pack; this was a limited-time Prime Access offering.',
+      url: 'https://www.warframe.com/prime-access',
+      source: 'Warframe Prime Access (Styanax Prime Accessories)',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxLArmor',
+    {
+      text: 'Component of Daurus Prime Armor, included in the Styanax Prime Accessories Pack and Styanax Prime Access Complete Pack; this was a limited-time Prime Access offering.',
+      url: 'https://www.warframe.com/prime-access',
+      source: 'Warframe Prime Access (Styanax Prime Accessories)',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxAArmor',
+    {
+      text: 'Component of Daurus Prime Armor, included in the Styanax Prime Accessories Pack and Styanax Prime Access Complete Pack; this was a limited-time Prime Access offering.',
+      url: 'https://www.warframe.com/prime-access',
+      source: 'Warframe Prime Access (Styanax Prime Accessories)',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Geode/CitrineDeluxeHelmet',
+    {
+      text: 'Included with the Citrine Aphrodita Skin; the skin is sold individually in the Market for 165 Platinum or in the Citrine Aphrodita Collection for 365 Platinum.',
+      url: 'https://www.warframe.com/pt-br/patch-notes/ios/39-0-0',
+      source: 'Warframe.com Isleweaver Update 39; Warframe Wiki (Citrine Aphrodita Skin)',
+    },
+  ],
+  [
     '/Lotus/Types/AvatarImages/Community10YearOrdisGlyph',
     {
       text: 'Part of the 10 Year Anniversary Community Art Pack, purchased in the Market for 70 Platinum.',

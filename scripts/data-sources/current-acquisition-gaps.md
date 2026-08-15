@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:13:13.459Z
+Generated: 2026-08-15T05:13:34.456Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11934**
+Items with concrete acquisition records: **11944**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1222**
+Records without concrete acquisition evidence: **1212**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -562,8 +562,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Lift Together Sigil | `/Lotus/Upgrades/Skins/Sigils/FortunaSigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Lift Together Sigil |
 | Lillian Pixel Portrait Glyph | `/Lotus/Types/AvatarImages/Minigames/MinigameGlyphPixelPortraitLillian` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lillian_Pixel_Portrait_Glyph |
 | Limbo Limina Helmet | `/Lotus/Upgrades/Skins/Magician/LimboDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Limbo_Limina_Helmet |
-| Limbo Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageLimboPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Limbo_Prime_Glyph_-_Bright |
-| Limbo Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageLimboPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Limbo_Prime_Glyph_-_Dark |
 | Limbo Voidshell Helmet | `/Lotus/Upgrades/Skins/Magician/LimboVoidshellHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Limbo_Voidshell_Helmet |
 | Loki Knave Helmet | `/Lotus/Upgrades/Skins/Loki/LokiDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Loki_Knave_Helmet |
 | Loki Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageLokiPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Loki_Prime_Glyph_-_Bright |
@@ -592,8 +590,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Mag Heirloom Helmet | `/Lotus/Upgrades/Skins/Mag/MagHeirloomHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mag_Heirloom_Helmet |
 | Mag Mask | `/Lotus/Upgrades/Skins/Ostron/MagMask` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mag_Mask |
 | Mag Pneuma Helmet | `/Lotus/Upgrades/Skins/Mag/MagDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mag_Pneuma_Helmet |
-| Mag Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageMagPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mag_Prime_Glyph_-_Bright |
-| Mag Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageMagPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mag_Prime_Glyph_-_Dark |
 | Mag Voidshell Helmet | `/Lotus/Upgrades/Skins/Mag/MagVoidShellHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mag_Voidshell_Helmet |
 | Maggot Prime Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2021MaggotGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Maggot_Prime_Tennobaum_Glyph |
 | Magnus Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianMagnus` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Magnus_Obsidian_Skin |
@@ -615,8 +611,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Mesa Okina Glyph | `/Lotus/Types/AvatarImages/Sony/AvatarImageOkinaGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mesa_Okina_Glyph |
 | Mesa Presidio Helmet | `/Lotus/Upgrades/Skins/Cowgirl/MesaDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mesa_Presidio_Helmet |
 | Mesa Presidio Regulators Skin | `/Lotus/Upgrades/Skins/Cowgirl/MesaDeluxeArmGunSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mesa_Presidio_Regulators_Skin |
-| Mesa Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageMesaPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mesa_Prime_Glyph_-_Bright |
-| Mesa Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageMesaPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mesa_Prime_Glyph_-_Dark |
 | Mesa Projectilyst Helmet | `/Lotus/Upgrades/Skins/Cowgirl/MesaDeluxeV2Helmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mesa_Projectilyst_Helmet |
 | Mesa Projectilyst Regulators Skin | `/Lotus/Upgrades/Skins/Cowgirl/MesaDeluxeV2ArmGunSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mesa_Projectilyst_Regulators_Skin |
 | Mesa Voidshell Helmet | `/Lotus/Upgrades/Skins/Cowgirl/MesaVoidShellHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mesa_Voidshell_Helmet |
@@ -626,8 +620,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Mirage In Action Glyph | `/Lotus/Types/AvatarImages/ImageMirageInAction` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mirage_In_Action_Glyph |
 | Mirage Nuwa Helmet | `/Lotus/Upgrades/Skins/Harlequin/MirageLunarNewYearHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mirage_Nuwa_Helmet |
 | Mirage Oneiro Helmet | `/Lotus/Upgrades/Skins/Harlequin/MirageDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mirage_Oneiro_Helmet |
-| Mirage Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageMiragePrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mirage_Prime_Glyph_-_Bright |
-| Mirage Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageMiragePrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mirage_Prime_Glyph_-_Dark |
 | Mirage Voidshell Helmet | `/Lotus/Upgrades/Skins/Harlequin/MirageVoidShellHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mirage_Voidshell_Helmet |
 | Missile Battery | `/Lotus/Types/Restoratives/LisetLaserTurret` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Missile_Battery |
 | Moa Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2021MoaGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/MOA_Tennobaum_Glyph |
@@ -671,8 +663,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Nef Anyo Mashed Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphMashedNefAnyo` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nef_Anyo_Mashed_Glyph |
 | Nef Anyo Sigil | `/Lotus/Upgrades/Skins/Sigils/BossSigilNefAnyo` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nef_Anyo_Sigil |
 | Nekros Irkalla Helmet | `/Lotus/Upgrades/Skins/Necro/NekrosDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nekros_Irkalla_Helmet |
-| Nekros Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageNekrosPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nekros_Prime_Glyph_-_Bright |
-| Nekros Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageNekrosPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nekros_Prime_Glyph_-_Dark |
 | Nekros Voidshell Helmet | `/Lotus/Upgrades/Skins/Necro/NekrosVoidShellHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nekros_Voidshell_Helmet |
 | NEXIFERA ECHO-LURE | `/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaLureGearItem` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/NEXIFERA_ECHO-LURE |
 | NEXIFERA PHEROMONE GLAND | `/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaRarityBoost` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/NEXIFERA_PHEROMONE_GLAND |
@@ -1315,7 +1305,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7870
+- non-drop: 7880
 - override: 607
 - relic: 345
 - sortie: 1

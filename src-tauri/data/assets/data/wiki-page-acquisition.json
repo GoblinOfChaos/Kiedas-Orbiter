@@ -733,4 +733,8 @@
   "Animo Nav Beacon": { "section": "Acquisition", "text": "Obtained by defeating and hacking Ambulas proxies deployed by Condor Dropships in Corpus Outpost missions on Pluto.", "url": "https://wiki.warframe.com/w/Ambulas" },
   "Belric Crystal Fragment": { "section": "Acquisition", "text": "Acquired from Mirror Defense at Tyana Pass on Mars: collecting Citrine's Remnants and completing rotations awards Belric and Rania Crystal Fragments.", "url": "https://wiki.warframe.com/w/Crystal_Fragment" },
   "Rania Crystal Fragment": { "section": "Acquisition", "text": "Acquired from Mirror Defense at Tyana Pass on Mars: collecting Citrine's Remnants and completing rotations awards Belric and Rania Crystal Fragments.", "url": "https://wiki.warframe.com/w/Crystal_Fragment" }
+  ,"Judgement Points": { "section": "Acquisition", "text": "Earned by fighting in the Rathuum Arenas on Sedna: Nakki, Yam, and Vodyanoi award Judgement Points for victories.", "url": "https://wiki.warframe.com/w/Kela_De_Thaym" },
+  "Karak Wraith Barrel": { "section": "Acquisition", "text": "The Karak Wraith blueprint and parts can be obtained as Invasion rewards; its components can also be traded.", "url": "https://wiki.warframe.com/w/Karak_Wraith" },
+  "Strun Wraith Stock": { "section": "Acquisition", "text": "The Strun Wraith blueprint and parts can be obtained as Invasion rewards; its components can also be traded.", "url": "https://wiki.warframe.com/w/Strun_Wraith" },
+  "Twin Vipers Wraith Link": { "section": "Acquisition", "text": "The Twin Vipers Wraith blueprint and parts can be obtained as Invasion rewards; its components can also be traded.", "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith" }
   }

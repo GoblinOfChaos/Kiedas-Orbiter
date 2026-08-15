@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:04:32.194Z
+Generated: 2026-08-15T05:05:01.427Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11872**
+Items with concrete acquisition records: **11876**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1284**
+Records without concrete acquisition evidence: **1280**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -553,9 +553,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Jillian Pixel Portrait Glyph | `/Lotus/Types/AvatarImages/Minigames/MinigameGlyphPixelPortraitJillian` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Jillian_Pixel_Portrait_Glyph |
 | Jingle Kavat Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphJingleKavat` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Jingle_Kavat_Glyph |
 | Jolly Grendel Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphJollyGrendel` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Jolly_Grendel_Glyph |
-| Judgement Points | `/Lotus/Types/Items/MiscItems/KelaArenaToken` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Judgement Points |
 | Kahl-175 Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2021GrinoalieGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Kahl-175_Tennobaum_Glyph |
-| Karak Wraith Barrel | `/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithBarrel` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Karak_Wraith_Barrel |
 | Karnolyth Necramech Helmet | `/Lotus/Upgrades/Skins/Necramech/InfestedNecraMechHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Karnolyth_Necramech_Helmet |
 | Kaya's Reactors | `/Lotus/Upgrades/Skins/AntiMatter/WF1999NovaAuxHat` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Kaya's Reactors |
 | Kayota Day of the Dead Mask | `/Lotus/Upgrades/Skins/Halloween/DOTD2025OperatorMask` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Kayota_Day_of_the_Dead_Mask |
@@ -1032,7 +1030,6 @@ Dreams of the Dead Cred |
 | Stormfall Jacket | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorLasrianA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Stormfall_Jacket |
 | Stormfall Mask | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodOperatorLasrianA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Stormfall_Mask |
 | Stormfall Pants & Boots | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsOperatorLasrianA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Stormfall_Pants_%26_Boots |
-| Strun Wraith Stock | `/Lotus/Types/Recipes/Weapons/WeaponParts/StrunWraithStock` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Strun_Wraith_Stock |
 | Styanax In Action Glyph | `/Lotus/Types/AvatarImages/ImageStyanaxInAction` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Styanax_In_Action_Glyph |
 | Styanax Tonatiuh Embellishments | `/Lotus/Upgrades/Skins/Hoplite/StyanaxDeluxeAuxChest` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Styanax Tonatiuh Embellishments |
 | Styanax Tonatiuh Helmet | `/Lotus/Upgrades/Skins/Hoplite/StyanaxDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Styanax_Tonatiuh_Helmet |
@@ -1153,7 +1150,6 @@ Dreams of the Dead Cred |
 | Twin Grakatas Opal Skin | `/Lotus/Upgrades/Skins/GrineerAssaultRifle/NintendoGrineerAssaultRifleSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Twin_Grakatas_Opal_Skin |
 | Twin Vipers Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianTwinVipers` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Twin_Vipers_Obsidian_Skin |
 | Twin Vipers Rubedo Plated Skin | `/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoAkimboViperCamo` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Twin_Vipers_Rubedo_Plated_Skin |
-| Twin Vipers Wraith Link | `/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithLink` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Twin_Vipers_Wraith_Link |
 | Umbra's Courtyard Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileSacrificeCourtyard` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Umbra%27s_Courtyard_Scene |
 | Unairu Emblem | `/Lotus/Upgrades/Skins/Clan/Focus/UnairuBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Unairu_Emblem |
 | Unairu Paint A | `/Lotus/Upgrades/Skins/Operator/MakeupMasks/UnairuMaskA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Unairu_Paint_A |
@@ -1379,7 +1375,7 @@ Dreams of the Dead Cred |
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7808
+- non-drop: 7812
 - override: 607
 - relic: 345
 - sortie: 1

@@ -4,6 +4,38 @@
 // an acquisition route by accident.
 export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   [
+    '/Lotus/Upgrades/Skins/Operator/Skirts/SkirtLasrianB',
+    {
+      text: 'Included in the Chymerist Collection (130 Platinum), or obtained with the corresponding Chymerist Apparel purchase for 25 Platinum; the Operator and Drifter versions are linked in the export.',
+      url: 'https://www.warframe.com/ru/patch-notes/pc/38-5-0',
+      source: 'Warframe.com Techrot Encore Update 38.5 + local export Chymerist bundle/component records',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOperatorLasrianB',
+    {
+      text: 'Included in the Chymerist Collection (130 Platinum), or obtained with the corresponding Chymerist Gloves purchase for 30 Platinum; the Operator and Drifter versions are linked in the export.',
+      url: 'https://www.warframe.com/ru/patch-notes/pc/38-5-0',
+      source: 'Warframe.com Techrot Encore Update 38.5 + local export Chymerist bundle/component records',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Operator/Hoods/HoodOperatorLasrianB',
+    {
+      text: 'Included in the Chymerist Collection (130 Platinum), or obtained with the corresponding Chymerist Mask purchase for 40 Platinum; the Operator and Drifter versions are linked in the export.',
+      url: 'https://www.warframe.com/ru/patch-notes/pc/38-5-0',
+      source: 'Warframe.com Techrot Encore Update 38.5 + local export Chymerist bundle/component records',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorLasrianB',
+    {
+      text: 'Included in the Chymerist Collection (130 Platinum), or obtained with the corresponding Chymerist Uniform purchase for 40 Platinum; the Operator and Drifter versions are linked in the export.',
+      url: 'https://www.warframe.com/ru/patch-notes/pc/38-5-0',
+      source: 'Warframe.com Techrot Encore Update 38.5 + local export Chymerist bundle/component records',
+    },
+  ],
+  [
     '/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxCArmor',
     {
       text: 'Component of Daurus Prime Armor, included in the Styanax Prime Accessories Pack and Styanax Prime Access Complete Pack; this was a limited-time Prime Access offering.',

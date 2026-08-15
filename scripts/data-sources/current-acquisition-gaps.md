@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:05:51.209Z
+Generated: 2026-08-15T05:06:43.346Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11879**
+Items with concrete acquisition records: **11880**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1277**
+Records without concrete acquisition evidence: **1276**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -751,9 +751,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Noodletron Hammer Skin | `/Lotus/Upgrades/Skins/Hammer/NoodleHammerSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Noodletron_Hammer_Skin |
 | Nora Night Frequency Glyph | `/Lotus/Types/AvatarImages/AvatarImageNoraNightA` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nora_Night_Frequency_Glyph |
 | Nora Night Glyph | `/Lotus/Types/AvatarImages/AvatarImageNoraNightB` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nora_Night_Glyph |
-| Nora's Mix:
-Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteenCreds` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Nora's Mix:
-Dreams of the Dead Cred |
 | Norg Mask | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodNorg` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Norg_Mask |
 | Nova Aozakura Helmet | `/Lotus/Upgrades/Skins/AntiMatter/NovaDeluxeAoandonHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nova_Aozakura_Helmet |
 | Nova Asuri Helmet | `/Lotus/Upgrades/Skins/AntiMatter/NovaDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Nova_Asuri_Helmet |
@@ -1372,7 +1369,7 @@ Dreams of the Dead Cred |
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7815
+- non-drop: 7816
 - override: 607
 - relic: 345
 - sortie: 1

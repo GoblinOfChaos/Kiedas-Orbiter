@@ -65,9 +65,29 @@ const records = {
     text: 'Included in the Insign Bundle. Purchase the bundle from Roathe in La Cathédrale for 150 Maphica, then unlock Insign III Phloios by killing 150 enemies with melee weapons while Insign II Kalika is equipped.',
     url: 'https://wiki.warframe.com/w/Insign_Bundle',
   },
+  'Insign IV Perigone': {
+    section: 'Acquisition',
+    text: 'Included in the Insign Bundle. Purchase the bundle from Roathe in La Cathédrale for 150 Maphica, then unlock Insign IV Perigone by completing The Perita Rebellion with Insign III Phloios equipped.',
+    url: 'https://wiki.warframe.com/w/Insign_Bundle',
+  },
   'Servio V Sporoi': {
     section: 'Acquisition',
     text: 'Included in the Insign Bundle. Purchase the bundle from Roathe in La Cathédrale for 150 Maphica, then unlock Servio V Sporoi by completing The Descendia with Insign IV Perigone equipped.',
+    url: 'https://wiki.warframe.com/w/Insign_Bundle',
+  },
+  'Servio VIII Perigone': {
+    section: 'Acquisition',
+    text: 'Included in the Insign Bundle. Purchase the bundle from Roathe in La Cathédrale for 150 Maphica, then unlock Servio VIII Perigone by sustaining a 10x melee combo for 45 seconds with Servio VII Phloios equipped.',
+    url: 'https://wiki.warframe.com/w/Insign_Bundle',
+  },
+  'Tenens IX Sporoi': {
+    section: 'Acquisition',
+    text: 'Included in the Insign Bundle. Purchase the bundle from Roathe in La Cathédrale for 150 Maphica, then unlock Tenens IX Sporoi by completing 5 encounters within one Perita Rebellion battle with Servio VIII Perigone equipped.',
+    url: 'https://wiki.warframe.com/w/Insign_Bundle',
+  },
+  'Capit XIV Kalika': {
+    section: 'Acquisition',
+    text: 'Included in the Insign Bundle. Purchase the bundle from Roathe in La Cathédrale for 150 Maphica, then unlock Capit XIV Kalika by completing an Arbitrations Survival mission after surviving 30 minutes with Capit XIII Sporoi equipped.',
     url: 'https://wiki.warframe.com/w/Insign_Bundle',
   },
   'Tenens X Kalika': {

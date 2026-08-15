@@ -551,4 +551,142 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://www.warframe.com/en/news/tennogen10',
     source: 'Warframe.com TennoGen 10 Year Anniversary Celebration announcement',
   }],
+  ['/Lotus/Upgrades/Skins/Armor/PrimeGyreArmor/PrimeGyreArmorC', {
+    text: 'Vanda Prime Armor Chest piece, included in the Gyre Prime Accessories Pack and Gyre Prime Access Complete Pack.',
+    url: 'https://www.warframe.com/en/news/gyre-prime-access',
+    source: 'Warframe.com Gyre Prime Access announcement + local export Vanda Prime Armor component record',
+  }],
+  ['/Lotus/Upgrades/Skins/Armor/PrimeGyreArmor/PrimeGyreArmorL', {
+    text: 'Vanda Prime Armor Leg piece, included in the Gyre Prime Accessories Pack and Gyre Prime Access Complete Pack.',
+    url: 'https://www.warframe.com/en/news/gyre-prime-access',
+    source: 'Warframe.com Gyre Prime Access announcement + local export Vanda Prime Armor component record',
+  }],
+  ['/Lotus/Upgrades/Skins/Armor/PrimeGyreArmor/PrimeGyreArmorA', {
+    text: 'Vanda Prime Armor Shoulder piece, included in the Gyre Prime Accessories Pack and Gyre Prime Access Complete Pack.',
+    url: 'https://www.warframe.com/en/news/gyre-prime-access',
+    source: 'Warframe.com Gyre Prime Access announcement + local export Vanda Prime Armor component record',
+  }],
+  ...[
+    '/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeE',
+    '/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitPrimeE',
+    '/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeE',
+    '/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsPrimeE',
+    '/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeE',
+    '/Lotus/Upgrades/Skins/Operator/Hoods/HoodPrimeE',
+    '/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeE',
+    '/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesPrimeE',
+    '/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeEChina',
+    '/Lotus/Upgrades/Skins/Operator/Hoods/HoodPrimeEChina',
+  ].map((uniqueName) => [uniqueName, {
+    text: 'Necra Prime Operator/Drifter Suit component, included in the Xaku Prime Accessories Pack and Xaku Prime Access Complete Pack.',
+    url: 'https://www.warframe.com/en/news/xaku-prime-access',
+    source: 'Warframe.com Xaku Prime Access announcement + local export Necra Prime component record',
+  }]),
+  ...[
+    '/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeF',
+    '/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsPrimeF',
+    '/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeF',
+    '/Lotus/Upgrades/Skins/Operator/Hoods/HoodPrimeF',
+    '/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeF',
+    '/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitPrimeF',
+    '/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeF',
+    '/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesPrimeF',
+  ].map((uniqueName) => [uniqueName, {
+    text: 'Tauron Prime Regalia component, included in the Caliban Prime Accessories Pack and Caliban Prime Access Complete Pack.',
+    url: 'https://www.warframe.com/en/news/caliban-prime-access-ko',
+    source: 'Warframe.com Caliban Prime Access announcement + local export Tauron Prime component record',
+  }]),
+  ['/Lotus/Upgrades/Skins/Sentinels/Wings/OrokinWingsRight', {
+    text: 'Included in the Summus Prime Sentinel Accessories package, offered through Loki Prime Access and later Prime Vault/Prime Resurgence accessory packs.',
+    url: 'https://www.warframe.com/en/news/prime-resurgence-rotation-4',
+    source: 'Warframe.com Prime Resurgence Rotation 4 and Loki Prime Access announcements',
+  }],
+  ['/Lotus/Upgrades/Skins/Sentinels/Wings/PrimeSentinelWingsRight', {
+    text: 'Included in the Unda Prime Sentinel Accessories package, offered through Ash Prime Access and later Prime Vault/Prime Resurgence accessory packs.',
+    url: 'https://www.warframe.com/en/news/prime-resurgence-rotation-5',
+    source: 'Warframe.com Prime Resurgence Rotation 5 and Ash/Vauban Prime Vault announcement',
+  }],
+  ...[
+    ['/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncAArmor', 'Dendra Obsidian Shoulder Guard'],
+    ['/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncLArmor', 'Dendra Obsidian Leg Guard'],
+    ['/Lotus/Upgrades/Skins/Archer/ObsidianIvaraHelmet', 'Ivara Obsidian Helmet'],
+    ['/Lotus/Upgrades/Skins/Sony/ObsidianStandardArchwingSkin', 'Odonata Obsidian Skin'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was included in the time-limited Ultimate Obsidian Collection for PlayStation.`,
+    url: 'https://www.warframe.com/en/news/ultimate-obsidian-collection',
+    source: 'Warframe.com Ultimate Obsidian Collection announcement + local export exact component record',
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf', 'Obsidian Azura Syandana'],
+    ['/Lotus/Upgrades/Skins/Sony/ObsidianGalatine', 'Galatine Obsidian Skin'],
+    ['/Lotus/Upgrades/Skins/Excalibur/ObsidianExcaliburHelmetB', 'Excalibur Obsidian Azura Helmet'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was included in the time-limited Obsidian Azura Collection for PlayStation.`,
+    url: 'https://www.warframe.com/en/news/playstation-tenno-ready-yourselves-for-this-epic-eight-item-collection',
+    source: 'Warframe.com Obsidian Azura Collection announcement + local export exact component record',
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Skins/Scarves/ObsidianCrowSyandana', 'Obsidian Corvus Syandana'],
+    ['/Lotus/Upgrades/Skins/Sony/ObsidianNikana', 'Nikana Obsidian Skin'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was included in the time-limited Obsidian Corvus Collection for PlayStation.`,
+    url: 'https://www.warframe.com/uk/news/obsidian-corvus-collection-available-now',
+    source: 'Warframe.com Obsidian Corvus Collection announcement + local export exact component record',
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Skins/Sony/ObsidianGorgon', 'Gorgon Obsidian Skin'],
+    ['/Lotus/Upgrades/Skins/Sony/ObsidianViper', 'Viper Obsidian Skin'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was included in the time-limited PlayStation Renown Pack IV.`,
+    url: 'https://www.warframe.com/amp/renown-pack-iv-available-now',
+    source: 'Warframe.com Renown Pack IV announcement + local export exact component record',
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin', 'Okina Obsidian Skin'],
+    ['/Lotus/Upgrades/Skins/Clan/PS5OkinaBadgeItem', 'Okina Emblem'],
+    ['/Lotus/Types/AvatarImages/Sony/AvatarImageOkinaGlyph', 'Mesa Okina Glyph'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was included in the time-limited PlayStation Plus Booster Pack VII.`,
+    url: 'https://www.warframe.com/en/news/pack-booster-playstationplus-vii',
+    source: 'Warframe.com PlayStation Plus Booster Pack VII announcement + local export exact component record',
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Skins/Sony/PS5TiberonSkin', 'Tiberon Obsidian Skin'],
+    ['/Lotus/Upgrades/Skins/Clan/DrakeRifleBadgeItem', 'Tiberon Obsidian Emblem'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was included in the time-limited PlayStation Plus Booster Pack VI.`,
+    url: 'https://www.warframe.com/en/news/playstation-plus-booster-pack-vi',
+    source: 'Warframe.com PlayStation Plus Booster Pack VI announcement + local export exact component record',
+  }]),
+  ...[
+    '/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultChameleon',
+    '/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitChameleon',
+    '/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultChameleon',
+    '/Lotus/Upgrades/Skins/Operator/Hoods/HoodChameleon',
+    '/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultChameleon',
+    '/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsChameleon',
+    '/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultChameleon',
+    '/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesChameleon',
+  ].map((uniqueName) => [uniqueName, {
+    text: 'Granted as part of the Operator/Drifter Voidshell Sets when completing The Angels of the Zariman quest; the quest requires completion of The New War.',
+    url: 'https://wiki.warframe.com/w/Angels_of_the_Zariman',
+    source: 'Warframe Wiki Angels of the Zariman quest rewards + local export exact Voidshell component record',
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Skins/Sony/ObsidianColtekMask', 'Obsidian Coltek Sentinel Mask'],
+    ['/Lotus/Upgrades/Skins/Sony/ObsidianHelios', 'Helios Obsidian Skin'],
+    ['/Lotus/Upgrades/Skins/Sony/ObsidianWyrm', 'Wyrm Obsidian Skin'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was included in the time-limited PlayStation Renown Pack V.`,
+    url: 'https://www.warframe.com/uk/news/renown-pack-v-available-now',
+    source: 'Warframe.com Renown Pack V announcement + local export exact component record',
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Skins/Sony/ObsidianSilvaAndAegis', 'Silva & Aegis Obsidian Skin'],
+    ['/Lotus/Upgrades/Skins/Scarves/PS4ArmScarf', 'Yomo Obsidian Syandana'],
+  ].map(([uniqueName, component]) => [uniqueName, {
+    text: `${component} was included in the time-limited PlayStation Renown Collection.`,
+    url: 'https://www.warframe.com/uk/news/renown-collection',
+    source: 'Warframe.com Renown Collection announcement + local export exact component record',
+  }]),
 ]);

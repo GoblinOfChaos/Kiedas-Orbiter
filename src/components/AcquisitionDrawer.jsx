@@ -3,7 +3,18 @@ import { Info, ExternalLink } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
 import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from '../lib/codexSupplement';
 
-function getSourceLabel(source) {
+function formatDropLocation(location) {
+  if (!location) return null;
+  const endless = String(location).match(/^(?:(.+?)\/)?Endless:\s*Tier\s*(\d+)(?:\s*\(([^)]+)\))?$/i);
+  if (endless) {
+    const region = endless[1] ? `${endless[1]} ` : '';
+    const mode = endless[3] ? ` (${endless[3]})` : '';
+    return `${region}Endless reward — Tier ${endless[2]}${mode}`;
+  }
+  return location;
+}
+
+export function getSourceLabel(source) {
   if (!source) return 'Unknown source';
 
   const rotation = source.rotation ? ` Rot ${source.rotation}` : '';
@@ -19,7 +30,7 @@ function getSourceLabel(source) {
     case 'blueprint':
       return `${source.location || 'Foundry'}${source.blueprintName ? ` - ${source.blueprintName}` : ''}`;
     case 'drop':
-      return [source.location, source.dropType && `(${source.dropType})`].filter(Boolean).join(' ') || 'Known drop source';
+      return [formatDropLocation(source.location), source.dropType && `— ${source.dropType}`].filter(Boolean).join(' ') || 'Known drop source';
     case 'relic':
       return `${source.relicName || source.relicManifest || 'Relic'}${source.rarity ? ` (${source.rarity})` : ''}`;
     case 'mission':

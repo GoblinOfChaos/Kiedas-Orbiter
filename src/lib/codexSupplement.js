@@ -55,6 +55,15 @@ function formatDuration(seconds) {
   return `${minutes}m`
 }
 
+// WFCD responses have used both fractional chances (0.0103) and percentage
+// chances (1.03) over time. The drawer renders fractions, so normalize here
+// at the data boundary instead of making every UI consumer guess.
+function normalizeChance(value) {
+  const chance = Number(value)
+  if (!Number.isFinite(chance)) return value
+  return chance > 1 ? chance / 100 : chance
+}
+
 export function codexDetailToAcquisition(detail) {
   if (!detail) return null
 
@@ -64,6 +73,23 @@ export function codexDetailToAcquisition(detail) {
       itemType: component.uniqueName,
       count: Number(component.itemCount) || 1,
       name: component.name || component.uniqueName,
+    }))
+
+  // Blueprint drops are nested on the blueprint component in the Codex
+  // response (for example Akbronco -> DualBroncosBlueprint -> drops). Keep
+  // those sources instead of reducing a craftable item to a generic Foundry
+  // sentence. The recipe remains useful alongside the acquisition source.
+  const blueprintDrops = (Array.isArray(detail.components) ? detail.components : [])
+    .filter(isBlueprint)
+    .flatMap((component) => Array.isArray(component.drops) ? component.drops : [])
+    .filter((drop) => drop && (drop.location || drop.type))
+    .map((drop) => ({
+      type: 'drop',
+      source: 'WFCD Codex API',
+      location: drop.location,
+      dropType: drop.type,
+      rarity: drop.rarity,
+      chance: normalizeChance(drop.chance),
     }))
 
   // A detail record with real material components is a useful Foundry
@@ -77,7 +103,11 @@ export function codexDetailToAcquisition(detail) {
     if (buildTime) details.push(`Build time: ${buildTime}.`)
     details.push(`Components: ${components.map(({ name, count }) => `${count}x ${name}`).join(', ')}.`)
     return {
-      sources: [{ type: 'non-drop', source: 'WFCD Codex API', text: details.join(' ') }],
+      // Once a concrete blueprint drop exists, the generic Foundry sentence
+      // is noise. The recipe panel already shows the build requirements.
+      sources: blueprintDrops.length
+        ? blueprintDrops
+        : [{ type: 'non-drop', source: 'WFCD Codex API', text: details.join(' ') }],
       recipe: {
         blueprintCost: null,
         buildCost: detail.buildPrice,
@@ -96,7 +126,7 @@ export function codexDetailToAcquisition(detail) {
       location: drop.location,
       dropType: drop.type,
       rarity: drop.rarity,
-      chance: drop.chance,
+      chance: normalizeChance(drop.chance),
     }))
   return drops.length ? { sources: drops, recipe: null } : null
 }
@@ -106,4 +136,3 @@ export function isGenericAcquisition(info) {
   if (!Array.isArray(info.sources) || info.sources.length === 0) return true
   return info.sources.length === 1 && /^(Built in the Foundry from a blueprint and its components|Built in the Foundry from a blueprint\.)/.test(info.sources[0]?.text || '')
 }
-

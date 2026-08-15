@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:17:26.727Z
+Generated: 2026-08-15T05:17:52.684Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13200**
-Items with concrete acquisition records: **12043**
+Items with concrete acquisition records: **12045**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1107**
+Records without concrete acquisition evidence: **1105**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -1094,8 +1094,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Wisp Dex Helmet | `/Lotus/Upgrades/Skins/Wisp/DexWispHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Wisp_Dex_Helmet |
 | Wisp Prime Shroud | `/Lotus/Upgrades/Skins/Wisp/WispPrimeDefaultCape` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Wisp_Prime_Shroud |
 | Wisp Somnium Helmet | `/Lotus/Upgrades/Skins/Wisp/WispDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Wisp_Somnium_Helmet |
-| Wolf Of Saturn Six Glyph - Bright | `/Lotus/Types/AvatarImages/ImageWolfBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Wolf_of_Saturn_Six_Glyph_-_Bright |
-| Wolf Of Saturn Six Glyph - Dark | `/Lotus/Types/AvatarImages/ImageWolfDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Wolf_of_Saturn_Six_Glyph_-_Dark |
 | Wreath Sigil | `/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014A` | ExportCustoms | Listed under Tactical Alert Sigils on the Warframe wiki. | Wreath Sigil |
 | Wukong Qitian Helmet | `/Lotus/Upgrades/Skins/MonkeyKing/WukongDeluxeBHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Wukong_Qitian_Helmet |
 | Wukong Qitian Iron Staff Skin | `/Lotus/Upgrades/Skins/MonkeyKing/WukongDeluxeBStaffSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Wukong_Qitian_Iron_Staff_Skin |
@@ -1200,7 +1198,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 7985
+- non-drop: 7987
 - override: 607
 - relic: 342
 - sortie: 1

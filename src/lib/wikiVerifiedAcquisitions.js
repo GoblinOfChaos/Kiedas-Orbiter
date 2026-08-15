@@ -100,4 +100,6 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   ['/Lotus/Types/AvatarImages/TennoCon2023MerchGlyph', { text: 'Awarded to the top 10 of the 10 Year Anniversary Art Showcase; winners were announced April 20, 2023.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
   ['/Lotus/Types/AvatarImages/AvatarImageTennoVIP', { text: 'Available through the 11 Year Anniversary Twitch Drop campaign.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
   ['/Lotus/Types/AvatarImages/AvatarImageTeshinVed', { text: 'Redeem the promo code WARWITHIN during the launch of Update 19.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageLegendaryBlackdeath', { text: 'Exclusive to the player who designed it after purchasing a Legendary Ticket to TennoCon.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/ImageXakuDeluxeKintsugi', { text: 'Included in the Golden Mend Collection, sold in the Market for 430 Platinum.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
 ]);

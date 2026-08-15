@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:34:32.580Z
+Generated: 2026-08-15T05:36:45.825Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12171**
+Items with concrete acquisition records: **12173**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **975**
+Records without concrete acquisition evidence: **973**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -451,7 +451,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Lavos Prime Skin | `/Lotus/Upgrades/Skins/Alchemist/LavosPrimeSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lavos_Prime_Skin |
 | Lavos Yersin Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWLavosYersinArmArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Lavos Yersin Armor |
 | Legacy Mastery Sigil | `/Lotus/Upgrades/Skins/Sigils/MasterySigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Legacy Mastery Sigil |
-| Legendary Blackdeath Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageLegendaryBlackdeath` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Legendary_Blackdeath_Glyph |
 | Legendary Quasars Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphLegendaryQuasars` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ebbtides_Legendary_Glyph |
 | Lepus Headgear | `/Lotus/Upgrades/Skins/Events/BunnyEars` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lepus_Headgear |
 | Lex Onyx Skin | `/Lotus/Upgrades/Skins/SteamEsteem/EsteemLex` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lex_Onyx_Skin |
@@ -974,7 +973,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Wukong Voidshell Helmet | `/Lotus/Upgrades/Skins/MonkeyKing/MonkeyKingChamelionHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Wukong_Voidshell_Helmet |
 | Wyrm Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianWyrm` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Wyrm_Obsidian_Skin |
 | Xaku Kagura Helmet | `/Lotus/Upgrades/Skins/BrokenFrame/XakuDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Xaku_Kagura_Helmet |
-| Xaku Mended Glyph | `/Lotus/Types/AvatarImages/ImageXakuDeluxeKintsugi` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Xaku_Mended_Glyph |
 | Xaku Raya Helmet | `/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Xaku_Raya_Helmet |
 | Xaku Raya Illume Helmet | `/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosAltHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Xaku_Raya_Illume_Helmet |
 | Xaku Raya Skin | `/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Xaku_Raya_Skin |
@@ -1068,7 +1066,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8117
+- non-drop: 8119
 - override: 607
 - relic: 339
 - sortie: 1

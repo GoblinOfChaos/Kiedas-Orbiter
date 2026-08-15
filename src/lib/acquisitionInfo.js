@@ -5,9 +5,11 @@ import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisi
 // be opened before asynchronous resource injection reaches the context.
 import bundledWikiBaroAcquisition from '../../src-tauri/data/assets/data/wiki-baro-acquisition.json';
 import bundledWikiResourceAcquisition from '../../src-tauri/data/assets/data/wiki-resources-acquisition.json';
+import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-page-acquisition.json';
 
 const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map((name) => [name.toLowerCase().trim(), true]));
 const bundledWikiResourceIndex = new Map(Object.entries(bundledWikiResourceAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
+const bundledWikiPageIndex = new Map(Object.entries(bundledWikiPageAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
 
 /**
  * Shared "how do I get this" lookup, reused across Mods/Rivens/Inventory.
@@ -480,6 +482,19 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   }
 
   const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
+
+  // Explicit Wiki acquisition prose is more useful than a generic recipe
+  // summary because it can explain how the blueprint is obtained or unlocked.
+  const wikiPageAcquisition = wikiPageAcquisitionIndex?.get(displayLower) || bundledWikiPageIndex.get(displayLower);
+  if (wikiPageAcquisition?.text) {
+    return {
+      sources: [{ type: 'non-drop', text: wikiPageAcquisition.text, source: wikiPageAcquisition.source || 'Warframe Wiki' }],
+      wikiLink: wikiPageAcquisition.url
+        ? { url: wikiPageAcquisition.url, isDirect: true }
+        : getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
   if (recipe || isCraftable(dropIndexKey)) {
     return {
       sources: [{
@@ -601,16 +616,6 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return {
       sources: [{ type: 'non-drop', text: `Found at ${wikiResource.location}${kind ? ` (${kind}).` : '.'}`, source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
-    };
-  }
-
-  const wikiPageAcquisition = wikiPageAcquisitionIndex?.get(displayLower);
-  if (wikiPageAcquisition?.text) {
-    return {
-      sources: [{ type: 'non-drop', text: wikiPageAcquisition.text, source: wikiPageAcquisition.source || 'Warframe Wiki' }],
-      wikiLink: wikiPageAcquisition.url
-        ? { url: wikiPageAcquisition.url, isDirect: true }
-        : getWikiLink(dropIndexKey, displayName),
     };
   }
 

@@ -33,6 +33,7 @@ exportData.ExportUpgradesLocalized = exportData.ExportUpgrades;
 const readAsset = (name) => readJson(resolve(ASSET_ROOT, name));
 const bundledWikiBaroAcquisition = readAsset('wiki-baro-acquisition.json');
 const bundledWikiResourceAcquisition = readAsset('wiki-resources-acquisition.json');
+const bundledWikiPageAcquisition = readAsset('wiki-page-acquisition.json');
 
 const ITEM_TABLES = new Set([
   'ExportArcanes', 'ExportAvionics', 'ExportCustoms', 'ExportFlavour',
@@ -52,6 +53,10 @@ const acquisitionSource = readFileSync(resolve(ROOT, 'src/lib/acquisitionInfo.js
   .replace(
     "import bundledWikiResourceAcquisition from '../../src-tauri/data/assets/data/wiki-resources-acquisition.json';",
     `const bundledWikiResourceAcquisition = ${JSON.stringify(bundledWikiResourceAcquisition)};`,
+  )
+  .replace(
+    "import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-page-acquisition.json';",
+    `const bundledWikiPageAcquisition = ${JSON.stringify(bundledWikiPageAcquisition)};`,
   )
   .replace(
     "import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisitionData';",

@@ -446,9 +446,12 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
-  const overrideText = overridesData?.mods?.[displayName] ?? overridesData?.components?.[dropIndexKey];
+  const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
+  const overrideText = overridesData?.mods?.[displayName]
+    ?? overridesData?.components?.[dropIndexKey]
+    ?? overridesData?.components?.[`${displayName}|Blueprint`];
   if (overrideText) {
-    return { sources: [{ type: 'override', text: overrideText, source: 'manual override' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
+    return { sources: [{ type: 'override', text: overrideText, source: 'manual override' }], recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   const norm = dropIndexKey?.replace('/StoreItems/', '/');
@@ -481,8 +484,6 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return { sources: [{ type: 'non-drop', text: nonDrop.text, source: 'DE export path rule' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
-  const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
-
   // Explicit Wiki acquisition prose is more useful than a generic recipe
   // summary because it can explain how the blueprint is obtained or unlocked.
   const wikiPageAcquisition = wikiPageAcquisitionIndex?.get(displayLower) || bundledWikiPageIndex.get(displayLower);
@@ -492,6 +493,25 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       wikiLink: wikiPageAcquisition.url
         ? { url: wikiPageAcquisition.url, isDirect: true }
         : getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  // Some craftable resources are represented in the Wiki vendor data by the
+  // blueprint's inventory name (for example "Adramal Alloy X20 Blueprint"),
+  // so check those concrete acquisition records before falling back to the
+  // generic recipe description.
+  const vendorKeys = [
+    displayLower,
+    `${displayLower} blueprint`,
+    `${displayLower} x20 blueprint`,
+  ];
+  const vendorKey = vendorKeys.find((key) => wikiVendorIndex?.has(key));
+  const vendors = vendorKey ? wikiVendorIndex.get(vendorKey) : null;
+  if (vendors?.length) {
+    return {
+      sources: [{ type: 'non-drop', text: vendorKey === displayLower ? `Sold by ${vendors.join(' and ')}.` : `Blueprint sold by ${vendors.join(' and ')}.`, source: 'Warframe Wiki' }],
+      recipe: recipe || null,
+      wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
 
@@ -543,14 +563,6 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (wikiSigilCategory) {
     return {
       sources: [{ type: 'non-drop', text: `Listed under ${wikiSigilCategory} on the Warframe wiki.`, source: 'Warframe Wiki' }],
-      wikiLink: getWikiLink(dropIndexKey, displayName),
-    };
-  }
-
-  const vendors = wikiVendorIndex?.get(displayLower);
-  if (vendors?.length) {
-    return {
-      sources: [{ type: 'non-drop', text: `Sold by ${vendors.join(' and ')}.`, source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

@@ -531,4 +531,14 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://www.warframe.com/en/news/accesso-yareli-prime',
     source: 'Warframe.com Yareli Prime Access announcement + local export Yareli Prime skin record',
   }],
+  ['/Lotus/Upgrades/Skins/Sentinels/Wings/IctusPrimeWingsRight', {
+    text: 'Included in the Ictus Prime Sentinel Accessories package, available through the Banshee & Mirage Prime Vault accessories packs.',
+    url: 'https://www.warframe.com/news/banshee-and-mirage-prime-vault-ru',
+    source: 'Warframe.com Banshee and Mirage Prime Vault announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Wraith/SevagothPrimeShadowClawsSkin', {
+    text: 'Prime Shadow Claws appearance associated with Sevagoth Prime; acquire Sevagoth Prime through Prime Access or by earning and opening its Void Relics.',
+    url: 'https://www.warframe.com/fr/patch-notes/psn/36-1-0',
+    source: 'Warframe.com Update 36.1: The Lotus Eaters + local export Shadow Claws Prime skin record',
+  }],
 ]);

@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T08:11:54.543Z
+Generated: 2026-08-15T08:14:07.546Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12785**
+Items with concrete acquisition records: **12787**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **361**
+Records without concrete acquisition evidence: **359**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -144,7 +144,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Hostile Mergers Emblem | `/Lotus/Upgrades/Skins/Clan/AmalgamEventBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Hostile_Mergers_Emblem |
 | Hunter's Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeHunterItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Hunter%27s_Emblem |
 | Iahgames Braton | `/Lotus/Upgrades/Skins/IAHGames/IAHGamesBratonSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Iahgames_Braton |
-| Ictus Prime Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/IctusPrimeWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Ictus_Prime_Wings |
 | Ictus Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/IctusWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Ictus Sentinel Wings |
 | Infestation Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionInfested` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Infestation_Glyph |
 | Infested Deimos Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionDeimos` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Infested_Deimos_Glyph |
@@ -281,7 +280,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Servio VII Phloios | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal7C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Servio VII Phloios |
 | Servio VIII Perigone | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal8C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Servio VIII Perigone |
 | Sevagoth Prime Helmet | `/Lotus/Upgrades/Skins/Wraith/SevagothPrimeHelmet` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Sevagoth_Prime_Helmet |
-| Shadow Claws Prime | `/Lotus/Upgrades/Skins/Wraith/SevagothPrimeShadowClawsSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Shadow_Claws_Prime |
 | Shadow Leader Emblem | `/Lotus/Upgrades/Skins/Clan/LeaderBadgeShadowItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Shadow_Leader_Emblem |
 | Silva & Aegis Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianSilvaAndAegis` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Silva_%26_Aegis_Obsidian_Skin |
 | SINGLE STAFF SKIN | `/Lotus/Upgrades/Skins/Promo/ChangYou/CYSingleStaffSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/SINGLE_STAFF_SKIN |
@@ -454,7 +452,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8718
+- non-drop: 8720
 - override: 620
 - relic: 339
 - sortie: 1

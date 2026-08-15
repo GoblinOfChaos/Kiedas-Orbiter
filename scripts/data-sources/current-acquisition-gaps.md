@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T07:49:57.435Z
+Generated: 2026-08-15T07:51:00.960Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12746**
+Items with concrete acquisition records: **12759**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **400**
+Records without concrete acquisition evidence: **387**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -57,17 +57,13 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Conquera Emblem | `/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Conquera_Emblem |
 | Conquera Magnolia Ink | `/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoI` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Conquera_Magnolia_Ink |
 | Conquera United Sigil | `/Lotus/Upgrades/Skins/Sigils/QTCC2023ConqueraSigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Conquera_United_Sigil |
-| Converted Coda Sigil | `/Lotus/Upgrades/Skins/Sigils/InfLichConvertedSigil` | ExportCustoms | Listed under Enemy Drop Sigils on the Warframe wiki. | Converted Coda Sigil |
 | Cookie Boot Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieBoot` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Cookie_Boot_Glyph |
 | Corinth Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianCorinth` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Corinth_Obsidian_Skin |
 | Crestbear Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageCrestbear` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Crestbear_Glyph |
 | Crewman Staredown Glyph | `/Lotus/Types/AvatarImages/ImageYouTubeCorpusA` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Crewman_Staredown_Glyph |
 | Crewman Toon Glyph | `/Lotus/Types/AvatarImages/ImageYouTubeCorpusB` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Crewman_Toon_Glyph |
-| Cycle Five Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil` | ExportCustoms | Listed under PS4 Anniversary Sigils on the Warframe wiki. | Cycle Five Sigil |
-| Cycle Four Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil` | ExportCustoms | Listed under PS4 Anniversary Sigils on the Warframe wiki. | Cycle Four Sigil |
 | Cycle One Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4OneYearSigil` | ExportCustoms | Listed under PS4 Anniversary Sigils on the Warframe wiki. | Cycle One Sigil |
 | Cycle Three Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4ThreeYearSigil` | ExportCustoms | Listed under PS4 Anniversary Sigils on the Warframe wiki. | Cycle Three Sigil |
-| Cycle Two Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil` | ExportCustoms | Listed under PS4 Anniversary Sigils on the Warframe wiki. | Cycle Two Sigil |
 | Cyte-09 Skin | `/Lotus/Upgrades/Skins/Frumentarius/FrumentariusSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Cyte-09_Skin |
 | Dagath Immortal Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/DagathImmortalArmArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dagath_Immortal_Armor |
 | Dagath Immortal Helmet | `/Lotus/Upgrades/Skins/Dagath/DagathImmortalHelmet` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dagath_Immortal_Helmet |
@@ -160,7 +156,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Hildryn Prime Chest Plate | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/HildrynPrimeChestArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Hildryn_Prime_Chest_Plate |
 | Hildryn Prime Helmet | `/Lotus/Upgrades/Skins/IronFrame/HildrynPrimeHelmet` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Hildryn_Prime_Helmet |
 | Hostile Mergers Emblem | `/Lotus/Upgrades/Skins/Clan/AmalgamEventBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Hostile_Mergers_Emblem |
-| Hounding Kubrow Sigil | `/Lotus/Upgrades/Skins/Sigils/HoundingKubrowSigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Hounding Kubrow Sigil |
 | Hunter's Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeHunterItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Hunter%27s_Emblem |
 | Iahgames Braton | `/Lotus/Upgrades/Skins/IAHGames/IAHGamesBratonSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Iahgames_Braton |
 | Ictus Prime Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/IctusPrimeWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Ictus_Prime_Wings |
@@ -247,16 +242,13 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Obsidian Azura Leg Plates | `/Lotus/Upgrades/Skins/Armor/Sony/OAArmorL` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Azura_Leg_Plates |
 | Obsidian Azura Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/Sony/OAArmorA` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Azura_Shoulder_Plates |
 | Obsidian Azura Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Azura_Syandana |
-| Obsidian Corvus Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4CrowSigil` | ExportCustoms | Listed under PS4 Bundle Sigils on the Warframe wiki. | Obsidian Corvus Sigil |
 | Obsidian Corvus Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianCrowSyandana` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Corvus_Syandana |
 | Obsidian Deko Chest Plate | `/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorC` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Deko_Chest_Plate |
 | Obsidian Deko Knee Plates | `/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorL` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Deko_Knee_Plates |
 | Obsidian Deko Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorA` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Deko_Shoulder_Plates |
-| Obsidian Indra Sigil | `/Lotus/Upgrades/Skins/Sigils/ObsidianIndraSigil` | ExportCustoms | Listed under PS4 Bundle Sigils on the Warframe wiki. | Obsidian Indra Sigil |
 | Obsidian Kyroptera Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianKyropteraScarf` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Kyroptera_Syandana |
 | Obsidian Samia Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianSamiaScarf` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Samia_Syandana |
 | Obsidian Sedai Syandana | `/Lotus/Upgrades/Skins/Scarves/PS5Syandana` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Obsidian_Sedai_Syandana |
-| Obsidian Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4RenownXSigil` | ExportCustoms | Listed under PS4 Bundle Sigils on the Warframe wiki. | Obsidian Sigil |
 | Odonata Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianStandardArchwingSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Odonata_Obsidian_Skin |
 | Okina Emblem | `/Lotus/Upgrades/Skins/Clan/PS5OkinaBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Okina_Emblem |
 | Okina Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Okina_Obsidian_Skin |
@@ -306,9 +298,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Scoliac Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianScoliac` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Scoliac_Obsidian_Skin |
 | Scorpion Specter | `/Lotus/Types/Restoratives/Consumable/MacheteWomanBall` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Scorpion_Specter |
 | Seal Of Honoring | `/Lotus/Upgrades/Skins/Sigils/XBoneOneYearSigil` | ExportCustoms | Listed under XBox One Anniversary Sigils on the Warframe wiki. | Seal Of Honoring |
-| Seal Of Honoring II | `/Lotus/Upgrades/Skins/Sigils/XBoneTwoYearSigil` | ExportCustoms | Listed under XBox One Anniversary Sigils on the Warframe wiki. | Seal Of Honoring II |
 | Seal Of Honoring III | `/Lotus/Upgrades/Skins/Sigils/XBoneThreeYearSigil` | ExportCustoms | Listed under XBox One Anniversary Sigils on the Warframe wiki. | Seal Of Honoring III |
-| Seal Of Honoring IV | `/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil` | ExportCustoms | Listed under XBox One Anniversary Sigils on the Warframe wiki. | Seal Of Honoring IV |
 | Serro Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianSerro` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Serro_Obsidian_Skin |
 | Servio V Sporoi | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal5C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Servio V Sporoi |
 | Servio VI Kalika | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal6C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Servio VI Kalika |
@@ -326,7 +316,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Snowlit Glyph | `/Lotus/Types/AvatarImages/AvatarImageCreatorSnowLit` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Snowlit_Glyph |
 | Solaris Emblem | `/Lotus/Upgrades/Skins/Clan/SolarisBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Solaris_Emblem |
 | Solstice Conclave Emblem | `/Lotus/Upgrades/Skins/Clan/HolidayDeathMatchBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Solstice_Conclave_Emblem |
-| Somber Stalker Sigil | `/Lotus/Upgrades/Skins/Sigils/SomberStalkerSigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Somber Stalker Sigil |
 | Sonicor Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianSonicor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Sonicor_Obsidian_Skin |
 | Spira Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianSpira` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Spira_Obsidian_Skin |
 | Splash and Dash Sigil | `/Lotus/Upgrades/Skins/Sigils/DogDays2023ASigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Splash_and_Dash_Sigil |
@@ -356,7 +345,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Tenno Chronicler Emblem | `/Lotus/Upgrades/Skins/Clan/WikiaBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Tenno_Chronicler_Emblem |
 | Tenno Translator Glyph | `/Lotus/Types/AvatarImages/AvatarImageTennoTranslator` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Tenno_Translator_Glyph |
 | TennoGen Decennial Emblem | `/Lotus/Upgrades/Skins/Clan/Tennogen10YearBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TennoGen_Decennial_Emblem |
-| TennoGen Decennial Sigil | `/Lotus/Upgrades/Skins/Sigils/Tennogen10YearSigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | TennoGen Decennial Sigil |
 | TennoGen Emblem | `/Lotus/Upgrades/Skins/Clan/TennoGenBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TennoGen_Emblem |
 | TennoVIP 2025 Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoVIP2025Sigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TennoVIP_2025_Sigil |
 | TennoVIP 2026 Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoVIP2026Sigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TennoVIP_2026_Sigil |
@@ -391,7 +379,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Vanda Prime Chest Armor | `/Lotus/Upgrades/Skins/Armor/PrimeGyreArmor/PrimeGyreArmorC` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Vanda Prime Chest Armor |
 | Vanda Prime Leg Armor | `/Lotus/Upgrades/Skins/Armor/PrimeGyreArmor/PrimeGyreArmorL` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Vanda Prime Leg Armor |
 | Vanda Prime Shoulder Armor | `/Lotus/Upgrades/Skins/Armor/PrimeGyreArmor/PrimeGyreArmorA` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Vanda Prime Shoulder Armor |
-| Vanquished Coda Sigil | `/Lotus/Upgrades/Skins/Sigils/InfLichVanquishedSigil` | ExportCustoms | Listed under Enemy Drop Sigils on the Warframe wiki. | Vanquished Coda Sigil |
 | Vasero Apex Sekhara | `/Lotus/Upgrades/Skins/Clan/ZarimanEvolvingSekharaBadgeItemC` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Vasero_Apex_Sekhara |
 | Vasero Emergent Sekhara | `/Lotus/Upgrades/Skins/Clan/ZarimanEvolvingSekharaBadgeItemB` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Vasero_Emergent_Sekhara |
 | Vasto Phased Skin | `/Lotus/Upgrades/Skins/Promo/Void/VastoVoidSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Vasto_Phased_Skin |
@@ -493,7 +480,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8679
+- non-drop: 8692
 - override: 620
 - relic: 339
 - sortie: 1

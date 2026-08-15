@@ -336,4 +336,69 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   ['/Lotus/Types/AvatarImages/ImageXakuDeluxeKintsugi', { text: 'Included in the Golden Mend Collection, sold in the Market for 430 Platinum.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
   ['/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2024SisterNoBloodGlyph', { text: 'Purchased from Daughter for 20 Mother Tokens during Nights of Naberus.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
   ['/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Lotus', { text: 'Included in the Gruesome Glyph Bundle, sold in the Market for 65 Platinum during Halloween since 2021.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Upgrades/Skins/Sigils/InfLichConvertedSigil', {
+    text: 'Rewarded for converting your first Technocyte Coda.',
+    url: 'https://www.warframe.com/en/patch-notes/psn/38-5-0',
+    source: 'Warframe.com Update 38.5: Techrot Encore',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/InfLichVanquishedSigil', {
+    text: 'Rewarded for vanquishing your first Technocyte Coda.',
+    url: 'https://www.warframe.com/en/patch-notes/psn/38-5-0',
+    source: 'Warframe.com Update 38.5: Techrot Encore',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/HoundingKubrowSigil', {
+    text: 'Purchased from Daughter in the Necralisk during Nights of Naberus for Mother Tokens.',
+    url: 'https://www.warframe.com/th/news/nights-of-naberus-returns-en',
+    source: 'Warframe.com Nights of Naberus Returns',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/SomberStalkerSigil', {
+    text: 'Purchased from Daughter in the Necralisk during Nights of Naberus for Mother Tokens.',
+    url: 'https://www.warframe.com/th/news/nights-of-naberus-returns-en',
+    source: 'Warframe.com Nights of Naberus Returns',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/Tennogen10YearSigil', {
+    text: 'Free Inbox reward during the TennoGen 10 Year Anniversary campaign; claimable by logging in before December 31, 2025.',
+    url: 'https://www.warframe.com/en/news/tennogen10',
+    source: 'Warframe.com TennoGen 10 Year Anniversary Celebration',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil', {
+    text: 'PS4 second-anniversary Inbox reward during the 2015 anniversary event.',
+    url: 'https://www.warframe.com/uk/news/warframe-celebrates-two-years-playstation-4',
+    source: 'Warframe.com PlayStation 4 second anniversary announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil', {
+    text: 'PS4 fourth-anniversary Inbox reward during the 2017 anniversary event.',
+    url: 'https://www.warframe.com/en/news/playstation-4',
+    source: 'Warframe.com PlayStation 4 fourth anniversary announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil', {
+    text: 'PS4 fifth-anniversary Inbox reward during the 2018 anniversary event.',
+    url: 'https://www.warframe.com/en/news/5-year-anniversary',
+    source: 'Warframe.com PlayStation 4 fifth anniversary announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/XBoneTwoYearSigil', {
+    text: 'Xbox second-anniversary Inbox reward during the 2016 anniversary event.',
+    url: 'https://www.warframe.com/uk/news/dziekujemy-za-dwa-wysmienite-lata-tenno',
+    source: 'Warframe.com Xbox One second anniversary announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil', {
+    text: 'Xbox fourth-anniversary Inbox reward during the 2018 anniversary event.',
+    url: 'https://www.warframe.com/en/news/warframe-s-fourth-anniversary-on-xbox-one',
+    source: 'Warframe.com Xbox One fourth anniversary announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/PS4CrowSigil', {
+    text: 'Included in the PlayStation-exclusive Obsidian Corvus Collection.',
+    url: 'https://www.warframe.com/uk/news/obsidian-corvus-collection-available-now',
+    source: 'Warframe.com Obsidian Corvus Collection announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/ObsidianIndraSigil', {
+    text: 'Included in the PlayStation-exclusive Ultimate Obsidian Collection.',
+    url: 'https://www.warframe.com/en/news/ultimate-obsidian-collection',
+    source: 'Warframe.com Ultimate Obsidian Collection announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/PS4RenownXSigil', {
+    text: 'Included in the PlayStation-exclusive Renown Pack X.',
+    url: 'https://www.warframe.com/en/news/x',
+    source: 'Warframe.com Renown Pack X announcement',
+  }],
 ]);

@@ -89,5 +89,65 @@
   "/Lotus/Upgrades/Skins/Volt/VoltTwitchSkin": {
     "text": "Available via Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
     "source": "Warframe.com Verv Collection Re-release 2"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageDJRoMGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 90 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageDrillbitGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 60 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageHarddriveGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 30 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageZekeGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 120 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImagePacketGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 150 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageLogoGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 180 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedDJRoMGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 90 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedDrillbitGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 60 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedHarddriveGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 30 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedZekeGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 120 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedPacketGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 150 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedLogoGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 180 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/Events/EventGlyphCaviaFibonacci": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Types/AvatarImages/Events/EventGlyphCaviaTagfer": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Types/AvatarImages/ImageElevenYearAnniversary": {
+    "text": "Anniversary login reward: log in during the 11 Year Anniversary celebration to earn it.",
+    "source": "Warframe.com Update 35.5: Dante Unbound"
   }
 }

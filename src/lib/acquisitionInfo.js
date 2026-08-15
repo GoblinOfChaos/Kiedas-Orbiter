@@ -1,5 +1,14 @@
 import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisitionData';
 
+// Keep compact Wiki maps available in the frontend as a last-resort fallback.
+// The AppImage also ships these JSON files as Tauri resources, but a card can
+// be opened before asynchronous resource injection reaches the context.
+import bundledWikiBaroAcquisition from '../../src-tauri/data/assets/data/wiki-baro-acquisition.json';
+import bundledWikiResourceAcquisition from '../../src-tauri/data/assets/data/wiki-resources-acquisition.json';
+
+const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map((name) => [name.toLowerCase().trim(), true]));
+const bundledWikiResourceIndex = new Map(Object.entries(bundledWikiResourceAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
+
 /**
  * Shared "how do I get this" lookup, reused across Mods/Rivens/Inventory.
  *
@@ -563,7 +572,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     };
   }
 
-  if (wikiBaroIndex?.has(displayLower) || BARO_LOGIN_MUSIC_PATTERN.test(dropIndexKey || '')) {
+  if (wikiBaroIndex?.has(displayLower) || bundledWikiBaroIndex.has(displayLower) || BARO_LOGIN_MUSIC_PATTERN.test(dropIndexKey || '')) {
     return {
       sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
@@ -586,7 +595,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     };
   }
 
-  const wikiResource = wikiResourceIndex?.get(displayLower);
+  const wikiResource = wikiResourceIndex?.get(displayLower) || bundledWikiResourceIndex.get(displayLower);
   if (wikiResource?.location) {
     const kind = [wikiResource.rarity, wikiResource.type].filter(Boolean).join(' ');
     return {

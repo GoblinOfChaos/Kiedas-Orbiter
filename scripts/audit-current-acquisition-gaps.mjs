@@ -31,6 +31,8 @@ for (const name of [
 exportData.ExportUpgradesLocalized = exportData.ExportUpgrades;
 
 const readAsset = (name) => readJson(resolve(ASSET_ROOT, name));
+const bundledWikiBaroAcquisition = readAsset('wiki-baro-acquisition.json');
+const bundledWikiResourceAcquisition = readAsset('wiki-resources-acquisition.json');
 
 const ITEM_TABLES = new Set([
   'ExportArcanes', 'ExportAvionics', 'ExportCustoms', 'ExportFlavour',
@@ -43,6 +45,14 @@ const ITEM_TABLES = new Set([
 // imports with the real bundled acquisition data and the already-tested
 // Baro-name constant so the exported functions remain the app's functions.
 const acquisitionSource = readFileSync(resolve(ROOT, 'src/lib/acquisitionInfo.js'), 'utf8')
+  .replace(
+    "import bundledWikiBaroAcquisition from '../../src-tauri/data/assets/data/wiki-baro-acquisition.json';",
+    `const bundledWikiBaroAcquisition = ${JSON.stringify(bundledWikiBaroAcquisition)};`,
+  )
+  .replace(
+    "import bundledWikiResourceAcquisition from '../../src-tauri/data/assets/data/wiki-resources-acquisition.json';",
+    `const bundledWikiResourceAcquisition = ${JSON.stringify(bundledWikiResourceAcquisition)};`,
+  )
   .replace(
     "import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisitionData';",
     `const acquisitionIndex = ${JSON.stringify([...acquisitionByPath.entries()])};

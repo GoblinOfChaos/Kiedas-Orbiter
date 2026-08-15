@@ -122,6 +122,7 @@ export default function Foundry() {
   const [search, setSearch] = useState('')
   const [ownedOnly, setOwnedOnly] = useState(false)
   const [readyOnly, setReadyOnly] = useState(false)
+  const [masteryFilter, setMasteryFilter] = useState('all')
   const [selectedName, setSelectedName] = useState(null)
 
   const recipeByResult = useMemo(() => {
@@ -159,8 +160,13 @@ export default function Foundry() {
   }, [inventoryData, activeCat, recipeByResult, EI, nameToImage, uniqueNameToName])
   const filteredItems = useMemo(() => {
     const q = search.trim().toLowerCase()
-    return items.filter((item) => (!q || item.name?.toLowerCase().includes(q)) && (!ownedOnly || item.owned) && (!readyOnly || item.recipe?.allIngredientsMet)).sort((a, b) => (a.name || '').localeCompare(b.name || ''))
-  }, [items, search, ownedOnly, readyOnly])
+    return items.filter((item) => (
+      (!q || item.name?.toLowerCase().includes(q)) &&
+      (!ownedOnly || item.owned) &&
+      (!readyOnly || item.recipe?.allIngredientsMet) &&
+      (masteryFilter === 'all' || (masteryFilter === 'mastered' ? item.mastered : !item.mastered))
+    )).sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+  }, [items, search, ownedOnly, readyOnly, masteryFilter])
   const selected = filteredItems.find((item) => item.unique_name === selectedName) || null
   const ownedCount = items.filter((item) => item.owned).length
 
@@ -176,6 +182,13 @@ export default function Foundry() {
           <div className="flex items-center gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
             {[['Owned', ownedOnly, setOwnedOnly], ['Ready', readyOnly, setReadyOnly]].map(([label, active, setActive]) => (
               <button key={label} type="button" onClick={() => setActive(!active)} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${active ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`} aria-pressed={active}>
+                {label}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-1 p-1 bg-black/20 rounded-xl border border-white/5" aria-label="Mastery filter">
+            {[['All', 'all'], ['Mastered', 'mastered'], ['Unmastered', 'unmastered']].map(([label, value]) => (
+              <button key={value} type="button" onClick={() => setMasteryFilter(value)} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${masteryFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`} aria-pressed={masteryFilter === value}>
                 {label}
               </button>
             ))}

@@ -515,8 +515,8 @@
     "source": "Warframe.com Operation: Buried Debts + Warframe Wiki Operation: Buried Debts"
   },
   "/Lotus/Upgrades/Skins/Sigils/OrbSigil": {
-    "text": "Operation: Buried Debts reward at 75 Thermia Fracture points; the operation is currently unavailable.",
-    "source": "Warframe.com Operation: Buried Debts + Warframe Wiki Operation: Buried Debts"
+    "text": "Earn by sealing 75 Thermia Fractures during the periodically recurring Thermia Fractures event.",
+    "source": "Warframe Wiki Sigils + Warframe Wiki Operation: Buried Debts"
   },
   "/Lotus/Upgrades/Skins/Sigils/EventSigilShadowgrapher": {
     "text": "Reward from Operation: Atramentum, exchanged for Nightmare Tatters at Aspirant Zorba; the operation is currently unavailable.",
@@ -717,5 +717,21 @@
   "/Lotus/Upgrades/Skins/Dragon/ChromaLNYWings": {
     "text": "Optional wings included with Chroma's Zunlong Skin; the Lunar New Year 2024 announcement listed the skin for individual purchase in the in-game Market and in the Dragon Stone Bundle.",
     "source": "Warframe Steam Community Announcements Lunar New Year 2024 + Warframe Wiki Chroma/Equip"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilZorba": {
+    "text": "Purchase from Aspirant Zorba with Nightmare Tatters during Operation: Atramentum; the operation ended on April 30, 2026.",
+    "source": "Warframe.com Operation: Atramentum is Live"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NightwavePizzaSigil": {
+    "text": "Nightwave: Nora's Mix Volume 8 rank 2 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree": {
+    "text": "Returning reward available from Aspirant Zorba during Operation: Atramentum, purchased with Nightmare Tatters; the operation ended on April 30, 2026.",
+    "source": "Warframe.com Operation: Atramentum is Live"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BladeAndGunSigil": {
+    "text": "Awarded to the winners of the Blade and Gun Challenges hosted on the Warframe Forums; the challenges are over.",
+    "source": "Warframe Wiki Sigils"
   }
 }

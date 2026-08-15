@@ -4,6 +4,22 @@
 // an acquisition route by accident.
 export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   [
+    '/Lotus/Upgrades/Skins/Dagath/DagathDeluxeLNYHelmet',
+    {
+      text: 'Included with the Dagath Yfari Skin; the skin is sold individually in the in-game Market for 165 Platinum, and the local export links this helmet as its component.',
+      url: 'https://www.warframe.com/en/patch-notes/pc/41-1-0',
+      source: 'Warframe.com Update 41.1: Vauban Heirloom + local export Dagath Yfari skin/component records',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWYhavanDagathAArmor',
+    {
+      text: 'Included with the Dagath Yhavan Skin; PC players acquire the TennoGen skin through Steam Workshop, while console and iOS players can purchase it for Platinum in the in-game Market.',
+      url: 'https://forums.warframe.com/topic/1469559-new-tennogen-arriving-in-october-first-look/',
+      source: 'Warframe Forums TennoGen announcement + local export Dagath Yhavan skin/component records',
+    },
+  ],
+  [
     '/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosSkin',
     {
       text: 'Nora’s Mix Volume 9 reward at Rank 30; the reward included the Xaku Raya Skin and Xaku Raya Helmet.',

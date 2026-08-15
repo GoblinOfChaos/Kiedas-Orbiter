@@ -446,4 +446,9 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://www.warframe.com/news/7-year-anniversary',
     source: 'Warframe.com 7 Year Anniversary announcement + local export Dex Raksaka component record',
   }],
+  ['/Lotus/Upgrades/Skins/Kubrows/Armor/NightwaveSeason5HarkaKubrowArmor', {
+    text: 'Nightwave: Nora\'s Mix Volume 5 reward; it has also returned in later Nightwave Cred rotations.',
+    url: 'https://www.warframe.com/th/amp/nightwave-noras-mix-vol-5',
+    source: 'Warframe.com Nightwave: Nora\'s Mix Volume 5 announcement',
+  }],
 ]);

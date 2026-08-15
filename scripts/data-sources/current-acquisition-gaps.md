@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T08:00:27.786Z
+Generated: 2026-08-15T08:01:06.516Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12768**
+Items with concrete acquisition records: **12769**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **378**
+Records without concrete acquisition evidence: **377**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -139,7 +139,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Guardiancon 2018 Glyph | `/Lotus/Types/AvatarImages/GuardianCon2018Glyph` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Guardiancon_2018_Glyph |
 | Guides Of The Lotus Glyph | `/Lotus/Types/AvatarImages/AvatarImageLotusGuide` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Guides_Of_The_Lotus_Glyph |
 | Gyre In Action Glyph | `/Lotus/Types/AvatarImages/ImageGyreInAction` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Gyre_In_Action_Glyph |
-| Harka Kubrow Armor | `/Lotus/Upgrades/Skins/Kubrows/Armor/NightwaveSeason5HarkaKubrowArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Harka_Kubrow_Armor |
 | Harrowed Hook | `/Lotus/Upgrades/Mods/PvPMods/Melee/GroundingMeleeMod` | ExportUpgrades | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Harrowed_Hook |
 | Hek Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianHek` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Hek_Obsidian_Skin |
 | Helios Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianHelios` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Helios_Obsidian_Skin |
@@ -471,7 +470,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8701
+- non-drop: 8702
 - override: 620
 - relic: 339
 - sortie: 1

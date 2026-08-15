@@ -38,5 +38,15 @@
   "/Lotus/Upgrades/Skins/Clan/ShipyardsEventBadgeItem": "An insignia awarded to the Tenno who distinguished themselves during Tethra's Doom event.",
   "/Lotus/Upgrades/Skins/Clan/ShipyardsEventQuantumBadgeItem": "An insignia awarded to the Tenno who distinguished themselves during Tethra's Doom event.",
   "/Lotus/Upgrades/Skins/Clan/DefectorRescueEventBadgeItem": "An insignia awarded to the Tenno who proved themselves during the Pacifism Defect operation.",
-  "/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemB": "An insignia awarded to the Tenno Elite who proved themselves during the Tohtchi Variant."
+  "/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemB": "An insignia awarded to the Tenno Elite who proved themselves during the Tohtchi Variant.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearGroundI": "Earned through ground assaults against the Sentient Condrix during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearGroundII": "Earned through ground assaults against the Sentient Condrix during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearGroundIII": "Earned through ground assaults against the Sentient Condrix during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearSpaceI": "Earned through Railjack raids against the Sentient Murex during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearSpaceII": "Earned through Railjack raids against the Sentient Murex during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearSpaceIII": "Earned through Railjack raids against the Sentient Murex during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearOperationI": "Awarded for exemplary performance in Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearOperationII": "Awarded for exemplary performance in Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearOperationIII": "Awarded for exemplary performance in Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/TennoCon2019SimarisGlyph": "Given to those attending the Sanctuary Showcase gameshow at TennoCon 2019."
 }

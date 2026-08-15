@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:03:30.922Z
+Generated: 2026-08-15T05:04:00.846Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11867**
+Items with concrete acquisition records: **11868**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1289**
+Records without concrete acquisition evidence: **1288**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -234,7 +234,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Crestbear Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageCrestbear` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Crestbear_Glyph |
 | Crewman Staredown Glyph | `/Lotus/Types/AvatarImages/ImageYouTubeCorpusA` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Crewman_Staredown_Glyph |
 | Crewman Toon Glyph | `/Lotus/Types/AvatarImages/ImageYouTubeCorpusB` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Crewman_Toon_Glyph |
-| Crewman’s Boot | `/Lotus/Types/Items/Fish/Solaris/CorpusBootItem` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Crewman%E2%80%99s_Boot |
 | Cryotic Front Emblem | `/Lotus/Upgrades/Skins/Clan/ExcavationEvenetBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cryotic_Front_Emblem |
 | Cycle Five Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil` | ExportCustoms | Listed under PS4 Anniversary Sigils on the Warframe wiki. | Cycle Five Sigil |
 | Cycle Four Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil` | ExportCustoms | Listed under PS4 Anniversary Sigils on the Warframe wiki. | Cycle Four Sigil |
@@ -1384,7 +1383,7 @@ Dreams of the Dead Cred |
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7803
+- non-drop: 7804
 - override: 607
 - relic: 345
 - sortie: 1

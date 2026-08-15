@@ -353,5 +353,17 @@
   "/Lotus/Types/AvatarImages/AvatarImageTennoVIP2Glyph": {
     "text": "Included in the TennoVIP 2025 attendee bundle for the in-person PAX East 2025 event.",
     "source": "Warframe.com Devstream 188 and TennoVIP at PAX East 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageExcaliburActionSony": {
+    "text": "Available for 1 Credit in the PlayStation in-game Market during the PlayStation anniversary celebration.",
+    "source": "Warframe.com 5 Year Anniversary"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageExcaliburActionNintendo": {
+    "text": "Available for 1 Credit in the Nintendo Switch in-game Market during the Switch anniversary celebration.",
+    "source": "Warframe.com 3 Years on Nintendo Switch"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageDrakeRifle": {
+    "text": "Included in the PlayStation Plus Booster Pack VI.",
+    "source": "Warframe.com PlayStation Plus Booster Pack VI"
   }
 }

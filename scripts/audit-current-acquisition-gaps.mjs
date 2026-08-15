@@ -18,6 +18,13 @@ const acquisitionItems = readJson(resolve(ASSET_ROOT, 'warframe-items-acquisitio
 const acquisitionByPath = new Map(acquisitionItems.map((item) => [canonical(item.uniqueName), item]));
 const userInventory = readJson(resolve(process.env.HOME, '.local/share/kiedas-orbiter/data/user/inventory.json'));
 const ownedResourcePaths = new Set((userInventory.MiscItems || []).map((item) => canonical(item?.ItemType)).filter(Boolean));
+const ownedUpgradePaths = new Set([
+  ...(userInventory.Upgrades || []),
+  ...(userInventory.RawUpgrades || []),
+].map((item) => canonical(item?.ItemType)).filter(Boolean));
+const acquisitionArcanePaths = new Set(acquisitionItems
+  .filter((item) => item?.uniqueName?.includes('/Upgrades/CosmeticEnhancers/'))
+  .map((item) => canonical(item.uniqueName)));
 const overrides = readJson(resolve(ASSET_ROOT, 'acquisition_overrides.json'));
 const exportData = {};
 for (const name of [
@@ -166,6 +173,18 @@ for (const [tableName, table] of Object.entries(exportData)) {
     // with that real catalog rather than auditing thousands of unrendered
     // decorations, internal tokens, and future-only definitions.
     if (tableName === 'ExportResources' && !ownedResourcePaths.has(canonical(key))) continue;
+    // Inventory.jsx applies the maintained acquisition allowlist to the
+    // Arcanes catalog and excludes retired/internal export definitions unless
+    // an owned copy is present. Mirror that exact catalog boundary here.
+    if (tableName === 'ExportArcanes') {
+      const arcanePath = canonical(key);
+      const arcaneName = displayNameFor(arcanePath, entry).toLowerCase();
+      const retained = acquisitionArcanePaths.has(arcanePath)
+        || ['secondary cryogenic', 'pax soar'].includes(arcaneName)
+        || ownedUpgradePaths.has(arcanePath);
+      if (!retained) continue;
+      if (!entry.levelStats?.length && !ownedUpgradePaths.has(arcanePath)) continue;
+    }
     // Cosmetics.jsx renders skins/sigils from ExportCustoms and glyphs from
     // WFCD. Other ExportCustoms/ExportFlavour entries are not catalog cards.
     if (tableName === 'ExportCustoms' && !/\/Upgrades\/Skins\//i.test(key)) continue;

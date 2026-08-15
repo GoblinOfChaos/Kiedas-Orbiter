@@ -4,6 +4,16 @@
     "text": "The blueprint for 10 Air Support Charges is automatically available in the Foundry after installing a Landing Craft Foundry Segment. Each batch costs 4,000 Credits, 1,200 Ferrite, 2,000 Salvage, 1 Morphics, and 700 Plastids, and takes 1 minute to build.",
     "url": "https://wiki.warframe.com/w/Air_Support_Charges"
   },
+  "Apoc": {
+    "section": "Acquisition",
+    "text": "The base Apoc is included in the Railjack's initial loadout after the Railjack has been repaired in the Rising Tide quest. It cannot be scrapped, and additional copies cannot be built.",
+    "url": "https://wiki.warframe.com/w/Apoc"
+  },
+  "Boolean Syandana": {
+    "section": "Acquisition",
+    "text": "Obtained from Nightwave: Series 3 at Rank 28, Nora's Choice at Rank 25, or Nora's Mix Volume 5 at Rank 14.",
+    "url": "https://wiki.warframe.com/w/Boolean_Syandana"
+  },
   "Aerospri Dex Pixia Skin": {
     "section": "Acquisition",
     "text": "The Aerospri Dex Pixia Skin is only available in the Market as part of the Titania Donann Skin for  165 or Titania Donann Collection for  195.",
@@ -24,6 +34,41 @@
     "text": "Dendrite Blastoma can be obtained by filleting  Barbisteo and  Vitreospina (both from the Cambion Drift) at Daughter in the Necralisk.",
     "url": "https://wiki.warframe.com/w/Dendrite_Blastoma"
   },
+  "Crimson Talent": {
+    "section": "Acquisition",
+    "text": "After completing Jade Shadows: Constellations, complete the Scoria's Angel node in Uranus Proxima to receive 12–16 Crimson Talent (18–22 on Steel Path). Additional Crimson Talent can be rewarded for taking down all targets during the Ramsled transition phase.",
+    "url": "https://wiki.warframe.com/w/Crimson_Talent"
+  },
+  "Crisma Toroid": {
+    "section": "Acquisition",
+    "text": "Drops from the Profit-Taker Orb during Phase 4 of the Heist in Orb Vallis (Venus).",
+    "url": "https://wiki.warframe.com/w/Crisma_Toroid"
+  },
+  "Dax Lustratus Shoulder Plates": {
+    "section": "Acquisition",
+    "text": "Purchase during Operation: Blood of Perita for 40 Marks of Valiance.",
+    "url": "https://wiki.warframe.com/w/Dax_Lustratus_Shoulder_Plates"
+  },
+  "Daybreak Vanquished Banner": {
+    "section": "Acquisition",
+    "text": "Obtained from Nora's Mix Volume 6 at Rank 4.",
+    "url": "https://wiki.warframe.com/w/Daybreak_Vanquished_Banner"
+  },
+  "Deathmark Shoulder Armor": {
+    "section": "Acquisition",
+    "text": "Obtained from Nora's Mix Volume 7 at Rank 30.",
+    "url": "https://wiki.warframe.com/w/Deathmark_Shoulder_Armor"
+  },
+  "Dominus Aureus": {
+    "section": "Acquisition",
+    "text": "During Operation: Eight Claw, complete the Isleweaver game mode for 18–22 Dominus Aureus, or 22–26 on Steel Path.",
+    "url": "https://wiki.warframe.com/w/Dominus_Aureus"
+  },
+  "Hidden Messages": {
+    "section": "Quest acquisition",
+    "text": "Complete the Eris–Sedna Junction to receive the Hidden Messages quest; start it from the Codex.",
+    "url": "https://wiki.warframe.com/w/Hidden_Messages"
+  },
   "Dual Swords Stavika Skin": {
     "section": "Acquisition",
     "text": "This skin can be obtained by reaching Rank 18 in Nightwave: Nora's Mix Volume 1, available from March 16th, 2022. It can also be purchased from Ticker during the Star Days seasonal event for debt-bonds.",
@@ -33,6 +78,86 @@
     "section": "Acquisition",
     "text": "Obtained from defeating a Technocyte Coda, provided the Coda has the Ephemera themselves, regardless if they are Vanquished or Converted. Codas have a ~57% chance to appear with an Ephemera, otherwise they will spawn with an Emote or Captura Scene.",
     "url": "https://wiki.warframe.com/w/Embracer_Ephemera"
+  },
+  "Ferment Bladder": {
+    "section": "Acquisition",
+    "text": "Fillet Amniophysi, Aquapulmo, Barbisteo, Cryptosuctus, Glutinox, Kymaeros, Ostimyr, or Vitreospina caught in the Cambion Drift at Daughter in the Necralisk. It can also appear in Daughter's rotating Daily Special for Platinum.",
+    "url": "https://wiki.warframe.com/w/Ferment_Bladder"
+  },
+  "Glacia Syandana": {
+    "section": "Acquisition",
+    "text": "Obtained from Nora's Mix Volume 1 at Rank 30.",
+    "url": "https://wiki.warframe.com/w/Glacia_Syandana"
+  },
+  "Patient Zero": {
+    "section": "Quest acquisition",
+    "text": "Complete the Pluto–Eris Junction to receive the Patient Zero quest; start it from the Codex.",
+    "url": "https://wiki.warframe.com/w/Patient_Zero"
+  },
+  "Pulsar": {
+    "section": "Acquisition",
+    "text": "The base Pulsar is included in the Railjack's initial loadout after the Railjack has been repaired in the Rising Tide quest. It cannot be scrapped, and additional copies cannot be built.",
+    "url": "https://wiki.warframe.com/w/Pulsar"
+  },
+  "Kyndryn Gunblade Skin": {
+    "section": "Acquisition",
+    "text": "Purchase during Operation: Atramentum for 30 Nightmare Tatters. It was originally obtainable by completing all Recall: Ten-Zero alerts in 2023.",
+    "url": "https://wiki.warframe.com/w/Kyndryn_Gunblade_Skin"
+  },
+  "Marks of Valiance": {
+    "section": "Acquisition",
+    "text": "Complete Perita Rebellion game modes for 8–15 Marks of Valiance, or 10–17 on Steel Path. Timed Operation Alerts reward 20, or 30 on Steel Path.",
+    "url": "https://wiki.warframe.com/w/Marks_of_Valiance"
+  },
+  "Monarcierro Day of the Dead Syandana": {
+    "section": "Acquisition",
+    "text": "Obtained from Nora's Mix: Dreams of the Dead at Rank 30.",
+    "url": "https://wiki.warframe.com/w/Monarcierro_Day_of_the_Dead_Syandana"
+  },
+  "Sands Of Inaros": {
+    "section": "Quest acquisition",
+    "text": "At Mastery Rank 5, acquire the Sands of Inaros quest blueprint by trading with another player or purchasing it from Baro Ki'Teer for 100 Ducats and 25,000 Credits. Craft the blueprint in the Foundry to begin the quest.",
+    "url": "https://wiki.warframe.com/w/Sands_of_Inaros"
+  },
+  "Raya Aurora Ephemera": {
+    "section": "Acquisition",
+    "text": "Awarded at Rank 28 in Nora's Mix Volume 9.",
+    "url": "https://wiki.warframe.com/w/Raya_Aurora_Ephemera"
+  },
+  "Raya Sigma Syandana": {
+    "section": "Acquisition",
+    "text": "Obtained from Nora's Mix Volume 9 at Rank 18.",
+    "url": "https://wiki.warframe.com/w/Raya_Sigma_Syandana"
+  },
+  "Saturn Six Syandana": {
+    "section": "Acquisition",
+    "text": "Obtained from Series 1 or Intermission II of Nightwave at Rank 28. It can also occasionally be purchased from the Nightwave Cred Offering store for 75 Creds.",
+    "url": "https://wiki.warframe.com/w/Saturn_Six_Syandana"
+  },
+  "Spore Ephemera": {
+    "section": "Acquisition",
+    "text": "Awarded at Rank 19 in Series 2: The Emissary, Rank 18 in Intermission III, Rank 27 in Nora's Mix Volume 4, or Rank 7 in Nora's Mix: Dreams of the Dead.",
+    "url": "https://wiki.warframe.com/w/Spore_Ephemera"
+  },
+  "Stelflare Syandana": {
+    "section": "Acquisition",
+    "text": "Obtained from Nora's Mix Volume 5 at Rank 30.",
+    "url": "https://wiki.warframe.com/w/Stelflare_Syandana"
+  },
+  "The Limbo Theorem": {
+    "section": "Quest acquisition",
+    "text": "Complete the Jupiter–Europa Junction to receive The Limbo Theorem quest; start it from the Codex.",
+    "url": "https://wiki.warframe.com/w/The_Limbo_Theorem"
+  },
+  "The Silver Grove": {
+    "section": "Quest acquisition",
+    "text": "After completing The Second Dream and reaching Mastery Rank 7, start The Silver Grove by speaking with New Loka's Amaryn in a relay, then activate it from the Codex Quest menu.",
+    "url": "https://wiki.warframe.com/w/The_Silver_Grove"
+  },
+  "Waveform Ephemera": {
+    "section": "Acquisition",
+    "text": "Awarded at Rank 19 in Nora's Choice, Rank 5 in Nora's Mix Volume 3, or Rank 19 in Nora's Mix Volume 7.",
+    "url": "https://wiki.warframe.com/w/Waveform_Ephemera"
   },
   "Eukar Claw Skin": {
     "section": "Acquisition",

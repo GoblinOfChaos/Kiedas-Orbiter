@@ -663,7 +663,10 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     };
   }
 
-  if (wikiBaroIndex?.has(displayLower) || bundledWikiBaroIndex.has(displayLower) || BARO_LOGIN_MUSIC_PATTERN.test(dropIndexKey || '')) {
+  const baroRelicKey = displayLower?.endsWith(' relic') ? displayLower : `${displayLower} relic`;
+  if (wikiBaroIndex?.has(displayLower) || wikiBaroIndex?.has(baroRelicKey)
+    || bundledWikiBaroIndex.has(displayLower) || bundledWikiBaroIndex.has(baroRelicKey)
+    || BARO_LOGIN_MUSIC_PATTERN.test(dropIndexKey || '')) {
     return {
       sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),

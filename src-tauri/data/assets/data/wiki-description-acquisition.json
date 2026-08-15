@@ -317,5 +317,13 @@
   "/Lotus/Types/AvatarImages/ImageNineYearAnniversary": {
     "text": "Redeem the NineYear22 promo code.",
     "source": "Warframe Forums Free Promocodes and Content Creator Glyphs"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageJadeInActionGlyph": {
+    "text": "Included in the Jade Chorus Pack, a one-time real-money purchase.",
+    "source": "Warframe.com Jade Chorus Pack"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageConqueraOrdis": {
+    "text": "Bonus in-game glyph included with the Conquera IV Collection from the Official Warframe Store.",
+    "source": "Warframe.com All-New Conquera 2024 Merch for QTCC"
   }
 }

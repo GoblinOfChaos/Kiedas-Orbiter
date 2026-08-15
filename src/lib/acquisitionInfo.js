@@ -623,6 +623,16 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return { sources: [{ type: 'non-drop', text, source: 'DE export' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
+  const baroRelicKey = displayLower?.endsWith(' relic') ? displayLower : `${displayLower} relic`;
+  if (wikiBaroIndex?.has(displayLower) || wikiBaroIndex?.has(baroRelicKey)
+    || bundledWikiBaroIndex.has(displayLower) || bundledWikiBaroIndex.has(baroRelicKey)
+    || BARO_LOGIN_MUSIC_PATTERN.test(dropIndexKey || '')) {
+    return {
+      sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki' }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
   const wikiSigilCategory = wikiSigilIndex?.get(displayLower);
   if (wikiSigilCategory) {
     return {
@@ -659,16 +669,6 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     const priceText = price ? ` for ${price}` : '';
     return {
       sources: [{ type: 'non-drop', text: `TennoGen skin - purchased via Steam Workshop/console store${priceText}.`, source: 'Warframe Wiki' }],
-      wikiLink: getWikiLink(dropIndexKey, displayName),
-    };
-  }
-
-  const baroRelicKey = displayLower?.endsWith(' relic') ? displayLower : `${displayLower} relic`;
-  if (wikiBaroIndex?.has(displayLower) || wikiBaroIndex?.has(baroRelicKey)
-    || bundledWikiBaroIndex.has(displayLower) || bundledWikiBaroIndex.has(baroRelicKey)
-    || BARO_LOGIN_MUSIC_PATTERN.test(dropIndexKey || '')) {
-    return {
-      sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T04:43:41.046Z
+Generated: 2026-08-15T04:44:45.141Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13209**
-Items with concrete acquisition records: **11808**
+Items with concrete acquisition records: **11822**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1351**
+Records without concrete acquisition evidence: **1337**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -213,7 +213,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Community Tennobaum Zephyr Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityTennobaumZephyr` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Tennobaum_Zephyr_Glyph |
 | Conclave Sigil | `/Lotus/Upgrades/Skins/Sigils/OpticorConclaveVariantSigil` | ExportCustoms | Listed under Conclave Sigils on the Warframe wiki. | Conclave Sigil |
 | Conclave Sigil | `/Lotus/Upgrades/Skins/Sigils/SyndicateSigilConclaveA` | ExportCustoms | Listed under Conclave Sigils on the Warframe wiki. | Conclave Sigil |
-| Condrix Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilScarletSpear` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Condrix Sigil |
 | Conquera Cherry Tree Ink | `/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoH` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Cherry_Tree_Ink |
 | Conquera Emblem | `/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Emblem |
 | Conquera Glyph | `/Lotus/Types/AvatarImages/ImageConquera` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Conquera_Glyph |
@@ -336,7 +335,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Drifter Voidshell Sleeves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultChameleon` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Drifter_Voidshell_Sleeves |
 | Drifter Voidshell Suit | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultChameleon` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Drifter_Voidshell_Suit |
 | Drip Squad 4 Life Emblem | `/Lotus/Upgrades/Skins/Clan/1999CommunityARGBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Drip_Squad_4_Life_Emblem |
-| Drippy Sigil | `/Lotus/Upgrades/Skins/Sigils/1999DrippySigil` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Drippy Sigil |
 | Dropkick Drahk Emblem | `/Lotus/Upgrades/Skins/Clan/DogDaysKubrowBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dropkick_Drahk_Emblem |
 | Dropkick Drahk Sigil | `/Lotus/Upgrades/Skins/Sigils/DogDaysKubrowSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dropkick_Drahk_Sigil |
 | Dual Skana Infested Skin | `/Lotus/Upgrades/Skins/SteamWorkshop/Melee/Swords/DualSkanaInfestedSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dual_Skana_Infested_Skin |
@@ -368,7 +366,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Equinox Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageEquinoxPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Equinox_Prime_Glyph_-_Bright |
 | Equinox Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageEquinoxPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Equinox_Prime_Glyph_-_Dark |
 | Erznung Emblem | `/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemC` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Erznung_Emblem |
-| Eskhatos Necraloid Sigil | `/Lotus/Upgrades/Skins/Sigils/EvilBaroNecraloidSigil` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Eskhatos Necraloid Sigil |
 | EUROPA NAV SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/EuropaNavigationFeatureItem` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/EUROPA_NAV_SEGMENT |
 | Evergreen Sigil | `/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014D` | ExportCustoms | Listed under Tactical Alert Sigils on the Warframe wiki. | Evergreen Sigil |
 | Excalibur Amethyst Helmet | `/Lotus/Upgrades/Skins/Excalibur/DiscordExcaliburHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Amethyst_Helmet |
@@ -461,7 +458,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Ghost Leader Emblem | `/Lotus/Upgrades/Skins/Clan/LeaderBadgeGhostItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ghost_Leader_Emblem |
 | Ghoulish Grineer Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Grineer` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ghoulish_Grineer_Glyph |
 | Glaive Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianGlaive` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Glaive_Obsidian_Skin |
-| Glaring Sigil | `/Lotus/Upgrades/Skins/Sigils/BaroKavatSigil` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Glaring Sigil |
 | Glassmaker Emblem | `/Lotus/Upgrades/Skins/Clan/GlassmakerEmblemItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Glassmaker_Emblem |
 | Glassmaker Sigil | `/Lotus/Upgrades/Skins/Sigils/GlassmakerSigil` | ExportCustoms | Listed under Nightwave Sigils on the Warframe wiki. | Glassmaker Sigil |
 | Glaukus Halyard | `/Lotus/Upgrades/Skins/Wraith/SevagothDeluxeRopeAnchor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Glaukus Halyard |
@@ -610,7 +606,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Kumuda Sigil | `/Lotus/Upgrades/Skins/Sigils/StarterPackLotusSigil` | ExportCustoms | Listed under Platinum Pack Sigils on the Warframe wiki. | Kumuda Sigil |
 | Kuria Emblem | `/Lotus/Upgrades/Skins/Clan/OrokittyBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Kuria_Emblem |
 | Kuria Glyph | `/Lotus/Types/AvatarImages/AvatarImageOroKitty` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Kuria_Glyph |
-| Kuva Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionKuva` | Glyphs | Acquired by defeating a Kuva Lich carrying this weapon. | Kuva Glyph |
 | Kyroptera Panoply Syandana | `/Lotus/Upgrades/Skins/Scarves/MixerKyropteraScarf` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Kyroptera_Panoply_Syandana |
 | La Cathédrale Scene | `/Lotus/Types/Items/PhotoBooth/TauOldPeace/PhotoboothTileTauOldPeaceCathedral1799ProtoframeRoom` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/La_Cath%C3%A9drale_Scene |
 | Labor Of Love Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphLaborAward` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Labor_of_Love_Glyph |
@@ -666,9 +661,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Lotus Symbol Glyph | `/Lotus/Types/AvatarImages/ImageConquera2022D` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lotus_Symbol_Glyph |
 | Lua Nights Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2023LuaNights` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lua_Nights_Glyph |
 | Lunar Renewal Ox Emblem | `/Lotus/Upgrades/Skins/Clan/CNY2021EmblemItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lunar_Renewal_Ox_Emblem |
-| Lunar Renewal Ox Sigil | `/Lotus/Upgrades/Skins/Sigils/WeGameNewYearOxSigil` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Lunar Renewal Ox Sigil |
 | Lunar Renewal Soar Sigil | `/Lotus/Upgrades/Skins/Sigils/WeGameNewYearDragonSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lunar_Renewal_Soar_Sigil |
-| Lunar Renewal Tiger Sigil | `/Lotus/Upgrades/Skins/Sigils/WeGameNewYearFreeTigerSigil` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Lunar Renewal Tiger Sigil |
 | Lustrous Major Glyph | `/Lotus/Types/AvatarImages/Login950Glyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lustrous_Major_Glyph |
 | Maculatia Venari Skin | `/Lotus/Upgrades/Skins/Khora/KhoraDeluxeVenariSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Maculatia_Venari_Skin |
 | Madurai Emblem | `/Lotus/Upgrades/Skins/Clan/Focus/MaduraiBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Madurai_Emblem |
@@ -881,7 +874,6 @@ Dreams of the Dead Cred |
 | Ostron Community Sigil | `/Lotus/Upgrades/Skins/Sigils/OstronCommunitySigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Ostron Community Sigil |
 | Override | `/Lotus/Types/Restoratives/LisetAutoHack` | ExportGear | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Override |
 | Owned Peely Pak | `/Lotus/Types/Items/MiscItems/1999FreeStickersPack` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Owned_Peely_Pak |
-| Pack Leader Sigil | `/Lotus/Upgrades/Skins/Sigils/BaroKubrowSigil` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Pack Leader Sigil |
 | Palatine Iron Skin Override | `/Lotus/Upgrades/Skins/Rhino/RhinoIronSkinDeluxe` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Palatine_Iron_Skin_Override |
 | Para Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/ParrotWingsRight` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Para_Sentinel_Wings |
 | Paracesis Jade Skin | `/Lotus/Upgrades/Skins/Weapons/GreatSword/XB1BallasSword` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Paracesis_Jade_Skin |
@@ -905,11 +897,6 @@ Dreams of the Dead Cred |
 | Primate Sigil | `/Lotus/Upgrades/Skins/Sigils/MonquisCYSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Primate_Sigil |
 | Prime Iron Skin Override | `/Lotus/Upgrades/Skins/Rhino/RhinoIronSkinPrime` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Prime_Iron_Skin_Override |
 | Prisma Latron Shoulder Plate | `/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronArmArmorPrisma` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Prisma_Latron_Shoulder_Plate |
-| Prisma Lotus Bloom Sigil | `/Lotus/Upgrades/Skins/Sigils/PrismaLotusVinesSigil` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Prisma Lotus Bloom Sigil |
-| Prisma Lotus Flame Sigil | `/Lotus/Upgrades/Skins/Sigils/PrismaLotusFlamesSigil` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Prisma Lotus Flame Sigil |
-| Prisma Lotus Sigil | `/Lotus/Upgrades/Skins/Sigils/PrismaLotusSigil` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Prisma Lotus Sigil |
-| Prisma Sigil | `/Lotus/Upgrades/Skins/Sigils/PrimeTraderSigil` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Prisma Sigil |
-| Prisma Thrax Sigil | `/Lotus/Upgrades/Skins/Sigils/ThraxSigil` | ExportCustoms | Listed under Baro Ki'Teer Sigils on the Warframe wiki. | Prisma Thrax Sigil |
 | Prisma Vor Sigil | `/Lotus/Upgrades/Skins/Sigils/VorDuviriSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Prisma_Vor_Sigil |
 | Prominence Sigil | `/Lotus/Upgrades/Skins/Sigils/TwitchProminenceSigil` | ExportCustoms | Listed under Twitch Game Store and Twitch Prime Sigils on the Warframe wiki. | Prominence Sigil |
 | PROPULSION SYSTEMS | `/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodBraceFeatureItem` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/PROPULSION_SYSTEMS |
@@ -952,7 +939,6 @@ Dreams of the Dead Cred |
 | Rhino Heirloom Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoHeirloomHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Heirloom_Helmet |
 | Rhino Jade Helmet | `/Lotus/Upgrades/Skins/Promo/Microsoft/JadeRhinoHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Jade_Helmet |
 | Rhino Palatine Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Palatine_Helmet |
-| Rhino Palatine Sigil | `/Lotus/Upgrades/Skins/Sigils/RhinoDeluxeSigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Rhino Palatine Sigil |
 | Rhino Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageRhinoPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Prime_Glyph_-_Bright |
 | Rhino Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageRhinoPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Prime_Glyph_-_Dark |
 | Rhino Rubedo Plated Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkinHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Rubedo_Plated_Helmet |
@@ -1446,7 +1432,7 @@ Dreams of the Dead Cred |
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7741
+- non-drop: 7755
 - override: 607
 - relic: 345
 - sortie: 1

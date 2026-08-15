@@ -8,6 +8,7 @@ const ROOT = resolve(import.meta.dirname, '..');
 const gapsPath = resolve(ROOT, 'scripts/data-sources/current-acquisition-gaps.md');
 const outputPath = resolve(ROOT, 'scripts/data-sources/wiki-page-acquisition-audit.json');
 const reportPath = resolve(ROOT, 'scripts/data-sources/wiki-page-acquisition-audit.md');
+const appAssetPath = resolve(ROOT, 'src-tauri/data/assets/data/wiki-page-acquisition.json');
 const API = 'https://wiki.warframe.com/api.php';
 const BATCH_SIZE = 50;
 const CONCURRENCY = 4;
@@ -72,6 +73,13 @@ const stats = {
   errors: results.filter((item) => item.error).length,
 };
 writeFileSync(outputPath, `${JSON.stringify({ generated: new Date().toISOString(), stats, items: results }, null, 2)}\n`);
+const appAcquisition = {};
+for (const item of results) {
+  const text = item.acquisition?.text?.trim();
+  if (!text || text.length < 40 || /:\s*$/.test(text) || appAcquisition[item.name]) continue;
+  appAcquisition[item.name] = { section: item.acquisition.section, text, url: item.url };
+}
+writeFileSync(appAssetPath, `${JSON.stringify(appAcquisition, null, 2)}\n`);
 
 const byCategory = new Map();
 for (const item of results) {
@@ -101,4 +109,5 @@ const lines = [
 ];
 writeFileSync(reportPath, `${lines.join('\n')}\n`);
 console.log(`\nWrote ${outputPath} and ${reportPath}`);
-console.log(JSON.stringify(stats));
+console.log(`Wrote ${appAssetPath} with ${Object.keys(appAcquisition).length} actionable entries`);
+console.log(JSON.stringify({ ...stats, actionableEntries: Object.keys(appAcquisition).length }));

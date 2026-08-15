@@ -1,12 +1,12 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T01:56:17.324Z
+Generated: 2026-08-15T02:07:17.846Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **16977**
-Resolved items: **13798**
-Generic wiki / no-info items: **3179**
+Resolved items: **13836**
+Generic wiki / no-info items: **3141**
 Generic Foundry sentence items: **0**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
@@ -32,7 +32,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | additional appearance config slot for this item | `/Lotus/Types/Items/MiscItems/CustomizationSlotUnlocker` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | additional mod config slot for this item | `/Lotus/Types/Items/MiscItems/ModSlotUnlocker` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Advanced Cephalon Segment | `/Lotus/Types/Items/ShipFeatureItems/AdvancedOrdisFeatureItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Aerospri Dex Pixia Skin | `/Lotus/Upgrades/Skins/Fairy/TitaniaDeluxeIIArchwingPistolsSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Aetigo Tail | `/Lotus/Upgrades/Skins/Horse/ErsatzHorseTailDefaultA` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Afuris Verv Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/Twitch2021AfurisSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Aggri Formation Decoration | `/Lotus/Types/Items/ShipDecos/Props/LisetPropDUVxRockContainerItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -131,7 +130,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Atlas Prex | `/Lotus/Types/Items/ShipDecos/TarotCardAtlas` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Atlas Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageAtlasPrimeBright` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Atlas Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageAtlasPrimeDark` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
-| Atomicycle Summon | `/Lotus/Types/Restoratives/MotorcycleSummon` | ExportGear | sources=[]; drawer displays generic wiki/no-info fallback |
 | Atomos Day of the Dead Skin | `/Lotus/Upgrades/Skins/Halloween/DOTD2025AtomosSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Atramentum Emblem | `/Lotus/Upgrades/Skins/Clan/ShadowgrapherEventBadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Aurichalc Legendary Mastery Slate | `/Lotus/Types/Items/ShipDecos/MasteryTrophies/Rank36Trophy` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -222,7 +220,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Braton Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/PS4Braton` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Braton Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/PS4Mk1Braton` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Breeding Grounds Emblem | `/Lotus/Upgrades/Skins/Clan/HiveSabotageEventBadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Brickie Muon Battery | `/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishMuonBatteryItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | BrickyOrchid8 Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageBrickyOrchid` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Brilliant Eidolon Shard | `/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/SentientShardBrilliantItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Brindle Kubrodon Tag | `/Lotus/Types/Items/Solaris/AnimalTagKubrodonCommon` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -522,7 +519,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Delta Beacon | `/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentA` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Dendra Obsidian Leg Guard | `/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncLArmor` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Dendra Obsidian Shoulder Guard | `/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncAArmor` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Dendrite Blastoma | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishBPartItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | depths Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImagedepths` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Dera Vandal Barrel | `/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalBarrel` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Dera Vandal Receiver | `/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalReceiver` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -624,7 +620,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Dropkick Drahk Sigil | `/Lotus/Upgrades/Skins/Sigils/DogDaysKubrowSigil` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Dual Skana Infested Skin | `/Lotus/Upgrades/Skins/SteamWorkshop/Melee/Swords/DualSkanaInfestedSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Dual Swords Frysta Skin | `/Lotus/Upgrades/Skins/Deluxe/FrostDeluxeDualSword` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Dual Swords Stavika Skin | `/Lotus/Weapons/Tenno/Melee/AxeML/StavikaDualSwordSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Dueling Orion Glyph | `/Lotus/Types/AvatarImages/AvatarImageLineOrion` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Dueling Ryoku Glyph | `/Lotus/Types/AvatarImages/AvatarImageLineRyoku` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Dueling Sirius Glyph | `/Lotus/Types/AvatarImages/AvatarImageLineSirius` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -682,7 +677,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Ember Vermillion Helmet | `/Lotus/Upgrades/Skins/Ember/EmberDeluxeHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Ember Voidshell Helmet | `/Lotus/Upgrades/Skins/Ember/EmberVoidshellHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Emblem of the Hunt | `/Lotus/Upgrades/Skins/Clan/InfestationEventEmblemItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Embracer Ephemera | `/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraF` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Emerald Talent | `/Lotus/Types/JadeShadowsPart2Mission/Gameplay/Resources/AshFavor` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | EMISSARY  STANDING | `/Lotus/Types/Items/SyndicateDogTags/NoraInfestedDogTag` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Emissary Cred | `/Lotus/Types/Items/MiscItems/NoraInfestedCreds` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -723,7 +717,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Error! Poster | `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterD` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Erznung Emblem | `/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemC` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Eskhatos Ki'Teer Glyph | `/Lotus/Types/AvatarImages/ImageBaroKiteerEvil` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
-| Eukar Claw Skin | `/Lotus/Upgrades/Skins/Nightwave/InfHeavyClawsSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | EUROPA NAV SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/EuropaNavigationFeatureItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Exalted Blade | `/Lotus/Powersuits/Excalibur/DoomSword` | warframe-items | sources=[]; drawer displays generic wiki/no-info fallback |
 | Exalted Mark | `/Lotus/Types/Items/SyndicateDogTags/RedVeilRareDogTag` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -799,7 +792,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | File-a-Style Sticky Notes | `/Lotus/Types/Gameplay/1999Wf/Gifts/StickyNotes` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Filter Flower | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropGftFilterPlant` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Fire-Veined Stover Tag | `/Lotus/Types/Items/Solaris/AnimalTagStoverRare` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Fish Meat | `/Lotus/Types/Items/Fish/Eidolon/FishParts/EidolonFishMeatItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Fish Oil | `/Lotus/Types/Items/Fish/Eidolon/FishParts/EidolonFishOilItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Five Fates Scene | `/Lotus/Types/Items/PhotoBooth/2025FallUpdate/PhotoboothFiveFates` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Fizzbang Flourish | `/Lotus/Upgrades/Mods/Hoverboard/HBFireWorksMod` | ExportUpgrades | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -854,7 +846,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Gallium Deposit Decoration | `/Lotus/Types/Items/ShipDecos/ContainerDecoItemGalliumDeposit` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Gamma | `/Lotus/Types/SuitCustomizations/ColourPickerGammaItemA` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Gamma Beacon | `/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentB` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Gammacor Day of the Dead Skin | `/Lotus/Upgrades/Skins/Promo/Seasonal/Halloween2023DOTDGammacorSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Gammacor Solstice Skin | `/Lotus/Upgrades/Skins/WinterSolstice/WinterSolsticeGammacorSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Gara Kaleida Helmet | `/Lotus/Upgrades/Skins/Glass/GlassDeluxeHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Gara Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageGaraPrimeBright` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -912,7 +903,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Ghost Leader Emblem | `/Lotus/Upgrades/Skins/Clan/LeaderBadgeGhostItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Ghost Tier Decoration | `/Lotus/Types/Items/ShipDecos/TennoConDojoGhostTrophy` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Ghoulish Grineer Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Grineer` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
-| Gigelor Prime Syandana | `/Lotus/Upgrades/Skins/Scarves/TitaniaPrimeShortSyandana` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Gilded Alchemy Stand | `/Lotus/Types/Items/ShipDecos/Tau/LisetPropORKxLabTableGenericPropI` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Gilded Feather Quill Set | `/Lotus/Types/Items/ShipDecos/Tau/LisetPropSTMxOroQuillPenSet` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Gilded Microscope | `/Lotus/Types/Items/ShipDecos/Tau/LisetPropORKxLabTableGenericPropG` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -925,7 +915,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Glassmaker Emblem | `/Lotus/Upgrades/Skins/Clan/GlassmakerEmblemItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Glassmaker Ornament | `/Lotus/Types/Items/ShipDecos/NoraSeasonThreeOrnament` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Glaukus Halyard | `/Lotus/Upgrades/Skins/Wraith/SevagothDeluxeRopeAnchor` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Glaxion Polar Skin | `/Lotus/Upgrades/Skins/Events/GlaxionPolar` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Gloriana Ephemera | `/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraC` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Glory | `/Lotus/Powersuits/Choir/ChoirEruptWeapon` | warframe-items | sources=[]; drawer displays generic wiki/no-info fallback |
 | Glow Plants (Dense) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropOstAlienFoliageC` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -984,7 +973,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Grendel Prex | `/Lotus/Types/Items/ShipDecos/TarotCardGrendel` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Grendel Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageGrendelPrimeBright` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Grendel Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageGrendelPrimeDark` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
-| Grendel Prime Theme | `/Lotus/Types/Items/SongItems/GrendelPrimeSongItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Grendel Turbis Helmet | `/Lotus/Upgrades/Skins/Devourer/GrendelDeluxeIIHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Grendel Voidshell Helmet | `/Lotus/Upgrades/Skins/Devourer/GrendelVoidshellHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Grineer Armor Pet Toy | `/Lotus/Types/Items/ShipDecos/KubrowToyA` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -1310,7 +1298,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Korean Community Discord Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageKoreanCommunityDiscord` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Kovnik Decoration | `/Lotus/Types/Items/ShipDecos/Plants/LisetPropDUVxGardeningPlantAGrown` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Kril Brown | `/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorMundaneE` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
-| Kriller Thermal Laser | `/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishThermalLaserItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Kronen Iridos Skin | `/Lotus/Upgrades/Skins/Weapons/Tonfa/KronenTwitchSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Kubrodon Incarnadine Tag | `/Lotus/Types/Items/Solaris/AnimalTagKubrodonRare` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Kubrodon Ventkid Apparel | `/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultO` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -1384,7 +1371,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Lettie Accolade Glyph | `/Lotus/Types/AvatarImages/AvatarImageLettieAccoladeGlyph` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Lettie Gemini Emote | `/Lotus/Types/Items/Emotes/LegendaryLettieEmote` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Lex Onyx Skin | `/Lotus/Upgrades/Skins/SteamEsteem/EsteemLex` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Liftbalon Ephemera | `/Lotus/Upgrades/Skins/Effects/InkEphemeraC` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Lillian Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyLillian` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Lillian Pixel Portrait Glyph | `/Lotus/Types/AvatarImages/Minigames/MinigameGlyphPixelPortraitLillian` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Limbo Accolade Glyph | `/Lotus/Types/AvatarImages/ImageLimboAccoladeGlyph` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -1433,7 +1419,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | LotusSpecterCustomization | `/Lotus/Types/Game/LotusSpecterCustomization` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | LotusWarframeCustomization | `/Lotus/Types/Game/LotusWarframeCustomization` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | LotusWeaponCustomization | `/Lotus/Types/Game/LotusWeaponCustomization` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Lovestruck Ephemera | `/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraG` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Lua Nights Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2023LuaNights` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Lua Planter | `/Lotus/Types/Items/ShipDecos/Tennocon2018PlanterB` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Lucretia Ephemera | `/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraD` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -1544,7 +1529,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Mirage Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageMiragePrimeBright` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Mirage Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageMiragePrimeDark` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Mirage Voidshell Helmet | `/Lotus/Upgrades/Skins/Harlequin/MirageVoidShellHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Mirewinder Parallel Biode | `/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishParralelBiodeItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Missile Battery | `/Lotus/Types/Restoratives/LisetLaserTurret` | ExportGear | sources=[]; drawer displays generic wiki/no-info fallback |
 | Mistress of Fear Poster | `/Lotus/Types/Items/ShipDecos/OraxiaDOTDPoster` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | MOA Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2021MoaGlyph` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -1577,7 +1561,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Mother's Mask | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodLotusWisp` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Mountain Leader Emblem | `/Lotus/Upgrades/Skins/Clan/LeaderBadgeMountainItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Mountain Tier Decoration | `/Lotus/Types/Items/ShipDecos/TennoConDojoMountainTrophy` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Multron | `/Lotus/Types/Friendly/Pets/MoaPets/MoaPetComponents/HextraWeapon` | warframe-items | sources=[]; drawer displays generic wiki/no-info fallback |
 | Mummified Loid Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Loid` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Murmur Sarcophage Decoration | `/Lotus/Types/Items/ShipDecos/Props/LisetPropMITWxLootCrateA` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | MuseumDogTag | `/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -1632,7 +1615,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Nekros Irkalla Helmet | `/Lotus/Upgrades/Skins/Necro/NekrosDeluxeHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Nekros Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageNekrosPrimeBright` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Nekros Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageNekrosPrimeDark` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
-| Nekros Prime Theme | `/Lotus/Types/Items/SongItems/NekrosPrimeSongItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Nekros Voidshell Helmet | `/Lotus/Upgrades/Skins/Necro/NekrosVoidShellHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Nelumbo Shawzin | `/Lotus/Types/Items/ShipDecos/LisetPropLotusMandolin` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Neo O1 | `/Lotus/Types/Game/Projections/T3VoidProjectionVoltOdonataPrimeBronze` | Relics | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -1872,7 +1854,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Nova Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageNovaPrimeDark` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Nova Voidshell Helmet | `/Lotus/Upgrades/Skins/AntiMatter/NovaVoidShellHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Novice Mastery Slate | `/Lotus/Types/Items/ShipDecos/MasteryTrophies/Rank04Trophy` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Nukor Daybreak Skin | `/Lotus/Upgrades/Skins/Nightwave/DaybreakNukorSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Nulwarden Syandana | `/Lotus/Upgrades/Skins/Scarves/TC2025OrokinScarf` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Nulwarden Syandana (Void-swept) | `/Lotus/Upgrades/Skins/Scarves/TC2025EvolvedOrokinScarf` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Nusku Dual Pistol Skin | `/Lotus/Upgrades/Skins/Ember/EmberDeluxeDualPistolSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -1887,7 +1868,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Oberon Feyarch Helmet | `/Lotus/Upgrades/Skins/Paladin/PaladinDeluxeHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Oberon Obsidian Helmet | `/Lotus/Upgrades/Skins/Paladin/OberonPS4Helmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Oberon Obsidian Markhor Helmet | `/Lotus/Upgrades/Skins/Paladin/OberonPS4Alt2Helmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Oberon Obsidian Skin | `/Lotus/Upgrades/Skins/Paladin/OberonPS4Skin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Oberon Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageOberonPrimeBright` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Oberon Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageOberonPrimeDark` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Oberon Prime Theme | `/Lotus/Types/Items/SongItems/OberonPrimeSongItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -1925,7 +1905,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Okina Day of the Dead Skin | `/Lotus/Upgrades/Skins/Halloween/DOTD2025OkinaSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Okina Emblem | `/Lotus/Upgrades/Skins/Clan/PS5OkinaBadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Okina Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Okuri Tails Prime Ephemera | `/Lotus/Upgrades/Skins/Effects/PrimeVorunaEphemera` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Old Blood Emblem | `/Lotus/Upgrades/Skins/Clan/LichKillerBadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Ollie Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyOllie` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Ollie's Biggest Fan Honoria | `/Lotus/Types/Items/Titles/OllieRacerTitle` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -1983,7 +1962,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Orion | `/Lotus/Types/SuitCustomizations/ColourPickerOrion` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Orion & Sirius | `/Lotus/Powersuits/SiriusOrion/OrionSuit` | ExportWarframes | sources=[]; drawer displays generic wiki/no-info fallback |
 | Orion Alone Display | `/Lotus/Types/Items/ShipDecos/JadeShadows2OrionPoster` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Orion's Swaddle Syandana | `/Lotus/Upgrades/Skins/Scarves/SiriusOrionLeftSyandana` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Oro Ornament | `/Lotus/Types/Items/ShipDecos/ConclaveOroOrnament` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Orokin Arc Conduit | `/Lotus/Types/Items/ShipDecos/Tau/LisetPropOrokinProbA` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Orokin Archive | `/Lotus/Types/Items/MiscItems/ArchWingNavCode` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2030,8 +2008,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Penta Verv Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/TwitchPentaSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Perigone Honoria | `/Lotus/Types/Items/Titles/MedalRank20Title` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Perita Manifestation Scene | `/Lotus/Types/Items/PhotoBooth/TauOldPeace/PhotoboothTileTauOldPeaceObjLiminalBossArena` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Pharaoh Predasite | `/Lotus/Types/Friendly/Pets/CreaturePets/PharaohPredatorKubrowPetPowerSuit` | warframe-items | sources=[]; drawer displays generic wiki/no-info fallback |
-| Pharaoh Predasite | `/Lotus/Types/Items/Deimos/WoundedInfestedPredatorUncommonRewardItem` | ExportWeapons | sources=[]; drawer displays generic wiki/no-info fallback |
 | Pharaoh Predasite Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedPredatorUncommon` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Phasic Cells | `/Lotus/Types/Items/MiscItems/MechSurvivalEventCreds` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Pheromones | `/Lotus/Types/Items/InfestedFoundry/HelminthPheromones` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2078,7 +2054,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Pride Oro Decoration | `/Lotus/Types/Items/ShipDecos/HeartOroRainbowDeco` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Pride Qorvex Fusion Display | `/Lotus/Types/Items/ShipDecos/Pride2in1Display` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Primate Sigil | `/Lotus/Upgrades/Skins/Sigils/MonquisCYSigil` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Primatura Ephemera | `/Lotus/Upgrades/Skins/Effects/InkEphemeraA` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Prime Finish | `/Lotus/Types/SuitCustomizations/ColourPickerPrimeWarframesItemA` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Prime Iron Skin Override | `/Lotus/Upgrades/Skins/Rhino/RhinoIronSkinPrime` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Prime Lacquer | `/Lotus/Types/SuitCustomizations/ColourPickerPrimeWarframesItemB` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2126,7 +2101,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Pumpkin O' Deth Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Pumpkin` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Pungchai Emblem | `/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemA` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Purple Velocipod Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedKdriveCommon` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Pustulent Cognitive Nodule | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishAPartItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Pyrana Iridos Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/PyranaTwitchSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Pyrus Essence | `/Lotus/Types/Items/RelayRebuild/PhaseOneFireElement` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Quanta Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianQuanta` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2180,7 +2154,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Requiem Relic | `/Lotus/Types/Game/Projections/T5VoidProjectionImmortal` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Reshef Vipaza | `/Lotus/Upgrades/Skins/Infestation/NidusDeluxeHipCloth` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Revenant Mephisto Helmet | `/Lotus/Upgrades/Skins/Revenant/RevenantDeluxeHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Revenant Mephisto Syandana | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/RevenantDeluxeCape` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Revenant Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageRevenantPrimeBright` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Revenant Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageRevenantPrimeDark` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Revenant Prime Theme | `/Lotus/Types/Items/SongItems/RevenantPrimeSongItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2239,7 +2212,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Saita Prime Sleeves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeA` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Saita Prime Suit | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeA` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Salvage Decoration | `/Lotus/Types/Items/ShipDecos/ResourceDecoItemSalvage` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Samia Towsun Syandana | `/Lotus/Upgrades/Skins/Scarves/SamiaTownsunSyandana` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Sanctum | `/Lotus/Types/SuitCustomizations/ColourPickerKalymos` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Sanctum Loid Display | `/Lotus/Types/Items/ShipDecos/LoidPortrait` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Sapcaddy Venedo Case | `/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishVenedoCaseItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2289,7 +2261,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Scoria's Angel Scene | `/Lotus/Types/Items/PhotoBooth/JadeShadows/PhotoboothTileJS2AshShipInterior` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Scoria's Saint Honoria | `/Lotus/Types/Items/Titles/HunhowHonoria/TitleAsh` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Scorpion Specter | `/Lotus/Types/Restoratives/Consumable/MacheteWomanBall` | ExportGear | sources=[]; drawer displays generic wiki/no-info fallback |
-| Scrap | `/Lotus/Types/Items/Fish/Solaris/FishParts/GenericFishScrapItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Scrolling Sign Decoration | `/Lotus/Types/Items/ShipDecos/LisetTickerSign` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Scrubber Exa Brain | `/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishExaBrainItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Scuttler Husk | `/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemB` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2526,7 +2497,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Surprise Ivara Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphSurpriseIvara` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Survival Emblem | `/Lotus/Upgrades/Skins/Clan/SurvivalEventBadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Swarm Mutalist Moa Emblem | `/Lotus/Upgrades/Skins/Clan/InfTacAlertNaniteMoaAncientBadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Sweeper | `/Lotus/Types/Sentinels/SentinelWeapons/SentShotgun` | warframe-items | sources=[]; drawer displays generic wiki/no-info fallback |
 | Swimmer Horrasque Tag | `/Lotus/Types/Items/Solaris/AnimalTagHorrasqueUncommon` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Sybillina Ephemera | `/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraA` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Syndir Ephemera | `/Lotus/Upgrades/Skins/Effects/AshGeminiEphemera` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2576,7 +2546,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Templar Prime Suit | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeC` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Temple and the Rippers Tour Poster | `/Lotus/Types/Items/ShipDecos/1999FlareBandPoster` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Temple Prex | `/Lotus/Types/Items/ShipDecos/TarotCardTemple` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Temporal Dust | `/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemA` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Temporal Prime Ephemera | `/Lotus/Upgrades/Skins/Effects/ProteaPrimeEphemera` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Ten Year Anniversary Emblem | `/Lotus/Upgrades/Skins/Clan/TenYearAnniversaryBadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Ten Year Glyph | `/Lotus/Types/AvatarImages/TennoCon2023MerchGlyph` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2674,7 +2643,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | TennoCon 2026 Glyph | `/Lotus/Types/AvatarImages/TennoCon2026Glyph` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | TennoCon 2026 Pin Display | `/Lotus/Types/Items/ShipDecos/Tennocon2026DigitalItemDisplay` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | TennoCon Emblem | `/Lotus/Upgrades/Skins/Clan/TennoCon2016BadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| TennoCon Riftguard Syandana (Void-swept) | `/Lotus/Upgrades/Skins/Scarves/TC2025EvolvedScarf` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | TennoGen Decennial Emblem | `/Lotus/Upgrades/Skins/Clan/Tennogen10YearBadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | TennoGen Decennial Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageTennoGen10Year` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | TennoGen Emblem | `/Lotus/Upgrades/Skins/Clan/TennoGenBadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2698,7 +2666,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Teshin Glyph | `/Lotus/Types/AvatarImages/AvatarImageTeshinVed` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Teshin Statue | `/Lotus/Types/Items/ShipDecos/TeshinBust` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Teshin's Cave Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDuviriTeshinsCave` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Tethra Data Fragments | `/Lotus/Types/Items/MiscItems/DataFragment` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Tethra's Doom Emblem | `/Lotus/Upgrades/Skins/Clan/ShipyardsEventBadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Tethra's Doom Quantum Emblem | `/Lotus/Upgrades/Skins/Clan/ShipyardsEventQuantumBadgeItem` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Thalassa Prime Ephemera | `/Lotus/Upgrades/Skins/Effects/YareliPrimeEphemera` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2835,7 +2802,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Twin Vipers Wraith Barrels | `/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithBarrel` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Twin Vipers Wraith Link | `/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithLink` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Twin Vipers Wraith Receivers | `/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithReceiver` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Two-Handed Nikana Maligna Skin | `/Lotus/Upgrades/Skins/Nightwave/InfTwoHandedKatanaSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Udyat Iridos Syandana | `/Lotus/Characters/Tenno/Accessory/Scarves/U17IntermScarf/IridosUdyatSkin/UdyatPrimeGamingSyandana` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Ueymag Decoration | `/Lotus/Types/Items/ShipDecos/Plants/LisetPropDUVxGardeningCactus` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Ulfrun’s Leverian Mural | `/Lotus/Types/Items/ShipDecos/Leverian/LisetPropMuralFenrus` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -2935,7 +2901,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Vasero Apex Sekhara | `/Lotus/Upgrades/Skins/Clan/ZarimanEvolvingSekharaBadgeItemC` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Vasero Emergent Sekhara | `/Lotus/Upgrades/Skins/Clan/ZarimanEvolvingSekharaBadgeItemB` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Vasto Phased Skin | `/Lotus/Upgrades/Skins/Promo/Void/VastoVoidSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Vasto Tekelu Skin | `/Lotus/Upgrades/Skins/Ornate/TekeluVastoSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Vauban Accolade Glyph | `/Lotus/Types/AvatarImages/AvatarImageVaubanAccoladeGlyph` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Vauban Citadel Helmet | `/Lotus/Upgrades/Skins/Trapper/VaubanDeluxeHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Vauban Heirloom Helmet | `/Lotus/Upgrades/Skins/Trapper/VaubanHeirloomHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -3025,7 +2990,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Volatile Mote Honoria | `/Lotus/Types/Items/Titles/BOTBEventVendor3Title` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Volatile Motes | `/Lotus/Types/Gameplay/JadeShadows/Resources/AscensionEventResourceItem` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Volt Amethyst Helmet | `/Lotus/Upgrades/Skins/Volt/DiscordVoltHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
-| Volt Amethyst Skin | `/Lotus/Upgrades/Skins/Volt/DiscordVolt` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Volt Electrolyst Helmet | `/Lotus/Upgrades/Skins/Volt/VoltDeluxeBHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Volt Mask | `/Lotus/Upgrades/Skins/Ostron/VoltMask` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Volt Opal Helmet | `/Lotus/Upgrades/Skins/Volt/NintendoVoltHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -3102,7 +3066,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Winter Glyph XVI | `/Lotus/Types/AvatarImages/AvatarImageWinter2018C` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Winter Glyph XVII | `/Lotus/Types/AvatarImages/AvatarImageWinter2018D` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Winter Glyph XVIII | `/Lotus/Types/AvatarImages/AvatarImageWinter2018E` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
-| Wirematrix Ephemera | `/Lotus/Upgrades/Skins/Effects/NightwaveDigitalEphemera` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Wisp Accolade Glyph | `/Lotus/Types/AvatarImages/AvatarImageWispAccoladeGlyph` | ExportFlavour | sources=[]; drawer displays generic wiki/no-info fallback |
 | Wisp Dex Helmet | `/Lotus/Upgrades/Skins/Wisp/DexWispHelmet` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Wisp Dex Skin | `/Lotus/Upgrades/Skins/Wisp/DexWispSkin` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -3176,7 +3139,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Zariman Stool | `/Lotus/Types/Items/ShipDecos/NewWar/LisetPropCabinStool` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Zariman Tablet | `/Lotus/Types/Items/ShipDecos/NewWar/LisetPropZarTechTablet` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
 | Zariman Waste Bin | `/Lotus/Types/Items/ShipDecos/NewWar/LisetPropCabinGarbageBin` | ExportResources | sources=[]; drawer displays generic wiki/no-info fallback |
-| Zarina Ephemera | `/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraB` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Zato Shoulder Plate | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/ExcaliburDeluxeArmArmor` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Zauba Apparel | `/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultG` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
 | Zauba Cuirass | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultG` | ExportCustoms | sources=[]; drawer displays generic wiki/no-info fallback |
@@ -3211,7 +3173,7 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 - enemy: 74
 - key: 18
 - mission: 438
-- non-drop: 9130
+- non-drop: 9168
 - override: 233
 - relic: 583
 - sortie: 2

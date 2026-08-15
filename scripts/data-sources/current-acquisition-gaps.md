@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:19:21.215Z
+Generated: 2026-08-15T05:19:55.376Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13200**
-Items with concrete acquisition records: **12069**
+Items with concrete acquisition records: **12081**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1081**
+Records without concrete acquisition evidence: **1069**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -140,14 +140,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Commodore Prime Pauldrons | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeB` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Commodore_Prime_Pauldrons |
 | Community 10 Year Anniversary Emblem | `/Lotus/Upgrades/Skins/Clan/Community10YearEmblemItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_10_Year_Anniversary_Emblem |
 | Community 10 Year Anniversary Glyph | `/Lotus/Types/AvatarImages/Community10YearAnniversaryGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_10_Year_Anniversary_Glyph |
-| Community Dog Days Grendel Glyph | `/Lotus/Types/AvatarImages/AvatarImageGamingDogDaysGrendel` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Dog_Days_Grendel_Glyph |
-| Community Dog Days Grendel Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageDogDays2024GrendelGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Dog_Days_Grendel_Glyph |
-| Community Dog Days Lavos Glyph | `/Lotus/Types/AvatarImages/AvatarImageGamingDogDaysLavos` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Dog_Days_Lavos_Glyph |
-| Community Dog Days Lavos Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageDogDays2024LavosGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Dog_Days_Lavos_Glyph |
-| Community Dog Days Voruna Glyph | `/Lotus/Types/AvatarImages/AvatarImageGamingDogDaysVoruna` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Dog_Days_Voruna_Glyph |
-| Community Dog Days Voruna Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageDogDays2024VorunaGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Dog_Days_Voruna_Glyph |
-| Community Dog Days Yareli Glyph | `/Lotus/Types/AvatarImages/AvatarImageGamingDogDaysYareli` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Dog_Days_Yareli_Glyph |
-| Community Dog Days Yareli Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageDogDays2024YareliGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Dog_Days_Yareli_Glyph |
 | Community Infested On-Lyne Logo Glyph | `/Lotus/Types/AvatarImages/AvatarImageInfestedLogoGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_Infested_On-lyne_Logo_Glyph |
 | Community Of Tenno | `/Lotus/Upgrades/Skins/Sigils/LotusHeartSigil` | ExportCustoms | Listed under Purchasable Sigils on the Warframe wiki. | Community Of Tenno |
 | Community On-Lyne Dj Rom Glyph | `/Lotus/Types/AvatarImages/AvatarImageDJRoMGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Community_On-lyne_DJ_RoM_Glyph |
@@ -230,8 +222,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Digital Extremes Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphDELogo` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Digital_Extremes_Glyph |
 | Disciple Sigil | `/Lotus/Upgrades/Skins/Sigils/FounderSigilDisciple` | ExportCustoms | Listed under Founder Sigils on the Warframe wiki. | Disciple Sigil |
 | Disciple's Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeDiscipleItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Disciple%27s_Emblem |
-| Dog Days Kavat Glyph | `/Lotus/Types/AvatarImages/DogDaysKavatGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dog_Days_Kavat_Glyph |
-| Dog Days Kubrow Glyph | `/Lotus/Types/AvatarImages/DogDaysKubrowGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dog_Days_Kubrow_Glyph |
 | Dome Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/DomeWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Dome Sentinel Wings |
 | Donwyn Glyph I | `/Lotus/Types/AvatarImages/AvatarImageValentine2017A` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Donwyn_Glyph_I |
 | Donwyn Glyph Ii | `/Lotus/Types/AvatarImages/AvatarImageValentine2017B` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Donwyn_Glyph_II |
@@ -754,7 +744,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Rhino Rubedo Plated Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkinHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Rubedo_Plated_Helmet |
 | Rhino Rubedo Plated Skin | `/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Rubedo_Plated_Skin |
 | Rhino Voidshell Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoChameleonAHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Rhino_Voidshell_Helmet |
-| Ride The Wave Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphYareliComic` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ride_The_Wave_Glyph |
 | Rift Sigil | `/Lotus/Upgrades/Skins/Sigils/EnergySigilA` | ExportCustoms | Listed under Tactical Alert Sigils on the Warframe wiki. | Rift Sigil |
 | RixtyMOL Aklato | `/Lotus/Upgrades/Skins/Promo/RixtyMOL/RixtyMOLAklatoSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/RixtyMOL_Aklato |
 | Roathe's Chyrinth | `/Lotus/Upgrades/Skins/DemonFrame/GeminiDemonFrameAuxHat` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Roathe's Chyrinth |
@@ -871,7 +860,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Styanax Tonatiuh Helmet | `/Lotus/Upgrades/Skins/Hoplite/StyanaxDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Styanax_Tonatiuh_Helmet |
 | Styanax Voidshell Helmet | `/Lotus/Upgrades/Skins/Hoplite/StyanaxVoidshellHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Styanax_Voidshell_Helmet |
 | Summus Prime Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/OrokinWingsRight` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Summus_Prime_Sentinel_Wings |
-| Suplex Kubrow Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageDogDays2024Glyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Suplex_Kubrow_Glyph |
 | Surprise Ivara Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphSurpriseIvara` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Surprise_Ivara_Glyph |
 | Survival Emblem | `/Lotus/Upgrades/Skins/Clan/SurvivalEventBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Survival Emblem |
 | Swarm Mutalist Moa Emblem | `/Lotus/Upgrades/Skins/Clan/InfTacAlertNaniteMoaAncientBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Swarm_Mutalist_Moa_Emblem |
@@ -1174,7 +1162,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8011
+- non-drop: 8023
 - override: 607
 - relic: 342
 - sortie: 1

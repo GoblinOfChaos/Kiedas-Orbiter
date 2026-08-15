@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:15:56.996Z
+Generated: 2026-08-15T05:16:23.983Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13203**
-Items with concrete acquisition records: **12011**
+Items with concrete acquisition records: **12017**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1142**
+Records without concrete acquisition evidence: **1136**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -218,9 +218,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Cycle Two Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil` | ExportCustoms | Listed under PS4 Anniversary Sigils on the Warframe wiki. | Cycle Two Sigil |
 | Cyte-09 Deadeye Glyph | `/Lotus/Types/AvatarImages/Warframes/Cyte09SupporterGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cyte-09_Deadeye_Glyph |
 | Cyte-09 Skin | `/Lotus/Upgrades/Skins/Frumentarius/FrumentariusSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Cyte-09_Skin |
-| Dagath Accuser Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2024DagathOrangeGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dagath_Accuser_Glyph |
 | Dagath Emblem | `/Lotus/Upgrades/Skins/Halloween/Halloween2024DagathBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dagath_Emblem |
-| Dagath Grins Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2024DagathGreenGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dagath_Grins_Glyph |
 | Dagath Immortal Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/DagathImmortalArmArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dagath_Immortal_Armor |
 | Dagath Immortal Helmet | `/Lotus/Upgrades/Skins/Dagath/DagathImmortalHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dagath_Immortal_Helmet |
 | Dagath Immortal Skin | `/Lotus/Upgrades/Skins/Dagath/DagathImmortalSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dagath_Immortal_Skin |
@@ -232,7 +230,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Dante's Delight Glyph | `/Lotus/Types/AvatarImages/AvatarImageDanteGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dante%27s_Delight_Glyph |
 | Dark Split-Sword Dulus Skin | `/Lotus/Upgrades/Skins/Promo/PCGamer/PCGamerDarkSwordDaggerHybridSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dark_Split-Sword_Dulus_Skin |
 | Darkfreack Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageDarkfreack` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/DarkFreack_Glyph |
-| Daughter Naberus Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2024SisterGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daughter_Naberus_Glyph |
 | Daughter Naberus Nights Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2024SisterNoBloodGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daughter_Naberus_Nights_Glyph |
 | Daughter Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20DaughterGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daughter_Tennobaum_Glyph |
 | Daurus Prime Chest Plate | `/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxCArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daurus_Prime_Chest_Plate |
@@ -445,7 +442,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Harrier Legs | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultDeluxeA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Harrier_Legs |
 | Harrier Sleeves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultDeluxeA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Harrier_Sleeves |
 | Harrier Suit | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDeluxeA` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Harrier_Suit |
-| Harrow Conjuring Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2024HarrowGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Harrow_Conjuring_Glyph |
 | Harrow In Action Glyph | `/Lotus/Types/AvatarImages/AvatarImageHarrowAction` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Harrow_in_Action_Glyph |
 | Harrow Reliquary Helmet | `/Lotus/Upgrades/Skins/Priest/HarrowDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Harrow_Reliquary_Helmet |
 | Harrowed Hook | `/Lotus/Upgrades/Mods/PvPMods/Melee/GroundingMeleeMod` | ExportUpgrades | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Harrowed_Hook |
@@ -569,7 +565,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Lotus Symbol Glyph | `/Lotus/Types/AvatarImages/ImageConquera2022B` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lotus_Symbol_Glyph |
 | Lotus Symbol Glyph | `/Lotus/Types/AvatarImages/ImageConquera2022C` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lotus_Symbol_Glyph |
 | Lotus Symbol Glyph | `/Lotus/Types/AvatarImages/ImageConquera2022D` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lotus_Symbol_Glyph |
-| Lua Nights Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2023LuaNights` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lua_Nights_Glyph |
 | Lunar Renewal Ox Emblem | `/Lotus/Upgrades/Skins/Clan/CNY2021EmblemItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lunar_Renewal_Ox_Emblem |
 | Lunar Renewal Soar Sigil | `/Lotus/Upgrades/Skins/Sigils/WeGameNewYearDragonSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lunar_Renewal_Soar_Sigil |
 | Lustrous Major Glyph | `/Lotus/Types/AvatarImages/Login950Glyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lustrous_Major_Glyph |
@@ -1143,7 +1138,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Xaku Raya Helmet | `/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Xaku_Raya_Helmet |
 | Xaku Raya Illume Helmet | `/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosAltHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Xaku_Raya_Illume_Helmet |
 | Xaku Raya Skin | `/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Xaku_Raya_Skin |
-| Xaku Spellcast Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2024XakuGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Xaku_Spellcast_Glyph |
 | Yamako Rubedo Plated Syandana | `/Lotus/Upgrades/Skins/Scarves/RubedoDinoSpikeScarf` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Yamako_Rubedo_Plated_Syandana |
 | Yareli and Merulina Prime Scene | `/Lotus/Types/Items/PhotoBooth/CinematicTiles/YareliPrimeEndPose` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Yareli_and_Merulina_Prime_Scene |
 | Yareli Pandea Helmet | `/Lotus/Upgrades/Skins/Yareli/YareliDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Yareli_Pandea_Helmet |
@@ -1235,7 +1229,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 7950
+- non-drop: 7956
 - override: 607
 - relic: 345
 - sortie: 1

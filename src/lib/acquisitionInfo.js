@@ -48,6 +48,12 @@ const VARIANT_ACQUISITION_PATTERNS = [
   },
 ];
 
+// Login music is a non-drop collectible family. The Wiki Baro module supplies
+// the item-by-item list, but keep the stable DE path as a runtime fallback so
+// a packaged app that has not finished loading supplemental Wiki assets does
+// not regress to the misleading generic source message.
+const BARO_LOGIN_MUSIC_PATTERN = /\/Types\/Items\/SongItems\/[^/]*LoginSongItem$/i;
+
 const canonicalPath = (v) => v?.replace('/StoreItems/', '/') || v;
 
 function cleanResolvedName(value) {
@@ -557,7 +563,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     };
   }
 
-  if (wikiBaroIndex?.has(displayLower)) {
+  if (wikiBaroIndex?.has(displayLower) || BARO_LOGIN_MUSIC_PATTERN.test(dropIndexKey || '')) {
     return {
       sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),

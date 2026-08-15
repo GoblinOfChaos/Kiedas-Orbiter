@@ -676,5 +676,20 @@
     "text": "Its Somachord can be purchased from Varzia for 5 Aya.",
     "url": "https://wiki.warframe.com/w/Gauss_Prime_Theme_%22Redline%22",
     "source": "Warframe Wiki"
+  },
+  "Alpine Monitor Sawgaw Tag": {
+    "section": "Acquisition",
+    "text": "Obtained by capturing an Alpine Monitor Sawgaw through Conservation in the Orb Vallis. Conservation captures award the species-specific tag; the Alpine Monitor Sawgaw is the uncommon Sawgaw subspecies.",
+    "url": "https://wiki.warframe.com/w/Sawgaw"
+  },
+  "AMETHYST NEXIFERA TAG": {
+    "section": "Acquisition",
+    "text": "Obtained by capturing an Amethyst Nexifera through Conservation in the Cambion Drift. Conservation captures award the species-specific tag; Amethyst Nexifera is the common Nexifera subspecies.",
+    "url": "https://wiki.warframe.com/w/Nexifera"
+  },
+  "Ashen Kuaka Tag": {
+    "section": "Acquisition",
+    "text": "Obtained by capturing an Ashen Kuaka through Conservation on the Plains of Eidolon. Conservation captures award the species-specific tag; Ashen Kuaka is the uncommon Kuaka subspecies.",
+    "url": "https://wiki.warframe.com/w/Kuaka"
   }
 }

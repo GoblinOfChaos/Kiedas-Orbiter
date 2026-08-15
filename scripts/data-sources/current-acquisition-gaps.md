@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T04:53:55.857Z
+Generated: 2026-08-15T05:00:59.592Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11832**
+Items with concrete acquisition records: **11835**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1324**
+Records without concrete acquisition evidence: **1321**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -43,9 +43,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Albrecht's Treasures Glyph | `/Lotus/Types/AvatarImages/KalymosGrimoireGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Albrecht%27s_Treasures_Glyph |
 | All Mad Here Glyph | `/Lotus/Types/AvatarImages/Seasonal/Halloween2019CheshireKavat` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/All_Mad_Here_Glyph |
 | Alliance Sigil | `/Lotus/Upgrades/Skins/Sigils/AllianceSigilBasic` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Alliance_Sigil |
-| Alpine Monitor Sawgaw Tag | `/Lotus/Types/Items/Solaris/AnimalTagSawgawUncommon` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Alpine_Monitor_Sawgaw_Tag |
 | Amalgam Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionAmalgam` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Amalgam_Glyph |
-| AMETHYST NEXIFERA TAG | `/Lotus/Types/Items/Deimos/AnimalTagInfestedNexiferaCommon` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/AMETHYST_NEXIFERA_TAG |
 | Amir Accolade Glyph | `/Lotus/Types/AvatarImages/AvatarImageAmirAccoladeGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Amir_Accolade_Glyph |
 | Amir's Shades | `/Lotus/Upgrades/Skins/Volt/WF1999VoltAuxHat` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Amir's Shades |
 | Animo Nav Beacon | `/Lotus/Types/Items/Events/AmbulasDataFragment` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Animo Nav Beacon |
@@ -64,7 +62,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Ash Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageAshPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ash_Prime_Glyph_-_Bright |
 | Ash Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageAshPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ash_Prime_Glyph_-_Dark |
 | Ash Shroud Helmet | `/Lotus/Upgrades/Skins/Ninja/AshDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ash_Shroud_Helmet |
-| Ashen Kuaka Tag | `/Lotus/Types/Items/Eidolon/AnimalTagKuakaUncommon` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Ashen Kuaka Tag |
 | Aspirant Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilZorba` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Aspirant Sigil |
 | Athletic Disc Player and Towel | `/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAthletic` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Athletic_Disc_Player_and_Towel |
 | Athletic Leggings | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAthletic` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Athletic_Leggings |
@@ -1419,7 +1416,7 @@ Dreams of the Dead Cred |
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7768
+- non-drop: 7771
 - override: 607
 - relic: 345
 - sortie: 1

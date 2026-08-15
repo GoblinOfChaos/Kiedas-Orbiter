@@ -697,5 +697,25 @@
   "/Lotus/Upgrades/Skins/Sentient/CalibanDeluxeAuxFloater": {
     "text": "Optional auxiliary included with the Caliban Orfeo Skin; purchase the skin from the in-game Market for 165 Platinum, or as part of the Caliban Orfeo Collection for 315 Platinum.",
     "source": "Warframe Wiki Caliban Orfeo Skin"
+  },
+  "/Lotus/Upgrades/Skins/Pacifist/BaruukPrimeHelmet": {
+    "text": "Standard issue helmet included with Baruuk Prime; acquire Baruuk Prime through its Void Relics or Prime Access/Prime Resurgence offerings.",
+    "source": "Warframe Wiki Baruuk/Prime + local export description"
+  },
+  "/Lotus/Upgrades/Skins/Sentient/CalibanPrimeHelmet": {
+    "text": "Standard issue helmet included with Caliban Prime; acquire Caliban Prime through its Void Relics or Prime Access/Prime Resurgence offerings.",
+    "source": "Warframe Wiki Caliban Prime + local export description"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/ThanomechVoidRigDefaultHelmet": {
+    "text": "Standard issue helmet included with Bonewidow; acquire Bonewidow through Necraloid Standing or the in-game Market.",
+    "source": "Warframe Wiki Bonewidow + local export description"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaLNYHelmet": {
+    "text": "Part of Chroma's Zunlong Skin; the Lunar New Year 2024 announcement listed the skin for individual purchase in the in-game Market and in the Dragon Stone Bundle.",
+    "source": "Warframe Steam Community Announcements Lunar New Year 2024"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaLNYWings": {
+    "text": "Optional wings included with Chroma's Zunlong Skin; the Lunar New Year 2024 announcement listed the skin for individual purchase in the in-game Market and in the Dragon Stone Bundle.",
+    "source": "Warframe Steam Community Announcements Lunar New Year 2024 + Warframe Wiki Chroma/Equip"
   }
 }

@@ -365,5 +365,21 @@
   "/Lotus/Types/AvatarImages/AvatarImageDrakeRifle": {
     "text": "Included in the PlayStation Plus Booster Pack VI.",
     "source": "Warframe.com PlayStation Plus Booster Pack VI"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageStalkerAction": {
+    "text": "Nightwave: Nora's Mix Vol. 7 rank 17 reward.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 7"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/StalkerAccessoriesMask": {
+    "text": "Nightwave: Nora's Mix Vol. 7 rank 4 reward.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 7"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/StalkerAccessoriesNose": {
+    "text": "Nightwave: Nora's Mix Vol. 7 rank 22 reward.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 7"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/StalkerAccessoriesEarpiece": {
+    "text": "Nightwave: Nora's Mix Vol. 7 rank 28 reward.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 7"
   }
 }

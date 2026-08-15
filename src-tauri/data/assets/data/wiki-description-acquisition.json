@@ -341,5 +341,17 @@
   "/Lotus/Types/AvatarImages/AvatarImageSevagothAction": {
     "text": "Rewarded by Alert 4 of the Whispers in the Walls Alerts (December 13–20, 2023).",
     "source": "Warframe.com Whispers in the Walls Alerts"
+  },
+  "/Lotus/Types/AvatarImages/KahlSupporterPackGlyph": {
+    "text": "Included in the Veilbreaker Warrior Supporter Pack.",
+    "source": "Warframe.com Veilbreaker"
+  },
+  "/Lotus/Types/AvatarImages/KahlStatueGlyph": {
+    "text": "Included with the Kahl-175 Statue from The New War Merch 2.0 pre-order.",
+    "source": "Warframe.com Pre-order The New War Merch 2.0"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageTennoVIP2Glyph": {
+    "text": "Included in the TennoVIP 2025 attendee bundle for the in-person PAX East 2025 event.",
+    "source": "Warframe.com Devstream 188 and TennoVIP at PAX East 2025"
   }
 }

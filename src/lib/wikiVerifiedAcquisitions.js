@@ -401,4 +401,34 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://www.warframe.com/en/news/x',
     source: 'Warframe.com Renown Pack X announcement',
   }],
+  ['/Lotus/Upgrades/Skins/Sigils/QTCC2023ConqueraSigil', {
+    text: 'Redeem promo code CONQUERA2023 in the in-game Market during the 2023 Quest to Conquer Cancer campaign.',
+    url: 'https://www.warframe.com/news/quest-to-conquer-cancer-2023',
+    source: 'Warframe.com Quest to Conquer Cancer 2023 announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem', {
+    text: 'Sent by Inbox during the 2024 Quest to Conquer Cancer campaign after logging in during the campaign window.',
+    url: 'https://www.warframe.com/en/news/conquista-na-batalha-contra-o-cancer-2024',
+    source: 'Warframe.com Quest to Conquer Cancer 2024 announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoH', {
+    text: 'Sent by Inbox during the 2024 Quest to Conquer Cancer campaign.',
+    url: 'https://www.warframe.com/en/news/conquista-na-batalha-contra-o-cancer-2024',
+    source: 'Warframe.com Quest to Conquer Cancer 2024 announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoI', {
+    text: 'Sent by Inbox during the 2024 Quest to Conquer Cancer campaign after logging in during the campaign window.',
+    url: 'https://www.warframe.com/en/news/conquista-na-batalha-contra-o-cancer-2024',
+    source: 'Warframe.com Quest to Conquer Cancer 2024 announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Festivities/PumpkinHead', {
+    text: 'Returned as a limited-time Nights of Naberus Day of the Dead item; available from Daughter in the Necralisk for Mother Tokens.',
+    url: 'https://forums.warframe.com/topic/1414770-update-37-koumei-the-five-fates/',
+    source: 'Warframe.com Update 37: Koumei & the Five Fates',
+  }],
+  ['/Lotus/Upgrades/Skins/Sigils/Switch2Sigil', {
+    text: 'Included in the Ambimanus Pack Inbox reward for logging into Warframe on Nintendo Switch 2 during its launch campaign; available from Varzia for Aya on other platforms.',
+    url: 'https://www.warframe.com/en/news/warframe-on-switch-2-available-now',
+    source: 'Warframe.com Warframe on Switch 2 Available Now announcement',
+  }],
 ]);

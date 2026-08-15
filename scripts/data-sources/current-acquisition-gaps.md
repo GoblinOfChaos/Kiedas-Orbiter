@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T07:51:00.960Z
+Generated: 2026-08-15T07:54:22.255Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12759**
+Items with concrete acquisition records: **12765**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **387**
+Records without concrete acquisition evidence: **381**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -39,7 +39,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Bluyayogamer Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageBluyayogamer` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Bluyayogamer_Glyph |
 | Boar Phosphor Skin | `/Lotus/Upgrades/Skins/VoidTrader/VTBoar` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Boar_Phosphor_Skin |
 | Brickyorchid8 Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageBrickyOrchid` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Brickyorchid8_Glyph |
-| Broadsword Past/Future Sigil | `/Lotus/Upgrades/Skins/Sigils/Switch2Sigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Broadsword_Past/Future_Sigil |
 | BRONZE RHINO HELMET | `/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkinHelmet` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/BRONZE_RHINO_HELMET |
 | Capit XIII Sporoi | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal13C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Capit XIII Sporoi |
 | Capit XIV Kalika | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal14C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Capit XIV Kalika |
@@ -53,10 +52,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Coltek Obsidian Sentinel Mask | `/Lotus/Upgrades/Skins/Sony/ObsidianColtekMask` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Coltek_Obsidian_Sentinel_Mask |
 | Coltek Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/ColtekWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Coltek Sentinel Wings |
 | Community 10 Year Anniversary Glyph | `/Lotus/Types/AvatarImages/Community10YearAnniversaryGlyph` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Community_10_Year_Anniversary_Glyph |
-| Conquera Cherry Tree Ink | `/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoH` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Conquera_Cherry_Tree_Ink |
-| Conquera Emblem | `/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Conquera_Emblem |
-| Conquera Magnolia Ink | `/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoI` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Conquera_Magnolia_Ink |
-| Conquera United Sigil | `/Lotus/Upgrades/Skins/Sigils/QTCC2023ConqueraSigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Conquera_United_Sigil |
 | Cookie Boot Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieBoot` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Cookie_Boot_Glyph |
 | Corinth Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianCorinth` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Corinth_Obsidian_Skin |
 | Crestbear Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageCrestbear` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Crestbear_Glyph |
@@ -101,7 +96,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Drip Squad 4 Life Emblem | `/Lotus/Upgrades/Skins/Clan/1999CommunityARGBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Drip_Squad_4_Life_Emblem |
 | Dual Skana Infested Skin | `/Lotus/Upgrades/Skins/SteamWorkshop/Melee/Swords/DualSkanaInfestedSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dual_Skana_Infested_Skin |
 | Dual Swords Frysta Skin | `/Lotus/Upgrades/Skins/Deluxe/FrostDeluxeDualSword` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dual_Swords_Frysta_Skin |
-| Dullahan Mask | `/Lotus/Upgrades/Skins/Festivities/PumpkinHead` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dullahan_Mask |
 | Elfame Bow Skin | `/Lotus/Upgrades/Skins/Deluxe/CalibanDeluxeBowSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Elfame_Bow_Skin |
 | ENGINE COWLING | `/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodFeatureItem` | ExportResources | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/ENGINE_COWLING |
 | Entrati Mech Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Mech` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Entrati_Mech_Glyph |
@@ -480,7 +474,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8692
+- non-drop: 8698
 - override: 620
 - relic: 339
 - sortie: 1

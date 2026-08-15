@@ -431,4 +431,19 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://www.warframe.com/en/news/warframe-on-switch-2-available-now',
     source: 'Warframe.com Warframe on Switch 2 Available Now announcement',
   }],
+  ['/Lotus/Upgrades/Skins/Armor/Dex2020Armor/Dex2020ArmorCArmor', {
+    text: 'Part of the free Dex Raksaka Armor Set awarded for logging in during the Warframe anniversary campaign; the local export identifies this object as the set\'s Chest Guard.',
+    url: 'https://www.warframe.com/news/7-year-anniversary',
+    source: 'Warframe.com 7 Year Anniversary announcement + local export Dex Raksaka component record',
+  }],
+  ['/Lotus/Upgrades/Skins/Armor/Dex2020Armor/Dex2020ArmorLArmor', {
+    text: 'Part of the free Dex Raksaka Armor Set awarded for logging in during the Warframe anniversary campaign; the local export identifies this object as the set\'s Knee Guards.',
+    url: 'https://www.warframe.com/news/7-year-anniversary',
+    source: 'Warframe.com 7 Year Anniversary announcement + local export Dex Raksaka component record',
+  }],
+  ['/Lotus/Upgrades/Skins/Armor/Dex2020Armor/Dex2020ArmorAArmor', {
+    text: 'Part of the free Dex Raksaka Armor Set awarded for logging in during the Warframe anniversary campaign; the local export identifies this object as the set\'s Shoulder Guards.',
+    url: 'https://www.warframe.com/news/7-year-anniversary',
+    source: 'Warframe.com 7 Year Anniversary announcement + local export Dex Raksaka component record',
+  }],
 ]);

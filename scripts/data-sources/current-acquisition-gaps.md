@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T07:54:22.255Z
+Generated: 2026-08-15T08:00:27.786Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12765**
+Items with concrete acquisition records: **12768**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **381**
+Records without concrete acquisition evidence: **378**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -80,9 +80,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Dex Dakra Obsidian Skin | `/Lotus/Upgrades/Skins/DexTheSecond/ObsidianDexDakra` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dex_Dakra_Obsidian_Skin |
 | Dex Dakra Opal Skin | `/Lotus/Upgrades/Skins/DexTheSecond/NintendoDexDakra` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dex_Dakra_Opal_Skin |
 | Dex Furis Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianDexFuris` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Dex_Furis_Obsidian_Skin |
-| Dex Raksaka Chest Guard | `/Lotus/Upgrades/Skins/Armor/Dex2020Armor/Dex2020ArmorCArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Dex Raksaka Chest Guard |
-| Dex Raksaka Knee Guards | `/Lotus/Upgrades/Skins/Armor/Dex2020Armor/Dex2020ArmorLArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Dex Raksaka Knee Guards |
-| Dex Raksaka Shoulder Guards | `/Lotus/Upgrades/Skins/Armor/Dex2020Armor/Dex2020ArmorAArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Dex Raksaka Shoulder Guards |
 | Diamond Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/DiamondWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Diamond Sentinel Wings |
 | Digital Extremes Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphDELogo` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Digital_Extremes_Glyph |
 | Disciple's Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeDiscipleItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Disciple%27s_Emblem |
@@ -474,7 +471,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8698
+- non-drop: 8701
 - override: 620
 - relic: 339
 - sortie: 1

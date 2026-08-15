@@ -8,6 +8,7 @@ const ROOT = resolve(import.meta.dirname, '..');
 const evidencePath = resolve(ROOT, 'scripts/data-sources/acquisition-item-evidence.json');
 const outputPath = resolve(ROOT, 'scripts/data-sources/wiki-page-acquisition-audit.json');
 const reportPath = resolve(ROOT, 'scripts/data-sources/wiki-page-acquisition-audit.md');
+const statusAssetPath = resolve(ROOT, 'src-tauri/data/assets/data/wiki-acquisition-status.json');
 const API = 'https://wiki.warframe.com/api.php';
 const BATCH_SIZE = 50;
 const CONCURRENCY = 4;
@@ -47,9 +48,11 @@ async function queryBatch(batch) {
   if (!response.ok) throw new Error(`Wiki query failed: ${response.status}`);
   const payload = await response.json();
   return Object.values(payload.query?.pages || {}).map((page) => ({
-    pageId: page.pageid || null,
+    pageId: Number.isFinite(Number(page.pageid)) ? Number(page.pageid) : null,
     title: page.title || null,
-    missing: Boolean(page.missing),
+    // Missing pages are returned as synthetic -1 pages with an empty
+    // `missing` value, so Boolean(page.missing) is not a valid presence test.
+    missing: page.pageid == null || Number(page.pageid) < 1 || Object.prototype.hasOwnProperty.call(page, 'missing'),
     url: page.fullurl || null,
     acquisition: extractAcquisition(page.revisions?.[0]?.slots?.main?.['*']),
   }));
@@ -67,7 +70,7 @@ async function worker() {
     catch (error) {
       pages = batch.map(() => ({ error: String(error.message || error) }));
     }
-    const byTitle = new Map(pages.filter((page) => page.title).map((page) => [page.title.toLowerCase(), page]));
+  const byTitle = new Map(pages.filter((page) => page.title).map((page) => [page.title.toLowerCase(), page]));
     for (const item of batch) {
       const page = byTitle.get(item.name.toLowerCase());
       results.push({ ...item, ...(page || { missing: true, pageId: null, title: null, url: null, acquisition: null }) });
@@ -86,6 +89,21 @@ const stats = {
   errors: results.filter((item) => item.error).length,
 };
 writeFileSync(outputPath, `${JSON.stringify({ generated: new Date().toISOString(), stats, items: results }, null, 2)}\n`);
+
+// MediaWiki represents a missing page as a synthetic page with pageid -1 and
+// an empty `missing` field. Boolean(page.missing) therefore misclassifies it
+// as present. Keep the runtime status asset tied to the same exact API result
+// used by this audit, and require a real positive page id for pageFound.
+const status = {};
+for (const item of results) {
+  if (item.error) continue;
+  status[item.uniqueName] = {
+    displayName: item.name,
+    pageFound: !item.missing && Number.isFinite(item.pageId) && item.pageId > 0,
+    url: item.url || null,
+  };
+}
+writeFileSync(statusAssetPath, `${JSON.stringify(status, null, 2)}\n`);
 // Discovery only: candidates are reviewed against the exact export path before
 // they are promoted into app data. This prevents a page snippet or stale Wiki
 // prose from becoming an acquisition claim automatically.
@@ -119,5 +137,5 @@ const lines = [
   ...results.filter((item) => item.missing || item.error).map((item) => `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.error || 'page not found'} |`), '',
 ];
 writeFileSync(reportPath, `${lines.join('\n')}\n`);
-console.log(`\nWrote ${outputPath}, ${reportPath}, and ${candidatesPath}`);
+console.log(`\nWrote ${outputPath}, ${reportPath}, ${candidatesPath}, and ${statusAssetPath}`);
 console.log(JSON.stringify({ ...stats, candidates: results.filter((item) => item.acquisition).length }));

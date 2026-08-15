@@ -112,6 +112,13 @@ export default function AcquisitionDrawer({ item, onClose }) {
   };
 
   const recipe = info.recipe;
+  // Recipe details are rendered in the panel below. Do not repeat the
+  // unhelpful generic Foundry sentence as a source card for every craftable
+  // item; concrete acquisition rows (such as a blueprint bounty) remain.
+  const sources = (info?.sources || []).filter((source) => !(
+    recipe && source?.type === 'non-drop' &&
+    /^Built in the Foundry from a blueprint(?: and its components)?/.test(source.text || '')
+  ));
   const formatCredits = (value) => Number.isFinite(Number(value)) ? `${Number(value).toLocaleString()} Credits` : null;
   const formatDuration = (seconds) => {
     const totalMinutes = Math.round(Number(seconds) / 60);
@@ -134,9 +141,9 @@ export default function AcquisitionDrawer({ item, onClose }) {
           </button>
         </div>
 
-        {info?.sources?.length > 0 ?
+        {sources.length > 0 ?
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-40 overflow-y-auto">
-            {info.sources.map((s, i) => (
+            {sources.map((s, i) => (
               <div key={i} className="flex items-center justify-between px-3 py-2 rounded bg-black/30 border border-white/5">
                 <span className="text-xs text-kronos-text truncate">{getSourceLabel(s)}</span>
                 {typeof s.chance === 'number' &&
@@ -145,7 +152,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
               </div>
             ))}
           </div>
-        : codexLoading ?
+        : recipe ? null : codexLoading ?
           <p className="text-xs text-kronos-dim italic">Checking item data…</p>
         :
           <p className="text-xs text-kronos-dim italic">

@@ -502,7 +502,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
         source: 'DE export',
         text: recipe
           ? formatRecipeAcquisition(recipe)
-          : 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.',
+          : 'Craftable in the Foundry; detailed recipe data is unavailable in the current export.',
       }],
       recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),

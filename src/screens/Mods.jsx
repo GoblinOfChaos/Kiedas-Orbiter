@@ -18,7 +18,7 @@ export default function Mods() {
     t('mods.cat_all'), t('mods.cat_warframe'), t('mods.cat_primary'), t('mods.cat_secondary'), t('mods.cat_melee'),
     t('mods.cat_sentinels'), t('mods.cat_robotic'), t('mods.cat_beasts'), t('mods.cat_stance'), t('mods.cat_aura'), t('mods.cat_exilus'),
     t('mods.cat_railjack'), t('mods.cat_archgun'), t('mods.cat_archmelee'), t('mods.cat_parazon'),
-    t('mods.cat_augment'), t('mods.cat_antique'), t('mods.cat_tome'), t('mods.cat_vehicles'), 'Arcanes'];
+    t('mods.cat_augment'), t('mods.cat_antique'), t('mods.cat_tome'), t('mods.cat_vehicles')];
 
   const SORT_OPTIONS = [
     { id: 'name', label: t('mods.sort_name') },
@@ -49,10 +49,7 @@ export default function Mods() {
   const [maxRankOnly, setMaxRankOnly] = useState(false);
   const [hideConclave, setHideConclave] = useState(false);
   const [visibleCount, setVisibleCount] = useState(60);
-  const mods = useMemo(() => [
-    ...(inventoryData?.mods_catalog ?? inventoryData?.mods ?? []),
-    ...(inventoryData?.arcanes_catalog ?? []),
-  ], [inventoryData]);
+  const mods = useMemo(() => inventoryData?.mods_catalog ?? inventoryData?.mods ?? [], [inventoryData]);
   const modPrices = allPrices;
   const loadingPrices = isPriceLoading;
 

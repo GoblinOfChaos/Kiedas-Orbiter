@@ -360,6 +360,10 @@ export function buildWikiResearchIndex(data) {
   return buildDisplayNameIndex(data, (entry) => entry && typeof entry === 'object' ? entry : null);
 }
 
+export function buildWikiResourceIndex(data) {
+  return buildDisplayNameIndex(data, (entry) => entry && typeof entry === 'object' ? entry : null);
+}
+
 export function buildRelicStateIndex(exportData) {
   const index = new Map();
   for (const [uniqueName, relic] of Object.entries(exportData?.ExportRelics || {})) {
@@ -405,7 +409,7 @@ export function buildGlyphSupplementIndex(data) {
   return index;
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex) {
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -558,6 +562,15 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (wikiResearch) {
     return {
       sources: [{ type: 'non-drop', text: formatWikiResearch(wikiResearch), source: 'Warframe Wiki' }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const wikiResource = wikiResourceIndex?.get(displayLower);
+  if (wikiResource?.location) {
+    const kind = [wikiResource.rarity, wikiResource.type].filter(Boolean).join(' ');
+    return {
+      sources: [{ type: 'non-drop', text: `Found at ${wikiResource.location}${kind ? ` (${kind}).` : '.'}`, source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

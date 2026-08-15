@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:12:43.682Z
+Generated: 2026-08-15T05:13:13.459Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11924**
+Items with concrete acquisition records: **11934**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1232**
+Records without concrete acquisition evidence: **1222**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -475,14 +475,10 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Hounding Kubrow Sigil | `/Lotus/Upgrades/Skins/Sigils/HoundingKubrowSigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Hounding Kubrow Sigil |
 | Hunter Sigil | `/Lotus/Upgrades/Skins/Sigils/FounderSigilHunter` | ExportCustoms | Listed under Founder Sigils on the Warframe wiki. | Hunter Sigil |
 | Hunter's Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeHunterItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Hunter%27s_Emblem |
-| Hydroid Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageHydroidPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Hydroid_Prime_Glyph_-_Bright |
-| Hydroid Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageHydroidPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Hydroid_Prime_Glyph_-_Dark |
 | Hydroid Rakkam Helmet | `/Lotus/Upgrades/Skins/Hydroid/HydroidDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Hydroid_Rakkam_Helmet |
 | Iahgames Braton | `/Lotus/Upgrades/Skins/IAHGames/IAHGamesBratonSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Iahgames_Braton |
 | Ictus Prime Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/IctusPrimeWingsRight` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ictus_Prime_Wings |
 | Ictus Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/IctusWingsRight` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Ictus Sentinel Wings |
-| Inaros Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageInarosPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Inaros_Prime_Glyph_-_Bright |
-| Inaros Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageInarosPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Inaros_Prime_Glyph_-_Dark |
 | Inaros Ramses Helmet | `/Lotus/Upgrades/Skins/Sandman/InarosDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Inaros_Ramses_Helmet |
 | Infestation Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionInfested` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Infestation_Glyph |
 | Infested Deimos Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionDeimos` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Infested_Deimos_Glyph |
@@ -498,8 +494,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Iron Wake Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileIronwakeHub` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Iron_Wake_Scene |
 | Ivara Obsidian Artemis Bow Skin | `/Lotus/Upgrades/Skins/Archer/ObsidianIvaraExaltedBowSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ivara_Obsidian_Artemis_Bow_Skin |
 | Ivara Obsidian Helmet | `/Lotus/Upgrades/Skins/Archer/ObsidianIvaraHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ivara_Obsidian_Helmet |
-| Ivara Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageIvaraPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ivara_Prime_Glyph_-_Bright |
-| Ivara Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageIvaraPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ivara_Prime_Glyph_-_Dark |
 | Ivara Skathi Artemis Bow Skin | `/Lotus/Upgrades/Skins/Deluxe/IvaraDeluxeBowSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ivara_Skathi_Artemis_Bow_Skin |
 | Ivara Skathi Helmet | `/Lotus/Upgrades/Skins/Archer/IvaraDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ivara_Skathi_Helmet |
 | Jack O'Naut Recall Glyph | `/Lotus/Types/AvatarImages/TenYearAnniversaryWeek4Glyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Jack_O%27Naut_Recall_Glyph |
@@ -517,8 +511,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Kaya's Reactors | `/Lotus/Upgrades/Skins/AntiMatter/WF1999NovaAuxHat` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Kaya's Reactors |
 | Kayota Day of the Dead Mask | `/Lotus/Upgrades/Skins/Halloween/DOTD2025OperatorMask` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Kayota_Day_of_the_Dead_Mask |
 | Khora In Action Glyph | `/Lotus/Types/AvatarImages/ImageKhoraInAction` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Khora_In_Action_Glyph |
-| Khora Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageKhoraPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Khora_Prime_Glyph_-_Bright |
-| Khora Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageKhoraPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Khora_Prime_Glyph_-_Dark |
 | Khora Urushu Helmet | `/Lotus/Upgrades/Skins/Khora/KhoraDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Khora_Urushu_Helmet |
 | Ki’Teer Greth Chest Plate | `/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeC` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ki%E2%80%99Teer_Greth_Chest_Plate |
 | Ki’Teer Greth Leg Plates | `/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeL` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ki%E2%80%99Teer_Greth_Leg_Plates |
@@ -555,8 +547,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Lavos Khymia Helmet | `/Lotus/Upgrades/Skins/Alchemist/AlchemistDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lavos_Khymia_Helmet |
 | Lavos Khymia Shoulder Vial | `/Lotus/Upgrades/Skins/Alchemist/AlchemistDeluxeAuxShoulder` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Lavos Khymia Shoulder Vial |
 | Lavos Kuvael Alchemist Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWLavosKuvaelArmArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Lavos Kuvael Alchemist Armor |
-| Lavos Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageLavosPrimeBright` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lavos_Prime_Glyph_-_Bright |
-| Lavos Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageLavosPrimeDark` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lavos_Prime_Glyph_-_Dark |
 | Lavos Prime Skin | `/Lotus/Upgrades/Skins/Alchemist/LavosPrimeSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Lavos_Prime_Skin |
 | Lavos Yersin Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWLavosYersinArmArmor` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Lavos Yersin Armor |
 | Legacy Mastery Sigil | `/Lotus/Upgrades/Skins/Sigils/MasterySigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Legacy Mastery Sigil |
@@ -1325,7 +1315,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7860
+- non-drop: 7870
 - override: 607
 - relic: 345
 - sortie: 1

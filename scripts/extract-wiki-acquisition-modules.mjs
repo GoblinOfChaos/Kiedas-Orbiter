@@ -52,7 +52,12 @@ class LuaParser {
       else key = String(arrayIndex++);
       out[key] = this.value(); if (this.peek(',') || this.peek(';')) this.index++;
     }
-    this.take('}'); return out;
+    this.take('}');
+    const keys = Object.keys(out);
+    if (keys.length > 0 && keys.every((key, index) => key === String(index + 1))) {
+      return keys.map((key) => out[key]);
+    }
+    return out;
   }
   value() {
     if (this.peek('{')) return this.table();
@@ -72,7 +77,34 @@ async function fetchModule(title) {
   const page = Object.values(payload.query?.pages ?? {})[0];
   const source = page?.revisions?.[0]?.slots?.main?.['*'];
   if (!source) throw new Error(`${title}: missing Lua source`);
-  return new LuaParser(source).parse();
+  // Some maintained modules assign their result to a local before returning
+  // it (for example `local Data = { ... } ... return Data`).  The reducer only
+  // needs the first literal table; parsing from its opening brace also keeps
+  // executable Lua after that table out of the small data asset.
+  const tableStart = source.indexOf('{');
+  if (tableStart < 0) throw new Error(`${title}: missing Lua table`);
+  let depth = 0;
+  let quote = null;
+  let comment = false;
+  let end = -1;
+  for (let i = tableStart; i < source.length; i++) {
+    const c = source[i];
+    if (comment) {
+      if (c === '\n') comment = false;
+      continue;
+    }
+    if (quote) {
+      if (c === '\\') i++;
+      else if (c === quote) quote = null;
+      continue;
+    }
+    if (c === '-' && source[i + 1] === '-') { comment = true; i++; continue; }
+    if (c === '"' || c === "'") { quote = c; continue; }
+    if (c === '{') depth++;
+    if (c === '}' && --depth === 0) { end = i + 1; break; }
+  }
+  if (end < 0) throw new Error(`${title}: unterminated Lua table`);
+  return new LuaParser(source.slice(tableStart, end)).parse();
 }
 
 const vendors = (await fetchModule('Vendors')).Vendors ?? {};
@@ -80,7 +112,7 @@ const vendorIndex = {};
 for (const [vendorKey, vendor] of Object.entries(vendors)) {
   const vendorName = vendor?.Name || vendorKey;
   for (const offering of Object.values(vendor?.Offerings ?? {})) {
-    const itemName = Array.isArray(offering) ? offering[1] : offering?.['1'];
+    const itemName = Array.isArray(offering) ? offering[0] : offering?.['1'];
     if (!itemName || typeof itemName !== 'string') continue;
     const names = vendorIndex[itemName] ?? [];
     if (!names.includes(vendorName)) names.push(vendorName);
@@ -104,10 +136,50 @@ for (const group of ['Items', 'ExtraItems']) {
   }
 }
 
+const blueprints = (await fetchModule('Blueprints')).Blueprints ?? {};
+const blueprintIndex = {};
+for (const [key, entry] of Object.entries(blueprints)) {
+  const result = entry?.Result || key;
+  if (!result || !entry || !Array.isArray(entry.Parts)) continue;
+  blueprintIndex[result] = {
+    name: entry.Name || `${result} Blueprint`,
+    blueprintCost: entry.BPCost ?? null,
+    buildCost: entry.Credits ?? null,
+    marketCost: entry.MarketCost ?? null,
+    buildTime: entry.Time ?? null,
+    rushCost: entry.Rush ?? null,
+    parts: entry.Parts.map((part) => ({
+      name: part?.Name || '',
+      count: part?.Count ?? 1,
+      type: part?.Type || null,
+    })).filter((part) => part.name),
+  };
+}
+
+const researchData = await fetchModule('Research');
+const labs = researchData.Labs ?? {};
+const researchIndex = {};
+for (const [name, entry] of Object.entries(researchData.Research ?? {})) {
+  if (!entry || typeof entry !== 'object') continue;
+  const lab = labs[entry.Lab];
+  researchIndex[name] = {
+    lab: lab?.Name || entry.Lab || null,
+    credits: entry.Credits ?? null,
+    time: entry.Time ?? null,
+    affinity: entry.Affinity ?? null,
+    prereq: entry.Prereq || null,
+    resources: Array.isArray(entry.Resources)
+      ? entry.Resources.map((resource) => ({ name: resource?.Name || '', count: resource?.Count ?? 1 })).filter((resource) => resource.name)
+      : [],
+  };
+}
+
 const outputs = [
   ['wiki-vendors-acquisition.json', vendorIndex],
   ['wiki-tennogen-acquisition.json', tennoGenIndex],
   ['wiki-baro-acquisition.json', baroIndex],
+  ['wiki-blueprints-acquisition.json', blueprintIndex],
+  ['wiki-research-acquisition.json', researchIndex],
 ];
 for (const [name, data] of outputs) writeFileSync(resolve(ROOT, name), `${JSON.stringify(data, null, 2)}\n`);
-console.log(`Extracted ${Object.keys(vendorIndex).length} vendor offerings, ${Object.keys(tennoGenIndex).length} TennoGen items, and ${Object.keys(baroIndex).length} Baro items`);
+console.log(`Extracted ${Object.keys(vendorIndex).length} vendor offerings, ${Object.keys(tennoGenIndex).length} TennoGen items, ${Object.keys(baroIndex).length} Baro items, ${Object.keys(blueprintIndex).length} blueprints, and ${Object.keys(researchIndex).length} research entries`);

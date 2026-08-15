@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T04:44:45.141Z
+Generated: 2026-08-15T04:48:00.547Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13209**
-Items with concrete acquisition records: **11822**
+Items with concrete acquisition records: **11823**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1337**
+Records without concrete acquisition evidence: **1336**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -296,7 +296,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Depths Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImagedepths` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Depths_Glyph |
 | Desert Skate Specter | `/Lotus/Types/Restoratives/Consumable/SkateBall` | ExportGear | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Desert_Skate_Specter |
 | Dethgloop Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Dethcube` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dethgloop_Glyph |
-| Devil’s Cap | `/Lotus/Types/Items/MushroomJournal/SlashMushroomJournalItem` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Devil%E2%80%99s_Cap |
 | Dex Dakra Jade Skin | `/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDexDakra` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dex_Dakra_Jade_Skin |
 | Dex Dakra Obsidian Skin | `/Lotus/Upgrades/Skins/DexTheSecond/ObsidianDexDakra` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dex_Dakra_Obsidian_Skin |
 | Dex Dakra Opal Skin | `/Lotus/Upgrades/Skins/DexTheSecond/NintendoDexDakra` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dex_Dakra_Opal_Skin |
@@ -1432,7 +1431,7 @@ Dreams of the Dead Cred |
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7755
+- non-drop: 7756
 - override: 607
 - relic: 345
 - sortie: 1

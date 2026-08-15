@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T08:14:07.546Z
+Generated: 2026-08-15T08:16:20.326Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12787**
+Items with concrete acquisition records: **12789**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **359**
+Records without concrete acquisition evidence: **357**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -310,7 +310,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Taxon Day of the Dead Skin | `/Lotus/Upgrades/Skins/Halloween/DOTD2025TaxonSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Taxon_Day_of_the_Dead_Skin |
 | Tcn Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageTCN` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Tcn_Glyph |
 | Tempestarii Railjack Skin | `/Lotus/Upgrades/Skins/RailJack/RailjackGhostSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Tempestarii_Railjack_Skin |
-| Ten Year Anniversary Emblem | `/Lotus/Upgrades/Skins/Clan/TenYearAnniversaryBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Ten_Year_Anniversary_Emblem |
 | Tenens IX Sporoi | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal9C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Tenens IX Sporoi |
 | Tenens X Kalika | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal10C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Tenens X Kalika |
 | Tenens XI Phloios | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal11C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Tenens XI Phloios |
@@ -318,7 +317,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Teng Dual Dagger Skin | `/Lotus/Upgrades/Skins/Nezha/NezhaDeluxeDualDaggerSkin` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Teng_Dual_Dagger_Skin |
 | Tenno Chronicler Emblem | `/Lotus/Upgrades/Skins/Clan/WikiaBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Tenno_Chronicler_Emblem |
 | Tenno Translator Glyph | `/Lotus/Types/AvatarImages/AvatarImageTennoTranslator` | Glyphs | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/Tenno_Translator_Glyph |
-| TennoGen Decennial Emblem | `/Lotus/Upgrades/Skins/Clan/Tennogen10YearBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TennoGen_Decennial_Emblem |
 | TennoGen Emblem | `/Lotus/Upgrades/Skins/Clan/TennoGenBadgeItem` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TennoGen_Emblem |
 | TennoVIP 2025 Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoVIP2025Sigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TennoVIP_2025_Sigil |
 | TennoVIP 2026 Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoVIP2026Sigil` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | https://wiki.warframe.com/w/TennoVIP_2026_Sigil |
@@ -452,7 +450,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8720
+- non-drop: 8722
 - override: 620
 - relic: 339
 - sortie: 1

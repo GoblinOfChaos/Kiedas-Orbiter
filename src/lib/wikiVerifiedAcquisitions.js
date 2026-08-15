@@ -541,4 +541,14 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://www.warframe.com/fr/patch-notes/psn/36-1-0',
     source: 'Warframe.com Update 36.1: The Lotus Eaters + local export Shadow Claws Prime skin record',
   }],
+  ['/Lotus/Upgrades/Skins/Clan/TenYearAnniversaryBadgeItem', {
+    text: 'Recall Ten-Zero reward: complete every mission in at least three of the five weekly Alert weeks.',
+    url: 'https://www.warframe.com/en/news/countdown-zur-tennocon-2023',
+    source: 'Warframe.com Countdown to TennoCon 2023 announcement',
+  }],
+  ['/Lotus/Upgrades/Skins/Clan/Tennogen10YearBadgeItem', {
+    text: 'Free Inbox reward during the TennoGen 10 Year Anniversary celebration; log in before December 31, 2025 at 11:59 p.m. ET.',
+    url: 'https://www.warframe.com/en/news/tennogen10',
+    source: 'Warframe.com TennoGen 10 Year Anniversary Celebration announcement',
+  }],
 ]);

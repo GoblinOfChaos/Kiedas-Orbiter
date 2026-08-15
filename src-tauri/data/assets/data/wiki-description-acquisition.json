@@ -521,5 +521,13 @@
   "/Lotus/Upgrades/Skins/Sigils/EventSigilShadowgrapher": {
     "text": "Reward from Operation: Atramentum, exchanged for Nightmare Tatters at Aspirant Zorba; the operation is currently unavailable.",
     "source": "Warframe.com Operation: Atramentum is Live"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Community10YearEmblemItem": {
+    "text": "Awarded for completing the missions in at least three of the five Recall: Ten-Zero weekly Alert sets; the event is currently unavailable.",
+    "source": "Warframe Steam Community Announcements Recall: Ten-Zero"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LotusHeartSigil": {
+    "text": "Purchase from the in-game Market for 1 Credit.",
+    "source": "Warframe Wiki Sigils"
   }
 }

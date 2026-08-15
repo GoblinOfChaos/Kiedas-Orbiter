@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:06:43.346Z
+Generated: 2026-08-15T05:07:16.885Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13206**
-Items with concrete acquisition records: **11880**
+Items with concrete acquisition records: **11885**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **1276**
+Records without concrete acquisition evidence: **1271**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -257,7 +257,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Daughter Naberus Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2024SisterGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daughter_Naberus_Glyph |
 | Daughter Naberus Nights Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2024SisterNoBloodGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daughter_Naberus_Nights_Glyph |
 | Daughter Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20DaughterGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daughter_Tennobaum_Glyph |
-| DAUGHTER TOKEN | `/Lotus/Types/Items/Deimos/EntratiFragmentCommonC` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/DAUGHTER_TOKEN |
 | Daurus Prime Chest Plate | `/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxCArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daurus_Prime_Chest_Plate |
 | Daurus Prime Leg Plates | `/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxLArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daurus_Prime_Leg_Plates |
 | Daurus Prime Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxAArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daurus_Prime_Shoulder_Plates |
@@ -372,7 +371,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Excalibur Zato Helmet | `/Lotus/Upgrades/Skins/Excalibur/ExcaliburDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Excalibur_Zato_Helmet |
 | Factions Recall Glyph | `/Lotus/Types/AvatarImages/TenYearAnniversaryWeek2Glyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Factions_Recall_Glyph |
 | Father Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20FatherGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Father_Tennobaum_Glyph |
-| FATHER TOKEN | `/Lotus/Types/Items/Deimos/EntratiFragmentUncommonA` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/FATHER_TOKEN |
 | Ferreusdemon Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageFerreusDemon` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/FerreusDemon_Glyph |
 | Festive Floof Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphFestiveFloof` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Festive_Floof_Glyph |
 | Fibonacci Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaFibonacci` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Fibonacci Sigil |
@@ -461,7 +459,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Grandis XVIII Kalika | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal18C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Grandis XVIII Kalika |
 | Grandis XX Perigone | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal20C` | ExportCustoms | No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data. | Grandis XX Perigone |
 | Grandmother Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20GrandmaGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Grandmother_Tennobaum_Glyph |
-| GRANDMOTHER TOKEN | `/Lotus/Types/Items/Deimos/EntratiFragmentRareA` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/GRANDMOTHER_TOKEN |
 | Granum Void Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTilePurgatory` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Granum_Void_Scene |
 | Grattler Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianGrattler` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Grattler_Obsidian_Skin |
 | Grendel Nian Helmet | `/Lotus/Upgrades/Skins/Devourer/GrendelDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Grendel_Nian_Helmet |
@@ -693,7 +690,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Monquis Sigil | `/Lotus/Upgrades/Skins/Sigils/MonquisSigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Monquis_Sigil |
 | Moon Leader Emblem | `/Lotus/Upgrades/Skins/Clan/LeaderBadgeMoonItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Moon_Leader_Emblem |
 | Mother Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20MotherGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mother_Tennobaum_Glyph |
-| MOTHER TOKEN | `/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/MOTHER_TOKEN |
 | Mother's Mask | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodLotusWisp` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mother%27s_Mask |
 | Mountain Leader Emblem | `/Lotus/Upgrades/Skins/Clan/LeaderBadgeMountainItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mountain_Leader_Emblem |
 | Mummified Loid Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Loid` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Mummified_Loid_Glyph |
@@ -994,7 +990,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Solstice Sigil | `/Lotus/Upgrades/Skins/Sigils/Winter2016Sigil` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Solstice_Sigil |
 | Somber Stalker Sigil | `/Lotus/Upgrades/Skins/Sigils/SomberStalkerSigil` | ExportCustoms | Listed under Event Sigils on the Warframe wiki. | Somber Stalker Sigil |
 | Son Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20SonGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Son_Tennobaum_Glyph |
-| SON TOKEN | `/Lotus/Types/Items/Deimos/EntratiFragmentCommonB` | ExportResources | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/SON_TOKEN |
 | Sonicor Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianSonicor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Sonicor_Obsidian_Skin |
 | Spearmint Scythe Skin | `/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneScytheSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Spearmint_Scythe_Skin |
 | Specters of Liberty Emblem | `/Lotus/Upgrades/Skins/Clan/RescueEventBadgeItem` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Specters_of_Liberty_Emblem |
@@ -1369,7 +1364,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 290
-- non-drop: 7816
+- non-drop: 7821
 - override: 607
 - relic: 345
 - sortie: 1

@@ -61,5 +61,33 @@
   "/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil": "Bestowed upon those who joined together in celebration at TennoCon 2019.",
   "/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil": "Bestowed upon those who joined together in celebration at TennoCon 2020.",
   "/Lotus/Upgrades/Skins/Clan/TennoCon2016BadgeItem": "Bestowed upon those who joined together in celebration at TennoCon 2016.",
-  "/Lotus/Upgrades/Skins/Sigils/SigilVideoContest": "Participatory prize for the Tenno's Greatest Trailer contest."
+  "/Lotus/Upgrades/Skins/Sigils/SigilVideoContest": "Participatory prize for the Tenno's Greatest Trailer contest.",
+  "/Lotus/Upgrades/Skins/Loki/LokiTwitchSkin": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Redeemer/RedeemerTwitchSkin": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TwitchRubicoSkin": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TigrisTwitchSkin": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/Twitch2021AfurisSkin": {
+    "text": "Available via Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release 2"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TwitchPentaSkin": {
+    "text": "Available via Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release 2"
+  },
+  "/Lotus/Upgrades/Skins/Volt/VoltTwitchSkin": {
+    "text": "Available via Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release 2"
+  }
 }

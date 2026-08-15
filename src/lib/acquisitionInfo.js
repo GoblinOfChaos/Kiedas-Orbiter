@@ -580,9 +580,10 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   }
 
   const wikiDescriptionAcquisition = bundledWikiDescriptionIndex.get(canonicalPath(dropIndexKey));
-  if (wikiDescriptionAcquisition) {
+  const wikiDescriptionText = typeof wikiDescriptionAcquisition === 'string' ? wikiDescriptionAcquisition : wikiDescriptionAcquisition?.text;
+  if (wikiDescriptionText) {
     return {
-      sources: [{ type: 'non-drop', text: wikiDescriptionAcquisition, source: 'Warframe Wiki Repo (WFCD exact uniqueName description)' }],
+      sources: [{ type: 'non-drop', text: wikiDescriptionText, source: wikiDescriptionAcquisition?.source || 'Warframe Wiki Repo (WFCD exact uniqueName description)' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

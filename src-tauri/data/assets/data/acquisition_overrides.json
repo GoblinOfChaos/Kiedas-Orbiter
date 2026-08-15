@@ -1,5 +1,16 @@
 {
   "components": {
+    "/Lotus/Upgrades/Skins/Promo/Seasonal/DogDays2025BadgeItem": "Sold by Nakak in Cetus during Dog Days for 75 Nakak Pearls.",
+    "/Lotus/Upgrades/Skins/Sigils/DogDays2023BSigil": "Sold by Nakak in Cetus during Dog Days for 175 Nakak Pearls.",
+    "/Lotus/Upgrades/Skins/Clan/DogDaysKubrowBadgeItem": "Sold by Nakak in Cetus during Dog Days for 75 Nakak Pearls.",
+    "/Lotus/Upgrades/Skins/Sigils/DogDaysKubrowSigil": "Sold by Nakak in Cetus during Dog Days for 175 Nakak Pearls.",
+    "/Lotus/Upgrades/Skins/Hammer/NoodleHammerSkin": "Sold by Nakak in Cetus during Dog Days for 280 Nakak Pearls.",
+    "/Lotus/Types/Items/PhotoBooth/TauOldPeace/PhotoboothTileTauOldPeaceObjLiminalBossArena": "Sold by Roathe for 100 Maphica.",
+    "/Lotus/Types/Items/DangerRoom/DangerRoomTileDevilTowerUrielArena": "Sold by Roathe for 150 Maphica.",
+    "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerNokkoA": "Sold by Nightcap for 25 Fergolyte.",
+    "/Lotus/Upgrades/Skins/Sigils/DogDays2023CSigil": "Sold by Nakak in Cetus during Dog Days for 175 Nakak Pearls.",
+    "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerNokkoC": "Sold by Nightcap for 25 Fergolyte.",
+    "/Lotus/Upgrades/Skins/Sigils/DogDays2025Sigil": "Sold by Nakak in Cetus during Dog Days for 175 Nakak Pearls.",
     "Acceltra|Nano Spores": "Boss/enemy drop: Demolisher Infested enemies (Ur, Uranus Dark Sector), 2.5% each",
     "Acceltra|Plastids": "Boss/enemy drop: Demolisher Infested enemies (Ur, Uranus Dark Sector), 2.5% each",
     "Ack & Brunt|Blueprint": "Clan Research (Dojo Chem Lab) or Market purchase (blueprint/weapon)",

@@ -34,7 +34,7 @@ for (const name of [
   'ExportFocusUpgrades', 'ExportFusionBundles', 'ExportGear', 'ExportKeys',
   'ExportMisc', 'ExportRailjackWeapons', 'ExportRecipes', 'ExportRegions',
   'ExportRelics', 'ExportResources', 'ExportRewards', 'ExportSentinels',
-  'ExportSyndicates', 'ExportUpgrades', 'ExportWarframes', 'ExportWeapons',
+  'ExportSyndicates', 'ExportUpgrades', 'ExportVendors', 'ExportWarframes', 'ExportWeapons',
   'dict',
 ]) {
   try { exportData[name] = loadExport(name); } catch { /* optional table */ }

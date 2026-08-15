@@ -650,13 +650,6 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     };
   }
 
-  if (exportVendorIndex?.has(canonicalPath(dropIndexKey))) {
-    return {
-      sources: [{ type: 'non-drop', text: 'Available from an in-game vendor.', source: 'DE export' }],
-      wikiLink: getWikiLink(dropIndexKey, displayName),
-    };
-  }
-
   const variantAcquisition = VARIANT_ACQUISITION_PATTERNS.find((p) => p.test(dropIndexKey, displayName));
   if (variantAcquisition) {
     return {
@@ -711,6 +704,17 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (wikiBlueprint) {
     return {
       sources: [{ type: 'non-drop', text: formatWikiBlueprint(wikiBlueprint), source: 'Warframe Wiki' }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  // This is a verified DE vendor relationship, but it is intentionally later
+  // than the more specific resource/blueprint records above so adding the
+  // vendor export cannot replace a concrete location already known for an
+  // item such as Ignia or Maphica.
+  if (exportVendorIndex?.has(canonicalPath(dropIndexKey))) {
+    return {
+      sources: [{ type: 'non-drop', text: 'Available from an in-game vendor.', source: 'DE export' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

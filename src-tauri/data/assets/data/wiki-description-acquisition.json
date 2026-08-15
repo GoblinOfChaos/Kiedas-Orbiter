@@ -325,5 +325,21 @@
   "/Lotus/Types/AvatarImages/AvatarImageConqueraOrdis": {
     "text": "Bonus in-game glyph included with the Conquera IV Collection from the Official Warframe Store.",
     "source": "Warframe.com All-New Conquera 2024 Merch for QTCC"
+  },
+  "/Lotus/Types/AvatarImages/ImageCalibanInAction": {
+    "text": "Rewarded by a Gift of the Lotus Alert during the February 2022 community-stream alerts.",
+    "source": "Warframe Forums Community Stream Schedule: February 21 - February 25"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageHarrowAction": {
+    "text": "Rewarded by a special Alert during Darvo Deals Returns (August 3–10, 2022).",
+    "source": "Warframe.com Darvo Deals Returns"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageOctaviaAction": {
+    "text": "Rewarded by a special Alert during Darvo Deals Returns (August 3–10, 2022).",
+    "source": "Warframe.com Darvo Deals Returns"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageSevagothAction": {
+    "text": "Rewarded by Alert 4 of the Whispers in the Walls Alerts (December 13–20, 2023).",
+    "source": "Warframe.com Whispers in the Walls Alerts"
   }
 }

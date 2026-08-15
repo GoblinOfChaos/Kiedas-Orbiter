@@ -19,9 +19,22 @@ const items = evidence.items
 
 function extractAcquisition(text) {
   if (typeof text !== 'string') return null;
-  const match = text.match(/^==+\s*(Acquisition|Drop Locations|Farming Locations|Sources|Obtaining)\s*==+\s*\n([\s\S]*?)(?=^==+\s+|$)/im);
+  // Keep nested acquisition subsections (=== 10x Blueprint ===, tables,
+  // etc.) inside the top-level section. Only another level-two heading ends
+  // the acquisition block.
+  const match = text.match(/^==\s*(Acquisition|Drop Locations|Farming Locations|Sources|Obtaining)\s*==+\s*\n([\s\S]*?)(?=^==\s+|$)/im);
   const value = match?.[2]?.replace(/\n{3,}/g, '\n\n').trim();
-  return value ? { section: match[1], text: value } : null;
+  if (value) return { section: match[1], text: value };
+
+  // Some current Wiki pages put a verified route in the lead and use the
+  // formal section only for generated drop-table headings. Preserve that
+  // exact lead as a discovery candidate, but keep it marked separately for
+  // review instead of silently treating every descriptive sentence as proof.
+  const lead = text.split(/^==\s+/m, 1)[0]?.replace(/\n{3,}/g, '\n\n').trim();
+  if (lead && /\b(obtain(?:ed|able)?|acquir(?:ed|e)|drop(?:s|ped)?|purchas(?:ed|e)|available|awarded|earned|received|crafted|built|redeem(?:ed|ing)|reward)\b/i.test(lead)) {
+    return { section: 'Lead acquisition statement', text: lead };
+  }
+  return null;
 }
 
 async function queryBatch(batch) {

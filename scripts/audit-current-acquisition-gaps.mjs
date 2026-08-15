@@ -228,10 +228,17 @@ for (const item of [...catalog.values()].sort((a, b) => a.name.localeCompare(b.n
   if (item.unavailablePlaceholder) unavailablePlaceholders.push({ ...item, reason: 'DE export placeholder is hidden from unowned Mods catalog; owned copies remain visible.' });
   const sourceRecords = result.info.sources || [];
   const statusRecord = sourceRecords.find((source) => source.type === 'status');
+  const weakSourceRecord = sourceRecords.find((source) =>
+    source.text?.startsWith('Listed under ') ||
+    source.source === 'DE export path rule' ||
+    source.source === 'DE export variant identity' ||
+    source.text === 'Available from an in-game vendor.'
+  );
   if (!sourceRecords.length) {
     if (!item.unavailablePlaceholder) genericWiki.push({ ...item, wiki: result.info.wikiLink?.url || '', reason: 'sources=[]; drawer displays generic wiki/no-info fallback' });
-  } else if (statusRecord && !item.unavailablePlaceholder) {
-    unverifiedStatus.push({ ...item, text: statusRecord.text, wiki: result.info.wikiLink?.url || '' });
+  } else if ((statusRecord || weakSourceRecord) && !item.unavailablePlaceholder) {
+    const record = statusRecord || weakSourceRecord;
+    unverifiedStatus.push({ ...item, text: record.text, wiki: result.info.wikiLink?.url || '' });
   } else {
     resolvedCounts[sourceRecords[0].type || 'unknown'] = (resolvedCounts[sourceRecords[0].type || 'unknown'] || 0) + 1;
   }
@@ -284,7 +291,7 @@ for (const item of [...catalog.values()].sort((a, b) => a.name.localeCompare(b.n
       wikiLink: result.info.wikiLink || null,
       recipe: result.info.recipe || null,
     },
-    auditStatus: item.unavailablePlaceholder ? 'unobtainable-placeholder' : (statusRecord ? 'wiki-status-no-acquisition-evidence' : (sourceRecords.length ? 'verified-source-record' : 'unresolved')),
+    auditStatus: item.unavailablePlaceholder ? 'unobtainable-placeholder' : ((statusRecord || weakSourceRecord) ? 'wiki-status-no-acquisition-evidence' : (sourceRecords.length ? 'verified-source-record' : 'unresolved')),
   });
 }
 
@@ -300,7 +307,7 @@ const lines = [
   `Generic wiki / no-info items: **${genericWiki.length}**`,
   `Generic Foundry sentence items: **${genericFoundry.length}**`,
   `Unobtainable export placeholders: **${unavailablePlaceholders.length}**`,
-  `Wiki-status records without acquisition evidence: **${unverifiedStatus.length}**`,
+  `Records without concrete acquisition evidence: **${unverifiedStatus.length}**`,
   '',
   'The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.',
   '',
@@ -316,7 +323,7 @@ const lines = [
   '|---|---|---|---|',
   ...(genericWiki.length ? genericWiki.map((item) => `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.reason} |`) : ['| None |  |  |  |']),
   '',
-  '## Wiki status records without acquisition evidence',
+  '## Records without concrete acquisition evidence',
   '',
   '| Name | Unique name | Category | Current status text | Wiki |',
   '|---|---|---|---|---|',

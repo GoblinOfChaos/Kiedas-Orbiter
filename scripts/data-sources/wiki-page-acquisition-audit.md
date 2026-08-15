@@ -1,11 +1,11 @@
 # Wiki page acquisition audit
 
-Generated: 2026-08-15T03:51:10.576Z
+Generated: 2026-08-15T04:05:26.644Z
 
-Status-only records checked: **3054**
-Wiki pages found: **2846**
-Pages with an explicit Acquisition section: **35**
-Missing pages: **208**
+Status-only records checked: **2971**
+Wiki pages found: **2750**
+Pages with an explicit Acquisition section: **12**
+Missing pages: **221**
 Query errors: **0**
 
 This is a discovery list. Acquisition prose is not imported automatically because it requires source-quality review against the exact DE export object.
@@ -15,62 +15,39 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Category | Gaps | Pages | Acquisition sections |
 |---|---:|---:|---:|
 | ExportArcanes | 7 | 7 | 0 |
-| ExportCustoms | 20 | 20 | 0 |
-| ExportCustoms, Cosmetics | 881 | 790 | 17 |
+| ExportCustoms | 19 | 19 | 0 |
+| ExportCustoms, Cosmetics | 851 | 757 | 8 |
 | ExportFlavour | 371 | 353 | 0 |
-| ExportFlavour, Glyphs | 415 | 415 | 0 |
-| ExportGear | 34 | 21 | 0 |
-| ExportResources | 1185 | 1113 | 13 |
-| ExportSentinels | 3 | 3 | 0 |
-| ExportSyndicates | 39 | 38 | 0 |
+| ExportFlavour, Glyphs | 416 | 416 | 0 |
+| ExportGear | 28 | 15 | 0 |
+| ExportResources | 1153 | 1081 | 3 |
+| ExportSyndicates | 39 | 38 | 1 |
 | ExportUpgrades | 3 | 3 | 0 |
 | ExportWarframes | 1 | 1 | 0 |
-| ExportWeapons | 9 | 8 | 0 |
+| ExportWeapons | 5 | 4 | 0 |
 | Relics | 20 | 20 | 0 |
-| warframe-items | 2 | 2 | 0 |
-| warframe-items, ExportSentinels | 9 | 8 | 1 |
+| warframe-items | 7 | 7 | 0 |
+| warframe-items, ExportResources | 10 | 0 | 0 |
+| warframe-items, ExportSentinels | 1 | 0 | 0 |
 | warframe-items, ExportWarframes | 1 | 0 | 0 |
-| warframe-items, ExportWeapons | 54 | 44 | 4 |
+| warframe-items, ExportWeapons | 39 | 29 | 0 |
 
 ## Items with Acquisition sections
 
 | Name | Unique name | Category | Wiki page | Acquisition text |
 |---|---|---|---|---|
-| Aklato Day of the Dead Skin | `/Lotus/Upgrades/Skins/Halloween/HalloweenAklato` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Aklato_Day_of_the_Dead_Skin) | **Acquisition:** This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for  20 or as part of Day of the Dead Weapon Skin Pack  175 |
-| Batoten | `/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeaponIP` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Batoten) | **Acquisition:** The Batoten is automatically acquired upon claiming a Hound configured with the Dorma Model. Note that this weapon also takes up one Sentinel inventory slot. |
-| Broca Prominence Syandana | `/Lotus/Upgrades/Skins/Scarves/TnLargeCapeTwitch` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Broca_Prominence_Syandana) | **Acquisition:** Purchase from Varzia for 10  Aya. |
+| Boolean Syandana | `/Lotus/Upgrades/Skins/Scarves/CephSyandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Boolean_Syandana) | **Acquisition:** Obtained from the following  Nightwave season(s): |
+| Conclave | `/Lotus/Syndicates/ConclaveSyndicate` | ExportSyndicates | [page](https://wiki.warframe.com/w/Conclave) | **Lead acquisition statement:** Conclave is a neutral Syndicate led by the Conclave Master, Teshin Dax. Teshin resides within the Conclave Hall of each Relay. He is the one responsible for the management of the Conclave PvP System, providing incentives through various rewards that can be earned through Conclave battles. |
+| Crimson Talent | `/Lotus/Types/JadeShadowsPart2Mission/Gameplay/Resources/GarudaFavor` | ExportResources | [page](https://wiki.warframe.com/w/Crimson_Talent) | **Acquisition:** After completing Jade Shadows: Constellations, Scoria's Angel node becomes available. It can be started either from within Pontis Tower, or directly from Railjack Navigation. |
 | Dax Lustratus Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/DaxFlaredArmor/DaxFlaredAArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dax_Lustratus_Shoulder_Plates) | **Acquisition:** Obtainable from the following Operations: |
-| Deth Machine Rifle | `/Lotus/Types/Sentinels/SentinelWeapons/DethMachineRifle` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Deth_Machine_Rifle) | **Acquisition:** The Deth Machine Rifle is automatically acquired upon obtaining  Dethcube. Note that this weapon also takes up one Companion inventory slot. |
-| Dominus Aureus | `/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemEvent` | ExportResources | [page](https://wiki.warframe.com/w/Dominus_Aureus) | **Acquisition:** Dominus Aureus can be obtained by: |
-| Emerald Talent | `/Lotus/Types/JadeShadowsPart2Mission/Gameplay/Resources/AshFavor` | ExportResources | [page](https://wiki.warframe.com/w/Emerald_Talent) | **Acquisition:** After completing Jade Shadows: Constellations, The Kuva Wytch node becomes available. The mission can be started either from within Pontis Tower, or directly from Railjack Navigation. |
-| Excalibur Obsidian Azura Skin | `/Lotus/Upgrades/Skins/Excalibur/ObsidianExcaliburSkinB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Excalibur_Obsidian_Azura_Skin) | **Acquisition:** The Excalibur Obsidian Azura Skin was available through the PlayStation store via the Obisidan Azura Collection. |
-| Fragor Tekelu Skin | `/Lotus/Upgrades/Skins/Ornate/TekeluFragorSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Fragor_Tekelu_Skin) | **Acquisition:** Was previously available from Gift from the Lotus in 2019. |
-| Gara Prime Theme | `/Lotus/Types/Items/SongItems/GaraPrimeSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Gara_Prime_Theme) | **Acquisition:** The Somachord version of the theme can be bought from Varzia for 5  Aya. |
 | Glacia Syandana | `/Lotus/Upgrades/Skins/Scarves/IceSpikeCape` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Glacia_Syandana) | **Acquisition:** Obtained from the following  Nightwave season(s): |
-| Helminth Charger | `/Lotus/Types/Game/KubrowPet/ChargerKubrowPetPowerSuit` | warframe-items, ExportSentinels | [page](https://wiki.warframe.com/w/Helminth_Charger) | **Acquisition:** The player must have completed the Howl of the Kubrow quest in order to have an operating Incubator on the Orbiter, as well as have acquired a Kubrow Egg from Kubrow Dens on the Grineer Forest tilesets of Earth and a built Incubator Power Core whose blueprint can be obtained from the Market. |
-| Karotic Signa | `/Lotus/Upgrades/Skins/Crowns/GarudaBloodCrown` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Karotic_Signa) | **Acquisition:** Acquired by activating 5 consoles in a short timespan in the The Kuva Wytch (in the opposing opponent's capital ship) and entering a normally locked secret room just before the Bloodfrenzied Sister miniboss spawn room. The player has roughly 40 seconds to bypass all consoles, otherwise, the consoles will reset, undoing player progression. They don't have to be interacted in order, but it is advised. |
 | Kyndryn Gunblade Skin | `/Lotus/Upgrades/Skins/Weapons/Redeemer/TnSpikeGunbladeSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Kyndryn_Gunblade_Skin) | **Acquisition:** This skin is purchasable as a recurring event reward, for the following: |
-| Lato Prime | `/Lotus/Weapons/Tenno/Pistol/LatoPrime` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Lato_Prime) | **Acquisition:** In the global build of the game, the Lato Prime was only available to owners of the Grand Master Founders package that was offered between December 19, 2012 and November 1, 2013. |
-| Loiaus Chest Medallion | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauPurpleHeartMedalC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Loiaus_Chest_Medallion) | **Acquisition:** Obtainable from the following Operations: |
-| Mag Amethyst Skin | `/Lotus/Upgrades/Skins/Mag/DiscordMag` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Mag_Amethyst_Skin) | **Acquisition:** The Mag Amethyst Skin was available through the Discord store via the Reverence Pack, along with Excalibur Amethyst Skin & Volt Amethyst Skin. |
-| Mausolon | `/Lotus/Weapons/Tenno/Archwing/Primary/ThanoTechArchLongGun/ThanoTechLongGun` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Mausolon) | **Acquisition:** A built Mausolon is automatically acquired upon claiming any Necramech, either the Voidrig or the Bonewidow, from the Foundry. Functioning as their default weapon option, the Mausolon also comes with the necessary Gravimag already pre-installed. |
-| Naberus Shoulder Armor | `/Lotus/Upgrades/Skins/Armor/Halloween2014Wings/Halloween2014ArmArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Naberus_Shoulder_Armor) | **Acquisition:** This armor is purchaseable from the Market for  50. |
-| Nidus Prime Theme | `/Lotus/Types/Items/SongItems/NidusPrimeSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Nidus_Prime_Theme) | **Acquisition:** The Somachord version of the theme can be bought from Varzia for 5  Aya. |
-| Nulwarden Syandana (Void-swept) | `/Lotus/Upgrades/Skins/Scarves/TC2025EvolvedOrokinScarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Nulwarden_Syandana_(Void-swept)) | **Acquisition:** Purchasing the Nulwarden Syandana from Varzia for 1  Regal Aya will automatically add this to your inventory. |
-| Ocular Stem-Root | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishFPartItem` | ExportResources | [page](https://wiki.warframe.com/w/Ocular_Stem-Root) | **Acquisition:** Ocular Stem-Roots can be obtained by filleting  Flagellocanths through Daughter in the Necralisk. |
-| Pareidola Ephemera | `/Lotus/Upgrades/Skins/Effects/InkEphemeraB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Pareidola_Ephemera) | **Acquisition:** Can be purchased during Operation: Atramentum from Aspirant Zorba in any Relays for 65  Nightmare Tatters once Community Progress has reached 60%. |
-| Proof Fragment | `/Lotus/Types/Items/MiscItems/Beacon` | ExportResources | [page](https://wiki.warframe.com/w/Proof_Fragment) | **Acquisition:** They can be obtained by killing the enemies from the quest, where the fragments take up the form of Nav Coordinates.  A total of 9 fragments are required to build all the keys needed to complete the quest. |
-| Pyrus Essence | `/Lotus/Types/Items/RelayRebuild/PhaseOneFireElement` | ExportResources | [page](https://wiki.warframe.com/w/Pyrus_Essence) | **Acquisition:** Pyrus Essence can be gained on either Earth, Mercury, Ceres, or Saturn by knocking down and capturing Pyrus Essence Carrier, Eximus-like units that drop Pyrus Essence upon being captured. |
-| Revenant Prime Theme | `/Lotus/Types/Items/SongItems/RevenantPrimeSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Revenant_Prime_Theme) | **Acquisition:** The Somachord version of the theme can be bought from Varzia for 5  Aya. |
-| Saturated Muscle Mass | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishCPartItem` | ExportResources | [page](https://wiki.warframe.com/w/Saturated_Muscle_Mass) | **Acquisition:** Saturated Muscle Mass can be obtained by filleting Kymaeros and Ostimyr (both from the Cambion Drift) at Daughter in the Necralisk. |
-| Scrubber Exa Brain | `/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishExaBrainItem` | ExportResources | [page](https://wiki.warframe.com/w/Scrubber_Exa_Brain) | **Acquisition:** Exa Brains are acquired by dismantling Scrubbers caught through Fishing. Go to The Business in Fortuna, select the desired amount of Scrubbers available, and select the "Dismantle" option to extract the components. |
-| Spore Ephemera | `/Lotus/Upgrades/Skins/Effects/InfestedEphemeraA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Spore_Ephemera) | **Acquisition:** Awarded from reaching certain ranks in Nightwave: |
-| Tammpet Sugatra | `/Lotus/Upgrades/Skins/MeleeDangles/Sugotchi1999MeleeDangle` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tammpet_Sugatra) | **Acquisition:** Acquired from achieving Nightwave Nora's Mix Volume 8: Rank 22. |
-| TennoCon 2016 Syandana | `/Lotus/Upgrades/Skins/Scarves/TennoConScarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_2016_Syandana) | **Acquisition:** Originally obtained as a bonus code from purchasing a physical TennoCon 2016 ticket. Now no longer available. |
-| Tink Dissipator Coil | `/Lotus/Types/Items/Fish/Solaris/FishParts/SolarisFishDissipatorCoilItem` | ExportResources | [page](https://wiki.warframe.com/w/Tink_Dissipator_Coil) | **Acquisition:** Tink Dissipator Coils are acquired by dismantling Tinks caught through Fishing. Go to The Business in Fortuna, select the desired amount of Tinks available, and select the "Dismantle" option to extract the components. |
-| Vauban Prime Theme | `/Lotus/Types/Items/SongItems/VaubanPrimeSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Vauban_Prime_Theme) | **Acquisition:** The Somachord version of the theme can be bought from Varzia for 5  Aya. |
-| Vestigial Motes | `/Lotus/Types/Gameplay/JadeShadows/Resources/AscensionResourceItem` | ExportResources | [page](https://wiki.warframe.com/w/Vestigial_Motes) | **Acquisition:** Completing Ascension missions on Brutus, Uranus, awarded in quantities of 11-14 (16-18 on The Steel Path). |
-| Wisp Dex Skin | `/Lotus/Upgrades/Skins/Wisp/DexWispSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Wisp_Dex_Skin) | **Acquisition:** The Wisp Dex Skin was available for logging in to Warframe from March 28, 2022 to May 2, 2022, and for defeating John Prodman in his Gift of the Lotus - Stolen! Assassination from May 19th, 2023 to June 2, 2023. |
+| Lacera Scorn Skin | `/Lotus/Upgrades/Skins/Events/AcolyteStalkerMios` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lacera_Scorn_Skin) | **Acquisition:** The Lacera Scorn Skin is a unique skin for the  Lacera. It was obtained from Operation: Shadow Debt after completing 15 waves against the final challenger. |
+| Marks of Valiance | `/Lotus/Types/Gameplay/Tau/Resources/TwelveResourceCurrencyItem` | ExportResources | [page](https://wiki.warframe.com/w/Marks_of_Valiance) | **Acquisition:** Marks of Valiance can be obtained by: |
+| Protovyre Apex Syandana | `/Lotus/Upgrades/Skins/Scarves/NarmerEvolvingSyandanaCCape` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protovyre_Apex_Syandana) | **Acquisition:** Collect a total of 75 Void Relics and Aya from missions with Protovyre Emergent Syandana equipped. Purchasing Relic Packs does not count. |
+| Raya Aurora Ephemera | `/Lotus/Upgrades/Skins/Effects/Twitch2023Ephemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Raya_Aurora_Ephemera) | **Acquisition:** Awarded from reaching certain ranks in Nightwave: |
+| Saturn Six Syandana | `/Lotus/Upgrades/Skins/Scarves/TennoWolfBackpack` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Saturn_Six_Syandana) | **Acquisition:** Obtained from the following  Nightwave season(s): |
+| Volatile Motes | `/Lotus/Types/Gameplay/JadeShadows/Resources/AscensionEventResourceItem` | ExportResources | [page](https://wiki.warframe.com/w/Volatile_Motes) | **Acquisition:** Volatile Motes can be obtained by: |
 
 ## Pages without Acquisition sections
 
@@ -94,7 +71,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Aklato Opal Skin | `/Lotus/Upgrades/Skins/Promo/Nintendo/NintendoAklatoSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Aklato_Opal_Skin) |
 | Akmagnus Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianAkmagnus` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Akmagnus_Obsidian_Skin) |
 | Akomeogi Warfan Skin | `/Lotus/Upgrades/Skins/Koumei/KoumeiWarfanSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Akomeogi_Warfan_Skin) |
-| Akvasto Day of the Dead Skin | `/Lotus/Upgrades/Skins/Halloween/HalloweenAkvasto` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Akvasto_Day_of_the_Dead_Skin) |
 | Akvasto Phased Skin | `/Lotus/Upgrades/Skins/Promo/Void/AkvastosVoidSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Akvasto_Phased_Skin) |
 | Albrecht's Treasures Glyph | `/Lotus/Types/AvatarImages/KalymosGrimoireGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Albrecht%27s_Treasures_Glyph) |
 | ALERTS SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/AlertsFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/ALERTS_SEGMENT) |
@@ -159,6 +135,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Ash Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageAshPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Ash_Prime_Glyph_-_Bright) |
 | Ash Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageAshPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Ash_Prime_Glyph_-_Dark) |
 | Ash Shroud Helmet | `/Lotus/Upgrades/Skins/Ninja/AshDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ash_Shroud_Helmet) |
+| Aspirant Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilZorba` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Aspirant_Sigil) |
 | Aspirant Syandana | `/Lotus/Upgrades/Skins/Scarves/ZorbaScarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Aspirant_Syandana) |
 | Assorted Flowers (Blue and White) | `/Lotus/Types/Items/ShipDecos/Props/Nokko/LisetPropLASxPlanterHangingAFoliageB` | ExportResources | [page](https://wiki.warframe.com/w/Assorted_Flowers_(Blue_and_White)) |
 | Assorted Flowers (Red and White) | `/Lotus/Types/Items/ShipDecos/Props/Nokko/LisetPropLASxPlanterHangingAFoliageA` | ExportResources | [page](https://wiki.warframe.com/w/Assorted_Flowers_(Red_and_White)) |
@@ -174,6 +151,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Atlas Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageAtlasPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Atlas_Prime_Glyph_-_Bright) |
 | Atlas Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageAtlasPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Atlas_Prime_Glyph_-_Dark) |
 | Atramentum Emblem | `/Lotus/Upgrades/Skins/Clan/ShadowgrapherEventBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Atramentum_Emblem) |
+| Atramentum Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilShadowgrapher` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Atramentum_Sigil) |
 | Aurichalc Legendary Mastery Slate | `/Lotus/Types/Items/ShipDecos/MasteryTrophies/Rank36Trophy` | ExportResources | [page](https://wiki.warframe.com/w/Aurichalc_Legendary_Mastery_Slate) |
 | Autumn Tuvul Sapling | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropZARxTreeNaturalSapling` | ExportResources | [page](https://wiki.warframe.com/w/Autumn_Tuvul_Sapling) |
 | Autumnal Bonsai | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropDuvxZarimanPlantA` | ExportResources | [page](https://wiki.warframe.com/w/Autumnal_Bonsai) |
@@ -216,19 +194,18 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Beach | `/Lotus/Types/SuitCustomizations/ColourPickerBeach` | ExportFlavour | [page](https://wiki.warframe.com/w/Beach) |
 | Beach Kavat Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyBeachKavat` | ExportResources | [page](https://wiki.warframe.com/w/Beach_Kavat_Floof) |
 | Beckonsnare | `/Lotus/Types/Restoratives/Consumable/Eidolon/LandscapeTrapLightGear` | ExportGear | [page](https://wiki.warframe.com/w/Beckonsnare) |
-| Benign Infested Tumor | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosGenericSharedFishPartItem` | ExportResources | [page](https://wiki.warframe.com/w/Benign_Infested_Tumor) |
+| Big Bytes Pizza Sigil | `/Lotus/Upgrades/Skins/Sigils/NightwavePizzaSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Big_Bytes_Pizza_Sigil) |
 | Bingwu Glyph | `/Lotus/Types/AvatarImages/LNY2026HorseGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Bingwu_Glyph) |
-| Biotic Filter | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishAPartItem` | ExportResources | [page](https://wiki.warframe.com/w/Biotic_Filter) |
 | Bird 3 Floof | `/Lotus/Types/Items/ShipDecos/Plushies/BirdPlush` | ExportResources | [page](https://wiki.warframe.com/w/Bird_3_Floof) |
+| Bird 3 Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Bird_3_Sigil) |
 | Bird 3 Sketch Glyph | `/Lotus/Types/AvatarImages/Events/EventGlyphCaviaBirdThree` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Bird_3_Sketch_Glyph) |
 | Bird's Nest Fern (Narrowly Opened) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropGftPlantBirdsNestD` | ExportResources | [page](https://wiki.warframe.com/w/Bird%27s_Nest_Fern_(Narrowly_Opened)) |
+| Blade and Gun Sigil | `/Lotus/Upgrades/Skins/Sigils/BladeAndGunSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Blade_and_Gun_Sigil) |
 | Bladeswarm Braton Skin | `/Lotus/Upgrades/Skins/CaliberChicks/AshGeminiCaliberChicksRifleSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Bladeswarm_Braton_Skin) |
 | Bladeswarm Karyst Skin | `/Lotus/Upgrades/Skins/Weapons/Daggers/AshGeminiDaggerSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Bladeswarm_Karyst_Skin) |
 | Bladeswarm Kunai Skin | `/Lotus/Upgrades/Skins/Weapons/Throwable/AshGeminiKunaiSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Bladeswarm_Kunai_Skin) |
 | Bladeswarm Vectis Skin | `/Lotus/Upgrades/Skins/Weapons/LongGuns/AshGeminiVectisSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Bladeswarm_Vectis_Skin) |
 | Blink Glyph | `/Lotus/Types/AvatarImages/AvatarImageBlinkGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Blink_Glyph) |
-| Bloodfrenzy Ballistica Skin | `/Lotus/Upgrades/Skins/Weapons/Pistols/GarudaGeminiBallisticaSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Bloodfrenzy_Ballistica_Skin) |
-| Bloodfrenzy Nagantaka Skin | `/Lotus/Upgrades/Skins/Weapons/LongGuns/GarudaGeminiNagantakaSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Bloodfrenzy_Nagantaka_Skin) |
 | Bloodfrenzy Venka Skin | `/Lotus/Upgrades/Skins/Weapons/Claws/GarudaGeminiClawsSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Bloodfrenzy_Venka_Skin) |
 | Bluyayogamer Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageBluyayogamer` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Bluyayogamer_Glyph) |
 | Boar Phosphor Skin | `/Lotus/Upgrades/Skins/VoidTrader/VTBoar` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Boar_Phosphor_Skin) |
@@ -240,16 +217,12 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Bombastine Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2023BombastineGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Bombastine_Tennobaum_Glyph) |
 | Bonewidow Necramech Helmet | `/Lotus/Upgrades/Skins/Necramech/ThanomechVoidRigDefaultHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Bonewidow_Necramech_Helmet) |
 | Boo Glyph | `/Lotus/Types/AvatarImages/Seasonal/Halloween2019GhostChibiWisp` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Boo_Glyph) |
-| Boolean Sugatra | `/Lotus/Upgrades/Skins/MeleeDangles/CephalonSugatraDangle` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Boolean_Sugatra) |
-| Boolean Syandana | `/Lotus/Upgrades/Skins/Scarves/CephSyandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Boolean_Syandana) |
 | Boxwood Hedge (1x1m) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropLASxBoxwoodHedgeA1x1m` | ExportResources | [page](https://wiki.warframe.com/w/Boxwood_Hedge_(1x1m)) |
 | Braton Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/PS4Braton` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Braton_Obsidian_Skin) |
 | Braton Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/PS4Mk1Braton` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Braton_Obsidian_Skin) |
 | Breeding Grounds Emblem | `/Lotus/Upgrades/Skins/Clan/HiveSabotageEventBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Breeding_Grounds_Emblem) |
 | BrickyOrchid8 Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageBrickyOrchid` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/BrickyOrchid8_Glyph) |
 | Broadsword Past/Future Sigil | `/Lotus/Upgrades/Skins/Sigils/Switch2Sigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Broadsword_Past/Future_Sigil) |
-| Broca Solstice Syandana | `/Lotus/Upgrades/Skins/Scarves/TnLargeCapeWSolstice` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Broca_Solstice_Syandana) |
-| Broken War Solstice Skin | `/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumBrokenWar` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Broken_War_Solstice_Skin) |
 | BRONZE RHINO HELMET | `/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkinHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/BRONZE_RHINO_HELMET) |
 | Bronze Skull Emblem | `/Lotus/Upgrades/Skins/Clan/SkullBadgeBronzeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Bronze_Skull_Emblem) |
 | Brood Mother Emblem | `/Lotus/Upgrades/Skins/Clan/InfTacAlertDiseasedAncientBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Brood_Mother_Emblem) |
@@ -257,10 +230,8 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Buddies in Gaming Glyph | `/Lotus/Types/AvatarImages/AvatarImageSwitch2Glyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Buddies_in_Gaming_Glyph) |
 | Buried Debts Emblem | `/Lotus/Upgrades/Skins/Clan/OrbBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Buried_Debts_Emblem) |
 | Buried Debts Glyph | `/Lotus/Types/AvatarImages/AvatarImageBuriedDebts` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Buried_Debts_Glyph) |
+| Buried Debts Sigil | `/Lotus/Upgrades/Skins/Sigils/OrbSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Buried_Debts_Sigil) |
 | Burrowing Cryptilex Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedMaggotCommon` | ExportResources | [page](https://wiki.warframe.com/w/Burrowing_Cryptilex_Tag) |
-| Burst Laser | `/Lotus/Types/Sentinels/SentinelWeapons/BurstLaserPistol` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Burst_Laser) |
-| Burst Laser Prime | `/Lotus/Types/Sentinels/SentinelWeapons/PrimeBurstLaserPistol` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Burst_Laser_Prime) |
-| Burston Raya Skin | `/Lotus/Upgrades/Skins/Nightwave/CosmosBurstonSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Burston_Raya_Skin) |
 | Bury The Past | `/Lotus/Types/Items/ShipDecos/CorpusGreedReliefI` | ExportResources | [page](https://wiki.warframe.com/w/Bury_The_Past) |
 | Bush Cluster (Dense) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropZARxBushA` | ExportResources | [page](https://wiki.warframe.com/w/Bush_Cluster_(Dense)) |
 | Caged Condroc | `/Lotus/Types/Items/ShipDecos/LisetPropOstBirdCage` | ExportResources | [page](https://wiki.warframe.com/w/Caged_Condroc) |
@@ -302,7 +273,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Cheeky Sprodling Emblem | `/Lotus/Upgrades/Skins/Clan/NokkoBabySecretEmblemItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Cheeky_Sprodling_Emblem) |
 | Cheeky Sprodling Glyph | `/Lotus/Types/AvatarImages/Warframes/NokkoBabySecretGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Cheeky_Sprodling_Glyph) |
 | Cherry Tree Glyph | `/Lotus/Types/AvatarImages/CherryTreeGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Cherry_Tree_Glyph) |
-| Chesa Kubrow | `/Lotus/Types/Game/KubrowPet/RetrieverKubrowPetPowerSuit` | warframe-items, ExportSentinels | [page](https://wiki.warframe.com/w/Chesa_Kubrow) |
 | Chillwave Sigil | `/Lotus/Upgrades/Skins/Sigils/DogDays2023BSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Chillwave_Sigil) |
 | Chitoid Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/InfNightWaveWingsRight` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Chitoid_Sentinel_Wings) |
 | Chivaler Sumdali | `/Lotus/Upgrades/Skins/Liset/OrfeoHoodOrnament` | ExportFlavour | [page](https://wiki.warframe.com/w/Chivaler_Sumdali) |
@@ -311,7 +281,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Chroma Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageChromaPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Chroma_Prime_Glyph_-_Bright) |
 | Chroma Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageChromaPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Chroma_Prime_Glyph_-_Dark) |
 | Chroma Zunlong Helmet | `/Lotus/Upgrades/Skins/Dragon/ChromaLNYHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Chroma_Zunlong_Helmet) |
-| Chromatic Atramentum | `/Lotus/Types/Items/MiscItems/FoilModUnlocker` | ExportResources | [page](https://wiki.warframe.com/w/Chromatic_Atramentum) |
 | Chrysalis Sentinel Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/InfestedWingsRight` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Chrysalis_Sentinel_Wings) |
 | Chymerist Apparel | `/Lotus/Upgrades/Skins/Operator/Skirts/SkirtLasrianB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Chymerist_Apparel) |
 | Chymerist Gloves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOperatorLasrianB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Chymerist_Gloves) |
@@ -355,6 +324,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Community Jade Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityJadeGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Community_Jade_Glyph) |
 | Community Lavos Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityLavosGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Community_Lavos_Glyph) |
 | Community Nokko Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityNokkoGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Community_Nokko_Glyph) |
+| Community Of Tenno | `/Lotus/Upgrades/Skins/Sigils/LotusHeartSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Community_Of_Tenno) |
 | Community On-lyne DJ RoM Glyph | `/Lotus/Types/AvatarImages/AvatarImageDJRoMGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Community_On-lyne_DJ_RoM_Glyph) |
 | Community On-lyne Drillbit Glyph | `/Lotus/Types/AvatarImages/AvatarImageDrillbitGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Community_On-lyne_Drillbit_Glyph) |
 | Community On-lyne Harddrive Glyph | `/Lotus/Types/AvatarImages/AvatarImageHarddriveGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Community_On-lyne_Harddrive_Glyph) |
@@ -386,8 +356,10 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Community Tennobaum World-Seeder Glyph | `/Lotus/Types/AvatarImages/AvatarImageTennobaumWorldSeederGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Community_Tennobaum_World-Seeder_Glyph) |
 | Community Tennobaum Zephyr Glyph | `/Lotus/Types/AvatarImages/AvatarImageCommunityTennobaumZephyr` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Community_Tennobaum_Zephyr_Glyph) |
 | Compacted Salvage Decoration | `/Lotus/Types/Items/ShipDecos/ContainerDecoItemSalvage` | ExportResources | [page](https://wiki.warframe.com/w/Compacted_Salvage_Decoration) |
-| Conclave | `/Lotus/Syndicates/ConclaveSyndicate` | ExportSyndicates | [page](https://wiki.warframe.com/w/Conclave) |
 | Conclave Console | `/Lotus/Types/Items/ShipDecos/ConclaveConsolePlayerShipItem` | ExportResources | [page](https://wiki.warframe.com/w/Conclave_Console) |
+| Conclave Sigil | `/Lotus/Upgrades/Skins/Sigils/OpticorConclaveVariantSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conclave_Sigil) |
+| Conclave Sigil | `/Lotus/Upgrades/Skins/Sigils/SyndicateSigilConclaveA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conclave_Sigil) |
+| Condrix Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilScarletSpear` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Condrix_Sigil) |
 | Connla Sprout Decoration | `/Lotus/Types/Items/ShipDecos/Plants/LisetPropDUVxGardeningPlantCGrown` | ExportResources | [page](https://wiki.warframe.com/w/Connla_Sprout_Decoration) |
 | Conquera 2023 Community Display | `/Lotus/Types/Items/ShipDecos/Venus/Conquera2023CommunityDisplay` | ExportResources | [page](https://wiki.warframe.com/w/Conquera_2023_Community_Display) |
 | Conquera 2024 Community Display | `/Lotus/Types/Items/ShipDecos/Conquera2024Display` | ExportResources | [page](https://wiki.warframe.com/w/Conquera_2024_Community_Display) |
@@ -397,22 +369,17 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Conquera Cherry Tree Ink | `/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoH` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conquera_Cherry_Tree_Ink) |
 | Conquera Decoration | `/Lotus/Types/Items/ShipDecos/Conquera2021Deco` | ExportResources | [page](https://wiki.warframe.com/w/Conquera_Decoration) |
 | Conquera Emblem | `/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conquera_Emblem) |
-| Conquera Ephemera | `/Lotus/Upgrades/Skins/Effects/ConqueraEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conquera_Ephemera) |
 | Conquera Glyph | `/Lotus/Types/AvatarImages/ImageConquera` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Conquera_Glyph) |
 | Conquera Glyph I | `/Lotus/Types/AvatarImages/ImageConquera2021C` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Conquera_Glyph_I) |
 | Conquera Glyph II | `/Lotus/Types/AvatarImages/ImageConquera2021D` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Conquera_Glyph_II) |
 | Conquera Glyph III | `/Lotus/Types/AvatarImages/ImageConquera2021A` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Conquera_Glyph_III) |
 | Conquera Glyph IV | `/Lotus/Types/AvatarImages/ImageConquera2021B` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Conquera_Glyph_IV) |
 | Conquera Glyph V | `/Lotus/Types/AvatarImages/ImageConquera2022A` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Conquera_Glyph_V) |
-| Conquera II Ephemera | `/Lotus/Upgrades/Skins/Effects/Conquera2022Ephemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conquera_II_Ephemera) |
 | Conquera Kuaka Floof | `/Lotus/Types/Items/ShipDecos/Plushies/Plushy2021QTCC` | ExportResources | [page](https://wiki.warframe.com/w/Conquera_Kuaka_Floof) |
-| Conquera Leg Ribbon | `/Lotus/Upgrades/Skins/Armor/TnCharityRibbonArmor/ConqueraArmorL` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conquera_Leg_Ribbon) |
 | Conquera Magnolia Ink | `/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoI` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conquera_Magnolia_Ink) |
 | Conquera Ordis Glyph | `/Lotus/Types/AvatarImages/AvatarImageConqueraOrdis` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Conquera_Ordis_Glyph) |
-| Conquera Ribbon | `/Lotus/Upgrades/Skins/Armor/TnCharityRibbonArmor/ConqueraChestRibbon` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conquera_Ribbon) |
 | Conquera Sawgaw Floof | `/Lotus/Types/Items/ShipDecos/Plushies/Plushy2022QTCC` | ExportResources | [page](https://wiki.warframe.com/w/Conquera_Sawgaw_Floof) |
-| Conquera Shoulder Ribbon | `/Lotus/Upgrades/Skins/Armor/TnCharityRibbonArmor/ConqueraArmorA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conquera_Shoulder_Ribbon) |
-| Conquera Syandana | `/Lotus/Upgrades/Skins/Scarves/TnCharityRibbonSyandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conquera_Syandana) |
+| Conquera Sigil | `/Lotus/Upgrades/Skins/Sigils/ConqueraSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conquera_Sigil) |
 | Conquera Theme | `/Lotus/Interface/Graphics/CustomUI/ConqueraStyle` | ExportFlavour | [page](https://wiki.warframe.com/w/Conquera_Theme) |
 | Conquera United Glyph | `/Lotus/Types/AvatarImages/AvatarImageConqueraGlyphUpdated` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Conquera_United_Glyph) |
 | Conquera United Sigil | `/Lotus/Upgrades/Skins/Sigils/QTCC2023ConqueraSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Conquera_United_Sigil) |
@@ -421,6 +388,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Conscience Painter Honoria | `/Lotus/Types/Items/Titles/RoatheTitles/TitleFollie` | ExportFlavour | [page](https://wiki.warframe.com/w/Conscience_Painter_Honoria) |
 | Contrathermal Companion Glyph | `/Lotus/Types/AvatarImages/FireIceCompanionGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Contrathermal_Companion_Glyph) |
 | Control Module Decoration | `/Lotus/Types/Items/ShipDecos/ResourceDecoItemControlModule` | ExportResources | [page](https://wiki.warframe.com/w/Control_Module_Decoration) |
+| Converted Coda Sigil | `/Lotus/Upgrades/Skins/Sigils/InfLichConvertedSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Converted_Coda_Sigil) |
 | Cookie Boot Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieBoot` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Cookie_Boot_Glyph) |
 | Cookie Corpus Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieCorpus` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Cookie_Corpus_Glyph) |
 | Cookie Dethcube Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieDethcube` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Cookie_Dethcube_Glyph) |
@@ -435,16 +403,12 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Cookie Void Key Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphCookieVoidKey` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Cookie_Void_Key_Glyph) |
 | Corinth Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianCorinth` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Corinth_Obsidian_Skin) |
 | Corpus Articula | `/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/CrewmanAFItem` | ExportResources | [page](https://wiki.warframe.com/w/Corpus_Articula) |
-| Corpus Cipher | `/Lotus/Types/Items/Research/CipherPlus` | ExportResources | [page](https://wiki.warframe.com/w/Corpus_Cipher) |
 | Corpus Datamass | `/Lotus/Types/Items/Research/DataMassPlus` | ExportResources | [page](https://wiki.warframe.com/w/Corpus_Datamass) |
 | Corpus Interior Decorations | `/Lotus/Types/Game/ShipScenes/CorpusShipScene` | ExportFlavour | [page](https://wiki.warframe.com/w/Corpus_Interior_Decorations) |
 | Corrupted Heavy Gunner Specter | `/Lotus/Types/Restoratives/Consumable/CorruptedHeavyGunnerBall` | ExportGear | [page](https://wiki.warframe.com/w/Corrupted_Heavy_Gunner_Specter) |
-| Cranial Foremount | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishCPartItem` | ExportResources | [page](https://wiki.warframe.com/w/Cranial_Foremount) |
 | Crater Cay Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDuviriIsleCapA` | ExportResources | [page](https://wiki.warframe.com/w/Crater_Cay_Scene) |
 | Crawling Back | `/Lotus/Types/Items/ShipDecos/CorpusGreedReliefE` | ExportResources | [page](https://wiki.warframe.com/w/Crawling_Back) |
 | Creepy Clem Glyph | `/Lotus/Types/AvatarImages/Seasonal/Halloween2019CreepyClem` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Creepy_Clem_Glyph) |
-| Crescent Vulpaphyla | `/Lotus/Types/Friendly/Pets/CreaturePets/HornedInfestedCatbrowPetPowerSuit` | warframe-items, ExportSentinels | [page](https://wiki.warframe.com/w/Crescent_Vulpaphyla) |
-| Crescent Vulpaphyla | `/Lotus/Types/Items/Deimos/WoundedInfestedCritterUncommonRewardItem` | ExportWeapons | [page](https://wiki.warframe.com/w/Crescent_Vulpaphyla) |
 | Crescent Vulpaphyla Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedCritterUncommon` | ExportResources | [page](https://wiki.warframe.com/w/Crescent_Vulpaphyla_Tag) |
 | Crestbear Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageCrestbear` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Crestbear_Glyph) |
 | Crewman Staredown Glyph | `/Lotus/Types/AvatarImages/ImageYouTubeCorpusA` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Crewman_Staredown_Glyph) |
@@ -452,7 +416,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Crewman’s Boot | `/Lotus/Types/Items/Fish/Deimos/OrokinBootItem` | ExportResources | [page](https://wiki.warframe.com/w/Crewman%E2%80%99s_Boot) |
 | Crewman’s Boot | `/Lotus/Types/Items/Fish/Solaris/CorpusBootItem` | ExportResources | [page](https://wiki.warframe.com/w/Crewman%E2%80%99s_Boot) |
 | Crimson Nose Pattern | `/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternXmasC` | ExportCustoms | [page](https://wiki.warframe.com/w/Crimson_Nose_Pattern) |
-| Crimson Talent | `/Lotus/Types/JadeShadowsPart2Mission/Gameplay/Resources/GarudaFavor` | ExportResources | [page](https://wiki.warframe.com/w/Crimson_Talent) |
 | Crisma Toroid | `/Lotus/Types/Gameplay/Venus/Resources/ArachnoidCamperItem` | ExportResources | [page](https://wiki.warframe.com/w/Crisma_Toroid) |
 | Croton Plant (Green, Cluster) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropLASxIntFoliageCrotonB` | ExportResources | [page](https://wiki.warframe.com/w/Croton_Plant_(Green,_Cluster)) |
 | Croton Plant (Green, Single) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropLASxIntFoliageCrotonA` | ExportResources | [page](https://wiki.warframe.com/w/Croton_Plant_(Green,_Single)) |
@@ -462,6 +425,11 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Crystal Cred | `/Lotus/Types/Items/MiscItems/NoraSeasonThreeCreds` | ExportResources | [page](https://wiki.warframe.com/w/Crystal_Cred) |
 | Curax Dole Decoration | `/Lotus/Types/Items/ShipDecos/Props/LisetPropDUVxLootCrateB` | ExportResources | [page](https://wiki.warframe.com/w/Curax_Dole_Decoration) |
 | Cychel Glaive Skin | `/Lotus/Upgrades/Skins/Promo/Seasonal/XmasGlaiveSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Cychel_Glaive_Skin) |
+| Cycle Five Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Cycle_Five_Sigil) |
+| Cycle Four Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Cycle_Four_Sigil) |
+| Cycle One Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4OneYearSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Cycle_One_Sigil) |
+| Cycle Three Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4ThreeYearSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Cycle_Three_Sigil) |
+| Cycle Two Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Cycle_Two_Sigil) |
 | Cyte-09 Deadeye Glyph | `/Lotus/Types/AvatarImages/Warframes/Cyte09SupporterGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Cyte-09_Deadeye_Glyph) |
 | Cyte-09 Prex | `/Lotus/Types/Items/ShipDecos/TarotCardCyte` | ExportResources | [page](https://wiki.warframe.com/w/Cyte-09_Prex) |
 | Cyte-09 Skin | `/Lotus/Upgrades/Skins/Frumentarius/FrumentariusSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Cyte-09_Skin) |
@@ -524,20 +492,14 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Desert Skate Specter | `/Lotus/Types/Restoratives/Consumable/SkateBall` | ExportGear | [page](https://wiki.warframe.com/w/Desert_Skate_Specter) |
 | Desert Wind | `/Lotus/Powersuits/Pacifist/PacifistFist` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Desert_Wind) |
 | Destroy All! Poster | `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterL` | ExportResources | [page](https://wiki.warframe.com/w/Destroy_All!_Poster) |
-| Deth Machine Rifle Prime | `/Lotus/Types/Sentinels/SentinelWeapons/PrimeDethMachineRifle` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Deth_Machine_Rifle_Prime) |
 | Dethgloop Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Dethcube` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Dethgloop_Glyph) |
 | Devil’s Cap | `/Lotus/Types/Items/MushroomJournal/SlashMushroomJournalItem` | ExportResources | [page](https://wiki.warframe.com/w/Devil%E2%80%99s_Cap) |
 | Dex Color Picker | `/Lotus/Types/SuitCustomizations/ColourPickerAnniversaryEleven` | ExportFlavour | [page](https://wiki.warframe.com/w/Dex_Color_Picker) |
-| Dex Dakra | `/Lotus/Weapons/Tenno/Melee/Swords/DexTheSecond/DexTheSecond` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Dex_Dakra) |
 | Dex Dakra Jade Skin | `/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDexDakra` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dex_Dakra_Jade_Skin) |
 | Dex Dakra Obsidian Skin | `/Lotus/Upgrades/Skins/DexTheSecond/ObsidianDexDakra` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dex_Dakra_Obsidian_Skin) |
 | Dex Dakra Opal Skin | `/Lotus/Upgrades/Skins/DexTheSecond/NintendoDexDakra` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dex_Dakra_Opal_Skin) |
-| Dex Furis | `/Lotus/Weapons/Tenno/Pistols/DexFuris/DexFuris` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Dex_Furis) |
 | Dex Furis Jade Skin | `/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDexFuris` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dex_Furis_Jade_Skin) |
 | Dex Furis Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianDexFuris` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dex_Furis_Obsidian_Skin) |
-| Dex Laurus Ephemera | `/Lotus/Upgrades/Skins/Effects/DexEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dex_Laurus_Ephemera) |
-| Dex Nikana | `/Lotus/Weapons/Tenno/Melee/Swords/KatanaAndWakizashi/Dex2023Nikana/Dex2023Nikana` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Dex_Nikana) |
-| Dex Nouchali Syandana | `/Lotus/Upgrades/Skins/Scarves/DexScarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dex_Nouchali_Syandana) |
 | Dex Pixia | `/Lotus/Powersuits/Fairy/FlightPistols` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Dex_Pixia) |
 | Dex Pixia Hawkmoth Skin | `/Lotus/Upgrades/Skins/Fairy/TitaniaDeluxeArchwingPistolsSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dex_Pixia_Hawkmoth_Skin) |
 | Dex Signa | `/Lotus/Upgrades/Skins/Crowns/Dex2026LotusHaloCrown` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dex_Signa) |
@@ -547,6 +509,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Diraeus Signa | `/Lotus/Upgrades/Skins/Crowns/OrfeoSignaCrown` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Diraeus_Signa) |
 | Disciple Founder Honoria | `/Lotus/Types/Items/Titles/FounderLvl1Title` | ExportFlavour | [page](https://wiki.warframe.com/w/Disciple_Founder_Honoria) |
 | Disciple Mastery Slate | `/Lotus/Types/Items/ShipDecos/MasteryTrophies/Rank07Trophy` | ExportResources | [page](https://wiki.warframe.com/w/Disciple_Mastery_Slate) |
+| Disciple Sigil | `/Lotus/Upgrades/Skins/Sigils/FounderSigilDisciple` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Disciple_Sigil) |
 | Disciple's Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeDiscipleItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Disciple%27s_Emblem) |
 | Display - 2023 Soundtrack | `/Lotus/Types/Items/ShipDecos/TennoCon2023SoundtrackADisplay` | ExportResources | [page](https://wiki.warframe.com/w/Display_-_2023_Soundtrack) |
 | Display - 2023 Soundtrack | `/Lotus/Types/Items/ShipDecos/Tennocon2023SoundtrackBDisplay` | ExportResources | [page](https://wiki.warframe.com/w/Display_-_2023_Soundtrack) |
@@ -575,6 +538,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Dog Days WAR Display | `/Lotus/Types/Items/ShipDecos/DogDays2024Poster` | ExportResources | [page](https://wiki.warframe.com/w/Dog_Days_WAR_Display) |
 | Domestik Verv Drone | `/Lotus/Types/Items/ShipDecos/LisetPropCleaningDroneTwitch` | ExportResources | [page](https://wiki.warframe.com/w/Domestik_Verv_Drone) |
 | Domino Fur Pattern | `/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternD` | ExportCustoms | [page](https://wiki.warframe.com/w/Domino_Fur_Pattern) |
+| Dominus Aureus | `/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemEvent` | ExportResources | [page](https://wiki.warframe.com/w/Dominus_Aureus) |
 | Donwyn Glyph I | `/Lotus/Types/AvatarImages/AvatarImageValentine2017A` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Donwyn_Glyph_I) |
 | Donwyn Glyph II | `/Lotus/Types/AvatarImages/AvatarImageValentine2017B` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Donwyn_Glyph_II) |
 | Donwyn Glyph III | `/Lotus/Types/AvatarImages/AvatarImageValentine2017C` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Donwyn_Glyph_III) |
@@ -601,6 +565,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Drillbit Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyDrillbitHuman` | ExportResources | [page](https://wiki.warframe.com/w/Drillbit_Floof) |
 | Drip | `/Lotus/Types/Items/SongItems/DripSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Drip) |
 | Drip Squad 4 Life Emblem | `/Lotus/Upgrades/Skins/Clan/1999CommunityARGBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Drip_Squad_4_Life_Emblem) |
+| Drippy Sigil | `/Lotus/Upgrades/Skins/Sigils/1999DrippySigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Drippy_Sigil) |
 | Dropkick Drahk Emblem | `/Lotus/Upgrades/Skins/Clan/DogDaysKubrowBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dropkick_Drahk_Emblem) |
 | Dropkick Drahk Sigil | `/Lotus/Upgrades/Skins/Sigils/DogDaysKubrowSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dropkick_Drahk_Sigil) |
 | Dual Skana Infested Skin | `/Lotus/Upgrades/Skins/SteamWorkshop/Melee/Swords/DualSkanaInfestedSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Dual_Skana_Infested_Skin) |
@@ -658,7 +623,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Ember Voidshell Helmet | `/Lotus/Upgrades/Skins/Ember/EmberVoidshellHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ember_Voidshell_Helmet) |
 | Emblem of the Hunt | `/Lotus/Upgrades/Skins/Clan/InfestationEventEmblemItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Emblem_of_the_Hunt) |
 | Emissary Cred | `/Lotus/Types/Items/MiscItems/NoraInfestedCreds` | ExportResources | [page](https://wiki.warframe.com/w/Emissary_Cred) |
-| Emissary Emblem | `/Lotus/Upgrades/Skins/Clan/NoraSeasonTwoBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Emissary_Emblem) |
 | Emissary Greaves | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultInfested` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Emissary_Greaves) |
 | Emissary Hood | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultInfested` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Emissary_Hood) |
 | Emissary Ornament | `/Lotus/Types/Items/ShipDecos/NoraSeasonTwoOrnament` | ExportResources | [page](https://wiki.warframe.com/w/Emissary_Ornament) |
@@ -666,7 +630,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Emissary Suit | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultInfested` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Emissary_Suit) |
 | ENGINE COWLING | `/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/ENGINE_COWLING) |
 | ENGINE COWLING REPAIRS | `/Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackHoodFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/ENGINE_COWLING_REPAIRS) |
-| Enigma Sense | `/Lotus/Types/Items/MiscItems/DuviriGuidingHandPuzzleUpgrade` | ExportResources | [page](https://wiki.warframe.com/w/Enigma_Sense) |
 | Entrati | `/Lotus/Syndicates/Deimos/EntratiSyndicate` | ExportSyndicates | [page](https://wiki.warframe.com/w/Entrati) |
 | Entrati Candelabra | `/Lotus/Types/Items/ShipDecos/EntratiLabs/ORKxLabLightChandelierB` | ExportResources | [page](https://wiki.warframe.com/w/Entrati_Candelabra) |
 | Entrati Chaise Lounge | `/Lotus/Types/Items/ShipDecos/EntratiLabs/ORKxLabChaiseLounge` | ExportResources | [page](https://wiki.warframe.com/w/Entrati_Chaise_Lounge) |
@@ -684,7 +647,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Entrati Study Chair | `/Lotus/Types/Items/ShipDecos/EntratiLabs/ORKxLabChairA` | ExportResources | [page](https://wiki.warframe.com/w/Entrati_Study_Chair) |
 | Entrati Temporal Cartograph | `/Lotus/Types/Items/ShipDecos/EntratiLabs/ORKxLabMachineJ` | ExportResources | [page](https://wiki.warframe.com/w/Entrati_Temporal_Cartograph) |
 | Entrati Wall Sconce | `/Lotus/Types/Items/ShipDecos/EntratiLabs/ORKxLabLightWallCandleA` | ExportResources | [page](https://wiki.warframe.com/w/Entrati_Wall_Sconce) |
-| Envoy's Sphere Longsword Skin | `/Lotus/Upgrades/Skins/Weapons/Swords/SphereSwordSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Envoy%27s_Sphere_Longsword_Skin) |
 | Epitaph Raya Skin | `/Lotus/Upgrades/Skins/Nightwave/CosmosEpitaphSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Epitaph_Raya_Skin) |
 | Equinox Antonym Helmet | `/Lotus/Upgrades/Skins/YinYang/EquinoxDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Equinox_Antonym_Helmet) |
 | Equinox Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageEquinoxPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Equinox_Prime_Glyph_-_Bright) |
@@ -694,12 +656,13 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Error! Poster | `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterD` | ExportResources | [page](https://wiki.warframe.com/w/Error!_Poster) |
 | Erznung Emblem | `/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Erznung_Emblem) |
 | Eskhatos Ki'Teer Glyph | `/Lotus/Types/AvatarImages/ImageBaroKiteerEvil` | ExportFlavour | [page](https://wiki.warframe.com/w/Eskhatos_Ki%27Teer_Glyph) |
+| Eskhatos Necraloid Sigil | `/Lotus/Upgrades/Skins/Sigils/EvilBaroNecraloidSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Eskhatos_Necraloid_Sigil) |
 | EUROPA NAV SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/EuropaNavigationFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/EUROPA_NAV_SEGMENT) |
+| Evergreen Sigil | `/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014D` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Evergreen_Sigil) |
 | Exalted Blade | `/Lotus/Powersuits/Excalibur/DoomSword` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Exalted_Blade) |
 | Excalibur Amethyst Helmet | `/Lotus/Upgrades/Skins/Excalibur/DiscordExcaliburHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Excalibur_Amethyst_Helmet) |
 | Excalibur Dex Helmet | `/Lotus/Upgrades/Skins/Excalibur/ExcaliburDexHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Excalibur_Dex_Helmet) |
 | Excalibur Dex In Action Glyph | `/Lotus/Types/AvatarImages/ImageDexAnniversary` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Excalibur_Dex_In_Action_Glyph) |
-| Excalibur Dex Skin | `/Lotus/Upgrades/Skins/Excalibur/ExcaliburDexSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Excalibur_Dex_Skin) |
 | Excalibur Graxx-V2 Helmet | `/Lotus/Upgrades/Skins/Excalibur/SWRFourGraxxAltHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Excalibur_Graxx-V2_Helmet) |
 | Excalibur Jade Glyph | `/Lotus/Types/AvatarImages/AvatarImageExcaliburActionXbox` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Excalibur_Jade_Glyph) |
 | Excalibur Mask | `/Lotus/Upgrades/Skins/Ostron/ExcaliburMask` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Excalibur_Mask) |
@@ -708,7 +671,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Excalibur Obsidian Azura Helmet | `/Lotus/Upgrades/Skins/Excalibur/ObsidianExcaliburHelmetB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Excalibur_Obsidian_Azura_Helmet) |
 | Excalibur Obsidian Helmet | `/Lotus/Upgrades/Skins/Sony/ExcaliburPSPlusSkinHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Excalibur_Obsidian_Helmet) |
 | Excalibur Onyx Helmet | `/Lotus/Upgrades/Skins/SteamEsteem/EsteemExcaliburHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Excalibur_Onyx_Helmet) |
-| Excalibur Onyx Skin | `/Lotus/Upgrades/Skins/SteamEsteem/EsteemExcalibur` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Excalibur_Onyx_Skin) |
 | Excalibur Opal Glyph | `/Lotus/Types/AvatarImages/AvatarImageExcaliburActionNintendo` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Excalibur_Opal_Glyph) |
 | Excalibur Opal Helmet | `/Lotus/Upgrades/Skins/Excalibur/NintendoExcaliburHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Excalibur_Opal_Helmet) |
 | Excalibur Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageExcaliburPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Excalibur_Prime_Glyph_-_Bright) |
@@ -728,7 +690,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Experimental Arc-Relay Reserve Decoration | `/Lotus/Types/Items/ShipDecos/Props/LisetPropLASxArcRelayStand` | ExportResources | [page](https://wiki.warframe.com/w/Experimental_Arc-Relay_Reserve_Decoration) |
 | Exploiter Orb Articula | `/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/ArachnoidCamperTerraAFItem` | ExportResources | [page](https://wiki.warframe.com/w/Exploiter_Orb_Articula) |
 | Exterminate Poster | `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterM` | ExportResources | [page](https://wiki.warframe.com/w/Exterminate_Poster) |
-| Eye-Eye Rotoblade | `/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishRotobladeItem` | ExportResources | [page](https://wiki.warframe.com/w/Eye-Eye_Rotoblade) |
 | Factions Recall Glyph | `/Lotus/Types/AvatarImages/TenYearAnniversaryWeek2Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Factions_Recall_Glyph) |
 | Father Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20FatherGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Father_Tennobaum_Glyph) |
 | FATHER TOKEN | `/Lotus/Types/Items/Deimos/EntratiFragmentUncommonA` | ExportResources | [page](https://wiki.warframe.com/w/FATHER_TOKEN) |
@@ -747,6 +708,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Festive Interior Decorations | `/Lotus/Types/Items/ShipChristmasifier` | ExportResources | [page](https://wiki.warframe.com/w/Festive_Interior_Decorations) |
 | Festive Relic Ornament | `/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentRelic` | ExportResources | [page](https://wiki.warframe.com/w/Festive_Relic_Ornament) |
 | Fibonacci Floof | `/Lotus/Types/Items/ShipDecos/Plushies/FishPlush` | ExportResources | [page](https://wiki.warframe.com/w/Fibonacci_Floof) |
+| Fibonacci Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaFibonacci` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Fibonacci_Sigil) |
 | Fibonacci Sketch Glyph | `/Lotus/Types/AvatarImages/Events/EventGlyphCaviaFibonacci` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Fibonacci_Sketch_Glyph) |
 | Ficus Tree (Cluster) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropLASxIntFoliageFicusB` | ExportResources | [page](https://wiki.warframe.com/w/Ficus_Tree_(Cluster)) |
 | Ficus Tree (Single) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropLASxIntFoliageFicusA` | ExportResources | [page](https://wiki.warframe.com/w/Ficus_Tree_(Single)) |
@@ -778,7 +740,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Fortuna-Model Coolant Pod Decoration | `/Lotus/Types/Items/ShipDecos/Venus/SUCoolantPodA` | ExportResources | [page](https://wiki.warframe.com/w/Fortuna-Model_Coolant_Pod_Decoration) |
 | Founding Father Glyph | `/Lotus/Types/AvatarImages/ImageDeadlockProtocolB` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Founding_Father_Glyph) |
 | FOUNDRY SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/FoundryFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/FOUNDRY_SEGMENT) |
-| Frakta Shoulder Guard | `/Lotus/Upgrades/Skins/Armor/NWIIIBossArmor/NWIIIBossAArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Frakta_Shoulder_Guard) |
 | Frame Fighter Poster | `/Lotus/Types/Items/ShipDecos/FrameFighterPoster` | ExportResources | [page](https://wiki.warframe.com/w/Frame_Fighter_Poster) |
 | Frame Friend Earpiece (Left) | `/Lotus/Upgrades/Skins/Operator/Accessories/SWFrameFriendEarLAcc` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Frame_Friend_Earpiece_(Left)) |
 | Frame Friend Earpiece (Right) | `/Lotus/Upgrades/Skins/Operator/Accessories/SWFrameFriendEarRAcc` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Frame_Friend_Earpiece_(Right)) |
@@ -860,9 +821,10 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Giving Back | `/Lotus/Types/Items/ShipDecos/CorpusGreedReliefH` | ExportResources | [page](https://wiki.warframe.com/w/Giving_Back) |
 | Glaive Daybreak Skin | `/Lotus/Upgrades/Skins/Nightwave/DayBreakGlaiveSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Glaive_Daybreak_Skin) |
 | Glaive Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianGlaive` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Glaive_Obsidian_Skin) |
+| Glaring Sigil | `/Lotus/Upgrades/Skins/Sigils/BaroKavatSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Glaring_Sigil) |
 | Glassmaker Emblem | `/Lotus/Upgrades/Skins/Clan/GlassmakerEmblemItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Glassmaker_Emblem) |
 | Glassmaker Ornament | `/Lotus/Types/Items/ShipDecos/NoraSeasonThreeOrnament` | ExportResources | [page](https://wiki.warframe.com/w/Glassmaker_Ornament) |
-| Gloriana Ephemera | `/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Gloriana_Ephemera) |
+| Glassmaker Sigil | `/Lotus/Upgrades/Skins/Sigils/GlassmakerSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Glassmaker_Sigil) |
 | Glory | `/Lotus/Powersuits/Choir/ChoirEruptWeapon` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Glory) |
 | Glow Plants (Dense) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropOstAlienFoliageC` | ExportResources | [page](https://wiki.warframe.com/w/Glow_Plants_(Dense)) |
 | Glow Plants (Sparse) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropOstAlienFoliageD` | ExportResources | [page](https://wiki.warframe.com/w/Glow_Plants_(Sparse)) |
@@ -889,7 +851,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Goth Sleeves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOperatorDrifterGoth` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Goth_Sleeves) |
 | Gradivus: Loyalty Emblem | `/Lotus/Upgrades/Skins/Clan/AggressionEventGrineerBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Gradivus:_Loyalty_Emblem) |
 | Gradivus: Sacrifice Emblem | `/Lotus/Upgrades/Skins/Clan/AggressionEventCorpusBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Gradivus:_Sacrifice_Emblem) |
-| Grakata Towsun Skin | `/Lotus/Upgrades/Skins/SummerSolstice/SummerSolsticeGrakata` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Grakata_Towsun_Skin) |
 | Gral's Kubrodon Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyKubrodonRareDirty` | ExportResources | [page](https://wiki.warframe.com/w/Gral%27s_Kubrodon_Floof) |
 | Gral's Pobber Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyPobbersUncommonDirty` | ExportResources | [page](https://wiki.warframe.com/w/Gral%27s_Pobber_Floof) |
 | Gral's Thumper Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyThumperMediumDirty` | ExportResources | [page](https://wiki.warframe.com/w/Gral%27s_Thumper_Floof) |
@@ -900,6 +861,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Grand Carnus Sleeves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultOperatorDemonframe` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Grand_Carnus_Sleeves) |
 | Grand Master Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeGrandMasterItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Grand_Master_Emblem) |
 | Grand Master Founder Honoria | `/Lotus/Types/Items/Titles/FounderLvl4Title` | ExportFlavour | [page](https://wiki.warframe.com/w/Grand_Master_Founder_Honoria) |
+| Grand Master Sigil | `/Lotus/Upgrades/Skins/Sigils/FounderSigilGrandMaster` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Grand_Master_Sigil) |
 | Grandis Honoria | `/Lotus/Types/Items/Titles/MedalRank17Title` | ExportFlavour | [page](https://wiki.warframe.com/w/Grandis_Honoria) |
 | Grandmother Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20GrandmaGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Grandmother_Tennobaum_Glyph) |
 | GRANDMOTHER TOKEN | `/Lotus/Types/Items/Deimos/EntratiFragmentRareA` | ExportResources | [page](https://wiki.warframe.com/w/GRANDMOTHER_TOKEN) |
@@ -932,6 +894,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Grustrag Grey | `/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorMundaneG` | ExportFlavour | [page](https://wiki.warframe.com/w/Grustrag_Grey) |
 | Guandao Opal Skin | `/Lotus/Upgrades/Skins/Guandao/NintendoGaundaoSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Guandao_Opal_Skin) |
 | GuardianCon 2018 Glyph | `/Lotus/Types/AvatarImages/GuardianCon2018Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/GuardianCon_2018_Glyph) |
+| Guide of the Lotus | `/Lotus/Upgrades/Skins/Sigils/LotusGuideSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Guide_of_the_Lotus) |
 | Guides Of The Lotus Glyph | `/Lotus/Types/AvatarImages/AvatarImageLotusGuide` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Guides_Of_The_Lotus_Glyph) |
 | Guiding Rose Glyph | `/Lotus/Types/AvatarImages/Login750Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Guiding_Rose_Glyph) |
 | Gynfas Tail | `/Lotus/Upgrades/Skins/Horse/DagathDeluxeLNYHorseTail` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Gynfas_Tail) |
@@ -948,7 +911,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Hanging Flowerpot (Wide) | `/Lotus/Types/Items/ShipDecos/Props/Nokko/LisetPropLASxPlanterHangingA` | ExportResources | [page](https://wiki.warframe.com/w/Hanging_Flowerpot_(Wide)) |
 | Hanging Ivy (Narrow) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropLASxIvyOvergrowthA` | ExportResources | [page](https://wiki.warframe.com/w/Hanging_Ivy_(Narrow)) |
 | Hanging Ivy (Wide) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropLASxIvyOvergrowthE` | ExportResources | [page](https://wiki.warframe.com/w/Hanging_Ivy_(Wide)) |
-| Hanteler Prime Syandana | `/Lotus/Upgrades/Skins/Scarves/PrimeVorunaSyandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hanteler_Prime_Syandana) |
 | Happy Zephyr Poster | `/Lotus/Types/Items/ShipDecos/FlappyZephyrPoster` | ExportResources | [page](https://wiki.warframe.com/w/Happy_Zephyr_Poster) |
 | Harddrive Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyHarddriveHuman` | ExportResources | [page](https://wiki.warframe.com/w/Harddrive_Floof) |
 | Harka Kubrow Armor | `/Lotus/Upgrades/Skins/Kubrows/Armor/NightwaveSeason5HarkaKubrowArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Harka_Kubrow_Armor) |
@@ -969,8 +931,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Hawk Bishamo Pauldrons | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultDaxA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hawk_Bishamo_Pauldrons) |
 | Heart of Concrete Honoria | `/Lotus/Types/Items/Titles/RoatheTitles/TitleQorvex` | ExportFlavour | [page](https://wiki.warframe.com/w/Heart_of_Concrete_Honoria) |
 | Heart of the Pack Honoria | `/Lotus/Types/Items/Titles/TitleVorunaPrime` | ExportFlavour | [page](https://wiki.warframe.com/w/Heart_of_the_Pack_Honoria) |
-| Heart-Beat Ephemera | `/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Heart-Beat_Ephemera) |
-| Heart-Throb Ephemera | `/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Heart-Throb_Ephemera) |
 | Heirloom Iron Skin Override | `/Lotus/Upgrades/Skins/Rhino/RhinoIronSkinHeirloom` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Heirloom_Iron_Skin_Override) |
 | Hek Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianHek` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hek_Obsidian_Skin) |
 | Helios Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianHelios` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Helios_Obsidian_Skin) |
@@ -979,6 +939,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Hench & Scrap Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageHenchAndScrapGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Hench_%26_Scrap_Glyph) |
 | Hero of Duviri Display | `/Lotus/Types/Items/ShipDecos/Duviri/NightwaveDuviriHeroDisplay` | ExportResources | [page](https://wiki.warframe.com/w/Hero_of_Duviri_Display) |
 | Heuris Polearm Skin | `/Lotus/Upgrades/Skins/Nightwave/CephPolearmSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Heuris_Polearm_Skin) |
+| Hidden Messages | `/Lotus/Types/Keys/MirageQuest/MirageQuestKeyChain` | warframe-items | [page](https://wiki.warframe.com/w/Hidden_Messages) |
 | Hildryn Accolade Glyph | `/Lotus/Types/AvatarImages/ImageHildrynAccoladeGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Hildryn_Accolade_Glyph) |
 | Hildryn Einheri Helmet | `/Lotus/Upgrades/Skins/IronFrame/ShieldDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hildryn_Einheri_Helmet) |
 | Hildryn Poly Glyph | `/Lotus/Types/AvatarImages/AvatarImageLowPolyHildryn` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Hildryn_Poly_Glyph) |
@@ -986,7 +947,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Hildryn Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageHildrynPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Hildryn_Prime_Glyph_-_Bright) |
 | Hildryn Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageHildrynPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Hildryn_Prime_Glyph_-_Dark) |
 | Hildryn Prime Helmet | `/Lotus/Upgrades/Skins/IronFrame/HildrynPrimeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hildryn_Prime_Helmet) |
-| Hildryn Prime Theme | `/Lotus/Types/Items/SongItems/HildrynPrimeSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Hildryn_Prime_Theme) |
 | Höllvanian Pitchweave Tarps Decoration | `/Lotus/Types/Items/ShipDecos/Props/LisetPropLASxPitchweaveFragmentCluster` | ExportResources | [page](https://wiki.warframe.com/w/H%C3%B6llvanian_Pitchweave_Tarps_Decoration) |
 | Honoria | `/Lotus/Types/Items/Titles/AirHunterTitle` | ExportFlavour | [page](https://wiki.warframe.com/w/Honoria) |
 | Honoria | `/Lotus/Types/Items/Titles/AnimalLoverTitle` | ExportFlavour | [page](https://wiki.warframe.com/w/Honoria) |
@@ -1075,26 +1035,22 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Honoria | `/Lotus/Types/Items/Titles/ZenurikGrimoireTitle` | ExportFlavour | [page](https://wiki.warframe.com/w/Honoria) |
 | Hoplite Honoria | `/Lotus/Types/Items/Titles/TitleStyanaxPrime` | ExportFlavour | [page](https://wiki.warframe.com/w/Hoplite_Honoria) |
 | Hostile Mergers Emblem | `/Lotus/Upgrades/Skins/Clan/AmalgamEventBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hostile_Mergers_Emblem) |
-| Hound | `/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetAPowerSuit` | ExportSentinels | [page](https://wiki.warframe.com/w/Hound) |
-| Hound | `/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetBPowerSuit` | ExportSentinels | [page](https://wiki.warframe.com/w/Hound) |
-| Hound | `/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetCPowerSuit` | ExportSentinels | [page](https://wiki.warframe.com/w/Hound) |
+| Hostile Mergers Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilAmalgam` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hostile_Mergers_Sigil) |
+| Hounding Kubrow Sigil | `/Lotus/Upgrades/Skins/Sigils/HoundingKubrowSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hounding_Kubrow_Sigil) |
 | HOWLER UNDAZOA TAG | `/Lotus/Types/Items/Deimos/AnimalTagInfestedZongroRare` | ExportResources | [page](https://wiki.warframe.com/w/HOWLER_UNDAZOA_TAG) |
 | Humble Beginnings | `/Lotus/Types/Items/ShipDecos/CorpusGreedReliefA` | ExportResources | [page](https://wiki.warframe.com/w/Humble_Beginnings) |
 | Hunter Founder Honoria | `/Lotus/Types/Items/Titles/FounderLvl2Title` | ExportFlavour | [page](https://wiki.warframe.com/w/Hunter_Founder_Honoria) |
 | Hunter Mastery Slate | `/Lotus/Types/Items/ShipDecos/MasteryTrophies/Rank13Trophy` | ExportResources | [page](https://wiki.warframe.com/w/Hunter_Mastery_Slate) |
+| Hunter Sigil | `/Lotus/Upgrades/Skins/Sigils/FounderSigilHunter` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hunter_Sigil) |
 | Hunter's Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeHunterItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hunter%27s_Emblem) |
-| Huras Kubrow | `/Lotus/Types/Game/KubrowPet/FurtiveKubrowPetPowerSuit` | warframe-items, ExportSentinels | [page](https://wiki.warframe.com/w/Huras_Kubrow) |
 | Hyacinth Fur Pattern | `/Lotus/Types/Game/CatbrowPet/Patterns/CatbrowPetPatternA` | ExportCustoms | [page](https://wiki.warframe.com/w/Hyacinth_Fur_Pattern) |
 | Hydroid Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageHydroidPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Hydroid_Prime_Glyph_-_Bright) |
 | Hydroid Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageHydroidPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Hydroid_Prime_Glyph_-_Dark) |
-| Hydroid Prime Theme | `/Lotus/Types/Items/SongItems/HydroidPrimeSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Hydroid_Prime_Theme) |
 | Hydroid Rakkam Helmet | `/Lotus/Upgrades/Skins/Hydroid/HydroidDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hydroid_Rakkam_Helmet) |
 | Hydroid's Relay Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileHydroidRelay` | ExportResources | [page](https://wiki.warframe.com/w/Hydroid%27s_Relay_Scene) |
-| Hypatia Ephemera | `/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraF` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Hypatia_Ephemera) |
 | Hype Drop | `/Lotus/Types/Items/Emotes/DanceDJRomHype` | ExportFlavour | [page](https://wiki.warframe.com/w/Hype_Drop) |
 | Iahgames Braton | `/Lotus/Upgrades/Skins/IAHGames/IAHGamesBratonSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Iahgames_Braton) |
 | Ictus Prime Wings | `/Lotus/Upgrades/Skins/Sentinels/Wings/IctusPrimeWingsRight` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ictus_Prime_Wings) |
-| Ignis Day of the Dead Skin | `/Lotus/Upgrades/Skins/Halloween/Halloween2024DOTDIgnisSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ignis_Day_of_the_Dead_Skin) |
 | Inaak | `/Lotus/Types/Gameplay/Duviri/Resource/Fish/DuviriFishAItem` | ExportResources | [page](https://wiki.warframe.com/w/Inaak) |
 | Inaak | `/Lotus/Types/Items/Fish/Duviri/DuviriFishAItem` | ExportResources | [page](https://wiki.warframe.com/w/Inaak) |
 | Inaros Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageInarosPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Inaros_Prime_Glyph_-_Bright) |
@@ -1110,6 +1066,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | INFINITY EMBLEM | `/Lotus/Upgrades/Skins/Clan/CYOBBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/INFINITY_EMBLEM) |
 | Initiate Mastery Slate | `/Lotus/Types/Items/ShipDecos/MasteryTrophies/Rank01Trophy` | ExportResources | [page](https://wiki.warframe.com/w/Initiate_Mastery_Slate) |
 | Inktober Glyph | `/Lotus/Types/AvatarImages/AvatarImageInktober` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Inktober_Glyph) |
+| Inktober Sigil | `/Lotus/Upgrades/Skins/Sigils/InktoberSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Inktober_Sigil) |
 | Intermission I Cred | `/Lotus/Types/Items/MiscItems/NoraWolfTwoCreds` | ExportResources | [page](https://wiki.warframe.com/w/Intermission_I_Cred) |
 | Intermission II Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionTwoCreds` | ExportResources | [page](https://wiki.warframe.com/w/Intermission_II_Cred) |
 | INTERMISSION III CRED | `/Lotus/Types/Items/MiscItems/NoraIntermissionThreeCreds` | ExportResources | [page](https://wiki.warframe.com/w/INTERMISSION_III_CRED) |
@@ -1121,7 +1078,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Ironbride | `/Lotus/Types/Enemies/Orokin/Entrati/EntratiTech/NechroTech/AbilitySword/NechroTechSwordWeapon` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Ironbride) |
 | Ivara Obsidian Artemis Bow Skin | `/Lotus/Upgrades/Skins/Archer/ObsidianIvaraExaltedBowSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ivara_Obsidian_Artemis_Bow_Skin) |
 | Ivara Obsidian Helmet | `/Lotus/Upgrades/Skins/Archer/ObsidianIvaraHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ivara_Obsidian_Helmet) |
-| Ivara Obsidian Skin | `/Lotus/Upgrades/Skins/Archer/ObsidianIvaraSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ivara_Obsidian_Skin) |
 | Ivara Prex | `/Lotus/Types/Items/ShipDecos/TarotCardIvara` | ExportResources | [page](https://wiki.warframe.com/w/Ivara_Prex) |
 | Ivara Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageIvaraPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Ivara_Prime_Glyph_-_Bright) |
 | Ivara Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageIvaraPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Ivara_Prime_Glyph_-_Dark) |
@@ -1130,32 +1086,26 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Ivy Patch | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropLASxParkIvyD` | ExportResources | [page](https://wiki.warframe.com/w/Ivy_Patch) |
 | Ivy Tendrils | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropLASxIvyOvergrowthF` | ExportResources | [page](https://wiki.warframe.com/w/Ivy_Tendrils) |
 | Ivy Vine | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropLASxParkIvyC` | ExportResources | [page](https://wiki.warframe.com/w/Ivy_Vine) |
-| Izvara Solstice Syandana | `/Lotus/Upgrades/Skins/Scarves/SolsticeU17TnoCapeScarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Izvara_Solstice_Syandana) |
 | Jack O'Naut Recall Glyph | `/Lotus/Types/AvatarImages/TenYearAnniversaryWeek4Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Jack_O%27Naut_Recall_Glyph) |
 | Jack-O-Lotus Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Lotus` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Jack-O-Lotus_Glyph) |
 | Jade Accolade Glyph | `/Lotus/Types/AvatarImages/AvatarImageJadeAccoladeGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Jade_Accolade_Glyph) |
 | Jade Broca Syandana | `/Lotus/Upgrades/Skins/Scarves/TnLargeCapeXbox` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Jade_Broca_Syandana) |
-| Jade Follox Sugatra | `/Lotus/Upgrades/Skins/MeleeDangles/XBoxSugatra2MeleeDangle` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Jade_Follox_Sugatra) |
 | Jade Immortal Helmet | `/Lotus/Upgrades/Skins/Choir/JadeImmortalHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Jade_Immortal_Helmet) |
 | Jade In Action Glyph | `/Lotus/Types/AvatarImages/AvatarImageJadeInActionGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Jade_In_Action_Glyph) |
 | Jade Prex | `/Lotus/Types/Items/ShipDecos/TarotCardJade` | ExportResources | [page](https://wiki.warframe.com/w/Jade_Prex) |
 | Jade's Promise Decoration | `/Lotus/Types/Items/ShipDecos/JadeShadows/JadeMemorialShipDeco` | ExportResources | [page](https://wiki.warframe.com/w/Jade%27s_Promise_Decoration) |
 | Janus Key Sumdali | `/Lotus/Upgrades/Skins/Liset/VoidKeyHoodOrnament` | ExportFlavour | [page](https://wiki.warframe.com/w/Janus_Key_Sumdali) |
-| Javlok Capacitor | `/Lotus/Types/Items/MiscItems/GrnFlameSpearPart` | ExportResources | [page](https://wiki.warframe.com/w/Javlok_Capacitor) |
 | Jillian Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyJillian` | ExportResources | [page](https://wiki.warframe.com/w/Jillian_Floof) |
 | Jillian Pixel Portrait Glyph | `/Lotus/Types/AvatarImages/Minigames/MinigameGlyphPixelPortraitJillian` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Jillian_Pixel_Portrait_Glyph) |
 | Jingle Kavat Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphJingleKavat` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Jingle_Kavat_Glyph) |
 | Jolly Grendel Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphJollyGrendel` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Jolly_Grendel_Glyph) |
-| Jordas Sekhara | `/Lotus/Upgrades/Skins/Clan/GolemRaidBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Jordas_Sekhara) |
 | Jupiter Brown | `/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorVibrantE` | ExportFlavour | [page](https://wiki.warframe.com/w/Jupiter_Brown) |
 | JUPITER NAV SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/JupiterNavigationFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/JUPITER_NAV_SEGMENT) |
 | Justice Poster | `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterF` | ExportResources | [page](https://wiki.warframe.com/w/Justice_Poster) |
 | K-Booster Decoration | `/Lotus/Types/Items/ShipDecos/Venus/VentKidBooster` | ExportResources | [page](https://wiki.warframe.com/w/K-Booster_Decoration) |
-| K-Drive Launcher | `/Lotus/Types/Restoratives/HoverboardSummon` | ExportGear | [page](https://wiki.warframe.com/w/K-Drive_Launcher) |
 | K.A.H. Game Monitor | `/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedMonitor` | ExportResources | [page](https://wiki.warframe.com/w/K.A.H._Game_Monitor) |
 | K.A.H. Game System | `/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedGameConsole` | ExportResources | [page](https://wiki.warframe.com/w/K.A.H._Game_System) |
 | Kahl-175 Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2021GrinoalieGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Kahl-175_Tennobaum_Glyph) |
-| Kaithe Summon | `/Lotus/Types/Restoratives/ErsatzSummon` | ExportGear | [page](https://wiki.warframe.com/w/Kaithe_Summon) |
 | Kaithe Tamer of Duviri Honoria | `/Lotus/Types/Items/Titles/RoatheTitles/TitleYaoShrub` | ExportFlavour | [page](https://wiki.warframe.com/w/Kaithe_Tamer_of_Duviri_Honoria) |
 | Kalymos Cone Glyph | `/Lotus/Types/AvatarImages/AvatarImageKalymosConeGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Kalymos_Cone_Glyph) |
 | Karak Wraith Barrel | `/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithBarrel` | ExportResources | [page](https://wiki.warframe.com/w/Karak_Wraith_Barrel) |
@@ -1170,12 +1120,9 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Khora In Action Glyph | `/Lotus/Types/AvatarImages/ImageKhoraInAction` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Khora_In_Action_Glyph) |
 | Khora Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageKhoraPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Khora_Prime_Glyph_-_Bright) |
 | Khora Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageKhoraPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Khora_Prime_Glyph_-_Dark) |
-| Khora Prime Theme | `/Lotus/Types/Items/SongItems/KhoraPrimeSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Khora_Prime_Theme) |
 | Khora Urushu Helmet | `/Lotus/Upgrades/Skins/Khora/KhoraDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Khora_Urushu_Helmet) |
-| Ki'Teer Fireworks | `/Lotus/Types/Restoratives/Consumable/BaroFireWorksCrate` | ExportGear | [page](https://wiki.warframe.com/w/Ki%27Teer_Fireworks) |
 | Ki’Teer Greth Chest Plate | `/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ki%E2%80%99Teer_Greth_Chest_Plate) |
 | Ki’Teer Greth Leg Plates | `/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeL` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ki%E2%80%99Teer_Greth_Leg_Plates) |
-| Ki'Teer Nobilis Signa | `/Lotus/Upgrades/Skins/Crowns/KiTeerSignaCrown` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ki%27Teer_Nobilis_Signa) |
 | Ki'Teer Razza Elixis Syandana | `/Lotus/Upgrades/Skins/Scarves/BaroCape2RazzaExilisScarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ki%27Teer_Razza_Elixis_Syandana) |
 | Kill It! Poster | `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterI` | ExportResources | [page](https://wiki.warframe.com/w/Kill_It!_Poster) |
 | Kill Poster | `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterE` | ExportResources | [page](https://wiki.warframe.com/w/Kill_Poster) |
@@ -1228,19 +1175,18 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Kullervo In Action Glyph | `/Lotus/Types/AvatarImages/Warframes/KullervoActionGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Kullervo_In_Action_Glyph) |
 | Kullervo's Hold Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDuviriIsleSignatureDungeon` | ExportResources | [page](https://wiki.warframe.com/w/Kullervo%27s_Hold_Scene) |
 | Kumuda Glyph | `/Lotus/Types/AvatarImages/AvatarImageStarterPackLotus` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Kumuda_Glyph) |
+| Kumuda Sigil | `/Lotus/Upgrades/Skins/Sigils/StarterPackLotusSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Kumuda_Sigil) |
 | Kuria Emblem | `/Lotus/Upgrades/Skins/Clan/OrokittyBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Kuria_Emblem) |
 | Kuria Glyph | `/Lotus/Types/AvatarImages/AvatarImageOroKitty` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Kuria_Glyph) |
+| Kuva Globule | `/Lotus/Types/Items/ShipDecos/KuvaMetaBallOrnament` | ExportResources | [page](https://wiki.warframe.com/w/Kuva_Globule) |
+| Kuva Glyph | `/Lotus/Types/AvatarImages/Factions/GlyphFactionKuva` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Kuva_Glyph) |
+| Kuva Wytch Scene | `/Lotus/Types/Items/PhotoBooth/JadeShadows/PhotoboothTileJS2GarShipInterior` | ExportResources | [page](https://wiki.warframe.com/w/Kuva_Wytch_Scene) |
 | Kyroptera Panoply Syandana | `/Lotus/Upgrades/Skins/Scarves/MixerKyropteraScarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Kyroptera_Panoply_Syandana) |
-| Kyruna Ephemera | `/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraG` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Kyruna_Ephemera) |
-| Kyzen Signa | `/Lotus/Upgrades/Skins/Crowns/ProtoAshCrown` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Kyzen_Signa) |
 | La Cathédrale Scene | `/Lotus/Types/Items/PhotoBooth/TauOldPeace/PhotoboothTileTauOldPeaceCathedral1799ProtoframeRoom` | ExportResources | [page](https://wiki.warframe.com/w/La_Cath%C3%A9drale_Scene) |
 | Labor of Love Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphLaborAward` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Labor_of_Love_Glyph) |
-| Lacera Scorn Skin | `/Lotus/Upgrades/Skins/Events/AcolyteStalkerMios` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lacera_Scorn_Skin) |
-| Lacerten | `/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeaponIS` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Lacerten) |
 | Lament | `/Lotus/Types/Items/Emotes/CryForYouEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Lament) |
 | Lanceleaf Plant | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropDuvxZarimanPlantB` | ExportResources | [page](https://wiki.warframe.com/w/Lanceleaf_Plant) |
 | Landslide Fists | `/Lotus/Powersuits/Brawler/AtlasPunchWeapon` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Landslide_Fists) |
-| Lanex Prime Syandana | `/Lotus/Upgrades/Skins/Scarves/PrimeStyanaxSyandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lanex_Prime_Syandana) |
 | Lark Bishamo Apparel | `/Lotus/Upgrades/Skins/Operator/Skirts/SkirtDaxB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lark_Bishamo_Apparel) |
 | Lark Bishamo Gear | `/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultDaxB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lark_Bishamo_Gear) |
 | Lark Bishamo Greaves | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultDaxB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lark_Bishamo_Greaves) |
@@ -1252,7 +1198,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Last Chance Offerings | `/Lotus/Types/Packages/MegaPrimeVault/LastChanceItemA` | ExportResources | [page](https://wiki.warframe.com/w/Last_Chance_Offerings) |
 | Lato Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/PS4Lato` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lato_Obsidian_Skin) |
 | Lato Vandal Day of the Dead Skin | `/Lotus/Upgrades/Skins/Halloween/HalloweenLatoVandal` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lato_Vandal_Day_of_the_Dead_Skin) |
-| Latron Solstice Skin | `/Lotus/Upgrades/Skins/WinterSolstice/WinterSolsticeLatron` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Latron_Solstice_Skin) |
 | Latron Wraith Barrel | `/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithBarrel` | ExportResources | [page](https://wiki.warframe.com/w/Latron_Wraith_Barrel) |
 | Latron Wraith Receiver | `/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithReceiver` | ExportResources | [page](https://wiki.warframe.com/w/Latron_Wraith_Receiver) |
 | Latron Wraith Stock | `/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithStock` | ExportResources | [page](https://wiki.warframe.com/w/Latron_Wraith_Stock) |
@@ -1261,7 +1206,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Lavos Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageLavosPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Lavos_Prime_Glyph_-_Bright) |
 | Lavos Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageLavosPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Lavos_Prime_Glyph_-_Dark) |
 | Lavos Prime Skin | `/Lotus/Upgrades/Skins/Alchemist/LavosPrimeSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lavos_Prime_Skin) |
-| Lazulite Toroid | `/Lotus/Types/Gameplay/Venus/Resources/ArachnoidCamperTerraItem` | ExportResources | [page](https://wiki.warframe.com/w/Lazulite_Toroid) |
 | Left Hand of Eros | `/Lotus/Types/Items/Emotes/LeftHeartEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Left_Hand_of_Eros) |
 | Legendary ArkonisAelir Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageLegendaryArkonisAelir` | ExportFlavour | [page](https://wiki.warframe.com/w/Legendary_ArkonisAelir_Glyph) |
 | Legendary Blackdeath Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageLegendaryBlackdeath` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Legendary_Blackdeath_Glyph) |
@@ -1276,6 +1220,8 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Lettie Accolade Glyph | `/Lotus/Types/AvatarImages/AvatarImageLettieAccoladeGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Lettie_Accolade_Glyph) |
 | Lettie Gemini Emote | `/Lotus/Types/Items/Emotes/LegendaryLettieEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Lettie_Gemini_Emote) |
 | Lex Onyx Skin | `/Lotus/Upgrades/Skins/SteamEsteem/EsteemLex` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lex_Onyx_Skin) |
+| Lich Token | `/Lotus/Types/Game/Nemesis/KuvaLich/CapturedGrineerLichToken` | ExportResources | [page](https://wiki.warframe.com/w/Lich_Token) |
+| Lift Together Sigil | `/Lotus/Upgrades/Skins/Sigils/FortunaSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lift_Together_Sigil) |
 | Lillian Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyLillian` | ExportResources | [page](https://wiki.warframe.com/w/Lillian_Floof) |
 | Lillian Pixel Portrait Glyph | `/Lotus/Types/AvatarImages/Minigames/MinigameGlyphPixelPortraitLillian` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Lillian_Pixel_Portrait_Glyph) |
 | Limbo Accolade Glyph | `/Lotus/Types/AvatarImages/ImageLimboAccoladeGlyph` | ExportFlavour | [page](https://wiki.warframe.com/w/Limbo_Accolade_Glyph) |
@@ -1283,7 +1229,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Limbo Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageLimboPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Limbo_Prime_Glyph_-_Bright) |
 | Limbo Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageLimboPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Limbo_Prime_Glyph_-_Dark) |
 | Limbo Voidshell Helmet | `/Lotus/Upgrades/Skins/Magician/LimboVoidshellHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Limbo_Voidshell_Helmet) |
-| Liset | `/Lotus/Types/Items/Ships/DefaultShip` | ExportResources | [page](https://wiki.warframe.com/w/Liset) |
 | Liset Athari Skin | `/Lotus/Upgrades/Skins/Liset/LisetSkinRelayEvent` | ExportFlavour | [page](https://wiki.warframe.com/w/Liset_Athari_Skin) |
 | Liset Dex Skin | `/Lotus/Upgrades/Skins/Liset/DexLisetSkin` | ExportFlavour | [page](https://wiki.warframe.com/w/Liset_Dex_Skin) |
 | Liset Domestik Drone | `/Lotus/Types/Items/ShipDecos/LisetPropCleaningDroneTenno` | ExportResources | [page](https://wiki.warframe.com/w/Liset_Domestik_Drone) |
@@ -1291,15 +1236,13 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Liset Verv Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/LisetSkinTwitch` | ExportFlavour | [page](https://wiki.warframe.com/w/Liset_Verv_Skin) |
 | Lith Relic | `/Lotus/Types/Game/Projections/T1VoidProjection` | ExportResources | [page](https://wiki.warframe.com/w/Lith_Relic) |
 | Little Cay Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDuviriIsleCapD` | ExportResources | [page](https://wiki.warframe.com/w/Little_Cay_Scene) |
-| Little Helper Hat | `/Lotus/Upgrades/Skins/Kubrows/Collars/KubrowCollarXmas` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Little_Helper_Hat) |
 | Lizzie | `/Lotus/Types/Items/ShipDecos/LisetPropShawzinTempleGuitar` | ExportResources | [page](https://wiki.warframe.com/w/Lizzie) |
 | Loaned Weapons | `/Lotus/Types/Gameplay/1999Wf/Quest/LoanerWeaponsItem` | ExportResources | [page](https://wiki.warframe.com/w/Loaned_Weapons) |
 | Localized Air Purifier Decoration | `/Lotus/Types/Items/ShipDecos/Venus/SUSupplyCartB` | ExportResources | [page](https://wiki.warframe.com/w/Localized_Air_Purifier_Decoration) |
-| Lodestar Syandana | `/Lotus/Upgrades/Skins/Scarves/TnSundialCape` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lodestar_Syandana) |
+| Loiaus Chest Medallion | `/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauPurpleHeartMedalC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Loiaus_Chest_Medallion) |
 | Loki Knave Helmet | `/Lotus/Upgrades/Skins/Loki/LokiDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Loki_Knave_Helmet) |
 | Loki Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageLokiPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Loki_Prime_Glyph_-_Bright) |
 | Loki Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageLokiPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Loki_Prime_Glyph_-_Dark) |
-| Loki Verv Helmet | `/Lotus/Upgrades/Skins/Loki/LokiTwitchHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Loki_Verv_Helmet) |
 | Loki Voidshell Helmet | `/Lotus/Upgrades/Skins/Loki/LokiVoidShellHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Loki_Voidshell_Helmet) |
 | Lone Ranger | `/Lotus/Types/Items/Emotes/DanceHarddrivePony` | ExportFlavour | [page](https://wiki.warframe.com/w/Lone_Ranger) |
 | Long Artisan Barrel | `/Lotus/Types/Items/ShipDecos/Duviri/DUVxBarrelLarge` | ExportResources | [page](https://wiki.warframe.com/w/Long_Artisan_Barrel) |
@@ -1324,13 +1267,13 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | LotusWeaponCustomization | `/Lotus/Types/Game/LotusWeaponCustomization` | ExportCustoms | [page](https://wiki.warframe.com/w/LotusWeaponCustomization) |
 | Lua Nights Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2023LuaNights` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Lua_Nights_Glyph) |
 | Lua Planter | `/Lotus/Types/Items/ShipDecos/Tennocon2018PlanterB` | ExportResources | [page](https://wiki.warframe.com/w/Lua_Planter) |
-| Lucretia Ephemera | `/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraD` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lucretia_Ephemera) |
 | Lunar Pitcher Decoration | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropZenPitcherPlant` | ExportResources | [page](https://wiki.warframe.com/w/Lunar_Pitcher_Decoration) |
 | Lunar Renewal Calligraphy Poster | `/Lotus/Types/Items/ShipDecos/CNY2021Poster` | ExportResources | [page](https://wiki.warframe.com/w/Lunar_Renewal_Calligraphy_Poster) |
 | Lunar Renewal Ox Emblem | `/Lotus/Upgrades/Skins/Clan/CNY2021EmblemItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lunar_Renewal_Ox_Emblem) |
+| Lunar Renewal Ox Sigil | `/Lotus/Upgrades/Skins/Sigils/WeGameNewYearOxSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lunar_Renewal_Ox_Sigil) |
 | Lunar Renewal Soar Sigil | `/Lotus/Upgrades/Skins/Sigils/WeGameNewYearDragonSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lunar_Renewal_Soar_Sigil) |
+| Lunar Renewal Tiger Sigil | `/Lotus/Upgrades/Skins/Sigils/WeGameNewYearFreeTigerSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Lunar_Renewal_Tiger_Sigil) |
 | Lustrous Major Glyph | `/Lotus/Types/AvatarImages/Login950Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Lustrous_Major_Glyph) |
-| Luv-Byte Ephemera | `/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraD` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Luv-Byte_Ephemera) |
 | Lycath’s Leverian Mural | `/Lotus/Types/Items/ShipDecos/Leverian/LisetPropMuralVonnel` | ExportResources | [page](https://wiki.warframe.com/w/Lycath%E2%80%99s_Leverian_Mural) |
 | Lyon Gemini Emote | `/Lotus/Types/Items/Emotes/LegendaryLyonEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Lyon_Gemini_Emote) |
 | Lyon's Chrysalith Date | `/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonZarParkHub` | ExportResources | [page](https://wiki.warframe.com/w/Lyon%27s_Chrysalith_Date) |
@@ -1355,9 +1298,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Mag Voidshell Helmet | `/Lotus/Upgrades/Skins/Mag/MagVoidShellHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Mag_Voidshell_Helmet) |
 | Maggot | `/Lotus/Types/Items/ShipDecos/InfestationShipMaggot` | ExportResources | [page](https://wiki.warframe.com/w/Maggot) |
 | Maggot Prime Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2021MaggotGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Maggot_Prime_Tennobaum_Glyph) |
-| Maginav Prime Signa | `/Lotus/Upgrades/Skins/Crowns/PrimeSevagothHaloCrown` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Maginav_Prime_Signa) |
 | Magnus Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianMagnus` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Magnus_Obsidian_Skin) |
-| Magnus Tekelu Skin | `/Lotus/Upgrades/Skins/Ornate/TekeluMagnusSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Magnus_Tekelu_Skin) |
 | Mainland Hamlets Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDuviriMainlandA` | ExportResources | [page](https://wiki.warframe.com/w/Mainland_Hamlets_Scene) |
 | Major Rusalka’s Hat Memento | `/Lotus/Types/Items/ShipDecos/Duviri/Mitw/RusalkaHat` | ExportResources | [page](https://wiki.warframe.com/w/Major_Rusalka%E2%80%99s_Hat_Memento) |
 | Major Rusalka’s Medals Memento | `/Lotus/Types/Items/ShipDecos/Duviri/Mitw/RusalkaMedals` | ExportResources | [page](https://wiki.warframe.com/w/Major_Rusalka%E2%80%99s_Medals_Memento) |
@@ -1380,22 +1321,20 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Marie's Ventkid Clubhouse Date | `/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieVentKids` | ExportResources | [page](https://wiki.warframe.com/w/Marie%27s_Ventkid_Clubhouse_Date) |
 | MARKET TIER 1 SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/MarketTierOneFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/MARKET_TIER_1_SEGMENT) |
 | MARKET TIER 2 SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/MarketTierTwoFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/MARKET_TIER_2_SEGMENT) |
-| Marks of Valiance | `/Lotus/Types/Gameplay/Tau/Resources/TwelveResourceCurrencyItem` | ExportResources | [page](https://wiki.warframe.com/w/Marks_of_Valiance) |
 | MARS NAV SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/MarsNavigationFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/MARS_NAV_SEGMENT) |
 | Mars Red | `/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorMidC` | ExportFlavour | [page](https://wiki.warframe.com/w/Mars_Red) |
 | Master Founder Honoria | `/Lotus/Types/Items/Titles/FounderLvl3Title` | ExportFlavour | [page](https://wiki.warframe.com/w/Master_Founder_Honoria) |
 | Master Mastery Slate | `/Lotus/Types/Items/ShipDecos/MasteryTrophies/Rank28Trophy` | ExportResources | [page](https://wiki.warframe.com/w/Master_Mastery_Slate) |
+| Master Sigil | `/Lotus/Upgrades/Skins/Sigils/FounderSigilMaster` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Master_Sigil) |
 | Master's Emblem | `/Lotus/Upgrades/Skins/Clan/FoundersBadgeMasterItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Master%27s_Emblem) |
+| Mastery Sigil | `/Lotus/Upgrades/Skins/Sigils/MasteryStoneSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Mastery_Sigil) |
 | Matron of Malaise Honoria | `/Lotus/Types/Items/Titles/RoatheTitles/TitleSaryn` | ExportFlavour | [page](https://wiki.warframe.com/w/Matron_of_Malaise_Honoria) |
 | Mausolon Supulchrax Skin | `/Lotus/Upgrades/Skins/Necramech/MechWeapon/MechEventMausolonSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Mausolon_Supulchrax_Skin) |
-| Medjay Predasite | `/Lotus/Types/Friendly/Pets/CreaturePets/MedjayPredatorKubrowPetPowerSuit` | warframe-items, ExportSentinels | [page](https://wiki.warframe.com/w/Medjay_Predasite) |
-| Medjay Predasite | `/Lotus/Types/Items/Deimos/WoundedInfestedPredatorRareRewardItem` | ExportWeapons | [page](https://wiki.warframe.com/w/Medjay_Predasite) |
 | MELEE UPGRADE SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/ArsenalMeleeFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/MELEE_UPGRADE_SEGMENT) |
 | Mercury Brown | `/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorMidH` | ExportFlavour | [page](https://wiki.warframe.com/w/Mercury_Brown) |
 | Merle Fur Pattern | `/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternE` | ExportCustoms | [page](https://wiki.warframe.com/w/Merle_Fur_Pattern) |
 | Merulina Pandea Skin | `/Lotus/Upgrades/Skins/Yareli/MerulinaDeluxe` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Merulina_Pandea_Skin) |
 | Merulina Prime Domestik Drone | `/Lotus/Types/Items/ShipDecos/LisetPropCleaningDroneYareliPrime` | ExportResources | [page](https://wiki.warframe.com/w/Merulina_Prime_Domestik_Drone) |
-| Merulina Prime Syandana | `/Lotus/Upgrades/Skins/Scarves/PrimeMerulinaSyandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Merulina_Prime_Syandana) |
 | Mesa High Noon Glyph | `/Lotus/Types/AvatarImages/MesaHighNoonGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Mesa_High_Noon_Glyph) |
 | Mesa Okina Glyph | `/Lotus/Types/AvatarImages/Sony/AvatarImageOkinaGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Mesa_Okina_Glyph) |
 | Mesa Presidio Helmet | `/Lotus/Upgrades/Skins/Cowgirl/MesaDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Mesa_Presidio_Helmet) |
@@ -1460,7 +1399,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Namaes | `/Lotus/Types/Items/Fish/Duviri/DuviriFishDItem` | ExportResources | [page](https://wiki.warframe.com/w/Namaes) |
 | Nano Spores Decoration | `/Lotus/Types/Items/ShipDecos/ResourceDecoItemNanoSpore` | ExportResources | [page](https://wiki.warframe.com/w/Nano_Spores_Decoration) |
 | Nanospore Culture Decoration | `/Lotus/Types/Items/ShipDecos/ContainerDecoItemSporeCulture` | ExportResources | [page](https://wiki.warframe.com/w/Nanospore_Culture_Decoration) |
-| Naramon Badge | `/Lotus/Upgrades/Skins/Armor/FocusSchool/NaramonCArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Naramon_Badge) |
 | Naramon Emblem | `/Lotus/Upgrades/Skins/Clan/Focus/NaramonBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Naramon_Emblem) |
 | Naramon Paint A | `/Lotus/Upgrades/Skins/Operator/MakeupMasks/NaramonMaskA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Naramon_Paint_A) |
 | Naramon Paint B | `/Lotus/Upgrades/Skins/Operator/MakeupMasks/NaramonMaskB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Naramon_Paint_B) |
@@ -1471,6 +1409,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Narmer Eye Glyph | `/Lotus/Types/AvatarImages/NarmerEyeGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Narmer_Eye_Glyph) |
 | Narmer Eye Sigil | `/Lotus/Upgrades/Skins/Sigils/NarmerEyeSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Narmer_Eye_Sigil) |
 | Nava Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphStarterPackA` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Nava_Glyph) |
+| Nava Sigil | `/Lotus/Upgrades/Skins/Sigils/StarterPackASigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Nava_Sigil) |
 | Necra Prime Cuirass | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeE` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Necra_Prime_Cuirass) |
 | Necra Prime Cuirass | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitPrimeE` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Necra_Prime_Cuirass) |
 | Necra Prime Greaves | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeE` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Necra_Prime_Greaves) |
@@ -1485,7 +1424,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Necraloid Glyph | `/Lotus/Types/AvatarImages/TwitchNecraloidGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Necraloid_Glyph) |
 | Necraloid Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20OtakGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Necraloid_Tennobaum_Glyph) |
 | Necramech Statue | `/Lotus/Types/Items/ShipDecos/ThanoMechStatue` | ExportResources | [page](https://wiki.warframe.com/w/Necramech_Statue) |
-| Necramech Summon | `/Lotus/Types/Restoratives/LoadoutTechSummon` | ExportGear | [page](https://wiki.warframe.com/w/Necramech_Summon) |
 | Necraseal Emblem | `/Lotus/Upgrades/Skins/Clan/TwitchNecraloidBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Necraseal_Emblem) |
 | NEEWA'S DRAWING: Mumblers | `/Lotus/Types/Items/ShipDecos/ChildDrawingC` | ExportResources | [page](https://wiki.warframe.com/w/NEEWA%27S_DRAWING:_Mumblers) |
 | NEEWA'S DRAWING: My Decision | `/Lotus/Types/Items/ShipDecos/ChildDrawingG` | ExportResources | [page](https://wiki.warframe.com/w/NEEWA%27S_DRAWING:_My_Decision) |
@@ -1514,7 +1452,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Neural Sensor Decoration | `/Lotus/Types/Items/ShipDecos/ResourceDecoItemNeuralSensor` | ExportResources | [page](https://wiki.warframe.com/w/Neural_Sensor_Decoration) |
 | Neurode Decoration | `/Lotus/Types/Items/ShipDecos/ResourceDecoItemNeurodes` | ExportResources | [page](https://wiki.warframe.com/w/Neurode_Decoration) |
 | Neuroptic Mass Decoration | `/Lotus/Types/Items/ShipDecos/ContainerDecoItemNeuropticMass` | ExportResources | [page](https://wiki.warframe.com/w/Neuroptic_Mass_Decoration) |
-| Neurovyre Prime Syandana | `/Lotus/Upgrades/Skins/Scarves/NeurovyrePrimeSyandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Neurovyre_Prime_Syandana) |
 | Neutralizer | `/Lotus/Powersuits/Frumentarius/ExaltedSniper` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Neutralizer) |
 | New Loka | `/Lotus/Syndicates/NewLokaSyndicate` | ExportSyndicates | [page](https://wiki.warframe.com/w/New_Loka) |
 | NEXIFERA ECHO-LURE | `/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaLureGearItem` | ExportGear | [page](https://wiki.warframe.com/w/NEXIFERA_ECHO-LURE) |
@@ -1523,9 +1460,6 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Nezha Prex | `/Lotus/Types/Items/ShipDecos/TarotCardNezha` | ExportResources | [page](https://wiki.warframe.com/w/Nezha_Prex) |
 | Nezha Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageNezhaPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Nezha_Prime_Glyph_-_Bright) |
 | Nezha Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageNezhaPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Nezha_Prime_Glyph_-_Dark) |
-| Nidina Armor Solstice Chest Plate | `/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Nidina_Armor_Solstice_Chest_Plate) |
-| Nidina Armor Solstice Leg Plate | `/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveL` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Nidina_Armor_Solstice_Leg_Plate) |
-| Nidina Armor Solstice Shoulder Plate | `/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Nidina_Armor_Solstice_Shoulder_Plate) |
 | Nidus Phryke Helmet | `/Lotus/Upgrades/Skins/Infestation/NidusDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Nidus_Phryke_Helmet) |
 | Nidus Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageNidusPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Nidus_Prime_Glyph_-_Bright) |
 | Nidus Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageNidusPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Nidus_Prime_Glyph_-_Dark) |
@@ -1555,6 +1489,7 @@ This is a discovery list. Acquisition prose is not imported automatically becaus
 | Nightwave Landing Craft Decoration | `/Lotus/Types/Items/ShipDecos/LisetPropNoraNightShip` | ExportResources | [page](https://wiki.warframe.com/w/Nightwave_Landing_Craft_Decoration) |
 | Nightwave Leggings | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultNightSuit` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Nightwave_Leggings) |
 | Nightwave Ornament | `/Lotus/Types/Items/ShipDecos/NoraSeasonFourOrnament` | ExportResources | [page](https://wiki.warframe.com/w/Nightwave_Ornament) |
+| Nightwave Sigil | `/Lotus/Upgrades/Skins/Sigils/RadioLegionSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Nightwave_Sigil) |
 | Nightwave Sleeves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultNightSuit` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Nightwave_Sleeves) |
 | Nightwave Suit | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultNightSuit` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Nightwave_Suit) |
 | Nihil Recall Glyph | `/Lotus/Types/AvatarImages/TenYearAnniversaryWeek3Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Nihil_Recall_Glyph) |
@@ -1744,21 +1679,21 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Oberon Obsidian Markhor Helmet | `/Lotus/Upgrades/Skins/Paladin/OberonPS4Alt2Helmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Oberon_Obsidian_Markhor_Helmet) |
 | Oberon Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageOberonPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Oberon_Prime_Glyph_-_Bright) |
 | Oberon Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageOberonPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Oberon_Prime_Glyph_-_Dark) |
-| Oberon Prime Theme | `/Lotus/Types/Items/SongItems/OberonPrimeSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Oberon_Prime_Theme) |
 | Oblivion's Kiss Honoria | `/Lotus/Types/Items/Titles/RoatheTitles/TitleCyteZeroNine` | ExportFlavour | [page](https://wiki.warframe.com/w/Oblivion%27s_Kiss_Honoria) |
 | Obsidian Azura Chest Plate | `/Lotus/Upgrades/Skins/Armor/Sony/OAArmorC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Azura_Chest_Plate) |
 | Obsidian Azura Leg Plates | `/Lotus/Upgrades/Skins/Armor/Sony/OAArmorL` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Azura_Leg_Plates) |
 | Obsidian Azura Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/Sony/OAArmorA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Azura_Shoulder_Plates) |
-| Obsidian Azura Sugatra | `/Lotus/Upgrades/Skins/MeleeDangles/ObsidianSugatraMeleeDangle` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Azura_Sugatra) |
 | Obsidian Azura Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Azura_Syandana) |
+| Obsidian Corvus Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4CrowSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Corvus_Sigil) |
 | Obsidian Corvus Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianCrowSyandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Corvus_Syandana) |
 | Obsidian Deko Chest Plate | `/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Deko_Chest_Plate) |
 | Obsidian Deko Knee Plates | `/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorL` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Deko_Knee_Plates) |
 | Obsidian Deko Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Deko_Shoulder_Plates) |
+| Obsidian Indra Sigil | `/Lotus/Upgrades/Skins/Sigils/ObsidianIndraSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Indra_Sigil) |
 | Obsidian Kyroptera Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianKyropteraScarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Kyroptera_Syandana) |
-| Obsidian Monast Sugatra | `/Lotus/Upgrades/Skins/MeleeDangles/Obsidian2SugatraMeleeDangle` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Monast_Sugatra) |
 | Obsidian Samia Syandana | `/Lotus/Upgrades/Skins/Scarves/ObsidianSamiaScarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Samia_Syandana) |
 | Obsidian Sedai Syandana | `/Lotus/Upgrades/Skins/Scarves/PS5Syandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Sedai_Syandana) |
+| Obsidian Sigil | `/Lotus/Upgrades/Skins/Sigils/PS4RenownXSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Obsidian_Sigil) |
 | Octavia in Action Glyph | `/Lotus/Types/AvatarImages/AvatarImageOctaviaAction` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Octavia_in_Action_Glyph) |
 | Octavia Iridos Helmet | `/Lotus/Upgrades/Skins/Bard/BardTwitchHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Octavia_Iridos_Helmet) |
 | Octavia Iridos In Action Glyph | `/Lotus/Types/AvatarImages/AvatarImageOctaviaActionTwitch` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Octavia_Iridos_In_Action_Glyph) |
@@ -1767,19 +1702,16 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Octavia Maestra Helmet | `/Lotus/Upgrades/Skins/Bard/OctaviaDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Octavia_Maestra_Helmet) |
 | Octavia Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageOctaviaPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Octavia_Prime_Glyph_-_Bright) |
 | Octavia Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageOctaviaPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Octavia_Prime_Glyph_-_Dark) |
-| Octavia Prime Theme | `/Lotus/Types/Items/SongItems/OctaviaPrimeSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Octavia_Prime_Theme) |
-| Ocucor Solstice Skin | `/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumOcucor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ocucor_Solstice_Skin) |
 | Odonata Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianStandardArchwingSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Odonata_Obsidian_Skin) |
 | Of Golden Valor Honoria | `/Lotus/Types/Items/Titles/ValorEventTitle` | ExportFlavour | [page](https://wiki.warframe.com/w/Of_Golden_Valor_Honoria) |
 | Ogris Iridos Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/OgrisTwitchSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ogris_Iridos_Skin) |
-| Okina Day of the Dead Skin | `/Lotus/Upgrades/Skins/Halloween/DOTD2025OkinaSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Okina_Day_of_the_Dead_Skin) |
 | Okina Emblem | `/Lotus/Upgrades/Skins/Clan/PS5OkinaBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Okina_Emblem) |
 | Okina Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Okina_Obsidian_Skin) |
 | Old Blood Emblem | `/Lotus/Upgrades/Skins/Clan/LichKillerBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Old_Blood_Emblem) |
+| Old Blood Sigil | `/Lotus/Upgrades/Skins/Sigils/KuvaLichSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Old_Blood_Sigil) |
 | Ollie Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyOllie` | ExportResources | [page](https://wiki.warframe.com/w/Ollie_Floof) |
 | Ollie's Biggest Fan Honoria | `/Lotus/Types/Items/Titles/OllieRacerTitle` | ExportFlavour | [page](https://wiki.warframe.com/w/Ollie%27s_Biggest_Fan_Honoria) |
 | Ollie’s Rocket Livery | `/Lotus/Upgrades/Skins/Motorcycle/MotorcycleOllieSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ollie%E2%80%99s_Rocket_Livery) |
-| On Call Crew | `/Lotus/Types/Restoratives/Consumable/CrewmateBall` | ExportGear | [page](https://wiki.warframe.com/w/On_Call_Crew) |
 | On That Far Shore Forlorn Honoria | `/Lotus/Types/Items/Titles/RoatheTitles/TitleLyoricBridge` | ExportFlavour | [page](https://wiki.warframe.com/w/On_That_Far_Shore_Forlorn_Honoria) |
 | On-lyne Poster Collage | `/Lotus/Types/Items/ShipDecos/1999OnlyneWallPoster` | ExportResources | [page](https://wiki.warframe.com/w/On-lyne_Poster_Collage) |
 | On-lyne: Feeling Blue Poster | `/Lotus/Types/Items/ShipDecos/BoybandPosters/BoybandWhiteBluePoster` | ExportResources | [page](https://wiki.warframe.com/w/On-lyne:_Feeling_Blue_Poster) |
@@ -1798,7 +1730,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Onkko's Coffer | `/Lotus/Types/Items/ShipDecos/LisetPropGlassTreasureBox` | ExportResources | [page](https://wiki.warframe.com/w/Onkko%27s_Coffer) |
 | Opal | `/Lotus/Types/SuitCustomizations/ColourPickerSwitchItemA` | ExportFlavour | [page](https://wiki.warframe.com/w/Opal) |
 | Opal Imperator Syandana | `/Lotus/Upgrades/Skins/Scarves/NintendoTurtleNeckScarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Opal_Imperator_Syandana) |
-| Opal Marteddu Sugatra | `/Lotus/Upgrades/Skins/MeleeDangles/SugatraNintendo` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Opal_Marteddu_Sugatra) |
 | Operation Orphix Venom Emblem | `/Lotus/Upgrades/Skins/Clan/MechEventEmblemItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Operation_Orphix_Venom_Emblem) |
 | Operation Orphix Venom Sigil | `/Lotus/Upgrades/Skins/Sigils/MechEventSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Operation_Orphix_Venom_Sigil) |
 | Operational Supply | `/Lotus/Syndicates/EventSyndicate` | ExportSyndicates | [page](https://wiki.warframe.com/w/Operational_Supply) |
@@ -1843,14 +1774,17 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Orokin Tree Planter | `/Lotus/Types/Items/ShipDecos/Props/Nokko/LisetPropOroPlanterSmallNoTree` | ExportResources | [page](https://wiki.warframe.com/w/Orokin_Tree_Planter) |
 | Orowyrm Arena Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileDuviriDragonArena` | ExportResources | [page](https://wiki.warframe.com/w/Orowyrm_Arena_Scene) |
 | Orowyrm Arena Simulacrum | `/Lotus/Types/Items/DangerRoom/DangerRoomTileDuviriDragonArena` | ExportResources | [page](https://wiki.warframe.com/w/Orowyrm_Arena_Simulacrum) |
+| Orowyrm's Rage Sigil | `/Lotus/Upgrades/Skins/Sigils/DuvDragonSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Orowyrm%27s_Rage_Sigil) |
 | Orowyrm's Sanctum Display | `/Lotus/Types/Items/ShipDecos/Duviri/DuviriDragonDisplay` | ExportResources | [page](https://wiki.warframe.com/w/Orowyrm%27s_Sanctum_Display) |
 | Orthos Onyx Skin | `/Lotus/Upgrades/Skins/SteamEsteem/EsteemOrthos` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Orthos_Onyx_Skin) |
 | Orthos Phased Skin | `/Lotus/Upgrades/Skins/Events/BlackoutOrthos` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Orthos_Phased_Skin) |
 | Ostia Vasca Kavat Tag | `/Lotus/Types/Items/Eidolon/AnimalTagVampireKavatCommon` | ExportResources | [page](https://wiki.warframe.com/w/Ostia_Vasca_Kavat_Tag) |
 | Ostron | `/Lotus/Syndicates/Ostron/CetusSyndicate` | ExportSyndicates | [page](https://wiki.warframe.com/w/Ostron) |
+| Ostron Community Sigil | `/Lotus/Upgrades/Skins/Sigils/OstronCommunitySigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ostron_Community_Sigil) |
 | OTAK TOKEN | `/Lotus/Types/Items/Deimos/EntratiFragmentCommonA` | ExportResources | [page](https://wiki.warframe.com/w/OTAK_TOKEN) |
 | Owned Peely Pak | `/Lotus/Types/Items/MiscItems/1999FixedStickersPack` | ExportResources | [page](https://wiki.warframe.com/w/Owned_Peely_Pak) |
 | Owned Peely Pak | `/Lotus/Types/Items/MiscItems/1999FreeStickersPack` | ExportResources | [page](https://wiki.warframe.com/w/Owned_Peely_Pak) |
+| Pack Leader Sigil | `/Lotus/Upgrades/Skins/Sigils/BaroKubrowSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Pack_Leader_Sigil) |
 | Packet Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyPacketHuman` | ExportResources | [page](https://wiki.warframe.com/w/Packet_Floof) |
 | Palatine Iron Skin Override | `/Lotus/Upgrades/Skins/Rhino/RhinoIronSkinDeluxe` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Palatine_Iron_Skin_Override) |
 | Palm Shrub (Medium) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropLASxIntFoliageFanPalmB` | ExportResources | [page](https://wiki.warframe.com/w/Palm_Shrub_(Medium)) |
@@ -1860,9 +1794,9 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Paracesis Obsidian Skin | `/Lotus/Upgrades/Skins/Weapons/GreatSword/PS4BallasSword` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Paracesis_Obsidian_Skin) |
 | Paracesis Opal Skin | `/Lotus/Upgrades/Skins/Weapons/GreatSword/SWIBallasSword` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Paracesis_Opal_Skin) |
 | Parallax Raya Skin | `/Lotus/Upgrades/Skins/Liset/ZarimanShip/LisetZarimanShipSkinCosmos` | ExportFlavour | [page](https://wiki.warframe.com/w/Parallax_Raya_Skin) |
-| Parasitic Tethermaw | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishGPartItem` | ExportResources | [page](https://wiki.warframe.com/w/Parasitic_Tethermaw) |
 | Parotia Syandana | `/Lotus/Upgrades/Skins/Scarves/TnSparrowCape` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Parotia_Syandana) |
 | Patchy Fur Pattern | `/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternB` | ExportCustoms | [page](https://wiki.warframe.com/w/Patchy_Fur_Pattern) |
+| Patient Zero | `/Lotus/Types/Keys/InfestedAladVQuest/InfestedAladVQuestKeyChain` | warframe-items | [page](https://wiki.warframe.com/w/Patient_Zero) |
 | Pennant Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianPennant` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Pennant_Obsidian_Skin) |
 | Penta Verv Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/TwitchPentaSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Penta_Verv_Skin) |
 | Perigone Honoria | `/Lotus/Types/Items/Titles/MedalRank20Title` | ExportFlavour | [page](https://wiki.warframe.com/w/Perigone_Honoria) |
@@ -1872,7 +1806,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Phoenix Coronet Sigil | `/Lotus/Upgrades/Skins/Sigils/CNYRoosterPWSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Phoenix_Coronet_Sigil) |
 | Phorid Red | `/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorVibrantF` | ExportFlavour | [page](https://wiki.warframe.com/w/Phorid_Red) |
 | Piccha Planter | `/Lotus/Types/Items/ShipDecos/TennoPlanterF` | ExportResources | [page](https://wiki.warframe.com/w/Piccha_Planter) |
-| Pins-N-Needles Ephemera | `/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraE` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Pins-N-Needles_Ephemera) |
 | Pistol Ammo Box | `/Lotus/Types/Restoratives/SelfPistolAmmo` | ExportGear | [page](https://wiki.warframe.com/w/Pistol_Ammo_Box) |
 | Plague-bearer Honoria | `/Lotus/Types/Items/Titles/HunhowHonoria/TitleNidus` | ExportFlavour | [page](https://wiki.warframe.com/w/Plague-bearer_Honoria) |
 | Plains Kuaka Tag | `/Lotus/Types/Items/Eidolon/AnimalTagKuakaCommon` | ExportResources | [page](https://wiki.warframe.com/w/Plains_Kuaka_Tag) |
@@ -1915,9 +1848,15 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Prime Lacquer | `/Lotus/Types/SuitCustomizations/ColourPickerPrimeWarframesItemB` | ExportFlavour | [page](https://wiki.warframe.com/w/Prime_Lacquer) |
 | Prime Vanguard Display | `/Lotus/Types/Items/ShipDecos/VanguardCommunityPortrait` | ExportResources | [page](https://wiki.warframe.com/w/Prime_Vanguard_Display) |
 | Prisma Latron Shoulder Plate | `/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronArmArmorPrisma` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Prisma_Latron_Shoulder_Plate) |
+| Prisma Lotus Bloom Sigil | `/Lotus/Upgrades/Skins/Sigils/PrismaLotusVinesSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Prisma_Lotus_Bloom_Sigil) |
+| Prisma Lotus Flame Sigil | `/Lotus/Upgrades/Skins/Sigils/PrismaLotusFlamesSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Prisma_Lotus_Flame_Sigil) |
+| Prisma Lotus Sigil | `/Lotus/Upgrades/Skins/Sigils/PrismaLotusSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Prisma_Lotus_Sigil) |
+| Prisma Sigil | `/Lotus/Upgrades/Skins/Sigils/PrimeTraderSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Prisma_Sigil) |
+| Prisma Thrax Sigil | `/Lotus/Upgrades/Skins/Sigils/ThraxSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Prisma_Thrax_Sigil) |
 | Prisma Vor Sigil | `/Lotus/Upgrades/Skins/Sigils/VorDuviriSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Prisma_Vor_Sigil) |
 | Prodman Autograph | `/Lotus/Types/Items/ShipDecos/IndexAutograph` | ExportResources | [page](https://wiki.warframe.com/w/Prodman_Autograph) |
 | Profit-Taker Orb Articula | `/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/ArachnoidCamperAFItem` | ExportResources | [page](https://wiki.warframe.com/w/Profit-Taker_Orb_Articula) |
+| Prominence Sigil | `/Lotus/Upgrades/Skins/Sigils/TwitchProminenceSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Prominence_Sigil) |
 | PROPULSION SYSTEMS | `/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodBraceFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/PROPULSION_SYSTEMS) |
 | PROPULSION SYSTEMS REPAIRS | `/Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackHoodBraceFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/PROPULSION_SYSTEMS_REPAIRS) |
 | Protea Accolade Glyph | `/Lotus/Types/AvatarImages/AvatarImageProteaAccoladeGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Protea_Accolade_Glyph) |
@@ -1927,7 +1866,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Protea Immortal Skin | `/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protea_Immortal_Skin) |
 | Protea Prex | `/Lotus/Types/Items/ShipDecos/TarotCardProtea` | ExportResources | [page](https://wiki.warframe.com/w/Protea_Prex) |
 | Protea Prex | `/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardProteaItem` | ExportResources | [page](https://wiki.warframe.com/w/Protea_Prex) |
-| Protea Prime Chronorum Helmet | `/Lotus/Upgrades/Skins/Odalisk/ProteaPrimeAltHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protea_Prime_Chronorum_Helmet) |
 | Protea Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageProteaPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Protea_Prime_Glyph_-_Bright) |
 | Protea Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageProteaPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Protea_Prime_Glyph_-_Dark) |
 | Protea Prime Theme | `/Lotus/Types/Items/SongItems/ProteaPrimeSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Protea_Prime_Theme) |
@@ -1935,16 +1873,8 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Protector Portrait | `/Lotus/Types/Items/ShipDecos/JadeShadowsFamilyPoster` | ExportResources | [page](https://wiki.warframe.com/w/Protector_Portrait) |
 | Protector Stalker Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyProtectorStalker` | ExportResources | [page](https://wiki.warframe.com/w/Protector_Stalker_Floof) |
 | Proto Necramech Helmet | `/Lotus/Upgrades/Skins/Necramech/VoidrigDSChromaHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Proto_Necramech_Helmet) |
-| Proto Necramech Skin | `/Lotus/Upgrades/Skins/Necramech/VoidrigDSChromaSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Proto_Necramech_Skin) |
 | Proto-Infested Clump Decoration | `/Lotus/Types/Items/ShipDecos/Props/LisetPropLASxProtoInfestedChitin` | ExportResources | [page](https://wiki.warframe.com/w/Proto-Infested_Clump_Decoration) |
-| Protovyre Apex Chest Armor | `/Lotus/Upgrades/Skins/Armor/SentEvoArmor/SentEvoArmor3C` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protovyre_Apex_Chest_Armor) |
-| Protovyre Apex Ephemera | `/Lotus/Upgrades/Skins/Effects/NarmerEvolvingEphemeraC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protovyre_Apex_Ephemera) |
-| Protovyre Apex Leg Plate Armor | `/Lotus/Upgrades/Skins/Armor/SentEvoArmor/SentEvoArmor3L` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protovyre_Apex_Leg_Plate_Armor) |
-| Protovyre Apex Shoulder Armor | `/Lotus/Upgrades/Skins/Armor/SentEvoArmor/SentEvoArmor3A` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protovyre_Apex_Shoulder_Armor) |
-| Protovyre Apex Syandana | `/Lotus/Upgrades/Skins/Scarves/NarmerEvolvingSyandanaCCape` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protovyre_Apex_Syandana) |
-| Protovyre Emergent Chest Armor | `/Lotus/Upgrades/Skins/Armor/SentEvoArmor/SentEvoArmor2C` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protovyre_Emergent_Chest_Armor) |
 | Protovyre Emergent Ephemera | `/Lotus/Upgrades/Skins/Effects/NarmerEvolvingEphemeraB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protovyre_Emergent_Ephemera) |
-| Protovyre Emergent Leg Plate Armor | `/Lotus/Upgrades/Skins/Armor/SentEvoArmor/SentEvoArmor2L` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protovyre_Emergent_Leg_Plate_Armor) |
 | Protovyre Emergent Shoulder Armor | `/Lotus/Upgrades/Skins/Armor/SentEvoArmor/SentEvoArmor2A` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protovyre_Emergent_Shoulder_Armor) |
 | Protovyre Emergent Syandana | `/Lotus/Upgrades/Skins/Scarves/NarmerEvolvingSyandanaBCape` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Protovyre_Emergent_Syandana) |
 | Provvok Obsidian Shoulder Guard | `/Lotus/Upgrades/Skins/Armor/GrnFaceMaskArmour/ObsidianFaceMaskArmour` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Provvok_Obsidian_Shoulder_Guard) |
@@ -1956,18 +1886,16 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Purple Velocipod Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedKdriveCommon` | ExportResources | [page](https://wiki.warframe.com/w/Purple_Velocipod_Tag) |
 | Pyrana Iridos Skin | `/Lotus/Upgrades/Skins/Promo/Twitch/PyranaTwitchSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Pyrana_Iridos_Skin) |
 | Quanta Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianQuanta` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Quanta_Obsidian_Skin) |
-| Quassus Solstice Skin | `/Lotus/Upgrades/Skins/WinterSolstice/SolsticeQuassusSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Quassus_Solstice_Skin) |
+| Quick Steel Sigil | `/Lotus/Upgrades/Skins/Sigils/ConclaveTacAlertSigilA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Quick_Steel_Sigil) |
 | Quincy Accolade Glyph | `/Lotus/Types/AvatarImages/AvatarImageQuincyAccoladeGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Quincy_Accolade_Glyph) |
 | Quincy Gemini Emote | `/Lotus/Types/Items/Emotes/LegendaryQuincyEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Quincy_Gemini_Emote) |
-| Radiant Eidolon Shard | `/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/SentientShardBrilliantTierTwoItem` | ExportResources | [page](https://wiki.warframe.com/w/Radiant_Eidolon_Shard) |
 | Rail Agent Manifest Decoration | `/Lotus/Types/Items/ShipDecos/Venus/SUBookAOpen` | ExportResources | [page](https://wiki.warframe.com/w/Rail_Agent_Manifest_Decoration) |
 | Railjack In Action Glyph | `/Lotus/Types/AvatarImages/ImageRailjackInAction` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Railjack_In_Action_Glyph) |
 | Railjack Recall | `/Lotus/Types/Restoratives/Consumable/RecallToRailjack` | ExportGear | [page](https://wiki.warframe.com/w/Railjack_Recall) |
-| Raksa Kubrow | `/Lotus/Types/Game/KubrowPet/GuardKubrowPetPowerSuit` | warframe-items, ExportSentinels | [page](https://wiki.warframe.com/w/Raksa_Kubrow) |
 | Raksh’s Leverian Mural | `/Lotus/Types/Items/ShipDecos/Leverian/LisetPropMuralShyur` | ExportResources | [page](https://wiki.warframe.com/w/Raksh%E2%80%99s_Leverian_Mural) |
 | Rathuum Emblem | `/Lotus/Upgrades/Skins/Clan/KelaEventBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rathuum_Emblem) |
 | Rathuum Prisoner Coordinates | `/Lotus/Types/Items/SyndicateDogTags/KelaEventDogTag` | ExportResources | [page](https://wiki.warframe.com/w/Rathuum_Prisoner_Coordinates) |
-| Raya Aurora Ephemera | `/Lotus/Upgrades/Skins/Effects/Twitch2023Ephemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Raya_Aurora_Ephemera) |
+| Rathuum Sigil | `/Lotus/Upgrades/Skins/Sigils/KelaEventSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rathuum_Sigil) |
 | Raya Orbitus Sigil | `/Lotus/Upgrades/Skins/Sigils/CosmosSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Raya_Orbitus_Sigil) |
 | Raya Sigma Syandana | `/Lotus/Upgrades/Skins/Scarves/TnRailjackCosmosSyandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Raya_Sigma_Syandana) |
 | Recaster Neural Relay | `/Lotus/Types/Items/Fish/Solaris/FishParts/SolarisFishNeuralRelayItem` | ExportResources | [page](https://wiki.warframe.com/w/Recaster_Neural_Relay) |
@@ -1977,7 +1905,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Red Veil | `/Lotus/Syndicates/RedVeilSyndicate` | ExportSyndicates | [page](https://wiki.warframe.com/w/Red_Veil) |
 | Red-Crested Virmink Tag | `/Lotus/Types/Items/Solaris/AnimalTagVirminkRare` | ExportResources | [page](https://wiki.warframe.com/w/Red-Crested_Virmink_Tag) |
 | Red/white/blue | `/Lotus/Types/SuitCustomizations/ColourPickerRWBItem` | ExportFlavour | [page](https://wiki.warframe.com/w/Red/white/blue) |
-| Redeemer Abysso Skin | `/Lotus/Upgrades/Skins/Weapons/Redeemer/RedeemerRelayWaterSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Redeemer_Abysso_Skin) |
 | Redeemer Pyrus Skin | `/Lotus/Upgrades/Skins/Weapons/Redeemer/RedeemerRelayFireSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Redeemer_Pyrus_Skin) |
 | Refacia Kit | `/Lotus/Types/SuitCustomizations/ExtraOperatorSkinColors` | ExportFlavour | [page](https://wiki.warframe.com/w/Refacia_Kit) |
 | Regor Recall Glyph | `/Lotus/Types/AvatarImages/TenYearAnniversaryWeek5Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Regor_Recall_Glyph) |
@@ -1989,7 +1916,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Rell's Boredom Emotile | `/Lotus/Types/Items/ShipDecos/TarotCard/Emotions/TarotCardBored` | ExportResources | [page](https://wiki.warframe.com/w/Rell%27s_Boredom_Emotile) |
 | Rell's Confusion Emotile | `/Lotus/Types/Items/ShipDecos/TarotCard/Emotions/TarotCardConfused` | ExportResources | [page](https://wiki.warframe.com/w/Rell%27s_Confusion_Emotile) |
 | Rell's Disgust Emotile | `/Lotus/Types/Items/ShipDecos/TarotCard/Emotions/TarotCardDisgusted` | ExportResources | [page](https://wiki.warframe.com/w/Rell%27s_Disgust_Emotile) |
-| Rell's Donda | `/Lotus/Types/Items/ShipDecos/HarrowQuestKeyOrnament` | ExportResources | [page](https://wiki.warframe.com/w/Rell%27s_Donda) |
 | Rell's Embarrassment Emotile | `/Lotus/Types/Items/ShipDecos/TarotCard/Emotions/TarotCardEmbarrassed` | ExportResources | [page](https://wiki.warframe.com/w/Rell%27s_Embarrassment_Emotile) |
 | Rell's Excitement Emotile | `/Lotus/Types/Items/ShipDecos/TarotCard/Emotions/TarotCardExcited` | ExportResources | [page](https://wiki.warframe.com/w/Rell%27s_Excitement_Emotile) |
 | Rell's Fatigue Emotile | `/Lotus/Types/Items/ShipDecos/TarotCard/Emotions/TarotCardTired` | ExportResources | [page](https://wiki.warframe.com/w/Rell%27s_Fatigue_Emotile) |
@@ -2007,22 +1933,21 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | RHINO BRONZE SKIN | `/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/RHINO_BRONZE_SKIN) |
 | Rhino Deathwatch Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeV2Helmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rhino_Deathwatch_Helmet) |
 | Rhino Dex Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoDexHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rhino_Dex_Helmet) |
-| Rhino Dex Skin | `/Lotus/Upgrades/Skins/Rhino/RhinoDexSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rhino_Dex_Skin) |
 | Rhino Heirloom Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoHeirloomHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rhino_Heirloom_Helmet) |
 | Rhino Jade Helmet | `/Lotus/Upgrades/Skins/Promo/Microsoft/JadeRhinoHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rhino_Jade_Helmet) |
 | Rhino Palatine Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rhino_Palatine_Helmet) |
+| Rhino Palatine Sigil | `/Lotus/Upgrades/Skins/Sigils/RhinoDeluxeSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rhino_Palatine_Sigil) |
 | Rhino Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageRhinoPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Rhino_Prime_Glyph_-_Bright) |
 | Rhino Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageRhinoPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Rhino_Prime_Glyph_-_Dark) |
 | Rhino Rubedo Plated Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkinHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rhino_Rubedo_Plated_Helmet) |
 | Rhino Rubedo Plated Skin | `/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rhino_Rubedo_Plated_Skin) |
 | Rhino Voidshell Helmet | `/Lotus/Upgrades/Skins/Rhino/RhinoChameleonAHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rhino_Voidshell_Helmet) |
 | Rho Plant | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropGftAlienVibePlantAArrangement` | ExportResources | [page](https://wiki.warframe.com/w/Rho_Plant) |
-| Rhoptron Prime Syandana | `/Lotus/Upgrades/Skins/Scarves/PrimeRhoptronSyandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rhoptron_Prime_Syandana) |
 | Ride The Wave Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphYareliComic` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Ride_The_Wave_Glyph) |
 | Ride The Wave Poster | `/Lotus/Types/Items/ShipDecos/YareliComicCoverPoster` | ExportResources | [page](https://wiki.warframe.com/w/Ride_The_Wave_Poster) |
 | Rifle Ammo Box | `/Lotus/Types/Restoratives/SelfRifleAmmo` | ExportGear | [page](https://wiki.warframe.com/w/Rifle_Ammo_Box) |
+| Rift Sigil | `/Lotus/Upgrades/Skins/Sigils/EnergySigilA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Rift_Sigil) |
 | Right Hand of Eros | `/Lotus/Types/Items/Emotes/RightHeartEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Right_Hand_of_Eros) |
-| Ringers Skin | `/Lotus/Upgrades/Skins/Festivities/JingleKnuckles` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ringers_Skin) |
 | RixtyMOL Aklato | `/Lotus/Upgrades/Skins/Promo/RixtyMOL/RixtyMOLAklatoSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/RixtyMOL_Aklato) |
 | Roathe Gemini Emote | `/Lotus/Types/Items/Emotes/LegendaryRoatheEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Roathe_Gemini_Emote) |
 | Roathe's Duviri Throneroom Date | `/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheDuviriThroneRoom` | ExportResources | [page](https://wiki.warframe.com/w/Roathe%27s_Duviri_Throneroom_Date) |
@@ -2056,6 +1981,7 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Saita Prime Suit | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Saita_Prime_Suit) |
 | Salvage Decoration | `/Lotus/Types/Items/ShipDecos/ResourceDecoItemSalvage` | ExportResources | [page](https://wiki.warframe.com/w/Salvage_Decoration) |
 | Sanctum Loid Display | `/Lotus/Types/Items/ShipDecos/LoidPortrait` | ExportResources | [page](https://wiki.warframe.com/w/Sanctum_Loid_Display) |
+| Sands Of Inaros | `/Lotus/Types/Keys/MummyQuest/MummyQuestKeyChain` | warframe-items | [page](https://wiki.warframe.com/w/Sands_Of_Inaros) |
 | Sargas Brown | `/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorVibrantD` | ExportFlavour | [page](https://wiki.warframe.com/w/Sargas_Brown) |
 | Saryn Orphid Helmet | `/Lotus/Upgrades/Skins/Saryn/SarynDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Saryn_Orphid_Helmet) |
 | Saryn Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageSarynPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Saryn_Prime_Glyph_-_Bright) |
@@ -2068,12 +1994,11 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Saturn Six Day of the Dead Chest Plate | `/Lotus/Upgrades/Skins/Armor/Wolf/DOTDWolfCArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Saturn_Six_Day_of_the_Dead_Chest_Plate) |
 | Saturn Six Day of the Dead Knee Plates | `/Lotus/Upgrades/Skins/Armor/Wolf/DOTDWolfLArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Saturn_Six_Day_of_the_Dead_Knee_Plates) |
 | Saturn Six Day of the Dead Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/Wolf/DOTDWolfAArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Saturn_Six_Day_of_the_Dead_Shoulder_Plates) |
-| Saturn Six Day of the Dead Syandana | `/Lotus/Upgrades/Skins/Scarves/DOTDWolfBackpack` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Saturn_Six_Day_of_the_Dead_Syandana) |
-| Saturn Six Emblem | `/Lotus/Upgrades/Skins/Clan/WolfBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Saturn_Six_Emblem) |
 | Saturn Six Ornament | `/Lotus/Types/Items/ShipDecos/NoraWolfOrnament` | ExportResources | [page](https://wiki.warframe.com/w/Saturn_Six_Ornament) |
 | Saturn Six Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileWolfSixPrison` | ExportResources | [page](https://wiki.warframe.com/w/Saturn_Six_Scene) |
-| Saturn Six Syandana | `/Lotus/Upgrades/Skins/Scarves/TennoWolfBackpack` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Saturn_Six_Syandana) |
+| Saturn Six Sigil | `/Lotus/Upgrades/Skins/Sigils/WolfSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Saturn_Six_Sigil) |
 | Save Popcorn Glyph | `/Lotus/Types/AvatarImages/SavePopcornGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Save_Popcorn_Glyph) |
+| Scar Sigil | `/Lotus/Upgrades/Skins/Sigils/ScarSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Scar_Sigil) |
 | Scarlet Credits | `/Lotus/Types/Items/Events/OperationsCredits` | ExportResources | [page](https://wiki.warframe.com/w/Scarlet_Credits) |
 | SCARLET NEXIFERA TAG | `/Lotus/Types/Items/Deimos/AnimalTagInfestedNexiferaRare` | ExportResources | [page](https://wiki.warframe.com/w/SCARLET_NEXIFERA_TAG) |
 | Scarlet Spear Condrix I Emblem | `/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearGroundIEmblem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Scarlet_Spear_Condrix_I_Emblem) |
@@ -2101,7 +2026,10 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Scoria's Saint Honoria | `/Lotus/Types/Items/Titles/HunhowHonoria/TitleAsh` | ExportFlavour | [page](https://wiki.warframe.com/w/Scoria%27s_Saint_Honoria) |
 | Scorpion Specter | `/Lotus/Types/Restoratives/Consumable/MacheteWomanBall` | ExportGear | [page](https://wiki.warframe.com/w/Scorpion_Specter) |
 | Scrolling Sign Decoration | `/Lotus/Types/Items/ShipDecos/LisetTickerSign` | ExportResources | [page](https://wiki.warframe.com/w/Scrolling_Sign_Decoration) |
-| Scuttler Husk | `/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemB` | ExportResources | [page](https://wiki.warframe.com/w/Scuttler_Husk) |
+| Seal Of Honoring | `/Lotus/Upgrades/Skins/Sigils/XBoneOneYearSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Seal_Of_Honoring) |
+| Seal Of Honoring II | `/Lotus/Upgrades/Skins/Sigils/XBoneTwoYearSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Seal_Of_Honoring_II) |
+| Seal Of Honoring III | `/Lotus/Upgrades/Skins/Sigils/XBoneThreeYearSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Seal_Of_Honoring_III) |
+| Seal Of Honoring IV | `/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Seal_Of_Honoring_IV) |
 | Sedna Grey | `/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorMidA` | ExportFlavour | [page](https://wiki.warframe.com/w/Sedna_Grey) |
 | SEDNA NAV SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/SednaNavigationFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/SEDNA_NAV_SEGMENT) |
 | Seeker Mastery Slate | `/Lotus/Types/Items/ShipDecos/MasteryTrophies/Rank10Trophy` | ExportResources | [page](https://wiki.warframe.com/w/Seeker_Mastery_Slate) |
@@ -2114,8 +2042,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Sentient Bone Effigy (Medium) | `/Lotus/Types/Items/ShipDecos/Tau/LisetPropSTMxSntTrooperEffigyA` | ExportResources | [page](https://wiki.warframe.com/w/Sentient_Bone_Effigy_(Medium)) |
 | Sentient Concourse Scene | `/Lotus/Types/Items/PhotoBooth/PhotoboothTileSentientIntDescent` | ExportResources | [page](https://wiki.warframe.com/w/Sentient_Concourse_Scene) |
 | Sentient Fountain Scene | `/Lotus/Types/Items/PhotoBooth/PhotoboothTileSentientConTransitionPlusOne` | ExportResources | [page](https://wiki.warframe.com/w/Sentient_Fountain_Scene) |
-| Seonn | `/Lotus/Types/Gameplay/Duviri/Resource/Fish/DuviriFishEItem` | ExportResources | [page](https://wiki.warframe.com/w/Seonn) |
-| Seonn | `/Lotus/Types/Items/Fish/Duviri/DuviriFishEItem` | ExportResources | [page](https://wiki.warframe.com/w/Seonn) |
 | Septic Cryptilex Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedMaggotUncommon` | ExportResources | [page](https://wiki.warframe.com/w/Septic_Cryptilex_Tag) |
 | Serro Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianSerro` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Serro_Obsidian_Skin) |
 | Servio Honoria | `/Lotus/Types/Items/Titles/MedalRank5Title` | ExportFlavour | [page](https://wiki.warframe.com/w/Servio_Honoria) |
@@ -2131,7 +2057,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Sevagoth Prime Helmet | `/Lotus/Upgrades/Skins/Wraith/SevagothPrimeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Sevagoth_Prime_Helmet) |
 | Sevagoth's Shadow Ezriel Helmet | `/Lotus/Upgrades/Skins/Wraith/SWSevagothEzrielReaperHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Sevagoth%27s_Shadow_Ezriel_Helmet) |
 | Sevagoth's Shadow Ezriel Skin | `/Lotus/Upgrades/Skins/Wraith/SWSevagothEzrielReaperSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Sevagoth%27s_Shadow_Ezriel_Skin) |
-| Sevati Sekhara | `/Lotus/Upgrades/Skins/Clan/SevantiHaloBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Sevati_Sekhara) |
 | Shadow Claws | `/Lotus/Powersuits/Wraith/ReaperMeleeWeapon` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Shadow_Claws) |
 | Shadow Claws Prime | `/Lotus/Powersuits/Wraith/SevagothShadowPrimeClawsWeapon` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Shadow_Claws_Prime) |
 | Shadow Claws Prime | `/Lotus/Upgrades/Skins/Wraith/SevagothPrimeShadowClawsSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Shadow_Claws_Prime) |
@@ -2144,7 +2069,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Shattered Lash | `/Lotus/Powersuits/Glass/GaraShankWeapon` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Shattered_Lash) |
 | Shattered Lash Prime | `/Lotus/Powersuits/Glass/GaraShankWeaponPrime` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Shattered_Lash_Prime) |
 | Shawzin | `/Lotus/Types/Items/Emotes/ShawzinEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Shawzin) |
-| Shedu Day of the Dead Skin | `/Lotus/Upgrades/Skins/Halloween/DOTD2025SheduSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Shedu_Day_of_the_Dead_Skin) |
 | Shooms | `/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerNokkoC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Shooms) |
 | Shooms Poster | `/Lotus/Types/Items/ShipDecos/NokkoCPoster` | ExportResources | [page](https://wiki.warframe.com/w/Shooms_Poster) |
 | Short Artisan Barrel | `/Lotus/Types/Items/ShipDecos/Duviri/DUVxBarrelSmall` | ExportResources | [page](https://wiki.warframe.com/w/Short_Artisan_Barrel) |
@@ -2170,19 +2094,16 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Sirius & Orion Prex | `/Lotus/Types/Items/ShipDecos/TarotCardSiriusOrion` | ExportResources | [page](https://wiki.warframe.com/w/Sirius_%26_Orion_Prex) |
 | Sirius Alone Display | `/Lotus/Types/Items/ShipDecos/JadeShadows2SiriusPoster` | ExportResources | [page](https://wiki.warframe.com/w/Sirius_Alone_Display) |
 | Sirocco Amp Skin | `/Lotus/Upgrades/Skins/Operator/Amp/DrifterAmpSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Sirocco_Amp_Skin) |
+| SISTER OF PARVOS TOKEN | `/Lotus/Types/Game/Nemesis/KuvaLich/CapturedCorpusLichToken` | ExportResources | [page](https://wiki.warframe.com/w/SISTER_OF_PARVOS_TOKEN) |
 | Sisterhood Emblem | `/Lotus/Upgrades/Skins/Clan/CorpusLichBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Sisterhood_Emblem) |
+| Sisterhood Sigil | `/Lotus/Upgrades/Skins/Sigils/CorpusLichSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Sisterhood_Sigil) |
 | Skana Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/PS4Skana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Skana_Obsidian_Skin) |
-| Skana Prime | `/Lotus/Weapons/Tenno/Melee/LongSword/SkanaPrime` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Skana_Prime) |
 | Skateweed Extract | `/Lotus/Types/Items/Plants/MiscItems/IresPlantItem` | ExportResources | [page](https://wiki.warframe.com/w/Skateweed_Extract) |
 | Skaut Day of the Dead Skin | `/Lotus/Upgrades/Skins/Liset/GrineerShip/LisetGrineerShipDOTD` | ExportFlavour | [page](https://wiki.warframe.com/w/Skaut_Day_of_the_Dead_Skin) |
 | Ski Gauss Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphSkiGauss` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Ski_Gauss_Glyph) |
 | Slimetime Glyph | `/Lotus/Types/AvatarImages/Seasonal/Halloween2019SlimeLoki` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Slimetime_Glyph) |
-| Sling Stone Emblem | `/Lotus/Upgrades/Skins/Clan/SlingStoneEmblemItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Sling_Stone_Emblem) |
 | Slippery Poster | `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterO` | ExportResources | [page](https://wiki.warframe.com/w/Slippery_Poster) |
-| Sly Vulpaphyla | `/Lotus/Types/Friendly/Pets/CreaturePets/VulpineInfestedCatbrowPetPowerSuit` | warframe-items, ExportSentinels | [page](https://wiki.warframe.com/w/Sly_Vulpaphyla) |
-| Sly Vulpaphyla | `/Lotus/Types/Items/Deimos/WoundedInfestedCritterCommonRewardItem` | ExportWeapons | [page](https://wiki.warframe.com/w/Sly_Vulpaphyla) |
 | Sly Vulpaphyla Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedCritterCommon` | ExportResources | [page](https://wiki.warframe.com/w/Sly_Vulpaphyla_Tag) |
-| Smeeta Kavat | `/Lotus/Types/Game/CatbrowPet/CheshireCatbrowPetPowerSuit` | warframe-items, ExportSentinels | [page](https://wiki.warframe.com/w/Smeeta_Kavat) |
 | Snake Necramech Helmet | `/Lotus/Upgrades/Skins/Necramech/NecramechSnakeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Snake_Necramech_Helmet) |
 | Snake Necramech Sigil | `/Lotus/Upgrades/Skins/Sigils/NecramechSigilSnake` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Snake_Necramech_Sigil) |
 | Snake Necramech Skin | `/Lotus/Upgrades/Skins/Necramech/NecramechSnakeSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Snake_Necramech_Skin) |
@@ -2193,7 +2114,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Snipetron Vandal Stock | `/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalStock` | ExportResources | [page](https://wiki.warframe.com/w/Snipetron_Vandal_Stock) |
 | Snow Globe | `/Lotus/Types/Restoratives/LisetShield` | ExportGear | [page](https://wiki.warframe.com/w/Snow_Globe) |
 | Snowlit Glyph | `/Lotus/Types/AvatarImages/AvatarImageCreatorSnowLit` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Snowlit_Glyph) |
-| Soaker Ephemera | `/Lotus/Upgrades/Skins/Effects/HydroidDeluxeEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Soaker_Ephemera) |
 | Solaris Canteen Tray Decoration | `/Lotus/Types/Items/ShipDecos/Venus/SUFoodSet` | ExportResources | [page](https://wiki.warframe.com/w/Solaris_Canteen_Tray_Decoration) |
 | Solaris Cargo Crate Decoration | `/Lotus/Types/Items/ShipDecos/Venus/SUContainerCrate` | ExportResources | [page](https://wiki.warframe.com/w/Solaris_Cargo_Crate_Decoration) |
 | Solaris Diagnostic Tool Decoration | `/Lotus/Types/Items/ShipDecos/Venus/SUTechToolC` | ExportResources | [page](https://wiki.warframe.com/w/Solaris_Diagnostic_Tool_Decoration) |
@@ -2218,31 +2138,30 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Solstice Glyph IV | `/Lotus/Types/AvatarImages/AvatarImageWinter2016D` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Solstice_Glyph_IV) |
 | Solstice Sigil | `/Lotus/Upgrades/Skins/Sigils/Winter2016Sigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Solstice_Sigil) |
 | Somatic Bearer Memorial | `/Lotus/Types/Items/ShipDecos/Tau/LisetPropSomaticBearerFlowerPostQuestItem` | ExportResources | [page](https://wiki.warframe.com/w/Somatic_Bearer_Memorial) |
+| Somber Stalker Sigil | `/Lotus/Upgrades/Skins/Sigils/SomberStalkerSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Somber_Stalker_Sigil) |
 | Son Tennobaum Glyph | `/Lotus/Types/AvatarImages/XMas20SonGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Son_Tennobaum_Glyph) |
 | SON TOKEN | `/Lotus/Types/Items/Deimos/EntratiFragmentCommonB` | ExportResources | [page](https://wiki.warframe.com/w/SON_TOKEN) |
-| Sonicor Festive Skin | `/Lotus/Upgrades/Skins/Festivities/XmasSonicor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Sonicor_Festive_Skin) |
 | Sonicor Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianSonicor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Sonicor_Obsidian_Skin) |
-| Soul-Eye Ephemera | `/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraH` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Soul-Eye_Ephemera) |
 | Spearmint Scythe Skin | `/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneScytheSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Spearmint_Scythe_Skin) |
 | Specters of Liberty Emblem | `/Lotus/Upgrades/Skins/Clan/RescueEventBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Specters_of_Liberty_Emblem) |
 | Spectral Tide Glyph | `/Lotus/Types/AvatarImages/Login650Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Spectral_Tide_Glyph) |
 | Spektaka | `/Lotus/Types/SuitCustomizations/ColourPickerPrimeDayItemA` | ExportFlavour | [page](https://wiki.warframe.com/w/Spektaka) |
 | Spektaka Liset Skin | `/Lotus/Upgrades/Skins/Liset/LisetSkinTwitchPrime` | ExportFlavour | [page](https://wiki.warframe.com/w/Spektaka_Liset_Skin) |
-| Spinal Core Section | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishBPartItem` | ExportResources | [page](https://wiki.warframe.com/w/Spinal_Core_Section) |
 | Spira Obsidian Skin | `/Lotus/Upgrades/Skins/Sony/ObsidianSpira` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Spira_Obsidian_Skin) |
 | Splash and Dash Sigil | `/Lotus/Upgrades/Skins/Sigils/DogDays2023ASigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Splash_and_Dash_Sigil) |
 | Splashdown Sigil | `/Lotus/Upgrades/Skins/Sigils/DogDays2025Sigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Splashdown_Sigil) |
 | Splendid Mergoo Tag | `/Lotus/Types/Items/Eidolon/AnimalTagMergooRare` | ExportResources | [page](https://wiki.warframe.com/w/Splendid_Mergoo_Tag) |
+| Spore Ephemera | `/Lotus/Upgrades/Skins/Effects/InfestedEphemeraA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Spore_Ephemera) |
 | Sporulate Sac | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishEPartItem` | ExportResources | [page](https://wiki.warframe.com/w/Sporulate_Sac) |
 | Sporule Avichaea Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedMergooUncommon` | ExportResources | [page](https://wiki.warframe.com/w/Sporule_Avichaea_Tag) |
 | Spotlight (Ostron) | `/Lotus/Types/Items/ShipDecos/LisetPropOroSpotlight` | ExportResources | [page](https://wiki.warframe.com/w/Spotlight_(Ostron)) |
 | Spring Festival Interior Decorations | `/Lotus/Types/Game/ShipScenes/ChineseNewYearScene` | ExportFlavour | [page](https://wiki.warframe.com/w/Spring_Festival_Interior_Decorations) |
 | Spring Festival Interior Decorations | `/Lotus/Types/Items/ShipLayerCNY` | ExportResources | [page](https://wiki.warframe.com/w/Spring_Festival_Interior_Decorations) |
-| Spring Step Ephemera | `/Lotus/Upgrades/Skins/Effects/FootstepsEasterEggs` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Spring_Step_Ephemera) |
 | Sprodling Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyNokkoMushroom` | ExportResources | [page](https://wiki.warframe.com/w/Sprodling_Floof) |
 | Sssick!!!! Poster | `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterP` | ExportResources | [page](https://wiki.warframe.com/w/Sssick!!!!_Poster) |
 | Stained Vespers | `/Lotus/Types/Items/SongItems/StainedVespersSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Stained_Vespers) |
 | Stalker In Action Glyph | `/Lotus/Types/AvatarImages/AvatarImageStalkerAction` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Stalker_In_Action_Glyph) |
+| Stalker Smoke Screen Sigil | `/Lotus/Upgrades/Skins/Sigils/NWStalkerSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Stalker_Smoke_Screen_Sigil) |
 | Stalker's Lair Scene | `/Lotus/Types/Items/PhotoBooth/JadeShadows/PhotoboothTileStalkerCave` | ExportResources | [page](https://wiki.warframe.com/w/Stalker%27s_Lair_Scene) |
 | Stalker's Mark Sumdali | `/Lotus/Upgrades/Skins/Liset/StalkerHoodOrnament` | ExportFlavour | [page](https://wiki.warframe.com/w/Stalker%27s_Mark_Sumdali) |
 | STAR CHART SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/SolarChartFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/STAR_CHART_SEGMENT) |
@@ -2282,7 +2201,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Stormfall Jacket | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorLasrianA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Stormfall_Jacket) |
 | Stormfall Mask | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodOperatorLasrianA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Stormfall_Mask) |
 | Stormfall Pants & Boots | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsOperatorLasrianA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Stormfall_Pants_%26_Boots) |
-| Stratos Emblem | `/Lotus/Upgrades/Skins/Clan/BountyHunterBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Stratos_Emblem) |
 | Strikes Twice Honoria | `/Lotus/Types/Items/Titles/HunhowHonoria/TitleVolt` | ExportFlavour | [page](https://wiki.warframe.com/w/Strikes_Twice_Honoria) |
 | Striped Fur Pattern | `/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternA` | ExportCustoms | [page](https://wiki.warframe.com/w/Striped_Fur_Pattern) |
 | Strix Fur Pattern | `/Lotus/Types/Game/CatbrowPet/Patterns/CatbrowPetPatternB` | ExportCustoms | [page](https://wiki.warframe.com/w/Strix_Fur_Pattern) |
@@ -2316,13 +2234,10 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Surprise Ivara Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphSurpriseIvara` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Surprise_Ivara_Glyph) |
 | Swarm Mutalist Moa Emblem | `/Lotus/Upgrades/Skins/Clan/InfTacAlertNaniteMoaAncientBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Swarm_Mutalist_Moa_Emblem) |
 | Swimmer Horrasque Tag | `/Lotus/Types/Items/Solaris/AnimalTagHorrasqueUncommon` | ExportResources | [page](https://wiki.warframe.com/w/Swimmer_Horrasque_Tag) |
-| Sybillina Ephemera | `/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Sybillina_Ephemera) |
-| Syndir Ephemera | `/Lotus/Upgrades/Skins/Effects/AshGeminiEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Syndir_Ephemera) |
-| Synkra Syandana | `/Lotus/Upgrades/Skins/Scarves/TnSmallBatteryCape` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Synkra_Syandana) |
 | Tadit Planter | `/Lotus/Types/Items/ShipDecos/TennoPlanterC` | ExportResources | [page](https://wiki.warframe.com/w/Tadit_Planter) |
 | Tagfer Floof | `/Lotus/Types/Items/ShipDecos/Plushies/DeerPlush` | ExportResources | [page](https://wiki.warframe.com/w/Tagfer_Floof) |
+| Tagfer Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaTagfer` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tagfer_Sigil) |
 | Tagfer Sketch Glyph | `/Lotus/Types/AvatarImages/Events/EventGlyphCaviaTagfer` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Tagfer_Sketch_Glyph) |
-| Tail Feather Ephemera | `/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tail_Feather_Ephemera) |
 | TAIL SECTION | `/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackTailFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/TAIL_SECTION) |
 | TAIL SECTION REPAIRS | `/Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackTailFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/TAIL_SECTION_REPAIRS) |
 | Tales of Duviri Storybook | `/Lotus/Types/Items/ShipDecos/DuviriBookQuestReward` | ExportResources | [page](https://wiki.warframe.com/w/Tales_of_Duviri_Storybook) |
@@ -2344,7 +2259,12 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Tauron Prime Sleeves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesPrimeF` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tauron_Prime_Sleeves) |
 | Taxon Day of the Dead Skin | `/Lotus/Upgrades/Skins/Halloween/DOTD2025TaxonSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Taxon_Day_of_the_Dead_Skin) |
 | TCN Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageTCN` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/TCN_Glyph) |
-| Tealtrian Ephemera | `/Lotus/Upgrades/Skins/Effects/ProteaDeluxeEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tealtrian_Ephemera) |
+| TECHNOCYTE CODA TOKEN | `/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedDJRomToken` | ExportResources | [page](https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN) |
+| TECHNOCYTE CODA TOKEN | `/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedDrillBitToken` | ExportResources | [page](https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN) |
+| TECHNOCYTE CODA TOKEN | `/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedHardDriveToken` | ExportResources | [page](https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN) |
+| TECHNOCYTE CODA TOKEN | `/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedLichToken` | ExportResources | [page](https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN) |
+| TECHNOCYTE CODA TOKEN | `/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedPacketToken` | ExportResources | [page](https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN) |
+| TECHNOCYTE CODA TOKEN | `/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedZekeToken` | ExportResources | [page](https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN) |
 | Technocyte DJ RoM Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyDJRomInfested` | ExportResources | [page](https://wiki.warframe.com/w/Technocyte_DJ_RoM_Floof) |
 | Technocyte Drillbit Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyDrillbitInfested` | ExportResources | [page](https://wiki.warframe.com/w/Technocyte_Drillbit_Floof) |
 | Technocyte Harddrive Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyHarddriveInfested` | ExportResources | [page](https://wiki.warframe.com/w/Technocyte_Harddrive_Floof) |
@@ -2360,25 +2280,27 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Temple Prex | `/Lotus/Types/Items/ShipDecos/TarotCardTemple` | ExportResources | [page](https://wiki.warframe.com/w/Temple_Prex) |
 | Ten Year Anniversary Emblem | `/Lotus/Upgrades/Skins/Clan/TenYearAnniversaryBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Ten_Year_Anniversary_Emblem) |
 | Ten Year Glyph | `/Lotus/Types/AvatarImages/TennoCon2023MerchGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Ten_Year_Glyph) |
-| Tenebrous Ephemera | `/Lotus/Upgrades/Skins/Effects/SentientDeadEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tenebrous_Ephemera) |
 | Tenens Honoria | `/Lotus/Types/Items/Titles/MedalRank9Title` | ExportFlavour | [page](https://wiki.warframe.com/w/Tenens_Honoria) |
 | Teng Dual Dagger Skin | `/Lotus/Upgrades/Skins/Nezha/NezhaDeluxeDualDaggerSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Teng_Dual_Dagger_Skin) |
 | Tenno Chronicler Emblem | `/Lotus/Upgrades/Skins/Clan/WikiaBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tenno_Chronicler_Emblem) |
+| Tenno Chronicler Sigil | `/Lotus/Upgrades/Skins/Sigils/WikiaSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tenno_Chronicler_Sigil) |
+| Tenno Live Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tenno_Live_Sigil) |
+| Tenno Luminary Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoLivePromoSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tenno_Luminary_Sigil) |
 | Tenno Mentor Emblem | `/Lotus/Upgrades/Skins/Clan/LotusGuideBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tenno_Mentor_Emblem) |
 | Tenno of a Thousand Days Honoria | `/Lotus/Types/Items/Titles/ThousandDaysLoginRewardTitle` | ExportFlavour | [page](https://wiki.warframe.com/w/Tenno_of_a_Thousand_Days_Honoria) |
 | Tenno Translator Glyph | `/Lotus/Types/AvatarImages/AvatarImageTennoTranslator` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Tenno_Translator_Glyph) |
 | Tenno Translator Sigil | `/Lotus/Upgrades/Skins/Sigils/TranslatorSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tenno_Translator_Sigil) |
+| TennoCon 2016 Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoCon2016Sigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_2016_Sigil) |
 | TennoCon 2017 Glyph | `/Lotus/Types/AvatarImages/TennoCon2017Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/TennoCon_2017_Glyph) |
-| TennoCon 2017 Syandana | `/Lotus/Upgrades/Skins/Scarves/TennoCon2017Scarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_2017_Syandana) |
-| TennoCon 2018 Chest Plate | `/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_2018_Chest_Plate) |
+| TennoCon 2017 Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoCon2017Sigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_2017_Sigil) |
 | TennoCon 2018 Glyph | `/Lotus/Types/AvatarImages/TennoCon2018Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/TennoCon_2018_Glyph) |
-| TennoCon 2018 Leg Plates | `/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorL` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_2018_Leg_Plates) |
-| TennoCon 2018 Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_2018_Shoulder_Plates) |
+| TennoCon 2018 Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_2018_Sigil) |
 | TennoCon 2019 Glyph | `/Lotus/Types/AvatarImages/TennoCon2019Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/TennoCon_2019_Glyph) |
 | TennoCon 2019 Grineer Security Glyph | `/Lotus/Types/AvatarImages/Gamification2019Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/TennoCon_2019_Grineer_Security_Glyph) |
 | TennoCon 2019 Sanctuary Showcase Glyph | `/Lotus/Types/AvatarImages/TennoCon2019SimarisGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/TennoCon_2019_Sanctuary_Showcase_Glyph) |
+| TennoCon 2019 Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_2019_Sigil) |
 | TennoCon 2020 Glyph | `/Lotus/Types/AvatarImages/TennoCon2020Glyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/TennoCon_2020_Glyph) |
-| TennoCon 2020 Syandana | `/Lotus/Upgrades/Skins/Scarves/TennoCon2020Scarf` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_2020_Syandana) |
+| TennoCon 2020 Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_2020_Sigil) |
 | TennoCon 2021 - Art Award | `/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBaseTrophy` | ExportResources | [page](https://wiki.warframe.com/w/TennoCon_2021_-_Art_Award) |
 | TennoCon 2021 - Best In Show Award | `/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBestInShowTrophy` | ExportResources | [page](https://wiki.warframe.com/w/TennoCon_2021_-_Best_In_Show_Award) |
 | TennoCon 2021 - Clem's Choice Award | `/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayTrophy` | ExportResources | [page](https://wiki.warframe.com/w/TennoCon_2021_-_Clem%27s_Choice_Award) |
@@ -2449,8 +2371,10 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | TennoCon Emblem | `/Lotus/Upgrades/Skins/Clan/TennoCon2016BadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoCon_Emblem) |
 | TennoGen Decennial Emblem | `/Lotus/Upgrades/Skins/Clan/Tennogen10YearBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoGen_Decennial_Emblem) |
 | TennoGen Decennial Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageTennoGen10Year` | ExportFlavour | [page](https://wiki.warframe.com/w/TennoGen_Decennial_Glyph) |
+| TennoGen Decennial Sigil | `/Lotus/Upgrades/Skins/Sigils/Tennogen10YearSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoGen_Decennial_Sigil) |
 | TennoGen Emblem | `/Lotus/Upgrades/Skins/Clan/TennoGenBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoGen_Emblem) |
 | TennoGen Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageTennoGen` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/TennoGen_Glyph) |
+| TennoGen Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoGenSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoGen_Sigil) |
 | Tennotober 2021 Prex | `/Lotus/Types/Items/ShipDecos/TarotCard2021Tennotober` | ExportResources | [page](https://wiki.warframe.com/w/Tennotober_2021_Prex) |
 | Tennotober 2022 Prex | `/Lotus/Types/Items/ShipDecos/TarotCard2022Tennotober` | ExportResources | [page](https://wiki.warframe.com/w/Tennotober_2022_Prex) |
 | Tennotober 2023 Prex | `/Lotus/Types/Items/ShipDecos/TarotCard2023Tennotober` | ExportResources | [page](https://wiki.warframe.com/w/Tennotober_2023_Prex) |
@@ -2466,6 +2390,7 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | TennoVIP East Glyph | `/Lotus/Types/AvatarImages/AvatarImageTennoVIP` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/TennoVIP_East_Glyph) |
 | TennoVIP East Sigil | `/Lotus/Upgrades/Skins/Sigils/TennoVIP2024Sigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/TennoVIP_East_Sigil) |
 | TennoVIP Glyph 2026 | `/Lotus/Types/AvatarImages/AvatarImageTennoVIP2026Glyph` | ExportFlavour | [page](https://wiki.warframe.com/w/TennoVIP_Glyph_2026) |
+| Teralyst Prominence Sigil | `/Lotus/Upgrades/Skins/Sigils/DawnsEarlyLightSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Teralyst_Prominence_Sigil) |
 | Tertium | `/Lotus/Types/Gameplay/Duviri/Resource/DuviriEndlessItem` | ExportResources | [page](https://wiki.warframe.com/w/Tertium) |
 | Teshin Glyph | `/Lotus/Types/AvatarImages/AvatarImageTeshinVed` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Teshin_Glyph) |
 | Teshin Statue | `/Lotus/Types/Items/ShipDecos/TeshinBust` | ExportResources | [page](https://wiki.warframe.com/w/Teshin_Statue) |
@@ -2487,7 +2412,9 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | The Holdfasts | `/Lotus/Syndicates/Zariman/ZarimanSyndicate` | ExportSyndicates | [page](https://wiki.warframe.com/w/The_Holdfasts) |
 | The Illusionist | `/Lotus/Upgrades/Skins/Mustache/Stache08` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/The_Illusionist) |
 | The Index Emblem | `/Lotus/Upgrades/Skins/Clan/IndexEventBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/The_Index_Emblem) |
+| The Index Sigil | `/Lotus/Upgrades/Skins/Sigils/EventSigilIndex` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/The_Index_Sigil) |
 | The Inventor | `/Lotus/Upgrades/Skins/Mustache/Stache10` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/The_Inventor) |
+| The Limbo Theorem | `/Lotus/Types/Keys/LimboQuest/LimboQuestKeyChain` | warframe-items | [page](https://wiki.warframe.com/w/The_Limbo_Theorem) |
 | The Magnum | `/Lotus/Upgrades/Skins/Mustache/Stache03` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/The_Magnum) |
 | The Master | `/Lotus/Upgrades/Skins/Mustache/Stache09` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/The_Master) |
 | The New War | `/Lotus/Types/Items/Emotes/Tennocon2020AEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/The_New_War) |
@@ -2498,6 +2425,7 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | The Scarlet Queen Honoria | `/Lotus/Types/Items/Titles/RoatheTitles/TitleGaruda` | ExportFlavour | [page](https://wiki.warframe.com/w/The_Scarlet_Queen_Honoria) |
 | The Scooticle | `/Lotus/Types/Gameplay/1999Wf/Gifts/Scooter` | ExportResources | [page](https://wiki.warframe.com/w/The_Scooticle) |
 | The Shopkeep | `/Lotus/Upgrades/Skins/Mustache/Stache07` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/The_Shopkeep) |
+| The Silver Grove | `/Lotus/Types/Keys/FairyQuest/FairyQuestKeyChain` | warframe-items | [page](https://wiki.warframe.com/w/The_Silver_Grove) |
 | The Steel Path - 1999 | `/Lotus/Types/Items/ShipDecos/PlanetTrophies/PlanetTrophy1999Bronze` | ExportResources | [page](https://wiki.warframe.com/w/The_Steel_Path_-_1999) |
 | The Steel Path - Ceres | `/Lotus/Types/Items/ShipDecos/PlanetTrophies/PlanetTrophyCeresBronze` | ExportResources | [page](https://wiki.warframe.com/w/The_Steel_Path_-_Ceres) |
 | The Steel Path - Dark Refractory | `/Lotus/Types/Items/ShipDecos/PlanetTrophies/PlanetTrophyPeritaBronze` | ExportResources | [page](https://wiki.warframe.com/w/The_Steel_Path_-_Dark_Refractory) |
@@ -2556,7 +2484,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | The Villain | `/Lotus/Upgrades/Skins/Mustache/Stache04` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/The_Villain) |
 | The War Within Choice Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileTWWTeshinEnding` | ExportResources | [page](https://wiki.warframe.com/w/The_War_Within_Choice_Scene) |
 | The Warden of Alchemy Honoria | `/Lotus/Types/Items/Titles/RoatheTitles/TitleLavos` | ExportFlavour | [page](https://wiki.warframe.com/w/The_Warden_of_Alchemy_Honoria) |
-| Thermian RPG | `/Lotus/Types/Restoratives/ThermianRPGSummon` | ExportGear | [page](https://wiki.warframe.com/w/Thermian_RPG) |
 | Thousand Days | `/Lotus/Types/Items/Emotes/ThousandDaysEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Thousand_Days) |
 | Thrax Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2023ThraxGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Thrax_Tennobaum_Glyph) |
 | Tiamat Shawzin | `/Lotus/Types/Items/ShipDecos/LisetPropMandolinSentient` | ExportResources | [page](https://wiki.warframe.com/w/Tiamat_Shawzin) |
@@ -2575,11 +2502,12 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Titania Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageTitaniaPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Titania_Prime_Glyph_-_Bright) |
 | Titania Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageTitaniaPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Titania_Prime_Glyph_-_Dark) |
 | To The City | `/Lotus/Types/Items/ShipDecos/CorpusGreedReliefB` | ExportResources | [page](https://wiki.warframe.com/w/To_The_City) |
+| Tolling Sigil | `/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014C` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Tolling_Sigil) |
 | Top Hat & Monocle Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageSzczebrzeszyniarz` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Top_Hat_%26_Monocle_Glyph) |
 | Traciens Glaive Skin | `/Lotus/Upgrades/Skins/Deluxe/ProteaDeluxeGlaiveSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Traciens_Glaive_Skin) |
+| Trailer Entrant Sigil | `/Lotus/Upgrades/Skins/Sigils/SigilVideoContest` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Trailer_Entrant_Sigil) |
 | Transmission | `/Lotus/Types/SuitCustomizations/ColourPickerTransmissionItemA` | ExportFlavour | [page](https://wiki.warframe.com/w/Transmission) |
 | Transmutation Probe Prime Decoration | `/Lotus/Types/Items/ShipDecos/LavosPrimeDeviceDeco` | ExportResources | [page](https://wiki.warframe.com/w/Transmutation_Probe_Prime_Decoration) |
-| Trembera Essence | `/Lotus/Types/Items/RelayRebuild/PhaseThreeEarthEssence` | ExportResources | [page](https://wiki.warframe.com/w/Trembera_Essence) |
 | Trick Or Ballas Glyph | `/Lotus/Types/AvatarImages/Seasonal/Halloween2019TrickOrBalas` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Trick_Or_Ballas_Glyph) |
 | Trinity Mask | `/Lotus/Upgrades/Skins/Ostron/TrinityMask` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Trinity_Mask) |
 | Trinity Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageTrinityPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Trinity_Prime_Glyph_-_Bright) |
@@ -2587,7 +2515,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Trinity Strega Helmet | `/Lotus/Upgrades/Skins/Trinity/TrinityDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Trinity_Strega_Helmet) |
 | True Master Mastery Slate | `/Lotus/Types/Items/ShipDecos/MasteryTrophies/Rank30Trophy` | ExportResources | [page](https://wiki.warframe.com/w/True_Master_Mastery_Slate) |
 | True Master Sumdali | `/Lotus/Upgrades/Skins/Liset/MasteryHoodOrnament` | ExportFlavour | [page](https://wiki.warframe.com/w/True_Master_Sumdali) |
-| Tubercular Gill System | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosGenericOrokinFishPartItem` | ExportResources | [page](https://wiki.warframe.com/w/Tubercular_Gill_System) |
 | Tusk Thumper Bull Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyThumperMedium` | ExportResources | [page](https://wiki.warframe.com/w/Tusk_Thumper_Bull_Floof) |
 | Tusk Thumper Doma Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyThumperLarge` | ExportResources | [page](https://wiki.warframe.com/w/Tusk_Thumper_Doma_Floof) |
 | Tusk Thumper Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyThumper` | ExportResources | [page](https://wiki.warframe.com/w/Tusk_Thumper_Floof) |
@@ -2598,12 +2525,10 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Twin Vipers Wraith Barrels | `/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithBarrel` | ExportResources | [page](https://wiki.warframe.com/w/Twin_Vipers_Wraith_Barrels) |
 | Twin Vipers Wraith Link | `/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithLink` | ExportResources | [page](https://wiki.warframe.com/w/Twin_Vipers_Wraith_Link) |
 | Twin Vipers Wraith Receivers | `/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithReceiver` | ExportResources | [page](https://wiki.warframe.com/w/Twin_Vipers_Wraith_Receivers) |
-| Udyat Iridos Syandana | `/Lotus/Characters/Tenno/Accessory/Scarves/U17IntermScarf/IridosUdyatSkin/UdyatPrimeGamingSyandana` | ExportCustoms | [page](https://wiki.warframe.com/w/Udyat_Iridos_Syandana) |
 | Ueymag Decoration | `/Lotus/Types/Items/ShipDecos/Plants/LisetPropDUVxGardeningCactus` | ExportResources | [page](https://wiki.warframe.com/w/Ueymag_Decoration) |
 | Ulfrun’s Leverian Mural | `/Lotus/Types/Items/ShipDecos/Leverian/LisetPropMuralFenrus` | ExportResources | [page](https://wiki.warframe.com/w/Ulfrun%E2%80%99s_Leverian_Mural) |
 | UMBER UNDAZOA TAG | `/Lotus/Types/Items/Deimos/AnimalTagInfestedZongroCommon` | ExportResources | [page](https://wiki.warframe.com/w/UMBER_UNDAZOA_TAG) |
 | Umbra's Courtyard Scene | `/Lotus/Types/Items/MiscItems/PhotoboothTileSacrificeCourtyard` | ExportResources | [page](https://wiki.warframe.com/w/Umbra%27s_Courtyard_Scene) |
-| Unairu Badge | `/Lotus/Upgrades/Skins/Armor/FocusSchool/UnairuCArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Unairu_Badge) |
 | Unairu Emblem | `/Lotus/Upgrades/Skins/Clan/Focus/UnairuBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Unairu_Emblem) |
 | Unairu Paint A | `/Lotus/Upgrades/Skins/Operator/MakeupMasks/UnairuMaskA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Unairu_Paint_A) |
 | Unairu Paint B | `/Lotus/Upgrades/Skins/Operator/MakeupMasks/UnairuMaskB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Unairu_Paint_B) |
@@ -2638,6 +2563,7 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Valkyr Talons | `/Lotus/Powersuits/Berserker/BerserkerMelee` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Valkyr_Talons) |
 | Vallis Fern | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropSVFoliagePurpleLarge` | ExportResources | [page](https://wiki.warframe.com/w/Vallis_Fern) |
 | Vallis Mushrooms (Small Group) | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropSvCaveMushroomE` | ExportResources | [page](https://wiki.warframe.com/w/Vallis_Mushrooms_(Small_Group)) |
+| Vanquished Coda Sigil | `/Lotus/Upgrades/Skins/Sigils/InfLichVanquishedSigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vanquished_Coda_Sigil) |
 | VAPOROUS UNDAZOA TAG | `/Lotus/Types/Items/Deimos/AnimalTagInfestedZongroUncommon` | ExportResources | [page](https://wiki.warframe.com/w/VAPOROUS_UNDAZOA_TAG) |
 | Varida Hood | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultNewC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Varida_Hood) |
 | Varida Leggings | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultNewC` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Varida_Leggings) |
@@ -2661,7 +2587,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Vauban Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageVaubanPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Vauban_Prime_Glyph_-_Bright) |
 | Vauban Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageVaubanPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Vauban_Prime_Glyph_-_Dark) |
 | Vay Hek Nav Coordinate | `/Lotus/Types/Items/MiscItems/HekNavCode` | ExportResources | [page](https://wiki.warframe.com/w/Vay_Hek_Nav_Coordinate) |
-| Vazarin Badge | `/Lotus/Upgrades/Skins/Armor/FocusSchool/VazarinCArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vazarin_Badge) |
 | Vazarin Emblem | `/Lotus/Upgrades/Skins/Clan/Focus/VazarinBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vazarin_Emblem) |
 | Vazarin Paint A | `/Lotus/Upgrades/Skins/Operator/MakeupMasks/VazarinMaskA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vazarin_Paint_A) |
 | Vazarin Paint B | `/Lotus/Upgrades/Skins/Operator/MakeupMasks/VazarinMaskB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vazarin_Paint_B) |
@@ -2672,18 +2597,10 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Velimir Gemini Emote | `/Lotus/Types/Items/Emotes/LegendaryVelimirEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Velimir_Gemini_Emote) |
 | Vena Gemini Emote | `/Lotus/Types/Items/Emotes/LegendaryWytchEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Vena_Gemini_Emote) |
 | Vena's Talons | `/Lotus/Upgrades/Skins/Garuda/GarudaGeminiClawsSkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vena%27s_Talons) |
-| Vengeful Chill Ephemera | `/Lotus/Upgrades/Skins/Effects/Kuva/KuvaIceEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vengeful_Chill_Ephemera) |
-| Vengeful Flame Ephemera | `/Lotus/Upgrades/Skins/Effects/Kuva/KuvaFireEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vengeful_Flame_Ephemera) |
-| Vengeful Pull Ephemera | `/Lotus/Upgrades/Skins/Effects/Kuva/KuvaMagneticEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vengeful_Pull_Ephemera) |
-| Vengeful Shockwave Ephemera | `/Lotus/Upgrades/Skins/Effects/Kuva/KuvaImpactEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vengeful_Shockwave_Ephemera) |
-| Vengeful Toxin Ephemera | `/Lotus/Upgrades/Skins/Effects/Kuva/KuvaToxinEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vengeful_Toxin_Ephemera) |
-| Vengeful Trickster Ephemera | `/Lotus/Upgrades/Skins/Effects/Kuva/KuvaTricksterEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vengeful_Trickster_Ephemera) |
 | Ventkids | `/Lotus/Syndicates/Solaris/VentKidsSyndicate` | ExportSyndicates | [page](https://wiki.warframe.com/w/Ventkids) |
 | Venus Bounty Trap | `/Lotus/Types/Items/ShipDecos/Venus/VenusBountyTrap` | ExportResources | [page](https://wiki.warframe.com/w/Venus_Bounty_Trap) |
 | Venus Brown | `/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorVibrantH` | ExportFlavour | [page](https://wiki.warframe.com/w/Venus_Brown) |
 | VENUS NAV SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/VenusNavigationFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/VENUS_NAV_SEGMENT) |
-| Verglas | `/Lotus/Types/Sentinels/SentinelWeapons/SentinelFreezeRayRifle` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Verglas) |
-| Verglas Prime | `/Lotus/Types/Sentinels/SentinelWeapons/SentinelFreezeRayPrimeRifle` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Verglas_Prime) |
 | Vermillion Kavat Armor | `/Lotus/Upgrades/Skins/Catbrows/Armor/VermillionKavatArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vermillion_Kavat_Armor) |
 | Verv Atelia Syandana | `/Lotus/Upgrades/Skins/Scarves/Twitch2021Syandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Verv_Atelia_Syandana) |
 | Verv Emblem | `/Lotus/Upgrades/Skins/Clan/TwitchPromo2021BadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Verv_Emblem) |
@@ -2696,7 +2613,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Verv Sentrex Stencil | `/Lotus/Types/Game/QuartersWallpapers/TwitchPrimeWallpaper` | ExportFlavour | [page](https://wiki.warframe.com/w/Verv_Sentrex_Stencil) |
 | Verv Sigil | `/Lotus/Upgrades/Skins/Sigils/TwitchPromo2021Sigil` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Verv_Sigil) |
 | Veso-R Tennobaum Glyph | `/Lotus/Types/AvatarImages/Xmas2021NutcorpusGlyph` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Veso-R_Tennobaum_Glyph) |
-| Vessel Capillaries | `/Lotus/Types/Gameplay/EntratiLab/Resources/VesselCapillaries` | ExportResources | [page](https://wiki.warframe.com/w/Vessel_Capillaries) |
 | Vestan Moss Decoration | `/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropMossGroundCoverA` | ExportResources | [page](https://wiki.warframe.com/w/Vestan_Moss_Decoration) |
 | Vilkas Prime Sumdali | `/Lotus/Upgrades/Skins/Liset/VorunaPrimeHoodOrnament` | ExportFlavour | [page](https://wiki.warframe.com/w/Vilkas_Prime_Sumdali) |
 | Vintage Corpus Locker | `/Lotus/Types/Items/ShipDecos/LisetPropOldLocker` | ExportResources | [page](https://wiki.warframe.com/w/Vintage_Corpus_Locker) |
@@ -2705,16 +2621,11 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Viper Rubedo Plated Skin | `/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoViperCamo` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Viper_Rubedo_Plated_Skin) |
 | VIRIDIAN NEXIFERA TAG | `/Lotus/Types/Items/Deimos/AnimalTagInfestedNexiferaUncommon` | ExportResources | [page](https://wiki.warframe.com/w/VIRIDIAN_NEXIFERA_TAG) |
 | Viscid Avichaea Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedMergooRare` | ExportResources | [page](https://wiki.warframe.com/w/Viscid_Avichaea_Tag) |
-| Viserakta Ephemera | `/Lotus/Upgrades/Skins/Effects/GarudaBloodEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Viserakta_Ephemera) |
-| Vitam Prime Syandana | `/Lotus/Upgrades/Skins/Scarves/VitamPrimeSyandana` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vitam_Prime_Syandana) |
 | Vitrific Outcrop Decoration | `/Lotus/Types/Items/ShipDecos/Props/LisetPropOrbStone` | ExportResources | [page](https://wiki.warframe.com/w/Vitrific_Outcrop_Decoration) |
-| Vizier Predasite | `/Lotus/Types/Items/Deimos/WoundedInfestedPredatorCommonRewardItem` | ExportWeapons | [page](https://wiki.warframe.com/w/Vizier_Predasite) |
 | Vizier Predasite Tag | `/Lotus/Types/Items/Deimos/AnimalTagInfestedPredatorCommon` | ExportResources | [page](https://wiki.warframe.com/w/Vizier_Predasite_Tag) |
 | Void Black | `/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorMidE` | ExportFlavour | [page](https://wiki.warframe.com/w/Void_Black) |
 | Void Mirror Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Gate` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Void_Mirror_Glyph) |
 | Void Moon Glyph | `/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Bird` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Void_Moon_Glyph) |
-| Void Relic | `/Lotus/Types/Game/Projections/T0VoidProjection` | ExportResources | [page](https://wiki.warframe.com/w/Void_Relic) |
-| Void Relic | `/Lotus/Types/Game/Projections/T5VoidProjectionImmortalOmni` | ExportResources | [page](https://wiki.warframe.com/w/Void_Relic) |
 | VOID RELIC SEGMENT | `/Lotus/Types/Items/ShipFeatureItems/VoidProjectionFeatureItem` | ExportResources | [page](https://wiki.warframe.com/w/VOID_RELIC_SEGMENT) |
 | Void's Song Shawzin | `/Lotus/Types/Items/ShipDecos/LisetPropShawzinZarimanVoid` | ExportResources | [page](https://wiki.warframe.com/w/Void%27s_Song_Shawzin) |
 | Voidrig Necramech Helmet | `/Lotus/Upgrades/Skins/Necramech/NecramechVoidRigDefaultHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Voidrig_Necramech_Helmet) |
@@ -2723,7 +2634,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Voidshell Sleeves | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesChameleon` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Voidshell_Sleeves) |
 | Voidshell Suit | `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitChameleon` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Voidshell_Suit) |
 | Volatile Mote Honoria | `/Lotus/Types/Items/Titles/BOTBEventVendor3Title` | ExportFlavour | [page](https://wiki.warframe.com/w/Volatile_Mote_Honoria) |
-| Volatile Motes | `/Lotus/Types/Gameplay/JadeShadows/Resources/AscensionEventResourceItem` | ExportResources | [page](https://wiki.warframe.com/w/Volatile_Motes) |
 | Volt Amethyst Helmet | `/Lotus/Upgrades/Skins/Volt/DiscordVoltHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Volt_Amethyst_Helmet) |
 | Volt Electrolyst Helmet | `/Lotus/Upgrades/Skins/Volt/VoltDeluxeBHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Volt_Electrolyst_Helmet) |
 | Volt Mask | `/Lotus/Upgrades/Skins/Ostron/VoltMask` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Volt_Mask) |
@@ -2743,7 +2653,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Voruna Voidshell Helmet | `/Lotus/Upgrades/Skins/Werewolf/VorunaVoidShellHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Voruna_Voidshell_Helmet) |
 | Vox Solaris | `/Lotus/Syndicates/Solaris/VoxSyndicate` | ExportSyndicates | [page](https://wiki.warframe.com/w/Vox_Solaris) |
 | Vox Solaris Mask | `/Lotus/Upgrades/Skins/Operator/Accessories/OperatorNefAnyoMask` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Vox_Solaris_Mask) |
-| Vulklok | `/Lotus/Types/Sentinels/SentinelWeapons/SentElecRailgun` | warframe-items, ExportWeapons | [page](https://wiki.warframe.com/w/Vulklok) |
 | War Prime | `/Lotus/Weapons/Tenno/Melee/Swords/PrimeWar/PrimeWarWeapon` | ExportWeapons | [page](https://wiki.warframe.com/w/War_Prime) |
 | Warframe Articula | `/Lotus/Types/Items/ShipDecos/Vignettes/Warframes/WarframeAFItem` | ExportResources | [page](https://wiki.warframe.com/w/Warframe_Articula) |
 | Warframe Creator Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerUpdated` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Warframe_Creator_Glyph) |
@@ -2758,7 +2667,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | WarframeFanChannel Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageWarframeFanChannel` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/WarframeFanChannel_Glyph) |
 | Wave Rider Honoria | `/Lotus/Types/Items/Titles/KRacerTitle` | ExportFlavour | [page](https://wiki.warframe.com/w/Wave_Rider_Honoria) |
 | Waveform Ephemera | `/Lotus/Upgrades/Skins/Effects/NightwaveIntermissionEphemera` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Waveform_Ephemera) |
-| Waxen Sebum Deposit | `/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishDPartItem` | ExportResources | [page](https://wiki.warframe.com/w/Waxen_Sebum_Deposit) |
 | We Are Corpus | `/Lotus/Types/Items/ShipDecos/CorpusGreedReliefK` | ExportResources | [page](https://wiki.warframe.com/w/We_Are_Corpus) |
 | Werefested Glyph | `/Lotus/Types/AvatarImages/Seasonal/Halloween2019Werefested` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Werefested_Glyph) |
 | What Is My Fate | `/Lotus/Types/Items/SongItems/WhatIsMyFateSongItem` | ExportResources | [page](https://wiki.warframe.com/w/What_Is_My_Fate) |
@@ -2799,7 +2707,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Wisp Prime Glyph - Bright | `/Lotus/Types/AvatarImages/Primes/ImageWispPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Wisp_Prime_Glyph_-_Bright) |
 | Wisp Prime Glyph - Dark | `/Lotus/Types/AvatarImages/Primes/ImageWispPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Wisp_Prime_Glyph_-_Dark) |
 | Wisp Prime Shroud | `/Lotus/Upgrades/Skins/Wisp/WispPrimeDefaultCape` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Wisp_Prime_Shroud) |
-| Wisp Prime Theme | `/Lotus/Types/Items/SongItems/WispPrimeSongItem` | ExportResources | [page](https://wiki.warframe.com/w/Wisp_Prime_Theme) |
 | Wisp Somnium Helmet | `/Lotus/Upgrades/Skins/Wisp/WispDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Wisp_Somnium_Helmet) |
 | Wolf Cred | `/Lotus/Types/Items/MiscItems/NoraWolfCreds` | ExportResources | [page](https://wiki.warframe.com/w/Wolf_Cred) |
 | Wolf Howl | `/Lotus/Types/Items/Emotes/WolfRageEmote` | ExportFlavour | [page](https://wiki.warframe.com/w/Wolf_Howl) |
@@ -2870,9 +2777,7 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Zauba Greaves | `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultG` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Zauba_Greaves) |
 | Zauba Mask | `/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultG` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Zauba_Mask) |
 | Zauba Pauldrons | `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultG` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Zauba_Pauldrons) |
-| Zealot Derelict Code | `/Lotus/Types/Items/MiscItems/AntiSerumInjector` | ExportResources | [page](https://wiki.warframe.com/w/Zealot_Derelict_Code) |
 | Zeke Floof | `/Lotus/Types/Items/ShipDecos/Plushies/PlushyZekeHuman` | ExportResources | [page](https://wiki.warframe.com/w/Zeke_Floof) |
-| Zenurik Badge | `/Lotus/Upgrades/Skins/Armor/FocusSchool/ZenurikCArmor` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Zenurik_Badge) |
 | Zenurik Emblem | `/Lotus/Upgrades/Skins/Clan/Focus/ZenurikBadgeItem` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Zenurik_Emblem) |
 | Zenurik Paint A | `/Lotus/Upgrades/Skins/Operator/MakeupMasks/ZenurikMaskA` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Zenurik_Paint_A) |
 | Zenurik Paint B | `/Lotus/Upgrades/Skins/Operator/MakeupMasks/ZenurikMaskB` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Zenurik_Paint_B) |
@@ -2881,7 +2786,6 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Zenurik Vanguard Honoria | `/Lotus/Types/Items/Titles/ZenurikFocusHoarderTitle` | ExportFlavour | [page](https://wiki.warframe.com/w/Zenurik_Vanguard_Honoria) |
 | Zenurik Vosphene | `/Lotus/Types/Items/ShipDecos/Operator/SchoolDecalZenurik` | ExportResources | [page](https://wiki.warframe.com/w/Zenurik_Vosphene) |
 | Zephyr Conquera Helmet | `/Lotus/Upgrades/Skins/Tengu/ZephyrQTCCHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Zephyr_Conquera_Helmet) |
-| Zephyr Conquera Skin | `/Lotus/Upgrades/Skins/Tengu/ZephyrQTCCBodySkin` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Zephyr_Conquera_Skin) |
 | Zephyr Harrier Helmet | `/Lotus/Upgrades/Skins/Tengu/ZephyrDeluxeHelmet` | ExportCustoms, Cosmetics | [page](https://wiki.warframe.com/w/Zephyr_Harrier_Helmet) |
 | Zephyr Prime Glyph - Bright | `/Lotus/Types/AvatarImages/ImageZephyrPrimeBright` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Zephyr_Prime_Glyph_-_Bright) |
 | Zephyr Prime Glyph - Dark | `/Lotus/Types/AvatarImages/ImageZephyrPrimeDark` | ExportFlavour, Glyphs | [page](https://wiki.warframe.com/w/Zephyr_Prime_Glyph_-_Dark) |
@@ -2955,10 +2859,16 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Domestik Carrion Drone | `/Lotus/Types/Items/ShipDecos/LisetPropOrokinMaggot` | ExportResources | page not found |
 | Dreamers | `/Lotus/Types/Restoratives/LisetStun` | ExportGear | page not found |
 | Easter | `/Lotus/Types/SuitCustomizations/ColourPickerEasterItemA` | ExportFlavour | page not found |
+| Eidolon Madurai Lens | `/Lotus/Upgrades/Focus/AttackLensOstron` | warframe-items, ExportResources | page not found |
+| Eidolon Naramon Lens | `/Lotus/Upgrades/Focus/TacticLensOstron` | warframe-items, ExportResources | page not found |
 | Eidolon Teralyst Articula | `/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystAFItem` | ExportResources | page not found |
+| Eidolon Unairu Lens | `/Lotus/Upgrades/Focus/WardLensOstron` | warframe-items, ExportResources | page not found |
+| Eidolon Vazarin Lens | `/Lotus/Upgrades/Focus/DefenseLensOstron` | warframe-items, ExportResources | page not found |
+| Eidolon Zenurik Lens | `/Lotus/Upgrades/Focus/PowerLensOstron` | warframe-items, ExportResources | page not found |
 | Ember Pyraxis Chest Plate | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/EmberDeluxeIIChestArmor` | ExportCustoms, Cosmetics | page not found |
 | Ember Pyraxis Shoulder Pads | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/EmberDeluxeIIArmArmor` | ExportCustoms, Cosmetics | page not found |
 | EMISSARY  STANDING | `/Lotus/Types/Items/SyndicateDogTags/NoraInfestedDogTag` | ExportResources | page not found |
+| Emissary Sigil | `/Lotus/Upgrades/Skins/Sigils/NoraSeasonTwoSigil` | ExportCustoms, Cosmetics | page not found |
 | Emperor Condroc Tag | `/Lotus/Types/Items/Eidolon/AnimalTagCondrocRare` | ExportResources | page not found |
 | Exalted Mark | `/Lotus/Types/Items/SyndicateDogTags/RedVeilRareDogTag` | ExportResources | page not found |
 | Exalted Prime Blade | `/Lotus/Powersuits/Excalibur/DoomSwordPrime` | warframe-items, ExportWeapons | page not found |
@@ -3011,6 +2921,11 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Lavos Yersin Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWLavosYersinArmArmor` | ExportCustoms, Cosmetics | page not found |
 | Legacy Mastery Sigil | `/Lotus/Upgrades/Skins/Sigils/MasterySigil` | ExportCustoms, Cosmetics | page not found |
 | Loki Verv Skin | `/Lotus/Upgrades/Skins/Loki/LokiTwitchSkin` | ExportCustoms, Cosmetics | page not found |
+| Lua Madurai Lens | `/Lotus/Upgrades/Focus/AttackLensLua` | warframe-items, ExportResources | page not found |
+| Lua Naramon Lens | `/Lotus/Upgrades/Focus/TacticLensLua` | warframe-items, ExportResources | page not found |
+| Lua Unairu Lens | `/Lotus/Upgrades/Focus/WardLensLua` | warframe-items, ExportResources | page not found |
+| Lua Vazarin Lens | `/Lotus/Upgrades/Focus/DefenseLensLua` | warframe-items, ExportResources | page not found |
+| Lua Zenurik Lens | `/Lotus/Upgrades/Focus/PowerLensLua` | warframe-items, ExportResources | page not found |
 | Mandachord Body | `/Lotus/Types/Keys/BardQuest/BardQuestSequencerPartA` | ExportResources | page not found |
 | Mandachord Bridge | `/Lotus/Types/Keys/BardQuest/BardQuestSequencerPartC` | ExportResources | page not found |
 | Mandachord Fret | `/Lotus/Types/Keys/BardQuest/BardQuestSequencerPartB` | ExportResources | page not found |
@@ -3029,6 +2944,7 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Nimandi Prime Chest Plate | `/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorC` | ExportCustoms, Cosmetics | page not found |
 | Nimandi Prime Leg Plates | `/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorL` | ExportCustoms, Cosmetics | page not found |
 | Nimandi Prime Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorA` | ExportCustoms, Cosmetics | page not found |
+| Nistlebrush Sigil | `/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014B` | ExportCustoms, Cosmetics | page not found |
 | Nvidia Braton | `/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin` | ExportCustoms, Cosmetics | page not found |
 | Oberon Wendigo Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWOberonWendigoArmArmor` | ExportCustoms, Cosmetics | page not found |
 | Oberon Youkai Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWOberonYoukaiArmArmor` | ExportCustoms, Cosmetics | page not found |
@@ -3100,6 +3016,7 @@ Dreams of the Dead Cred | `/Lotus/Types/Items/MiscItems/NoraIntermissionFourteen
 | Voruna Medeina Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/VorunaDeluxeArmArmor` | ExportCustoms, Cosmetics | page not found |
 | Voruna Voidshell Armor | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/WerewolfVoidshellArmArmor` | ExportCustoms, Cosmetics | page not found |
 | Waverider #1 | `/Lotus/Types/Items/ShipDecos/YareliQuestComic` | ExportResources | page not found |
+| Wreath Sigil | `/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014A` | ExportCustoms, Cosmetics | page not found |
 | Wukong Samadhi Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/WukongDeluxeArmArmor` | ExportCustoms, Cosmetics | page not found |
 | Zato Shoulder Plate | `/Lotus/Upgrades/Skins/Armor/WarframeDefaults/ExcaliburDeluxeArmArmor` | ExportCustoms, Cosmetics | page not found |
 

@@ -1,10 +1,10 @@
 {
-  "generated": "2026-08-15T03:51:10.565Z",
+  "generated": "2026-08-15T04:05:26.632Z",
   "stats": {
-    "total": 3054,
-    "pages": 2846,
-    "acquisitionSections": 35,
-    "missingPages": 208,
+    "total": 2971,
+    "pages": 2750,
+    "acquisitionSections": 12,
+    "missingPages": 221,
     "errors": 0
   },
   "items": [
@@ -169,19 +169,6 @@
       "acquisition": null
     },
     {
-      "name": "Aklato Day of the Dead Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenAklato",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1630360,
-      "title": "Aklato Day of the Dead Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Aklato_Day_of_the_Dead_Skin",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for  20 or as part of Day of the Dead Weapon Skin Pack  175"
-      }
-    },
-    {
       "name": "Aklato Opal Skin",
       "uniqueName": "/Lotus/Upgrades/Skins/Promo/Nintendo/NintendoAklatoSkin",
       "category": "ExportCustoms, Cosmetics",
@@ -209,16 +196,6 @@
       "title": "Akomeogi Warfan Skin",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Akomeogi_Warfan_Skin",
-      "acquisition": null
-    },
-    {
-      "name": "Akvasto Day of the Dead Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenAkvasto",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1630376,
-      "title": "Akvasto Day of the Dead Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Akvasto_Day_of_the_Dead_Skin",
       "acquisition": null
     },
     {
@@ -952,6 +929,16 @@
       "acquisition": null
     },
     {
+      "name": "Aspirant Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilZorba",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Aspirant Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Aspirant_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Aspirant Syandana",
       "uniqueName": "/Lotus/Upgrades/Skins/Scarves/ZorbaScarf",
       "category": "ExportCustoms, Cosmetics",
@@ -1099,6 +1086,16 @@
       "title": "Atramentum Emblem",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Atramentum_Emblem",
+      "acquisition": null
+    },
+    {
+      "name": "Atramentum Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilShadowgrapher",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Atramentum Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Atramentum_Sigil",
       "acquisition": null
     },
     {
@@ -1512,19 +1509,6 @@
       "acquisition": null
     },
     {
-      "name": "Batoten",
-      "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeaponIP",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 1549481,
-      "title": "Batoten",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Batoten",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "The Batoten is automatically acquired upon claiming a Hound configured with the Dorma Model. Note that this weapon also takes up one Sentinel inventory slot."
-      }
-    },
-    {
       "name": "Battlecry Ink",
       "uniqueName": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooNightwaveCommando",
       "category": "ExportCustoms, Cosmetics",
@@ -1585,16 +1569,6 @@
       "acquisition": null
     },
     {
-      "name": "Benign Infested Tumor",
-      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosGenericSharedFishPartItem",
-      "category": "ExportResources",
-      "pageId": 1525152,
-      "title": "Benign Infested Tumor",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Benign_Infested_Tumor",
-      "acquisition": null
-    },
-    {
       "name": "Beta Corruptor",
       "uniqueName": "/Lotus/Types/Items/MiscItems/BetaCorruptorResource",
       "category": "ExportResources",
@@ -1612,6 +1586,16 @@
       "pageId": null,
       "title": null,
       "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "Big Bytes Pizza Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/NightwavePizzaSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Big Bytes Pizza Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Big_Bytes_Pizza_Sigil",
       "acquisition": null
     },
     {
@@ -1645,16 +1629,6 @@
       "acquisition": null
     },
     {
-      "name": "Biotic Filter",
-      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishAPartItem",
-      "category": "ExportResources",
-      "pageId": 1525841,
-      "title": "Biotic Filter",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Biotic_Filter",
-      "acquisition": null
-    },
-    {
       "name": "Biotics",
       "uniqueName": "/Lotus/Types/Items/InfestedFoundry/HelminthBiotics",
       "category": "ExportResources",
@@ -1672,6 +1646,16 @@
       "title": "Bird 3 Floof",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Bird_3_Floof",
+      "acquisition": null
+    },
+    {
+      "name": "Bird 3 Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Bird 3 Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Bird_3_Sigil",
       "acquisition": null
     },
     {
@@ -1702,6 +1686,16 @@
       "pageId": null,
       "title": null,
       "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "Blade and Gun Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BladeAndGunSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Blade and Gun Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Blade_and_Gun_Sigil",
       "acquisition": null
     },
     {
@@ -1775,16 +1769,6 @@
       "acquisition": null
     },
     {
-      "name": "Bloodfrenzy Ballistica Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Pistols/GarudaGeminiBallisticaSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1642505,
-      "title": "Bloodfrenzy Ballistica Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Bloodfrenzy_Ballistica_Skin",
-      "acquisition": null
-    },
-    {
       "name": "Bloodfrenzy Domestik Drone",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/LisetPropCleaningDroneGarudaGemini",
       "category": "ExportResources",
@@ -1802,16 +1786,6 @@
       "pageId": null,
       "title": null,
       "url": null,
-      "acquisition": null
-    },
-    {
-      "name": "Bloodfrenzy Nagantaka Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Weapons/LongGuns/GarudaGeminiNagantakaSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1642503,
-      "title": "Bloodfrenzy Nagantaka Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Bloodfrenzy_Nagantaka_Skin",
       "acquisition": null
     },
     {
@@ -1925,16 +1899,6 @@
       "acquisition": null
     },
     {
-      "name": "Boolean Sugatra",
-      "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/CephalonSugatraDangle",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631256,
-      "title": "Boolean Sugatra",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Boolean_Sugatra",
-      "acquisition": null
-    },
-    {
       "name": "Boolean Syandana",
       "uniqueName": "/Lotus/Upgrades/Skins/Scarves/CephSyandana",
       "category": "ExportCustoms, Cosmetics",
@@ -1942,7 +1906,10 @@
       "title": "Boolean Syandana",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Boolean_Syandana",
-      "acquisition": null
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Obtained from the following  Nightwave season(s):"
+      }
     },
     {
       "name": "Boxwood Hedge (1x1m)",
@@ -2012,39 +1979,6 @@
       "title": "Broadsword Past/Future Sigil",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Broadsword_Past/Future_Sigil",
-      "acquisition": null
-    },
-    {
-      "name": "Broca Prominence Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnLargeCapeTwitch",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632526,
-      "title": "Broca Prominence Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Broca_Prominence_Syandana",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Purchase from Varzia for 10  Aya."
-      }
-    },
-    {
-      "name": "Broca Solstice Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnLargeCapeWSolstice",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632494,
-      "title": "Broca Solstice Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Broca_Solstice_Syandana",
-      "acquisition": null
-    },
-    {
-      "name": "Broken War Solstice Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumBrokenWar",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1630627,
-      "title": "Broken War Solstice Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Broken_War_Solstice_Skin",
       "acquisition": null
     },
     {
@@ -2128,6 +2062,16 @@
       "acquisition": null
     },
     {
+      "name": "Buried Debts Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/OrbSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Buried Debts Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Buried_Debts_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Burrowing Cryptilex Tag",
       "uniqueName": "/Lotus/Types/Items/Deimos/AnimalTagInfestedMaggotCommon",
       "category": "ExportResources",
@@ -2135,36 +2079,6 @@
       "title": "Burrowing Cryptilex Tag",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Burrowing_Cryptilex_Tag",
-      "acquisition": null
-    },
-    {
-      "name": "Burst Laser",
-      "uniqueName": "/Lotus/Types/Sentinels/SentinelWeapons/BurstLaserPistol",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 222651,
-      "title": "Burst Laser",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Burst_Laser",
-      "acquisition": null
-    },
-    {
-      "name": "Burst Laser Prime",
-      "uniqueName": "/Lotus/Types/Sentinels/SentinelWeapons/PrimeBurstLaserPistol",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 1575107,
-      "title": "Burst Laser Prime",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Burst_Laser_Prime",
-      "acquisition": null
-    },
-    {
-      "name": "Burston Raya Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/CosmosBurstonSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1630264,
-      "title": "Burston Raya Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Burston_Raya_Skin",
       "acquisition": null
     },
     {
@@ -2658,16 +2572,6 @@
       "acquisition": null
     },
     {
-      "name": "Chesa Kubrow",
-      "uniqueName": "/Lotus/Types/Game/KubrowPet/RetrieverKubrowPetPowerSuit",
-      "category": "warframe-items, ExportSentinels",
-      "pageId": 770620,
-      "title": "Chesa Kubrow",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Chesa_Kubrow",
-      "acquisition": null
-    },
-    {
       "name": "Chillwave Sigil",
       "uniqueName": "/Lotus/Upgrades/Skins/Sigils/DogDays2023BSigil",
       "category": "ExportCustoms, Cosmetics",
@@ -2765,16 +2669,6 @@
       "pageId": null,
       "title": null,
       "url": null,
-      "acquisition": null
-    },
-    {
-      "name": "Chromatic Atramentum",
-      "uniqueName": "/Lotus/Types/Items/MiscItems/FoilModUnlocker",
-      "category": "ExportResources",
-      "pageId": 1622344,
-      "title": "Chromatic Atramentum",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Chromatic_Atramentum",
       "acquisition": null
     },
     {
@@ -3248,6 +3142,16 @@
       "acquisition": null
     },
     {
+      "name": "Community Of Tenno",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/LotusHeartSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Community Of Tenno",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Community_Of_Tenno",
+      "acquisition": null
+    },
+    {
       "name": "Community On-lyne DJ RoM Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageDJRoMGlyph",
       "category": "ExportFlavour, Glyphs",
@@ -3565,7 +3469,10 @@
       "title": "Conclave",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Conclave",
-      "acquisition": null
+      "acquisition": {
+        "section": "Lead acquisition statement",
+        "text": "Conclave is a neutral Syndicate led by the Conclave Master, Teshin Dax. Teshin resides within the Conclave Hall of each Relay. He is the one responsible for the management of the Conclave PvP System, providing incentives through various rewards that can be earned through Conclave battles."
+      }
     },
     {
       "name": "Conclave Console",
@@ -3575,6 +3482,36 @@
       "title": "Conclave Console",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Conclave_Console",
+      "acquisition": null
+    },
+    {
+      "name": "Conclave Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/OpticorConclaveVariantSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Conclave Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Conclave_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Conclave Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/SyndicateSigilConclaveA",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Conclave Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Conclave_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Condrix Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilScarletSpear",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Condrix Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Condrix_Sigil",
       "acquisition": null
     },
     {
@@ -3668,16 +3605,6 @@
       "acquisition": null
     },
     {
-      "name": "Conquera Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/ConqueraEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604424,
-      "title": "Conquera Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Conquera_Ephemera",
-      "acquisition": null
-    },
-    {
       "name": "Conquera Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/ImageConquera",
       "category": "ExportFlavour, Glyphs",
@@ -3738,16 +3665,6 @@
       "acquisition": null
     },
     {
-      "name": "Conquera II Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/Conquera2022Ephemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604425,
-      "title": "Conquera II Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Conquera_II_Ephemera",
-      "acquisition": null
-    },
-    {
       "name": "Conquera Kuaka Floof",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/Plushy2021QTCC",
       "category": "ExportResources",
@@ -3755,16 +3672,6 @@
       "title": "Conquera Kuaka Floof",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Conquera_Kuaka_Floof",
-      "acquisition": null
-    },
-    {
-      "name": "Conquera Leg Ribbon",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnCharityRibbonArmor/ConqueraArmorL",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633911,
-      "title": "Conquera Leg Ribbon",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Conquera_Leg_Ribbon",
       "acquisition": null
     },
     {
@@ -3788,16 +3695,6 @@
       "acquisition": null
     },
     {
-      "name": "Conquera Ribbon",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnCharityRibbonArmor/ConqueraChestRibbon",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633909,
-      "title": "Conquera Ribbon",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Conquera_Ribbon",
-      "acquisition": null
-    },
-    {
       "name": "Conquera Sawgaw Floof",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/Plushy2022QTCC",
       "category": "ExportResources",
@@ -3808,23 +3705,13 @@
       "acquisition": null
     },
     {
-      "name": "Conquera Shoulder Ribbon",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnCharityRibbonArmor/ConqueraArmorA",
+      "name": "Conquera Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ConqueraSigil",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633910,
-      "title": "Conquera Shoulder Ribbon",
+      "pageId": null,
+      "title": "Conquera Sigil",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Conquera_Shoulder_Ribbon",
-      "acquisition": null
-    },
-    {
-      "name": "Conquera Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnCharityRibbonSyandana",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632492,
-      "title": "Conquera Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Conquera_Syandana",
+      "url": "https://wiki.warframe.com/w/Conquera_Sigil",
       "acquisition": null
     },
     {
@@ -3915,6 +3802,16 @@
       "title": "Control Module Decoration",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Control_Module_Decoration",
+      "acquisition": null
+    },
+    {
+      "name": "Converted Coda Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/InfLichConvertedSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Converted Coda Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Converted_Coda_Sigil",
       "acquisition": null
     },
     {
@@ -4068,16 +3965,6 @@
       "acquisition": null
     },
     {
-      "name": "Corpus Cipher",
-      "uniqueName": "/Lotus/Types/Items/Research/CipherPlus",
-      "category": "ExportResources",
-      "pageId": 154702,
-      "title": "Corpus Cipher",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Corpus_Cipher",
-      "acquisition": null
-    },
-    {
       "name": "Corpus Datamass",
       "uniqueName": "/Lotus/Types/Items/Research/DataMassPlus",
       "category": "ExportResources",
@@ -4118,16 +4005,6 @@
       "acquisition": null
     },
     {
-      "name": "Cranial Foremount",
-      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishCPartItem",
-      "category": "ExportResources",
-      "pageId": 1525875,
-      "title": "Cranial Foremount",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Cranial_Foremount",
-      "acquisition": null
-    },
-    {
       "name": "Crater Cay Scene",
       "uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDuviriIsleCapA",
       "category": "ExportResources",
@@ -4155,26 +4032,6 @@
       "title": "Creepy Clem Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Creepy_Clem_Glyph",
-      "acquisition": null
-    },
-    {
-      "name": "Crescent Vulpaphyla",
-      "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/HornedInfestedCatbrowPetPowerSuit",
-      "category": "warframe-items, ExportSentinels",
-      "pageId": 1525451,
-      "title": "Crescent Vulpaphyla",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Crescent_Vulpaphyla",
-      "acquisition": null
-    },
-    {
-      "name": "Crescent Vulpaphyla",
-      "uniqueName": "/Lotus/Types/Items/Deimos/WoundedInfestedCritterUncommonRewardItem",
-      "category": "ExportWeapons",
-      "pageId": 1525451,
-      "title": "Crescent Vulpaphyla",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Crescent_Vulpaphyla",
       "acquisition": null
     },
     {
@@ -4255,7 +4112,10 @@
       "title": "Crimson Talent",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Crimson_Talent",
-      "acquisition": null
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "After completing Jade Shadows: Constellations, Scoria's Angel node becomes available. It can be started either from within Pontis Tower, or directly from Railjack Navigation."
+      }
     },
     {
       "name": "Crisma Toroid",
@@ -4345,6 +4205,56 @@
       "title": "Cychel Glaive Skin",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Cychel_Glaive_Skin",
+      "acquisition": null
+    },
+    {
+      "name": "Cycle Five Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Cycle Five Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Cycle_Five_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Cycle Four Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Cycle Four Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Cycle_Four_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Cycle One Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4OneYearSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Cycle One Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Cycle_One_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Cycle Three Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4ThreeYearSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Cycle Three Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Cycle_Three_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Cycle Two Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Cycle Two Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Cycle_Two_Sigil",
       "acquisition": null
     },
     {
@@ -5041,29 +4951,6 @@
       "acquisition": null
     },
     {
-      "name": "Deth Machine Rifle",
-      "uniqueName": "/Lotus/Types/Sentinels/SentinelWeapons/DethMachineRifle",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 222469,
-      "title": "Deth Machine Rifle",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Deth_Machine_Rifle",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "The Deth Machine Rifle is automatically acquired upon obtaining  Dethcube. Note that this weapon also takes up one Companion inventory slot."
-      }
-    },
-    {
-      "name": "Deth Machine Rifle Prime",
-      "uniqueName": "/Lotus/Types/Sentinels/SentinelWeapons/PrimeDethMachineRifle",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 1452128,
-      "title": "Deth Machine Rifle Prime",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Deth_Machine_Rifle_Prime",
-      "acquisition": null
-    },
-    {
       "name": "Dethgloop Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Dethcube",
       "category": "ExportFlavour, Glyphs",
@@ -5091,16 +4978,6 @@
       "title": "Dex Color Picker",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Dex_Color_Picker",
-      "acquisition": null
-    },
-    {
-      "name": "Dex Dakra",
-      "uniqueName": "/Lotus/Weapons/Tenno/Melee/Swords/DexTheSecond/DexTheSecond",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 671194,
-      "title": "Dex Dakra",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Dex_Dakra",
       "acquisition": null
     },
     {
@@ -5134,16 +5011,6 @@
       "acquisition": null
     },
     {
-      "name": "Dex Furis",
-      "uniqueName": "/Lotus/Weapons/Tenno/Pistols/DexFuris/DexFuris",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 418834,
-      "title": "Dex Furis",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Dex_Furis",
-      "acquisition": null
-    },
-    {
       "name": "Dex Furis Jade Skin",
       "uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDexFuris",
       "category": "ExportCustoms, Cosmetics",
@@ -5161,36 +5028,6 @@
       "title": "Dex Furis Obsidian Skin",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Dex_Furis_Obsidian_Skin",
-      "acquisition": null
-    },
-    {
-      "name": "Dex Laurus Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/DexEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604428,
-      "title": "Dex Laurus Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Dex_Laurus_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Dex Nikana",
-      "uniqueName": "/Lotus/Weapons/Tenno/Melee/Swords/KatanaAndWakizashi/Dex2023Nikana/Dex2023Nikana",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 1583317,
-      "title": "Dex Nikana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Dex_Nikana",
-      "acquisition": null
-    },
-    {
-      "name": "Dex Nouchali Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/DexScarf",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632614,
-      "title": "Dex Nouchali Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Dex_Nouchali_Syandana",
       "acquisition": null
     },
     {
@@ -5331,6 +5168,16 @@
       "title": "Disciple Mastery Slate",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Disciple_Mastery_Slate",
+      "acquisition": null
+    },
+    {
+      "name": "Disciple Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FounderSigilDisciple",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Disciple Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Disciple_Sigil",
       "acquisition": null
     },
     {
@@ -5661,10 +5508,7 @@
       "title": "Dominus Aureus",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Dominus_Aureus",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Dominus Aureus can be obtained by:"
-      }
+      "acquisition": null
     },
     {
       "name": "Donwyn Glyph I",
@@ -5934,6 +5778,16 @@
       "title": "Drip Squad 4 Life Emblem",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Drip_Squad_4_Life_Emblem",
+      "acquisition": null
+    },
+    {
+      "name": "Drippy Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/1999DrippySigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Drippy Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Drippy_Sigil",
       "acquisition": null
     },
     {
@@ -6367,9 +6221,59 @@
       "acquisition": null
     },
     {
+      "name": "Eidolon Madurai Lens",
+      "uniqueName": "/Lotus/Upgrades/Focus/AttackLensOstron",
+      "category": "warframe-items, ExportResources",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "Eidolon Naramon Lens",
+      "uniqueName": "/Lotus/Upgrades/Focus/TacticLensOstron",
+      "category": "warframe-items, ExportResources",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
+      "acquisition": null
+    },
+    {
       "name": "Eidolon Teralyst Articula",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/TeralystAFItem",
       "category": "ExportResources",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "Eidolon Unairu Lens",
+      "uniqueName": "/Lotus/Upgrades/Focus/WardLensOstron",
+      "category": "warframe-items, ExportResources",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "Eidolon Vazarin Lens",
+      "uniqueName": "/Lotus/Upgrades/Focus/DefenseLensOstron",
+      "category": "warframe-items, ExportResources",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "Eidolon Zenurik Lens",
+      "uniqueName": "/Lotus/Upgrades/Focus/PowerLensOstron",
+      "category": "warframe-items, ExportResources",
       "missing": true,
       "pageId": null,
       "title": null,
@@ -6537,19 +6441,6 @@
       "acquisition": null
     },
     {
-      "name": "Emerald Talent",
-      "uniqueName": "/Lotus/Types/JadeShadowsPart2Mission/Gameplay/Resources/AshFavor",
-      "category": "ExportResources",
-      "pageId": 1640605,
-      "title": "Emerald Talent",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Emerald_Talent",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "After completing Jade Shadows: Constellations, The Kuva Wytch node becomes available. The mission can be started either from within Pontis Tower, or directly from Railjack Navigation."
-      }
-    },
-    {
       "name": "EMISSARY  STANDING",
       "uniqueName": "/Lotus/Types/Items/SyndicateDogTags/NoraInfestedDogTag",
       "category": "ExportResources",
@@ -6567,16 +6458,6 @@
       "title": "Emissary Cred",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Emissary_Cred",
-      "acquisition": null
-    },
-    {
-      "name": "Emissary Emblem",
-      "uniqueName": "/Lotus/Upgrades/Skins/Clan/NoraSeasonTwoBadgeItem",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1432693,
-      "title": "Emissary Emblem",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Emissary_Emblem",
       "acquisition": null
     },
     {
@@ -6607,6 +6488,16 @@
       "title": "Emissary Ornament",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Emissary_Ornament",
+      "acquisition": null
+    },
+    {
+      "name": "Emissary Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/NoraSeasonTwoSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
       "acquisition": null
     },
     {
@@ -6657,16 +6548,6 @@
       "title": "ENGINE COWLING REPAIRS",
       "missing": false,
       "url": "https://wiki.warframe.com/w/ENGINE_COWLING_REPAIRS",
-      "acquisition": null
-    },
-    {
-      "name": "Enigma Sense",
-      "uniqueName": "/Lotus/Types/Items/MiscItems/DuviriGuidingHandPuzzleUpgrade",
-      "category": "ExportResources",
-      "pageId": 1622319,
-      "title": "Enigma Sense",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Enigma_Sense",
       "acquisition": null
     },
     {
@@ -6840,16 +6721,6 @@
       "acquisition": null
     },
     {
-      "name": "Envoy's Sphere Longsword Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Swords/SphereSwordSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604575,
-      "title": "Envoy's Sphere Longsword Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Envoy%27s_Sphere_Longsword_Skin",
-      "acquisition": null
-    },
-    {
       "name": "Epitaph Raya Skin",
       "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/CosmosEpitaphSkin",
       "category": "ExportCustoms, Cosmetics",
@@ -6940,6 +6811,16 @@
       "acquisition": null
     },
     {
+      "name": "Eskhatos Necraloid Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EvilBaroNecraloidSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Eskhatos Necraloid Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Eskhatos_Necraloid_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "EUROPA NAV SEGMENT",
       "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/EuropaNavigationFeatureItem",
       "category": "ExportResources",
@@ -6947,6 +6828,16 @@
       "title": "EUROPA NAV SEGMENT",
       "missing": false,
       "url": "https://wiki.warframe.com/w/EUROPA_NAV_SEGMENT",
+      "acquisition": null
+    },
+    {
+      "name": "Evergreen Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014D",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Evergreen Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Evergreen_Sigil",
       "acquisition": null
     },
     {
@@ -7020,16 +6911,6 @@
       "acquisition": null
     },
     {
-      "name": "Excalibur Dex Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ExcaliburDexSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1281714,
-      "title": "Excalibur Dex Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Excalibur_Dex_Skin",
-      "acquisition": null
-    },
-    {
       "name": "Excalibur Graxx-V2 Helmet",
       "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/SWRFourGraxxAltHelmet",
       "category": "ExportCustoms, Cosmetics",
@@ -7090,19 +6971,6 @@
       "acquisition": null
     },
     {
-      "name": "Excalibur Obsidian Azura Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ObsidianExcaliburSkinB",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631332,
-      "title": "Excalibur Obsidian Azura Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Excalibur_Obsidian_Azura_Skin",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "The Excalibur Obsidian Azura Skin was available through the PlayStation store via the Obisidan Azura Collection."
-      }
-    },
-    {
       "name": "Excalibur Obsidian Helmet",
       "uniqueName": "/Lotus/Upgrades/Skins/Sony/ExcaliburPSPlusSkinHelmet",
       "category": "ExportCustoms, Cosmetics",
@@ -7120,16 +6988,6 @@
       "title": "Excalibur Onyx Helmet",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Excalibur_Onyx_Helmet",
-      "acquisition": null
-    },
-    {
-      "name": "Excalibur Onyx Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/SteamEsteem/EsteemExcalibur",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631342,
-      "title": "Excalibur Onyx Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Excalibur_Onyx_Skin",
       "acquisition": null
     },
     {
@@ -7333,16 +7191,6 @@
       "acquisition": null
     },
     {
-      "name": "Eye-Eye Rotoblade",
-      "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishRotobladeItem",
-      "category": "ExportResources",
-      "pageId": 1363156,
-      "title": "Eye-Eye Rotoblade",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Eye-Eye_Rotoblade",
-      "acquisition": null
-    },
-    {
       "name": "Factions Recall Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/TenYearAnniversaryWeek2Glyph",
       "category": "ExportFlavour, Glyphs",
@@ -7520,6 +7368,16 @@
       "title": "Fibonacci Floof",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Fibonacci_Floof",
+      "acquisition": null
+    },
+    {
+      "name": "Fibonacci Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaFibonacci",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Fibonacci Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Fibonacci_Sigil",
       "acquisition": null
     },
     {
@@ -7850,29 +7708,6 @@
       "title": "FOUNDRY SEGMENT",
       "missing": false,
       "url": "https://wiki.warframe.com/w/FOUNDRY_SEGMENT",
-      "acquisition": null
-    },
-    {
-      "name": "Fragor Tekelu Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Ornate/TekeluFragorSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631189,
-      "title": "Fragor Tekelu Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Fragor_Tekelu_Skin",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Was previously available from Gift from the Lotus in 2019."
-      }
-    },
-    {
-      "name": "Frakta Shoulder Guard",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/NWIIIBossArmor/NWIIIBossAArmor",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633475,
-      "title": "Frakta Shoulder Guard",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Frakta_Shoulder_Guard",
       "acquisition": null
     },
     {
@@ -8234,19 +8069,6 @@
       "missing": false,
       "url": "https://wiki.warframe.com/w/Gara_Prime_Glyph_-_Dark",
       "acquisition": null
-    },
-    {
-      "name": "Gara Prime Theme",
-      "uniqueName": "/Lotus/Types/Items/SongItems/GaraPrimeSongItem",
-      "category": "ExportResources",
-      "pageId": 1586752,
-      "title": "Gara Prime Theme",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Gara_Prime_Theme",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "The Somachord version of the theme can be bought from Varzia for 5  Aya."
-      }
     },
     {
       "name": "Gargoyle's Cry Emblem",
@@ -8842,6 +8664,16 @@
       "acquisition": null
     },
     {
+      "name": "Glaring Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BaroKavatSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Glaring Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Glaring_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "GLASSMAKER  STANDING",
       "uniqueName": "/Lotus/Types/Items/SyndicateDogTags/NoraGlassmakerDogTag",
       "category": "ExportResources",
@@ -8872,6 +8704,16 @@
       "acquisition": null
     },
     {
+      "name": "Glassmaker Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/GlassmakerSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Glassmaker Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Glassmaker_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Glaukus Halyard",
       "uniqueName": "/Lotus/Upgrades/Skins/Wraith/SevagothDeluxeRopeAnchor",
       "category": "ExportCustoms, Cosmetics",
@@ -8879,16 +8721,6 @@
       "pageId": null,
       "title": null,
       "url": null,
-      "acquisition": null
-    },
-    {
-      "name": "Gloriana Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraC",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604435,
-      "title": "Gloriana Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Gloriana_Ephemera",
       "acquisition": null
     },
     {
@@ -9172,16 +9004,6 @@
       "acquisition": null
     },
     {
-      "name": "Grakata Towsun Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/SummerSolstice/SummerSolsticeGrakata",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1635725,
-      "title": "Grakata Towsun Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Grakata_Towsun_Skin",
-      "acquisition": null
-    },
-    {
       "name": "Gral's Kubrodon Floof",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/PlushyKubrodonRareDirty",
       "category": "ExportResources",
@@ -9279,6 +9101,16 @@
       "title": "Grand Master Founder Honoria",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Grand_Master_Founder_Honoria",
+      "acquisition": null
+    },
+    {
+      "name": "Grand Master Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FounderSigilGrandMaster",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Grand Master Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Grand_Master_Sigil",
       "acquisition": null
     },
     {
@@ -9642,6 +9474,16 @@
       "acquisition": null
     },
     {
+      "name": "Guide of the Lotus",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/LotusGuideSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Guide of the Lotus",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Guide_of_the_Lotus",
+      "acquisition": null
+    },
+    {
       "name": "Guides Of The Lotus Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageLotusGuide",
       "category": "ExportFlavour, Glyphs",
@@ -9799,16 +9641,6 @@
       "title": "Hanging Ivy (Wide)",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Hanging_Ivy_(Wide)",
-      "acquisition": null
-    },
-    {
-      "name": "Hanteler Prime Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/PrimeVorunaSyandana",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632560,
-      "title": "Hanteler Prime Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Hanteler_Prime_Syandana",
       "acquisition": null
     },
     {
@@ -10022,26 +9854,6 @@
       "acquisition": null
     },
     {
-      "name": "Heart-Beat Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraC",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631064,
-      "title": "Heart-Beat Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Heart-Beat_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Heart-Throb Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraA",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631068,
-      "title": "Heart-Throb Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Heart-Throb_Ephemera",
-      "acquisition": null
-    },
-    {
       "name": "Heirloom Iron Skin Override",
       "uniqueName": "/Lotus/Upgrades/Skins/Rhino/RhinoIronSkinHeirloom",
       "category": "ExportCustoms, Cosmetics",
@@ -10070,19 +9882,6 @@
       "missing": false,
       "url": "https://wiki.warframe.com/w/Helios_Obsidian_Skin",
       "acquisition": null
-    },
-    {
-      "name": "Helminth Charger",
-      "uniqueName": "/Lotus/Types/Game/KubrowPet/ChargerKubrowPetPowerSuit",
-      "category": "warframe-items, ExportSentinels",
-      "pageId": 1104857,
-      "title": "Helminth Charger",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Helminth_Charger",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "The player must have completed the Howl of the Kubrow quest in order to have an operating Incubator on the Orbiter, as well as have acquired a Kubrow Egg from Kubrow Dens on the Grineer Forest tilesets of Earth and a built Incubator Power Core whose blueprint can be obtained from the Market."
-      }
     },
     {
       "name": "Helminth Degenerate Pattern",
@@ -10132,6 +9931,16 @@
       "title": "Heuris Polearm Skin",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Heuris_Polearm_Skin",
+      "acquisition": null
+    },
+    {
+      "name": "Hidden Messages",
+      "uniqueName": "/Lotus/Types/Keys/MirageQuest/MirageQuestKeyChain",
+      "category": "warframe-items",
+      "pageId": 511099,
+      "title": "Hidden Messages",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Hidden_Messages",
       "acquisition": null
     },
     {
@@ -10202,16 +10011,6 @@
       "title": "Hildryn Prime Helmet",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Hildryn_Prime_Helmet",
-      "acquisition": null
-    },
-    {
-      "name": "Hildryn Prime Theme",
-      "uniqueName": "/Lotus/Types/Items/SongItems/HildrynPrimeSongItem",
-      "category": "ExportResources",
-      "pageId": 1586756,
-      "title": "Hildryn Prime Theme",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Hildryn_Prime_Theme",
       "acquisition": null
     },
     {
@@ -11105,33 +10904,23 @@
       "acquisition": null
     },
     {
-      "name": "Hound",
-      "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetAPowerSuit",
-      "category": "ExportSentinels",
-      "pageId": 1549430,
-      "title": "Hound",
+      "name": "Hostile Mergers Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilAmalgam",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Hostile Mergers Sigil",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Hound",
+      "url": "https://wiki.warframe.com/w/Hostile_Mergers_Sigil",
       "acquisition": null
     },
     {
-      "name": "Hound",
-      "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetBPowerSuit",
-      "category": "ExportSentinels",
-      "pageId": 1549430,
-      "title": "Hound",
+      "name": "Hounding Kubrow Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HoundingKubrowSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Hounding Kubrow Sigil",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Hound",
-      "acquisition": null
-    },
-    {
-      "name": "Hound",
-      "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetCPowerSuit",
-      "category": "ExportSentinels",
-      "pageId": 1549430,
-      "title": "Hound",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Hound",
+      "url": "https://wiki.warframe.com/w/Hounding_Kubrow_Sigil",
       "acquisition": null
     },
     {
@@ -11175,6 +10964,16 @@
       "acquisition": null
     },
     {
+      "name": "Hunter Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FounderSigilHunter",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Hunter Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Hunter_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Hunter's Emblem",
       "uniqueName": "/Lotus/Upgrades/Skins/Clan/FoundersBadgeHunterItem",
       "category": "ExportCustoms, Cosmetics",
@@ -11182,16 +10981,6 @@
       "title": "Hunter's Emblem",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Hunter%27s_Emblem",
-      "acquisition": null
-    },
-    {
-      "name": "Huras Kubrow",
-      "uniqueName": "/Lotus/Types/Game/KubrowPet/FurtiveKubrowPetPowerSuit",
-      "category": "warframe-items, ExportSentinels",
-      "pageId": 521859,
-      "title": "Huras Kubrow",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Huras_Kubrow",
       "acquisition": null
     },
     {
@@ -11225,16 +11014,6 @@
       "acquisition": null
     },
     {
-      "name": "Hydroid Prime Theme",
-      "uniqueName": "/Lotus/Types/Items/SongItems/HydroidPrimeSongItem",
-      "category": "ExportResources",
-      "pageId": 1586757,
-      "title": "Hydroid Prime Theme",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Hydroid_Prime_Theme",
-      "acquisition": null
-    },
-    {
       "name": "Hydroid Rakkam Helmet",
       "uniqueName": "/Lotus/Upgrades/Skins/Hydroid/HydroidDeluxeHelmet",
       "category": "ExportCustoms, Cosmetics",
@@ -11252,16 +11031,6 @@
       "title": "Hydroid's Relay Scene",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Hydroid%27s_Relay_Scene",
-      "acquisition": null
-    },
-    {
-      "name": "Hypatia Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraF",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604438,
-      "title": "Hypatia Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Hypatia_Ephemera",
       "acquisition": null
     },
     {
@@ -11302,16 +11071,6 @@
       "pageId": null,
       "title": null,
       "url": null,
-      "acquisition": null
-    },
-    {
-      "name": "Ignis Day of the Dead Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Halloween/Halloween2024DOTDIgnisSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1630628,
-      "title": "Ignis Day of the Dead Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Ignis_Day_of_the_Dead_Skin",
       "acquisition": null
     },
     {
@@ -11465,6 +11224,16 @@
       "acquisition": null
     },
     {
+      "name": "Inktober Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/InktoberSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Inktober Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Inktober_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Insign II Kalika",
       "uniqueName": "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal2C",
       "category": "ExportCustoms, Cosmetics",
@@ -11615,16 +11384,6 @@
       "acquisition": null
     },
     {
-      "name": "Ivara Obsidian Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631334,
-      "title": "Ivara Obsidian Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Ivara_Obsidian_Skin",
-      "acquisition": null
-    },
-    {
       "name": "Ivara Prex",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/TarotCardIvara",
       "category": "ExportResources",
@@ -11705,16 +11464,6 @@
       "acquisition": null
     },
     {
-      "name": "Izvara Solstice Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SolsticeU17TnoCapeScarf",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632496,
-      "title": "Izvara Solstice Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Izvara_Solstice_Syandana",
-      "acquisition": null
-    },
-    {
       "name": "Jack O'Naut Recall Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/TenYearAnniversaryWeek4Glyph",
       "category": "ExportFlavour, Glyphs",
@@ -11752,16 +11501,6 @@
       "title": "Jade Broca Syandana",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Jade_Broca_Syandana",
-      "acquisition": null
-    },
-    {
-      "name": "Jade Follox Sugatra",
-      "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/XBoxSugatra2MeleeDangle",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631258,
-      "title": "Jade Follox Sugatra",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Jade_Follox_Sugatra",
       "acquisition": null
     },
     {
@@ -11815,16 +11554,6 @@
       "acquisition": null
     },
     {
-      "name": "Javlok Capacitor",
-      "uniqueName": "/Lotus/Types/Items/MiscItems/GrnFlameSpearPart",
-      "category": "ExportResources",
-      "pageId": 1098313,
-      "title": "Javlok Capacitor",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Javlok_Capacitor",
-      "acquisition": null
-    },
-    {
       "name": "Jet Sentinel Wings",
       "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Wings/JetWingsRight",
       "category": "ExportCustoms, Cosmetics",
@@ -11872,16 +11601,6 @@
       "title": "Jolly Grendel Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Jolly_Grendel_Glyph",
-      "acquisition": null
-    },
-    {
-      "name": "Jordas Sekhara",
-      "uniqueName": "/Lotus/Upgrades/Skins/Clan/GolemRaidBadgeItem",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 844915,
-      "title": "Jordas Sekhara",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Jordas_Sekhara",
       "acquisition": null
     },
     {
@@ -11935,16 +11654,6 @@
       "acquisition": null
     },
     {
-      "name": "K-Drive Launcher",
-      "uniqueName": "/Lotus/Types/Restoratives/HoverboardSummon",
-      "category": "ExportGear",
-      "pageId": 1363225,
-      "title": "K-Drive Launcher",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/K-Drive_Launcher",
-      "acquisition": null
-    },
-    {
       "name": "K.A.H. Game Monitor",
       "uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedMonitor",
       "category": "ExportResources",
@@ -11982,16 +11691,6 @@
       "title": "Kahl-175 Tennobaum Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Kahl-175_Tennobaum_Glyph",
-      "acquisition": null
-    },
-    {
-      "name": "Kaithe Summon",
-      "uniqueName": "/Lotus/Types/Restoratives/ErsatzSummon",
-      "category": "ExportGear",
-      "pageId": 1577685,
-      "title": "Kaithe Summon",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Kaithe_Summon",
       "acquisition": null
     },
     {
@@ -12063,19 +11762,6 @@
       "missing": false,
       "url": "https://wiki.warframe.com/w/Karnolyth_Necramech_Helmet",
       "acquisition": null
-    },
-    {
-      "name": "Karotic Signa",
-      "uniqueName": "/Lotus/Upgrades/Skins/Crowns/GarudaBloodCrown",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1640706,
-      "title": "Karotic Signa",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Karotic_Signa",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Acquired by activating 5 consoles in a short timespan in the The Kuva Wytch (in the opposing opponent's capital ship) and entering a normally locked secret room just before the Bloodfrenzied Sister miniboss spawn room. The player has roughly 40 seconds to bypass all consoles, otherwise, the consoles will reset, undoing player progression. They don't have to be interacted in order, but it is advised."
-      }
     },
     {
       "name": "Kaya Gemini Emote",
@@ -12168,16 +11854,6 @@
       "acquisition": null
     },
     {
-      "name": "Khora Prime Theme",
-      "uniqueName": "/Lotus/Types/Items/SongItems/KhoraPrimeSongItem",
-      "category": "ExportResources",
-      "pageId": 1586758,
-      "title": "Khora Prime Theme",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Khora_Prime_Theme",
-      "acquisition": null
-    },
-    {
       "name": "Khora Urushu Helmet",
       "uniqueName": "/Lotus/Upgrades/Skins/Khora/KhoraDeluxeHelmet",
       "category": "ExportCustoms, Cosmetics",
@@ -12185,16 +11861,6 @@
       "title": "Khora Urushu Helmet",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Khora_Urushu_Helmet",
-      "acquisition": null
-    },
-    {
-      "name": "Ki'Teer Fireworks",
-      "uniqueName": "/Lotus/Types/Restoratives/Consumable/BaroFireWorksCrate",
-      "category": "ExportGear",
-      "pageId": 1116867,
-      "title": "Ki'Teer Fireworks",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Ki%27Teer_Fireworks",
       "acquisition": null
     },
     {
@@ -12215,16 +11881,6 @@
       "title": "Ki’Teer Greth Leg Plates",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Ki%E2%80%99Teer_Greth_Leg_Plates",
-      "acquisition": null
-    },
-    {
-      "name": "Ki'Teer Nobilis Signa",
-      "uniqueName": "/Lotus/Upgrades/Skins/Crowns/KiTeerSignaCrown",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631163,
-      "title": "Ki'Teer Nobilis Signa",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Ki%27Teer_Nobilis_Signa",
       "acquisition": null
     },
     {
@@ -12778,6 +12434,16 @@
       "acquisition": null
     },
     {
+      "name": "Kumuda Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/StarterPackLotusSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Kumuda Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Kumuda_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Kuria Emblem",
       "uniqueName": "/Lotus/Upgrades/Skins/Clan/OrokittyBadgeItem",
       "category": "ExportCustoms, Cosmetics",
@@ -12795,6 +12461,36 @@
       "title": "Kuria Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Kuria_Glyph",
+      "acquisition": null
+    },
+    {
+      "name": "Kuva Globule",
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/KuvaMetaBallOrnament",
+      "category": "ExportResources",
+      "pageId": null,
+      "title": "Kuva Globule",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Kuva_Globule",
+      "acquisition": null
+    },
+    {
+      "name": "Kuva Glyph",
+      "uniqueName": "/Lotus/Types/AvatarImages/Factions/GlyphFactionKuva",
+      "category": "ExportFlavour, Glyphs",
+      "pageId": null,
+      "title": "Kuva Glyph",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Kuva_Glyph",
+      "acquisition": null
+    },
+    {
+      "name": "Kuva Wytch Scene",
+      "uniqueName": "/Lotus/Types/Items/PhotoBooth/JadeShadows/PhotoboothTileJS2GarShipInterior",
+      "category": "ExportResources",
+      "pageId": null,
+      "title": "Kuva Wytch Scene",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Kuva_Wytch_Scene",
       "acquisition": null
     },
     {
@@ -12818,26 +12514,6 @@
       "title": "Kyroptera Panoply Syandana",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Kyroptera_Panoply_Syandana",
-      "acquisition": null
-    },
-    {
-      "name": "Kyruna Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraG",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604443,
-      "title": "Kyruna Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Kyruna_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Kyzen Signa",
-      "uniqueName": "/Lotus/Upgrades/Skins/Crowns/ProtoAshCrown",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1640705,
-      "title": "Kyzen Signa",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Kyzen_Signa",
       "acquisition": null
     },
     {
@@ -12868,17 +12544,10 @@
       "title": "Lacera Scorn Skin",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Lacera_Scorn_Skin",
-      "acquisition": null
-    },
-    {
-      "name": "Lacerten",
-      "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetMeleeWeaponIS",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 1549495,
-      "title": "Lacerten",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Lacerten",
-      "acquisition": null
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "The Lacera Scorn Skin is a unique skin for the  Lacera. It was obtained from Operation: Shadow Debt after completing 15 waves against the final challenger."
+      }
     },
     {
       "name": "Lament",
@@ -12918,16 +12587,6 @@
       "pageId": null,
       "title": null,
       "url": null,
-      "acquisition": null
-    },
-    {
-      "name": "Lanex Prime Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/PrimeStyanaxSyandana",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1642594,
-      "title": "Lanex Prime Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Lanex_Prime_Syandana",
       "acquisition": null
     },
     {
@@ -13051,19 +12710,6 @@
       "acquisition": null
     },
     {
-      "name": "Lato Prime",
-      "uniqueName": "/Lotus/Weapons/Tenno/Pistol/LatoPrime",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 2539,
-      "title": "Lato Prime",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Lato_Prime",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "In the global build of the game, the Lato Prime was only available to owners of the Grand Master Founders package that was offered between December 19, 2012 and November 1, 2013."
-      }
-    },
-    {
       "name": "Lato Vandal Day of the Dead Skin",
       "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenLatoVandal",
       "category": "ExportCustoms, Cosmetics",
@@ -13071,16 +12717,6 @@
       "title": "Lato Vandal Day of the Dead Skin",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Lato_Vandal_Day_of_the_Dead_Skin",
-      "acquisition": null
-    },
-    {
-      "name": "Latron Solstice Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/WinterSolstice/WinterSolsticeLatron",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1630268,
-      "title": "Latron Solstice Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Latron_Solstice_Skin",
       "acquisition": null
     },
     {
@@ -13191,16 +12827,6 @@
       "pageId": null,
       "title": null,
       "url": null,
-      "acquisition": null
-    },
-    {
-      "name": "Lazulite Toroid",
-      "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidCamperTerraItem",
-      "category": "ExportResources",
-      "pageId": 1399038,
-      "title": "Lazulite Toroid",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Lazulite_Toroid",
       "acquisition": null
     },
     {
@@ -13354,6 +12980,26 @@
       "acquisition": null
     },
     {
+      "name": "Lich Token",
+      "uniqueName": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedGrineerLichToken",
+      "category": "ExportResources",
+      "pageId": null,
+      "title": "Lich Token",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Lich_Token",
+      "acquisition": null
+    },
+    {
+      "name": "Lift Together Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FortunaSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Lift Together Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Lift_Together_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Lillian Floof",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/PlushyLillian",
       "category": "ExportResources",
@@ -13421,16 +13067,6 @@
       "title": "Limbo Voidshell Helmet",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Limbo_Voidshell_Helmet",
-      "acquisition": null
-    },
-    {
-      "name": "Liset",
-      "uniqueName": "/Lotus/Types/Items/Ships/DefaultShip",
-      "category": "ExportResources",
-      "pageId": 824032,
-      "title": "Liset",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Liset",
       "acquisition": null
     },
     {
@@ -13504,16 +13140,6 @@
       "acquisition": null
     },
     {
-      "name": "Little Helper Hat",
-      "uniqueName": "/Lotus/Upgrades/Skins/Kubrows/Collars/KubrowCollarXmas",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1132862,
-      "title": "Little Helper Hat",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Little_Helper_Hat",
-      "acquisition": null
-    },
-    {
       "name": "Lizzie",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/LisetPropShawzinTempleGuitar",
       "category": "ExportResources",
@@ -13544,16 +13170,6 @@
       "acquisition": null
     },
     {
-      "name": "Lodestar Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnSundialCape",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632615,
-      "title": "Lodestar Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Lodestar_Syandana",
-      "acquisition": null
-    },
-    {
       "name": "Loiaus Chest Medallion",
       "uniqueName": "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauPurpleHeartMedalC",
       "category": "ExportCustoms, Cosmetics",
@@ -13561,10 +13177,7 @@
       "title": "Loiaus Chest Medallion",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Loiaus_Chest_Medallion",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Obtainable from the following Operations:"
-      }
+      "acquisition": null
     },
     {
       "name": "Loki Knave Helmet",
@@ -13594,16 +13207,6 @@
       "title": "Loki Prime Glyph - Dark",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Loki_Prime_Glyph_-_Dark",
-      "acquisition": null
-    },
-    {
-      "name": "Loki Verv Helmet",
-      "uniqueName": "/Lotus/Upgrades/Skins/Loki/LokiTwitchHelmet",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1587143,
-      "title": "Loki Verv Helmet",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Loki_Verv_Helmet",
       "acquisition": null
     },
     {
@@ -13837,6 +13440,26 @@
       "acquisition": null
     },
     {
+      "name": "Lua Madurai Lens",
+      "uniqueName": "/Lotus/Upgrades/Focus/AttackLensLua",
+      "category": "warframe-items, ExportResources",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "Lua Naramon Lens",
+      "uniqueName": "/Lotus/Upgrades/Focus/TacticLensLua",
+      "category": "warframe-items, ExportResources",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
+      "acquisition": null
+    },
+    {
       "name": "Lua Nights Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2023LuaNights",
       "category": "ExportFlavour, Glyphs",
@@ -13857,13 +13480,33 @@
       "acquisition": null
     },
     {
-      "name": "Lucretia Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraD",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604446,
-      "title": "Lucretia Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Lucretia_Ephemera",
+      "name": "Lua Unairu Lens",
+      "uniqueName": "/Lotus/Upgrades/Focus/WardLensLua",
+      "category": "warframe-items, ExportResources",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "Lua Vazarin Lens",
+      "uniqueName": "/Lotus/Upgrades/Focus/DefenseLensLua",
+      "category": "warframe-items, ExportResources",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "Lua Zenurik Lens",
+      "uniqueName": "/Lotus/Upgrades/Focus/PowerLensLua",
+      "category": "warframe-items, ExportResources",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
       "acquisition": null
     },
     {
@@ -13897,6 +13540,16 @@
       "acquisition": null
     },
     {
+      "name": "Lunar Renewal Ox Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearOxSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Lunar Renewal Ox Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Lunar_Renewal_Ox_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Lunar Renewal Soar Sigil",
       "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearDragonSigil",
       "category": "ExportCustoms, Cosmetics",
@@ -13907,6 +13560,16 @@
       "acquisition": null
     },
     {
+      "name": "Lunar Renewal Tiger Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearFreeTigerSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Lunar Renewal Tiger Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Lunar_Renewal_Tiger_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Lustrous Major Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/Login950Glyph",
       "category": "ExportFlavour, Glyphs",
@@ -13914,16 +13577,6 @@
       "title": "Lustrous Major Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Lustrous_Major_Glyph",
-      "acquisition": null
-    },
-    {
-      "name": "Luv-Byte Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraD",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631067,
-      "title": "Luv-Byte Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Luv-Byte_Ephemera",
       "acquisition": null
     },
     {
@@ -14087,19 +13740,6 @@
       "acquisition": null
     },
     {
-      "name": "Mag Amethyst Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Mag/DiscordMag",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631307,
-      "title": "Mag Amethyst Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Mag_Amethyst_Skin",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "The Mag Amethyst Skin was available through the Discord store via the Reverence Pack, along with Excalibur Amethyst Skin & Volt Amethyst Skin."
-      }
-    },
-    {
       "name": "Mag Heirloom Helmet",
       "uniqueName": "/Lotus/Upgrades/Skins/Mag/MagHeirloomHelmet",
       "category": "ExportCustoms, Cosmetics",
@@ -14180,16 +13820,6 @@
       "acquisition": null
     },
     {
-      "name": "Maginav Prime Signa",
-      "uniqueName": "/Lotus/Upgrades/Skins/Crowns/PrimeSevagothHaloCrown",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631162,
-      "title": "Maginav Prime Signa",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Maginav_Prime_Signa",
-      "acquisition": null
-    },
-    {
       "name": "Magnus Obsidian Skin",
       "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianMagnus",
       "category": "ExportCustoms, Cosmetics",
@@ -14197,16 +13827,6 @@
       "title": "Magnus Obsidian Skin",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Magnus_Obsidian_Skin",
-      "acquisition": null
-    },
-    {
-      "name": "Magnus Tekelu Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Ornate/TekeluMagnusSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631171,
-      "title": "Magnus Tekelu Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Magnus_Tekelu_Skin",
       "acquisition": null
     },
     {
@@ -14467,7 +14087,10 @@
       "title": "Marks of Valiance",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Marks_of_Valiance",
-      "acquisition": null
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Marks of Valiance can be obtained by:"
+      }
     },
     {
       "name": "MARS NAV SEGMENT",
@@ -14530,6 +14153,16 @@
       "acquisition": null
     },
     {
+      "name": "Master Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FounderSigilMaster",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Master Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Master_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Master's Emblem",
       "uniqueName": "/Lotus/Upgrades/Skins/Clan/FoundersBadgeMasterItem",
       "category": "ExportCustoms, Cosmetics",
@@ -14537,6 +14170,16 @@
       "title": "Master's Emblem",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Master%27s_Emblem",
+      "acquisition": null
+    },
+    {
+      "name": "Mastery Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/MasteryStoneSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Mastery Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Mastery_Sigil",
       "acquisition": null
     },
     {
@@ -14558,19 +14201,6 @@
       "missing": false,
       "url": "https://wiki.warframe.com/w/Matron_of_Malaise_Honoria",
       "acquisition": null
-    },
-    {
-      "name": "Mausolon",
-      "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Primary/ThanoTechArchLongGun/ThanoTechLongGun",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 1523869,
-      "title": "Mausolon",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Mausolon",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "A built Mausolon is automatically acquired upon claiming any Necramech, either the Voidrig or the Bonewidow, from the Foundry. Functioning as their default weapon option, the Mausolon also comes with the necessary Gravimag already pre-installed."
-      }
     },
     {
       "name": "Mausolon Supulchrax Skin",
@@ -14600,26 +14230,6 @@
       "pageId": null,
       "title": null,
       "url": null,
-      "acquisition": null
-    },
-    {
-      "name": "Medjay Predasite",
-      "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/MedjayPredatorKubrowPetPowerSuit",
-      "category": "warframe-items, ExportSentinels",
-      "pageId": 1525448,
-      "title": "Medjay Predasite",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Medjay_Predasite",
-      "acquisition": null
-    },
-    {
-      "name": "Medjay Predasite",
-      "uniqueName": "/Lotus/Types/Items/Deimos/WoundedInfestedPredatorRareRewardItem",
-      "category": "ExportWeapons",
-      "pageId": 1525448,
-      "title": "Medjay Predasite",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Medjay_Predasite",
       "acquisition": null
     },
     {
@@ -14690,16 +14300,6 @@
       "title": "Merulina Prime Domestik Drone",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Merulina_Prime_Domestik_Drone",
-      "acquisition": null
-    },
-    {
-      "name": "Merulina Prime Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/PrimeMerulinaSyandana",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632574,
-      "title": "Merulina Prime Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Merulina_Prime_Syandana",
       "acquisition": null
     },
     {
@@ -15313,19 +14913,6 @@
       "acquisition": null
     },
     {
-      "name": "Naberus Shoulder Armor",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/Halloween2014Wings/Halloween2014ArmArmor",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632787,
-      "title": "Naberus Shoulder Armor",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Naberus_Shoulder_Armor",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "This armor is purchaseable from the Market for  50."
-      }
-    },
-    {
       "name": "Nakak Pearls",
       "uniqueName": "/Lotus/Types/Items/MiscItems/WaterFightBucks",
       "category": "ExportResources",
@@ -15373,16 +14960,6 @@
       "title": "Nanospore Culture Decoration",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Nanospore_Culture_Decoration",
-      "acquisition": null
-    },
-    {
-      "name": "Naramon Badge",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/FocusSchool/NaramonCArmor",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633457,
-      "title": "Naramon Badge",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Naramon_Badge",
       "acquisition": null
     },
     {
@@ -15483,6 +15060,16 @@
       "title": "Nava Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Nava_Glyph",
+      "acquisition": null
+    },
+    {
+      "name": "Nava Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/StarterPackASigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Nava Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Nava_Sigil",
       "acquisition": null
     },
     {
@@ -15623,16 +15210,6 @@
       "title": "Necramech Statue",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Necramech_Statue",
-      "acquisition": null
-    },
-    {
-      "name": "Necramech Summon",
-      "uniqueName": "/Lotus/Types/Restoratives/LoadoutTechSummon",
-      "category": "ExportGear",
-      "pageId": 1525704,
-      "title": "Necramech Summon",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Necramech_Summon",
       "acquisition": null
     },
     {
@@ -15916,16 +15493,6 @@
       "acquisition": null
     },
     {
-      "name": "Neurovyre Prime Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/NeurovyrePrimeSyandana",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632577,
-      "title": "Neurovyre Prime Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Neurovyre_Prime_Syandana",
-      "acquisition": null
-    },
-    {
       "name": "Neutralizer",
       "uniqueName": "/Lotus/Powersuits/Frumentarius/ExaltedSniper",
       "category": "warframe-items, ExportWeapons",
@@ -16006,36 +15573,6 @@
       "acquisition": null
     },
     {
-      "name": "Nidina Armor Solstice Chest Plate",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveC",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633942,
-      "title": "Nidina Armor Solstice Chest Plate",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Nidina_Armor_Solstice_Chest_Plate",
-      "acquisition": null
-    },
-    {
-      "name": "Nidina Armor Solstice Leg Plate",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveL",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633940,
-      "title": "Nidina Armor Solstice Leg Plate",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Nidina_Armor_Solstice_Leg_Plate",
-      "acquisition": null
-    },
-    {
-      "name": "Nidina Armor Solstice Shoulder Plate",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveA",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633941,
-      "title": "Nidina Armor Solstice Shoulder Plate",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Nidina_Armor_Solstice_Shoulder_Plate",
-      "acquisition": null
-    },
-    {
       "name": "Nidus Phryke Helmet",
       "uniqueName": "/Lotus/Upgrades/Skins/Infestation/NidusDeluxeHelmet",
       "category": "ExportCustoms, Cosmetics",
@@ -16064,19 +15601,6 @@
       "missing": false,
       "url": "https://wiki.warframe.com/w/Nidus_Prime_Glyph_-_Dark",
       "acquisition": null
-    },
-    {
-      "name": "Nidus Prime Theme",
-      "uniqueName": "/Lotus/Types/Items/SongItems/NidusPrimeSongItem",
-      "category": "ExportResources",
-      "pageId": 1586760,
-      "title": "Nidus Prime Theme",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Nidus_Prime_Theme",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "The Somachord version of the theme can be bought from Varzia for 5  Aya."
-      }
     },
     {
       "name": "Nidus Voidshell Helmet",
@@ -16359,6 +15883,16 @@
       "acquisition": null
     },
     {
+      "name": "Nightwave Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/RadioLegionSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Nightwave Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Nightwave_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Nightwave Sleeves",
       "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultNightSuit",
       "category": "ExportCustoms, Cosmetics",
@@ -16431,6 +15965,16 @@
     {
       "name": "Nimandi Prime Shoulder Plates",
       "uniqueName": "/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorA",
+      "category": "ExportCustoms, Cosmetics",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "Nistlebrush Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014B",
       "category": "ExportCustoms, Cosmetics",
       "missing": true,
       "pageId": null,
@@ -18149,19 +17693,6 @@
       "acquisition": null
     },
     {
-      "name": "Nulwarden Syandana (Void-swept)",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TC2025EvolvedOrokinScarf",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1635114,
-      "title": "Nulwarden Syandana (Void-swept)",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Nulwarden_Syandana_(Void-swept)",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Purchasing the Nulwarden Syandana from Varzia for 1  Regal Aya will automatically add this to your inventory."
-      }
-    },
-    {
       "name": "Nusku Dual Pistol Skin",
       "uniqueName": "/Lotus/Upgrades/Skins/Ember/EmberDeluxeDualPistolSkin",
       "category": "ExportCustoms, Cosmetics",
@@ -18302,16 +17833,6 @@
       "acquisition": null
     },
     {
-      "name": "Oberon Prime Theme",
-      "uniqueName": "/Lotus/Types/Items/SongItems/OberonPrimeSongItem",
-      "category": "ExportResources",
-      "pageId": 1586761,
-      "title": "Oberon Prime Theme",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Oberon_Prime_Theme",
-      "acquisition": null
-    },
-    {
       "name": "Oberon Wendigo Armor",
       "uniqueName": "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWOberonWendigoArmArmor",
       "category": "ExportCustoms, Cosmetics",
@@ -18372,16 +17893,6 @@
       "acquisition": null
     },
     {
-      "name": "Obsidian Azura Sugatra",
-      "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/ObsidianSugatraMeleeDangle",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631264,
-      "title": "Obsidian Azura Sugatra",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Obsidian_Azura_Sugatra",
-      "acquisition": null
-    },
-    {
       "name": "Obsidian Azura Syandana",
       "uniqueName": "/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf",
       "category": "ExportCustoms, Cosmetics",
@@ -18389,6 +17900,16 @@
       "title": "Obsidian Azura Syandana",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Obsidian_Azura_Syandana",
+      "acquisition": null
+    },
+    {
+      "name": "Obsidian Corvus Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4CrowSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Obsidian Corvus Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Obsidian_Corvus_Sigil",
       "acquisition": null
     },
     {
@@ -18432,6 +17953,16 @@
       "acquisition": null
     },
     {
+      "name": "Obsidian Indra Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ObsidianIndraSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Obsidian Indra Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Obsidian_Indra_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Obsidian Kyroptera Syandana",
       "uniqueName": "/Lotus/Upgrades/Skins/Scarves/ObsidianKyropteraScarf",
       "category": "ExportCustoms, Cosmetics",
@@ -18439,16 +17970,6 @@
       "title": "Obsidian Kyroptera Syandana",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Obsidian_Kyroptera_Syandana",
-      "acquisition": null
-    },
-    {
-      "name": "Obsidian Monast Sugatra",
-      "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/Obsidian2SugatraMeleeDangle",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631265,
-      "title": "Obsidian Monast Sugatra",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Obsidian_Monast_Sugatra",
       "acquisition": null
     },
     {
@@ -18469,6 +17990,16 @@
       "title": "Obsidian Sedai Syandana",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Obsidian_Sedai_Syandana",
+      "acquisition": null
+    },
+    {
+      "name": "Obsidian Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4RenownXSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Obsidian Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Obsidian_Sigil",
       "acquisition": null
     },
     {
@@ -18552,39 +18083,6 @@
       "acquisition": null
     },
     {
-      "name": "Octavia Prime Theme",
-      "uniqueName": "/Lotus/Types/Items/SongItems/OctaviaPrimeSongItem",
-      "category": "ExportResources",
-      "pageId": 1586762,
-      "title": "Octavia Prime Theme",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Octavia_Prime_Theme",
-      "acquisition": null
-    },
-    {
-      "name": "Ocucor Solstice Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumOcucor",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1630626,
-      "title": "Ocucor Solstice Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Ocucor_Solstice_Skin",
-      "acquisition": null
-    },
-    {
-      "name": "Ocular Stem-Root",
-      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishFPartItem",
-      "category": "ExportResources",
-      "pageId": 1543639,
-      "title": "Ocular Stem-Root",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Ocular_Stem-Root",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Ocular Stem-Roots can be obtained by filleting  Flagellocanths through Daughter in the Necralisk."
-      }
-    },
-    {
       "name": "Odonata Obsidian Skin",
       "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianStandardArchwingSkin",
       "category": "ExportCustoms, Cosmetics",
@@ -18615,16 +18113,6 @@
       "acquisition": null
     },
     {
-      "name": "Okina Day of the Dead Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Halloween/DOTD2025OkinaSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1630273,
-      "title": "Okina Day of the Dead Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Okina_Day_of_the_Dead_Skin",
-      "acquisition": null
-    },
-    {
       "name": "Okina Emblem",
       "uniqueName": "/Lotus/Upgrades/Skins/Clan/PS5OkinaBadgeItem",
       "category": "ExportCustoms, Cosmetics",
@@ -18652,6 +18140,16 @@
       "title": "Old Blood Emblem",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Old_Blood_Emblem",
+      "acquisition": null
+    },
+    {
+      "name": "Old Blood Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/KuvaLichSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Old Blood Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Old_Blood_Sigil",
       "acquisition": null
     },
     {
@@ -18692,16 +18190,6 @@
       "pageId": null,
       "title": null,
       "url": null,
-      "acquisition": null
-    },
-    {
-      "name": "On Call Crew",
-      "uniqueName": "/Lotus/Types/Restoratives/Consumable/CrewmateBall",
-      "category": "ExportGear",
-      "pageId": 1545536,
-      "title": "On Call Crew",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/On_Call_Crew",
       "acquisition": null
     },
     {
@@ -18882,16 +18370,6 @@
       "title": "Opal Imperator Syandana",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Opal_Imperator_Syandana",
-      "acquisition": null
-    },
-    {
-      "name": "Opal Marteddu Sugatra",
-      "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/SugatraNintendo",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631266,
-      "title": "Opal Marteddu Sugatra",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Opal_Marteddu_Sugatra",
       "acquisition": null
     },
     {
@@ -19365,6 +18843,16 @@
       "acquisition": null
     },
     {
+      "name": "Orowyrm's Rage Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/DuvDragonSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Orowyrm's Rage Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Orowyrm%27s_Rage_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Orowyrm's Sanctum Display",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Duviri/DuviriDragonDisplay",
       "category": "ExportResources",
@@ -19415,6 +18903,16 @@
       "acquisition": null
     },
     {
+      "name": "Ostron Community Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/OstronCommunitySigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Ostron Community Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Ostron_Community_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "OTAK TOKEN",
       "uniqueName": "/Lotus/Types/Items/Deimos/EntratiFragmentCommonA",
       "category": "ExportResources",
@@ -19462,6 +18960,16 @@
       "pageId": null,
       "title": null,
       "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "Pack Leader Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BaroKubrowSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Pack Leader Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Pack_Leader_Sigil",
       "acquisition": null
     },
     {
@@ -19565,29 +19073,6 @@
       "acquisition": null
     },
     {
-      "name": "Parasitic Tethermaw",
-      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishGPartItem",
-      "category": "ExportResources",
-      "pageId": 1543573,
-      "title": "Parasitic Tethermaw",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Parasitic_Tethermaw",
-      "acquisition": null
-    },
-    {
-      "name": "Pareidola Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/InkEphemeraB",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631095,
-      "title": "Pareidola Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Pareidola_Ephemera",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Can be purchased during Operation: Atramentum from Aspirant Zorba in any Relays for 65  Nightmare Tatters once Community Progress has reached 60%."
-      }
-    },
-    {
       "name": "Parotia Syandana",
       "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnSparrowCape",
       "category": "ExportCustoms, Cosmetics",
@@ -19615,6 +19100,16 @@
       "title": "Patchy Fur Pattern",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Patchy_Fur_Pattern",
+      "acquisition": null
+    },
+    {
+      "name": "Patient Zero",
+      "uniqueName": "/Lotus/Types/Keys/InfestedAladVQuest/InfestedAladVQuestKeyChain",
+      "category": "warframe-items",
+      "pageId": 596164,
+      "title": "Patient Zero",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Patient_Zero",
       "acquisition": null
     },
     {
@@ -19725,16 +19220,6 @@
       "title": "Piccha Planter",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Piccha_Planter",
-      "acquisition": null
-    },
-    {
-      "name": "Pins-N-Needles Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraE",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631065,
-      "title": "Pins-N-Needles Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Pins-N-Needles_Ephemera",
       "acquisition": null
     },
     {
@@ -20168,6 +19653,56 @@
       "acquisition": null
     },
     {
+      "name": "Prisma Lotus Bloom Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PrismaLotusVinesSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Prisma Lotus Bloom Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Prisma_Lotus_Bloom_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Prisma Lotus Flame Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PrismaLotusFlamesSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Prisma Lotus Flame Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Prisma_Lotus_Flame_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Prisma Lotus Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PrismaLotusSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Prisma Lotus Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Prisma_Lotus_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Prisma Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PrimeTraderSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Prisma Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Prisma_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Prisma Thrax Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ThraxSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Prisma Thrax Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Prisma_Thrax_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Prisma Vor Sigil",
       "uniqueName": "/Lotus/Upgrades/Skins/Sigils/VorDuviriSigil",
       "category": "ExportCustoms, Cosmetics",
@@ -20198,17 +19733,14 @@
       "acquisition": null
     },
     {
-      "name": "Proof Fragment",
-      "uniqueName": "/Lotus/Types/Items/MiscItems/Beacon",
-      "category": "ExportResources",
-      "pageId": 749940,
-      "title": "Proof Fragment",
+      "name": "Prominence Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TwitchProminenceSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Prominence Sigil",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Proof_Fragment",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "They can be obtained by killing the enemies from the quest, where the fragments take up the form of Nav Coordinates.  A total of 9 fragments are required to build all the keys needed to complete the quest."
-      }
+      "url": "https://wiki.warframe.com/w/Prominence_Sigil",
+      "acquisition": null
     },
     {
       "name": "PROPULSION SYSTEMS",
@@ -20301,16 +19833,6 @@
       "acquisition": null
     },
     {
-      "name": "Protea Prime Chronorum Helmet",
-      "uniqueName": "/Lotus/Upgrades/Skins/Odalisk/ProteaPrimeAltHelmet",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1585038,
-      "title": "Protea Prime Chronorum Helmet",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Protea_Prime_Chronorum_Helmet",
-      "acquisition": null
-    },
-    {
       "name": "Protea Prime Glyph - Bright",
       "uniqueName": "/Lotus/Types/AvatarImages/Primes/ImageProteaPrimeBright",
       "category": "ExportFlavour, Glyphs",
@@ -20381,16 +19903,6 @@
       "acquisition": null
     },
     {
-      "name": "Proto Necramech Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Necramech/VoidrigDSChromaSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1580433,
-      "title": "Proto Necramech Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Proto_Necramech_Skin",
-      "acquisition": null
-    },
-    {
       "name": "Proto-Infested Clump Decoration",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Props/LisetPropLASxProtoInfestedChitin",
       "category": "ExportResources",
@@ -20401,46 +19913,6 @@
       "acquisition": null
     },
     {
-      "name": "Protovyre Apex Chest Armor",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/SentEvoArmor/SentEvoArmor3C",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633299,
-      "title": "Protovyre Apex Chest Armor",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Protovyre_Apex_Chest_Armor",
-      "acquisition": null
-    },
-    {
-      "name": "Protovyre Apex Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/NarmerEvolvingEphemeraC",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604454,
-      "title": "Protovyre Apex Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Protovyre_Apex_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Protovyre Apex Leg Plate Armor",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/SentEvoArmor/SentEvoArmor3L",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633298,
-      "title": "Protovyre Apex Leg Plate Armor",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Protovyre_Apex_Leg_Plate_Armor",
-      "acquisition": null
-    },
-    {
-      "name": "Protovyre Apex Shoulder Armor",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/SentEvoArmor/SentEvoArmor3A",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633297,
-      "title": "Protovyre Apex Shoulder Armor",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Protovyre_Apex_Shoulder_Armor",
-      "acquisition": null
-    },
-    {
       "name": "Protovyre Apex Syandana",
       "uniqueName": "/Lotus/Upgrades/Skins/Scarves/NarmerEvolvingSyandanaCCape",
       "category": "ExportCustoms, Cosmetics",
@@ -20448,17 +19920,10 @@
       "title": "Protovyre Apex Syandana",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Protovyre_Apex_Syandana",
-      "acquisition": null
-    },
-    {
-      "name": "Protovyre Emergent Chest Armor",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/SentEvoArmor/SentEvoArmor2C",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633296,
-      "title": "Protovyre Emergent Chest Armor",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Protovyre_Emergent_Chest_Armor",
-      "acquisition": null
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Collect a total of 75 Void Relics and Aya from missions with Protovyre Emergent Syandana equipped. Purchasing Relic Packs does not count."
+      }
     },
     {
       "name": "Protovyre Emergent Ephemera",
@@ -20468,16 +19933,6 @@
       "title": "Protovyre Emergent Ephemera",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Protovyre_Emergent_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Protovyre Emergent Leg Plate Armor",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/SentEvoArmor/SentEvoArmor2L",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633295,
-      "title": "Protovyre Emergent Leg Plate Armor",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Protovyre_Emergent_Leg_Plate_Armor",
       "acquisition": null
     },
     {
@@ -20581,19 +20036,6 @@
       "acquisition": null
     },
     {
-      "name": "Pyrus Essence",
-      "uniqueName": "/Lotus/Types/Items/RelayRebuild/PhaseOneFireElement",
-      "category": "ExportResources",
-      "pageId": 1344175,
-      "title": "Pyrus Essence",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Pyrus_Essence",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Pyrus Essence can be gained on either Earth, Mercury, Ceres, or Saturn by knocking down and capturing Pyrus Essence Carrier, Eximus-like units that drop Pyrus Essence upon being captured."
-      }
-    },
-    {
       "name": "Quanta Obsidian Skin",
       "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianQuanta",
       "category": "ExportCustoms, Cosmetics",
@@ -20604,13 +20046,13 @@
       "acquisition": null
     },
     {
-      "name": "Quassus Solstice Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/WinterSolstice/SolsticeQuassusSkin",
+      "name": "Quick Steel Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ConclaveTacAlertSigilA",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 1630270,
-      "title": "Quassus Solstice Skin",
+      "pageId": null,
+      "title": "Quick Steel Sigil",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Quassus_Solstice_Skin",
+      "url": "https://wiki.warframe.com/w/Quick_Steel_Sigil",
       "acquisition": null
     },
     {
@@ -20644,16 +20086,6 @@
       "acquisition": null
     },
     {
-      "name": "Radiant Eidolon Shard",
-      "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/SentientShardBrilliantTierTwoItem",
-      "category": "ExportResources",
-      "pageId": 1254004,
-      "title": "Radiant Eidolon Shard",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Radiant_Eidolon_Shard",
-      "acquisition": null
-    },
-    {
       "name": "Rail Agent Manifest Decoration",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/SUBookAOpen",
       "category": "ExportResources",
@@ -20681,16 +20113,6 @@
       "title": "Railjack Recall",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Railjack_Recall",
-      "acquisition": null
-    },
-    {
-      "name": "Raksa Kubrow",
-      "uniqueName": "/Lotus/Types/Game/KubrowPet/GuardKubrowPetPowerSuit",
-      "category": "warframe-items, ExportSentinels",
-      "pageId": 521869,
-      "title": "Raksa Kubrow",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Raksa_Kubrow",
       "acquisition": null
     },
     {
@@ -20734,6 +20156,16 @@
       "acquisition": null
     },
     {
+      "name": "Rathuum Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/KelaEventSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Rathuum Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Rathuum_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Raya Aurora Ephemera",
       "uniqueName": "/Lotus/Upgrades/Skins/Effects/Twitch2023Ephemera",
       "category": "ExportCustoms, Cosmetics",
@@ -20741,7 +20173,10 @@
       "title": "Raya Aurora Ephemera",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Raya_Aurora_Ephemera",
-      "acquisition": null
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Awarded from reaching certain ranks in Nightwave:"
+      }
     },
     {
       "name": "Raya Orbitus Sigil",
@@ -20831,16 +20266,6 @@
       "title": "Red/white/blue",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Red/white/blue",
-      "acquisition": null
-    },
-    {
-      "name": "Redeemer Abysso Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Redeemer/RedeemerRelayWaterSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1439845,
-      "title": "Redeemer Abysso Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Redeemer_Abysso_Skin",
       "acquisition": null
     },
     {
@@ -20951,16 +20376,6 @@
       "title": "Rell's Disgust Emotile",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Rell%27s_Disgust_Emotile",
-      "acquisition": null
-    },
-    {
-      "name": "Rell's Donda",
-      "uniqueName": "/Lotus/Types/Items/ShipDecos/HarrowQuestKeyOrnament",
-      "category": "ExportResources",
-      "pageId": 1261172,
-      "title": "Rell's Donda",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Rell%27s_Donda",
       "acquisition": null
     },
     {
@@ -21124,19 +20539,6 @@
       "acquisition": null
     },
     {
-      "name": "Revenant Prime Theme",
-      "uniqueName": "/Lotus/Types/Items/SongItems/RevenantPrimeSongItem",
-      "category": "ExportResources",
-      "pageId": 1586763,
-      "title": "Revenant Prime Theme",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Revenant_Prime_Theme",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "The Somachord version of the theme can be bought from Varzia for 5  Aya."
-      }
-    },
-    {
       "name": "RHINO BRONZE SKIN",
       "uniqueName": "/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkin",
       "category": "ExportCustoms, Cosmetics",
@@ -21177,16 +20579,6 @@
       "acquisition": null
     },
     {
-      "name": "Rhino Dex Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Rhino/RhinoDexSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1546394,
-      "title": "Rhino Dex Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Rhino_Dex_Skin",
-      "acquisition": null
-    },
-    {
       "name": "Rhino Heirloom Helmet",
       "uniqueName": "/Lotus/Upgrades/Skins/Rhino/RhinoHeirloomHelmet",
       "category": "ExportCustoms, Cosmetics",
@@ -21214,6 +20606,16 @@
       "title": "Rhino Palatine Helmet",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Rhino_Palatine_Helmet",
+      "acquisition": null
+    },
+    {
+      "name": "Rhino Palatine Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/RhinoDeluxeSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Rhino Palatine Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Rhino_Palatine_Sigil",
       "acquisition": null
     },
     {
@@ -21277,16 +20679,6 @@
       "acquisition": null
     },
     {
-      "name": "Rhoptron Prime Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/PrimeRhoptronSyandana",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632581,
-      "title": "Rhoptron Prime Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Rhoptron_Prime_Syandana",
-      "acquisition": null
-    },
-    {
       "name": "Ride The Wave Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageGlyphYareliComic",
       "category": "ExportFlavour, Glyphs",
@@ -21317,6 +20709,16 @@
       "acquisition": null
     },
     {
+      "name": "Rift Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EnergySigilA",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Rift Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Rift_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Right Hand of Eros",
       "uniqueName": "/Lotus/Types/Items/Emotes/RightHeartEmote",
       "category": "ExportFlavour",
@@ -21324,16 +20726,6 @@
       "title": "Right Hand of Eros",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Right_Hand_of_Eros",
-      "acquisition": null
-    },
-    {
-      "name": "Ringers Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Festivities/JingleKnuckles",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1096321,
-      "title": "Ringers Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Ringers_Skin",
       "acquisition": null
     },
     {
@@ -21707,6 +21099,16 @@
       "acquisition": null
     },
     {
+      "name": "Sands Of Inaros",
+      "uniqueName": "/Lotus/Types/Keys/MummyQuest/MummyQuestKeyChain",
+      "category": "warframe-items",
+      "pageId": null,
+      "title": "Sands Of Inaros",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Sands_Of_Inaros",
+      "acquisition": null
+    },
+    {
       "name": "Sargas Brown",
       "uniqueName": "/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorVibrantD",
       "category": "ExportFlavour",
@@ -21777,19 +21179,6 @@
       "acquisition": null
     },
     {
-      "name": "Saturated Muscle Mass",
-      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishCPartItem",
-      "category": "ExportResources",
-      "pageId": 1525836,
-      "title": "Saturated Muscle Mass",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Saturated_Muscle_Mass",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Saturated Muscle Mass can be obtained by filleting Kymaeros and Ostimyr (both from the Cambion Drift) at Daughter in the Necralisk."
-      }
-    },
-    {
       "name": "Saturn Brown",
       "uniqueName": "/Lotus/Types/Game/KubrowPet/Colors/KubrowPetColorMundaneH",
       "category": "ExportFlavour",
@@ -21840,26 +21229,6 @@
       "acquisition": null
     },
     {
-      "name": "Saturn Six Day of the Dead Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/DOTDWolfBackpack",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1642583,
-      "title": "Saturn Six Day of the Dead Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Saturn_Six_Day_of_the_Dead_Syandana",
-      "acquisition": null
-    },
-    {
-      "name": "Saturn Six Emblem",
-      "uniqueName": "/Lotus/Upgrades/Skins/Clan/WolfBadgeItem",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1397234,
-      "title": "Saturn Six Emblem",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Saturn_Six_Emblem",
-      "acquisition": null
-    },
-    {
       "name": "Saturn Six Ornament",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/NoraWolfOrnament",
       "category": "ExportResources",
@@ -21880,6 +21249,16 @@
       "acquisition": null
     },
     {
+      "name": "Saturn Six Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WolfSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Saturn Six Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Saturn_Six_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Saturn Six Syandana",
       "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoWolfBackpack",
       "category": "ExportCustoms, Cosmetics",
@@ -21887,7 +21266,10 @@
       "title": "Saturn Six Syandana",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Saturn_Six_Syandana",
-      "acquisition": null
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Obtained from the following  Nightwave season(s):"
+      }
     },
     {
       "name": "Save Popcorn Glyph",
@@ -21897,6 +21279,16 @@
       "title": "Save Popcorn Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Save_Popcorn_Glyph",
+      "acquisition": null
+    },
+    {
+      "name": "Scar Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ScarSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Scar Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Scar_Sigil",
       "acquisition": null
     },
     {
@@ -22170,26 +21562,43 @@
       "acquisition": null
     },
     {
-      "name": "Scrubber Exa Brain",
-      "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishExaBrainItem",
-      "category": "ExportResources",
-      "pageId": 1363160,
-      "title": "Scrubber Exa Brain",
+      "name": "Seal Of Honoring",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/XBoneOneYearSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Seal Of Honoring",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Scrubber_Exa_Brain",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Exa Brains are acquired by dismantling Scrubbers caught through Fishing. Go to The Business in Fortuna, select the desired amount of Scrubbers available, and select the \"Dismantle\" option to extract the components."
-      }
+      "url": "https://wiki.warframe.com/w/Seal_Of_Honoring",
+      "acquisition": null
     },
     {
-      "name": "Scuttler Husk",
-      "uniqueName": "/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemB",
-      "category": "ExportResources",
-      "pageId": 1599129,
-      "title": "Scuttler Husk",
+      "name": "Seal Of Honoring II",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/XBoneTwoYearSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Seal Of Honoring II",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/Scuttler_Husk",
+      "url": "https://wiki.warframe.com/w/Seal_Of_Honoring_II",
+      "acquisition": null
+    },
+    {
+      "name": "Seal Of Honoring III",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/XBoneThreeYearSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Seal Of Honoring III",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Seal_Of_Honoring_III",
+      "acquisition": null
+    },
+    {
+      "name": "Seal Of Honoring IV",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Seal Of Honoring IV",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Seal_Of_Honoring_IV",
       "acquisition": null
     },
     {
@@ -22330,26 +21739,6 @@
       "pageId": null,
       "title": null,
       "url": null,
-      "acquisition": null
-    },
-    {
-      "name": "Seonn",
-      "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/Fish/DuviriFishEItem",
-      "category": "ExportResources",
-      "pageId": 1581505,
-      "title": "Seonn",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Seonn",
-      "acquisition": null
-    },
-    {
-      "name": "Seonn",
-      "uniqueName": "/Lotus/Types/Items/Fish/Duviri/DuviriFishEItem",
-      "category": "ExportResources",
-      "pageId": 1581505,
-      "title": "Seonn",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Seonn",
       "acquisition": null
     },
     {
@@ -22553,16 +21942,6 @@
       "acquisition": null
     },
     {
-      "name": "Sevati Sekhara",
-      "uniqueName": "/Lotus/Upgrades/Skins/Clan/SevantiHaloBadgeItem",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 736246,
-      "title": "Sevati Sekhara",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Sevati_Sekhara",
-      "acquisition": null
-    },
-    {
       "name": "Shadow Claws",
       "uniqueName": "/Lotus/Powersuits/Wraith/ReaperMeleeWeapon",
       "category": "warframe-items, ExportWeapons",
@@ -22690,16 +22069,6 @@
       "title": "Shawzin",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Shawzin",
-      "acquisition": null
-    },
-    {
-      "name": "Shedu Day of the Dead Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Halloween/DOTD2025SheduSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1630271,
-      "title": "Shedu Day of the Dead Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Shedu_Day_of_the_Dead_Skin",
       "acquisition": null
     },
     {
@@ -22963,6 +22332,16 @@
       "acquisition": null
     },
     {
+      "name": "SISTER OF PARVOS TOKEN",
+      "uniqueName": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedCorpusLichToken",
+      "category": "ExportResources",
+      "pageId": null,
+      "title": "SISTER OF PARVOS TOKEN",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/SISTER_OF_PARVOS_TOKEN",
+      "acquisition": null
+    },
+    {
       "name": "Sisterhood Emblem",
       "uniqueName": "/Lotus/Upgrades/Skins/Clan/CorpusLichBadgeItem",
       "category": "ExportCustoms, Cosmetics",
@@ -22973,6 +22352,16 @@
       "acquisition": null
     },
     {
+      "name": "Sisterhood Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/CorpusLichSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Sisterhood Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Sisterhood_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Skana Obsidian Skin",
       "uniqueName": "/Lotus/Upgrades/Skins/Sony/PS4Skana",
       "category": "ExportCustoms, Cosmetics",
@@ -22980,16 +22369,6 @@
       "title": "Skana Obsidian Skin",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Skana_Obsidian_Skin",
-      "acquisition": null
-    },
-    {
-      "name": "Skana Prime",
-      "uniqueName": "/Lotus/Weapons/Tenno/Melee/LongSword/SkanaPrime",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 2540,
-      "title": "Skana Prime",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Skana_Prime",
       "acquisition": null
     },
     {
@@ -23033,16 +22412,6 @@
       "acquisition": null
     },
     {
-      "name": "Sling Stone Emblem",
-      "uniqueName": "/Lotus/Upgrades/Skins/Clan/SlingStoneEmblemItem",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 158227,
-      "title": "Sling Stone Emblem",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Sling_Stone_Emblem",
-      "acquisition": null
-    },
-    {
       "name": "Slippery Poster",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterO",
       "category": "ExportResources",
@@ -23053,26 +22422,6 @@
       "acquisition": null
     },
     {
-      "name": "Sly Vulpaphyla",
-      "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/VulpineInfestedCatbrowPetPowerSuit",
-      "category": "warframe-items, ExportSentinels",
-      "pageId": 1525450,
-      "title": "Sly Vulpaphyla",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Sly_Vulpaphyla",
-      "acquisition": null
-    },
-    {
-      "name": "Sly Vulpaphyla",
-      "uniqueName": "/Lotus/Types/Items/Deimos/WoundedInfestedCritterCommonRewardItem",
-      "category": "ExportWeapons",
-      "pageId": 1525450,
-      "title": "Sly Vulpaphyla",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Sly_Vulpaphyla",
-      "acquisition": null
-    },
-    {
       "name": "Sly Vulpaphyla Tag",
       "uniqueName": "/Lotus/Types/Items/Deimos/AnimalTagInfestedCritterCommon",
       "category": "ExportResources",
@@ -23080,16 +22429,6 @@
       "title": "Sly Vulpaphyla Tag",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Sly_Vulpaphyla_Tag",
-      "acquisition": null
-    },
-    {
-      "name": "Smeeta Kavat",
-      "uniqueName": "/Lotus/Types/Game/CatbrowPet/CheshireCatbrowPetPowerSuit",
-      "category": "warframe-items, ExportSentinels",
-      "pageId": 1015409,
-      "title": "Smeeta Kavat",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Smeeta_Kavat",
       "acquisition": null
     },
     {
@@ -23190,16 +22529,6 @@
       "title": "Snowlit Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Snowlit_Glyph",
-      "acquisition": null
-    },
-    {
-      "name": "Soaker Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/HydroidDeluxeEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604464,
-      "title": "Soaker Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Soaker_Ephemera",
       "acquisition": null
     },
     {
@@ -23443,6 +22772,16 @@
       "acquisition": null
     },
     {
+      "name": "Somber Stalker Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/SomberStalkerSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Somber Stalker Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Somber_Stalker_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Son Tennobaum Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/XMas20SonGlyph",
       "category": "ExportFlavour, Glyphs",
@@ -23463,16 +22802,6 @@
       "acquisition": null
     },
     {
-      "name": "Sonicor Festive Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Festivities/XmasSonicor",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1418767,
-      "title": "Sonicor Festive Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Sonicor_Festive_Skin",
-      "acquisition": null
-    },
-    {
       "name": "Sonicor Obsidian Skin",
       "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianSonicor",
       "category": "ExportCustoms, Cosmetics",
@@ -23480,16 +22809,6 @@
       "title": "Sonicor Obsidian Skin",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Sonicor_Obsidian_Skin",
-      "acquisition": null
-    },
-    {
-      "name": "Soul-Eye Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraH",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631070,
-      "title": "Soul-Eye Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Soul-Eye_Ephemera",
       "acquisition": null
     },
     {
@@ -23543,16 +22862,6 @@
       "acquisition": null
     },
     {
-      "name": "Spinal Core Section",
-      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishBPartItem",
-      "category": "ExportResources",
-      "pageId": 1523071,
-      "title": "Spinal Core Section",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Spinal_Core_Section",
-      "acquisition": null
-    },
-    {
       "name": "Spira Obsidian Skin",
       "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianSpira",
       "category": "ExportCustoms, Cosmetics",
@@ -23600,10 +22909,7 @@
       "title": "Spore Ephemera",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Spore_Ephemera",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Awarded from reaching certain ranks in Nightwave:"
-      }
+      "acquisition": null
     },
     {
       "name": "Sporulate Sac",
@@ -23666,16 +22972,6 @@
       "acquisition": null
     },
     {
-      "name": "Spring Step Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/FootstepsEasterEggs",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604468,
-      "title": "Spring Step Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Spring_Step_Ephemera",
-      "acquisition": null
-    },
-    {
       "name": "Sprodling Floof",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/PlushyNokkoMushroom",
       "category": "ExportResources",
@@ -23733,6 +23029,16 @@
       "title": "Stalker In Action Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Stalker_In_Action_Glyph",
+      "acquisition": null
+    },
+    {
+      "name": "Stalker Smoke Screen Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/NWStalkerSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Stalker Smoke Screen Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Stalker_Smoke_Screen_Sigil",
       "acquisition": null
     },
     {
@@ -24136,16 +23442,6 @@
       "acquisition": null
     },
     {
-      "name": "Stratos Emblem",
-      "uniqueName": "/Lotus/Upgrades/Skins/Clan/BountyHunterBadgeItem",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 532447,
-      "title": "Stratos Emblem",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Stratos_Emblem",
-      "acquisition": null
-    },
-    {
       "name": "Strikes Twice Honoria",
       "uniqueName": "/Lotus/Types/Items/Titles/HunhowHonoria/TitleVolt",
       "category": "ExportFlavour",
@@ -24506,36 +23802,6 @@
       "acquisition": null
     },
     {
-      "name": "Sybillina Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/CorpusLichEphemeraA",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604469,
-      "title": "Sybillina Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Sybillina_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Syndir Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/AshGeminiEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1640945,
-      "title": "Syndir Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Syndir_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Synkra Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnSmallBatteryCape",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632616,
-      "title": "Synkra Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Synkra_Syandana",
-      "acquisition": null
-    },
-    {
       "name": "Synthetics",
       "uniqueName": "/Lotus/Types/Items/InfestedFoundry/HelminthSynthetics",
       "category": "ExportResources",
@@ -24566,6 +23832,16 @@
       "acquisition": null
     },
     {
+      "name": "Tagfer Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaTagfer",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Tagfer Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Tagfer_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Tagfer Sketch Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/Events/EventGlyphCaviaTagfer",
       "category": "ExportFlavour, Glyphs",
@@ -24573,16 +23849,6 @@
       "title": "Tagfer Sketch Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Tagfer_Sketch_Glyph",
-      "acquisition": null
-    },
-    {
-      "name": "Tail Feather Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/InfestedLichEphemeraB",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631063,
-      "title": "Tail Feather Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Tail_Feather_Ephemera",
       "acquisition": null
     },
     {
@@ -24634,19 +23900,6 @@
       "missing": false,
       "url": "https://wiki.warframe.com/w/Tall_White_Artisan_Pot",
       "acquisition": null
-    },
-    {
-      "name": "Tammpet Sugatra",
-      "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/Sugotchi1999MeleeDangle",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631267,
-      "title": "Tammpet Sugatra",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Tammpet_Sugatra",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Acquired from achieving Nightwave Nora's Mix Volume 8: Rank 22."
-      }
     },
     {
       "name": "Tar Mutalist Moa Emblem",
@@ -24829,16 +24082,6 @@
       "acquisition": null
     },
     {
-      "name": "Tealtrian Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/ProteaDeluxeEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1631090,
-      "title": "Tealtrian Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Tealtrian_Ephemera",
-      "acquisition": null
-    },
-    {
       "name": "Technocyte Coda Stadium Scene",
       "uniqueName": "/Lotus/Types/Items/PhotoBooth/PhotoboothTileRJLasXStadiumBossArena",
       "category": "ExportResources",
@@ -24846,6 +24089,66 @@
       "pageId": null,
       "title": null,
       "url": null,
+      "acquisition": null
+    },
+    {
+      "name": "TECHNOCYTE CODA TOKEN",
+      "uniqueName": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedDJRomToken",
+      "category": "ExportResources",
+      "pageId": null,
+      "title": "TECHNOCYTE CODA TOKEN",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN",
+      "acquisition": null
+    },
+    {
+      "name": "TECHNOCYTE CODA TOKEN",
+      "uniqueName": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedDrillBitToken",
+      "category": "ExportResources",
+      "pageId": null,
+      "title": "TECHNOCYTE CODA TOKEN",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN",
+      "acquisition": null
+    },
+    {
+      "name": "TECHNOCYTE CODA TOKEN",
+      "uniqueName": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedHardDriveToken",
+      "category": "ExportResources",
+      "pageId": null,
+      "title": "TECHNOCYTE CODA TOKEN",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN",
+      "acquisition": null
+    },
+    {
+      "name": "TECHNOCYTE CODA TOKEN",
+      "uniqueName": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedLichToken",
+      "category": "ExportResources",
+      "pageId": null,
+      "title": "TECHNOCYTE CODA TOKEN",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN",
+      "acquisition": null
+    },
+    {
+      "name": "TECHNOCYTE CODA TOKEN",
+      "uniqueName": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedPacketToken",
+      "category": "ExportResources",
+      "pageId": null,
+      "title": "TECHNOCYTE CODA TOKEN",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN",
+      "acquisition": null
+    },
+    {
+      "name": "TECHNOCYTE CODA TOKEN",
+      "uniqueName": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedZekeToken",
+      "category": "ExportResources",
+      "pageId": null,
+      "title": "TECHNOCYTE CODA TOKEN",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/TECHNOCYTE_CODA_TOKEN",
       "acquisition": null
     },
     {
@@ -25009,16 +24312,6 @@
       "acquisition": null
     },
     {
-      "name": "Tenebrous Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/SentientDeadEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1593792,
-      "title": "Tenebrous Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Tenebrous_Ephemera",
-      "acquisition": null
-    },
-    {
       "name": "Tenens Honoria",
       "uniqueName": "/Lotus/Types/Items/Titles/MedalRank9Title",
       "category": "ExportFlavour",
@@ -25089,6 +24382,36 @@
       "acquisition": null
     },
     {
+      "name": "Tenno Chronicler Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WikiaSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Tenno Chronicler Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Tenno_Chronicler_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Tenno Live Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Tenno Live Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Tenno_Live_Sigil",
+      "acquisition": null
+    },
+    {
+      "name": "Tenno Luminary Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoLivePromoSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Tenno Luminary Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Tenno_Luminary_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Tenno Mentor Emblem",
       "uniqueName": "/Lotus/Upgrades/Skins/Clan/LotusGuideBadgeItem",
       "category": "ExportCustoms, Cosmetics",
@@ -25129,17 +24452,14 @@
       "acquisition": null
     },
     {
-      "name": "TennoCon 2016 Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoConScarf",
+      "name": "TennoCon 2016 Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2016Sigil",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632606,
-      "title": "TennoCon 2016 Syandana",
+      "pageId": null,
+      "title": "TennoCon 2016 Sigil",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/TennoCon_2016_Syandana",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Originally obtained as a bonus code from purchasing a physical TennoCon 2016 ticket. Now no longer available."
-      }
+      "url": "https://wiki.warframe.com/w/TennoCon_2016_Sigil",
+      "acquisition": null
     },
     {
       "name": "TennoCon 2017 Glyph",
@@ -25152,23 +24472,13 @@
       "acquisition": null
     },
     {
-      "name": "TennoCon 2017 Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoCon2017Scarf",
+      "name": "TennoCon 2017 Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2017Sigil",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632607,
-      "title": "TennoCon 2017 Syandana",
+      "pageId": null,
+      "title": "TennoCon 2017 Sigil",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/TennoCon_2017_Syandana",
-      "acquisition": null
-    },
-    {
-      "name": "TennoCon 2018 Chest Plate",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorC",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633533,
-      "title": "TennoCon 2018 Chest Plate",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/TennoCon_2018_Chest_Plate",
+      "url": "https://wiki.warframe.com/w/TennoCon_2017_Sigil",
       "acquisition": null
     },
     {
@@ -25182,23 +24492,13 @@
       "acquisition": null
     },
     {
-      "name": "TennoCon 2018 Leg Plates",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorL",
+      "name": "TennoCon 2018 Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633534,
-      "title": "TennoCon 2018 Leg Plates",
+      "pageId": null,
+      "title": "TennoCon 2018 Sigil",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/TennoCon_2018_Leg_Plates",
-      "acquisition": null
-    },
-    {
-      "name": "TennoCon 2018 Shoulder Plates",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorA",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633535,
-      "title": "TennoCon 2018 Shoulder Plates",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/TennoCon_2018_Shoulder_Plates",
+      "url": "https://wiki.warframe.com/w/TennoCon_2018_Sigil",
       "acquisition": null
     },
     {
@@ -25242,6 +24542,16 @@
       "acquisition": null
     },
     {
+      "name": "TennoCon 2019 Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "TennoCon 2019 Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/TennoCon_2019_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "TennoCon 2020",
       "uniqueName": "/Lotus/Types/Items/Emotes/Tennocon2020BEmote",
       "category": "ExportFlavour",
@@ -25262,13 +24572,13 @@
       "acquisition": null
     },
     {
-      "name": "TennoCon 2020 Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoCon2020Scarf",
+      "name": "TennoCon 2020 Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil",
       "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632608,
-      "title": "TennoCon 2020 Syandana",
+      "pageId": null,
+      "title": "TennoCon 2020 Sigil",
       "missing": false,
-      "url": "https://wiki.warframe.com/w/TennoCon_2020_Syandana",
+      "url": "https://wiki.warframe.com/w/TennoCon_2020_Sigil",
       "acquisition": null
     },
     {
@@ -25972,6 +25282,16 @@
       "acquisition": null
     },
     {
+      "name": "TennoGen Decennial Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Tennogen10YearSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "TennoGen Decennial Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/TennoGen_Decennial_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "TennoGen Emblem",
       "uniqueName": "/Lotus/Upgrades/Skins/Clan/TennoGenBadgeItem",
       "category": "ExportCustoms, Cosmetics",
@@ -25989,6 +25309,16 @@
       "title": "TennoGen Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/TennoGen_Glyph",
+      "acquisition": null
+    },
+    {
+      "name": "TennoGen Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoGenSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "TennoGen Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/TennoGen_Sigil",
       "acquisition": null
     },
     {
@@ -26139,6 +25469,16 @@
       "title": "TennoVIP Glyph 2026",
       "missing": false,
       "url": "https://wiki.warframe.com/w/TennoVIP_Glyph_2026",
+      "acquisition": null
+    },
+    {
+      "name": "Teralyst Prominence Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/DawnsEarlyLightSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Teralyst Prominence Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Teralyst_Prominence_Sigil",
       "acquisition": null
     },
     {
@@ -26352,6 +25692,16 @@
       "acquisition": null
     },
     {
+      "name": "The Index Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilIndex",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "The Index Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/The_Index_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "The Inventor",
       "uniqueName": "/Lotus/Upgrades/Skins/Mustache/Stache10",
       "category": "ExportCustoms, Cosmetics",
@@ -26359,6 +25709,16 @@
       "title": "The Inventor",
       "missing": false,
       "url": "https://wiki.warframe.com/w/The_Inventor",
+      "acquisition": null
+    },
+    {
+      "name": "The Limbo Theorem",
+      "uniqueName": "/Lotus/Types/Keys/LimboQuest/LimboQuestKeyChain",
+      "category": "warframe-items",
+      "pageId": 570807,
+      "title": "The Limbo Theorem",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/The_Limbo_Theorem",
       "acquisition": null
     },
     {
@@ -26459,6 +25819,16 @@
       "title": "The Shopkeep",
       "missing": false,
       "url": "https://wiki.warframe.com/w/The_Shopkeep",
+      "acquisition": null
+    },
+    {
+      "name": "The Silver Grove",
+      "uniqueName": "/Lotus/Types/Keys/FairyQuest/FairyQuestKeyChain",
+      "category": "warframe-items",
+      "pageId": 1038460,
+      "title": "The Silver Grove",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/The_Silver_Grove",
       "acquisition": null
     },
     {
@@ -27042,16 +26412,6 @@
       "acquisition": null
     },
     {
-      "name": "Thermian RPG",
-      "uniqueName": "/Lotus/Types/Restoratives/ThermianRPGSummon",
-      "category": "ExportGear",
-      "pageId": 1589119,
-      "title": "Thermian RPG",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Thermian_RPG",
-      "acquisition": null
-    },
-    {
       "name": "Thorny Bolarola Tag",
       "uniqueName": "/Lotus/Types/Items/Solaris/AnimalTagBolarolaRare",
       "category": "ExportResources",
@@ -27172,19 +26532,6 @@
       "acquisition": null
     },
     {
-      "name": "Tink Dissipator Coil",
-      "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/SolarisFishDissipatorCoilItem",
-      "category": "ExportResources",
-      "pageId": 1363158,
-      "title": "Tink Dissipator Coil",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Tink_Dissipator_Coil",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Tink Dissipator Coils are acquired by dismantling Tinks caught through Fishing. Go to The Business in Fortuna, select the desired amount of Tinks available, and select the \"Dismantle\" option to extract the components."
-      }
-    },
-    {
       "name": "Titania Donann Helmet",
       "uniqueName": "/Lotus/Upgrades/Skins/Fairy/TitaniaDeluxeIIHelmet",
       "category": "ExportCustoms, Cosmetics",
@@ -27265,6 +26612,16 @@
       "acquisition": null
     },
     {
+      "name": "Tolling Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014C",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Tolling Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Tolling_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Top Hat & Monocle Glyph",
       "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImageSzczebrzeszyniarz",
       "category": "ExportFlavour, Glyphs",
@@ -27285,6 +26642,16 @@
       "acquisition": null
     },
     {
+      "name": "Trailer Entrant Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/SigilVideoContest",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Trailer Entrant Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Trailer_Entrant_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "Transmission",
       "uniqueName": "/Lotus/Types/SuitCustomizations/ColourPickerTransmissionItemA",
       "category": "ExportFlavour",
@@ -27302,16 +26669,6 @@
       "title": "Transmutation Probe Prime Decoration",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Transmutation_Probe_Prime_Decoration",
-      "acquisition": null
-    },
-    {
-      "name": "Trembera Essence",
-      "uniqueName": "/Lotus/Types/Items/RelayRebuild/PhaseThreeEarthEssence",
-      "category": "ExportResources",
-      "pageId": 1344045,
-      "title": "Trembera Essence",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Trembera_Essence",
       "acquisition": null
     },
     {
@@ -27392,16 +26749,6 @@
       "title": "True Master Sumdali",
       "missing": false,
       "url": "https://wiki.warframe.com/w/True_Master_Sumdali",
-      "acquisition": null
-    },
-    {
-      "name": "Tubercular Gill System",
-      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosGenericOrokinFishPartItem",
-      "category": "ExportResources",
-      "pageId": 1525110,
-      "title": "Tubercular Gill System",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Tubercular_Gill_System",
       "acquisition": null
     },
     {
@@ -27505,16 +26852,6 @@
       "acquisition": null
     },
     {
-      "name": "Udyat Iridos Syandana",
-      "uniqueName": "/Lotus/Characters/Tenno/Accessory/Scarves/U17IntermScarf/IridosUdyatSkin/UdyatPrimeGamingSyandana",
-      "category": "ExportCustoms",
-      "pageId": 1632532,
-      "title": "Udyat Iridos Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Udyat_Iridos_Syandana",
-      "acquisition": null
-    },
-    {
       "name": "Ueymag Decoration",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Plants/LisetPropDUVxGardeningCactus",
       "category": "ExportResources",
@@ -27552,16 +26889,6 @@
       "title": "Umbra's Courtyard Scene",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Umbra%27s_Courtyard_Scene",
-      "acquisition": null
-    },
-    {
-      "name": "Unairu Badge",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/FocusSchool/UnairuCArmor",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633458,
-      "title": "Unairu Badge",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Unairu_Badge",
       "acquisition": null
     },
     {
@@ -27965,6 +27292,16 @@
       "acquisition": null
     },
     {
+      "name": "Vanquished Coda Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/InfLichVanquishedSigil",
+      "category": "ExportCustoms, Cosmetics",
+      "pageId": null,
+      "title": "Vanquished Coda Sigil",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Vanquished_Coda_Sigil",
+      "acquisition": null
+    },
+    {
       "name": "VAPOROUS UNDAZOA TAG",
       "uniqueName": "/Lotus/Types/Items/Deimos/AnimalTagInfestedZongroUncommon",
       "category": "ExportResources",
@@ -28205,19 +27542,6 @@
       "acquisition": null
     },
     {
-      "name": "Vauban Prime Theme",
-      "uniqueName": "/Lotus/Types/Items/SongItems/VaubanPrimeSongItem",
-      "category": "ExportResources",
-      "pageId": 1586764,
-      "title": "Vauban Prime Theme",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vauban_Prime_Theme",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "The Somachord version of the theme can be bought from Varzia for 5  Aya."
-      }
-    },
-    {
       "name": "Vay Hek Nav Coordinate",
       "uniqueName": "/Lotus/Types/Items/MiscItems/HekNavCode",
       "category": "ExportResources",
@@ -28225,16 +27549,6 @@
       "title": "Vay Hek Nav Coordinate",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Vay_Hek_Nav_Coordinate",
-      "acquisition": null
-    },
-    {
-      "name": "Vazarin Badge",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/FocusSchool/VazarinCArmor",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633460,
-      "title": "Vazarin Badge",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vazarin_Badge",
       "acquisition": null
     },
     {
@@ -28358,66 +27672,6 @@
       "acquisition": null
     },
     {
-      "name": "Vengeful Chill Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/Kuva/KuvaIceEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604475,
-      "title": "Vengeful Chill Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vengeful_Chill_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Vengeful Flame Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/Kuva/KuvaFireEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604476,
-      "title": "Vengeful Flame Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vengeful_Flame_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Vengeful Pull Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/Kuva/KuvaMagneticEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604477,
-      "title": "Vengeful Pull Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vengeful_Pull_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Vengeful Shockwave Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/Kuva/KuvaImpactEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604478,
-      "title": "Vengeful Shockwave Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vengeful_Shockwave_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Vengeful Toxin Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/Kuva/KuvaToxinEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604479,
-      "title": "Vengeful Toxin Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vengeful_Toxin_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Vengeful Trickster Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/Kuva/KuvaTricksterEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1604480,
-      "title": "Vengeful Trickster Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vengeful_Trickster_Ephemera",
-      "acquisition": null
-    },
-    {
       "name": "Ventkids",
       "uniqueName": "/Lotus/Syndicates/Solaris/VentKidsSyndicate",
       "category": "ExportSyndicates",
@@ -28455,26 +27709,6 @@
       "title": "VENUS NAV SEGMENT",
       "missing": false,
       "url": "https://wiki.warframe.com/w/VENUS_NAV_SEGMENT",
-      "acquisition": null
-    },
-    {
-      "name": "Verglas",
-      "uniqueName": "/Lotus/Types/Sentinels/SentinelWeapons/SentinelFreezeRayRifle",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 1545020,
-      "title": "Verglas",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Verglas",
-      "acquisition": null
-    },
-    {
-      "name": "Verglas Prime",
-      "uniqueName": "/Lotus/Types/Sentinels/SentinelWeapons/SentinelFreezeRayPrimeRifle",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 1586985,
-      "title": "Verglas Prime",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Verglas_Prime",
       "acquisition": null
     },
     {
@@ -28598,16 +27832,6 @@
       "acquisition": null
     },
     {
-      "name": "Vessel Capillaries",
-      "uniqueName": "/Lotus/Types/Gameplay/EntratiLab/Resources/VesselCapillaries",
-      "category": "ExportResources",
-      "pageId": 1583521,
-      "title": "Vessel Capillaries",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vessel_Capillaries",
-      "acquisition": null
-    },
-    {
       "name": "Vestan Moss Decoration",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Plants/Nokko/LisetPropMossGroundCoverA",
       "category": "ExportResources",
@@ -28616,19 +27840,6 @@
       "missing": false,
       "url": "https://wiki.warframe.com/w/Vestan_Moss_Decoration",
       "acquisition": null
-    },
-    {
-      "name": "Vestigial Motes",
-      "uniqueName": "/Lotus/Types/Gameplay/JadeShadows/Resources/AscensionResourceItem",
-      "category": "ExportResources",
-      "pageId": 1585435,
-      "title": "Vestigial Motes",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vestigial_Motes",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "Completing Ascension missions on Brutus, Uranus, awarded in quantities of 11-14 (16-18 on The Steel Path)."
-      }
     },
     {
       "name": "Vilkas Prime Sumdali",
@@ -28711,26 +27922,6 @@
       "acquisition": null
     },
     {
-      "name": "Viserakta Ephemera",
-      "uniqueName": "/Lotus/Upgrades/Skins/Effects/GarudaBloodEphemera",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1640946,
-      "title": "Viserakta Ephemera",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Viserakta_Ephemera",
-      "acquisition": null
-    },
-    {
-      "name": "Vitam Prime Syandana",
-      "uniqueName": "/Lotus/Upgrades/Skins/Scarves/VitamPrimeSyandana",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1632588,
-      "title": "Vitam Prime Syandana",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vitam_Prime_Syandana",
-      "acquisition": null
-    },
-    {
       "name": "Vitrific Outcrop Decoration",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Props/LisetPropOrbStone",
       "category": "ExportResources",
@@ -28738,16 +27929,6 @@
       "title": "Vitrific Outcrop Decoration",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Vitrific_Outcrop_Decoration",
-      "acquisition": null
-    },
-    {
-      "name": "Vizier Predasite",
-      "uniqueName": "/Lotus/Types/Items/Deimos/WoundedInfestedPredatorCommonRewardItem",
-      "category": "ExportWeapons",
-      "pageId": 1525446,
-      "title": "Vizier Predasite",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vizier_Predasite",
       "acquisition": null
     },
     {
@@ -28788,26 +27969,6 @@
       "title": "Void Moon Glyph",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Void_Moon_Glyph",
-      "acquisition": null
-    },
-    {
-      "name": "Void Relic",
-      "uniqueName": "/Lotus/Types/Game/Projections/T0VoidProjection",
-      "category": "ExportResources",
-      "pageId": 1014636,
-      "title": "Void Relic",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Void_Relic",
-      "acquisition": null
-    },
-    {
-      "name": "Void Relic",
-      "uniqueName": "/Lotus/Types/Game/Projections/T5VoidProjectionImmortalOmni",
-      "category": "ExportResources",
-      "pageId": 1014636,
-      "title": "Void Relic",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Void_Relic",
       "acquisition": null
     },
     {
@@ -28898,7 +28059,10 @@
       "title": "Volatile Motes",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Volatile_Motes",
-      "acquisition": null
+      "acquisition": {
+        "section": "Acquisition",
+        "text": "Volatile Motes can be obtained by:"
+      }
     },
     {
       "name": "Volt Amethyst Helmet",
@@ -29151,16 +28315,6 @@
       "acquisition": null
     },
     {
-      "name": "Vulklok",
-      "uniqueName": "/Lotus/Types/Sentinels/SentinelWeapons/SentElecRailgun",
-      "category": "warframe-items, ExportWeapons",
-      "pageId": 802047,
-      "title": "Vulklok",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Vulklok",
-      "acquisition": null
-    },
-    {
       "name": "War Prime",
       "uniqueName": "/Lotus/Weapons/Tenno/Melee/Swords/PrimeWar/PrimeWarWeapon",
       "category": "ExportWeapons",
@@ -29308,16 +28462,6 @@
       "pageId": null,
       "title": null,
       "url": null,
-      "acquisition": null
-    },
-    {
-      "name": "Waxen Sebum Deposit",
-      "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishDPartItem",
-      "category": "ExportResources",
-      "pageId": 1523249,
-      "title": "Waxen Sebum Deposit",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Waxen_Sebum_Deposit",
       "acquisition": null
     },
     {
@@ -29691,19 +28835,6 @@
       "acquisition": null
     },
     {
-      "name": "Wisp Dex Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Wisp/DexWispSkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1557796,
-      "title": "Wisp Dex Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Wisp_Dex_Skin",
-      "acquisition": {
-        "section": "Acquisition",
-        "text": "The Wisp Dex Skin was available for logging in to Warframe from March 28, 2022 to May 2, 2022, and for defeating John Prodman in his Gift of the Lotus - Stolen! Assassination from May 19th, 2023 to June 2, 2023."
-      }
-    },
-    {
       "name": "Wisp Prime Glyph - Bright",
       "uniqueName": "/Lotus/Types/AvatarImages/Primes/ImageWispPrimeBright",
       "category": "ExportFlavour, Glyphs",
@@ -29731,16 +28862,6 @@
       "title": "Wisp Prime Shroud",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Wisp_Prime_Shroud",
-      "acquisition": null
-    },
-    {
-      "name": "Wisp Prime Theme",
-      "uniqueName": "/Lotus/Types/Items/SongItems/WispPrimeSongItem",
-      "category": "ExportResources",
-      "pageId": 1586766,
-      "title": "Wisp Prime Theme",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Wisp_Prime_Theme",
       "acquisition": null
     },
     {
@@ -29821,6 +28942,16 @@
       "title": "Worm! Poster",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Worm!_Poster",
+      "acquisition": null
+    },
+    {
+      "name": "Wreath Sigil",
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014A",
+      "category": "ExportCustoms, Cosmetics",
+      "missing": true,
+      "pageId": null,
+      "title": null,
+      "url": null,
       "acquisition": null
     },
     {
@@ -30464,16 +29595,6 @@
       "acquisition": null
     },
     {
-      "name": "Zealot Derelict Code",
-      "uniqueName": "/Lotus/Types/Items/MiscItems/AntiSerumInjector",
-      "category": "ExportResources",
-      "pageId": 1451185,
-      "title": "Zealot Derelict Code",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Zealot_Derelict_Code",
-      "acquisition": null
-    },
-    {
       "name": "Zeke Floof",
       "uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/PlushyZekeHuman",
       "category": "ExportResources",
@@ -30481,16 +29602,6 @@
       "title": "Zeke Floof",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Zeke_Floof",
-      "acquisition": null
-    },
-    {
-      "name": "Zenurik Badge",
-      "uniqueName": "/Lotus/Upgrades/Skins/Armor/FocusSchool/ZenurikCArmor",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1633459,
-      "title": "Zenurik Badge",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Zenurik_Badge",
       "acquisition": null
     },
     {
@@ -30571,16 +29682,6 @@
       "title": "Zephyr Conquera Helmet",
       "missing": false,
       "url": "https://wiki.warframe.com/w/Zephyr_Conquera_Helmet",
-      "acquisition": null
-    },
-    {
-      "name": "Zephyr Conquera Skin",
-      "uniqueName": "/Lotus/Upgrades/Skins/Tengu/ZephyrQTCCBodySkin",
-      "category": "ExportCustoms, Cosmetics",
-      "pageId": 1600918,
-      "title": "Zephyr Conquera Skin",
-      "missing": false,
-      "url": "https://wiki.warframe.com/w/Zephyr_Conquera_Skin",
       "acquisition": null
     },
     {

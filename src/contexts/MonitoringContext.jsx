@@ -3,7 +3,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
-import { buildRecipeResultIndex, buildMarketIndex, buildAlwaysAvailableIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex, buildExportVendorIndex, buildGlyphSupplementIndex } from '../lib/acquisitionInfo'
+import { buildRecipeResultIndex, buildMarketIndex, buildAlwaysAvailableIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex, buildWikiBlueprintIndex, buildWikiResearchIndex, buildRelicStateIndex, buildExportVendorIndex, buildGlyphSupplementIndex } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, getPartObtainedStatus, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
@@ -363,6 +363,9 @@ export function MonitoringProvider({ children }) {
   const wikiVendorIndex = useMemo(() => buildWikiVendorIndex(exportData?.WikiVendorAcquisition), [exportData])
   const wikiTennoGenIndex = useMemo(() => buildWikiTennoGenIndex(exportData?.WikiTennoGenAcquisition), [exportData])
   const wikiBaroIndex = useMemo(() => buildWikiBaroIndex(exportData?.WikiBaroAcquisition), [exportData])
+  const wikiBlueprintIndex = useMemo(() => buildWikiBlueprintIndex(exportData?.WikiBlueprintAcquisition), [exportData])
+  const wikiResearchIndex = useMemo(() => buildWikiResearchIndex(exportData?.WikiResearchAcquisition), [exportData])
+  const relicStateIndex = useMemo(() => buildRelicStateIndex(exportData), [exportData])
   const exportVendorIndex = useMemo(() => buildExportVendorIndex(exportData), [exportData])
   const glyphSupplementIndex = useMemo(() => buildGlyphSupplementIndex(exportData?.BrowseWfGlyphs), [exportData])
 
@@ -570,7 +573,7 @@ export function MonitoringProvider({ children }) {
           if (glyphBytes) {
             exports.BrowseWfGlyphs = JSON.parse(new TextDecoder().decode(new Uint8Array(glyphBytes)))
           }
-          for (const [file, key] of [['wiki-vendors-acquisition.json', 'WikiVendorAcquisition'], ['wiki-tennogen-acquisition.json', 'WikiTennoGenAcquisition'], ['wiki-baro-acquisition.json', 'WikiBaroAcquisition']]) {
+          for (const [file, key] of [['wiki-vendors-acquisition.json', 'WikiVendorAcquisition'], ['wiki-tennogen-acquisition.json', 'WikiTennoGenAcquisition'], ['wiki-baro-acquisition.json', 'WikiBaroAcquisition'], ['wiki-blueprints-acquisition.json', 'WikiBlueprintAcquisition'], ['wiki-research-acquisition.json', 'WikiResearchAcquisition']]) {
             const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${file}` }).catch(() => null)
             if (bytes) exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
           }
@@ -1243,7 +1246,7 @@ const hasCachedData = useCallback(async () => {
   return (
     <MonitoringContext.Provider value={{
       exportData, spIncursions, arbys, archonModifiers, arbitrationModifiers,
-      dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, glyphSupplementIndex,
+      dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, exportVendorIndex, glyphSupplementIndex,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, nextRetryAt, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
       masteryProgress, allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices,
       startMonitoring, stopMonitoring, manualRefresh, callApiHelper,

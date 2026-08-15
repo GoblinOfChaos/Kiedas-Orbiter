@@ -352,6 +352,45 @@ export function buildWikiBaroIndex(data) {
   return buildDisplayNameIndex(data, () => true);
 }
 
+export function buildWikiBlueprintIndex(data) {
+  return buildDisplayNameIndex(data, (entry) => entry && typeof entry === 'object' ? entry : null);
+}
+
+export function buildWikiResearchIndex(data) {
+  return buildDisplayNameIndex(data, (entry) => entry && typeof entry === 'object' ? entry : null);
+}
+
+export function buildRelicStateIndex(exportData) {
+  const index = new Map();
+  for (const [uniqueName, relic] of Object.entries(exportData?.ExportRelics || {})) {
+    if (relic && typeof relic === 'object') index.set(canonicalPath(uniqueName), relic);
+  }
+  return index;
+}
+
+function formatWikiBlueprint(entry) {
+  const details = ['Blueprint listed by the Warframe Wiki.'];
+  if (entry?.blueprintCost > 0) details.push(`Blueprint: ${Number(entry.blueprintCost).toLocaleString()} Credits.`);
+  if (entry?.buildCost > 0) details.push(`Build cost: ${Number(entry.buildCost).toLocaleString()} Credits.`);
+  const buildTime = formatBuildTime(entry?.buildTime);
+  if (buildTime) details.push(`Build time: ${buildTime}.`);
+  if (entry?.rushCost > 0) details.push(`Rush: ${entry.rushCost} Platinum.`);
+  const parts = (entry?.parts || []).map((part) => `${part.count}x ${part.name}`).join(', ');
+  if (parts) details.push(`Components: ${parts}.`);
+  return details.join(' ');
+}
+
+function formatWikiResearch(entry) {
+  const details = [`Research the blueprint in ${entry?.lab || 'a Clan Dojo lab'}, then build it in the Foundry.`];
+  if (entry?.credits > 0) details.push(`Research cost: ${Number(entry.credits).toLocaleString()} Credits.`);
+  const time = formatBuildTime(entry?.time);
+  if (time) details.push(`Research time: ${time}.`);
+  const resources = (entry?.resources || []).map((resource) => `${resource.count}x ${resource.name}`).join(', ');
+  if (resources) details.push(`Research resources: ${resources}.`);
+  if (entry?.prereq) details.push(`Prerequisite research: ${entry.prereq}.`);
+  return details.join(' ');
+}
+
 /**
  * Supplemental browse.wf Glyph data is keyed by DE uniqueName and contains
  * human-maintained promo codes, creator links, and acquisition notes.
@@ -366,7 +405,7 @@ export function buildGlyphSupplementIndex(data) {
   return index;
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex) {
+export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex) {
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), wikiLink: getWikiLink(dropIndexKey, displayName) };
@@ -503,6 +542,30 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (wikiBaroIndex?.has(displayLower)) {
     return {
       sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki' }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const relicState = relicStateIndex?.get(canonicalPath(dropIndexKey));
+  if (relicState?.vaultedAt || relicState?.vaulted === true) {
+    return {
+      sources: [{ type: 'non-drop', text: 'Vaulted relic; no active drop source is listed in the current export.', source: 'DE export' }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const wikiResearch = wikiResearchIndex?.get(displayLower);
+  if (wikiResearch) {
+    return {
+      sources: [{ type: 'non-drop', text: formatWikiResearch(wikiResearch), source: 'Warframe Wiki' }],
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
+  const wikiBlueprint = wikiBlueprintIndex?.get(displayLower);
+  if (wikiBlueprint) {
+    return {
+      sources: [{ type: 'non-drop', text: formatWikiBlueprint(wikiBlueprint), source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }

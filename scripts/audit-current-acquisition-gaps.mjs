@@ -78,6 +78,9 @@ const indexes = {
   vendor: acquisition.buildWikiVendorIndex(readAsset('wiki-vendors-acquisition.json')),
   tennogen: acquisition.buildWikiTennoGenIndex(readAsset('wiki-tennogen-acquisition.json')),
   baro: acquisition.buildWikiBaroIndex(readAsset('wiki-baro-acquisition.json')),
+  blueprint: acquisition.buildWikiBlueprintIndex(readAsset('wiki-blueprints-acquisition.json')),
+  research: acquisition.buildWikiResearchIndex(readAsset('wiki-research-acquisition.json')),
+  relicState: acquisition.buildRelicStateIndex(exportData),
   exportVendor: acquisition.buildExportVendorIndex(exportData),
   glyph: acquisition.buildGlyphSupplementIndex(readAsset('browse-wf-glyphs.json')),
 };
@@ -130,6 +133,9 @@ function resolveItem(item) {
     indexes.exportVendor,
     indexes.always,
     indexes.glyph,
+    indexes.blueprint,
+    indexes.research,
+    indexes.relicState,
   );
   const texts = (info.sources || []).map((source) => source.text || '').filter(Boolean);
   const genericFoundry = texts.some((text) => text === 'Built in the Foundry from a blueprint and its components - see the Foundry tab for the recipe.');

@@ -3,7 +3,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
-import { buildRecipeResultIndex, buildMarketIndex, buildAlwaysAvailableIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex, buildExportVendorIndex, buildGlyphSupplementIndex } from '../lib/acquisitionInfo'
+import { buildRecipeResultIndex, buildMarketIndex, buildAlwaysAvailableIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex, buildWikiBlueprintIndex, buildWikiResearchIndex, buildRelicStateIndex, buildExportVendorIndex, buildGlyphSupplementIndex } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getAllRelicRewards } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
@@ -151,7 +151,7 @@ export default function MirroredMonitoringProvider({ children }) {
             const glyphBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/browse-wf-glyphs.json' })
             exports.BrowseWfGlyphs = JSON.parse(new TextDecoder().decode(new Uint8Array(glyphBytes)))
           } catch { /* supplemental Glyph data is optional */ }
-          for (const [file, key] of [['wiki-vendors-acquisition.json', 'WikiVendorAcquisition'], ['wiki-tennogen-acquisition.json', 'WikiTennoGenAcquisition'], ['wiki-baro-acquisition.json', 'WikiBaroAcquisition']]) {
+          for (const [file, key] of [['wiki-vendors-acquisition.json', 'WikiVendorAcquisition'], ['wiki-tennogen-acquisition.json', 'WikiTennoGenAcquisition'], ['wiki-baro-acquisition.json', 'WikiBaroAcquisition'], ['wiki-blueprints-acquisition.json', 'WikiBlueprintAcquisition'], ['wiki-research-acquisition.json', 'WikiResearchAcquisition']]) {
             try {
               const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${file}` })
               exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
@@ -561,6 +561,9 @@ export default function MirroredMonitoringProvider({ children }) {
   const wikiVendorIndex = useMemo(() => buildWikiVendorIndex(exportData?.WikiVendorAcquisition), [exportData])
   const wikiTennoGenIndex = useMemo(() => buildWikiTennoGenIndex(exportData?.WikiTennoGenAcquisition), [exportData])
   const wikiBaroIndex = useMemo(() => buildWikiBaroIndex(exportData?.WikiBaroAcquisition), [exportData])
+  const wikiBlueprintIndex = useMemo(() => buildWikiBlueprintIndex(exportData?.WikiBlueprintAcquisition), [exportData])
+  const wikiResearchIndex = useMemo(() => buildWikiResearchIndex(exportData?.WikiResearchAcquisition), [exportData])
+  const relicStateIndex = useMemo(() => buildRelicStateIndex(exportData), [exportData])
   const exportVendorIndex = useMemo(() => buildExportVendorIndex(exportData), [exportData])
   const glyphSupplementIndex = useMemo(() => buildGlyphSupplementIndex(exportData?.BrowseWfGlyphs), [exportData])
 
@@ -715,7 +718,7 @@ export default function MirroredMonitoringProvider({ children }) {
     cardImagesPath, fixProgress,
     dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
     ExportImages, ExportTextIcons, masteryProgress,
-    EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, glyphSupplementIndex,
+    EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, exportVendorIndex, glyphSupplementIndex,
     arbyTiers: ARBY_TIERS,
     setAutoStart, startMonitoring: startMonitoringFn,
     stopMonitoring: stopMonitoringFn,     manualRefresh: async () => {
@@ -734,7 +737,7 @@ export default function MirroredMonitoringProvider({ children }) {
       spIncursions, arbys, archonModifiers, arbitrationModifiers,
       dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
       ExportImages, ExportTextIcons, masteryProgress,
-      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, glyphSupplementIndex,
+      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, exportVendorIndex, glyphSupplementIndex,
       allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices])
 
   return (

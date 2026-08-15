@@ -1,15 +1,15 @@
 # Current acquisition gaps
 
-Generated: 2026-08-15T05:36:45.825Z
+Generated: 2026-08-15T05:39:01.993Z
 
 This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.
 
 Catalog items audited: **13196**
-Items with concrete acquisition records: **12173**
+Items with concrete acquisition records: **12175**
 Generic wiki / no-info items: **0**
 Generic Foundry sentence items: **0**
 Unobtainable export placeholders: **50**
-Records without concrete acquisition evidence: **973**
+Records without concrete acquisition evidence: **971**
 
 The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.
 
@@ -181,7 +181,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Dante's Delight Glyph | `/Lotus/Types/AvatarImages/AvatarImageDanteGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dante%27s_Delight_Glyph |
 | Dark Split-Sword Dulus Skin | `/Lotus/Upgrades/Skins/Promo/PCGamer/PCGamerDarkSwordDaggerHybridSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Dark_Split-Sword_Dulus_Skin |
 | Darkfreack Glyph | `/Lotus/Types/AvatarImages/FanChannel/AvatarImageDarkfreack` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/DarkFreack_Glyph |
-| Daughter Naberus Nights Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2024SisterNoBloodGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daughter_Naberus_Nights_Glyph |
 | Daurus Prime Chest Plate | `/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxCArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daurus_Prime_Chest_Plate |
 | Daurus Prime Leg Plates | `/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxLArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daurus_Prime_Leg_Plates |
 | Daurus Prime Shoulder Plates | `/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxAArmor` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Daurus_Prime_Shoulder_Plates |
@@ -406,7 +405,6 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 | Ivara Obsidian Helmet | `/Lotus/Upgrades/Skins/Archer/ObsidianIvaraHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ivara_Obsidian_Helmet |
 | Ivara Skathi Artemis Bow Skin | `/Lotus/Upgrades/Skins/Deluxe/IvaraDeluxeBowSkin` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ivara_Skathi_Artemis_Bow_Skin |
 | Ivara Skathi Helmet | `/Lotus/Upgrades/Skins/Archer/IvaraDeluxeHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Ivara_Skathi_Helmet |
-| Jack-O-Lotus Glyph | `/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Lotus` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Jack-O-Lotus_Glyph |
 | Jade Broca Syandana | `/Lotus/Upgrades/Skins/Scarves/TnLargeCapeXbox` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Jade_Broca_Syandana |
 | Jade Immortal Helmet | `/Lotus/Upgrades/Skins/Choir/JadeImmortalHelmet` | ExportCustoms | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Jade_Immortal_Helmet |
 | Jade In Action Glyph | `/Lotus/Types/AvatarImages/AvatarImageJadeInActionGlyph` | Glyphs | A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section. | https://wiki.warframe.com/w/Jade_In_Action_Glyph |
@@ -1066,7 +1064,7 @@ The app represents both “generic wiki” and “no info” as `sources: []`; t
 - enemy: 58
 - key: 7
 - mission: 287
-- non-drop: 8119
+- non-drop: 8121
 - override: 607
 - relic: 339
 - sortie: 1

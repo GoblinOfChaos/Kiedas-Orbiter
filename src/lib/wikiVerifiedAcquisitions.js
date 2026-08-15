@@ -102,4 +102,6 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   ['/Lotus/Types/AvatarImages/AvatarImageTeshinVed', { text: 'Redeem the promo code WARWITHIN during the launch of Update 19.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
   ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageLegendaryBlackdeath', { text: 'Exclusive to the player who designed it after purchasing a Legendary Ticket to TennoCon.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
   ['/Lotus/Types/AvatarImages/ImageXakuDeluxeKintsugi', { text: 'Included in the Golden Mend Collection, sold in the Market for 430 Platinum.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2024SisterNoBloodGlyph', { text: 'Purchased from Daughter for 20 Mother Tokens during Nights of Naberus.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
+  ['/Lotus/Types/AvatarImages/Seasonal/AvatarImageHalloween2021Lotus', { text: 'Included in the Gruesome Glyph Bundle, sold in the Market for 65 Platinum during Halloween since 2021.', url: 'https://wiki.warframe.com/w/Glyph', source: 'Warframe Wiki (Glyph)' }],
 ]);

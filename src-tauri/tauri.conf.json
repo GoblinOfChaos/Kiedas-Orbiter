@@ -174,8 +174,8 @@
   },
   "plugins": {
     "updater": {
-      "active": false,
-      "dialog": true,
+      "active": true,
+      "dialog": false,
       "endpoints": [
         "https://github.com/GoblinOfChaos/Kiedas-Orbiter/releases/latest/download/updater.json"
       ],

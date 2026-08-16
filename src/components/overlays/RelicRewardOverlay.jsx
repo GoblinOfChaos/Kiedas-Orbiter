@@ -326,7 +326,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
   if (isCountLayout) {
     return (
       <div className="rounded-xl border overflow-hidden flex flex-col mx-1 transition-all border-white/5 bg-black/40 min-h-[180px]">
-        <ItemArt icon={itemIcon} owned={inv.craftedCount} />
+        <ItemArt icon={itemIcon} owned={inv.craftedCount} blueprintCount={inv.blueprintCount} />
         <div className="px-2.5 pt-2.5">
           <div className="text-[11px] font-black text-white uppercase leading-tight mb-3 text-center tracking-tight">
             {displayName}
@@ -351,7 +351,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
   // Normal items - original structure unchanged
   return (
     <div className="rounded-xl border overflow-hidden flex flex-col mx-1 transition-all border-white/5 bg-black/40">
-      <ItemArt icon={itemIcon} owned={inv.craftedCount} />
+      <ItemArt icon={itemIcon} owned={inv.craftedCount} blueprintCount={inv.blueprintCount} />
       {/* Reward Name */}
       <div className="px-2.5 pt-2.5 pb-2">
         <div className="text-[11px] font-black text-white uppercase leading-tight mb-2 text-center tracking-tight">
@@ -409,7 +409,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
 
 }
 
-function ItemArt({ icon, owned }) {
+function ItemArt({ icon, owned, blueprintCount }) {
   if (!icon) return null;
   return (
     <div className="relative bg-black/30 border-b border-white/5">
@@ -423,6 +423,11 @@ function ItemArt({ icon, owned }) {
       <div className="absolute top-1 left-1 flex items-center gap-1 px-1.5 py-0.5 rounded bg-green-500/20 border border-green-500/40 text-green-300 text-[8px] font-black uppercase">
         <Check size={9} />
         {owned > 1 ? `${owned} Owned` : 'Owned'}
+      </div>
+      }
+      {blueprintCount > 0 &&
+      <div className="absolute top-1 right-1 flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[8px] font-black uppercase">
+        {blueprintCount > 1 ? `${blueprintCount} BP` : 'BP'}
       </div>
       }
     </div>

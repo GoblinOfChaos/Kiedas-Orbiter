@@ -521,10 +521,14 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
 
   return {
     stock,
-    blueprintCount: parentBpCount,
-    craftedCount: parentCraftedCount,
-    // For a recipe ingredient, craftedCount is the completed parent item's
-    // count, not proof that this individual component was ever held.
+    // blueprintCount/craftedCount must reflect THIS component's own current
+    // holdings, not the parent frame/weapon's. parentBpCount/parentCraftedCount
+    // are the completed parent's own count - real evidence the component was
+    // obtained at some point, but not proof any is held right now (a fully
+    // mastered, built frame usually holds zero spare components). Use them
+    // only for isMastered/isOwned, which is what "ever obtained" checks read.
+    blueprintCount: parentRecipe ? stock : parentBpCount,
+    craftedCount: parentRecipe ? craftedCount : parentCraftedCount,
     isRecipeComponent: !!parentRecipe,
     parentName,
     isOwned: parentCraftedCount > 0,
@@ -650,8 +654,11 @@ function getPartInventoryIndex(inventoryData, exportData) {
       if (!ingredient?.ItemType) continue;
       const ingredientUnique = normalize(ingredient.ItemType);
       foundryUnique.add(ingredientUnique);
-      if (/Component$/i.test(ingredientUnique)) {
-        foundryUnique.add(ingredientUnique.replace(/Component$/i, 'Blueprint'));
+      if (/component$/i.test(ingredientUnique)) {
+        // ingredientUnique is already lowercased by normalize() above; the
+        // replacement must stay lowercase too, or the Set entry silently
+        // mismatches every lookup (which also normalizes/lowercases first).
+        foundryUnique.add(ingredientUnique.replace(/component$/i, 'blueprint'));
       }
     }
   }

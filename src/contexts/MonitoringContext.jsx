@@ -312,13 +312,21 @@ export function MonitoringProvider({ children }) {
       }
 
       const url = toBrowseWf(iconPath ?? '')
-      if (url) EI[un] = url
+      // warframe-items supplies wiki.warframe.com thumbnails, but several
+      // recently added items still point at stale thumbnail names (notably
+      // Cyte-09 and Jade). Keep the hashed DE export image indexed earlier
+      // instead of allowing the later WI table to replace it with a 404 URL.
+      const isStaleWikiThumbnail = typeof url === 'string' &&
+        /^https?:\/\/(?:www\.)?wiki\.warframe\.com\//i.test(url)
+      if (url && (!EI[un] || !isStaleWikiThumbnail)) EI[un] = url
 
       uniqueNameToName[un] = nameKey
       const locKey = uniqueNameToName[un]
       if (locKey) {
         const resolved = (dict[locKey] || dict['/' + locKey] || '').replace(/<[^>]*>/g, '').trim()
-        if (resolved && !resolved.startsWith('/')) { if (url) nameToImage[resolved.toLowerCase()] = url }
+        if (resolved && !resolved.startsWith('/') && (!nameToImage[resolved.toLowerCase()] || !isStaleWikiThumbnail)) {
+          if (url) nameToImage[resolved.toLowerCase()] = url
+        }
       }
     }
 
@@ -1039,6 +1047,26 @@ const hasCachedData = useCallback(async () => {
     // reflects only what's still missing - mirrors wfinfo-ng's
     // relic_recommend_watcher.py ev_need concept.
     const RELIC_ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem']
+    // "Missing Prime Parts" must not count universally-farmable filler that
+    // every relic pool carries (Kuva, Riven Fragments, Ayatan Stars, Forma) -
+    // an isPrimePart-only allowlist was tried and rejected: Requiem/Immortal
+    // relics don't reward anything literally named "Prime", so that allowlist
+    // made the Requiem row permanently empty regardless of what's missing.
+    // Also excludes the Weapon Exilus Adapter (WeaponUtilityUnlockerBlueprint)
+    // specifically: once consumed installing it on a weapon it leaves no
+    // reliable trace in save data (unlike Prime components, which leave
+    // evidence via parent-frame mastery or pending Foundry recipes), so
+    // getPartObtainedStatus can never confirm past ownership for it and it
+    // would always read as "missing" even when it was obtained long ago.
+    const isUncountableFillerReward = (uniqueName) => {
+      const un = uniqueName || ''
+      return /\/MiscItems\/Kuva$/i.test(un)
+        || /\/MiscItems\/RivenFragment$/i.test(un)
+        || /\/FusionTreasures\//i.test(un)
+        || /\/Components\/FormaBlueprint$/i.test(un)
+        || /\/MiscItems\/Forma$/i.test(un)
+        || /WeaponUtilityUnlockerBlueprint$/i.test(un)
+    }
     const buildRelicPickerPayload = (voidTier) => {
       const knownSingleEra = voidTier && voidTier !== 'Omnia'
       let relics = inventoryData.relics
@@ -1060,7 +1088,7 @@ const hasCachedData = useCallback(async () => {
           // (getPartObtainedStatus) so the two can't drift out of sync with
           // each other again - confirmed live 2026-08-10 that they had.
           const { everObtained } = getPartObtainedStatus(rw.uniqueName, rw.name, inventoryData, ed, localeRef.current)
-          if (!everObtained) missingCount++
+          if (!everObtained && !isUncountableFillerReward(rw.uniqueName)) missingCount++
           return everObtained ? { ...rw, plat: 0, ducats: 0 } : rw
         })
         const evPlatNeed = getRelicEV(neededRewards, 'Intact', 1, 'plat')

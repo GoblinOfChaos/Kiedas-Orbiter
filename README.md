@@ -5,15 +5,16 @@
 > bundled warframe-api-helper binary — see [LICENSE](./LICENSE)).
 
 <p align="center">
-  <!-- TODO: update these badge URLs to GoblinOfChaos/Kiedas-Orbiter once a release exists there -->
-  <img src="https://img.shields.io/github/v/release/glowseeker/cephalon-kronos?label=Release&color=cbd5e1" alt="Release">
-  <img src="https://img.shields.io/github/downloads/glowseeker/cephalon-kronos/total?label=Downloads&color=94a3b8" alt="Downloads">
+  <img src="https://img.shields.io/github/v/release/GoblinOfChaos/Kiedas-Orbiter?label=Release&color=cbd5e1" alt="Release">
+  <img src="https://img.shields.io/github/downloads/GoblinOfChaos/Kiedas-Orbiter/total?label=Downloads&color=94a3b8" alt="Downloads">
   <img src="https://img.shields.io/badge/Windows%20|%20Linux%20|%20macOS-0865e0" alt="Platform">
   <img src="https://img.shields.io/badge/License-MIT-94a3b8" alt="License">
-  <img src="https://img.shields.io/github/stars/glowseeker/cephalon-kronos?label=Stars&color=cbd5e1" alt="Stars">
+  <img src="https://img.shields.io/github/stars/GoblinOfChaos/Kiedas-Orbiter?label=Stars&color=cbd5e1" alt="Stars">
 </p>
 
-An open-source desktop companion for Warframe built with React, Rust, and Tauri.
+An open-source, cross-platform desktop companion for Warframe built with
+React, Rust, and Tauri — a free alternative to Overwolf-based tools like
+AlecaFrame for players on Linux, where Overwolf isn't available at all.
 
 Kieda's Orbiter tracks your inventory, relics, rivens and mastery progress,
 provides live world-state data, and real-time OCR-powered overlays and notifications.

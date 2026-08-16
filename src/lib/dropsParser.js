@@ -193,6 +193,7 @@ function processDropsAll(index, DropsAll, nameMap) {
           if (!entry || !entry.itemName) return
           addNamedSource(index, nameMap, entry.itemName, {
             type: 'mission',
+            region: planet,
             node: nodeName,
             nodeName: nodeName,
             missionType: gameMode,

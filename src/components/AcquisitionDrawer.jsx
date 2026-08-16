@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Info, ExternalLink } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
 import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from '../lib/codexSupplement';
+import { getItemDrops } from '../lib/acquisitionData';
 
 function formatDropLocation(location) {
   if (!location) return null;
@@ -12,6 +13,22 @@ function formatDropLocation(location) {
     return `${region}Endless reward — Tier ${endless[2]}${mode}`;
   }
   return location;
+}
+
+// Keep the most likely acquisition route first. Sources without a quantified
+// chance stay after quantified sources and retain their original order.
+function sortSourcesByChance(sources) {
+  return sources
+    .map((source, index) => ({ source, index }))
+    .sort((a, b) => {
+      const aHasChance = typeof a.source?.chance === 'number' && Number.isFinite(a.source.chance);
+      const bHasChance = typeof b.source?.chance === 'number' && Number.isFinite(b.source.chance);
+      if (aHasChance && bHasChance) return b.source.chance - a.source.chance || a.index - b.index;
+      if (aHasChance) return -1;
+      if (bHasChance) return 1;
+      return a.index - b.index;
+    })
+    .map(({ source }) => source);
 }
 
 export function getSourceLabel(source) {
@@ -34,7 +51,7 @@ export function getSourceLabel(source) {
     case 'relic':
       return `${source.relicName || source.relicManifest || 'Relic'}${source.rarity ? ` (${source.rarity})` : ''}`;
     case 'mission':
-      return `${source.nodeName || source.node || source.missionType || 'Mission'}${rotation}`;
+      return `${source.region ? `${source.region} — ` : ''}${source.nodeName || source.node || source.missionType || 'Mission'}${source.missionType && (source.nodeName || source.node) ? ` (${source.missionType})` : ''}${rotation}`;
     case 'enemy':
       return source.enemyName || source.enemy || 'Enemy drop';
     case 'bounty':
@@ -111,14 +128,14 @@ export default function AcquisitionDrawer({ item, onClose }) {
     if (wikiLink?.url) invoke('open_url', { url: wikiLink.url }).catch(console.error);
   };
 
-  const recipe = info.recipe;
+  const recipe = info?.recipe;
   // Recipe details are rendered in the panel below. Do not repeat the
   // unhelpful generic Foundry sentence as a source card for every craftable
   // item; concrete acquisition rows (such as a blueprint bounty) remain.
-  const sources = (info?.sources || []).filter((source) => !(
+  const sources = sortSourcesByChance((info?.sources || []).filter((source) => !(
     recipe && source?.type === 'non-drop' &&
     /^Built in the Foundry from a blueprint(?: and its components)?/.test(source.text || '')
-  ));
+  )));
   const formatCredits = (value) => Number.isFinite(Number(value)) ? `${Number(value).toLocaleString()} Credits` : null;
   const formatDuration = (seconds) => {
     const totalMinutes = Math.round(Number(seconds) / 60);
@@ -144,8 +161,8 @@ export default function AcquisitionDrawer({ item, onClose }) {
         {sources.length > 0 ?
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-40 overflow-y-auto">
             {sources.map((s, i) => (
-              <div key={i} className="flex items-center justify-between px-3 py-2 rounded bg-black/30 border border-white/5">
-                <span className="text-xs text-kronos-text truncate">{getSourceLabel(s)}</span>
+              <div key={i} className="flex items-start justify-between gap-2 px-3 py-2 rounded bg-black/30 border border-white/5">
+                <span className="text-xs text-kronos-text whitespace-normal break-words">{getSourceLabel(s)}</span>
                 {typeof s.chance === 'number' &&
                   <span className="text-[10px] font-bold text-kronos-accent flex-shrink-0 ml-2">{(s.chance * 100).toFixed(1)}%</span>
                 }
@@ -156,7 +173,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
           <p className="text-xs text-kronos-dim italic">Checking item data…</p>
         :
           <p className="text-xs text-kronos-dim italic">
-            {info.vaulted ? 'Relic is Vaulted, no drop locations' : 'No specific source known - try the wiki link below.'}
+            {info?.vaulted ? 'Relic is Vaulted, no drop locations' : 'No verified acquisition route is recorded in the current export or Wiki data.'}
           </p>
         }
 
@@ -170,11 +187,20 @@ export default function AcquisitionDrawer({ item, onClose }) {
             </div>
             {recipe.ingredients?.length > 0 &&
               <div className="mt-2 flex flex-wrap gap-1.5">
-                {recipe.ingredients.map((ingredient, i) => (
-                  <span key={`${ingredient.itemType || ingredient.name}-${i}`} className="rounded bg-white/5 px-2 py-1 text-[10px] text-kronos-text">
-                    {ingredient.count}x {ingredient.name}
-                  </span>
-                ))}
+            {recipe.ingredients.map((ingredient, i) => (
+              <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="rounded bg-white/5 px-2 py-1 text-[10px] text-kronos-text">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="whitespace-normal break-words">{ingredient.count}x {ingredient.name}</span>
+                </div>
+                {getItemDrops(ingredient.itemType)?.length > 0 && <div className="mt-1 space-y-0.5 border-t border-white/5 pt-1">
+                  <p className="text-[9px] uppercase font-black text-kronos-dim">How to obtain</p>
+                  {getItemDrops(ingredient.itemType).map((drop, dropIndex) => <div key={`${drop.location || 'source'}-${dropIndex}`} className="flex items-start justify-between gap-2 text-[9px] text-kronos-dim">
+                    <span className="whitespace-normal break-words">{getSourceLabel(drop)}</span>
+                    {typeof drop.chance === 'number' && <span className="shrink-0 font-black text-kronos-accent">{(drop.chance * 100).toFixed(1)}%</span>}
+                  </div>)}
+                </div>}
+              </div>
+            ))}
               </div>
             }
           </div>

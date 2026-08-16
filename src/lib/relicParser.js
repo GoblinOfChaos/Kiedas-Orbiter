@@ -552,7 +552,7 @@ export function getPartObtainedStatus(uniqueName, displayName, inventoryData, ex
   const ctx = getRewardInventoryContext(uniqueName, inventoryData, exportData, locale);
   const normalize = (value) => value?.replace('/StoreItems/', '/').toLowerCase();
   const normalizeName = (value) => value?.replace(/\s+Blueprint$/i, '').trim().toLowerCase();
-  const inventoryEntries = getPartInventoryIndex(inventoryData);
+  const inventoryEntries = getPartInventoryIndex(inventoryData, exportData);
   const resolvedUniqueName = REQUIEM_MOD_ALIASES[normalize(uniqueName)] || uniqueName;
   const foundryEvidence = inventoryEntries.foundryUnique.has(normalize(resolvedUniqueName))
     || inventoryEntries.foundryUnique.has(normalize(uniqueName))
@@ -593,7 +593,7 @@ export function getPartObtainedStatus(uniqueName, displayName, inventoryData, ex
 // checks remain O(1) lookups instead of rebuilding and scanning four arrays for
 // every part.
 const partInventoryIndexes = new WeakMap();
-function getPartInventoryIndex(inventoryData) {
+function getPartInventoryIndex(inventoryData, exportData) {
   if (!inventoryData || typeof inventoryData !== 'object') return { byUnique: new Map(), byName: new Map(), foundryUnique: new Set(), foundryNames: new Set() };
   const cached = partInventoryIndexes.get(inventoryData);
   if (cached) return cached;
@@ -634,6 +634,26 @@ function getPartInventoryIndex(inventoryData) {
     const parentName = normalizeName(pending.parentName);
     if (name) foundryNames.add(name);
     if (parentName) foundryNames.add(parentName);
+
+    // A parent recipe can consume its component blueprints before the parent
+    // finishes. For example, building Voruna Prime removes the Helmet,
+    // Chassis, and Systems blueprints from inventory, but starting that
+    // parent recipe is definitive evidence that each component was obtained.
+    // Record both export identities used by relic rewards: recipes generally
+    // consume `...Component`, while relic pools award `...Blueprint`.
+    const recipeEntries = exportData?.ExportRecipes || {};
+    const recipe = recipeEntries[pending.unique_name]
+      || recipeEntries[pending.result_type]
+      || Object.entries(recipeEntries).find(([key]) => normalize(key) === normalize(pending.unique_name))?.[1]
+      || Object.entries(recipeEntries).find(([key]) => normalize(key) === normalize(pending.result_type))?.[1];
+    for (const ingredient of recipe?.ingredients || []) {
+      if (!ingredient?.ItemType) continue;
+      const ingredientUnique = normalize(ingredient.ItemType);
+      foundryUnique.add(ingredientUnique);
+      if (/Component$/i.test(ingredientUnique)) {
+        foundryUnique.add(ingredientUnique.replace(/Component$/i, 'Blueprint'));
+      }
+    }
   }
   const index = { byUnique, byName, foundryUnique, foundryNames };
   partInventoryIndexes.set(inventoryData, index);

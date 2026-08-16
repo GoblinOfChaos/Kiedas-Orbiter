@@ -19,6 +19,11 @@ const PROGENITOR = {
 };
 
 const ELEMENT_ORDER = Object.keys(PROGENITOR);
+const SISTER_TENET_WEAPON_NAMES = new Set([
+  'Tenet Arca Plasmor', 'Tenet Cycron', 'Tenet Detron', 'Tenet Diplos',
+  'Tenet Envoy', 'Tenet Flux Rifle', 'Tenet Glaxion', 'Tenet Plinx',
+  'Tenet Spirex', 'Tenet Tetra',
+]);
 const WF_PROGENITOR = {};
 for (const [el, frames] of Object.entries(PROGENITOR)) {
   for (const f of frames) WF_PROGENITOR[f] = el;
@@ -61,6 +66,23 @@ export default function Adversaries() {
     });
   }, [inventoryData, dict, uniqueNameToName]);
 
+  // NemesisHistory only contains explicit Sister/Lich outcome records. Owned
+  // Tenet weapons are independent, durable evidence that a Sister was
+  // defeated, but they do not identify the Sister's name or conversion date.
+  // Keep this evidence separate instead of fabricating history rows.
+  const ownedSisterWeapons = useMemo(() => {
+    const seen = new Set();
+    return (inventoryData?.all ?? [])
+      .filter((item) => item?.owned && SISTER_TENET_WEAPON_NAMES.has(item.name) && item.category !== 'prime_parts')
+      .filter((item) => {
+        const key = item.unique_name || item.name;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+  }, [inventoryData]);
+
   const displayed = useMemo(() => {
     return showKilled ? nemeses : nemeses.filter((n) => !n.k);
   }, [nemeses, showKilled]);
@@ -91,7 +113,7 @@ export default function Adversaries() {
         </Card>
         <Card glow className="p-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-white/70">{t('adversaries.nemesis_history')}</h2>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-white/70">{t('adversaries.nemesis_history')} <span className="text-kronos-accent">({Math.max(nemeses.filter((n) => !n.k && !n.Traded).length, ownedSisterWeapons.length)} evidenced converted)</span></h2>
             <label className="flex items-center gap-2 text-xs text-white/50 cursor-pointer select-none">
               <input
                 type="checkbox"
@@ -136,6 +158,16 @@ export default function Adversaries() {
             </div>
           }
         </Card>
+        {ownedSisterWeapons.length > 0 && <Card glow className="p-4">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-white/70 mb-1">Owned Sister weapons</h2>
+          <p className="text-[11px] text-white/40 mb-3">These weapons confirm Sister victories even when the original Sister is missing from Nemesis History. They do not identify the Sister’s name or outcome date.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1">
+            {ownedSisterWeapons.map((weapon) => <div key={weapon.unique_name} className="flex items-center gap-2 py-1.5 px-2 rounded bg-white/5 text-xs">
+              <span className="text-green-300 font-bold">Converted evidence</span>
+              <span className="text-white/80 truncate">{weapon.name}</span>
+            </div>)}
+          </div>
+        </Card>}
       </div>
     </PageLayout>);
 

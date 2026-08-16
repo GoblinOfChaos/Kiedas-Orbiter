@@ -518,6 +518,50 @@ async fn load_txt_file(app_handle: tauri::AppHandle, name: String) -> Result<Str
 // (memory_scan::scan_auth), then calling mobile.warframe.com via reqwest.
 // The result is cached at data/user/inventory.json.
 
+/// Preserve adversary records because the live inventory response can expose
+/// only a rolling portion of NemesisHistory. The fingerprint is the stable
+/// identity when present; the full JSON is the fallback for older records.
+fn merge_nemesis_history(value: &mut Value) {
+    let Some(object) = value.as_object_mut() else { return };
+    let incoming = object
+        .get("NemesisHistory")
+        .and_then(Value::as_array)
+        .cloned()
+        .unwrap_or_default();
+    let archive_path = resolve_path("data/user/nemesis-history.json");
+    let mut merged = fs::read_to_string(&archive_path)
+        .ok()
+        .and_then(|content| serde_json::from_str::<Value>(&content).ok())
+        .and_then(|archive| archive.as_array().cloned())
+        .unwrap_or_default();
+    let mut seen = std::collections::HashSet::new();
+    for record in &merged {
+        seen.insert(nemesis_record_key(record));
+    }
+    for record in incoming {
+        if seen.insert(nemesis_record_key(&record)) {
+            merged.push(record);
+        }
+    }
+    object.insert("NemesisHistory".to_string(), Value::Array(merged.clone()));
+    if let Some(parent) = archive_path.parent() {
+        if let Err(error) = fs::create_dir_all(parent) {
+            eprintln!("[nemesis history] failed to create archive directory: {error}");
+            return;
+        }
+    }
+    if let Err(error) = fs::write(&archive_path, serde_json::to_vec_pretty(&Value::Array(merged)).unwrap_or_default()) {
+        eprintln!("[nemesis history] failed to write archive: {error}");
+    }
+}
+
+fn nemesis_record_key(record: &Value) -> String {
+    record.get("fp")
+        .or_else(|| record.get("Fingerprint"))
+        .map(|value| value.to_string())
+        .unwrap_or_else(|| serde_json::to_string(record).unwrap_or_default())
+}
+
 /// Load the previously saved inventory JSON and its file modification timestamp.
 /// Returns `None` if no inventory has been fetched yet (fresh install).
 /// Called by MonitoringContext on startup to restore the last known state.
@@ -540,8 +584,9 @@ async fn load_cached_inventory() -> Result<Option<(Value, u64)>, String> {
         });
     let content = fs::read_to_string(&path)
         .map_err(|e| format!("Failed to read inventory.json: {e}"))?;
-    let json: Value = serde_json::from_str(&content)
+    let mut json: Value = serde_json::from_str(&content)
         .map_err(|e| format!("Failed to parse inventory.json: {e}"))?;
+    merge_nemesis_history(&mut json);
     Ok(Some((json, timestamp)))
 }
 
@@ -573,7 +618,7 @@ async fn call_api_helper(_app_handle: tauri::AppHandle) -> Result<Value, String>
     let resp = client.get(&url).send().await.map_err(|e| e.to_string())?;
     let body = resp.bytes().await.map_err(|e| e.to_string())?;
 
-    let value: Value = serde_json::from_slice(&body)
+    let mut value: Value = serde_json::from_slice(&body)
         .map_err(|e| format!("Invalid JSON from mobile API: {e}"))?;
 
     // Bare {} means the API returned nothing useful.
@@ -583,13 +628,16 @@ async fn call_api_helper(_app_handle: tauri::AppHandle) -> Result<Value, String>
         }
     }
 
+    merge_nemesis_history(&mut value);
+
     // Save to disk for cache.
     let inv_dir = crate::resolve_path("data/user");
     if !inv_dir.exists() {
         fs::create_dir_all(&inv_dir).map_err(|e| e.to_string())?;
     }
     let inv_path = inv_dir.join("inventory.json");
-    fs::write(&inv_path, &body).map_err(|e| e.to_string())?;
+    let cached_body = serde_json::to_vec(&value).map_err(|e| e.to_string())?;
+    fs::write(&inv_path, cached_body).map_err(|e| e.to_string())?;
 
     Ok(value)
 }
@@ -1930,8 +1978,9 @@ fn load_cached_inventory_inner() -> Result<Option<(serde_json::Value, u64)>, Str
         });
     let content = std::fs::read_to_string(&path)
         .map_err(|e| format!("Failed to read inventory.json: {e}"))?;
-    let json: serde_json::Value = serde_json::from_str(&content)
+    let mut json: serde_json::Value = serde_json::from_str(&content)
         .map_err(|e| format!("Failed to parse inventory.json: {e}"))?;
+    merge_nemesis_history(&mut json);
     Ok(Some((json, timestamp)))
 }
 

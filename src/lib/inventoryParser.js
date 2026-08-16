@@ -1246,6 +1246,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // the lifetime-XP signal correctly.
       owned: !!sourceItem,
       mastered,
+      // wfcd's own curated data marks some items (e.g. non-Head Zanuka Hound
+      // body/legs/tail parts) masterable:false - they're real, ownable crafting
+      // components but have no in-game mastery state of their own. Default to
+      // true since DE's raw export never carries this field.
+      masterable: entry?.masterable !== false,
       subsumed: subsumedSet.has(un),
       is_prime: entry?.variantType === 'VT_PRIME' || /Prime$/i.test(un.split('/').filter(Boolean).at(-1) ?? ''),
       is_incarnon: incarnonSet.has(un),
@@ -2118,7 +2123,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   // Add non-prime resources
   for (const item of (raw.MiscItems ?? [])) {
     const un = item.ItemType ?? '';
-    if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/') || un.includes('OroFusexOrnament')) continue;
+    // Ayatan Stars (OroFusexOrnament*) get a dedicated dashboard widget
+    // (inventoryData.amberStarCount/cyanStarCount in Inventory.jsx) but must
+    // still be indexed here too - they're also real relic rewards, and
+    // skipping them here left relic-ownership matching (getPartObtainedStatus)
+    // unable to ever find them, showing owned stars as permanently missing.
+    if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/')) continue;
     // Hidden resource — user requested it be excluded (Tethra Data Fragments)
     if (un === '/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag') continue;
     const name = resolveName(un, dict, locale, ER, ERel, EW, ES);
@@ -2149,7 +2159,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         name: resolveName(un, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
         rarity: r.rarity,
         tier: r.rarity === 'COMMON' ? 0 : (r.rarity === 'UNCOMMON' ? 1 : 2),
-        ducats: recipe?.primeSellingPrice || itemData?.primeSellingPrice || 0
+        ducats: recipe?.primeSellingPrice || itemData?.primeSellingPrice || 0,
+        // Same convention as getAllRelicRewards/getRelicRewards in relicParser.js.
+        // Relic pools also carry non-Prime loot (Kuva, Riven Fragments, Exilus
+        // Adapter blueprints, cosmetic Fusion Treasures) that must not count
+        // toward a "missing Prime parts" metric.
+        isPrimePart: norm ? norm.includes('Prime') : false,
       };
     };
 
@@ -2741,11 +2756,14 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         }
       }
 
-      // Also check the processed all array
+      // Also check the processed all array, for owned items whose category
+      // (e.g. modular companions) isn't backed by any raw array above. Items
+      // already counted from a raw array must not be added again here, or an
+      // item present in both (e.g. a Pistol) gets double-counted.
       all.forEach(item => {
         if (item.owned && item.unique_name && item.category !== 'resources') {
           const key = canonicalInventoryType(item.unique_name);
-          ownedItemCounts[key] = (ownedItemCounts[key] ?? 0) + 1;
+          if (!(key in ownedItemCounts)) ownedItemCounts[key] = 1;
         }
       });
 

@@ -48,11 +48,12 @@ function isReadyToCraft(recipe) {
   return !!recipe?.readyToCraft || (!!recipe?.allIngredientsMet && (recipe?.bpCount ?? 0) > 0)
 }
 
-// Foundry ownership includes a blueprint waiting to be built. The game's
-// Foundry shows this as "1 BLUEPRINT LEFT"; using only item.owned here made
-// those same recipes appear as MISSING in the catalog.
+// item.owned alone misses cases where the built item is only visible through
+// the recipe's own name-matched inventory lookup (recipe.ownedCount), so both
+// are checked. Owning an unbuilt blueprint (recipe.bpCount) does NOT count as
+// owning the item - that's what the separate "BP" tag and Ready filter are for.
 function hasFoundryOwnership(item, recipe) {
-  return !!item?.owned || (recipe?.bpCount ?? 0) > 0 || (recipe?.ownedCount ?? 0) > 0
+  return !!item?.owned || (recipe?.ownedCount ?? 0) > 0
 }
 
 function ItemCard({ item, recipe, selected, onClick }) {
@@ -65,12 +66,12 @@ function ItemCard({ item, recipe, selected, onClick }) {
       <Star size={15} className="text-white/80 shrink-0" />
       <p className="text-[15px] font-medium truncate">{item.name}</p>
       {item.mastered && <Star size={12} className="text-emerald-300 shrink-0" fill="currentColor" />}
-      {recipe?.bpCount > 0 && <span className="text-[8px] text-kronos-dim">BP</span>}
     </div>
     <div className="relative h-[112px] flex items-center px-2">
       <div className={`relative w-[45%] h-full flex items-end justify-center ${owned ? '' : 'grayscale opacity-70'}`}>
         <ItemImage src={item.image} className="max-w-full max-h-full object-contain object-bottom" placeholderClassName="w-full h-full bg-white/5 rounded-lg" />
         <span className={`absolute bottom-1 left-1 text-[8px] font-black rounded-full px-1.5 py-0.5 ${owned ? 'bg-emerald-400 text-black' : 'bg-black/60 text-kronos-dim'}`}>{owned ? 'OWNED' : 'MISSING'}</span>
+        {(recipe?.bpCount ?? 0) > 0 && <span className="absolute top-1 right-1 text-[8px] font-black rounded-full px-1.5 py-0.5 bg-amber-400 text-black" title="Blueprints owned">{recipe.bpCount > 1 ? `${recipe.bpCount} BP` : 'BP'}</span>}
       </div>
       <div className="w-[55%] flex flex-wrap items-center justify-center gap-1 px-1">
         {components.map((component) => {
@@ -175,7 +176,10 @@ export default function Foundry() {
       (!q || item.name?.toLowerCase().includes(q)) &&
       (ownershipFilter === 'all' || (ownershipFilter === 'owned' ? hasFoundryOwnership(item, item.recipe) : !hasFoundryOwnership(item, item.recipe))) &&
       (!readyOnly || isReadyToCraft(item.recipe)) &&
-      (masteryFilter === 'all' || (masteryFilter === 'mastered' ? item.mastered : !item.mastered))
+      // Items with no mastery state of their own (e.g. non-Head Zanuka Hound
+      // body/legs/tail parts) belong in every ownership view but never in a
+      // mastery-based filter - they can't be "mastered" or "unmastered".
+      (masteryFilter === 'all' || (item.masterable === false ? false : (masteryFilter === 'mastered' ? item.mastered : !item.mastered)))
     )).sort((a, b) => (a.name || '').localeCompare(b.name || ''))
   }, [items, search, ownershipFilter, readyOnly, masteryFilter])
   const selected = filteredItems.find((item) => item.unique_name === selectedName) || null

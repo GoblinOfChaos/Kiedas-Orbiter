@@ -14,11 +14,29 @@ const COL_GAP = 50;
 
 export default function Mods() {
   const { t } = useUi()
+  // Keep the asset filename separate from the translated display label. Some
+  // categories do not have a same-named export asset (Robotic and Tome).
   const CATEGORIES = [
-    t('mods.cat_all'), t('mods.cat_warframe'), t('mods.cat_primary'), t('mods.cat_secondary'), t('mods.cat_melee'),
-    t('mods.cat_sentinels'), t('mods.cat_robotic'), t('mods.cat_beasts'), t('mods.cat_stance'), t('mods.cat_aura'), t('mods.cat_exilus'),
-    t('mods.cat_railjack'), t('mods.cat_archgun'), t('mods.cat_archmelee'), t('mods.cat_parazon'),
-    t('mods.cat_augment'), t('mods.cat_antique'), t('mods.cat_tome'), t('mods.cat_vehicles')];
+    { label: t('mods.cat_all'), icon: 'All' },
+    { label: t('mods.cat_warframe'), icon: 'Warframe' },
+    { label: t('mods.cat_primary'), icon: 'Primary' },
+    { label: t('mods.cat_secondary'), icon: 'Secondary' },
+    { label: t('mods.cat_melee'), icon: 'Melee' },
+    { label: t('mods.cat_sentinels'), icon: 'Sentinels' },
+    { label: t('mods.cat_robotic'), icon: 'Companion' },
+    { label: t('mods.cat_beasts'), icon: 'Beasts' },
+    { label: t('mods.cat_stance'), icon: 'Stance' },
+    { label: t('mods.cat_aura'), icon: 'Aura' },
+    { label: t('mods.cat_exilus'), icon: 'Exilus' },
+    { label: t('mods.cat_railjack'), icon: 'Railjack' },
+    { label: t('mods.cat_archgun'), icon: 'Archgun' },
+    { label: t('mods.cat_archmelee'), icon: 'Archmelee' },
+    { label: t('mods.cat_parazon'), icon: 'Parazon' },
+    { label: t('mods.cat_augment'), icon: 'Augment' },
+    { label: t('mods.cat_antique'), icon: 'Antique' },
+    { label: t('mods.cat_tome'), icon: 'Mods' },
+    { label: t('mods.cat_vehicles'), icon: 'Vehicles' },
+  ];
 
   const SORT_OPTIONS = [
     { id: 'name', label: t('mods.sort_name') },
@@ -49,7 +67,11 @@ export default function Mods() {
   const [maxRankOnly, setMaxRankOnly] = useState(false);
   const [hideConclave, setHideConclave] = useState(false);
   const [visibleCount, setVisibleCount] = useState(60);
-  const mods = useMemo(() => inventoryData?.mods_catalog ?? inventoryData?.mods ?? [], [inventoryData]);
+  const mods = useMemo(() => (inventoryData?.mods_catalog ?? inventoryData?.mods ?? [])
+    // Peely Pix/Archimedea stickers have their own tab. They are represented
+    // alongside mods in the parser for inventory compatibility, but must not
+    // be rendered as mods.
+    .filter((mod) => !mod?._isSticker), [inventoryData]);
   const modPrices = allPrices;
   const loadingPrices = isPriceLoading;
 
@@ -171,7 +193,7 @@ export default function Mods() {
             <button
             onClick={() => setOwnershipFilter((value) => value === 'all' ? 'owned' : value === 'owned' ? 'unowned' : 'all')}
             className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
-            >{ownershipFilter === 'unowned' ? 'Unowned' : 'Owned'}
+            >{ownershipFilter === 'unowned' ? 'Unowned' : ownershipFilter === 'owned' ? 'Owned' : 'All'}
             </button>
             <button
             onClick={() => setMaxRankOnly((v) => !v)}
@@ -191,21 +213,21 @@ export default function Mods() {
 
       <div className="flex items-center gap-3">
         <div className="flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
-          {CATEGORIES.map((t) => {
+          {CATEGORIES.map(({ label, icon }) => {
           const iconUrl = iconsPath ?
-          convertFileSrc(`${iconsPath}/Categories/${t}.png`) :
+          convertFileSrc(`${iconsPath}/Categories/${icon}.png`) :
           null;
           return (
             <button
-              key={t}
-              onClick={() => setSelectedCategory(t)}
-              className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5 ${selectedCategory === t ?
+              key={label}
+              onClick={() => setSelectedCategory(label)}
+              className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5 ${selectedCategory === label ?
               'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]' :
               'text-kronos-dim hover:text-white hover:bg-white/5'}`
               }>
               
                 {iconUrl && <img src={iconUrl} className="w-4 h-4 object-contain" alt="" />}
-                {t}
+                {label}
               </button>);
 
         })}
@@ -295,6 +317,7 @@ export default function Mods() {
           <div
             key={`${mod.unique_name}_${mod.rank}_${i}`}
             className={`relative cursor-pointer ${mod.owned ? '' : 'grayscale opacity-60'}`}
+            style={{ contentVisibility: 'auto', containIntrinsicSize: `${CARD_WIDTH}px 409px` }}
             onClick={() => toggle(mod.unique_name)}>
             <ModCard
               mod={mod}

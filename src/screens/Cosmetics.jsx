@@ -8,8 +8,9 @@ import { getAcquisitionInfo } from '../lib/acquisitionInfo'
 import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer'
 import ItemImage from '../components/ItemImage'
 
-const normalize = (uniqueName) => uniqueName?.replace('/StoreItems/', '/').toLowerCase()
+const normalize = (uniqueName) => typeof uniqueName === 'string' ? uniqueName.replaceAll('/StoreItems/', '/').toLowerCase() : uniqueName
 const isSigil = (uniqueName) => /\/Upgrades\/Skins\/Sigils\//i.test(uniqueName || '')
+const COSMETICS_PAGE_SIZE = 120
 
 function cosmeticType(uniqueName, icon, kind) {
   if (kind !== 'Skin') return kind
@@ -35,6 +36,16 @@ function ownedUniqueNames(rawInventory) {
     }
   }
   return owned
+}
+
+function cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) {
+  const icon = entry?.icon
+  if (typeof icon === 'string' && icon.startsWith('/')) {
+    const hash = exportData?.ExportImages?.[icon]?.contentHash
+    if (hash) return `https://content.warframe.com/PublicExport${icon}!${hash}`
+    return `https://browse.wf${icon}`
+  }
+  return resolveAnyImage(uniqueName, EI, nameToImage)
 }
 
 function CosmeticCard({ item, onAcquire }) {
@@ -65,6 +76,7 @@ export default function Cosmetics() {
   const [search, setSearch] = useState('')
   const [kindFilter, setKindFilter] = useState('all')
   const [ownershipFilter, setOwnershipFilter] = useState('all')
+  const [visibleCount, setVisibleCount] = useState(COSMETICS_PAGE_SIZE)
   const [overrides, setOverrides] = useState(null)
   const { openKey, toggle, close } = useAcquisitionDrawer()
 
@@ -83,12 +95,17 @@ export default function Cosmetics() {
       const kind = isSigil(uniqueName) ? 'Sigil' : 'Skin'
       const name = dict[entry?.name] || entry?.name
       if (!name) return []
-      return [{ uniqueName, name, kind, type: cosmeticType(uniqueName, entry?.icon, kind), owned: owned.has(normalize(uniqueName)), icon: resolveAnyImage(uniqueName, EI, nameToImage) }]
+      return [{ uniqueName, name, kind, type: cosmeticType(uniqueName, entry?.icon, kind), owned: owned.has(normalize(uniqueName)), icon: cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) }]
     }) : []
     const glyphItems = Object.entries(exportData?.WI_Glyphs || {}).flatMap(([uniqueName, entry]) => {
       const name = entry?.name
       if (!uniqueName || !name) return []
-      return [{ uniqueName, name, kind: 'Glyph', type: 'Glyph', owned: owned.has(normalize(uniqueName)), icon: entry.icon || resolveAnyImage(uniqueName, EI, nameToImage) }]
+      // WFCD mirrors DE's Codex disposition for legacy/internal glyphs. They
+      // remain useful when present in a player's inventory, but must not be
+      // presented as obtainable missing cosmetics.
+      const isOwned = owned.has(normalize(uniqueName))
+      if (!isOwned && (entry?.excludeFromCodex === true || entry?.codexSecret === true)) return []
+      return [{ uniqueName, name, kind: 'Glyph', type: 'Glyph', owned: isOwned, icon: entry.icon || resolveAnyImage(uniqueName, EI, nameToImage) }]
     })
     return [...skinItems, ...glyphItems]
   }, [exportData, owned, EI, nameToImage])
@@ -97,6 +114,12 @@ export default function Cosmetics() {
     const q = search.trim().toLowerCase()
     return items.filter((item) => (!q || item.name.toLowerCase().includes(q)) && (kindFilter === 'all' || item.type.toLowerCase() === kindFilter) && (ownershipFilter === 'all' || (ownershipFilter === 'owned' ? item.owned : !item.owned))).sort((a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name))
   }, [items, search, kindFilter, ownershipFilter])
+
+  useEffect(() => {
+    setVisibleCount(COSMETICS_PAGE_SIZE)
+  }, [search, kindFilter, ownershipFilter])
+
+  const visibleItems = filtered.slice(0, visibleCount)
 
   const openItem = useMemo(() => {
     if (!openKey || !overrides) return null
@@ -114,10 +137,13 @@ export default function Cosmetics() {
         <div className="flex flex-wrap gap-1 rounded-xl border border-white/5 bg-black/20 p-1 self-start">
           {['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'glyph', 'sigil', 'other'].map((value) => <button key={value} type="button" onClick={() => setKindFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${kindFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value === 'all' ? 'All' : value}</button>)}
           <span className="mx-1 border-l border-white/10" />
-          {['all', 'owned', 'missing'].map((value) => <button key={value} type="button" onClick={() => setOwnershipFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${ownershipFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value[0].toUpperCase() + value.slice(1)}</button>)}
+          {['all', 'owned', 'unowned'].map((value) => <button key={value} type="button" onClick={() => setOwnershipFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${ownershipFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value[0].toUpperCase() + value.slice(1)}</button>)}
         </div>
       </div>
-      {filtered.length === 0 ? <Card className="p-8 text-center text-kronos-dim"><Sparkles className="mx-auto mb-2" size={20} />No cosmetics match.</Card> : <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3 pb-4">{filtered.map((item) => <CosmeticCard key={item.uniqueName} item={item} onAcquire={toggle} />)}</div>}
+      {filtered.length === 0 ? <Card className="p-8 text-center text-kronos-dim"><Sparkles className="mx-auto mb-2" size={20} />No cosmetics match.</Card> : <>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3 pb-4">{visibleItems.map((item) => <CosmeticCard key={item.uniqueName} item={item} onAcquire={toggle} />)}</div>
+        {visibleCount < filtered.length && <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + COSMETICS_PAGE_SIZE, filtered.length))} className="mx-auto mb-4 rounded-lg border border-kronos-accent/40 px-5 py-2 text-xs font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">Load more ({filtered.length - visibleCount} remaining)</button>}
+      </>}
       {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
     </PageLayout>
   )

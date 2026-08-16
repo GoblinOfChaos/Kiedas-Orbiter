@@ -21,6 +21,14 @@ const MISSING_TAG_ICON_CDN = {
   'FocusCleanMadurai_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanMadurai_d.png',
   'Energy_d.png': 'https://browse.wf/Lotus/Interface/Graphics/Abilities/AbilityIcon/Energy_d.png',
   'HildrynEnergyShield.png': 'https://browse.wf/Lotus/Interface/Graphics/Abilities/HildrynEnergyShield.png',
+  // These legacy text-icon paths are not entries in ExportImages, so the
+  // unhashed PublicExport endpoint returns 404. browse.wf serves these paths
+  // directly (and is also used for the other text-description icons above).
+  'FocusCleanUnairu_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanUnairu_d.png',
+  'FocusCleanZenurik_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanZenurik_d.png',
+  'FocusCleanVazarin_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanVazarin_d.png',
+  'Affinity.png': 'https://browse.wf/Lotus/Interface/Icons/ModBuffIndicators/Affinity.png',
+  'SentientFactionIcon.png': 'https://content.warframe.com/PublicExport/Lotus/Interface/Icons/SentientFactionIcon.png!00_tZ2I0XDNB73b5-tqyBa6Dw',
 };
 
 const TIER_COLORS = {

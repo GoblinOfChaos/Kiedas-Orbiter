@@ -8,8 +8,8 @@ import { useState } from 'react'
  * <img> and leaves a blank gap instead of the placeholder every other
  * unresolved item already shows.
  */
-export default function ItemImage({ src, alt = '', className = '', placeholderClassName = '' }) {
+export default function ItemImage({ src, alt = '', className = '', placeholderClassName = '', loading = 'lazy' }) {
   const [failed, setFailed] = useState(false)
   if (!src || failed) return <div className={placeholderClassName} />
-  return <img src={src} alt={alt} className={className} onError={() => setFailed(true)} />
+  return <img src={src} alt={alt} className={className} loading={loading} decoding="async" onError={() => setFailed(true)} />
 }

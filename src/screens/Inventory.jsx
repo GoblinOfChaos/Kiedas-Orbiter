@@ -185,6 +185,25 @@ export default function Inventory() {
 
   const tabItems = useMemo(() => {
     if (!inventoryData) return [];
+    const canonicalItemPath = (value) => value?.replace('/StoreItems/', '/') || value;
+    const imageByUniqueName = new Map();
+    const imageByName = new Map();
+    for (const item of inventoryData.all ?? []) {
+      if (item?.image && item.unique_name) {
+        const key = canonicalItemPath(item.unique_name);
+        if (!imageByUniqueName.has(key)) imageByUniqueName.set(key, item.image);
+      }
+      if (item?.image && item.name) {
+        const key = item.name.trim().toLowerCase();
+        if (!imageByName.has(key)) imageByName.set(key, item.image);
+      }
+    }
+    const withImageFallback = (items) => (items ?? []).map((item) => {
+      if (item?.image) return item;
+      const image = imageByUniqueName.get(canonicalItemPath(item?.unique_name))
+        || imageByName.get(item?.name?.trim().toLowerCase());
+      return image ? { ...item, image } : item;
+    });
     if (activeTab === 'prime_parts') {
       const searchArrays = [
       inventoryData.warframes, inventoryData.primary, inventoryData.secondary,
@@ -203,13 +222,13 @@ export default function Inventory() {
       ).map((set) => {
         const parent = nameToEquipment.get(set.name) ?? nameToEquipment.get(set.name + ' Prime') ?? {};
         const _value = primePrices?.[set.setPath] ?? (set.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0);
-        return { ...set, owned: parent.owned ?? false, mastered: parent.mastered ?? false, _value };
+        return { ...set, image: set.image || parent.image, owned: parent.owned ?? false, mastered: parent.mastered ?? false, _value };
       });
     }
     if (activeTab === 'vehicles') {
       const vehicles = inventoryData.vehicles ?? [];
       const necramechs = (inventoryData.necramechs ?? []).map((n) => ({ ...n, is_necramech: true }));
-      return [...vehicles, ...necramechs];
+      return withImageFallback([...vehicles, ...necramechs]);
     }
     if (activeTab === 'ayatan') {
       const ALL_SCULPTURES = [
@@ -291,13 +310,13 @@ export default function Inventory() {
       return items;
     }
     if (activeTab === 'peely_pix') {
-      return inventoryData.peely_pix ?? [];
+      return withImageFallback(inventoryData.peely_pix ?? []);
     }
-    if (activeTab === 'arcanes') return inventoryData.arcanes_catalog ?? [];
-    if (activeTab === 'consumables') return inventoryData.consumables_catalog ?? [];
-    if (activeTab === 'landing_craft') return inventoryData.landing_craft_catalog ?? [];
-    if (activeTab === 'all') return (inventoryData.all ?? []).filter((i) => i.category !== 'rivens' && i.category !== 'Arcanes');
-    return inventoryData[activeTab] ?? [];
+    if (activeTab === 'arcanes') return withImageFallback(inventoryData.arcanes_catalog ?? []);
+    if (activeTab === 'consumables') return withImageFallback(inventoryData.consumables_catalog ?? []);
+    if (activeTab === 'landing_craft') return withImageFallback(inventoryData.landing_craft_catalog ?? []);
+    if (activeTab === 'all') return withImageFallback((inventoryData.all ?? []).filter((i) => i.category !== 'rivens' && i.category !== 'Arcanes'));
+    return withImageFallback(inventoryData[activeTab] ?? []);
   }, [inventoryData, activeTab, uiPath, primePrices]);
 
   const filteredItems = useMemo(() => {
@@ -419,7 +438,9 @@ export default function Inventory() {
               {(FILTER_CONFIG[activeTab] ?? []).map((f) => {
             const state = currentFilters[f];
             const isTriple = TRIPLE_FILTERS.has(f);
-            const label = state === 'no' ? NEG_LABELS[f] ?? f.replace(/_/g, ' ') : f.replace(/_/g, ' ');
+            const label = f === 'owned'
+              ? (state === 'no' ? 'Unowned' : state === 'yes' ? 'Owned' : 'All')
+              : state === 'no' ? NEG_LABELS[f] ?? f.replace(/_/g, ' ') : f.replace(/_/g, ' ');
             return (
               <button
                 key={f}

@@ -44,9 +44,20 @@ function formatCount(value) {
   return `${Number(scaled.toFixed(digits))}${suffix}`
 }
 
+function isReadyToCraft(recipe) {
+  return !!recipe?.readyToCraft || (!!recipe?.allIngredientsMet && (recipe?.bpCount ?? 0) > 0)
+}
+
+// Foundry ownership includes a blueprint waiting to be built. The game's
+// Foundry shows this as "1 BLUEPRINT LEFT"; using only item.owned here made
+// those same recipes appear as MISSING in the catalog.
+function hasFoundryOwnership(item, recipe) {
+  return !!item?.owned || (recipe?.bpCount ?? 0) > 0 || (recipe?.ownedCount ?? 0) > 0
+}
+
 function ItemCard({ item, recipe, selected, onClick }) {
-  const owned = !!item.owned
-  const ready = !!recipe?.allIngredientsMet && (recipe.bpCount ?? 0) > 0
+  const owned = hasFoundryOwnership(item, recipe)
+  const ready = isReadyToCraft(recipe)
   const formas = Math.min(item.formas ?? 0, 10)
   const components = recipe?.ingredients?.slice(0, 6) || []
   return <button onClick={onClick} className={`relative text-left rounded-xl border overflow-hidden transition-all ${selected ? 'border-kronos-accent ring-1 ring-kronos-accent/50' : owned ? 'border-emerald-500/70' : 'border-white/10'} ${owned ? 'bg-emerald-950/80' : 'bg-[#202a40]'} hover:border-kronos-accent/70`}>
@@ -102,13 +113,13 @@ function RecipeDrawer({ item, recipe, onClose }) {
               const complete = ingredient.have >= ingredient.need
               return <div key={ingredient.itemType || ingredient.name} className="flex items-center gap-2 rounded-lg bg-black/20 p-2">
                 <ItemImage src={ingredient.image} className="w-8 h-8 object-contain" placeholderClassName="" />
-                <span className="text-[11px] flex-1 truncate">{ingredient.name}</span>
-                <span className={`text-[10px] font-black ${complete ? 'text-emerald-400' : 'text-red-400'}`}>{formatCount(ingredient.have)}/{formatCount(ingredient.need)}</span>
+                <span className="text-[11px] flex-1 whitespace-normal break-words">{ingredient.name}</span>
+                <span className={`text-[10px] font-black shrink-0 ${complete ? 'text-emerald-400' : 'text-red-400'}`}>{formatCount(ingredient.have)}/{formatCount(ingredient.need)}</span>
               </div>
             })}
           </div>
           <div className={`mt-4 rounded-lg p-3 text-[10px] font-black uppercase ${recipe.allIngredientsMet ? 'bg-emerald-500/15 text-emerald-300' : 'bg-white/5 text-kronos-dim'}`}>
-            {recipe.allIngredientsMet ? 'Ready to craft' : 'Missing ingredients'}
+            {isReadyToCraft(recipe) ? 'Ready to craft' : recipe.bpCount > 0 ? 'Missing ingredients' : 'Missing blueprint'}
           </div>
         </>}
       </div>
@@ -120,7 +131,7 @@ export default function Foundry() {
   const { inventoryData, isInventoryLoading, EI, nameToImage, uniqueNameToName } = useMonitoring()
   const [activeCat, setActiveCat] = useState('all')
   const [search, setSearch] = useState('')
-  const [ownedOnly, setOwnedOnly] = useState(false)
+  const [ownershipFilter, setOwnershipFilter] = useState('all')
   const [readyOnly, setReadyOnly] = useState(false)
   const [masteryFilter, setMasteryFilter] = useState('all')
   const [selectedName, setSelectedName] = useState(null)
@@ -162,13 +173,13 @@ export default function Foundry() {
     const q = search.trim().toLowerCase()
     return items.filter((item) => (
       (!q || item.name?.toLowerCase().includes(q)) &&
-      (!ownedOnly || item.owned) &&
-      (!readyOnly || item.recipe?.allIngredientsMet) &&
+      (ownershipFilter === 'all' || (ownershipFilter === 'owned' ? hasFoundryOwnership(item, item.recipe) : !hasFoundryOwnership(item, item.recipe))) &&
+      (!readyOnly || isReadyToCraft(item.recipe)) &&
       (masteryFilter === 'all' || (masteryFilter === 'mastered' ? item.mastered : !item.mastered))
     )).sort((a, b) => (a.name || '').localeCompare(b.name || ''))
-  }, [items, search, ownedOnly, readyOnly, masteryFilter])
+  }, [items, search, ownershipFilter, readyOnly, masteryFilter])
   const selected = filteredItems.find((item) => item.unique_name === selectedName) || null
-  const ownedCount = items.filter((item) => item.owned).length
+  const ownedCount = items.filter((item) => hasFoundryOwnership(item, item.recipe)).length
 
   if (isInventoryLoading) return <PageLayout title="Foundry"><MonitorState isLoading className="py-20" /></PageLayout>
   if (!inventoryData) return <PageLayout title="Foundry"><MonitorState className="py-20" /></PageLayout>
@@ -180,11 +191,12 @@ export default function Foundry() {
         <div className="flex items-center gap-2 flex-1 justify-end flex-wrap">
           <div className="relative w-full sm:w-64"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder="Search equipment..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 h-9 text-xs" /></div>
           <div className="flex items-center gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
-            {[['Owned', ownedOnly, setOwnedOnly], ['Ready', readyOnly, setReadyOnly]].map(([label, active, setActive]) => (
-              <button key={label} type="button" onClick={() => setActive(!active)} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${active ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`} aria-pressed={active}>
-                {label}
+            <button type="button" onClick={() => setOwnershipFilter((value) => value === 'all' ? 'owned' : value === 'owned' ? 'unowned' : 'all')} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+                {ownershipFilter === 'all' ? 'All' : ownershipFilter === 'owned' ? 'Owned' : 'Unowned'}
               </button>
-            ))}
+            <button type="button" onClick={() => setReadyOnly(!readyOnly)} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${readyOnly ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`} aria-pressed={readyOnly}>
+                Ready
+              </button>
           </div>
           <div className="flex items-center gap-1 p-1 bg-black/20 rounded-xl border border-white/5" aria-label="Mastery filter">
             {[['All', 'all'], ['Mastered', 'mastered'], ['Unmastered', 'unmastered']].map(([label, value]) => (

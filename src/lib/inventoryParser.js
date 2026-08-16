@@ -365,10 +365,21 @@ function getSuffixIndex(tbl) {
 
 let activeExportImages = null;
 
+// warframe-items currently carries stale wiki thumbnail filenames for these
+// two newer Warframes. Keep the identity-to-icon correction at the shared
+// resolver boundary so inventory cards, category tabs, and any other caller
+// cannot reintroduce the 404 thumbnails.
+const AUTHORITATIVE_ITEM_ICONS = {
+  '/Lotus/Powersuits/Frumentarius/Frumentarius': '/Lotus/Interface/Icons/StoreIcons/Warframes/Frumentarius.png',
+  '/Lotus/Powersuits/Choir/Choir': '/Lotus/Interface/Icons/StoreIcons/Warframes/Jade.png',
+};
+
 function resolveImage(un, ...tables) {
   const imageMap = activeExportImages;
 
-  const imageUrl = (icon) => {
+  const imageUrl = (icon, uniqueName = un) => {
+    const authoritativeIcon = AUTHORITATIVE_ITEM_ICONS[uniqueName];
+    if (authoritativeIcon) icon = authoritativeIcon;
     if (icon.startsWith('http://') || icon.startsWith('https://')) return icon;
     const path = icon.startsWith('/') ? icon : `/${icon}`;
     const hash = imageMap?.[path]?.contentHash;
@@ -383,7 +394,10 @@ function resolveImage(un, ...tables) {
     const entry = tbl?.[un];
     if (entry && (entry.icon || entry.thumbnail)) {
       const icon = entry.icon ?? entry.thumbnail;
-      return imageUrl(icon);
+      // Do not allow stale wiki.warframe.com thumbnails from supplemental
+      // datasets to terminate the search before DE's export icon is used.
+      if (/^https?:\/\/(?:www\.)?wiki\.warframe\.com\//i.test(icon) && !AUTHORITATIVE_ITEM_ICONS[un]) continue;
+      return imageUrl(icon, un);
     }
   }
 
@@ -396,7 +410,8 @@ function resolveImage(un, ...tables) {
       const matchKey = suffixIndex.get(leaf)
       if (matchKey && (tbl[matchKey]?.icon || tbl[matchKey]?.thumbnail)) {
         const icon = tbl[matchKey].icon ?? tbl[matchKey].thumbnail;
-        return imageUrl(icon);
+        if (/^https?:\/\/(?:www\.)?wiki\.warframe\.com\//i.test(icon)) continue;
+        return imageUrl(icon, matchKey);
       }
     }
   }
@@ -1630,6 +1645,9 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   modRecords.forEach(u => {
     const un = u.ItemType;
     if (!un || un.includes('Randomized') || un.includes('RandomMod')) return;
+    // ExportModSet definitions (for example SpiderSetMod) describe a set's
+    // aggregate bonuses; they are not collectible mods and have no card art.
+    if (/\/Sets\/[^/]+\/[^/]+SetMod$/i.test(un)) return;
 
     // Skip mods that were removed from the game but still sit in inventories
     const REMOVED_MOD = new Set([
@@ -1735,6 +1753,10 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   const modsByName = new Map();
   for (const [un, entry] of Object.entries(EM)) {
     if (!un || un.includes('Randomized') || un.includes('RandomMod')) continue;
+    if (/\/Sets\/[^/]+\/[^/]+SetMod$/i.test(un)) continue;
+    // Stickers are catalogued separately as Peely Pix. Do not duplicate them
+    // in the Mods catalog where they render with a mod frame.
+    if (exports.PeelyPixNames?.[un]) continue;
     const isArcane = (un.includes('CosmeticEnhancers') && !un.includes('CosmeticEnhancers/Peculiars')) || un.includes('/Arcane/') || un.toLowerCase().includes('arcane');
     if (isArcane) continue;
     const owned = ownedModsByKey.get(canonicalUniqueName(un));
@@ -1752,7 +1774,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       '/Lotus/Upgrades/Mods/Syndicate/BallisticaMod',
     ]);
     const isEmptyArtifactPlaceholder = entry?.name === '/Lotus/Language/Items/EmptyArtifact' && entry?.excludeFromCodex === true;
-    if (!owned && (UNOBTAINABLE_UNOWNED_MODS.has(canonicalUniqueName(un)) || isEmptyArtifactPlaceholder)) continue;
+    // DE keeps legacy Conclave/K-Drive definitions in the export so old
+    // inventory records can still be decoded, but explicitly marks them as
+    // outside the Codex. Do not manufacture unowned catalog cards for any
+    // such definition; preserve a card only when the player actually owns it.
+    if (!owned && (entry?.excludeFromCodex === true || UNOBTAINABLE_UNOWNED_MODS.has(canonicalUniqueName(un)) || isEmptyArtifactPlaceholder)) continue;
     // The acquisition dataset is for enrichment (how-to-get info) below)
     // only - it must never gate whether a mod appears in the browsable
     // catalog at all. Its coverage is thin for whole categories (Stance,
@@ -2669,13 +2695,27 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     craftable: (() => {
       const craftableItems = [];
 
+      // Inventory payloads and export recipe keys may differ only by the
+      // StoreItems namespace. Counts used for readiness must use one identity
+      // for both forms, otherwise a blueprint can appear absent (or a recipe
+      // can be treated as ready without checking the real blueprint record).
+      const canonicalInventoryType = (value) => value?.replace('/StoreItems/', '/') ?? value;
+
       // Build ingredient inventory map for quick lookup
       const resourceCounts = {};
 
-      // Count resources from raw
-      (raw.Resources ?? []).forEach(r => {
-        resourceCounts[r.ItemType] = (resourceCounts[r.ItemType] ?? 0) + (r.ItemCount ?? 1);
-      });
+      // Count resources from the raw inventory. Current exporter payloads put
+      // ordinary resources (including Orokin Cells) in MiscItems, while older
+      // payloads used Resources. Treat both as resource inventories, but keep
+      // them out of ownedItemCounts below so the processed `all` list cannot
+      // add a second synthetic copy.
+      for (const arr of [raw.Resources, raw.MiscItems]) {
+        for (const resource of (arr ?? [])) {
+          if (!resource?.ItemType) continue;
+          const key = canonicalInventoryType(resource.ItemType);
+          resourceCounts[key] = (resourceCounts[key] ?? 0) + (resource.ItemCount ?? 1);
+        }
+      }
 
       // Get player's owned blueprints from inventory (with counts)
       // Note: raw.Recipes is included in inventoryArrays below, so we use ownedItemCounts
@@ -2686,7 +2726,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         raw.Suits, raw.LongGuns, raw.Pistols, raw.Melee,
         raw.Sentinels, raw.KubrowPets, raw.MoaPets, raw.SentinelWeapons,
         raw.SpaceMelee, raw.SpaceGuns, raw.MechSuits, raw.OperatorAmps,
-        raw.SpaceSuits, raw.Hoverboards, raw.MiscItems, raw.Recipes, raw.Consumables
+        raw.SpaceSuits, raw.Hoverboards, raw.Recipes, raw.Consumables
       ];
 
       for (const arr of inventoryArrays) {
@@ -2694,7 +2734,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           for (const item of arr) {
             const un = item.ItemType;
             if (un) {
-              ownedItemCounts[un] = (ownedItemCounts[un] ?? 0) + (item.ItemCount ?? 1);
+              const key = canonicalInventoryType(un);
+              ownedItemCounts[key] = (ownedItemCounts[key] ?? 0) + (item.ItemCount ?? 1);
             }
           }
         }
@@ -2702,8 +2743,9 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
       // Also check the processed all array
       all.forEach(item => {
-        if (item.owned && item.unique_name) {
-          ownedItemCounts[item.unique_name] = (ownedItemCounts[item.unique_name] ?? 0) + 1;
+        if (item.owned && item.unique_name && item.category !== 'resources') {
+          const key = canonicalInventoryType(item.unique_name);
+          ownedItemCounts[key] = (ownedItemCounts[key] ?? 0) + 1;
         }
       });
 
@@ -2736,7 +2778,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
         // Check if this is a main BP that could have components (warframes, archwings, etc)
         const isMainItemBP = (bpKey.includes('/Recipes/WarframeRecipes/') || bpKey.includes('/Recipes/ArchwingRecipes/')) && !bpKey.includes('Component');
-        const isOwned = bpKey in ownedItemCounts;
+        const isOwned = (ownedItemCounts[canonicalInventoryType(bpKey)] ?? 0) > 0;
 
         // The Foundry catalog needs every equipment recipe so an unowned item
         // can still show its component circles and missing quantities. Keep
@@ -2769,13 +2811,13 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
             `${prefix}${base}HarnessBlueprint`,
             `${prefix}${base}WingsBlueprint`
           ];
-          showBP = componentBPs.some(cb => cb in ownedItemCounts);
+          showBP = componentBPs.some(cb => (ownedItemCounts[canonicalInventoryType(cb)] ?? 0) > 0);
         }
 
         if (!showBP) return;
 
         // Get count of this BP owned
-        const bpCount = primeItemCounts.get(bpKey) ?? 0;
+        const bpCount = ownedItemCounts[canonicalInventoryType(bpKey)] ?? 0;
 
         const baseName = resultName.replace(BLUEPRINT_SUFFIX[locale] ?? ' Blueprint', '').replace(' Prime', ' Prime');
 
@@ -2802,7 +2844,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           if (!isMasteryPart) hasMastery = false;
         }
 
-        // Check all ingredients - separate crafted vs blueprints
+        // Check all ingredients - separate crafted vs blueprints. Inventory
+        // quantities must be allocated across repeated recipe entries: Twin
+        // Kohmak has two Kohmak ingredients, and one owned Kohmak cannot
+        // satisfy both rows independently.
+        const ingredientUsage = {};
         const ingredients = (recipe.ingredients ?? []).map(ing => {
           const ingName = resolveName(ing.ItemType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
 
@@ -2815,38 +2861,48 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           const isComponent = ing.ItemType.includes('Component');
           if (isComponent) {
             // Crafted component count
-            have = primeItemCounts.get(ing.ItemType) ?? 0;
+            have = ownedItemCounts[canonicalInventoryType(ing.ItemType)] ?? 0;
             // Blueprint count (separate)
             const bpKey = ing.ItemType.replace('Component', 'Blueprint');
-            bpOwned = primeItemCounts.get(bpKey) ?? 0;
+            bpOwned = ownedItemCounts[canonicalInventoryType(bpKey)] ?? 0;
 
             // Check if component blueprint is ready to craft
             const bpRecipe = ERecipe?.[bpKey];
             if (bpRecipe?.ingredients) {
               bpReady = bpRecipe.ingredients.every(subIng => {
-                const subHave = (resourceCounts[subIng.ItemType] ?? 0) + (ownedItemCounts[subIng.ItemType] ?? 0);
+                const subKey = canonicalInventoryType(subIng.ItemType);
+                const subHave = (resourceCounts[subKey] ?? 0) + (ownedItemCounts[subKey] ?? 0);
                 return subHave >= (subIng.ItemCount ?? 1);
               });
 
               // Get sub-ingredients for tooltip
               subIngredients = bpRecipe.ingredients.map(subIng => ({
                 name: resolveName(subIng.ItemType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
-                have: (resourceCounts[subIng.ItemType] ?? 0) + (ownedItemCounts[subIng.ItemType] ?? 0),
+                have: (() => {
+                  const subKey = canonicalInventoryType(subIng.ItemType);
+                  return (resourceCounts[subKey] ?? 0) + (ownedItemCounts[subKey] ?? 0);
+                })(),
                 need: subIng.ItemCount ?? 1,
                 image: resolveImage(subIng.ItemType, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe)
               }));
             }
           } else {
             // For regular resources/items - count both resources and owned items
-            have = (resourceCounts[ing.ItemType] ?? 0) + (ownedItemCounts[ing.ItemType] ?? 0);
+            const ingredientKey = canonicalInventoryType(ing.ItemType);
+            have = (resourceCounts[ingredientKey] ?? 0) + (ownedItemCounts[ingredientKey] ?? 0);
           }
 
           const need = ing.ItemCount ?? 1;
+          const ingredientKey = canonicalInventoryType(ing.ItemType);
+          const alreadyAllocated = ingredientUsage[ingredientKey] ?? 0;
+          have = Math.max(0, have - alreadyAllocated);
+          ingredientUsage[ingredientKey] = alreadyAllocated + need;
           const image = resolveImage(ing.ItemType, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
           return { name: ingName, have, need, itemType: ing.ItemType, image, bpOwned, isComponent, bpReady, subIngredients };
         });
 
         const allIngredientsMet = ingredients.every(ing => ing.have >= ing.need);
+        const readyToCraft = bpCount > 0 && allIngredientsMet;
 
         // No separate "parts" section needed - ingredients already has everything
 
@@ -2859,6 +2915,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           buildPrice: recipe.buildPrice ?? 0,
           ingredients,
           allIngredientsMet,
+          readyToCraft,
           bpCount,
           ownedCount,
           fullItemOwned,

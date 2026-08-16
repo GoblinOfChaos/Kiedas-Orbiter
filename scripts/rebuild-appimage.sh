@@ -19,8 +19,21 @@ export PATH="/home/jedwards/.local/share/pnpm/bin:$PATH"
 export APPIMAGE_EXTRACT_AND_RUN=1
 export NO_STRIP=1
 
+# Keep a live Warframe/Proton session responsive while building. Distrobox
+# shares the host's CPU, memory, and disk with the game, so an unrestricted
+# optimized Rust build plus AppImage packaging can starve the game's input
+# and render threads. Four pinned cores, low CPU priority, and idle I/O
+# priority keep the build moving without taking the machine away from play.
+BUILD_CPUS="0-3"
+export CARGO_BUILD_JOBS=4
+export RAYON_NUM_THREADS=4
+
+run_low_impact() {
+  nice -n 10 ionice -c 3 taskset -c "$BUILD_CPUS" "$@"
+}
+
 echo "==> Building (the bundler's own linuxdeploy step will likely fail at the end - that's expected)"
-pnpm tauri build --bundles appimage || true
+run_low_impact pnpm tauri build --bundles appimage || true
 
 echo "==> Cleaning stale AppDir and finishing packaging manually"
 rm -rf "$BUNDLE_DIR/Kieda's Orbiter.AppDir"
@@ -50,7 +63,7 @@ mkdir -p "$RESOURCE_DIR"
 cp -a "$REPO/src-tauri/target/release/data" "$RESOURCE_DIR/"
 test -f "$RESOURCE_DIR/data/assets/data/wiki-baro-acquisition.json"
 
-"$LINUXDEPLOY" \
+run_low_impact "$LINUXDEPLOY" \
   --appdir "Kieda's Orbiter.AppDir" \
   --executable "$REPO/src-tauri/target/release/kiedas-orbiter" \
   --desktop-file "$DESKTOP_FILE" \

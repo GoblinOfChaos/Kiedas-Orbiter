@@ -3,6 +3,7 @@ import { Info, ExternalLink } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
 import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from '../lib/codexSupplement';
 import { getItemDrops } from '../lib/acquisitionData';
+import { MAPPING_TYPES } from '../lib/warframeUtils';
 
 function formatDropLocation(location) {
   if (!location) return null;
@@ -50,8 +51,18 @@ export function getSourceLabel(source) {
       return [formatDropLocation(source.location), source.dropType && `— ${source.dropType}`].filter(Boolean).join(' ') || 'Known drop source';
     case 'relic':
       return `${source.relicName || source.relicManifest || 'Relic'}${source.rarity ? ` (${source.rarity})` : ''}`;
-    case 'mission':
-      return `${source.region ? `${source.region} — ` : ''}${source.nodeName || source.node || source.missionType || 'Mission'}${source.missionType && (source.nodeName || source.node) ? ` (${source.missionType})` : ''}${rotation}`;
+    case 'mission': {
+      // source.missionType is a raw DE code (e.g. "MT_TAU_WAR") - must go
+      // through the same MT_ translation table used elsewhere, or an
+      // unrecognized internal enum string leaks straight into the UI.
+      // Omit the parenthetical entirely rather than show a raw code the
+      // table doesn't have a name for yet - a missing detail is better
+      // than a confusing one.
+      const missionTypeName = source.missionType != null ? MAPPING_TYPES[source.missionType] : undefined;
+      const label = source.nodeName || source.node || missionTypeName || 'Mission';
+      const suffix = missionTypeName && (source.nodeName || source.node) ? ` (${missionTypeName})` : '';
+      return `${source.region ? `${source.region} — ` : ''}${label}${suffix}${rotation}`;
+    }
     case 'enemy':
       return source.enemyName || source.enemy || 'Enemy drop';
     case 'bounty':

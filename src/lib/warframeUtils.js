@@ -150,6 +150,9 @@ export const MAPPING_TYPES = {
   'PURSUIT': 'Pursuit',
   'MT_RUSH': 'Rush',
   'RUSH': 'Rush',
+  // Confirmed via DropsAll.json's gameMode field for a real MT_TAU_WAR node
+  // (Deimos "Recall: Hunhullus"), not guessed from the code alone.
+  'MT_TAU_WAR': 'The Perita Rebellion',
 }
 
 // Map from MAPPING_TYPES values to /Lotus/Language/Missions/MissionName_{key} dict paths

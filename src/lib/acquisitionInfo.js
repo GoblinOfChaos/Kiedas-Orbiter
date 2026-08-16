@@ -7,12 +7,12 @@ import bundledWikiBaroAcquisition from '../../src-tauri/data/assets/data/wiki-ba
 import bundledWikiResourceAcquisition from '../../src-tauri/data/assets/data/wiki-resources-acquisition.json';
 import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-page-acquisition.json';
 import bundledWikiDescriptionAcquisition from '../../src-tauri/data/assets/data/wiki-description-acquisition.json';
-import { WIKI_VERIFIED_ACQUISITIONS } from './wikiVerifiedAcquisitions';
+import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions';
 
 const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map((name) => [name.toLowerCase().trim(), true]));
 const bundledWikiResourceIndex = new Map(Object.entries(bundledWikiResourceAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
 const bundledWikiPageIndex = new Map(Object.entries(bundledWikiPageAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
-const bundledWikiDescriptionIndex = new Map(Object.entries(bundledWikiDescriptionAcquisition).map(([uniqueName, text]) => [uniqueName.replace('/StoreItems/', '/'), text]));
+const bundledWikiDescriptionIndex = new Map(Object.entries(bundledWikiDescriptionAcquisition).map(([uniqueName, text]) => [uniqueName.replaceAll('/StoreItems/', '/'), text]));
 
 /**
  * Shared "how do I get this" lookup, reused across Mods/Rivens/Inventory.
@@ -68,7 +68,19 @@ const VARIANT_ACQUISITION_PATTERNS = [
 // not regress to the misleading generic source message.
 const BARO_LOGIN_MUSIC_PATTERN = /\/Types\/Items\/SongItems\/[^/]*LoginSongItem$/i;
 
-const canonicalPath = (v) => v?.replace('/StoreItems/', '/') || v;
+// Incarnon Genesis adapters are exported as misc store items rather than
+// ordinary drops. Their Market bundle relationship is not the acquisition
+// route: the adapter is offered on the rotating Steel Path Circuit reward
+// track and can also be purchased from Cavalero for 120 Platinum. Keep this
+// keyed to DE's exact adapter path so it covers every adapter without making
+// a name-based guess about unrelated items.
+const INCARNON_GENESIS_PATTERN = /\/Types\/Items\/MiscItems\/IncarnonAdapters\//i;
+
+// DE uses both /Lotus/StoreItems/... and /Lotus/Types/StoreItems/... forms.
+// Some bundle component identities contain the segment twice; normalize all
+// occurrences so those exact components match the corresponding catalog
+// identity instead of silently falling through to the Wiki fallback.
+const canonicalPath = (v) => typeof v === 'string' ? v.replaceAll('/StoreItems/', '/') : v;
 
 function cleanResolvedName(value) {
   return typeof value === 'string' ? value.replace(/<[^>]*>/g, '').trim() : '';
@@ -590,10 +602,94 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     ?? overridesData?.components?.[dropIndexKey]
     ?? overridesData?.components?.[displayName]
     ?? overridesData?.components?.[`${displayName}|Blueprint`];
+  // Component overrides written for an item's old recipe summary sometimes
+  // say "Market purchase" even when the component itself is a resource. If
+  // the exact resource has a structured Wiki acquisition record, let that
+  // record describe the resource instead of inheriting the parent weapon's
+  // Market route.
+  const displayLowerForOverride = normalizeDisplayName(displayName);
+  const hasStructuredResourceRoute = wikiResourceIndex?.has(displayLowerForOverride);
+  const resourceOverrideIsMarketOnly = hasStructuredResourceRoute
+    && typeof overrideText === 'string'
+    && /market purchase/i.test(overrideText);
+  // Clan-research overrides predate the structured research table and can
+  // omit the exact lab, cost, prerequisite, and research time. Prefer the
+  // exact display-name research record whenever one exists.
+  const researchOverrideHasStructuredRoute = wikiResearchIndex?.has(displayLowerForOverride)
+    && typeof overrideText === 'string'
+    && /^(?:clan research|dojo research)\b/i.test(overrideText.trim());
+  const marketOverrideMatch = typeof overrideText === 'string'
+    ? overrideText.match(/^Purchase the blueprint from the Market for ([\d,]+) Credits, or buy the complete .*? for ([\d,]+) Platinum\b/i)
+    : null;
+  const marketEntry = marketIndex?.get(canonicalPath(dropIndexKey));
+  const marketOverrideIsExportVerified = marketOverrideMatch
+    && recipe?.blueprintCost === Number(marketOverrideMatch[1].replaceAll(',', ''))
+    && marketEntry
+    && Number(marketEntry.amount) === Number(marketOverrideMatch[2].replaceAll(',', ''))
+    && (marketEntry.currency || 'Platinum') === 'Platinum';
+  const baroOverrideHasStructuredRoute = typeof overrideText === 'string'
+    && /^Baro\b/i.test(overrideText.trim())
+    && (wikiBaroIndex?.has(displayLowerForOverride)
+      || wikiBaroIndex?.has(`${displayLowerForOverride} relic`)
+      || bundledWikiBaroIndex.has(displayLowerForOverride)
+      || bundledWikiBaroIndex.has(`${displayLowerForOverride} relic`));
+  const structuredVendorsForOverride = wikiVendorIndex?.get(displayLowerForOverride);
+  const vendorOverrideHasStructuredRoute = Array.isArray(structuredVendorsForOverride)
+    && structuredVendorsForOverride.length > 0;
+  const marketMentioned = typeof overrideText === 'string'
+    && /market purchase|market bundle|complete .*market/i.test(overrideText);
+  const overrideForbidsBlueprint = typeof overrideText === 'string'
+    && /fully built|no blueprint/i.test(overrideText);
+  const marketAmount = marketEntry ? Number(marketEntry.amount) : 0;
+  const marketCurrency = marketEntry?.currency || 'Platinum';
+  const marketRouteCanBeRendered = marketMentioned && marketAmount > 0
+    && (!recipe || Number(recipe.blueprintCost) > 0 || !/blueprint/i.test(overrideText));
+  // An exact, source-backed acquisition record outranks an older manual
+  // override for the same DE object. Keep the path match strict: this is not
+  // a name/category rule and cannot bleed into similarly named variants.
+  const verifiedAggregateWiki = WIKI_VERIFIED_ACQUISITIONS.get(canonicalPath(dropIndexKey));
+  if (verifiedAggregateWiki && overrideText && !resourceOverrideIsMarketOnly && !researchOverrideHasStructuredRoute) {
+    return {
+      sources: [{ type: 'non-drop', text: verifiedAggregateWiki.text, source: verifiedAggregateWiki.source }],
+      recipe: recipe || null,
+      wikiLink: { url: verifiedAggregateWiki.url, isDirect: true },
+    };
+  }
   // Some historical overrides intentionally record an unresolved lookup as
   // `UNKNOWN (...)`. That is audit evidence, not an acquisition route, and
   // must not be rendered as if it tells the player how to obtain the item.
-  if (overrideText && !/^UNKNOWN\b/i.test(overrideText.trim())) {
+  if (overrideText && !resourceOverrideIsMarketOnly && !researchOverrideHasStructuredRoute && !/^UNKNOWN\b/i.test(overrideText.trim())) {
+    if (marketOverrideIsExportVerified) {
+      return {
+        sources: [{ type: 'non-drop', text: overrideText, source: 'DE ExportRecipes exact blueprint cost + DE Market price' }],
+        recipe: recipe || null,
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
+    if (marketRouteCanBeRendered) {
+      const marketText = recipe?.blueprintCost > 0 && !overrideForbidsBlueprint
+        ? `Purchase the blueprint from the Market for ${Number(recipe.blueprintCost).toLocaleString()} Credits, or buy the complete item for ${marketAmount.toLocaleString()} ${marketCurrency}.`
+        : `Purchase the complete item from the in-game Market for ${marketAmount.toLocaleString()} ${marketCurrency}.`;
+      return {
+        sources: [{ type: 'non-drop', text: marketText, source: 'DE ExportRecipes exact blueprint cost + DE Market price' }],
+        recipe: recipe || null,
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
+    if (baroOverrideHasStructuredRoute) {
+      return {
+        sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki Baro acquisition index' }],
+        recipe: recipe || null,
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
+    if (vendorOverrideHasStructuredRoute) {
+      return {
+        sources: [{ type: 'non-drop', text: `Sold by ${structuredVendorsForOverride.join(' and ')}.`, source: 'Warframe Wiki vendor acquisition index' }],
+        recipe: recipe || null,
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
     return { sources: [{ type: 'override', text: overrideText, source: 'manual override' }], recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
@@ -606,7 +702,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     };
   }
 
-  const norm = dropIndexKey?.replace('/StoreItems/', '/');
+  const norm = canonicalPath(dropIndexKey);
   const displayLower = normalizeDisplayName(displayName);
   const displayKeys = displayLower ? [
     'display:' + displayLower,
@@ -631,7 +727,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return { sources: dropSources, wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
-  const verifiedAggregateWiki = WIKI_VERIFIED_ACQUISITIONS.get(canonicalPath(dropIndexKey));
+  const verifiedDisposition = WIKI_VERIFIED_DISPOSITIONS.get(canonicalPath(dropIndexKey));
+  if (verifiedDisposition) {
+    return {
+      sources: [{ type: 'status', text: verifiedDisposition.text, source: verifiedDisposition.source || 'Verified disposition' }],
+      wikiLink: { url: verifiedDisposition.url, isDirect: true },
+    };
+  }
+
   if (verifiedAggregateWiki) {
     return {
       sources: [{ type: 'non-drop', text: verifiedAggregateWiki.text, source: verifiedAggregateWiki.source }],
@@ -643,6 +746,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   // summary because it can explain how the blueprint is obtained or unlocked.
   const wikiPageAcquisition = wikiPageAcquisitionIndex?.get(displayLower) || bundledWikiPageIndex.get(displayLower);
   if (wikiPageAcquisition?.text) {
+    if (['Disposition', 'Verification status'].includes(wikiPageAcquisition.section)) {
+      return {
+        sources: [{ type: 'status', text: wikiPageAcquisition.text, source: wikiPageAcquisition.section === 'Disposition' ? 'Warframe Wiki disposition' : 'Warframe Wiki verification status' }],
+        wikiLink: wikiPageAcquisition.url
+          ? { url: wikiPageAcquisition.url, isDirect: true }
+          : getWikiLink(dropIndexKey, displayName),
+      };
+    }
     return {
       sources: [{ type: 'non-drop', text: wikiPageAcquisition.text, source: wikiPageAcquisition.source || 'Warframe Wiki' }],
       wikiLink: wikiPageAcquisition.url
@@ -687,22 +798,21 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     return { sources: [{ type: 'non-drop', text: nonDrop.text, source: 'DE export path rule' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
-  if (recipe || isCraftable(dropIndexKey)) {
+  const marketPrice = marketIndex?.get(canonicalPath(dropIndexKey));
+  if (INCARNON_GENESIS_PATTERN.test(canonicalPath(dropIndexKey) || '')) {
     return {
       sources: [{
         type: 'non-drop',
-        source: 'DE export',
-        text: recipe
-          ? formatRecipeAcquisition(recipe)
-          : 'Craftable in the Foundry; detailed recipe data is unavailable in the current export.',
+        text: "Earn this Incarnon Genesis from the rotating Steel Path Circuit reward choices after unlocking The Duviri Paradox, Angels of the Zariman, and Steel Path. Alternatively, purchase it from Cavalero in the Chrysalith for 120 Platinum, once per adapter.",
+        source: 'Warframe Wiki Incarnon Genesis acquisition rules',
       }],
-      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
-
-  const marketPrice = marketIndex?.get(canonicalPath(dropIndexKey));
-  if (marketPrice) {
+  // A direct Market price is not the most useful route when the same exact
+  // object has a structured Clan-research record; let that record render the
+  // lab, prerequisites, costs, and research materials below.
+  if (marketPrice && !wikiResearchIndex?.has(displayLower)) {
     const amount = typeof marketPrice === 'number' ? marketPrice : marketPrice.amount;
     const currency = typeof marketPrice === 'number' ? 'Platinum' : marketPrice.currency;
     return {
@@ -712,7 +822,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   }
 
   const bundleName = bundleIndex?.get(canonicalPath(dropIndexKey));
-  if (bundleName) {
+  if (bundleName && !wikiResearchIndex?.has(displayLower)) {
     return {
       sources: [{ type: 'non-drop', text: `Sold as part of the "${bundleName}" Market bundle.`, source: 'DE export' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
@@ -734,7 +844,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const baroRelicKey = displayLower?.endsWith(' relic') ? displayLower : `${displayLower} relic`;
   if (wikiBaroIndex?.has(displayLower) || wikiBaroIndex?.has(baroRelicKey)
     || bundledWikiBaroIndex.has(displayLower) || bundledWikiBaroIndex.has(baroRelicKey)
-    || BARO_LOGIN_MUSIC_PATTERN.test(dropIndexKey || '')) {
+    || BARO_LOGIN_MUSIC_PATTERN.test(canonicalPath(dropIndexKey) || '')) {
     return {
       sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki' }],
       wikiLink: getWikiLink(dropIndexKey, displayName),
@@ -878,13 +988,31 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     }
   }
 
+  // Recipe/build details are a fallback when no concrete blueprint, vendor,
+  // Market, bundle, drop, or component-parent route is available. Keep the
+  // recipe on the result so the drawer can show costs, but do not let those
+  // costs replace the actual acquisition route when one is known.
+  if (recipe || isCraftable(dropIndexKey)) {
+    return {
+      sources: [{
+        type: 'non-drop',
+        source: 'DE export',
+        text: recipe
+          ? formatRecipeAcquisition(recipe)
+          : 'Craftable in the Foundry; detailed recipe data is unavailable in the current export.',
+      }],
+      recipe: recipe || null,
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
+  }
+
   const wikiStatus = wikiAcquisitionStatusIndex?.get(canonicalPath(dropIndexKey));
   if (wikiStatus) {
-    const text = wikiStatus.pageFound
+    const text = wikiStatus.exportDisposition || (wikiStatus.pageFound
       ? 'A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section.'
-      : 'No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data.';
+      : 'No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data.');
     return {
-      sources: [{ type: 'status', text, source: 'Acquisition audit' }],
+      sources: [{ type: 'status', text, source: wikiStatus.exportDisposition ? 'DE export status' : 'Acquisition audit' }],
       wikiLink: wikiStatus.url
         ? { url: wikiStatus.url, isDirect: true }
         : getWikiLink(dropIndexKey, displayName),

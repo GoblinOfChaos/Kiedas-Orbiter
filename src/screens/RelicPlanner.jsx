@@ -10,7 +10,7 @@ export default function RelicPlanner() {
   const [partSearch, setPartSearch] = useState('');
   const [partFilter, setPartFilter] = useState('all'); // 'all' | 'never-obtained' | 'missing'
   const [need, setNeed] = useState([]); // array of {uniqueName, name}
-  const [ownedOnly, setOwnedOnly] = useState(false);
+  const [ownershipFilter, setOwnershipFilter] = useState('all');
   const [iconsPath, setIconsPath] = useState('');
 
   useEffect(() => {
@@ -23,7 +23,9 @@ export default function RelicPlanner() {
   // ported from wfinfo-ng's RELIC_PLANNER_TAB.py part picker.
   const allParts = useMemo(() => {
     if (!exportData) return [];
-    return getAllRelicRewards(exportData, 'en').sort((a, b) => a.name.localeCompare(b.name));
+    return getAllRelicRewards(exportData, 'en')
+      .filter((part) => part.isPrimePart || /Forma(?:Blueprint)?$/i.test(part.uniqueName || ''))
+      .sort((a, b) => a.name.localeCompare(b.name));
   }, [exportData]);
 
   const relicCatalog = useMemo(() => getRelicCatalog(exportData, 'en'), [exportData]);
@@ -103,7 +105,8 @@ export default function RelicPlanner() {
             .replace(new RegExp(`^${candidate.era}\\s+`, 'i'), '')
             .replace(/\s+Relic$/i, '').trim() === relic.name);
       const ownedCount = owned?.ownedCount || 0;
-      if (ownedOnly && ownedCount === 0) continue;
+      if (ownershipFilter === 'owned' && ownedCount === 0) continue;
+      if (ownershipFilter === 'unowned' && ownedCount > 0) continue;
       const matches = (relic.rewards || []).filter((rw) => needKeys.has(rw.uniqueName));
       if (matches.length === 0) continue;
       out.push({
@@ -117,7 +120,7 @@ export default function RelicPlanner() {
     }
     out.sort((a, b) => (b.ownedCount - a.ownedCount) || (b.matches.length - a.matches.length));
     return out;
-  }, [relicCatalog, ownedRelics, needKeys, ownedOnly]);
+  }, [relicCatalog, ownedRelics, needKeys, ownershipFilter]);
 
   const ownedShown = results.filter((r) => r.ownedCount > 0).length;
   const ownedParts = [...partStatuses.values()].filter((status) => status.directOwned).length;
@@ -230,8 +233,8 @@ export default function RelicPlanner() {
               <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">Best Relics</h2>
               {need.length > 0 && <span className="px-1.5 py-0.5 rounded bg-kronos-accent/10 text-kronos-accent text-[9px] font-black">{results.length}</span>}
             </div>
-            <button type="button" onClick={() => setOwnedOnly(!ownedOnly)} aria-pressed={ownedOnly} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownedOnly ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
-              Owned only
+            <button type="button" onClick={() => setOwnershipFilter((value) => value === 'all' ? 'owned' : value === 'owned' ? 'unowned' : 'all')} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+              {ownershipFilter === 'all' ? 'All' : ownershipFilter === 'owned' ? 'Owned' : 'Unowned'}
             </button>
           </div>
           {need.length === 0 ?

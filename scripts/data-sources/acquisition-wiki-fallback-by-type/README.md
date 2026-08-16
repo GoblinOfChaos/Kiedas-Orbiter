@@ -1,5 +1,7 @@
 # Acquisition drawer fallback list by type
 
+> Historical snapshot only. These files are not current app evidence; use `../current-acquisition-gaps.md` and `node scripts/audit-current-acquisition-gaps.mjs` for the live exact-catalog audit.
+
 Generated: 2026-08-12T21:43:00.340Z
 
 Total literal-fallback entries: **6915**

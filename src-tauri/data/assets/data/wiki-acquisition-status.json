@@ -210,6 +210,7 @@
     "url": "https://wiki.warframe.com/w/Baruuk_Prime_Helmet"
   },
   "/Lotus/Upgrades/Skins/Operator/AnimationSets/BaseOperatorAnims": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "BaseOperatorAnims",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/BaseOperatorAnims"
@@ -270,6 +271,7 @@
     "url": "https://wiki.warframe.com/w/Bluyayogamer_Glyph"
   },
   "/Lotus/Upgrades/Skins/VoidTrader/VTBoar": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Boar Phosphor Skin",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Boar_Phosphor_Skin"
@@ -320,6 +322,7 @@
     "url": "https://wiki.warframe.com/w/Broadsword_Past/Future_Sigil"
   },
   "/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkinHelmet": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "BRONZE RHINO HELMET",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/BRONZE_RHINO_HELMET"
@@ -386,13 +389,13 @@
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal15C": {
     "displayName": "Capit XV Phloios",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal16C": {
     "displayName": "Capit XVI Perigone",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Types/AvatarImages/AvatarImageChatModerator": {
     "displayName": "Chat Moderator Glyph",
@@ -985,11 +988,13 @@
     "url": "https://wiki.warframe.com/w/Dropkick_Drahk_Sigil"
   },
   "/Lotus/Upgrades/Skins/SteamWorkshop/Melee/Swords/DualSkanaInfestedSkin": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Dual Skana Infested Skin",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Dual_Skana_Infested_Skin"
   },
   "/Lotus/Upgrades/Skins/Deluxe/FrostDeluxeDualSword": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Dual Swords Frysta Skin",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Dual_Swords_Frysta_Skin"
@@ -1075,6 +1080,7 @@
     "url": "https://wiki.warframe.com/w/Emissary_Suit"
   },
   "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "ENGINE COWLING",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/ENGINE_COWLING"
@@ -1100,6 +1106,7 @@
     "url": "https://wiki.warframe.com/w/Erznung_Emblem"
   },
   "/Lotus/Types/Items/ShipFeatureItems/EuropaNavigationFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "EUROPA NAV SEGMENT",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/EUROPA_NAV_SEGMENT"
@@ -1225,6 +1232,7 @@
     "url": "https://wiki.warframe.com/w/Fizzbang_Flourish"
   },
   "/Lotus/Upgrades/Skins/Sigils/FireSigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Flaming Sigil",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Flaming_Sigil"
@@ -1250,6 +1258,7 @@
     "url": "https://wiki.warframe.com/w/For_My_Brothers_Patch_Glyph"
   },
   "/Lotus/Upgrades/Skins/Sigils/FormaSigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Forma Sigil",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Forma_Sigil"
@@ -1330,11 +1339,13 @@
     "url": "https://wiki.warframe.com/w/Furis_Verv_Skin"
   },
   "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHullFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "FUSELAGE",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/FUSELAGE"
   },
   "/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoGalatineCamo": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "GALATINE BRONZE SKIN",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/GALATINE_BRONZE_SKIN"
@@ -1410,6 +1421,7 @@
     "url": "https://wiki.warframe.com/w/Gauss_Prime_Helmet"
   },
   "/Lotus/Upgrades/Skins/Clan/ExcaliburUmbraBadgeItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Gauvan Umbra Sekhara",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Gauvan_Umbra_Sekhara"
@@ -1430,6 +1442,7 @@
     "url": null
   },
   "/Lotus/Upgrades/Skins/Clan/LeaderBadgeGhostItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Ghost Leader Emblem",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Ghost_Leader_Emblem"
@@ -1465,16 +1478,19 @@
     "url": "https://wiki.warframe.com/w/Glyph"
   },
   "/Lotus/Upgrades/Skins/Sigils/TwoToneSigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Glyphed Sigil",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Glyphed_Sigil"
   },
   "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooGeodeGrey": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Gneissic Ink (Light)",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Gneissic_Ink_(Light)"
   },
   "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooGeode": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Gneissic Ink (Mid)",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Gneissic_Ink_(Mid)"
@@ -1551,13 +1567,13 @@
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal17C": {
     "displayName": "Grandis XVII Sporoi",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal18C": {
     "displayName": "Grandis XVIII Kalika",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal20C": {
     "displayName": "Grandis XX Perigone",
@@ -1895,6 +1911,7 @@
     "url": "https://wiki.warframe.com/w/Jade_In_Action_Glyph"
   },
   "/Lotus/Upgrades/Skins/Sentinels/Wings/JetWingsRight": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Jet Sentinel Wings",
     "pageFound": true,
     "url": "https://wiki.warframe.com/w/Sentinel_Accessory_Pack_2"
@@ -1995,6 +2012,7 @@
     "url": "https://wiki.warframe.com/w/Kuria_Emblem"
   },
   "/Lotus/Upgrades/Skins/Scarves/MixerKyropteraScarf": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Kyroptera Panoply Syandana",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Kyroptera_Panoply_Syandana"
@@ -2290,6 +2308,7 @@
     "url": "https://wiki.warframe.com/w/Mantle_of_the_Lotus"
   },
   "/Lotus/Types/Items/ShipFeatureItems/MarsNavigationFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "MARS NAV SEGMENT",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/MARS_NAV_SEGMENT"
@@ -2395,6 +2414,7 @@
     "url": "https://wiki.warframe.com/w/Mirage_Voidshell_Helmet"
   },
   "/Lotus/Types/Restoratives/LisetLaserTurret": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Missile Battery",
     "pageFound": true,
     "url": "https://wiki.warframe.com/w/Missile_Battery"
@@ -2410,6 +2430,7 @@
     "url": "https://wiki.warframe.com/w/Monquis_Sigil"
   },
   "/Lotus/Upgrades/Skins/Clan/LeaderBadgeMoonItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Moon Leader Emblem",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Moon_Leader_Emblem"
@@ -2420,11 +2441,13 @@
     "url": "https://wiki.warframe.com/w/Mother%27s_Mask"
   },
   "/Lotus/Upgrades/Skins/Clan/LeaderBadgeMountainItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Mountain Leader Emblem",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Mountain_Leader_Emblem"
   },
   "/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "MuseumDogTag",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/MuseumDogTag"
@@ -2460,6 +2483,7 @@
     "url": "https://wiki.warframe.com/w/Narmer_Eye_Glyph"
   },
   "/Lotus/Upgrades/Skins/Sigils/NarmerEyeSigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Narmer Eye Sigil",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Narmer_Eye_Sigil"
@@ -2950,6 +2974,7 @@
     "url": "https://wiki.warframe.com/w/Operator_Orizu_Suit"
   },
   "/Lotus/Upgrades/Skins/Operator/OperatorCustomization": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "OperatorCustomization",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/OperatorCustomization"
@@ -2995,6 +3020,7 @@
     "url": "https://wiki.warframe.com/w/Ostron_Community_Sigil"
   },
   "/Lotus/Types/Items/MiscItems/1999FreeStickersPack": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Owned Peely Pak",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Owned_Peely_Pak"
@@ -3050,26 +3076,31 @@
     "url": "https://wiki.warframe.com/w/Perita_Manifestation_Scene"
   },
   "/Lotus/Types/Items/ShipFeatureItems/PhobosNavigationFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "PHOBOS NAV SEGMENT",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/PHOBOS_NAV_SEGMENT"
   },
   "/Lotus/Upgrades/Skins/Sigils/CNYRoosterPWSigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Phoenix Coronet Sigil",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Phoenix_Coronet_Sigil"
   },
   "/Lotus/Upgrades/Skins/Clan/CYPlayBadgeItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "PLAY EMBLEM",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/PLAY_EMBLEM"
   },
   "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerPromoA": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "POP!",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/POP!"
   },
   "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackNacelleLeftFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "PORT NACELLE",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/PORT_NACELLE"
@@ -3090,6 +3121,7 @@
     "url": "https://wiki.warframe.com/w/Prime_Iron_Skin_Override"
   },
   "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronArmArmorPrisma": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Prisma Latron Shoulder Plate",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Prisma_Latron_Shoulder_Plate"
@@ -3105,6 +3137,7 @@
     "url": "https://wiki.warframe.com/w/Prominence_Sigil"
   },
   "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodBraceFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "PROPULSION SYSTEMS",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/PROPULSION_SYSTEMS"
@@ -3215,6 +3248,7 @@
     "url": "https://wiki.warframe.com/w/Revenant_Mephisto_Helmet"
   },
   "/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkin": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "RHINO BRONZE SKIN",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/RHINO_BRONZE_SKIN"
@@ -3330,6 +3364,7 @@
     "url": "https://wiki.warframe.com/w/Saryn_Yuheng_Helmet"
   },
   "/Lotus/Types/Items/ShipFeatureItems/SaturnNavigationFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "SATURN NAV SEGMENT",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/SATURN_NAV_SEGMENT"
@@ -3506,8 +3541,8 @@
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal6C": {
     "displayName": "Servio VI Kalika",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal7C": {
     "displayName": "Servio VII Phloios",
@@ -3570,6 +3605,7 @@
     "url": "https://wiki.warframe.com/w/Shadow_Claws_Prime"
   },
   "/Lotus/Upgrades/Skins/Clan/LeaderBadgeShadowItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Shadow Leader Emblem",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Shadow_Leader_Emblem"
@@ -3595,6 +3631,7 @@
     "url": "https://wiki.warframe.com/w/Silver_Skull_Emblem"
   },
   "/Lotus/Upgrades/Skins/Promo/ChangYou/CYSingleStaffSkin": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "SINGLE STAFF SKIN",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/SINGLE_STAFF_SKIN"
@@ -3640,6 +3677,7 @@
     "url": "https://wiki.warframe.com/w/Snake_Sigil"
   },
   "/Lotus/Types/Restoratives/LisetShield": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Snow Globe",
     "pageFound": true,
     "url": "https://wiki.warframe.com/w/Snow_Globe"
@@ -3720,6 +3758,7 @@
     "url": "https://wiki.warframe.com/w/Star-Child_Diadem"
   },
   "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackNacelleRightFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "STARBOARD NACELLE",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/STARBOARD_NACELLE"
@@ -3730,6 +3769,7 @@
     "url": null
   },
   "/Lotus/Upgrades/Skins/Clan/LeaderBadgeStormItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "Storm Leader Emblem",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/Storm_Leader_Emblem"
@@ -3800,6 +3840,7 @@
     "url": "https://wiki.warframe.com/w/Tagfer_Sketch_Glyph"
   },
   "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackTailFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "TAIL SECTION",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/TAIL_SECTION"
@@ -3916,8 +3957,8 @@
   },
   "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal12C": {
     "displayName": "Tenens XII Perigone",
-    "pageFound": false,
-    "url": null
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
   },
   "/Lotus/Upgrades/Skins/Nezha/NezhaDeluxeDualDaggerSkin": {
     "displayName": "Teng Dual Dagger Skin",
@@ -4030,11 +4071,13 @@
     "url": "https://wiki.warframe.com/w/TennoVIP_2025_Sigil"
   },
   "/Lotus/Upgrades/Skins/Sigils/TennoVIP2026Sigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "TennoVIP 2026 Sigil",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/TennoVIP_2026_Sigil"
   },
   "/Lotus/Upgrades/Skins/Sigils/TennoVIP2024Sigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "TennoVIP East Sigil",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/TennoVIP_East_Sigil"
@@ -4410,6 +4453,7 @@
     "url": "https://wiki.warframe.com/w/Vena%27s_Talons"
   },
   "/Lotus/Types/Items/ShipFeatureItems/VenusNavigationFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
     "displayName": "VENUS NAV SEGMENT",
     "pageFound": false,
     "url": "https://wiki.warframe.com/w/VENUS_NAV_SEGMENT"

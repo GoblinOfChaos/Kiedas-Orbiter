@@ -110,6 +110,7 @@ const status = { ...existingStatus };
 for (const item of results) {
   if (item.error) continue;
   status[item.uniqueName] = {
+    ...(status[item.uniqueName]?.exportDisposition ? { exportDisposition: status[item.uniqueName].exportDisposition } : {}),
     displayName: item.name,
     pageFound: !item.missing && Number.isFinite(item.pageId) && item.pageId > 0,
     url: item.url || null,

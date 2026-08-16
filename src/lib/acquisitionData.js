@@ -5,18 +5,27 @@
 import { invoke } from '@tauri-apps/api/core';
 
 let itemIndex = null;
+let componentIndex = null;
 let loadPromise = null;
-const canonicalPath = (value) => value?.replace('/StoreItems/', '/') || value;
+const canonicalPath = (value) => typeof value === 'string' ? value.replaceAll('/StoreItems/', '/') : value;
 
 export function loadAcquisitionData() {
   if (itemIndex) return Promise.resolve();
   if (loadPromise) return loadPromise;
   loadPromise = invoke('read_file_bytes', { relative: 'data/assets/data/warframe-items-acquisition.json' })
     .then((bytes) => {
-      const arr = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)));
-      itemIndex = new Map(arr.map((item) => [item.uniqueName, item]));
-    })
-    .catch(() => { itemIndex = new Map(); });
+    const arr = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)));
+    itemIndex = new Map(arr.map((item) => [item.uniqueName, item]));
+    componentIndex = new Map();
+    for (const item of arr) {
+      for (const component of item.components || []) {
+        if (component?.uniqueName && Array.isArray(component.drops) && component.drops.length > 0 && !componentIndex.has(component.uniqueName)) {
+          componentIndex.set(component.uniqueName, component);
+        }
+      }
+    }
+  })
+    .catch(() => { itemIndex = new Map(); componentIndex = new Map(); });
   return loadPromise;
 }
 
@@ -26,7 +35,15 @@ export function loadAcquisitionData() {
  * drops for it. Synchronous - call loadAcquisitionData() first and await it.
  */
 export function getItemDrops(uniqueName) {
-  const item = itemIndex?.get(uniqueName) || itemIndex?.get(canonicalPath(uniqueName));
+  const candidates = [
+    itemIndex?.get(uniqueName),
+    itemIndex?.get(canonicalPath(uniqueName)),
+    componentIndex?.get(uniqueName),
+    componentIndex?.get(canonicalPath(uniqueName)),
+  ];
+  // A component can also exist as a top-level catalog entry with no drops;
+  // keep looking so its recipe-embedded component record is not shadowed.
+  const item = candidates.find((candidate) => Array.isArray(candidate?.drops) && candidate.drops.length > 0);
   if (!item || !Array.isArray(item.drops) || item.drops.length === 0) return null;
 
   return [...item.drops]

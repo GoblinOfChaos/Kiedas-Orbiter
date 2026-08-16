@@ -17,6 +17,13 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { BARO_RELIC_NAMES } from '../src/lib/baroRelics.js';
 
+// This historical hand-replica is intentionally retired. The live resolver
+// has more data sources and different catalog boundaries, so running the old
+// copy produced misleading fallback counts. Keep the filename for existing
+// commands, but delegate to the canonical exact-object audit.
+await import('./audit-current-acquisition-gaps.mjs');
+process.exit(0);
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const APP_DATA = process.env.HOME + '/.local/share/kiedas-orbiter/data';

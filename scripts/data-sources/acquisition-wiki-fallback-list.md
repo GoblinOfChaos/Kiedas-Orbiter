@@ -1,5 +1,7 @@
 # Acquisition drawer: literal wiki-fallback list
 
+> Historical snapshot from 2026-08-12. This file is not current app evidence; use [`current-acquisition-gaps.md`](./current-acquisition-gaps.md), which runs the live resolver against the exact rendered catalogs.
+
 Generated: 2026-08-12T21:43:00.334Z
 
 These are the audited items that reach `No specific source known - try the wiki link below.`.

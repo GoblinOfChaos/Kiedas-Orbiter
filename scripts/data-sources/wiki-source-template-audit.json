@@ -1,0 +1,5764 @@
+{
+  "generated": "2026-08-15T11:19:57.644Z",
+  "total": 85,
+  "withEvidence": [],
+  "items": [
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/Factions/GlyphFactionAmalgam",
+      "displayName": "Amalgam Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/Factions/GlyphFactionAmalgam",
+        "name": "Amalgam Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This is an internal faction glyph record for the Amalgam faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Amalgam_Glyph",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/amalgam-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/amalgam-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/amalgam-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Amalgam Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Amalgam_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Operator/AnimationSets/BaseOperatorAnims",
+      "displayName": "BaseOperatorAnims",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Operator/AnimationSets/BaseOperatorAnims",
+          "fields": {
+            "name": "BaseOperatorAnims",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Operator/AnimationSets/BaseOperatorAnims"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/BaseOperatorAnims",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "BaseOperatorAnims",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/BaseOperatorAnims",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Restoratives/Consumable/Eidolon/LandscapeTrapLightGear",
+      "displayName": "Beckonsnare",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportGear"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportGear",
+          "key": "/Lotus/Types/Restoratives/Consumable/Eidolon/LandscapeTrapLightGear",
+          "fields": {
+            "name": "/Lotus/Language/SolarisVenus/LandscapeTrapLightGearName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportGear",
+            "key": "/Lotus/Types/Restoratives/Consumable/Eidolon/LandscapeTrapLightGear"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The export identifies Beckonsnare as a legacy conservation trap with a 500-Credit base cost, but excludes it from the Market and records no current vendor, drop, or quest route. Treat it as an owned-only legacy item.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Beckonsnare",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "gear/beckonsnare.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/gear/beckonsnare.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page gear/beckonsnare.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Beckonsnare",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Beckonsnare",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/VTBoar",
+      "displayName": "Boar Phosphor Skin",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/VoidTrader/VTBoar",
+          "fields": {
+            "name": "/Lotus/Language/Items/VTBoarName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/VoidTrader/VTBoar"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Boar_Phosphor_Skin",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Boar Phosphor Skin",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Boar_Phosphor_Skin",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkinHelmet",
+      "displayName": "BRONZE RHINO HELMET",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkinHelmet",
+          "fields": {
+            "name": "/Lotus/Language/Changyou/CYRubedoSkinHelmetName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkinHelmet"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "A Warframe China promotional exclusive associated with Rhino Bronze Skin; it is not an obtainable global-build item.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/WARFRAME_(China)",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "BRONZE RHINO HELMET",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/BRONZE_RHINO_HELMET",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageChatModerator",
+      "displayName": "Chat Moderator Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageChatModerator",
+        "name": "Chat Moderator Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Awarded to Warframe chat moderators as a role privilege; it is not a Market item or a general promo-code reward.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/chat-moderator-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/chat-moderator-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/chat-moderator-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Chat Moderator Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Chat_Moderator_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageGlyphCookieBoot",
+      "displayName": "Cookie Boot Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageGlyphCookieBoot",
+        "name": "Cookie Boot Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This is a legacy promotional/creator glyph, not a normal Market item. The exact non-tradable record has no current universal public code or active route.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Cookie_Boot_Glyph",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/cookie-boot-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/cookie-boot-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/cookie-boot-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Cookie Boot Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Cookie_Boot_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4OneYearSigil",
+      "displayName": "Cycle One Sigil",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/PS4OneYearSigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/PS4OneYearSigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/PS4OneYearSigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Console-exclusive PS4 anniversary sigil; it cannot be obtained on PC.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Sigils",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Cycle One Sigil",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Cycle_One_Sigil",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4ThreeYearSigil",
+      "displayName": "Cycle Three Sigil",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/PS4ThreeYearSigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/PS4ThreeYearSigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/PS4ThreeYearSigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Console-exclusive PS4 anniversary sigil; it cannot be obtained on PC.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Sigils",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Cycle Three Sigil",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Cycle_Three_Sigil",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/DagathImmortalArmArmor",
+      "displayName": "Dagath Immortal Armor",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/DagathImmortalArmArmor",
+          "fields": {
+            "name": "/Lotus/Language/Cosmetics/DagathImmortalArmArmorName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/DagathImmortalArmArmor"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This armor is included with the Dagath Immortal Skin, but the exact export record is non-tradable and excluded from the Market. The Dagath Immortal set is currently unobtainable and can only be chat-linked.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Dagath_Immortal_Skin",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Dagath Immortal Armor",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Dagath_Immortal_Armor",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Dagath/DagathImmortalHelmet",
+      "displayName": "Dagath Immortal Helmet",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Dagath/DagathImmortalHelmet",
+          "fields": {
+            "name": "/Lotus/Language/Cosmetics/DagathImmortalHelmetName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Dagath/DagathImmortalHelmet"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This helmet is included with the Dagath Immortal Skin, but the exact export record is non-tradable and excluded from the Market. The Dagath Immortal set is currently unobtainable and can only be chat-linked.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Dagath_Immortal_Skin",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Dagath Immortal Helmet",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Dagath_Immortal_Helmet",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Dagath/DagathImmortalSkin",
+      "displayName": "Dagath Immortal Skin",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Dagath/DagathImmortalSkin",
+          "fields": {
+            "name": "/Lotus/Language/Cosmetics/DagathImmortalSkinName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Dagath/DagathImmortalSkin"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The Dagath Immortal Skin includes the Dagath Immortal Armor and Helmet. The exact export record is non-tradable and excluded from the Market; the set is currently unobtainable and can only be chat-linked.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Dagath_Immortal_Skin",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Dagath Immortal Skin",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Dagath_Immortal_Skin",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageGlyphDELogo",
+      "displayName": "Digital Extremes Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageGlyphDELogo",
+        "name": "Digital Extremes Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This Digital Extremes logo glyph is a staff/promotional record, not a normal Market item. The exact legacy record is non-tradable and has no public player acquisition route recorded.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Digital_Extremes_Glyph",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/digital-extremes-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/digital-extremes-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/digital-extremes-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Digital Extremes Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Digital_Extremes_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoDrakgoonCamo",
+      "displayName": "Drakgoon Bronze Skin",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoDrakgoonCamo",
+          "fields": {
+            "name": "/Lotus/Language/Changyou/CYRubedoSkinDrakgoonName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoDrakgoonCamo"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "A Warframe China promotional exclusive; the Wiki lists Drakgoon Bronze Skin among the China-only items. It is not an obtainable global-build item.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/WARFRAME_(China)",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Drakgoon Bronze Skin",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Drakgoon_Bronze_Skin",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/SteamWorkshop/Melee/Swords/DualSkanaInfestedSkin",
+      "displayName": "Dual Skana Infested Skin",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/SteamWorkshop/Melee/Swords/DualSkanaInfestedSkin",
+          "fields": {
+            "name": "/Lotus/Language/Items/SWInfestedDualSkanaSkinName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/SteamWorkshop/Melee/Swords/DualSkanaInfestedSkin"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Dual_Skana_Infested_Skin",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Dual Skana Infested Skin",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Dual_Skana_Infested_Skin",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Deluxe/FrostDeluxeDualSword",
+      "displayName": "Dual Swords Frysta Skin",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Deluxe/FrostDeluxeDualSword",
+          "fields": {
+            "name": "/Lotus/Language/Cosmetics/FrostDeluxeDualSwordName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Deluxe/FrostDeluxeDualSword"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Dual_Swords_Frysta_Skin",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Dual Swords Frysta Skin",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Dual_Swords_Frysta_Skin",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodFeatureItem",
+      "displayName": "ENGINE COWLING",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodFeatureItem",
+          "fields": {
+            "name": "/Lotus/Language/Railjack/RailjackHoodName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": false,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodFeatureItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/ENGINE_COWLING",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "ENGINE COWLING",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/ENGINE_COWLING",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/EuropaNavigationFeatureItem",
+      "displayName": "EUROPA NAV SEGMENT",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/ShipFeatureItems/EuropaNavigationFeatureItem",
+          "fields": {
+            "name": "/Lotus/Language/ShipFeatureItems/ShipNavEuropa",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/ShipFeatureItems/EuropaNavigationFeatureItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/EUROPA_NAV_SEGMENT",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "EUROPA NAV SEGMENT",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/EUROPA_NAV_SEGMENT",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FireSigil",
+      "displayName": "Flaming Sigil",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/FireSigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/FireSigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": true,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/FireSigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Flaming_Sigil",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Flaming Sigil",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Flaming_Sigil",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/SparkSigil",
+      "displayName": "Flickering Sigil",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/SparkSigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/SparkSigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/SparkSigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The Flickering Sigil is a legacy non-tradable sigil. The export records a 75-Platinum historical cost but excludes the exact item from the current Market; no current acquisition route is documented.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Flickering_Sigil",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/sigils/flickering-sigil.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/sigils/flickering-sigil.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/sigils/flickering-sigil.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Flickering Sigil",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Flickering_Sigil",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FormaSigil",
+      "displayName": "Forma Sigil",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/FormaSigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/FormaSigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": true,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/FormaSigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Forma_Sigil",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Forma Sigil",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Forma_Sigil",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHullFeatureItem",
+      "displayName": "FUSELAGE",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHullFeatureItem",
+          "fields": {
+            "name": "/Lotus/Language/Railjack/RailjackHullName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": false,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHullFeatureItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/FUSELAGE",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "FUSELAGE",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/FUSELAGE",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoGalatineCamo",
+      "displayName": "GALATINE BRONZE SKIN",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoGalatineCamo",
+          "fields": {
+            "name": "/Lotus/Language/Changyou/CYRubedoSkinGalatineName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoGalatineCamo"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "A Warframe China promotional exclusive; the Wiki lists Galatine Bronze Skin among the China-only items. It is not an obtainable global-build item.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/WARFRAME_(China)",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "GALATINE BRONZE SKIN",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/GALATINE_BRONZE_SKIN",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Clan/ExcaliburUmbraBadgeItem",
+      "displayName": "Gauvan Umbra Sekhara",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Clan/ExcaliburUmbraBadgeItem",
+          "fields": {
+            "name": "/Lotus/Language/Items/ExcaliburUmbraSekharaName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Clan/ExcaliburUmbraBadgeItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Gauvan_Umbra_Sekhara",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Gauvan Umbra Sekhara",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Gauvan_Umbra_Sekhara",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageGamingCommunityExpoTwentyFour",
+      "displayName": "Gcx 2024 Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageGamingCommunityExpoTwentyFour",
+        "name": "Gcx 2024 Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This GCX 2024 glyph is an event/promotional record, not a normal Market item. The current export and exact Wiki identity record do not expose a reusable public code or active route; existing copies are legacy-owned only.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Gcx_2024_Glyph",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/gcx-2024-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/gcx-2024-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/gcx-2024-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Gcx 2024 Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Gcx_2024_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeGhostItem",
+      "displayName": "Ghost Leader Emblem",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeGhostItem",
+          "fields": {
+            "name": "/Lotus/Language/Items/LeaderBadgeGhostName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeGhostItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Listed by the Wiki under Cut Content: Clan Leaderboard Emblems. No live acquisition route is documented.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Emblems",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Ghost Leader Emblem",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Ghost_Leader_Emblem",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TwoToneSigil",
+      "displayName": "Glyphed Sigil",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/TwoToneSigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/TwoToneSigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": true,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/TwoToneSigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Glyphed_Sigil",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Glyphed Sigil",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Glyphed_Sigil",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooGeodeGrey",
+      "displayName": "Gneissic Ink (Light)",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooGeodeGrey",
+          "fields": {
+            "name": "/Lotus/Language/Operator/DrifterTattooGeodeGreyName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": true,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooGeodeGrey"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Gneissic_Ink_(Light)",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Gneissic Ink (Light)",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Gneissic_Ink_(Light)",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooGeode",
+      "displayName": "Gneissic Ink (Mid)",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooGeode",
+          "fields": {
+            "name": "/Lotus/Language/Operator/DrifterTattooGeodeName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": true,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooGeode"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Gneissic_Ink_(Mid)",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Gneissic Ink (Mid)",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Gneissic_Ink_(Mid)",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageLotusGuide",
+      "displayName": "Guides Of The Lotus Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageLotusGuide",
+        "name": "Guides Of The Lotus Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Awarded to Guides of the Lotus while that volunteer program existed. The program was removed, so this glyph is no longer obtainable through a current player program.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Sigils?page=2&title=Sigils",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/guides-of-the-lotus-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/guides-of-the-lotus-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/guides-of-the-lotus-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Guides Of The Lotus Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Guides_Of_The_Lotus_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/Factions/GlyphFactionInfested",
+      "displayName": "Infestation Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/Factions/GlyphFactionInfested",
+        "name": "Infestation Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This is an internal faction glyph record for the Infested faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Infestation_Glyph",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/infestation-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/infestation-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/infestation-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Infestation Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Infestation_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/Factions/GlyphFactionDeimos",
+      "displayName": "Infested Deimos Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/Factions/GlyphFactionDeimos",
+        "name": "Infested Deimos Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This is an internal faction glyph record for the Infested Deimos faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Infested_Deimos_Glyph",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/infested-deimos-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/infested-deimos-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/infested-deimos-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Infested Deimos Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Infested_Deimos_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageGlyphLegendaryQuasars",
+      "displayName": "Legendary Quasars Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageGlyphLegendaryQuasars",
+        "name": "Legendary Quasars Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This is a legacy creator/partner glyph distributed through creator-controlled promotions rather than the Market. The exact non-tradable record has no current universal public route.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/legendary-quasars-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/legendary-quasars-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/legendary-quasars-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Legendary Quasars Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Legendary_Quasars_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageCreatorWgrates",
+      "displayName": "Lotus Symbol Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageCreatorWgrates",
+        "name": "Lotus Symbol Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This Lotus Symbol Glyph is a creator/fan-channel distribution record, not a normal Market item. The exact legacy record is non-tradable and its creator-controlled distribution is the acquisition route when available.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/lotus-symbol-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/lotus-symbol-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/lotus-symbol-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Lotus Symbol Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImageDesRPG",
+      "displayName": "Lotus Symbol Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageDesRPG",
+        "name": "Lotus Symbol Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The DesRPG Lotus Symbol Glyph was a creator glyph; the glyphs.wf partner record marks it as no longer in the game. Existing copies are legacy-owned only.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://glyphs.wf/",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/lotus-symbol-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/lotus-symbol-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/lotus-symbol-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Lotus Symbol Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImageDramakins",
+      "displayName": "Lotus Symbol Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageDramakins",
+        "name": "Lotus Symbol Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This Lotus Symbol Glyph was distributed through Dramakins’ Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/lotus-symbol-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/lotus-symbol-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/lotus-symbol-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Lotus Symbol Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImageKacchi",
+      "displayName": "Lotus Symbol Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageKacchi",
+        "name": "Lotus Symbol Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This Lotus Symbol Glyph was distributed through KingKacchi’s Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/lotus-symbol-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/lotus-symbol-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/lotus-symbol-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Lotus Symbol Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImageLovinDaTacos",
+      "displayName": "Lotus Symbol Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageLovinDaTacos",
+        "name": "Lotus Symbol Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This Lotus Symbol Glyph was distributed through the named Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/lotus-symbol-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/lotus-symbol-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/lotus-symbol-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Lotus Symbol Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImageSenastra",
+      "displayName": "Lotus Symbol Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageSenastra",
+        "name": "Lotus Symbol Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This Lotus Symbol Glyph was distributed through the named Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/lotus-symbol-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/lotus-symbol-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/lotus-symbol-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Lotus Symbol Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/MarsNavigationFeatureItem",
+      "displayName": "MARS NAV SEGMENT",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/ShipFeatureItems/MarsNavigationFeatureItem",
+          "fields": {
+            "name": "/Lotus/Language/ShipFeatureItems/ShipNavMars",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/ShipFeatureItems/MarsNavigationFeatureItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/MARS_NAV_SEGMENT",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "MARS NAV SEGMENT",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/MARS_NAV_SEGMENT",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImageMGLblaze",
+      "displayName": "Mglblaze Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageMGLblaze",
+        "name": "Mglblaze Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This is a creator glyph distributed through MGLblaze’s Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/mglblaze-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/mglblaze-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/mglblaze-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Mglblaze Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Mglblaze_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Restoratives/LisetLaserTurret",
+      "displayName": "Missile Battery",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportGear"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportGear",
+          "key": "/Lotus/Types/Restoratives/LisetLaserTurret",
+          "fields": {
+            "name": "/Lotus/Language/Game/GrineerSpaceMissileTurretName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": true,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportGear",
+            "key": "/Lotus/Types/Restoratives/LisetLaserTurret"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Missile_Battery",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": 571480,
+      "title": "Missile Battery",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Missile_Battery",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeMoonItem",
+      "displayName": "Moon Leader Emblem",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeMoonItem",
+          "fields": {
+            "name": "/Lotus/Language/Items/LeaderBadgeMoonName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeMoonItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Listed by the Wiki under Cut Content: Clan Leaderboard Emblems. No live acquisition route is documented.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Emblems",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Moon Leader Emblem",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Moon_Leader_Emblem",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeMountainItem",
+      "displayName": "Mountain Leader Emblem",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeMountainItem",
+          "fields": {
+            "name": "/Lotus/Language/Items/LeaderBadgeMountainName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeMountainItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Listed by the Wiki under Cut Content: Clan Leaderboard Emblems. No live acquisition route is documented.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Emblems",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Mountain Leader Emblem",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Mountain_Leader_Emblem",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag",
+      "displayName": "MuseumDogTag",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag",
+          "fields": {
+            "name": "MuseumDogTag",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": false,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/MuseumDogTag",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "MuseumDogTag",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/MuseumDogTag",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/NarmerEyeSigil",
+      "displayName": "Narmer Eye Sigil",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/NarmerEyeSigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/NarmerEyeSigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/NarmerEyeSigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Narmer_Eye_Sigil",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Narmer Eye Sigil",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Narmer_Eye_Sigil",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin",
+      "displayName": "Nvidia Braton",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin",
+          "fields": {
+            "name": "/Lotus/Language/Items/NvidiaBratonSkinName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The Wiki identifies this as part of an unreleased NVIDIA GPU promotion; no obtainable route was released.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Weapon_Cosmetics",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": null,
+      "missing": true,
+      "url": null,
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Operator/OperatorCustomization",
+      "displayName": "OperatorCustomization",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Operator/OperatorCustomization",
+          "fields": {
+            "name": "OperatorCustomization",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Operator/OperatorCustomization"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/OperatorCustomization",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "OperatorCustomization",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/OperatorCustomization",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/Factions/GlyphFactionOrokin",
+      "displayName": "Orokin Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/Factions/GlyphFactionOrokin",
+        "name": "Orokin Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This is an internal faction glyph record for the Orokin faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Orokin_Glyph",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/orokin-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/orokin-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/orokin-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Orokin Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Orokin_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/MiscItems/1999FreeStickersPack",
+      "displayName": "Owned Peely Pak",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/MiscItems/1999FreeStickersPack",
+          "fields": {
+            "name": "/Lotus/Language/1999Echoes/1999FreeStickersPackName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/MiscItems/1999FreeStickersPack"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Owned_Peely_Pak",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Owned Peely Pak",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Owned_Peely_Pak",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/PhobosNavigationFeatureItem",
+      "displayName": "PHOBOS NAV SEGMENT",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/ShipFeatureItems/PhobosNavigationFeatureItem",
+          "fields": {
+            "name": "/Lotus/Language/ShipFeatureItems/ShipNavPhobos",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/ShipFeatureItems/PhobosNavigationFeatureItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/PHOBOS_NAV_SEGMENT",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "PHOBOS NAV SEGMENT",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/PHOBOS_NAV_SEGMENT",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/CNYRoosterPWSigil",
+      "displayName": "Phoenix Coronet Sigil",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/CNYRoosterPWSigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/Cny2016RoosterPWName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/CNYRoosterPWSigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Phoenix_Coronet_Sigil",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Phoenix Coronet Sigil",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Phoenix_Coronet_Sigil",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerPromoA",
+      "displayName": "POP!",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerPromoA",
+          "fields": {
+            "name": "/Lotus/Language/Hoverboards/HoverboardStickerPromoA",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerPromoA"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/POP!",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "POP!",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/POP!",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackNacelleLeftFeatureItem",
+      "displayName": "PORT NACELLE",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackNacelleLeftFeatureItem",
+          "fields": {
+            "name": "/Lotus/Language/Railjack/RailjackNacelleLeftName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": false,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackNacelleLeftFeatureItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/PORT_NACELLE",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "PORT NACELLE",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/PORT_NACELLE",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/MonquisCYSigil",
+      "displayName": "Primate Sigil",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/MonquisCYSigil",
+          "fields": {
+            "name": "/Lotus/Language/Changyou/MonquisCYSigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/MonquisCYSigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The export path identifies this as the China-exclusive Monquis Sigil variant; the Wiki documents the Monquis Sigil as a Lunar New Year China-exclusive item, with no global-build route.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Lunar_Renewal",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Primate Sigil",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Primate_Sigil",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronArmArmorPrisma",
+      "displayName": "Prisma Latron Shoulder Plate",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronArmArmorPrisma",
+          "fields": {
+            "name": "/Lotus/Language/Cosmetics/PrismaLatronArmorAName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronArmArmorPrisma"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Prisma_Latron_Shoulder_Plate",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Prisma Latron Shoulder Plate",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Prisma_Latron_Shoulder_Plate",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodBraceFeatureItem",
+      "displayName": "PROPULSION SYSTEMS",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodBraceFeatureItem",
+          "fields": {
+            "name": "/Lotus/Language/Railjack/RailjackHoodBraceName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": false,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodBraceFeatureItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/PROPULSION_SYSTEMS",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "PROPULSION SYSTEMS",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/PROPULSION_SYSTEMS",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalHelmet",
+      "displayName": "Protea Immortal Helmet",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalHelmet",
+          "fields": {
+            "name": "/Lotus/Language/Skins/ProteaImmortalHelmetName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalHelmet"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This helmet is included with the Protea Immortal Skin, but the exact export record is non-tradable and excluded from the Market. The Protea Immortal set is currently unobtainable and can only be chat-linked.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Protea_Immortal_Skin",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Protea Immortal Helmet",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Protea_Immortal_Helmet",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalSkin",
+      "displayName": "Protea Immortal Skin",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalSkin",
+          "fields": {
+            "name": "/Lotus/Language/Skins/ProteaImmortalSkinName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalSkin"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The Protea Immortal Skin includes the Protea Immortal Helmet. The exact export record is non-tradable and excluded from the Market; the set is currently unobtainable and can only be chat-linked.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Protea_Immortal_Skin",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Protea Immortal Skin",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Protea_Immortal_Skin",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkin",
+      "displayName": "RHINO BRONZE SKIN",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkin",
+          "fields": {
+            "name": "/Lotus/Language/Changyou/CYRubedoSkinRhinoName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkin"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "A Warframe China promotional exclusive; the Wiki lists Rhino Bronze Skin among the China-only items. It is not an obtainable global-build item.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/WARFRAME_(China)",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "RHINO BRONZE SKIN",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/RHINO_BRONZE_SKIN",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkinHelmet",
+      "displayName": "Rhino Rubedo Plated Helmet",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkinHelmet",
+          "fields": {
+            "name": "/Lotus/Language/Items/RubedoSkinHelmetName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkinHelmet"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This helmet was part of the retired Rubedo Plated Rhino Skin collection, which was distributed through Steam Trading Cards. The exact export record is non-tradable and excluded from the current Market.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/skins/rhino-rubedo-plated-helmet.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/skins/rhino-rubedo-plated-helmet.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/skins/rhino-rubedo-plated-helmet.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Rhino Rubedo Plated Helmet",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Rhino_Rubedo_Plated_Helmet",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/SaturnNavigationFeatureItem",
+      "displayName": "SATURN NAV SEGMENT",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/ShipFeatureItems/SaturnNavigationFeatureItem",
+          "fields": {
+            "name": "/Lotus/Language/ShipFeatureItems/ShipNavSaturn",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/ShipFeatureItems/SaturnNavigationFeatureItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/SATURN_NAV_SEGMENT",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "SATURN NAV SEGMENT",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/SATURN_NAV_SEGMENT",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/SavePopcornGlyph",
+      "displayName": "Save Popcorn Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/SavePopcornGlyph",
+        "name": "Save Popcorn Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This is a legacy promotional glyph, not a normal Market item. The exact non-tradable record has no current universal public code or active route.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Save_Popcorn_Glyph",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/save-popcorn-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/save-popcorn-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/save-popcorn-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Save Popcorn Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Save_Popcorn_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Restoratives/Consumable/MacheteWomanBall",
+      "displayName": "Scorpion Specter",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportGear"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportGear",
+          "key": "/Lotus/Types/Restoratives/Consumable/MacheteWomanBall",
+          "fields": {
+            "name": "/Lotus/Language/Items/MacheteWomanBall",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportGear",
+            "key": "/Lotus/Types/Restoratives/Consumable/MacheteWomanBall"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The export identifies Scorpion Specter as a legacy, non-tradable specter item excluded from the Market. No current player-facing source is recorded; existing copies are owned-only.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Scorpion_Specter",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "gear/scorpion-specter.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/gear/scorpion-specter.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page gear/scorpion-specter.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Scorpion Specter",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Scorpion_Specter",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/XBoneOneYearSigil",
+      "displayName": "Seal Of Honoring",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/XBoneOneYearSigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/XBoneOneYearSigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/XBoneOneYearSigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Console-exclusive Xbox One anniversary sigil; it cannot be obtained on PC.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Sigils",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Seal Of Honoring",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Seal_Of_Honoring",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/XBoneThreeYearSigil",
+      "displayName": "Seal Of Honoring III",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/XBoneThreeYearSigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/XBoneThreeYearSigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/XBoneThreeYearSigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Console-exclusive Xbox One anniversary sigil; it cannot be obtained on PC.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Sigils",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Seal Of Honoring III",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Seal_Of_Honoring_III",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeShadowItem",
+      "displayName": "Shadow Leader Emblem",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeShadowItem",
+          "fields": {
+            "name": "/Lotus/Language/Items/LeaderBadgeShadowName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeShadowItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Listed by the Wiki under Cut Content: Clan Leaderboard Emblems. No live acquisition route is documented.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Emblems",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Shadow Leader Emblem",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Shadow_Leader_Emblem",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Promo/ChangYou/CYSingleStaffSkin",
+      "displayName": "SINGLE STAFF SKIN",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Promo/ChangYou/CYSingleStaffSkin",
+          "fields": {
+            "name": "/Lotus/Language/Changyou/CYSingleStaffName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Promo/ChangYou/CYSingleStaffSkin"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/SINGLE_STAFF_SKIN",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "SINGLE STAFF SKIN",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/SINGLE_STAFF_SKIN",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Restoratives/LisetShield",
+      "displayName": "Snow Globe",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportGear"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportGear",
+          "key": "/Lotus/Types/Restoratives/LisetShield",
+          "fields": {
+            "name": "/Lotus/Language/Suits/SnowGlobeAbilityName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": true,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportGear",
+            "key": "/Lotus/Types/Restoratives/LisetShield"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Snow_Globe",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": 171223,
+      "title": "Snow Globe",
+      "missing": false,
+      "url": "https://wiki.warframe.com/w/Snow_Globe",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageCreatorSnowLit",
+      "displayName": "Snowlit Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageCreatorSnowLit",
+        "name": "Snowlit Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This is a creator glyph distributed through Snowlit’s Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/snowlit-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/snowlit-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/snowlit-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Snowlit Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Snowlit_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Clan/SolarisBadgeItem",
+      "displayName": "Solaris Emblem",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Clan/SolarisBadgeItem",
+          "fields": {
+            "name": "/Lotus/Language/SolarisVenus/SolarisBadgeName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Clan/SolarisBadgeItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The Solaris Emblem is the legacy Fortuna/Solaris emblem. The export records the exact emblem as non-tradable and excluded from the current Market; no current purchase or drop route is documented.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Solaris_Emblem",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/skins/solaris-emblem.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/skins/solaris-emblem.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/skins/solaris-emblem.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Solaris Emblem",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Solaris_Emblem",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackNacelleRightFeatureItem",
+      "displayName": "STARBOARD NACELLE",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackNacelleRightFeatureItem",
+          "fields": {
+            "name": "/Lotus/Language/Railjack/RailjackNacelleRightName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": false,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackNacelleRightFeatureItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/STARBOARD_NACELLE",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "STARBOARD NACELLE",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/STARBOARD_NACELLE",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeStormItem",
+      "displayName": "Storm Leader Emblem",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeStormItem",
+          "fields": {
+            "name": "/Lotus/Language/Items/LeaderBadgeStormName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Clan/LeaderBadgeStormItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Listed by the Wiki under Cut Content: Clan Leaderboard Emblems. No live acquisition route is documented.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Emblems",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Storm Leader Emblem",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Storm_Leader_Emblem",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackTailFeatureItem",
+      "displayName": "TAIL SECTION",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackTailFeatureItem",
+          "fields": {
+            "name": "/Lotus/Language/Railjack/RailjackTailName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": false,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackTailFeatureItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/TAIL_SECTION",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "TAIL SECTION",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/TAIL_SECTION",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/AvatarImageTennoTranslator",
+      "displayName": "Tenno Translator Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennoTranslator",
+        "name": "Tenno Translator Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Awarded to players who contributed translations for Warframe; it is a role/contribution reward, not a Market item or public promo-code reward.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Sigils?page=2&title=Sigils",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/tenno-translator-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/tenno-translator-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/tenno-translator-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Tenno Translator Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Tenno_Translator_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoVIP2026Sigil",
+      "displayName": "TennoVIP 2026 Sigil",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/TennoVIP2026Sigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/TennoVIP2026SigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": true,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/TennoVIP2026Sigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/TennoVIP_2026_Sigil",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "TennoVIP 2026 Sigil",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/TennoVIP_2026_Sigil",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoVIP2024Sigil",
+      "displayName": "TennoVIP East Sigil",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Sigils/TennoVIP2024Sigil",
+          "fields": {
+            "name": "/Lotus/Language/Sigils/TennoVIP2024SigilName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": true,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Sigils/TennoVIP2024Sigil"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/TennoVIP_East_Sigil",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "TennoVIP East Sigil",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/TennoVIP_East_Sigil",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImageSzczebrzeszyniarz",
+      "displayName": "Top Hat & Monocle Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageSzczebrzeszyniarz",
+        "name": "Top Hat & Monocle Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "This is a creator glyph distributed through the named Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/top-hat-monocle-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/top-hat-monocle-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/top-hat-monocle-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Top Hat & Monocle Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Top_Hat_%26_Monocle_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipFeatureItems/VenusNavigationFeatureItem",
+      "displayName": "VENUS NAV SEGMENT",
+      "screens": [
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportResources"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportResources",
+          "key": "/Lotus/Types/Items/ShipFeatureItems/VenusNavigationFeatureItem",
+          "fields": {
+            "name": "/Lotus/Language/ShipFeatureItems/ShipNavVenus",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": true,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportResources",
+            "key": "/Lotus/Types/Items/ShipFeatureItems/VenusNavigationFeatureItem"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+            "source": "DE export status"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/VENUS_NAV_SEGMENT",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "VENUS NAV SEGMENT",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/VENUS_NAV_SEGMENT",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/OperatorNefAnyoMask",
+      "displayName": "Vox Solaris Mask",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Operator/Accessories/OperatorNefAnyoMask",
+          "fields": {
+            "name": "/Lotus/Language/Cosmetics/OperatorNefAnyoMaskName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Operator/Accessories/OperatorNefAnyoMask"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The Vox Solaris Mask is an unreleased legacy cosmetic in the export: it is non-tradable, excluded from the Market, and has no released player acquisition route.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Vox_Solaris_Mask",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/skins/vox-solaris-mask.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/skins/vox-solaris-mask.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/skins/vox-solaris-mask.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Vox Solaris Mask",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Vox_Solaris_Mask",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerUpdated",
+      "displayName": "Warframe Creator Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImagePartnerUpdated",
+        "name": "Warframe Creator Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Distributed through the Warframe Creator/Partner program to eligible creators; the exact legacy record has no universal public purchase route and is not tradable.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/warframe-creator-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/warframe-creator-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/warframe-creator-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Warframe Creator Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Warframe_Creator_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartner",
+      "displayName": "Warframe Partner Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImagePartner",
+        "name": "Warframe Partner Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Distributed through the Warframe Partner program to eligible creators; the exact legacy record has no universal public purchase route and is not tradable.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/warframe-partner-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/warframe-partner-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/warframe-partner-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Warframe Partner Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Warframe_Partner_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerMug",
+      "displayName": "Warframe Partner Mug Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImagePartnerMug",
+        "name": "Warframe Partner Mug Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Distributed through the Warframe Partner program as a creator-glyph variant; the exact legacy record has no universal public purchase route and is not tradable.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/warframe-partner-mug-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/warframe-partner-mug-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/warframe-partner-mug-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Warframe Partner Mug Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Warframe_Partner_Mug_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Types/AvatarImages/FanChannel/AvatarImageWarframeFanChannel",
+      "displayName": "Warframefanchannel Glyph",
+      "screens": [
+        "Cosmetics"
+      ],
+      "sourcedCategories": [
+        "Glyphs"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [],
+      "identityEvidence": {
+        "dataset": "WFCD wfcd-combined Glyphs",
+        "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageWarframeFanChannel",
+        "name": "Warframefanchannel Glyph",
+        "type": "Glyph",
+        "category": "Glyphs"
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "Distributed through the Warframe fan-channel/creator program; the exact legacy record has no universal public purchase route and is not tradable.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": {
+        "dataset": "rhinos0608/Warframe-Wiki-Repo",
+        "path": "cosmetics/glyphs/warframefanchannel-glyph.md",
+        "url": "https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/cosmetics/glyphs/warframefanchannel-glyph.md",
+        "exactName": true,
+        "acquisitionFieldsPresent": false
+      },
+      "mismatches": [
+        {
+          "type": "de-export-identity-missing",
+          "detail": "No exact DE export table record was present; identity is verified against WFCD wfcd-combined Glyphs."
+        },
+        {
+          "type": "wiki-repo-no-acquisition-fields",
+          "detail": "Exact Wiki-repo page cosmetics/glyphs/warframefanchannel-glyph.md exists, but its structured record has no acquisition fields or route."
+        }
+      ],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Warframefanchannel Glyph",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Warframefanchannel_Glyph",
+      "evidence": []
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Pistols/ZylokExilisSkin",
+      "displayName": "Zylok Elixis Skin",
+      "screens": [
+        "Cosmetics",
+        "Inventory"
+      ],
+      "sourcedCategories": [
+        "ExportCustoms",
+        "Cosmetics"
+      ],
+      "unavailablePlaceholder": false,
+      "exportEvidence": [
+        {
+          "table": "ExportCustoms",
+          "key": "/Lotus/Upgrades/Skins/Weapons/Pistols/ZylokExilisSkin",
+          "fields": {
+            "name": "/Lotus/Language/Skins/ZylokExilisName",
+            "resultType": null,
+            "type": null,
+            "category": null,
+            "craftable": null,
+            "marketCost": null,
+            "buildPrice": null,
+            "buildTime": null,
+            "codexSecret": false,
+            "excludeFromCodex": null,
+            "showInInventory": null,
+            "excludeFromMarket": true,
+            "introducedAt": null
+          }
+        }
+      ],
+      "identityEvidence": {
+        "type": "DE export",
+        "records": [
+          {
+            "table": "ExportCustoms",
+            "key": "/Lotus/Upgrades/Skins/Weapons/Pistols/ZylokExilisSkin"
+          }
+        ]
+      },
+      "acquisitionEvidence": null,
+      "resolved": {
+        "sourceRecords": [
+          {
+            "type": "status",
+            "text": "The Warframe Wiki lists this exact skin as never having been offered; its price and an obtainable route are unknown.",
+            "source": "Warframe Wiki disposition"
+          }
+        ],
+        "wikiLink": {
+          "url": "https://wiki.warframe.com/w/Weapon_Cosmetics",
+          "isDirect": true
+        },
+        "recipe": null
+      },
+      "exportRelationships": {
+        "exaltedWith": []
+      },
+      "wikiModuleEvidence": null,
+      "wikiRepoEvidence": null,
+      "mismatches": [],
+      "auditStatus": "verified-unavailable",
+      "pageId": null,
+      "title": "Zylok Elixis Skin",
+      "missing": true,
+      "url": "https://wiki.warframe.com/w/Zylok_Elixis_Skin",
+      "evidence": []
+    }
+  ]
+}

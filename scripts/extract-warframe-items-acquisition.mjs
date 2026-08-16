@@ -64,6 +64,10 @@ for (const category of CATEGORIES) {
           uniqueName: component.uniqueName || null,
           name: component.name || null,
           itemCount: Number.isFinite(component.itemCount) ? component.itemCount : 1,
+          // Keep the component's own acquisition records. These are distinct
+          // from the parent recipe's drops and are what Foundry needs to tell
+          // the player where each required part comes from.
+          drops: Array.isArray(component.drops) ? component.drops : [],
         })),
       } : {}),
     });

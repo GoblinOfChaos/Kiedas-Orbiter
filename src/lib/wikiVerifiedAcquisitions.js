@@ -3,6 +3,806 @@
 // Keep these keyed by DE uniqueName so similarly named objects cannot inherit
 // an acquisition route by accident.
 export const WIKI_VERIFIED_ACQUISITIONS = new Map([
+  ['/Lotus/Weapons/Tenno/Akimbo/AkimboShotGun', {
+    text: "Purchase the Akbronco blueprint from the Market; build it using two Bronco pistols and one Orokin Cell.",
+    url: 'https://wiki.warframe.com/w/Akbronco',
+    source: 'Warframe Wiki exact Akbronco acquisition section + DE ExportRecipes exact ingredient record',
+  }],
+  ['/Lotus/Upgrades/Mods/Warframe/Expert/AvatarAbilityEfficiencyModExpert', {
+    text: 'No current acquisition route: the Wiki record has no vendor or drop source, marks the mod untradeable/untransmutable, and identifies it as hidden from the Codex.',
+    url: 'https://wiki.warframe.com/w/Primed_Streamline',
+    source: 'Warframe Wiki exact Primed Streamline infobox: empty vendor/drop data, untradeable, untransmutable, and Codex-secret fields',
+  }],
+  ['/Lotus/Upgrades/Mods/Warframe/AvatarDamageResistanceStun', {
+    text: 'Unavailable: it was briefly obtainable through a transmutation bug after Update 10.6, but that bug was fixed and there is currently no legitimate acquisition route.',
+    url: 'https://wiki.warframe.com/w/Resilient_Focus',
+    source: 'Warframe Wiki exact Resilient Focus acquisition section states the transmutation bug was fixed and no current route exists',
+  }],
+  ['/Lotus/Upgrades/Skins/Sony/ExcaliburPSPlusSkin', {
+    text: 'Available through the PlayStation Store via the Obsidian Azura Collection; the exact export record is platform-exclusive and excluded from the current Market.',
+    url: 'https://wiki.warframe.com/w/Excalibur_Obsidian_Skin',
+    source: 'Warframe Wiki exact Excalibur Obsidian Skin acquisition section + DE export exact platform/exclusion fields',
+  }],
+  ['/Lotus/Types/Items/PhotoBooth/TauOldPeace/PhotoboothTileTauOldPeaceObjLiminalBossArena', {
+    text: "Purchase from Roathe's Surplus for 150 Maphica; the exact export vendor manifest lists this Captura scene store item at that price.",
+    url: 'https://wiki.warframe.com/w/Captura',
+    source: "Warframe Wiki exact Captura SceneBox + DE ExportVendors exact Roathe manifest storeItem and 150 Maphica price",
+  }],
+  ['/Lotus/Types/Items/DangerRoom/DangerRoomTileDevilTowerUrielArena', {
+    text: "Purchase from Roathe's rotating vendor manifest for 150 Maphica; the exact DE export vendor record lists this store item and price.",
+    url: 'https://wiki.warframe.com/w/Roathe',
+    source: "DE ExportVendors exact Roathe manifest storeItem and 150 Maphica price; no separate public Wiki page exists for this internal scene name",
+  }],
+  ['/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerNokkoC', {
+    text: "Purchase Shooms from Nightcap's Wares for 25 Fergolyte at Rank 2 - Curious.",
+    url: 'https://wiki.warframe.com/w/Nightcap',
+    source: "Warframe Wiki exact Nightcap Wares record + DE ExportVendors exact storeItem, 25 Fergolyte price, and rank",
+  }],
+  ['/Lotus/Types/Sentinels/SentinelPowersuits/TnSentinelCrossPowerSuit', {
+    text: 'Reward from the Venus Junction; the export challenge record awards the Taxon blueprint, and the current ExportSentinels record confirms Taxon is excluded from the Market.',
+    url: 'https://wiki.warframe.com/w/Taxon',
+    source: 'DE ExportChallenges exact Venus Junction Taxon blueprint reward + ExportSentinels exact exclusion/identity fields',
+  }],
+  ...[
+    ['/Lotus/Weapons/Sentients/OperatorAmplifiers/SentTrainingAmplifier/SentAmpTrainingGrip', 'Mote Brace'],
+    ['/Lotus/Weapons/Sentients/OperatorAmplifiers/SentTrainingAmplifier/SentAmpTrainingBarrel', 'Mote Prism'],
+    ['/Lotus/Weapons/Sentients/OperatorAmplifiers/SentTrainingAmplifier/SentAmpTrainingChassis', 'Mote Scaffold'],
+  ].map(([path, name]) => [path, {
+    text: `This is the ${name} component displayed as part of the Mote Amp; the Mote Amp is automatically given by the Quills on first access to their Cetus chamber, or its blueprint can be bought from them for 500 standing.`,
+    url: 'https://wiki.warframe.com/w/Mote_Amp',
+    source: `Warframe Wiki exact Mote Amp acquisition/component record + DE export exact ${name} identity`,
+  }]),
+  ['/Lotus/Upgrades/Skins/Scarves/ZephyrQTCCSyandana', {
+    text: 'Obtained during a Conquera event; the exact Conquera Syandana event record is the source for this promotional syandana.',
+    url: 'https://wiki.warframe.com/w/Conquera_Syandana',
+    source: 'Warframe Wiki exact Conquera Syandana event record + DE export exact cosmetic identity',
+  }],
+  ['/Lotus/Upgrades/Skins/Sentinels/Wings/JetWingsRight', {
+    text: 'Included in the Coltek Sentinel Pack (Sentinel Accessory Pack 2), purchasable from the Market for 44 Platinum; Jet Sentinel Wings is listed as a 15 Platinum pack component.',
+    url: 'https://wiki.warframe.com/w/Sentinel_Accessory_Pack_2',
+    source: 'Warframe Wiki exact Sentinel Accessory Pack 2 bundle table + DE ExportBundles exact Jet Wings component identity',
+  }],
+  ['/Lotus/Powersuits/SiriusOrion/OrionSuit', {
+    text: 'The player chooses Orion or Sirius while completing the Jade Shadows: Constellations quest; the resulting choice is not separately farmable.',
+    url: 'https://wiki.warframe.com/w/Jade_Shadows',
+    source: 'Warframe Wiki exact Jade Shadows quest record names the Orion/Sirius choice + DE export exact identity',
+  }],
+  ['/Lotus/Powersuits/Frumentarius/Frumentarius', {
+    text: 'Quest reward from The Hex, or purchase the blueprint and component blueprints from Amir of The Hex for 50,000 standing at Rank 4.',
+    url: 'https://wiki.warframe.com/w/Cyte-09',
+    source: 'WFCD/wiki vendor record exact Cyte-09 blueprint components=Amir + DE export exact Warframe identity',
+  }],
+  ['/Lotus/Powersuits/Choir/Choir', {
+    text: 'Quest reward from Jade Shadows; the blueprint and component blueprints are also available from the Release Vestigial Motes vendor.',
+    url: 'https://wiki.warframe.com/w/Jade',
+    source: 'Structured Wiki vendor record exact Jade blueprint components=Release Vestigial Motes + DE export exact Warframe identity',
+  }],
+  ['/Lotus/Powersuits/ConcreteFrame/ConcreteFrame', {
+    text: 'Quest reward from Whispers in the Walls; blueprint and component blueprints are also available from Bird 3 of Cavia.',
+    url: 'https://wiki.warframe.com/w/Qorvex',
+    source: 'Structured Wiki vendor record exact Qorvex blueprint components=Bird 3 + DE export exact Warframe identity',
+  }],
+  ['/Lotus/Powersuits/EntratiMech/NechroTech', {
+    text: 'Heart of Deimos grants the Necramech component blueprints; damaged components come from Isolation Vault Necramechs or Father, and the Voidrig blueprint/components are also available from Necraloid.',
+    url: 'https://wiki.warframe.com/w/Necramech',
+    source: 'Warframe Wiki exact Necramech acquisition section + structured vendor record exact Voidrig components=Necraloid + DE export exact identity',
+  }],
+  ['/Lotus/Powersuits/PaxDuviricus/PaxDuviricus', {
+    text: "Purchase Kullervo's blueprint and components from Acrithis in Kullervo's Archive using Kullervo's Bane; the blueprint requires 15 Banes and each component 9 Banes.",
+    url: 'https://wiki.warframe.com/w/Kullervo',
+    source: "Structured Wiki vendor record exact Kullervo blueprint/components=Kullervo's Archive + DE export exact Warframe identity",
+  }],
+  ['/Lotus/Weapons/Lasria/LasGooPistol/LasGooPistolPlayerWeapon', {
+    text: "Purchase the Efv-8 Mars blueprint and components from Minerva of The Hex for 15,000 standing at Rank 5.",
+    url: 'https://wiki.warframe.com/w/Efv-8_Mars',
+    source: 'Structured Wiki vendor record exact EFV-8 Mars blueprint/components=Minerva + DE export exact weapon identity',
+  }],
+  ['/Lotus/Powersuits/DemonFrame/DemonFrame', {
+    text: "Quest reward from The Old Peace, or purchase Uriel's blueprint and components from Roathe in La Cathédrale for 75 Maphica.",
+    url: 'https://wiki.warframe.com/w/Uriel',
+    source: 'Structured Wiki vendor record exact Uriel blueprint/components=Roathe + DE export exact Warframe identity',
+  }],
+  ['/Lotus/Upgrades/Mods/Aura/PlayerEnergyHealthRegenAuraMod', {
+    text: 'Awarded for completing the Earth to Venus Junction; also available from the rotating Nightwave Cred Offerings store for 20 Cred.',
+    url: 'https://wiki.warframe.com/w/Dreamer%27s_Bond',
+    source: "Warframe Wiki exact Dreamer's Bond acquisition section + DE export exact mod identity",
+  }],
+  ['/Lotus/Upgrades/Mods/Pistol/DualStat/MagneticCritDamagePistolMod', {
+    text: 'Reward for completing The Hex quest.',
+    url: 'https://wiki.warframe.com/w/Magnetic_Might',
+    source: 'Warframe Wiki exact Magnetic Might drop-locations section + DE export exact mod identity',
+  }],
+  ['/Lotus/Upgrades/EmpoweredHeavyMelee/TennokaiBaseMod', {
+    text: 'Reward for completing the Whispers in the Walls quest.',
+    url: 'https://wiki.warframe.com/w/Mentor%27s_Legacy',
+    source: "Warframe Wiki exact Mentor's Legacy drop-locations section + DE export exact mod identity",
+  }],
+  ['/Lotus/Upgrades/Mods/Immortal/ImmortalWildcardMod', {
+    text: 'Drops from downed Kuva Liches or Sisters of Parvos; it can also be obtained by transmuting four used Requiem Mods.',
+    url: 'https://wiki.warframe.com/w/Requiem_Mods',
+    source: 'Warframe Wiki exact Requiem Mods drop/transmutation record + DE export exact Oull identity',
+  }],
+  ['/Lotus/Upgrades/Mods/Bows/Event/Nightwave/NightwaveStalkerBowAugmentMod', {
+    text: "Originally awarded at Nightwave Nora's Mix Volume 7 Rank 25; it is now trade-only.",
+    url: 'https://wiki.warframe.com/w/Unseen_Dread',
+    source: 'Warframe Wiki exact Unseen Dread acquisition section + DE export exact mod identity',
+  }],
+  ['/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveEmbolistAugmentMod', {
+    text: "Originally awarded at Nightwave Nora's Mix Volume 2 Rank 23; also purchasable from Daughter during Nights of Naberus for 50 Mother Tokens.",
+    url: 'https://wiki.warframe.com/w/Vile_Discharge',
+    source: 'Warframe Wiki exact Vile Discharge acquisition section + DE export exact mod identity',
+  }],
+  ['/Lotus/Weapons/Corpus/BoardExec/Primary/CrpBEFerrox/CrpBEFerrox', {
+    text: 'Purchase from Ergo Glast in a Relay for Corrupted Holokeys earned from Void Storm missions.',
+    url: 'https://wiki.warframe.com/w/Tenet_Ferrox',
+    source: 'Warframe Wiki exact Tenet Ferrox acquisition section + DE export exact weapon identity',
+  }],
+  ['/Lotus/Weapons/Tenno/Bows/DaxDuviriAsymetricalBow/DaxDuviriAsymmetricalLongBowPlayerWeapon', {
+    text: 'Main and component blueprints are acquired by solving Duviri Enigma puzzles, with a 30% chance for one part per puzzle completion; all blueprints are tradable.',
+    url: 'https://wiki.warframe.com/w/Cinta',
+    source: 'Warframe Wiki exact Cinta acquisition template + DE export exact weapon identity',
+  }],
+  ['/Lotus/Powersuits/Excalibur/ExcaliburPrime', {
+    text: 'Founders program exclusive: obtained only by upgrading a Warframe account to Hunter status or greater; the program closed on November 1, 2013 and is no longer available.',
+    url: 'https://wiki.warframe.com/w/Excalibur/Prime',
+    source: 'Warframe Wiki exact Excalibur Prime acquisition section + DE export exact Warframe identity',
+  }],
+  ['/Lotus/Powersuits/Excalibur/ExcaliburUmbra', {
+    text: 'Blueprint given during the first mission of The Sacrifice quest; building is enabled after the second mission and the completed Warframe is granted during the penultimate mission.',
+    url: 'https://wiki.warframe.com/w/Excalibur/Umbra',
+    source: 'Warframe Wiki exact Excalibur Umbra acquisition section + DE export exact Warframe identity',
+  }],
+  ['/Lotus/Weapons/Thanotech/EntSphereHammer/EntSphereHammer', {
+    text: "Purchase the Ekhein blueprint from Bird 3 of Cavia for 15,000 standing at Rank 3 - Colleague.",
+    url: 'https://wiki.warframe.com/w/Ekhein',
+    source: 'Warframe Wiki exact Ekhein acquisition section + DE export exact weapon identity',
+  }],
+  ['/Lotus/Weapons/Lasria/LasGrenadeLauncher/LasrianNoxPlayerWeapon', {
+    text: "Purchase Purgator 1 blueprints from Minerva of The Hex at Rank 5 - Pizza Party: 15,000 standing for the main blueprint and 5,000 per component, or buy the Scaldra Dominance Pack.",
+    url: 'https://wiki.warframe.com/w/Purgator_1',
+    source: 'Warframe Wiki exact Purgator 1 acquisition section + DE export exact weapon identity',
+  }],
+  ['/Lotus/Weapons/Tenno/LongGuns/TnModQuestRifle/TnModQuestRifleWeapon', {
+    text: "Reward during The Teacher quest with a free weapon slot and pre-installed Orokin Catalyst; additional copies are available from Cephalon Simaris for 100,000 standing.",
+    url: 'https://wiki.warframe.com/w/Thornbak',
+    source: 'Warframe Wiki exact Thornbak acquisition section + DE export exact weapon identity',
+  }],
+  ['/Lotus/Powersuits/Archwing/DemolitionJetPack/ExhaustTrailAugmentCard', {
+    text: 'Elytron Archwing augment; obtained by defeating Eximus units in Archwing missions.',
+    url: 'https://wiki.warframe.com/w/Afterburner',
+    source: 'Warframe Wiki exact Afterburner drop-locations section + DE export exact mod identity',
+  }],
+  ['/Lotus/Powersuits/Archwing/StealthJetPack/GravInstabilityAugmentCard', {
+    text: 'Itzal Archwing augment; obtained by defeating Eximus units in Archwing missions.',
+    url: 'https://wiki.warframe.com/w/Cold_Snap',
+    source: 'Warframe Wiki exact Cold Snap drop-locations section + DE export exact mod identity',
+  }],
+  ['/Lotus/Powersuits/Archwing/StandardJetPack/FireShieldAugmentCard', {
+    text: 'Odonata Archwing augment; obtained by defeating Eximus units in Archwing missions.',
+    url: 'https://wiki.warframe.com/w/Energy_Field',
+    source: 'Warframe Wiki exact Energy Field drop-locations section + DE export exact mod identity',
+  }],
+  ['/Lotus/Types/Sentinels/SentinelPrecepts/ThrowGlaivePrecept', {
+    text: 'Automatically acquired upon obtaining Helios or Helios Prime.',
+    url: 'https://wiki.warframe.com/w/Targeting_Receptor',
+    source: 'Warframe Wiki exact Targeting Receptor acquisition section + DE ExportUpgrades exact compatName=Helios',
+  }],
+  ['/Lotus/Types/Sentinels/SentinelPrecepts/UniversalVacuum', {
+    text: 'One copy is granted whenever a Sentinel is claimed from the Foundry; it is not a mission drop.',
+    url: 'https://wiki.warframe.com/w/Vacuum',
+    source: 'Warframe Wiki exact Vacuum acquisition section + DE export exact mod identity',
+  }],
+  ['/Lotus/Upgrades/Mods/Warframe/Expert/AvatarKnockdownResistanceModExpert', {
+    text: 'Daily Tribute login reward, awarded at the day 400, 600, or 900 milestone until selected.',
+    url: 'https://wiki.warframe.com/w/Primed_Sure_Footed',
+    source: 'Warframe Wiki exact Primed Sure Footed acquisition section + DE export exact mod identity',
+  }],
+  ['/Lotus/Weapons/Corpus/LongGuns/CrpBFG/Vandal/VandalCrpBFG', {
+    text: 'Earn 100 cumulative points in the recurring Thermia Fractures event, or purchase from Baro Ki\'Teer for 550,000 Credits and 650 Ducats.',
+    url: 'https://wiki.warframe.com/w/Opticor_Vandal',
+    source: 'Warframe Wiki exact Opticor Vandal acquisition section + DE export exact weapon identity',
+  }],
+  ['/Lotus/Upgrades/Mods/Sentinel/SentinelRepairKitMod', {
+    text: 'Drops from Domestik Drone enemies.',
+    url: 'https://wiki.warframe.com/w/Repair_Kit',
+    source: 'Warframe Wiki exact Repair Kit drop/farming record + DE export exact mod identity',
+  }],
+  ['/Lotus/Weapons/Grineer/KuvaLich/Secondaries/Stubba/KuvaStubba', {
+    text: 'Generate a Kuva Twin Stubbas on a Kuva Lich, then vanquish that Kuva Lich; the weapon is placed in the Foundry ready to claim.',
+    url: 'https://wiki.warframe.com/w/Adversary_Weapons',
+    source: 'Warframe Wiki Adversary Weapons exact Kuva route + DE export exact Kuva Twin Stubbas identity',
+  }],
+  ...[
+    ['/Lotus/Weapons/Tenno/Melee/Hammer/DaxDuviriHammer/DaxDuviriHammerPlayerWeapon', 'Sampotes'],
+    ['/Lotus/Weapons/Tenno/Melee/Hammer/DaxDuviriHammer/DaxDuviriHammerWeapon', 'Sampotes'],
+  ].map(([path, name]) => [path, {
+    text: "Purchase the Sampotes blueprint from Teshin's Cave for 60 Pathos Clamps or 275 Platinum; the Clamp purchase unlocks the Drifter and Warframe versions, and additional Warframe copies are available from Cephalon Simaris for 100,000 standing.",
+    url: 'https://wiki.warframe.com/w/Sampotes',
+    source: 'Warframe Wiki exact Sampotes acquisition section + DE export exact weapon identity',
+  }]),
+  ...[
+    ['/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriKatana/DaxDuviriKatanaPlayerWeapon', 'Syam'],
+    ['/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriKatana/DaxDuviriKatanaWeapon', 'Syam'],
+  ].map(([path, name]) => [path, {
+    text: "Purchase the Syam blueprint from Teshin's Cave for 50 Pathos Clamps or 250 Platinum; the Clamp purchase unlocks the Drifter and Warframe versions, and additional Warframe copies are available from Cephalon Simaris for 100,000 standing.",
+    url: 'https://wiki.warframe.com/w/Syam',
+    source: 'Warframe Wiki exact Syam acquisition section + DE export exact weapon identity',
+  }]),
+  ...[
+    ['/Lotus/Types/Friendly/PlayerControllable/Weapons/DuviriDualSwords', 'Sun & Moon'],
+    ['/Lotus/Types/Friendly/PlayerControllable/Weapons/DuviriDualSwordsWeapon', 'Sun & Moon'],
+  ].map(([path, name]) => [path, {
+    text: "Blueprint rewarded on completion of The Duviri Paradox quest; additional copies are available from Cephalon Simaris for 100,000 standing.",
+    url: 'https://wiki.warframe.com/w/Sun_%26_Moon',
+    source: 'Warframe Wiki exact Sun & Moon acquisition section + DE export exact weapon identity',
+  }]),
+  ['/Lotus/Weapons/Tenno/Melee/MeleeTrees/DualKatanaCmbOneMeleeTree', {
+    text: "Reward for completing The Duviri Paradox quest; this is the Mountain's Edge stance's exact Wiki acquisition route.",
+    url: 'https://wiki.warframe.com/w/Mountain%27s_Edge',
+    source: "Warframe Wiki exact Mountain's Edge acquisition section + DE export exact mod identity",
+  }],
+  ['/Lotus/Weapons/Tenno/LongGuns/PaxDuviricusShotgun/PaxDuviricusShotgun', {
+    text: "Defeat Kullervo in Kullervo's Hold, then purchase the Rauta blueprint and components from Acrithis with Kullervo's Bane; the main blueprint costs 12 Banes and each component costs 6.",
+    url: 'https://wiki.warframe.com/w/Rauta',
+    source: 'Warframe Wiki exact Rauta acquisition section + DE export exact weapon identity',
+  }],
+  ['/Lotus/Weapons/Tenno/Zariman/Melee/HeavyScythe/ZarimanHeavyScythe/ZarimanHeavyScytheWeapon', {
+    text: 'Purchase the Thalys blueprint from Acrithis or Dominus Thrax in the Dormizone for 96 Scuttler Husk from Isleweaver; access requires completion of The Hex quest.',
+    url: 'https://wiki.warframe.com/w/Thalys',
+    source: 'Warframe Wiki exact Thalys acquisition section + DE export exact weapon identity',
+  }],
+  ['/Lotus/Upgrades/EmpoweredHeavyMelee/CursedSyndicateEmpoweredHeavyMeleeMod', {
+    text: "Purchase from Aspirant Zorba at any Relay for 360 Atramentum.",
+    url: 'https://wiki.warframe.com/w/Truth%27s_Flame',
+    source: "Warframe Wiki exact Truth's Flame acquisition section + DE export exact mod identity",
+  }],
+  ...[
+    ['/Lotus/Weapons/Tenno/Melee/Staff/SingleStaff', 'Cadus', "Market blueprint for 50,000 Credits"],
+    ['/Lotus/Weapons/Tenno/Melee/Swords/HeatSword/HeatLongSword', 'Heat Sword', "Once Awake quest reward; blueprint also via Nightwave Offerings"],
+    ['/Lotus/Weapons/Tenno/Pistol/Pistol', 'Lato', "Awakening quest weapon choice; Market purchase for 10,000 Credits"],
+    ['/Lotus/Weapons/Orokin/BallasSword/BallasSwordWeapon', 'Paracesis', "Chimera Prologue quest blueprint reward"],
+    ['/Lotus/Weapons/Tenno/Melee/Swords/UmbraKatana/UmbraKatana', 'Skiajati', "The Sacrifice penultimate mission reward"],
+  ].map(([path, name, route]) => [path, {
+    text: `${route}; this is the ${name} weapon's exact Wiki acquisition route.`,
+    url: `https://wiki.warframe.com/w/${name.replaceAll(' ', '_')}`,
+    source: `Warframe Wiki exact ${name} acquisition section + DE export exact weapon identity`,
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModAgility', 'Agility Drift', 'Agility'],
+    ['/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModCollaboration', 'Coaction Drift', 'Collaboration'],
+    ['/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModCunning', 'Cunning Drift', 'Cunning'],
+    ['/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModEndurance', 'Endurance Drift', 'Endurance'],
+    ['/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModPower', 'Power Drift', 'Power'],
+    ['/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModSpeed', 'Speed Drift', 'Speed'],
+    ['/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModStealth', 'Stealth Drift', 'Stealth'],
+  ].map(([path, name, test]) => [path, {
+    text: `Reward for completing the ${test} Test in the Orokin Moon (Halls of Ascension); this is the ${name} mod's exact Wiki acquisition route.`,
+    url: `https://wiki.warframe.com/w/${name.replaceAll(' ', '_')}`,
+    source: `Warframe Wiki exact ${name} acquisition section + DE export exact mod identity`,
+  }]),
+  ...[
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorSpitAcidPrecept', 'Acidic Spittle', 'Vizier Predasite'],
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorHealingSporesPrecept', 'Iatric Mycelium', 'Vizier Predasite'],
+    ['/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/KubrowDisarmPrecept', 'Neutralize', 'Chesa Kubrow'],
+    ['/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/KubrowLootPrecept', 'Retrieve', 'Chesa Kubrow'],
+    ['/Lotus/Types/Friendly/Pets/CatbrowPetPrecepts/CatbrowVampireBitePrecept', 'Draining Bite', 'Vasca Kavat'],
+    ['/Lotus/Types/Friendly/Pets/CatbrowPetPrecepts/CatbrowTransfusionPrecept', 'Transfusion', 'Vasca Kavat'],
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/VulpineInfestedCatbrowRespawn', 'Sly Devolution', 'Sly Vulpaphyla'],
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedCatbrowEvasionBuffPrecept', 'Survival Instinct', 'Sly Vulpaphyla and undergoing revivification'],
+  ].map(([path, name, companion]) => [path, {
+    text: `Automatically acquired upon obtaining a ${companion}; this is the ${name} precept's exact Wiki acquisition route.`,
+    url: `https://wiki.warframe.com/w/${name.replaceAll(' ', '_')}${name === 'Neutralize' ? '_(Mod)' : ''}`,
+    source: `Warframe Wiki exact ${name} acquisition section + DE export exact precept identity`,
+  }]),
+  ...[
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetPhotonStrikePrecept', 'Aerial Prospectus', 'Wanz Stabilizer'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetClonePrecept', 'Diversified Denial', 'Urga Bracket'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetAntiMeleePrecept', 'Equilibrium Audit', 'Hec Model'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetEvasionPrecept', 'Evasive Denial', 'Zubb Bracket'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetMegaLaserPrecept', 'Focused Prospectus', 'Frak Stabilizer'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetStealEximusPrecept', 'Null Audit', 'Bhaira Model'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetMagneticRepulsePrecept', 'Reflex Denial', 'Cela Bracket'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetDisarmPulsePrecept', 'Repo Audit', 'Dorma Model'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetTeslaShotPrecept', 'Synergized Prospectus', 'Hinta Stabilizer'],
+  ].map(([path, name, component]) => [path, {
+    text: `Automatically acquired upon obtaining a Hound built with the ${component}; this is the ${name} precept's exact Wiki acquisition route.`,
+    url: `https://wiki.warframe.com/w/${name.replaceAll(' ', '_')}`,
+    source: `Warframe Wiki exact ${name} acquisition section states the ${component} route + DE export exact precept identity`,
+  }]),
+  ...[
+    ['/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaLiftBombPrecept', 'Anti-Grav Grenade', 'Para'],
+    ['/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaChargePrecept', 'Blast Shield', 'Nychus'],
+    ['/Lotus/Upgrades/Mods/Sentinel/Moa/MoaMeleeMod', 'Hard Engage', 'Nychus'],
+    ['/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaHackerPrecept', 'Security Override', 'Oloro'],
+    ['/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaTractorBeamPrecept', 'Tractor Beam', 'Oloro'],
+    ['/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaShockwavePrecept', 'Shockwave Actuators', 'Lambeo'],
+    ['/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaStasisFieldPrecept', 'Stasis Field', 'Lambeo'],
+    ['/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaTetherVaccumMinePrecept', 'Whiplash Mine', 'Para'],
+  ].map(([path, name, model]) => [path, {
+    text: `Automatically acquired upon obtaining a MOA built with the ${model} Model; this is the ${name} precept's exact Wiki acquisition route.`,
+    url: `https://wiki.warframe.com/w/${name.replaceAll(' ', '_')}`,
+    source: `Warframe Wiki exact ${name} acquisition section states the ${model} Model route + DE ExportUpgrades exact precept identity`,
+  }]),
+  ...[
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorInfectiousBitePrecept', 'Infectious Bite'],
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorFinisherSporesPrecept', 'Paralytic Spores'],
+  ].map(([path, name]) => [path, {
+    text: `Automatically acquired upon obtaining a Medjay Predasite; ${name} is one of the companion's two exclusive precepts.`,
+    url: 'https://warframe.fandom.com/wiki/Medjay_Predasite',
+    source: `Warframe Wiki exact Medjay Predasite exclusive-precept/acquisition record + DE ExportUpgrades exact ${name} compatName=Medjay Predasite`,
+  }]),
+  ...[
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorBuffSporesPrecept', 'Anabolic Pollination'],
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorSpitParasitePrecept', 'Endoparasitic Vector'],
+  ].map(([path, name]) => [path, {
+    text: `Automatically acquired upon obtaining a Pharaoh Predasite; ${name} is one of the companion's two exclusive precepts.`,
+    url: 'https://warframe.fandom.com/wiki/Pharaoh_Predasite',
+    source: `Warframe Wiki exact Pharaoh Predasite exclusive-precept record + DE ExportUpgrades exact ${name} compatName=Pharaoh Predasite`,
+  }]),
+  ...[
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedCatbrowGoreTossPrecept', 'Crescent Charge'],
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/HornedInfestedCatbrowRespawn', 'Crescent Devolution'],
+  ].map(([path, name]) => [path, {
+    text: `Automatically acquired upon obtaining a Crescent Vulpaphyla; ${name} is one of the companion's two exclusive precepts.`,
+    url: 'https://warframe.fandom.com/wiki/Crescent_Vulpaphyla',
+    source: `Warframe Wiki exact Crescent Vulpaphyla exclusive-precept record + DE ExportUpgrades exact ${name} compatName=Crescent Vulpaphyla`,
+  }]),
+  ...[
+    ['/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/KubrowGrabPrecept', 'Proboscis'],
+    ['/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/ChargerChargePrecept', 'Trample'],
+  ].map(([path, name]) => [path, {
+    text: `Automatically acquired upon obtaining a Helminth Charger; ${name} is an exclusive Helminth Charger precept.`,
+    url: `https://warframe.fandom.com/wiki/${name}`,
+    source: `Warframe Wiki exact ${name} acquisition section + DE ExportUpgrades exact ${name} compatName=Helminth Charger`,
+  }]),
+  ...[
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/ArmoredInfestedCatbrowRespawn', 'Panzer Devolution'],
+    ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedKavatViralQuillsPrecept', 'Viral Quills'],
+  ].map(([path, name]) => [path, {
+    text: `Automatically acquired upon obtaining a Panzer Vulpaphyla; ${name} is one of the companion's exclusive precepts.`,
+    url: 'https://warframe.fandom.com/wiki/Panzer_Vulpaphyla',
+    source: `Warframe Wiki exact Panzer Vulpaphyla exclusive-precept record + DE ExportUpgrades exact ${name} compatName=Panzer Vulpaphyla`,
+  }]),
+  ...[
+    ['/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriTwoHandedKatana/DaxDuviriTwoHandedKatanaPlayerWeapon', 'Azothane', 50, 250],
+    ['/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriTwoHandedKatana/DaxDuviriTwoHandedKatanaWeapon', 'Azothane', 50, 250],
+    ['/Lotus/Weapons/Tenno/Melee/Polearms/DaxDuviriPolearm/DaxDuviriPolearmSpearPlayerWeapon', 'Edun', 50, 250],
+    ['/Lotus/Weapons/Tenno/Melee/Polearms/DaxDuviriPolearm/DaxDuviriPolearmWeapon', 'Edun', 50, 250],
+    ['/Lotus/Weapons/Tenno/Melee/SwordsAndBoards/DaxDuviriMaceShieldPlayerWeapon', 'Argo & Vel', 60, 225],
+    ['/Lotus/Weapons/Tenno/Melee/SwordsAndBoards/DaxDuviriMaceShieldWeapon', 'Argo & Vel', 60, 225],
+  ].map(([path, name, clamps, platinum]) => [path, {
+    text: `Purchase ${name} from Teshin's Cave in Duviri for ${clamps} Pathos Clamps or ${platinum} Platinum; the Pathos Clamp purchase unlocks the Drifter weapon and delivers the Warframe blueprint. Additional Warframe blueprint copies are available from Cephalon Simaris for 100,000 standing.`,
+    url: 'https://warframe.fandom.com/wiki/Pathos_Clamp',
+    source: `Warframe Wiki Pathos Clamp/Teshin's Cave acquisition table exact ${name} costs + DE ExportWeapons exact identity`,
+  }]),
+  ...[
+    ['/Lotus/Weapons/Grineer/HeavyWeapons/GrnHeavyGrenadeLauncher', 'Kuva Ayanga'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/HeavyWeapons/Grattler/KuvaGrattler', 'Kuva Grattler'],
+  ].map(([path, name]) => [path, {
+    text: `Vanquish a Kuva Lich that generated with ${name} equipped; the weapon is placed in the Foundry ready to claim and has no blueprint.`,
+    url: 'https://wiki.warframe.com/w/Adversary_Weapons',
+    source: `Warframe Wiki Adversary Weapons exact Kuva route + DE ExportWeapons exact ${name} identity`,
+  }]),
+  ...[
+    '/Lotus/Weapons/Tenno/Grimoire/TnDoppelgangerGrimoire',
+    '/Lotus/Weapons/Tenno/Grimoire/TnGrimoire',
+  ].map((path) => [path, {
+    text: 'Receive a fully ranked Grimoire with a weapon slot and pre-installed Orokin Catalyst as a reward from the Whispers in the Walls quest; a Grimoire blueprint is also sold by Bird 3 of Cavia for 50,000 standing at the required rank.',
+    url: 'https://wiki.warframe.com/w/Whispers_in_the_Walls',
+    source: 'Warframe Wiki Whispers in the Walls exact quest rewards + structured Bird 3 vendor record + DE ExportWeapons exact identity',
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Skins/Sigils/DogDays2023BSigil', 'Chillwave Sigil', 175],
+    ['/Lotus/Upgrades/Skins/Sigils/DogDaysKubrowSigil', 'Dropkick Drahk Sigil', 175],
+    ['/Lotus/Upgrades/Skins/Sigils/DogDays2023CSigil', 'Scorcher Sigil', 175],
+    ['/Lotus/Upgrades/Skins/Sigils/DogDays2025Sigil', 'Splashdown Sigil', 175],
+    ['/Lotus/Upgrades/Skins/Promo/Seasonal/DogDays2025BadgeItem', 'Aqua Heart Emblem', 75],
+    ['/Lotus/Upgrades/Skins/Clan/DogDaysKubrowBadgeItem', 'Dropkick Drahk Emblem', 75],
+    ['/Lotus/Upgrades/Skins/Hammer/NoodleHammerSkin', 'Noodletron Hammer Skin', 280],
+  ].map(([path, name, pearls]) => [path, {
+    text: `Purchase from Nakak in Cetus during the Dog Days event for ${pearls} Nakak Pearls.`,
+    url: 'https://warframe.fandom.com/wiki/Dog_Days',
+    source: `Warframe Wiki Dog Days offerings exact ${name} price + DE ExportCustoms exact identity`,
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Mods/DualSource/Pistol/MultishotDodgeMod', 'Amalgam Barrel Diffusion', 50],
+    ['/Lotus/Upgrades/Mods/DualSource/Melee/CritDamageChargeSpeedMod', 'Amalgam Organ Shatter', 50],
+    ['/Lotus/Upgrades/Mods/DualSource/Rifle/SerratedRushMod', 'Amalgam Serration', 25],
+    ['/Lotus/Upgrades/Mods/DualSource/Shotgun/ShotgunMedicMod', 'Amalgam Shotgun Barrage', 25],
+  ].map(([path, name, points]) => [path, {
+    text: `Earn ${points} cumulative points in the Thermia Fractures event to receive ${name}; the reward is one-time and non-transmutable.`,
+    url: 'https://warframe.fandom.com/wiki/Thermia_Fractures',
+    source: `Warframe Wiki Thermia Fractures reward table exact ${name} milestone + DE ExportUpgrades exact identity`,
+  }]),
+  ...[
+    ['/Lotus/Upgrades/Mods/Melee/Expert/WeaponFireRateModExpert', 'Primed Fury'],
+    ['/Lotus/Upgrades/Mods/Rifle/DualStat/PrimedShredMod', 'Primed Shred'],
+    ['/Lotus/Upgrades/Mods/Warframe/Expert/VigorModExpert', 'Primed Vigor'],
+  ].map(([path, name]) => [path, {
+    text: `${name} is a Daily Tribute login reward, awarded at the Daily Tribute milestone rotation; it is not a Baro Ki'Teer offering.`,
+    url: 'https://wiki.warframe.com/w/Category:Daily_Tribute_Rewards',
+    source: `Warframe Wiki Daily Tribute Rewards category exact ${name} entry + DE ExportUpgrades exact identity`,
+  }]),
+  ...[
+    ['/Lotus/Weapons/Grineer/KuvaLich/Secondaries/Brakk/KuvaBrakk', 'Kuva Brakk'],
+    ['/Lotus/Weapons/Grineer/Bows/GrnBow/GrnBowWeapon', 'Kuva Bramma'],
+    ['/Lotus/Weapons/Grineer/LongGuns/GrnKuvaLichRifle/GrnKuvaLichRifleWeapon', 'Kuva Chakkhurr'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Drakgoon/KuvaDrakgoon', 'Kuva Drakgoon'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/Melee/Ghoulsaw/KuvaGhoulSaw', 'Kuva Ghoulsaw'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Hek/KuvaHekWeapon', 'Kuva Hek'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Hind/KuvaHind', 'Kuva Hind'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Karak/KuvaKarak', 'Kuva Karak'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Kohm/KuvaKohm', 'Kuva Kohm'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/Secondaries/Kraken/KuvaKraken', 'Kuva Kraken'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/Secondaries/Nukor/KuvaNukor', 'Kuva Nukor'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Ogris/KuvaOgris', 'Kuva Ogris'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Quartakk/KuvaQuartakk', 'Kuva Quartakk'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/Secondaries/Seer/KuvaSeer', 'Kuva Seer'],
+    ['/Lotus/Weapons/Grineer/Melee/GrnKuvaLichScythe/GrnKuvaLichScytheWeapon', 'Kuva Shildeg'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Sobek/KuvaSobek', 'Kuva Sobek'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Tonkor/KuvaTonkor', 'Kuva Tonkor'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/Secondaries/Stubba/KuvaTwinStubbas', 'Kuva Twin Stubbas'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Zarr/KuvaZarr', 'Kuva Zarr'],
+  ].map(([path, name]) => [path, {
+    text: `Generate a ${name} on a Kuva Lich, then vanquish that Kuva Lich; the weapon is placed in the Foundry ready to claim.`,
+    url: 'https://wiki.warframe.com/w/Adversary_Weapons',
+    source: `Warframe Wiki Adversary Weapons exact Kuva route + DE export exact ${name} identity`,
+  }]),
+  ...[
+    ['/Lotus/Weapons/Corpus/BoardExec/Primary/CrpBEArcaPlasmor/CrpBEArcaPlasmor', 'Tenet Arca Plasmor'],
+    ['/Lotus/Weapons/Corpus/BoardExec/Secondary/CrpBECycron/CrpBECycron', 'Tenet Cycron'],
+    ['/Lotus/Weapons/Corpus/BoardExec/Secondary/CrpBEDetron/CrpBEDetron', 'Tenet Detron'],
+    ['/Lotus/Weapons/Corpus/Pistols/CrpBriefcaseAkimbo/CrpBriefcaseAkimboPistol', 'Tenet Diplos'],
+    ['/Lotus/Weapons/Corpus/LongGuns/CrpBriefcaseLauncher/CrpBriefcaseLauncher', 'Tenet Envoy'],
+    ['/Lotus/Weapons/Corpus/BoardExec/Primary/CrpBEFluxRifle/CrpBEFluxRifle', 'Tenet Flux Rifle'],
+    ['/Lotus/Weapons/Corpus/BoardExec/Primary/CrpBEGlaxion/CrpBEGlaxion', 'Tenet Glaxion'],
+    ['/Lotus/Weapons/Corpus/BoardExec/Secondary/CrpBEPlinx/CrpBEPlinxWeapon', 'Tenet Plinx'],
+    ['/Lotus/Weapons/Corpus/BoardExec/Primary/CrpBEQuanta/CrpBEQuanta', 'Tenet Quanta'],
+    ['/Lotus/Weapons/Corpus/Pistols/CrpIgniterPistol/CrpIgniterPistol', 'Tenet Spirex'],
+    ['/Lotus/Weapons/Corpus/BoardExec/Primary/CrpBETetra/CrpBETetra', 'Tenet Tetra'],
+  ].map(([path, name]) => [path, {
+    text: `Generate a ${name} on a Sister of Parvos, then vanquish that Sister; the weapon is placed in the Foundry ready to claim.`,
+    url: 'https://wiki.warframe.com/w/Adversary_Weapons',
+    source: `Warframe Wiki Adversary Weapons exact Sister-of-Parvos route + DE export exact ${name} identity`,
+  }]),
+  ...[
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartBodyA', 'Adlet Core'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadB', 'Bhaira Hound'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartLegsA', 'Cela Bracket'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadA', 'Dorma Hound'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartTailC', 'Frak Stabilizer'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartBodyB', 'Garmr Core'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadC', 'Hec Hound'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartTailB', 'Hinta Stabilizer'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartBodyC', 'Raiju Core'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartLegsB', 'Urga Bracket'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartTailA', 'Wanz Stabilizer'],
+    ['/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartLegsC', 'Zubb Bracket'],
+  ].map(([path, name]) => [path, {
+    text: 'Random Hound component blueprint dropped by a defeated Sister of Parvos; the component is tradeable.',
+    url: 'https://wiki.warframe.com/w/Adversary_Weapons',
+    source: `Warframe Wiki Adversary System exact Sister-of-Parvos Hound-component route + DE export exact ${name} identity`,
+  }]),
+  [
+    '/Lotus/Types/Sentinels/SentinelPrecepts/ArcTrap',
+    {
+      text: 'Included with the Diriga Sentinel; the WFCD sentinel record lists Arc Coil as one of Diriga\'s default precepts.',
+      url: 'https://github.com/WFCD/warframe-items',
+      source: 'WFCD combined sentinel description + DE ExportUpgrades exact Arc Coil compatName=Diriga',
+    },
+  ],
+  [
+    '/Lotus/Types/Sentinels/SentinelPrecepts/HeadShot',
+    {
+      text: 'Included with the Diriga Sentinel; the WFCD sentinel record lists Calculated Shot as one of Diriga\'s default precepts.',
+      url: 'https://github.com/WFCD/warframe-items',
+      source: 'WFCD combined sentinel description + DE ExportUpgrades exact Calculated Shot compatName=Diriga',
+    },
+  ],
+  [
+    '/Lotus/Types/Sentinels/SentinelPrecepts/TaserStun',
+    {
+      text: 'Included with the Diriga Sentinel; the WFCD sentinel record lists Electro Pulse as one of Diriga\'s default precepts.',
+      url: 'https://github.com/WFCD/warframe-items',
+      source: 'WFCD combined sentinel description + DE ExportUpgrades exact Electro Pulse compatName=Diriga',
+    },
+  ],
+  [
+    '/Lotus/Types/Sentinels/SentinelPrecepts/RepairShip',
+    {
+      text: 'Included with the Nautilus Sentinel; the WFCD sentinel record lists Auto Omni as a default precept.',
+      url: 'https://github.com/WFCD/warframe-items',
+      source: 'WFCD combined sentinel description + DE ExportUpgrades exact Auto Omni compatName=Nautilus',
+    },
+  ],
+  [
+    '/Lotus/Types/Sentinels/SentinelPrecepts/GatherEnemies',
+    {
+      text: 'Included with the Nautilus Sentinel; the WFCD sentinel record lists Cordon as a default precept.',
+      url: 'https://github.com/WFCD/warframe-items',
+      source: 'WFCD combined sentinel description + DE ExportUpgrades exact Cordon compatName=Nautilus',
+    },
+  ],
+  [
+    '/Lotus/Types/Sentinels/SentinelPrecepts/CodexScannerPrecept',
+    {
+      text: 'Included with the Helios Sentinel; the WFCD sentinel record lists Investigator as its unique precept.',
+      url: 'https://github.com/WFCD/warframe-items',
+      source: 'WFCD combined sentinel description + DE ExportUpgrades exact Investigator compatName=Helios',
+    },
+  ],
+  [
+    '/Lotus/Types/Sentinels/SentinelPrecepts/LocateResources',
+    {
+      text: 'Included with the Oxylus Sentinel; the WFCD sentinel record lists Scan Matter as a default precept.',
+      url: 'https://github.com/WFCD/warframe-items',
+      source: 'WFCD combined sentinel description + DE ExportUpgrades exact Scan Matter compatName=Oxylus',
+    },
+  ],
+  [
+    '/Lotus/Types/Sentinels/SentinelPrecepts/ShieldVampire',
+    {
+      text: 'Included with the Taxon Sentinel; the WFCD sentinel record lists Molecular Conversion as a default precept.',
+      url: 'https://github.com/WFCD/warframe-items',
+      source: 'WFCD combined sentinel description + DE ExportUpgrades exact Molecular Conversion compatName=Taxon',
+    },
+  ],
+  [
+    '/Lotus/Weapons/Grineer/LongGuns/GrineerM16Homage/KarakWraith',
+    {
+      text: 'Obtain the Karak Wraith blueprint and parts as Invasion rewards; its components can also be traded.',
+      url: 'https://wiki.warframe.com/w/Karak_Wraith',
+      source: 'Warframe Wiki Invasion Reward category and Karak Wraith acquisition record + DE ExportWeapons exact identity',
+    },
+  ],
+  [
+    '/Lotus/Weapons/Tenno/LongGuns/WraithLatron/WraithLatron',
+    {
+      text: 'Obtain the Latron Wraith blueprint and parts as Invasion rewards; its components can also be traded. Mastery Rank 7 is required to acquire the blueprint.',
+      url: 'https://wiki.warframe.com/w/Latron_Wraith',
+      source: 'Warframe Wiki exact Latron Wraith acquisition record + DE ExportWeapons exact identity',
+    },
+  ],
+  [
+    '/Lotus/Weapons/ClanTech/Energy/DeraVandal',
+    {
+      text: 'Obtain the Dera Vandal blueprint and parts as Invasion rewards; its components can also be traded.',
+      url: 'https://wiki.warframe.com/w/Dera_Vandal',
+      source: 'Warframe Wiki Invasion Reward category + DE ExportWeapons exact identity',
+    },
+  ],
+  [
+    '/Lotus/Weapons/Grineer/Melee/GrineerCombatKnife/GrineerCombatKnife',
+    {
+      text: 'Obtain the Sheev blueprint and parts as Invasion rewards; its components can also be traded.',
+      url: 'https://wiki.warframe.com/w/Sheev',
+      source: 'Warframe Wiki Invasion Reward category + DE ExportWeapons exact identity',
+    },
+  ],
+  [
+    '/Lotus/Weapons/Tenno/Shotgun/ShotgunVandal',
+    {
+      text: 'Obtain the Strun Wraith blueprint and parts as Invasion rewards; its components can also be traded.',
+      url: 'https://wiki.warframe.com/w/Strun_Wraith',
+      source: 'Warframe Wiki exact Strun Wraith component acquisition record + DE ExportWeapons exact identity',
+    },
+  ],
+  [
+    '/Lotus/Weapons/Grineer/Pistols/WraithTwinVipers/WraithTwinVipers',
+    {
+      text: 'Obtain the Twin Vipers Wraith blueprint and parts as Invasion rewards; its components can also be traded.',
+      url: 'https://wiki.warframe.com/w/Twin_Vipers_Wraith',
+      source: 'Warframe Wiki exact Twin Vipers Wraith component acquisition record + DE ExportWeapons exact identity',
+    },
+  ],
+  [
+    '/Lotus/Weapons/Tenno/Rifle/VandalSniperRifle',
+    {
+      text: 'Obtain the Snipetron Vandal blueprint and parts as Invasion rewards; its components can also be traded. Mastery Rank 5 is required to acquire the blueprint.',
+      url: 'https://wiki.warframe.com/w/Snipetron_Vandal',
+      source: 'Warframe Wiki exact Snipetron Vandal acquisition record + DE ExportWeapons exact identity',
+    },
+  ],
+  [
+    '/Lotus/Weapons/Lasria/AK47/TC2024AK47Weapon',
+    {
+      text: "Purchase the AX-52 blueprint from Amir of The Hex in the Höllvania Central Mall for 30,000 Standing at Rank 4 (Hot & Fresh) after completing The Hex; a built AX-52 was previously awarded as the TennoCon 2024 Twitch Drop.",
+      url: 'https://wiki.warframe.com/w/AX-52',
+      source: 'Warframe Wiki exact AX-52 acquisition/history + official Warframe Update 38.0 Amir offering + DE ExportWeapons exact identity',
+    },
+  ],
+  [
+    '/Lotus/Weapons/Lasria/LasGooAK/LasGooAKPlayerWeapon',
+    {
+      text: "Purchase the EFV-5 Jupiter main and component blueprints from Minerva's Covert Arms in The Hex's Höllvania Central Mall for Hex Standing at Rank 5 (Pizza Party), or purchase the complete weapon from the in-game Market.",
+      url: 'https://www.warframe.com/en/patch-notes/psn/38-5-0',
+      source: 'Official Warframe Update 38.5 exact EFV-5 Jupiter acquisition + DE ExportWeapons exact identity',
+    },
+  ],
+  [
+    '/Lotus/Powersuits/Dagath/Dagath',
+    {
+      text: "Purchase Dagath's main blueprint from the Shrine of Dagath in the Dagath's Hallow Dojo room; craft the component blueprints using Vainthorns from Abyssal Zone missions opened with Abyssal Beacons.",
+      url: 'https://wiki.warframe.com/w/Warframes_Comparison/Acquisition',
+      source: "Warframe Wiki Dagath acquisition table + Devstream 173 Dagath's Hallow route + DE ExportWarframes exact Dagath identity",
+    },
+  ],
+  [
+    '/Lotus/Weapons/Tenno/Melee/Swords/TnDagathBladeWhip/TnDagathBladeWhip',
+    {
+      text: "Acquire Dorrclave's main and component blueprints from the Shrine of Dagath in the Dagath's Hallow Dojo room; the component materials include Vainthorns from Abyssal Zone missions opened with Abyssal Beacons.",
+      url: 'https://www.warframe.com/news/devstream-173-overview',
+      source: "Warframe.com Devstream 173 Dagath's Hallow route + DE ExportWeapons exact Dorrclave identity",
+    },
+  ],
+  [
+    '/Lotus/Weapons/Tenno/Melee/Swords/DarkSword/DarkSwordDaggerHybridWeapon',
+    {
+      text: 'Research and replicate the Dark Split-Sword blueprint in a Clan Dojo Tenno Lab; the complete weapon is also sold in the Market for 225 Platinum.',
+      url: 'https://warframe.fandom.com/wiki/Dark_Split-Sword',
+      source: 'Warframe Wiki exact Dark Split-Sword acquisition record + DE ExportWeapons exact identity and 225-Platinum Market price',
+    },
+  ],
+  [
+    '/Lotus/Types/AvatarImages/FanChannel/AvatarImageBennyfits',
+    {
+      text: 'Legacy creator glyph. The current browse.wf record contains only a glyphwave identifier and no active promo code, giveaway, or source link; existing copies are legacy-owned.',
+      url: 'https://browse.wf/',
+      source: 'browse.wf exact Bennyfits glyph record disposition',
+    },
+  ],
+  [
+    '/Lotus/Types/AvatarImages/FanChannel/AvatarImageBikeman',
+    {
+      text: 'Legacy creator glyph. The current browse.wf record contains only a glyphwave identifier and no active promo code, giveaway, or source link; existing copies are legacy-owned.',
+      url: 'https://browse.wf/',
+      source: 'browse.wf exact Bikeman glyph record disposition',
+    },
+  ],
+  [
+    '/Lotus/Types/AvatarImages/FanChannel/AvatarImageSp00nerism',
+    {
+      text: 'Legacy creator glyph. The current browse.wf record contains only a glyphwave identifier and no active promo code, giveaway, or source link; existing copies are legacy-owned.',
+      url: 'https://browse.wf/',
+      source: 'browse.wf exact Sp00nerism glyph record disposition',
+    },
+  ],
+  [
+    '/Lotus/Types/AvatarImages/FanChannel/AvatarImageSummit1G',
+    {
+      text: 'Legacy creator glyph. The current browse.wf record contains only a glyphwave identifier and no active promo code, giveaway, or source link; existing copies are legacy-owned.',
+      url: 'https://browse.wf/',
+      source: 'browse.wf exact Summit1g glyph record disposition',
+    },
+  ],
+  [
+    '/Lotus/Weapons/Tenno/Akimbo/AkimboBolto',
+    {
+      text: 'Purchase the Akbolto blueprint from the Market for 15,000 Credits, then build it in the Foundry for 20,000 Credits using 2 Bolto and 1 Orokin Cell.',
+      url: 'https://wiki.warframe.com/w/Akbolto',
+      source: 'DE ExportRecipes exact AkboltoBlueprint result and ingredients + DE export Market credit cost',
+    },
+  ],
+  [
+    '/Lotus/Types/AvatarImages/AvatarImageDanteGlyph',
+    {
+      text: "Included in the one-time Dante Chronicles Pack, which contains Dante, Ruvox, Rencowl Syandana, Oranist Armor, Dante Cantist Helmet, this glyph, Dante's Noctua Sigil, Observant Vitreum, and 125 Platinum.",
+      url: 'https://www.warframe.com/en/news/dante-chronicles-pack',
+      source: 'Warframe.com Dante Chronicles Pack contents + WFCD exact glyph identity',
+    },
+  ],
+  [
+    '/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Gate',
+    {
+      text: 'Previously awarded through the 4GamerLive Warframe promotion by redeeming the event item code; the code expired on November 1, 2020, so this promotion is no longer active.',
+      url: 'https://www.4gamer.net/games/172/G017216/20200925084/',
+      source: '4GamerLive event announcement naming the exact Void Mirror Glyph and redemption window + WFCD exact glyph identity',
+    },
+  ],
+  [
+    '/Lotus/Types/AvatarImages/AvatarImageGlyphMashedNefAnyo',
+    {
+      text: 'Purchased individually for 20 Platinum or as part of the 110-Platinum MASHED Glyph Pack; the pack contains seven glyphs depicting moments from MASHED’s 100 Days of Warframe video.',
+      url: 'https://warframe.fandom.com/wiki/Glyph',
+      source: 'Warframe Wiki MASHED Glyphs section + Module:Glyphes exact uniqueName',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Ember/EmberDeluxeDualPistolSkin',
+    {
+      text: 'Exclusive to the Ember Vermillion Collection, which is purchased from the in-game Market for 225 Platinum; the local DE export identifies this exact record as the Nusku Dual Pistol Skin.',
+      url: 'https://warframe.fandom.com/wiki/Ember_Vermillion_Collection',
+      source: 'Warframe Wiki Ember Vermillion Collection acquisition + local DE ExportCustoms exact Nusku Dual Pistol Skin record',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Weapons/Pistols/TnSubmachinegunDualPistolSkin',
+    {
+      text: 'Included in the Empyrean Grand Bundle, sold from the in-game Market for 820 Platinum; the local DE export identifies this exact record as the Zundi Dual Pistol Skin.',
+      url: 'https://wiki.warframe.com/w/Empyrean_Grand_Bundle',
+      source: 'Warframe Wiki Empyrean Grand Bundle contents + local DE ExportCustoms exact Zundi Dual Pistol Skin record',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Sigils/MasterySigil',
+    {
+      text: 'Purchased from the in-game Market for 1 Credit; the sigil changes its design as your Mastery Rank increases.',
+      url: 'https://warframe.fandom.com/wiki/Sigils?page=2&title=Sigils',
+      source: 'Warframe Wiki Purchasable Sigils section + local DE ExportCustoms exact Mastery Sigil record',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Halloween/HalloweenLatoVandal',
+    {
+      text: 'Previously sold as a limited-time Day of the Dead Market skin for 20 Platinum; the local DE export still identifies the exact Lato Vandal variant but currently excludes it from the Market.',
+      url: 'https://www.warframe.com/news/attention-all-tenno',
+      source: 'Warframe.com Day of the Dead announcement + local DE ExportCustoms exact Lato Vandal skin record',
+    },
+  ],
+  [
+    '/Lotus/Types/Restoratives/Consumable/GlyphConsumable',
+    {
+      text: 'Purchased from the Glyph menu as the charged Glyph Prism gear item; the local DE export records a purchase quantity of 100 for 1,000 Credits.',
+      url: 'https://warframe.fandom.com/wiki/Glyph',
+      source: 'DE ExportGear exact Glyph Prism record + Warframe Wiki Glyph usage record',
+    },
+  ],
+  [
+    '/Lotus/Types/Restoratives/Consumable/GlyphConsumableNoCharges',
+    {
+      text: 'Purchased from the Glyph menu as the unlimited-use Glyph Prism gear item; the local DE export records a price of 50 Platinum.',
+      url: 'https://warframe.fandom.com/wiki/Glyph',
+      source: 'DE ExportGear exact unlimited Glyph Prism record + Warframe Wiki Glyph usage record',
+    },
+  ],
+  [
+    '/Lotus/Types/Restoratives/Consumable/RecallToRailjack',
+    {
+      text: 'Unlocked by Tactical Intrinsics Rank 4 (Recall Warp); equip the Omni gear item to teleport back to the Railjack from outside it.',
+      url: 'https://wiki.warframe.com/w/Railjack/Intrinsics',
+      source: 'Warframe Wiki Railjack Intrinsics structured rank table + local DE ExportGear exact RecallToRailjack record',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Scarves/TnLargeCapeXbox',
+    {
+      text: 'Previously awarded from Xbox One 6th Anniversary Alert #5, which granted the Jade Broca Syandana and 10,000 Credits; that limited-time alert has ended.',
+      url: 'https://www.warframe.com/de/news/6th-anniversary-on-xbox',
+      source: 'Warframe.com 6th Anniversary on Xbox + local export exact Jade Broca Syandana record',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Scarves/TnSparrowCape',
+    {
+      text: 'Previously included in The Origin Pack with 200 Platinum for PS4/Xbox One and later Nintendo Switch; this limited-time console pack is no longer an active acquisition route.',
+      url: 'https://www.warframe.com/en/news/the-origin-pack',
+      source: 'Warframe.com The Origin Pack + local export exact Parotia Syandana record',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/Scarves/MixerKyropteraScarf',
+    {
+      text: 'Previously awarded for linking a Warframe account to Mixer during the 2019 promotional period; the Mixer promotion has ended.',
+      url: 'https://www.warframe.com/en/news/watch-warframe-on-mixer-to-earn-free-rewards',
+      source: 'Warframe.com Mixer promotion + local export exact Kyroptera Panoply Syandana record',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/SteamEsteem/EsteemOrthos',
+    {
+      text: 'Previously included with the Orthos weapon in any of the 2019 Wintermaker Pinnacle Packs; those packs are no longer an active acquisition route.',
+      url: 'https://store.steampowered.com/news/posts/?appids=230410&enddate=1552002479',
+      source: 'Warframe Steam Community announcement (Wintermaker Pinnacle Packs) + local export exact Orthos Onyx Skin record',
+    },
+  ],
+  [
+    '/Lotus/Upgrades/Skins/SteamEsteem/EsteemTigris',
+    {
+      text: 'Previously included with the Tigris weapon in the 2019 Wintermaker Pinnacle Packs; those packs are no longer an active acquisition route.',
+      url: 'https://store.steampowered.com/news/posts/?appids=230410&enddate=1552682647&feed=steam_community_announcements',
+      source: 'Warframe Steam Community announcement (Wintermaker Pinnacle Packs) + local export exact Tigris Onyx Skin record',
+    },
+  ],
   [
     '/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultPrimeB',
     {
@@ -824,4 +1624,338 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://warframe.fandom.com/wiki/Corpus_Gas_City',
     source: 'WARFRAME Wiki Corpus Gas City secret-room route + local export exact scene record',
   }],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageBluyayogamer', {
+    text: 'Redeem the BLUYAYOGAMER promo code on the official Warframe website; this code awards the Bluyayogamer Glyph.',
+    url: 'https://www.warframe.com/en/promocode?code=BLUYAYOGAMER',
+    source: 'Official Warframe promo-code URL + pinned Warframe Forums creator-glyph list + WFCD exact glyph identity',
+  }],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageBrickyOrchid', {
+    text: 'Redeem the BRICKY promo code on the official Warframe website; this code awards the Bricky Glyph.',
+    url: 'https://www.warframe.com/en/promocode?code=BRICKY',
+    source: 'Official Warframe promo-code URL + pinned Warframe Forums creator-glyph list identifying BrickyOrchid8 + WFCD exact glyph identity',
+  }],
+  ['/Lotus/Types/AvatarImages/GuardianCon2018Glyph', {
+    text: 'Previously awarded by redeeming the GUARDIANCON2018 promo code; the code is listed as an expired historical promotion.',
+    url: 'https://www.warframe.com/en/promocode?code=GUARDIANCON2018',
+    source: 'Pinned Warframe Forums historical promo-code list + official Warframe promo-code endpoint + WFCD exact glyph identity',
+  }],
+  ['/Lotus/Types/AvatarImages/AvatarImageGlyphLaborAward', {
+    text: 'Previously awarded by redeeming the LABOROFLOVE promo code; the code expired on January 5, 2019.',
+    url: 'https://www.warframe.com/en/promocode?code=LABOROFLOVE',
+    source: 'Pinned Warframe Forums historical promo-code list and expiration changelog + official Warframe promo-code endpoint + WFCD exact glyph identity',
+  }],
+  ['/Lotus/Types/AvatarImages/Community10YearAnniversaryGlyph', {
+    text: 'Awarded to the top 10 winners of Warframe’s 10 Year Anniversary Community Showcase contest; it was part of the winner reward bundle with an emblem, sigil, and Platinum.',
+    url: 'https://forums.warframe.com/topic/1343026-10-year-anniversary-community-showcase-winners-announced/',
+    source: 'Official Warframe Forums contest-winner announcement + WFCD exact glyph identity',
+  }],
+  ['/Lotus/Types/AvatarImages/MesaHighNoonGlyph', {
+    text: 'Included in the time-limited PlayStation Plus Towsun Collection, which was available until October 12, 2022; this glyph was PlayStation-exclusive.',
+    url: 'https://www.warframe.com/en/news/coleccion-towsun-de-playstationplus',
+    source: 'Official Warframe PlayStation Plus Towsun Collection announcement + WFCD exact glyph identity',
+  }],
+  ['/Lotus/Types/Restoratives/Consumable/Toxins/NightCommonAntitoxin', {
+    text: 'Purchase the Amethyst Antitoxin blueprint from the Market for 1,500 Credits, or buy the 7,500-Credit Cicero Crisis Antidote Pack that includes it, then build it in the Foundry.',
+    url: 'https://wiki.warframe.com/w/Antitoxin_%28Gear%29',
+    source: 'Warframe Wiki Antitoxin (Gear) exact item and pack record + DE export recipe identity',
+  }],
+  ['/Lotus/Types/Restoratives/Consumable/Toxins/DayCommonAntitoxin', {
+    text: 'Purchase the Beryl Antitoxin blueprint from the Market for 1,500 Credits, or buy the 7,500-Credit Cicero Crisis Antidote Pack that includes it, then build it in the Foundry.',
+    url: 'https://wiki.warframe.com/w/Antitoxin_%28Gear%29',
+    source: 'Warframe Wiki Antitoxin (Gear) exact item and pack record + DE export recipe identity',
+  }],
+  ['/Lotus/Types/Restoratives/Consumable/Toxins/DayUnCommonAntitoxin', {
+    text: 'Purchase the Citrine Antitoxin blueprint from the Market for 1,500 Credits, or buy the 7,500-Credit Cicero Crisis Antidote Pack that includes it, then build it in the Foundry.',
+    url: 'https://wiki.warframe.com/w/Antitoxin_%28Gear%29',
+    source: 'Warframe Wiki Antitoxin (Gear) exact item and pack record + DE export recipe identity',
+  }],
+  ['/Lotus/Types/Restoratives/Consumable/Toxins/NightUnCommonAntitoxin', {
+    text: 'Purchase the Topaz Antitoxin blueprint from the Market for 1,500 Credits, or buy the 7,500-Credit Cicero Crisis Antidote Pack that includes it, then build it in the Foundry.',
+    url: 'https://wiki.warframe.com/w/Antitoxin_%28Gear%29',
+    source: 'Warframe Wiki Antitoxin (Gear) exact item and pack record + DE export recipe identity',
+  }],
+  ['/Lotus/Types/Restoratives/TitaniaQuest/SpecterSummonKnaveLoki', {
+    text: 'The Nightfall Apothic blueprint is awarded during The Silver Grove quest; build it in the Foundry to summon the Knave Specter at a Silver Grove Shrine.',
+    url: 'https://wiki.warframe.com/w/Sunrise_Apothic',
+    source: 'Warframe Wiki Apothic exact quest-acquisition statement + DE export recipe identity',
+  }],
+  ['/Lotus/Types/Restoratives/TitaniaQuest/SpecterSummonOrphidSaryn', {
+    text: 'The Twilight Apothic blueprint is awarded during The Silver Grove quest; build it in the Foundry to summon the Orphid Specter at a Silver Grove Shrine.',
+    url: 'https://wiki.warframe.com/w/Sunrise_Apothic',
+    source: 'Warframe Wiki Apothic exact quest-acquisition statement + DE export recipe identity',
+  }],
+  ['/Lotus/Types/Restoratives/TitaniaQuest/SpecterSummonFeyarchOberon', {
+    text: 'The Sunrise Apothic blueprint is awarded during The Silver Grove quest; build it in the Foundry to summon the Feyarch Specter at a Silver Grove Shrine.',
+    url: 'https://wiki.warframe.com/w/Sunrise_Apothic',
+    source: 'Warframe Wiki Apothic exact quest-acquisition statement + DE export recipe identity',
+  }],
+  ['/Lotus/Types/Items/MiscItems/FormaUmbra', {
+    text: 'Purchase the Umbra Forma blueprint from Teshin’s rotating Steel Path Honors shop for 150 Steel Essence, then build it in the Foundry.',
+    url: 'https://wiki.warframe.com/w/Umbra_Forma',
+    source: 'Warframe Wiki Umbra Forma Steel Path Honors record + DE export recipe identity',
+  }],
+  ['/Lotus/Types/Restoratives/Consumable/Toxins/RareAntitoxin', {
+    text: 'Purchase the Lapis Antitoxin blueprint from the Market for 1,500 Credits, or buy the 7,500-Credit Cicero Crisis Antidote Pack that includes it, then build it in the Foundry.',
+    url: 'https://wiki.warframe.com/w/Antitoxin_%28Gear%29',
+    source: 'Warframe Wiki Antitoxin (Gear) exact item and pack record + DE export recipe identity',
+  }],
+  ['/Lotus/Types/Restoratives/Consumable/Toxins/SoloRareAntitoxin', {
+    text: 'The Vermillion Antitoxin blueprint is not included in the Cicero Crisis Antidote Pack. The Warframe Wiki records Vermillion as tradable, so obtain the blueprint or built item by trading with another player, then build it in the Foundry if you receive the blueprint.',
+    url: 'https://wiki.warframe.com/w/Antitoxin_%28Gear%29',
+    source: 'Warframe Wiki Antitoxin (Gear) exact item, pack exclusion, and tradability records + DE export recipe identity',
+  }],
+  ['/Lotus/Types/Keys/GolemQuest/GolemQuestKeyChainItem', {
+    text: 'This is the internal quest key for The Jordas Precept. Complete the Pluto–Eris Junction to unlock the quest; the key is created for the quest chain rather than purchased as a normal Market item.',
+    url: 'https://support.warframe.com/hc/en-us/articles/218290327-Quest-Tips-Up-to-Second-Dream-Minimal-Spoilers-',
+    source: 'Official Warframe quest guidance for the Pluto–Eris Junction unlock + DE ExportKeys/ExportRecipes exact quest-key identity',
+  }],
+  ['/Lotus/Upgrades/Skins/CephWepSkins/CephGaundaoSkin', {
+    text: 'Purchase the Guandao Synoid Skin blueprint from Nightwave Cred Offerings for 35 Cred, then build it in the Foundry.',
+    url: 'https://wiki.warframe.com/w/Nightwave/Offerings',
+    source: 'Warframe Wiki Nightwave Offerings exact item record + DE export recipe identity',
+  }],
 ]);
+
+// Exact item-page acquisition sections that are not represented in the
+// structured Wiki modules. These are deliberately keyed by DE path rather
+// than by cosmetic family or suffix so a similarly named object cannot inherit
+// a route accidentally.
+const EXACT_WIKI_ITEM_ACQUISITIONS = {
+  '/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumArcaPlasmorSkin': 'This skin was originally available during Tennobaum 2023. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumAtomosSkin': 'This skin was originally available during Tennobaum 2023. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/Weapons/LongGuns/SolsticeBurston': 'This skin was given out during Tennobaum 2016. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/WinterSolstice/SolsticeCorinthSkin': 'This skin was given out during Tennobaum 2018. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumCycronSkin': 'Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumDualKeresSkin': 'This skin was originally available during Tennobaum 2023. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumFulminSkin': 'This skin was originally available during Tennobaum 2023. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/WinterSolstice/SolsticeGalatineSkin': 'This skin was given out during Tennobaum 2017. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumGramSkin': 'This skin was originally available during Tennobaum 2023. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/WinterSolstice/SolsticeGaundaoSkin': 'This skin was given out during Tennobaum 2018. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/WinterSolstice/SolsticeIgnisSkin': 'This skin was given out during Tennobaum 2017. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/WinterSolstice/SolsticeLenzSkin': 'This skin was given as a Gift from the Lotus from December 20 through December 31, 2019. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/Dazzle/ProvaDazzleSkin': 'Its blueprint can only be acquired from Nightwave Cred Offerings for 30 Cred.',
+  '/Lotus/Upgrades/Skins/Dazzle/ShockExergisSkin': 'Its blueprint can only be acquired from Nightwave Cred Offerings for 30 Cred.',
+  '/Lotus/Upgrades/Skins/Dazzle/ShockFalcorSkin': 'Its blueprint can only be acquired from Nightwave Cred Offerings for 30 Cred.',
+  '/Lotus/Upgrades/Skins/Camo/DesertGrinlokSkin': 'Its blueprint can only be acquired from Nightwave Cred Offerings for 30 Cred.',
+  '/Lotus/Upgrades/Skins/Dazzle/ShockPlinxSkin': 'Its blueprint can only be acquired from Nightwave Cred Offerings for 30 Cred.',
+  '/Lotus/Upgrades/Skins/CephWepSkins/CephPyranaSkin': 'Its blueprint can only be acquired from Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/CephWepSkins/CephRubicoSkin': 'Its blueprint can only be acquired from Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/Axe/SolsticeScindo': 'This skin was given out during Tennobaum 2016. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Upgrades/Skins/WinterSolstice/SolsticeTatsuSkin': 'This skin was given as a Gift from the Lotus from December 20 through December 31, 2019. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
+  '/Lotus/Types/Restoratives/OpenArchwingSummon': 'Awarded upon completion of The Archwing quest. The current export recipe is retained as the legacy Foundry recipe.',
+  '/Lotus/Types/Restoratives/Consumable/Cipher': 'The 1x and 10x blueprints are bought from the Market Gear tab for 500 and 250,000 Credits; the reusable 100x blueprint is researched in a Dojo Tenno Lab.',
+  '/Lotus/Types/Keys/DojoKey': 'Upon starting or joining a Clan, the Clan Key blueprint is automatically added to the inventory and made available in the Foundry.',
+  '/Lotus/Types/Restoratives/Consumable/FomorianNegator': 'The reusable blueprint is available in the Market under Equipment → Gear for 5,000 Credits.',
+  '/Lotus/Types/Restoratives/Consumable/RazorbackCipher': 'The blueprint is sent to the player by Lotus in the event message; its Cryptographic ALU component is obtained during the Razorback event.',
+  '/Lotus/Types/Restoratives/Consumable/CreditChipSmall': 'The Humble Void Offering was sold in the Market under Equipment → Gear for 1,000 Credits, but was discontinued after its event ended.',
+  '/Lotus/Types/Restoratives/Consumable/CreditChipMedium': 'The Faithful Void Offering was sold in the Market under Equipment → Gear for 10,000 Credits, but was discontinued after its event ended.',
+  '/Lotus/Types/Restoratives/Consumable/CreditChipLarge': 'The Passionate Void Offering was sold in the Market under Equipment → Gear for 100,000 Credits, but was discontinued after its event ended.',
+  '/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBDeck': 'The blueprint is acquired by completing the Dead Drop K-Drive Race on the Cambion Drift; active races rotate daily.',
+  '/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBEngine': 'The blueprint is acquired by completing the Muck and Mire K-Drive Race on the Cambion Drift; active races rotate daily.',
+  '/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBFront': 'The blueprint is acquired by completing the Exocrine Flow K-Drive Race on the Cambion Drift; active races rotate daily.',
+  '/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBJet': 'The blueprint is acquired by completing the Pride Before a Fall K-Drive Race on the Cambion Drift; active races rotate daily.',
+  '/Lotus/Weapons/Tenno/Bayonet/TnBayonetRifleWeapon': "Vinquibus' main and component blueprints are obtained from Roathe's Oblivion on Infernium 21 of The Descendia after The Old Peace, or purchased from Roathe in La Cathédrale for Maphica.",
+};
+
+for (const [uniqueName, text] of Object.entries(EXACT_WIKI_ITEM_ACQUISITIONS)) {
+  const url = text.includes('Nightwave')
+    ? 'https://wiki.warframe.com/w/Nightwave/Offerings'
+    : text.includes('K-Drive Race')
+      ? 'https://wiki.warframe.com/w/K-Drive'
+      : text.startsWith('Vinquibus')
+        ? 'https://wiki.warframe.com/w/Vinquibus'
+        : text.includes('Archwing Launcher')
+          ? 'https://wiki.warframe.com/w/Archwing_Launcher'
+          : text.includes('Clan Key')
+            ? 'https://wiki.warframe.com/w/Clan_Key'
+            : text.includes('Fomorian Disruptor')
+              ? 'https://wiki.warframe.com/w/Fomorian_Disruptor'
+              : text.includes('Razorback')
+                ? 'https://wiki.warframe.com/w/Razorback_Cipher'
+                : text.includes('Void Offering')
+                  ? 'https://wiki.warframe.com/w/Void_Offering'
+                  : 'https://wiki.warframe.com/w/Market';
+  WIKI_VERIFIED_ACQUISITIONS.set(uniqueName, {
+    text,
+    url,
+    source: 'Warframe Wiki exact item-page acquisition section + DE export exact uniqueName',
+  });
+}
+
+const LEGACY_ARCANE_HELMET_PATHS = [
+  '/Lotus/Upgrades/Skins/Trinity/TrinityHelmetAlt',
+  '/Lotus/Upgrades/Skins/Frost/FrostHelmetAlt',
+  '/Lotus/Upgrades/Skins/Excalibur/ExcaliburHelmetAlt',
+  '/Lotus/Upgrades/Skins/Ember/EmberHelmetAltB',
+  '/Lotus/Upgrades/Skins/Asp/AspAltHelmetB',
+  '/Lotus/Upgrades/Skins/Decree/DecreeAltHelmetB',
+  '/Lotus/Upgrades/Skins/Mag/MagHelmetAlt',
+  '/Lotus/Upgrades/Skins/Trapper/TrapperHelmetAlt',
+  '/Lotus/Upgrades/Skins/Loki/LokiHelmetAlt',
+  '/Lotus/Upgrades/Skins/AntiMatter/AntiAltHelmet',
+  '/Lotus/Upgrades/Skins/Trapper/TrapperHelmetAltB',
+  '/Lotus/Upgrades/Skins/Asp/AspAltHelmet',
+  '/Lotus/Upgrades/Skins/Ninja/NinjaHelmetAltB',
+  '/Lotus/Upgrades/Skins/Mag/MagHelmetAltB',
+  '/Lotus/Upgrades/Skins/Jade/JadeHelmetAlt',
+  '/Lotus/Upgrades/Skins/Trinity/TrinityHelmetAltB',
+  '/Lotus/Upgrades/Skins/Excalibur/ExcaliburHelmetAltB',
+  '/Lotus/Upgrades/Skins/Ember/EmberHelmetAlt',
+  '/Lotus/Upgrades/Skins/Volt/VoltHelmetAltB',
+  '/Lotus/Upgrades/Skins/Decree/DecreeAltHelmet',
+  '/Lotus/Upgrades/Skins/Ninja/NinjaHelmetAlt',
+  '/Lotus/Upgrades/Skins/Frost/FrostHelmetAltB',
+  '/Lotus/Upgrades/Skins/Volt/VoltHelmetAlt',
+  '/Lotus/Upgrades/Skins/Loki/LokiHelmetAltB',
+  '/Lotus/Upgrades/Skins/Rhino/RhinoHelmetAlt',
+  '/Lotus/Upgrades/Skins/Rhino/RhinoHelmetAltB',
+  '/Lotus/Upgrades/Skins/Jade/JadeHelmetAltB',
+];
+
+for (const uniqueName of LEGACY_ARCANE_HELMET_PATHS) {
+  WIKI_VERIFIED_ACQUISITIONS.set(uniqueName, {
+    text: 'This is a legacy Arcane Helmet. The Warframe Wiki records Arcane Helmets as removed from the Market and Alerts; existing copies can only be obtained by trading with another player who owns one.',
+    url: 'https://wiki.warframe.com/w/Category:Arcane_Helmet',
+    source: 'Warframe Wiki Arcane Helmet category disposition + DE export exact cosmetic identity',
+  });
+}
+
+// Exact legacy, role-gated, and export-only records which are visible in a
+// player's inventory but do not have a normal current Market route. These are
+// intentionally per-path: the wording must not leak to similarly named items.
+for (const [uniqueName, text, url, source] of [
+  ['/Lotus/Types/Restoratives/Consumable/Eidolon/LandscapeTrapLightGear', 'The export identifies Beckonsnare as a legacy conservation trap with a 500-Credit base cost, but excludes it from the Market and records no current vendor, drop, or quest route. Treat it as an owned-only legacy item.', 'https://wiki.warframe.com/w/Beckonsnare', 'DE ExportGear exact Beckonsnare record + Wiki exact item identity'],
+  ['/Lotus/Types/Restoratives/Consumable/MacheteWomanBall', 'The export identifies Scorpion Specter as a legacy, non-tradable specter item excluded from the Market. No current player-facing source is recorded; existing copies are owned-only.', 'https://wiki.warframe.com/w/Scorpion_Specter', 'DE ExportGear exact Scorpion Specter record + Wiki exact item identity'],
+  ['/Lotus/Upgrades/Skins/Sigils/SparkSigil', 'The Flickering Sigil is a legacy non-tradable sigil. The export records a 75-Platinum historical cost but excludes the exact item from the current Market; no current acquisition route is documented.', 'https://wiki.warframe.com/w/Flickering_Sigil', 'DE ExportCustoms exact Flickering Sigil record + Wiki exact item identity'],
+  ['/Lotus/Upgrades/Skins/Clan/SolarisBadgeItem', 'The Solaris Emblem is the legacy Fortuna/Solaris emblem. The export records the exact emblem as non-tradable and excluded from the current Market; no current purchase or drop route is documented.', 'https://wiki.warframe.com/w/Solaris_Emblem', 'DE ExportCustoms exact Solaris Emblem record + Solaris United historical emblem record'],
+  ['/Lotus/Upgrades/Skins/Operator/Accessories/OperatorNefAnyoMask', 'The Vox Solaris Mask is an unreleased legacy cosmetic in the export: it is non-tradable, excluded from the Market, and has no released player acquisition route.', 'https://wiki.warframe.com/w/Vox_Solaris_Mask', 'DE ExportCustoms exact Vox Solaris Mask record + Wiki exact item identity'],
+  ['/Lotus/Upgrades/Skins/Armor/WarframeDefaults/DagathImmortalArmArmor', 'This armor is included with the Dagath Immortal Skin, but the exact export record is non-tradable and excluded from the Market. The Dagath Immortal set is currently unobtainable and can only be chat-linked.', 'https://wiki.warframe.com/w/Dagath_Immortal_Skin', 'DE ExportCustoms exact additionalItems relationship + current cosmetic availability record'],
+  ['/Lotus/Upgrades/Skins/Dagath/DagathImmortalHelmet', 'This helmet is included with the Dagath Immortal Skin, but the exact export record is non-tradable and excluded from the Market. The Dagath Immortal set is currently unobtainable and can only be chat-linked.', 'https://wiki.warframe.com/w/Dagath_Immortal_Skin', 'DE ExportCustoms exact additionalItems relationship + current cosmetic availability record'],
+  ['/Lotus/Upgrades/Skins/Dagath/DagathImmortalSkin', 'The Dagath Immortal Skin includes the Dagath Immortal Armor and Helmet. The exact export record is non-tradable and excluded from the Market; the set is currently unobtainable and can only be chat-linked.', 'https://wiki.warframe.com/w/Dagath_Immortal_Skin', 'DE ExportCustoms exact additionalItems relationship + current cosmetic availability record'],
+  ['/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalHelmet', 'This helmet is included with the Protea Immortal Skin, but the exact export record is non-tradable and excluded from the Market. The Protea Immortal set is currently unobtainable and can only be chat-linked.', 'https://wiki.warframe.com/w/Protea_Immortal_Skin', 'DE ExportCustoms exact additionalItems relationship + current cosmetic availability record'],
+  ['/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalSkin', 'The Protea Immortal Skin includes the Protea Immortal Helmet. The exact export record is non-tradable and excluded from the Market; the set is currently unobtainable and can only be chat-linked.', 'https://wiki.warframe.com/w/Protea_Immortal_Skin', 'DE ExportCustoms exact additionalItems relationship + current cosmetic availability record'],
+  ['/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkinHelmet', 'This helmet was part of the retired Rubedo Plated Rhino Skin collection, which was distributed through Steam Trading Cards. The exact export record is non-tradable and excluded from the current Market.', 'https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards', 'Warframe Wiki retired Rubedo Plated collection record + DE ExportCustoms exact helmet identity'],
+  ['/Lotus/Upgrades/Skins/Necramech/NecramechVoidRigDefaultHelmet', 'The default Voidrig helmet is included when you acquire and build a Voidrig. Complete Heart of Deimos for the Voidrig blueprints, or obtain the blueprints from the Necraloid syndicate; this exact default helmet is not a separate Market item.', 'https://www.warframe.com/en/news/necramechs-guide', 'Official Warframe Necramechs Guide + DE ExportCustoms exact default-helmet identity'],
+  ['/Lotus/Types/AvatarImages/AvatarImageChatModerator', 'Awarded to Warframe chat moderators as a role privilege; it is not a Market item or a general promo-code reward.', 'https://warframe.fandom.com/wiki/Glyph', 'Warframe Wiki exact glyph identity + role-gated Chat Moderator record'],
+  ['/Lotus/Types/AvatarImages/AvatarImageLotusGuide', 'Awarded to Guides of the Lotus while that volunteer program existed. The program was removed, so this glyph is no longer obtainable through a current player program.', 'https://warframe.fandom.com/wiki/Sigils?page=2&title=Sigils', 'Warframe Wiki Guides of the Lotus program disposition + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/AvatarImageTennoTranslator', 'Awarded to players who contributed translations for Warframe; it is a role/contribution reward, not a Market item or public promo-code reward.', 'https://warframe.fandom.com/wiki/Sigils?page=2&title=Sigils', 'Warframe Wiki translator contribution record + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerUpdated', 'Distributed through the Warframe Creator/Partner program to eligible creators; the exact legacy record has no universal public purchase route and is not tradable.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartner', 'Distributed through the Warframe Partner program to eligible creators; the exact legacy record has no universal public purchase route and is not tradable.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerMug', 'Distributed through the Warframe Partner program as a creator-glyph variant; the exact legacy record has no universal public purchase route and is not tradable.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageWarframeFanChannel', 'Distributed through the Warframe fan-channel/creator program; the exact legacy record has no universal public purchase route and is not tradable.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageMGLblaze', 'This is a creator glyph distributed through MGLblaze’s Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/AvatarImageCreatorSnowLit', 'This is a creator glyph distributed through Snowlit’s Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageSzczebrzeszyniarz', 'This is a creator glyph distributed through the named Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/AvatarImageCreatorWgrates', 'This Lotus Symbol Glyph is a creator/fan-channel distribution record, not a normal Market item. The exact legacy record is non-tradable and its creator-controlled distribution is the acquisition route when available.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageDesRPG', 'The DesRPG Lotus Symbol Glyph was a creator glyph; the glyphs.wf partner record marks it as no longer in the game. Existing copies are legacy-owned only.', 'https://glyphs.wf/', 'glyphs.wf exact creator disposition + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageDramakins', 'This Lotus Symbol Glyph was distributed through Dramakins’ Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageKacchi', 'This Lotus Symbol Glyph was distributed through KingKacchi’s Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageLovinDaTacos', 'This Lotus Symbol Glyph was distributed through the named Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageSenastra', 'This Lotus Symbol Glyph was distributed through the named Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/Factions/GlyphFactionAmalgam', 'This is an internal faction glyph record for the Amalgam faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.', 'https://wiki.warframe.com/w/Amalgam_Glyph', 'DE/WFCD exact faction-glyph identity + current export route absence'],
+  ['/Lotus/Types/AvatarImages/Factions/GlyphFactionInfested', 'This is an internal faction glyph record for the Infested faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.', 'https://wiki.warframe.com/w/Infestation_Glyph', 'DE/WFCD exact faction-glyph identity + current export route absence'],
+  ['/Lotus/Types/AvatarImages/Factions/GlyphFactionDeimos', 'This is an internal faction glyph record for the Infested Deimos faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.', 'https://wiki.warframe.com/w/Infested_Deimos_Glyph', 'DE/WFCD exact faction-glyph identity + current export route absence'],
+  ['/Lotus/Types/AvatarImages/Factions/GlyphFactionOrokin', 'This is an internal faction glyph record for the Orokin faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.', 'https://wiki.warframe.com/w/Orokin_Glyph', 'DE/WFCD exact faction-glyph identity + current export route absence'],
+  ['/Lotus/Types/AvatarImages/AvatarImageGlyphDELogo', 'This Digital Extremes logo glyph is a staff/promotional record, not a normal Market item. The exact legacy record is non-tradable and has no public player acquisition route recorded.', 'https://wiki.warframe.com/w/Digital_Extremes_Glyph', 'DE/WFCD exact glyph identity + current export route absence'],
+  ['/Lotus/Types/AvatarImages/AvatarImageChatModerator', 'Awarded to Warframe chat moderators as a role privilege; it is not a Market item or a general promo-code reward.', 'https://warframe.fandom.com/wiki/Glyph', 'Warframe Wiki exact glyph identity + role-gated Chat Moderator record'],
+  ['/Lotus/Types/AvatarImages/AvatarImageGamingCommunityExpoTwentyFour', 'This GCX 2024 glyph is an event/promotional record, not a normal Market item. The current export and exact Wiki identity record do not expose a reusable public code or active route; existing copies are legacy-owned only.', 'https://wiki.warframe.com/w/Gcx_2024_Glyph', 'DE/WFCD exact GCX glyph identity + current export route absence'],
+  ['/Lotus/Types/AvatarImages/AvatarImageGlyphLegendaryQuasars', 'This is a legacy creator/partner glyph distributed through creator-controlled promotions rather than the Market. The exact non-tradable record has no current universal public route.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/AvatarImageGlyphCookieBoot', 'This is a legacy promotional/creator glyph, not a normal Market item. The exact non-tradable record has no current universal public code or active route.', 'https://wiki.warframe.com/w/Cookie_Boot_Glyph', 'WFCD exact glyph identity + current export route absence'],
+  ['/Lotus/Types/AvatarImages/SavePopcornGlyph', 'This is a legacy promotional glyph, not a normal Market item. The exact non-tradable record has no current universal public code or active route.', 'https://wiki.warframe.com/w/Save_Popcorn_Glyph', 'WFCD exact glyph identity + current export route absence'],
+]) {
+  WIKI_VERIFIED_ACQUISITIONS.set(uniqueName, { text, url, source });
+}
+
+// These exact records describe a verified disposition rather than a route a
+// player can currently follow. Keep them separate from normal acquisitions so
+// callers and audits do not mistake an explicit "unavailable" explanation for
+// a concrete source.
+export const WIKI_VERIFIED_DISPOSITIONS = new Map([
+  '/Lotus/Upgrades/Mods/Warframe/Expert/AvatarAbilityEfficiencyModExpert',
+  '/Lotus/Upgrades/Mods/Warframe/AvatarDamageResistanceStun',
+  '/Lotus/Types/Restoratives/Consumable/Eidolon/LandscapeTrapLightGear',
+  '/Lotus/Types/Restoratives/Consumable/MacheteWomanBall',
+  '/Lotus/Upgrades/Skins/Sigils/SparkSigil',
+  '/Lotus/Upgrades/Skins/Clan/SolarisBadgeItem',
+  '/Lotus/Upgrades/Skins/Operator/Accessories/OperatorNefAnyoMask',
+  '/Lotus/Upgrades/Skins/Armor/WarframeDefaults/DagathImmortalArmArmor',
+  '/Lotus/Upgrades/Skins/Dagath/DagathImmortalHelmet',
+  '/Lotus/Upgrades/Skins/Dagath/DagathImmortalSkin',
+  '/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalHelmet',
+  '/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalSkin',
+  '/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkinHelmet',
+  '/Lotus/Types/AvatarImages/AvatarImageChatModerator',
+  '/Lotus/Types/AvatarImages/AvatarImageLotusGuide',
+  '/Lotus/Types/AvatarImages/AvatarImageTennoTranslator',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerUpdated',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartner',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerMug',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageWarframeFanChannel',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageBennyfits',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageBikeman',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageSp00nerism',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageSummit1G',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageMGLblaze',
+  '/Lotus/Types/AvatarImages/AvatarImageCreatorSnowLit',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageSzczebrzeszyniarz',
+  '/Lotus/Types/AvatarImages/AvatarImageCreatorWgrates',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageDesRPG',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageDramakins',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageKacchi',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageLovinDaTacos',
+  '/Lotus/Types/AvatarImages/FanChannel/AvatarImageSenastra',
+  '/Lotus/Types/AvatarImages/Factions/GlyphFactionAmalgam',
+  '/Lotus/Types/AvatarImages/Factions/GlyphFactionInfested',
+  '/Lotus/Types/AvatarImages/Factions/GlyphFactionDeimos',
+  '/Lotus/Types/AvatarImages/Factions/GlyphFactionOrokin',
+  '/Lotus/Types/AvatarImages/AvatarImageGlyphDELogo',
+  '/Lotus/Types/AvatarImages/AvatarImageGamingCommunityExpoTwentyFour',
+  '/Lotus/Types/AvatarImages/AvatarImageGlyphLegendaryQuasars',
+  '/Lotus/Types/AvatarImages/AvatarImageGlyphCookieBoot',
+  '/Lotus/Types/AvatarImages/SavePopcornGlyph',
+].map((uniqueName) => [uniqueName, WIKI_VERIFIED_ACQUISITIONS.get(uniqueName)]),
+);
+
+for (const [uniqueName, text, url] of [
+  ['/Lotus/Upgrades/Skins/Operator/Hoods/WolfHood', 'Purchase the Wolf Hood blueprint from Nightwave Cred Offerings for 35 Cred, then build it in the Foundry.', 'https://wiki.warframe.com/w/Operator/Customization'],
+  ['/Lotus/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourBody', 'Purchase the Hawk Bishamo Cuirass blueprint from Teshin’s Steel Path Honors for 25 Steel Essence, then build it in the Foundry.', 'https://wiki.warframe.com/w/Steel_Path'],
+  ['/Lotus/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourLegs', 'Purchase the Hawk Bishamo Greaves blueprint from Teshin’s Steel Path Honors for 25 Steel Essence, then build it in the Foundry.', 'https://wiki.warframe.com/w/Steel_Path'],
+  ['/Lotus/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourHead', 'Purchase the Hawk Bishamo Helmet blueprint from Teshin’s Steel Path Honors for 20 Steel Essence, then build it in the Foundry.', 'https://wiki.warframe.com/w/Steel_Path'],
+  ['/Lotus/Upgrades/Skins/Operator/Armour/Teshin/TeshinArmourArms', 'Purchase the Hawk Bishamo Pauldrons blueprint from Teshin’s Steel Path Honors for 15 Steel Essence, then build it in the Foundry.', 'https://wiki.warframe.com/w/Steel_Path'],
+  ['/Lotus/Types/Keys/LimboQuest/LimboChassisTheorem', 'Awarded during The Limbo Theorem quest; use the theorem to run the quest mission that awards the Limbo Chassis blueprint.', 'https://support.warframe.com/hc/en-us/articles/360029276132-The-Limbo-Theorem-FAQ'],
+  ['/Lotus/Types/Keys/LimboQuest/LimboHelmetTheorem', 'Awarded during The Limbo Theorem quest; use the theorem to run the quest mission that awards the Limbo Neuroptics blueprint.', 'https://support.warframe.com/hc/en-us/articles/360029276132-The-Limbo-Theorem-FAQ'],
+  ['/Lotus/Types/Keys/LimboQuest/LimboSystemsTheorem', 'Awarded during The Limbo Theorem quest; use the theorem to run the quest mission that awards the Limbo Systems blueprint.', 'https://support.warframe.com/hc/en-us/articles/360029276132-The-Limbo-Theorem-FAQ'],
+  ['/Lotus/Types/Restoratives/Consumable/StalkerBall', 'The Stalker Specter blueprint was awarded at Rank 6 of Nightwave: Nora’s Mix Volume 7.', 'https://www.warframe.com/en/news/vol-7'],
+  ['/Lotus/Types/Recipes/Components/VorBoltRemoverFakeItem', 'Darvo gives the Ascaris Negator blueprint during Vor’s Prize; gather its quest materials and build it in the Foundry.', 'https://warframe.fandom.com/wiki/Ascaris_Negator'],
+  ['/Lotus/Types/Restoratives/Cipher', 'The 1x and 10x blueprints are bought from the Market Gear tab for 500 and 250,000 Credits; the reusable 100x blueprint is researched in a Dojo Tenno Lab.', 'https://wiki.warframe.com/w/Cipher'],
+  ['/Lotus/Types/Restoratives/Consumable/FomorianNegator', 'The reusable blueprint is available in the Market under Equipment → Gear for 5,000 Credits.', 'https://wiki.warframe.com/w/Fomorian_Disruptor'],
+  ['/Lotus/Types/Restoratives/Consumable/RazorbackCipher', 'Lotus sends the Razorback Cipher blueprint in the event message; its Cryptographic ALU component is obtained during the Razorback event.', 'https://wiki.warframe.com/w/Razorback_Cipher'],
+  ['/Lotus/Types/Restoratives/Consumable/Synthetics/FlareBlue', 'Purchase the reusable Fosfor Blau blueprint from Nakak in Cetus; the required Plains resources and the offered price rotate with Nakak’s daily inventory.', 'https://warframe.fandom.com/wiki/Fosfor'],
+  ['/Lotus/Types/Restoratives/Consumable/Synthetics/FlareRed', 'Purchase the reusable Fosfor Rahd blueprint from Nakak in Cetus; the required Plains resources and the offered price rotate with Nakak’s daily inventory.', 'https://warframe.fandom.com/wiki/Fosfor'],
+  ['/Lotus/Types/Restoratives/Consumable/InfestedIrradiatedBaitBall', 'The Potent Pherliac Pods blueprint is awarded during The Jordas Precept quest; build it in the Foundry using Pherliac Pods and Argon Crystals.', 'https://warframe.fandom.com/wiki/Pherliac_Pod?page=2'],
+  ['/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBDeck', 'The blueprint is acquired by completing the Dead Drop K-Drive Race on the Cambion Drift; active races rotate daily.', 'https://wiki.warframe.com/w/K-Drive'],
+  ['/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBEngine', 'The blueprint is acquired by completing the Muck and Mire K-Drive Race on the Cambion Drift; active races rotate daily.', 'https://wiki.warframe.com/w/K-Drive'],
+  ['/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBFront', 'The blueprint is acquired by completing the Exocrine Flow K-Drive Race on the Cambion Drift; active races rotate daily.', 'https://wiki.warframe.com/w/K-Drive'],
+  ['/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBJet', 'The blueprint is acquired by completing the Pride Before a Fall K-Drive Race on the Cambion Drift; active races rotate daily.', 'https://wiki.warframe.com/w/K-Drive'],
+  ['/Lotus/Weapons/Tenno/Bayonet/TnBayonetRifleWeapon', "Vinquibus' main and component blueprints are obtained from Roathe's Oblivion on Infernium 21 of The Descendia after The Old Peace, or purchased from Roathe in La Cathédrale for Maphica.", 'https://wiki.warframe.com/w/Vinquibus'],
+  ['/Lotus/Types/Recipes/WarframeRecipes/ChromaBeaconCComponent', 'The Chroma Mark blueprint is awarded during The New Strange quest and is required to progress the Chroma synthesis sequence.', 'https://warframe.fandom.com/wiki/The_New_Strange'],
+  ['/Lotus/Types/Recipes/Weapons/WeaponParts/DaxDuviriAsymmetricalLongBowString', 'The Cinta String blueprint is one of the Cinta component blueprints obtained by solving Enigma Puzzles in Duviri.', 'https://warframe.fandom.com/wiki/Cinta'],
+  ['/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipBlade', "The Dorrclave Blade blueprint is acquired from Dagath's Hollow in the Clan Dojo; its component blueprint requires Vainthorn from the Abyssal Zone.", 'https://warframe.fandom.com/wiki/Dorrclave'],
+  ['/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipHilt', "The Dorrclave Hilt blueprint is acquired from Dagath's Hollow in the Clan Dojo; its component blueprint requires Vainthorn from the Abyssal Zone.", 'https://warframe.fandom.com/wiki/Dorrclave'],
+  ['/Lotus/Types/Restoratives/Consumable/CorruptedBombardBall', 'The Corrupted Bombard Specter blueprint was a limited Baro Ki’Teer offering for 100 Ducats and 50,000 Credits (February 24–26, 2017 on PC).', 'https://warframe.fandom.com/wiki/Specter'],
+  ['/Lotus/Types/Ship/BasicUcResourceDrone', 'Purchase the reusable Distilling Extractor blueprint from the in-game Market for 50,000 Credits, then build it in the Foundry.', 'https://support.warframe.com/hc/en-us/articles/200492204-Extractors'],
+  ['/Lotus/Types/Ship/BasicResourceDrone', 'Purchase the reusable Titan Extractor blueprint from the in-game Market, then build the extractor in the Foundry.', 'https://support.warframe.com/hc/en-us/articles/200492204-Extractors'],
+  ['/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPowerSuit', 'Purchase the desired MOA component blueprints from Legs in Fortuna for Standing, build the parts, then configure the MOA at Legs for 4,000 Credits.', 'https://warframe.fandom.com/wiki/MOA_%28Companion%29'],
+  ['/Lotus/Types/Keys/InfestedAladVQuest/AssassinateInfestedAladVKey', 'The reusable Mutalist Alad V Assassinate blueprint is awarded for completing Patient Zero; build it with Mutalist Alad V Nav Coordinates to unlock the mission.', 'https://warframe.fandom.com/wiki/Blueprints'],
+  ['/Lotus/Types/Restoratives/TeamAmmoTotem', 'The reusable 1x and 10x Squad Ammo Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://warframe.fandom.com/wiki/Squad_Ammo_Restore'],
+  ['/Lotus/Types/Restoratives/TeamEnergyTotem', 'The reusable 1x and 10x Squad Energy Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://warframe.fandom.com/wiki/Squad_Energy_Restore'],
+  ['/Lotus/Types/Restoratives/TeamHealTotem', 'The reusable 1x and 10x Squad Health Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://warframe.fandom.com/wiki/Squad_Health_Restore'],
+  ['/Lotus/Types/Restoratives/TeamShieldTotem', 'The reusable 1x and 10x Squad Shield Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://warframe.fandom.com/wiki/Squad_Shield_Restore'],
+  ['/Lotus/Types/Gameplay/EntratiLab/Quest/GargoyleMiscItem', 'During Operation: Gargoyle’s Cry, build the Vigile Jahu Gargoyle in a Clan Dojo after Whispers in the Walls; the limited operation ended January 15, 2024.', 'https://www.warframe.com/en/news/operation-gargoyles-cry'],
+]) {
+  WIKI_VERIFIED_ACQUISITIONS.set(uniqueName, {
+    text,
+    url,
+    source: 'Exact Warframe Wiki or official support/announcement acquisition record + DE export exact uniqueName',
+  });
+}

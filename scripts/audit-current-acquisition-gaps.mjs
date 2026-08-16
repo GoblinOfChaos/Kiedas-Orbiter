@@ -13,15 +13,25 @@ const EVIDENCE_OUTPUT = resolve(ROOT, 'scripts/data-sources/acquisition-item-evi
 
 const readJson = (path) => JSON.parse(readFileSync(path, 'utf8'));
 const loadExport = (name) => readJson(resolve(EXPORT_ROOT, `${name}.json`));
-const canonical = (value) => value?.replace('/StoreItems/', '/') || value;
+const canonical = (value) => typeof value === 'string' ? value.replaceAll('/StoreItems/', '/') : value;
 
 const acquisitionItems = readJson(resolve(ASSET_ROOT, 'warframe-items-acquisition.json'));
 const acquisitionByPath = new Map(acquisitionItems.map((item) => [canonical(item.uniqueName), item]));
 const userInventory = readJson(resolve(process.env.HOME, '.local/share/kiedas-orbiter/data/user/inventory.json'));
 const ownedResourcePaths = new Set((userInventory.MiscItems || []).map((item) => canonical(item?.ItemType)).filter(Boolean));
+const ownedCosmeticPaths = new Set([
+  ...(userInventory.WeaponSkins || []),
+  ...(userInventory.FlavourItems || []),
+  ...(userInventory.MiscItems || []),
+  ...(userInventory.ShipDecorations || []),
+].map((item) => canonical(item?.ItemType)).filter(Boolean));
 const ownedUpgradePaths = new Set([
   ...(userInventory.Upgrades || []),
   ...(userInventory.RawUpgrades || []),
+].map((item) => canonical(item?.ItemType)).filter(Boolean));
+const ownedKeyPaths = new Set([
+  ...(userInventory.LevelKeys || []),
+  ...(userInventory.QuestKeys || []),
 ].map((item) => canonical(item?.ItemType)).filter(Boolean));
 const acquisitionArcanePaths = new Set(acquisitionItems
   .filter((item) => item?.uniqueName?.includes('/Upgrades/CosmeticEnhancers/'))
@@ -42,6 +52,11 @@ for (const name of [
 exportData.ExportUpgradesLocalized = exportData.ExportUpgrades;
 
 const readAsset = (name) => readJson(resolve(ASSET_ROOT, name));
+let wikiCosmeticModuleByPath = new Map();
+try {
+  const moduleAudit = readJson(resolve(ROOT, 'scripts/data-sources/wiki-cosmetic-module-audit.json'));
+  wikiCosmeticModuleByPath = new Map((moduleAudit.items || []).map((item) => [canonical(item.uniqueName), item]));
+} catch { /* optional discovery audit; the resolver remains independent of it */ }
 const bundledWikiBaroAcquisition = readAsset('wiki-baro-acquisition.json');
 const bundledWikiResourceAcquisition = readAsset('wiki-resources-acquisition.json');
 const bundledWikiPageAcquisition = readAsset('wiki-page-acquisition.json');
@@ -54,6 +69,41 @@ const ITEM_TABLES = new Set([
   'ExportRelics', 'ExportResources', 'ExportSentinels', 'ExportSyndicates',
   'ExportUpgrades', 'ExportWarframes', 'ExportWeapons',
 ]);
+
+// Exact-name pages found in the checked Wiki-repo snapshot. These are
+// identity records only: the snapshot pages were inspected for drops,
+// components, vendors, bundles, market fields, and acquisition prose. None
+// of these pages supplied a route for the matching unresolved object.
+const WIKI_REPO_EXACT_PAGES = new Map([
+  ['Amalgam Glyph', 'cosmetics/glyphs/amalgam-glyph.md'],
+  ['Chat Moderator Glyph', 'cosmetics/glyphs/chat-moderator-glyph.md'],
+  ['Cookie Boot Glyph', 'cosmetics/glyphs/cookie-boot-glyph.md'],
+  ['Digital Extremes Glyph', 'cosmetics/glyphs/digital-extremes-glyph.md'],
+  ['Gcx 2024 Glyph', 'cosmetics/glyphs/gcx-2024-glyph.md'],
+  ['Guides Of The Lotus Glyph', 'cosmetics/glyphs/guides-of-the-lotus-glyph.md'],
+  ['Infestation Glyph', 'cosmetics/glyphs/infestation-glyph.md'],
+  ['Infested Deimos Glyph', 'cosmetics/glyphs/infested-deimos-glyph.md'],
+  ['Legendary Quasars Glyph', 'cosmetics/glyphs/legendary-quasars-glyph.md'],
+  ['Lotus Symbol Glyph', 'cosmetics/glyphs/lotus-symbol-glyph.md'],
+  ['Mglblaze Glyph', 'cosmetics/glyphs/mglblaze-glyph.md'],
+  ['Orokin Glyph', 'cosmetics/glyphs/orokin-glyph.md'],
+  ['Save Popcorn Glyph', 'cosmetics/glyphs/save-popcorn-glyph.md'],
+  ['Snowlit Glyph', 'cosmetics/glyphs/snowlit-glyph.md'],
+  ['Tenno Translator Glyph', 'cosmetics/glyphs/tenno-translator-glyph.md'],
+  ['Top Hat & Monocle Glyph', 'cosmetics/glyphs/top-hat-monocle-glyph.md'],
+  ['Warframe Creator Glyph', 'cosmetics/glyphs/warframe-creator-glyph.md'],
+  ['Warframe Partner Glyph', 'cosmetics/glyphs/warframe-partner-glyph.md'],
+  ['Warframe Partner Mug Glyph', 'cosmetics/glyphs/warframe-partner-mug-glyph.md'],
+  ['Warframefanchannel Glyph', 'cosmetics/glyphs/warframefanchannel-glyph.md'],
+  ['Flickering Sigil', 'cosmetics/sigils/flickering-sigil.md'],
+  ['Rhino Rubedo Plated Helmet', 'cosmetics/skins/rhino-rubedo-plated-helmet.md'],
+  ['Solaris Emblem', 'cosmetics/skins/solaris-emblem.md'],
+  ['Voidrig Necramech Helmet', 'cosmetics/skins/voidrig-necramech-helmet.md'],
+  ['Vox Solaris Mask', 'cosmetics/skins/vox-solaris-mask.md'],
+  ['Beckonsnare', 'gear/beckonsnare.md'],
+  ['Scorpion Specter', 'gear/scorpion-specter.md'],
+]);
+const WIKI_REPO_URL = 'https://github.com/rhinos0608/Warframe-Wiki-Repo/blob/main/warframe-wiki/';
 
 // These export definitions are hidden/unreleased/removed placeholders, not
 // obtainable unowned catalog objects. The Mods screen applies the same
@@ -96,21 +146,22 @@ const acquisitionSource = readFileSync(resolve(ROOT, 'src/lib/acquisitionInfo.js
     `const bundledWikiDescriptionAcquisition = ${JSON.stringify(bundledWikiDescriptionAcquisition)};`,
   )
   .replace(
-    "import { WIKI_VERIFIED_ACQUISITIONS } from './wikiVerifiedAcquisitions';",
-    `const WIKI_VERIFIED_ACQUISITIONS = new Map(${JSON.stringify([...verifiedAcquisitions.WIKI_VERIFIED_ACQUISITIONS.entries()])});`,
+    "import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions';",
+    `const WIKI_VERIFIED_ACQUISITIONS = new Map(${JSON.stringify([...verifiedAcquisitions.WIKI_VERIFIED_ACQUISITIONS.entries()])});
+     const WIKI_VERIFIED_DISPOSITIONS = new Map(${JSON.stringify([...verifiedAcquisitions.WIKI_VERIFIED_DISPOSITIONS.entries()])});`,
   )
   .replace(
     "import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisitionData';",
     `const acquisitionIndex = ${JSON.stringify([...acquisitionByPath.entries()])};
      const acquisitionMap = new Map(acquisitionIndex);
      const getItemDrops = (uniqueName) => {
-       const item = acquisitionMap.get(uniqueName?.replace('/StoreItems/', '/') || uniqueName);
+       const item = acquisitionMap.get(typeof uniqueName === 'string' ? uniqueName.replaceAll('/StoreItems/', '/') : uniqueName);
        if (!item?.drops?.length) return null;
        return [...item.drops].sort((a, b) => (b.chance ?? 0) - (a.chance ?? 0)).map((d) => ({ type: 'drop', location: d.location, dropType: d.type, rarity: d.rarity, chance: d.chance, source: 'warframe-items' }));
      };
-     const isCraftable = (uniqueName) => !!acquisitionMap.get(uniqueName?.replace('/StoreItems/', '/') || uniqueName)?.craftable;
+     const isCraftable = (uniqueName) => !!acquisitionMap.get(typeof uniqueName === 'string' ? uniqueName.replaceAll('/StoreItems/', '/') : uniqueName)?.craftable;
      const getItemRecipe = (uniqueName) => {
-       const item = acquisitionMap.get(uniqueName?.replace('/StoreItems/', '/') || uniqueName);
+       const item = acquisitionMap.get(typeof uniqueName === 'string' ? uniqueName.replaceAll('/StoreItems/', '/') : uniqueName);
        if (!item?.craftable || !Array.isArray(item.components)) return null;
        const ingredients = item.components.filter((component) => component?.uniqueName && !/^blueprint$/i.test(component.name || '')).map((component) => ({ itemType: component.uniqueName, count: Number(component.itemCount) || 1, name: component.name || component.uniqueName }));
        return ingredients.length ? { blueprintCost: item.bpCost, buildCost: item.buildPrice, buildTime: item.buildTime, rushCost: item.skipBuildTimePrice, ingredients } : null;
@@ -154,6 +205,7 @@ function displayNameFor(uniqueName, entry) {
 }
 
 const catalog = new Map();
+const wfcdGlyphByPath = new Map();
 function addItem(uniqueName, name, category) {
   const key = canonical(uniqueName);
   if (!key || !name || name.startsWith('/Lotus/')) return;
@@ -185,6 +237,11 @@ for (const [tableName, table] of Object.entries(exportData)) {
     // with that real catalog rather than auditing thousands of unrendered
     // decorations, internal tokens, and future-only definitions.
     if (tableName === 'ExportResources' && !ownedResourcePaths.has(canonical(key))) continue;
+    // ExportKeys contains quest-chain definitions that are not rendered as
+    // Inventory cards when DE marks them hidden from the Codex. Keep an owned
+    // key auditable, but do not treat an unowned internal quest recipe as a
+    // player-facing catalog object.
+    if (tableName === 'ExportKeys' && entry.excludeFromCodex === true && !ownedKeyPaths.has(canonical(key))) continue;
     // Inventory.jsx applies the maintained acquisition allowlist to the
     // Arcanes catalog and excludes retired/internal export definitions unless
     // an owned copy is present. Mirror that exact catalog boundary here.
@@ -197,6 +254,10 @@ for (const [tableName, table] of Object.entries(exportData)) {
       if (!retained) continue;
       if (!entry.levelStats?.length && !ownedUpgradePaths.has(arcanePath)) continue;
     }
+    // Mods.jsx mirrors inventoryParser: DE definitions explicitly excluded
+    // from the Codex are not unowned catalog cards. They remain auditable only
+    // when present in the user's owned upgrade inventory.
+    if (tableName === 'ExportUpgrades' && entry.excludeFromCodex === true && !ownedUpgradePaths.has(canonical(key))) continue;
     // Cosmetics.jsx renders skins/sigils from ExportCustoms and glyphs from
     // WFCD. Other ExportCustoms/ExportFlavour entries are not catalog cards.
     if (tableName === 'ExportCustoms' && !/\/Upgrades\/Skins\//i.test(key)) continue;
@@ -211,13 +272,44 @@ for (const [uniqueName, relic] of Object.entries(exportData.ExportRelics || {}))
 }
 try {
   const combined = readJson(resolve(ROOT, 'src-tauri/data/assets/wfcd/wfcd-combined.json'));
-  for (const item of combined.Glyphs || []) addItem(item.uniqueName, item.name, 'Glyphs');
+  for (const item of combined.Glyphs || []) {
+    const key = canonical(item.uniqueName);
+    if (key) wfcdGlyphByPath.set(key, {
+      dataset: 'WFCD wfcd-combined Glyphs',
+      uniqueName: item.uniqueName,
+      name: item.name ?? null,
+      type: item.type ?? null,
+      category: item.category ?? null,
+    });
+    if ((item.excludeFromCodex === true || item.codexSecret === true) && !ownedCosmeticPaths.has(key)) continue;
+    addItem(item.uniqueName, item.name, 'Glyphs');
+  }
 } catch { /* Glyphs are optional for older bundles */ }
 
 // Cosmetics.jsx renders every ExportCustoms skin/sigil plus every WFCD Glyph.
 for (const [uniqueName, entry] of Object.entries(exportData.ExportCustoms || {})) {
   if (!/\/Upgrades\/Skins\//i.test(uniqueName)) continue;
   addItem(uniqueName, displayNameFor(uniqueName, entry), 'Cosmetics');
+}
+
+// Add exact export-state evidence to the in-memory status index before the
+// resolver runs. This keeps one audit invocation self-contained; it must not
+// require a second run merely because the status asset was refreshed at the
+// end of the previous invocation.
+for (const item of catalog.values()) {
+  const status = indexes.status?.get(item.uniqueName);
+  if (!status) continue;
+  const hidden = [...(item.sourcedCategories || [])].flatMap((tableName) => {
+    const entry = exportData[tableName]?.[item.uniqueName];
+    return entry ? [entry] : [];
+  }).some((entry) =>
+    (entry.codexSecret === true || entry.excludeFromCodex === true)
+    && (entry.showInInventory === false || entry.excludeFromMarket === true),
+  );
+  if (hidden) indexes.status.set(item.uniqueName, {
+    ...status,
+    exportDisposition: 'The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.',
+  });
 }
 
 function screensFor(item) {
@@ -269,26 +361,53 @@ function resolveItem(item) {
 const genericWiki = [];
 const genericFoundry = [];
 const unavailablePlaceholders = [];
+const verifiedUnavailable = [];
 const unverifiedStatus = [];
+const manualUnverified = [];
+const recipeOnly = [];
 const resolvedCounts = {};
 const evidence = [];
+const exportStatus = new Map();
 for (const item of [...catalog.values()].sort((a, b) => a.name.localeCompare(b.name) || a.uniqueName.localeCompare(b.uniqueName))) {
   const result = resolveItem(item);
   if (result.genericFoundry) genericFoundry.push({ ...item, text: result.texts.find((text) => text.startsWith('Built in the Foundry')) });
   if (item.unavailablePlaceholder) unavailablePlaceholders.push({ ...item, reason: 'DE export placeholder is hidden from unowned Mods catalog; owned copies remain visible.' });
   const sourceRecords = result.info.sources || [];
   const statusRecord = sourceRecords.find((source) => source.type === 'status');
+  const dispositionRecord = statusRecord && (
+    ['DE export status', 'Warframe Wiki disposition'].includes(statusRecord.source)
+    || statusRecord.source?.includes('exact')
+  )
+    ? statusRecord
+    : null;
   const weakSourceRecord = sourceRecords.find((source) =>
     source.text?.startsWith('Listed under ') ||
     source.source === 'DE export path rule' ||
     source.source === 'DE export variant identity' ||
     source.text === 'Available from an in-game vendor.'
   );
+  const manualRecord = sourceRecords.find((source) => source.type === 'override');
   if (!sourceRecords.length) {
     if (!item.unavailablePlaceholder) genericWiki.push({ ...item, wiki: result.info.wikiLink?.url || '', reason: 'sources=[]; drawer displays generic wiki/no-info fallback' });
+  } else if (dispositionRecord && !item.unavailablePlaceholder) {
+    verifiedUnavailable.push({ ...item, text: dispositionRecord.text, wiki: result.info.wikiLink?.url || '' });
   } else if ((statusRecord || weakSourceRecord) && !item.unavailablePlaceholder) {
     const record = statusRecord || weakSourceRecord;
     unverifiedStatus.push({ ...item, text: record.text, wiki: result.info.wikiLink?.url || '' });
+  } else if (manualRecord && !item.unavailablePlaceholder) {
+    manualUnverified.push({ ...item, text: manualRecord.text, wiki: result.info.wikiLink?.url || '' });
+  } else if (!item.unavailablePlaceholder
+    && result.info.recipe
+    && sourceRecords.length === 1
+    && sourceRecords[0].source === 'DE export'
+    && sourceRecords[0].type === 'non-drop'
+    && sourceRecords[0].text?.startsWith('Built in the Foundry')) {
+    recipeOnly.push({
+      ...item,
+      text: sourceRecords[0].text,
+      wiki: result.info.wikiLink?.url || '',
+      reason: 'The current source contains Foundry build details, but no verified blueprint/vendor/drop acquisition route was resolved for this exact object.',
+    });
   } else {
     resolvedCounts[sourceRecords[0].type || 'unknown'] = (resolvedCounts[sourceRecords[0].type || 'unknown'] || 0) + 1;
   }
@@ -309,11 +428,46 @@ for (const item of [...catalog.values()].sort((a, b) => a.name.localeCompare(b.n
       buildTime: entry.buildTime ?? null,
       codexSecret: entry.codexSecret ?? null,
       excludeFromCodex: entry.excludeFromCodex ?? null,
+      showInInventory: entry.showInInventory ?? null,
+      excludeFromMarket: entry.excludeFromMarket ?? null,
       introducedAt: entry.introducedAt ?? null,
     } });
   }
+  const internalExportObject = exportEvidence.some(({ fields }) =>
+    (fields.codexSecret === true || fields.excludeFromCodex === true)
+    && (fields.showInInventory === false || fields.excludeFromMarket === true),
+  );
+  if (internalExportObject && statusRecord) {
+    exportStatus.set(item.uniqueName, 'The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.');
+  }
   const acquisitionRecord = acquisitionByPath.get(item.uniqueName);
+  const wikiRepoPath = WIKI_REPO_EXACT_PAGES.get(item.name) || null;
+  const wikiRepoEvidence = wikiRepoPath ? {
+    dataset: 'rhinos0608/Warframe-Wiki-Repo',
+    path: wikiRepoPath,
+    url: `${WIKI_REPO_URL}${wikiRepoPath}`,
+    exactName: true,
+    acquisitionFieldsPresent: false,
+  } : null;
+  const identityEvidence = exportEvidence.length
+    ? { type: 'DE export', records: exportEvidence.map(({ table, key }) => ({ table, key })) }
+    : wfcdGlyphByPath.get(item.uniqueName)
+      ? wfcdGlyphByPath.get(item.uniqueName)
+      : acquisitionRecord
+        ? {
+          dataset: 'warframe-items-acquisition',
+          uniqueName: acquisitionRecord.uniqueName,
+          category: acquisitionRecord.category ?? null,
+          name: acquisitionRecord.name ?? null,
+        }
+        : null;
   const mismatches = [];
+  if (!exportEvidence.length && identityEvidence) {
+    mismatches.push({
+      type: 'de-export-identity-missing',
+      detail: `No exact DE export table record was present; identity is verified against ${identityEvidence.dataset || identityEvidence.type}.`,
+    });
+  }
   if (acquisitionRecord && canonical(acquisitionRecord.uniqueName) !== item.uniqueName) {
     mismatches.push({ type: 'acquisition-identity', detail: `warframe-items uniqueName ${acquisitionRecord.uniqueName} does not equal catalog path ${item.uniqueName}` });
   }
@@ -323,6 +477,9 @@ for (const item of [...catalog.values()].sort((a, b) => a.name.localeCompare(b.n
   if (sourceRecords.some((source) => source.type === 'drop') && !(acquisitionRecord?.drops?.length)) {
     mismatches.push({ type: 'drop-source-coverage', detail: 'resolver has a drop source that is not represented in this item record\'s warframe-items drops' });
   }
+  if (wikiRepoEvidence && !sourceRecords.some((source) => source.type === 'drop' || source.type === 'override' || source.type === 'wiki')) {
+    mismatches.push({ type: 'wiki-repo-no-acquisition-fields', detail: `Exact Wiki-repo page ${wikiRepoPath} exists, but its structured record has no acquisition fields or route.` });
+  }
   evidence.push({
     uniqueName: item.uniqueName,
     displayName: item.name,
@@ -330,6 +487,7 @@ for (const item of [...catalog.values()].sort((a, b) => a.name.localeCompare(b.n
     sourcedCategories: item.sourcedCategories,
     unavailablePlaceholder: !!item.unavailablePlaceholder,
     exportEvidence,
+    identityEvidence,
     acquisitionEvidence: acquisitionRecord ? {
       uniqueName: acquisitionRecord.uniqueName,
       category: acquisitionRecord.category ?? null,
@@ -354,8 +512,10 @@ for (const item of [...catalog.values()].sort((a, b) => a.name.localeCompare(b.n
     exportRelationships: {
       exaltedWith: indexes.exalted?.get(item.uniqueName) || [],
     },
+    wikiModuleEvidence: wikiCosmeticModuleByPath.get(item.uniqueName) || null,
+    wikiRepoEvidence,
     mismatches,
-    auditStatus: item.unavailablePlaceholder ? 'unobtainable-placeholder' : ((statusRecord || weakSourceRecord) ? 'wiki-status-no-acquisition-evidence' : (sourceRecords.length ? 'verified-source-record' : 'unresolved')),
+    auditStatus: item.unavailablePlaceholder ? 'unobtainable-placeholder' : (dispositionRecord ? 'verified-unavailable' : ((statusRecord || weakSourceRecord) ? 'wiki-status-no-acquisition-evidence' : (manualRecord ? 'manual-assertion-needs-source' : (recipeOnly.some((entry) => entry.uniqueName === item.uniqueName) ? 'recipe-only-no-acquisition-route' : (sourceRecords.length ? 'verified-source-record' : 'unresolved'))))),
   });
 }
 
@@ -367,11 +527,15 @@ const lines = [
   'This report runs the current `getAcquisitionInfo()` implementation against the real local export, bundled warframe-items acquisition data, curated wiki assets, and browse.wf Glyph data.',
   '',
   `Catalog items audited: **${catalog.size}**`,
-  `Items with concrete acquisition records: **${catalog.size - genericWiki.length - unavailablePlaceholders.length - unverifiedStatus.length}**`,
+  `Items with concrete acquisition records: **${catalog.size - genericWiki.length - unavailablePlaceholders.length - unverifiedStatus.length - manualUnverified.length - recipeOnly.length - verifiedUnavailable.length}**`,
   `Generic wiki / no-info items: **${genericWiki.length}**`,
   `Generic Foundry sentence items: **${genericFoundry.length}**`,
   `Unobtainable export placeholders: **${unavailablePlaceholders.length}**`,
+  `Records without a DE export identity (verified against a supplemental structured source instead): **${evidence.filter((item) => !item.exportEvidence.length && item.identityEvidence).length}**`,
   `Records without concrete acquisition evidence: **${unverifiedStatus.length}**`,
+  `Manual assertions still requiring source verification: **${manualUnverified.length}**`,
+  `Records with Foundry details but no verified acquisition route: **${recipeOnly.length}**`,
+  `Records with verified unavailable/disposition evidence: **${verifiedUnavailable.length}**`,
   '',
   'The app represents both “generic wiki” and “no info” as `sources: []`; those items are listed together below with their unique path and resolver reason.',
   '',
@@ -387,11 +551,33 @@ const lines = [
   '|---|---|---|---|',
   ...(genericWiki.length ? genericWiki.map((item) => `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.reason} |`) : ['| None |  |  |  |']),
   '',
+  '## Foundry details without a verified acquisition route',
+  '',
+  '| Name | Unique name | Category | Current Foundry text | Review reason | Wiki |',
+  '|---|---|---|---|---|---|',
+  ...(recipeOnly.length ? recipeOnly.map((item) => `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.text.replaceAll('|', '\\|')} | ${item.reason} | ${item.wiki} |`) : ['| None |  |  |  |  |  |']),
+  '',
   '## Records without concrete acquisition evidence',
   '',
-  '| Name | Unique name | Category | Current status text | Wiki |',
+  '| Name | Unique name | Category | Current status text | Wiki | Wiki-repo exact record |',
+  '|---|---|---|---|---|---|',
+  ...(unverifiedStatus.length ? unverifiedStatus.map((item) => {
+    const repoPath = WIKI_REPO_EXACT_PAGES.get(item.name);
+    const repo = repoPath ? `[exact identity; no acquisition fields](${WIKI_REPO_URL}${repoPath})` : 'None found';
+    return `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.text.replaceAll('|', '\\|')} | ${item.wiki} | ${repo} |`;
+  }) : ['| None |  |  |  |  |  |']),
+  '',
+  '## Manual acquisition assertions requiring source verification',
+  '',
+  '| Name | Unique name | Category | Current assertion | Wiki |',
   '|---|---|---|---|---|',
-  ...(unverifiedStatus.length ? unverifiedStatus.map((item) => `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.text.replaceAll('|', '\\|')} | ${item.wiki} |`) : ['| None |  |  |  |  |']),
+  ...(manualUnverified.length ? manualUnverified.map((item) => `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.text.replaceAll('|', '\\|')} | ${item.wiki} |`) : ['| None |  |  |  |  |']),
+  '',
+  '## Verified unavailable / disposition records',
+  '',
+  '| Name | Unique name | Category | Evidence | Wiki |',
+  '|---|---|---|---|---|',
+  ...(verifiedUnavailable.length ? verifiedUnavailable.map((item) => `| ${item.name.replaceAll('|', '\\|')} | \`${item.uniqueName}\` | ${item.category} | ${item.text.replaceAll('|', '\\|')} | ${item.wiki} |`) : ['| None |  |  |  |  |']),
   '',
   '## Unobtainable export placeholders',
   '',
@@ -410,6 +596,12 @@ writeFileSync(OUTPUT, `${lines.join('\n')}\n`);
 // Keep the machine-readable ledger compact; jq/any JSON viewer can format it
 // for inspection without inflating the checked-in artifact.
 writeFileSync(EVIDENCE_OUTPUT, `${JSON.stringify({ generatedAt: new Date().toISOString(), itemCount: evidence.length, items: evidence })}\n`);
-console.log(`Audited ${catalog.size} exact export/WFCD objects: ${catalog.size - genericWiki.length - unverifiedStatus.length - unavailablePlaceholders.length} concrete, ${genericWiki.length} generic/no-info, ${unverifiedStatus.length} status-only, ${genericFoundry.length} generic Foundry, ${unavailablePlaceholders.length} unavailable placeholders.`);
+const statusAssetPath = resolve(ASSET_ROOT, 'wiki-acquisition-status.json');
+const statusAsset = readAsset('wiki-acquisition-status.json');
+for (const [uniqueName, exportDisposition] of exportStatus) {
+  if (statusAsset[uniqueName]) statusAsset[uniqueName] = { ...statusAsset[uniqueName], exportDisposition };
+}
+writeFileSync(statusAssetPath, `${JSON.stringify(statusAsset, null, 2)}\n`);
+console.log(`Audited ${catalog.size} exact export/WFCD objects: ${catalog.size - genericWiki.length - unverifiedStatus.length - manualUnverified.length - recipeOnly.length - verifiedUnavailable.length - unavailablePlaceholders.length} source-verified, ${manualUnverified.length} manual assertions needing source verification, ${genericWiki.length} generic/no-info, ${unverifiedStatus.length} status-only, ${recipeOnly.length} recipe-only, ${verifiedUnavailable.length} verified unavailable, ${genericFoundry.length} generic Foundry, ${unavailablePlaceholders.length} unavailable placeholders.`);
 console.log(`Wrote ${OUTPUT}`);
 console.log(`Wrote ${EVIDENCE_OUTPUT}`);

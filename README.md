@@ -26,8 +26,17 @@ provides live world-state data, and real-time OCR-powered overlays and notificat
 * **Inventory & Foundry** - Search inventory with filters including prime sets, track foundry
   blueprints.
 * **Mods** - Browse non-riven mod inventory with search and filtering.
-* **Rivens** - View owned rivens with neural network price prediction with grading and reroll potential analysis.
+* **Rivens** - View owned rivens with a stat-based grade (S-F, from known good rolls) and a
+  separate ONNX neural-network platinum price estimate.
 * **Relic Management** - Track owned relics grouped by era/name with refinement counts.
+* **Relic Planner** - Pick prime parts you still need and find which relics (owned or not,
+  vaulted or not) drop them.
+* **Adversaries** - Track Kuva Lich and Sister of Parvos history (converted/vanquished/traded,
+  progenitor element, rank) plus owned Tenet weapons as fallback evidence of past Sister kills.
+* **Cosmetics** - Browse Warframe/weapon skins, sigils, and glyphs with ownership status, type
+  filters, and acquisition-source lookup.
+* **Prime Resurgence** - Track Varzia's current Prime Resurgence rotation (equipment, cosmetics,
+  bundles) against your inventory, with expiry date and per-part ownership.
 * **Notifications & Overlays** - Overlays for Rivens and fissure rewards, notifications for Arbitrations, Void Fissures, Foundry and more.
 * **Mastery Tracker** - MR progress, starchart completion, mastery XP totals by category.
 * **Notes** - Built in markdown notepad for notes on builds, strategies, etc.
@@ -37,6 +46,8 @@ provides live world-state data, and real-time OCR-powered overlays and notificat
   focus school progress and syndicate standings.
 * **Collectibles** - Track Kuria, somachord, frame fighter fragments, cephalon fragments,
   Leverian prex cards, open world exploration from inventory data.
+* **Wiki** - Built-in browser tabs for the Warframe Wiki, embedded as native webviews within the
+  app window.
 * **Settings** - Theme picker, sync controls, global hotkeys, update triggers.
 
 ## FAQ

@@ -4,10 +4,32 @@ import { Box } from 'lucide-react';
 import { useState, useMemo, memo } from 'react';
 
 const CUSTOM = new Set(['Requiem', 'Tome', 'Antivirus', 'Potency', 'Tektolyst']);
-const NO_SIDE = new Set(['Amalgam', 'Peculiar']);
+// Frames whose asset pack has no SideLight.png / CornerLights.png at all -
+// requesting them 403s (no such file) and spams the console for no visual
+// benefit, since the <img> just fails silently either way.
+const NO_SIDE = new Set(['Amalgam', 'Peculiar', 'Archon', 'Arcanes']);
+const NO_CORNER = new Set(['Galvanized', 'Arcanes', 'Archon']);
 const CARD_RATIO = 290 / 409;
 const CANVAS_W = 290;
 const CANVAS_H = 409;
+
+// These four text-description icons are part of DE's ExportTextIcons table but
+// are not present in the bundled UI asset pack. Use the authoritative public
+// export CDN for these known gaps instead of generating local 403 requests.
+const MISSING_TAG_ICON_CDN = {
+  'FocusCleanNaramon_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanNaramon_d.png',
+  'FocusCleanMadurai_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanMadurai_d.png',
+  'Energy_d.png': 'https://browse.wf/Lotus/Interface/Graphics/Abilities/AbilityIcon/Energy_d.png',
+  'HildrynEnergyShield.png': 'https://browse.wf/Lotus/Interface/Graphics/Abilities/HildrynEnergyShield.png',
+  // These legacy text-icon paths are not entries in ExportImages, so the
+  // unhashed PublicExport endpoint returns 404. browse.wf serves these paths
+  // directly (and is also used for the other text-description icons above).
+  'FocusCleanUnairu_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanUnairu_d.png',
+  'FocusCleanZenurik_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanZenurik_d.png',
+  'FocusCleanVazarin_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanVazarin_d.png',
+  'Affinity.png': 'https://browse.wf/Lotus/Interface/Icons/ModBuffIndicators/Affinity.png',
+  'SentientFactionIcon.png': 'https://content.warframe.com/PublicExport/Lotus/Interface/Icons/SentientFactionIcon.png!00_tZ2I0XDNB73b5-tqyBa6Dw',
+};
 
 const TIER_COLORS = {
   'Normal Common': '#CA9A87',
@@ -141,7 +163,7 @@ const POLARITY_FILES = {
   'AP_ANY': 'PolarityUniversal.png'
 };
 
-function renderDesc(text, textColor, iconsPath, tagIconMap) {
+function renderDesc(text, textColor, iconsPath, tagIconMap, resolveTagIcon) {
   if (!text) return null;
   const normalized = text.replace(/\r\n/g, '\n');
   const parts = normalized.split(/(<[A-Z_]+>)/);
@@ -161,7 +183,7 @@ function renderDesc(text, textColor, iconsPath, tagIconMap) {
       } else {
         const iconFile = tagIconMap?.[tagName];
         if (iconFile && iconsPath) {
-          elements.push(<img key={elements.length} src={u(iconsPath, '', iconFile)} style={{ width: '11px', height: '11px', display: 'inline', verticalAlign: 'middle' }} alt="" onError={(e) => e.target.style.display = 'none'} />);
+          elements.push(<img key={elements.length} src={resolveTagIcon(iconFile)} style={{ width: '11px', height: '11px', display: 'inline', verticalAlign: 'middle' }} alt="" onError={(e) => e.target.style.display = 'none'} />);
         }
         currentColor = null;
         currentTag = null;
@@ -182,7 +204,7 @@ function renderDesc(text, textColor, iconsPath, tagIconMap) {
           const rest = spaceIdx >= 0 ? line.slice(spaceIdx) : '';
           elements.push(
             <span key={`${elements.length}-color`} style={{ color: currentColor, display: 'inline-flex', alignItems: 'center', gap: '1px' }}>
-                {iconFile && iconsPath ? <img src={u(iconsPath, '', iconFile)} style={{ width: '11px', height: '11px', flexShrink: 0 }} alt="" onError={(e) => e.target.style.display = 'none'} /> : null}
+                {iconFile && (iconsPath || MISSING_TAG_ICON_CDN[iconFile]) ? <img src={resolveTagIcon(iconFile)} style={{ width: '11px', height: '11px', flexShrink: 0 }} alt="" onError={(e) => e.target.style.display = 'none'} /> : null}
                 <span>{word}</span>
               </span>
           );
@@ -199,7 +221,9 @@ function renderDesc(text, textColor, iconsPath, tagIconMap) {
 }
 
 function u(base, folder, file) {
-  return base ? convertFileSrc(`${base}/${folder}/${file}`) : null;
+  if (!base) return null;
+  const parts = [base, folder, file].filter((p) => p !== '' && p != null).map((p, i) => i === 0 ? String(p) : String(p).replace(/^\/+|\/+$/g, ''));
+  return convertFileSrc(parts.join('/'));
 }
 
 function Img({ src, className, style }) {
@@ -260,7 +284,12 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const color = mf === 'Tektolyst' ? TEKTOLYST_TEXT_COLORS[mod.name] || TIER_COLORS[mf] || '#FFFFFF' : TIER_COLORS[mf] || '#FFFFFF';
   const tektolystGroup = mf === 'Tektolyst' ? TEKTOLYST_COLOR_GROUPS[mod.name] || 'Silver' : null;
   const cardScale = width / 180;
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
+  const iconSrc = (name) => {
+    if (!iconsPath) return null;
+    const cleanName = String(name).replace(/^\/+/, '');
+    return convertFileSrc(`${iconsPath}/${cleanName.endsWith('.png') ? cleanName : `${cleanName}.png`}`);
+  };
+  const resolveTagIcon = (name) => MISSING_TAG_ICON_CDN[name] || iconSrc(name);
 
   const tagIconMap = useMemo(() => {
     if (!exportTextIcons) return {};
@@ -364,22 +393,30 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const sl = custom || NO_SIDE.has(mf) ? null : f('SideLight');
   const bk = custom && mf !== 'Requiem' && mf !== 'Antivirus' && mf !== 'Potency' ? null : !mod.baseDrain ? null : f('RightBacker');
   const lt = custom || hideCategory ? null : f('LowerTab');
-  const cl = custom ? null : f('CornerLights');
+  const cl = custom || NO_CORNER.has(mf) ? null : f('CornerLights');
 
   const rank = mod.rank ?? 0;
   const desc = (() => {
-    if (mod.description && mod.description.length > 0) return mod.description;
+    // Some exports ship a trigger-only description (e.g. "On Respawn:")
+    // with no actual effect text - the complete effect only exists in
+    // levelStats. A description is trigger-only if it's just a label
+    // ending in ":" with nothing meaningful after it.
+    const description = mod.description?.trim() ?? '';
+    const isTriggerOnly = /:\s*$/.test(description);
+    if (description.length > 0 && !isTriggerOnly) return mod.description;
     if (mod.levelStats && Array.isArray(mod.levelStats)) {
       const max = mod.levelStats[mod.levelStats.length - 1];
       if (max && Array.isArray(max.stats)) {
-        const joined = max.stats.map((s) => s.replace(/<LINE_SEPARATOR>[\r\n]*/g, '')).join('\n');
+        const joined = max.stats.map((s) => s.replace(/<LINE_SEPARATOR>[\r\n]*/g, '').replace(/\\n/g, '\n')).join('\n');
         // DE ships augment descriptions with a redundant "<Name> Augment: "
         // prefix baked into the localized stats; strip it (the title already
         // shows the mod name).
         return joined.replace(/^[^\n]*? Augment: /, '');
       }
     }
-    return '';
+    // No usable levelStats either - fall back to the trigger-only label
+    // rather than showing nothing.
+    return description;
   })();
   const cat = mod.category || '';
   const displayCompleteLine = mod.max_rank > 0 && rank >= mod.max_rank && mf !== 'Arcanes' && (mf === 'Tektolyst' || !custom);
@@ -448,7 +485,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
             </p>
             {hasDesc &&
           <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color, fontSize: `${11 * cardScale}px` }}>
-                {renderDesc(desc, color, iconsPath, tagIconMap)}
+                {renderDesc(desc, color, iconsPath, tagIconMap, resolveTagIcon)}
               </p>
           }
           </div>
@@ -471,7 +508,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
             </p>
             {hasDesc &&
           <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color, fontSize: `${10 * cardScale}px` }}>
-                {renderDesc(desc, color, iconsPath, tagIconMap)}
+                {renderDesc(desc, color, iconsPath, tagIconMap, resolveTagIcon)}
               </p>
           }
             {mod.max_rank > 0 &&
@@ -521,7 +558,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
             </p>
             {hasDesc &&
           <p className="leading-tight drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Outfit, sans-serif', color: color, fontSize: `${11 * cardScale}px` }}>
-                {renderDesc(desc, color, iconsPath, tagIconMap)}
+                {renderDesc(desc, color, iconsPath, tagIconMap, resolveTagIcon)}
               </p>
           }
           </div>

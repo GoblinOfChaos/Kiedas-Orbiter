@@ -47,6 +47,7 @@ function itemsToMap(items) {
       omegaAttenuation: item.omegaAttenuation,
       masteryReq: item.masteryReq,
       excludeFromCodex: item.excludeFromCodex,
+      masterable: item.masterable,
       variantType: item.isPrime ? 'VT_PRIME' : undefined,
       primeSellingPrice: item.primeSellingPrice,
       quality: item.quality,

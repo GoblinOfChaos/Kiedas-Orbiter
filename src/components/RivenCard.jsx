@@ -19,7 +19,9 @@ const POLARITY_FILES = {
 };
 
 function u(base, folder, file) {
-  return base ? convertFileSrc(`${base}/${folder}/${file}`) : null;
+  if (!base) return null;
+  const parts = [base, folder, file].filter((p) => p !== '' && p != null).map((p, i) => i === 0 ? String(p) : String(p).replace(/^\/+|\/+$/g, ''));
+  return convertFileSrc(parts.join('/'));
 }
 
 function SafeImg({ src, className, style, onError }) {
@@ -27,7 +29,7 @@ function SafeImg({ src, className, style, onError }) {
   return <img src={src} className={className} style={{ ...style, opacity: 0, transition: 'opacity 0.15s' }} alt="" loading="lazy" onLoad={(e) => e.target.style.opacity = 1} onError={(e) => {e.target.style.display = 'none';onError?.();}} />;
 }
 
-export default function RivenCard({ riven, framesPath, iconsPath, width = 180, estimate }) {
+export default function RivenCard({ riven, framesPath, iconsPath, width = 180, estimate, statGrade }) {
   const { t } = useUi()
   const cardScale = width / 180;
   const mf = 'Riven';
@@ -50,7 +52,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
   }, []);
 
   const f = (file) => u(framesPath, mf, file);
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
   const bg = f('Background.png') || f('SilverBackground.png');
   const ft = f('FrameTop.png') || f('RivenFrameTop.png');
   const fb = f('FrameBottom.png');
@@ -195,14 +197,14 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
         </>
       }
 
-      {estimate && !riven.veiled && !riven.challenge &&
+      {statGrade?.grade && !riven.veiled && !riven.challenge &&
       <div className="absolute top-1 left-1" style={{ zIndex: 10 }}>
-          <span className={`text-[11px] font-black px-1.5 py-0.5 rounded shadow-sm ${estimate.grade === 'S' ? 'bg-yellow-400 text-black' :
-        estimate.grade === 'A' ? 'bg-green-500 text-white' :
-        estimate.grade === 'B' ? 'bg-blue-500 text-white' :
-        estimate.grade === 'C' ? 'bg-zinc-500 text-white' :
+          <span className={`text-[11px] font-black px-1.5 py-0.5 rounded shadow-sm ${statGrade.grade === 'S' ? 'bg-yellow-400 text-black' :
+        statGrade.grade === 'A' ? 'bg-green-500 text-white' :
+        statGrade.grade === 'B' ? 'bg-blue-500 text-white' :
+        statGrade.grade === 'C' ? 'bg-zinc-500 text-white' :
         'bg-red-500 text-white'}`
-        }>{estimate.grade}</span>
+        } title={statGrade.label}>{statGrade.grade}</span>
         </div>
       }
 
@@ -238,7 +240,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
             const wr = estimate.weapon_rank ?? 999;
             const total = estimate.total_weapons ?? 1;
             const tier = wr <= total * 0.2 ? 'Meta' : wr <= total * 0.5 ? 'Popular' : wr <= total * 0.7 ? 'Average' : wr <= total * 0.9 ? 'Niche' : 'Unpopular';
-            const roll = estimate.grade === 'S' ? 'perfect' : estimate.grade === 'A' ? 'Good' : estimate.grade === 'B' ? 'Average' : estimate.grade === 'C' ? 'Mediocre' : 'Bad';
+            const roll = statGrade?.grade === 'S' ? 'perfect' : statGrade?.grade === 'A' ? 'Good' : statGrade?.grade === 'B' ? 'Average' : statGrade?.grade === 'C' ? 'Mediocre' : 'Bad';
             return <div className="text-center text-[11px] font-bold text-kronos-accent leading-snug">{tier} weapon, {roll}{t('riven_card.rolls')}</div>;
           })()}
           </div>

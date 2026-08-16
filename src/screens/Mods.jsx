@@ -5,45 +5,38 @@ import { PageLayout, Input, Button, Tabs, MonitorState } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import ModCard from '../components/ModCard';
+import { getAcquisitionInfo } from '../lib/acquisitionInfo';
+import { loadAcquisitionData } from '../lib/acquisitionData';
+import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
 
 const CARD_WIDTH = 200;
 const COL_GAP = 50;
 
-const TYPE_TO_CATEGORY = {
-  Rifle: 'Primary', Shotgun: 'Primary', Primary: 'Primary', Bows: 'Primary',
-  Pistol: 'Secondary', Secondary: 'Secondary',
-  Melee: 'Melee', Sword: 'Melee', Glaive: 'Melee', Heavy: 'Melee', NoFire: 'Melee',
-  Warframe: 'Warframe', Avatar: 'Warframe', Necramech: 'Vehicles', Necromech: 'Vehicles',
-  Sentinel: 'Sentinels', Sentinels: 'Sentinels',
-  Beast: 'Beasts', Beasts: 'Beasts',
-  Stance: 'Stance',
-  Aura: 'Aura',
-  Exilus: 'Exilus',
-  Railjack: 'Railjack', Avionic: 'Railjack',
-  Archwing: 'Archgun', Archgun: 'Archgun',
-  Archmelee: 'Archmelee',
-  Parazon: 'Parazon', Hack: 'Parazon', DataSpike: 'Parazon', Nemesis: 'Parazon',
-  Augment: 'Augment',
-  Antique: 'Antique', Antiques: 'Antique', Immortal: 'Antique',
-  KDrive: 'Vehicles', Vehicles: 'Vehicles', Hoverboard: 'Vehicles'
-};
-
-function extractModCategory(un) {
-  if (!un) return null;
-  const m2 = un.match(/\/Mods\/(?:Sets|PvPMods)\/([^/]+)/);
-  if (m2 && TYPE_TO_CATEGORY[m2[1]]) return TYPE_TO_CATEGORY[m2[1]];
-  const m = un.match(/\/Mods\/([^/]+)/);
-  if (!m) return null;
-  return TYPE_TO_CATEGORY[m[1]] || null;
-}
-
 export default function Mods() {
   const { t } = useUi()
+  // Keep the asset filename separate from the translated display label. Some
+  // categories do not have a same-named export asset (Robotic and Tome).
   const CATEGORIES = [
-    t('mods.cat_all'), t('mods.cat_warframe'), t('mods.cat_primary'), t('mods.cat_secondary'), t('mods.cat_melee'),
-    t('mods.cat_sentinels'), t('mods.cat_beasts'), t('mods.cat_stance'), t('mods.cat_aura'), t('mods.cat_exilus'),
-    t('mods.cat_railjack'), t('mods.cat_archgun'), t('mods.cat_archmelee'), t('mods.cat_parazon'),
-    t('mods.cat_augment'), t('mods.cat_antique'), t('mods.cat_vehicles'), t('mods.cat_arcanes')];
+    { label: t('mods.cat_all'), icon: 'All' },
+    { label: t('mods.cat_warframe'), icon: 'Warframe' },
+    { label: t('mods.cat_primary'), icon: 'Primary' },
+    { label: t('mods.cat_secondary'), icon: 'Secondary' },
+    { label: t('mods.cat_melee'), icon: 'Melee' },
+    { label: t('mods.cat_sentinels'), icon: 'Sentinels' },
+    { label: t('mods.cat_robotic'), icon: 'Companion' },
+    { label: t('mods.cat_beasts'), icon: 'Beasts' },
+    { label: t('mods.cat_stance'), icon: 'Stance' },
+    { label: t('mods.cat_aura'), icon: 'Aura' },
+    { label: t('mods.cat_exilus'), icon: 'Exilus' },
+    { label: t('mods.cat_railjack'), icon: 'Railjack' },
+    { label: t('mods.cat_archgun'), icon: 'Archgun' },
+    { label: t('mods.cat_archmelee'), icon: 'Archmelee' },
+    { label: t('mods.cat_parazon'), icon: 'Parazon' },
+    { label: t('mods.cat_augment'), icon: 'Augment' },
+    { label: t('mods.cat_antique'), icon: 'Antique' },
+    { label: t('mods.cat_tome'), icon: 'Mods' },
+    { label: t('mods.cat_vehicles'), icon: 'Vehicles' },
+  ];
 
   const SORT_OPTIONS = [
     { id: 'name', label: t('mods.sort_name') },
@@ -52,7 +45,17 @@ export default function Mods() {
     { id: 'rarity', label: t('mods.sort_rarity') },
     { id: 'value', label: t('mods.sort_value') }];
 
-  const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading, priceFetchProgress } = useMonitoring();
+  const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportComponentIndex } = useMonitoring();
+
+  const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
+  const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
+  useEffect(() => {
+    invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
+      .then((bytes) => setAcquisitionOverrides(JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))))
+      .catch(() => setAcquisitionOverrides({ components: {}, mods: {} }));
+    loadAcquisitionData().then(() => setAcquisitionDataReady(true));
+  }, []);
+  const { openKey, toggle, close } = useAcquisitionDrawer();
   const [framesPath, setFramesPath] = useState('');
   const [iconsPath, setIconsPath] = useState('');
 
@@ -60,10 +63,15 @@ export default function Mods() {
   const [sortCriteria, setSortCriteria] = useState('name');
   const [sortDirection, setSortDirection] = useState('asc');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [ownershipFilter, setOwnershipFilter] = useState('all');
   const [maxRankOnly, setMaxRankOnly] = useState(false);
   const [hideConclave, setHideConclave] = useState(false);
   const [visibleCount, setVisibleCount] = useState(60);
-  const mods = [...(inventoryData?.mods ?? []), ...(inventoryData?.arcanes ?? [])];
+  const mods = useMemo(() => (inventoryData?.mods_catalog ?? inventoryData?.mods ?? [])
+    // Peely Pix/Archimedea stickers have their own tab. They are represented
+    // alongside mods in the parser for inventory compatibility, but must not
+    // be rendered as mods.
+    .filter((mod) => !mod?._isSticker), [inventoryData]);
   const modPrices = allPrices;
   const loadingPrices = isPriceLoading;
 
@@ -77,7 +85,7 @@ export default function Mods() {
 
   useEffect(() => {
     setVisibleCount(60);
-  }, [searchQuery, selectedCategory, maxRankOnly, hideConclave]);
+  }, [searchQuery, selectedCategory, ownershipFilter, maxRankOnly, hideConclave]);
 
   const filtered = useMemo(() => {
     let items = mods;
@@ -89,8 +97,19 @@ export default function Mods() {
         return q.every((w) => (m.name ?? '').toLowerCase().includes(w) || descText.toLowerCase().includes(w));
       });
     }
-    if (selectedCategory !== 'All') {
+    if (selectedCategory === t('mods.cat_exilus')) {
+      // Exilus-slot compatibility cuts across mod families (a Tome mod, a
+      // Warframe mod, etc. can all be Exilus-slotted) - match the trait
+      // directly instead of a single exclusive category, so a mod like
+      // Fass Canticle shows under both Tome and Exilus.
+      items = items.filter((m) => m.isExilus);
+    } else if (selectedCategory !== t('mods.cat_all')) {
       items = items.filter((m) => m.category === selectedCategory);
+    }
+    if (ownershipFilter === 'owned') {
+      items = items.filter((m) => m.owned);
+    } else if (ownershipFilter === 'unowned') {
+      items = items.filter((m) => !m.owned);
     }
     if (maxRankOnly) {
       items = items.filter((m) => m.rank >= m.max_rank);
@@ -117,11 +136,18 @@ export default function Mods() {
       return sortDirection === 'asc' ? av < bv ? -1 : av > bv ? 1 : 0 : av < bv ? 1 : av > bv ? -1 : 0;
     });
     return sorted;
-  }, [mods, searchQuery, selectedCategory, maxRankOnly, sortCriteria, sortDirection]);
+  }, [mods, searchQuery, selectedCategory, ownershipFilter, maxRankOnly, sortCriteria, sortDirection]);
 
   const visible = filtered.slice(0, visibleCount);
   const uniqueMods = new Set(filtered.map((m) => m.name)).size;
   const dupCount = filtered.filter((m) => m.quantity > 1).length;
+
+  const openItem = useMemo(() => {
+    if (!openKey || !acquisitionDataReady) return null;
+    const mod = visible.find((m) => m.unique_name === openKey);
+    if (!mod) return null;
+    return { uniqueName: mod.unique_name, displayName: mod.name, info: getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) };
+  }, [openKey, acquisitionDataReady, visible, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportComponentIndex]);
 
   const handleSortChange = (id) => {
     if (id === sortCriteria) {
@@ -165,6 +191,11 @@ export default function Mods() {
           <Filter size={14} className="text-kronos-dim mx-1" />
           <div className="flex gap-1">
             <button
+            onClick={() => setOwnershipFilter((value) => value === 'all' ? 'owned' : value === 'owned' ? 'unowned' : 'all')}
+            className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+            >{ownershipFilter === 'unowned' ? 'Unowned' : ownershipFilter === 'owned' ? 'Owned' : 'All'}
+            </button>
+            <button
             onClick={() => setMaxRankOnly((v) => !v)}
             className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${maxRankOnly ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>{t('mods.max_rank')}
 
@@ -182,21 +213,21 @@ export default function Mods() {
 
       <div className="flex items-center gap-3">
         <div className="flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
-          {CATEGORIES.map((t) => {
+          {CATEGORIES.map(({ label, icon }) => {
           const iconUrl = iconsPath ?
-          convertFileSrc(`${iconsPath}/Categories/${t}.png`) :
+          convertFileSrc(`${iconsPath}/Categories/${icon}.png`) :
           null;
           return (
             <button
-              key={t}
-              onClick={() => setSelectedCategory(t)}
-              className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5 ${selectedCategory === t ?
+              key={label}
+              onClick={() => setSelectedCategory(label)}
+              className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5 ${selectedCategory === label ?
               'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]' :
               'text-kronos-dim hover:text-white hover:bg-white/5'}`
               }>
               
                 {iconUrl && <img src={iconUrl} className="w-4 h-4 object-contain" alt="" />}
-                {t}
+                {label}
               </button>);
 
         })}
@@ -206,11 +237,12 @@ export default function Mods() {
 
 
   return (
+    <>
     <PageLayout
       titleKey="screen.mods"
       subtitle={`${filtered.length} total · ${uniqueMods} unique · ${dupCount} duplicate`}
       headerPanel={renderHeaderPanel()}>
-      
+
       {inventoryData && (fixProgress.checking || fixProgress.phase && fixProgress.phase !== 'done') ?
       fixProgress.phase ?
       <div className="flex flex-col items-center justify-center py-20 gap-4">
@@ -281,19 +313,23 @@ export default function Mods() {
             justifyContent: 'center'
           }}>
           
-            {visible.map((mod, i) =>
-          <ModCard
+          {visible.map((mod, i) => (
+          <div
             key={`${mod.unique_name}_${mod.rank}_${i}`}
-            mod={mod}
-            framesPath={framesPath}
-            iconsPath={iconsPath}
-            cardImagesPath={cardImagesPath}
-            width={CARD_WIDTH}
-            exportTextIcons={ExportTextIcons}
-            platValue={modPrices?.[mod.unique_name] ?? 0}
-            pricesLoading={loadingPrices} />
-
-          )}
+            className={`relative cursor-pointer ${mod.owned ? '' : 'grayscale opacity-60'}`}
+            style={{ contentVisibility: 'auto', containIntrinsicSize: `${CARD_WIDTH}px 409px` }}
+            onClick={() => toggle(mod.unique_name)}>
+            <ModCard
+              mod={mod}
+              framesPath={framesPath}
+              iconsPath={iconsPath}
+              cardImagesPath={cardImagesPath}
+              width={CARD_WIDTH}
+              exportTextIcons={ExportTextIcons}
+              platValue={modPrices?.[mod.unique_name] ?? 0}
+              pricesLoading={loadingPrices} />
+          </div>
+            ))}
           </div>
           {visibleCount < filtered.length &&
         <div className="flex justify-center py-8">
@@ -304,6 +340,8 @@ export default function Mods() {
         }
         </>
       }
-    </PageLayout>);
+    </PageLayout>
+    {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
+    </>);
 
 }

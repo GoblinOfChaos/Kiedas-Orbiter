@@ -174,7 +174,7 @@ export default function Dashboard() {
   });
   const [descendiaTab, setDescendiaTab] = useState('normal');
 
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
 
   useEffect(() => {invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});}, []);
   useEffect(() => {invoke('get_mod_frames_path').then((p) => setFramesPath(p)).catch(() => {});}, []);
@@ -1146,6 +1146,23 @@ export default function Dashboard() {
     const vt = worldstate?.voidTrader;
     const inventory = vt?.inventory;
 
+    const ownedUniqueNames = useMemo(
+      () => new Set(inventoryData?.allOwnedItemTypes ?? []),
+      [inventoryData]
+    );
+
+    // Baro's manifest uses the purchasable "/Lotus/StoreItems/..." variant of
+    // an item's path, while owned inventory is keyed by the actual item path
+    // ("/Lotus/Upgrades/..." etc, no "StoreItems" segment) - strip it before
+    // matching, or every Baro item would show as unowned regardless of
+    // actual ownership.
+    const isBaroItemOwned = (uniqueName) => {
+      if (!uniqueName) return false;
+      if (ownedUniqueNames.has(uniqueName)) return true;
+      const normalized = uniqueName.replace('/Lotus/StoreItems/', '/Lotus/');
+      return ownedUniqueNames.has(normalized);
+    };
+
     return (
       <Modal
         isOpen={showBaroModal}
@@ -1153,10 +1170,17 @@ export default function Dashboard() {
         title={t('ui.dashboard.baro_inventory')}>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {inventory?.map((item, idx) =>
+          {inventory?.map((item, idx) => {
+            const owned = isBaroItemOwned(item.uniqueName);
+            return (
           <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
-              <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
+              <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0 relative">
                 <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                {owned &&
+                <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
+                    <Check size={10} className="text-black" />
+                  </div>
+                }
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.item}>{item.item}</p>
@@ -1172,7 +1196,8 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-          )}
+            );
+          })}
         </div>
       </Modal>);
 

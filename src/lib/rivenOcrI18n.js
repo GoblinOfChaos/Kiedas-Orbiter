@@ -39,6 +39,9 @@ export const STAT_TO_PRICER = {
   'Damage to Infested': 'damage_vs_infested',
   'Recoil': 'recoil',
   'Slide Crit Chance': 'critical_chance_on_slide_attack',
+  'Critical Chance when Sliding': 'critical_chance_on_slide_attack',
+  'Critical Chance while Sliding': 'critical_chance_on_slide_attack',
+  'Critical Chance for Slide Attack': 'critical_chance_on_slide_attack',
   'Combo Efficiency': 'channeling_efficiency',
   'Zoom': 'zoom',
   'Blast Radius': 'explosion_radius',
@@ -201,15 +204,30 @@ export function cleanStatName(raw, aliases) {
       const hit = aliases.get(variant)
       if (hit) return hit
     }
-    // substring: localized alias contained in the OCR text
-    for (const [key, val] of aliases) {
-      if (folded.includes(key) && val) return val
-    }
   }
 
-  // 1. exact match against original
+  // 1. exact match against original, known English stat text (checked
+  // before any fuzzy substring matching so exact known phrases like
+  // "Critical Chance when Sliding" aren't shadowed by a shorter substring
+  // match like "Critical Chance")
   const exact = STAT_TO_PRICER[trimmed]
   if (exact) return exact.toLowerCase().replace(/\s+/g, '_')
+
+  // 0b. substring: localized alias contained in the OCR text (longest/most
+  // specific alias wins, so e.g. "slide crit chance" beats "critical chance"
+  // when both are substrings of the OCR'd text)
+  if (aliases && aliases.size) {
+    const [folded] = foldVariants(trimmed)
+    let bestKey = ''
+    let bestVal = ''
+    for (const [key, val] of aliases) {
+      if (val && key.length > bestKey.length && folded.includes(key)) {
+        bestKey = key
+        bestVal = val
+      }
+    }
+    if (bestVal) return bestVal
+  }
 
   // 2. case-insensitive exact match
   for (const [key, val] of Object.entries(STAT_TO_PRICER)) {
@@ -222,11 +240,21 @@ export function cleanStatName(raw, aliases) {
     if (deNoised.toLowerCase() === key.toLowerCase()) return val.toLowerCase().replace(/\s+/g, '_')
   }
 
-  // 4. substring: known stat name contained in raw, or raw contained in known name
-  for (const [key, val] of Object.entries(STAT_TO_PRICER)) {
-    const kl = key.toLowerCase()
+  // 4. substring: known stat name contained in raw, or raw contained in known
+  // name. Prefer the longest/most specific matching key so e.g. "Slide Crit
+  // Chance" beats "Critical Chance" when both are substrings of the raw text.
+  {
+    let bestKey = ''
+    let bestVal = ''
     const rl = trimmed.toLowerCase()
-    if (rl.includes(kl) || kl.includes(rl)) return val.toLowerCase().replace(/\s+/g, '_')
+    for (const [key, val] of Object.entries(STAT_TO_PRICER)) {
+      const kl = key.toLowerCase()
+      if ((rl.includes(kl) || kl.includes(rl)) && kl.length > bestKey.length) {
+        bestKey = kl
+        bestVal = val
+      }
+    }
+    if (bestVal) return bestVal.toLowerCase().replace(/\s+/g, '_')
   }
 
   // 5. fallback: aggressively clean
@@ -263,11 +291,21 @@ export function displayStatName(raw, aliases) {
   for (const key of Object.keys(STAT_TO_PRICER)) {
     if (deNoised.toLowerCase() === key.toLowerCase()) return key
   }
-  // Try substring match
-  for (const key of Object.keys(STAT_TO_PRICER)) {
-    const kl = key.toLowerCase()
+  // Try substring match, preferring the longest/most specific key
+  {
+    let bestKey = ''
     const rl = trimmed.toLowerCase()
-    if (rl.includes(kl) || kl.includes(rl)) return key
+    for (const key of Object.keys(STAT_TO_PRICER)) {
+      const kl = key.toLowerCase()
+      if ((rl.includes(kl) || kl.includes(rl)) && kl.length > bestKey.length) {
+        bestKey = kl
+      }
+    }
+    if (bestKey) {
+      for (const key of Object.keys(STAT_TO_PRICER)) {
+        if (key.toLowerCase() === bestKey) return key
+      }
+    }
   }
   // Fallback: just clean up the raw OCR text
   return trimmed.replace(/^[aAeEiIoOuU]+/, '')

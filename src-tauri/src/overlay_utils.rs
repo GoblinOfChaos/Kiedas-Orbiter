@@ -803,7 +803,11 @@ pub fn hide_sidebar_internal(app_handle: &AppHandle) {
 fn overlay_size(label: &str) -> (f64, f64) {
     match label {
         "overlay-relic" => (640.0, 140.0),
-        "overlay-relic-picker" => (380.0, 220.0),
+        // Tall enough for the era-unknown compact view's up-to-5 era rows
+        // plus header (the known-single-era flat-list view is shorter and
+        // just has extra bottom margin - acceptable trade-off vs. two
+        // different fixed sizes per payload shape).
+        "overlay-relic-picker" => (620.0, 460.0),
         "overlay-riven-current" | "overlay-riven-new" => (360.0, 300.0),
         _ => (440.0, 1.0),
     }

@@ -1,0 +1,4901 @@
+{
+  "/Lotus/Upgrades/Skins/Sigils/Community10YearAnniversarySigil": {
+    "displayName": "10 Year Anniversary Community Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/10_Year_Anniversary_Community_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Clan/CY17173MediaBadge": {
+    "displayName": "17173 EMBLEM",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/17173_EMBLEM"
+  },
+  "/Lotus/Upgrades/Skins/Horse/ErsatzHorseTailDefaultA": {
+    "displayName": "Aetigo Tail",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Aetigo_Tail"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/Twitch2021AfurisSkin": {
+    "displayName": "Afuris Verv Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Afuris_Verv_Skin"
+  },
+  "/Lotus/Upgrades/Mods/PvPMods/Melee/AirborneMeleeAutoTargetBonus": {
+    "displayName": "Air Martial",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Air_Martial"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/AkjagaraIridosSkin": {
+    "displayName": "Akjagara Iridos Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Akjagara_Iridos_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Nintendo/NintendoAklatoSkin": {
+    "displayName": "Aklato Opal Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Aklato_Opal_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianAkmagnus": {
+    "displayName": "Akmagnus Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Akmagnus_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Koumei/KoumeiWarfanSkin": {
+    "displayName": "Akomeogi Warfan Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Akomeogi_Warfan_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Void/AkvastosVoidSkin": {
+    "displayName": "Akvasto Phased Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Akvasto_Phased_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburPrimeAlabasterSkin": {
+    "displayName": "Alabaster Skin",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sigils/AllianceSigilBasic": {
+    "displayName": "Alliance Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Alliance_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/Factions/GlyphFactionAmalgam": {
+    "displayName": "Amalgam Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Amalgam_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Volt/WF1999VoltAuxHat": {
+    "displayName": "Amir's Shades",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Promo/Void/AnkyrosVoidSkin": {
+    "displayName": "Ankyros Phased Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ankyros_Phased_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TwitchAnkyros": {
+    "displayName": "Ankyros Prominence Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ankyros_Prominence_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Seasonal/DogDays2025BadgeItem": {
+    "displayName": "Aqua Heart Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Aqua_Heart_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/YontaCrownFacialAcc": {
+    "displayName": "Archimedean Diadem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Archimedean_Diadem"
+  },
+  "/Lotus/Upgrades/Skins/Clan/CorpusVoidBadgeItem": {
+    "displayName": "Arid Fear Emblem",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Clan/PvpRepBadgeItem": {
+    "displayName": "Armilla Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Armilla_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/EnergyScarfVoidSkin": {
+    "displayName": "Asa Phased Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Asa_Phased_Syandana"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NightwaveCalibanDeluxeSigil": {
+    "displayName": "Ascrien Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ascrien_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Ninja/NinjaDeluxeHelmet": {
+    "displayName": "Ash Koga Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ash_Koga_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Ninja/AshDeluxeHelmet": {
+    "displayName": "Ash Shroud Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ash_Shroud_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilZorba": {
+    "displayName": "Aspirant Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Aspirant_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAthletic": {
+    "displayName": "Athletic Disc Player and Towel",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Athletic_Disc_Player_and_Towel"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAthletic": {
+    "displayName": "Athletic Leggings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Athletic_Leggings"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAthletic": {
+    "displayName": "Athletic Shirt",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Athletic_Shirt"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAthletic": {
+    "displayName": "Athletic Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Athletic_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Brawler/AtlasDeluxeHelmet": {
+    "displayName": "Atlas Karst Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Atlas_Karst_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageLowPolyAtlas": {
+    "displayName": "Atlas Poly Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Atlas_Poly_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ShadowgrapherEventBadgeItem": {
+    "displayName": "Atramentum Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Atramentum_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilShadowgrapher": {
+    "displayName": "Atramentum Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Atramentum_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/PaxDuviricus/PaxDuviricusBodyBlades": {
+    "displayName": "Baneful Blades",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Baneful_Blades"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWBansheeBotLArmLeftArmor": {
+    "displayName": "Banshee Blade of the Lotus Armor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Banshee_Blade_of_the_Lotus_Armor"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWSonorityArmLeftArmor": {
+    "displayName": "Banshee Sonority Armor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Banshee_Sonority_Armor"
+  },
+  "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeHelmet": {
+    "displayName": "Banshee Soprana Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Banshee_Soprana_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeArmLeftArmor": {
+    "displayName": "Banshee Soprana Shoulder Armor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Banshee_Soprana_Shoulder_Armor"
+  },
+  "/Lotus/Upgrades/Skins/Decree/BansheeVoidShellArmLeftArmor": {
+    "displayName": "Banshee Voidshell Armor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Banshee_Voidshell_Armor"
+  },
+  "/Lotus/Upgrades/Skins/Decree/BansheeVoidShellHelmet": {
+    "displayName": "Banshee Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Banshee_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Pacifist/BaruukDeluxeHelmet": {
+    "displayName": "Baruuk Doan Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Baruuk_Doan_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Pacifist/BaruukPrimeHelmet": {
+    "displayName": "Baruuk Prime Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Baruuk_Prime_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Operator/AnimationSets/BaseOperatorAnims": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "BaseOperatorAnims",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/BaseOperatorAnims"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooNightwaveCommando": {
+    "displayName": "Battlecry Ink",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Battlecry_Ink"
+  },
+  "/Lotus/Types/Restoratives/Consumable/Eidolon/LandscapeTrapLightGear": {
+    "displayName": "Beckonsnare",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Beckonsnare"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NightwavePizzaSigil": {
+    "displayName": "Big Bytes Pizza Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Big_Bytes_Pizza_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree": {
+    "displayName": "Bird 3 Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Bird_3_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BladeAndGunSigil": {
+    "displayName": "Blade and Gun Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Blade_and_Gun_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/CaliberChicks/AshGeminiCaliberChicksRifleSkin": {
+    "displayName": "Bladeswarm Braton Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Bladeswarm_Braton_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Daggers/AshGeminiDaggerSkin": {
+    "displayName": "Bladeswarm Karyst Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Bladeswarm_Karyst_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Throwable/AshGeminiKunaiSkin": {
+    "displayName": "Bladeswarm Kunai Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Bladeswarm_Kunai_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/LongGuns/AshGeminiVectisSkin": {
+    "displayName": "Bladeswarm Vectis Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Bladeswarm_Vectis_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Claws/GarudaGeminiClawsSkin": {
+    "displayName": "Bloodfrenzy Venka Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Bloodfrenzy_Venka_Skin"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageBluyayogamer": {
+    "displayName": "Bluyayogamer Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Bluyayogamer_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/VTBoar": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Boar Phosphor Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Boar_Phosphor_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/InfTacAlertPussAncientBadgeItem": {
+    "displayName": "Boiler Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Boiler_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Kubrows/Armor/TnBoltorKubrowArmor": {
+    "displayName": "Boltor Kubrow Armor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Boltor_Kubrow_Armor"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianBoltor": {
+    "displayName": "Boltor Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Boltor_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/ThanomechVoidRigDefaultHelmet": {
+    "displayName": "Bonewidow Necramech Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Bonewidow_Necramech_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS4Braton": {
+    "displayName": "Braton Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Braton_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS4Mk1Braton": {
+    "displayName": "Braton Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Braton_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/HiveSabotageEventBadgeItem": {
+    "displayName": "Breeding Grounds Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Breeding_Grounds_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageBrickyOrchid": {
+    "displayName": "Brickyorchid8 Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Brickyorchid8_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Switch2Sigil": {
+    "displayName": "Broadsword Past/Future Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Broadsword_Past/Future_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkinHelmet": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "BRONZE RHINO HELMET",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/BRONZE_RHINO_HELMET"
+  },
+  "/Lotus/Upgrades/Skins/Clan/SkullBadgeBronzeItem": {
+    "displayName": "Bronze Skull Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Bronze_Skull_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Clan/InfTacAlertDiseasedAncientBadgeItem": {
+    "displayName": "Brood Mother Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Brood_Mother_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/NecraMechCHelmetA": {
+    "displayName": "Bruntspar Necramech Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Bruntspar_Necramech_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/HydroidDeluxeBlazers": {
+    "displayName": "Burangara Longcoat",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Clan/OrbBadgeItem": {
+    "displayName": "Buried Debts Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Buried_Debts_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/OrbSigil": {
+    "displayName": "Buried Debts Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Buried_Debts_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/ImageCalibanInAction": {
+    "displayName": "Caliban In Action Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Caliban_In_Action_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sentient/CalibanDeluxeHelmet": {
+    "displayName": "Caliban Orfeo Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Caliban_Orfeo_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sentient/CalibanDeluxeAuxFloater": {
+    "displayName": "Caliban Orfeo Scapulus",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sentient/CalibanPrimeHelmet": {
+    "displayName": "Caliban Prime Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Caliban_Prime_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal13C": {
+    "displayName": "Capit XIII Sporoi",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal14C": {
+    "displayName": "Capit XIV Kalika",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal15C": {
+    "displayName": "Capit XV Phloios",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal16C": {
+    "displayName": "Capit XVI Perigone",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageChatModerator": {
+    "displayName": "Chat Moderator Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Chat_Moderator_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/NokkoBabySecretEmblemItem": {
+    "displayName": "Cheeky Sprodling Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Cheeky_Sprodling_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DogDays2023BSigil": {
+    "displayName": "Chillwave Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Chillwave_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/InfNightWaveWingsRight": {
+    "displayName": "Chitoid Sentinel Wings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Chitoid_Sentinel_Wings"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaDeluxeHelmet": {
+    "displayName": "Chroma Dynasty Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Chroma_Dynasty_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaDeluxeWings": {
+    "displayName": "Chroma Dynasty Wings",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaLNYHelmet": {
+    "displayName": "Chroma Zunlong Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Chroma_Zunlong_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaLNYWings": {
+    "displayName": "Chroma Zunlong Wings",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/InfestedWingsRight": {
+    "displayName": "Chrysalis Sentinel Wings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Chrysalis_Sentinel_Wings"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtLasrianB": {
+    "displayName": "Chymerist Apparel",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Chymerist_Apparel"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOperatorLasrianB": {
+    "displayName": "Chymerist Gloves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Chymerist_Gloves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodOperatorLasrianB": {
+    "displayName": "Chymerist Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Chymerist_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorLasrianB": {
+    "displayName": "Chymerist Uniform",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Chymerist_Uniform"
+  },
+  "/Lotus/Upgrades/Skins/Clan/JungleEventBadgeItem": {
+    "displayName": "Cicero Crisis Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Cicero_Crisis_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Geode/CitrineDeluxeHelmet": {
+    "displayName": "Citrine Aphrodita Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Citrine_Aphrodita_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ClanSigilBasic": {
+    "displayName": "Clan Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Clan_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianColtekMask": {
+    "displayName": "Coltek Obsidian Sentinel Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Coltek_Obsidian_Sentinel_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/ColtekWingsRight": {
+    "displayName": "Coltek Sentinel Wings",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultPrimeB": {
+    "displayName": "Commodore Prime Apparel",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Commodore_Prime_Apparel"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeB": {
+    "displayName": "Commodore Prime Cuirass",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Commodore_Prime_Cuirass"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeB": {
+    "displayName": "Commodore Prime Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Commodore_Prime_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeB": {
+    "displayName": "Commodore Prime Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Commodore_Prime_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeB": {
+    "displayName": "Commodore Prime Pauldrons",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Commodore_Prime_Pauldrons"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Community10YearEmblemItem": {
+    "displayName": "Community 10 Year Anniversary Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_10_Year_Anniversary_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/Community10YearAnniversaryGlyph": {
+    "displayName": "Community 10 Year Anniversary Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_10_Year_Anniversary_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedLogoGlyph": {
+    "displayName": "Community Infested On-Lyne Logo Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_Infested_On-Lyne_Logo_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LotusHeartSigil": {
+    "displayName": "Community Of Tenno",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_Of_Tenno"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageDJRoMGlyph": {
+    "displayName": "Community On-Lyne Dj Rom Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_On-Lyne_Dj_Rom_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageDrillbitGlyph": {
+    "displayName": "Community On-Lyne Drillbit Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_On-Lyne_Drillbit_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageHarddriveGlyph": {
+    "displayName": "Community On-Lyne Harddrive Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_On-Lyne_Harddrive_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedDJRoMGlyph": {
+    "displayName": "Community On-Lyne Infested Dj Rom Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_On-Lyne_Infested_Dj_Rom_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedDrillbitGlyph": {
+    "displayName": "Community On-Lyne Infested Drillbit Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_On-Lyne_Infested_Drillbit_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedHarddriveGlyph": {
+    "displayName": "Community On-Lyne Infested Harddrive Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_On-Lyne_Infested_Harddrive_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedPacketGlyph": {
+    "displayName": "Community On-Lyne Infested Packet Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_On-Lyne_Infested_Packet_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedZekeGlyph": {
+    "displayName": "Community On-Lyne Infested Zeke Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_On-Lyne_Infested_Zeke_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImagePacketGlyph": {
+    "displayName": "Community On-Lyne Packet Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_On-Lyne_Packet_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageZekeGlyph": {
+    "displayName": "Community On-Lyne Zeke Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_On-Lyne_Zeke_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageLogoGlyph": {
+    "displayName": "Community Radiant On-Lyne Logo Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Community_Radiant_On-Lyne_Logo_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/OpticorConclaveVariantSigil": {
+    "displayName": "Conclave Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Conclave_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SyndicateSigilConclaveA": {
+    "displayName": "Conclave Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Conclave_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoH": {
+    "displayName": "Conquera Cherry Tree Ink",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Conquera_Cherry_Tree_Ink"
+  },
+  "/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem": {
+    "displayName": "Conquera Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Conquera_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoI": {
+    "displayName": "Conquera Magnolia Ink",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Conquera_Magnolia_Ink"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageConqueraOrdis": {
+    "displayName": "Conquera Ordis Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Conquera_Ordis_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ConqueraSigil": {
+    "displayName": "Conquera Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Conquera_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/QTCC2023ConqueraSigil": {
+    "displayName": "Conquera United Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Conquera_United_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/ZephyrQTCCSyandana": {
+    "displayName": "Conquera Uplift Syandana",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sigils/InfLichConvertedSigil": {
+    "displayName": "Converted Coda Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Converted_Coda_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphCookieBoot": {
+    "displayName": "Cookie Boot Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Cookie_Boot_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianCorinth": {
+    "displayName": "Corinth Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Corinth_Obsidian_Skin"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageCrestbear": {
+    "displayName": "Crestbear Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Crestbear_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/ImageYouTubeCorpusA": {
+    "displayName": "Crewman Staredown Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Crewman_Staredown_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/ImageYouTubeCorpusB": {
+    "displayName": "Crewman Toon Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Crewman_Toon_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ExcavationEvenetBadgeItem": {
+    "displayName": "Cryotic Front Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Cryotic_Front_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil": {
+    "displayName": "Cycle Five Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Cycle_Five_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil": {
+    "displayName": "Cycle Four Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Cycle_Four_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4OneYearSigil": {
+    "displayName": "Cycle One Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Cycle_One_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4ThreeYearSigil": {
+    "displayName": "Cycle Three Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Cycle_Three_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil": {
+    "displayName": "Cycle Two Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Cycle_Two_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/Warframes/Cyte09SupporterGlyph": {
+    "displayName": "Cyte-09 Deadeye Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Cyte-09_Deadeye_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Frumentarius/FrumentariusSkin": {
+    "displayName": "Cyte-09 Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Cyte-09_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Halloween/Halloween2024DagathBadgeItem": {
+    "displayName": "Dagath Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dagath_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/DagathImmortalArmArmor": {
+    "displayName": "Dagath Immortal Armor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dagath_Immortal_Armor"
+  },
+  "/Lotus/Upgrades/Skins/Dagath/DagathImmortalHelmet": {
+    "displayName": "Dagath Immortal Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dagath_Immortal_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Dagath/DagathImmortalSkin": {
+    "displayName": "Dagath Immortal Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dagath_Immortal_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Dagath/DagathDeluxeLNYHelmet": {
+    "displayName": "Dagath Yfari Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dagath_Yfari_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWYhavanDagathAArmor": {
+    "displayName": "Dagath Yhavan Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDuviriIsleCapB": {
+    "displayName": "Dais Cay Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dais_Cay_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/DanteDeluxeArmArmor": {
+    "displayName": "Dante Tytonis Feathered Pauldron",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Pagemaster/PagemasterDeluxeHelmet": {
+    "displayName": "Dante Tytonis Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dante_Tytonis_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageDanteGlyph": {
+    "displayName": "Dante's Delight Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dante%27s_Delight_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Promo/PCGamer/PCGamerDarkSwordDaggerHybridSkin": {
+    "displayName": "Dark Split-Sword Dulus Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dark_Split-Sword_Dulus_Skin"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageDarkfreack": {
+    "displayName": "Darkfreack Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Darkfreack_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxCArmor": {
+    "displayName": "Daurus Prime Chest Plate",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Daurus_Prime_Chest_Plate"
+  },
+  "/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxLArmor": {
+    "displayName": "Daurus Prime Leg Plates",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Daurus_Prime_Leg_Plates"
+  },
+  "/Lotus/Upgrades/Skins/Armor/PrimeStyanaxArmor/PrimeStyanaxAArmor": {
+    "displayName": "Daurus Prime Shoulder Plates",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Daurus_Prime_Shoulder_Plates"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/VoidrigDOTDHelmet": {
+    "displayName": "Day of the Dead Necramech Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Day_of_the_Dead_Necramech_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/VoidrigDOTDSkin": {
+    "displayName": "Day of the Dead Necramech Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Day_of_the_Dead_Necramech_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoIronSkinDeluxeTwo": {
+    "displayName": "Deathwatch Iron Skin Override",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Deathwatch_Iron_Skin_Override"
+  },
+  "/Lotus/Types/AvatarImages/HeirloomGlyph": {
+    "displayName": "Deca Heirloom Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Deca_Heirloom_Glyph"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDeckTwelve": {
+    "displayName": "Deck 12 Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Deck_12_Scene"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosBurialChamber": {
+    "displayName": "Deimos Crypt Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Deimos_Crypt_Scene"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosCalamity": {
+    "displayName": "Deimos Depths Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Deimos_Depths_Scene"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosForsaken": {
+    "displayName": "Deimos Forsaken Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Deimos_Forsaken_Scene"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosHeart": {
+    "displayName": "Deimos Heart Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Deimos_Heart_Scene"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosSchism": {
+    "displayName": "Deimos Membrane Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Deimos_Membrane_Scene"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosHub": {
+    "displayName": "Deimos Necralisk Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Deimos_Necralisk_Scene"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosSpawn": {
+    "displayName": "Deimos Verge Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Deimos_Verge_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncLArmor": {
+    "displayName": "Dendra Obsidian Leg Guard",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dendra_Obsidian_Leg_Guard"
+  },
+  "/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncAArmor": {
+    "displayName": "Dendra Obsidian Shoulder Guard",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dendra_Obsidian_Shoulder_Guard"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImagedepths": {
+    "displayName": "Depths Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Depths_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDexDakra": {
+    "displayName": "Dex Dakra Jade Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dex_Dakra_Jade_Skin"
+  },
+  "/Lotus/Upgrades/Skins/DexTheSecond/ObsidianDexDakra": {
+    "displayName": "Dex Dakra Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dex_Dakra_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/DexTheSecond/NintendoDexDakra": {
+    "displayName": "Dex Dakra Opal Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dex_Dakra_Opal_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDexFuris": {
+    "displayName": "Dex Furis Jade Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dex_Furis_Jade_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianDexFuris": {
+    "displayName": "Dex Furis Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dex_Furis_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Armor/Dex2020Armor/Dex2020ArmorCArmor": {
+    "displayName": "Dex Raksaka Chest Guard",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/Dex2020Armor/Dex2020ArmorLArmor": {
+    "displayName": "Dex Raksaka Knee Guards",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/Dex2020Armor/Dex2020ArmorAArmor": {
+    "displayName": "Dex Raksaka Shoulder Guards",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/DiamondWingsRight": {
+    "displayName": "Diamond Sentinel Wings",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphDELogo": {
+    "displayName": "Digital Extremes Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Digital_Extremes_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilDisciple": {
+    "displayName": "Disciple Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Disciple_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Clan/FoundersBadgeDiscipleItem": {
+    "displayName": "Disciple's Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Disciple%27s_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/DomeWingsRight": {
+    "displayName": "Dome Sentinel Wings",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Sentinel_Accessory_Pack"
+  },
+  "/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoDrakgoonCamo": {
+    "displayName": "Drakgoon Bronze Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drakgoon_Bronze_Skin"
+  },
+  "/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoDrakgoonCamo": {
+    "displayName": "Drakgoon Rubedo Plated Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drakgoon_Rubedo_Plated_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultCalDeluxe": {
+    "displayName": "Drifter Escuchon Apparel",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drifter_Escuchon_Apparel"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultCalDeluxe": {
+    "displayName": "Drifter Escuchon Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drifter_Escuchon_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultCalDeluxe": {
+    "displayName": "Drifter Escuchon Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drifter_Escuchon_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultCalDeluxe": {
+    "displayName": "Drifter Escuchon Pauldrons",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drifter_Escuchon_Pauldrons"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultCalDeluxe": {
+    "displayName": "Drifter Escuchon Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drifter_Escuchon_Suit"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultChameleon": {
+    "displayName": "Drifter Voidshell Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drifter_Voidshell_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultChameleon": {
+    "displayName": "Drifter Voidshell Leggings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drifter_Voidshell_Leggings"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultChameleon": {
+    "displayName": "Drifter Voidshell Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drifter_Voidshell_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultChameleon": {
+    "displayName": "Drifter Voidshell Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drifter_Voidshell_Suit"
+  },
+  "/Lotus/Upgrades/Skins/Clan/1999CommunityARGBadgeItem": {
+    "displayName": "Drip Squad 4 Life Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Drip_Squad_4_Life_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Clan/DogDaysKubrowBadgeItem": {
+    "displayName": "Dropkick Drahk Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dropkick_Drahk_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DogDaysKubrowSigil": {
+    "displayName": "Dropkick Drahk Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dropkick_Drahk_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/SteamWorkshop/Melee/Swords/DualSkanaInfestedSkin": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Dual Skana Infested Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dual_Skana_Infested_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Deluxe/FrostDeluxeDualSword": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Dual Swords Frysta Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dual_Swords_Frysta_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Festivities/PumpkinHead": {
+    "displayName": "Dullahan Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Dullahan_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Clan/CYDuowanMediaBadge": {
+    "displayName": "DUOWAN EMBLEM",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/DUOWAN_EMBLEM"
+  },
+  "/Lotus/Upgrades/Skins/IronFrame/ShieldDeluxeBlastSkin": {
+    "displayName": "Einheri Balefire Charger Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Einheri_Balefire_Charger_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Deluxe/CalibanDeluxeBowSkin": {
+    "displayName": "Elfame Bow Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Elfame_Bow_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Ember/EmberHeirloomHelmet": {
+    "displayName": "Ember Heirloom Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ember_Heirloom_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/EmberDeluxeIIChestArmor": {
+    "displayName": "Ember Pyraxis Chest Plate",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Ember/EmberDeluxeIIHelmet": {
+    "displayName": "Ember Pyraxis Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ember_Pyraxis_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/EmberDeluxeIIArmArmor": {
+    "displayName": "Ember Pyraxis Shoulder Pads",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Ember/EmberDeluxeHelmet": {
+    "displayName": "Ember Vermillion Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ember_Vermillion_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Ember/EmberVoidshellHelmet": {
+    "displayName": "Ember Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ember_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Clan/InfestationEventEmblemItem": {
+    "displayName": "Emblem of the Hunt",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Emblem_of_the_Hunt"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultInfested": {
+    "displayName": "Emissary Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Emissary_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultInfested": {
+    "displayName": "Emissary Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Emissary_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NoraSeasonTwoSigil": {
+    "displayName": "Emissary Sigil",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultInfested": {
+    "displayName": "Emissary Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Emissary_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultInfested": {
+    "displayName": "Emissary Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Emissary_Suit"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "ENGINE COWLING",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/ENGINE_COWLING"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Mech": {
+    "displayName": "Entrati Mech Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Entrati_Mech_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Drone": {
+    "displayName": "Entrati Proxy Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Entrati_Proxy_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/YinYang/EquinoxDeluxeHelmet": {
+    "displayName": "Equinox Antonym Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Equinox_Antonym_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemC": {
+    "displayName": "Erznung Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Erznung_Emblem"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/EuropaNavigationFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "EUROPA NAV SEGMENT",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/EUROPA_NAV_SEGMENT"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014D": {
+    "displayName": "Evergreen Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Evergreen_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/DiscordExcaliburHelmet": {
+    "displayName": "Excalibur Amethyst Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Amethyst_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburDexHelmet": {
+    "displayName": "Excalibur Dex Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Dex_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/SWRFourGraxxAltHelmet": {
+    "displayName": "Excalibur Graxx-V2 Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Graxx-V2_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Ostron/ExcaliburMask": {
+    "displayName": "Excalibur Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ExcaliburPSPlusSkin": {
+    "displayName": "Excalibur Obsidian",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Obsidian"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageExcaliburActionSony": {
+    "displayName": "Excalibur Obsidian Azura Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Obsidian_Azura_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/ObsidianExcaliburHelmetB": {
+    "displayName": "Excalibur Obsidian Azura Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Obsidian_Azura_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ExcaliburPSPlusSkinHelmet": {
+    "displayName": "Excalibur Obsidian Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Obsidian_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/SteamEsteem/EsteemExcaliburHelmet": {
+    "displayName": "Excalibur Onyx Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Onyx_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageExcaliburActionNintendo": {
+    "displayName": "Excalibur Opal Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Opal_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/NintendoExcaliburHelmet": {
+    "displayName": "Excalibur Opal Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Opal_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/VTExcaliburHelmet": {
+    "displayName": "Excalibur Prisma Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Prisma_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/ExcaliburTwitchSkinHelmet": {
+    "displayName": "Excalibur Prominence Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Prominence_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/ExcaliburTwitchSkin": {
+    "displayName": "Excalibur Prominence Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Prominence_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburProtoHelmet": {
+    "displayName": "Excalibur Proto-Armor Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Proto-Armor_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/ImageExcaliburUmbraAltTwoBright": {
+    "displayName": "Excalibur Umbra Therion Glyph - Bright",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Umbra_Therion_Glyph_-_Bright"
+  },
+  "/Lotus/Types/AvatarImages/ImageExcaliburUmbraAltTwoDark": {
+    "displayName": "Excalibur Umbra Therion Glyph - Dark",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Umbra_Therion_Glyph_-_Dark"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburVeilBreakerHelmet": {
+    "displayName": "Excalibur Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburDeluxeHelmet": {
+    "displayName": "Excalibur Zato Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Excalibur_Zato_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageFerreusDemon": {
+    "displayName": "Ferreusdemon Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ferreusdemon_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaFibonacci": {
+    "displayName": "Fibonacci Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Fibonacci_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/Events/EventGlyphCaviaFibonacci": {
+    "displayName": "Fibonacci Sketch Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Fibonacci_Sketch_Glyph"
+  },
+  "/Lotus/Upgrades/Mods/Hoverboard/HBFireWorksMod": {
+    "displayName": "Fizzbang Flourish",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Fizzbang_Flourish"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FireSigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Flaming Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Flaming_Sigil"
+  },
+  "/Lotus/Types/Items/SyndicateDogTags/NewLokaRareDogTag": {
+    "displayName": "Flawless Seed",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Syndicate_Medallions"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SparkSigil": {
+    "displayName": "Flickering Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Flickering_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/KahlSupporterPackGlyph": {
+    "displayName": "For My Brothers Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/For_My_Brothers_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/KahlStatueGlyph": {
+    "displayName": "For My Brothers Patch Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/For_My_Brothers_Patch_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FormaSigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Forma Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Forma_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/SWFrameFriendEarLAcc": {
+    "displayName": "Frame Friend Earpiece (Left)",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Frame_Friend_Earpiece_(Left)"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/SWFrameFriendEarRAcc": {
+    "displayName": "Frame Friend Earpiece (Right)",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Frame_Friend_Earpiece_(Right)"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Halloween2023OwlBadgeItem": {
+    "displayName": "Frightening Flock Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Frightening_Flock_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/FrostEmperorArmArmor": {
+    "displayName": "Frost Emperor Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphSnowGlobeFrost": {
+    "displayName": "Frost Globe Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Frost_Globe_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/FrostGrostArmArmor": {
+    "displayName": "Frost Grost Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Frost/FrostDeluxeHelmet": {
+    "displayName": "Frost Harka Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Frost_Harka_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/FrostHeirloomArmArmor": {
+    "displayName": "Frost Heirloom Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Frost/FrostHeirloomHelmet": {
+    "displayName": "Frost Heirloom Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Frost_Heirloom_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWHisameArmArmor": {
+    "displayName": "Frost Hisame Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWIonFrostArmArmor": {
+    "displayName": "Frost Ion Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWFrostStrigidArmArmor": {
+    "displayName": "Frost Strigid Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/FrostVoidshellArmArmor": {
+    "displayName": "Frost Voidshell Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Frost/FrostVoidShellHelmet": {
+    "displayName": "Frost Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Frost_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/Twitch2021FurisSkin": {
+    "displayName": "Furis Verv Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Furis_Verv_Skin"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHullFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "FUSELAGE",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/FUSELAGE"
+  },
+  "/Lotus/Upgrades/Skins/Promo/ChangYou/CYRubedoGalatineCamo": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "GALATINE BRONZE SKIN",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/GALATINE_BRONZE_SKIN"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianGalatine": {
+    "displayName": "Galatine Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Galatine_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoGalatineCamo": {
+    "displayName": "Galatine Rubedo Plated Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Galatine_Rubedo_Plated_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Glass/GlassDeluxeHelmet": {
+    "displayName": "Gara Kaleida Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gara_Kaleida_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Clan/EntratiEventEmblemItem": {
+    "displayName": "Gargoyle's Cry Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gargoyle%27s_Cry_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Garuda/GarudaDeluxeHelmet": {
+    "displayName": "Garuda Hinsa Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Garuda_Hinsa_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Garuda/GarudaDeluxeClawsSkin": {
+    "displayName": "Garuda Hinsa Talons Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Garuda_Hinsa_Talons_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Garuda/SWSuccessorClawsSkin": {
+    "displayName": "Garuda Successor Talons Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Garuda_Successor_Talons_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Garuda/SWGarudaTengushinClawsSkin": {
+    "displayName": "Garuda Tengushin Talons Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Garuda_Tengushin_Talons_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Garuda/SWTiamatClawsSkin": {
+    "displayName": "Garuda Tiamat Talons Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Garuda_Tiamat_Talons_Skin"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCitySpawnTwo": {
+    "displayName": "Gas City Lobby Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gas_City_Lobby_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Clan/OrokinSabotageBadgeItem": {
+    "displayName": "Gate Crash Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gate_Crash_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Runner/GaussDeluxeHelmet": {
+    "displayName": "Gauss Kresnik Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gauss_Kresnik_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Runner/GaussDeluxeIIHelmet": {
+    "displayName": "Gauss Moto Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gauss_Moto_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Runner/GaussPrimeHelmet": {
+    "displayName": "Gauss Prime Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gauss_Prime_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ExcaliburUmbraBadgeItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Gauvan Umbra Sekhara",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gauvan_Umbra_Sekhara"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGamingCommunityExpo": {
+    "displayName": "Gcx 2023 Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gcx_2023_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGamingCommunityExpoTwentyFour": {
+    "displayName": "Gcx 2024 Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gcx_2024_Glyph"
+  },
+  "/Lotus/Types/Items/SyndicateDogTags/SteelMeridianRareDogTag": {
+    "displayName": "General Insignia",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Clan/LeaderBadgeGhostItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Ghost Leader Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ghost_Leader_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianGlaive": {
+    "displayName": "Glaive Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Glaive_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/GlassmakerEmblemItem": {
+    "displayName": "Glassmaker Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Glassmaker_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/GlassmakerSigil": {
+    "displayName": "Glassmaker Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Glassmaker_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/SevagothDeluxeRopeAnchor": {
+    "displayName": "Glaukus Halyard",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Types/Restoratives/Consumable/GlyphConsumable": {
+    "displayName": "Glyph Prism",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Glyph"
+  },
+  "/Lotus/Types/Restoratives/Consumable/GlyphConsumableNoCharges": {
+    "displayName": "Glyph Prism",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TwoToneSigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Glyphed Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Glyphed_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooGeodeGrey": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Gneissic Ink (Light)",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gneissic_Ink_(Light)"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooGeode": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Gneissic Ink (Mid)",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gneissic_Ink_(Mid)"
+  },
+  "/Lotus/Upgrades/Skins/Clan/SkullBadgeGoldItem": {
+    "displayName": "Gold Skull Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gold_Skull_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianGorgon": {
+    "displayName": "Gorgon Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gorgon_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodOperatorDrifterGoth": {
+    "displayName": "Goth Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Goth_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorDrifterGoth": {
+    "displayName": "Goth Jacket",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Goth_Jacket"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsOperatorDrifterGoth": {
+    "displayName": "Goth Leggings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Goth_Leggings"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOperatorDrifterGoth": {
+    "displayName": "Goth Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Goth_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultOperatorDemonframe": {
+    "displayName": "Grand Carnus Cuirass",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grand_Carnus_Cuirass"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultOperatorDemonframe": {
+    "displayName": "Grand Carnus Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grand_Carnus_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultOperatorDemonframe": {
+    "displayName": "Grand Carnus Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grand_Carnus_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultOperatorDemonframe": {
+    "displayName": "Grand Carnus Regalia",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grand_Carnus_Regalia"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultOperatorDemonframe": {
+    "displayName": "Grand Carnus Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grand_Carnus_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Clan/FoundersBadgeGrandMasterItem": {
+    "displayName": "Grand Master Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grand_Master_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilGrandMaster": {
+    "displayName": "Grand Master Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grand_Master_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal19C": {
+    "displayName": "Grandis XIX Phloios",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal17C": {
+    "displayName": "Grandis XVII Sporoi",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal18C": {
+    "displayName": "Grandis XVIII Kalika",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal20C": {
+    "displayName": "Grandis XX Perigone",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTilePurgatory": {
+    "displayName": "Granum Void Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Granum_Void_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianGrattler": {
+    "displayName": "Grattler Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grattler_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Devourer/GrendelDeluxeHelmet": {
+    "displayName": "Grendel Nian Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grendel_Nian_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Devourer/GrendelDeluxeIIHelmet": {
+    "displayName": "Grendel Turbis Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grendel_Turbis_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Devourer/GrendelVoidshellHelmet": {
+    "displayName": "Grendel Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grendel_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Ostron/GrineerMask": {
+    "displayName": "Grineer Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grineer_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodGrunge": {
+    "displayName": "Grunge Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grunge_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitGrunge": {
+    "displayName": "Grunge Jacket",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grunge_Jacket"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsGrunge": {
+    "displayName": "Grunge Leggings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grunge_Leggings"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtGrunge": {
+    "displayName": "Grunge Skirt",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grunge_Skirt"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesGrunge": {
+    "displayName": "Grunge Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Grunge_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Guandao/NintendoGaundaoSkin": {
+    "displayName": "Guandao Opal Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Guandao_Opal_Skin"
+  },
+  "/Lotus/Types/AvatarImages/GuardianCon2018Glyph": {
+    "displayName": "Guardiancon 2018 Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Guardiancon_2018_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LotusGuideSigil": {
+    "displayName": "Guide of the Lotus",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Guide_of_the_Lotus"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageLotusGuide": {
+    "displayName": "Guides Of The Lotus Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Guides_Of_The_Lotus_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Horse/DagathDeluxeLNYHorseTail": {
+    "displayName": "Gynfas Tail",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gynfas_Tail"
+  },
+  "/Lotus/Types/AvatarImages/ImageGyreInAction": {
+    "displayName": "Gyre In Action Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gyre_In_Action_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Gyre/GyreDeluxeHelmet": {
+    "displayName": "Gyre Vortengeist Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Gyre_Vortengeist_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Kubrows/Armor/NightwaveSeason5HarkaKubrowArmor": {
+    "displayName": "Harka Kubrow Armor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Harka_Kubrow_Armor"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultDeluxeA": {
+    "displayName": "Harrier Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Harrier_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultDeluxeA": {
+    "displayName": "Harrier Legs",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Harrier_Legs"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultDeluxeA": {
+    "displayName": "Harrier Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Harrier_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDeluxeA": {
+    "displayName": "Harrier Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Harrier_Suit"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageHarrowAction": {
+    "displayName": "Harrow In Action Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Harrow_In_Action_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Priest/HarrowDeluxeHelmet": {
+    "displayName": "Harrow Reliquary Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Harrow_Reliquary_Helmet"
+  },
+  "/Lotus/Upgrades/Mods/PvPMods/Melee/GroundingMeleeMod": {
+    "displayName": "Harrowed Hook",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Harrowed_Hook"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDaxA": {
+    "displayName": "Hawk Bishamo Cuirass",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hawk_Bishamo_Cuirass"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultDaxA": {
+    "displayName": "Hawk Bishamo Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hawk_Bishamo_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultDaxA": {
+    "displayName": "Hawk Bishamo Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hawk_Bishamo_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultDaxA": {
+    "displayName": "Hawk Bishamo Pauldrons",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hawk_Bishamo_Pauldrons"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoIronSkinHeirloom": {
+    "displayName": "Heirloom Iron Skin Override",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Heirloom_Iron_Skin_Override"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianHek": {
+    "displayName": "Hek Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hek_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianHelios": {
+    "displayName": "Helios Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Helios_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Nightwave/CephPolearmSkin": {
+    "displayName": "Heuris Polearm Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Heuris_Polearm_Skin"
+  },
+  "/Lotus/Upgrades/Skins/IronFrame/ShieldDeluxeHelmet": {
+    "displayName": "Hildryn Einheri Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hildryn_Einheri_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageLowPolyHildryn": {
+    "displayName": "Hildryn Poly Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hildryn_Poly_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/HildrynPrimeChestArmor": {
+    "displayName": "Hildryn Prime Chest Plate",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hildryn_Prime_Chest_Plate"
+  },
+  "/Lotus/Upgrades/Skins/IronFrame/HildrynPrimeHelmet": {
+    "displayName": "Hildryn Prime Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hildryn_Prime_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Clan/AmalgamEventBadgeItem": {
+    "displayName": "Hostile Mergers Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hostile_Mergers_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilAmalgam": {
+    "displayName": "Hostile Mergers Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hostile_Mergers_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HoundingKubrowSigil": {
+    "displayName": "Hounding Kubrow Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hounding_Kubrow_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilHunter": {
+    "displayName": "Hunter Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hunter_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Clan/FoundersBadgeHunterItem": {
+    "displayName": "Hunter's Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hunter%27s_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Hydroid/HydroidDeluxeHelmet": {
+    "displayName": "Hydroid Rakkam Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Hydroid_Rakkam_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/IAHGames/IAHGamesBratonSkin": {
+    "displayName": "Iahgames Braton",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Iahgames_Braton"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/IctusPrimeWingsRight": {
+    "displayName": "Ictus Prime Wings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ictus_Prime_Wings"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/IctusWingsRight": {
+    "displayName": "Ictus Sentinel Wings",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sandman/InarosDeluxeHelmet": {
+    "displayName": "Inaros Ramses Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Inaros_Ramses_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/Factions/GlyphFactionInfested": {
+    "displayName": "Infestation Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Infestation_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/Factions/GlyphFactionDeimos": {
+    "displayName": "Infested Deimos Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Infested_Deimos_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Monster": {
+    "displayName": "Infested Sun Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Infested_Sun_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/CYOBBadgeItem": {
+    "displayName": "INFINITY EMBLEM",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/INFINITY_EMBLEM"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/InktoberSigil": {
+    "displayName": "Inktober Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Inktober_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal2C": {
+    "displayName": "Insign II Kalika",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal3C": {
+    "displayName": "Insign III Phloios",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal4C": {
+    "displayName": "Insign IV Perigone",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/TefilahIridosHelmet": {
+    "displayName": "Iridos Voidrig Necramech Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Iridos_Voidrig_Necramech_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/TefilahIridosSkin": {
+    "displayName": "Iridos Voidrig Necramech Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Iridos_Voidrig_Necramech_Skin"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileIronwakeHub": {
+    "displayName": "Iron Wake Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Iron_Wake_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraExaltedBowSkin": {
+    "displayName": "Ivara Obsidian Artemis Bow Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ivara_Obsidian_Artemis_Bow_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraHelmet": {
+    "displayName": "Ivara Obsidian Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ivara_Obsidian_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Deluxe/IvaraDeluxeBowSkin": {
+    "displayName": "Ivara Skathi Artemis Bow Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ivara_Skathi_Artemis_Bow_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Archer/IvaraDeluxeHelmet": {
+    "displayName": "Ivara Skathi Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ivara_Skathi_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/TnLargeCapeXbox": {
+    "displayName": "Jade Broca Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Jade_Broca_Syandana"
+  },
+  "/Lotus/Upgrades/Skins/Choir/JadeImmortalHelmet": {
+    "displayName": "Jade Immortal Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Jade_Immortal_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageJadeInActionGlyph": {
+    "displayName": "Jade In Action Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Jade_In_Action_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/JetWingsRight": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Jet Sentinel Wings",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Sentinel_Accessory_Pack_2"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/InfestedNecraMechHelmet": {
+    "displayName": "Karnolyth Necramech Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Karnolyth_Necramech_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/AntiMatter/WF1999NovaAuxHat": {
+    "displayName": "Kaya's Reactors",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Halloween/DOTD2025OperatorMask": {
+    "displayName": "Kayota Day of the Dead Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Kayota_Day_of_the_Dead_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Khora/KhoraDeluxeHelmet": {
+    "displayName": "Khora Urushu Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Khora_Urushu_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeC": {
+    "displayName": "Ki’Teer Greth Chest Plate",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ki%E2%80%99Teer_Greth_Chest_Plate"
+  },
+  "/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeL": {
+    "displayName": "Ki’Teer Greth Leg Plates",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ki%E2%80%99Teer_Greth_Leg_Plates"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/BaroCape2RazzaExilisScarf": {
+    "displayName": "Ki'Teer Razza Elixis Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ki%27Teer_Razza_Elixis_Syandana"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultB": {
+    "displayName": "Koppra Faulds",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Koppra_Faulds"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultB": {
+    "displayName": "Koppra Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Koppra_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultB": {
+    "displayName": "Koppra Leggings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Koppra_Leggings"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultB": {
+    "displayName": "Koppra Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Koppra_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultB": {
+    "displayName": "Koppra Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Koppra_Suit"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageKoreanCommunityDiscord": {
+    "displayName": "Korean Community Discord Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Korean_Community_Discord_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Tonfa/KronenTwitchSkin": {
+    "displayName": "Kronen Iridos Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Kronen_Iridos_Skin"
+  },
+  "/Lotus/Upgrades/Skins/PaxDuviricus/KullervoDeluxeBodyBlades": {
+    "displayName": "Kullervo Apostate Baneful Blades",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/PaxDuviricus/KulervoDeluxeHelmet": {
+    "displayName": "Kullervo Apostate Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Kullervo_Apostate_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/KullervoDeluxeArmArmor": {
+    "displayName": "Kullervo Apostate Shoulder Spikes",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sigils/StarterPackLotusSigil": {
+    "displayName": "Kumuda Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Kumuda_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Clan/OrokittyBadgeItem": {
+    "displayName": "Kuria Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Kuria_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/MixerKyropteraScarf": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Kyroptera Panoply Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Kyroptera_Panoply_Syandana"
+  },
+  "/Lotus/Types/Items/PhotoBooth/TauOldPeace/PhotoboothTileTauOldPeaceCathedral1799ProtoframeRoom": {
+    "displayName": "La Cathédrale Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/La_Cath%C3%A9drale_Scene"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphLaborAward": {
+    "displayName": "Labor Of Love Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Labor_Of_Love_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtDaxB": {
+    "displayName": "Lark Bishamo Apparel",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lark_Bishamo_Apparel"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDaxB": {
+    "displayName": "Lark Bishamo Cuirass",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitDaxB": {
+    "displayName": "Lark Bishamo Cuirass",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultDaxB": {
+    "displayName": "Lark Bishamo Gear",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lark_Bishamo_Gear"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultDaxB": {
+    "displayName": "Lark Bishamo Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lark_Bishamo_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsDaxB": {
+    "displayName": "Lark Bishamo Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lark_Bishamo_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultDaxB": {
+    "displayName": "Lark Bishamo Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lark_Bishamo_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodDaxB": {
+    "displayName": "Lark Bishamo Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lark_Bishamo_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultDaxB": {
+    "displayName": "Lark Bishamo Pauldrons",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lark_Bishamo_Pauldrons"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesDaxB": {
+    "displayName": "Lark Bishamo Pauldrons",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lark_Bishamo_Pauldrons"
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS4Lato": {
+    "displayName": "Lato Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lato_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenLatoVandal": {
+    "displayName": "Lato Vandal Day of the Dead Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lato_Vandal_Day_of_the_Dead_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Alchemist/AlchemistDeluxeHelmet": {
+    "displayName": "Lavos Khymia Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lavos_Khymia_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Alchemist/AlchemistDeluxeAuxShoulder": {
+    "displayName": "Lavos Khymia Shoulder Vial",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWLavosKuvaelArmArmor": {
+    "displayName": "Lavos Kuvael Alchemist Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Alchemist/LavosPrimeSkin": {
+    "displayName": "Lavos Prime Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lavos_Prime_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWLavosYersinArmArmor": {
+    "displayName": "Lavos Yersin Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sigils/MasterySigil": {
+    "displayName": "Legacy Mastery Sigil",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Sigils"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphLegendaryQuasars": {
+    "displayName": "Legendary Quasars Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Legendary_Quasars_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Events/BunnyEars": {
+    "displayName": "Lepus Headgear",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lepus_Headgear"
+  },
+  "/Lotus/Upgrades/Skins/SteamEsteem/EsteemLex": {
+    "displayName": "Lex Onyx Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lex_Onyx_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FortunaSigil": {
+    "displayName": "Lift Together Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lift_Together_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Magician/LimboDeluxeHelmet": {
+    "displayName": "Limbo Limina Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Limbo_Limina_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Magician/LimboVoidshellHelmet": {
+    "displayName": "Limbo Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Limbo_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Loki/LokiDeluxeHelmet": {
+    "displayName": "Loki Knave Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Loki_Knave_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/ImageLokiPrimeBright": {
+    "displayName": "Loki Prime Glyph - Bright",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Loki_Prime_Glyph_-_Bright"
+  },
+  "/Lotus/Types/AvatarImages/ImageLokiPrimeDark": {
+    "displayName": "Loki Prime Glyph - Dark",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Loki_Prime_Glyph_-_Dark"
+  },
+  "/Lotus/Upgrades/Skins/Loki/LokiTwitchSkin": {
+    "displayName": "Loki Verv Skin",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Loki/LokiVoidShellHelmet": {
+    "displayName": "Loki Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Loki_Voidshell_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageCreatorWgrates": {
+    "displayName": "Lotus Symbol Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageDesRPG": {
+    "displayName": "Lotus Symbol Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageDramakins": {
+    "displayName": "Lotus Symbol Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageKacchi": {
+    "displayName": "Lotus Symbol Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageLovinDaTacos": {
+    "displayName": "Lotus Symbol Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageSenastra": {
+    "displayName": "Lotus Symbol Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/ImageConquera2022B": {
+    "displayName": "Lotus Symbol Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/ImageConquera2022C": {
+    "displayName": "Lotus Symbol Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/ImageConquera2022D": {
+    "displayName": "Lotus Symbol Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lotus_Symbol_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/CNY2021EmblemItem": {
+    "displayName": "Lunar Renewal Ox Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lunar_Renewal_Ox_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearDragonSigil": {
+    "displayName": "Lunar Renewal Soar Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Lunar_Renewal_Soar_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Khora/KhoraDeluxeVenariSkin": {
+    "displayName": "Maculatia Venari Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Maculatia_Venari_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Focus/MaduraiBadgeItem": {
+    "displayName": "Madurai Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Madurai_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Operator/MakeupMasks/MaduraiMaskA": {
+    "displayName": "Madurai Paint A",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Madurai_Paint_A"
+  },
+  "/Lotus/Upgrades/Skins/Operator/MakeupMasks/MaduraiMaskB": {
+    "displayName": "Madurai Paint B",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Madurai_Paint_B"
+  },
+  "/Lotus/Upgrades/Skins/Mag/DiscordMagHelmet": {
+    "displayName": "Mag Amethyst Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mag_Amethyst_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Mag/MagHeirloomHelmet": {
+    "displayName": "Mag Heirloom Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mag_Heirloom_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Ostron/MagMask": {
+    "displayName": "Mag Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mag_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Mag/MagDeluxeHelmet": {
+    "displayName": "Mag Pneuma Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mag_Pneuma_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Mag/MagVoidShellHelmet": {
+    "displayName": "Mag Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mag_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianMagnus": {
+    "displayName": "Magnus Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Magnus_Obsidian_Skin"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphMAWEli": {
+    "displayName": "Make-A-Wish Eli Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Make-A-Wish_Eli_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultD": {
+    "displayName": "Manduka Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Manduka_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultD": {
+    "displayName": "Manduka Leggings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Manduka_Leggings"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultD": {
+    "displayName": "Manduka Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Manduka_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultD": {
+    "displayName": "Manduka Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Manduka_Suit"
+  },
+  "/Lotus/Upgrades/Skins/Armor/GuideOfTheLotus/GuideOfTheLotusArmArmor": {
+    "displayName": "Mantle of the Lotus",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mantle_of_the_Lotus"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/MarsNavigationFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "MARS NAV SEGMENT",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/MARS_NAV_SEGMENT"
+  },
+  "/Lotus/Upgrades/Skins/Ostron/RevenantMask": {
+    "displayName": "Mask of the Lost One",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilMaster": {
+    "displayName": "Master Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Master_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Clan/FoundersBadgeMasterItem": {
+    "displayName": "Master's Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Master%27s_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/MasteryStoneSigil": {
+    "displayName": "Mastery Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mastery_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/MechWeapon/MechEventMausolonSkin": {
+    "displayName": "Mausolon Supulchrax Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mausolon_Supulchrax_Skin"
+  },
+  "/Lotus/Types/Items/SyndicateDogTags/ArbitersRareDogTag": {
+    "displayName": "Maxim Medallion",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Yareli/MerulinaDeluxe": {
+    "displayName": "Merulina Pandea Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Merulina_Pandea_Skin"
+  },
+  "/Lotus/Types/AvatarImages/MesaHighNoonGlyph": {
+    "displayName": "Mesa High Noon Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mesa_High_Noon_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/Sony/AvatarImageOkinaGlyph": {
+    "displayName": "Mesa Okina Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mesa_Okina_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Cowgirl/MesaDeluxeHelmet": {
+    "displayName": "Mesa Presidio Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mesa_Presidio_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Cowgirl/MesaDeluxeArmGunSkin": {
+    "displayName": "Mesa Presidio Regulators Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mesa_Presidio_Regulators_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Cowgirl/MesaDeluxeV2Helmet": {
+    "displayName": "Mesa Projectilyst Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mesa_Projectilyst_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Cowgirl/MesaDeluxeV2ArmGunSkin": {
+    "displayName": "Mesa Projectilyst Regulators Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mesa_Projectilyst_Regulators_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Cowgirl/MesaVoidShellHelmet": {
+    "displayName": "Mesa Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mesa_Voidshell_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageMGLblaze": {
+    "displayName": "Mglblaze Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mglblaze_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hair/Hair1999SarynNoGlasses": {
+    "displayName": "Minerva's Hairstyle (No Shades)",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Minerva%27s_Hairstyle_(No_Shades)"
+  },
+  "/Lotus/Types/AvatarImages/ImageMirageInAction": {
+    "displayName": "Mirage In Action Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mirage_In_Action_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Harlequin/MirageLunarNewYearHelmet": {
+    "displayName": "Mirage Nuwa Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mirage_Nuwa_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Harlequin/MirageDeluxeHelmet": {
+    "displayName": "Mirage Oneiro Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mirage_Oneiro_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Harlequin/MirageVoidShellHelmet": {
+    "displayName": "Mirage Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mirage_Voidshell_Helmet"
+  },
+  "/Lotus/Types/Restoratives/LisetLaserTurret": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Missile Battery",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Missile_Battery"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/ModsFeatureItem": {
+    "displayName": "MOD SEGMENT",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/MOD_SEGMENT"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/MonquisSigil": {
+    "displayName": "Monquis Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Monquis_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Clan/LeaderBadgeMoonItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Moon Leader Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Moon_Leader_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodLotusWisp": {
+    "displayName": "Mother's Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mother%27s_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Clan/LeaderBadgeMountainItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Mountain Leader Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mountain_Leader_Emblem"
+  },
+  "/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "MuseumDogTag",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/MuseumDogTag"
+  },
+  "/Lotus/Upgrades/Skins/Clan/MutalistIncursionsBadgeItem": {
+    "displayName": "Mutalist Incursions Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Mutalist_Incursions_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageCreatorN00blShowtek": {
+    "displayName": "N00blshowtek Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/N00blshowtek_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Focus/NaramonBadgeItem": {
+    "displayName": "Naramon Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Naramon_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Operator/MakeupMasks/NaramonMaskA": {
+    "displayName": "Naramon Paint A",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Naramon_Paint_A"
+  },
+  "/Lotus/Upgrades/Skins/Operator/MakeupMasks/NaramonMaskB": {
+    "displayName": "Naramon Paint B",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Naramon_Paint_B"
+  },
+  "/Lotus/Types/AvatarImages/NarmerEyeGlyph": {
+    "displayName": "Narmer Eye Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Narmer_Eye_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NarmerEyeSigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Narmer Eye Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Narmer_Eye_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/StarterPackASigil": {
+    "displayName": "Nava Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nava_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeE": {
+    "displayName": "Necra Prime Cuirass",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necra_Prime_Cuirass"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitPrimeE": {
+    "displayName": "Necra Prime Cuirass",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necra_Prime_Cuirass"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeE": {
+    "displayName": "Necra Prime Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necra_Prime_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsPrimeE": {
+    "displayName": "Necra Prime Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necra_Prime_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeE": {
+    "displayName": "Necra Prime Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necra_Prime_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodPrimeE": {
+    "displayName": "Necra Prime Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necra_Prime_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeE": {
+    "displayName": "Necra Prime Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necra_Prime_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesPrimeE": {
+    "displayName": "Necra Prime Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necra_Prime_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeEChina": {
+    "displayName": "Necra Prime Vitalis Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necra_Prime_Vitalis_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodPrimeEChina": {
+    "displayName": "Necra Prime Vitalis Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necra_Prime_Vitalis_Hood"
+  },
+  "/Lotus/Types/AvatarImages/TwitchNecraloidGlyph": {
+    "displayName": "Necraloid Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necraloid_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/TwitchNecraloidBadgeItem": {
+    "displayName": "Necraseal Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Necraseal_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphMashedNefAnyo": {
+    "displayName": "Nef Anyo Mashed Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nef_Anyo_Mashed_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilNefAnyo": {
+    "displayName": "Nef Anyo Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nef_Anyo_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Necro/NekrosDeluxeHelmet": {
+    "displayName": "Nekros Irkalla Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nekros_Irkalla_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Necro/NekrosVoidShellHelmet": {
+    "displayName": "Nekros Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nekros_Voidshell_Helmet"
+  },
+  "/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaLureGearItem": {
+    "displayName": "NEXIFERA ECHO-LURE",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/NEXIFERA_ECHO-LURE"
+  },
+  "/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaRarityBoost": {
+    "displayName": "NEXIFERA PHEROMONE GLAND",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/NEXIFERA_PHEROMONE_GLAND"
+  },
+  "/Lotus/Upgrades/Skins/Nezha/NezhaDeluxeHelmet": {
+    "displayName": "Nezha Empyrean Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nezha_Empyrean_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Infestation/NidusDeluxeHelmet": {
+    "displayName": "Nidus Phryke Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nidus_Phryke_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Infestation/NidusVoidShellHelmet": {
+    "displayName": "Nidus Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nidus_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/NoraEarpiece": {
+    "displayName": "Nightwave Earpieces",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nightwave_Earpieces"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultNightSuit": {
+    "displayName": "Nightwave Leggings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nightwave_Leggings"
+  },
+  "/Lotus/Upgrades/Skins/Motorcycle/MotorcycleNightwaveSkin": {
+    "displayName": "Nightwave Livery",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sigils/RadioLegionSigil": {
+    "displayName": "Nightwave Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nightwave_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultNightSuit": {
+    "displayName": "Nightwave Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nightwave_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultNightSuit": {
+    "displayName": "Nightwave Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nightwave_Suit"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianNikana": {
+    "displayName": "Nikana Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nikana_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorC": {
+    "displayName": "Nimandi Prime Chest Plate",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorL": {
+    "displayName": "Nimandi Prime Leg Plates",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/PrimeLavosArmor/PrimeLavosArmorA": {
+    "displayName": "Nimandi Prime Shoulder Plates",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014B": {
+    "displayName": "Nistlebrush Sigil",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Hammer/NoodleHammerSkin": {
+    "displayName": "Noodletron Hammer Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Noodletron_Hammer_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodNorg": {
+    "displayName": "Norg Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Norg_Mask"
+  },
+  "/Lotus/Upgrades/Skins/AntiMatter/NovaDeluxeAoandonHelmet": {
+    "displayName": "Nova Aozakura Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nova_Aozakura_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/AntiMatter/NovaDeluxeHelmet": {
+    "displayName": "Nova Asuri Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nova_Asuri_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/AntiMatter/NovaDeluxeIIHelmet": {
+    "displayName": "Nova Atomica Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nova_Atomica_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/AntiMatter/NovaVoidShellHelmet": {
+    "displayName": "Nova Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nova_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Ember/EmberDeluxeDualPistolSkin": {
+    "displayName": "Nusku Dual Pistol Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nusku_Dual_Pistol_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin": {
+    "displayName": "Nvidia Braton",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Braton"
+  },
+  "/Lotus/Upgrades/Skins/Jade/NyxNemesisHelmet": {
+    "displayName": "Nyx Nemesis Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nyx_Nemesis_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Jade/NyxDeluxeHelmet": {
+    "displayName": "Nyx Pasithea Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Nyx_Pasithea_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWOberonBotLArmArmor": {
+    "displayName": "Oberon Blade of the Lotus Armor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Oberon_Blade_of_the_Lotus_Armor"
+  },
+  "/Lotus/Upgrades/Skins/Paladin/PaladinDeluxeHelmet": {
+    "displayName": "Oberon Feyarch Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Oberon_Feyarch_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Paladin/OberonPS4Helmet": {
+    "displayName": "Oberon Obsidian Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Oberon_Obsidian_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Paladin/OberonPS4Alt2Helmet": {
+    "displayName": "Oberon Obsidian Markhor Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Oberon_Obsidian_Markhor_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWOberonWendigoArmArmor": {
+    "displayName": "Oberon Wendigo Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWOberonYoukaiArmArmor": {
+    "displayName": "Oberon Youkai Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/Sony/OAArmorC": {
+    "displayName": "Obsidian Azura Chest Plate",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Azura_Chest_Plate"
+  },
+  "/Lotus/Upgrades/Skins/Armor/Sony/OAArmorL": {
+    "displayName": "Obsidian Azura Leg Plates",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Azura_Leg_Plates"
+  },
+  "/Lotus/Upgrades/Skins/Armor/Sony/OAArmorA": {
+    "displayName": "Obsidian Azura Shoulder Plates",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Azura_Shoulder_Plates"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf": {
+    "displayName": "Obsidian Azura Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Azura_Syandana"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4CrowSigil": {
+    "displayName": "Obsidian Corvus Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Corvus_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/ObsidianCrowSyandana": {
+    "displayName": "Obsidian Corvus Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Corvus_Syandana"
+  },
+  "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorC": {
+    "displayName": "Obsidian Deko Chest Plate",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Deko_Chest_Plate"
+  },
+  "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorL": {
+    "displayName": "Obsidian Deko Knee Plates",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Deko_Knee_Plates"
+  },
+  "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorA": {
+    "displayName": "Obsidian Deko Shoulder Plates",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Deko_Shoulder_Plates"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ObsidianIndraSigil": {
+    "displayName": "Obsidian Indra Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Indra_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/ObsidianKyropteraScarf": {
+    "displayName": "Obsidian Kyroptera Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Kyroptera_Syandana"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/ObsidianSamiaScarf": {
+    "displayName": "Obsidian Samia Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Samia_Syandana"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/PS5Syandana": {
+    "displayName": "Obsidian Sedai Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Sedai_Syandana"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4RenownXSigil": {
+    "displayName": "Obsidian Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Obsidian_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageOctaviaAction": {
+    "displayName": "Octavia In Action Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Octavia_In_Action_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Bard/BardTwitchHelmet": {
+    "displayName": "Octavia Iridos Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Octavia_Iridos_Helmet"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageOctaviaActionTwitch": {
+    "displayName": "Octavia Iridos In Action Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Octavia_Iridos_In_Action_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Bard/BardTwitchAltHelmet": {
+    "displayName": "Octavia Iridos Mix Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Octavia_Iridos_Mix_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Bard/BardTwitchSkin": {
+    "displayName": "Octavia Iridos Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Octavia_Iridos_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Bard/OctaviaDeluxeHelmet": {
+    "displayName": "Octavia Maestra Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Octavia_Maestra_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianStandardArchwingSkin": {
+    "displayName": "Odonata Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Odonata_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/OgrisTwitchSkin": {
+    "displayName": "Ogris Iridos Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ogris_Iridos_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/PS5OkinaBadgeItem": {
+    "displayName": "Okina Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Okina_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin": {
+    "displayName": "Okina Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Okina_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/LichKillerBadgeItem": {
+    "displayName": "Old Blood Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Old_Blood_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/KuvaLichSigil": {
+    "displayName": "Old Blood Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Old_Blood_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Motorcycle/MotorcycleOllieSkin": {
+    "displayName": "Ollie’s Rocket Livery",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ollie%E2%80%99s_Rocket_Livery"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/NintendoTurtleNeckScarf": {
+    "displayName": "Opal Imperator Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Opal_Imperator_Syandana"
+  },
+  "/Lotus/Upgrades/Skins/Clan/MechEventEmblemItem": {
+    "displayName": "Operation Orphix Venom Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operation_Orphix_Venom_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/MechEventSigil": {
+    "displayName": "Operation Orphix Venom Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operation_Orphix_Venom_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/TauBreathingShell": {
+    "displayName": "Operator Atmosphor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Atmosphor"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtArabic": {
+    "displayName": "Operator Feldune Apparel",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Feldune_Apparel"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodArabic": {
+    "displayName": "Operator Feldune Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Feldune_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsArabic": {
+    "displayName": "Operator Feldune Pants",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Feldune_Pants"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesArabic": {
+    "displayName": "Operator Feldune Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Feldune_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitArabic": {
+    "displayName": "Operator Feldune Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Feldune_Suit"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodOutfit2A": {
+    "displayName": "Operator Keeler Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Keeler_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsOutfit2A": {
+    "displayName": "Operator Keeler Pants",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Keeler_Pants"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOutfit2A": {
+    "displayName": "Operator Keeler Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Keeler_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOutfit2A": {
+    "displayName": "Operator Keeler Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Keeler_Suit"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodOutfit1A": {
+    "displayName": "Operator Loneryder Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Loneryder_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsOutfit1A": {
+    "displayName": "Operator Loneryder Pants",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Loneryder_Pants"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOutfit1A": {
+    "displayName": "Operator Loneryder Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Loneryder_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOutfit1A": {
+    "displayName": "Operator Loneryder Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Loneryder_Suit"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodOutfit3A": {
+    "displayName": "Operator Orizu Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Orizu_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsOutfit3A": {
+    "displayName": "Operator Orizu Pants",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Orizu_Pants"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOutfit3A": {
+    "displayName": "Operator Orizu Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Orizu_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOutfit3A": {
+    "displayName": "Operator Orizu Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Operator_Orizu_Suit"
+  },
+  "/Lotus/Upgrades/Skins/Operator/OperatorCustomization": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "OperatorCustomization",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/OperatorCustomization"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/DethcubePrimeWingsRight": {
+    "displayName": "Orcus Prime Wings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Orcus_Prime_Wings"
+  },
+  "/Lotus/Types/Items/MiscItems/ArchWingNavCode": {
+    "displayName": "Orokin Archive",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Types/AvatarImages/Factions/GlyphFactionOrokin": {
+    "displayName": "Orokin Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Orokin_Glyph"
+  },
+  "/Lotus/Types/Items/DangerRoom/DangerRoomTileDuviriDragonArena": {
+    "displayName": "Orowyrm Arena Simulacrum",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Orowyrm_Arena_Simulacrum"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DuvDragonSigil": {
+    "displayName": "Orowyrm's Rage Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Orowyrm%27s_Rage_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/SteamEsteem/EsteemOrthos": {
+    "displayName": "Orthos Onyx Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Orthos_Onyx_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Events/BlackoutOrthos": {
+    "displayName": "Orthos Phased Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Orthos_Phased_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/OstronCommunitySigil": {
+    "displayName": "Ostron Community Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ostron_Community_Sigil"
+  },
+  "/Lotus/Types/Items/MiscItems/1999FreeStickersPack": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Owned Peely Pak",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Owned_Peely_Pak"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoIronSkinDeluxe": {
+    "displayName": "Palatine Iron Skin Override",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Palatine_Iron_Skin_Override"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/ParrotWingsRight": {
+    "displayName": "Para Sentinel Wings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Para_Sentinel_Wings"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/GreatSword/XB1BallasSword": {
+    "displayName": "Paracesis Jade Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Paracesis_Jade_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/GreatSword/PS4BallasSword": {
+    "displayName": "Paracesis Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Paracesis_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/GreatSword/SWIBallasSword": {
+    "displayName": "Paracesis Opal Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Paracesis_Opal_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/TnSparrowCape": {
+    "displayName": "Parotia Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Parotia_Syandana"
+  },
+  "/Lotus/Types/Items/SyndicateDogTags/PerrinRareDogTag": {
+    "displayName": "Partner Quittance",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianPennant": {
+    "displayName": "Pennant Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Pennant_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TwitchPentaSkin": {
+    "displayName": "Penta Verv Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Penta_Verv_Skin"
+  },
+  "/Lotus/Types/Items/PhotoBooth/TauOldPeace/PhotoboothTileTauOldPeaceObjLiminalBossArena": {
+    "displayName": "Perita Manifestation Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Perita_Manifestation_Scene"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/PhobosNavigationFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "PHOBOS NAV SEGMENT",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/PHOBOS_NAV_SEGMENT"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/CNYRoosterPWSigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Phoenix Coronet Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Phoenix_Coronet_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Clan/CYPlayBadgeItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "PLAY EMBLEM",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/PLAY_EMBLEM"
+  },
+  "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerPromoA": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "POP!",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/POP!"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackNacelleLeftFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "PORT NACELLE",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/PORT_NACELLE"
+  },
+  "/Lotus/Upgrades/Skins/Clan/CaliberChicksCorgiEmblemItem": {
+    "displayName": "President King Corgi Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/President_King_Corgi_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/MonquisCYSigil": {
+    "displayName": "Primate Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Primate_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoIronSkinPrime": {
+    "displayName": "Prime Iron Skin Override",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Prime_Iron_Skin_Override"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronArmArmorPrisma": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Prisma Latron Shoulder Plate",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Prisma_Latron_Shoulder_Plate"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/VorDuviriSigil": {
+    "displayName": "Prisma Vor Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Prisma_Vor_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TwitchProminenceSigil": {
+    "displayName": "Prominence Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Prominence_Sigil"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackHoodBraceFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "PROPULSION SYSTEMS",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/PROPULSION_SYSTEMS"
+  },
+  "/Lotus/Upgrades/Skins/Odalisk/ProteaDeluxeHelmet": {
+    "displayName": "Protea Caladrius Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Protea_Caladrius_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalHelmet": {
+    "displayName": "Protea Immortal Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Protea_Immortal_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalSkin": {
+    "displayName": "Protea Immortal Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Protea_Immortal_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Odalisk/ProteaVoidShellHelmet": {
+    "displayName": "Protea Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Protea_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/VoidrigDSChromaHelmet": {
+    "displayName": "Proto Necramech Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Proto_Necramech_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/GrnFaceMaskArmour/ObsidianFaceMaskArmour": {
+    "displayName": "Provvok Obsidian Shoulder Guard",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Provvok_Obsidian_Shoulder_Guard"
+  },
+  "/Lotus/Upgrades/Skins/Horse/ErsatzHorseTailDefaultC": {
+    "displayName": "Psyacus Tail",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Psyacus_Tail"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemA": {
+    "displayName": "Pungchai Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Pungchai_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/PyranaTwitchSkin": {
+    "displayName": "Pyrana Iridos Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Pyrana_Iridos_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianQuanta": {
+    "displayName": "Quanta Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Quanta_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ConclaveTacAlertSigilA": {
+    "displayName": "Quick Steel Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Quick_Steel_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Frumentarius/WF1999FrumentariusAuxHat": {
+    "displayName": "Quincy's Beret",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Types/Restoratives/Consumable/RecallToRailjack": {
+    "displayName": "Railjack Recall",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Railjack_Recall"
+  },
+  "/Lotus/Upgrades/Skins/Clan/KelaEventBadgeItem": {
+    "displayName": "Rathuum Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Rathuum_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/KelaEventSigil": {
+    "displayName": "Rathuum Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Rathuum_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/CosmosSigil": {
+    "displayName": "Raya Orbitus Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Raya_Orbitus_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/StalkerAccessoriesEarpiece": {
+    "displayName": "Reckoning Earpiece",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Reckoning_Earpiece"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/StalkerAccessoriesMask": {
+    "displayName": "Reckoning Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Reckoning_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/StalkerAccessoriesNose": {
+    "displayName": "Reckoning Oculus",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Reckoning_Oculus"
+  },
+  "/Lotus/Upgrades/Skins/Infestation/NidusDeluxeHipCloth": {
+    "displayName": "Reshef Vipaza",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Revenant/RevenantDeluxeHelmet": {
+    "displayName": "Revenant Mephisto Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Revenant_Mephisto_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/ChangYou/CYRhinoRubedoSkin": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "RHINO BRONZE SKIN",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/RHINO_BRONZE_SKIN"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeV2Helmet": {
+    "displayName": "Rhino Deathwatch Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Rhino_Deathwatch_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeV2Wings": {
+    "displayName": "Rhino Deathwatch Wings",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoDexHelmet": {
+    "displayName": "Rhino Dex Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Rhino_Dex_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoHeirloomHelmet": {
+    "displayName": "Rhino Heirloom Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Rhino_Heirloom_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeRhinoHelmet": {
+    "displayName": "Rhino Jade Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Rhino_Jade_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeHelmet": {
+    "displayName": "Rhino Palatine Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Rhino_Palatine_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkinHelmet": {
+    "displayName": "Rhino Rubedo Plated Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Rhino_Rubedo_Plated_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkin": {
+    "displayName": "Rhino Rubedo Plated Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Rhino_Rubedo_Plated_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoChameleonAHelmet": {
+    "displayName": "Rhino Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Rhino_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EnergySigilA": {
+    "displayName": "Rift Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Rift_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Promo/RixtyMOL/RixtyMOLAklatoSkin": {
+    "displayName": "RixtyMOL Aklato",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/RixtyMOL_Aklato"
+  },
+  "/Lotus/Upgrades/Skins/DemonFrame/GeminiDemonFrameAuxHat": {
+    "displayName": "Roathe's Chyrinth",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Types/Items/DangerRoom/DangerRoomTileDevilTowerUrielArena": {
+    "displayName": "Roathe's Oblivion Arena",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Roathe%27s_Oblivion_Arena"
+  },
+  "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerNokkoA": {
+    "displayName": "Roots n’ Fruits",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Roots_n%E2%80%99_Fruits"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeA": {
+    "displayName": "Saita Prime Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saita_Prime_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeA": {
+    "displayName": "Saita Prime Leggings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saita_Prime_Leggings"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeA": {
+    "displayName": "Saita Prime Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saita_Prime_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeA": {
+    "displayName": "Saita Prime Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saita_Prime_Suit"
+  },
+  "/Lotus/Upgrades/Skins/Saryn/SarynDeluxeHelmet": {
+    "displayName": "Saryn Orphid Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saryn_Orphid_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Saryn/WF1999SarynHelmet": {
+    "displayName": "Saryn Prime Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saryn_Prime_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Saryn/SarynChameleonBHelmet": {
+    "displayName": "Saryn Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saryn_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Saryn/SarynLunarNewYearHelmet": {
+    "displayName": "Saryn Yuheng Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saryn_Yuheng_Helmet"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/SaturnNavigationFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "SATURN NAV SEGMENT",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/SATURN_NAV_SEGMENT"
+  },
+  "/Lotus/Upgrades/Skins/Armor/Wolf/DOTDWolfCArmor": {
+    "displayName": "Saturn Six Day of the Dead Chest Plate",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saturn_Six_Day_of_the_Dead_Chest_Plate"
+  },
+  "/Lotus/Upgrades/Skins/Armor/Wolf/DOTDWolfLArmor": {
+    "displayName": "Saturn Six Day of the Dead Knee Plates",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saturn_Six_Day_of_the_Dead_Knee_Plates"
+  },
+  "/Lotus/Upgrades/Skins/Armor/Wolf/DOTDWolfAArmor": {
+    "displayName": "Saturn Six Day of the Dead Shoulder Plates",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saturn_Six_Day_of_the_Dead_Shoulder_Plates"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WolfSigil": {
+    "displayName": "Saturn Six Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Saturn_Six_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/SavePopcornGlyph": {
+    "displayName": "Save Popcorn Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Save_Popcorn_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ScarSigil": {
+    "displayName": "Scar Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scar_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearGroundIEmblem": {
+    "displayName": "Scarlet Spear Condrix I Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Condrix_I_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearGroundI": {
+    "displayName": "Scarlet Spear Condrix I Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Condrix_I_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearGroundIIEmblem": {
+    "displayName": "Scarlet Spear Condrix II Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Condrix_II_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearGroundII": {
+    "displayName": "Scarlet Spear Condrix Ii Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Condrix_Ii_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearGroundIIIEmblem": {
+    "displayName": "Scarlet Spear Condrix III Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Condrix_III_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearGroundIII": {
+    "displayName": "Scarlet Spear Condrix Iii Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Condrix_Iii_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearSpaceIEmblem": {
+    "displayName": "Scarlet Spear Murex I Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Murex_I_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearSpaceI": {
+    "displayName": "Scarlet Spear Murex I Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Murex_I_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearSpaceIIEmblem": {
+    "displayName": "Scarlet Spear Murex II Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Murex_II_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearSpaceII": {
+    "displayName": "Scarlet Spear Murex Ii Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Murex_Ii_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearSpaceIIIEmblem": {
+    "displayName": "Scarlet Spear Murex III Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Murex_III_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearSpaceIII": {
+    "displayName": "Scarlet Spear Murex Iii Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Murex_Iii_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearOperationIEmblem": {
+    "displayName": "Scarlet Spear Operations I Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Operations_I_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearOperationI": {
+    "displayName": "Scarlet Spear Operations I Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Operations_I_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearOperationIIEmblem": {
+    "displayName": "Scarlet Spear Operations II Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Operations_II_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearOperationII": {
+    "displayName": "Scarlet Spear Operations Ii Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Operations_Ii_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearOperationIIIEmblem": {
+    "displayName": "Scarlet Spear Operations III Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Operations_III_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearOperationIII": {
+    "displayName": "Scarlet Spear Operations Iii Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scarlet_Spear_Operations_Iii_Glyph"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDuviriScholarsLandingMITW": {
+    "displayName": "Scholar's Landing Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scholar%27s_Landing_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianScoliac": {
+    "displayName": "Scoliac Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scoliac_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DogDays2023CSigil": {
+    "displayName": "Scorcher Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scorcher_Sigil"
+  },
+  "/Lotus/Types/Restoratives/Consumable/MacheteWomanBall": {
+    "displayName": "Scorpion Specter",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Scorpion_Specter"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/XBoneOneYearSigil": {
+    "displayName": "Seal Of Honoring",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Seal_Of_Honoring"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/XBoneTwoYearSigil": {
+    "displayName": "Seal Of Honoring II",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Seal_Of_Honoring_II"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/XBoneThreeYearSigil": {
+    "displayName": "Seal Of Honoring III",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Seal_Of_Honoring_III"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil": {
+    "displayName": "Seal Of Honoring IV",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Seal_Of_Honoring_IV"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianSerro": {
+    "displayName": "Serro Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Serro_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal5C": {
+    "displayName": "Servio V Sporoi",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal6C": {
+    "displayName": "Servio VI Kalika",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal7C": {
+    "displayName": "Servio VII Phloios",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal8C": {
+    "displayName": "Servio VIII Perigone",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/SevagothDeluxeHelmet": {
+    "displayName": "Sevagoth Glaukus Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sevagoth_Glaukus_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/SevagothDeluxeShadowClawsSkin": {
+    "displayName": "Sevagoth Glaukus Shadow Claws",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sevagoth_Glaukus_Shadow_Claws"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/SevagothDeluxeShadowHelmet": {
+    "displayName": "Sevagoth Glaukus Shadow Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sevagoth_Glaukus_Shadow_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/SevagothDeluxeShadowSkin": {
+    "displayName": "Sevagoth Glaukus Shadow Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sevagoth_Glaukus_Shadow_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/SevagothDeluxeArmRightArmor": {
+    "displayName": "Sevagoth Glaukus Shoulder Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageSevagothAction": {
+    "displayName": "Sevagoth In Action Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sevagoth_In_Action_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/SevagothPrimeHelmet": {
+    "displayName": "Sevagoth Prime Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sevagoth_Prime_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/SWSevagothEzrielReaperHelmet": {
+    "displayName": "Sevagoth's Shadow Ezriel Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sevagoth%27s_Shadow_Ezriel_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/SWSevagothEzrielReaperSkin": {
+    "displayName": "Sevagoth's Shadow Ezriel Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sevagoth%27s_Shadow_Ezriel_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/SevagothPrimeShadowClawsSkin": {
+    "displayName": "Shadow Claws Prime",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Shadow_Claws_Prime"
+  },
+  "/Lotus/Upgrades/Skins/Clan/LeaderBadgeShadowItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Shadow Leader Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Shadow_Leader_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerNokkoC": {
+    "displayName": "Shooms",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Shooms"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DotD2025Sigil": {
+    "displayName": "Shroud of Dynar Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Shroud_of_Dynar_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianSilvaAndAegis": {
+    "displayName": "Silva & Aegis Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Silva_%26_Aegis_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/SkullBadgeSilverItem": {
+    "displayName": "Silver Skull Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Silver_Skull_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Promo/ChangYou/CYSingleStaffSkin": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "SINGLE STAFF SKIN",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/SINGLE_STAFF_SKIN"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Amp/DrifterAmpSkin": {
+    "displayName": "Sirocco Amp Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sirocco_Amp_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/CorpusLichBadgeItem": {
+    "displayName": "Sisterhood Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sisterhood_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/CorpusLichSigil": {
+    "displayName": "Sisterhood Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sisterhood_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS4Skana": {
+    "displayName": "Skana Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Skana_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/NecramechSnakeHelmet": {
+    "displayName": "Snake Necramech Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Snake_Necramech_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NecramechSigilSnake": {
+    "displayName": "Snake Necramech Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Snake_Necramech_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/NecramechSnakeSkin": {
+    "displayName": "Snake Necramech Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Snake_Necramech_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SigilSnake": {
+    "displayName": "Snake Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Snake_Sigil"
+  },
+  "/Lotus/Types/Restoratives/LisetShield": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Snow Globe",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Snow_Globe"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageCreatorSnowLit": {
+    "displayName": "Snowlit Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Snowlit_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Clan/SolarisBadgeItem": {
+    "displayName": "Solaris Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Solaris_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Clan/HolidayDeathMatchBadgeItem": {
+    "displayName": "Solstice Conclave Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Solstice_Conclave_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Winter2016Sigil": {
+    "displayName": "Solstice Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Solstice_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SomberStalkerSigil": {
+    "displayName": "Somber Stalker Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Somber_Stalker_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianSonicor": {
+    "displayName": "Sonicor Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Sonicor_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneScytheSkin": {
+    "displayName": "Spearmint Scythe Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Spearmint_Scythe_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/RescueEventBadgeItem": {
+    "displayName": "Specters of Liberty Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Specters_of_Liberty_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianSpira": {
+    "displayName": "Spira Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Spira_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DogDays2023ASigil": {
+    "displayName": "Splash and Dash Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Splash_and_Dash_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DogDays2025Sigil": {
+    "displayName": "Splashdown Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Splashdown_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageStalkerAction": {
+    "displayName": "Stalker In Action Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Stalker_In_Action_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NWStalkerSigil": {
+    "displayName": "Stalker Smoke Screen Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Stalker_Smoke_Screen_Sigil"
+  },
+  "/Lotus/Types/Items/PhotoBooth/JadeShadows/PhotoboothTileStalkerCave": {
+    "displayName": "Stalker's Lair Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Stalker%27s_Lair_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/UmbraTiara": {
+    "displayName": "Star-Child Diadem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Star-Child_Diadem"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackNacelleRightFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "STARBOARD NACELLE",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/STARBOARD_NACELLE"
+  },
+  "/Lotus/Upgrades/Skins/Glass/GlassDeluxeWings": {
+    "displayName": "Starglaze Shards",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Clan/LeaderBadgeStormItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "Storm Leader Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Storm_Leader_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOperatorLasrianA": {
+    "displayName": "Stormfall Gloves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Stormfall_Gloves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorLasrianA": {
+    "displayName": "Stormfall Jacket",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Stormfall_Jacket"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodOperatorLasrianA": {
+    "displayName": "Stormfall Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Stormfall_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsOperatorLasrianA": {
+    "displayName": "Stormfall Pants & Boots",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Stormfall_Pants_%26_Boots"
+  },
+  "/Lotus/Types/AvatarImages/ImageStyanaxInAction": {
+    "displayName": "Styanax In Action Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Styanax_In_Action_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Hoplite/StyanaxDeluxeAuxChest": {
+    "displayName": "Styanax Tonatiuh Embellishments",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Hoplite/StyanaxDeluxeHelmet": {
+    "displayName": "Styanax Tonatiuh Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Styanax_Tonatiuh_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Hoplite/StyanaxVoidshellHelmet": {
+    "displayName": "Styanax Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Styanax_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/OrokinWingsRight": {
+    "displayName": "Summus Prime Sentinel Wings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Summus_Prime_Sentinel_Wings"
+  },
+  "/Lotus/Upgrades/Skins/Clan/SurvivalEventBadgeItem": {
+    "displayName": "Survival Emblem",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Clan/InfTacAlertNaniteMoaAncientBadgeItem": {
+    "displayName": "Swarm Mutalist Moa Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Swarm_Mutalist_Moa_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaTagfer": {
+    "displayName": "Tagfer Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tagfer_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/Events/EventGlyphCaviaTagfer": {
+    "displayName": "Tagfer Sketch Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tagfer_Sketch_Glyph"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/Railjack/RailjackTailFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "TAIL SECTION",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TAIL_SECTION"
+  },
+  "/Lotus/Upgrades/Skins/Clan/InfTacAlertSlowBombMoaAncientBadgeItem": {
+    "displayName": "Tar Mutalist Moa Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tar_Mutalist_Moa_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Halloween2023RamBadgeItem": {
+    "displayName": "Taunting Tamm Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Taunting_Tamm_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeF": {
+    "displayName": "Tauron Prime Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tauron_Prime_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsPrimeF": {
+    "displayName": "Tauron Prime Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tauron_Prime_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeF": {
+    "displayName": "Tauron Prime Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tauron_Prime_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodPrimeF": {
+    "displayName": "Tauron Prime Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tauron_Prime_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeF": {
+    "displayName": "Tauron Prime Regalia",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitPrimeF": {
+    "displayName": "Tauron Prime Regalia",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeF": {
+    "displayName": "Tauron Prime Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tauron_Prime_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesPrimeF": {
+    "displayName": "Tauron Prime Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tauron_Prime_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Halloween/DOTD2025TaxonSkin": {
+    "displayName": "Taxon Day of the Dead Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Taxon_Day_of_the_Dead_Skin"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageTCN": {
+    "displayName": "Tcn Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tcn_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/RailJack/RailjackGhostSkin": {
+    "displayName": "Tempestarii Railjack Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tempestarii_Railjack_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultPrimeC": {
+    "displayName": "Templar Prime Apparel",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Templar_Prime_Apparel"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultPrimeC": {
+    "displayName": "Templar Prime Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Templar_Prime_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultPrimeC": {
+    "displayName": "Templar Prime Leggings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Templar_Prime_Leggings"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultPrimeC": {
+    "displayName": "Templar Prime Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Templar_Prime_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultPrimeC": {
+    "displayName": "Templar Prime Suit",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Clan/TenYearAnniversaryBadgeItem": {
+    "displayName": "Ten Year Anniversary Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Ten_Year_Anniversary_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal9C": {
+    "displayName": "Tenens IX Sporoi",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal10C": {
+    "displayName": "Tenens X Kalika",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal11C": {
+    "displayName": "Tenens XI Phloios",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TauRankMedal/TauRankMedal12C": {
+    "displayName": "Tenens XII Perigone",
+    "pageFound": true,
+    "url": "https://wiki.warframe.com/w/Insign_Bundle"
+  },
+  "/Lotus/Upgrades/Skins/Nezha/NezhaDeluxeDualDaggerSkin": {
+    "displayName": "Teng Dual Dagger Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Teng_Dual_Dagger_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/WikiaBadgeItem": {
+    "displayName": "Tenno Chronicler Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tenno_Chronicler_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WikiaSigil": {
+    "displayName": "Tenno Chronicler Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tenno_Chronicler_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil": {
+    "displayName": "Tenno Live Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tenno_Live_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoLivePromoSigil": {
+    "displayName": "Tenno Luminary Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tenno_Luminary_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Clan/LotusGuideBadgeItem": {
+    "displayName": "Tenno Mentor Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tenno_Mentor_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageTennoTranslator": {
+    "displayName": "Tenno Translator Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tenno_Translator_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TranslatorSigil": {
+    "displayName": "Tenno Translator Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tenno_Translator_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2016Sigil": {
+    "displayName": "TennoCon 2016 Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoCon_2016_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2017Sigil": {
+    "displayName": "TennoCon 2017 Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoCon_2017_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil": {
+    "displayName": "TennoCon 2018 Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoCon_2018_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/TennoCon2019SimarisGlyph": {
+    "displayName": "Tennocon 2019 Sanctuary Showcase Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tennocon_2019_Sanctuary_Showcase_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil": {
+    "displayName": "TennoCon 2019 Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoCon_2019_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil": {
+    "displayName": "TennoCon 2020 Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoCon_2020_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultM2022TennoCon": {
+    "displayName": "TennoCon 2022 Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoCon_2022_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Clan/TennoCon2016BadgeItem": {
+    "displayName": "TennoCon Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoCon_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Tennogen10YearBadgeItem": {
+    "displayName": "TennoGen Decennial Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoGen_Decennial_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Tennogen10YearSigil": {
+    "displayName": "TennoGen Decennial Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoGen_Decennial_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Clan/TennoGenBadgeItem": {
+    "displayName": "TennoGen Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoGen_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoGenSigil": {
+    "displayName": "TennoGen Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoGen_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageTennoVIP2Glyph": {
+    "displayName": "Tennovip 2025 Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tennovip_2025_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoVIP2025Sigil": {
+    "displayName": "TennoVIP 2025 Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoVIP_2025_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoVIP2026Sigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "TennoVIP 2026 Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoVIP_2026_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoVIP2024Sigil": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "TennoVIP East Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/TennoVIP_East_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DawnsEarlyLightSigil": {
+    "displayName": "Teralyst Prominence Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Teralyst_Prominence_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ShipyardsEventBadgeItem": {
+    "displayName": "Tethra's Doom Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tethra%27s_Doom_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ShipyardsEventQuantumBadgeItem": {
+    "displayName": "Tethra's Doom Quantum Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tethra%27s_Doom_Quantum_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Mustache/Stache05": {
+    "displayName": "The Baron",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Baron"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileWraithQuestArena": {
+    "displayName": "The Cold Below Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Cold_Below_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Mustache/Stache06": {
+    "displayName": "The Dastard",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Dastard"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDrifterCamp": {
+    "displayName": "The Drifter Camp Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Drifter_Camp_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Mustache/Stache": {
+    "displayName": "The Gentleman",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Gentleman"
+  },
+  "/Lotus/Upgrades/Skins/Mustache/Stache08": {
+    "displayName": "The Illusionist",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Illusionist"
+  },
+  "/Lotus/Upgrades/Skins/Clan/IndexEventBadgeItem": {
+    "displayName": "The Index Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Index_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilIndex": {
+    "displayName": "The Index Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Index_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Mustache/Stache10": {
+    "displayName": "The Inventor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Inventor"
+  },
+  "/Lotus/Upgrades/Skins/Mustache/Stache03": {
+    "displayName": "The Magnum",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Magnum"
+  },
+  "/Lotus/Upgrades/Skins/Mustache/Stache09": {
+    "displayName": "The Master",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Master"
+  },
+  "/Lotus/Upgrades/Skins/Clan/DefectorRescueEventBadgeItem": {
+    "displayName": "The Pacifism Defect Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Pacifism_Defect_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Mustache/Stache07": {
+    "displayName": "The Shopkeep",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Shopkeep"
+  },
+  "/Lotus/Upgrades/Skins/Mustache/Stache02": {
+    "displayName": "The Tusker",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Tusker"
+  },
+  "/Lotus/Upgrades/Skins/Mustache/Stache04": {
+    "displayName": "The Villain",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_Villain"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileTWWTeshinEnding": {
+    "displayName": "The War Within Choice Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/The_War_Within_Choice_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Deluxe/WukongDeluxeBKatanaSkin": {
+    "displayName": "Tiandi Nikana Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tiandi_Nikana_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/DrakeRifleBadgeItem": {
+    "displayName": "Tiberon Obsidian Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tiberon_Obsidian_Emblem"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageDrakeRifle": {
+    "displayName": "Tiberon Obsidian Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tiberon_Obsidian_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS5TiberonSkin": {
+    "displayName": "Tiberon Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tiberon_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/SteamEsteem/EsteemTigris": {
+    "displayName": "Tigris Onyx Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tigris_Onyx_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Void/TigrisVoidSkin": {
+    "displayName": "Tigris Phased Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tigris_Phased_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TigrisTwitchSkin": {
+    "displayName": "Tigris Prominence Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tigris_Prominence_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Fairy/TitaniaDeluxeIIHelmet": {
+    "displayName": "Titania Donann Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Titania_Donann_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Fairy/TitaniaDeluxeHelmet": {
+    "displayName": "Titania Empress Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Titania_Empress_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Fairy/TitaniaDeluxeIIAuxWings": {
+    "displayName": "Titania Moyturan Wings",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014C": {
+    "displayName": "Tolling Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Tolling_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageSzczebrzeszyniarz": {
+    "displayName": "Top Hat & Monocle Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Top_Hat_%26_Monocle_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Deluxe/ProteaDeluxeGlaiveSkin": {
+    "displayName": "Traciens Glaive Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Traciens_Glaive_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SigilVideoContest": {
+    "displayName": "Trailer Entrant Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Trailer_Entrant_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Ostron/TrinityMask": {
+    "displayName": "Trinity Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Trinity_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Trinity/TrinityDeluxeHelmet": {
+    "displayName": "Trinity Strega Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Trinity_Strega_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/GrineerAssaultRifle/NintendoGrineerAssaultRifleSkin": {
+    "displayName": "Twin Grakatas Opal Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Twin_Grakatas_Opal_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianTwinVipers": {
+    "displayName": "Twin Vipers Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Twin_Vipers_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoAkimboViperCamo": {
+    "displayName": "Twin Vipers Rubedo Plated Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Twin_Vipers_Rubedo_Plated_Skin"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileSacrificeCourtyard": {
+    "displayName": "Umbra's Courtyard Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Umbra%27s_Courtyard_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Focus/UnairuBadgeItem": {
+    "displayName": "Unairu Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Unairu_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Operator/MakeupMasks/UnairuMaskA": {
+    "displayName": "Unairu Paint A",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Unairu_Paint_A"
+  },
+  "/Lotus/Upgrades/Skins/Operator/MakeupMasks/UnairuMaskB": {
+    "displayName": "Unairu Paint B",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Unairu_Paint_B"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/PrimeSentinelWingsRight": {
+    "displayName": "Unda Prime Sentinel Wings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Unda_Prime_Sentinel_Wings"
+  },
+  "/Lotus/Types/Items/UnlockArbitrationKeyItem": {
+    "displayName": "Unlock Arbitrations",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Unlock_Arbitrations"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageUnrealTournament": {
+    "displayName": "Unreal Tournament Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Unreal_Tournament_Glyph"
+  },
+  "/Lotus/Types/Items/MiscItems/PhotoboothTileDuviriMainlandAWest": {
+    "displayName": "Upperhaven Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Upperhaven_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/ValdurBackCape": {
+    "displayName": "Valdur's Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Valdur%27s_Syandana"
+  },
+  "/Lotus/Upgrades/Skins/Berserker/ValkyrDeluxeHelmet": {
+    "displayName": "Valkyr Carnivex Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Valkyr_Carnivex_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Berserker/BerserkerDeluxeHelmet": {
+    "displayName": "Valkyr Gersemi Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Valkyr_Gersemi_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Berserker/ValkyrHeirloomHelmet": {
+    "displayName": "Valkyr Heirloom Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Valkyr_Heirloom_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Berserker/JadeValkyrHelmet": {
+    "displayName": "Valkyr Jade Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Valkyr_Jade_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/PrimeGyreArmor/PrimeGyreArmorC": {
+    "displayName": "Vanda Prime Chest Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/PrimeGyreArmor/PrimeGyreArmorL": {
+    "displayName": "Vanda Prime Leg Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/PrimeGyreArmor/PrimeGyreArmorA": {
+    "displayName": "Vanda Prime Shoulder Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sigils/InfLichVanquishedSigil": {
+    "displayName": "Vanquished Coda Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vanquished_Coda_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultNewC": {
+    "displayName": "Varida Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Varida_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultNewC": {
+    "displayName": "Varida Leggings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Varida_Leggings"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultNewC": {
+    "displayName": "Varida Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Varida_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultNewC": {
+    "displayName": "Varida Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Varida_Suit"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ZarimanEvolvingSekharaBadgeItemC": {
+    "displayName": "Vasero Apex Sekhara",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vasero_Apex_Sekhara"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ZarimanEvolvingSekharaBadgeItemB": {
+    "displayName": "Vasero Emergent Sekhara",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vasero_Emergent_Sekhara"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Void/VastoVoidSkin": {
+    "displayName": "Vasto Phased Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vasto_Phased_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Trapper/VaubanDeluxeHelmet": {
+    "displayName": "Vauban Citadel Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vauban_Citadel_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Trapper/VaubanHeirloomHelmet": {
+    "displayName": "Vauban Heirloom Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vauban_Heirloom_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Trapper/VaubanHeirloomAux": {
+    "displayName": "Vauban Heirloom Overcoat",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HeirloomVaubanSigilSumo": {
+    "displayName": "Vauban Heirloom Schema Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vauban_Heirloom_Schema_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Trapper/VaubanHeirloomAuxSleeveless": {
+    "displayName": "Vauban Heirloom Sleeveless Overcoat",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Trapper/VaubanVoidSkinHelmet": {
+    "displayName": "Vauban Phased Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vauban_Phased_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Trapper/VaubanVoidSkin": {
+    "displayName": "Vauban Phased Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vauban_Phased_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Focus/VazarinBadgeItem": {
+    "displayName": "Vazarin Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vazarin_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Operator/MakeupMasks/VazarinMaskA": {
+    "displayName": "Vazarin Paint A",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vazarin_Paint_A"
+  },
+  "/Lotus/Upgrades/Skins/Operator/MakeupMasks/VazarinMaskB": {
+    "displayName": "Vazarin Paint B",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vazarin_Paint_B"
+  },
+  "/Lotus/Upgrades/Skins/Frost/WF1999FrostAuxHat": {
+    "displayName": "Velimir's Coolant Tank",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Garuda/GarudaGeminiClawsSkin": {
+    "displayName": "Vena's Talons",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vena%27s_Talons"
+  },
+  "/Lotus/Types/Items/ShipFeatureItems/VenusNavigationFeatureItem": {
+    "exportDisposition": "The local export marks this exact object as hidden from the Codex and unavailable from the Market; no player-facing acquisition route is recorded.",
+    "displayName": "VENUS NAV SEGMENT",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/VENUS_NAV_SEGMENT"
+  },
+  "/Lotus/Upgrades/Skins/Catbrows/Armor/VermillionKavatArmor": {
+    "displayName": "Vermillion Kavat Armor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vermillion_Kavat_Armor"
+  },
+  "/Lotus/Upgrades/Skins/Clan/TwitchPromo2021BadgeItem": {
+    "displayName": "Verv Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Verv_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Kubrows/Armor/Twitch2021IfritKubrowArmor": {
+    "displayName": "Verv Ifrit Kubrow Armor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Verv_Ifrit_Kubrow_Armor"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageLokiActionTwitch": {
+    "displayName": "Verv Loki Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Verv_Loki_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Catbrows/Armor/Twitch2021MyrdinCatbrowArmor": {
+    "displayName": "Verv Myrdin Kavat Armor",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Verv_Myrdin_Kavat_Armor"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Redeemer/RedeemerTwitchSkin": {
+    "displayName": "Verv Redeemer Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Verv_Redeemer_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TwitchRubicoSkin": {
+    "displayName": "Verv Rubico Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Verv_Rubico_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TwitchPromo2021Sigil": {
+    "displayName": "Verv Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Verv_Sigil"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianViper": {
+    "displayName": "Viper Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Viper_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/ReferralSeriesTwo/RubedoViperCamo": {
+    "displayName": "Viper Rubedo Plated Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Viper_Rubedo_Plated_Skin"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Gate": {
+    "displayName": "Void Mirror Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Void_Mirror_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageGlyphErisTennocon2020Bird": {
+    "displayName": "Void Moon Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Void_Moon_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/NecramechVoidRigDefaultHelmet": {
+    "displayName": "Voidrig Necramech Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Voidrig_Necramech_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodChameleon": {
+    "displayName": "Voidshell Hood",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Voidshell_Hood"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsChameleon": {
+    "displayName": "Voidshell Leggings",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Voidshell_Leggings"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesChameleon": {
+    "displayName": "Voidshell Sleeves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Voidshell_Sleeves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitChameleon": {
+    "displayName": "Voidshell Suit",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Voidshell_Suit"
+  },
+  "/Lotus/Upgrades/Skins/Volt/DiscordVoltHelmet": {
+    "displayName": "Volt Amethyst Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Volt_Amethyst_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Volt/VoltDeluxeBHelmet": {
+    "displayName": "Volt Electrolyst Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Volt_Electrolyst_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Ostron/VoltMask": {
+    "displayName": "Volt Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Volt_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Volt/NintendoVoltHelmet": {
+    "displayName": "Volt Opal Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Volt_Opal_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Volt/VoltTwitchHelmet": {
+    "displayName": "Volt Prominence Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Volt_Prominence_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Volt/VoltTwitchSkin": {
+    "displayName": "Volt Prominence Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Volt_Prominence_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Volt/VoltDeluxeHelmet": {
+    "displayName": "Volt Proto Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Volt_Proto_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Volt/VoltDeluxeRaijinHelmet": {
+    "displayName": "Volt Raijin Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Volt_Raijin_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Volt/VoltDeluxeRaijinAuxChest": {
+    "displayName": "Volt Raijin Sleeves",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/VoltChameleonArmArmor": {
+    "displayName": "Volt Voidshell Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Volt/VoltChameleonAHelmet": {
+    "displayName": "Volt Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Volt_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWWerewolfDemionnaArmArmor": {
+    "displayName": "Voruna Demionna Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWKuvaelArmArmor": {
+    "displayName": "Voruna Kuvael Drahkaanis Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/VorunaDeluxeArmArmor": {
+    "displayName": "Voruna Medeina Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Werewolf/VorunaDeluxeHelmet": {
+    "displayName": "Voruna Medeina Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Voruna_Medeina_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/WerewolfVoidshellArmArmor": {
+    "displayName": "Voruna Voidshell Armor",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Werewolf/VorunaVoidShellHelmet": {
+    "displayName": "Voruna Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Voruna_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/OperatorNefAnyoMask": {
+    "displayName": "Vox Solaris Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Vox_Solaris_Mask"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerUpdated": {
+    "displayName": "Warframe Creator Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Warframe_Creator_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageExcaliburMobile": {
+    "displayName": "Warframe Mobile Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Warframe_Mobile_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartner": {
+    "displayName": "Warframe Partner Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Warframe_Partner_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerMug": {
+    "displayName": "Warframe Partner Mug Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Warframe_Partner_Mug_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageWarframeRunway": {
+    "displayName": "Warframe Runway Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Warframe_Runway_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageTennoChronicler": {
+    "displayName": "Warframe Wiki Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Warframe_Wiki_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/FanChannel/AvatarImageWarframeFanChannel": {
+    "displayName": "Warframefanchannel Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Warframefanchannel_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018A": {
+    "displayName": "Winter Glyph Xiv",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Winter_Glyph_Xiv"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018B": {
+    "displayName": "Winter Glyph Xv",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Winter_Glyph_Xv"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018C": {
+    "displayName": "Winter Glyph Xvi",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Winter_Glyph_Xvi"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018D": {
+    "displayName": "Winter Glyph Xvii",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Winter_Glyph_Xvii"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018E": {
+    "displayName": "Winter Glyph Xviii",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Winter_Glyph_Xviii"
+  },
+  "/Lotus/Upgrades/Skins/Wisp/DexWispHelmet": {
+    "displayName": "Wisp Dex Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Wisp_Dex_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Wisp/WispPrimeDefaultCape": {
+    "displayName": "Wisp Prime Shroud",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Wisp_Prime_Shroud"
+  },
+  "/Lotus/Upgrades/Skins/Wisp/WispDeluxeHelmet": {
+    "displayName": "Wisp Somnium Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Wisp_Somnium_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014A": {
+    "displayName": "Wreath Sigil",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/MonkeyKing/WukongDeluxeBHelmet": {
+    "displayName": "Wukong Qitian Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Wukong_Qitian_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/MonkeyKing/WukongDeluxeBStaffSkin": {
+    "displayName": "Wukong Qitian Iron Staff Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Wukong_Qitian_Iron_Staff_Skin"
+  },
+  "/Lotus/Upgrades/Skins/MonkeyKing/WukongDeluxeHelmet": {
+    "displayName": "Wukong Samadhi Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Wukong_Samadhi_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/MonkeyKing/WukongDeluxeStaffSkin": {
+    "displayName": "Wukong Samadhi Iron Staff Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Wukong_Samadhi_Iron_Staff_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/WukongDeluxeArmArmor": {
+    "displayName": "Wukong Samadhi Shoulder Plates",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/MonkeyKing/MonkeyKingChamelionHelmet": {
+    "displayName": "Wukong Voidshell Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Wukong_Voidshell_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianWyrm": {
+    "displayName": "Wyrm Obsidian Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Wyrm_Obsidian_Skin"
+  },
+  "/Lotus/Upgrades/Skins/BrokenFrame/XakuDeluxeHelmet": {
+    "displayName": "Xaku Kagura Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Xaku_Kagura_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosHelmet": {
+    "displayName": "Xaku Raya Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Xaku_Raya_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosAltHelmet": {
+    "displayName": "Xaku Raya Illume Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Xaku_Raya_Illume_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosSkin": {
+    "displayName": "Xaku Raya Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Xaku_Raya_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/RubedoDinoSpikeScarf": {
+    "displayName": "Yamako Rubedo Plated Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Yamako_Rubedo_Plated_Syandana"
+  },
+  "/Lotus/Types/Items/PhotoBooth/CinematicTiles/YareliPrimeEndPose": {
+    "displayName": "Yareli and Merulina Prime Scene",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Yareli_and_Merulina_Prime_Scene"
+  },
+  "/Lotus/Upgrades/Skins/Yareli/YareliDeluxeHelmet": {
+    "displayName": "Yareli Pandea Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Yareli_Pandea_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Yareli/YareliPrimeSkin": {
+    "displayName": "Yareli Prime Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Yareli_Prime_Skin"
+  },
+  "/Lotus/Types/AvatarImages/ImageEightYearAnniversary": {
+    "displayName": "Year Eight Anniversary Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Year_Eight_Anniversary_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/ImageElevenYearAnniversary": {
+    "displayName": "Year Eleven Anniversary Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Year_Eleven_Anniversary_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/ImageNineYearAnniversary": {
+    "displayName": "Year Nine Anniversary Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Year_Nine_Anniversary_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/CNYRoosterCYSigil": {
+    "displayName": "Year of The Rooster Sigil",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Year_of_The_Rooster_Sigil"
+  },
+  "/Lotus/Types/AvatarImages/ImageTenYearAnniversary": {
+    "displayName": "Year Ten Anniversary Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Year_Ten_Anniversary_Glyph"
+  },
+  "/Lotus/Types/AvatarImages/ImageTwelveYearAnniversary": {
+    "displayName": "Year Twelve Anniversary Glyph",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Year_Twelve_Anniversary_Glyph"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/PS4ArmScarf": {
+    "displayName": "Yomo Obsidian Syandana",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Yomo_Obsidian_Syandana"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/ExcaliburDeluxeArmArmor": {
+    "displayName": "Zato Shoulder Plate",
+    "pageFound": false,
+    "url": null
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultG": {
+    "displayName": "Zauba Apparel",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zauba_Apparel"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultG": {
+    "displayName": "Zauba Cuirass",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zauba_Cuirass"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultG": {
+    "displayName": "Zauba Greaves",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zauba_Greaves"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultG": {
+    "displayName": "Zauba Mask",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zauba_Mask"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultG": {
+    "displayName": "Zauba Pauldrons",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zauba_Pauldrons"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Focus/ZenurikBadgeItem": {
+    "displayName": "Zenurik Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zenurik_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Operator/MakeupMasks/ZenurikMaskA": {
+    "displayName": "Zenurik Paint A",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zenurik_Paint_A"
+  },
+  "/Lotus/Upgrades/Skins/Operator/MakeupMasks/ZenurikMaskB": {
+    "displayName": "Zenurik Paint B",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zenurik_Paint_B"
+  },
+  "/Lotus/Upgrades/Skins/Tengu/ZephyrQTCCHelmet": {
+    "displayName": "Zephyr Conquera Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zephyr_Conquera_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Tengu/ZephyrDeluxeHelmet": {
+    "displayName": "Zephyr Harrier Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zephyr_Harrier_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Tengu/ZephyrPrimeHelmet": {
+    "displayName": "Zephyr Prime Helmet",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zephyr_Prime_Helmet"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Pistols/TnSubmachinegunDualPistolSkin": {
+    "displayName": "Zundi Dual Pistol Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zundi_Dual_Pistol_Skin"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemB": {
+    "displayName": "Zwillfah Emblem",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zwillfah_Emblem"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Pistols/ZylokExilisSkin": {
+    "displayName": "Zylok Elixis Skin",
+    "pageFound": false,
+    "url": "https://wiki.warframe.com/w/Zylok_Elixis_Skin"
+  }
+}

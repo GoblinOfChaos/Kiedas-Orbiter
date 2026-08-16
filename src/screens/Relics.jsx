@@ -21,15 +21,29 @@ import { Search, AlertCircle, Users, Zap, TrendingUp, Coins, ArrowUpDown } from 
 import { PageLayout, Input, Card, Tabs, MonitorState, Select } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
-import { getRelicEV } from '../lib/relicParser';
+import { getRelicEV, getRelicCatalog } from '../lib/relicParser';
+import { getAcquisitionInfo } from '../lib/acquisitionInfo';
+import { loadAcquisitionData } from '../lib/acquisitionData';
+import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
 
 const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem'];
 const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
 
 export default function Relics() {
   const { t } = useUi()
-  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress } = useMonitoring();
+  const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex } = useMonitoring();
+  const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
+  const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
+  useEffect(() => {
+    invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
+      .then((bytes) => setAcquisitionOverrides(JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))))
+      .catch(() => setAcquisitionOverrides({ components: {}, mods: {} }));
+    loadAcquisitionData().then(() => setAcquisitionDataReady(true));
+  }, []);
+  const { openKey, toggle, close } = useAcquisitionDrawer();
   const [searchQuery, setSearchQuery] = useState('');
+  const [ownershipFilter, setOwnershipFilter] = useState('all'); // 'all' | 'owned' | 'unowned'
+  const [vaultedFilter, setVaultedFilter] = useState('all'); // 'all' | 'vaulted' | 'unvaulted'
   const [activeEra, setActiveEra] = useState('All');
   const [activeQuality, setActiveQuality] = useState('All');
   const [squadSize, setSquadSize] = useState(1);
@@ -42,9 +56,44 @@ export default function Relics() {
   useEffect(() => {invoke('get_ui_path').then((p) => setUiPath(p)).catch(() => {});}, []);
   useEffect(() => {invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});}, []);
 
-  const relics = inventoryData?.relics ?? [];
+  const ownedRelics = inventoryData?.relics ?? [];
+
+  // When showing unowned relics too, merge the full catalog (every relic
+  // the game has, per getRelicCatalog) with owned data - inventory parsing
+  // only ever produces relics the account actually has.
+  const relics = useMemo(() => {
+    if (ownershipFilter === 'owned' || !exportData) return ownedRelics;
+    const ownedByKey = new Map(ownedRelics.map((r) => {
+      const category = (r.name || '').replace(new RegExp(`^${r.era}\\s+`, 'i'), '').replace(/\s+Relic$/i, '').trim();
+      return [`${r.era} ${category}`, r];
+    }));
+    return getRelicCatalog(exportData, 'en').map((c) => {
+      const existing = ownedByKey.get(`${c.era} ${c.name}`);
+      if (existing) return { ...existing, vaulted: c.vaulted };
+      return {
+        unique_name: c.uniqueName,
+        name: `${c.era} ${c.name} Relic`,
+        era: c.era,
+        description: '',
+        image: null,
+        category: 'relics',
+        refinements: { Intact: 0, Exceptional: 0, Flawless: 0, Radiant: 0 },
+        rewards: c.rewards,
+        owned: false,
+        vaulted: c.vaulted,
+      };
+    });
+  }, [ownedRelics, exportData, ownershipFilter]);
 
   const baseFiltered = relics.filter((r) => {
+    const matchOwnership = ownershipFilter === 'all' || (ownershipFilter === 'owned' ? r.owned : !r.owned);
+    if (!matchOwnership) return false;
+
+    const matchVaulted = vaultedFilter === 'all'
+      || (vaultedFilter === 'vaulted' && r.vaulted === true)
+      || (vaultedFilter === 'unvaulted' && r.vaulted === false);
+    if (!matchVaulted) return false;
+
     const matchEra = activeEra === 'All' || r.era === activeEra;
     if (!matchEra) return false;
 
@@ -124,7 +173,23 @@ export default function Relics() {
   const totalFilteredGroups = baseFiltered.length;
   const totalFilteredItems = baseFiltered.reduce((s, r) => s + Object.values(r.refinements || {}).reduce((a, b) => a + b, 0), 0);
 
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
+  const openItem = useMemo(() => {
+    if (!openKey || !acquisitionDataReady) return null;
+    const allGrouped = Object.values(grouped).flat();
+    const item = allGrouped.find((r) => r.unique_name === openKey);
+    if (!item) return null;
+    const info = getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, undefined, undefined, undefined, exportVendorIndex, alwaysAvailableIndex, undefined, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex);
+    // Vaulted relics genuinely have no active drop source - say so
+    // explicitly instead of the generic "no specific source known"
+    // fallback, which reads like a data gap rather than an accurate
+    // "this isn't obtainable right now" answer.
+    if (item.vaulted === true && info.sources.length === 0) {
+      return { uniqueName: item.unique_name, displayName: item.name, info: { ...info, vaulted: true } };
+    }
+    return { uniqueName: item.unique_name, displayName: item.name, info };
+  }, [openKey, acquisitionDataReady, grouped, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex]);
+
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
 
   const eraTabs = ['All', ...ERA_ORDER, 'Other'].
   filter((e) => e === 'All' || relics.some((r) => r.era === e)).
@@ -148,6 +213,15 @@ export default function Relics() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="pl-12 bg-black/20 border-white/5 h-[42px]" />
         
+        </div>
+
+        {/* Ownership Filter */}
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+          <button
+            onClick={() => setOwnershipFilter((v) => v === 'all' ? 'owned' : v === 'owned' ? 'unowned' : 'all')}
+            className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+            {ownershipFilter === 'unowned' ? 'Unowned' : ownershipFilter === 'owned' ? 'Owned' : 'All'}
+          </button>
         </div>
 
         {/* Squad Size */}
@@ -203,6 +277,25 @@ export default function Relics() {
           <Tabs tabs={qualityTabs} activeTab={activeQuality} onChange={setActiveQuality} />
         </div>
 
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Vault</span>
+          <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
+            {[
+              { id: 'all', label: 'All' },
+              { id: 'vaulted', label: 'Vaulted' },
+              { id: 'unvaulted', label: 'Unvaulted' },
+            ].map((filter) => (
+              <button
+                key={filter.id}
+                onClick={() => setVaultedFilter(filter.id)}
+                className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${vaultedFilter === filter.id ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Sort Controls */}
         <div className="flex items-center gap-2">
           <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">{t('relics.sort')}</span>
@@ -255,11 +348,12 @@ export default function Relics() {
 
 
   return (
+    <>
     <PageLayout
       titleKey="screen.relics"
       subtitle={`Showing ${totalFilteredGroups} relic types · ${totalFilteredItems} total`}
       headerPanel={renderHeaderPanel()}>
-      
+
       <div className="space-y-4 pt-2">
         {isInventoryLoading ?
         <MonitorState isLoading className="py-20" /> :
@@ -327,13 +421,17 @@ export default function Relics() {
                     <Card
                       key={item.unique_name + idx}
                       glow
-                      className="flex group p-1 transition-all duration-300 relative overflow-hidden">
-                      
+                      onClick={() => toggle(item.unique_name)}
+                      className={`flex group p-1 transition-all duration-300 relative overflow-hidden cursor-pointer ${item.owned ? '' : 'grayscale opacity-60'}`}>
+
                           {/* Left: Metadata Stack*/}
                           <div className="w-24 flex-shrink-0 flex flex-col items-center text-center mr-4 py-1">
                             <h4 className="font-black text-[11px] uppercase tracking-tight text-kronos-accent mb-1 truncate w-full px-1">
                               {item.name.replace(' Relic', '')}
                             </h4>
+                            {item.vaulted === true &&
+                              <span className="text-[8px] font-black uppercase text-red-400 tracking-wider">Vaulted</span>
+                            }
 
                             <div className="flex-1 flex items-center justify-center p-1 min-h-0 min-w-0">
                               {item.image &&
@@ -434,6 +532,8 @@ export default function Relics() {
           </>
         }
       </div>
-    </PageLayout>);
+    </PageLayout>
+    {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
+    </>);
 
 }

@@ -3,11 +3,12 @@ import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
+import { buildRecipeResultIndex, buildExaltedWeaponIndex, buildMarketIndex, buildAlwaysAvailableIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex, buildWikiBlueprintIndex, buildWikiResearchIndex, buildWikiResourceIndex, buildWikiPageAcquisitionIndex, buildWikiAcquisitionStatusIndex, buildRelicStateIndex, buildExportVendorIndex, buildGlyphSupplementIndex, buildExportComponentIndex } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
-import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
+import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, getPartObtainedStatus, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/marketEngine'
-import { resolveNode, resolveMissionType, resolveChallenge } from '../lib/warframeUtils'
+import { resolveNode, resolveMissionType, resolveChallenge, resolveAnyImage } from '../lib/warframeUtils'
 import { evaluateNotifications } from '../lib/notificationManager'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
 import { loadSettings, getSetting, setSetting } from '../lib/settings'
@@ -188,6 +189,7 @@ export function MonitoringProvider({ children }) {
   const processingRef = useRef(false)
   const isMonitoringRef = useRef(false)
   const hasCachedDataRef = useRef(false)
+  const hasLoadedOnceRef = useRef(false)
   const [cardImagesPath, setCardImagesPath] = useState('')
   const [fixProgress, setFixProgress] = useState({ checking: true })
   const cardInitStarted = useRef(false)
@@ -310,13 +312,21 @@ export function MonitoringProvider({ children }) {
       }
 
       const url = toBrowseWf(iconPath ?? '')
-      if (url) EI[un] = url
+      // warframe-items supplies wiki.warframe.com thumbnails, but several
+      // recently added items still point at stale thumbnail names (notably
+      // Cyte-09 and Jade). Keep the hashed DE export image indexed earlier
+      // instead of allowing the later WI table to replace it with a 404 URL.
+      const isStaleWikiThumbnail = typeof url === 'string' &&
+        /^https?:\/\/(?:www\.)?wiki\.warframe\.com\//i.test(url)
+      if (url && (!EI[un] || !isStaleWikiThumbnail)) EI[un] = url
 
       uniqueNameToName[un] = nameKey
       const locKey = uniqueNameToName[un]
       if (locKey) {
         const resolved = (dict[locKey] || dict['/' + locKey] || '').replace(/<[^>]*>/g, '').trim()
-        if (resolved && !resolved.startsWith('/')) { if (url) nameToImage[resolved.toLowerCase()] = url }
+        if (resolved && !resolved.startsWith('/') && (!nameToImage[resolved.toLowerCase()] || !isStaleWikiThumbnail)) {
+          if (url) nameToImage[resolved.toLowerCase()] = url
+        }
       }
     }
 
@@ -346,6 +356,31 @@ export function MonitoringProvider({ children }) {
   const globalRewardPool = useMemo(() => getAllRelicRewards(exportData, localeRef.current), [exportData, localeRef.current])
 
   const dropIndex = useMemo(() => buildDropIndex(exportData), [exportData])
+
+  const recipeResultIndex = useMemo(() => buildRecipeResultIndex(exportData), [exportData])
+  const exaltedWeaponIndex = useMemo(() => buildExaltedWeaponIndex(exportData), [exportData])
+
+  const marketIndex = useMemo(() => buildMarketIndex(exportData), [exportData])
+  const alwaysAvailableIndex = useMemo(() => buildAlwaysAvailableIndex(exportData), [exportData])
+
+  const bundleIndex = useMemo(() => buildBundleIndex(exportData), [exportData])
+
+  const syndicateIndex = useMemo(() => buildSyndicateIndex(exportData), [exportData])
+
+  const wikiSigilIndex = useMemo(() => buildWikiSigilIndex(exportData?.WikiSigilAcquisition), [exportData])
+
+  const wikiVendorIndex = useMemo(() => buildWikiVendorIndex(exportData?.WikiVendorAcquisition), [exportData])
+  const wikiTennoGenIndex = useMemo(() => buildWikiTennoGenIndex(exportData?.WikiTennoGenAcquisition), [exportData])
+  const wikiBaroIndex = useMemo(() => buildWikiBaroIndex(exportData?.WikiBaroAcquisition), [exportData])
+  const wikiBlueprintIndex = useMemo(() => buildWikiBlueprintIndex(exportData?.WikiBlueprintAcquisition), [exportData])
+  const wikiResearchIndex = useMemo(() => buildWikiResearchIndex(exportData?.WikiResearchAcquisition), [exportData])
+  const wikiResourceIndex = useMemo(() => buildWikiResourceIndex(exportData?.WikiResourceAcquisition), [exportData])
+  const wikiPageAcquisitionIndex = useMemo(() => buildWikiPageAcquisitionIndex(exportData?.WikiPageAcquisition), [exportData])
+  const wikiAcquisitionStatusIndex = useMemo(() => buildWikiAcquisitionStatusIndex(exportData?.WikiAcquisitionStatus), [exportData])
+  const relicStateIndex = useMemo(() => buildRelicStateIndex(exportData), [exportData])
+  const exportVendorIndex = useMemo(() => buildExportVendorIndex(exportData), [exportData])
+  const glyphSupplementIndex = useMemo(() => buildGlyphSupplementIndex(exportData?.BrowseWfGlyphs), [exportData])
+  const exportComponentIndex = useMemo(() => buildExportComponentIndex(exportData), [exportData])
 
   // Audio unlock (bypass autoplay policy)
   useEffect(() => {
@@ -539,6 +574,34 @@ export function MonitoringProvider({ children }) {
               exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
             }
           }
+          const acquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/warframe-items-acquisition.json' }).catch(() => null)
+          if (acquisitionBytes) {
+            exports.AcquisitionItems = JSON.parse(new TextDecoder().decode(new Uint8Array(acquisitionBytes)))
+          }
+          const wikiSigilBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-sigils-acquisition.json' }).catch(() => null)
+          if (wikiSigilBytes) {
+            exports.WikiSigilAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(wikiSigilBytes)))
+          }
+          const glyphBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/browse-wf-glyphs.json' }).catch(() => null)
+          if (glyphBytes) {
+            exports.BrowseWfGlyphs = JSON.parse(new TextDecoder().decode(new Uint8Array(glyphBytes)))
+          }
+          const resourceBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-resources-acquisition.json' }).catch(() => null)
+          if (resourceBytes) {
+            exports.WikiResourceAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(resourceBytes)))
+          }
+          const pageAcquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-page-acquisition.json' }).catch(() => null)
+          if (pageAcquisitionBytes) {
+            exports.WikiPageAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(pageAcquisitionBytes)))
+          }
+          const statusBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-acquisition-status.json' }).catch(() => null)
+          if (statusBytes) {
+            exports.WikiAcquisitionStatus = JSON.parse(new TextDecoder().decode(new Uint8Array(statusBytes)))
+          }
+          for (const [file, key] of [['wiki-vendors-acquisition.json', 'WikiVendorAcquisition'], ['wiki-tennogen-acquisition.json', 'WikiTennoGenAcquisition'], ['wiki-baro-acquisition.json', 'WikiBaroAcquisition'], ['wiki-blueprints-acquisition.json', 'WikiBlueprintAcquisition'], ['wiki-research-acquisition.json', 'WikiResearchAcquisition']]) {
+            const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${file}` }).catch(() => null)
+            if (bytes) exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
+          }
         } catch { }
       }
 
@@ -603,6 +666,16 @@ export function MonitoringProvider({ children }) {
       if (autoStartRef.current) {
         startMonitoring().catch(() => {})
       }
+
+      // Log scanner autostart: the Settings screen's toggle only starts/stops
+      // the scanner on user interaction and unmounts when navigating away, so
+      // the saved "on" state was never actually resumed on app launch. Mirror
+      // inventory-sync autostart above, at the app root, so it happens exactly
+      // once regardless of which screen is active. Settings are already
+      // loaded by this point (awaited above), so getSetting is safe to read.
+      if (getSetting('fissure_overlay_enabled')) {
+        invoke('start_log_scanner').catch(() => {})
+      }
     })()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -651,7 +724,12 @@ const hasCachedData = useCallback(async () => {
   const callApiHelper = useCallback(async () => {
     if (busyRef.current) return
     busyRef.current = true
-    setIsInventoryLoading(true)
+    // Only show the loading skeleton for the very first load - periodic
+    // background refreshes (every startMonitoring interval) update data
+    // silently. Toggling this on every refresh was swapping every screen's
+    // whole content tree in and out, which reset scroll position on every
+    // periodic sync.
+    if (!hasLoadedOnceRef.current) setIsInventoryLoading(true)
     try {
       const raw = await invoke('call_api_helper')
       if (raw && typeof raw === 'object' && raw.Suits) {
@@ -675,6 +753,7 @@ const hasCachedData = useCallback(async () => {
       return 'error'
     } finally {
       busyRef.current = false
+      hasLoadedOnceRef.current = true
       setIsInventoryLoading(false)
     }
   }, [applyRaw, hasCachedData])
@@ -878,7 +957,8 @@ const hasCachedData = useCallback(async () => {
       const baseItem = fissureStateRef.current.squad_relics.flatMap(r => r.rewards).find(r => r.uniqueName === local_reward) || {}
       const platPrice = await getPrice(local_reward, baseItem.name, baseItem.ducats)
       const inventory = getRewardInventoryContext(local_reward, inventoryData, exportData, localeRef.current)
-      const reward = { uniqueName: local_reward, ...baseItem, platPrice, inventory }
+      inventory.subcomponents = (inventory.subcomponents || []).map((c) => ({ ...c, image: resolveAnyImage(c.uniqueName, EI, nameToImage) }))
+      const reward = { uniqueName: local_reward, ...baseItem, icon: EI[local_reward], platPrice, inventory }
       invoke('relay_event', { event: 'overlay-update-reward', payload: { local_reward: reward, squad_size } }).catch(() => { })
     }))
 
@@ -939,6 +1019,7 @@ const hasCachedData = useCallback(async () => {
         if (bestMatch) {
           const platPrice = await getPrice(bestMatch.uniqueName, bestMatch.name, bestMatch.ducats || 0);
           const inventory = getRewardInventoryContext(bestMatch.uniqueName, inventoryData, exportData);
+          inventory.subcomponents = (inventory.subcomponents || []).map((c) => ({ ...c, image: resolveAnyImage(c.uniqueName, EI, nameToImage) }))
           return { slot: res.slot, confirmed_reward: bestMatch.name, item: { ...bestMatch, icon: EI[bestMatch.uniqueName], platPrice, inventory } };
         }
         return null;
@@ -961,13 +1042,38 @@ const hasCachedData = useCallback(async () => {
       ocrActiveRef.current = false
     }))
 
-    subs.push(listen('relic-picker-opened', (e) => {
-      if (!inventoryData?.relics) return
-      const voidTier = e.payload?.void_tier
+    // Builds the relic picker overlay payload. "Need"/"missing" zeroes out
+    // rewards the player already owns or has crafted, so a relic's value
+    // reflects only what's still missing - mirrors wfinfo-ng's
+    // relic_recommend_watcher.py ev_need concept.
+    const RELIC_ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem']
+    // "Missing Prime Parts" must not count universally-farmable filler that
+    // every relic pool carries (Kuva, Riven Fragments, Ayatan Stars, Forma) -
+    // an isPrimePart-only allowlist was tried and rejected: Requiem/Immortal
+    // relics don't reward anything literally named "Prime", so that allowlist
+    // made the Requiem row permanently empty regardless of what's missing.
+    // Also excludes the Weapon Exilus Adapter (WeaponUtilityUnlockerBlueprint)
+    // specifically: once consumed installing it on a weapon it leaves no
+    // reliable trace in save data (unlike Prime components, which leave
+    // evidence via parent-frame mastery or pending Foundry recipes), so
+    // getPartObtainedStatus can never confirm past ownership for it and it
+    // would always read as "missing" even when it was obtained long ago.
+    const isUncountableFillerReward = (uniqueName) => {
+      const un = uniqueName || ''
+      return /\/MiscItems\/Kuva$/i.test(un)
+        || /\/MiscItems\/RivenFragment$/i.test(un)
+        || /\/FusionTreasures\//i.test(un)
+        || /\/Components\/FormaBlueprint$/i.test(un)
+        || /\/MiscItems\/Forma$/i.test(un)
+        || /WeaponUtilityUnlockerBlueprint$/i.test(un)
+    }
+    const buildRelicPickerPayload = (voidTier) => {
+      const knownSingleEra = voidTier && voidTier !== 'Omnia'
       let relics = inventoryData.relics
-      if (voidTier && voidTier !== 'Omnia') {
+      if (knownSingleEra) {
         relics = relics.filter(r => r.era === voidTier)
       }
+      const ed = exportDataRef.current
       const enriched = relics.map(r => {
         const sortedRewards = (r.rewards || []).map(rw => ({
           ...rw,
@@ -975,11 +1081,66 @@ const hasCachedData = useCallback(async () => {
         }))
         const evPlat = getRelicEV(sortedRewards, 'Intact', 1, 'plat')
         const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')
-        return { name: r.name, era: r.era, evPlat: Math.round(evPlat), evDucats: Math.round(evDucats) }
+
+        let missingCount = 0
+        const neededRewards = sortedRewards.map(rw => {
+          // Shared with the Relic Planner screen's "Never Obtained" check
+          // (getPartObtainedStatus) so the two can't drift out of sync with
+          // each other again - confirmed live 2026-08-10 that they had.
+          const { everObtained } = getPartObtainedStatus(rw.uniqueName, rw.name, inventoryData, ed, localeRef.current)
+          if (!everObtained && !isUncountableFillerReward(rw.uniqueName)) missingCount++
+          return everObtained ? { ...rw, plat: 0, ducats: 0 } : rw
+        })
+        const evPlatNeed = getRelicEV(neededRewards, 'Intact', 1, 'plat')
+        const evDucatsNeed = getRelicEV(neededRewards, 'Intact', 1, 'ducats')
+
+        const ownedCount = Object.values(r.refinements || {}).reduce((sum, c) => sum + (c || 0), 0)
+
+        return {
+          name: r.name, era: r.era,
+          evPlat: Math.round(evPlat), evDucats: Math.round(evDucats),
+          evPlatNeed: Math.round(evPlatNeed), evDucatsNeed: Math.round(evDucatsNeed),
+          missingCount, ownedCount,
+        }
       })
-      const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 5)
-      const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 5)
-      const payload = { ducat_top: ducatTop, plat_top: platTop, era: voidTier }
+
+      if (knownSingleEra) {
+        const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 5)
+        const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 5)
+        const needTop = [...enriched].sort((a, b) => b.evDucatsNeed - a.evDucatsNeed).slice(0, 5)
+        return { ducat_top: ducatTop, plat_top: platTop, need_top: needTop, era: voidTier }
+      }
+
+      // Era unknown (or Omnia) pre-mission: one compact row per era instead
+      // of a flat top-5 mixing every era together - the era genuinely can't
+      // be detected before the mission starts (confirmed live 2026-08-10,
+      // matches wfinfo-ng's own documented limitation), so group by era
+      // instead of trying to filter to one.
+      const byEra = RELIC_ERA_ORDER
+        .map(era => {
+          // Only relics you actually own at least one copy of are eligible
+          // to be recommended - you can't bring one you don't have.
+          const eraRelics = enriched.filter(r => r.era === era && r.ownedCount > 0)
+          if (eraRelics.length === 0) return null
+          const bestDucat = [...eraRelics].sort((a, b) => b.evDucats - a.evDucats)[0]
+          const bestPlat = [...eraRelics].sort((a, b) => b.evPlat - a.evPlat)[0]
+          const bestMissing = [...eraRelics]
+            .filter(r => r.missingCount > 0)
+            .sort((a, b) => (b.missingCount - a.missingCount) || (b.evDucatsNeed - a.evDucatsNeed))[0]
+          return {
+            era,
+            ducat: bestDucat && bestDucat.evDucats > 0 ? { name: bestDucat.name, value: bestDucat.evDucats } : null,
+            plat: bestPlat && bestPlat.evPlat > 0 ? { name: bestPlat.name, value: bestPlat.evPlat } : null,
+            missing: bestMissing ? { name: bestMissing.name, count: bestMissing.missingCount } : null,
+          }
+        })
+        .filter(Boolean)
+      return { by_era: byEra, era: voidTier }
+    }
+
+    subs.push(listen('relic-picker-opened', (e) => {
+      if (!inventoryData?.relics) return
+      const payload = buildRelicPickerPayload(e.payload?.void_tier)
       invoke('show_overlay_window', { label: 'overlay-relic-picker' }).catch(() => {})
       invoke('relay_event', { event: 'relic-picker-data', payload }).catch(() => {})
     }))
@@ -987,22 +1148,7 @@ const hasCachedData = useCallback(async () => {
     subs.push(listen('relic-picker-tier', (e) => {
       const voidTier = e.payload?.tier
       if (!voidTier || !inventoryData?.relics) return
-      let relics = inventoryData.relics
-      if (voidTier && voidTier !== 'Omnia') {
-        relics = relics.filter(r => r.era === voidTier)
-      }
-      const enriched = relics.map(r => {
-        const sortedRewards = (r.rewards || []).map(rw => ({
-          ...rw,
-          plat: allPricesRef.current[rw.uniqueName] ?? 0,
-        }))
-        const evPlat = getRelicEV(sortedRewards, 'Intact', 1, 'plat')
-        const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')
-        return { name: r.name, era: r.era, evPlat: Math.round(evPlat), evDucats: Math.round(evDucats) }
-      })
-      const ducatTop = [...enriched].sort((a, b) => b.evDucats - a.evDucats).slice(0, 5)
-      const platTop = [...enriched].sort((a, b) => b.evPlat - a.evPlat).slice(0, 5)
-      const payload = { ducat_top: ducatTop, plat_top: platTop, era: voidTier }
+      const payload = buildRelicPickerPayload(voidTier)
       invoke('relay_event', { event: 'relic-picker-data', payload }).catch(() => {})
     }))
 
@@ -1145,7 +1291,7 @@ const hasCachedData = useCallback(async () => {
   return (
     <MonitoringContext.Provider value={{
       exportData, spIncursions, arbys, archonModifiers, arbitrationModifiers,
-      dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS, dropIndex,
+      dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, glyphSupplementIndex, exportComponentIndex,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, nextRetryAt, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
       masteryProgress, allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices,
       startMonitoring, stopMonitoring, manualRefresh, callApiHelper,

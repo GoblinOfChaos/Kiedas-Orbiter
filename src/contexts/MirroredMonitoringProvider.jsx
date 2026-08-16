@@ -3,6 +3,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
+import { buildRecipeResultIndex, buildExaltedWeaponIndex, buildMarketIndex, buildAlwaysAvailableIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex, buildWikiBlueprintIndex, buildWikiResearchIndex, buildWikiResourceIndex, buildWikiPageAcquisitionIndex, buildWikiAcquisitionStatusIndex, buildRelicStateIndex, buildExportVendorIndex, buildGlyphSupplementIndex, buildExportComponentIndex } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getAllRelicRewards } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
@@ -138,6 +139,30 @@ export default function MirroredMonitoringProvider({ children }) {
               if (bytes) exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
             } catch { /* patch file not found, skip */ }
           }
+          try {
+            const acquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/warframe-items-acquisition.json' })
+            exports.AcquisitionItems = JSON.parse(new TextDecoder().decode(new Uint8Array(acquisitionBytes)))
+          } catch { /* acquisition catalog is optional */ }
+          try {
+            const wikiSigilBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-sigils-acquisition.json' })
+            exports.WikiSigilAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(wikiSigilBytes)))
+          } catch { /* wiki Sigil data is optional */ }
+          try {
+            const glyphBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/browse-wf-glyphs.json' })
+            exports.BrowseWfGlyphs = JSON.parse(new TextDecoder().decode(new Uint8Array(glyphBytes)))
+          } catch { /* supplemental Glyph data is optional */ }
+          for (const [file, key] of [['wiki-vendors-acquisition.json', 'WikiVendorAcquisition'], ['wiki-tennogen-acquisition.json', 'WikiTennoGenAcquisition'], ['wiki-baro-acquisition.json', 'WikiBaroAcquisition'], ['wiki-blueprints-acquisition.json', 'WikiBlueprintAcquisition'], ['wiki-research-acquisition.json', 'WikiResearchAcquisition']]) {
+            try {
+              const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${file}` })
+              exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
+            } catch { /* optional Wiki module */ }
+          }
+          const resourceBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-resources-acquisition.json' }).catch(() => null)
+          if (resourceBytes) exports.WikiResourceAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(resourceBytes)))
+          const pageAcquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-page-acquisition.json' }).catch(() => null)
+          if (pageAcquisitionBytes) exports.WikiPageAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(pageAcquisitionBytes)))
+          const statusBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-acquisition-status.json' }).catch(() => null)
+          if (statusBytes) exports.WikiAcquisitionStatus = JSON.parse(new TextDecoder().decode(new Uint8Array(statusBytes)))
         }
 
         // Inject warframe-items pre-resolved data into exports (same as main MonitoringContext)
@@ -531,6 +556,27 @@ export default function MirroredMonitoringProvider({ children }) {
 
   const globalRewardPool = useMemo(() => getAllRelicRewards(exportData, localeRef.current), [exportData, localeRef.current])
   const dropIndex = useMemo(() => buildDropIndex(exportData), [exportData])
+  const recipeResultIndex = useMemo(() => buildRecipeResultIndex(exportData), [exportData])
+  const exaltedWeaponIndex = useMemo(() => buildExaltedWeaponIndex(exportData), [exportData])
+  const marketIndex = useMemo(() => buildMarketIndex(exportData), [exportData])
+  const alwaysAvailableIndex = useMemo(() => buildAlwaysAvailableIndex(exportData), [exportData])
+  const bundleIndex = useMemo(() => buildBundleIndex(exportData), [exportData])
+  const syndicateIndex = useMemo(() => buildSyndicateIndex(exportData), [exportData])
+
+  const wikiSigilIndex = useMemo(() => buildWikiSigilIndex(exportData?.WikiSigilAcquisition), [exportData])
+
+  const wikiVendorIndex = useMemo(() => buildWikiVendorIndex(exportData?.WikiVendorAcquisition), [exportData])
+  const wikiTennoGenIndex = useMemo(() => buildWikiTennoGenIndex(exportData?.WikiTennoGenAcquisition), [exportData])
+  const wikiBaroIndex = useMemo(() => buildWikiBaroIndex(exportData?.WikiBaroAcquisition), [exportData])
+  const wikiBlueprintIndex = useMemo(() => buildWikiBlueprintIndex(exportData?.WikiBlueprintAcquisition), [exportData])
+  const wikiResearchIndex = useMemo(() => buildWikiResearchIndex(exportData?.WikiResearchAcquisition), [exportData])
+  const wikiResourceIndex = useMemo(() => buildWikiResourceIndex(exportData?.WikiResourceAcquisition), [exportData])
+  const wikiPageAcquisitionIndex = useMemo(() => buildWikiPageAcquisitionIndex(exportData?.WikiPageAcquisition), [exportData])
+  const wikiAcquisitionStatusIndex = useMemo(() => buildWikiAcquisitionStatusIndex(exportData?.WikiAcquisitionStatus), [exportData])
+  const relicStateIndex = useMemo(() => buildRelicStateIndex(exportData), [exportData])
+  const exportVendorIndex = useMemo(() => buildExportVendorIndex(exportData), [exportData])
+  const glyphSupplementIndex = useMemo(() => buildGlyphSupplementIndex(exportData?.BrowseWfGlyphs), [exportData])
+  const exportComponentIndex = useMemo(() => buildExportComponentIndex(exportData), [exportData])
 
   const applyRaw = useCallback((raw, ts, exports) => {
     if (!raw) return
@@ -683,7 +729,7 @@ export default function MirroredMonitoringProvider({ children }) {
     cardImagesPath, fixProgress,
     dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
     ExportImages, ExportTextIcons, masteryProgress,
-    EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex,
+    EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, glyphSupplementIndex, exportComponentIndex,
     arbyTiers: ARBY_TIERS,
     setAutoStart, startMonitoring: startMonitoringFn,
     stopMonitoring: stopMonitoringFn,     manualRefresh: async () => {
@@ -702,7 +748,7 @@ export default function MirroredMonitoringProvider({ children }) {
       spIncursions, arbys, archonModifiers, arbitrationModifiers,
       dict, suppDict, archimedeaMap, EC, ERg, ES, ENW, ENWRawRewards,
       ExportImages, ExportTextIcons, masteryProgress,
-      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex,
+      EI, nameToImage, uniqueNameToName, globalRewardPool, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, glyphSupplementIndex, exportComponentIndex,
       allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices])
 
   return (

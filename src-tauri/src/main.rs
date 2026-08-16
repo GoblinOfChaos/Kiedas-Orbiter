@@ -45,6 +45,11 @@ pub struct AppState {
     pub active_wiki_tab: Arc<parking_lot::Mutex<std::collections::HashMap<String, String>>>,
     pub wiki_tabs: parking_lot::Mutex<Vec<WikiTabInfo>>,
     pub main_window_monitor: parking_lot::Mutex<Option<tauri::Monitor>>,
+    // Serializes every settings.json read-modify-write across all windows.
+    // Without this, two windows racing their own independent read-then-write
+    // (main, sidebar overlay, relic overlay all persist settings on startup)
+    // can silently drop each other's keys - confirmed live data loss.
+    pub settings_lock: Arc<Mutex<()>>,
 }
 
 #[derive(Default, Clone)]
@@ -64,31 +69,22 @@ pub struct SidebarSavedState {
 // --- Path Resolution ---
 //
 // In dev builds, paths are resolved relative to the Cargo manifest directory so
-// that assets sit alongside the source tree.  In release builds they're resolved
-// relative to the executable so the installed app is self-contained.
-// When running from an AppImage, the mounted FS is read-only, but the APPIMAGE
-// relative to the real file -- we use its parent dir for writable data so
-// everything stays in one portable folder.
+// that assets sit alongside the source tree.
+//
+// In release builds, writable data (settings, cached inventory, etc.) lives in
+// a stable OS-standard per-user data directory (e.g. ~/.local/share on Linux,
+// %APPDATA% on Windows, ~/Library/Application Support on macOS), independent
+// of where the app binary/AppImage itself is located. This used to live next
+// to the app binary/AppImage file for "portable install" convenience, but that
+// meant every AppImage rebuild (dev) or app update to a new file (production)
+// silently wiped the user's settings, since the data directory was tied to
+// the app file's own location rather than a persistent OS location. See
+// GitHub issue #85.
+//
+// get_legacy_data_root() is kept only to support one-time migration of
+// existing installs from the old app-adjacent location.
 
-fn get_app_root() -> PathBuf {
-    if cfg!(debug_assertions) {
-        PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-    } else if let Ok(appimage_path) = std::env::var("APPIMAGE") {
-        let path = PathBuf::from(appimage_path);
-        path.parent().map(|p| p.to_path_buf()).unwrap_or(PathBuf::from("."))
-    } else {
-        std::env::current_exe()
-            .map(|p| p.parent().unwrap_or(Path::new(".")).to_path_buf())
-            .unwrap_or_else(|_| PathBuf::from("."))
-    }
-}
-
-/// Returns the writable data root.
-/// Portable on all platforms -- data always lives next to the app.
-/// - AppImage: directory containing the .AppImage file
-/// - macOS .app: directory containing the .app bundle
-/// - Everything else: directory containing the binary
-pub fn get_data_root() -> PathBuf {
+fn get_legacy_data_root() -> PathBuf {
     if let Ok(appimage_path) = std::env::var("APPIMAGE") {
         return PathBuf::from(appimage_path)
             .parent()
@@ -109,12 +105,81 @@ pub fn get_data_root() -> PathBuf {
         }
     }
 
-    get_app_root()
+    std::env::current_exe()
+        .map(|p| p.parent().unwrap_or(Path::new(".")).to_path_buf())
+        .unwrap_or_else(|_| PathBuf::from("."))
+}
+
+/// Recursively copy a directory tree. Used only for one-time migration from
+/// the legacy app-adjacent data location to the stable OS data directory.
+fn copy_dir_recursive(src: &Path, dst: &Path) -> std::io::Result<()> {
+    fs::create_dir_all(dst)?;
+    for entry in fs::read_dir(src)? {
+        let entry = entry?;
+        let path = entry.path();
+        let dest_path = dst.join(entry.file_name());
+        if path.is_dir() {
+            copy_dir_recursive(&path, &dest_path)?;
+        } else {
+            fs::copy(&path, &dest_path)?;
+        }
+    }
+    Ok(())
+}
+
+/// Returns the writable data root.
+pub fn get_data_root() -> PathBuf {
+    if cfg!(debug_assertions) {
+        return PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    }
+
+    let stable_root = dirs::data_dir()
+        .map(|d| d.join("kiedas-orbiter"))
+        .unwrap_or_else(get_legacy_data_root);
+
+    // One-time migration: if the stable location has no settings yet, but the
+    // legacy app-adjacent location has existing data, copy it over.
+    let stable_settings = stable_root.join("data/user/settings.json");
+    if !stable_settings.exists() {
+        let legacy_data_dir = get_legacy_data_root().join("data");
+        if legacy_data_dir.exists() {
+            if let Err(e) = copy_dir_recursive(&legacy_data_dir, &stable_root.join("data")) {
+                eprintln!("[data migration] Failed to migrate legacy data: {e}");
+            } else {
+                eprintln!("[data migration] Migrated existing data from {:?} to {:?}", legacy_data_dir, stable_root.join("data"));
+            }
+        }
+    }
+
+    stable_root
 }
 
 /// Build an absolute path from a path relative to the writable data root.
 fn resolve_path(relative: &str) -> PathBuf {
     get_data_root().join(relative)
+}
+
+/// Write JSON to `path` via a temp-file-then-rename so a process killed
+/// mid-write (e.g. the window closed while a background task is writing)
+/// can never leave a truncated/corrupt file behind - rename is atomic on
+/// the same filesystem, so readers only ever see the old complete content
+/// or the new complete content, never a partial write. Plain fs::write()
+/// truncates in place first, so a kill between truncate and write-complete
+/// permanently corrupts the file for every future launch, which no amount
+/// of in-process locking can undo since the damage is already on disk
+/// before the next process starts.
+fn write_json_atomic(path: &std::path::Path, value: &Value) -> Result<(), String> {
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+    let tmp = path.with_file_name(format!(
+        "{}.tmp",
+        path.file_name().and_then(|n| n.to_str()).unwrap_or("settings.json")
+    ));
+    let content = serde_json::to_string_pretty(value).map_err(|e| e.to_string())?;
+    std::fs::write(&tmp, content).map_err(|e| e.to_string())?;
+    std::fs::rename(&tmp, path).map_err(|e| e.to_string())?;
+    Ok(())
 }
 
 /// Build an absolute path from a path relative to the bundled app root.
@@ -158,6 +223,7 @@ const EXPORT_FILES: &[&str] = &[
     "ExportBundles.json",
     "ExportRecipes.json",
     "ExportCustoms.json",
+    "ExportVendors.json",
     "ExportGear.json",
     "ExportImages.json",
     "ExportTextIcons.json",
@@ -208,10 +274,12 @@ async fn download_locale_upgrades(client: &reqwest::Client, export_dir: &std::pa
     Ok(())
 }
 
-// Drop data (warframe-drop-data) is an extra JSON file from a different source.
-// It's refreshed once per day like the main exports.
+// Drop data (warframe-drop-data) and Varzia's live rotation are extra JSON
+// files from the WFCD-maintained warframestat.us APIs. Refreshed once per day
+// like the main exports.
 const DROPDATA_FILES: &[(&str, &str)] = &[
     ("DropsAll.json", "https://drops.warframestat.us/data/all.json"),
+    ("VaultTrader.json", "https://api.warframestat.us/pc/vaultTrader"),
 ];
 
 // --- Shared Download Helper ---
@@ -450,6 +518,50 @@ async fn load_txt_file(app_handle: tauri::AppHandle, name: String) -> Result<Str
 // (memory_scan::scan_auth), then calling mobile.warframe.com via reqwest.
 // The result is cached at data/user/inventory.json.
 
+/// Preserve adversary records because the live inventory response can expose
+/// only a rolling portion of NemesisHistory. The fingerprint is the stable
+/// identity when present; the full JSON is the fallback for older records.
+fn merge_nemesis_history(value: &mut Value) {
+    let Some(object) = value.as_object_mut() else { return };
+    let incoming = object
+        .get("NemesisHistory")
+        .and_then(Value::as_array)
+        .cloned()
+        .unwrap_or_default();
+    let archive_path = resolve_path("data/user/nemesis-history.json");
+    let mut merged = fs::read_to_string(&archive_path)
+        .ok()
+        .and_then(|content| serde_json::from_str::<Value>(&content).ok())
+        .and_then(|archive| archive.as_array().cloned())
+        .unwrap_or_default();
+    let mut seen = std::collections::HashSet::new();
+    for record in &merged {
+        seen.insert(nemesis_record_key(record));
+    }
+    for record in incoming {
+        if seen.insert(nemesis_record_key(&record)) {
+            merged.push(record);
+        }
+    }
+    object.insert("NemesisHistory".to_string(), Value::Array(merged.clone()));
+    if let Some(parent) = archive_path.parent() {
+        if let Err(error) = fs::create_dir_all(parent) {
+            eprintln!("[nemesis history] failed to create archive directory: {error}");
+            return;
+        }
+    }
+    if let Err(error) = fs::write(&archive_path, serde_json::to_vec_pretty(&Value::Array(merged)).unwrap_or_default()) {
+        eprintln!("[nemesis history] failed to write archive: {error}");
+    }
+}
+
+fn nemesis_record_key(record: &Value) -> String {
+    record.get("fp")
+        .or_else(|| record.get("Fingerprint"))
+        .map(|value| value.to_string())
+        .unwrap_or_else(|| serde_json::to_string(record).unwrap_or_default())
+}
+
 /// Load the previously saved inventory JSON and its file modification timestamp.
 /// Returns `None` if no inventory has been fetched yet (fresh install).
 /// Called by MonitoringContext on startup to restore the last known state.
@@ -472,8 +584,9 @@ async fn load_cached_inventory() -> Result<Option<(Value, u64)>, String> {
         });
     let content = fs::read_to_string(&path)
         .map_err(|e| format!("Failed to read inventory.json: {e}"))?;
-    let json: Value = serde_json::from_str(&content)
+    let mut json: Value = serde_json::from_str(&content)
         .map_err(|e| format!("Failed to parse inventory.json: {e}"))?;
+    merge_nemesis_history(&mut json);
     Ok(Some((json, timestamp)))
 }
 
@@ -505,7 +618,7 @@ async fn call_api_helper(_app_handle: tauri::AppHandle) -> Result<Value, String>
     let resp = client.get(&url).send().await.map_err(|e| e.to_string())?;
     let body = resp.bytes().await.map_err(|e| e.to_string())?;
 
-    let value: Value = serde_json::from_slice(&body)
+    let mut value: Value = serde_json::from_slice(&body)
         .map_err(|e| format!("Invalid JSON from mobile API: {e}"))?;
 
     // Bare {} means the API returned nothing useful.
@@ -515,13 +628,16 @@ async fn call_api_helper(_app_handle: tauri::AppHandle) -> Result<Value, String>
         }
     }
 
+    merge_nemesis_history(&mut value);
+
     // Save to disk for cache.
     let inv_dir = crate::resolve_path("data/user");
     if !inv_dir.exists() {
         fs::create_dir_all(&inv_dir).map_err(|e| e.to_string())?;
     }
     let inv_path = inv_dir.join("inventory.json");
-    fs::write(&inv_path, &body).map_err(|e| e.to_string())?;
+    let cached_body = serde_json::to_vec(&value).map_err(|e| e.to_string())?;
+    fs::write(&inv_path, cached_body).map_err(|e| e.to_string())?;
 
     Ok(value)
 }
@@ -1418,26 +1534,16 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
     let writable_bin = resolve_path(&relative_bin);
     let bundled_bin = resolve_bundled_path(app_handle, &relative_bin);
 
-    #[cfg(target_os = "linux")]
-    let (writable_bin, bundled_bin) = {
-        let appimage_name = "data/bin/Warframe-Exporter-CLI_Linux.AppImage";
-        let wb = if !writable_bin.exists() {
-            resolve_path(appimage_name)
-        } else {
-            writable_bin
-        };
-        let bb = if bundled_bin.as_ref().map_or(true, |p| !p.exists()) {
-            resolve_bundled_path(app_handle, appimage_name)
-        } else {
-            bundled_bin
-        };
-        (wb, bb)
-    };
-
     let bin_path = if writable_bin.exists() {
         writable_bin
     } else if let Some(b) = bundled_bin.clone().filter(|p| p.exists()) {
-        b
+        // Copy out of the read-only bundle into the writable data root.
+        if let Some(parent) = writable_bin.parent() {
+            std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+        }
+        std::fs::copy(&b, &writable_bin)
+            .map_err(|e| format!("Failed to copy bundled {:?} to {:?}: {e}", b, writable_bin))?;
+        writable_bin
     } else {
         return Err(format!(
             "Warframe-Exporter-CLI not found. Writable: {:?}, Bundled: {:?}",
@@ -1462,7 +1568,13 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
 
         #[cfg(target_os = "linux")]
         {
-            cmd.env("APPIMAGE_EXTRACT_AND_RUN", "1");
+            // Our own outer AppImage's AppRun script points these at its
+            // bundled libraries before launching us. Do not let the raw
+            // exporter CLI resolve its system dependencies from that
+            // unrelated library directory.
+            cmd.env_remove("LD_LIBRARY_PATH");
+            cmd.env_remove("OWD");
+            cmd.env_remove("APPIMAGE_EXTRACT_AND_RUN");
             cmd.env_remove("APPDIR");
             cmd.env_remove("APPIMAGE");
         }
@@ -1491,7 +1603,11 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
         let output = cmd.output().map_err(|e| format!("Failed to launch Warframe-Exporter-CLI: {e}"))?;
         if !output.status.success() {
             let stderr = String::from_utf8_lossy(&output.stderr);
-            return Err(format!("Warframe-Exporter-CLI failed: {stderr}"));
+            let stdout = String::from_utf8_lossy(&output.stdout);
+            return Err(format!(
+                "Warframe-Exporter-CLI failed (exit {:?}, bin: {:?}, cache: {}): stdout=[{}] stderr=[{}]",
+                output.status.code(), bin_path, cache_path, stdout.trim(), stderr.trim()
+            ));
         }
     }
 
@@ -1528,11 +1644,12 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
             continue;
         }
         std::fs::create_dir_all(&ui_dir).ok();
-        let _ = std::fs::write(&sentinel, b"1");
         let mut ui_cmd = std::process::Command::new(&bin_path);
         #[cfg(target_os = "linux")]
         {
-            ui_cmd.env("APPIMAGE_EXTRACT_AND_RUN", "1");
+            ui_cmd.env_remove("LD_LIBRARY_PATH");
+            ui_cmd.env_remove("OWD");
+            ui_cmd.env_remove("APPIMAGE_EXTRACT_AND_RUN");
             ui_cmd.env_remove("APPDIR");
             ui_cmd.env_remove("APPIMAGE");
         }
@@ -1555,7 +1672,25 @@ fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) ->
             const CREATE_NO_WINDOW: u32 = 0x08000000;
             ui_cmd.creation_flags(CREATE_NO_WINDOW);
         }
-        let _ = ui_cmd.output();
+        // Only mark this icon set as done if the extraction actually
+        // succeeded and produced files - otherwise a crash/segfault mid-run
+        // permanently locks in an empty/partial directory forever (the
+        // sentinel used to be written unconditionally before the command
+        // even ran).
+        match ui_cmd.output() {
+            Ok(out) if out.status.success() && walk_dir_count(&ui_dir) > 0 => {
+                let _ = std::fs::write(&sentinel, b"1");
+            }
+            Ok(out) => {
+                eprintln!(
+                    "ensure_card_images: UI icon extraction for {} produced no files (exit {:?}): {}",
+                    internal_path, out.status.code(), String::from_utf8_lossy(&out.stderr).trim()
+                );
+            }
+            Err(e) => {
+                eprintln!("ensure_card_images: failed to launch UI icon extraction for {}: {e}", internal_path);
+            }
+        }
         extracted = walk_dir_count(&output_dir);
     }
 
@@ -1843,8 +1978,9 @@ fn load_cached_inventory_inner() -> Result<Option<(serde_json::Value, u64)>, Str
         });
     let content = std::fs::read_to_string(&path)
         .map_err(|e| format!("Failed to read inventory.json: {e}"))?;
-    let json: serde_json::Value = serde_json::from_str(&content)
+    let mut json: serde_json::Value = serde_json::from_str(&content)
         .map_err(|e| format!("Failed to parse inventory.json: {e}"))?;
+    merge_nemesis_history(&mut json);
     Ok(Some((json, timestamp)))
 }
 
@@ -1886,6 +2022,7 @@ fn set_notification_sound(state: tauri::State<'_, AppState>, sound: String) -> R
     *current = sound.clone();
     
     // Also persist to settings file
+    let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
     let settings_path = resolve_path("data/user/settings.json");
     let mut settings: Value = if settings_path.exists() {
         let content = std::fs::read_to_string(&settings_path).map_err(|e| e.to_string())?;
@@ -1894,14 +2031,8 @@ fn set_notification_sound(state: tauri::State<'_, AppState>, sound: String) -> R
         serde_json::json!({})
     };
     settings["notif_sound"] = serde_json::json!(sound);
-    let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-    
-    // Ensure directory exists
-    if let Some(parent) = settings_path.parent() {
-        std::fs::create_dir_all(parent).ok();
-    }
-    std::fs::write(&settings_path, content).map_err(|e| e.to_string())?;
-    
+    write_json_atomic(&settings_path, &settings)?;
+
     Ok(())
 }
 
@@ -2375,14 +2506,48 @@ fn log_timing(label: String) {
 }
 
 /// Save a JSON settings object to data/user/settings.json.
+///
+/// This replaces the whole file with exactly what the caller passes in, so
+/// it's only safe for callers that just read the latest state first (see
+/// set_setting below for the common single-key update, which is atomic).
 #[tauri::command]
 async fn save_settings(app_handle: tauri::AppHandle, settings: Value) -> Result<(), String> {
+    let state = app_handle.state::<AppState>();
+    let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
+    let settings_dir = resolve_path("data/user");
+    write_json_atomic(&settings_dir.join("settings.json"), &settings)?;
+    drop(_guard);
+    app_handle.emit("settings-changed", ()).map_err(|e| e.to_string())
+}
+
+/// Atomically update a single settings key: read the current file, merge in
+/// this one key, write it back - all while holding settings_lock, so two
+/// windows updating different keys at the same moment can never drop each
+/// other's write (unlike a JS-side read-then-save_settings round trip,
+/// which has no way to serialize across separate window/webview contexts).
+#[tauri::command]
+async fn set_setting(app_handle: tauri::AppHandle, key: String, value: Value) -> Result<(), String> {
+    let state = app_handle.state::<AppState>();
+    let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
     let settings_dir = resolve_path("data/user");
     if !settings_dir.exists() {
         fs::create_dir_all(&settings_dir).map_err(|e| e.to_string())?;
     }
-    let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-    fs::write(settings_dir.join("settings.json"), content).map_err(|e| e.to_string())?;
+    let path = settings_dir.join("settings.json");
+    let mut settings: Value = if path.exists() {
+        fs::read_to_string(&path)
+            .ok()
+            .and_then(|s| serde_json::from_str(&s).ok())
+            .unwrap_or_default()
+    } else {
+        serde_json::json!({})
+    };
+    if !settings.is_object() {
+        settings = serde_json::json!({});
+    }
+    settings[key] = value;
+    write_json_atomic(&path, &settings)?;
+    drop(_guard);
     app_handle.emit("settings-changed", ()).map_err(|e| e.to_string())
 }
 
@@ -2408,9 +2573,10 @@ fn get_monitoring_active(app_handle: tauri::AppHandle) -> bool {
 #[tauri::command]
 fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, persist: bool) -> Result<(), String> {
     eprintln!("[set_sidebar_width] called width={}, side={}, persist={}", width, side, persist);
+    let state = app_handle.state::<AppState>();
     if persist {
-        let settings_dir = resolve_path("data/user");
-        let path = settings_dir.join("settings.json");
+        let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
+        let path = resolve_path("data/user/settings.json");
         let mut settings: serde_json::Value = if path.exists() {
             std::fs::read_to_string(&path)
                 .ok()
@@ -2423,14 +2589,9 @@ fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, per
             obj.insert("sidebar_width".to_string(), serde_json::json!(width));
             obj.insert("sidebar_side".to_string(), serde_json::json!(side.clone()));
         }
-        if !settings_dir.exists() {
-            std::fs::create_dir_all(&settings_dir).map_err(|e| e.to_string())?;
-        }
-        let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-        let _ = std::fs::write(path, content);
+        let _ = write_json_atomic(&path, &settings);
+        drop(_guard);
     }
-
-    let state = app_handle.state::<AppState>();
     let saved_active;
     let mon_x;
     let mon_y;
@@ -2469,14 +2630,31 @@ fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, per
 
 /// Load the JSON settings object from data/user/settings.json.
 /// Returns an empty object if the file doesn't exist.
+///
+/// Takes settings_lock even though this is a read: fs::write() in
+/// save_settings/set_setting truncates before writing (not an atomic
+/// temp-file-rename), so an unguarded read here can land mid-write and see
+/// a truncated/empty file. The frontend treats an empty read as "fresh
+/// install, migrate from localStorage" and does a destructive full
+/// overwrite - confirmed live as the actual cause of repeated settings
+/// loss even after every write path was already serialized.
 #[tauri::command]
-async fn load_settings() -> Result<Value, String> {
+async fn load_settings(app_handle: tauri::AppHandle) -> Result<Value, String> {
+    let state = app_handle.state::<AppState>();
+    let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
     let path = resolve_path("data/user/settings.json");
     if !path.exists() {
         return Ok(serde_json::json!({}));
     }
     let content = fs::read_to_string(path).map_err(|e| e.to_string())?;
-    serde_json::from_str(&content).map_err(|e| e.to_string())
+    // An empty or corrupt file (e.g. a crash mid-write) shouldn't hard-fail
+    // settings loading for the whole app - fall back to an empty object,
+    // same as the load_settings_sync() helper already does. A file whose
+    // content is literally "null" parses successfully as Value::Null (not
+    // a parse error), so unwrap_or_default() alone doesn't catch it - the
+    // frontend then crashes on Object.keys(null). Normalize both cases.
+    let parsed: Value = serde_json::from_str(&content).unwrap_or_default();
+    Ok(if parsed.is_object() { parsed } else { serde_json::json!({}) })
 }
 
 #[derive(serde::Serialize)]
@@ -2528,6 +2706,7 @@ async fn auto_detect_warframe_monitor(state: tauri::State<'_, AppState>) -> Resu
         if cx >= mx && cx < mx + mw && cy >= my && cy < my + mh {
             // Persist to state and settings
             *state.target_monitor.lock().unwrap() = Some(idx);
+            let guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
             let settings_path = crate::resolve_path("data/user/settings.json");
             let mut settings: serde_json::Value = if settings_path.exists() {
                 std::fs::read_to_string(&settings_path)
@@ -2538,10 +2717,8 @@ async fn auto_detect_warframe_monitor(state: tauri::State<'_, AppState>) -> Resu
                 serde_json::json!({})
             };
             settings["fissure_target_monitor"] = serde_json::json!(idx);
-            if let Some(parent) = settings_path.parent() {
-                std::fs::create_dir_all(parent).ok();
-            }
-            let _ = std::fs::write(&settings_path, serde_json::to_string_pretty(&settings).unwrap());
+            let _ = write_json_atomic(&settings_path, &settings);
+            drop(guard);
             return Ok(Some(idx));
         }
     }
@@ -2581,6 +2758,7 @@ fn set_target_monitor(state: tauri::State<'_, AppState>, monitor: Value) -> Resu
     *current = new_val;
     
     // Also persist to settings file
+    let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
     let settings_path = resolve_path("data/user/settings.json");
     let mut settings: Value = if settings_path.exists() {
         let content = std::fs::read_to_string(&settings_path).map_err(|e| e.to_string())?;
@@ -2589,13 +2767,8 @@ fn set_target_monitor(state: tauri::State<'_, AppState>, monitor: Value) -> Resu
         serde_json::json!({})
     };
     settings["fissure_target_monitor"] = monitor;
-    let content = serde_json::to_string_pretty(&settings).map_err(|e| e.to_string())?;
-    
-    if let Some(parent) = settings_path.parent() {
-        std::fs::create_dir_all(parent).ok();
-    }
-    std::fs::write(&settings_path, content).map_err(|e| e.to_string())?;
-    
+    write_json_atomic(&settings_path, &settings)?;
+
     Ok(())
 }
 
@@ -3164,6 +3337,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             main_window_monitor: parking_lot::Mutex::new(None),
             active_wiki_tab: Arc::new(parking_lot::Mutex::new(std::collections::HashMap::new())),
             wiki_tabs: parking_lot::Mutex::new(Vec::new()),
+            settings_lock: Arc::new(Mutex::new(())),
         })
         .on_window_event(|window, event| match event {
             tauri::WindowEvent::CloseRequested { api, .. } => {
@@ -3179,6 +3353,19 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             _ => {}
         })
         .setup(|app| {
+            // Explicitly grant the asset:// protocol scope access to the writable
+            // data root, using the canonicalized path. This works around a bug
+            // where Tauri's scope check canonicalizes the requested path (resolving
+            // OS-level symlinks like /home -> /var/home on this system) before
+            // matching it against the configured glob patterns in tauri.conf.json,
+            // which caused persistent 403s regardless of how permissive those
+            // patterns were.
+            let data_root = get_data_root();
+            let canonical_root = std::fs::canonicalize(&data_root).unwrap_or(data_root);
+            if let Err(e) = app.asset_protocol_scope().allow_directory(&canonical_root, true) {
+                eprintln!("[asset scope] Failed to allow directory {:?}: {e}", canonical_root);
+            }
+
             crate::log_scanner::log_app_start(&app.handle());
             let ah = app.handle().clone();
             // Register the frontend-ready listener BEFORE the blocking
@@ -3287,12 +3474,22 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
                              crate::ocr::capture_monitor_image(&ah, &mon).map(|_| ())
                         })();
                         if status.is_ok() {
+                            // This runs as a background task on every launch,
+                            // racing against every window's own settings writes
+                            // during startup - it was reading+writing the file
+                            // directly with no lock at all, unlike every other
+                            // write path, and could clobber keys written by a
+                            // window in the gap between this task's read and
+                            // write. Must hold the same lock those paths do.
+                            let state = ah.state::<AppState>();
+                            let _guard = state.settings_lock.lock().unwrap_or_else(|e| e.into_inner());
                             let path = resolve_path("data/user/settings.json");
                             let mut s = load_settings_sync();
                             if let Some(obj) = s.as_object_mut() {
                                 obj.insert("screenshot_probe_granted".into(), serde_json::json!(true));
-                                let _ = std::fs::write(&path, serde_json::to_string_pretty(&s).unwrap());
+                                let _ = write_json_atomic(&path, &s);
                             }
+                            drop(_guard);
                         }
                         eprintln!("[OCR] Screenshot probe: {}", if status.is_ok() { "granted" } else { "denied" });
                     });
@@ -3372,6 +3569,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             download_appimage_update,
             get_platform_info,
             save_settings,
+            set_setting,
             load_settings,
             log_terminal,
             set_hotkeys,

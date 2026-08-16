@@ -1,0 +1,737 @@
+{
+  "/Lotus/Upgrades/Skins/Clan/CY17173MediaBadge": "Awarded to Tenno recruited by an ally of The Lotus.",
+  "/Lotus/Upgrades/Skins/Clan/CorpusVoidBadgeItem": "An insignia awarded to the Tenno who proved themselves during Arid Fear event.",
+  "/Lotus/Upgrades/Skins/Sigils/BladeAndGunSigil": "Awarded to dedicated members within the Warframe community.",
+  "/Lotus/Upgrades/Skins/Clan/InfTacAlertPussAncientBadgeItem": "Awarded to Tenno who participated in the Mutalist Incursions event.",
+  "/Lotus/Upgrades/Skins/Clan/HiveSabotageEventBadgeItem": "Awarded to Tenno for the contributions they made during the Breeding Grounds event.",
+  "/Lotus/Upgrades/Skins/Clan/SkullBadgeBronzeItem": "Awarded to Tenno who achieved a Bronze Rank on the retired Global Leaderboards.",
+  "/Lotus/Upgrades/Skins/Clan/InfTacAlertDiseasedAncientBadgeItem": "Awarded to Tenno who participated in the Mutalist Incursions event.",
+  "/Lotus/Upgrades/Skins/Clan/JungleEventBadgeItem": "An emblem awarded to all those who helped destroy the Grineer toxin during the Cicero Crisis.",
+  "/Lotus/Upgrades/Skins/Clan/ExcavationEvenetBadgeItem": "Awarded to Tenno for their contribution to the Cryotic Front event.",
+  "/Lotus/Upgrades/Skins/Clan/CYDuowanMediaBadge": "Awarded to Tenno recruited by an ally of The Lotus.",
+  "/Lotus/Upgrades/Skins/Clan/InfestationEventEmblemItem": "An emblem awarded to the Tenno who hunted down Alad V.",
+  "/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemC": "An insignia awarded to the Tenno Elite who proved themselves during the Tohtchi Variant.",
+  "/Lotus/Upgrades/Skins/Clan/OrokinSabotageBadgeItem": "Awarded to Tenno for their contribution during Operation Gate Crash.",
+  "/Lotus/Upgrades/Skins/Clan/SkullBadgeGoldItem": "Awarded to Tenno who achieved a Gold Rank on the retired Global Leaderboards.",
+  "/Lotus/Upgrades/Skins/Sigils/LotusGuideSigil": "Awarded to Tenno who assist the Lotus by helping other Tenno.",
+  "/Lotus/Upgrades/Skins/Clan/CYOBBadgeItem": "This emblem is awarded to the most dedicated of Tenno during the Warframe Open Beta.",
+  "/Lotus/Upgrades/Skins/Sigils/InktoberSigil": "A sigil awarded for Inktober.",
+  "/Lotus/Upgrades/Skins/Clan/MutalistIncursionsBadgeItem": "Awarded to Tenno who participated in the Mutalist Incursions event.",
+  "/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemA": "An insignia awarded to the Tenno Elite who proved themselves during the Tohtchi Variant.",
+  "/Lotus/Upgrades/Skins/Clan/KelaEventBadgeItem": "Awarded to those who stood against Kela De Thaym and her Executioners.",
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearGroundIEmblem": "Earned through ground assaults against the Sentient Condrix during Operation Scarlet Spear.",
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearGroundIIEmblem": "Earned through ground assaults against the Sentient Condrix during Operation Scarlet Spear.",
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearGroundIIIEmblem": "Earned through ground assaults against the Sentient Condrix during Operation Scarlet Spear.",
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearSpaceIEmblem": "Earned through Railjack raids against the Sentient Murex during Operation Scarlet Spear.",
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearSpaceIIEmblem": "Earned through Railjack raids against the Sentient Murex during Operation Scarlet Spear.",
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearSpaceIIIEmblem": "Earned through Railjack raids against the Sentient Murex during Operation Scarlet Spear.",
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearOperationIEmblem": "Awarded for exemplary performance in Operation Scarlet Spear.",
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearOperationIIEmblem": "Awarded for exemplary performance in Operation Scarlet Spear.",
+  "/Lotus/Upgrades/Skins/Clan/ScarletSpear/ScarletSpearOperationIIIEmblem": "Awarded for exemplary performance in Operation Scarlet Spear.",
+  "/Lotus/Upgrades/Skins/Clan/SkullBadgeSilverItem": "Awarded to Tenno who achieved a Silver Rank on the retired Global Leaderboards.",
+  "/Lotus/Upgrades/Skins/Clan/RescueEventBadgeItem": "Awarded for the safe return of Red Veil Operatives during the Specters of Liberty operation.",
+  "/Lotus/Upgrades/Skins/Clan/SurvivalEventBadgeItem": "An insignia awarded to the Tenno who proved themselves during Survival event.",
+  "/Lotus/Upgrades/Skins/Clan/InfTacAlertNaniteMoaAncientBadgeItem": "Awarded to Tenno who participated in the Mutalist Incursions event.",
+  "/Lotus/Upgrades/Skins/Clan/InfTacAlertSlowBombMoaAncientBadgeItem": "Awarded to Tenno who participated in the Mutalist Incursions event.",
+  "/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil": "Awarded to players who attended the Tenno Live 2015.",
+  "/Lotus/Upgrades/Skins/Clan/LotusGuideBadgeItem": "Awarded to Tenno who assist the Lotus by helping other Tenno.",
+  "/Lotus/Upgrades/Skins/Clan/ShipyardsEventBadgeItem": "An insignia awarded to the Tenno who distinguished themselves during Tethra's Doom event.",
+  "/Lotus/Upgrades/Skins/Clan/ShipyardsEventQuantumBadgeItem": "An insignia awarded to the Tenno who distinguished themselves during Tethra's Doom event.",
+  "/Lotus/Upgrades/Skins/Clan/DefectorRescueEventBadgeItem": "An insignia awarded to the Tenno who proved themselves during the Pacifism Defect operation.",
+  "/Lotus/Upgrades/Skins/Clan/ZawVariantBadgeItemB": "An insignia awarded to the Tenno Elite who proved themselves during the Tohtchi Variant.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearGroundI": "Earned through ground assaults against the Sentient Condrix during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearGroundII": "Earned through ground assaults against the Sentient Condrix during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearGroundIII": "Earned through ground assaults against the Sentient Condrix during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearSpaceI": "Earned through Railjack raids against the Sentient Murex during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearSpaceII": "Earned through Railjack raids against the Sentient Murex during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearSpaceIII": "Earned through Railjack raids against the Sentient Murex during Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearOperationI": "Awarded for exemplary performance in Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearOperationII": "Awarded for exemplary performance in Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/ScarletSpear/ImageScarletSpearOperationIII": "Awarded for exemplary performance in Operation Scarlet Spear.",
+  "/Lotus/Types/AvatarImages/TennoCon2019SimarisGlyph": "Given to those attending the Sanctuary Showcase gameshow at TennoCon 2019.",
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburDexHelmet": "A gift from the Lotus to commemorate the fifth anniversary of the first Tenno waking from Cryo stasis.",
+  "/Lotus/Upgrades/Skins/Rhino/RhinoDexHelmet": "A gift from the Lotus to commemorate the eighth anniversary of the first Tenno waking from Cryo stasis.",
+  "/Lotus/Upgrades/Skins/Clan/EntratiEventEmblemItem": "Tenno who bear this insignia resisted the Murmur during Operation Gargoyle's Cry.",
+  "/Lotus/Upgrades/Skins/Clan/MechEventEmblemItem": "An emblem for veterans of the Operation: Orphix Venom.",
+  "/Lotus/Upgrades/Skins/Sigils/MechEventSigil": "A sigil for veterans of Operation Orphix Venom.",
+  "/Lotus/Upgrades/Skins/Sigils/VorDuviriSigil": "From Baro Ki’Teer comes this stylish reimagining of the infamous Captain Vor.",
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2016Sigil": "Bestowed upon those who joined together in celebration at TennoCon 2016.",
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2017Sigil": "Bestowed upon those who joined together in celebration at TennoCon 2017.",
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil": "Bestowed upon those who joined together in celebration at TennoCon 2018.",
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil": "Bestowed upon those who joined together in celebration at TennoCon 2019.",
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil": "Bestowed upon those who joined together in celebration at TennoCon 2020.",
+  "/Lotus/Upgrades/Skins/Clan/TennoCon2016BadgeItem": "Bestowed upon those who joined together in celebration at TennoCon 2016.",
+  "/Lotus/Upgrades/Skins/Sigils/SigilVideoContest": "Participatory prize for the Tenno's Greatest Trailer contest.",
+  "/Lotus/Upgrades/Skins/Loki/LokiTwitchSkin": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Redeemer/RedeemerTwitchSkin": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TwitchRubicoSkin": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TigrisTwitchSkin": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/Twitch2021AfurisSkin": {
+    "text": "Available via Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release 2"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TwitchPentaSkin": {
+    "text": "Available via Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release 2"
+  },
+  "/Lotus/Upgrades/Skins/Volt/VoltTwitchSkin": {
+    "text": "Available via Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release 2"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageDJRoMGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 90 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageDrillbitGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 60 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageHarddriveGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 30 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageZekeGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 120 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImagePacketGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 150 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageLogoGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 180 minutes during Twitch Drops Fest 2025 Wave 1.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedDJRoMGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 90 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedDrillbitGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 60 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedHarddriveGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 30 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedZekeGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 120 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedPacketGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 150 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageInfestedLogoGlyph": {
+    "text": "Twitch Drop: earned by watching Warframe streams for 180 minutes during Twitch Drops Fest 2025 Wave 2.",
+    "source": "Warframe.com Twitch Drops Fest 2025"
+  },
+  "/Lotus/Types/AvatarImages/Events/EventGlyphCaviaFibonacci": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Types/AvatarImages/Events/EventGlyphCaviaTagfer": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Types/AvatarImages/ImageElevenYearAnniversary": {
+    "text": "Anniversary login reward: log in during the 11 Year Anniversary celebration to earn it.",
+    "source": "Warframe.com Update 35.5: Dante Unbound"
+  },
+  "/Lotus/Types/AvatarImages/ImageTwelveYearAnniversary": {
+    "text": "Anniversary login reward: log in during the 12 Year Anniversary celebration to earn it.",
+    "source": "Warframe.com 12 Year Anniversary"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/YontaCrownFacialAcc": {
+    "text": "Operation: Atramentum reward.",
+    "source": "Warframe.com Operation: Atramentum"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ShadowgrapherEventBadgeItem": {
+    "text": "Operation: Atramentum reward.",
+    "source": "Warframe.com Operation: Atramentum"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilZorba": {
+    "text": "Operation: Atramentum reward.",
+    "source": "Warframe.com Operation: Atramentum"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaFibonacci": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaTagfer": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Upgrades/Skins/Clan/EntratiEventEmblemItem": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Types/AvatarImages/Events/EventGlyphCaviaBirdThree": {
+    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
+    "source": "Warframe.com Operation: Gargoyle's Cry"
+  },
+  "/Lotus/Types/AvatarImages/Warframes/Cyte09SupporterGlyph": {
+    "text": "Included in the 1999 Cyte-09 Bullseye Bundle, purchasable for real-world currency.",
+    "source": "Warframe.com Update 38: Warframe: 1999"
+  },
+  "/Lotus/Upgrades/Skins/CaliberChicks/AshGeminiCaliberChicksRifleSkin": {
+    "text": "Purchase with Emerald Talents from the secret vendor in Pontis Tower.",
+    "source": "Warframe.com Update 43: Jade Shadows: Constellations"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Daggers/AshGeminiDaggerSkin": {
+    "text": "Purchase with Emerald Talents from the secret vendor in Pontis Tower.",
+    "source": "Warframe.com Update 43: Jade Shadows: Constellations"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Throwable/AshGeminiKunaiSkin": {
+    "text": "Purchase with Emerald Talents from the secret vendor in Pontis Tower.",
+    "source": "Warframe.com Update 43: Jade Shadows: Constellations"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/LongGuns/AshGeminiVectisSkin": {
+    "text": "Purchase with Emerald Talents from the secret vendor in Pontis Tower.",
+    "source": "Warframe.com Update 43: Jade Shadows: Constellations"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Claws/GarudaGeminiClawsSkin": {
+    "text": "Purchase with Crimson Talents from the secret vendor in Pontis Tower.",
+    "source": "Warframe.com Update 43: Jade Shadows: Constellations"
+  },
+  "/Lotus/Upgrades/Skins/Koumei/KoumeiWarfanSkin": {
+    "text": "Included in the free Ambimanus Pack awarded for logging into the Nintendo Switch 2 version of Warframe during its launch promotion.",
+    "source": "Warframe.com Warframe on Switch 2 Available Now"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TwitchPromo2021Sigil": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Clan/TwitchPromo2021BadgeItem": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Kubrows/Armor/Twitch2021IfritKubrowArmor": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TwitchProminenceSigil": {
+    "text": "Available from Varzia in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Catbrows/Armor/Twitch2021MyrdinCatbrowArmor": {
+    "text": "Available via Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release 2"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageLokiActionTwitch": {
+    "text": "Available via Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release 2"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/AkjagaraIridosSkin": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/OgrisTwitchSkin": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/PyranaTwitchSkin": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/ExcaliburTwitchSkin": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/TwitchAnkyros": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Void/AkvastosVoidSkin": {
+    "text": "Originally awarded as a crafting reward during the Steam Winter Sale 2013; currently unavailable, but tradeable through Steam.",
+    "source": "WARFRAME Wiki Phased Skins"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Void/AnkyrosVoidSkin": {
+    "text": "Originally awarded as a crafting reward during the Steam Winter Sale 2013; currently unavailable, but tradeable through Steam.",
+    "source": "WARFRAME Wiki Phased Skins"
+  },
+  "/Lotus/Upgrades/Skins/Horse/ErsatzHorseTailDefaultA": {
+    "text": "Purchase the Aetigo Kaithe Pedigree, which includes this tail, or buy the tail individually with Platinum in Teshin's Cave or the in-game Market.",
+    "source": "Warframe.com The Duviri Paradox"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburPrimeAlabasterSkin": {
+    "text": "No longer obtainable; this was a short-lived test skin released by mistake for Excalibur Prime.",
+    "source": "WARFRAME Wiki Excalibur Prime"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Community10YearAnniversarySigil": {
+    "text": "Awarded to the top 10 winners of the 10 Year Anniversary Community Showcase contest.",
+    "source": "Warframe Forums 10 Year Anniversary Community Showcase"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/Twitch2021AfurisSkin": {
+    "text": "Available from Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Verv Collection Re-release 2"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Twitch/AkjagaraIridosSkin": {
+    "text": "Available from Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Nintendo/NintendoAklatoSkin": {
+    "text": "Included in the Nintendo Switch-exclusive Esteem Pack V.",
+    "source": "Warframe.com Esteem Pack V Available Now"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianAkmagnus": {
+    "text": "Included in the PlayStation Plus Booster Pack II.",
+    "source": "Warframe.com PlayStation Plus Booster Pack II"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/EnergyScarfVoidSkin": {
+    "text": "Originally awarded as a crafting reward during the Steam Winter Sale 2013; currently unavailable, but tradeable through Steam.",
+    "source": "WARFRAME Wiki Phased Skins"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NightwaveCalibanDeluxeSigil": {
+    "text": "Reward from Nightwave: Nora's Mix: Time Tempests.",
+    "source": "Warframe.com Nightwave: Time Tempests"
+  },
+  "/Lotus/Upgrades/Skins/Ninja/NinjaDeluxeHelmet": {
+    "text": "Included with the Ash Koga Skin; purchase the Ash Koga Skin from the in-game Market.",
+    "source": "ExportCustoms additionalItems + Warframe.com The Glast Gambit"
+  },
+  "/Lotus/Upgrades/Skins/Ninja/AshDeluxeHelmet": {
+    "text": "Included with the Ash Shroud Skin; purchase the Ash Shroud Skin from the in-game Market or the Ash Shroud Collection.",
+    "source": "ExportCustoms additionalItems + WARFRAME Wiki Ash Shroud Collection"
+  },
+  "/Lotus/Upgrades/Skins/Brawler/AtlasDeluxeHelmet": {
+    "text": "Included with the Atlas Karst Skin; purchase the Atlas Karst Skin from the in-game Market or the Atlas Karst Collection.",
+    "source": "ExportCustoms additionalItems + Warframe.com Atlas Karst Collection"
+  },
+  "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeHelmet": {
+    "text": "Included with the Banshee Soprana Skin; purchase the Banshee Soprana Skin from the in-game Market.",
+    "source": "ExportCustoms additionalItems + Warframe.com Update 18.9"
+  },
+  "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeArmLeftArmor": {
+    "text": "Included with the Banshee Soprana Skin; purchase the Banshee Soprana Skin from the in-game Market.",
+    "source": "ExportCustoms additionalItems + Warframe.com Update 18.9"
+  },
+  "/Lotus/Upgrades/Skins/Pacifist/BaruukDeluxeHelmet": {
+    "text": "Included with the Baruuk Doan Skin; purchase the Baruuk Doan Skin from the in-game Market or the Baruuk Doan Collection.",
+    "source": "ExportCustoms additionalItems + Warframe.com The Duviri Paradox"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooNightwaveCommando": {
+    "text": "Reward from Nightwave: Nora's Mix Vol. 8.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 8"
+  },
+  "/Lotus/Upgrades/Skins/Volt/WF1999VoltAuxHat": {
+    "text": "Included with the Amir Gemini Skin, available for Platinum in the 1999 Gemini Pact Collection and related 1999 collections.",
+    "source": "Warframe.com Update 38: Warframe: 1999"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAthletic": {
+    "text": "Included with the Athletic Drifter/Operator Collection; the collection and individual pieces are available for Platinum in the in-game Market.",
+    "source": "Warframe.com Update 38: Warframe: 1999"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAthletic": {
+    "text": "Included with the Athletic Drifter/Operator Collection; the collection and individual pieces are available for Platinum in the in-game Market.",
+    "source": "Warframe.com Update 38: Warframe: 1999"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAthletic": {
+    "text": "Included with the Athletic Drifter/Operator Collection; the collection and individual pieces are available for Platinum in the in-game Market.",
+    "source": "Warframe.com Update 38: Warframe: 1999"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAthletic": {
+    "text": "Included with the Athletic Drifter/Operator Collection; the collection and individual pieces are available for Platinum in the in-game Market.",
+    "source": "Warframe.com Update 38: Warframe: 1999"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NightwavePizzaSigil": {
+    "text": "Reward from Nightwave: Nora's Mix Vol. 8.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 8"
+  },
+  "/Lotus/Upgrades/Skins/PaxDuviricus/PaxDuviricusBodyBlades": {
+    "text": "Included in the Kullervo Apostate Collection, available from the in-game Market.",
+    "source": "Warframe.com Update 38.6: Yareli Prime"
+  },
+  "/Lotus/Upgrades/Skins/Decree/BansheeVoidShellHelmet": {
+    "text": "Included with the Banshee Voidshell Skin in the Banshee Voidshell Collection; available from the in-game Market.",
+    "source": "ExportCustoms additionalItems + WARFRAME Wiki Void Adornment Bundle VI"
+  },
+  "/Lotus/Upgrades/Skins/Decree/BansheeVoidShellArmLeftArmor": {
+    "text": "Included with the Banshee Voidshell Skin in the Banshee Voidshell Collection; available from the in-game Market.",
+    "source": "ExportCustoms additionalItems + WARFRAME Wiki Void Adornment Bundle VI"
+  },
+  "/Lotus/Upgrades/Skins/Kubrows/Armor/TnBoltorKubrowArmor": {
+    "text": "Reward from Nightwave: Nora's Mix Vol. 8.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 8"
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianBoltor": {
+    "text": "Included in the PlayStation Plus Booster Pack IV.",
+    "source": "Warframe.com PlayStation Plus Booster Pack IV"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageOctaviaActionTwitch": {
+    "text": "Available from Varzia's store in Maroo's Bazaar on Mars through Prime Resurgence; acquired for Aya.",
+    "source": "Warframe.com Iridos Collection Re-release"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDexFuris": {
+    "text": "Xbox 6th Anniversary Alert #3 reward.",
+    "source": "Warframe.com 6th Anniversary on Xbox"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDexDakra": {
+    "text": "Xbox 6th Anniversary Alert #4 reward.",
+    "source": "Warframe.com 6th Anniversary on Xbox"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Nintendo/NintendoAklatoSkin": {
+    "text": "Included in the Nintendo Switch-exclusive Esteem Pack V.",
+    "source": "Warframe.com Esteem Pack V Available Now"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneScytheSkin": {
+    "text": "Available for 1 Credit in the in-game Market during the Winter holiday sale.",
+    "source": "Warframe.com Winter in Warframe"
+  },
+  "/Lotus/Upgrades/Skins/Promo/PCGamer/PCGamerDarkSwordDaggerHybridSkin": {
+    "text": "Redeem the PCGamingShow2016 promo code.",
+    "source": "Warframe Forums Free Promocodes and Content Creator Glyphs"
+  },
+  "/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaLureGearItem": {
+    "text": "Purchase from Son in the Necralisk on Deimos for Entrati Standing.",
+    "source": "WARFRAME Wiki Echo-Lure acquisition"
+  },
+  "/Lotus/Types/Restoratives/Conservation/Deimos/InfestedNexiferaRarityBoost": {
+    "text": "Purchase from Son in the Necralisk on Deimos for Entrati Standing.",
+    "source": "WARFRAME Wiki Echo-Lure acquisition"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018A": {
+    "text": "Available in the Winter Glyph Pack in the in-game Market during the Winter Solstice seasonal sale.",
+    "source": "Warframe.com Winter Solstice 2018"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018B": {
+    "text": "Available in the Winter Glyph Pack in the in-game Market during the Winter Solstice seasonal sale.",
+    "source": "Warframe.com Winter Solstice 2018"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018C": {
+    "text": "Available in the Winter Glyph Pack in the in-game Market during the Winter Solstice seasonal sale.",
+    "source": "Warframe.com Winter Solstice 2018"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018D": {
+    "text": "Available in the Winter Glyph Pack in the in-game Market during the Winter Solstice seasonal sale.",
+    "source": "Warframe.com Winter Solstice 2018"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageWinter2018E": {
+    "text": "Available in the Winter Glyph Pack in the in-game Market during the Winter Solstice seasonal sale.",
+    "source": "Warframe.com Winter Solstice 2018"
+  },
+  "/Lotus/Types/AvatarImages/ImageEightYearAnniversary": {
+    "text": "Redeem the Year 8 Anniversary Glyph promo code.",
+    "source": "Warframe Forums Free Promocodes and Content Creator Glyphs"
+  },
+  "/Lotus/Types/AvatarImages/ImageNineYearAnniversary": {
+    "text": "Redeem the NineYear22 promo code.",
+    "source": "Warframe Forums Free Promocodes and Content Creator Glyphs"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageJadeInActionGlyph": {
+    "text": "Included in the Jade Chorus Pack, a one-time real-money purchase.",
+    "source": "Warframe.com Jade Chorus Pack"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageConqueraOrdis": {
+    "text": "Bonus in-game glyph included with the Conquera IV Collection from the Official Warframe Store.",
+    "source": "Warframe.com All-New Conquera 2024 Merch for QTCC"
+  },
+  "/Lotus/Types/AvatarImages/ImageCalibanInAction": {
+    "text": "Rewarded by a Gift of the Lotus Alert during the February 2022 community-stream alerts.",
+    "source": "Warframe Forums Community Stream Schedule: February 21 - February 25"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageHarrowAction": {
+    "text": "Rewarded by a special Alert during Darvo Deals Returns (August 3–10, 2022).",
+    "source": "Warframe.com Darvo Deals Returns"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageOctaviaAction": {
+    "text": "Rewarded by a special Alert during Darvo Deals Returns (August 3–10, 2022).",
+    "source": "Warframe.com Darvo Deals Returns"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageSevagothAction": {
+    "text": "Rewarded by Alert 4 of the Whispers in the Walls Alerts (December 13–20, 2023).",
+    "source": "Warframe.com Whispers in the Walls Alerts"
+  },
+  "/Lotus/Types/AvatarImages/KahlSupporterPackGlyph": {
+    "text": "Included in the Veilbreaker Warrior Supporter Pack.",
+    "source": "Warframe.com Veilbreaker"
+  },
+  "/Lotus/Types/AvatarImages/KahlStatueGlyph": {
+    "text": "Included with the Kahl-175 Statue from The New War Merch 2.0 pre-order.",
+    "source": "Warframe.com Pre-order The New War Merch 2.0"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageTennoVIP2Glyph": {
+    "text": "Included in the TennoVIP 2025 attendee bundle for the in-person PAX East 2025 event.",
+    "source": "Warframe.com Devstream 188 and TennoVIP at PAX East 2025"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageExcaliburActionSony": {
+    "text": "Available for 1 Credit in the PlayStation in-game Market during the PlayStation anniversary celebration.",
+    "source": "Warframe.com 5 Year Anniversary"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageExcaliburActionNintendo": {
+    "text": "Available for 1 Credit in the Nintendo Switch in-game Market during the Switch anniversary celebration.",
+    "source": "Warframe.com 3 Years on Nintendo Switch"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageDrakeRifle": {
+    "text": "Included in the PlayStation Plus Booster Pack VI.",
+    "source": "Warframe.com PlayStation Plus Booster Pack VI"
+  },
+  "/Lotus/Types/AvatarImages/AvatarImageStalkerAction": {
+    "text": "Nightwave: Nora's Mix Vol. 7 rank 17 reward.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 7"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/StalkerAccessoriesMask": {
+    "text": "Nightwave: Nora's Mix Vol. 7 rank 4 reward.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 7"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/StalkerAccessoriesNose": {
+    "text": "Nightwave: Nora's Mix Vol. 7 rank 22 reward.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 7"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/StalkerAccessoriesEarpiece": {
+    "text": "Nightwave: Nora's Mix Vol. 7 rank 28 reward.",
+    "source": "Warframe.com Nightwave: Nora's Mix Vol. 7"
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS4Braton": {
+    "text": "Originally included in the PlayStation 4 Ultimate Fan Pack pre-order bonus; no longer obtainable through that promotion.",
+    "source": "PlayStation Blog Warframe PS4 Pre-order Bonuses Detailed"
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS4Mk1Braton": {
+    "text": "Originally included in the PlayStation 4 Ultimate Fan Pack pre-order bonus; no longer obtainable through that promotion.",
+    "source": "PlayStation Blog Warframe PS4 Pre-order Bonuses Detailed"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWSonorityArmLeftArmor": {
+    "text": "Included with the TennoGen Banshee Sonority Skin; obtain the skin through the Steam/TennoGen Market (or the console Market equivalent).",
+    "source": "Warframe.com Shrine of the Eidolon Hotfix 22.17.4"
+  },
+  "/Lotus/Upgrades/Skins/Clan/OrbBadgeItem": {
+    "text": "Operation: Buried Debts reward at 5 Thermia Fracture points; the operation is currently unavailable.",
+    "source": "Warframe.com Operation: Buried Debts + Warframe Wiki Operation: Buried Debts"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/OrbSigil": {
+    "text": "Earn by sealing 75 Thermia Fractures during the periodically recurring Thermia Fractures event.",
+    "source": "Warframe Wiki Sigils + Warframe Wiki Operation: Buried Debts"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilShadowgrapher": {
+    "text": "Reward from Operation: Atramentum, exchanged for Nightmare Tatters at Aspirant Zorba; the operation is currently unavailable.",
+    "source": "Warframe.com Operation: Atramentum is Live"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Community10YearEmblemItem": {
+    "text": "Awarded for completing the missions in at least three of the five Recall: Ten-Zero weekly Alert sets; the event is currently unavailable.",
+    "source": "Warframe Steam Community Announcements Recall: Ten-Zero"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LotusHeartSigil": {
+    "text": "Purchase from the in-game Market for 1 Credit.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/OpticorConclaveVariantSigil": {
+    "text": "Purchase from Teshin using Conclave Standing.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SyndicateSigilConclaveA": {
+    "text": "Purchase from Teshin using Conclave Standing.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ConqueraSigil": {
+    "text": "Redeem the promo code Conquer; the code was retired after November 2, 2020.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/RadioLegionSigil": {
+    "text": "Nightwave: Intermission III rank 8 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WolfSigil": {
+    "text": "Nightwave: Series 1 — The Wolf of Saturn Six rank 1 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NoraSeasonTwoSigil": {
+    "text": "Nightwave: Series 2 — The Emissary rank 2 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/GlassmakerSigil": {
+    "text": "Nightwave: Series 3 — Glassmaker rank 2 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DuvDragonSigil": {
+    "text": "Nightwave: Nora's Mix Volume 4 rank 2 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NWStalkerSigil": {
+    "text": "Nightwave: Nora's Mix Volume 7 rank 2 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/KelaEventSigil": {
+    "text": "Operation: Rathuum reward for collecting at least 10 Judgment Points; the operation is currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilIndex": {
+    "text": "The Index Preview reward for achieving a score of at least 100 in a High Risk match; the event is currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ConclaveTacAlertSigilA": {
+    "text": "Reward from the first phase of the Quick Steel Conclave Alert in February 2017; the alert is currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilAmalgam": {
+    "text": "Awarded for completing the second mission of Operation: Hostile Mergers; the operation is currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FortunaSigil": {
+    "text": "Redeem the promo code SOLARISUNITED; the code was retired in early 2019.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/OstronCommunitySigil": {
+    "text": "Gifted to PC players who logged in from October 25 through November 1, 2017; the promotion is over.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DawnsEarlyLightSigil": {
+    "text": "Earned during The Great Eidolon Hunt by watching a Warframe stream while the streamer completed the By the Dawn's Early Light achievement; the event is over.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilDisciple": {
+    "text": "Granted to players who purchased the Founder Disciple package; the Founders program is closed.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilHunter": {
+    "text": "Granted to players who purchased the Founder Hunter package; the Founders program is closed.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilMaster": {
+    "text": "Granted to players who purchased the Founder Master package; the Founders program is closed.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilGrandMaster": {
+    "text": "Granted to players who purchased the Founder Grand Master package; the Founders program is closed.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/MasteryStoneSigil": {
+    "text": "Purchase from the in-game Market for 1 Credit.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014D": {
+    "text": "Reward from one of the Christmas-themed Tactical Alerts that ran in December 2014; the alerts are currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014B": {
+    "text": "Reward from one of the Christmas-themed Tactical Alerts that ran in December 2014; the alerts are currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014C": {
+    "text": "Reward from one of the Christmas-themed Tactical Alerts that ran in December 2014; the alerts are currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilXmas2014A": {
+    "text": "Reward from one of the Christmas-themed Tactical Alerts that ran in December 2014; the alerts are currently unavailable.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EnergySigilA": {
+    "text": "Reward from the Escalation phase of eligible Tactical Alerts, including Phoenix Intercept, Emergency Exit, Project Undermine, and Proxy Rebellion; it was also a Nightwave Intermission I rank-up reward.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoLivePromoSigil": {
+    "text": "Given to attendees of TennoLive, TennoVIP, or TennoCon events; the specific event promotion is no longer active.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoGenSigil": {
+    "text": "Awarded to players whose TennoGen skin was implemented in the game.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/RadioLegionSigil": {
+    "text": "Nightwave: Intermission III rank 8 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/StarterPackASigil": {
+    "text": "Included in an earlier Warframe Starter Pack; that pack was discontinued on June 25, 2019.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/StarterPackLotusSigil": {
+    "text": "Included in the previous Starter Pack from June 25, 2019 through August 25, 2020; that pack is no longer available.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/KuvaLichSigil": {
+    "text": "Awarded after successfully defeating a Kuva Lich by converting it.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/CorpusLichSigil": {
+    "text": "Awarded after successfully defeating a Sister of Parvos by converting her.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ScarSigil": {
+    "text": "Reward for completing The Second Dream quest.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Winter2016Sigil": {
+    "text": "Gifted to all Tenno during December 2016 after the first Tennobaum donation milestone was reached.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WikiaSigil": {
+    "text": "Awarded to administrators and moderators of the Warframe Wiki.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TranslatorSigil": {
+    "text": "Awarded to players who contributed to Warframe translations.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaDeluxeHelmet": {
+    "text": "Part of the Chroma Dynasty Skin; purchase the skin from the in-game Market for 165 Platinum, or as part of the Chroma Dynasty Collection for 225 Platinum.",
+    "source": "Warframe Wiki Chroma Dynasty Skin"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaDeluxeWings": {
+    "text": "Optional wings included with the Chroma Dynasty Skin; purchase the skin from the in-game Market for 165 Platinum, or as part of the Chroma Dynasty Collection for 225 Platinum.",
+    "source": "Warframe Wiki Chroma Dynasty Skin"
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/SWBansheeBotLArmLeftArmor": {
+    "text": "Included with the Banshee Blade of the Lotus Skin; on PC the skin is purchased through Steam/TennoGen, while on consoles it is purchased from the in-game Marketplace for 165 Platinum.",
+    "source": "Warframe Wiki Banshee Blade of the Lotus Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sentient/CalibanDeluxeHelmet": {
+    "text": "Part of the Caliban Orfeo Skin; purchase the skin from the in-game Market for 165 Platinum, or as part of the Caliban Orfeo Collection for 315 Platinum.",
+    "source": "Warframe Wiki Caliban Orfeo Skin"
+  },
+  "/Lotus/Upgrades/Skins/Sentient/CalibanDeluxeAuxFloater": {
+    "text": "Optional auxiliary included with the Caliban Orfeo Skin; purchase the skin from the in-game Market for 165 Platinum, or as part of the Caliban Orfeo Collection for 315 Platinum.",
+    "source": "Warframe Wiki Caliban Orfeo Skin"
+  },
+  "/Lotus/Upgrades/Skins/Pacifist/BaruukPrimeHelmet": {
+    "text": "Standard issue helmet included with Baruuk Prime; acquire Baruuk Prime through its Void Relics or Prime Access/Prime Resurgence offerings.",
+    "source": "Warframe Wiki Baruuk/Prime + local export description"
+  },
+  "/Lotus/Upgrades/Skins/Sentient/CalibanPrimeHelmet": {
+    "text": "Standard issue helmet included with Caliban Prime; acquire Caliban Prime through its Void Relics or Prime Access/Prime Resurgence offerings.",
+    "source": "Warframe Wiki Caliban Prime + local export description"
+  },
+  "/Lotus/Upgrades/Skins/Necramech/ThanomechVoidRigDefaultHelmet": {
+    "text": "Standard issue helmet included with Bonewidow; acquire Bonewidow through Necraloid Standing or the in-game Market.",
+    "source": "Warframe Wiki Bonewidow + local export description"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaLNYHelmet": {
+    "text": "Part of Chroma's Zunlong Skin; the Lunar New Year 2024 announcement listed the skin for individual purchase in the in-game Market and in the Dragon Stone Bundle.",
+    "source": "Warframe Steam Community Announcements Lunar New Year 2024"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaLNYWings": {
+    "text": "Optional wings included with Chroma's Zunlong Skin; the Lunar New Year 2024 announcement listed the skin for individual purchase in the in-game Market and in the Dragon Stone Bundle.",
+    "source": "Warframe Steam Community Announcements Lunar New Year 2024 + Warframe Wiki Chroma/Equip"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilZorba": {
+    "text": "Purchase from Aspirant Zorba with Nightmare Tatters during Operation: Atramentum; the operation ended on April 30, 2026.",
+    "source": "Warframe.com Operation: Atramentum is Live"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NightwavePizzaSigil": {
+    "text": "Nightwave: Nora's Mix Volume 8 rank 2 reward; it may also appear in Nightwave Cred Offerings.",
+    "source": "Warframe Wiki Sigils"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree": {
+    "text": "Returning reward available from Aspirant Zorba during Operation: Atramentum, purchased with Nightmare Tatters; the operation ended on April 30, 2026.",
+    "source": "Warframe.com Operation: Atramentum is Live"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BladeAndGunSigil": {
+    "text": "Awarded to the winners of the Blade and Gun Challenges hosted on the Warframe Forums; the challenges are over.",
+    "source": "Warframe Wiki Sigils"
+  }
+}

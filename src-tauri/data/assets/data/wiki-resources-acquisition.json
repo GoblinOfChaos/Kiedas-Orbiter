@@ -1,0 +1,1780 @@
+{
+  "Kriller": {
+    "location": "Orb Vallis (Venus), Lake during Warm cycle with Kriller Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmUncommonFishAItem",
+    "link": "Kriller"
+  },
+  "Servoris": {
+    "location": "Obtained from crates and enemies in Perita Rebellion missions(Dark Refractory).",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Tau/Resources/TwelveResourceRareItem",
+    "link": "Servoris"
+  },
+  "Laudavi": {
+    "location": "Obtained from crates and enemies in Perita Rebellion missions(Dark Refractory).",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Tau/Resources/TwelveResourceUncommonItem",
+    "link": "Laudavi"
+  },
+  "Cheddar Crowns Cereal": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagLettie",
+    "link": "Cheddar Crowns Cereal"
+  },
+  "Kuva": {
+    "location": "Kuva Siphon Missions and Taveuni (Kuva Fortress)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/Kuva",
+    "link": "Kuva (Resource)"
+  },
+  "Diluted Thermia": {
+    "location": "Thermia Fractures event in the Orb Vallis on Venus",
+    "type": "Event",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/Fissureum",
+    "link": "Diluted Thermia"
+  },
+  "Bellow Voca": {
+    "location": "Albrecht's Laboratories (Deimos)",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTagUncommon",
+    "link": "Bellow Voca"
+  },
+  "Vomval Trumpet": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/TauMushroomJournalItem",
+    "link": "Vomval Trumpet"
+  },
+  "Echo Voca": {
+    "location": "Albrecht's Laboratories (Deimos)",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTagRare",
+    "link": "Echo Voca"
+  },
+  "Namalon": {
+    "location": "Cambion Drift (Deimos) from Yellow Mining Lesions and Bonus Vaults in Isolation Vault Bounties.",
+    "type": "Ore",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Gems/Deimos/DeimosUncommonOreAItem",
+    "link": "Namalon"
+  },
+  "Narmer Isoplast": {
+    "location": "Narmer Bounties in the Plains of Eidolon (Earth) and Orb Vallis (Venus)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/NarmerBountyResource",
+    "link": "Narmer Isoplast"
+  },
+  "Entrati Lanthorn": {
+    "location": "Albrecht's Laboratories (Deimos) and Zariman",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanMiscItemB",
+    "link": "Entrati Lanthorn"
+  },
+  "Necracoil": {
+    "location": "Albrecht's Laboratories (Deimos)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabMiscItemB",
+    "link": "Necracoil"
+  },
+  "Thorn Tooth": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/PunctureMushroomJournalItem",
+    "link": "Thorn Tooth"
+  },
+  "Voidplume Down": {
+    "location": "Zariman",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTagCommon",
+    "link": "Voidplume Down"
+  },
+  "Intact Sentient Core": {
+    "location": "Drops from Vomvalysts on the Plains of Eidolon (Earth) at night, and from Sentients found on Lua and the Veil Proxima",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Eidolon/Resources/QuillsDogTag",
+    "link": "Sentient Core"
+  },
+  "Nullstones": {
+    "location": "Railjack Missions",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/NullstonesRailjackItem",
+    "link": "Nullstones"
+  },
+  "Hesperon": {
+    "location": "Orb Vallis (Venus) from Red Mining Veins and Resource Containers",
+    "type": "Ore",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Solaris/SolarisRareOreAItem",
+    "link": "Hesperon"
+  },
+  "Carbides": {
+    "location": "Eximus units in the Grineer Shipyard Tileset, and Railjack missions in Earth, Saturn, and Veil Proximas",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/CarbidesRailjackItem",
+    "link": "Carbides"
+  },
+  "Karkina": {
+    "location": "Plains of Eidolon (Earth), Ocean during Day / Night with Twilight Bait, using Lanzo / Tulok fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/BothUncommonFishBItem",
+    "link": "Karkina"
+  },
+  "Enigma Gyrum": {
+    "location": "Earned by completing Enigmas in The Duviri Experience",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPuzzleItem",
+    "link": "Enigma Gyrum"
+  },
+  "Fergolyte": {
+    "location": "The Deepmines below Fortuna, Venus.",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/MushroomFood",
+    "link": "Fergolyte"
+  },
+  "Live Heartcell": {
+    "location": "Earned upon Vanquishing a Technocyte Coda in Höllvania.",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/CodaWeaponBucks",
+    "link": "Live Heartcell"
+  },
+  "Argon Crystal": {
+    "location": "Missions in the Void",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/MiscItems/ArgonCrystal",
+    "link": "Argon Crystal"
+  },
+  "Eye-Eye": {
+    "location": "Orb Vallis (Venus), Pond during Warm cycle with Narrow-Spectrum Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/CorpusCoolUncommonFishAItem",
+    "link": "Eye-Eye"
+  },
+  "Embolos": {
+    "location": "Cambion Drift (Deimos) from Blue Mining Lesions. This Rare Gem can only be mined by the Advanced Nosam Cutter or Sunpoint Plasma Drill.",
+    "type": "Gem",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Deimos/DeimosEidolonGemBItem",
+    "link": "Embolos"
+  },
+  "Lucent Teroglobe": {
+    "location": "Cambion Drift on Deimos",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/OrbStoneItem",
+    "link": "Lucent Teroglobe"
+  },
+  "Sentirum": {
+    "location": "Plains of Eidolon (Earth) from Blue Mining Veins and Thumper Bulls. This Rare Gem can only be mined by the Advanced Nosam Cutter or Sunpoint Plasma Drill.",
+    "type": "Gem",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Eidolon/EidolonGemAItem",
+    "link": "Sentirum"
+  },
+  "Efervon Sample": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonA",
+    "link": "Efervon Sample"
+  },
+  "Dusklight Sarracenia": {
+    "location": "Obtained by gathering Dusklight Sarracenia plants growing in Grineer Shipyards found commonly on Ceres",
+    "type": "Plant",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Plants/MiscItems/ZenCobraLotusPlantItem",
+    "link": "Dusklight Sarracenia"
+  },
+  "Exceptional Sentient Core": {
+    "location": "Eidolons found roaming the Plains of Eidolon on Earth at night",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Eidolon/Resources/QuillsUncommonDogTag",
+    "link": "Sentient Core"
+  },
+  "Mood Crystal": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagEleanor",
+    "link": "Mood Crystal"
+  },
+  "Blister Stalk": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/HeatMushroomJournalItem",
+    "link": "Blister Stalk"
+  },
+  "Orokin Cipher": {
+    "location": "Orokin Derelict Vaults on Deimos once opened with a Dragon Key",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/MirageCode",
+    "link": "Orokin Cipher"
+  },
+  "Devil's Cap": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/SlashMushroomJournalItem",
+    "link": "Devil's Cap"
+  },
+  "Ferrofungus": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/MagneticMushroomJournalItem",
+    "link": "Ferrofungus"
+  },
+  "Kubrow Egg": {
+    "location": "Kubrow Dens found in Grineer Forests on Earth",
+    "type": "Component",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Game/KubrowPet/Eggs/KubrowEgg",
+    "link": "Kubrow Egg"
+  },
+  "Pustulite": {
+    "location": "Cambion Drift on Deimos",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/InfGorgaricusSeedItem",
+    "link": "Pustulite"
+  },
+  "Isos": {
+    "location": "Railjack missions in Venus, Neptune, and Pluto Proximas",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/IsosRailjackItem",
+    "link": "Isos"
+  },
+  "Gallium": {
+    "location": "Mars and Uranus",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/MiscItems/Gallium",
+    "link": "Gallium"
+  },
+  "Severed Bile Sac": {
+    "location": "Drops from Juggernauts (non-endless Infested Missions) and Deimos Juggernauts (Cambion Drift on Deimos)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/JuggernautPartD",
+    "link": "Severed Bile Sac"
+  },
+  "Charc Eel": {
+    "location": "Plains of Eidolon (Earth), Lake during Day / Night with Twilight Bait, using Lanzo / Tulok / Peram fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/BothCommonFishAItem",
+    "link": "Charc Eel"
+  },
+  "Aucrux Capacitors": {
+    "location": "Railjack missions in Venus, Neptune, and Pluto Proximas",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/AucruxRailjackItem",
+    "link": "Aucrux Capacitors"
+  },
+  "Neural Sensors": {
+    "location": "Jupiter",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/MiscItems/NeuralSensor",
+    "link": "Neural Sensors"
+  },
+  "Spring Popper": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/BlastMushroomJournalItem",
+    "link": "Spring Popper"
+  },
+  "Glappid": {
+    "location": "Plains of Eidolon (Earth), Ocean Hotspot during Night with Glappid Bait, using Peram fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/NightLegendaryFishAItem",
+    "link": "Glappid"
+  },
+  "Cetus Wisp": {
+    "location": "Plains of Eidolon on Earth",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Eidolon/Resources/CetusWispItem",
+    "link": "Cetus Wisp"
+  },
+  "Recaster": {
+    "location": "Orb Vallis (Venus), Pond Hotspot during Cold cycle with Narrow-Spectrum Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/SolarisCoolUncommonFishAItem",
+    "link": "Recaster"
+  },
+  "Hollvanian Pitchweave Fragment": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB",
+    "link": "Höllvanian Pitchweave Fragment"
+  },
+  "Flagellocanth": {
+    "location": "Cambion Drift (Deimos), Surface Hotspot during Fass / Vome cycle with Processed Fass Residue as bait, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/InfestedRareAFishItem",
+    "link": "Flagellocanth"
+  },
+  "Necrathene": {
+    "location": "Cambion Drift (Deimos) from Blue Mining Lesions and Requiem Obelisks.",
+    "type": "Gem",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Deimos/DeimosRareGemAItem",
+    "link": "Necrathene"
+  },
+  "Thunder-Button": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/ElectricityMushroomJournalItem",
+    "link": "Thunder-Button"
+  },
+  "Maphica": {
+    "location": "Obtained from crates and bosses in the Descendia (Dark Refractory).",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Tau/Resources/CoHResourceRareItem",
+    "link": "Maphica"
+  },
+  "Ignia": {
+    "location": "Obtained from crates and bosses in the Descendia (Dark Refractory).",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Tau/Resources/CoHResourceCommonItem",
+    "link": "Ignia"
+  },
+  "Khut-Khut": {
+    "location": "Plains of Eidolon (Earth), Pond during Day / Night with Twilight Bait, using Lanzo / Tulok / Peram fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/DayCommonFishBItem",
+    "link": "Khut-Khut"
+  },
+  "Vitreospina": {
+    "location": "Cambion Drift (Deimos), Cave during Fass / Vome cycle with Fass Residue as bait, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/HybridUncommonBFishItem",
+    "link": "Vitreospina"
+  },
+  "Damaged Necramech Pod": {
+    "location": "Enemy Necramechs found in Isolation Vault Bounties on the Cambion Drift (Deimos), and purchased from Father in the Necralisk (Deimos) after completing The War Within quest",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartSystemsItem",
+    "link": "Damaged Necramech Pod"
+  },
+  "Vestan Moss": {
+    "location": "Obtained by gathering Vestan Moss plants that grow on Mercury, Saturn, and Sedna",
+    "type": "Plant",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Plants/MiscItems/MossGroundCoverAPlantItem",
+    "link": "Vestan Moss"
+  },
+  "Tink": {
+    "location": "Orb Vallis (Venus), Pond during Cold cycle with Broad-Spectrum Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/SolarisCoolCommonFishAItem",
+    "link": "Tink"
+  },
+  "Sharrac": {
+    "location": "Plains of Eidolon (Earth), Ocean during Day / Night with Twilight Bait, using Lanzo / Tulok fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/BothUncommonFishAItem",
+    "link": "Sharrac"
+  },
+  "Echowinder": {
+    "location": "Orb Vallis (Venus), Lake during Warm cycle with Broad-Spectrum Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmCommonFishAItem",
+    "link": "Echowinder"
+  },
+  "Vainthorn": {
+    "location": "Abyssal Zone on Ceres (requires Abyssal Beacons to access)",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/MiscItems/DagathAbyssItem",
+    "link": "Vainthorn"
+  },
+  "35mm Film": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagQuincy",
+    "link": "35mm Film"
+  },
+  "Charamote": {
+    "location": "Orb Vallis (Venus), Cave during Cold / Warm cycle with Charamote Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/OrokinBothRareFishAItem",
+    "link": "Charamote"
+  },
+  "Lunar Pitcher": {
+    "location": "Obtained by gathering Lunar Pitcher plants that grow on Lua",
+    "type": "Plant",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Plants/MiscItems/ZenPitcherPlantItem",
+    "link": "Lunar Pitcher"
+  },
+  "Lua Thrax Plasm": {
+    "location": "Yuvarium and Circulus on Lua",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Zariman/Resources/EclipseVoidWraithItem",
+    "link": "Lua Thrax Plasm"
+  },
+  "Reeking Puffball": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/GasMushroomJournalItem",
+    "link": "Reeking Puffball"
+  },
+  "Ganglion": {
+    "location": "Cambion Drift on Deimos",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/InfMapricoFruitItem",
+    "link": "Ganglion"
+  },
+  "The Countessa Comic": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagAmir",
+    "link": "The Countessa Comic"
+  },
+  "Chuggin' Along Sixpack": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagArthur",
+    "link": "Chuggin' Along Sixpack"
+  },
+  "Nyth": {
+    "location": "Plains of Eidolon (Earth) from Blue Mining Veins and Thumper Bulls. This Rare Gem can only be mined by the Advanced Nosam Cutter or Sunpoint Plasma Drill.",
+    "type": "Gem",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Eidolon/EidolonGemBItem",
+    "link": "Nyth"
+  },
+  "Big Bytes Pizza": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagRare",
+    "link": "Big Bytes Pizza (Resource)"
+  },
+  "Techrot Motherboard": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceRareA",
+    "link": "Techrot Motherboard"
+  },
+  "Bapholite": {
+    "location": "Cambion Drift (Deimos) from Yellow Mining Lesions, Rolizor Infested Cysts, and Bonus Vaults in Isolation Vault Bounties.",
+    "type": "Ore",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonOreBItem",
+    "link": "Bapholite"
+  },
+  "Experimental Arc-Relay": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceUncommonB",
+    "link": "Experimental Arc-Relay"
+  },
+  "Mirewinder": {
+    "location": "Orb Vallis (Venus), Cave during Cold / Warm cycle with Mirewinder Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/CorpusBothUncommonFishAItem",
+    "link": "Mirewinder"
+  },
+  "Höllvanian Pitchweave Fragment": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB",
+    "link": "Höllvanian Pitchweave Fragment"
+  },
+  "Yao Shrub": {
+    "location": "Duviri",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemD",
+    "link": "Yao Shrub"
+  },
+  "Dracroot": {
+    "location": "Duviri",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemF",
+    "link": "Dracroot"
+  },
+  "Xenorhast": {
+    "location": "Cambion Drift (Deimos) from Blue Mining Lesions. This Rare Gem can only be mined by the Advanced Nosam Cutter or Sunpoint Plasma Drill.",
+    "type": "Gem",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Deimos/DeimosEidolonGemAItem",
+    "link": "Xenorhast"
+  },
+  "Chondricord": {
+    "location": "Cambion Drift (Deimos), Cave Hotspot during Fass / Vome cycle with Vome Residue as bait, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/OrokinUncommonAFishItem",
+    "link": "Chondricord"
+  },
+  "Rune Marrow": {
+    "location": "The Undercroft in Duviri",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriFractalItem",
+    "link": "Rune Marrow"
+  },
+  "Voidplume Vane": {
+    "location": "Zariman",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTagUncommon",
+    "link": "Voidplume Vane"
+  },
+  "Voidplume Quill": {
+    "location": "Zariman",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTagBounty",
+    "link": "Voidplume Quill"
+  },
+  "Voidplume Pinion": {
+    "location": "Zariman",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Gameplay/Zariman/Resources/VoidAngelItem",
+    "link": "Voidplume Pinion"
+  },
+  "Voidplume Crest": {
+    "location": "Zariman",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTagRare",
+    "link": "Voidplume Crest"
+  },
+  "Void Traces": {
+    "location": "Void Fissure Missions",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/VoidTearDrop",
+    "link": "Void Traces"
+  },
+  "Kullervo's Bane": {
+    "location": "Earned by confronting Kullervo and defeating the Orowyrm in the same Duviri mission during the Fear, Anger, or Sorrow spiral",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriKullervoDropItem",
+    "link": "Kullervo's Bane"
+  },
+  "Gallos Rods": {
+    "location": "Railjack missions in Earth, Saturn, and Veil Proximas",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/GallosRailjackItem",
+    "link": "Gallos Rods"
+  },
+  "Vitus Essence": {
+    "location": "Arbitration Missions",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/Elitium",
+    "link": "Vitus Essence"
+  },
+  "Veridos": {
+    "location": "Plains of Eidolon (Earth) from Blue Mining Veins and Thumpers",
+    "type": "Gem",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Gems/Eidolon/UncommonGemAItem",
+    "link": "Veridos"
+  },
+  "Venerol": {
+    "location": "Orb Vallis (Venus) from Red Mining Veins and Resource Containers",
+    "type": "Ore",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Gems/Solaris/SolarisUncommonOreItem",
+    "link": "Venerol"
+  },
+  "Tiametrite": {
+    "location": "Cambion Drift (Deimos) from Blue Mining Lesions, Sagiant Entrati Caskets, and Bonus Vaults in Isolation Vault Bounties.",
+    "type": "Gem",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonGemAItem",
+    "link": "Tiametrite"
+  },
+  "Lamentus": {
+    "location": "Duviri",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriEnemyDropItem",
+    "link": "Lamentus"
+  },
+  "Travoride": {
+    "location": "Orb Vallis (Venus) from Red Mining Veins and Resource Containers",
+    "type": "Ore",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonOreAItem",
+    "link": "Travoride"
+  },
+  "Polymer Bundle": {
+    "location": "Mercury, Venus, and Uranus",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/MiscItems/PolymerBundle",
+    "link": "Polymer Bundle"
+  },
+  "Synathid": {
+    "location": "Orb Vallis (Venus), Cave Hotspot during Cold / Warm cycle with Synathid Bait (prefers Warm cycle), using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/OrokinBothLegendaryFishAItem",
+    "link": "Synathid"
+  },
+  "Orokin Orientation Matrix": {
+    "location": "Isolation Vault Bounty rewards on the Cambion Drift (Deimos), and from Enemy Necramechs found in Tier 1 Isolation Vault Bounties",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Necraloids/NecraloidStandingCommonItem",
+    "link": "Orokin Orientation Matrix"
+  },
+  "Ticor Plate": {
+    "location": "Railjack Missions",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/ScrapRailjackItem",
+    "link": "Ticor Plate"
+  },
+  "Thyst": {
+    "location": "Orb Vallis (Venus) from Blue Mining Veins and the Exploiter Orb. This Rare Gem can only be mined by the Advanced Nosam Cutter or Sunpoint Plasma Drill.",
+    "type": "Gem",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Solaris/SolarisEidolonGemBItem",
+    "link": "Thyst"
+  },
+  "Grotesque Splinter": {
+    "location": "Effervo (Deimos) during Operation Gargoyle's Cry",
+    "type": "Event",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiEventOctopedeItem",
+    "link": "Grotesque Splinter"
+  },
+  "Moonlight Dragonlily": {
+    "location": "Obtained by gathering Moonlight Dragonlily plants that grow on Earth",
+    "type": "Plant",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Plants/MiscItems/UnCommonNightPlantItem",
+    "link": "Moonlight Dragonlily"
+  },
+  "Thaumica": {
+    "location": "Cambion Drift (Deimos) from Yellow Mining Lesions, Requiem Obelisks, and Spitia Infested Cysts.",
+    "type": "Ore",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Deimos/DeimosRareOreAItem",
+    "link": "Thaumica"
+  },
+  "Mutagen Sample": {
+    "location": "Eris and Deimos",
+    "type": "Research",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Research/BioFragment",
+    "link": "Mutagen Sample"
+  },
+  "Tellurium": {
+    "location": "Archwing Missions on Uranus",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/MiscItems/Tellurium",
+    "link": "Tellurium"
+  },
+  "Tasoma Extract": {
+    "location": "Duviri",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriMushroomItem",
+    "link": "Tasoma Extract"
+  },
+  "Titanium": {
+    "location": "Railjack Missions",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/TitaniumRailjackItem",
+    "link": "Titanium"
+  },
+  "Sunlight Threshcone": {
+    "location": "Obtained by gathering Sunlight Threshcone plants that grow on Earth",
+    "type": "Plant",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Plants/MiscItems/CommonDayPlantItem",
+    "link": "Sunlight Threshcone"
+  },
+  "Sunlight Jadeleaf": {
+    "location": "Obtained by gathering Sunlight Jadeleaf plants that grow on Earth",
+    "type": "Plant",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Plants/MiscItems/RareDayPlantItem",
+    "link": "Sunlight Jadeleaf"
+  },
+  "Sunlight Dragonlily": {
+    "location": "Obtained by gathering Sunlight Dragonlily plants that grow on Earth",
+    "type": "Plant",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Plants/MiscItems/UnCommonDayPlantItem",
+    "link": "Sunlight Dragonlily"
+  },
+  "Stela": {
+    "location": "Albrecht's Laboratories (Deimos)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/EntratiLab/Resources/MurmurItem",
+    "link": "Stela"
+  },
+  "On-lyne CD": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagAoi",
+    "link": "On-lyne CD"
+  },
+  "Spectral Debris": {
+    "location": "Errant Specters in the Granum Void (Corpus Ship Tileset)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/SpecterParticleResidue",
+    "link": "Spectral Debris"
+  },
+  "Somatic Fibers": {
+    "location": "Demolishers on Apollo (Lua), and Conjunction Survival Missions (Lua)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/MemoryCryptoFragment",
+    "link": "Somatic Fibers"
+  },
+  "Silphsela": {
+    "location": "Duviri",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemE",
+    "link": "Silphsela"
+  },
+  "Shrill Voca": {
+    "location": "Albrecht's Laboratories (Deimos)",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTagCommon",
+    "link": "Shrill Voca"
+  },
+  "Seriglass Shard": {
+    "location": "Grandmother in the Necralisk on Deimos",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Deimos/SeriglassShard",
+    "link": "Seriglass Shard"
+  },
+  "Agnovidisc": {
+    "location": "Obtained from crates and enemies in Perita Rebellion missions (Dark Refractory).",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Tau/Resources/TwelveResourceCommonItem",
+    "link": "Agnovidisc"
+  },
+  "Scintillant": {
+    "location": "Cambion Drift on Deimos",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/EntratiWispItem",
+    "link": "Scintillant"
+  },
+  "Brickie": {
+    "location": "Orb Vallis (Venus), Pond during Warm cycle with Broad-Spectrum Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmCommonFishBItem",
+    "link": "Brickie"
+  },
+  "Curse of Hearing": {
+    "location": "Effervo (Deimos) during Operation Gargoyle's Cry",
+    "type": "Event",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiEventCurseItemB",
+    "link": "Curse of Hearing"
+  },
+  "Orokin Animus Matrix": {
+    "location": "Isolation Vault Bounty rewards on the Cambion Drift (Deimos), and from Enemy Necramechs found in Tier 3 Isolation Vault Bounties",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Necraloids/NecraloidStandingRareItem",
+    "link": "Orokin Animus Matrix"
+  },
+  "Saggen Pearl": {
+    "location": "Duviri",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriProcessedItem",
+    "link": "Saggen Pearl"
+  },
+  "Ruk's Claw": {
+    "location": "Obtained by gathering Ruk's Claw plants that grow on Mars",
+    "type": "Plant",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Plants/MiscItems/GftPlantRuksClawMaturePlantItem",
+    "link": "Ruk's Claw"
+  },
+  "Pyrol": {
+    "location": "Plains of Eidolon (Earth) from Red Mining Veins and Thumpers",
+    "type": "Ore",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Eidolon/CommonOreAItem",
+    "link": "Pyrol"
+  },
+  "Auron": {
+    "location": "Plains of Eidolon (Earth) from Red Mining Veins and Thumpers",
+    "type": "Ore",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Eidolon/RareOreAItem",
+    "link": "Auron"
+  },
+  "Mutagen Mass": {
+    "location": "Clan Research (Bio Lab in the Dojo) and Infested Outbreak Invasion Rewards",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Research/BioComponent",
+    "link": "Mutagen Mass"
+  },
+  "Dagonic": {
+    "location": "Cambion Drift (Deimos) from Blue Mining Lesions, Sagiant Entrati Casket, and Bonus Vaults in Isolation Vault Bounties.",
+    "type": "Gem",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonGemBItem",
+    "link": "Dagonic"
+  },
+  "Riven Sliver": {
+    "location": "Eximus units and Requiem Relics",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/RivenFragment",
+    "link": "Riven Sliver"
+  },
+  "Eidolon Phylaxis": {
+    "location": "Nakak's Operational Supply in Cetus",
+    "type": "Gear",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Restoratives/Consumable/Eidolon/InfestedEventIngredient",
+    "link": "Eidolon Phylaxis"
+  },
+  "Repeller Systems": {
+    "location": "Obtained by completing Heists on the Orb Vallis (Venus)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Venus/Resources/CorpusWidgetCItem",
+    "link": "Repeller Systems"
+  },
+  "Damaged Necramech Weapon Barrel": {
+    "location": "Isolation Vault and Arcana Isolation Vault Bounties on the Cambion Drift (Deimos), and purchased from Loid in the Necralisk (Deimos) after completing The War Within quest",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechWeaponBarrelItem",
+    "link": "Damaged Necramech Weapon Barrel"
+  },
+  "Damaged Necramech Weapon Stock": {
+    "location": "Isolation Vault and Arcana Isolation Vault Bounties on the Cambion Drift (Deimos), and purchased from Loid in the Necralisk (Deimos) after completing The War Within quest",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechWeaponStockItem",
+    "link": "Damaged Necramech Weapon Stock"
+  },
+  "Entrati Obols": {
+    "location": "Albrecht's Laboratories (Deimos)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabMiscItemA",
+    "link": "Entrati Obols"
+  },
+  "Duroid": {
+    "location": "Cambion Drift (Deimos), Cave Hotspot during Fass / Vome cycle with Vome Residue as bait, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/OrokinRareAFishItem",
+    "link": "Duroid"
+  },
+  "Cryptosuctus": {
+    "location": "Cambion Drift (Deimos), Surface during Fass cycle, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonAFishItem",
+    "link": "Cryptosuctus"
+  },
+  "Copernics": {
+    "location": "Lua",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/CopernicsRailjackItem",
+    "link": "Copernics"
+  },
+  "Grokdrul": {
+    "location": "Plains of Eidolon on Earth",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Eidolon/Resources/GrokdrulItem",
+    "link": "Grokdrul"
+  },
+  "Noctrul": {
+    "location": "Orb Vallis (Venus) from Blue Mining Veins and Resource Containers",
+    "type": "Gem",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonGemBItem",
+    "link": "Noctrul"
+  },
+  "Ferrite": {
+    "location": "Mercury, Earth, Lua, Neptune, and the Void",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/MiscItems/Ferrite",
+    "link": "Ferrite"
+  },
+  "Plastids": {
+    "location": "Phobos, Saturn, Uranus, Pluto, and Eris",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/MiscItems/Plastids",
+    "link": "Plastids"
+  },
+  "Eevani": {
+    "location": "Duviri",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemB",
+    "link": "Eevani"
+  },
+  "Pix Chip": {
+    "location": "Elite Temporal Archimedea (Höllvania) and duplicate Peely Pix.",
+    "type": "Currency",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/1999ConquestBucks",
+    "link": "Pix Chip"
+  },
+  "Phasmin": {
+    "location": "Orb Vallis (Venus) from Blue Mining Veins and Resource Containers",
+    "type": "Gem",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonGemAItem",
+    "link": "Phasmin"
+  },
+  "Techrot Chitin": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceUncommonA",
+    "link": "Techrot Chitin"
+  },
+  "Oxium": {
+    "location": "Venus, Jupiter, Mars, Neptune, Pluto, Eris, Europa, and Lua.",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/OxiumAlloy",
+    "link": "Oxium"
+  },
+  "Orokin Cell": {
+    "location": "Ceres, Saturn, and Deimos",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/MiscItems/OrokinCell",
+    "link": "Orokin Cell"
+  },
+  "Axidite": {
+    "location": "Orb Vallis (Venus) from Red Mining Veins and Resource Containers",
+    "type": "Ore",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonOreBItem",
+    "link": "Axidite"
+  },
+  "Orokin Ballistics Matrix": {
+    "location": "Isolation Vault Bounty rewards on the Cambion Drift (Deimos), and from Enemy Necramechs found in Tier 2 Isolation Vault Bounties",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Necraloids/NecraloidStandingUncommonItem",
+    "link": "Orokin Ballistics Matrix"
+  },
+  "Ferros": {
+    "location": "Plains of Eidolon (Earth) from Red Mining Veins and Thumpers",
+    "type": "Ore",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Gems/Eidolon/UncommonOreAItem",
+    "link": "Ferros"
+  },
+  "Argon Burger Meal": {
+    "location": "1999 (Höllvania)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagUncommon",
+    "link": "Argon Burger Meal"
+  },
+  "Murkray": {
+    "location": "Plains of Eidolon (Earth), Ocean Hotspot during Day / Night with Murkray Bait, using Lanzo fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/BothRareFishAItem",
+    "link": "Murkray"
+  },
+  "Nitain Extract": {
+    "location": "Nightwave Cred Offerings",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/Alertium",
+    "link": "Nitain Extract"
+  },
+  "Nistlepod": {
+    "location": "Plains of Eidolon on Earth",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Eidolon/Resources/NistlebrushItem",
+    "link": "Nistlepod"
+  },
+  "Ostimyr": {
+    "location": "Cambion Drift (Deimos), Surface Hotspot during Fass cycle with Fass Residue as bait, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/HybridUncommonAFishItem",
+    "link": "Ostimyr"
+  },
+  "Nav Coordinate": {
+    "location": "Dropped from Storage Containers",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/NavCode",
+    "link": "Nav Coordinate"
+  },
+  "Nano Spores": {
+    "location": "Saturn, Neptune, Eris, and Deimos",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/MiscItems/Nanospores",
+    "link": "Nano Spores"
+  },
+  "Nacreous Pebble": {
+    "location": "Maw Feeding in The Duviri Experience",
+    "type": "Fish Part",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/Fish/GenericDuviriFishPartAItem",
+    "link": "Nacreous Pebble"
+  },
+  "Mytocardia Spore": {
+    "location": "Orb Vallis on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Venus/Resources/FungusHeartItem",
+    "link": "Mytocardia Spore"
+  },
+  "Ueymag": {
+    "location": "Duviri",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemG",
+    "link": "Ueymag"
+  },
+  "Morphics": {
+    "location": "Mercury, Mars, Phobos, Europa, and Pluto",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/MiscItems/Morphic",
+    "link": "Morphics"
+  },
+  "Salvage": {
+    "location": "Mars, Jupiter, and Sedna",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/MiscItems/Salvage",
+    "link": "Salvage"
+  },
+  "Borica": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/CorrosiveMushroomJournalItem",
+    "link": "Borica"
+  },
+  "Moonlight Jadeleaf": {
+    "location": "Obtained by gathering Moonlight Jadeleaf plants that grow on Earth",
+    "type": "Plant",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Plants/MiscItems/RareNightPlantItem",
+    "link": "Moonlight Jadeleaf"
+  },
+  "Maw Fang": {
+    "location": "Maw Feeding in The Duviri Experience",
+    "type": "Fish Part",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/Fish/GenericDuviriFishPartCItem",
+    "link": "Maw Fang"
+  },
+  "Maprico": {
+    "location": "Plains of Eidolon on Earth",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Eidolon/Resources/EidolonFruitItem",
+    "link": "Maprico"
+  },
+  "Kuaka Spinal Claw": {
+    "location": "Plains of Eidolon on Earth",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Eidolon/Resources/ForestRodentPartItem",
+    "link": "Kuaka Spinal Claw"
+  },
+  "Kovnik": {
+    "location": "Duviri",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemA",
+    "link": "Kovnik"
+  },
+  "Kavat Genetic Code": {
+    "location": "Obtained by using a Codex Scanner on Feral Kavats that roam the Orokin Derelict on Deimos",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Game/CatbrowPet/CatbrowGeneticSignature",
+    "link": "Kavat Genetic Code"
+  },
+  "Pathos Clamp": {
+    "location": "Rewarded upon defeating the Orowyrm in Duviri",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriDragonDropItem",
+    "link": "Pathos Clamp"
+  },
+  "Iradite": {
+    "location": "Plains of Eidolon on Earth",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Eidolon/Resources/IraditeItem",
+    "link": "Iradite"
+  },
+  "Thrax Plasm": {
+    "location": "Zariman",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Zariman/Resources/VoidWraithItem",
+    "link": "Thrax Plasm"
+  },
+  "Hexenon": {
+    "location": "Jupiter",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/MiscItems/ConcentratedGas",
+    "link": "Hexenon"
+  },
+  "Thermal Sludge": {
+    "location": "Orb Vallis on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Venus/Resources/CoolantItem",
+    "link": "Thermal Sludge"
+  },
+  "Hemocyte Cystolith": {
+    "location": "Hemocytes found in Plague Star event Bounties in the Plains of Eidolon on Earth",
+    "type": "Event",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/LephantisShardItem",
+    "link": "Hemocyte Cystolith"
+  },
+  "Heciphron": {
+    "location": "Cambion Drift (Deimos) from Blue Mining Lesions.",
+    "type": "Gem",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Gems/Deimos/DeimosUncommonGemAItem",
+    "link": "Heciphron"
+  },
+  "Longwinder": {
+    "location": "Orb Vallis (Venus), Lake Hotspot during Warm cycle with Longwinder Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/SolarisWarmRareFishAItem",
+    "link": "Longwinder"
+  },
+  "Frostleaf": {
+    "location": "Obtained by gathering Frostleaf plants that grow on Venus, Neptune, and Pluto",
+    "type": "Plant",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Plants/MiscItems/WildGingerBPlantItem",
+    "link": "Frostleaf"
+  },
+  "Damaged Necramech Casing": {
+    "location": "Enemy Necramechs found in Isolation Vault Bounties on the Cambion Drift, and purchased from Loid in the Necralisk (Deimos) after completing The War Within quest",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartChassisItem",
+    "link": "Damaged Necramech Casing"
+  },
+  "Omega Isotope": {
+    "location": "When a Balor Fomorian is threatening a Planet's Relay, enemies on that Planet will drop this resource",
+    "type": "Event",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/OmegaIsotope",
+    "link": "Omega Isotope"
+  },
+  "Zodian": {
+    "location": "Orb Vallis (Venus) from Blue Mining Veins and the Exploiter Orb. This Rare Gem can only be mined by the Advanced Nosam Cutter or Sunpoint Plasma Drill.",
+    "type": "Gem",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Solaris/SolarisEidolonGemAItem",
+    "link": "Zodian"
+  },
+  "Gorgaricus Spore": {
+    "location": "Orb Vallis on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Venus/Resources/VenusCoconutItem",
+    "link": "Gorgaricus Spore"
+  },
+  "Flawless Sentient Core": {
+    "location": "Earned by capturing Eidolons found roaming the Plains of Eidolon on Earth at night",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Eidolon/Resources/QuillsRareDogTag",
+    "link": "Sentient Core"
+  },
+  "Antiserum Injector Fragment": {
+    "location": "Oestrus on Eris",
+    "type": "Research",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/SyringeComponent",
+    "link": "Antiserum Injector Fragment"
+  },
+  "Fieldron Sample": {
+    "location": "Venus, Mars, Jupiter, Europa, Neptune, and Pluto",
+    "type": "Research",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Research/EnergyFragment",
+    "link": "Fieldron Sample"
+  },
+  "Anomaly Shard": {
+    "location": "Murex ships found in Veil Proxima nodes marked with a special flashing icon (Railjack)",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/MiscItems/SentientFragmentLootItem",
+    "link": "Anomaly Shard"
+  },
+  "Fieldron": {
+    "location": "Clan Research (Energy Lab in the Dojo) and Corpus Invasion Rewards",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Research/EnergyComponent",
+    "link": "Fieldron"
+  },
+  "Cryotic": {
+    "location": "Excavation Missions on Venus, Earth, Phobos, Europa, and Neptune",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/Cryotic",
+    "link": "Cryotic"
+  },
+  "Pustrels": {
+    "location": "Eris",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/PustrelsRailjackItem",
+    "link": "Pustrels"
+  },
+  "Tromyzon": {
+    "location": "Orb Vallis (Venus), Pond Hotspot during Cold cycle with Tromyzon Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/OrokinCoolRareFishAItem",
+    "link": "Tromyzon"
+  },
+  "Damaged Necramech Weapon Pod": {
+    "location": "Enemy Necramechs found in Isolation Vault Bounties on the Cambion Drift (Deimos), and purchased from Loid in the Necralisk (Deimos) after completing The War Within quest",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartWeaponPodItem",
+    "link": "Damaged Necramech Weapon Pod"
+  },
+  "Devar": {
+    "location": "Plains of Eidolon (Earth) from Blue Mining Veins and Thumpers",
+    "type": "Gem",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Eidolon/CommonGemBItem",
+    "link": "Devar"
+  },
+  "Detonite Ampule": {
+    "location": "Venus, Earth, Lua, Ceres, Saturn, Sedna, and the Kuva Fortress",
+    "type": "Research",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Research/ChemFragment",
+    "link": "Detonite Ampule"
+  },
+  "Damaged Necramech Engine": {
+    "location": "Enemy Necramechs found in Isolation Vault Bounties on the Cambion Drift (Deimos), and purchased from Loid in the Necralisk (Deimos) after completing The War Within quest",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartEngineItem",
+    "link": "Damaged Necramech Engine"
+  },
+  "Curse of Seeing": {
+    "location": "Effervo (Deimos) during Operation Gargoyle's Cry",
+    "type": "Event",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiEventCurseItemC",
+    "link": "Curse of Seeing"
+  },
+  "Curse of Knowing": {
+    "location": "Effervo (Deimos) during Operation Gargoyle's Cry",
+    "type": "Event",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiEventCurseItemA",
+    "link": "Curse of Knowing"
+  },
+  "Cubic Diodes": {
+    "location": "Eximus units in the Corpus Ice Planet Tileset, and Railjack missions in Venus, Neptune, and Pluto Proximas",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/CubicsRailjackItem",
+    "link": "Cubic Diodes"
+  },
+  "Cryptographic ALU": {
+    "location": "Corpus Archwing units on Jupiter and Neptune when a Razorback Armada is active",
+    "type": "Event",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/RazorbackCipherPart",
+    "link": "Cryptographic ALU"
+  },
+  "Cuthol": {
+    "location": "Plains of Eidolon (Earth), Pond Hotspot during Night with Cuthol Bait, using Lanzo fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/NightRareFishBItem",
+    "link": "Cuthol"
+  },
+  "Ariette Scale": {
+    "location": "Maw Feeding in The Duviri Experience",
+    "type": "Fish Part",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/Fish/GenericDuviriFishPartBItem",
+    "link": "Ariette Scale"
+  },
+  "Crimzian": {
+    "location": "Plains of Eidolon (Earth) from Blue Mining Veins and Thumpers",
+    "type": "Gem",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Eidolon/RareGemAItem",
+    "link": "Crimzian"
+  },
+  "Mortus Lungfish": {
+    "location": "Plains of Eidolon (Earth), Pond during Day / Night with Twilight Bait, using Lanzo / Peram fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/DayUncommonFishBItem",
+    "link": "Mortus Lungfish"
+  },
+  "Moonlight Threshcone": {
+    "location": "Obtained by gathering Moonlight Threshcone plants that grow on Earth",
+    "type": "Plant",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Plants/MiscItems/CommonNightPlantItem",
+    "link": "Moonlight Threshcone"
+  },
+  "Coprun": {
+    "location": "Plains of Eidolon (Earth) from Red Mining Veins",
+    "type": "Ore",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Eidolon/CommonOreBItem",
+    "link": "Coprun"
+  },
+  "Komms": {
+    "location": "Railjack missions in Earth, Saturn, and Veil Proximas",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/KommsRailjackItem",
+    "link": "Komms"
+  },
+  "Rubedo": {
+    "location": "Earth, Lua, Phobos, Europa, Pluto, Sedna, and the Void",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/MiscItems/Rubedo",
+    "link": "Rubedo"
+  },
+  "Condroc Wing": {
+    "location": "Plains of Eidolon on Earth",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Eidolon/Resources/BirdOfPreyPartItem",
+    "link": "Condroc Wing"
+  },
+  "Circuits": {
+    "location": "Venus, Ceres, and the Kuva Fortress",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/MiscItems/Circuits",
+    "link": "Circuits"
+  },
+  "Nonono": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/VoidMushroomJournalItem",
+    "link": "Nonono"
+  },
+  "Winter Spear": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/ColdMushroomJournalItem",
+    "link": "Winter Spear"
+  },
+  "Barbisteo": {
+    "location": "Cambion Drift (Deimos), Cave during Fass / Vome cycle, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonBFishItem",
+    "link": "Barbisteo"
+  },
+  "Goblite": {
+    "location": "Orb Vallis (Venus) from Blue Mining Veins and Resource Containers",
+    "type": "Gem",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Gems/Solaris/SolarisUncommonGemAItem",
+    "link": "Goblite"
+  },
+  "Breath Of The Eidolon": {
+    "location": "Plains of Eidolon Bounties on Earth",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/Eidolonium",
+    "link": "Breath Of The Eidolon"
+  },
+  "Ironwood": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/ImpactMushroomJournalItem",
+    "link": "Ironwood"
+  },
+  "Azurite": {
+    "location": "Plains of Eidolon (Earth) from Blue Mining Veins and Thumpers",
+    "type": "Gem",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Eidolon/CommonGemAItem",
+    "link": "Azurite"
+  },
+  "Power Cell": {
+    "location": "Excavation and Defection Missions.",
+    "type": null,
+    "rarity": null,
+    "internalName": null,
+    "link": "Power Cell"
+  },
+  "Atmo Systems": {
+    "location": "Obtained by completing Heists on the Orb Vallis (Venus)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Venus/Resources/CorpusWidgetBItem",
+    "link": "Atmo Systems"
+  },
+  "Asterite": {
+    "location": "Railjack Missions",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/RailjackMiscItems/AsteriteRailjackItem",
+    "link": "Asterite"
+  },
+  "Amarast": {
+    "location": "Orb Vallis (Venus) from Blue Mining Veins and Resource Containers",
+    "type": "Gem",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Gems/Solaris/SolarisRareGemAItem",
+    "link": "Amarast"
+  },
+  "Aggristone": {
+    "location": "Duviri",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriRockItem",
+    "link": "Aggristone"
+  },
+  "Adramalium": {
+    "location": "Cambion Drift (Deimos) from Yellow Mining Lesions, Spitia Infested Cysts, and Rolizor Infested Cysts.",
+    "type": "Ore",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonOreAItem",
+    "link": "Adramalium"
+  },
+  "Sapcaddy": {
+    "location": "Orb Vallis (Venus), Lake during Cold cycle with Broad-Spectrum Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/CorpusCoolCommonFishAItem",
+    "link": "Sapcaddy"
+  },
+  "Chitinous Husk": {
+    "location": "Drops from Juggernauts (non-endless Infested Missions) and Deimos Juggernauts (Cambion Drift on Deimos)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/JuggernautPartC",
+    "link": "Chitinous Husk"
+  },
+  "Alloy Plate": {
+    "location": "Venus, Phobos, Ceres, Jupiter, Pluto, and Sedna.",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/MiscItems/AlloyPlate",
+    "link": "Alloy Plate"
+  },
+  "Neurodes": {
+    "location": "Earth, Lua, Eris, and Deimos",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/MiscItems/Neurode",
+    "link": "Neurodes"
+  },
+  "Violet's Bane": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/ViralMushroomJournalItem",
+    "link": "Violet's Bane"
+  },
+  "Beating Heartstrings": {
+    "location": "Stage Defense missions in Höllvania.",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceDefense",
+    "link": "Beating Heartstrings"
+  },
+  "Mutalist Alad V Nav Coordinate": {
+    "location": "Infestation Outbreaks Invasion Rewards, Hyf and Terrorem (Deimos), and Resource Caches found in Naeglar (Eris) and Formido (Deimos)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/InfestedAladCoordinate",
+    "link": "Mutalist Alad V Nav Coordinate"
+  },
+  "Myxostomata": {
+    "location": "Cambion Drift (Deimos), Cave Hotspot during Vome cycle with Processed Vome Residue as bait, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/OrokinLegendaryAFishItem",
+    "link": "Myxostomata"
+  },
+  "Aya": {
+    "location": "Void Missions and Bounties",
+    "type": "Currency",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/SchismKey",
+    "link": "Aya"
+  },
+  "Control Module": {
+    "location": "Europa, Neptune, and the Void",
+    "type": "Resource",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/MiscItems/ControlModule",
+    "link": "Control Module"
+  },
+  "Tepa Nodule": {
+    "location": "Orb Vallis on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Venus/Resources/VenusTreeItem",
+    "link": "Tepa Nodule"
+  },
+  "Amniophysi": {
+    "location": "Cambion Drift (Deimos), Cave during Fass / Vome cycle, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonDFishItem",
+    "link": "Amniophysi"
+  },
+  "Damaged Necramech Weapon Receiver": {
+    "location": "Isolation Vault and Arcana Isolation Vault Bounties on the Cambion Drift (Deimos), and purchased from Loid in the Necralisk (Deimos) after completing The War Within quest",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechWeaponReceiverItem",
+    "link": "Damaged Necramech Weapon Receiver"
+  },
+  "Lobotriscid": {
+    "location": "Cambion Drift (Deimos), Surface during Vome cycle, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonEFishItem",
+    "link": "Lobotriscid"
+  },
+  "Scrubber": {
+    "location": "Orb Vallis (Venus), Cave during Cold / Warm cycle with Broad-Spectrum Bait, using Shockprod / Stunna fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Solaris/SolarisBothCommonFishAItem",
+    "link": "Scrubber"
+  },
+  "Aquapulmo": {
+    "location": "Cambion Drift (Deimos), Surface Hotspot during Vome cycle with Processed Fass Residue as bait, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/HybridRareAFishItem",
+    "link": "Aquapulmo"
+  },
+  "Dull Button": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/PlainMushroomJournalItem",
+    "link": "Dull Button"
+  },
+  "Glutinox": {
+    "location": "Cambion Drift (Deimos), Surface during Vome cycle with Fass Residue as bait, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/InfestedUncommonAFishItem",
+    "link": "Glutinox"
+  },
+  "Kymaeros": {
+    "location": "Cambion Drift (Deimos), Surface during Fass / Vome cycle, using Spari / Ebisu fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonCFishItem",
+    "link": "Kymaeros"
+  },
+  "Gyromag Systems": {
+    "location": "Obtained by completing Heists on the Orb Vallis (Venus)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Gameplay/Venus/Resources/CorpusWidgetAItem",
+    "link": "Gyromag Systems"
+  },
+  "Detonite Injector": {
+    "location": "Clan Research (Chem Lab in the Dojo) and Grineer Invasion Rewards",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/Research/ChemComponent",
+    "link": "Detonite Injector"
+  },
+  "Mawfish": {
+    "location": "Plains of Eidolon (Earth), Lake during Day with Peppered Bait, using Lanzo / Tulok / Peram fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/DayCommonFishAItem",
+    "link": "Mawfish"
+  },
+  "Yogwun": {
+    "location": "Plains of Eidolon (Earth), Pond during Day with Peppered Bait, using Lanzo / Tulok / Peram fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/DayCommonFishCItem",
+    "link": "Yogwun"
+  },
+  "Goopolla": {
+    "location": "Plains of Eidolon (Earth), Ocean during Day / Night with Twilight Bait, using Lanzo / Tulok / Peram fishing spear.",
+    "type": "Fish",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/BothCommonFishBItem",
+    "link": "Goopolla"
+  },
+  "Norg": {
+    "location": "Plains of Eidolon (Earth), Lake Hotspot during Night with Norg Bait, using Peram fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/NightRareFishAItem",
+    "link": "Norg"
+  },
+  "Fate Pearl": {
+    "location": "Saya's Visions on Earth",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/ShrineFragment",
+    "link": "Fate Pearl"
+  },
+  "Gamma Berry": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/RadiationMushroomJournalItem",
+    "link": "Gamma Berry"
+  },
+  "Tralok": {
+    "location": "Plains of Eidolon (Earth), Ocean during Day with Peppered Bait, using Tulok fishing spear.",
+    "type": "Fish",
+    "rarity": "Rare",
+    "internalName": "/Lotus/Types/Items/Fish/Eidolon/DayUncommonFishAItem",
+    "link": "Tralok"
+  },
+  "Pulsating Tubercles": {
+    "location": "Drops from Juggernauts (non-endless Infested Missions) and Deimos Juggernauts (Cambion Drift on Deimos)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/JuggernautPartA",
+    "link": "Pulsating Tubercles"
+  },
+  "Voidgel Orb": {
+    "location": "Zariman",
+    "type": "Resource",
+    "rarity": "Uncommon",
+    "internalName": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanMiscItemA",
+    "link": "Voidgel Orb"
+  },
+  "Connla Sprout": {
+    "location": "Duviri",
+    "type": "Resource",
+    "rarity": "Common",
+    "internalName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemC",
+    "link": "Connla Sprout"
+  },
+  "Muck Bonnet": {
+    "location": "Deepmines Bounties on Venus",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MushroomJournal/ToxinMushroomJournalItem",
+    "link": "Muck Bonnet"
+  },
+  "Infected Palpators": {
+    "location": "Drops from Juggernauts (non-endless Infested Missions) and Deimos Juggernauts (Cambion Drift on Deimos)",
+    "type": "Resource",
+    "rarity": null,
+    "internalName": "/Lotus/Types/Items/MiscItems/JuggernautPartB",
+    "link": "Infected Palpators"
+  }
+}

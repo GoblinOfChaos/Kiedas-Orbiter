@@ -23,9 +23,17 @@ export function onSettingsChanged(fn) {
  */
 export async function loadSettings() {
   try {
-    const settings = await invoke('load_settings')
-    
-    // Migration logic: if settings are empty, try to pull from localStorage
+    const settings = await invoke('load_settings') || {}
+
+    // Migration logic: if settings are empty, try to pull from localStorage.
+    // This path does a full destructive overwrite via saveSettings(), so it
+    // depends on load_settings never returning an empty read for a file
+    // that actually has content - previously true only most of the time,
+    // since fs::write() truncates before writing and load_settings had no
+    // lock, so a read landing mid-write from any other window would see a
+    // truncated file and come back empty here, triggering this branch to
+    // wipe real settings. load_settings now holds settings_lock too, so an
+    // empty result here is the file's real content, not a torn read.
     if (Object.keys(settings).length === 0) {
       const legacy = {}
       const keys = [
@@ -67,11 +75,22 @@ export async function loadSettings() {
 
 /**
  * Update a specific setting and persist it.
+ *
+ * Delegates the read-modify-write to a single Rust command (set_setting)
+ * that holds a backend-side mutex for the whole operation. A JS-side
+ * "read fresh, then save_settings" isn't enough on its own: multiple
+ * windows (main, sidebar overlay, relic overlay) each run their own JS
+ * context, so two windows can both read-fresh within milliseconds of each
+ * other and then each save, with the second call clobbering the first's
+ * key - confirmed live (warframe_cache_path and a first-run flag were
+ * wiped this way after a rebuild). Only a lock shared across windows,
+ * which only the single Rust backend process can hold, closes that gap.
  */
 export async function setSetting(key, value) {
-  if (!cachedSettings) await loadSettings()
-  cachedSettings[key] = value
-  await saveSettings(cachedSettings)
+  await invoke('set_setting', { key, value }).catch((err) => console.error('Failed to save setting:', err))
+  // Optimistic local update for this window's synchronous getSetting() reads;
+  // other windows pick up the real change via the settings-changed listener.
+  cachedSettings = { ...(cachedSettings || {}), [key]: value }
 }
 
 /**

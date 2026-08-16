@@ -150,6 +150,9 @@ export const MAPPING_TYPES = {
   'PURSUIT': 'Pursuit',
   'MT_RUSH': 'Rush',
   'RUSH': 'Rush',
+  // Confirmed via DropsAll.json's gameMode field for a real MT_TAU_WAR node
+  // (Deimos "Recall: Hunhullus"), not guessed from the code alone.
+  'MT_TAU_WAR': 'The Perita Rebellion',
 }
 
 // Map from MAPPING_TYPES values to /Lotus/Language/Missions/MissionName_{key} dict paths
@@ -628,11 +631,14 @@ export function resolveItemName(path, dict, uniqueNameToName, locale = 'en') {
   const isBlueprint = path.includes('/Recipes/') || path.endsWith('Blueprint');
   const bpSuffix = BLUEPRINT_SUFFIX[locale] ?? ' Blueprint';
 
-  // Handle StoreItem paths by trying to resolve the actual item
-  let actualPath = path;
-  if (path.startsWith('/Lotus/StoreItems/')) {
-    actualPath = path.replace('/StoreItems/', '/');
-  }
+  // Handle every StoreItem path form used by worldstate/trader payloads.
+  const pathVariants = [...new Set([
+    path,
+    path.replace('/Types/StoreItems/', '/Types/'),
+    path.replace('/StoreItems/', '/'),
+    path.replace('/Types/StoreItems/', '/'),
+  ])];
+  let actualPath = pathVariants[1] || path;
 
   const lookup = (p) => {
     if (!uniqueNameToName || !uniqueNameToName[p]) return null;
@@ -644,12 +650,10 @@ export function resolveItemName(path, dict, uniqueNameToName, locale = 'en') {
   };
 
   let resolved = null;
-  // 1. Try actualPath (mapped)
-  resolved = lookup(actualPath);
-
-  // 2. Try raw path
-  if (!resolved) {
-    resolved = lookup(path);
+  // 1. Try every canonical path against the export-derived name map.
+  for (const candidate of pathVariants) {
+    resolved = lookup(candidate);
+    if (resolved) break;
   }
 
   // 3. Try dict directly
@@ -767,13 +771,32 @@ export function resolveAnyImage(rewardOrItem, EI, nameToImage, uniqueNameToName 
     return null
   }
 
+  // Worldstate and trader payloads use several equivalent StoreItem paths.
+  // Export image maps generally use the underlying /Lotus/Types path, so try
+  // every canonical form before falling back to display-name lookup.
+  const pathCandidates = (p) => {
+    if (!p || typeof p !== 'string') return []
+    const candidates = [p]
+    if (p.includes('/Types/StoreItems/')) candidates.push(p.replace('/Types/StoreItems/', '/Types/'))
+    if (p.includes('/StoreItems/')) candidates.push(p.replace('/StoreItems/', '/'))
+    if (p.includes('/Types/StoreItems/')) candidates.push(p.replace('/Types/StoreItems/', '/'))
+    return [...new Set(candidates)]
+  }
+
   // Try direct path first
-  let r = resolve(item);
+  let r = null;
+  for (const candidate of pathCandidates(item)) {
+    r = resolve(candidate)
+    if (r) break
+  }
   if (r) return r;
 
   // Try StoreItem mapping
   if (item.startsWith('/Lotus/StoreItems/')) {
-    r = resolve(item.replace('/StoreItems/', '/'));
+    for (const candidate of pathCandidates(item.replace('/StoreItems/', '/'))) {
+      r = resolve(candidate)
+      if (r) break
+    }
     if (r) return r;
   }
 

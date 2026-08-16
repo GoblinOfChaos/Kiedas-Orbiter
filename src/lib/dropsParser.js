@@ -1,3 +1,5 @@
+import { BARO_RELIC_NAMES } from './baroRelics'
+
 function buildNameToUniqueNameMap(exportData, dict) {
   const map = {}
   const tables = [
@@ -8,20 +10,37 @@ function buildNameToUniqueNameMap(exportData, dict) {
     'ExportAvionics',
     'ExportArcanes',
     'ExportResources',
+    'ExportFocusUpgrades',
+    'ExportModSet',
+    'ExportUpgradesLocalized',
     'ExportRelics',
     'ExportCustoms',
     'ExportGear',
     'ExportFlavour',
     'ExportSyndicates',
     'ExportBoosterPacks',
+    'ExportKeys',
+    'ExportMisc',
+    'ExportDrones',
+    'ExportRailjackWeapons',
+    'ExportFusionBundles',
+    'ExportRewards',
   ]
   // Index items with direct uniqueName + name fields
   for (const tblName of tables) {
-    const data = exportData[tblName]
+    const rawData = exportData[tblName]
+    const data = rawData?.[tblName] ?? rawData
     if (!data) continue
-    const items = Array.isArray(data) ? data : Object.values(data)
-    for (const item of items) {
-      if (!item || !item.uniqueName) continue
+    const items = Array.isArray(data)
+      ? data.map((item) => [null, item])
+      : Object.entries(data)
+    for (const [entryKey, item] of items) {
+      if (!item) continue
+      // Several DE export tables (notably ExportUpgrades and some resource
+      // tables) use the unique name as the object key and omit an inner
+      // uniqueName field. DropsAll names still need to resolve to that key.
+      const itemUniqueName = item.uniqueName || item.ItemType || entryKey
+      if (!itemUniqueName) continue
       const locKey = item.name || item.displayName
       if (!locKey) continue
       const resolved = dict[locKey] || dict['/' + locKey] || ''
@@ -29,7 +48,7 @@ function buildNameToUniqueNameMap(exportData, dict) {
       if (displayName && !displayName.startsWith('/')) {
         const key = displayName.toLowerCase()
         if (!map[key]) map[key] = []
-        map[key].push(item.uniqueName)
+        map[key].push(itemUniqueName)
       }
     }
   }
@@ -49,6 +68,25 @@ function buildNameToUniqueNameMap(exportData, dict) {
           map[key].push(recipe.resultType)
         }
       }
+    }
+  }
+  // Index ExportRelics by their display name (era + category). Relic entries
+  // have no name/uniqueName/displayName fields - the uniqueName is the dict
+  // key - so they were never indexed before, meaning DropsAll's "Axi A21
+  // Relic" mission rewards could never resolve to a relic uniqueName, and
+  // relic cards fell through to the wiki fallback. Build the display name
+  // from era + category (e.g. "Axi A21").
+  const relics = exportData.ExportRelics
+  if (relics && typeof relics === 'object') {
+    const relicEntries = Array.isArray(relics) ? relics : Object.entries(relics)
+    for (const [relicUn, relic] of relicEntries) {
+      if (!relic) continue
+      const era = relic.era || ''
+      const category = relic.category || ''
+      if (!era || !category) continue
+      const displayName = `${era} ${category}`.toLowerCase()
+      if (!map[displayName]) map[displayName] = []
+      map[displayName].push(relicUn)
     }
   }
   return map
@@ -103,6 +141,27 @@ function addNamedSource(index, nameMap, itemName, source) {
     }
   }
 
+  // Try without trailing " Relic" (DropsAll names relics "Axi A21 Relic",
+  // but ExportRelics display names are "Axi A21" - era + category). A
+  // relic has 4 real per-quality DE uniqueNames (Bronze/Silver/Gold/
+  // Platinum) but the app's own relic objects only carry a synthetic
+  // "<Era> <Category> Relic" id with no way to know which quality-specific
+  // path to look up - so always ALSO file this source under a "display:"
+  // key for the era+category, not just under the real per-quality
+  // uniqueNames tryName() resolves. Without this, a successful tryName()
+  // match short-circuited the display: fallback entirely, so the app's
+  // relic screens could never find data that genuinely existed in the
+  // index. Confirmed live 2026-08-11: dropIndex had 86-145 real sources
+  // filed correctly per quality-variant uniqueName, completely unreachable
+  // by the app's actual relic query.
+  if (lc.endsWith(' relic')) {
+    const without = lc.slice(0, -6)
+    found = tryName(without) || found
+    const fallbackKey = 'display:' + without
+    if (!index[fallbackKey]) index[fallbackKey] = []
+    index[fallbackKey].push(source)
+  }
+
   // If nothing matched, store under the original name
   if (!found) {
     const fallbackKey = 'display:' + lc
@@ -117,6 +176,11 @@ function processDropsAll(index, DropsAll, nameMap) {
   if (!DropsAll || typeof DropsAll !== 'object') return
 
   // ── missionRewards: planet -> node -> rotation -> rewards ──────────────
+  // Two shapes exist in the drops.wf feed:
+  //   1. dict:  { A: [...], B: [...], C: [...], D: [...] }
+  //   2. list:  [...flat entries...] (e.g. Assassination/Raid nodes)
+  // The flat-list shape was silently ignored before, dropping a large
+  // portion of mission drop sources from the index.
   const missionRewards = DropsAll.missionRewards
   if (missionRewards && typeof missionRewards === 'object') {
     for (const [planet, nodes] of Object.entries(missionRewards)) {
@@ -125,20 +189,27 @@ function processDropsAll(index, DropsAll, nameMap) {
         if (!nodeData || !nodeData.rewards) continue
         const gameMode = nodeData.gameMode || ''
         const rewards = nodeData.rewards
-        for (const rotation of ['A', 'B', 'C', 'D']) {
-          const entries = rewards[rotation]
-          if (!Array.isArray(entries)) continue
-          for (const entry of entries) {
-            addNamedSource(index, nameMap, entry.itemName, {
-              type: 'mission',
-              node: nodeName,
-              nodeName: nodeName,
-              missionType: gameMode,
-              rotation: rotation === 'A' ? null : rotation,
-              chance: normChance(entry.chance),
-              itemCount: 1,
-              source: 'drops.wf',
-            })
+        const addEntry = (entry, rotation) => {
+          if (!entry || !entry.itemName) return
+          addNamedSource(index, nameMap, entry.itemName, {
+            type: 'mission',
+            region: planet,
+            node: nodeName,
+            nodeName: nodeName,
+            missionType: gameMode,
+            rotation: rotation === 'A' ? null : rotation,
+            chance: normChance(entry.chance),
+            itemCount: 1,
+            source: 'drops.wf',
+          })
+        }
+        if (Array.isArray(rewards)) {
+          for (const entry of rewards) addEntry(entry, null)
+        } else if (typeof rewards === 'object') {
+          for (const rotation of ['A', 'B', 'C', 'D']) {
+            const entries = rewards[rotation]
+            if (!Array.isArray(entries)) continue
+            for (const entry of entries) addEntry(entry, rotation)
           }
         }
       }
@@ -384,6 +455,51 @@ function processDropsAll(index, DropsAll, nameMap) {
   }
 }
 
+// Baro-only relics have no active mission drop table in DropsAll (they're
+// sold directly by Baro, not dropped) - give their relic cards a truthful
+// source instead of falling through to the generic "no specific source" text.
+function processBaroRelics(index) {
+  const source = {
+    type: 'syndicate',
+    syndicateName: "Baro Ki'Teer",
+    place: 'Void Trader (Baro relic)',
+    source: 'baro',
+  }
+  for (const relicName of BARO_RELIC_NAMES) {
+    for (const key of [`display:${relicName.toLowerCase()}`, `display:${relicName.toLowerCase()} relic`]) {
+      if (!index[key]) index[key] = []
+      if (!index[key].some((existing) => JSON.stringify(existing) === JSON.stringify(source))) {
+        index[key].push(source)
+      }
+    }
+  }
+}
+
+// ExportUpgrades includes synthetic mod-set marker records such as
+// `AmarSetMod`. They are displayed in the Mods catalog, but their actual
+// member mods carry the acquisition rows. Mirror those rows onto the marker
+// so clicking the set entry does not fall through to the generic Wiki text.
+function processModSetSources(index, exportData) {
+  const upgrades = exportData?.ExportUpgrades
+  if (!upgrades || typeof upgrades !== 'object') return
+
+  for (const [memberKey, member] of Object.entries(upgrades)) {
+    const modSet = member?.modSet
+    if (!modSet) continue
+    const memberSources = index[memberKey.replace('/StoreItems/', '/')] || []
+    if (memberSources.length === 0) continue
+
+    const setKey = modSet.replace('/StoreItems/', '/')
+    if (!index[setKey]) index[setKey] = []
+    for (const source of memberSources) {
+      const signature = JSON.stringify(source)
+      if (!index[setKey].some((existing) => JSON.stringify(existing) === signature)) {
+        index[setKey].push(source)
+      }
+    }
+  }
+}
+
 export function buildDropIndex(exportData) {
   if (!exportData) return {}
 
@@ -463,6 +579,8 @@ export function buildDropIndex(exportData) {
   // ── New: warframe-drop-data ────────────────────────────────────────────
   const DropsAll = exportData.DropsAll
   processDropsAll(index, DropsAll, nameMap)
+  processBaroRelics(index)
+  processModSetSources(index, exportData)
 
   return index
 }

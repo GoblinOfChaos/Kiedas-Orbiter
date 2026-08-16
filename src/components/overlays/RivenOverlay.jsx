@@ -12,6 +12,7 @@ import {
   buildStatAliases,
   garbageReForLocale } from
 '../../lib/rivenOcrI18n';
+import { getRivenStatGrade, loadRivenGoodRolls } from '../../lib/rivenGrader';
 
 
 export default function RivenOverlay() {
@@ -29,10 +30,13 @@ export default function RivenOverlay() {
   const [ocrLoading, setOcrLoading] = useState(false);
   const [estimatedPrice, setEstimatedPrice] = useState(null);
   const [rivenInfo, setRivenInfo] = useState(null);
+  const [statGrade, setStatGrade] = useState(null);
   const [knownWeapons, setKnownWeapons] = useState([]);
   const { locale, i18nData, t } = useUi();
   const statAliases = useMemo(() => buildStatAliases(locale, i18nData?.rivenStats), [locale, i18nData]);
   const garbageRe = useMemo(() => garbageReForLocale(locale), [locale]);
+
+  useEffect(() => { loadRivenGoodRolls() }, []);
 
   useEffect(() => {
     invoke('get_known_weapon_names').then((names) => {
@@ -147,15 +151,34 @@ export default function RivenOverlay() {
   }
 
   const doPricing = useCallback((p) => {
-    if (!p || !p.stats.length) {setEstimatedPrice(null);setRivenInfo(null);return;}
+    if (!p || !p.stats.length) {setEstimatedPrice(null);setRivenInfo(null);setStatGrade(null);return;}
     const weaponName = extractWeaponName(p.name || '');
-    const pos = p.stats.filter((s) => !s.value.startsWith('-')).map((s) => cleanStatName(s.name, statAliases));
-    const neg = p.stats.filter((s) => s.value.startsWith('-') || /^x/i.test(s.value)).map((s) => cleanStatName(s.name, statAliases));
+    // x-prefixed values (e.g. "x0.82") are negative multiplier stats (typically
+    // damage-to-faction reductions) - excluded from pos below, or they land in
+    // BOTH pos and neg for the same stat, which the pricer model can't
+    // represent (a stat can't be both) and silently mis-grades as if the riven
+    // had an extra real positive stat instead. Confirmed live: this made a
+    // real D-grade/122p Bubonico riven price as S-grade/166p.
+    const isNegativeValue = (value) => value.startsWith('-') || /^x/i.test(value);
+    const pos = p.stats.filter((s) => !isNegativeValue(s.value)).map((s) => cleanStatName(s.name, statAliases));
+    const neg = p.stats.filter((s) => isNegativeValue(s.value)).map((s) => cleanStatName(s.name, statAliases));
 
     console.log('[PRICER] weaponName:', weaponName);
     console.log('[PRICER] pos:', pos);
     console.log('[PRICER] neg:', neg);
     console.log('[PRICER] parsed.name was:', p.name);
+
+    // Stat-quality grade (S/A/B/C/D) must come from the same place the main
+    // Rivens screen uses (getRivenStatGrade) - not a separately-computed
+    // market-price percentile. Two different letter grades on the same S-D
+    // scale looked like a contradiction (e.g. app said D, overlay said S)
+    // when they were actually answering different questions; there must be
+    // one grading system, not two.
+    const gradeStats = [
+      ...pos.map((statKey) => ({ statKey, positive: true })),
+      ...neg.map((statKey) => ({ statKey, positive: false })),
+    ];
+    setStatGrade(getRivenStatGrade({ stats: gradeStats, perfectness: 0 }, weaponName));
 
     invoke('estimate_riven_full', {
       input: {
@@ -197,6 +220,11 @@ export default function RivenOverlay() {
     aliveRef.current = true;
     setVisible(true);
     setParsed(null);
+    // A prior OCR call's `finally` skips resetting this when its window was
+    // hidden/torn down before it resolved (guarded by aliveRef) - without
+    // resetting here too, a fresh open can be stuck showing "scanning"
+    // forever with no OCR call in flight to ever clear it.
+    setOcrLoading(false);
     invoke('show_overlay_window', { label }).catch(() => {}).
     finally(() => {showingRef.current = false;});
   }, [label]);
@@ -260,6 +288,13 @@ export default function RivenOverlay() {
           hide();
         }),
         listen('riven-reroll-confirmed', () => {
+          // Rerolling again before the previous 2s settle timer fires left
+          // two competing OCR calls in flight with no defined winner -
+          // whichever's OCR/pricing round-trip happened to finish last would
+          // silently overwrite the other, showing stale or racing results.
+          // Confirmed live: rapid re-rolling made price/grade flip between
+          // values that didn't match what was actually on screen.
+          if (refreshTimer) {clearTimeout(refreshTimer);refreshTimer = null;}
           refreshTimer = setTimeout(() => {
             setRefreshTick((t) => t + 1);
             doOcr('Middle');
@@ -308,14 +343,14 @@ export default function RivenOverlay() {
             }
           </div>
           <div className="flex items-center gap-1.5 shrink-0">
-            {rivenInfo?.grade && rivenInfo.grade !== 'N/A' &&
+            {statGrade?.grade &&
             <span className={`text-[12px] font-black px-2 py-0.5 rounded ${
-            rivenInfo.grade === 'S' ? 'bg-yellow-400/20 text-yellow-300 border border-yellow-400/30' :
-            rivenInfo.grade === 'A' ? 'bg-green-400/20 text-green-400 border border-green-400/30' :
-            rivenInfo.grade === 'B' ? 'bg-blue-400/20 text-blue-400 border border-blue-400/30' :
-            rivenInfo.grade === 'C' ? 'bg-orange-400/20 text-orange-400 border border-orange-400/30' :
+            statGrade.grade === 'S' ? 'bg-yellow-400/20 text-yellow-300 border border-yellow-400/30' :
+            statGrade.grade === 'A' ? 'bg-green-400/20 text-green-400 border border-green-400/30' :
+            statGrade.grade === 'B' ? 'bg-blue-400/20 text-blue-400 border border-blue-400/30' :
+            statGrade.grade === 'C' ? 'bg-orange-400/20 text-orange-400 border border-orange-400/30' :
             'bg-red-400/20 text-red-400 border border-red-400/30'}`
-            }>{rivenInfo.grade}</span>
+            } title={statGrade.label}>{statGrade.grade}</span>
             }
           </div>
         </div>
@@ -364,7 +399,7 @@ export default function RivenOverlay() {
                   const wr = rivenInfo.weapon_rank ?? 999;
                   const total = rivenInfo.total_weapons ?? 1;
                   const tier = wr <= total * 0.2 ? 'Meta' : wr <= total * 0.5 ? 'Popular' : wr <= total * 0.7 ? 'Average' : wr <= total * 0.9 ? 'Niche' : 'Unpopular';
-                  const roll = rivenInfo.grade === 'S' ? 'Perfect' : rivenInfo.grade === 'A' ? 'Good' : rivenInfo.grade === 'B' ? 'Average' : rivenInfo.grade === 'C' ? 'Mediocre' : 'Bad';
+                  const roll = statGrade?.grade === 'S' ? 'Perfect' : statGrade?.grade === 'A' ? 'Good' : statGrade?.grade === 'B' ? 'Average' : statGrade?.grade === 'C' ? 'Mediocre' : 'Bad';
                   return (
                     <span className="text-[11px] font-bold text-zinc-200 uppercase tracking-wider">
                           {tier} {t('riven_card.tier_weapon')} &middot; {roll}{t('riven_card.rolls')}

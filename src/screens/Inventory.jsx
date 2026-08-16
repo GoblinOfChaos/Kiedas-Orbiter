@@ -11,6 +11,10 @@ import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers } from 'lu
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { getAcquisitionInfo } from '../lib/acquisitionInfo';
+import { loadAcquisitionData } from '../lib/acquisitionData';
+import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
+import ModCard from '../components/ModCard';
 
 
 
@@ -73,438 +77,6 @@ const modFrameBotMap = {
   'Tome': null
 };
 
-function FoundryPanel({ isOpen, onClose, inventoryData, foundryFilters, setFoundryFilters }) {
-  const { isInventoryLoading, ExportImages, dropIndex } = useMonitoring();
-  const { t } = useUi();
-  const [width, setWidth] = useState(600);
-  const [isResizing, setIsResizing] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [visibleCount, setVisibleCount] = useState(24);
-  const [shouldRender, setShouldRender] = useState(isOpen);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    if (isOpen) {
-      setShouldRender(true);
-      // Small delay to ensure DOM is ready for entry animation
-      requestAnimationFrame(() => setIsAnimating(true));
-    } else {
-      setIsAnimating(false);
-      const timer = setTimeout(() => setShouldRender(false), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
-
-  const handleImgError = useCallback((e) => {
-    if (e.target.dataset.wfFallback === 'true') return;
-    e.target.dataset.wfFallback = 'true';
-    const src = e.target.src;
-    if (!src || !src.startsWith('https://browse.wf')) return;
-    const iconPath = src.replace('https://browse.wf', '').replace(/\/\//g, '/');
-    const entry = ExportImages?.[iconPath];
-    if (entry?.contentHash) {
-      e.target.src = `https://content.warframe.com/PublicExport${iconPath}!${entry.contentHash}`;
-    }
-  }, [ExportImages]);
-
-  useEffect(() => {
-    if (!isResizing) return;
-    const handleMouseMove = (e) => {
-      window.requestAnimationFrame(() => {
-        const newWidth = window.innerWidth - e.clientX;
-        // Limit to window width minus sidebar (80px)
-        if (newWidth > 320 && newWidth < window.innerWidth - 80) setWidth(newWidth);
-      });
-    };
-    const handleMouseUp = () => {
-      setIsResizing(false);
-      document.body.style.cursor = '';
-      document.body.style.userSelect = '';
-    };
-
-    document.body.style.cursor = 'ew-resize';
-    document.body.style.userSelect = 'none';
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.body.style.cursor = '';
-      document.body.style.userSelect = '';
-    };
-  }, [isResizing]);
-
-  const craftingItems = useMemo(() => {
-    return inventoryData?.foundry ?? [];
-  }, [inventoryData]);
-
-  const craftableItems = useMemo(() => {
-    return inventoryData?.craftable ?? [];
-  }, [inventoryData]);
-
-  useEffect(() => {setVisibleCount(24);}, [searchQuery, foundryFilters]);
-
-  const formatFoundryTime = (seconds) => {
-    if (seconds <= 0) return 'READY';
-    const d = Math.floor(seconds / (24 * 3600));
-    const h = Math.floor(seconds % (24 * 3600) / 3600);
-    const m = Math.floor(seconds % 3600 / 60);
-    const s = Math.floor(seconds % 60);
-
-    if (d > 0) return `${d}d ${h}h`;
-    return h > 0 ? `${h}h ${m}m` : m > 0 ? `${m}m ${s}s` : `${s}s`;
-  };
-
-  const filteredCrafting = useMemo(() => {
-    let items = craftingItems;
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      items = items.filter((i) => (i.name ?? '').toLowerCase().includes(q) || (i.parentName ?? '').toLowerCase().includes(q));
-    }
-    return items;
-  }, [craftingItems, searchQuery]);
-
-  const filteredCraftable = useMemo(() => {
-    let items = craftableItems;
-
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      // Search everything - owned BPs and component-based warframe BPs
-      items = items.filter((i) =>
-      i.bpName.toLowerCase().includes(q) ||
-      i.baseName.toLowerCase().includes(q) ||
-      i.ingredients.some((ing) => ing.name.toLowerCase().includes(q))
-      );
-    } else {
-      // Without search, show BPs player owns OR component-based ones they have parts for
-      items = items.filter((i) => i.bpCount > 0 || i.componentBased);
-    }
-
-    // Apply other filters
-    if (foundryFilters.unmastered) {
-      items = items.filter((i) => i.hasMastery && !i.isMastered);
-    }
-    if (foundryFilters.owned) {
-      items = items.filter((i) => !i.fullItemOwned);
-    }
-    if (foundryFilters.ready) {
-      items = items.filter((i) => i.allIngredientsMet);
-    }
-
-    return items;
-  }, [craftableItems, searchQuery, foundryFilters]);
-
-  if (!shouldRender) return null;
-
-  const hasData = !!inventoryData;
-  const isLarge = width > 850;
-  const isMedium = width > 500;
-
-  return (
-    <div className={`fixed inset-0 z-[100] flex justify-end transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isAnimating ? 'opacity-100' : 'opacity-0'}`}>
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div
-        className={`relative h-full bg-kronos-bg border-l border-white/5 shadow-2xl flex flex-col transform transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]`}
-        style={{
-          width: `${width}px`,
-          transform: isAnimating ? 'translateX(0)' : 'translateX(100%)',
-          transition: isResizing ? 'none' : 'width 500ms cubic-bezier(0.16, 1, 0.3, 1), transform 500ms cubic-bezier(0.16, 1, 0.3, 1)'
-        }}>
-        
-        <div
-          className={`absolute left-0 top-0 w-2 h-full cursor-ew-resize hover:bg-kronos-accent/30 transition-colors z-50 flex items-center justify-center ${isResizing ? 'bg-kronos-accent/20' : ''}`}
-          onMouseDown={(e) => {e.preventDefault();setIsResizing(true);}}>
-          
-          <div className={`w-[1px] h-12 rounded-full transition-colors ${isResizing ? 'bg-kronos-accent shadow-[0_0_8px_rgba(var(--kronos-accent-rgb),0.8)]' : 'bg-white/10'}`} />
-        </div>
-        <div className="p-6 border-b border-white/5 flex items-center justify-between">
-          <div><h3 className="text-2xl font-bold uppercase tracking-tight">{t('ui.inventory.foundry')}</h3></div>
-          <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors"><X size={22} /></button>
-        </div>
-
-        {/* Search */}
-        <div className="px-6 py-4 border-b border-white/5">
-          <div className="relative group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={16} />
-            <Input placeholder={t('ui.inventory.search_blueprints')} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10 py-3 text-sm" />
-          </div>
-        </div>
-
-        {/* Filters */}
-        <div className="px-6 py-3 border-b border-white/5 flex gap-3">
-          <button
-            onClick={() => setFoundryFilters((prev) => ({ ...prev, crafting: !prev.crafting }))}
-            className={`flex-1 flex items-center justify-center py-3 rounded-xl border text-[11px] font-black uppercase transition-all ${foundryFilters.crafting ? 'bg-orange-500/20 border-orange-500 text-orange-400' : 'bg-kronos-panel/20 border-white/5 text-kronos-dim'}`}>{t('ui.inventory.crafting')}
-
-
-          </button>
-          <button
-            onClick={() => setFoundryFilters((prev) => ({ ...prev, ready: !prev.ready }))}
-            className={`flex-1 flex items-center justify-center py-3 rounded-xl border text-[11px] font-black uppercase transition-all ${foundryFilters.ready ? 'bg-green-500/20 border-green-500 text-green-400' : 'bg-kronos-panel/20 border-white/5 text-kronos-dim'}`}>{t('ui.inventory.ready')}
-
-
-          </button>
-          <button
-            onClick={() => setFoundryFilters((prev) => ({ ...prev, owned: !prev.owned }))}
-            className={`flex-1 flex items-center justify-center py-3 rounded-xl border text-[11px] font-black uppercase transition-all ${foundryFilters.owned ? 'bg-blue-500/10 border-blue-500 text-blue-400' : 'bg-kronos-panel/20 border-white/5 text-kronos-dim'}`}>{t('ui.inventory.unowned')}
-
-
-          </button>
-          <button
-            onClick={() => setFoundryFilters((prev) => ({ ...prev, unmastered: !prev.unmastered }))}
-            className={`flex-1 flex items-center justify-center py-3 rounded-xl border text-[11px] font-black uppercase transition-all ${foundryFilters.unmastered ? 'bg-purple-500/10 border-purple-500 text-purple-400' : 'bg-kronos-panel/20 border-white/5 text-kronos-dim'}`}>{t('ui.inventory.unmastered')}
-
-
-          </button>
-
-        </div>
-
-        <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-4">
-          {isInventoryLoading ?
-          <MonitorState isLoading className="h-full" /> :
-          inventoryData === null ?
-          <MonitorState className="h-full" /> :
-
-          <>
-              {/* Currently Crafting */}
-              {foundryFilters.crafting &&
-            <>
-                  {filteredCrafting.length > 0 &&
-              <div>
-                      <h4 className="text-[10px] font-black text-orange-400 uppercase tracking-widest mb-3">{t('ui.inventory.currently_crafting')}</h4>
-                      <div className={`grid gap-3 ${isMedium ? 'grid-cols-2' : 'grid-cols-1'}`}>
-                        {filteredCrafting.map((item, idx) => {
-                    const duration = item.startTime ? item.finishTime - item.startTime : item.buildTime || 12 * 3600;
-                    const now = Date.now() / 1000;
-                    const elapsed = item.startTime ? now - item.startTime : now - (item.finishTime - (item.buildTime || 12 * 3600));
-                    const progress = Math.min(100, Math.max(0, elapsed / duration * 100));
-                    const timeLeft = Math.max(0, item.finishTime - now);
-                    return (
-                      <div key={item.unique_name + idx} className="flex gap-4 items-center bg-kronos-panel/30 p-3 rounded-lg border border-orange-500/20">
-                              <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
-                                {item.image && <img src={item.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} />}
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex justify-between items-center mb-1.5">
-                                  <span className="text-sm font-bold text-kronos-text">{item.name}</span>
-                                  {item.ready ?
-                            <span className="text-[11px] font-black text-green-500 uppercase flex items-center gap-1"><Check size={14} />{t('ui.inventory.ready_status')}</span> :
-
-                            <span className="text-[11px] font-mono text-orange-400">{formatFoundryTime(timeLeft)}</span>
-                            }
-                                </div>
-                                {!item.ready &&
-                          <div className="w-full bg-black/40 h-2 rounded-full overflow-hidden">
-                                    <div className="h-full bg-orange-500 transition-all" style={{ width: `${progress}%` }} />
-                                  </div>
-                          }
-                              </div>
-                            </div>);
-
-                  })}
-                      </div>
-                    </div>
-              }
-                </>
-            }
-
-              {/* Craftable Blueprints - show when Crafting is OFF */}
-              {!foundryFilters.crafting &&
-            <>
-                  {filteredCraftable.length === 0 ?
-              <div className="text-center py-12 text-kronos-dim text-sm italic">{t('ui.inventory.no_blueprints_match')}</div> :
-
-              <>
-                      <div className="grid gap-4 grid-cols-1">
-                        {filteredCraftable.slice(0, visibleCount).map((item, idx) =>
-                  <div key={item.uniqueName + idx} className={`rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20`}>
-                            {/* Header: BP image + name + badges */}
-                            <div className={`flex items-center gap-4 px-4 py-5 border-b border-white/5 relative ${item.bpCount > 0 ? 'bg-green-500/5' : ''}`}>
-                              <div className="w-28 h-28 flex items-center justify-center flex-shrink-0">
-                                {item.image ?
-                        <img src={item.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} /> :
-                        <div className="w-14 h-14 rounded bg-white/5" />
-                        }
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex justify-between items-start">
-                                  <div className="min-w-0 flex-1">
-                                    <p className="text-xl font-black text-kronos-text uppercase whitespace-normal leading-tight">{item.baseName}</p>
-                                    {(item.buildTime > 0 || item.buildPrice > 0) &&
-                            <div className="flex gap-3 mt-1">
-                                        {item.buildPrice > 0 && <span className="text-[10px] font-black text-yellow-500/80 uppercase">{t('inventory.credit_cost')}{item.buildPrice.toLocaleString()}</span>}
-                                        {item.buildTime > 0 && <span className="text-[10px] font-black text-kronos-dim uppercase">{t('inventory.build_time')}{formatFoundryTime(item.buildTime)}</span>}
-                                      </div>
-                            }
-                                  </div>
-                                  {item.allIngredientsMet && item.bpCount > 0 &&
-                          <div className="px-2 py-1 bg-green-500 text-black text-[10px] font-black uppercase rounded flex items-center gap-1 shadow-[0_0_15px_rgba(34,197,94,0.4)]">
-                                      <Check size={12} />{t('ui.inventory.ready')}
-                          </div>
-                          }
-                                </div>
-
-                                <div className="flex flex-wrap gap-2 mt-4">
-                                  {/* Blueprint Status */}
-                                  <div className={`flex items-center px-3 py-1.5 rounded-lg border transition-colors ${item.bpCount > 0 ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-red-500/10 border-red-500/30 text-red-400'}`}>
-                                    <div className={`${item.bpCount > 0 ? 'bg-green-400 shadow-[0_0_5px_rgba(74,222,128,0.5)]' : 'bg-red-400'}`} />
-                                    <span className="text-[10px] font-black uppercase tracking-wider">{t('inventory.blueprint')}{item.bpCount}</span>
-                                  </div>
-
-                                  {/* Crafted Status */}
-                                  <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${item.fullItemOwned ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : 'bg-white/5 border-white/5 text-kronos-dim'}`}>
-                                    <span className="text-[10px] font-black uppercase tracking-wider">{t('inventory.crafted')}{item.ownedCount || 0}</span>
-                                  </div>
-
-                                  {/* Mastery Status */}
-                                  {item.hasMastery &&
-                          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${item.isMastered ? 'bg-purple-500/10 border-purple-500/30 text-purple-400' : 'bg-white/5 border-white/5 text-kronos-dim'}`}>
-                                      <span className="text-[10px] font-black uppercase tracking-wider">{item.isMastered ? 'Mastered' : 'Unmastered'}</span>
-                                    </div>
-                          }
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Ingredients grid */}
-                            {item.ingredients.length > 0 &&
-                    <div
-                      className={`grid gap-px flex-1 border-t border-white/5`}
-                      style={{
-                        gridTemplateColumns: `repeat(${isMedium ? Math.min(item.ingredients.length, 4) : 2}, 1fr)`
-                      }}>
-                      
-                                  {item.ingredients.map((ing, i) => {
-                        const met = ing.have >= ing.need;
-                        const hasSubIngredients = ing.isComponent && ing.bpOwned > 0 && ing.subIngredients && ing.subIngredients.length > 0;
-                        const ingNorm = ing.itemType ? ing.itemType.replace('/StoreItems/', '/') : '';
-                        const ingSourcesRaw = dropIndex?.[ingNorm] || dropIndex?.['display:' + (ing.name || '').toLowerCase().trim()] || [];
-                        const ingDedupKey = (s) => {
-                          if (s.type === 'mission') return 'm:' + s.nodeName + '|' + (s.rotation || '');
-                          if (s.type === 'relic') return 'r:' + (s.relicName || s.relicManifest);
-                          if (s.type === 'enemy') return 'e:' + s.enemyName;
-                          if (s.type === 'bounty') return 'b:' + s.bountyLevel + '|' + (s.rotation || '') + '|' + (s.stage || '');
-                          return 'o:' + (s.syndicateName || s.objectiveName || s.keyName || s.sourceName || s.type);
-                        };
-                        const ingSeen = {};
-                        const ingSources = ingSourcesRaw.filter((s) => {const k = ingDedupKey(s);if (ingSeen[k]) return false;ingSeen[k] = true;return true;});
-                        const hasDropSources = ingSources.length > 0;
-
-                        const ingredientContent =
-                        <div
-                          className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative group ${hasSubIngredients ? 'cursor-help' : ''}`}>
-                          
-                                        <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
-                                          {ing.image ?
-                            <img src={ing.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} /> :
-                            <div className="w-7 h-7 rounded bg-white/5" />
-                            }
-                                          {ing.isComponent && ing.bpOwned > 0 &&
-                            <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center ${ing.bpReady ? 'bg-green-500' : 'bg-red-500'}`}>
-                                              {ing.bpReady ? <Check size={10} className="text-black" /> : <X size={10} className="text-white" />}
-                                            </div>
-                            }
-                                        </div>
-                                        <p className="text-[14px] font-medium text-kronos-dim text-center leading-tight w-full px-1">{ing.name}</p>
-                                        <span className={`text-[12px] font-black font-mono ${met ? 'text-green-400' : 'text-red-400'}`}>
-                                          {ing.have}/{ing.need}{ing.isComponent && ing.bpOwned > 0 && ` (${ing.bpOwned} BP${ing.bpOwned > 1 ? 's' : ''})`}
-                                        </span>
-                                        {hasDropSources &&
-                          <Tooltip
-                            position="bottom"
-                            content={
-                            <div className="max-w-[260px] max-h-[200px] overflow-y-auto space-y-1">
-                                                <p className="text-[9px] font-black uppercase text-kronos-accent">{t('ui.inventory.drop_sources')}</p>
-                                                {ingSources.filter((s) => s.type === 'mission').slice(0, 4).map((s, si) =>
-                              <p key={`m-${si}`} className="text-[9px] text-kronos-text leading-tight">
-                                                    {s.nodeName}{s.rotation ? ` (Rot ${s.rotation})` : ''}
-                                                    {s.chance ? <span className="text-kronos-dim ml-1">{(s.chance * 100).toFixed(1)}%</span> : ''}
-                                                  </p>
-                              )}
-                                                {ingSources.filter((s) => s.type === 'relic').slice(0, 4).map((s, si) =>
-                              <p key={`r-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.relicName || s.relicManifest} ({s.rarity ? s.rarity.charAt(0).toUpperCase() + s.rarity.slice(1).toLowerCase() : ''})</p>
-                              )}
-                                                {ingSources.filter((s) => s.type === 'enemy').slice(0, 3).map((s, si) =>
-                              <p key={`e-${si}`} className="text-[9px] text-kronos-text leading-tight">
-                                                    {s.enemyName}{s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}
-                                                  </p>
-                              )}
-                                                {ingSources.filter((s) => s.type === 'bounty').slice(0, 3).map((s, si) =>
-                              <p key={`b-${si}`} className="text-[9px] text-kronos-text leading-tight">
-                                                    {s.bountyLevel}{s.rotation ? ` Rot ${s.rotation}` : ''}
-                                                    {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}
-                                                  </p>
-                              )}
-                                              </div>
-                            }>
-                            
-                                            <span className="text-[8px] font-black uppercase text-kronos-dim/50 cursor-help hover:text-kronos-accent transition-colors">{t('ui.inventory.sources')}
-
-                            </span>
-                                          </Tooltip>
-                          }
-                                      </div>;
-
-
-                        if (hasSubIngredients) {
-                          return (
-                            <Tooltip
-                              key={i}
-                              position="top"
-                              content={
-                              <div className="min-w-[200px]">
-                                              <p className="text-[10px] font-black text-kronos-accent uppercase mb-2">{t('ui.inventory.requires')}</p>
-                                              <div className="space-y-1">
-                                                {ing.subIngredients.map((sub, si) => {
-                                    const subMet = sub.have >= sub.need;
-                                    return (
-                                      <div key={si} className="flex items-center gap-2 text-[10px]">
-                                                      <div className="w-6 h-6 flex-shrink-0">
-                                                        {sub.image ? <img src={sub.image} alt="" className="max-w-full max-h-full object-contain" /> : <div className="w-4 h-4 bg-white/10 rounded" />}
-                                                      </div>
-                                                      <span className={`flex-1 ${subMet ? 'text-green-400' : 'text-red-400'}`}>{sub.name}</span>
-                                                      <span className="font-mono">{sub.have}/{sub.need}</span>
-                                                    </div>);
-
-                                  })}
-                                              </div>
-                                            </div>
-                              }>
-                              
-                                          {ingredientContent}
-                                        </Tooltip>);
-
-                        }
-
-                        return <div key={i} className="h-full">{ingredientContent}</div>;
-                      })}
-                              </div>
-                    }
-                          </div>
-                  )}
-                      </div>
-                      {visibleCount < filteredCraftable.length &&
-                <div className="flex justify-center pt-8 pb-12">
-                          <Button
-                    variant="secondary"
-                    onClick={() => setVisibleCount((prev) => prev + 24)}
-                    className="w-full py-4 text-[11px] font-black uppercase tracking-[0.2em] border border-white/5 bg-kronos-panel/10 hover:bg-kronos-panel/30 transition-all text-kronos-accent">{t('inventory.load_more_blueprints')}
-
-                    {filteredCraftable.length - visibleCount} remaining)
-                          </Button>
-                        </div>
-                }
-                    </>
-              }
-                </>
-            }
-            </>
-          }
-        </div>
-      </div>
-    </div>);
-
-}
 export default function Inventory() {
   const { t } = useUi()
   const INVENTORY_TABS = [
@@ -516,6 +88,10 @@ export default function Inventory() {
   { id: 'archweapons', label: t('ui.inventory.tab_archweapons') },
   { id: 'vehicles', label: t('ui.inventory.tab_vehicles') },
   { id: 'amps', label: t('ui.inventory.tab_amps') },
+  { id: 'arcanes', label: 'Arcanes' },
+  { id: 'peely_pix', label: 'Peely Pix' },
+  { id: 'consumables', label: 'Consumables' },
+  { id: 'landing_craft', label: 'Landing Craft' },
   { id: 'resources', label: t('ui.inventory.tab_resources') },
   { id: 'prime_parts', label: t('ui.inventory.tab_prime_parts') },
   { id: 'ayatan', label: t('ui.inventory.tab_ayatan') }];
@@ -530,6 +106,10 @@ export default function Inventory() {
     archweapons: ['owned', 'mastered'],
     vehicles: ['owned', 'mastered', 'archwing', 'kdrive', 'necramech'],
     amps: ['owned', 'mastered'],
+    arcanes: ['owned'],
+    peely_pix: ['owned'],
+    consumables: ['owned'],
+    landing_craft: ['owned'],
     mods: ['owned'],
     prime_parts: ['owned', 'mastered'],
     resources: ['owned'],
@@ -554,12 +134,25 @@ export default function Inventory() {
     archweapons: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
     vehicles: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
     amps: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
+    arcanes: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }, { id: 'rank', label: t('ui.inventory.sort_rank') }],
+    peely_pix: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],
+    consumables: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],
+    landing_craft: [{ id: 'name', label: t('ui.inventory.sort_name') }],
     mods: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }, { id: 'rank', label: t('ui.inventory.sort_rank') }],
     prime_parts: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'completion', label: t('ui.inventory.sort_completion') }, { id: 'value', label: t('ui.inventory.sort_value') }],
     resources: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],
     ayatan: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }]
   };
-  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, ExportImages } = useMonitoring();
+  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, ExportImages, ExportTextIcons, cardImagesPath, exportComponentIndex } = useMonitoring();
+  const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
+  const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
+  useEffect(() => {
+    invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
+      .then((bytes) => setAcquisitionOverrides(JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))))
+      .catch(() => setAcquisitionOverrides({ components: {}, mods: {} }));
+    loadAcquisitionData().then(() => setAcquisitionDataReady(true));
+  }, []);
+  const { openKey, toggle, close } = useAcquisitionDrawer();
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilterSortPanel, setShowFilterSortPanel] = useState(false);
@@ -567,8 +160,6 @@ export default function Inventory() {
   const [sortCriteria, setSortCriteria] = useState('name');
   const [sortDirection, setSortDirection] = useState('asc');
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
-  const [showFoundry, setShowFoundry] = useState(false);
-  const [foundryFilters, setFoundryFilters] = useState({ crafting: true, ready: false, owned: false, unmastered: false });
   const [framesPath, setFramesPath] = useState('');
   const [uiPath, setUiPath] = useState('');
   const [iconsPath, setIconsPath] = useState('');
@@ -594,6 +185,25 @@ export default function Inventory() {
 
   const tabItems = useMemo(() => {
     if (!inventoryData) return [];
+    const canonicalItemPath = (value) => value?.replace('/StoreItems/', '/') || value;
+    const imageByUniqueName = new Map();
+    const imageByName = new Map();
+    for (const item of inventoryData.all ?? []) {
+      if (item?.image && item.unique_name) {
+        const key = canonicalItemPath(item.unique_name);
+        if (!imageByUniqueName.has(key)) imageByUniqueName.set(key, item.image);
+      }
+      if (item?.image && item.name) {
+        const key = item.name.trim().toLowerCase();
+        if (!imageByName.has(key)) imageByName.set(key, item.image);
+      }
+    }
+    const withImageFallback = (items) => (items ?? []).map((item) => {
+      if (item?.image) return item;
+      const image = imageByUniqueName.get(canonicalItemPath(item?.unique_name))
+        || imageByName.get(item?.name?.trim().toLowerCase());
+      return image ? { ...item, image } : item;
+    });
     if (activeTab === 'prime_parts') {
       const searchArrays = [
       inventoryData.warframes, inventoryData.primary, inventoryData.secondary,
@@ -612,13 +222,13 @@ export default function Inventory() {
       ).map((set) => {
         const parent = nameToEquipment.get(set.name) ?? nameToEquipment.get(set.name + ' Prime') ?? {};
         const _value = primePrices?.[set.setPath] ?? (set.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0);
-        return { ...set, owned: parent.owned ?? false, mastered: parent.mastered ?? false, _value };
+        return { ...set, image: set.image || parent.image, owned: parent.owned ?? false, mastered: parent.mastered ?? false, _value };
       });
     }
     if (activeTab === 'vehicles') {
       const vehicles = inventoryData.vehicles ?? [];
       const necramechs = (inventoryData.necramechs ?? []).map((n) => ({ ...n, is_necramech: true }));
-      return [...vehicles, ...necramechs];
+      return withImageFallback([...vehicles, ...necramechs]);
     }
     if (activeTab === 'ayatan') {
       const ALL_SCULPTURES = [
@@ -699,8 +309,14 @@ export default function Inventory() {
 
       return items;
     }
-    if (activeTab === 'all') return (inventoryData.all ?? []).filter((i) => i.category !== 'rivens' && i.category !== 'Arcanes');
-    return inventoryData[activeTab] ?? [];
+    if (activeTab === 'peely_pix') {
+      return withImageFallback(inventoryData.peely_pix ?? []);
+    }
+    if (activeTab === 'arcanes') return withImageFallback(inventoryData.arcanes_catalog ?? []);
+    if (activeTab === 'consumables') return withImageFallback(inventoryData.consumables_catalog ?? []);
+    if (activeTab === 'landing_craft') return withImageFallback(inventoryData.landing_craft_catalog ?? []);
+    if (activeTab === 'all') return withImageFallback((inventoryData.all ?? []).filter((i) => i.category !== 'rivens' && i.category !== 'Arcanes'));
+    return withImageFallback(inventoryData[activeTab] ?? []);
   }, [inventoryData, activeTab, uiPath, primePrices]);
 
   const filteredItems = useMemo(() => {
@@ -775,6 +391,13 @@ export default function Inventory() {
 
   const visibleItems = useMemo(() => filteredItems.slice(0, visibleCount), [filteredItems, visibleCount]);
 
+  const openItem = useMemo(() => {
+    if (!openKey || !acquisitionDataReady) return null;
+    const item = visibleItems.find((it) => it.unique_name === openKey);
+    if (!item) return null;
+    return { uniqueName: item.unique_name, displayName: item.name, info: getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, undefined, undefined, undefined, exportVendorIndex, alwaysAvailableIndex, undefined, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) };
+  }, [openKey, acquisitionDataReady, visibleItems, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex]);
+
   const modBg = useCallback((mf, item) => {
     if (!framesPath) return '';
     if (mf === 'Tektolyst') {
@@ -815,7 +438,9 @@ export default function Inventory() {
               {(FILTER_CONFIG[activeTab] ?? []).map((f) => {
             const state = currentFilters[f];
             const isTriple = TRIPLE_FILTERS.has(f);
-            const label = state === 'no' ? NEG_LABELS[f] ?? f.replace(/_/g, ' ') : f.replace(/_/g, ' ');
+            const label = f === 'owned'
+              ? (state === 'no' ? 'Unowned' : state === 'yes' ? 'Owned' : 'All')
+              : state === 'no' ? NEG_LABELS[f] ?? f.replace(/_/g, ' ') : f.replace(/_/g, ' ');
             return (
               <button
                 key={f}
@@ -869,40 +494,32 @@ export default function Inventory() {
           })}
           </div>
         </div>
-
-        {/* Foundry Button */}
-        <Button
-        variant="secondary"
-        onClick={() => setShowFoundry(true)}
-        className="relative flex items-center gap-2 h-[42px] px-4 border-white/5 bg-black/20 hover:bg-black/40">
-        
-          <img src={uiPath ? convertFileSrc(`${uiPath}/IconFoundry.png`) : ''} alt="Foundry" className="w-5 h-5 object-contain" />
-          <span className="text-[11px] font-black uppercase tracking-widest">{t('ui.inventory.foundry')}</span>
-          {inventoryData?.foundry?.some((i) => i.ready) &&
-        <span className="absolute -top-1 -right-1 flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500 border-2 border-kronos-bg"></span>
-            </span>
-        }
-        </Button>
       </div>
 
       {/* Category Tabs */}
       <Tabs tabs={INVENTORY_TABS.map((t) => {
-      const iconMap = { warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', prime_parts: 'PrimeParts', ayatan: 'Ayatan' };
+      const iconMap = { warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', arcanes: 'Arcanes', peely_pix: 'Mods', consumables: 'Resources', landing_craft: 'Vehicles', prime_parts: 'PrimeParts', ayatan: 'Ayatan' };
       const iconName = iconMap[t.id] || t.label;
-      return { ...t, icon: iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null };
+      const peelyPackPath = '/Lotus/Interface/Icons/StoreIcons/Resources/1999Wf/StickerPack.png';
+      const peelyPackHash = ExportImages?.[peelyPackPath]?.contentHash;
+      const icon = t.id === 'peely_pix'
+        ? peelyPackHash
+          ? `https://content.warframe.com/PublicExport${peelyPackPath}!${peelyPackHash}`
+          : `https://browse.wf${peelyPackPath}`
+        : iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null;
+      return { ...t, icon };
     })} activeTab={activeTab} onChange={(id) => {setActiveTab(id);setCurrentFilters({});setSortCriteria('name');setSortDirection('asc');}} />
     </div>;
 
 
   return (
+    <>
     <PageLayout
       titleKey="screen.inventory"
       subtitle={`Displaying ${visibleItems.length} / ${filteredItems.length} items`}
       extra={renderHeaderStats(inventoryData, iconsPath)}
       headerPanel={renderHeaderPanel()}>
-      
+
       <div className="flex flex-col gap-6 flex-1 min-h-0">
         {inventoryData === undefined ?
         <MonitorState isLoading className="py-20" /> :
@@ -910,7 +527,7 @@ export default function Inventory() {
         <MonitorState className="py-20" /> :
 
         filteredItems.length === 0 ?
-        <div className="text-center py-20 text-kronos-dim">{t('inventory.no_items_found')}{tabLabel.toLowerCase()}.</div> :
+        <div className="text-center py-20 text-kronos-dim">{t('inventory.no_items_found')} {tabLabel}.</div> :
         activeTab === 'prime_parts' ?
         <>
               {priceFetchProgress &&
@@ -1132,9 +749,23 @@ export default function Inventory() {
               {visibleItems.map((item, idx) => {
             const isUnowned = !item.owned;
             const isPrimePart = item.category === 'prime_parts';
-            const isModOrResource = ['mods', 'resources', 'arcanes'].includes(item.category);
+            const isModOrResource = ['mods', 'resources', 'Arcanes', 'arcanes', 'peely_pix', 'consumables', 'landing_craft'].includes(item.category);
+            if (activeTab === 'arcanes') {
+              return (
+                <div key={item.unique_name + idx} className={`relative cursor-pointer flex justify-center rounded-xl ${isUnowned ? 'grayscale opacity-60' : ''}`} onClick={() => toggle(item.unique_name)}>
+                  <ModCard
+                    mod={item}
+                    framesPath={framesPath}
+                    iconsPath={iconsPath}
+                    cardImagesPath={cardImagesPath}
+                    width={200}
+                    exportTextIcons={ExportTextIcons}
+                    pricesLoading={false} />
+                </div>
+              );
+            }
             return (
-              <Card key={item.unique_name + idx} glow={!isUnowned} className={`relative p-0 overflow-hidden flex min-h-40 group transition-all duration-300 ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
+              <Card key={item.unique_name + idx} glow={!isUnowned} onClick={() => toggle(item.unique_name)} className={`relative p-0 overflow-hidden flex min-h-40 group transition-all duration-300 cursor-pointer ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
 
                     {/* Image column */}
                     <div className={`w-32 flex-shrink-0 relative overflow-hidden border-r border-white/5 flex items-center justify-center ${isModFrame(item) ? '' : 'bg-kronos-panel/30 p-3'}`}>
@@ -1367,8 +998,9 @@ export default function Inventory() {
         }
         {visibleCount < filteredItems.length && <div className="flex justify-center py-8"><Button onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}>{t('ui.inventory.load_more_items')}</Button></div>}
       </div>
-      <FoundryPanel isOpen={showFoundry} onClose={() => setShowFoundry(false)} inventoryData={inventoryData} foundryFilters={foundryFilters} setFoundryFilters={setFoundryFilters} />
-    </PageLayout>);
+    </PageLayout>
+    {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
+    </>);
 
 }
 
@@ -1376,7 +1008,7 @@ function renderHeaderStats(inventoryData, iconsPath) {
   if (!inventoryData?.account) return null;
   const { credits, platinum, forma, aura_forma, stance_forma, umbra_forma, orokin_reactor, orokin_catalyst, endo } = inventoryData.account;
   const { t } = useUi();
-  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
   const StatWidget = ({ icon, label, value, accent = 'text-kronos-dim', tooltip = null }) =>
   <div className="flex items-stretch gap-1.5 min-w-[50px] relative group">
       {icon && <img src={icon} className="w-[30px] object-contain flex-shrink-0 self-stretch" alt="" />}

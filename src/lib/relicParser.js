@@ -2,6 +2,8 @@
  * Logic for mapping Relic unique names (from logs) to game data and inventory context.
  */
 import { BLUEPRINT_SUFFIX } from './warframeUtils';
+import { BARO_RELIC_NAMES } from './baroRelics';
+import { REQUIEM_MOD_ALIASES } from './requiemModAliases';
 
 // Helper: split PascalCase to spaced words
 function splitPascal(str) {
@@ -16,6 +18,21 @@ function splitPascal(str) {
 function cleanName(name) {
   if (!name) return '';
   return name.replace(/<[^>]*>/g, '').trim();
+}
+
+// DE's relic export normally represents vault state with a `vaultedAt`
+// timestamp rather than a boolean. A future timestamp means the relic is
+// still available; no timestamp means DE has not scheduled a vault for it.
+function getRelicVaultedStatus(entry, relicKey) {
+  // DE's export carries no vault metadata at all for Baro-exclusive relics
+  // (sold directly, never in the mission drop pool) - they're always vaulted.
+  if (BARO_RELIC_NAMES.includes(relicKey)) return true;
+  if (typeof entry?.vaulted === 'boolean') return entry.vaulted;
+  if (typeof entry?.isVaulted === 'boolean') return entry.isVaulted;
+  if (Number.isFinite(entry?.vaultedAt)) {
+    return entry.vaultedAt <= Math.floor(Date.now() / 1000);
+  }
+  return false;
 }
 
 /**
@@ -123,19 +140,21 @@ export function getAllRelicRewards(exportData, locale = 'en') {
     for (const drop of flatPool) {
       const un = drop.type;
       if (!un || seen.has(un)) continue;
-      seen.add(un);
-
       const norm = un.replace('/StoreItems/', '/');
+      if (seen.has(norm)) continue;
+      seen.add(norm);
       const recipe = exportData.ExportRecipes?.[norm] || exportData.ExportRecipes?.[un];
       const itemData = exportData.ExportItems?.[norm] || exportData.ExportWeapons?.[norm] ||
         exportData.ExportWarframes?.[norm] || exportData.ExportResources?.[norm] ||
         exportData.ExportItems?.[un];
 
       allItems.push({
-        uniqueName: un,
+        uniqueName: norm,
         name: resolveDisplayName(un, exportData, locale),
         rarity: drop.rarity || 'COMMON',
         ducats: recipe?.primeSellingPrice || itemData?.primeSellingPrice || 0,
+        isForma: norm.toLowerCase().includes('forma'),
+        isPrimePart: norm.includes('Prime'),
       });
     }
   }
@@ -190,15 +209,65 @@ export function getRelicRewards(relicUniqueName, exportData, locale = 'en') {
       exportData.ExportItems?.[un];
 
     return {
-      uniqueName: un,
+      uniqueName: norm,
       name: resolveDisplayName(un, exportData, locale),
       rarity: item.rarity || 'COMMON',
       ducats: recipe?.primeSellingPrice || itemData?.primeSellingPrice || 0,
       icon: exportData.EI?.[un] || null,
-      isForma: un.toLowerCase().includes('forma'),
-      isPrimePart: un.includes('Prime'),
+      isForma: norm.toLowerCase().includes('forma'),
+      isPrimePart: norm.includes('Prime'),
     };
   });
+}
+
+/**
+ * Build one row per distinct relic from the complete export catalog.
+ * Inventory parsing intentionally contains only relics the account owns, so
+ * planner screens must use this catalog and merge owned counts separately.
+ */
+export function getRelicCatalog(exportData, locale = 'en') {
+  if (!exportData?.ExportRelics || !exportData?.ExportRewards) return [];
+
+  const relics = Array.isArray(exportData.ExportRelics)
+    ? exportData.ExportRelics.map((entry) => [entry.uniqueName || entry.ItemType, entry])
+    : Object.entries(exportData.ExportRelics);
+  const seen = new Set();
+  const catalog = [];
+
+  for (const [uniqueName, entry] of relics) {
+    if (!uniqueName || !entry) continue;
+
+    const era = entry.era || parseRelicName(uniqueName).era;
+    const category = entry.category || parseRelicName(uniqueName).name;
+    if (!era || !category || era === 'Unknown') continue;
+
+    // This is the Prime relic planner. ExportRelics also contains T5
+    // Immortal/Omnia-style tables whose category strings are named like
+    // Requiem eras (for example "Requiem IV"), but they are not Prime relics
+    // and can contain adapters, stars, and other non-Prime rewards.
+    if (!['Lith', 'Meso', 'Neo', 'Axi'].includes(era)) continue;
+
+    const key = `${era} ${category}`;
+    if (seen.has(key)) continue;
+
+    const rewards = getRelicRewards(uniqueName, exportData, locale);
+    if (!rewards.length) continue;
+
+    seen.add(key);
+    catalog.push({
+      key,
+      uniqueName,
+      name: category,
+      era,
+      rewards,
+      // DE export variants differ in whether this field is present. Keep an
+      // unknown value unknown instead of labelling an unverified relic as
+      // farmable.
+      vaulted: getRelicVaultedStatus(entry, key),
+    });
+  }
+
+  return catalog;
 }
 
 /**
@@ -275,11 +344,13 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     for (const [rName, rData] of Object.entries(exportData.ExportRecipes)) {
       if (rData.resultType) {
         bpLookup[rData.resultType] = rName;
+        bpLookup[rData.resultType.replace('/StoreItems/', '/').toLowerCase()] = rName;
       }
     }
   }
 
-  const recipe = exportData.ExportRecipes?.[rewardUniqueName];
+  const recipe = exportData.ExportRecipes?.[rewardUniqueName]
+    || exportData.ExportRecipes?.[rewardUniqueName.replace('/StoreItems/', '/')];
   let actualComponent = recipe ? recipe.resultType : rewardUniqueName;
 
   let parentRecipe = null;
@@ -300,6 +371,7 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
         return iClean === aClean || iClean === rClean;
       })) {
         parentRecipe = bpRecipe;
+        parentRecipeUniqueName = bpUniqueName;
         parentName = resolveDisplayName(bpRecipe.resultType, exportData, locale).replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$'), '').trim();
         break;
       }
@@ -314,7 +386,8 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
 
   const subcomponents = (parentRecipe?.ingredients || []).map(ing => {
     const ingName = resolveDisplayName(ing.ItemType, exportData, locale);
-    const ingBpUniqueName = bpLookup[ing.ItemType];
+    const ingBpUniqueName = bpLookup[ing.ItemType]
+      || bpLookup[ing.ItemType.replace('/StoreItems/', '/').toLowerCase()];
     const compIsResource = isGenericResource(ing.ItemType);
 
     const haveCrafted = inventoryData.all?.find(i => i.unique_name === ing.ItemType)?.quantity
@@ -323,7 +396,9 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
       || 0;
 
     const bpCount = ingBpUniqueName
-      ? (inventoryData.prime_parts?.find(i => i.unique_name === ingBpUniqueName)?.quantity || 0)
+      ? (inventoryData.prime_parts?.find(i => clean(i.unique_name) === clean(ingBpUniqueName))?.quantity
+        || inventoryData.all?.find(i => clean(i.unique_name) === clean(ingBpUniqueName))?.quantity
+        || 0)
       : 0;
     const isMatch = (ingUn) => {
       if (!ingUn || !rewardUniqueName) return false;
@@ -360,7 +435,9 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
   let rewardEntry = findInInventory(inventoryData.all)
     || findInInventory(inventoryData.prime_parts)
     || findInInventory(inventoryData.mods)
-    || findInInventory(inventoryData.resources);
+    || findInInventory(inventoryData.resources)
+    || findInInventory(inventoryData.consumables_catalog)
+    || findInInventory(inventoryData.consumables);
 
   // Fallback: if not found by uniqueName, search by display name (handles synthetic
   // short uniqueNames from OCR, e.g. "Lohk" → /Lotus/Upgrades/Mods/Requiem/Lohk)
@@ -374,7 +451,9 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
   const findInInventorySimple = (arr) => arr?.find(i => normalizeUN(i.unique_name) === aNorm);
   let craftedEntry = findInInventorySimple(inventoryData.all)
     || findInInventorySimple(inventoryData.prime_parts)
-    || findInInventorySimple(inventoryData.resources);
+    || findInInventorySimple(inventoryData.resources)
+    || findInInventorySimple(inventoryData.consumables_catalog)
+    || findInInventorySimple(inventoryData.consumables);
 
   // Fallback: search by name in mods (handles short OCR uniqueNames like "Lohk")
   if (!craftedEntry && inventoryData.mods) {
@@ -388,13 +467,33 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
   let parentCraftedCount = 0;
   let parentIsMastered = false;
 
+  const equipmentEntries = [
+    ...(inventoryData.all || []),
+    ...(inventoryData.primary || []),
+    ...(inventoryData.secondary || []),
+    ...(inventoryData.melee || []),
+    ...(inventoryData.warframes || []),
+  ];
+
   if (parentRecipe && parentRecipeUniqueName) {
     const pNorm = normalizeUN(parentRecipeUniqueName);
     parentBpCount = inventoryData.prime_parts?.find(i => normalizeUN(i.unique_name) === pNorm)?.quantity ?? 0;
     const prNorm = normalizeUN(parentRecipe.resultType);
-    const pCrafted = (inventoryData.all?.find(i => normalizeUN(i.unique_name) === prNorm))
-      || (inventoryData.prime_parts?.find(i => normalizeUN(i.unique_name) === prNorm));
-    parentCraftedCount = pCrafted?.quantity ?? 0;
+    const parentDisplayName = resolveDisplayName(parentRecipe.resultType, exportData, locale)
+      .replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$'), '').trim().toLowerCase();
+    // Prefer the authoritative export identity.  Do not merge a display-name
+    // fallback into an existing unique-name match: similarly named weapons
+    // (for example Tatsu and Tatsu Prime) can otherwise make an unrelated
+    // mastered item prove ownership of this part.
+    const exactParentMatches = equipmentEntries.filter((item) => normalizeUN(item.unique_name) === prNorm);
+    const parentMatches = exactParentMatches.length > 0
+      ? exactParentMatches
+      : equipmentEntries.filter((item) =>
+        item.name?.replace(/\s+Blueprint$/i, '').trim().toLowerCase() === parentDisplayName
+      );
+    const pCrafted = parentMatches.find((item) => item.mastered || item.owned || (item.quantity ?? 0) > 0)
+      || parentMatches[0];
+    parentCraftedCount = pCrafted?.quantity ?? (pCrafted?.owned ? 1 : 0);
     parentIsMastered = pCrafted?.mastered ?? false;
   } else {
     parentBpCount = recipe ? stock : 0;
@@ -402,10 +501,35 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     parentIsMastered = isMastered;
   }
 
+  // Direct fallback, independent of the recipe-ingredient reverse lookup
+  // above (which can fail to find a match for reasons not always worth
+  // chasing case-by-case): if the *name* this component's suffix-stripping
+  // already resolved to (e.g. "Yareli Prime Neuroptics Blueprint" ->
+  // "Yareli Prime") matches a mastered piece of equipment, the component is
+  // satisfied - full prime mastered implies every one of its components was
+  // crafted at least once, regardless of whether the recipe-matching chain
+  // above found the connection. Confirmed live 2026-08-10: Yareli Prime
+  // Neuroptics/Gyre Prime Systems stayed flagged as missing despite both
+  // parent frames being mastered, because the recipe reverse-lookup never
+  // resolved for them.
+  if (!parentIsMastered && parentName) {
+    const parentNameLower = parentName.trim().toLowerCase();
+    if (equipmentEntries.some((item) => item.name?.trim().toLowerCase() === parentNameLower && item.mastered)) {
+      parentIsMastered = true;
+    }
+  }
+
   return {
     stock,
-    blueprintCount: parentBpCount,
-    craftedCount: parentCraftedCount,
+    // blueprintCount/craftedCount must reflect THIS component's own current
+    // holdings, not the parent frame/weapon's. parentBpCount/parentCraftedCount
+    // are the completed parent's own count - real evidence the component was
+    // obtained at some point, but not proof any is held right now (a fully
+    // mastered, built frame usually holds zero spare components). Use them
+    // only for isMastered/isOwned, which is what "ever obtained" checks read.
+    blueprintCount: parentRecipe ? stock : parentBpCount,
+    craftedCount: parentRecipe ? craftedCount : parentCraftedCount,
+    isRecipeComponent: !!parentRecipe,
     parentName,
     isOwned: parentCraftedCount > 0,
     isMastered: parentIsMastered,
@@ -413,6 +537,134 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     isResource,
     subcomponents,
   };
+}
+
+/**
+ * Whether a relic reward has ever been "obtained" - owned, crafted, or its
+ * parent frame/weapon mastered. Combines getRewardInventoryContext()'s
+ * parent-mastery resolution with a direct inventory-item lookup (matching
+ * by uniqueName or display name against prime_parts/primeSets/all/
+ * resources and checking that matched item's own owned/mastered/quantity
+ * fields directly) - the direct lookup catches cases the parent-recipe
+ * resolution chain misses. Single source of truth for this check so the
+ * relic picker overlay and Relic Planner screen can't drift out of sync
+ * with each other again (confirmed live 2026-08-10: they had, before this
+ * was unified - Yareli Prime Neuroptics/Gyre Prime Systems showed correctly
+ * in one and not the other).
+ */
+export function getPartObtainedStatus(uniqueName, displayName, inventoryData, exportData, locale = 'en') {
+  const ctx = getRewardInventoryContext(uniqueName, inventoryData, exportData, locale);
+  const normalize = (value) => value?.replace('/StoreItems/', '/').toLowerCase();
+  const normalizeName = (value) => value?.replace(/\s+Blueprint$/i, '').trim().toLowerCase();
+  const inventoryEntries = getPartInventoryIndex(inventoryData, exportData);
+  const resolvedUniqueName = REQUIEM_MOD_ALIASES[normalize(uniqueName)] || uniqueName;
+  const foundryEvidence = inventoryEntries.foundryUnique.has(normalize(resolvedUniqueName))
+    || inventoryEntries.foundryUnique.has(normalize(uniqueName))
+    || inventoryEntries.foundryNames.has(normalizeName(displayName));
+  // An exact unique-name match is authoritative.  Only use the display-name
+  // fallback when the account has no entry under that identity; otherwise a
+  // similarly named item (Tatsu vs Tatsu Prime) can be selected as evidence.
+  const exactMatches = inventoryEntries.byUnique.get(normalize(resolvedUniqueName)) || [];
+  const directMatches = exactMatches.length > 0
+    ? exactMatches
+    : (inventoryEntries.byName.get(normalizeName(displayName)) || []);
+  const direct = directMatches.find((item) => item.owned || item.mastered || (item.quantity ?? 0) > 0 || (item.crafted ?? 0) > 0)
+    || directMatches[0];
+  const directCrafted = direct?.crafted ?? 0;
+  const currentStock = Math.max(ctx?.stock ?? 0, direct?.quantity ?? 0, directCrafted);
+  const directOwned = !!direct?.owned || currentStock > 0;
+  // Direct component evidence is preferred. A mastered parent is also valid
+  // evidence for its recipe components, but only when the component resolver
+  // actually found that parent; an unrelated or unmastered parent must not
+  // suppress "Never Obtained".
+  const everObtained = directOwned
+    || !!direct?.mastered
+    // Standalone rewards can use their own crafted count. Components cannot:
+    // ctx.craftedCount is the parent weapon/frame count for them.
+    || (!ctx?.isRecipeComponent && (ctx?.craftedCount ?? 0) > 0)
+    // A mastered parent is valid historical evidence for its own recipe
+    // components. This must remain conditional: an unmastered parent such as
+    // the user's Tatsu Prime cannot make Tatsu Prime Handle look obtained.
+    || (!!ctx?.isRecipeComponent && !!ctx?.isMastered)
+    // A pending Foundry recipe proves the blueprint was obtained, but does
+    // not count as current stock because the Foundry is consuming it now.
+    || foundryEvidence;
+  return { currentStock, directOwned, everObtained };
+}
+
+// Planner and overlay can ask about hundreds of parts during one render. Keep
+// the normalized inventory indexes per parsed inventory identity so ownership
+// checks remain O(1) lookups instead of rebuilding and scanning four arrays for
+// every part.
+const partInventoryIndexes = new WeakMap();
+function getPartInventoryIndex(inventoryData, exportData) {
+  if (!inventoryData || typeof inventoryData !== 'object') return { byUnique: new Map(), byName: new Map(), foundryUnique: new Set(), foundryNames: new Set() };
+  const cached = partInventoryIndexes.get(inventoryData);
+  if (cached) return cached;
+  const normalize = (value) => value?.replace('/StoreItems/', '/').toLowerCase();
+  const normalizeName = (value) => value?.replace(/\s+Blueprint$/i, '').trim().toLowerCase();
+  const byUnique = new Map();
+  const byName = new Map();
+  const foundryUnique = new Set();
+  const foundryNames = new Set();
+  const entries = [
+    ...(inventoryData.prime_parts || []),
+    ...Object.values(inventoryData.primeSets || {}).flatMap((set) => set.parts || []),
+    ...(inventoryData.all || []),
+    ...(inventoryData.resources || []),
+    // Blueprint-backed adapters, stars, and other relic rewards are exposed
+    // through the consumables catalog rather than inventoryData.all.
+    ...(inventoryData.consumables_catalog || []),
+    ...(inventoryData.consumables || []),
+    // Requiem relic rewards are mods (Lohk, Netra, Isos, etc.) - `mods` is
+    // its own array, not folded into `all`, so it must be scanned too or
+    // Requiem mods the player owns always resolve as never-obtained.
+    ...(inventoryData.mods || []),
+  ];
+  for (const item of entries) {
+    const unique = normalize(item.unique_name);
+    const name = normalizeName(item.name);
+    if (unique) byUnique.set(unique, [...(byUnique.get(unique) || []), item]);
+    if (name) byName.set(name, [...(byName.get(name) || []), item]);
+  }
+  // PendingRecipes are proof that the player obtained the recipe/blueprint,
+  // even though the blueprint is no longer in current inventory while it is
+  // being consumed by the Foundry. Keep this separate from current stock so
+  // "Never Obtained" excludes it without making "Missing" claim it is held.
+  for (const pending of inventoryData.foundry || []) {
+    const uniqueNames = [pending.unique_name, pending.result_type].filter(Boolean);
+    for (const uniqueName of uniqueNames) foundryUnique.add(normalize(uniqueName));
+    const name = normalizeName(pending.name);
+    const parentName = normalizeName(pending.parentName);
+    if (name) foundryNames.add(name);
+    if (parentName) foundryNames.add(parentName);
+
+    // A parent recipe can consume its component blueprints before the parent
+    // finishes. For example, building Voruna Prime removes the Helmet,
+    // Chassis, and Systems blueprints from inventory, but starting that
+    // parent recipe is definitive evidence that each component was obtained.
+    // Record both export identities used by relic rewards: recipes generally
+    // consume `...Component`, while relic pools award `...Blueprint`.
+    const recipeEntries = exportData?.ExportRecipes || {};
+    const recipe = recipeEntries[pending.unique_name]
+      || recipeEntries[pending.result_type]
+      || Object.entries(recipeEntries).find(([key]) => normalize(key) === normalize(pending.unique_name))?.[1]
+      || Object.entries(recipeEntries).find(([key]) => normalize(key) === normalize(pending.result_type))?.[1];
+    for (const ingredient of pending.recipeIngredients || recipe?.ingredients || []) {
+      if (!ingredient?.ItemType) continue;
+      const ingredientUnique = normalize(ingredient.ItemType);
+      foundryUnique.add(ingredientUnique);
+      if (/component$/i.test(ingredientUnique)) {
+        // ingredientUnique is already lowercased by normalize() above; the
+        // replacement must stay lowercase too, or the Set entry silently
+        // mismatches every lookup (which also normalizes/lowercases first).
+        foundryUnique.add(ingredientUnique.replace(/component$/i, 'blueprint'));
+      }
+    }
+  }
+  const index = { byUnique, byName, foundryUnique, foundryNames };
+  partInventoryIndexes.set(inventoryData, index);
+  return index;
 }
 
 /**

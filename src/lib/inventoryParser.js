@@ -2967,6 +2967,10 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         image: resolveImage(resultType, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
         finishTime,
         buildTime: recipe?.buildTime ?? (12 * 3600),
+        // Preserve the consumed recipe inputs. Relic history needs these when
+        // a parent item is already in the Foundry and its component
+        // blueprints have consequently disappeared from inventory.
+        recipeIngredients: recipe?.ingredients ?? [],
         ready: finishTime > 0 && (Date.now() / 1000) > finishTime,
         ...p
       }

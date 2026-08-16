@@ -646,7 +646,7 @@ function getPartInventoryIndex(inventoryData, exportData) {
       || recipeEntries[pending.result_type]
       || Object.entries(recipeEntries).find(([key]) => normalize(key) === normalize(pending.unique_name))?.[1]
       || Object.entries(recipeEntries).find(([key]) => normalize(key) === normalize(pending.result_type))?.[1];
-    for (const ingredient of recipe?.ingredients || []) {
+    for (const ingredient of pending.recipeIngredients || recipe?.ingredients || []) {
       if (!ingredient?.ItemType) continue;
       const ingredientUnique = normalize(ingredient.ItemType);
       foundryUnique.add(ingredientUnique);

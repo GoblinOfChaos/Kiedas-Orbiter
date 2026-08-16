@@ -124,7 +124,7 @@ jobs:
           RUST_BACKTRACE: full
         with:
           tagName: ${{ github.ref_name }}
-          releaseName: 'Cephalon Kronos ${{ github.ref_name }}'
+          releaseName: "Kieda's Orbiter ${{ github.ref_name }}"
           releaseBody: 'See the attached assets for the release binaries.'
           releaseDraft: true
           prerelease: false
@@ -168,7 +168,7 @@ jobs:
           sed -i '2r /tmp/preload-snippet.sh' squashfs-root/AppRun
 
           # Repack
-          PATCHED="/tmp/Cephalon-Kronos_${VERSION}_amd64.AppImage"
+          PATCHED="/tmp/Kiedas-Orbiter_${VERSION}_amd64.AppImage"
           /tmp/appimagetool --comp zstd squashfs-root "$PATCHED" 2>&1
           chmod +x "$PATCHED"
 
@@ -209,7 +209,7 @@ jobs:
         run: |
           TAG="${{ github.ref_name }}"
           VERSION="${TAG#v}"
-          BASE_URL="https://github.com/glowseeker/cephalon-kronos/releases/download/$TAG"
+          BASE_URL="https://github.com/GoblinOfChaos/Kiedas-Orbiter/releases/download/$TAG"
 
           # Download all sig and binary name info from the release
           mkdir -p /tmp/sigs
@@ -226,8 +226,9 @@ jobs:
           }
 
           # Helper: resolve the actual asset filename for a platform from the sig filename.
-          # The tauri-action may use "Cephalon Kronos" (space) or "Cephalon-Kronos" (hyphen)
-          # depending on the version.  We derive it from whatever file is actually on the release.
+          # tauri-action derives the filename from productName ("Kieda's Orbiter"),
+          # sanitized differently across versions/platforms. We derive it from
+          # whatever file is actually on the release rather than guessing.
           resolve_asset() {
             local keyword="$1"
             local sig_file
@@ -238,15 +239,15 @@ jobs:
             else
               # Fallback – use hyphens as the canonical form
               case "$keyword" in
-                x64-setup.exe*)  echo "Cephalon-Kronos_${VERSION}_x64-setup.exe" ;;
-                x64.dmg*)        echo "Cephalon-Kronos_${VERSION}_x64.dmg" ;;
-                aarch64.dmg*)    echo "Cephalon-Kronos_${VERSION}_aarch64.dmg" ;;
-                AppImage*)       echo "Cephalon-Kronos_${VERSION}_amd64.AppImage" ;;
+                x64_en-US.msi*)  echo "Kiedas-Orbiter_${VERSION}_x64_en-US.msi" ;;
+                x64.dmg*)        echo "Kiedas-Orbiter_${VERSION}_x64.dmg" ;;
+                aarch64.dmg*)    echo "Kiedas-Orbiter_${VERSION}_aarch64.dmg" ;;
+                AppImage*)       echo "Kiedas-Orbiter_${VERSION}_amd64.AppImage" ;;
               esac
             fi
           }
 
-          WIN_ASSET=$(resolve_asset 'x64-setup.exe')
+          WIN_ASSET=$(resolve_asset 'x64_en-US.msi')
           MAC_X64_ASSET=$(resolve_asset 'x64.dmg')
           MAC_ARM_ASSET=$(resolve_asset 'aarch64.dmg')
           LINUX_ASSET=$(resolve_asset 'AppImage')
@@ -256,7 +257,7 @@ jobs:
             --arg version "$VERSION" \
             --arg tag "$TAG" \
             --arg base_url "$BASE_URL" \
-            --arg win_sig "$(get_sig 'x64-setup.exe')" \
+            --arg win_sig "$(get_sig 'x64_en-US.msi')" \
             --arg mac_x64_sig "$(get_sig 'x64.dmg')" \
             --arg mac_aarch64_sig "$(get_sig 'aarch64.dmg')" \
             --arg linux_sig "$(get_sig 'AppImage')" \

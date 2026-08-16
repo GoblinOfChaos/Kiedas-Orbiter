@@ -177,9 +177,9 @@
       "active": false,
       "dialog": true,
       "endpoints": [
-        "https://github.com/glowseeker/cephalon-kronos/releases/latest/download/updater.json"
+        "https://github.com/GoblinOfChaos/Kiedas-Orbiter/releases/latest/download/updater.json"
       ],
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEY0MENFRTlENTZBMzgxRjIKUldUeWdhTlduZTRNOU1FWXlhbnhSdGNPcm9ZMXkxZFhVb3lBZGU4MitqUEhWRFNDNG5wcjN1dkYK"
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDk4RkM5MzU0N0VCNDhFN0MKUldSOGpyUitWSlA4bU5LNmdlZ1RjeGY0bHJSb3hBRHNPWnpCNWM2bDFlZW1HUXl3ZWtROFpENTMK"
     }
   }
 }

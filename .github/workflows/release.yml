@@ -137,8 +137,15 @@ jobs:
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
-          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+          # Tauri v2's CLI reads TAURI_SIGNING_PRIVATE_KEY(_PASSWORD), not the
+          # v1 names TAURI_PRIVATE_KEY/TAURI_KEY_PASSWORD this workflow (and
+          # upstream Kronos, which predates this fork's Tauri v2 migration)
+          # still used. Confirmed live: every platform's build logged
+          # "Signature not found for the updater JSON. Skipping upload" and
+          # shipped with an empty signature - Windows/macOS updates would
+          # have failed verification, silently, on every install.
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
           RUST_BACKTRACE: full
         with:
           tagName: ${{ github.ref_name }}

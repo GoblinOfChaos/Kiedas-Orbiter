@@ -1,6 +1,6 @@
 [package]
 name = "kiedas-orbiter"
-version = "0.7.0"
+version = "1.3.3"
 description = "A cross-platform desktop companion for Warframe, forked from Cephalon Kronos"
 authors = ["Jacob Edwards", "glowseeker (original Cephalon Kronos)"]
 license = ""

@@ -3,6 +3,36 @@
 // Keep these keyed by DE uniqueName so similarly named objects cannot inherit
 // an acquisition route by accident.
 export const WIKI_VERIFIED_ACQUISITIONS = new Map([
+  ['/Lotus/Types/Items/Ships/DefaultShip', {
+    text: 'The Liset is the first Landing Craft new players acquire automatically during the Awakening introduction Quest.',
+    url: 'https://wiki.warframe.com/w/Liset',
+    source: 'Warframe Wiki exact Liset acquisition section',
+  }],
+  ['/Lotus/Types/Items/Ships/MantisShip', {
+    text: "Purchase the blueprint from the Market for 35,000 Credits (component blueprints also drop from Storage Containers), or buy the complete Mantis from the Market for 150 Platinum. Building requires the Landing Craft Foundry Segment.",
+    url: 'https://wiki.warframe.com/w/Mantis',
+    source: 'Warframe Wiki exact Mantis acquisition section',
+  }],
+  ['/Lotus/Types/Items/Ships/ScimitarShip', {
+    text: "Purchase the blueprint from the Market for 35,000 Credits (component blueprints also drop from Zanuka Hunter, Stalker, and Vem Tabook), or buy the complete Scimitar from the Market for 150 Platinum. Building requires the Landing Craft Foundry Segment.",
+    url: 'https://wiki.warframe.com/w/Scimitar',
+    source: 'Warframe Wiki exact Scimitar acquisition section',
+  }],
+  ['/Lotus/Types/Items/Ships/XiphosShip', {
+    text: "Purchase the blueprint from the Market for 35,000 Credits (component blueprints also drop from Resource Caches in Sabotage/Exterminate missions), or buy the complete Xiphos from the Market for 150 Platinum. Building requires the Landing Craft Foundry Segment.",
+    url: 'https://wiki.warframe.com/w/Xiphos',
+    source: 'Warframe Wiki exact Xiphos acquisition section',
+  }],
+  ['/Lotus/Types/Items/Ships/NoraShip', {
+    text: "The main blueprint and all component blueprints can be purchased from Nightwave Cred Offerings for 35x Cred each (also previously offered as a Nightwave rank reward). Building requires the Landing Craft Foundry Segment.",
+    url: 'https://wiki.warframe.com/w/Nightwave_(Landing_Craft)',
+    source: 'Warframe Wiki exact Nightwave (Landing Craft) acquisition section',
+  }],
+  ['/Lotus/Types/Items/Ships/ZarimanShip', {
+    text: "Purchase the blueprint from the Market for 70,000 Credits (component blueprints also drop from Reinforced Carrypods in Zariman Ten Zero missions), or buy the complete Parallax from the Market for 150 Platinum. Building requires the Landing Craft Foundry Segment.",
+    url: 'https://wiki.warframe.com/w/Parallax',
+    source: 'Warframe Wiki exact Parallax acquisition section',
+  }],
   ['/Lotus/Weapons/Tenno/Akimbo/AkimboShotGun', {
     text: "Purchase the Akbronco blueprint from the Market; build it using two Bronco pistols and one Orokin Cell.",
     url: 'https://wiki.warframe.com/w/Akbronco',

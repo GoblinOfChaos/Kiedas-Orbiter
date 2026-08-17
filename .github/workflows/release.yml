@@ -22,6 +22,24 @@ jobs:
         with:
           submodules: recursive
 
+      # package.json's version drives both the built app's self-reported
+      # version (tauri.conf.json points "version" at package.json) and the
+      # Tauri updater's "am I outdated" comparison. Letting it drift from the
+      # release tag makes update checks permanently wrong in one direction
+      # or the other - confirmed live: package.json sat at 0.7.0 across
+      # several 1.x tags, so every install of every release still compared
+      # itself as older than the latest release and re-offered the same
+      # "update" forever, even immediately after actually updating.
+      - name: Sync package.json/Cargo.toml version to the release tag
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "Setting version to $VERSION"
+          jq --arg v "$VERSION" '.version = $v' package.json > package.json.tmp
+          mv package.json.tmp package.json
+          sed -i.bak "0,/^version = \".*\"/s//version = \"$VERSION\"/" src-tauri/Cargo.toml
+          rm -f src-tauri/Cargo.toml.bak
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:

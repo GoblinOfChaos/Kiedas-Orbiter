@@ -710,7 +710,7 @@ export default function Inventory() {
 
             }
             return (
-              <div key={item.unique_name + idx} className={`relative rounded-xl border overflow-hidden bg-kronos-panel/20 flex items-stretch h-32 ${item.quantity > 0 ? 'border-white/5' : 'border-white/5 border-dashed opacity-60'}`}>
+              <div key={item.unique_name + idx} onClick={() => toggle(item.unique_name)} className={`relative rounded-xl border overflow-hidden bg-kronos-panel/20 flex items-stretch h-32 cursor-pointer ${item.quantity > 0 ? 'border-white/5' : 'border-white/5 border-dashed opacity-60'}`}>
                     {item.isOptimal &&
                 <div className="absolute top-2 right-2 z-10 px-2 py-0.5 bg-yellow-500 text-black text-[9px] font-black uppercase tracking-wider rounded shadow-lg">{t('ui.inventory.optimal')}
 

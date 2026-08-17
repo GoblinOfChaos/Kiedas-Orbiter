@@ -2241,17 +2241,35 @@ fn get_platform_info() -> serde_json::Value {
 
 #[tauri::command]
 async fn download_appimage_update(url: String) -> Result<String, String> {
+    eprintln!("[UPDATER] downloading {url}");
     let appimage_path =
         std::env::var("APPIMAGE").map_err(|_| "Not running from AppImage".to_string())?;
-    let parent = std::path::Path::new(&appimage_path)
+    let appimage_path = std::path::PathBuf::from(appimage_path);
+    let parent = appimage_path
         .parent()
         .ok_or("Cannot determine AppImage directory")?;
-    let filename = url.split('/').last().ok_or("Invalid URL")?;
-    let dest_path = parent.join(filename);
-    let temp_path = parent.join(format!(".{}.partial", filename));
+    // Must land on the exact path the desktop shortcut/launcher points at
+    // ($APPIMAGE), not a filename derived from the release asset. That
+    // previously wrote a differently-named sibling file and spawned that
+    // instead - the shortcut kept launching the old, never-replaced file,
+    // which reports its own version unchanged and so finds the "same"
+    // update available again on every future launch. Confirmed live: this
+    // produced two simultaneous running instances, both still offering to
+    // update, after a "successful" install.
+    let dest_path = appimage_path.clone();
+    let temp_filename = url.split('/').last().ok_or("Invalid URL")?;
+    let temp_path = parent.join(format!(".{}.partial", temp_filename));
 
+    // No timeout here previously meant a stalled connection (dropped
+    // packets, a proxy holding the socket open, etc.) hung this call - and
+    // therefore the whole silent auto-update flow - forever with no error
+    // and nothing in the logs to explain why. Confirmed live: the app sat
+    // on "installing update" for 13+ minutes with no progress or failure,
+    // while the same URL downloaded in ~2s from a plain curl.
     let client = reqwest::Client::builder()
         .user_agent("KiedasOrbiter-Updater")
+        .connect_timeout(std::time::Duration::from_secs(15))
+        .timeout(std::time::Duration::from_secs(300))
         .build()
         .map_err(|e| e.to_string())?;
     let response = client
@@ -2259,12 +2277,15 @@ async fn download_appimage_update(url: String) -> Result<String, String> {
         .send()
         .await
         .map_err(|e| format!("Download failed: {}", e))?;
+    eprintln!("[UPDATER] response status {}", response.status());
     let bytes = response
         .bytes()
         .await
         .map_err(|e| format!("Read failed: {}", e))?;
+    eprintln!("[UPDATER] downloaded {} bytes", bytes.len());
 
     std::fs::write(&temp_path, &bytes).map_err(|e| format!("Write failed: {}", e))?;
+    eprintln!("[UPDATER] wrote {}", temp_path.display());
 
     #[cfg(unix)]
     {
@@ -2274,6 +2295,7 @@ async fn download_appimage_update(url: String) -> Result<String, String> {
     }
 
     std::fs::rename(&temp_path, &dest_path).map_err(|e| format!("Rename failed: {}", e))?;
+    eprintln!("[UPDATER] installed {}, relaunching", dest_path.display());
 
     let _ = std::process::Command::new(&dest_path).spawn();
 

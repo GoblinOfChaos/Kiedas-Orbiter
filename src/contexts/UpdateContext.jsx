@@ -16,11 +16,6 @@ export function UpdateProvider({ children }) {
     invoke('get_platform_info').then(setPlatformInfo).catch(() => {})
   }, [])
 
-  // Takes the download URL directly rather than reading it back out of
-  // updateState, since the auto-install path needs to run immediately after
-  // the update is found - React state from the same setUpdateState call
-  // isn't readable yet (updates are async), so reading it back here would
-  // race and see a stale null on the very first silent auto-install.
   const runInstall = useCallback(async (url) => {
     if (!latestUpdateRef.current) {
       setUpdateState({ status: 'error', manifest: null, error: 'No update available to install' })
@@ -54,7 +49,7 @@ export function UpdateProvider({ children }) {
     }
   }, [platformInfo])
 
-  const checkForUpdates = useCallback(async (autoInstall = false) => {
+  const checkForUpdates = useCallback(async () => {
     setUpdateState({ status: 'checking', manifest: null, error: null })
     try {
       const result = await check()
@@ -75,11 +70,6 @@ export function UpdateProvider({ children }) {
           },
           error: null
         })
-        // Fully silent auto-update: install immediately once found, no
-        // click required. Only for the startup check (autoInstall) - a
-        // manually-triggered check (e.g. from Settings) still just reports
-        // availability and waits for the user to hit install themselves.
-        if (autoInstall) runInstall(linuxUrl)
       } else {
         latestUpdateRef.current = null
         setUpdateState({ status: 'up-to-date', manifest: null, error: null })
@@ -87,16 +77,19 @@ export function UpdateProvider({ children }) {
     } catch (err) {
       setUpdateState({ status: 'error', manifest: null, error: err?.message ?? String(err) })
     }
-  }, [runInstall])
+  }, [])
 
   const installLatestUpdate = useCallback(() => runInstall(updateState.manifest?.downloadUrl), [runInstall, updateState.manifest?.downloadUrl])
 
+  // Checks for updates on startup, but never auto-installs: only reports
+  // availability. Installing is always an explicit user click (see
+  // installLatestUpdate), even when auto-check-on-startup is on.
   useEffect(() => {
     if (checkedRef.current) return
     checkedRef.current = true
     const autoCheck = getSetting('update_on_startup', true)
     if (autoCheck) {
-      checkForUpdates(true)
+      checkForUpdates()
     }
   }, [checkForUpdates])
 

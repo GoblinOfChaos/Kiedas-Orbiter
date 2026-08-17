@@ -248,7 +248,8 @@ function AppContent() {
   const [sidebarActive, setSidebarActive] = useState(false);
   const [sidebarSide, setSidebarSide] = useState('left');
   const { lastUpdate, monitorResult, isMonitoring } = useMonitoring();
-  const { updateState } = useUpdate();
+  const { updateState, installLatestUpdate } = useUpdate();
+  const [updateBannerDismissed, setUpdateBannerDismissed] = useState(false);
   const [scannerStatus, setScannerStatus] = useState('idle'); // 'idle' | 'waiting' | 'active'
 
   const { uiIcon } = useUIIcons(ICON_NAMES);
@@ -470,6 +471,36 @@ function AppContent() {
         
           <div className={`w-[2px] h-12 rounded-full bg-white/20 group-hover:bg-kronos-accent/50 transition-colors ${sidebarSide === 'left' ? 'mr-[10px]' : 'ml-[10px]'}`} />
         </div>
+      }
+
+      {/* ── Update available banner ── */}
+      {updateState.status === 'available' && !updateBannerDismissed &&
+      <div className="fixed bottom-4 right-4 z-[9999] glass-panel rounded-xl border border-kronos-accent/30 shadow-2xl px-4 py-3 flex items-center gap-3 bg-kronos-bg">
+        <div className="w-2 h-2 rounded-full bg-kronos-accent shadow-[0_0_6px_rgba(var(--kronos-accent-rgb),0.8)] flex-shrink-0" />
+        <div className="text-xs">
+          <p className="font-black uppercase tracking-wider text-kronos-text">Update available</p>
+          {updateState.manifest?.version &&
+          <p className="text-kronos-dim">Version {updateState.manifest.version}</p>
+          }
+        </div>
+        <button
+          onClick={installLatestUpdate}
+          className="ml-1 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider bg-kronos-accent text-kronos-bg hover:opacity-90 transition-opacity flex-shrink-0">
+          Update Now
+        </button>
+        <button
+          onClick={() => setUpdateBannerDismissed(true)}
+          className="text-kronos-dim hover:text-white text-xs px-1 flex-shrink-0"
+          aria-label="Dismiss">
+          ✕
+        </button>
+      </div>
+      }
+      {updateState.status === 'installing' &&
+      <div className="fixed bottom-4 right-4 z-[9999] glass-panel rounded-xl border border-kronos-accent/30 shadow-2xl px-4 py-3 flex items-center gap-3 bg-kronos-bg">
+        <div className="w-3 h-3 border-2 border-kronos-accent/30 border-t-kronos-accent rounded-full animate-spin flex-shrink-0" />
+        <p className="text-xs font-black uppercase tracking-wider text-kronos-text">Installing update…</p>
+      </div>
       }
     </div>);
 

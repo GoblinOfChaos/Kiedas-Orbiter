@@ -2023,7 +2023,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       name,
       image: hash ? `https://content.warframe.com/PublicExport${iconPath}!${hash}` : `https://browse.wf${iconPath}`,
       category: 'landing_craft',
-      quantity: owned?.ItemCount ?? 0,
+      // Ships are unique, non-stackable instances - raw.Ships entries never
+      // carry an ItemCount field at all, so this was always 0 regardless of
+      // real ownership. The Inventory card's "stock count" display reads
+      // quantity (not the owned field) for this category, so every landing
+      // craft showed "Unowned" even when genuinely owned.
+      quantity: owned ? 1 : 0,
       owned: !!owned,
     };
   });

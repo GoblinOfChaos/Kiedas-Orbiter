@@ -60,7 +60,21 @@ function ItemCard({ item, recipe, selected, onClick }) {
   const owned = hasFoundryOwnership(item, recipe)
   const ready = isReadyToCraft(recipe)
   const formas = Math.min(item.formas ?? 0, 10)
-  const components = recipe?.ingredients?.slice(0, 6) || []
+  const allComponents = []
+  if (recipe && recipe.bpCount !== undefined) {
+    allComponents.push({
+      itemType: recipe.uniqueName || `${item.unique_name}_bp`,
+      name: recipe.bpName || `${item.name} Blueprint`,
+      have: recipe.bpCount ?? 0,
+      need: 1,
+      image: recipe.bpImage || item.image,
+      isBlueprint: true,
+    })
+  }
+  if (recipe?.ingredients) {
+    allComponents.push(...recipe.ingredients)
+  }
+  const components = allComponents.slice(0, 6)
   return <button onClick={onClick} className={`relative text-left rounded-xl border overflow-hidden transition-all ${selected ? 'border-kronos-accent ring-1 ring-kronos-accent/50' : owned ? 'border-emerald-500/70' : 'border-white/10'} ${owned ? 'bg-emerald-950/80' : 'bg-[#202a40]'} hover:border-kronos-accent/70`}>
     <div className="px-2 pt-1.5 flex items-center justify-center gap-1 min-w-0 h-8">
       <Star size={15} className="text-white/80 shrink-0" />
@@ -78,6 +92,11 @@ function ItemCard({ item, recipe, selected, onClick }) {
           const complete = component.have >= component.need
           return <span key={component.itemType || component.name} className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 flex items-center justify-center ${complete ? 'border-emerald-400' : 'border-white/15 bg-black/15'}`} title={`${component.name}: ${formatCount(component.have)}/${formatCount(component.need)}`}>
             <ItemImage src={component.image} className="w-6 h-6 sm:w-7 sm:h-7 object-contain rounded-full" placeholderClassName="w-5 h-5 rounded-full bg-white/10" />
+            {component.isBlueprint && (
+              <span className={`absolute -top-1 -left-1 text-[6.5px] font-black rounded-full px-1 leading-tight shadow ${complete ? 'bg-amber-400 text-black' : 'bg-black/90 text-amber-300 border border-amber-400/40'}`} title="Blueprint">
+                BP
+              </span>
+            )}
             <span className={`absolute -bottom-1 -right-1 text-[7px] rounded-full px-0.5 leading-3 min-w-5 text-center font-black ${complete ? 'bg-emerald-400 text-black' : 'bg-black text-white/70'}`}>{formatCount(component.have)}/{formatCount(component.need)}</span>
           </span>
         })}
@@ -110,6 +129,19 @@ function RecipeDrawer({ item, recipe, onClose }) {
           </div>
           <div className="flex items-center gap-2 mb-3 text-xs font-black uppercase"><Hammer size={14} className="text-kronos-accent" /> Recipe requirements</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            {recipe.bpCount !== undefined && (
+              <div className={`flex items-center gap-2 rounded-lg bg-black/20 p-2 border ${recipe.bpCount >= 1 ? 'border-emerald-500/30' : 'border-white/5'}`}>
+                <div className="relative">
+                  <ItemImage src={recipe.bpImage || item.image} className="w-8 h-8 object-contain" placeholderClassName="" />
+                  <span className="absolute -top-1 -left-1 text-[6px] font-black bg-amber-400 text-black px-1 rounded-full">BP</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-[11px] whitespace-normal break-words font-medium">{recipe.bpName || `${item.name} Blueprint`}</span>
+                  <span className="text-[9px] text-kronos-dim block uppercase font-mono">Main Blueprint</span>
+                </div>
+                <span className={`text-[10px] font-black shrink-0 ${recipe.bpCount >= 1 ? 'text-emerald-400' : 'text-red-400'}`}>{formatCount(recipe.bpCount)}/1</span>
+              </div>
+            )}
             {(recipe.ingredients || []).map((ingredient) => {
               const complete = ingredient.have >= ingredient.need
               return <div key={ingredient.itemType || ingredient.name} className="flex items-center gap-2 rounded-lg bg-black/20 p-2">
@@ -159,8 +191,13 @@ export default function Foundry() {
       const recipe = recipeByResult.get(`path:${canonicalPath(item.unique_name)}`)
         || recipeByResult.get(`name:${canonicalName(item.name)}`)
       const image = resolveAnyImage(item, EI, nameToImage, uniqueNameToName) || item.image
+      const bpImage = recipe ? (
+        resolveAnyImage({ uniqueName: recipe.uniqueName, name: recipe.bpName }, EI, nameToImage, uniqueNameToName)
+        || image
+      ) : null
       const recipeWithImages = recipe ? {
         ...recipe,
+        bpImage,
         ingredients: (recipe.ingredients || []).map((component) => ({
           ...component,
           image: component.image || resolveAnyImage({ uniqueName: component.itemType, name: component.name }, EI, nameToImage, uniqueNameToName),

@@ -594,12 +594,20 @@
     "wiki": "https://wiki.warframe.com/w/Kuria"
   },
   "seriesMeta": {
+    "/Lotus/Objects/Orokin/Props/CollectibleSeriesOne": {
+      "groupSize": 4,
+      "note": "Kuria statues are hidden across Grineer and Corpus tilesets. Scan all 56 to unlock the Kuria poem, Emblem, and Orokin Kuria Statuette.",
+      "source": "https://wiki.warframe.com/w/Kuria"
+    },
     "/Lotus/Types/Lore/Fragments/DuviriFragments/DuviriCollectibleDeco": {
       "groupSize": 9,
+      "note": "Lost Islands fragments are scattered across the landscape of Duviri. Scan them to unlock Duviri lore entries.",
       "source": "https://wiki.warframe.com/w/Fragments/Duviri"
     },
-    "/Lotus/Objects/Orokin/Props/CollectibleSeriesOne": {
-      "groupSize": 4
+    "/Lotus/Types/Lore/Fragments/DuviriMITWFragments/DuviriMITWCollectibleDeco": {
+      "groupSize": 5,
+      "note": "Isleweaver fragments are hidden across the Isleweaver archipelago in Duviri.",
+      "source": "https://wiki.warframe.com/w/Fragments/Duviri"
     }
   },
   "fragmentGuides": {

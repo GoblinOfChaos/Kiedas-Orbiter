@@ -40,6 +40,24 @@ function countBits(n) {
   return c
 }
 
+function getSeriesTrackingBits(cs) {
+  if (!cs || !cs.Tracking || typeof cs.Tracking !== 'string') return null
+  const total = cs.ReqScans || 0
+  const t = cs.Tracking
+  if (t.length < total) return null
+  if (total === 90) return t
+
+  const expectedCount = cs.Count ?? t.split('').filter(c => c === '1').length
+  for (let start = 0; start <= t.length - total; start++) {
+    const window = t.slice(start, start + total)
+    const count = window.split('').filter(c => c === '1').length
+    if (count === expectedCount) {
+      return window
+    }
+  }
+  return t.slice(t.length - total)
+}
+
 function Subpanel({ cat, items, onClose }) {
   const panelRef = useRef(null)
   const handleOpenLink = async (url) => {
@@ -187,6 +205,7 @@ export default function Collectibles() {
 
   const seriesCards = useMemo(() => CATEGORIES.filter(c => c.type === 'series').map((cat) => {
     const cs = collectibleSeries.find(s => s.CollectibleType === cat.key)
+    const trackingBits = getSeriesTrackingBits(cs)
     const card = {
       key: cat.key,
       icon: cat.icon && uiPath ? convertFileSrc(`${uiPath}/${cat.icon}`) : null,
@@ -194,29 +213,24 @@ export default function Collectibles() {
       color: cat.color,
       count: cs?.Count ?? 0,
       total: cs?.ReqScans ?? 0,
-      guide: `The game's save data doesn't expose which specific item you have vs. still need - only the total (${cs?.Count ?? 0}/${cs?.ReqScans ?? 0} shown above) is accurate. This list is a location reference for all of them, not a personal checklist.`,
+      guide: collectibleLocations.seriesMeta?.[cat.key]?.note || collectibleLocations.fragmentGuides?.[cat.label]?.note,
+      guideSource: collectibleLocations.seriesMeta?.[cat.key]?.source || collectibleLocations.fragmentGuides?.[cat.label]?.source,
     }
     return {
       ...card,
       onClick: () => openSubpanel(card, () => {
         const groupSize = collectibleLocations.seriesMeta?.[cat.key]?.groupSize ?? 4
-        // The save has a `Tracking` bitstring whose total 1-count matches `Count`
-        // exactly, but checked whether a contiguous slice of it lines up with
-        // per-item order and it doesn't cleanly - multiple different offsets
-        // "match" the count by coincidence, meaning there's no single unambiguous
-        // window. Not reliable enough to claim a specific item is found/not found,
-        // so individual status stays unknown rather than risk showing the wrong
-        // item as owned.
         return Array.from({ length: card.total }, (_, i) => {
           const itemKey = `${Math.floor(i / groupSize) + 1}-${(i % groupSize) + 1}`
           const data = collectibleLocations.series?.[cat.key]?.[itemKey]
+          const isFound = trackingBits ? trackingBits[i] === '1' : null
           return {
             key: itemKey,
             name: `${data?.name || cat.label} (${itemKey})`,
             location: data?.location,
-            found: null,
+            found: isFound,
           }
-        })
+        }).sort((a, b) => (a.found === b.found ? a.name.localeCompare(b.name, undefined, { numeric: true }) : a.found ? 1 : -1))
       }),
     }
   }), [collectibleSeries, collectibleLocations, uiPath, openSubpanel])

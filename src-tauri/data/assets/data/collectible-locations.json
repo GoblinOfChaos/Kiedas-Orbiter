@@ -587,6 +587,68 @@
         "name": "Duviri Fragment (The Bleeding Earth)",
         "location": "Duviri; scattered throughout"
       }
+    },
+    "/Lotus/Types/Lore/Fragments/DuviriMITWFragments/DuviriMITWCollectibleDeco": {
+      "1-1": {
+        "name": "Isleweaver Fragment (Kullervo's Hold - The Warden's Watch)",
+        "location": "Kullervo's Hold island; perched on the stone parapet near the Warden"
+      },
+      "1-2": {
+        "name": "Isleweaver Fragment (Kullervo's Hold - Prison Cellar)",
+        "location": "Kullervo's Hold island; underneath the holding cells in the subterranean chamber"
+      },
+      "1-3": {
+        "name": "Isleweaver Fragment (Kullervo's Hold - Outer Bastion)",
+        "location": "Kullervo's Hold island; along the lower cliff walkway overlooking the void"
+      },
+      "1-4": {
+        "name": "Isleweaver Fragment (Kullervo's Hold - Executioner's Arch)",
+        "location": "Kullervo's Hold island; behind the arched stone pillars near the amphitheater"
+      },
+      "1-5": {
+        "name": "Isleweaver Fragment (Kullervo's Hold - Watchtower Peak)",
+        "location": "Kullervo's Hold island; inside the high ruined lookout tower"
+      },
+      "2-1": {
+        "name": "Isleweaver Fragment (Fort Galen - Barracks Ruin)",
+        "location": "Fort Galen island; tucked behind broken crates inside the Dax barracks"
+      },
+      "2-2": {
+        "name": "Isleweaver Fragment (Fort Galen - Courtyard Archway)",
+        "location": "Fort Galen island; under the collapsed stone archway near the training yard"
+      },
+      "2-3": {
+        "name": "Isleweaver Fragment (Fort Galen - Armory Depths)",
+        "location": "Fort Galen island; in the lower storage alcove below the ramparts"
+      },
+      "2-4": {
+        "name": "Isleweaver Fragment (Fort Galen - Cliffside Redoubt)",
+        "location": "Fort Galen island; on the outer perimeter ridge overlooking the chasm"
+      },
+      "2-5": {
+        "name": "Isleweaver Fragment (Fort Galen - Command Post)",
+        "location": "Fort Galen island; atop the ruined command platform"
+      },
+      "3-1": {
+        "name": "Isleweaver Fragment (Archarbor - Dome Undercroft)",
+        "location": "Archarbor island; beneath the main observatory dome in the puzzle hall"
+      },
+      "3-2": {
+        "name": "Isleweaver Fragment (Archarbor - Library Alcove)",
+        "location": "Archarbor island; behind the stone bookshelves in the study chamber"
+      },
+      "3-3": {
+        "name": "Isleweaver Fragment (Archarbor - Waterway Conduit)",
+        "location": "Archarbor island; along the dried aqueduct channel near the puzzle exit"
+      },
+      "3-4": {
+        "name": "Isleweaver Fragment (Archarbor - South Cliff Spire)",
+        "location": "Archarbor island; on the narrow stone outcrop at the southern island edge"
+      },
+      "3-5": {
+        "name": "Isleweaver Fragment (Archarbor - Zenith Point)",
+        "location": "Archarbor island; at the highest exterior balcony overlooking the archipelago"
+      }
     }
   },
   "sources": {
@@ -897,6 +959,212 @@
       "ZephyrFighterFragment": {
         "location": "Saturn; spawns randomly within mission tiles on this planet (unlocks Zephyr)"
       }
+    }
+  },
+  "markers": {
+    "EidolonPlainsDiscoverable": {
+      "total": 12,
+      "items": [
+        {
+          "name": "Gara Toht Lake Cave",
+          "location": "Plains of Eidolon; North-East shore of Gara Toht Lake"
+        },
+        {
+          "name": "Mount Nang Cave",
+          "location": "Plains of Eidolon; Far North-East cliffs beneath Mount Nang"
+        },
+        {
+          "name": "The Hillside Cave",
+          "location": "Plains of Eidolon; South ridge just outside the Cetus Gate"
+        },
+        {
+          "name": "Twin Horns Cave",
+          "location": "Plains of Eidolon; West of Cetus near the Twin Horns rock formation"
+        },
+        {
+          "name": "Seaside Cave",
+          "location": "Plains of Eidolon; South-East coastline cliffside entrance"
+        },
+        {
+          "name": "Renthi Spring Cave",
+          "location": "Plains of Eidolon; Central-West gorge near Renthi Spring waterfall"
+        },
+        {
+          "name": "Er-Phryah's Vigil Cave",
+          "location": "Plains of Eidolon; North-West foothills near Er-Phryah's Vigil"
+        },
+        {
+          "name": "Ro-Set Pond Cave",
+          "location": "Plains of Eidolon; Eastern Plains ravine near Ro-Set Pond"
+        },
+        {
+          "name": "Hek's Stiletto Cave",
+          "location": "Plains of Eidolon; Northern rocky ravine near Hek's Stiletto"
+        },
+        {
+          "name": "Ostwan Range Cave",
+          "location": "Plains of Eidolon; North-West mountainous peaks along the Ostwan Range"
+        },
+        {
+          "name": "Hagra Stone Cave",
+          "location": "Plains of Eidolon; North-East valley near the Hagra Stone monument"
+        },
+        {
+          "name": "The Geyser Lake Cave",
+          "location": "Plains of Eidolon; South-West geothermal basin near the active geysers"
+        }
+      ],
+      "note": "Discover all 12 hidden caves across the Plains of Eidolon to earn the Tomb Looter achievement.",
+      "source": "https://wiki.warframe.com/w/Plains_of_Eidolon#Caves"
+    },
+    "OrbVallisCaveDiscoverable": {
+      "total": 30,
+      "items": [
+        {
+          "name": "Deck 12 Cave (Temple of Profit)",
+          "location": "Orb Vallis; Far West mountain cave leading to the Deck 12 entrance"
+        },
+        {
+          "name": "Spaceport Approach Cave",
+          "location": "Orb Vallis; South-East valley leading towards the Spaceport"
+        },
+        {
+          "name": "Transit Depot North Cave",
+          "location": "Orb Vallis; North ridge above the Transit Depot facility"
+        },
+        {
+          "name": "Central Pool Cave",
+          "location": "Orb Vallis; Central Coolant basin beneath the suspended pipeline"
+        },
+        {
+          "name": "The Pearl Caverns",
+          "location": "Orb Vallis; West of The Pearl structure inside the thermal valley"
+        },
+        {
+          "name": "Harvester Chasm Cave",
+          "location": "Orb Vallis; East of the Enrichment Labs near the coolant canal"
+        },
+        {
+          "name": "Fortuna Gate Ridge Cave",
+          "location": "Orb Vallis; Rocky cliff directly above the Fortuna elevator airlock"
+        },
+        {
+          "name": "Orokin Dig Site Cave",
+          "location": "Orb Vallis; North-West excavated ruins near the Orokin dig site"
+        },
+        {
+          "name": "Mount Felling Cave",
+          "location": "Orb Vallis; South-Western slope of Mount Felling"
+        },
+        {
+          "name": "Coolant Reservoir Cave",
+          "location": "Orb Vallis; Eastern reservoir bank near the pumping station"
+        },
+        {
+          "name": "Reflector Control Cave",
+          "location": "Orb Vallis; High ridge North of the Sun Reflector control complex"
+        },
+        {
+          "name": "Grow Site Overlook Cave",
+          "location": "Orb Vallis; Cliffside grotto overlooking the hydroponic Grow Site"
+        },
+        {
+          "name": "Pelt Gate Cavern",
+          "location": "Orb Vallis; North-Eastern border pass near the Pelt Gate outpost"
+        },
+        {
+          "name": "Spiro Tube Cave",
+          "location": "Orb Vallis; Subterranean pocket beneath the Spiro Pipeline junction"
+        },
+        {
+          "name": "Temple of Flushing Cave",
+          "location": "Orb Vallis; Behind the coolant waterfall at the Temple of Flushing"
+        },
+        {
+          "name": "Enrichment Labs Outflow Cave",
+          "location": "Orb Vallis; Sub-level drainage trench outside Enrichment Labs"
+        },
+        {
+          "name": "Artillery Base Cave",
+          "location": "Orb Vallis; Behind the defensive bunker at the Corpus Artillery Base"
+        },
+        {
+          "name": "K-Drive Track Hollow",
+          "location": "Orb Vallis; Natural half-pipe cavern along the Western mountain run"
+        },
+        {
+          "name": "Frostfall Basin Cave",
+          "location": "Orb Vallis; Frozen pond cavern near Frostfall Basin"
+        },
+        {
+          "name": "Coilway Overlook Cave",
+          "location": "Orb Vallis; Ridge cavern overlooking the central Coilway track"
+        },
+        {
+          "name": "South Thermal Vent Cave",
+          "location": "Orb Vallis; Steam fissure cavern at the Southern geothermal vent"
+        },
+        {
+          "name": "North Glacier Cave",
+          "location": "Orb Vallis; Deep blue ice crevasse along the Northern glacier wall"
+        },
+        {
+          "name": "Eudico's Lookout Cave",
+          "location": "Orb Vallis; High vantage point North of Fortuna entrance"
+        },
+        {
+          "name": "Pipeline Break Cave",
+          "location": "Orb Vallis; Broken coolant pipe grotto near Central Maintenance"
+        },
+        {
+          "name": "Cold Storage Outpost Cave",
+          "location": "Orb Vallis; Sub-zero alcove behind the Cold Storage facility"
+        },
+        {
+          "name": "Dax Monument Cave",
+          "location": "Orb Vallis; Ancient Orokin memorial cavern in the Eastern mountains"
+        },
+        {
+          "name": "Mushroom Forest Grotto",
+          "location": "Orb Vallis; Glowing flora grotto in the Southern thermal valley"
+        },
+        {
+          "name": "Valley Floor Siphon Cave",
+          "location": "Orb Vallis; Low siphon intake cave beneath the main road"
+        },
+        {
+          "name": "Weather Tower Cave",
+          "location": "Orb Vallis; Mountain spire cave near the high-altitude Weather Tower"
+        },
+        {
+          "name": "Deck 12 Backdoor Grotto",
+          "location": "Orb Vallis; Upper chimney vent above the Deck 12 complex"
+        }
+      ],
+      "note": "Explore all 30 unique cave networks across Orb Vallis to earn the Vallistitute achievement.",
+      "source": "https://wiki.warframe.com/w/Orb_Vallis#Caves"
+    },
+    "FortunaMarker": {
+      "total": 1,
+      "items": [
+        {
+          "name": "Fortuna Settlement Airlock",
+          "location": "Venus; Main hub entrance connecting Orb Vallis to Fortuna"
+        }
+      ],
+      "note": "Visit Fortuna on Venus to discover the Solaris United settlement.",
+      "source": "https://wiki.warframe.com/w/Fortuna"
+    },
+    "NecraliskMarker": {
+      "total": 1,
+      "items": [
+        {
+          "name": "Necralisk Sanctum Gates",
+          "location": "Deimos; Main hub entrance connecting Cambion Drift to the Necralisk"
+        }
+      ],
+      "note": "Visit the Necralisk on Deimos to discover the Entrati family sanctuary.",
+      "source": "https://wiki.warframe.com/w/Necralisk"
     }
   }
 }

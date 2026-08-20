@@ -237,30 +237,54 @@ export default function Collectibles() {
 
   const markerCards = useMemo(() => CATEGORIES.filter(c => c.type === 'marker').map((cat) => {
     const m = discoveredMarkers.find(m => m.tag === cat.key)
-    const total = m ? (m.discoveryState || []).length * 32 : 0
+    const markerMeta = collectibleLocations.markers?.[cat.key]
+    const definedTotal = markerMeta?.total ?? (m ? (m.discoveryState || []).length * 32 : 0)
+    
+    let foundCount = 0
+    if (m?.discoveryState) {
+      m.discoveryState.forEach((bits, areaIdx) => {
+        for (let bit = 0; bit < 32; bit++) {
+          const globalIdx = areaIdx * 32 + bit
+          if (globalIdx < definedTotal && (bits & (1 << bit))) {
+            foundCount++
+          }
+        }
+      })
+    }
+
     const card = {
       key: cat.key,
       icon: cat.icon && uiPath ? convertFileSrc(`${uiPath}/${cat.icon}`) : null,
       label: cat.label,
-      subtitle: 'areas discovered',
+      subtitle: cat.key.includes('Cave') ? 'caves explored' : 'areas discovered',
       color: cat.color,
-      count: m ? (m.discoveryState || []).reduce((s, v) => s + countBits(v), 0) : 0,
-      total,
+      count: foundCount,
+      total: definedTotal,
+      guide: markerMeta?.note,
+      guideSource: markerMeta?.source,
     }
     return {
       ...card,
       onClick: () => openSubpanel(card, () => {
-        if (!m || !m.discoveryState) return [{ key: 'placeholder', name: `Caves not yet loaded from inventory`, found: false }]
-        const items = []
-        m.discoveryState.forEach((bits, areaIdx) => {
-          for (let bit = 0; bit < 32; bit++) {
-            if (bits & (1 << bit)) items.push({ key: `area${areaIdx}_bit${bit}`, name: `Area ${areaIdx + 1}, Bit ${bit + 1}`, found: true })
+        if (!m || !m.discoveryState) return [{ key: 'placeholder', name: `Not yet loaded from inventory`, found: false }]
+        const items = (markerMeta?.items || []).map((info, idx) => {
+          const areaIdx = Math.floor(idx / 32)
+          const bit = idx % 32
+          const bits = m.discoveryState[areaIdx] ?? 0
+          const isFound = (bits & (1 << bit)) !== 0
+          return {
+            key: `${cat.key}_${idx}`,
+            name: info.name || `Cave ${idx + 1}`,
+            location: info.location,
+            found: isFound,
           }
         })
-        return items.length ? items : [{ key: 'placeholder', name: `None discovered`, found: false }]
+        return items.length
+          ? items.sort((a, b) => (a.found === b.found ? a.name.localeCompare(b.name, undefined, { numeric: true }) : a.found ? 1 : -1))
+          : [{ key: 'placeholder', name: `None discovered`, found: false }]
       }),
     }
-  }), [discoveredMarkers, uiPath, openSubpanel])
+  }), [discoveredMarkers, collectibleLocations, uiPath, openSubpanel])
 
   // Real, authoritative per-category item catalog from DE's own ExportCodex.json
   // (loreFragments/songs/fighterFrames sections) - not a hand-maintained count.

@@ -242,14 +242,18 @@ export default function Collectibles() {
     
     let foundCount = 0
     if (m?.discoveryState) {
-      m.discoveryState.forEach((bits, areaIdx) => {
-        for (let bit = 0; bit < 32; bit++) {
-          const globalIdx = areaIdx * 32 + bit
-          if (globalIdx < definedTotal && (bits & (1 << bit))) {
-            foundCount++
+      if (definedTotal === 1) {
+        foundCount = m.discoveryState.some(bits => bits > 0) ? 1 : 0
+      } else {
+        m.discoveryState.forEach((bits, areaIdx) => {
+          for (let bit = 0; bit < 32; bit++) {
+            const globalIdx = areaIdx * 32 + bit
+            if (globalIdx < definedTotal && (bits & (1 << bit))) {
+              foundCount++
+            }
           }
-        }
-      })
+        })
+      }
     }
 
     const card = {
@@ -268,10 +272,15 @@ export default function Collectibles() {
       onClick: () => openSubpanel(card, () => {
         if (!m || !m.discoveryState) return [{ key: 'placeholder', name: `Not yet loaded from inventory`, found: false }]
         const items = (markerMeta?.items || []).map((info, idx) => {
-          const areaIdx = Math.floor(idx / 32)
-          const bit = idx % 32
-          const bits = m.discoveryState[areaIdx] ?? 0
-          const isFound = (bits & (1 << bit)) !== 0
+          let isFound = false
+          if (definedTotal === 1) {
+            isFound = m.discoveryState.some(bits => bits > 0)
+          } else {
+            const areaIdx = Math.floor(idx / 32)
+            const bit = idx % 32
+            const bits = m.discoveryState[areaIdx] ?? 0
+            isFound = (bits & (1 << bit)) !== 0
+          }
           return {
             key: `${cat.key}_${idx}`,
             name: info.name || `Cave ${idx + 1}`,

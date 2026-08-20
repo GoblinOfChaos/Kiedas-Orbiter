@@ -355,6 +355,11 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
 
   let parentRecipe = null;
   let parentRecipeUniqueName = null;
+  // How many of THIS reward the parent recipe actually needs (e.g. Afuris
+  // Prime Blueprint needs 2 Barrels, not 1) - captured from the matching
+  // ingredient entry in Pass 1 below. Defaults to 1 when no parent recipe
+  // is found (e.g. Forma) or the match came from the Pass 2 name fallback.
+  let neededQuantity = 1;
 
   // Normalize for comparison
   const clean = (s) => s ? s.replace('/StoreItems/', '/').toLowerCase() : '';
@@ -366,12 +371,14 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     for (const [bpUniqueName, bpRecipe] of Object.entries(exportData.ExportRecipes)) {
       const ingredients = bpRecipe.ingredients || [];
       // Pass 1: True reverse ingredient lookup
-      if (ingredients.some(ing => {
+      const matchedIngredient = ingredients.find(ing => {
         const iClean = clean(ing.ItemType);
         return iClean === aClean || iClean === rClean;
-      })) {
+      });
+      if (matchedIngredient) {
         parentRecipe = bpRecipe;
         parentRecipeUniqueName = bpUniqueName;
+        neededQuantity = matchedIngredient.ItemCount ?? 1;
         parentName = resolveDisplayName(bpRecipe.resultType, exportData, locale).replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$'), '').trim();
         break;
       }
@@ -530,6 +537,10 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     blueprintCount: parentRecipe ? stock : parentBpCount,
     craftedCount: parentRecipe ? craftedCount : parentCraftedCount,
     isRecipeComponent: !!parentRecipe,
+    // How many of this exact reward the parent recipe requires (e.g. 2 for
+    // Afuris Prime Barrel, since it's a dual weapon) - real per-part need,
+    // distinct from "owned at all".
+    need: neededQuantity,
     parentName,
     isOwned: parentCraftedCount > 0,
     isMastered: parentIsMastered,
@@ -573,23 +584,46 @@ export function getPartObtainedStatus(uniqueName, displayName, inventoryData, ex
   const directCrafted = direct?.crafted ?? 0;
   const currentStock = Math.max(ctx?.stock ?? 0, direct?.quantity ?? 0, directCrafted);
   const directOwned = !!direct?.owned || currentStock > 0;
-  // Direct component evidence is preferred. A mastered parent is also valid
+  // How many of this exact part the real parent recipe needs (e.g. 2 for
+  // Afuris Prime Barrel, a dual weapon). Distinct from directOwned/
+  // everObtained on purpose: having 1 of 2 needed is still real evidence you
+  // "ever obtained" this part (so it must not count as Never Obtained), but
+  // it isn't "enough" for planning purposes - the Relic Planner's Add All
+  // Missing previously used directOwned alone, so any stock > 0 counted as
+  // fully covered regardless of the real requirement. Confirmed live
+  // 2026-08-19: Afuris Prime Barrel needs 2, player had 1, never showed as
+  // missing.
+  const need = ctx?.need ?? 1;
+  const hasEnough = currentStock >= need || (!!direct?.owned && need <= 1)
+    // If the parent is already built (or was, and is now mastered), every
+    // component's need was necessarily satisfied at build time even though
+    // none remain in stock now (crafting consumes them) - without this,
+    // Voruna Prime Systems (already used to build a fully-owned Voruna
+    // Prime) would show as "still missing" in the Relic Planner forever,
+    // the same class of bug already fixed for everObtained above.
+    || (!!ctx?.isRecipeComponent && (!!ctx?.isMastered || !!ctx?.isOwned));
+  // Direct component evidence is preferred. An owned parent is also valid
   // evidence for its recipe components, but only when the component resolver
-  // actually found that parent; an unrelated or unmastered parent must not
-  // suppress "Never Obtained".
+  // actually found that specific parent (ctx.isRecipeComponent, matched by
+  // exact recipe/unique-name above) - an unrelated parent must not suppress
+  // "Never Obtained".
   const everObtained = directOwned
     || !!direct?.mastered
     // Standalone rewards can use their own crafted count. Components cannot:
     // ctx.craftedCount is the parent weapon/frame count for them.
     || (!ctx?.isRecipeComponent && (ctx?.craftedCount ?? 0) > 0)
-    // A mastered parent is valid historical evidence for its own recipe
-    // components. This must remain conditional: an unmastered parent such as
-    // the user's Tatsu Prime cannot make Tatsu Prime Handle look obtained.
-    || (!!ctx?.isRecipeComponent && !!ctx?.isMastered)
+    // Building the parent is itself proof every component was obtained at
+    // least once, regardless of the parent's current rank - requiring full
+    // mastery here meant a just-built, still-leveling frame (e.g. Voruna
+    // Prime, built yesterday and not yet maxed) showed its own consumed
+    // components as "missing" from relic reward tracking. Confirmed live
+    // 2026-08-19: Voruna Prime Systems flagged missing despite being built
+    // into the exact Voruna Prime frame currently being leveled.
+    || (!!ctx?.isRecipeComponent && (!!ctx?.isMastered || !!ctx?.isOwned))
     // A pending Foundry recipe proves the blueprint was obtained, but does
     // not count as current stock because the Foundry is consuming it now.
     || foundryEvidence;
-  return { currentStock, directOwned, everObtained };
+  return { currentStock, directOwned, everObtained, need, hasEnough };
 }
 
 // Planner and overlay can ask about hundreds of parts during one render. Keep

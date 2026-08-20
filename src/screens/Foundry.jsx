@@ -214,7 +214,7 @@ export default function Foundry() {
     </div>
     <div className="space-y-4">
       {filteredItems.length === 0 ? <Card className="p-8 text-center text-kronos-dim text-sm">No items match.</Card> : <div className="grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-2 content-start">{filteredItems.map((item) => <ItemCard key={item.unique_name} item={item} recipe={item.recipe} selected={item.unique_name === selectedName} onClick={() => setSelectedName(item.unique_name)} />)}</div>}
-      {selected && <RecipeDrawer item={selected} recipe={selected.recipe} onClose={() => setSelectedName(null)} />}
+      {selected && <RecipeDrawer key={selected.unique_name} item={selected} recipe={selected.recipe} onClose={() => setSelectedName(null)} />}
     </div>
   </PageLayout>
 }

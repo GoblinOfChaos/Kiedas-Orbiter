@@ -77,6 +77,15 @@ const STAT_TO_PRICER = {
 };
 
 function rivenKey(r) {
+  // item_id is the real per-instance save-file identity (Mongo ObjectId) -
+  // use it whenever present so two owned rivens that look identical (e.g.
+  // duplicate challenge rivens for the same weapon, or two unveiled rivens
+  // with the same rolled stats) still get distinct keys. Veiled rivens have
+  // no item_id since DE stores them as one stacked entry per weapon type,
+  // not individual instances, so they fall back to the name-based key -
+  // that's safe since they're already deduplicated into a single stacked
+  // card by quantity, never rendered as separate cards to collide.
+  if (r.item_id) return r.item_id;
   if (r.veiled || r.challenge) return r.name + (r.veiled ? '_veiled' : '_challenge');
   const stats = (r.stats || []).map((s) => s.tag).sort().join('|');
   return r.name + '|' + stats;

@@ -7,7 +7,7 @@ const CUSTOM = new Set(['Requiem', 'Tome', 'Antivirus', 'Potency', 'Tektolyst'])
 // Frames whose asset pack has no SideLight.png / CornerLights.png at all -
 // requesting them 403s (no such file) and spams the console for no visual
 // benefit, since the <img> just fails silently either way.
-const NO_SIDE = new Set(['Amalgam', 'Peculiar', 'Archon', 'Arcanes']);
+const NO_SIDE = new Set(['Archon', 'Arcanes']);
 const NO_CORNER = new Set(['Galvanized', 'Arcanes', 'Archon']);
 const CARD_RATIO = 290 / 409;
 const CANVAS_W = 290;
@@ -126,7 +126,6 @@ const DT_COLORS = {
 };
 
 function getSetFileName(modSetPath, modName) {
-  const { t } = useUi()
   if (!modSetPath) return null;
   if (SET_FILE_OVERRIDES[modSetPath]) return SET_FILE_OVERRIDES[modSetPath];
   if (modName) {
@@ -160,7 +159,8 @@ const POLARITY_FILES = {
   'AP_FUSION': 'PolarityAura.png',
   'AP_WARD': 'PolarityWard.png',
   'AP_UMBRA': 'PolarityUmbra.png',
-  'AP_ANY': 'PolarityUniversal.png'
+  'AP_ANY': 'PolarityUniversal.png',
+  'AP_UNIVERSAL': 'PolarityUniversal.png'
 };
 
 function renderDesc(text, textColor, iconsPath, tagIconMap, resolveTagIcon) {
@@ -386,7 +386,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
 
   const f = (file) => u(framesPath, mf, `${file}.png`);
   const tektolystBg = mf === 'Tektolyst' && mod.name ? f(mod.name.replace(/\s+/g, '')) : null;
-  const arcaneBg = mf === 'Arcanes' && mod.rarity ? f(`Arcane${mod.rarity.charAt(0).toUpperCase()}${mod.rarity.slice(1)}`) : null;
+  const arcaneBg = mf === 'Arcanes' && mod.rarity ? f(`Arcane${mod.rarity.charAt(0).toUpperCase()}${mod.rarity.slice(1).toLowerCase()}`) : null;
   const bg = arcaneBg || tektolystBg || f('Background');
   const ft = custom ? null : f('FrameTop');
   const fb = custom ? null : f('FrameBottom');

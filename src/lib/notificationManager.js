@@ -427,7 +427,21 @@ function evaluateFoundry(notif, inventoryData, results, t) {
   const advance = (notif.config?.advance ?? 5) * 60 // min → seconds
   const now = Date.now() / 1000
   for (const item of recipes) {
-    if (!item.finishTime || item.finishTime <= now) continue
+    if (!item.finishTime) continue
+    if (item.finishTime <= now) {
+      // Item finished and is still sitting uncollected in PendingRecipes - the
+      // trigger is labeled "Foundry Complete" but previously only ever warned
+      // BEFORE completion (the advance window below) and never actually fired
+      // on completion itself, so an item that finished while unwatched (or
+      // while the app was closed) never got a notification at all.
+      results.push({
+        notifId: notif.id,
+        title: tr(t, 'ui.notif_mgr.trig_foundry'),
+        message: tr(t, 'ui.notif_mgr.msg_foundry_ready', { item: item.name }),
+        image: item.image || 'IconFoundry.png',
+      })
+      continue
+    }
     const remaining = item.finishTime - now
     if (remaining > 0 && remaining <= advance) {
       results.push({

@@ -41,17 +41,7 @@ export async function loadSettings() {
         'kronos-theme',
         'notif_position',
         'notif_sound',
-        'autoStartMonitoring',
-        'notif_arbitration_enabled',
-        'notif_arbitration_hours',
-        'notif_arbitration_remind',
-        'notif_foundry_enabled',
-        'notif_foundry_minutes',
-        'notif_syndicate_enabled',
-        'notif_syndicate_waste_enabled',
-        'notif_mastery_enabled',
-        'notif_mastery_percent',
-        'notif_checklist_minutes'
+        'autoStartMonitoring'
       ]
       keys.forEach(k => {
         const val = localStorage.getItem(k)

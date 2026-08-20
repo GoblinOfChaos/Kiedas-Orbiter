@@ -483,6 +483,7 @@ export default function Maps() {
     if (!wrapRef.current) return;
     if (inertiaRaf.current) {cancelAnimationFrame(inertiaRaf.current);inertiaRaf.current = null;}
     const scale = xfRef.current.scale;
+    const imgX = (marker.x - 0.5) * imgNatural.w * scale;
     const imgY = (marker.y - 0.5) * imgNatural.h * scale;
     xfRef.current = clamp({ x: -imgX, y: -imgY, scale });
     requestAnimationFrame(applyTransform);

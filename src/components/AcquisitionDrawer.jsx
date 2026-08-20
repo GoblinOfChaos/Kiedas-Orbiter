@@ -52,13 +52,20 @@ export function getSourceLabel(source) {
     case 'relic':
       return `${source.relicName || source.relicManifest || 'Relic'}${source.rarity ? ` (${source.rarity})` : ''}`;
     case 'mission': {
-      // source.missionType is a raw DE code (e.g. "MT_TAU_WAR") - must go
-      // through the same MT_ translation table used elsewhere, or an
-      // unrecognized internal enum string leaks straight into the UI.
-      // Omit the parenthetical entirely rather than show a raw code the
-      // table doesn't have a name for yet - a missing detail is better
-      // than a confusing one.
-      const missionTypeName = source.missionType != null ? MAPPING_TYPES[source.missionType] : undefined;
+      // source.missionType is usually a raw DE code (e.g. "MT_TAU_WAR") that
+      // must go through the same MT_ translation table used elsewhere, or an
+      // unrecognized internal enum string leaks straight into the UI. But
+      // drops.wf-sourced mission rewards (dropsParser.js) set this from
+      // their own `gameMode` field, which is already a real Title-Case
+      // display string ("Mobile Defense", "Excavation", ...) that never
+      // matches any MT_* key - that class of source previously always lost
+      // its mission-type parenthetical entirely. Detect the already-readable
+      // case (no raw-code shape: not MT_-prefixed, not ALL_CAPS_WITH_UNDERSCORES)
+      // and use it as-is instead of requiring a table match.
+      const looksLikeRawCode = (s) => /^MT_/.test(s) || /^[A-Z0-9_]+$/.test(s);
+      const missionTypeName = source.missionType != null
+        ? (MAPPING_TYPES[source.missionType] ?? (!looksLikeRawCode(source.missionType) ? source.missionType : undefined))
+        : undefined;
       const label = source.nodeName || source.node || missionTypeName || 'Mission';
       const suffix = missionTypeName && (source.nodeName || source.node) ? ` (${missionTypeName})` : '';
       return `${source.region ? `${source.region} — ` : ''}${label}${suffix}${rotation}`;

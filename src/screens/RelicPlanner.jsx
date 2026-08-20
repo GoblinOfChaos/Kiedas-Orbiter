@@ -54,7 +54,7 @@ export default function RelicPlanner() {
       getPartObtainedStatus(p.uniqueName, p.name, inventoryData, exportData, 'en'),
     ]));
   }, [allParts, inventoryData, exportData]);
-  const getPartStatus = (uniqueName) => partStatuses.get(uniqueName) || { directOwned: false, everObtained: false };
+  const getPartStatus = (uniqueName) => partStatuses.get(uniqueName) || { directOwned: false, everObtained: false, hasEnough: false, need: 1 };
 
   const filteredParts = useMemo(() => {
     const q = partSearch.trim().toLowerCase();
@@ -62,7 +62,9 @@ export default function RelicPlanner() {
     if (partFilter === 'never-obtained') {
       parts = parts.filter((p) => !getPartStatus(p.uniqueName).everObtained);
     } else if (partFilter === 'missing') {
-      parts = parts.filter((p) => !getPartStatus(p.uniqueName).directOwned);
+      // hasEnough (not directOwned) - a dual-weapon part like Afuris Prime
+      // Barrel needs 2; owning 1 is still missing for planning purposes.
+      parts = parts.filter((p) => !getPartStatus(p.uniqueName).hasEnough);
     }
     return parts;
   }, [allParts, partSearch, partFilter, partStatuses]);
@@ -79,12 +81,14 @@ export default function RelicPlanner() {
   const clearNeed = () => setNeed([]);
 
   const addAllMissing = () => {
-    // "Missing" (per wfinfo-ng parity) only excludes currently-owned stock,
-    // not prior crafts - distinct from "Add Never Obtained" below.
+    // "Missing" (per wfinfo-ng parity) only excludes currently-owned stock
+    // that's actually *enough* to cover the real recipe requirement (e.g. 2
+    // for a dual-weapon part like Afuris Prime Barrel), not prior crafts -
+    // distinct from "Add Never Obtained" below.
     const statuses = allParts.map((p) => ({ part: p, status: getPartStatus(p.uniqueName) }));
     const toAdd = statuses.filter(({ part, status }) => {
       if (needKeys.has(part.uniqueName)) return false;
-      return !status.directOwned;
+      return !status.hasEnough;
     }).map(({ part }) => part);
     if (toAdd.length) setNeed((prev) => [...prev, ...toAdd]);
   };

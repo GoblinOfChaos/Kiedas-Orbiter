@@ -17,6 +17,7 @@ import { invoke, convertFileSrc } from '@tauri-apps/api/core';
 import { version } from '../../package.json';
 
 const CREDITS = [
+{ name: 'RHPestilence', desc: 'App icon, commissioned artwork', links: [{ label: 'Ko-fi', href: 'https://ko-fi.com/rhpestilence' }, { label: 'Etsy shop', href: 'https://rottingtrove.etsy.com' }, { label: 'X/Twitter', href: 'https://x.com/RHPestilence' }] },
 { name: 'glowseeker/cephalon-kronos', desc: 'Kieda\'s Orbiter is a fork of Cephalon Kronos, used under the MIT License (see LICENSE)', href: 'https://github.com/glowseeker/cephalon-kronos' },
 { name: 'calamity-inc', desc: 'browse.wf & warframe-public-export-plus', href: 'https://github.com/calamity-inc' },
 { name: 'relics.run', desc: 'Daily price history / market engine data', href: 'https://relics.run' },
@@ -48,11 +49,12 @@ export default function About() {
         <Card glow>
           <div className="flex items-center gap-4 mb-4">
             <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+              {uiPath &&
               <img
-                src={uiPath ? convertFileSrc(`${uiPath}/IconKieda.png`) : ''}
+                src={convertFileSrc(`${uiPath}/IconKieda.png`)}
                 alt="Kieda's Orbiter"
                 className="w-full h-full object-contain" />
-
+              }
             </div>
             <div>
               <h2 className="text-2xl font-bold">{t('about.title')}</h2>
@@ -80,17 +82,38 @@ export default function About() {
         <Card glow>
           <h3 className="text-sm font-bold uppercase tracking-widest text-kronos-dim mb-3">{t('ui.dashboard.credits')}</h3>
           <ul className="space-y-2">
-            {CREDITS.map(({ name, desc, href }) =>
-            <li key={name} className="flex items-start gap-2 text-sm">
+            {CREDITS.map(({ name, desc, href, links }) =>
+            <li key={href ?? name} className="flex items-start gap-2 text-sm">
                 <span className="text-kronos-accent font-bold flex-shrink-0">•</span>
                 <span>
+                  {links ?
+                  <span className="font-bold text-kronos-text">{name}</span> :
+
                   <button
-                  onClick={() => handleOpenLink(href)}
-                  className="font-bold text-kronos-accent hover:underline cursor-pointer">
-                  
+                    onClick={() => handleOpenLink(href)}
+                    className="font-bold text-kronos-accent hover:underline cursor-pointer">
+
                     {name}
                   </button>
+                  }
                   <span className="text-kronos-dim ml-1.5">- {desc}</span>
+                  {links &&
+                  <span className="text-kronos-dim">
+                      {' ('}
+                    {links.map(({ label, href: linkHref }, i) =>
+                    <span key={linkHref}>
+                          {i > 0 && ', '}
+                          <button
+                          onClick={() => handleOpenLink(linkHref)}
+                          className="font-bold text-kronos-accent hover:underline cursor-pointer">
+
+                            {label}
+                          </button>
+                        </span>
+                    )}
+                      {')'}
+                    </span>
+                  }
                 </span>
               </li>
             )}

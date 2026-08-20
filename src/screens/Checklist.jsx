@@ -35,6 +35,8 @@ const tasks = [
 { id: 'acrithis_daily', label: 'Acrithis Daily', labelKey: 'checklist.task_acrithis_daily', reset: 'daily' },
 { id: 'ticker', label: 'Ticker\'s Railjack Crew', labelKey: 'checklist.task_ticker', reset: 'daily' },
 { id: 'marie', label: 'Marie\'s Shop', labelKey: 'checklist.task_marie', reset: 'daily' },
+{ id: 'glast', label: 'Ergo Glast: Tenet Melee', labelKey: 'checklist.task_glast', reset: 'glast' },
+{ id: 'eleanor', label: 'Eleanor\'s Shop (1999)', labelKey: 'checklist.task_eleanor', reset: 'eleanor' },
 { id: 'grandmother', label: 'Grandmother\'s Tokens', labelKey: 'checklist.task_grandmother', reset: 'other' },
 { id: 'yonta_daily', label: 'Yonta: Daily Voidplumes', labelKey: 'checklist.task_yonta_daily', reset: 'other' },
 { id: 'voca', label: 'Loid: Voca', labelKey: 'checklist.task_voca', reset: 'other' },
@@ -274,12 +276,14 @@ const formatTimeLeft = (ms) => {
 
 const TaskCard = ({ task, completed, hidden, onToggle, onHide, timeLeft, nextResetTime }) => {
   const { t } = useUi();
-  const resetLabels = { daily: 'Daily', weekly: 'Weekly', biweekly: 'Biweekly', other: '8h', baro: 'Trader' };
+  const resetLabels = { daily: 'Daily', weekly: 'Weekly', biweekly: 'Biweekly', other: '8h', baro: 'Trader', glast: '11:00 UTC', eleanor: '8 Days' };
   const getIntervalMs = (resetType) => {
     if (resetType === 'daily') return 24 * 60 * 60 * 1000;
     if (resetType === 'weekly') return 7 * 24 * 60 * 60 * 1000;
     if (resetType === 'biweekly') return 14 * 24 * 60 * 60 * 1000;
     if (resetType === 'other') return 8 * 60 * 60 * 1000;
+    if (resetType === 'glast') return 24 * 60 * 60 * 1000;
+    if (resetType === 'eleanor') return 8 * 24 * 60 * 60 * 1000;
     if (resetType === 'baro') return 14 * 24 * 60 * 60 * 1000;
     return 24 * 60 * 60 * 1000;
   };
@@ -542,7 +546,7 @@ export default function Checklist() {
   }, [periodicCompletions, autoTrack]);
   const hasInventory = !!inventoryData;
   const [now, setNow] = useState(Date.now());
-  const masteryRank = hasInventory ? inventoryData?.account?.mastery_rank || 16 : 16;
+  const masteryRank = hasInventory ? inventoryData?.account?.mastery_rank ?? 16 : 16;
   const affiliations = hasInventory ? inventoryData?.Affiliations || [] : [];
   const focusXP = hasInventory ? inventoryData?.FocusXP || {} : {};
   const dailyFocus = hasInventory ? inventoryData?.DailyFocus || 0 : 0;
@@ -596,6 +600,23 @@ export default function Checklist() {
       const expiry = worldState.nightwave.expiry;
       if (expiry instanceof Date && !isNaN(expiry.getTime())) return expiry.getTime();
       return 0;
+    }
+    if (taskId === 'glast' || resetType === 'glast') {
+      const now = new Date();
+      const next = new Date(now);
+      next.setUTCHours(11, 0, 0, 0);
+      if (next.getTime() <= now.getTime()) {
+        next.setUTCDate(next.getUTCDate() + 1);
+      }
+      return next.getTime();
+    }
+    if (taskId === 'eleanor' || resetType === 'eleanor') {
+      const ELEANOR_EPOCH = 1742256000000; // 2025-03-18T00:00:00Z
+      const CYCLE_MS = 8 * 24 * 60 * 60 * 1000;
+      const nowMs = Date.now();
+      const elapsed = Math.max(0, nowMs - ELEANOR_EPOCH);
+      const currentCycleIndex = Math.floor(elapsed / CYCLE_MS);
+      return ELEANOR_EPOCH + (currentCycleIndex + 1) * CYCLE_MS;
     }
     if (resetType === 'daily') {
       const now = new Date();
@@ -690,7 +711,10 @@ export default function Checklist() {
 
   const getEarnedStanding = (totalStanding, rank) => {
     if (rank < 0) {
-      return getRankCap(rank);
+      // Real standing can drop further than the displayed rank's cap (DE
+      // doesn't hard-clamp the raw value), but a progress bar showing
+      // "further along than 100%" reads as broken - clamp to the cap.
+      return Math.max(getRankCap(rank), Math.min(0, totalStanding));
     }
     const previousCaps = getCumulativePreviousCaps(rank);
     return Math.max(0, totalStanding - previousCaps);
@@ -721,10 +745,6 @@ export default function Checklist() {
     return { earned: 0, cap: 24000, daily: getDailyCap() };
   };
 
-  useEffect(() => {
-    setHiddenMap(Object.fromEntries(tasks.map((t) => [t.id, t.hidden])));
-  }, []);
-
   const toggleTask = (taskId) => {
     setCompleted((prev) => ({
       ...prev,
@@ -734,10 +754,6 @@ export default function Checklist() {
 
   const toggleHidden = (taskId) => {
     setHiddenMap((prev) => ({ ...prev, [taskId]: !prev[taskId] }));
-  };
-
-  const toggleNotif = (taskId) => {
-    setNotifMap((prev) => ({ ...prev, [taskId]: !prev[taskId] }));
   };
 
   const allTasks = tasks.map((task) => {

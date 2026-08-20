@@ -8,6 +8,7 @@ import ModCard from '../components/ModCard';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
+import { MOD_WIKI_TAGS } from '../lib/modWikiTags';
 
 const CARD_WIDTH = 200;
 const COL_GAP = 50;
@@ -16,26 +17,29 @@ export default function Mods() {
   const { t } = useUi()
   // Keep the asset filename separate from the translated display label. Some
   // categories do not have a same-named export asset (Robotic and Tome).
+  // `category` is the internal, always-English value stored on each mod by
+  // extractModCategory() in inventoryParser.js - filtering must key off this,
+  // never off the translated `label`, or non-English locales match nothing.
   const CATEGORIES = [
-    { label: t('mods.cat_all'), icon: 'All' },
-    { label: t('mods.cat_warframe'), icon: 'Warframe' },
-    { label: t('mods.cat_primary'), icon: 'Primary' },
-    { label: t('mods.cat_secondary'), icon: 'Secondary' },
-    { label: t('mods.cat_melee'), icon: 'Melee' },
-    { label: t('mods.cat_sentinels'), icon: 'Sentinels' },
-    { label: t('mods.cat_robotic'), icon: 'Companion' },
-    { label: t('mods.cat_beasts'), icon: 'Beasts' },
-    { label: t('mods.cat_stance'), icon: 'Stance' },
-    { label: t('mods.cat_aura'), icon: 'Aura' },
-    { label: t('mods.cat_exilus'), icon: 'Exilus' },
-    { label: t('mods.cat_railjack'), icon: 'Railjack' },
-    { label: t('mods.cat_archgun'), icon: 'Archgun' },
-    { label: t('mods.cat_archmelee'), icon: 'Archmelee' },
-    { label: t('mods.cat_parazon'), icon: 'Parazon' },
-    { label: t('mods.cat_augment'), icon: 'Augment' },
-    { label: t('mods.cat_antique'), icon: 'Antique' },
-    { label: t('mods.cat_tome'), icon: 'Mods' },
-    { label: t('mods.cat_vehicles'), icon: 'Vehicles' },
+    { label: t('mods.cat_all'), icon: 'All', category: 'All' },
+    { label: t('mods.cat_warframe'), icon: 'Warframe', category: 'Warframe' },
+    { label: t('mods.cat_primary'), icon: 'Primary', category: 'Primary' },
+    { label: t('mods.cat_secondary'), icon: 'Secondary', category: 'Secondary' },
+    { label: t('mods.cat_melee'), icon: 'Melee', category: 'Melee' },
+    { label: t('mods.cat_sentinels'), icon: 'Sentinels', category: 'Sentinels' },
+    { label: t('mods.cat_robotic'), icon: 'Companion', category: 'Robotic' },
+    { label: t('mods.cat_beasts'), icon: 'Beasts', category: 'Beasts' },
+    { label: t('mods.cat_stance'), icon: 'Stance', category: 'Stance' },
+    { label: t('mods.cat_aura'), icon: 'Aura', category: 'Aura' },
+    { label: t('mods.cat_exilus'), icon: 'Exilus', category: 'Exilus' },
+    { label: t('mods.cat_railjack'), icon: 'Railjack', category: 'Railjack' },
+    { label: t('mods.cat_archgun'), icon: 'Archgun', category: 'Archgun' },
+    { label: t('mods.cat_archmelee'), icon: 'Archmelee', category: 'Archmelee' },
+    { label: t('mods.cat_parazon'), icon: 'Parazon', category: 'Parazon' },
+    { label: t('mods.cat_augment'), icon: 'Augment', category: 'Augment' },
+    { label: t('mods.cat_antique'), icon: 'Antique', category: 'Antique' },
+    { label: t('mods.cat_tome'), icon: 'Mods', category: 'Tome' },
+    { label: t('mods.cat_vehicles'), icon: 'Vehicles', category: 'Vehicles' },
   ];
 
   const SORT_OPTIONS = [
@@ -62,7 +66,7 @@ export default function Mods() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortCriteria, setSortCriteria] = useState('name');
   const [sortDirection, setSortDirection] = useState('asc');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategoryKey, setSelectedCategoryKey] = useState('All');
   const [ownershipFilter, setOwnershipFilter] = useState('all');
   const [maxRankOnly, setMaxRankOnly] = useState(false);
   const [hideConclave, setHideConclave] = useState(false);
@@ -85,7 +89,7 @@ export default function Mods() {
 
   useEffect(() => {
     setVisibleCount(60);
-  }, [searchQuery, selectedCategory, ownershipFilter, maxRankOnly, hideConclave]);
+  }, [searchQuery, selectedCategoryKey, ownershipFilter, maxRankOnly, hideConclave]);
 
   const filtered = useMemo(() => {
     let items = mods;
@@ -94,17 +98,18 @@ export default function Mods() {
       const q = searchQuery.toLowerCase().split(/\s+/).filter((w) => w.length > 0);
       items = items.filter((m) => {
         const descText = (m.description ?? '') + ' ' + (m.levelStats?.flatMap((ls) => ls.stats).join(' ') ?? '') + ' ' + (m.arcaneType ?? '');
-        return q.every((w) => (m.name ?? '').toLowerCase().includes(w) || descText.toLowerCase().includes(w));
+        const tagText = (MOD_WIKI_TAGS[m.unique_name] ?? []).join(' ');
+        return q.every((w) => (m.name ?? '').toLowerCase().includes(w) || descText.toLowerCase().includes(w) || tagText.toLowerCase().includes(w));
       });
     }
-    if (selectedCategory === t('mods.cat_exilus')) {
+    if (selectedCategoryKey === 'Exilus') {
       // Exilus-slot compatibility cuts across mod families (a Tome mod, a
       // Warframe mod, etc. can all be Exilus-slotted) - match the trait
       // directly instead of a single exclusive category, so a mod like
       // Fass Canticle shows under both Tome and Exilus.
       items = items.filter((m) => m.isExilus);
-    } else if (selectedCategory !== t('mods.cat_all')) {
-      items = items.filter((m) => m.category === selectedCategory);
+    } else if (selectedCategoryKey !== 'All') {
+      items = items.filter((m) => m.category === selectedCategoryKey);
     }
     if (ownershipFilter === 'owned') {
       items = items.filter((m) => m.owned);
@@ -136,7 +141,7 @@ export default function Mods() {
       return sortDirection === 'asc' ? av < bv ? -1 : av > bv ? 1 : 0 : av < bv ? 1 : av > bv ? -1 : 0;
     });
     return sorted;
-  }, [mods, searchQuery, selectedCategory, ownershipFilter, maxRankOnly, sortCriteria, sortDirection]);
+  }, [mods, searchQuery, selectedCategoryKey, ownershipFilter, maxRankOnly, sortCriteria, sortDirection]);
 
   const visible = filtered.slice(0, visibleCount);
   const uniqueMods = new Set(filtered.map((m) => m.name)).size;
@@ -213,15 +218,15 @@ export default function Mods() {
 
       <div className="flex items-center gap-3">
         <div className="flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
-          {CATEGORIES.map(({ label, icon }) => {
+          {CATEGORIES.map(({ label, icon, category }) => {
           const iconUrl = iconsPath ?
           convertFileSrc(`${iconsPath}/Categories/${icon}.png`) :
           null;
           return (
             <button
-              key={label}
-              onClick={() => setSelectedCategory(label)}
-              className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5 ${selectedCategory === label ?
+              key={category}
+              onClick={() => setSelectedCategoryKey(category)}
+              className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center gap-1.5 ${selectedCategoryKey === category ?
               'bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]' :
               'text-kronos-dim hover:text-white hover:bg-white/5'}`
               }>

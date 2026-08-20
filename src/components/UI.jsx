@@ -43,12 +43,28 @@ export function TooltipPortal({ children, triggerRef, visible, position = 'right
     };
   }, [triggerRef, visible, position]);
 
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    if (visible) setOpacity(1);else
+    if (visible) {
+      setMounted(true);
+      // Set opacity in a separate paint from the mount so the browser has an
+      // initial opacity:0 frame to transition from - setting both in the
+      // same render meant the CSS transition had no starting value to
+      // animate away from.
+      const raf = requestAnimationFrame(() => setOpacity(1));
+      return () => cancelAnimationFrame(raf);
+    }
     setOpacity(0);
+    // Keep the node mounted for the duration of the CSS fade (duration-200)
+    // before actually unmounting - unmounting on the same render that
+    // opacity drops to 0 removed the node before the browser could ever
+    // paint the intermediate opacity values, so it disappeared instantly.
+    const timeout = setTimeout(() => setMounted(false), 200);
+    return () => clearTimeout(timeout);
   }, [visible]);
 
-  if (!visible && opacity === 0) return null;
+  if (!mounted) return null;
 
   return createPortal(
     <div
@@ -195,12 +211,12 @@ export function PageLayout({ title, titleKey, subtitle, children, extra, headerP
       
       {/* Scrollable Content Area */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 pb-8 pt-0 min-h-0 flex flex-col custom-scrollbar">
-        <div className="relative flex-1 min-h-0 flex flex-col">
-          {headerPanel &&
-          <div className="sticky top-0 z-30 py-4 bg-kronos-bg -mx-8 px-8 border-b border-white/5 mb-6">
-              {headerPanel}
-            </div>
-          }
+        {headerPanel &&
+        <div className="sticky top-0 z-30 py-4 bg-kronos-bg -mx-8 px-8 border-b border-white/5 mb-6 flex-shrink-0">
+            {headerPanel}
+          </div>
+        }
+        <div className="relative min-h-full flex flex-col">
           {children}
         </div>
       </div>

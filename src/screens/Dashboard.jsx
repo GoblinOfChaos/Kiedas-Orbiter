@@ -172,7 +172,6 @@ export default function Dashboard() {
       return saved ? JSON.parse(saved) : [];
     } catch {return [];}
   });
-  const [descendiaTab, setDescendiaTab] = useState('normal');
 
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
 
@@ -266,6 +265,25 @@ export default function Dashboard() {
   const currentArbyRaw = useMemo(() => getCurrentArby(arbys, ERg, dict), [arbys, ERg, dict]);
   const currentArby = useMemo(() => currentArbyRaw ? { ...currentArbyRaw, grade: arbyTiers?.[currentArbyRaw.node] || 'F' } : null, [currentArbyRaw, arbyTiers]);
   const upcomingArbies = useMemo(() => getUpcomingArbies(arbys, ERg, dict, arbyTiers, 5), [arbys, ERg, dict, arbyTiers]);
+
+  const ownedNamesAndTypes = useMemo(() => {
+    const set = new Set(inventoryData?.allOwnedItemTypes ?? []);
+    for (const item of (inventoryData?.all ?? [])) {
+      if (item.name) set.add(item.name.toLowerCase());
+      if (item.unique_name) set.add(item.unique_name);
+      if (item.uniqueName) set.add(item.uniqueName);
+    }
+    return set;
+  }, [inventoryData]);
+
+  const isSaleItemOwned = useCallback((sale) => {
+    if (!sale) return false;
+    const name = (sale.item || '').toLowerCase();
+    const type = sale.itemType || sale.uniqueName || '';
+    if (name && ownedNamesAndTypes.has(name)) return true;
+    if (type && (ownedNamesAndTypes.has(type) || ownedNamesAndTypes.has(type.replace('/Lotus/StoreItems/', '/Lotus/')))) return true;
+    return false;
+  }, [ownedNamesAndTypes]);
 
   const timers = [
   { label: 'Cetus', data: worldstate?.cetusCycle, getState: (d) => d.state },
@@ -955,9 +973,6 @@ export default function Dashboard() {
 
     return (
       <div className="mt-2">
-        <div className="mb-2">
-          <Tabs tabs={[{ id: 'normal', label: 'Normal' }, { id: 'steelpath', label: 'Steel Path' }]} activeTab={descendiaTab} onChange={setDescendiaTab} fullWidth />
-        </div>
         <div className="space-y-1 max-h-[280px] overflow-y-auto custom-scrollbar pr-1">
           {current.stages.map((s) => {
             const isSpecial = s.isMarie || s.isLyon || s.isBoss;
@@ -1590,23 +1605,38 @@ export default function Dashboard() {
               </button>
               </div>
               <div className="space-y-1.5">
-                {worldstate.flashSales.map((sale, idx) =>
-              <div key={idx} className="flex items-center gap-3 bg-kronos-panel/40 rounded p-2.5">
-                    <div className="w-14 h-14 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
-                      <img src={resolveAnyImage(sale, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-bold text-kronos-text uppercase" title={sale.item}>{sale.item}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-sm text-kronos-dim line-through decoration-red-500/50">{sale.originalPrice}</span>
-                        <span className="flex items-center gap-1 text-sm text-kronos-accent font-black">
-                          {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-4 h-4 object-contain" alt="" />}
-                          {sale.salePrice}
-                        </span>
+                {worldstate.flashSales.map((sale, idx) => {
+                  const isOwned = isSaleItemOwned(sale);
+                  return (
+                    <div key={idx} className={`flex items-center gap-3 bg-kronos-panel/40 rounded p-2.5 transition-all ${isOwned ? 'opacity-60' : ''}`}>
+                      <div className="w-14 h-14 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0 relative">
+                        <img src={resolveAnyImage(sale, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                        {isOwned && (
+                          <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
+                            <Check size={10} className="text-black" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-1.5">
+                          <p className="text-sm font-bold text-kronos-text uppercase truncate" title={sale.item}>{sale.item}</p>
+                          {isOwned && (
+                            <span className="text-[9px] font-bold uppercase tracking-wider text-kronos-accent px-1.5 py-0.2 rounded bg-kronos-accent/15 flex-shrink-0">
+                              {t('ui.dashboard.owned')}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-sm text-kronos-dim line-through decoration-red-500/50">{sale.originalPrice}</span>
+                          <span className="flex items-center gap-1 text-sm text-kronos-accent font-black">
+                            {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-4 h-4 object-contain" alt="" />}
+                            {sale.salePrice}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-              )}
+                  );
+                })}
               </div>
             </Card>
           }

@@ -61,3 +61,8 @@ lib/soup/
 # Tauri v2 generated schemas (auto-generated, do not commit)
 src-tauri/gen/
 .superpowers/
+# IDE & Assistant Configs
+.claude/
+.continue/
+*.png.tmp
+jacobcom3.png

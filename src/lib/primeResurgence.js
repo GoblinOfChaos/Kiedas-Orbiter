@@ -139,6 +139,9 @@ export function buildPrimeResurgenceModel(trader, exportData, inventoryData) {
     const ownedEntry = owned.get(canonicalPrimePath(entry.uniqueName))
     return { type: 'cosmetic', uniqueName: entry.uniqueName, name: resolveName(entry.uniqueName, entry.item, exportData), owned: !!ownedEntry && (!!ownedEntry.owned || !!ownedEntry.mastered || (ownedEntry.quantity || 0) > 0), ducats: entry.ducats, relics: [] }
   })
-  const bundles = trader.inventory.filter((entry) => isPackagePath(entry.uniqueName)).map((entry) => ({ type: 'bundle', uniqueName: entry.uniqueName, name: resolveName(entry.uniqueName, entry.item, exportData), owned: false, ducats: entry.ducats }))
+  const bundles = trader.inventory.filter((entry) => isPackagePath(entry.uniqueName)).map((entry) => {
+    const ownedEntry = owned.get(canonicalPrimePath(entry.uniqueName))
+    return { type: 'bundle', uniqueName: entry.uniqueName, name: resolveName(entry.uniqueName, entry.item, exportData), owned: !!ownedEntry && (!!ownedEntry.owned || !!ownedEntry.mastered || (ownedEntry.quantity || 0) > 0), ducats: entry.ducats }
+  })
   return { equipment: equipmentCards.sort((a, b) => a.name.localeCompare(b.name)), cosmetics: cosmetics.sort((a, b) => a.name.localeCompare(b.name)), bundles: bundles.sort((a, b) => a.name.localeCompare(b.name)) }
 }

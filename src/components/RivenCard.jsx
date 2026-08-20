@@ -15,7 +15,8 @@ const POLARITY_FILES = {
   'AP_FUSION': 'PolarityAura.png',
   'AP_WARD': 'PolarityWard.png',
   'AP_UMBRA': 'PolarityUmbra.png',
-  'AP_ANY': 'PolarityUniversal.png'
+  'AP_ANY': 'PolarityUniversal.png',
+  'AP_UNIVERSAL': 'PolarityUniversal.png'
 };
 
 function u(base, folder, file) {
@@ -67,6 +68,11 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
   const currentDrain = 10 + rank;
 
   const statsText = riven.stats?.map((s) => {
+    // The three SPECIAL_FACTOR faction-damage curse stats (parsed in
+    // inventoryParser.js) are pre-formatted as "x 0.95"-style multipliers
+    // with no leading "-", unlike every other stat's plain numeric value -
+    // prepending a sign here produced a nonsensical "-x 0.95".
+    if (/^x\s/i.test(s.value)) return `${s.value} ${s.tag}`;
     const sign = s.positive ? '+' : '-';
     const pct = s.isPercent ? '%' : '';
     const val = s.positive ? s.value : s.value.replace(/^-/, '');

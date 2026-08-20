@@ -242,7 +242,7 @@ const BOOSTER_NAME_MAP = {
 // localized builds), e.g. .../WeaponParts/AfurisPrimeBarrel.  Used to separate
 // prime parts from resources and to build prime-set component lists — matching
 // the localized display name instead (e.g. "Afuris Prime: Lauf") would miss them.
-const PRIME_PART_PATH_RE = /Prime.*?(Barrel|Receiver|Stock|Blade|Handle|Link|Gauntlet|Head|Disc|Grip|Boot|Chain|String|UpperLimb|LowerLimb|Carapace|Cerebrum|Systems|Chassis|Neuroptics|Guard|Hilt|Ornament|Stars|Holster|Pouch|Band|Blueprint)$/i;
+const PRIME_PART_PATH_RE = /Prime.*?(Barrel|Receiver|Stock|Blade|Handle|Link|Gauntlet|Head|Helmet|Disc|Grip|Boot|Chain|String|UpperLimb|LowerLimb|Carapace|Cerebrum|Systems|Chassis|Neuroptics|Guard|Hilt|Ornament|Stars|Holster|Pouch|Band|Blueprint)(Component)?$/i;
 
 function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
@@ -321,7 +321,7 @@ function _resolveNameInternal(un, dict, locale = 'en', depth, ...tables) {
     // Try to find the associated item name by checking without "Blueprint"
     for (const tbl of tables) {
       if (!tbl) continue;
-      const match = Object.keys(tbl).find(k => k.endsWith('/' + leaf));
+      const match = getSuffixIndex(tbl).get(leaf);
       if (match && tbl[match].name) return cleanName(tbl[match].name);
     }
   }
@@ -540,13 +540,34 @@ const TYPE_TO_CATEGORY = {
   Augment: 'Augment',
   Antique: 'Antique', Antiques: 'Antique', Immortal: 'Antique',
   KDrive: 'Vehicles', Vehicles: 'Vehicles', Hoverboard: 'Vehicles',
+  // warframe-items (the WI_* background enrichment data) uses its own
+  // human-readable `type` strings like "Companion Mod"/"Warframe Mod"
+  // instead of DE's raw enum, and wins the merge in mergeWithOrig() since
+  // it's non-null - TYPE_TO_EXPORT_CATEGORY's DE-enum keys never match once
+  // that data has loaded, so items with no /Mods/ path segment (e.g. Sentinel
+  // precepts under /Types/Sentinels/SentinelPrecepts/) fall all the way
+  // through to the 'mods' fallback. Companion covers Sentinel/MOA/Hound
+  // precepts here; Beast-specific ones are already caught earlier by the
+  // /Kubrow//Kavat/ path check before this table is ever consulted.
+  Companion: 'Sentinels',
+  'Arch-Gun': 'Archgun', 'Arch-Melee': 'Archmelee',
 }
 
 function extractModCategory(exportType, un, entry) {
   // Try path-based detection first for more specific categories
   if (un) {
-    // Check for Kubrow/Kavat deeper in path (these have SENTINEL export type)
-    if (un.includes('/Kubrow/') || un.includes('/Kavat/')) return 'Beasts'
+    // Check for Kubrow/Kavat deeper in path (these have SENTINEL export type).
+    // Precept mods for these live under their own folder names, which don't
+    // contain a literal "/Kubrow/" or "/Kavat/" segment - e.g.
+    // /Types/Friendly/Pets/KubrowPetPrecepts/..., .../CatbrowPetPrecepts/...
+    // (Kavat precepts are named "Catbrow" internally), and
+    // .../CreaturePets/CreaturePrecepts/... (Vulpaphyla/Predasite). Without
+    // these, they fall through to the type-string fallback below, where
+    // warframe-items' generic "Companion Mod" bucket (once that background
+    // enrichment loads) can't tell them apart from real Sentinel precepts.
+    if (un.includes('/Kubrow/') || un.includes('/Kavat/') ||
+        un.includes('KubrowPetPrecepts') || un.includes('CatbrowPetPrecepts') ||
+        un.includes('CreaturePrecepts')) return 'Beasts'
     // MOA/Hound (Zanuka) precept mods - their own category, not lumped into
     // the generic Sentinels bucket they'd otherwise fall through to.
     if (un.includes('/MoaPets/') || un.includes('/ZanukaPets/')) return 'Robotic'
@@ -574,8 +595,13 @@ function extractModCategory(exportType, un, entry) {
   // Check compatName for beast-vs-sentinel distinction
   if (entry?.compatName === 'BEAST') return 'Beasts'
   // Fall back to export type mapping
-  if (exportType && exportType !== '---' && TYPE_TO_EXPORT_CATEGORY[exportType]) {
-    return TYPE_TO_EXPORT_CATEGORY[exportType]
+  if (exportType && exportType !== '---') {
+    if (TYPE_TO_EXPORT_CATEGORY[exportType]) return TYPE_TO_EXPORT_CATEGORY[exportType]
+    // warframe-items' own type strings ("Companion Mod", "Warframe Mod", ...)
+    // instead of DE's raw enum - see TYPE_TO_CATEGORY's Companion/Arch-Gun/
+    // Arch-Melee entries for why this table is checked too.
+    const wfcdType = exportType.replace(/\s*Mod$/i, '').trim()
+    if (TYPE_TO_CATEGORY[wfcdType]) return TYPE_TO_CATEGORY[wfcdType]
   }
   return null
 }
@@ -934,6 +960,28 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           if (origKey === 'ExportRelics') {
             if (origEntry?.category != null) map[un].category = origEntry.category;
             if (origEntry?.era != null) map[un].era = origEntry.era;
+          }
+          // Mod type/compatName: warframe-items uses its own human-readable
+          // type strings ("Companion Mod", "Warframe Mod", ...) instead of
+          // DE's raw enum (SENTINEL, KAVAT, KUBROW, ...), and since the field
+          // isn't undefined the generic merge above never overrides it.
+          // extractModCategory's fallback table only knows DE's enum, so once
+          // this data loads, any mod without a "/Mods/" path segment (Kavat/
+          // Kubrow/Sentinel precepts, which live under /Types/.../Precepts/)
+          // gets misclassified or dumped in a generic fallback bucket. DE's
+          // own export is authoritative for these two fields - always prefer
+          // it, the same way relic category/era is forced above.
+          if (origKey === 'ExportUpgrades') {
+            // type: only override when DE actually defines one, so items DE
+            // leaves untyped can still fall back to WI's guess for
+            // classification purposes (type is never shown to the user
+            // directly, only used to pick a category).
+            if (origEntry?.type != null) map[un].type = origEntry.type;
+            // compatName: unconditional, exact match to DE's value (including
+            // clearing it to null when DE has none) - this is displayed
+            // directly to the user as a per-companion/weapon filter label, so
+            // it must never silently keep a WI guess DE doesn't corroborate.
+            map[un].compatName = origEntry?.compatName ?? null;
           }
         } else {
           // Entry only in original data
@@ -1388,7 +1436,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
   const archwings = [], kdrives = [];
   Object.entries(EWf).filter(([, e]) => e.productCategory === 'SpaceSuits').forEach(([un]) => {
-    (ownedItems[un] ?? [null]).forEach(inst => archwings.push(createItem(un, 'archwings', [EWf], [EWf], inst)));
+    (ownedItems[un] ?? [null]).forEach(inst => archwings.push({ ...createItem(un, 'archwings', [EWf], [EWf], inst), vehicle_type: 'archwing' }));
   });
   if (raw.Hoverboards) {
     raw.Hoverboards.forEach(h => {
@@ -1688,6 +1736,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const entry = EM[un];
       mod.rarity = entry?.rarity ?? '';
       mod.polarity = entry?.polarity ?? null;
+      mod.compatName = entry?.compatName ?? null;
       mod.modFrame = detectModFrame(un, mod.rarity, mod.name);
       if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
       const descLoctag = entry?.description ?? '';
@@ -1797,6 +1846,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
     mod.rarity = entry?.rarity ?? mod.rarity ?? '';
     mod.polarity = entry?.polarity ?? mod.polarity ?? null;
+    mod.compatName = entry?.compatName ?? mod.compatName ?? null;
     mod.modFrame = mod.modFrame || detectModFrame(un, mod.rarity, name);
     if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
     const descLoctag = entry?.description ?? '';
@@ -2117,7 +2167,18 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
 
     if (setParts.length > 0) {
-      primeSets[baseName] = { name: baseName, parts: setParts, ownedCount, totalCount, image: parentImage, setPath: recipe.resultType };
+      const quantityOwned = setParts.reduce((sum, p) => sum + (p.quantity || 0) + (p.crafted || 0), 0);
+      const ownedPartTypes = ownedCount;
+      primeSets[baseName] = {
+        name: baseName,
+        parts: setParts,
+        ownedCount: ownedPartTypes,
+        ownedPartTypes,
+        quantityOwned,
+        totalCount,
+        image: parentImage,
+        setPath: recipe.resultType
+      };
       // Also add individual parts to prime_parts array for backwards compatibility
       setParts.forEach(p => {
         if (p.owned) prime_parts.push({ ...p, setName: baseName, category: 'prime_parts' });
@@ -2410,6 +2471,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
       return {
         unique_name: u.ItemType,
+        item_id: u.ItemId?.$oid ?? null,
         image: resolveImage(weaponUn, EW),
         category: 'rivens',
         weapon_type: rivenWeaponType(weaponUn || u.ItemType),

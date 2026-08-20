@@ -15,6 +15,7 @@ import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
 import ModCard from '../components/ModCard';
+import { getRelicCatalog } from '../lib/relicParser';
 
 
 
@@ -111,18 +112,19 @@ export default function Inventory() {
     consumables: ['owned'],
     landing_craft: ['owned'],
     mods: ['owned'],
-    prime_parts: ['owned', 'mastered'],
+    prime_parts: ['owned', 'mastered', 'vaulted'],
     resources: ['owned'],
     ayatan: ['socketed']
   };
 
-  const TRIPLE_FILTERS = new Set(['owned', 'mastered', 'subsumed', 'socketed', 'prime']);
+  const TRIPLE_FILTERS = new Set(['owned', 'mastered', 'subsumed', 'socketed', 'prime', 'vaulted']);
   const NEG_LABELS = {
     owned: t('ui.inventory.filter_owned'),
     mastered: t('ui.inventory.filter_mastered'),
     subsumed: t('ui.inventory.filter_subsumed'),
     socketed: t('ui.inventory.filter_socketed'),
-    prime: t('ui.inventory.filter_prime')
+    prime: t('ui.inventory.filter_prime'),
+    vaulted: 'Vaulted'
   };
 
   const SORT_CONFIG = {
@@ -143,7 +145,7 @@ export default function Inventory() {
     resources: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],
     ayatan: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }]
   };
-  const { inventoryData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, ExportImages, ExportTextIcons, cardImagesPath, exportComponentIndex } = useMonitoring();
+  const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, ExportImages, ExportTextIcons, cardImagesPath, exportComponentIndex } = useMonitoring();
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
   const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
   useEffect(() => {
@@ -155,6 +157,21 @@ export default function Inventory() {
   const { openKey, toggle, close } = useAcquisitionDrawer();
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const unvaultedRewards = useMemo(() => {
+    if (!exportData) return new Set();
+    const catalog = getRelicCatalog(exportData);
+    const set = new Set();
+    for (const relic of catalog) {
+      if (!relic.vaulted) {
+        for (const reward of (relic.rewards || [])) {
+          if (reward.uniqueName) set.add(reward.uniqueName);
+          if (reward.name) set.add(reward.name.toLowerCase());
+        }
+      }
+    }
+    return set;
+  }, [exportData]);
   const [showFilterSortPanel, setShowFilterSortPanel] = useState(false);
   const [currentFilters, setCurrentFilters] = useState({});
   const [sortCriteria, setSortCriteria] = useState('name');
@@ -217,13 +234,18 @@ export default function Inventory() {
           nameToEquipment.set(item.name, item);
         }
       }
-      return Object.values(inventoryData.primeSets ?? {}).filter((set) =>
-      set.parts.some((p) => p.quantity > 0)
-      ).map((set) => {
+      return Object.values(inventoryData.primeSets ?? {}).map((set) => {
         const parent = nameToEquipment.get(set.name) ?? nameToEquipment.get(set.name + ' Prime') ?? {};
-        const _value = primePrices?.[set.setPath] ?? (set.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0), 0);
-        return { ...set, image: set.image || parent.image, owned: parent.owned ?? false, mastered: parent.mastered ?? false, _value };
-      });
+        const _value = primePrices?.[set.setPath] ?? (set.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1), 0);
+        const isVaulted = !(set.parts ?? []).some((p) => unvaultedRewards.has(p.unique_name) || unvaultedRewards.has(p.name?.toLowerCase()));
+        return { ...set, image: set.image || parent.image, owned: parent.owned ?? false, mastered: parent.mastered ?? false, vaulted: isVaulted, _value };
+      }).filter((set) =>
+      // A fully-crafted set's blueprint/components are consumed (quantity 0
+      // on every part), so ownership must also be checked via the finished
+      // item itself - filtering on leftover part quantity alone drops every
+      // completed set from the tab despite genuine ownership.
+      set.owned || set.parts.some((p) => p.quantity > 0)
+      );
     }
     if (activeTab === 'vehicles') {
       const vehicles = inventoryData.vehicles ?? [];
@@ -353,12 +375,14 @@ export default function Inventory() {
             if (f === 'necramech' && !item.is_necramech) return false;
             if (f === 'prime' && !item.is_prime) return false;
             if (f === 'socketed' && item.sockets <= 0) return false;
+            if (f === 'vaulted' && !item.vaulted) return false;
           } else if (state === 'no') {
             if (f === 'owned' && item.owned) return false;
             if (f === 'mastered' && item.mastered) return false;
             if (f === 'subsumed' && item.subsumed) return false;
             if (f === 'prime' && item.is_prime) return false;
             if (f === 'socketed' && item.sockets > 0) return false;
+            if (f === 'vaulted' && item.vaulted) return false;
           }
         }
         return true;
@@ -553,8 +577,19 @@ export default function Inventory() {
               const isParentOwned = set.owned;
               const isParentMastered = set.mastered;
 
-              const partsMet = set.parts.filter((p) => (p.crafted ?? 0) + p.quantity >= (p.need ?? 1)).length;
-              const totalNeeded = set.parts.reduce((s, p) => s + (p.need ?? 1), 0);
+              // Match the per-cell "met" check below exactly: an unbuilt spare
+              // blueprint in stock (quantity) doesn't satisfy the parent
+              // recipe's requirement for an actually-crafted component - only
+              // count it via quantity when there's no crafted concept at all
+              // (a plain resource part, where crafted is undefined). The old
+              // formula counted crafted+quantity together, so this aggregate
+              // badge could say "complete" while the grid right below it
+              // showed the same part red/unmet.
+              const partsMet = set.parts.filter((p) => (p.crafted !== undefined ? p.crafted >= (p.need ?? 1) : p.quantity >= (p.need ?? 1))).length;
+              // Denominator must be a part-type count to match partsMet's units - summing
+              // `need` here (e.g. Afuris Barrel needing 2) would make a fully-met set read
+              // as <100% since partsMet only counts met *types*, not quantities.
+              const totalNeeded = set.parts.length;
               const completion = Math.min(100, partsMet / totalNeeded * 100);
               const isComplete = partsMet >= set.parts.length;
               const bpPart = set.parts.find((p) => p.isBlueprint);

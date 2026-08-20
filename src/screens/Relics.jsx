@@ -26,7 +26,7 @@ import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
 
-const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem'];
+const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem', 'Omnia'];
 const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
 
 export default function Relics() {
@@ -67,9 +67,13 @@ export default function Relics() {
       const category = (r.name || '').replace(new RegExp(`^${r.era}\\s+`, 'i'), '').replace(/\s+Relic$/i, '').trim();
       return [`${r.era} ${category}`, r];
     }));
-    return getRelicCatalog(exportData, 'en').map((c) => {
-      const existing = ownedByKey.get(`${c.era} ${c.name}`);
-      if (existing) return { ...existing, vaulted: c.vaulted };
+    const catalogRelics = getRelicCatalog(exportData, 'en').map((c) => {
+      const key = `${c.era} ${c.name}`;
+      const existing = ownedByKey.get(key);
+      if (existing) {
+        ownedByKey.delete(key);
+        return { ...existing, vaulted: c.vaulted };
+      }
       return {
         unique_name: c.uniqueName,
         name: `${c.era} ${c.name} Relic`,
@@ -83,6 +87,12 @@ export default function Relics() {
         vaulted: c.vaulted,
       };
     });
+    // getRelicCatalog only covers Lith/Meso/Neo/Axi (Requiem-named entries in
+    // that export table are T5 mod tables, not Prime relics, so it excludes
+    // them on purpose) - any owned relic left unmatched here (e.g. Requiem)
+    // would otherwise disappear entirely once the catalog replaces the
+    // owned-only list, instead of just missing its "unowned" placeholders.
+    return [...catalogRelics, ...ownedByKey.values()];
   }, [ownedRelics, exportData, ownershipFilter]);
 
   const baseFiltered = relics.filter((r) => {
@@ -97,7 +107,9 @@ export default function Relics() {
     const matchEra = activeEra === 'All' || r.era === activeEra;
     if (!matchEra) return false;
 
-    const matchQuality = activeQuality === 'All' || r.refinements && r.refinements[activeQuality] > 0;
+    const matchQuality = activeQuality === 'All'
+      || (activeQuality === 'has_refinements' && r.refinements && ((r.refinements.Exceptional ?? 0) > 0 || (r.refinements.Flawless ?? 0) > 0 || (r.refinements.Radiant ?? 0) > 0))
+      || (r.refinements && (r.refinements[activeQuality] ?? 0) > 0);
     if (!matchQuality) return false;
 
     const search = searchQuery.toLowerCase().split(/\s+/).filter((w) => w.length > 0);
@@ -199,7 +211,14 @@ export default function Relics() {
     icon: e !== 'All' && e !== 'Other' ? iconSrc(e) : null
   }));
 
-  const qualityTabs = ['All', ...QUALITY_ORDER].map((q) => ({ id: q, label: q }));
+  const qualityTabs = [
+    { id: 'All', label: 'All' },
+    { id: 'Intact', label: 'Intact' },
+    { id: 'has_refinements', label: 'Refined' },
+    { id: 'Exceptional', label: 'Exceptional' },
+    { id: 'Flawless', label: 'Flawless' },
+    { id: 'Radiant', label: 'Radiant' },
+  ];
 
   const renderHeaderPanel = () =>
   <div className="flex flex-col gap-4">
@@ -491,7 +510,7 @@ export default function Relics() {
                             {/* Expected Value Footer */}
                             <div className="mt-2 pt-2 border-t border-white/5 flex flex-col gap-1.5">
                               <div className="flex items-center justify-between">
-                                {era !== 'Requiem' &&
+                                {item.era !== 'Requiem' &&
                             <div className="flex items-center gap-1.5" title={`Expected Ducats (${evRefinement}, Squad of ${squadSize})`}>
                                     {iconSrc('Ducats') && <img src={iconSrc('Ducats')} className="w-3.5 h-3.5 object-contain" alt="" />}
                                     <span className="text-[12px] font-black text-kronos-dim uppercase tracking-tighter">{t('relics.exp_ducats')}</span>

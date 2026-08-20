@@ -6,23 +6,31 @@ import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { resolveItemName } from '../lib/warframeUtils';
 
 // ── Progenitor element → warframes (base only, no primes) ──
+// Source of truth: wiki.warframe.com/wiki/Adversary_System/Progenitor (real
+// game mechanic table, fetched 2026-08-19 - the previous hardcoded version
+// of this table had substantial errors beyond just missing entries (e.g. it
+// listed Excalibur as Impact; the real element is Electricity), and invented
+// two element categories, Puncture and Slash, that don't exist in the real
+// Progenitor system at all - it only has these 7.
 const PROGENITOR = {
-  Impact: ['Ash', 'Atlas', 'Banshee', 'Baruuk', 'Excalibur', 'Hydroid', 'Inaros', 'Khora', 'Nekros', 'Rhino', 'Styanax', 'Wukong', 'Zephyr'],
-  Puncture: ['Ivara', 'Mag', 'Trinity'],
-  Slash: ['Dagath', 'Garuda', 'Kullervo', 'Mesa', 'Valkyr', 'Voruna'],
-  Heat: ['Ember', 'Jade', 'Nezha', 'Protea'],
-  Cold: ['Chroma', 'Frost', 'Qorvex', 'Sevagoth', 'Yareli'],
-  Toxin: ['Dante', 'Grendel', 'Lavos', 'Nidus', 'Saryn'],
-  Electricity: ['Caliban', 'Gauss', 'Gyre', 'Volt'],
-  Magnetic: ['Harrow', 'Limbo'],
-  Radiation: ['Equinox', 'Gara', 'Hildryn', 'Loki', 'Mirage', 'Nova', 'Nyx', 'Oberon', 'Octavia', 'Revenant', 'Vauban', 'Wisp', 'Xaku']
+  Impact: ['Baruuk', 'Dante', 'Gauss', 'Grendel', 'Rhino', 'Sevagoth', 'Sirius & Orion', 'Wukong', 'Zephyr'],
+  Heat: ['Chroma', 'Ember', 'Inaros', 'Jade', 'Kullervo', 'Nezha', 'Protea', 'Temple', 'Uriel', 'Vauban', 'Wisp'],
+  Cold: ['Frost', 'Gara', 'Hildryn', 'Koumei', 'Revenant', 'Styanax', 'Titania', 'Trinity'],
+  Electricity: ['Banshee', 'Caliban', 'Excalibur', 'Follie', 'Gyre', 'Limbo', 'Nova', 'Valkyr', 'Volt'],
+  Toxin: ['Atlas', 'Dagath', 'Ivara', 'Khora', 'Nekros', 'Nidus', 'Nokko', 'Oberon', 'Oraxia', 'Saryn'],
+  Magnetic: ['Citrine', 'Cyte-09', 'Harrow', 'Hydroid', 'Lavos', 'Mag', 'Mesa', 'Xaku', 'Yareli'],
+  Radiation: ['Ash', 'Equinox', 'Garuda', 'Loki', 'Mirage', 'Nyx', 'Octavia', 'Qorvex', 'Voruna']
 };
 
 const ELEMENT_ORDER = Object.keys(PROGENITOR);
+// Source of truth: all 16 real "Tenet " weapon names resolved from dict.json
+// loc-tags (verified 2026-08-19) - the previous list only had 10, missing
+// Agendus, Exec, Ferrox, Grigori, Livia, and Quanta entirely.
 const SISTER_TENET_WEAPON_NAMES = new Set([
-  'Tenet Arca Plasmor', 'Tenet Cycron', 'Tenet Detron', 'Tenet Diplos',
-  'Tenet Envoy', 'Tenet Flux Rifle', 'Tenet Glaxion', 'Tenet Plinx',
-  'Tenet Spirex', 'Tenet Tetra',
+  'Tenet Agendus', 'Tenet Arca Plasmor', 'Tenet Cycron', 'Tenet Detron',
+  'Tenet Diplos', 'Tenet Envoy', 'Tenet Exec', 'Tenet Ferrox',
+  'Tenet Flux Rifle', 'Tenet Glaxion', 'Tenet Grigori', 'Tenet Livia',
+  'Tenet Plinx', 'Tenet Quanta', 'Tenet Spirex', 'Tenet Tetra',
 ]);
 const WF_PROGENITOR = {};
 for (const [el, frames] of Object.entries(PROGENITOR)) {
@@ -98,7 +106,7 @@ export default function Adversaries() {
               {ELEMENT_ORDER.map((el) =>
               <div key={el} className="flex flex-col gap-1 min-w-[90px]">
                   <div className="flex flex-col items-center gap-1 pb-1.5 border-b border-white/10 mb-1">
-                    <img src={iconSrc(iconsPath, el)} className="w-5 h-5 object-contain" alt={el} />
+                    <img src={iconSrc(iconsPath, el)} className="w-5 h-5 object-contain" alt={el} onError={(e) => {e.target.style.display = 'none';}} />
                     <span style={{ color: ELEMENT_COLORS[el] }} className="text-[10px] font-bold uppercase tracking-wider leading-tight">{el}</span>
                   </div>
                   <div className="flex flex-col items-center gap-0.5">

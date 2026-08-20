@@ -15,14 +15,26 @@ const COSMETICS_PAGE_SIZE = 120
 function cosmeticType(uniqueName, icon, kind) {
   if (kind !== 'Skin') return kind
   const value = `${uniqueName || ''} ${icon || ''}`.toLowerCase()
-  if (/primaryweapons/.test(value)) return 'Primary'
-  if (/secondaryweapons/.test(value)) return 'Secondary'
-  if (/meleeweapons/.test(value)) return 'Melee'
+  // Real weapon-skin paths are /Upgrades/Skins/Weapons/<Class>/... - DE never
+  // uses the literal substrings "primaryweapons"/"secondaryweapons"/
+  // "meleeweapons" anywhere in the export, so those checks never matched a
+  // single real item (verified against ExportCustoms.json: 58 weapon skins,
+  // zero containing those strings). Pistols/dual-pistols are Secondary,
+  // rifles are Primary; every other weapon-skin class (swords, daggers,
+  // glaives, staves, claws, etc.) is Melee.
+  if (/\/upgrades\/skins\/weapons\/(pistols|dspistols)\//.test(value)) return 'Secondary'
+  if (/\/upgrades\/skins\/weapons\/(longguns|rifle)\//.test(value)) return 'Primary'
+  if (/\/upgrades\/skins\/weapons\//.test(value)) return 'Melee'
   if (/archwing/.test(value)) return 'Archwing'
   if (/sentinel/.test(value)) return 'Sentinel'
-  if (/syandana/.test(value)) return 'Syandana'
+  if (/syandana|\/upgrades\/skins\/scarves\//.test(value)) return 'Syandana'
   if (/armor/.test(value)) return 'Armor'
   if (/animationsets/.test(value)) return 'Animation'
+  // These folders sit under /Upgrades/Skins/ just like real Warframe skins,
+  // so the old catch-all (anything under Skins/ that wasn't a weapon) wrongly
+  // bucketed all of them as "Warframe" - Operator/Drifter cosmetics alone
+  // outnumber every other single category (739 of ~2700 real Skin entries).
+  if (/\/upgrades\/skins\/(operator|clan|railjack|hoverboard)\//.test(value)) return 'Other'
   if (/warframe|\/upgrades\/skins\/(?:[a-z]+)\//.test(value) && !/weapons/.test(value)) return 'Warframe'
   return 'Other'
 }
@@ -135,7 +147,7 @@ export default function Cosmetics() {
       <div className="mb-4 flex flex-col gap-3">
         <div className="relative max-w-sm"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder="Search cosmetics..." value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>
         <div className="flex flex-wrap gap-1 rounded-xl border border-white/5 bg-black/20 p-1 self-start">
-          {['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'glyph', 'sigil', 'other'].map((value) => <button key={value} type="button" onClick={() => setKindFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${kindFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value === 'all' ? 'All' : value}</button>)}
+          {['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'other'].map((value) => <button key={value} type="button" onClick={() => setKindFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${kindFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value === 'all' ? 'All' : value}</button>)}
           <span className="mx-1 border-l border-white/10" />
           {['all', 'owned', 'unowned'].map((value) => <button key={value} type="button" onClick={() => setOwnershipFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${ownershipFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value[0].toUpperCase() + value.slice(1)}</button>)}
         </div>

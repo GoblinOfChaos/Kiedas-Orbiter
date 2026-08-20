@@ -39,6 +39,7 @@ const SettingsScreen = lazy(() => import('../../screens/Settings'))
 const About = lazy(() => import('../../screens/About'))
 const Rivens = lazy(() => import('../../screens/Rivens'))
 const Relics = lazy(() => import('../../screens/Relics'))
+const RelicPlanner = lazy(() => import('../../screens/RelicPlanner'))
 const Mods = lazy(() => import('../../screens/Mods'))
 const Collectibles = lazy(() => import('../../screens/Collectibles'))
 const Cosmetics = lazy(() => import('../../screens/Cosmetics'))
@@ -72,12 +73,14 @@ function useUIIcons(iconNames) {
   return useCallback((name) => iconCache[name] || '', [iconCache])
 }
 
+const WIDTH_PRESETS = [380, 480, 640, 800]
+
 function SidebarContent() {
   const [activeTab, setActiveTab] = useState('dashboard')
   const { lastUpdate, monitorResult } = useMonitoring()
   const [scannerStatus, setScannerStatus] = useState('idle')
   const [sidebarSide, setSidebarSide] = useState('left')
-  const resizeRef = useRef(null)
+  const [sidebarWidth, setSidebarWidth] = useState(480)
 
   const uiIcon = useUIIcons(ICON_NAMES)
   const { t } = useUi()
@@ -85,13 +88,16 @@ function SidebarContent() {
   useEffect(() => {
     loadSettings().then(() => {
       const s = getSetting('sidebar_side', 'left')
+      const w = parseInt(getSetting('sidebar_width', 480)) || 480
       setSidebarSide(s)
+      setSidebarWidth(w)
     })
   }, [])
 
   useEffect(() => {
     const unsub = listen('sidebar-side-changed', (e) => {
       if (e.payload?.side) setSidebarSide(e.payload.side)
+      if (e.payload?.width) setSidebarWidth(e.payload.width)
     })
     return () => { unsub.then(f => f()) }
   }, [])
@@ -105,41 +111,29 @@ function SidebarContent() {
     return () => clearInterval(iv)
   }, [])
 
-  // ── Resize handle (pointer-event-based with capture) ──
-  const onResizeStart = useCallback((e) => {
-    e.preventDefault()
-    const startScreenX = e.screenX
-    const startW = window.innerWidth
-    let lastW = startW
-    const el = resizeRef.current
-    if (!el) return
+  const handlePointerEnter = useCallback(() => {
+    invoke('sidebar_ungrab').catch(() => {})
+  }, [])
 
-    el.setPointerCapture(e.pointerId)
-
-    const onMove = (ev) => {
-      const delta = sidebarSide === 'left' ? ev.screenX - startScreenX : startScreenX - ev.screenX
-      const newW = Math.max(200, Math.min(startW + delta, window.screen.width * 0.9))
-      lastW = Math.round(newW)
-      invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: false }).catch(() => {})
-    }
-
-    const onUp = (ev) => {
-      el.removeEventListener('pointermove', onMove)
-      el.removeEventListener('pointerup', onUp)
-      try { el.releasePointerCapture(ev.pointerId) } catch {}
-      invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: true }).catch(() => {})
-      setSetting('sidebar_width', lastW).catch(() => {})
-    }
-
-    el.addEventListener('pointermove', onMove)
-    el.addEventListener('pointerup', onUp)
+  const handleSetWidth = useCallback((newWidth) => {
+    setSidebarWidth(newWidth)
+    setSetting('sidebar_width', newWidth).catch(() => {})
+    invoke('set_sidebar_width', { width: newWidth, side: sidebarSide, persist: true }).catch(() => {})
   }, [sidebarSide])
+
+  const handleCycleWidth = useCallback(() => {
+    const currentW = parseInt(getSetting('sidebar_width', sidebarWidth)) || sidebarWidth
+    const idx = WIDTH_PRESETS.findIndex((w) => w >= currentW)
+    const nextW = WIDTH_PRESETS[(idx + 1) % WIDTH_PRESETS.length]
+    handleSetWidth(nextW)
+  }, [handleSetWidth, sidebarWidth])
 
   const screens = {
     dashboard: <Dashboard />,
     inventory: <Inventory />,
     rivens: <Rivens />,
     relics: <Relics />,
+    'relic-planner': <RelicPlanner />,
     mods: <Mods />,
     mastery: <Mastery />,
     notes: <Notes />,
@@ -156,7 +150,10 @@ function SidebarContent() {
   const isRight = sidebarSide === 'right'
 
   return (
-    <div className={`flex h-screen bg-kronos-bg ${isRight ? 'flex-row-reverse' : ''}`}>
+    <div
+      onPointerEnter={handlePointerEnter}
+      className={`relative flex h-screen w-full bg-kronos-bg overflow-hidden ${isRight ? 'flex-row-reverse' : ''}`}
+    >
       <nav className={`glass-panel w-20 flex flex-col items-center py-6 gap-4 z-40 relative flex-shrink-0 ${isRight ? 'border-l' : 'border-r'} border-white/5`}>
         <div className="mb-4 flex-shrink-0">
           <div className="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden">
@@ -202,6 +199,31 @@ function SidebarContent() {
           </div>
         </div>
         <div className="mt-auto flex-shrink-0 flex flex-col items-center gap-3 pt-4 border-t border-white/5 w-full">
+          {/* Quick width preset selector */}
+          <div className="flex flex-col items-center gap-1.5 w-full px-2">
+            <div className="grid grid-cols-2 gap-1 w-full max-w-[56px]">
+              {[
+                { label: 'S', width: 380 },
+                { label: 'M', width: 480 },
+                { label: 'L', width: 640 },
+                { label: 'XL', width: 800 },
+              ].map((preset) => (
+                <Tooltip key={preset.label} content={`${preset.label}: ${preset.width}px (Click to set)`}>
+                  <button
+                    onClick={() => handleSetWidth(preset.width)}
+                    className={`h-5 text-[9px] font-bold rounded font-mono transition-all flex items-center justify-center border ${
+                      sidebarWidth === preset.width
+                        ? 'bg-kronos-accent/20 border-kronos-accent text-kronos-accent shadow-[0_0_8px_rgba(85,144,171,0.3)]'
+                        : 'bg-white/5 border-white/5 text-kronos-dim hover:bg-white/10 hover:text-white hover:border-white/20'
+                    }`}
+                  >
+                    {preset.label}
+                  </button>
+                </Tooltip>
+              ))}
+            </div>
+          </div>
+
           <div className="text-xs text-kronos-dim text-center whitespace-nowrap">
             {t('last_update')}<br />{formatLastUpdate(lastUpdate)}
           </div>
@@ -230,16 +252,6 @@ function SidebarContent() {
           </div>
         </div>
       </nav>
-
-      {/* Resize handle */}
-      <div
-        ref={resizeRef}
-        className="fixed top-0 bottom-0 w-3 cursor-col-resize z-[9999] flex items-center justify-center hover:bg-kronos-accent/10 transition-colors group"
-        style={{ [isRight ? 'left' : 'right']: '14px', touchAction: 'none' }}
-        onPointerDown={onResizeStart}
-      >
-        <div className="w-0.5 h-12 rounded-full bg-white/10 group-hover:bg-kronos-accent/50 transition-colors" />
-      </div>
 
       <main className="flex-1 overflow-hidden bg-kronos-bg">
         <Suspense fallback={

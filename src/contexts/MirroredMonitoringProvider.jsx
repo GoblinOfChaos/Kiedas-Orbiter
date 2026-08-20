@@ -165,13 +165,6 @@ export default function MirroredMonitoringProvider({ children }) {
           if (statusBytes) exports.WikiAcquisitionStatus = JSON.parse(new TextDecoder().decode(new Uint8Array(statusBytes)))
         }
 
-        // Inject warframe-items pre-resolved data into exports (same as main MonitoringContext)
-        if (exports) {
-          exports.uniqueNameToName = { ...(exports.uniqueNameToName || {}), ...wiSupplement.uniqueNameToName }
-          exports.nameToImage = { ...(exports.nameToImage || {}), ...wiSupplement.nameToImage }
-          exports.WI_Supplement = wiSupplement
-        }
-
         setExportData(exports)
 
         const [spiRes, arbRes, descRes] = await Promise.allSettled([
@@ -512,8 +505,21 @@ export default function MirroredMonitoringProvider({ children }) {
     const itemCats = ['warframes', 'primary', 'secondary', 'melee', 'kitgunChambers', 'zawStrikes', 'amps',
       'sentinels', 'companion_weapons', 'moaHeads', 'houndHeads', 'beasts',
       'archwings', 'archweapons', 'necramechs', 'plexus', 'kdrives']
-    const itemXP = itemCats.reduce((sum, cat) =>
-      sum + (inventoryData[cat] ?? []).reduce((s, i) => s + (i.mastery_xp || 0), 0), 0)
+    // See MonitoringContext.jsx's masteryProgress for why this dedup exists -
+    // duplicate real items (e.g. Grimoire family) could otherwise desync
+    // this progress value from Mastery.jsx's own deduped total.
+    const modularCats = new Set(['kitgunChambers', 'zawStrikes', 'amps', 'moaHeads', 'houndHeads', 'beasts', 'kdrives'])
+    const dedupedXP = (cat) => {
+      const items = inventoryData[cat] ?? []
+      const best = new Map()
+      for (const item of items) {
+        const key = modularCats.has(cat) ? item.unique_name : (item.name || '').trim().toLowerCase()
+        const prev = best.get(key)
+        if (!prev || (item.mastery_xp || 0) > (prev.mastery_xp || 0)) best.set(key, item)
+      }
+      return [...best.values()].reduce((s, i) => s + (i.mastery_xp || 0), 0)
+    }
+    const itemXP = itemCats.reduce((sum, cat) => sum + dedupedXP(cat), 0)
     const intrinsicXP = (inventoryData.intrinsics ?? []).reduce((s, i) => s + (i.mastery_xp || 0), 0)
     const sc = inventoryData.starchart ?? {}
     const totalXP = itemXP + intrinsicXP + (sc.origin_xp ?? 0) + (sc.steel_path_xp ?? 0)

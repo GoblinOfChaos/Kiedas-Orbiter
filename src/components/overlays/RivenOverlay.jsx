@@ -22,6 +22,14 @@ export default function RivenOverlay() {
   const [refreshTick, setRefreshTick] = useState(0);
   const aliveRef = useRef(true);
   const showingRef = useRef(false);
+  // Bumped at the start of every capture (doOcr call or a manual OCR-hotkey
+  // riven-ocr-result event) so an async pricing result can check it's still
+  // the most recent one before writing state - without this, the manual OCR
+  // hotkey (which can fire at any time, independent of the reroll-debounce
+  // timers already guarded elsewhere in this file) could race a doOcr call
+  // already in flight, with whichever's estimate_riven_full round-trip
+  // finished last winning regardless of which was actually more recent.
+  const captureGenRef = useRef(0);
   const knownWeaponsRef = useRef([]);
   const knownWeaponsLowerRef = useRef([]);
   const localizedWeaponsRef = useRef([]);
@@ -152,6 +160,14 @@ export default function RivenOverlay() {
 
   const doPricing = useCallback((p) => {
     if (!p || !p.stats.length) {setEstimatedPrice(null);setRivenInfo(null);setStatGrade(null);return;}
+    // rivenInfo is only written once estimate_riven_full resolves below (an
+    // async round-trip), but statGrade is set synchronously a few lines down
+    // - without resetting rivenInfo here too, a fresh capture briefly showed
+    // the new riven's stats/grade next to the *previous* riven's Avg Value
+    // and Tier (rivenInfo.weapon_rank/total_weapons) until that request
+    // finished, a genuine mixed-riven display.
+    setRivenInfo(null);
+    const gen = captureGenRef.current;
     const weaponName = extractWeaponName(p.name || '');
     // x-prefixed values (e.g. "x0.82") are negative multiplier stats (typically
     // damage-to-faction reductions) - excluded from pos below, or they land in
@@ -190,7 +206,7 @@ export default function RivenOverlay() {
         negative: neg[0] || null
       }
     }).then((info) => {
-      if (aliveRef.current) {
+      if (aliveRef.current && captureGenRef.current === gen) {
         setRivenInfo(info);
         setEstimatedPrice(info?.price ?? null);
       }
@@ -199,19 +215,21 @@ export default function RivenOverlay() {
 
   const doOcr = useCallback((pos) => {
     if (!aliveRef.current) return;
+    captureGenRef.current++;
+    const gen = captureGenRef.current;
     setOcrLoading(true);
     setParsed(null);
     setEstimatedPrice(null);
     invoke('ocr_riven_card', { position: pos }).
     then((res) => {
-      if (aliveRef.current) {
+      if (aliveRef.current && captureGenRef.current === gen) {
         const p = parseRivenOcr(res.text, garbageRe);
         setParsed(p);
         doPricing(p);
       }
     }).
-    catch(() => {if (aliveRef.current) setParsed({ name: '', mr: '', stats: [], raw: '[OCR failed]' });}).
-    finally(() => {if (aliveRef.current) setOcrLoading(false);});
+    catch(() => {if (aliveRef.current && captureGenRef.current === gen) setParsed({ name: '', mr: '', stats: [], raw: '[OCR failed]' });}).
+    finally(() => {if (aliveRef.current && captureGenRef.current === gen) setOcrLoading(false);});
   }, [doPricing, garbageRe]);
 
   const show = useCallback(() => {
@@ -243,6 +261,10 @@ export default function RivenOverlay() {
     listen('riven-ocr-result', (e) => {
       const payload = typeof e.payload === 'string' ? e.payload : String(e.payload);
       if (aliveRef.current) {
+        // This global hotkey can fire at any time, independent of doOcr
+        // calls already in flight from the reroll-debounce timers below -
+        // bump the generation so this capture wins over anything older.
+        captureGenRef.current++;
         setVisible(true);
         setOcrLoading(false);
         const p = parseRivenOcr(payload, garbageRe);

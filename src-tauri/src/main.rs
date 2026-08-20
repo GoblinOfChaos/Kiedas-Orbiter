@@ -228,6 +228,7 @@ const EXPORT_FILES: &[&str] = &[
     "ExportImages.json",
     "ExportTextIcons.json",
     "ExportFlavour.json",
+    "ExportCodex.json",
     "dict.json",
     "supp-dict.json",
 ];
@@ -946,20 +947,40 @@ include!(concat!(env!("OUT_DIR"), "/bundled_assets.rs"));
 
 fn extract_bundled_assets(app_handle: &tauri::AppHandle) {
     // Copy bundled asset files from inside the AppImage to the writable
-    // data root.  Runs once at startup so resolve_path finds everything.
+    // data root.  Runs at every startup so resolve_path finds everything -
+    // re-copies whenever the bundled copy differs from what's already on
+    // disk (by size or bundled-is-newer mtime), not just on first install.
+    // A plain "skip if dest exists" check here previously meant any asset
+    // extracted once (e.g. the app icon) was permanently stuck at whatever
+    // version first shipped, silently never picking up later updates to
+    // that same file even across app upgrades - confirmed live 2026-08-19
+    // when a new app icon never reached an existing install until the
+    // stale local copy was deleted by hand.
     for rel in BUNDLED_ASSET_FILES {
         let dest = resolve_path(rel);
-        if dest.exists() {
+        let Some(bundled) = resolve_bundled_path(app_handle, rel) else { continue };
+        if !bundled.exists() {
             continue;
         }
-        if let Some(parent) = dest.parent() {
+        if dest.exists() {
+            let up_to_date = match (fs::metadata(&dest), fs::metadata(&bundled)) {
+                (Ok(dm), Ok(bm)) => {
+                    let same_size = dm.len() == bm.len();
+                    let bundled_not_newer = match (dm.modified(), bm.modified()) {
+                        (Ok(dt), Ok(bt)) => bt <= dt,
+                        _ => true,
+                    };
+                    same_size && bundled_not_newer
+                }
+                _ => false,
+            };
+            if up_to_date {
+                continue;
+            }
+        } else if let Some(parent) = dest.parent() {
             let _ = fs::create_dir_all(parent);
         }
-        if let Some(bundled) = resolve_bundled_path(app_handle, rel) {
-            if bundled.exists() {
-                let _ = fs::copy(&bundled, &dest);
-            }
-        }
+        let _ = fs::copy(&bundled, &dest);
     }
 }
 
@@ -2642,11 +2663,35 @@ fn set_sidebar_width(app_handle: tauri::AppHandle, width: f64, side: String, per
             eprintln!("[set_sidebar_width] computed: phys_w={}, target_x={}, mon_y={}, mon_h={}, mon_x={}, mon_w={}", phys_w, target_x, mon_y, mon_h, mon_x, mon_w);
             let _ = window.set_size(tauri::Size::Physical(tauri::PhysicalSize { width: phys_w, height: mon_h }));
             let _ = window.set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: target_x, y: mon_y }));
+            #[cfg(target_os = "linux")]
+            if let Some((xdisplay, xid)) = overlay_utils::get_x11_ids(&window) {
+                unsafe {
+                    overlay_utils::XRaiseWindow(xdisplay, xid);
+                    overlay_utils::XFlush(xdisplay);
+                }
+            }
         }
         // Notify the overlay sidebar so it can flip nav layout
         let _ = app_handle.emit("sidebar-side-changed", serde_json::json!({"side": side}));
     }
     
+    Ok(())
+}
+
+#[tauri::command]
+fn sidebar_ungrab(app_handle: tauri::AppHandle) -> Result<(), String> {
+    #[cfg(target_os = "linux")]
+    {
+        if let Some(window) = app_handle.get_webview_window("overlay-sidebar") {
+            if let Some((xdisplay, xid)) = overlay_utils::get_x11_ids(&window) {
+                unsafe {
+                    overlay_utils::XRaiseWindow(xdisplay, xid);
+                    overlay_utils::XUngrabPointer(xdisplay, 0);
+                    overlay_utils::XSync(xdisplay, 0);
+                }
+            }
+        }
+    }
     Ok(())
 }
 
@@ -3579,6 +3624,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             sidebar_load_data,
             sidebar_load_inventory,
             set_sidebar_width,
+            sidebar_ungrab,
             set_monitoring_active,
             get_monitoring_active,
             log_timing,

@@ -17,6 +17,7 @@ import LanguagePicker from '../components/LanguagePicker';
 
 function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
   const [recording, setRecording] = useState(false);
+  const [needsModifier, setNeedsModifier] = useState(false);
   const buttonRef = useRef(null);
 
   useEffect(() => {
@@ -35,13 +36,17 @@ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
       if (e.shiftKey) parts.push('Shift');
 
       // Bare keys (no modifier) can't be grabbed over a fullscreen game.
-      // Reject and flash the button red.
+      // Reject and flash the button red - previously silent, which looked
+      // identical to "broken" for anyone pressing a single key expecting it
+      // to record (see qa-findings.md 2026-08-20).
       if (parts.length === 0) {
         const btn = buttonRef.current;
         if (btn) {
           btn.classList.add('border-red-500', 'bg-red-500/20');
           setTimeout(() => btn.classList.remove('border-red-500', 'bg-red-500/20'), 600);
         }
+        setNeedsModifier(true);
+        setTimeout(() => setNeedsModifier(false), 1500);
         return;
       }
 
@@ -64,17 +69,22 @@ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
   }, [recording, onChange]);
 
   return (
-    <button
-      ref={buttonRef}
-      onClick={() => setRecording(!recording)}
-      onBlur={() => setRecording(false)}
-      className={`h-9 px-4 rounded-lg border text-xs font-mono transition-all ${recording ?
-      'border-kronos-accent bg-kronos-accent/20 text-white animate-pulse' :
-      'border-white/10 bg-black/20 text-kronos-dim hover:border-white/20'}`
-      }>
-      
-      {recording ? 'Recording...' : value || placeholder}
-    </button>);
+    <div>
+      <button
+        ref={buttonRef}
+        onClick={() => setRecording(!recording)}
+        onBlur={() => setRecording(false)}
+        className={`h-9 px-4 rounded-lg border text-xs font-mono transition-all ${recording ?
+        'border-kronos-accent bg-kronos-accent/20 text-white animate-pulse' :
+        'border-white/10 bg-black/20 text-kronos-dim hover:border-white/20'}`
+        }>
+
+        {needsModifier ? 'Hold Ctrl/Alt/Shift + a key' : recording ? 'Recording...' : value || placeholder}
+      </button>
+      {recording && !needsModifier &&
+      <p className="text-[10px] text-kronos-dim mt-1">Must include Ctrl, Alt, Shift, or Cmd</p>
+      }
+    </div>);
 
 }
 
@@ -94,14 +104,27 @@ export default function SettingsScreen() {
   }, [isMonitoring]);
 
   const [hotkeys, setHotkeys] = useState(
-    () => getSetting('hotkeys', [{ action: 'manual_ocr', shortcut: '' }])
+    () => getSetting('hotkeys', [{ action: 'manual_ocr', shortcut: '' }, { action: 'toggle_sidebar', shortcut: '' }])
   );
   const [sidebarSide, setSidebarSide] = useState(
     () => getSetting('sidebar_side', 'left')
   );
+  const [sidebarWidth, setSidebarWidth] = useState(
+    () => parseInt(getSetting('sidebar_width', 480)) || 480
+  );
   const [sidebarHideOnFocusLoss, setSidebarHideOnFocusLoss] = useState(
     () => getSetting('sidebar_hide_on_focus_loss', true)
   );
+
+  // Existing installs may have saved a hotkeys list from before "Toggle
+  // Ingame Menu" was added - without this it never appears for them since
+  // there's no default binding and nothing else surfaces this feature at all.
+  useEffect(() => {
+    if (!hotkeys.some((hk) => hk.action === 'toggle_sidebar')) {
+      setHotkeys((prev) => [...prev, { action: 'toggle_sidebar', shortcut: '' }]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleUpdateHotkeys = async (newHotkeys) => {
     setHotkeys(newHotkeys);
@@ -154,10 +177,6 @@ export default function SettingsScreen() {
     () => getSetting('notif_sound', 'notification1.wav')
   );
 
-  const [notifArbitrationEnabled, setNotifArbitrationEnabled] = useState(
-    () => getSetting('notif_arbitration_enabled', false)
-  );
-
   const [uiPath, setUiPath] = useState('');
   useEffect(() => {invoke('get_ui_path').then(setUiPath).catch(() => {});}, []);
 
@@ -195,42 +214,6 @@ export default function SettingsScreen() {
     };
     build();
   }, [cursorTint, uiPath, theme]);
-  const [notifArbitrationHours, setNotifArbitrationHours] = useState(
-    () => parseInt(getSetting('notif_arbitration_hours', 24))
-  );
-  const [notifArbitrationRemind, setNotifArbitrationRemind] = useState(
-    () => parseInt(getSetting('notif_arbitration_remind', 30))
-  );
-
-  const [notifFoundryEnabled, setNotifFoundryEnabled] = useState(
-    () => getSetting('notif_foundry_enabled', false)
-  );
-  const [notifFoundryMinutes, setNotifFoundryMinutes] = useState(
-    () => parseInt(getSetting('notif_foundry_minutes', 5))
-  );
-
-  const [notifSyndicateEnabled, setNotifSyndicateEnabled] = useState(
-    () => getSetting('notif_syndicate_enabled', false)
-  );
-  const [notifSyndicateWasteEnabled, setNotifSyndicateWasteEnabled] = useState(
-    () => getSetting('notif_syndicate_waste_enabled', false)
-  );
-
-  const [notifVoidTracesEnabled, setNotifVoidTracesEnabled] = useState(
-    () => getSetting('notif_void_traces_enabled', false)
-  );
-
-  const [notifMasteryEnabled, setNotifMasteryEnabled] = useState(
-    () => getSetting('notif_mastery_enabled', false)
-  );
-  const [notifMasteryPercent, setNotifMasteryPercent] = useState(
-    () => parseInt(getSetting('notif_mastery_percent', 75))
-  );
-
-  const [notifChecklistMinutes, setNotifChecklistMinutes] = useState(
-    () => parseInt(getSetting('notif_checklist_minutes', 60))
-  );
-
   // Fissure Overlay Settings
   const [fissureOverlayEnabled, setFissureOverlayEnabled] = useState(
     () => getSetting('fissure_overlay_enabled')
@@ -332,7 +315,20 @@ export default function SettingsScreen() {
     if (enabled) {
       await handleSetTargetMonitor('auto');
     } else {
-      const first = availableMonitors[0];
+      let list = availableMonitors;
+      if (list.length === 0) {
+        // Switching to manual before the monitor list has loaded left
+        // fissure_target_monitor unset on the backend while the UI radio
+        // still showed "manual" selected - fetch it directly here instead
+        // of silently doing nothing.
+        try {
+          list = await invoke('get_available_monitors');
+          setAvailableMonitors(list);
+        } catch {
+          list = [];
+        }
+      }
+      const first = list[0];
       if (first) {
         await handleSetTargetMonitor(first.index);
       }
@@ -350,59 +346,6 @@ export default function SettingsScreen() {
     if (sound !== 'none') {
       await invoke('play_notification_sound', { sound }).catch(console.error);
     }
-  };
-
-  // Arbitration settings handlers
-  const handleSetArbitrationEnabled = async (val) => {
-    setNotifArbitrationEnabled(val);
-    await setSetting('notif_arbitration_enabled', val);
-  };
-  const handleSetArbitrationHours = async (val) => {
-    setNotifArbitrationHours(val);
-    await setSetting('notif_arbitration_hours', val);
-  };
-  const handleSetArbitrationRemind = async (val) => {
-    setNotifArbitrationRemind(val);
-    await setSetting('notif_arbitration_remind', val);
-  };
-
-  // Foundry settings handlers
-  const handleSetFoundryEnabled = async (val) => {
-    setNotifFoundryEnabled(val);
-    await setSetting('notif_foundry_enabled', val);
-  };
-  const handleSetFoundryMinutes = async (val) => {
-    setNotifFoundryMinutes(val);
-    await setSetting('notif_foundry_minutes', val);
-  };
-
-  // Syndicate settings handlers
-  const handleSetSyndicateEnabled = async (val) => {
-    setNotifSyndicateEnabled(val);
-    await setSetting('notif_syndicate_enabled', val);
-  };
-  const handleSetSyndicateWasteEnabled = async (val) => {
-    setNotifSyndicateWasteEnabled(val);
-    await setSetting('notif_syndicate_waste_enabled', val);
-  };
-
-  const handleSetVoidTracesEnabled = async (val) => {
-    setNotifVoidTracesEnabled(val);
-    await setSetting('notif_void_traces_enabled', val);
-  };
-
-  // Mastery settings handlers
-  const handleSetMasteryEnabled = async (val) => {
-    setNotifMasteryEnabled(val);
-    await setSetting('notif_mastery_enabled', val);
-  };
-  const handleSetMasteryPercent = async (val) => {
-    setNotifMasteryPercent(val);
-    await setSetting('notif_mastery_percent', val);
-  };
-  const handleSetChecklistMinutes = async (val) => {
-    setNotifChecklistMinutes(val);
-    await setSetting('notif_checklist_minutes', val);
   };
 
   // Fissure Overlay handlers
@@ -441,8 +384,14 @@ export default function SettingsScreen() {
   const handleSetSidebarSide = async (side) => {
     setSidebarSide(side);
     await setSetting('sidebar_side', side);
-    const width = parseInt(getSetting('sidebar_width', 400));
+    const width = parseInt(getSetting('sidebar_width', 480)) || 480;
     invoke('set_sidebar_width', { width, side, persist: true }).catch(() => {});
+  };
+
+  const handleSetSidebarWidth = async (width) => {
+    setSidebarWidth(width);
+    await setSetting('sidebar_width', width);
+    invoke('set_sidebar_width', { width, side: sidebarSide, persist: true }).catch(() => {});
   };
 
   const handleSetSidebarHideOnFocusLoss = async (val) => {
@@ -479,14 +428,17 @@ export default function SettingsScreen() {
         event: 'scanner-relic-phase-start',
         payload: { squad_size: 4 }
       });
-      mockRelics.forEach((r, i) => {
-        setTimeout(() => {
-          invoke('relay_event', {
-            event: 'overlay-update-ocr',
-            payload: { slot: i + 1, confirmed_reward: mockRewards[i], item: { ...r, name: mockRewards[i], ducats: [0, 100, 45, 35][i] } }
-          }).catch(() => {});
-        }, i * 500);
-      });
+      // Await each staggered per-slot update in sequence before firing the
+      // summary event - it previously fired immediately after only
+      // *scheduling* the setTimeouts, so the summary arrived before any of
+      // the per-slot OCR updates it's meant to follow.
+      for (let i = 0; i < mockRelics.length; i++) {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        await invoke('relay_event', {
+          event: 'overlay-update-ocr',
+          payload: { slot: i + 1, confirmed_reward: mockRewards[i], item: { ...mockRelics[i], name: mockRewards[i], ducats: [0, 100, 45, 35][i] } }
+        }).catch(() => {});
+      }
       await invoke('relay_event', {
         event: 'overlay-update-relics',
         payload: { squad_relics: mockRelics, squad_size: 4 }
@@ -920,6 +872,30 @@ export default function SettingsScreen() {
                 )}
               </div>
             </div>
+            <div>
+              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Sidebar Width</p>
+              <div className="grid grid-cols-4 gap-2">
+                {[
+                  { label: 'Compact', width: 380 },
+                  { label: 'Default', width: 480 },
+                  { label: 'Wide', width: 640 },
+                  { label: 'Full', width: 800 },
+                ].map(({ label, width }) => (
+                  <button
+                    key={width}
+                    onClick={() => handleSetSidebarWidth(width)}
+                    className={`py-2.5 px-3 rounded-xl border text-xs font-black uppercase tracking-wider transition-all flex flex-col items-center justify-center gap-1 ${
+                      sidebarWidth === width
+                        ? 'bg-kronos-accent/20 border-kronos-accent text-kronos-accent shadow-[0_0_15px_rgba(85,144,171,0.2)]'
+                        : 'bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20'
+                    }`}
+                  >
+                    <span>{label}</span>
+                    <span className="text-[10px] opacity-60 font-mono">{width}px</span>
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="pt-3 border-t border-white/5">
               <Toggle
                 checked={sidebarHideOnFocusLoss}
@@ -1077,7 +1053,7 @@ export default function SettingsScreen() {
                     'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'}`
                     }>
                     
-                    {updateState.status === 'checking' ? 'Checking...' : 'Check for Updates'}
+                    {updateState.status === 'checking' ? 'Checking...' : updateState.status === 'installing' ? 'Installing...' : 'Check for Updates'}
                   </button>
                   {updateState.status === 'available' &&
                   <button

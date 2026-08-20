@@ -84,7 +84,7 @@ fn start_sidebar_ungrab_timer() {
     }
     std::thread::spawn(|| {
         while SIDEBAR_UNGRAB_ACTIVE.load(Ordering::SeqCst) {
-            std::thread::sleep(Duration::from_millis(500));
+            std::thread::sleep(Duration::from_millis(150));
             let xdisplay = unsafe { gdkx11::ffi::gdk_x11_get_default_xdisplay() };
             if !xdisplay.is_null() {
                 const CT: u64 = 0;
@@ -255,9 +255,9 @@ extern "C" {
     fn XInitThreads() -> i32;
     fn XMoveWindow(display: *mut std::ffi::c_void, w: u64, x: i32, y: i32) -> i32;
     fn XMoveResizeWindow(display: *mut std::ffi::c_void, w: u64, x: i32, y: i32, width: u32, height: u32) -> i32;
-    fn XRaiseWindow(display: *mut std::ffi::c_void, w: u64) -> i32;
-    fn XFlush(display: *mut std::ffi::c_void) -> i32;
-    fn XSync(display: *mut std::ffi::c_void, discard: i32) -> i32;
+    pub(crate) fn XRaiseWindow(display: *mut std::ffi::c_void, w: u64) -> i32;
+    pub(crate) fn XFlush(display: *mut std::ffi::c_void) -> i32;
+    pub(crate) fn XSync(display: *mut std::ffi::c_void, discard: i32) -> i32;
     fn XUnmapWindow(display: *mut std::ffi::c_void, w: u64) -> i32;
     fn XMapWindow(display: *mut std::ffi::c_void, w: u64) -> i32;
     fn XInternAtom(display: *mut std::ffi::c_void, name: *const i8, only_if_exists: i32) -> u64;
@@ -271,7 +271,7 @@ extern "C" {
         data: *const u8,
         nelements: i32,
     ) -> i32;
-    fn XSetInputFocus(
+    pub(crate) fn XSetInputFocus(
         display: *mut std::ffi::c_void,
         focus: u64,
         revert_to: i32,
@@ -279,8 +279,8 @@ extern "C" {
     ) -> i32;
     #[allow(dead_code)]
     fn XSetErrorHandler(handler: Option<unsafe extern "C" fn(*mut std::ffi::c_void, *mut XErrorEvent) -> i32>) -> Option<unsafe extern "C" fn(*mut std::ffi::c_void, *mut XErrorEvent) -> i32>;
-    fn XUngrabPointer(display: *mut std::ffi::c_void, time: u64) -> i32;
-    fn XUngrabKeyboard(display: *mut std::ffi::c_void, time: u64) -> i32;
+    pub(crate) fn XUngrabPointer(display: *mut std::ffi::c_void, time: u64) -> i32;
+    pub(crate) fn XUngrabKeyboard(display: *mut std::ffi::c_void, time: u64) -> i32;
 }
 
 #[cfg(target_os = "linux")]
@@ -322,7 +322,7 @@ pub fn install_x_error_handler() {
 }
 
 #[cfg(target_os = "linux")]
-fn get_x11_ids(window: &WebviewWindow) -> Option<(*mut std::ffi::c_void, u64)> {
+pub(crate) fn get_x11_ids(window: &WebviewWindow) -> Option<(*mut std::ffi::c_void, u64)> {
     use gtk::prelude::*;
     let gtk_window = window.gtk_window().ok()?;
     gtk_window.realize();
@@ -481,6 +481,7 @@ fn create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<tauri::W
     let builder = WebviewWindowBuilder::new(app_handle, label, WebviewUrl::App("/?overlay=true".into()))
         .inner_size(w, h)
         .decorations(false)
+        .transparent(true)
         .always_on_top(true)
         .skip_taskbar(true)
         .resizable(true)
@@ -724,8 +725,13 @@ pub fn show_sidebar_internal(
         _       => mon_x,
     };
 
-    // Register in SHOWN_OVERLAYS so the focus watcher can track this window.
-    SHOWN_OVERLAYS.lock().unwrap().push("overlay-sidebar".to_string());
+    // Register in SHOWN_OVERLAYS so the focus watcher can track this window (deduplicated).
+    {
+        let mut shown = SHOWN_OVERLAYS.lock().unwrap();
+        if !shown.contains(&"overlay-sidebar".to_string()) {
+            shown.push("overlay-sidebar".to_string());
+        }
+    }
 
     let win = window.clone();
     window.run_on_main_thread(move || {
@@ -776,6 +782,7 @@ pub fn show_sidebar_internal(
             const CURRENT_TIME: u64 = 0;
             const REVERT_TO_POINTER_ROOT: i32 = 1;
             unsafe {
+                XRaiseWindow(xdisplay, xid);
                 XUngrabPointer(xdisplay, CURRENT_TIME);
                 XUngrabKeyboard(xdisplay, CURRENT_TIME);
                 XSync(xdisplay, 0);
@@ -1114,6 +1121,9 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
                     }
                     if !is_notification {
                         had_visible.push(label.clone());
+                        if is_sidebar {
+                            stop_sidebar_ungrab_timer();
+                        }
                         if let Some(w) = find_overlay_window(&ah, &label) {
                             let _ = w.hide();
                         }

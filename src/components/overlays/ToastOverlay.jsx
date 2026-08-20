@@ -198,7 +198,7 @@ function ToastCard({ toast, onExpire, uiIcon }) {
       
       <div className="flex gap-3 items-center">
         <div className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden bg-kronos-accent/15">
-          {toast.image ?
+          {toast.image && uiIcon(toast.image) ?
           <img src={uiIcon(toast.image)} alt="" className="w-6 h-6 object-contain" /> :
           <Bell size={15} className="text-kronos-accent" />
           }

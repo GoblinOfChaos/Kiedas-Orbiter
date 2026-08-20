@@ -32,6 +32,12 @@ export default function RelicRewardOverlay() {
   const [triggerKey, setTriggerKey] = useState(0);
   const showingRef = useRef(false);
   const lastSizeRef = useRef({ width: 0, height: 0 });
+  const dataRef = useRef(null);
+  const sessionIdRef = useRef(0);
+
+  useEffect(() => {
+    dataRef.current = data;
+  }, [data]);
 
   const showWindow = useCallback(async (fromRust = false) => {
     if (showingRef.current) return;
@@ -74,7 +80,8 @@ export default function RelicRewardOverlay() {
 
     // Immediate state reset when scanner triggers
     subs.push(listen('scanner-relic-phase-start', (e) => {
-      console.log(`[RelicOverlay] received event scanner-relic-phase-start: squad_size=${e.payload.squad_size}`);
+      sessionIdRef.current += 1;
+      console.log(`[RelicOverlay] received event scanner-relic-phase-start (session=${sessionIdRef.current}): squad_size=${e.payload.squad_size}`);
       if (closeTimerRef.current) {clearTimeout(closeTimerRef.current);closeTimerRef.current = null;}
       setSquadSize(e.payload.squad_size);
       setOcrResults({});
@@ -108,6 +115,10 @@ export default function RelicRewardOverlay() {
     }));
 
     subs.push(listen('overlay-update-ocr', (e) => {
+      if (closeTimerRef.current || !dataRef.current) {
+        console.log(`[RelicOverlay] Discarding late OCR event slot=${e.payload.slot} (session inactive)`);
+        return;
+      }
       console.log(`[RelicOverlay] EVENT: overlay-update-ocr slot=${e.payload.slot} reward=${e.payload.confirmed_reward}`, e.payload);
       const { slot, confirmed_reward, item } = e.payload;
       setOcrResults((prev) => ({ ...prev, [slot]: { confirmed_reward, item } }));
@@ -120,6 +131,7 @@ export default function RelicRewardOverlay() {
     }));
 
     subs.push(listen('fissure-reward-closed', () => {
+      sessionIdRef.current += 1;
       console.log('[RelicRewardOverlay] received event fissure-reward-closed');
       if (closeTimerRef.current) {clearTimeout(closeTimerRef.current);}
       closeTimerRef.current = setTimeout(() => {

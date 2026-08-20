@@ -155,11 +155,14 @@ impl LogScanner {
                     self.is_fissure = true;
                     set_poll_interval(150);
 
-                    // Detect void tier from the first relic (only if not already set from mission JSON)
-                    if is_first && self.void_tier.is_none() {
+                    // Detect void tier from the first relic (only if not already set from mission JSON,
+                    // and only once the mission is actually running - pre-mission pool loads (e.g. the
+                    // orbiter relic picker) have no fissure era to infer, and reading one from there
+                    // leaks the previous run's era into the reward picker overlay).
+                    if is_first && self.void_tier.is_none() && self.in_mission {
                         self.void_tier = Some(detect_void_tier(path));
                     }
-                    if is_first && self.relic_picker_open {
+                    if is_first && self.relic_picker_open && self.in_mission {
                         app.emit("relic-picker-tier",
                             serde_json::json!({ "tier": self.void_tier })
                         ).unwrap_or_default();
@@ -224,13 +227,13 @@ impl LogScanner {
                 self.relic_picker_open = true;
                 self.relic_picker_opened_at = ts;
                 crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (pre-mission) void_tier={:?} (LogTS: {}s)", self.void_tier, ts));
-                app.emit("relic-picker-opened", serde_json::json!({ "void_tier": self.void_tier })).unwrap_or_default();
+                app.emit("relic-picker-opened", serde_json::json!({ "void_tier": None::<String>, "in_mission": false })).unwrap_or_default();
                 return;
             }
             self.relic_picker_open = true;
             self.relic_picker_opened_at = ts;
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (endless) void_tier={:?} (LogTS: {}s)", self.void_tier, ts));
-            app.emit("relic-picker-opened", serde_json::json!({ "void_tier": self.void_tier })).unwrap_or_default();
+            app.emit("relic-picker-opened", serde_json::json!({ "void_tier": self.void_tier, "in_mission": true })).unwrap_or_default();
             return;
         }
 
@@ -951,17 +954,20 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                 crate::logger::log_to_disk(&app_inner, &format!(
                     "[MEMORY WATCHER] Read error ({:?}), retrying...", e
                 ));
-                // If the process memory is inaccessible, the PID is stale
-                // (e.g. the game restarted under a new PID).  Reset so the
-                // next iteration re-scans /proc and re-discovers the buffer.
-                // also reset ever_hooked so the status goes back to "active"
-                // (green) once re-validation succeeds.
-                if e == "open_mem_failed" {
-                    validated = false;
-                    ever_hooked = false;
-                    crate::overlay_utils::stop_focus_watcher();
-                    clear_pid_cache();
-                }
+                // Any read failure here means the cached VA no longer points
+                // at a valid ring buffer - whether the process is gone
+                // entirely ("open_mem_failed") or the buffer simply moved
+                // within the still-running process ("read_failed", the more
+                // common real-world case). Reset so the next iteration
+                // re-scans /proc and re-discovers the buffer instead of
+                // retrying the same stale address forever. Also reset
+                // ever_hooked so the status goes back to "active" (green)
+                // once re-validation succeeds.
+                validated = false;
+                ever_hooked = false;
+                discovery_attempts = 0;
+                crate::overlay_utils::stop_focus_watcher();
+                clear_pid_cache();
                 std::thread::sleep(std::time::Duration::from_millis(500));
                 continue;
             }

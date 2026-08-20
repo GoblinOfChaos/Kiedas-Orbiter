@@ -16,19 +16,22 @@ const CATEGORIES = [
   { type: 'marker', key: 'FortunaMarker', label: 'Fortuna', icon: 'FortunaTown.png', color: '#fbbf24' },
   { type: 'marker', key: 'NecraliskMarker', label: 'Necralisk', icon: 'IconNecralisk.png', color: '#c084fc' },
 
-  // Lore Fragments
-  { type: 'fragment', label: 'Somachord Tunes', wikiTotal: 55, icon: 'IconSomachord.png', color: '#f472b6', match: (type) => type.includes('/MusicFragments/') },
-  { type: 'fragment', label: 'Frame Fighter Fragments', wikiTotal: 42, icon: 'IconFrameFighter.png', color: '#fb923c', match: (type) => type.includes('/FrameFighterFragments/') },
-  { type: 'fragment', label: 'Cephalon Fragments', wikiTotal: 43, icon: 'IconCephalonFragment.png', color: '#60a5fa', match: (type) => type.startsWith('/Lotus/Types/Lore/Fragments/') && !type.includes('/Eidolon') && !type.includes('/Music') && !type.includes('/FrameFighter') && !type.includes('/LoreCard') && !type.includes('/Solaris') && !type.includes('/GrineerGhoul') && !type.includes('/Albrect') && !type.includes('/Revenant') && !type.includes('/CorpusRelief') && !type.includes('/GasCity') && !type.includes('/GlassFragments') },
-  { type: 'fragment', label: 'Leverian Prex Cards', wikiTotal: 50, icon: 'IconTarotCards.png', color: '#a78bfa', match: (type) => type.includes('/LoreCardFragments/') },
-  { type: 'fragment', label: 'Thousand-Year Fish', wikiTotal: 20, icon: 'GlassFish.png', color: '#34d399', match: (type) => type.includes('/EidolonFragments/') },
-  { type: 'fragment', label: 'Encrypted Journal Fragments', wikiTotal: 13, icon: 'GhoulDataFragment.png', color: '#a3e635', match: (type) => type.includes('/GrineerGhoulFragments/') },
-  { type: 'fragment', label: 'Glass Shard Fragments', wikiTotal: 5, icon: 'GlassFragment.png', color: '#6ee7b7', match: (type) => type.includes('/GlassFragments/') },
-  { type: 'fragment', label: 'Fortuna Fragments', wikiTotal: 35, icon: 'DebtTokenD.png', color: '#facc15', match: (type) => type.includes('/SolarisFragments/') },
-  { type: 'fragment', label: "Albrecht's Notes", wikiTotal: 23, icon: 'Grimoire.png', color: '#818cf8', match: (type) => type.includes('/AlbrectFragments/') },
-  { type: 'fragment', label: 'Nakak Memory Fragments', wikiTotal: 3, icon: 'RevenantQuestKeyChain.png', color: '#c084fc', match: (type) => type.includes('/RevenantFragments/') },
-  { type: 'fragment', label: 'The Tenets', wikiTotal: 11, icon: 'IconCorpusRelief.png', color: '#67e8f9', match: (type) => type.includes('/CorpusReliefFragments/') },
-  { type: 'fragment', label: 'Partnership Fragments', wikiTotal: 8, icon: 'IconGasCityLoreFragment.png', color: '#22d3ee', match: (type) => type.includes('/GasCityFragments/') },
+  // Lore Fragments - totals are computed live from ExportCodex.json (DE's own
+  // authoritative catalog), not hardcoded. See qa-findings.md 2026-08-19: three
+  // different hand-entered/wiki-derived totals for this section (Somachord,
+  // Frame Fighter, Leverian) all turned out wrong compared to the real catalog.
+  { type: 'fragment', label: 'Somachord Tunes', codexSection: 'songs', icon: 'IconSomachord.png', color: '#f472b6', match: (type) => type.includes('/MusicFragments/') },
+  { type: 'fragment', label: 'Frame Fighter Fragments', codexSection: 'fighterFrames', icon: 'IconFrameFighter.png', color: '#fb923c', match: (type) => type.includes('/FrameFighterFragments/') },
+  { type: 'fragment', label: 'Cephalon Fragments', icon: 'IconCephalonFragment.png', color: '#60a5fa', match: (type) => type.startsWith('/Lotus/Types/Lore/Fragments/') && !type.includes('/Eidolon') && !type.includes('/Music') && !type.includes('/FrameFighter') && !type.includes('/LoreCard') && !type.includes('/Solaris') && !type.includes('/GrineerGhoul') && !type.includes('/Albrect') && !type.includes('/Revenant') && !type.includes('/CorpusRelief') && !type.includes('/GasCity') && !type.includes('/GlassFragments') },
+  { type: 'fragment', label: 'Leverian Prex Cards', icon: 'IconTarotCards.png', color: '#a78bfa', match: (type) => type.includes('/LoreCardFragments/') },
+  { type: 'fragment', label: 'Thousand-Year Fish', icon: 'GlassFish.png', color: '#34d399', match: (type) => type.includes('/EidolonFragments/') },
+  { type: 'fragment', label: 'Encrypted Journal Fragments', icon: 'GhoulDataFragment.png', color: '#a3e635', match: (type) => type.includes('/GrineerGhoulFragments/') },
+  { type: 'fragment', label: 'Glass Shard Fragments', icon: 'GlassFragment.png', color: '#6ee7b7', match: (type) => type.includes('/GlassFragments/') },
+  { type: 'fragment', label: 'Fortuna Fragments', icon: 'DebtTokenD.png', color: '#facc15', match: (type) => type.includes('/SolarisFragments/') },
+  { type: 'fragment', label: "Albrecht's Notes", icon: 'Grimoire.png', color: '#818cf8', match: (type) => type.includes('/AlbrectFragments/') },
+  { type: 'fragment', label: 'Nakak Memory Fragments', icon: 'RevenantQuestKeyChain.png', color: '#c084fc', match: (type) => type.includes('/RevenantFragments/') },
+  { type: 'fragment', label: 'The Tenets', icon: 'IconCorpusRelief.png', color: '#67e8f9', match: (type) => type.includes('/CorpusReliefFragments/') },
+  { type: 'fragment', label: 'Partnership Fragments', icon: 'IconGasCityLoreFragment.png', color: '#22d3ee', match: (type) => type.includes('/GasCityFragments/') },
 ]
 
 function countBits(n) {
@@ -39,6 +42,9 @@ function countBits(n) {
 
 function Subpanel({ cat, items, onClose }) {
   const panelRef = useRef(null)
+  const handleOpenLink = async (url) => {
+    try { await invoke('open_url', { url }) } catch { /* ignore */ }
+  }
 
   useEffect(() => {
     if (cat) document.body.style.overflow = 'hidden'
@@ -67,6 +73,23 @@ function Subpanel({ cat, items, onClose }) {
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
               </button>
             </div>
+            {cat.guide && (
+              <div className="px-5 py-3 bg-white/[0.03] border-b border-white/10">
+                <p className="text-xs text-kronos-dim leading-relaxed">{cat.guide}</p>
+                <div className="flex gap-3">
+                  {cat.guideSource && (
+                    <button onClick={() => handleOpenLink(cat.guideSource)} className="mt-1.5 text-xs font-bold text-kronos-accent hover:underline cursor-pointer">
+                      Open full wiki guide ↗
+                    </button>
+                  )}
+                  {cat.videoGuide && (
+                    <button onClick={() => handleOpenLink(cat.videoGuide)} className="mt-1.5 text-xs font-bold text-kronos-accent hover:underline cursor-pointer">
+                      Video guide ↗
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
             <div className="divide-y divide-white/5">
               {items.map((item, i) => (
                 <div key={item.key ?? i} className="flex items-center gap-3 px-4 py-2.5">
@@ -110,13 +133,15 @@ function ProgressCard({ icon, label, subtitle, count, total, color, onClick }) {
         <div className="relative z-10 h-full flex flex-col justify-center px-3 py-2 min-w-0">
           <p className="text-sm font-bold text-white leading-tight">{label}</p>
           {subtitle && <p className="text-[10px] text-kronos-dim leading-tight">{subtitle}</p>}
-          {total > 0 && (
+          {total > 0 ? (
             <>
               <p className="text-xs font-bold mt-1" style={{ color }}>{count} / {total}</p>
               <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-1">
                 <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, backgroundColor: color, boxShadow: `0 0 4px ${color}66` }} />
               </div>
             </>
+          ) : count > 0 && (
+            <p className="text-xs font-bold mt-1" style={{ color }}>{count} found (total unverified)</p>
           )}
         </div>
       </div>
@@ -126,7 +151,7 @@ function ProgressCard({ icon, label, subtitle, count, total, color, onClick }) {
 
 export default function Collectibles() {
   const { t } = useUi()
-  const { inventoryData, dict } = useMonitoring()
+  const { inventoryData, dict, exportData } = useMonitoring()
   const [uiPath, setUiPath] = useState('')
   const [selectedCat, setSelectedCat] = useState(null)
   const [subpanelItems, setSubpanelItems] = useState([])
@@ -142,9 +167,10 @@ export default function Collectibles() {
   const discoveredMarkers = inventoryData?.discoveredMarkers ?? []
   const loreFragmentScans = inventoryData?.loreFragmentScans ?? []
 
-  const fragName = useCallback((type) => {
+  const fragName = useCallback((type, codexEntry) => {
     const leaf = type.split('/').pop()
-    return dict['/Lotus/Language/Fragments/' + leaf + 'Name']
+    return (codexEntry?.name && dict[codexEntry.name])
+      || dict['/Lotus/Language/Fragments/' + leaf + 'Name']
       || dict['/Lotus/Language/Fragments/' + leaf]
       || leaf.replace(/(Fragment|Name)$/i, '').replace(/([a-z])([A-Z])/g, '$1 $2').trim()
   }, [dict])
@@ -168,22 +194,30 @@ export default function Collectibles() {
       color: cat.color,
       count: cs?.Count ?? 0,
       total: cs?.ReqScans ?? 0,
+      guide: `The game's save data doesn't expose which specific item you have vs. still need - only the total (${cs?.Count ?? 0}/${cs?.ReqScans ?? 0} shown above) is accurate. This list is a location reference for all of them, not a personal checklist.`,
     }
     return {
       ...card,
-      onClick: () => openSubpanel(card, () => Array.from({ length: card.total }, (_, i) => {
-        const itemKey = `${Math.floor(i / 4) + 1}-${(i % 4) + 1}`
-        const data = collectibleLocations.series?.[cat.key]?.[itemKey]
-        return {
-          key: itemKey,
-          name: data?.name || `${cat.label} ${itemKey}`,
-          location: data?.location,
-          // The game payload reports a fixed 90-slot bitset, but does not
-          // expose the mapping from those slots to the current 56 Kurias.
-          // Leave individual status unknown until that mapping is sourced.
-          found: null,
-        }
-      })),
+      onClick: () => openSubpanel(card, () => {
+        const groupSize = collectibleLocations.seriesMeta?.[cat.key]?.groupSize ?? 4
+        // The save has a `Tracking` bitstring whose total 1-count matches `Count`
+        // exactly, but checked whether a contiguous slice of it lines up with
+        // per-item order and it doesn't cleanly - multiple different offsets
+        // "match" the count by coincidence, meaning there's no single unambiguous
+        // window. Not reliable enough to claim a specific item is found/not found,
+        // so individual status stays unknown rather than risk showing the wrong
+        // item as owned.
+        return Array.from({ length: card.total }, (_, i) => {
+          const itemKey = `${Math.floor(i / groupSize) + 1}-${(i % groupSize) + 1}`
+          const data = collectibleLocations.series?.[cat.key]?.[itemKey]
+          return {
+            key: itemKey,
+            name: `${data?.name || cat.label} (${itemKey})`,
+            location: data?.location,
+            found: null,
+          }
+        })
+      }),
     }
   }), [collectibleSeries, collectibleLocations, uiPath, openSubpanel])
 
@@ -214,41 +248,66 @@ export default function Collectibles() {
     }
   }), [discoveredMarkers, uiPath, openSubpanel])
 
-  const fragmentCards = useMemo(() => {
-    const cats = CATEGORIES.filter(c => c.type === 'fragment').map((cat) => ({ ...cat, found: 0 }))
-    for (const f of loreFragmentScans) {
-      const type = f.ItemType || ''
-      const cat = cats.find((c) => c.match(type))
-      if (cat) cat.found += f.Progress > 0 ? 1 : 0
+  // Real, authoritative per-category item catalog from DE's own ExportCodex.json
+  // (loreFragments/songs/fighterFrames sections) - not a hand-maintained count.
+  // This is what actually exists in the game, whether the player has found it yet
+  // or not, so the subpanel can list every item (not just what's been scanned).
+  const codexCatalog = useMemo(() => {
+    const codex = exportData?.ExportCodex
+    if (!codex) return {}
+    const out = {}
+    for (const cat of CATEGORIES) {
+      if (cat.type !== 'fragment') continue
+      const section = codex[cat.codexSection ?? 'loreFragments'] ?? {}
+      out[cat.label] = Object.entries(section)
+        .filter(([itemType]) => cat.match(itemType))
+        .map(([itemType, entry]) => ({ itemType, leaf: itemType.split('/').pop(), entry }))
     }
-    return cats.map((cat) => {
+    return out
+  }, [exportData])
+
+  const foundSet = useMemo(() => {
+    const s = new Set()
+    for (const f of loreFragmentScans) {
+      if (f.Progress > 0) s.add(f.ItemType)
+    }
+    return s
+  }, [loreFragmentScans])
+
+  const fragmentCards = useMemo(() => {
+    return CATEGORIES.filter(c => c.type === 'fragment').map((cat) => {
+      const catalog = codexCatalog[cat.label] ?? []
+      const foundCount = catalog.filter((it) => foundSet.has(it.itemType)).length
       const card = {
         key: cat.label,
         icon: cat.icon && uiPath ? convertFileSrc(`${uiPath}/${cat.icon}`) : null,
         label: cat.label,
         color: cat.color,
-        count: cat.found,
-        total: cat.wikiTotal,
+        count: foundCount,
+        total: catalog.length,
+        guide: collectibleLocations.fragmentGuides?.[cat.label]?.note,
+        guideSource: collectibleLocations.fragmentGuides?.[cat.label]?.source,
+        videoGuide: collectibleLocations.fragmentGuides?.[cat.label]?.video_guide,
       }
       return {
         ...card,
         onClick: () => openSubpanel(card, () => {
-          const items = []
-          for (const f of loreFragmentScans) {
-            const type = f.ItemType || ''
-            if (cat.match(type) && f.Progress > 0) {
-              items.push({
-                key: type,
-                name: fragName(type),
-                found: true,
-              })
-            }
-          }
-          return items.length ? items : [{ key: 'placeholder', name: `None collected yet`, found: false }]
+          if (!catalog.length) return [{ key: 'placeholder', name: `Catalog not loaded yet`, found: false }]
+          return catalog
+            .map((it) => {
+              const locData = collectibleLocations.fragmentItems?.[cat.label]?.[it.leaf]
+              return {
+                key: it.itemType,
+                name: fragName(it.itemType, it.entry),
+                location: locData?.location,
+                found: foundSet.has(it.itemType),
+              }
+            })
+            .sort((a, b) => (a.found === b.found ? a.name.localeCompare(b.name) : a.found ? 1 : -1))
         }),
       }
     })
-  }, [loreFragmentScans, uiPath, openSubpanel])
+  }, [codexCatalog, foundSet, uiPath, openSubpanel, collectibleLocations, fragName])
 
   return (
     <PageLayout titleKey="screen.collectibles">

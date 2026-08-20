@@ -455,23 +455,39 @@ region scanner (`memory_scan.rs`) walks `/proc/<pid>/maps` (Linux) or
 
 ## Collectibles Data Pipeline
 
-Collectible tracking data flows from the inventory JSON through to
-Collectibles.jsx with no transformation on the intermediate fields.
+**Rewritten 2026-08-20 - the pre-existing hardcoded `wikiTotal` design (still described in
+earlier revisions of this doc) turned out to be actively wrong for at least 3 categories and
+was replaced with a live DE-catalog-backed approach. See `docs/qa-findings.md`'s "Collectibles
+where to find data" entries for the full incident writeup.**
 
 **Data flow:**
 ```
-inventory.json -> inventoryParser.js -> MonitoringContext (inventoryData) -> Collectibles.jsx
+inventory.json -> inventoryParser.js -> MonitoringContext (inventoryData) -----\
+ExportCodex.json (DE's own catalog, via load_all_exports) -> exportData -------+--> Collectibles.jsx
+collectible-locations.json (static bundled asset, NOT a live export) ----------/
 ```
 
-Three raw inventory fields used directly:
+Three raw inventory fields used directly (unchanged):
 - `CollectibleSeries` -> `collectibleSeries`
 - `DiscoveredMarkers` -> `discoveredMarkers`
 - `LoreFragmentScans` -> `loreFragmentScans`
 
+Plus, new as of 2026-08-20: `exportData.ExportCodex` - added to `EXPORT_FILES` in `main.rs`
+(auto-downloads/refreshes exactly like every other DE export, from
+`calamity-inc/warframe-public-export-plus`). Has `loreFragments`/`songs`/`fighterFrames` sections,
+each a dict keyed by real `ItemType` -> `{ name (a dict key to resolve), reqScans, ... }`. This is
+the actual, complete, DE-authoritative catalog of every lore fragment/song/fighter-frame that
+exists in the game, independent of any player's save - use this to enumerate "every item that
+exists," never a hardcoded count.
+
 ### Series (CollectibleSeries)
 
-Each entry: `CollectibleType` (identifier), `Count` (bits set in Tracking
-bitmask = items found), `ReqScans` (total scans needed), `Tracking` (bitmask).
+Each entry: `CollectibleType` (identifier), `Count` (aggregate found, see Tracking note below),
+`ReqScans` (total scans needed), `Tracking` (a fixed-width bitstring - **investigated 2026-08-20:
+its total 1-count exactly equals `Count`, but no reliable per-item bit-to-slot mapping was found -
+a brute-force scan for a contiguous window whose 1-count matches `Count` returns matches at
+multiple different offsets, meaning any single "match" is coincidental. Do NOT use `Tracking` to
+claim a specific item is found/not found - `Count` is the only reliable read from this field.**
 
 | UI Label | Match | Count | Total |
 |----------|-------|-------|-------|
@@ -479,48 +495,92 @@ bitmask = items found), `ReqScans` (total scans needed), `Tracking` (bitmask).
 | Lost Islands of Duviri | `/Lotus/Types/Lore/Fragments/DuviriFragments/DuviriCollectibleDeco` | `Count` | `ReqScans` (90) |
 | Isleweaver Fragments | `/Lotus/Types/Lore/Fragments/DuviriMITWFragments/DuviriMITWCollectibleDeco` | `Count` | `ReqScans` (15) |
 
+Per-item location data (Kuria, Duviri) lives in the bundled static asset
+`src-tauri/data/assets/data/collectible-locations.json` under `series[<CollectibleType>]`, keyed
+`"<group>-<index>"` (e.g. `"1-1"`), with the group size configurable per series via the file's
+`seriesMeta[<CollectibleType>].groupSize` (Kuria = 4, Duviri = 9) since they don't share the same
+real in-game grouping. Positional only - does NOT claim per-item found/unfound identity, since
+`Tracking` can't support that (see above). Isleweaver has no location data at all (none found).
+
 ### Markers (DiscoveredMarkers)
 
-Each entry: `tag` (identifier), `discoveryState` (array of 32-bit ints).
-Count = sum of popcount across all ints. Total = `length * 32`.
+Unchanged. Each entry: `tag` (identifier), `discoveryState` (array of 32-bit ints). Count = sum of
+popcount across all ints. Total = `length * 32`.
 
-| UI Label | Match | Count | Total |
-|----------|-------|-------|-------|
-| Plains of Eidolon Caves | `EidolonPlainsDiscoverable` | 1 | 32 |
-| Orb Vallis Caves | `OrbVallisCaveDiscoverable` | 10 | 32 |
-| Fortuna | `FortunaMarker` | 1 | 32 |
-| Necralisk | `NecraliskMarker` | 1 | 32 |
+| UI Label | Match |
+|----------|-------|
+| Plains of Eidolon Caves | `EidolonPlainsDiscoverable` |
+| Orb Vallis Caves | `OrbVallisCaveDiscoverable` |
+| Fortuna | `FortunaMarker` |
+| Necralisk | `NecraliskMarker` |
 
-### Lore Fragments (LoreFragmentScans)
+### Lore Fragments (LoreFragmentScans + ExportCodex)
 
-Each entry: `ItemType` (path), `Progress` (scans done, 0+), `Region`.
-Entries grouped by matching `ItemType` against each category's match function.
-`total` is hardcoded wiki value. `count` = entries where `Progress > 0`.
+Each `LoreFragmentScans` entry: `ItemType` (path), `Progress` (scans done, 0+), `Region`. The
+category's `total` is now **`codexCatalog[label].length`** - the real count of matching entries
+in `exportData.ExportCodex`'s `loreFragments`/`songs`/`fighterFrames` sections (whichever
+`codexSection` the category specifies; defaults to `loreFragments`), NOT a hardcoded number.
+`count` = catalog entries whose `itemType` appears in `loreFragmentScans` with `Progress > 0`.
+The subpanel now lists **every** catalog entry (found and not-found), not just found ones - real
+per-item names resolved via `dict[codexEntry.name]`, matching the original `ExportCodex` "name"
+field for that entry (falls back to the old leaf-heuristic `fragName()` if that dict lookup
+misses).
 
-| UI Label | Match | Wiki Total |
-|----------|-------|------------|
-| Somachord Tunes | `type.includes('/MusicFragments/')` | 55 (scanable) |
-| Frame Fighter Fragments | `type.includes('/FrameFighterFragments/')` | 42 (scanable) |
-| Cephalon Fragments | starts with `/Lotus/Types/Lore/Fragments/` minus exclusions | 43 |
-| Leverian Prex Cards | `type.includes('/LoreCardFragments/')` | 50 |
-| Thousand-Year Fish | `type.includes('/EidolonFragments/')` | 20 |
-| Glass Shard Fragments | `type.includes('/GlassFragments/')` | 5 |
-| Encrypted Journal Fragments | `type.includes('/GrineerGhoulFragments/')` | 13 |
-| Nakak Memory Fragments | `type.includes('/RevenantFragments/')` | 3 |
-| Fortuna Fragments | `type.includes('/SolarisFragments/')` | 35 |
-| Albrecht's Notes | `type.includes('/AlbrectFragments/')` | 23 |
-| Partnership Fragments | `type.includes('/GasCityFragments/')` | 8 |
-| The Tenets | `type.includes('/CorpusReliefFragments/')` | 11 |
+| UI Label | Match | `codexSection` |
+|----------|-------|------|
+| Somachord Tunes | `type.includes('/MusicFragments/')` | `songs` |
+| Frame Fighter Fragments | `type.includes('/FrameFighterFragments/')` | `fighterFrames` |
+| Cephalon Fragments | starts with `/Lotus/Types/Lore/Fragments/` minus exclusions | `loreFragments` (default) |
+| Leverian Prex Cards | `type.includes('/LoreCardFragments/')` | `loreFragments` |
+| Thousand-Year Fish | `type.includes('/EidolonFragments/')` | `loreFragments` |
+| Glass Shard Fragments | `type.includes('/GlassFragments/')` | `loreFragments` |
+| Encrypted Journal Fragments | `type.includes('/GrineerGhoulFragments/')` | `loreFragments` |
+| Nakak Memory Fragments | `type.includes('/RevenantFragments/')` | `loreFragments` |
+| Fortuna Fragments | `type.includes('/SolarisFragments/')` | `loreFragments` |
+| Albrecht's Notes | `type.includes('/AlbrectFragments/')` | `loreFragments` |
+| Partnership Fragments | `type.includes('/GasCityFragments/')` | `loreFragments` |
+| The Tenets | `type.includes('/CorpusReliefFragments/')` | `loreFragments` |
 
 Cephalon Fragment exclusions: `/Eidolon`, `/Music`, `/FrameFighter`,
 `/LoreCard`, `/Solaris`, `/GrineerGhoul`, `/Albrect`, `/Revenant`,
-`/CorpusRelief`, `/GasCity`, `/GlassFragments`.
+`/CorpusRelief`, `/GasCity`, `/GlassFragments`. Verified 2026-08-20: this partition is exhaustive
+and non-overlapping across all 179 real `loreFragments` entries (0 uncategorized, 0 double-counted).
 
-**Notes:**
-- `LoreFragmentScans` only includes fragment types the player has encountered.
-  Unscanned types are absent entirely. This is why Solaris shows 2 in data but
-  35 on wiki.
-- Series `Count` is bits set in the tracking bitmask, not scans completed.
+**Real totals as of 2026-08-20** (do not hardcode these anywhere - always read live from the
+codex; recorded here only so a future investigator has a sanity-check number):
+Somachord 86, Cephalon 54, Frame Fighter 44, Leverian 25 (see below), Thousand-Year Fish 20,
+Encrypted Journal 13, Glass Shard 5, Fortuna 35, Albrecht's Notes 5 (an *entry* count - each entry
+covers multiple pages via `reqScans`, not 23 individual pages), Nakak 3, The Tenets 11,
+Partnership 8.
+
+**Leverian total is a known unresolved discrepancy - read before touching this category again.**
+The wiki (checked twice) only documents 10-11 Leverians. The real `ExportCodex` `loreFragments`
+`/LoreCardFragments/` count is 25, and it includes at least 3 real player-found entries
+(`OraxiaLoreCardFragment`, `RunnerLoreCardFragment`, `BrawlerLoreCardFragment`) that map to
+internal DE codenames not on the wiki at all (`Runner` = Gauss, `Brawler` = Atlas, confirmed via
+the codex's own `name` field resolving to `TarotCardGaussName`/`TarotCardAtlasName` in `dict.json`
+- `Oraxia` doesn't resolve to any known released Warframe, likely unreleased/future content
+already present in the export). The codex's raw count (25) is what the app now uses since it's the
+best available real source, but this is presented as fact only because a coin-flip between "wrong
+in one direction" and "wrong in the other" isn't a real choice - it has NOT been independently
+verified against a complete, current wiki page. Per-item location text exists for only 10 of the
+25 (the ones the wiki does document); the rest fall back to a category-level guide note.
+
+**Per-item location data**: `src-tauri/data/assets/data/collectible-locations.json`'s
+`fragmentItems[<label>][<ItemType leaf>]` - real `ItemType` leaf as the key (e.g.
+`"AshLoreCardFragment"`), NOT a guessed index/letter-to-name ordering. Only populated where a
+location was independently verified (Leverian partial, Glass Shard 5/5, Encrypted Journal 13/13,
+Albrecht's Notes 5/5, Nakak 3/3, Frame Fighter 44/44 - resolved via each fragment's real Warframe
+name cross-referenced against a planet table from `docs/collectibles-guides.md`, a user-provided
+research doc). Everything else falls back to `fragmentGuides[<label>]` - a category-level note
+plus a real wiki source link (and an optional `video_guide` link), rendered in the Collectibles
+subpanel header with an "Open full wiki guide ↗" button.
+
+**Do not re-introduce a hardcoded per-category total.** The whole point of this rewrite was that
+three independently-sourced totals (original hardcoded values, a wiki research pass, a second wiki
+research pass) were each wrong in different ways, only caught because real player save data
+directly contradicted them (a save showing 58/55 Somachord, and 7 real Leverian finds including 3
+names absent from any wiki fetch). `ExportCodex` is DE's own data and won't have this problem.
 
 ---
 

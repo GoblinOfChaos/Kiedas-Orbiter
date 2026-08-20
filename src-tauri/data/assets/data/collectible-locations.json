@@ -1,66 +1,894 @@
 {
   "series": {
     "/Lotus/Objects/Orokin/Props/CollectibleSeriesOne": {
-      "1-1": { "name": "Kuria 1-1", "location": "Corpus Gas City (Jupiter); Ananke Capture" },
-      "1-2": { "name": "Kuria 1-2", "location": "Corpus Gas City (Jupiter); Ananke Capture" },
-      "1-3": { "name": "Kuria 1-3", "location": "Grineer Forest (Earth); Cambria Spy" },
-      "1-4": { "name": "Kuria 1-4", "location": "Grineer Forest (Earth); Cambria Spy (mission exclusive)" },
-      "2-1": { "name": "Kuria 2-1", "location": "Corpus Gas City (Jupiter); Thebe Sabotage or Ananke Capture" },
-      "2-2": { "name": "Kuria 2-2", "location": "Corpus Gas City (Jupiter); Carme Mobile Defense" },
-      "2-3": { "name": "Kuria 2-3", "location": "Corpus Gas City (Jupiter); Ananke Capture" },
-      "2-4": { "name": "Kuria 2-4", "location": "Grineer Forest (Earth); Cambria Spy" },
-      "3-1": { "name": "Kuria 3-1", "location": "Grineer Galleon; Cassini Capture (Saturn)" },
-      "3-2": { "name": "Kuria 3-2", "location": "Grineer Galleon; Cassini Capture (Saturn)" },
-      "3-3": { "name": "Kuria 3-3", "location": "Grineer Galleon; Cassini Capture (Saturn)" },
-      "3-4": { "name": "Kuria 3-4", "location": "Grineer Forest; Cambria Spy (Earth)" },
-      "4-1": { "name": "Kuria 4-1", "location": "Grineer Sealab (Uranus); Ariel Capture" },
-      "4-2": { "name": "Kuria 4-2", "location": "Grineer Sealab (Uranus); Ariel Capture" },
-      "4-3": { "name": "Kuria 4-3", "location": "Grineer Sealab (Uranus); Ariel or Cressida" },
-      "4-4": { "name": "Kuria 4-4", "location": "Grineer Sealab (Uranus); Ariel or Cressida" },
-      "5-1": { "name": "Kuria 5-1", "location": "Grineer Sealab (Uranus); Ariel, Cressida, or Ophelia" },
-      "5-2": { "name": "Kuria 5-2", "location": "Grineer Sealab (Uranus); Titania Assassination" },
-      "5-3": { "name": "Kuria 5-3", "location": "Grineer Sealab (Uranus); Ariel Capture" },
-      "5-4": { "name": "Kuria 5-4", "location": "Grineer Sealab (Uranus); Ariel or Ophelia" },
-      "6-1": { "name": "Kuria 6-1", "location": "Grineer Sealab (Uranus); Rosalind Spy" },
-      "6-2": { "name": "Kuria 6-2", "location": "Grineer Sealab (Uranus); Desdemona Sabotage" },
-      "6-3": { "name": "Kuria 6-3", "location": "Grineer Sealab (Uranus); Ariel Capture" },
-      "6-4": { "name": "Kuria 6-4", "location": "Grineer Sealab (Uranus); Ariel Capture" },
-      "7-1": { "name": "Kuria 7-1", "location": "Grineer Settlement (Mars); Ara Capture" },
-      "7-2": { "name": "Kuria 7-2", "location": "Grineer Settlement (Mars); Spear Defense" },
-      "7-3": { "name": "Kuria 7-3", "location": "Grineer Settlement (Mars); Ara Capture" },
-      "7-4": { "name": "Kuria 7-4", "location": "Grineer Settlement (Mars); Ara Capture" },
-      "8-1": { "name": "Kuria 8-1", "location": "Grineer Settlement (Mars); Ara or Vallis" },
-      "8-2": { "name": "Kuria 8-2", "location": "Grineer Settlement (Mars); Ara or Vallis" },
-      "8-3": { "name": "Kuria 8-3", "location": "Grineer Settlement (Mars); Ara or Vallis" },
-      "8-4": { "name": "Kuria 8-4", "location": "Grineer Settlement (Mars); Ara or Augustus" },
-      "9-1": { "name": "Kuria 9-1", "location": "Grineer Settlement (Mars); Augustus Excavation" },
-      "9-2": { "name": "Kuria 9-2", "location": "Grineer Sealab (Uranus); Ariel Capture" },
-      "9-3": { "name": "Kuria 9-3", "location": "Grineer Settlement (Mars); Ara Capture" },
-      "9-4": { "name": "Kuria 9-4", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "10-1": { "name": "Kuria 10-1", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "10-2": { "name": "Kuria 10-2", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "10-3": { "name": "Kuria 10-3", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "10-4": { "name": "Kuria 10-4", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "11-1": { "name": "Kuria 11-1", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "11-2": { "name": "Kuria 11-2", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "11-3": { "name": "Kuria 11-3", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "11-4": { "name": "Kuria 11-4", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "12-1": { "name": "Kuria 12-1", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "12-2": { "name": "Kuria 12-2", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "12-3": { "name": "Kuria 12-3", "location": "Grineer Shipyard (Ceres); Bode Spy" },
-      "12-4": { "name": "Kuria 12-4", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "13-1": { "name": "Kuria 13-1", "location": "Grineer Shipyard (Ceres); Lex Capture" },
-      "13-2": { "name": "Kuria 13-2", "location": "Grineer Shipyard (Ceres); Bode or Ker" },
-      "13-3": { "name": "Kuria 13-3", "location": "Grineer Shipyard (Ceres); Bode or Ker" },
-      "13-4": { "name": "Kuria 13-4", "location": "Grineer Sealab (Uranus); Cressida or Ariel" },
-      "14-1": { "name": "Kuria 14-1", "location": "Corpus Outpost (Venus); Kiliken Excavation" },
-      "14-2": { "name": "Kuria 14-2", "location": "Corpus Outpost (Venus or Neptune); Venera or Galatea" },
-      "14-3": { "name": "Kuria 14-3", "location": "Corpus Outpost (Venus or Neptune); Venera or Galatea" },
-      "14-4": { "name": "Kuria 14-4", "location": "Corpus Outpost (Venus or Neptune); Venera or Galatea" }
+      "1-1": {
+        "name": "Kuria 1-1",
+        "location": "Corpus Gas City (Jupiter); Ananke Capture"
+      },
+      "1-2": {
+        "name": "Kuria 1-2",
+        "location": "Corpus Gas City (Jupiter); Ananke Capture"
+      },
+      "1-3": {
+        "name": "Kuria 1-3",
+        "location": "Grineer Forest (Earth); Cambria Spy"
+      },
+      "1-4": {
+        "name": "Kuria 1-4",
+        "location": "Grineer Forest (Earth); Cambria Spy (mission exclusive)"
+      },
+      "2-1": {
+        "name": "Kuria 2-1",
+        "location": "Corpus Gas City (Jupiter); Thebe Sabotage or Ananke Capture"
+      },
+      "2-2": {
+        "name": "Kuria 2-2",
+        "location": "Corpus Gas City (Jupiter); Carme Mobile Defense"
+      },
+      "2-3": {
+        "name": "Kuria 2-3",
+        "location": "Corpus Gas City (Jupiter); Ananke Capture"
+      },
+      "2-4": {
+        "name": "Kuria 2-4",
+        "location": "Grineer Forest (Earth); Cambria Spy"
+      },
+      "3-1": {
+        "name": "Kuria 3-1",
+        "location": "Grineer Galleon; Cassini Capture (Saturn)"
+      },
+      "3-2": {
+        "name": "Kuria 3-2",
+        "location": "Grineer Galleon; Cassini Capture (Saturn)"
+      },
+      "3-3": {
+        "name": "Kuria 3-3",
+        "location": "Grineer Galleon; Cassini Capture (Saturn)"
+      },
+      "3-4": {
+        "name": "Kuria 3-4",
+        "location": "Grineer Forest; Cambria Spy (Earth)"
+      },
+      "4-1": {
+        "name": "Kuria 4-1",
+        "location": "Grineer Sealab (Uranus); Ariel Capture"
+      },
+      "4-2": {
+        "name": "Kuria 4-2",
+        "location": "Grineer Sealab (Uranus); Ariel Capture"
+      },
+      "4-3": {
+        "name": "Kuria 4-3",
+        "location": "Grineer Sealab (Uranus); Ariel or Cressida"
+      },
+      "4-4": {
+        "name": "Kuria 4-4",
+        "location": "Grineer Sealab (Uranus); Ariel or Cressida"
+      },
+      "5-1": {
+        "name": "Kuria 5-1",
+        "location": "Grineer Sealab (Uranus); Ariel, Cressida, or Ophelia"
+      },
+      "5-2": {
+        "name": "Kuria 5-2",
+        "location": "Grineer Sealab (Uranus); Titania Assassination"
+      },
+      "5-3": {
+        "name": "Kuria 5-3",
+        "location": "Grineer Sealab (Uranus); Ariel Capture"
+      },
+      "5-4": {
+        "name": "Kuria 5-4",
+        "location": "Grineer Sealab (Uranus); Ariel or Ophelia"
+      },
+      "6-1": {
+        "name": "Kuria 6-1",
+        "location": "Grineer Sealab (Uranus); Rosalind Spy"
+      },
+      "6-2": {
+        "name": "Kuria 6-2",
+        "location": "Grineer Sealab (Uranus); Desdemona Sabotage"
+      },
+      "6-3": {
+        "name": "Kuria 6-3",
+        "location": "Grineer Sealab (Uranus); Ariel Capture"
+      },
+      "6-4": {
+        "name": "Kuria 6-4",
+        "location": "Grineer Sealab (Uranus); Ariel Capture"
+      },
+      "7-1": {
+        "name": "Kuria 7-1",
+        "location": "Grineer Settlement (Mars); Ara Capture"
+      },
+      "7-2": {
+        "name": "Kuria 7-2",
+        "location": "Grineer Settlement (Mars); Spear Defense"
+      },
+      "7-3": {
+        "name": "Kuria 7-3",
+        "location": "Grineer Settlement (Mars); Ara Capture"
+      },
+      "7-4": {
+        "name": "Kuria 7-4",
+        "location": "Grineer Settlement (Mars); Ara Capture"
+      },
+      "8-1": {
+        "name": "Kuria 8-1",
+        "location": "Grineer Settlement (Mars); Ara or Vallis"
+      },
+      "8-2": {
+        "name": "Kuria 8-2",
+        "location": "Grineer Settlement (Mars); Ara or Vallis"
+      },
+      "8-3": {
+        "name": "Kuria 8-3",
+        "location": "Grineer Settlement (Mars); Ara or Vallis"
+      },
+      "8-4": {
+        "name": "Kuria 8-4",
+        "location": "Grineer Settlement (Mars); Ara or Augustus"
+      },
+      "9-1": {
+        "name": "Kuria 9-1",
+        "location": "Grineer Settlement (Mars); Augustus Excavation"
+      },
+      "9-2": {
+        "name": "Kuria 9-2",
+        "location": "Grineer Sealab (Uranus); Ariel Capture"
+      },
+      "9-3": {
+        "name": "Kuria 9-3",
+        "location": "Grineer Settlement (Mars); Ara Capture"
+      },
+      "9-4": {
+        "name": "Kuria 9-4",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "10-1": {
+        "name": "Kuria 10-1",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "10-2": {
+        "name": "Kuria 10-2",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "10-3": {
+        "name": "Kuria 10-3",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "10-4": {
+        "name": "Kuria 10-4",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "11-1": {
+        "name": "Kuria 11-1",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "11-2": {
+        "name": "Kuria 11-2",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "11-3": {
+        "name": "Kuria 11-3",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "11-4": {
+        "name": "Kuria 11-4",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "12-1": {
+        "name": "Kuria 12-1",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "12-2": {
+        "name": "Kuria 12-2",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "12-3": {
+        "name": "Kuria 12-3",
+        "location": "Grineer Shipyard (Ceres); Bode Spy"
+      },
+      "12-4": {
+        "name": "Kuria 12-4",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "13-1": {
+        "name": "Kuria 13-1",
+        "location": "Grineer Shipyard (Ceres); Lex Capture"
+      },
+      "13-2": {
+        "name": "Kuria 13-2",
+        "location": "Grineer Shipyard (Ceres); Bode or Ker"
+      },
+      "13-3": {
+        "name": "Kuria 13-3",
+        "location": "Grineer Shipyard (Ceres); Bode or Ker"
+      },
+      "13-4": {
+        "name": "Kuria 13-4",
+        "location": "Grineer Sealab (Uranus); Cressida or Ariel"
+      },
+      "14-1": {
+        "name": "Kuria 14-1",
+        "location": "Corpus Outpost (Venus); Kiliken Excavation"
+      },
+      "14-2": {
+        "name": "Kuria 14-2",
+        "location": "Corpus Outpost (Venus or Neptune); Venera or Galatea"
+      },
+      "14-3": {
+        "name": "Kuria 14-3",
+        "location": "Corpus Outpost (Venus or Neptune); Venera or Galatea"
+      },
+      "14-4": {
+        "name": "Kuria 14-4",
+        "location": "Corpus Outpost (Venus or Neptune); Venera or Galatea"
+      }
+    },
+    "/Lotus/Types/Lore/Fragments/DuviriFragments/DuviriCollectibleDeco": {
+      "1-1": {
+        "name": "Duviri Fragment (The Caves of Academe)",
+        "location": "Duviri, Archarbor island; fragments on the dome, behind trees, in caves, near consoles"
+      },
+      "1-2": {
+        "name": "Duviri Fragment (The Caves of Academe)",
+        "location": "Duviri, Archarbor island; fragments on the dome, behind trees, in caves, near consoles"
+      },
+      "1-3": {
+        "name": "Duviri Fragment (The Caves of Academe)",
+        "location": "Duviri, Archarbor island; fragments on the dome, behind trees, in caves, near consoles"
+      },
+      "1-4": {
+        "name": "Duviri Fragment (The Caves of Academe)",
+        "location": "Duviri, Archarbor island; fragments on the dome, behind trees, in caves, near consoles"
+      },
+      "1-5": {
+        "name": "Duviri Fragment (The Caves of Academe)",
+        "location": "Duviri, Archarbor island; fragments on the dome, behind trees, in caves, near consoles"
+      },
+      "1-6": {
+        "name": "Duviri Fragment (The Caves of Academe)",
+        "location": "Duviri, Archarbor island; fragments on the dome, behind trees, in caves, near consoles"
+      },
+      "1-7": {
+        "name": "Duviri Fragment (The Caves of Academe)",
+        "location": "Duviri, Archarbor island; fragments on the dome, behind trees, in caves, near consoles"
+      },
+      "1-8": {
+        "name": "Duviri Fragment (The Caves of Academe)",
+        "location": "Duviri, Archarbor island; fragments on the dome, behind trees, in caves, near consoles"
+      },
+      "1-9": {
+        "name": "Duviri Fragment (The Caves of Academe)",
+        "location": "Duviri, Archarbor island; fragments on the dome, behind trees, in caves, near consoles"
+      },
+      "2-1": {
+        "name": "Duviri Fragment (Lake Veruna)",
+        "location": "Duviri; waterfall area, fragments scattered around the lake region"
+      },
+      "2-2": {
+        "name": "Duviri Fragment (Lake Veruna)",
+        "location": "Duviri; waterfall area, fragments scattered around the lake region"
+      },
+      "2-3": {
+        "name": "Duviri Fragment (Lake Veruna)",
+        "location": "Duviri; waterfall area, fragments scattered around the lake region"
+      },
+      "2-4": {
+        "name": "Duviri Fragment (Lake Veruna)",
+        "location": "Duviri; waterfall area, fragments scattered around the lake region"
+      },
+      "2-5": {
+        "name": "Duviri Fragment (Lake Veruna)",
+        "location": "Duviri; waterfall area, fragments scattered around the lake region"
+      },
+      "2-6": {
+        "name": "Duviri Fragment (Lake Veruna)",
+        "location": "Duviri; waterfall area, fragments scattered around the lake region"
+      },
+      "2-7": {
+        "name": "Duviri Fragment (Lake Veruna)",
+        "location": "Duviri; waterfall area, fragments scattered around the lake region"
+      },
+      "2-8": {
+        "name": "Duviri Fragment (Lake Veruna)",
+        "location": "Duviri; waterfall area, fragments scattered around the lake region"
+      },
+      "2-9": {
+        "name": "Duviri Fragment (Lake Veruna)",
+        "location": "Duviri; waterfall area, fragments scattered around the lake region"
+      },
+      "3-1": {
+        "name": "Duviri Fragment (Scholar's Landing)",
+        "location": "Duviri; southern-middle island, near The Agora and Watershed Hamlet"
+      },
+      "3-2": {
+        "name": "Duviri Fragment (Scholar's Landing)",
+        "location": "Duviri; southern-middle island, near The Agora and Watershed Hamlet"
+      },
+      "3-3": {
+        "name": "Duviri Fragment (Scholar's Landing)",
+        "location": "Duviri; southern-middle island, near The Agora and Watershed Hamlet"
+      },
+      "3-4": {
+        "name": "Duviri Fragment (Scholar's Landing)",
+        "location": "Duviri; southern-middle island, near The Agora and Watershed Hamlet"
+      },
+      "3-5": {
+        "name": "Duviri Fragment (Scholar's Landing)",
+        "location": "Duviri; southern-middle island, near The Agora and Watershed Hamlet"
+      },
+      "3-6": {
+        "name": "Duviri Fragment (Scholar's Landing)",
+        "location": "Duviri; southern-middle island, near The Agora and Watershed Hamlet"
+      },
+      "3-7": {
+        "name": "Duviri Fragment (Scholar's Landing)",
+        "location": "Duviri; southern-middle island, near The Agora and Watershed Hamlet"
+      },
+      "3-8": {
+        "name": "Duviri Fragment (Scholar's Landing)",
+        "location": "Duviri; southern-middle island, near The Agora and Watershed Hamlet"
+      },
+      "3-9": {
+        "name": "Duviri Fragment (Scholar's Landing)",
+        "location": "Duviri; southern-middle island, near The Agora and Watershed Hamlet"
+      },
+      "4-1": {
+        "name": "Duviri Fragment (We Are Not What We Were)",
+        "location": "Duviri; fragments hidden in caves and under cliffs"
+      },
+      "4-2": {
+        "name": "Duviri Fragment (We Are Not What We Were)",
+        "location": "Duviri; fragments hidden in caves and under cliffs"
+      },
+      "4-3": {
+        "name": "Duviri Fragment (We Are Not What We Were)",
+        "location": "Duviri; fragments hidden in caves and under cliffs"
+      },
+      "4-4": {
+        "name": "Duviri Fragment (We Are Not What We Were)",
+        "location": "Duviri; fragments hidden in caves and under cliffs"
+      },
+      "4-5": {
+        "name": "Duviri Fragment (We Are Not What We Were)",
+        "location": "Duviri; fragments hidden in caves and under cliffs"
+      },
+      "4-6": {
+        "name": "Duviri Fragment (We Are Not What We Were)",
+        "location": "Duviri; fragments hidden in caves and under cliffs"
+      },
+      "4-7": {
+        "name": "Duviri Fragment (We Are Not What We Were)",
+        "location": "Duviri; fragments hidden in caves and under cliffs"
+      },
+      "4-8": {
+        "name": "Duviri Fragment (We Are Not What We Were)",
+        "location": "Duviri; fragments hidden in caves and under cliffs"
+      },
+      "4-9": {
+        "name": "Duviri Fragment (We Are Not What We Were)",
+        "location": "Duviri; fragments hidden in caves and under cliffs"
+      },
+      "5-1": {
+        "name": "Duviri Fragment (Watcher's Island)",
+        "location": "Duviri; fragments including caves and altars"
+      },
+      "5-2": {
+        "name": "Duviri Fragment (Watcher's Island)",
+        "location": "Duviri; fragments including caves and altars"
+      },
+      "5-3": {
+        "name": "Duviri Fragment (Watcher's Island)",
+        "location": "Duviri; fragments including caves and altars"
+      },
+      "5-4": {
+        "name": "Duviri Fragment (Watcher's Island)",
+        "location": "Duviri; fragments including caves and altars"
+      },
+      "5-5": {
+        "name": "Duviri Fragment (Watcher's Island)",
+        "location": "Duviri; fragments including caves and altars"
+      },
+      "5-6": {
+        "name": "Duviri Fragment (Watcher's Island)",
+        "location": "Duviri; fragments including caves and altars"
+      },
+      "5-7": {
+        "name": "Duviri Fragment (Watcher's Island)",
+        "location": "Duviri; fragments including caves and altars"
+      },
+      "5-8": {
+        "name": "Duviri Fragment (Watcher's Island)",
+        "location": "Duviri; fragments including caves and altars"
+      },
+      "5-9": {
+        "name": "Duviri Fragment (Watcher's Island)",
+        "location": "Duviri; fragments including caves and altars"
+      },
+      "6-1": {
+        "name": "Duviri Fragment (The Galleria)",
+        "location": "Duviri; near barracks, cabins, and bushes"
+      },
+      "6-2": {
+        "name": "Duviri Fragment (The Galleria)",
+        "location": "Duviri; near barracks, cabins, and bushes"
+      },
+      "6-3": {
+        "name": "Duviri Fragment (The Galleria)",
+        "location": "Duviri; near barracks, cabins, and bushes"
+      },
+      "6-4": {
+        "name": "Duviri Fragment (The Galleria)",
+        "location": "Duviri; near barracks, cabins, and bushes"
+      },
+      "6-5": {
+        "name": "Duviri Fragment (The Galleria)",
+        "location": "Duviri; near barracks, cabins, and bushes"
+      },
+      "6-6": {
+        "name": "Duviri Fragment (The Galleria)",
+        "location": "Duviri; near barracks, cabins, and bushes"
+      },
+      "6-7": {
+        "name": "Duviri Fragment (The Galleria)",
+        "location": "Duviri; near barracks, cabins, and bushes"
+      },
+      "6-8": {
+        "name": "Duviri Fragment (The Galleria)",
+        "location": "Duviri; near barracks, cabins, and bushes"
+      },
+      "6-9": {
+        "name": "Duviri Fragment (The Galleria)",
+        "location": "Duviri; near barracks, cabins, and bushes"
+      },
+      "7-1": {
+        "name": "Duviri Fragment (The Doll Mausoleum)",
+        "location": "Duviri; secret caves and hidden areas"
+      },
+      "7-2": {
+        "name": "Duviri Fragment (The Doll Mausoleum)",
+        "location": "Duviri; secret caves and hidden areas"
+      },
+      "7-3": {
+        "name": "Duviri Fragment (The Doll Mausoleum)",
+        "location": "Duviri; secret caves and hidden areas"
+      },
+      "7-4": {
+        "name": "Duviri Fragment (The Doll Mausoleum)",
+        "location": "Duviri; secret caves and hidden areas"
+      },
+      "7-5": {
+        "name": "Duviri Fragment (The Doll Mausoleum)",
+        "location": "Duviri; secret caves and hidden areas"
+      },
+      "7-6": {
+        "name": "Duviri Fragment (The Doll Mausoleum)",
+        "location": "Duviri; secret caves and hidden areas"
+      },
+      "7-7": {
+        "name": "Duviri Fragment (The Doll Mausoleum)",
+        "location": "Duviri; secret caves and hidden areas"
+      },
+      "7-8": {
+        "name": "Duviri Fragment (The Doll Mausoleum)",
+        "location": "Duviri; secret caves and hidden areas"
+      },
+      "7-9": {
+        "name": "Duviri Fragment (The Doll Mausoleum)",
+        "location": "Duviri; secret caves and hidden areas"
+      },
+      "8-1": {
+        "name": "Duviri Fragment (Manipura Island)",
+        "location": "Duviri; vineyard island"
+      },
+      "8-2": {
+        "name": "Duviri Fragment (Manipura Island)",
+        "location": "Duviri; vineyard island"
+      },
+      "8-3": {
+        "name": "Duviri Fragment (Manipura Island)",
+        "location": "Duviri; vineyard island"
+      },
+      "8-4": {
+        "name": "Duviri Fragment (Manipura Island)",
+        "location": "Duviri; vineyard island"
+      },
+      "8-5": {
+        "name": "Duviri Fragment (Manipura Island)",
+        "location": "Duviri; vineyard island"
+      },
+      "8-6": {
+        "name": "Duviri Fragment (Manipura Island)",
+        "location": "Duviri; vineyard island"
+      },
+      "8-7": {
+        "name": "Duviri Fragment (Manipura Island)",
+        "location": "Duviri; vineyard island"
+      },
+      "8-8": {
+        "name": "Duviri Fragment (Manipura Island)",
+        "location": "Duviri; vineyard island"
+      },
+      "8-9": {
+        "name": "Duviri Fragment (Manipura Island)",
+        "location": "Duviri; vineyard island"
+      },
+      "9-1": {
+        "name": "Duviri Fragment (The Island of Lorn)",
+        "location": "Duviri; caves and near statues"
+      },
+      "9-2": {
+        "name": "Duviri Fragment (The Island of Lorn)",
+        "location": "Duviri; caves and near statues"
+      },
+      "9-3": {
+        "name": "Duviri Fragment (The Island of Lorn)",
+        "location": "Duviri; caves and near statues"
+      },
+      "9-4": {
+        "name": "Duviri Fragment (The Island of Lorn)",
+        "location": "Duviri; caves and near statues"
+      },
+      "9-5": {
+        "name": "Duviri Fragment (The Island of Lorn)",
+        "location": "Duviri; caves and near statues"
+      },
+      "9-6": {
+        "name": "Duviri Fragment (The Island of Lorn)",
+        "location": "Duviri; caves and near statues"
+      },
+      "9-7": {
+        "name": "Duviri Fragment (The Island of Lorn)",
+        "location": "Duviri; caves and near statues"
+      },
+      "9-8": {
+        "name": "Duviri Fragment (The Island of Lorn)",
+        "location": "Duviri; caves and near statues"
+      },
+      "9-9": {
+        "name": "Duviri Fragment (The Island of Lorn)",
+        "location": "Duviri; caves and near statues"
+      },
+      "10-1": {
+        "name": "Duviri Fragment (The Bleeding Earth)",
+        "location": "Duviri; scattered throughout"
+      },
+      "10-2": {
+        "name": "Duviri Fragment (The Bleeding Earth)",
+        "location": "Duviri; scattered throughout"
+      },
+      "10-3": {
+        "name": "Duviri Fragment (The Bleeding Earth)",
+        "location": "Duviri; scattered throughout"
+      },
+      "10-4": {
+        "name": "Duviri Fragment (The Bleeding Earth)",
+        "location": "Duviri; scattered throughout"
+      },
+      "10-5": {
+        "name": "Duviri Fragment (The Bleeding Earth)",
+        "location": "Duviri; scattered throughout"
+      },
+      "10-6": {
+        "name": "Duviri Fragment (The Bleeding Earth)",
+        "location": "Duviri; scattered throughout"
+      },
+      "10-7": {
+        "name": "Duviri Fragment (The Bleeding Earth)",
+        "location": "Duviri; scattered throughout"
+      },
+      "10-8": {
+        "name": "Duviri Fragment (The Bleeding Earth)",
+        "location": "Duviri; scattered throughout"
+      },
+      "10-9": {
+        "name": "Duviri Fragment (The Bleeding Earth)",
+        "location": "Duviri; scattered throughout"
+      }
     }
   },
   "sources": {
     "guide": "https://steamcommunity.com/sharedfiles/filedetails/?id=2442543473",
     "wiki": "https://wiki.warframe.com/w/Kuria"
+  },
+  "seriesMeta": {
+    "/Lotus/Types/Lore/Fragments/DuviriFragments/DuviriCollectibleDeco": {
+      "groupSize": 9,
+      "source": "https://wiki.warframe.com/w/Fragments/Duviri"
+    },
+    "/Lotus/Objects/Orokin/Props/CollectibleSeriesOne": {
+      "groupSize": 4
+    }
+  },
+  "fragmentGuides": {
+    "Somachord Tunes": {
+      "note": "Scan-fragment tones (4 per applicable tileset for most planets/zones, 1 each for Duviri/Isleweaver/Albrecht's Lab) plus quest-tied tones (Veilbreaker, Whispers in the Walls, etc). Exact per-tune spot isn't documented in prose by the wiki. Equip Loot Radar mods (Thief's Wit, Animal Instinct, Loot Detector) to help spot fragments.",
+      "source": "https://wiki.warframe.com/w/Somachord/Tones"
+    },
+    "Frame Fighter Fragments": {
+      "note": "Spawn randomly within mission tiles on the planet tied to the Warframe(s) they unlock. No fixed spot within the tileset.",
+      "source": "https://wiki.warframe.com/w/Frame_Fighter"
+    },
+    "Cephalon Fragments": {
+      "note": "Each fragment needs several scans and spawns randomly among a fixed set of possible spots per tileset (no single fixed spot). Spread across most planets. Equip Loot Radar and check side rooms/dead-end tiles.",
+      "source": "https://wiki.warframe.com/w/Fragments/Cephalon"
+    },
+    "Leverian Prex Cards": {
+      "note": "One hidden Prex Card per Warframe that has a Leverian exhibit. Exact spots are shown per-item below where known; the rest are somewhere within that Warframe's Leverian exhibit, exact spot not yet documented.",
+      "source": "https://wiki.warframe.com/w/Leverian"
+    },
+    "Thousand-Year Fish": {
+      "note": "20 fragments on the Plains of Eidolon. The wiki documents locations via an interactive map rather than text descriptions.",
+      "source": "https://wiki.warframe.com/w/Fragments/Fish",
+      "video_guide": "https://www.youtube.com/watch?v=qfwpSAvEfo8"
+    },
+    "Fortuna Fragments": {
+      "note": "All in Orb Vallis, organized by narrator (Eudico, Legs/Thursby, Little Duck, Rude Zuud, Smokefinger, The Business, Ticker, and others). Equip Loot Radar and search caves, buildings, and side paths.",
+      "source": "https://wiki.warframe.com/w/Fragments/Solaris_United"
+    },
+    "The Tenets": {
+      "note": "Obtained by spending a Granum Crown at a Corpus Temple Relief (Parvos Granum fountain altar) in Corpus Ship missions - one Relief per mission, position varies.",
+      "source": "https://wiki.warframe.com/w/Fragments/The_Tenets"
+    },
+    "Partnership Fragments": {
+      "note": "All on Jupiter, hidden throughout the Corpus Gas City tileset (1 scan each).",
+      "source": "https://wiki.warframe.com/w/Fragments/Partnership"
+    }
+  },
+  "fragmentItems": {
+    "Leverian Prex Cards": {
+      "AshLoreCardFragment": {
+        "location": "Ash Leverian; floor against the wall, far right corner behind Ash's display"
+      },
+      "BrawlerLoreCardFragment": {
+        "location": "Atlas Leverian; back of the left shoulder of one of the Rumblers figures (not the Telamon)"
+      },
+      "DanteLoreCardFragment": {
+        "location": "Dante Leverian; atop the empty statue pedestal"
+      },
+      "RunnerLoreCardFragment": {
+        "location": "Gauss Leverian; hanging on the right slanted wall featuring the Altra Syandana"
+      },
+      "DevourerLoreCardFragment": {
+        "location": "Grendel Leverian; behind the Manse Gates wall, accessible by walking on the wall's edges"
+      },
+      "IvaraLoreCardFragment": {
+        "location": "Ivara Leverian; edge of the platform at the very start of the room (turn around)"
+      },
+      "LavosLoreCardFragment": {
+        "location": "Lavos Leverian; inside the donation box"
+      },
+      "NezhaLoreCardFragment": {
+        "location": "Nezha Leverian; underneath the left slanted wall featuring the Teng Dagger"
+      },
+      "NovaLoreCardFragment": {
+        "location": "Nova Leverian; behind the left slanted wall featuring the Hikou"
+      },
+      "StyanaxLoreCardFragment": {
+        "location": "Styanax Leverian; on a platform near the start of the exhibit"
+      }
+    },
+    "Glass Shard Fragments": {
+      "GlassFragmentA": {
+        "location": "Plains of Eidolon; obtained during Saya's Vigil quest"
+      },
+      "GlassFragmentB": {
+        "location": "Plains of Eidolon; obtained during Saya's Vigil quest"
+      },
+      "GlassFragmentC": {
+        "location": "Plains of Eidolon; obtained during Saya's Vigil quest"
+      },
+      "GlassFragmentD": {
+        "location": "Plains of Eidolon; obtained during Saya's Vigil quest"
+      },
+      "GlassFragmentE": {
+        "location": "Plains of Eidolon; obtained during Saya's Vigil quest"
+      }
+    },
+    "Encrypted Journal Fragments": {
+      "GhoulFragmentA": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentB": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentC": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentD": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentE": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentF": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentG": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentH": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentI": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentJ": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentK": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentL": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      },
+      "GhoulFragmentM": {
+        "location": "Plains of Eidolon; Ghoul Purge bounty reward or Ghoul enemy drop"
+      }
+    },
+    "Albrecht's Notes": {
+      "AlbrectLoreFragmentA": {
+        "location": "Deimos; Sanctum Anatomica beneath the Necralisk; 50% drop from Mocking/Scathing Whisper enemies after being banished"
+      },
+      "AlbrectLoreFragmentB": {
+        "location": "Deimos; Sanctum Anatomica beneath the Necralisk; 50% drop from Mocking/Scathing Whisper enemies after being banished"
+      },
+      "AlbrectLoreFragmentC": {
+        "location": "Deimos; Sanctum Anatomica beneath the Necralisk; 50% drop from Mocking/Scathing Whisper enemies after being banished"
+      },
+      "AlbrectLoreFragmentD": {
+        "location": "Deimos; Sanctum Anatomica beneath the Necralisk; 50% drop from Mocking/Scathing Whisper enemies after being banished"
+      },
+      "AlbrectLoreFragmentE": {
+        "location": "Deimos; Sanctum Anatomica beneath the Necralisk; 50% drop from Mocking/Scathing Whisper enemies after being banished"
+      }
+    },
+    "Nakak Memory Fragments": {
+      "RevenantFragmentA": {
+        "location": "Plains of Eidolon; interact with the object while wearing the wanderer's mask during 'Mask of the Revenant' quest"
+      },
+      "RevenantFragmentB": {
+        "location": "Plains of Eidolon; interact with the object while wearing the wanderer's mask during 'Mask of the Revenant' quest"
+      },
+      "RevenantFragmentC": {
+        "location": "Plains of Eidolon; 3 scans of the Revenant spiritual body at night, at the end of the quest"
+      }
+    },
+    "Frame Fighter Fragments": {
+      "AshFighterFragment": {
+        "location": "Uranus; spawns randomly within mission tiles on this planet (unlocks Ash)"
+      },
+      "AtlasFighterFragment": {
+        "location": "Eris; spawns randomly within mission tiles on this planet (unlocks Atlas)"
+      },
+      "BansheeFighterFragment": {
+        "location": "Venus; spawns randomly within mission tiles on this planet (unlocks Banshee)"
+      },
+      "BaruukFighterFragment": {
+        "location": "Mercury; spawns randomly within mission tiles on this planet (unlocks Baruuk)"
+      },
+      "ChromaFighterFragment": {
+        "location": "Pluto; spawns randomly within mission tiles on this planet (unlocks Chroma)"
+      },
+      "EmberFighterFragment": {
+        "location": "Saturn; spawns randomly within mission tiles on this planet (unlocks Ember)"
+      },
+      "EquinoxFighterFragment": {
+        "location": "Uranus; spawns randomly within mission tiles on this planet (unlocks Equinox)"
+      },
+      "FrostFighterFragment": {
+        "location": "Ceres; spawns randomly within mission tiles on this planet (unlocks Frost)"
+      },
+      "GaraFighterFragment": {
+        "location": "Earth; spawns randomly within mission tiles on this planet (unlocks Gara)"
+      },
+      "GarudaFighterFragment": {
+        "location": "Venus; spawns randomly within mission tiles on this planet (unlocks Garuda)"
+      },
+      "GaussFighterFragment": {
+        "location": "Sedna; spawns randomly within mission tiles on this planet (unlocks Gauss)"
+      },
+      "GrendelFighterFragment": {
+        "location": "Europa; spawns randomly within mission tiles on this planet (unlocks Grendel)"
+      },
+      "HarrowFighterFragment": {
+        "location": "Lua; spawns randomly within mission tiles on this planet (unlocks Harrow)"
+      },
+      "HildrynFighterFragment": {
+        "location": "Neptune; spawns randomly within mission tiles on this planet (unlocks Hildryn)"
+      },
+      "HydroidFighterFragment": {
+        "location": "Earth; spawns randomly within mission tiles on this planet (unlocks Hydroid)"
+      },
+      "InarosFighterFragment": {
+        "location": "Mars; spawns randomly within mission tiles on this planet (unlocks Inaros)"
+      },
+      "IvaraFighterFragment": {
+        "location": "Mercury; spawns randomly within mission tiles on this planet (unlocks Ivara)"
+      },
+      "KhoraFighterFragment": {
+        "location": "Venus; spawns randomly within mission tiles on this planet (unlocks Khora)"
+      },
+      "LavosFighterFragment": {
+        "location": "Uranus; spawns randomly within mission tiles on this planet (unlocks Lavos)"
+      },
+      "LimboFighterFragment": {
+        "location": "Jupiter; spawns randomly within mission tiles on this planet (unlocks Limbo)"
+      },
+      "LokiFighterFragment": {
+        "location": "Neptune; spawns randomly within mission tiles on this planet (unlocks Loki)"
+      },
+      "MesaFighterFragment": {
+        "location": "Eris; spawns randomly within mission tiles on this planet (unlocks Mesa)"
+      },
+      "MirageFighterFragment": {
+        "location": "Mars; spawns randomly within mission tiles on this planet (unlocks Mirage)"
+      },
+      "NekrosFighterFragment": {
+        "location": "Deimos; spawns randomly within mission tiles on this planet (unlocks Nekros)"
+      },
+      "NezhaFighterFragment": {
+        "location": "Saturn; spawns randomly within mission tiles on this planet (unlocks Nezha)"
+      },
+      "NidusFighterFragment": {
+        "location": "Phobos; spawns randomly within mission tiles on this planet (unlocks Nidus)"
+      },
+      "NovaFighterFragment": {
+        "location": "Europa; spawns randomly within mission tiles on this planet (unlocks Nova)"
+      },
+      "NyxFighterFragment": {
+        "location": "Neptune; spawns randomly within mission tiles on this planet (unlocks Nyx)"
+      },
+      "OberonFighterFragment": {
+        "location": "Ceres; spawns randomly within mission tiles on this planet (unlocks Oberon)"
+      },
+      "OctaviaFighterFragment": {
+        "location": "Deimos; spawns randomly within mission tiles on this planet (unlocks Octavia)"
+      },
+      "ProteaFighterFragment": {
+        "location": "Phobos; spawns randomly within mission tiles on this planet (unlocks Protea)"
+      },
+      "RevenantFighterFragment": {
+        "location": "Earth; spawns randomly within mission tiles on this planet (unlocks Revenant)"
+      },
+      "RhinoFighterFragment": {
+        "location": "Mercury; spawns randomly within mission tiles on this planet (unlocks Rhino)"
+      },
+      "SarynFighterFragment": {
+        "location": "Sedna; spawns randomly within mission tiles on this planet (unlocks Saryn)"
+      },
+      "SevagothFighterFragment": {
+        "location": "Pluto; spawns randomly within mission tiles on this planet (unlocks Sevagoth)"
+      },
+      "TitaniaFighterFragment": {
+        "location": "Sedna; spawns randomly within mission tiles on this planet (unlocks Titania)"
+      },
+      "TrinityFighterFragment": {
+        "location": "Pluto; spawns randomly within mission tiles on this planet (unlocks Trinity)"
+      },
+      "ValkyrFighterFragment": {
+        "location": "Jupiter; spawns randomly within mission tiles on this planet (unlocks Valkyr)"
+      },
+      "VaubanFighterFragment": {
+        "location": "Europa; spawns randomly within mission tiles on this planet (unlocks Vauban)"
+      },
+      "WispFighterFragment": {
+        "location": "Jupiter; spawns randomly within mission tiles on this planet (unlocks Wisp)"
+      },
+      "WukongFighterFragment": {
+        "location": "Phobos; spawns randomly within mission tiles on this planet (unlocks Wukong)"
+      },
+      "XakuFighterFragment": {
+        "location": "Deimos; spawns randomly within mission tiles on this planet (unlocks Xaku)"
+      },
+      "YareliFighterFragment": {
+        "location": "Ceres; spawns randomly within mission tiles on this planet (unlocks Yareli)"
+      },
+      "ZephyrFighterFragment": {
+        "location": "Saturn; spawns randomly within mission tiles on this planet (unlocks Zephyr)"
+      }
+    }
   }
 }

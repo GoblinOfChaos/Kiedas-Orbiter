@@ -709,79 +709,85 @@
   "fragmentItems": {
     "Leverian Prex Cards": {
       "AshLoreCardFragment": {
-        "location": "Ash Leverian; Hidden behind the smoke urn at the ninja assassination display."
+        "location": "Ash Leverian; Walk forward to the assassination display; look behind the black smoke urn on the left floor."
+      },
+      "AtlasLoreCardFragment": {
+        "location": "Atlas Leverian; In the petrification hall; jump on top of the crumbling stone pillar to the right of Atlas."
+      },
+      "BaruukLoreCardFragment": {
+        "location": "BaruukLoreCardFragment"
       },
       "BrawlerLoreCardFragment": {
-        "location": "Atlas Leverian; Perched atop the crumbling stone pillar in the petrification hall."
+        "location": "Atlas Leverian; In the petrification hall; jump on top of the crumbling stone pillar to the right of Atlas."
       },
       "CalibanLoreCardFragment": {
-        "location": "Caliban Leverian; Tucked behind the fallen Sentient component rack."
+        "location": "Caliban Leverian; Walk to the Sentient carcass exhibit; tucked behind the fallen Sentient component rack."
       },
       "CyteLoreCardFragment": {
-        "location": "Cyte-09 Leverian; Behind the long-range targeting console in the sniper alcove."
+        "location": "Cyte-09 Leverian; In the sniper alcove; behind the long-range targeting console on the back wall."
       },
       "DagathLoreCardFragment": {
-        "location": "Dagath Leverian; Hidden behind the equestrian horse shrine near the Kaithe memorial."
+        "location": "Dagath Leverian; Walk past the headless statue to the Kaithe memorial; hidden behind the equestrian horse shrine."
       },
       "DanteLoreCardFragment": {
-        "location": "Dante Leverian; Behind the floating illuminated tome pedestal in the library."
+        "location": "Dante Leverian; In the central library rotunda; look behind the floating illuminated tome pedestal."
       },
       "DevourerLoreCardFragment": {
-        "location": "Grendel Leverian; Hidden under the low feast table in the banquet exhibit."
+        "location": "Grendel Leverian; In the banquet hall exhibit; look under the low dining feast table."
       },
       "EmberLoreCardFragment": {
-        "location": "Ember Leverian; Tucked inside the rusted industrial furnace exhaust duct."
+        "location": "Ember Leverian; Walk to the industrial furnace exhibit; look inside the rusted incinerator exhaust duct on the left."
       },
       "GarudaLoreCardFragment": {
-        "location": "Garuda Leverian; Hidden behind the crimson altar pillar at the blood exhibit."
+        "location": "Garuda Leverian; In the blood altar gallery; tucked directly behind the tall crimson altar pillar."
       },
       "GyreLoreCardFragment": {
-        "location": "Gyre Leverian; Nestled behind the whirling Tesla coil mechanism."
+        "location": "Gyre Leverian; In the ballroom exhibit; nestled behind the whirling Tesla coil mechanism on the right."
       },
       "IvaraLoreCardFragment": {
-        "location": "Ivara Leverian; High on the stone foliage arch above the stealth clearing."
+        "location": "Ivara Leverian; In the forest clearing; look high up on the stone foliage canopy arch above the path."
       },
       "JadeLoreCardFragment": {
-        "location": "Jade Leverian; Hidden behind the choral light pedestal in the ascension alcove."
+        "location": "Jade Leverian; In the ascension chamber; hidden behind the choral light pedestal near the stained glass."
       },
       "LavosLoreCardFragment": {
-        "location": "Lavos Leverian; Behind the serpent transmutation alembic on the lower bench."
+        "location": "Lavos Leverian; In the alchemy laboratory; behind the coiled serpent transmutation alembic on the lower bench."
       },
       "NezhaLoreCardFragment": {
-        "location": "NezhaLeverian; Tucked behind the silk fire-ribbon tapestry frame."
+        "location": "Nezha Leverian; Walk to the silk tapestry display; tucked behind the bronze fire-ribbon frame on the right."
       },
       "NokkoLoreCardFragment": {
-        "location": "Nokko Leverian; Hidden in the root hollow behind the nature canopy."
+        "location": "Nokko Leverian; In the grove exhibit; hidden in the root hollow behind the nature canopy."
       },
       "NovaLoreCardFragment": {
-        "location": "Nova Leverian; Behind the anti-matter containment sphere housing."
+        "location": "Nova Leverian; In the physics lab exhibit; behind the antimatter containment sphere pedestal."
       },
       "OraxiaLoreCardFragment": {
-        "location": "Oraxia Leverian; Tucked inside the decorative velvet display cabinet."
+        "location": "Oraxia Leverian; Tucked inside the decorative velvet display cabinet on the left side."
       },
       "ProteaLoreCardFragment": {
-        "location": "Protea Leverian; Hidden behind the temporal anchor chronometer pillar."
+        "location": "Protea Leverian; In the temporal chamber; hidden behind the golden chronometer anchor pillar."
       },
       "RunnerLoreCardFragment": {
-        "location": "Gauss Leverian; Behind the high-speed thermal exhaust vent on the far wall."
+        "location": "Gauss Leverian; At the finish line display; behind the high-speed thermal exhaust vent on the far wall."
       },
       "StyanaxLoreCardFragment": {
-        "location": "Styanax Leverian; Behind the bronze Spartan shield and spear trophy stand."
+        "location": "Styanax Leverian; Walk to the Spartan trophy stand; tucked behind the large bronze shield and spear."
       },
       "TempleLoreCardFragment": {
-        "location": "Temple / Koumei Leverian; Hidden behind the paper lantern shrine near the dice display."
+        "location": "Koumei Leverian; In the shrine garden; hidden behind the paper lantern shrine near the dice display."
       },
       "TitaniaLoreCardFragment": {
-        "location": "Titania Leverian; Hidden inside the glowing lantern flower on the upper branch."
+        "location": "Titania Leverian; In the fairy grove; look inside the glowing blue lantern flower on the upper branch."
       },
       "UrielLoreCardFragment": {
         "location": "Uriel Leverian; Tucked behind the grand marble monument in the archive rotunda."
       },
       "VaubanLoreCardFragment": {
-        "location": "Vauban Leverian; Under the tactical mine deployment console bench."
+        "location": "Vauban Leverian; In the siege warfare room; look under the tactical mine deployment console bench."
       },
       "VorunaLoreCardFragment": {
-        "location": "Voruna Leverian; Nestled behind the stone wolf pack monument."
+        "location": "Voruna Leverian; In the wolf pack exhibit; nestled behind the stone wolf pack monument."
       }
     },
     "Glass Shard Fragments": {
@@ -1266,171 +1272,171 @@
     },
     "Thousand-Year Fish": {
       "EidolonFragmentA": {
-        "location": "Plains of Eidolon; Coastline rocks South-East of Cetus gate near the ocean shore."
+        "location": "Plains of Eidolon; Coastline rocks South-East of Cetus gate near the ocean shore waterline."
       },
       "EidolonFragmentB": {
-        "location": "Plains of Eidolon; Hidden in the hollow log along the river leading to Gara Toht Lake."
+        "location": "Plains of Eidolon; Inside the hollow fallen tree log spanning the river north of Cetus towards Gara Toht Lake."
       },
       "EidolonFragmentC": {
-        "location": "Plains of Eidolon; High cliff ledge above Mount Nang overlooking the northern plains."
+        "location": "Plains of Eidolon; High northern cliff ledge above Mount Nang overlooking the open plains."
       },
       "EidolonFragmentD": {
-        "location": "Plains of Eidolon; Inside the ruined Grineer bunker at Twin Horns."
+        "location": "Plains of Eidolon; Inside the ruined Grineer concrete bunker between Twin Horns rock formations."
       },
       "EidolonFragmentE": {
-        "location": "Plains of Eidolon; Submerged shallow pool near the Renthi Spring waterfall."
+        "location": "Plains of Eidolon; Submerged in the shallow mountain pool at the base of the Renthi Spring waterfall."
       },
       "EidolonFragmentF": {
-        "location": "Plains of Eidolon; Rocky outcrop overlooking the Er-Phryah's Vigil outpost."
+        "location": "Plains of Eidolon; On the rocky outcrop directly above the Er-Phryah's Vigil Grineer camp."
       },
       "EidolonFragmentG": {
-        "location": "Plains of Eidolon; Behind the coastal cave entrance at the South-East shore."
+        "location": "Plains of Eidolon; Hidden behind the coastal cave entrance rocks at the South-Eastern ocean beach."
       },
       "EidolonFragmentH": {
-        "location": "Plains of Eidolon; On the iron pipe structure near the Grineer Windmill base."
+        "location": "Plains of Eidolon; At the concrete base of the Grineer Windmill structure near the central plains."
       },
       "EidolonFragmentI": {
-        "location": "Plains of Eidolon; Perched atop the stone archway over Ro-Set Pond."
+        "location": "Plains of Eidolon; Perched atop the natural stone archway spanning the south side of Ro-Set Pond."
       },
       "EidolonFragmentJ": {
-        "location": "Plains of Eidolon; Inside the deep rocky ravine near Hek's Stiletto."
+        "location": "Plains of Eidolon; Inside the deep rock fissure ravine near Hek's Stiletto ridge."
       },
       "EidolonFragmentK": {
-        "location": "Plains of Eidolon; High mountain peak along the North-Western Ostwan Range."
+        "location": "Plains of Eidolon; On the high rocky mountain peak along the North-Western Ostwan Range."
       },
       "EidolonFragmentL": {
-        "location": "Plains of Eidolon; Behind the ancient stone pillar near Hagra Stone."
+        "location": "Plains of Eidolon; Behind the ancient stone monolith pillar near Hagra Stone."
       },
       "EidolonFragmentM": {
-        "location": "Plains of Eidolon; At the edge of the geothermal sulfur pool in the Geyser Basin."
+        "location": "Plains of Eidolon; Edge of the bubbling geothermal sulfur pool in the Geyser Basin."
       },
       "EidolonFragmentN": {
-        "location": "Plains of Eidolon; Beneath the iron catwalk of the coastal Grineer outpost."
+        "location": "Plains of Eidolon; Beneath the iron walkway grating of the coastal Grineer outpost near the ocean."
       },
       "EidolonFragmentO": {
-        "location": "Plains of Eidolon; Inside the collapsed stone culvert near the central river fork."
+        "location": "Plains of Eidolon; Inside the collapsed stone culvert pipe near the main central river fork."
       },
       "EidolonFragmentP": {
-        "location": "Plains of Eidolon; On the narrow rock shelf behind the Sentient bone ribcage."
+        "location": "Plains of Eidolon; On the narrow rock shelf behind the massive Sentient ribcage skeleton in the northwest."
       },
       "EidolonFragmentQ": {
-        "location": "Plains of Eidolon; Under the wooden jetty at the Southern fishing cove."
+        "location": "Plains of Eidolon; Underneath the wooden fishing jetty at the Southern ocean cove."
       },
       "EidolonFragmentR": {
-        "location": "Plains of Eidolon; Nestled inside the Grineer watchtower ladder base at Mount Nang."
+        "location": "Plains of Eidolon; Inside the base of the Grineer watchtower ladder at Mount Nang."
       },
       "EidolonFragmentS": {
-        "location": "Plains of Eidolon; Deep inside the Seaside Cave on an elevated stone ledge."
+        "location": "Plains of Eidolon; Deep inside the Seaside Cave on an elevated stone ledge overlooking the water."
       },
       "EidolonFragmentT": {
-        "location": "Plains of Eidolon; Top of the colossal Orokin tower structure on the Eastern coastline."
+        "location": "Plains of Eidolon; Atop the colossal ruined Orokin tower structure on the Eastern coastline."
       }
     },
     "Fortuna Fragments": {
       "TheBusinessLoreFragmentA": {
-        "location": "Orb Vallis; Solaris Memory Hash #1 for The Business (Wildlife & Conservation). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Harvester - Inside the large rusted coolant drainage pipe on the southern cliff face below the processing vat."
       },
       "TheBusinessLoreFragmentB": {
-        "location": "Orb Vallis; Solaris Memory Hash #2 for The Business (Wildlife & Conservation). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Central Maintenance - On the overhead metal girder catwalk directly beneath the main ceiling glass dome."
       },
       "TheBusinessLoreFragmentC": {
-        "location": "Orb Vallis; Solaris Memory Hash #3 for The Business (Wildlife & Conservation). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Reflector Control - On the upper terrace platform behind the main solar reflector console and antenna dish."
       },
       "TheBusinessLoreFragmentD": {
-        "location": "Orb Vallis; Solaris Memory Hash #4 for The Business (Wildlife & Conservation). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Transit Depot - Inside the open blue train cargo container sitting on the northern elevated railway tracks."
       },
       "TheBusinessLoreFragmentE": {
-        "location": "Orb Vallis; Solaris Memory Hash #5 for The Business (Wildlife & Conservation). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Temple of Profit - Tucked under the grand exterior staircase leading up to the giant golden Nef Anyo statue."
       },
       "EudicoLoreFragmentA": {
-        "location": "Orb Vallis; Solaris Memory Hash #1 for Eudico (Solaris United Leader). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Fortuna Surface Elevator - Tucked behind the large ventilation generator immediately to the left outside the elevator doors."
       },
       "EudicoLoreFragmentB": {
-        "location": "Orb Vallis; Solaris Memory Hash #2 for Eudico (Solaris United Leader). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; The Plow - Inside the driver cabin of the massive yellow excavator tread unit near the frozen lake."
       },
       "EudicoLoreFragmentC": {
-        "location": "Orb Vallis; Solaris Memory Hash #3 for Eudico (Solaris United Leader). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Grow Site - Subterranean botanical lab; under the second hydroponic plant tray on the lower level."
       },
       "EudicoLoreFragmentD": {
-        "location": "Orb Vallis; Solaris Memory Hash #4 for Eudico (Solaris United Leader). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Spaceport - High gantry walkway inside the main indoor hangar, directly above the central dropship landing bay."
       },
       "EudicoLoreFragmentE": {
-        "location": "Orb Vallis; Solaris Memory Hash #5 for Eudico (Solaris United Leader). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Temple of Immunity - Behind the stone altar column at the northern mountain shrine overlooking the valley."
       },
       "LegsLoreFragmentA": {
-        "location": "Orb Vallis; Solaris Memory Hash #1 for Legs (Moa Companions). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Reflector Control - Inside the narrow maintenance vent tunnel beneath the eastern power relay substation."
       },
       "LegsLoreFragmentB": {
-        "location": "Orb Vallis; Solaris Memory Hash #2 for Legs (Moa Companions). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; The Pearl - Inside the base of the massive hollow floating ring structure on the southern perimeter wall."
       },
       "LegsLoreFragmentC": {
-        "location": "Orb Vallis; Solaris Memory Hash #3 for Legs (Moa Companions). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Transit Depot - On the roof of the depot control tower, hidden behind the high-gain radar dish."
       },
       "LegsLoreFragmentD": {
-        "location": "Orb Vallis; Solaris Memory Hash #4 for Legs (Moa Companions). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Enrichment Labs - Sub-level 3; inside the coolant disposal incinerator room behind the blue security laser barrier."
       },
       "LegsLoreFragmentE": {
-        "location": "Orb Vallis; Solaris Memory Hash #5 for Legs (Moa Companions). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Deck 12 Cave Entrance - On the elevated snow ridge ledge directly above the hidden blast doors leading into Deck 12."
       },
       "LittleDuckLoreFragmentA": {
-        "location": "Orb Vallis; Solaris Memory Hash #1 for Little Duck (Vox Solaris). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Spaceport - Underneath the metal stairwell on the exterior edge of Landing Pad 3."
       },
       "LittleDuckLoreFragmentB": {
-        "location": "Orb Vallis; Solaris Memory Hash #2 for Little Duck (Vox Solaris). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Enrichment Labs - Inside the vertical ventilation shaft accessible by double-jumping up the central courtyard vent."
       },
       "LittleDuckLoreFragmentC": {
-        "location": "Orb Vallis; Solaris Memory Hash #3 for Little Duck (Vox Solaris). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Temple of Profit - Inside the secret security vault room behind the laser barrier on the ground floor."
       },
       "LittleDuckLoreFragmentD": {
-        "location": "Orb Vallis; Solaris Memory Hash #4 for Little Duck (Vox Solaris). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Central Maintenance - Behind the stacked blue coolant storage canisters on the western loading dock."
       },
       "LittleDuckLoreFragmentE": {
-        "location": "Orb Vallis; Solaris Memory Hash #5 for Little Duck (Vox Solaris). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; The Plow - Inside the fractured iron drainage pipe partially submerged in the shallow coolant pond."
       },
       "SmokefingerLoreFragmentA": {
-        "location": "Orb Vallis; Solaris Memory Hash #1 for Smokefinger (Mining & Minerals). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Transit Depot - Inside the subterranean mining tunnel directly behind the industrial excavator drill."
       },
       "SmokefingerLoreFragmentB": {
-        "location": "Orb Vallis; Solaris Memory Hash #2 for Smokefinger (Mining & Minerals). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; The Pearl - On the high rocky cliff ledge overlooking the central Pearl sphere from the east."
       },
       "SmokefingerLoreFragmentC": {
-        "location": "Orb Vallis; Solaris Memory Hash #3 for Smokefinger (Mining & Minerals). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Grow Site - Behind the large climate regulator unit against the wall on the greenhouse second floor."
       },
       "SmokefingerLoreFragmentD": {
-        "location": "Orb Vallis; Solaris Memory Hash #4 for Smokefinger (Mining & Minerals). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Harvester - On the outer catwalk safety railing overlooking the primary coolant processing vat."
       },
       "SmokefingerLoreFragmentE": {
-        "location": "Orb Vallis; Solaris Memory Hash #5 for Smokefinger (Mining & Minerals). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Deck 12 - Inside the icy cavern passage midway between the entrance and the Exploiter Orb arena."
       },
       "TickerLoreFragmentA": {
-        "location": "Orb Vallis; Solaris Memory Hash #1 for Ticker (Debt-Bonds & Crew). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Fortuna Surface Entrance - Perched on the top platform of the yellow crane tower overlooking the elevator."
       },
       "TickerLoreFragmentB": {
-        "location": "Orb Vallis; Solaris Memory Hash #2 for Ticker (Debt-Bonds & Crew). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Spaceport - Inside the customs security booth on the upper passenger arrival concourse."
       },
       "TickerLoreFragmentC": {
-        "location": "Orb Vallis; Solaris Memory Hash #3 for Ticker (Debt-Bonds & Crew). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Enrichment Labs - Tucked behind the tall server rack cabinet in the data analysis room."
       },
       "TickerLoreFragmentD": {
-        "location": "Orb Vallis; Solaris Memory Hash #4 for Ticker (Debt-Bonds & Crew). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Temple of Profit - In the VIP luxury lounge on the top floor, behind the golden Nef Anyo portrait tapestry."
       },
       "TickerLoreFragmentE": {
-        "location": "Orb Vallis; Solaris Memory Hash #5 for Ticker (Debt-Bonds & Crew). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Temple of Immunity - Underneath the wooden footbridge crossing the frozen stream south of the shrine."
       },
       "RudeZuudLoreFragmentA": {
-        "location": "Orb Vallis; Solaris Memory Hash #1 for Rude Zuud (Kitguns). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Harvester - Inside the scrapped Moa and turret scrap heap beside the western incinerator chute."
       },
       "RudeZuudLoreFragmentB": {
-        "location": "Orb Vallis; Solaris Memory Hash #2 for Rude Zuud (Kitguns). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Central Maintenance - Underneath the parked yellow forklift utility vehicle in the vehicle repair bay."
       },
       "RudeZuudLoreFragmentC": {
-        "location": "Orb Vallis; Solaris Memory Hash #3 for Rude Zuud (Kitguns). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; The Plow - On the corrugated sheet-metal roof of the maintenance shack near the mining trench."
       },
       "RudeZuudLoreFragmentD": {
-        "location": "Orb Vallis; Solaris Memory Hash #4 for Rude Zuud (Kitguns). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; The Pearl - Behind the locked weapon storage locker on the lower perimeter defense wall."
       },
       "RudeZuudLoreFragmentE": {
-        "location": "Orb Vallis; Solaris Memory Hash #5 for Rude Zuud (Kitguns). Hidden in Corpus outpost structures and maintenance ducts."
+        "location": "Orb Vallis; Reflector Control - Tucked into the recessed electrical transformer box on the northern cliff path."
       }
     },
     "The Tenets": {
@@ -1496,133 +1502,133 @@
     },
     "Cephalon Fragments": {
       "EarthFragmentA": {
-        "location": "Earth (Grineer Forest); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Earth (Grineer Forest); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "WildlifeFragmentA": {
-        "location": "Earth & open landscape missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Earth & open landscape missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "EarthSettlementsFragmentA": {
-        "location": "Earth (Grineer Forest); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Earth (Grineer Forest); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "VenusFragmentA": {
-        "location": "Venus (Corpus Outpost); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Venus (Corpus Outpost); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "DojoFragmentA": {
-        "location": "Clan Dojo / Research Labs; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Clan Dojo / Research Labs; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "CorpusCrewFragmentA": {
-        "location": "Corpus Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Corpus Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "MercuryFragmentA": {
-        "location": "Mercury (Grineer Galleon); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Mercury (Grineer Galleon); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "GrineerLeadershipFragmentA": {
-        "location": "Grineer Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Grineer Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "ArchaicWeaponsFragmentA": {
-        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "MarsFragmentA": {
-        "location": "Mars (Grineer Settlement); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Mars (Grineer Settlement); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "SentinelsFragmentA": {
-        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "CorpusWeaponsFragmentA": {
-        "location": "Corpus Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Corpus Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "PhobosFragmentA": {
-        "location": "Phobos (Corpus Settlement); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Phobos (Corpus Settlement); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "GrineerFragmentA": {
-        "location": "Grineer Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Grineer Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "PhobosSettlementFragmentA": {
-        "location": "Phobos (Corpus Settlement); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Phobos (Corpus Settlement); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "CeresFragmentA": {
-        "location": "Ceres (Grineer Shipyard); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Ceres (Grineer Shipyard); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "GrineerLabourFragmentA": {
-        "location": "Grineer Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Grineer Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "JupiterFragmentA": {
-        "location": "Jupiter (Corpus Gas City); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Jupiter (Corpus Gas City); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "RoboticsFragmentA": {
-        "location": "Corpus research facilities; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Corpus research facilities; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "EuropaFragmentA": {
-        "location": "Europa (Corpus Ice Planet); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Europa (Corpus Ice Planet); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "CorpusFragmentA": {
-        "location": "Corpus Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Corpus Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "EuropaLandscapeFragmentA": {
-        "location": "Europa (Corpus Ice Planet); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Europa (Corpus Ice Planet); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "VoidFragmentA": {
-        "location": "Orokin Void (Void Towers); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Orokin Void (Void Towers); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "OrokinFragmentA": {
-        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "SaturnFragmentA": {
-        "location": "Saturn (Grineer Asteroid); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Saturn (Grineer Asteroid); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "CitizensFragmentA": {
-        "location": "Saturn & Jupiter civilian sectors; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Saturn & Jupiter civilian sectors; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "LandingCraftFragmentA": {
-        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "UranusFragmentA": {
-        "location": "Uranus (Grineer Sealab); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Uranus (Grineer Sealab); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "OrbiterFragmentA": {
-        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "NeptuneFragmentA": {
-        "location": "Neptune (Corpus Gas/Outpost); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Neptune (Corpus Gas/Outpost); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "LotusFragmentA": {
-        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "MoonFragmentA": {
-        "location": "Lua (Orokin Moon); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Lua (Orokin Moon); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "WarframesFragmentB": {
-        "location": "Star Chart planetary missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Star Chart planetary missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "PlutoFragmentA": {
-        "location": "Pluto (Corpus Outpost); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Pluto (Corpus Outpost); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "InfestedFragmentA": {
-        "location": "Eris & Deimos Infested missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Eris & Deimos Infested missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "OrokinDerelictFragmentA": {
-        "location": "Deimos (Former Derelicts); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Deimos (Former Derelicts); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "TheCollapseFragmentA": {
-        "location": "Orokin Void & Derelict sectors; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Orokin Void & Derelict sectors; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "LephantisFragmentA": {
-        "location": "Deimos boss assassination sectors; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Deimos boss assassination sectors; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "ErisFragmentA": {
-        "location": "Eris (Infested Corpus Ship); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Eris (Infested Corpus Ship); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "WarframesFragmentA": {
-        "location": "Star Chart planetary missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Star Chart planetary missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "InfestationFragmentA": {
-        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "SednaFragmentA": {
-        "location": "Sedna (Grineer Galleon); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Sedna (Grineer Galleon); Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "GrineerTechnologyFragmentA": {
-        "location": "Grineer Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+        "location": "Grineer Star Chart missions; Spawns as a glowing blue orb in normal missions. Equip Thief's Wit or Animal Instinct to see it on minimap. Complete all scans (3-7) to unlock the artwork & hidden Ordis audio."
       },
       "DuviriLoreFragmentSetA": {
         "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."

@@ -77,7 +77,7 @@ function Subpanel({ cat, items, onClose }) {
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div
         ref={panelRef}
-        className={`relative w-full max-w-lg bg-[var(--color-panel)] border-l border-white/10 h-full overflow-y-auto custom-scrollbar transition-transform duration-300 ${cat ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`relative w-full max-w-xl bg-[var(--color-panel)] border-l border-white/10 h-full overflow-y-auto custom-scrollbar transition-transform duration-300 ${cat ? 'translate-x-0' : 'translate-x-full'}`}
       >
         {cat && (
           <>
@@ -115,7 +115,7 @@ function Subpanel({ cat, items, onClose }) {
                   {item.icon && <img src={item.icon} alt="" className="w-7 h-7 rounded object-cover flex-shrink-0" />}
                   <div className="min-w-0 flex-1">
                     <span className="block text-sm text-white/80 truncate">{item.name}</span>
-                    {item.location && <span className="block text-xs text-kronos-dim truncate">{item.location}</span>}
+                    {item.location && <span className="block text-xs text-kronos-dim leading-relaxed mt-0.5 break-words">{item.location}</span>}
                   </div>
                   {item.found && (
                     <svg className="w-4 h-4 text-emerald-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>

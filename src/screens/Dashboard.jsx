@@ -141,6 +141,23 @@ function GradeBadge({ grade, className = "" }) {
 }
 
 // ── Main component ─────────────────────────────────────────────────────────────
+function resolveHoldfastsGiver(challenge, name, desc, obj) {
+  const text = `${challenge || ''} ${name || ''} ${desc || ''} ${obj || ''}`.toLowerCase();
+  if (text.includes('melica') || text.includes('accolade')) return 'BountyMelica';
+  if (text.includes('cascade') || text.includes('flood') || text.includes('yonta') || text.includes('voidplume')) return 'BountyYonta';
+  if (text.includes('armament') || text.includes('lohk') || text.includes('exolizer') || text.includes('weapon') || text.includes('cavalero')) return 'BountyCavalero';
+  if (text.includes('angel') || text.includes('armageddon') || text.includes('dormant') || text.includes('quinn') || text.includes('banish')) return 'BountyQuinn';
+  return 'BountyQuinn';
+}
+
+function resolveCaviaGiver(challenge, name, desc, obj) {
+  const text = `${challenge || ''} ${name || ''} ${desc || ''} ${obj || ''}`.toLowerCase();
+  if (text.includes('tagfer') || text.includes('cervulite') || text.includes('grimoire') || text.includes('tome') || text.includes('fragment')) return 'BountyTagfer';
+  if (text.includes('bird') || text.includes('shiny') || text.includes('beak') || text.includes('cache')) return 'BountyBird3';
+  if (text.includes('loid') || text.includes('albrecht') || text.includes('voca')) return 'BountyLoid';
+  return 'BountyFibonacci';
+}
+
 export default function Dashboard() {
   const { t } = useUi()
   const {

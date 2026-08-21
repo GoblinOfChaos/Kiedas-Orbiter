@@ -14,6 +14,8 @@ import { formatLastUpdate } from '../lib/warframeUtils';
 import { PageLayout, Card, Button, Toggle } from '../components/UI';
 import NotificationManager from '../components/NotificationManager';
 import LanguagePicker from '../components/LanguagePicker';
+import FeatureGuideModal from '../components/FeatureGuideModal';
+import { Compass, BookOpen } from 'lucide-react';
 
 function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
   const [recording, setRecording] = useState(false);
@@ -96,6 +98,7 @@ export default function SettingsScreen() {
   const [scannerStatus, setScannerStatus] = useState('idle'); // 'idle' | 'waiting' | 'active'
   const [localeLoading, setLocaleLoading] = useState(false);
   const { t } = useUi();
+  const [showGuideModal, setShowGuideModal] = useState(false);
   const [tick, setTick] = useState(0);
   useEffect(() => {
     if (!isMonitoring) return;
@@ -841,6 +844,28 @@ export default function SettingsScreen() {
           </div>
         </Card>
 
+                {/* Feature Guide & Global Shortcuts */}
+        <Card glow className="p-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <Compass className="text-kronos-accent" size={28} />
+              <div>
+                <h2 className="text-xl font-black uppercase tracking-tight">Feature Guide & Shortcuts</h2>
+                <p className="text-[10px] text-kronos-dim uppercase font-bold tracking-widest mt-0.5">
+                  Quick reference for in-game overlay shortcuts, relic filters, and screen features
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowGuideModal(true)}
+              className="py-2.5 px-4 rounded-xl border border-kronos-accent/30 bg-kronos-accent/15 text-kronos-accent text-xs font-black uppercase tracking-wider hover:bg-kronos-accent/25 transition-all flex items-center justify-center gap-2 flex-shrink-0"
+            >
+              <BookOpen size={16} />
+              Open Feature Guide
+            </button>
+          </div>
+        </Card>
+
         {/* In-Game Sidebar */}
         <Card glow className="p-5">
           <div className="flex items-center gap-3 mb-6">
@@ -1109,6 +1134,7 @@ export default function SettingsScreen() {
         </Card>
       </div>
 
+      <FeatureGuideModal isOpen={showGuideModal} onClose={() => setShowGuideModal(false)} />
     </PageLayout>
 
       {/* Locale change loading overlay */}

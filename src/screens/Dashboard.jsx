@@ -350,11 +350,18 @@ export default function Dashboard() {
       const key = bountyTab === 'holdfasts' ? 'ZarimanSyndicate' : 'EntratiLabSyndicate';
       const data = bountyCycle.bounties?.[key] || [];
       items = data.map((b) => {
+        const bName = b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Unknown Bounty';
+        const bDesc = b.challenge ? resolveChallengeFlavour(b.challenge, dict, EC, ERg) : '';
+        const bObj = b.challenge ? resolveChallengeDesc(b.challenge, dict, EC, ERg) : '';
+        const img = bountyTab === 'holdfasts'
+          ? resolveHoldfastsGiver(b.challenge, bName, bDesc, bObj)
+          : resolveCaviaGiver(b.challenge, bName, bDesc, bObj);
         return {
-          name: b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Unknown Bounty',
-          desc: b.challenge ? resolveChallengeFlavour(b.challenge, dict, EC, ERg) : '',
-          obj: b.challenge ? resolveChallengeDesc(b.challenge, dict, EC, ERg) : '',
-          tier: b.rot ? `Rotation ${b.rot}` : ''
+          name: bName,
+          desc: bDesc,
+          obj: bObj,
+          tier: b.rot ? `Rotation ${b.rot}` : '',
+          img
         };
       });
     } else if (bountyTab === 'hex') {
@@ -378,7 +385,7 @@ export default function Dashboard() {
         if (Array.isArray(list)) {
           const main = list[0] ? resolveBountyTitle(list[0], dict) || cleanBountyName(list[0]) : 'Bounty';
           const stages = list.map((p) => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Cetus\s+/i, '')).join('\n');
-          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Tent', 'Pool ') });
+          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Tent', 'Pool '), img: 'BountyKonzu' });
         }
       });
     } else if (bountyTab === 'deimos') {
@@ -387,7 +394,8 @@ export default function Dashboard() {
         if (Array.isArray(list)) {
           const main = list[0] ? resolveBountyTitle(list[0], dict) || cleanBountyName(list[0]) : 'Bounty';
           const stages = list.map((p) => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Deimos\s+/i, '')).join('\n');
-          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Chamber', 'Vault ').replace('Tent', 'Pool ') });
+          const img = (main.toLowerCase().includes('otak') || stages.toLowerCase().includes('otak')) ? 'BountyOtak' : 'BountyMother';
+          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Chamber', 'Vault ').replace('Tent', 'Pool '), img });
         }
       });
     } else if (bountyTab === 'vallis') {
@@ -396,7 +404,8 @@ export default function Dashboard() {
         if (Array.isArray(list)) {
           const main = list[0] ? resolveBountyTitle(list[0], dict) || cleanBountyName(list[0]) : 'Bounty';
           const stages = list.map((p) => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Venus\s+/i, '').replace(/^Solaris\s+/i, '')).join('\n');
-          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Bounty', '').replace(/([A-Z])/g, ' $1').trim() });
+          const img = (main.toLowerCase().includes('business') || stages.toLowerCase().includes('animal') || stages.toLowerCase().includes('conservation')) ? 'BountyTheBusiness' : 'BountyEudico';
+          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Bounty', '').replace(/([A-Z])/g, ' $1').trim(), img });
         }
       });
     }

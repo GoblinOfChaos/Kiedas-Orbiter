@@ -528,11 +528,19 @@ export default function Dashboard() {
     // Handle overflow - if standing exceeds per-level max, flip to next rank
     const effectiveRank = currentRank + Math.floor(standingInLevelRaw / STANDING_PER_LEVEL);
     const standingInLevel = standingInLevelRaw % STANDING_PER_LEVEL;
+    const completedSet = new Set();
+    if (rawInventory?.SeasonChallengeHistory) {
+      rawInventory.SeasonChallengeHistory.forEach((h) => {
+        if (h.id) completedSet.add(h.id);
+        if (h.challenge) completedSet.add(h.challenge);
+      });
+    }
+
     const categories = ['Daily', 'Weekly', 'Elite Weekly'];
     const grouped = (nw.challenges || []).reduce((acc, c) => {
       let cat = 'Daily';
-      if (c.isElite || c.xp >= 7000) cat = 'Elite Weekly';else
-      if (c.xp >= 4500) cat = 'Weekly';
+      if (c.isElite || c.xp >= 7000) cat = 'Elite Weekly';
+      else if (c.xp >= 4500) cat = 'Weekly';
       if (!acc[cat]) acc[cat] = [];
       acc[cat].push(c);
       return acc;
@@ -648,18 +656,39 @@ export default function Dashboard() {
         {/* Challenges Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
           {categories.flatMap((cat) =>
-          (grouped[cat] || []).map((c, idx) =>
-          <div key={`${cat}-${idx}`} className="bg-kronos-panel/40 p-2 rounded border border-white/5 hover:border-kronos-accent/20 transition-all">
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded ${cat === 'Elite Weekly' ? 'bg-yellow-500/20 text-yellow-400' : cat === 'Weekly' ? 'bg-blue-500/20 text-blue-400' : 'bg-green-500/20 text-green-400'}`}>
-                    {cat}
-                  </span>
-                  <span className="text-[10px] text-kronos-accent font-black">{c.xp.toLocaleString()}{t('ui.inventory.sort_xp')}</span>
+          (grouped[cat] || []).map((c, idx) => {
+            const isDone = c.isCompleted || completedSet.has(c.id) || (c.uniqueName && completedSet.has(c.uniqueName.split('/').pop()));
+            const isRecovered = c.isRecovered || c.recovered;
+            return (
+              <div
+                key={`${cat}-${idx}`}
+                className={`bg-kronos-panel/40 p-2.5 rounded border border-white/5 hover:border-kronos-accent/20 transition-all flex flex-col justify-between ${isDone ? 'opacity-50' : ''}`}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-1.5 mb-2">
+                    <div className="flex items-center gap-1 flex-wrap">
+                      <span className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded ${cat === 'Elite Weekly' ? 'bg-yellow-500/20 text-yellow-400' : cat === 'Weekly' ? 'bg-blue-500/20 text-blue-400' : 'bg-green-500/20 text-green-400'}`}>
+                        {cat}
+                      </span>
+                      {isRecovered && (
+                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300">
+                          Recovered
+                        </span>
+                      )}
+                      {isDone && (
+                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 flex items-center gap-0.5">
+                          <Check size={10} /> Done
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[10px] text-kronos-accent font-black">{c.xp ? c.xp.toLocaleString() : ''}{t('ui.inventory.sort_xp')}</span>
+                  </div>
+                  <p className={`text-sm font-bold text-kronos-text leading-tight mb-1 ${isDone ? 'line-through text-kronos-dim' : ''}`}>{c.name}</p>
+                  <p className="text-xs text-kronos-dim/80 leading-relaxed">{c.desc}</p>
                 </div>
-                <p className="text-sm font-bold text-kronos-text leading-tight mb-1.5">{c.name}</p>
-                <p className="text-xs text-kronos-dim/80 leading-relaxed">{c.desc}</p>
               </div>
-          )
+            );
+          })
           )}
         </div>
       </div>);

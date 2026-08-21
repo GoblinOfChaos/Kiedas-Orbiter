@@ -348,15 +348,13 @@ export default function Dashboard() {
 
     if (bountyTab === 'holdfasts' || bountyTab === 'cavia') {
       const key = bountyTab === 'holdfasts' ? 'ZarimanSyndicate' : 'EntratiLabSyndicate';
-      const img = bountyTab === 'holdfasts' ? 'MiniMapZariman' : 'FactionCavia';
       const data = bountyCycle.bounties?.[key] || [];
       items = data.map((b) => {
         return {
           name: b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Unknown Bounty',
           desc: b.challenge ? resolveChallengeFlavour(b.challenge, dict, EC, ERg) : '',
           obj: b.challenge ? resolveChallengeDesc(b.challenge, dict, EC, ERg) : '',
-          tier: b.rot ? `Rotation ${b.rot}` : '',
-          img
+          tier: b.rot ? `Rotation ${b.rot}` : ''
         };
       });
     } else if (bountyTab === 'hex') {
@@ -380,7 +378,7 @@ export default function Dashboard() {
         if (Array.isArray(list)) {
           const main = list[0] ? resolveBountyTitle(list[0], dict) || cleanBountyName(list[0]) : 'Bounty';
           const stages = list.map((p) => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Cetus\s+/i, '')).join('\n');
-          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Tent', 'Pool '), img: 'FactionOstron' });
+          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Tent', 'Pool ') });
         }
       });
     } else if (bountyTab === 'deimos') {
@@ -389,7 +387,7 @@ export default function Dashboard() {
         if (Array.isArray(list)) {
           const main = list[0] ? resolveBountyTitle(list[0], dict) || cleanBountyName(list[0]) : 'Bounty';
           const stages = list.map((p) => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Deimos\s+/i, '')).join('\n');
-          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Chamber', 'Vault ').replace('Tent', 'Pool '), img: 'FactionEntrati' });
+          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Chamber', 'Vault ').replace('Tent', 'Pool ') });
         }
       });
     } else if (bountyTab === 'vallis') {
@@ -398,7 +396,7 @@ export default function Dashboard() {
         if (Array.isArray(list)) {
           const main = list[0] ? resolveBountyTitle(list[0], dict) || cleanBountyName(list[0]) : 'Bounty';
           const stages = list.map((p) => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Venus\s+/i, '').replace(/^Solaris\s+/i, '')).join('\n');
-          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Bounty', '').replace(/([A-Z])/g, ' $1').trim(), img: 'FactionSolarisUnited' });
+          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Bounty', '').replace(/([A-Z])/g, ' $1').trim() });
         }
       });
     }

@@ -601,22 +601,14 @@ export default function Checklist() {
       if (expiry instanceof Date && !isNaN(expiry.getTime())) return expiry.getTime();
       return 0;
     }
-    if (taskId === 'glast' || resetType === 'glast') {
-      const now = new Date();
-      const next = new Date(now);
-      next.setUTCHours(11, 0, 0, 0);
-      if (next.getTime() <= now.getTime()) {
-        next.setUTCDate(next.getUTCDate() + 1);
-      }
-      return next.getTime();
-    }
-    if (taskId === 'eleanor' || resetType === 'eleanor') {
-      const ELEANOR_EPOCH = 1742256000000; // 2025-03-18T00:00:00Z
-      const CYCLE_MS = 8 * 24 * 60 * 60 * 1000;
+    if (taskId === 'glast' || resetType === 'glast' || taskId === 'eleanor' || resetType === 'eleanor') {
+      // Both Ergo Glast (Tenet melee) and Eleanor (1999 Coda) rotate on a 4-day (96-hour) cycle at 00:00 UTC
+      const ROTATION_EPOCH = 1735344000000; // 2024-12-28T00:00:00Z
+      const CYCLE_MS = 4 * 24 * 60 * 60 * 1000;
       const nowMs = Date.now();
-      const elapsed = Math.max(0, nowMs - ELEANOR_EPOCH);
+      const elapsed = Math.max(0, nowMs - ROTATION_EPOCH);
       const currentCycleIndex = Math.floor(elapsed / CYCLE_MS);
-      return ELEANOR_EPOCH + (currentCycleIndex + 1) * CYCLE_MS;
+      return ROTATION_EPOCH + (currentCycleIndex + 1) * CYCLE_MS;
     }
     if (resetType === 'daily') {
       const now = new Date();

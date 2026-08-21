@@ -424,17 +424,36 @@ export default function Dashboard() {
             {/* Darken the left transparent zone so overlaid text stays legible; the portrait is right/top anchored */}
             <div className="absolute inset-0 left-0 right-[10%] bg-gradient-to-r from-black/65 via-black/40 to-transparent" />
             {/* Text spans the transparent-left width; stops short of the portrait */}
-            <div className="absolute inset-0 left-0 right-[20%] flex flex-col justify-between p-3 z-10">
-              <div className="flex items-start justify-between gap-2">
-                <p className="text-sm font-black text-white uppercase leading-tight flex-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">{it.name}</p>
-                {it.tier && <span className="text-[10px] font-bold text-kronos-accent uppercase bg-kronos-panel/70 px-1.5 rounded">{it.tier}</span>}
+            <div className="absolute inset-0 left-0 right-[15%] flex flex-col justify-between p-3 z-10">
+              <div>
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <p className="text-sm font-black text-white uppercase leading-tight flex-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">{it.name}</p>
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    {it.levelRange && (
+                      <span className="text-[9px] font-bold text-kronos-dim uppercase bg-black/50 px-1.5 py-0.5 rounded">
+                        {it.levelRange}
+                      </span>
+                    )}
+                    {it.tier && (
+                      <span className="text-[10px] font-bold text-kronos-accent uppercase bg-kronos-panel/70 px-1.5 py-0.5 rounded">
+                        {it.tier}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                {it.desc && <p className="text-xs text-kronos-text/90 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] mb-1">{it.desc}</p>}
               </div>
-              {it.desc && <p className="text-xs text-kronos-text/90 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">{it.desc}</p>}
-              {it.obj &&
-            <p className="text-xs font-medium text-kronos-accent mt-auto leading-tight break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">{t('dashboard.challenge')}
-              {it.obj}
+              {it.obj && (
+                <p className="text-xs font-medium text-kronos-accent mt-auto leading-tight break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">
+                  {t('dashboard.challenge')}{it.obj}
                 </p>
-            }
+              )}
+              {it.finalReward && (
+                <div className="mt-1 pt-1 border-t border-white/10 flex items-center gap-1">
+                  <span className="text-[9px] font-bold text-amber-300 uppercase">Guaranteed:</span>
+                  <span className="text-[9px] text-white/90 truncate">{it.finalReward}</span>
+                </div>
+              )}
             </div>
           </div>
         )}

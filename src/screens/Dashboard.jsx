@@ -280,8 +280,8 @@ export default function Dashboard() {
     if (!sale) return false;
     const name = (sale.item || '').toLowerCase();
     const type = sale.itemType || sale.uniqueName || '';
-    if (name && ownedNamesAndTypes.has(name)) return true;
-    if (type && (ownedNamesAndTypes.has(type) || ownedNamesAndTypes.has(type.replace('/Lotus/StoreItems/', '/Lotus/')))) return true;
+    if (name && (ownedNamesAndTypes.has(name) || ownedNamesAndTypes.has(`${name} blueprint`))) return true;
+    if (type && (ownedNamesAndTypes.has(type) || ownedNamesAndTypes.has(type.replace('/Lotus/StoreItems/', '/Lotus/')) || ownedNamesAndTypes.has(type.replace('StoreItems/Types/', 'Types/')))) return true;
     return false;
   }, [ownedNamesAndTypes]);
 
@@ -1547,25 +1547,37 @@ export default function Dashboard() {
             const left = Math.max(0, deal.total - deal.sold);
             const isSoldOut = left === 0;
             const darvoIcon = iconsPath ? convertFileSrc(`${iconsPath}/DarvoIcon.png`) : null;
+            const isOwned = isSaleItemOwned(deal);
             return (
               <Card glow className="p-3">
                 <div className="flex items-center gap-2 mb-2">
                   {darvoIcon ? <img src={darvoIcon} className="w-5 h-5 object-contain" alt="" /> : <DollarSign size={16} className="text-kronos-accent flex-shrink-0" />}
                   <p className="font-bold text-sm uppercase">{t('ui.dashboard.darvo_deal')}</p>
                 </div>
-                <div className="flex gap-4 items-start">
-                  <div className="w-14 h-14 bg-kronos-panel/40 rounded flex items-center justify-center p-1 border border-kronos-panel flex-shrink-0">
+                <div className={`flex gap-4 items-start transition-all ${isOwned ? 'opacity-70' : ''}`}>
+                  <div className="w-14 h-14 bg-kronos-panel/40 rounded flex items-center justify-center p-1 border border-kronos-panel flex-shrink-0 relative">
                     <img
                       src={resolveAnyImage(deal, EI, nameToImage)}
                       alt=""
                       className="max-w-full max-h-full object-contain"
                       onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
-                    
+                    {isOwned && (
+                      <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
+                        <Check size={10} className="text-black" />
+                      </div>
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold leading-tight text-sm text-kronos-text truncate" title={deal.item}>
-                      {deal.item}
-                    </p>
+                    <div className="flex items-center gap-1.5">
+                      <p className="font-bold leading-tight text-sm text-kronos-text truncate" title={deal.item}>
+                        {deal.item}
+                      </p>
+                      {isOwned && (
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-kronos-accent px-1.5 py-0.2 rounded bg-kronos-accent/15 flex-shrink-0">
+                          {t('ui.dashboard.owned')}
+                        </span>
+                      )}
+                    </div>
 
                     <div className="flex items-center gap-1.5 mt-1">
                       <span className="text-sm text-kronos-dim line-through decoration-red-500/50">{deal.originalPrice}</span>

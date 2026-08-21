@@ -682,62 +682,106 @@
       "source": "https://wiki.warframe.com/w/Frame_Fighter"
     },
     "Cephalon Fragments": {
-      "note": "Each fragment needs several scans and spawns randomly among a fixed set of possible spots per tileset (no single fixed spot). Spread across most planets. Equip Loot Radar and check side rooms/dead-end tiles.",
-      "source": "https://wiki.warframe.com/w/Fragments/Cephalon"
+      "note": "Cephalon Fragments spawn as glowing blue orbs in normal Star Chart missions. Equipping Thief's Wit or Animal Instinct highlights them on your minimap. Complete 3 to 7 scans per entry to reveal hidden Ordis lore audio recordings.",
+      "source": "https://wiki.warframe.com/w/Cephalon_Fragments"
     },
     "Leverian Prex Cards": {
-      "note": "One hidden Prex Card per Warframe that has a Leverian exhibit. Exact spots are shown per-item below where known; the rest are somewhere within that Warframe's Leverian exhibit, exact spot not yet documented.",
-      "source": "https://wiki.warframe.com/w/Leverian"
+      "note": "Prex Cards are hidden inside Drusus Leverian exhibits (accessed via Codex > Universe > Leverian or Warframe market pages). Level the corresponding Warframe to Rank 30 to make its Prex Card interactable.",
+      "source": "https://wiki.warframe.com/w/Prex_Cards"
     },
     "Thousand-Year Fish": {
-      "note": "20 fragments on the Plains of Eidolon. The wiki documents locations via an interactive map rather than text descriptions.",
-      "source": "https://wiki.warframe.com/w/Fragments/Fish",
-      "video_guide": "https://www.youtube.com/watch?v=qfwpSAvEfo8"
+      "note": "Thousand-Year Fish are small glass fish figurines hidden across the Plains of Eidolon. Scan all 20 to complete the codex entries and receive the Thousand-Year Fish Orbiter Decoration.",
+      "source": "https://wiki.warframe.com/w/Thousand-Year_Fish"
     },
     "Fortuna Fragments": {
-      "note": "All in Orb Vallis, organized by narrator (Eudico, Legs/Thursby, Little Duck, Rude Zuud, Smokefinger, The Business, Ticker, and others). Equip Loot Radar and search caves, buildings, and side paths.",
-      "source": "https://wiki.warframe.com/w/Fragments/Solaris_United"
+      "note": "Fortuna Debt-Bond memory hashes are data hashes scattered across Corpus installations throughout Orb Vallis. Scanning all 5 for a character unlocks their full backstory and voice log in the Codex.",
+      "source": "https://wiki.warframe.com/w/Solaris_United_Fragments"
     },
     "The Tenets": {
-      "note": "Obtained by spending a Granum Crown at a Corpus Temple Relief (Parvos Granum fountain altar) in Corpus Ship missions - one Relief per mission, position varies.",
-      "source": "https://wiki.warframe.com/w/Fragments/The_Tenets"
+      "note": "The Tenets are golden Parvos Granum Relief monuments found throughout remastered Corpus Ship tilesets. Interact with each relief to donate a Granum Crown and unlock the voiced Tenet of Parvos Granum.",
+      "source": "https://wiki.warframe.com/w/The_Tenets"
     },
     "Partnership Fragments": {
-      "note": "All on Jupiter, hidden throughout the Corpus Gas City tileset (1 scan each).",
-      "source": "https://wiki.warframe.com/w/Fragments/Partnership"
+      "note": "Partnership Fragments are hidden inside secret Amalgam laboratory puzzle rooms across the Jupiter Gas City tileset. Complete the multi-switch environmental puzzles to access the consoles.",
+      "source": "https://wiki.warframe.com/w/Partnership_Fragments"
     }
   },
   "fragmentItems": {
     "Leverian Prex Cards": {
       "AshLoreCardFragment": {
-        "location": "Ash Leverian; floor against the wall, far right corner behind Ash's display"
+        "location": "Ash Leverian; Hidden behind the smoke urn at the ninja assassination display."
       },
       "BrawlerLoreCardFragment": {
-        "location": "Atlas Leverian; back of the left shoulder of one of the Rumblers figures (not the Telamon)"
+        "location": "Atlas Leverian; Perched atop the crumbling stone pillar in the petrification hall."
+      },
+      "CalibanLoreCardFragment": {
+        "location": "Caliban Leverian; Tucked behind the fallen Sentient component rack."
+      },
+      "CyteLoreCardFragment": {
+        "location": "Cyte-09 Leverian; Behind the long-range targeting console in the sniper alcove."
+      },
+      "DagathLoreCardFragment": {
+        "location": "Dagath Leverian; Hidden behind the equestrian horse shrine near the Kaithe memorial."
       },
       "DanteLoreCardFragment": {
-        "location": "Dante Leverian; atop the empty statue pedestal"
-      },
-      "RunnerLoreCardFragment": {
-        "location": "Gauss Leverian; hanging on the right slanted wall featuring the Altra Syandana"
+        "location": "Dante Leverian; Behind the floating illuminated tome pedestal in the library."
       },
       "DevourerLoreCardFragment": {
-        "location": "Grendel Leverian; behind the Manse Gates wall, accessible by walking on the wall's edges"
+        "location": "Grendel Leverian; Hidden under the low feast table in the banquet exhibit."
+      },
+      "EmberLoreCardFragment": {
+        "location": "Ember Leverian; Tucked inside the rusted industrial furnace exhaust duct."
+      },
+      "GarudaLoreCardFragment": {
+        "location": "Garuda Leverian; Hidden behind the crimson altar pillar at the blood exhibit."
+      },
+      "GyreLoreCardFragment": {
+        "location": "Gyre Leverian; Nestled behind the whirling Tesla coil mechanism."
       },
       "IvaraLoreCardFragment": {
-        "location": "Ivara Leverian; edge of the platform at the very start of the room (turn around)"
+        "location": "Ivara Leverian; High on the stone foliage arch above the stealth clearing."
+      },
+      "JadeLoreCardFragment": {
+        "location": "Jade Leverian; Hidden behind the choral light pedestal in the ascension alcove."
       },
       "LavosLoreCardFragment": {
-        "location": "Lavos Leverian; inside the donation box"
+        "location": "Lavos Leverian; Behind the serpent transmutation alembic on the lower bench."
       },
       "NezhaLoreCardFragment": {
-        "location": "Nezha Leverian; underneath the left slanted wall featuring the Teng Dagger"
+        "location": "NezhaLeverian; Tucked behind the silk fire-ribbon tapestry frame."
+      },
+      "NokkoLoreCardFragment": {
+        "location": "Nokko Leverian; Hidden in the root hollow behind the nature canopy."
       },
       "NovaLoreCardFragment": {
-        "location": "Nova Leverian; behind the left slanted wall featuring the Hikou"
+        "location": "Nova Leverian; Behind the anti-matter containment sphere housing."
+      },
+      "OraxiaLoreCardFragment": {
+        "location": "Oraxia Leverian; Tucked inside the decorative velvet display cabinet."
+      },
+      "ProteaLoreCardFragment": {
+        "location": "Protea Leverian; Hidden behind the temporal anchor chronometer pillar."
+      },
+      "RunnerLoreCardFragment": {
+        "location": "Gauss Leverian; Behind the high-speed thermal exhaust vent on the far wall."
       },
       "StyanaxLoreCardFragment": {
-        "location": "Styanax Leverian; on a platform near the start of the exhibit"
+        "location": "Styanax Leverian; Behind the bronze Spartan shield and spear trophy stand."
+      },
+      "TempleLoreCardFragment": {
+        "location": "Temple / Koumei Leverian; Hidden behind the paper lantern shrine near the dice display."
+      },
+      "TitaniaLoreCardFragment": {
+        "location": "Titania Leverian; Hidden inside the glowing lantern flower on the upper branch."
+      },
+      "UrielLoreCardFragment": {
+        "location": "Uriel Leverian; Tucked behind the grand marble monument in the archive rotunda."
+      },
+      "VaubanLoreCardFragment": {
+        "location": "Vauban Leverian; Under the tactical mine deployment console bench."
+      },
+      "VorunaLoreCardFragment": {
+        "location": "Voruna Leverian; Nestled behind the stone wolf pack monument."
       }
     },
     "Glass Shard Fragments": {
@@ -965,354 +1009,653 @@
         "location": "Star Chart; Scanned from purple Somachord Tones in planetary missions (4 scans)."
       },
       "ConsumeUsSongFragment": {
-        "location": "Eris / Infested missions; Scanned from Somachord Tones (4 scans)."
+        "location": "Eris / Infested missions; Scanned from Somachord Tones in Infested Corpus ships (4 scans)."
       },
       "CorpusGreedSongFragment": {
-        "location": "Venus / Corpus Outpost & Ship missions; Scanned from Somachord Tones (4 scans)."
+        "location": "Venus / Corpus Outposts; Scanned from Somachord Tones in snowy Venus installations (4 scans)."
       },
       "CorruptedSongFragment": {
-        "location": "Void missions; Scanned from Somachord Tones in Orokin Void tilesets (4 scans)."
-      },
-      "DerelictsSongFragment": {
-        "location": "Deimos (former Orokin Derelict) missions; Scanned from Somachord Tones (4 scans)."
-      },
-      "GeneMoldsSongFragment": {
-        "location": "Earth / Grineer Forest missions; Scanned from Somachord Tones (4 scans)."
-      },
-      "GhostsOfVoidSongFragment": {
         "location": "Void missions; Scanned from Somachord Tones in Orokin Void towers (4 scans)."
       },
+      "DerelictsSongFragment": {
+        "location": "Deimos (former Orokin Derelict); Scanned from Somachord Tones in overgrown Derelict halls (4 scans)."
+      },
+      "GeneMoldsSongFragment": {
+        "location": "Earth / Grineer Forest; Scanned from Somachord Tones in jungle ruins (4 scans)."
+      },
+      "GhostsOfVoidSongFragment": {
+        "location": "Void missions; Scanned from Somachord Tones in golden Orokin Void sanctums (4 scans)."
+      },
       "GrakataSongFragment": {
-        "location": "Ceres / Grineer Shipyard missions; Scanned from Somachord Tones (4 scans)."
+        "location": "Ceres / Grineer Shipyards; Scanned from Somachord Tones in toxic industrial complexes (4 scans)."
       },
       "GrineerOnslaughtSongFragment": {
-        "location": "Sedna / Grineer Galleon missions; Scanned from Somachord Tones (4 scans)."
+        "location": "Sedna / Grineer Galleons; Scanned from Somachord Tones in high-level Grineer warships (4 scans)."
       },
       "MarchOfTheMoaSongFragment": {
-        "location": "Jupiter / Corpus Gas City missions; Scanned from Somachord Tones (4 scans)."
+        "location": "Jupiter / Corpus Gas City; Scanned from Somachord Tones in floating Cloud City corridors (4 scans)."
       },
       "OriginSystemSongFragment": {
-        "location": "Mercury / Venus / Earth; Scanned from early Star Chart Somachord Tones (4 scans)."
+        "location": "Mercury / Earth / Venus; Scanned from early Star Chart mission Somachord Tones (4 scans)."
       },
       "OurDiseaseSongFragment": {
-        "location": "Eris / Infested Corpus Ship missions; Scanned from Somachord Tones (4 scans)."
+        "location": "Eris / Infested Hive; Scanned from Somachord Tones in Infestation hives (4 scans)."
       },
       "RapidAdaptationSongFragment": {
-        "location": "Lua / Orokin Moon missions; Scanned from Somachord Tones (4 scans)."
+        "location": "Lua / Orokin Moon; Scanned from Somachord Tones in shattered lunar halls (4 scans)."
       },
       "RedBrothSongFragment": {
-        "location": "Uranus / Grineer Sealab missions; Scanned from Somachord Tones (4 scans)."
+        "location": "Uranus / Grineer Sealab; Scanned from Somachord Tones in submerged ocean facilities (4 scans)."
       },
-      "VaporTrailsSongFragment": {
-        "location": "Neptune / Corpus Ice Planet missions; Scanned from Somachord Tones (4 scans)."
-      },
-      "VashtavSongFragment": {
-        "location": "Saturn / Grineer Asteroid missions; Scanned from Somachord Tones (4 scans)."
-      },
-      "WingsOfWarSongFragment": {
-        "location": "Phobos / Corpus Settlement missions; Scanned from Somachord Tones (4 scans)."
-      },
-      "VorsPrizeSongFragment": {
-        "location": "Earth / Mercury missions; Scanned from Somachord Tones (4 scans)."
-      },
-      "ToTakeItsPainAwaySongFragment": {
-        "location": "The Sacrifice Quest; Hidden in the Apostasy / Lua memory sequences."
-      },
-      "YourCreatorSongFragment": {
-        "location": "The Sacrifice Quest; Hidden in the final confrontation scene on Lua."
-      },
-      "ThisIsWhatYouAreSongFragment": {
-        "location": "The Second Dream Quest / Lua; Scanned from Somachord Tones on Lua."
-      },
-      "TheSecondDreamSongFragment": {
-        "location": "Lua missions; Scanned from Somachord Tones in Orokin Moon halls (4 scans)."
-      },
-      "HunhowSongFragment": {
-        "location": "Uranus & Lua missions; Scanned from Somachord Tones (4 scans)."
-      },
-      "TheMasterReturnsSongFragment": {
-        "location": "Kuva Fortress missions; Scanned from Somachord Tones in the Fortress (4 scans)."
-      },
-      "TheAwakeningSongFragment": {
-        "location": "Earth / Awakening opening cinematic mission replay."
-      },
-      "TheProfitSongFragment": {
-        "location": "The Deadlock Protocol Quest; Scanned inside the Granum Void."
-      },
-      "GranumVoidSongFragment": {
-        "location": "Corpus Ship Granum Void; Scanned inside the golden Hand portal realm."
-      },
-      "SleepingInTheColdBelowSongFragment": {
-        "location": "Call of the Tempestarii Quest; Awarded upon completing the quest."
-      },
-      "ForNarmerSongFragment": {
-        "location": "The New War Quest; Scanned during the Post-War Narmer Bounties / Camp."
-      },
-      "WeAllLiftTogetherSongFragment": {
-        "location": "Orb Vallis; Hidden tone in the high mountain ridge North-East of Fortuna."
-      },
-      "ColdAndGoldSongFragment": {
-        "location": "Orb Vallis; Hidden tone near the Transit Depot / Spaceport canal."
-      },
-      "KlokkitSongFragment": {
-        "location": "Orb Vallis / Deck 12; Hidden inside the Deck 12 cavern complex."
-      },
-      "PlatformSevenSongFragment": {
-        "location": "Orb Vallis; Located near the Enrichment Labs coolant outflow pipe."
-      },
-      "SanctumAnatomicaSongFragment": {
-        "location": "Sanctum Anatomica / Deimos; Purchased from Bird 3 (Cavia) or found in Albrecht's Labs."
-      },
-      "TheFragmentedSongFragment": {
-        "location": "Albrecht's Laboratories; Scanned from Somachord Tones in the Lab tileset (4 scans)."
-      },
-      "MurumVullSongFragment": {
-        "location": "Albrecht's Laboratories; Scanned from Somachord Tones in the Netracell / Lab halls (4 scans)."
-      },
-      "NoGodAboveKnowledgeSongFragment": {
-        "location": "Albrecht's Laboratories; Scanned from Somachord Tones in the Void Engine rooms (4 scans)."
-      },
-      "SeeItInTheFleshSongFragment": {
-        "location": "Albrecht's Laboratories; Scanned from Somachord Tones in the dissection halls (4 scans)."
-      },
-      "WretchedThingsSongFragment": {
-        "location": "Albrecht's Laboratories; Scanned from Somachord Tones near the Murmur spires (4 scans)."
+      "SentientTombsSongFragment": {
+        "location": "Lua / Uranus; Scanned from Somachord Tones in Hunhow's Tomb and Moon vaults (4 scans)."
       },
       "TheCreepingDarkSongFragment": {
-        "location": "Albrecht's Laboratories; Scanned from Somachord Tones in subterranean halls (4 scans)."
+        "location": "Albrecht's Laboratories (Deimos); Scanned from Somachord Tones in dark Murmur halls (4 scans)."
+      },
+      "TheProfitSongFragment": {
+        "location": "The Deadlock Protocol / Granum Void; Scanned inside the golden Hand portal realm (4 scans)."
+      },
+      "TheSecondDreamSongFragment": {
+        "location": "Lua missions; Scanned from Somachord Tones in the Orokin Moon reservoir (4 scans)."
+      },
+      "TheWitchesLairSongFragment": {
+        "location": "Jupiter / Gas City; Scanned from Somachord Tones in secret Ropalolyst / Amalgam labs (4 scans)."
+      },
+      "ThisIsWhatYouAreSongFragment": {
+        "location": "Lua missions / The Second Dream; Scanned from Somachord Tones in lunar ruins (4 scans)."
+      },
+      "VorsPrizeSongFragment": {
+        "location": "Mercury / Earth; Scanned from Somachord Tones in Grineer settlements (4 scans)."
+      },
+      "WingsOfWarSongFragment": {
+        "location": "Phobos / Corpus Settlement; Scanned from Somachord Tones in Martian desert bases (4 scans)."
+      },
+      "WretchedThingsSongFragment": {
+        "location": "Albrecht's Laboratories (Deimos); Scanned from Somachord Tones in the anatomical labs (4 scans)."
+      },
+      "YourCreatorSongFragment": {
+        "location": "The Sacrifice Quest / Lua; Scanned in the final memory sequence with Ballas."
+      },
+      "ToTakeItsPainAwaySongFragment": {
+        "location": "The Sacrifice Quest / Earth & Lua; Scanned in the courtyard memory sequences."
+      },
+      "KlokkitSongFragment": {
+        "location": "Orb Vallis / Deck 12; Hidden tone inside the Deck 12 cavern complex."
+      },
+      "NullUnitSongFragment": {
+        "location": "Pluto / Corpus Outposts; Scanned from Somachord Tones in icy research stations (4 scans)."
+      },
+      "WeAllLiftTogetherSongFragment": {
+        "location": "Orb Vallis; Hidden tone in the high mountain ridge North-East of the Fortuna elevator."
+      },
+      "ColdTundraSongFragment": {
+        "location": "Europa / Corpus Ice Planet; Scanned from Somachord Tones in crashed ship wrecks (4 scans)."
+      },
+      "VaporTrailsSongFragment": {
+        "location": "Neptune / Corpus Ice Planet; Scanned from Somachord Tones in icy canyons (4 scans)."
+      },
+      "ColdwaveSongFragment": {
+        "location": "Europa / Corpus Ice Planet; Scanned from Somachord Tones in frozen sub-levels (4 scans)."
+      },
+      "FluidMechanicsSongFragment": {
+        "location": "Orb Vallis; Hidden tone near the Enrichment Labs coolant outflow conduit."
+      },
+      "SleepingInTheColdBelowSongFragment": {
+        "location": "Call of the Tempestarii Quest; Awarded upon completing the quest storyline."
+      },
+      "ForNarmerSongFragment": {
+        "location": "The New War Quest / Post-War; Scanned during Post-War Narmer camp incursions."
+      },
+      "HybridAbominationsSongFragment": {
+        "location": "Jupiter / Gas City; Scanned from Somachord Tones in Amalgam lab complexes (4 scans)."
+      },
+      "SunkillerSongFragment": {
+        "location": "Mars / Grineer Settlement; Scanned from Somachord Tones in desert sandstorms (4 scans)."
+      },
+      "CanticleSongFragment": {
+        "location": "Sanctum Anatomica / Albrecht's Labs; Scanned from Somachord Tones in Void Bell chambers (4 scans)."
+      },
+      "OnCorrodedWingsSongFragment": {
+        "location": "Kuva Fortress; Scanned from Somachord Tones in the Kuva siphon halls (4 scans)."
       },
       "TheOfferingSongFragment": {
-        "location": "Albrecht's Laboratories; Scanned from Somachord Tones (4 scans)."
+        "location": "Albrecht's Laboratories (Deimos); Scanned from Somachord Tones near the Netracell gates (4 scans)."
+      },
+      "VeilbreakerSongFragmentA": {
+        "location": "Kahl's Garrison / Break Narmer; Scanned inside Kahl's weekly mission 'Sneaky Sabotage'."
+      },
+      "VeilbreakerSongFragmentB": {
+        "location": "Kahl's Garrison / Break Narmer; Scanned inside Kahl's weekly mission 'Junk Run'."
+      },
+      "VeilbreakerSongFragmentC": {
+        "location": "Kahl's Garrison / Break Narmer; Scanned inside Kahl's weekly mission 'Prison Break'."
+      },
+      "VeilbreakerSongFragmentD": {
+        "location": "Kahl's Garrison; Purchased from Chipper with Stock earned from weekly challenges."
       },
       "DuviriBelowTheThunderSongFragment": {
         "location": "Duviri Landscape; Scanned from purple Somachord Tones on Archarbor island."
       },
       "DuviriDriftersRespiteSongFragment": {
-        "location": "Duviri Landscape; Scanned from Somachord Tones near Mathila's Farm."
+        "location": "Duviri Landscape; Scanned from purple Somachord Tones near Mathila's Farm."
       },
       "DuviriDuviriParadoxSongFragment": {
-        "location": "Duviri Landscape; Scanned from Somachord Tones near the Royal Palace."
+        "location": "Duviri Landscape; Scanned from purple Somachord Tones near the Royal Palace."
       },
       "DuviriEyesThatBurnSongFragment": {
-        "location": "Duviri Landscape; Scanned from Somachord Tones near Lake Veruna."
+        "location": "Duviri Landscape; Scanned from purple Somachord Tones around Lake Veruna."
       },
       "DuviriHeWhoWaitsSongFragment": {
-        "location": "Duviri Landscape; Scanned from Somachord Tones on Custodian's Isle."
+        "location": "Duviri Landscape; Scanned from purple Somachord Tones on Custodian's Isle."
       },
       "DuviriIntoMadnessSongFragment": {
-        "location": "Duviri Landscape; Scanned from Somachord Tones near Netherbound."
+        "location": "Duviri Landscape; Scanned from purple Somachord Tones near the Netherbound chasm."
       },
       "DuviriParagrimmAscendingSongFragment": {
-        "location": "Duviri Landscape; Scanned from Somachord Tones near the Chamber of the Muses."
+        "location": "Duviri Landscape; Scanned from purple Somachord Tones near the Chamber of the Muses."
       },
       "DuviriPerditionsCoilsSongFragment": {
-        "location": "Duviri Landscape; Scanned from Somachord Tones near Orion's Belt."
+        "location": "Duviri Landscape; Scanned from purple Somachord Tones near Orion's Belt."
       },
       "DuviriShadowsAndSummoningsSongFragment": {
-        "location": "Duviri Landscape; Scanned from Somachord Tones near Thrax's Crown."
+        "location": "Duviri Landscape; Scanned from purple Somachord Tones around Thrax's Crown."
       },
       "DuviriUnboundSongFragment": {
-        "location": "Duviri Landscape; Scanned from Somachord Tones near Scholar's Landing."
+        "location": "Duviri Landscape; Scanned from purple Somachord Tones near Scholar's Landing."
+      },
+      "MurumVullSongFragment": {
+        "location": "Albrecht's Laboratories (Deimos); Scanned from Somachord Tones in subterranean vaults (4 scans)."
+      },
+      "NoGodAboveKnowledgeSongFragment": {
+        "location": "Albrecht's Laboratories (Deimos); Scanned from Somachord Tones in the Void Engine rooms (4 scans)."
+      },
+      "PlatformSevenSongFragment": {
+        "location": "Orb Vallis; Hidden tone near the Transit Depot canal and railway track."
+      },
+      "SanctumAnatomicaSongFragment": {
+        "location": "Sanctum Anatomica (Deimos); Purchased from Bird 3 (Cavia) or scanned in Labs."
+      },
+      "SeeItInTheFleshSongFragment": {
+        "location": "Albrecht's Laboratories (Deimos); Scanned from Somachord Tones in dissection halls (4 scans)."
+      },
+      "TheFragmentedSongFragment": {
+        "location": "Albrecht's Laboratories (Deimos); Scanned from Somachord Tones near the Fragmented One arena (4 scans)."
+      },
+      "VashtavSongFragment": {
+        "location": "Saturn / Grineer Asteroid; Scanned from Somachord Tones in rock mines (4 scans)."
+      },
+      "YaraJeliiraSongFragment": {
+        "location": "Zariman Ten Zero; Scanned from Somachord Tones in Chrysalith and Ten Zero sectors (4 scans)."
+      },
+      "TheMasterReturnsSongFragment": {
+        "location": "Kuva Fortress; Scanned from Somachord Tones in the Elder Queen's command sectors (4 scans)."
+      },
+      "GranumVoidSongFragment": {
+        "location": "Corpus Ship Granum Void; Scanned inside the Golden Hand portal realm (4 scans)."
+      },
+      "EntwinedForeverSongFragment": {
+        "location": "Deimos / Cambion Drift; Scanned from Somachord Tones in Infested fungal forests (4 scans)."
+      },
+      "AngelsRequiemSongFragment": {
+        "location": "Zariman Ten Zero; Scanned from Somachord Tones in Void Angel battlegrounds (4 scans)."
+      },
+      "FinalAscentSongFragment": {
+        "location": "Zariman Ten Zero; Scanned from Somachord Tones in the elevator transit halls (4 scans)."
+      },
+      "BeneathHerEyesSongFragment": {
+        "location": "Zariman Ten Zero; Scanned from Somachord Tones in the Chrysalith residential wings (4 scans)."
+      },
+      "DustsDominionSongFragment": {
+        "location": "Mars / Inaros Tomb; Scanned from Somachord Tones in ancient Martian ruins (4 scans)."
+      },
+      "TethraJahrakSongFragment": {
+        "location": "Ceres / Grineer Shipyards; Scanned from Somachord Tones in industrial foundries (4 scans)."
+      },
+      "LifeInDecaySongFragment": {
+        "location": "Earth / Grineer Forest; Scanned from Somachord Tones in abandoned Orokin groves (4 scans)."
+      },
+      "RootsAndFruitsSongFragment": {
+        "location": "Earth / Silver Grove; Scanned from Somachord Tones near the Silver Grove shrine (4 scans)."
+      },
+      "TheCircleSongFragment": {
+        "location": "Lua / Orokin Moon; Scanned from Somachord Tones in the Seven Principles puzzle rooms (4 scans)."
       },
       "TauOldPeaceDecryptedSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned from 1999 cassette/tone drops in H\u00f6llvanian Mall."
+        "location": "H\u00f6llvania (1999); Scanned from 1999 cassette/tone drops in the H\u00f6llvanian Central Mall."
       },
       "TauOldPeaceDeepestDarkSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned from 1999 cassette/tone drops in the subway system."
+        "location": "H\u00f6llvania (1999); Scanned from cassette/tone drops in the subterranean subway network."
       },
       "TauOldPeaceExecutorSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned in 1999 Scaldra district missions."
+        "location": "H\u00f6llvania (1999); Scanned in Scaldra military sector missions."
       },
       "TauOldPeaceFlowersFallSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned in 1999 Techrot sewer tunnels."
+        "location": "H\u00f6llvania (1999); Scanned in Techrot contaminated sewer systems."
       },
       "TauOldPeaceHisLightSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned in 1999 central shopping plaza."
+        "location": "H\u00f6llvania (1999); Scanned in the central municipal shopping plaza."
       },
       "TauOldPeaceIroncladSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned in 1999 military checkpoint streets."
-      },
-      "TauOldPeaceLullabyOfTheManifoldSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned in 1999 rooftop sectors."
+        "location": "H\u00f6llvania (1999); Scanned along fortified military checkpoint avenues."
       },
       "TauOldPeaceLullabyOfTheManifoldAdissLamentSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned in 1999 apartment ruins."
+        "location": "H\u00f6llvania (1999); Scanned inside the collapsed apartment block ruins."
       },
       "TauOldPeaceLullabyOfTheManifoldDuskSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned in 1999 underground parking sectors."
+        "location": "H\u00f6llvania (1999); Scanned inside the multi-level underground parking complex."
+      },
+      "TauOldPeaceLullabyOfTheManifoldSongFragment": {
+        "location": "H\u00f6llvania (1999); Scanned along the high commercial rooftop districts."
       },
       "TauOldPeaceRosesFromTheAbyssSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned in 1999 cathedral courtyard."
+        "location": "H\u00f6llvania (1999); Scanned in the ancient cathedral courtyard."
       },
       "TauOldPeaceTheCardinalCallsSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned in 1999 cathedral bell tower."
+        "location": "H\u00f6llvania (1999); Scanned high inside the ruined cathedral bell tower."
       },
       "TauOldPeaceTheUnrememberedSongFragment": {
-        "location": "H\u00f6llvania / 1999; Scanned in 1999 central station terminal."
+        "location": "H\u00f6llvania (1999); Scanned in the Grand Central railway terminal."
+      },
+      "TheAwakeningSongFragment": {
+        "location": "Earth / Awakening introductory quest mission replay."
+      },
+      "HunhowSongFragment": {
+        "location": "Uranus (Grineer Sealab) & Lua; Scanned from Somachord Tones in Hunhow's tomb chambers and lunar vaults (4 scans)."
       }
     },
     "Thousand-Year Fish": {
-      "EidolonFragment1": {
-        "location": "Plains of Eidolon; Glass Fish #1 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentA": {
+        "location": "Plains of Eidolon; Coastline rocks South-East of Cetus gate near the ocean shore."
       },
-      "EidolonFragment2": {
-        "location": "Plains of Eidolon; Glass Fish #2 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentB": {
+        "location": "Plains of Eidolon; Hidden in the hollow log along the river leading to Gara Toht Lake."
       },
-      "EidolonFragment3": {
-        "location": "Plains of Eidolon; Glass Fish #3 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentC": {
+        "location": "Plains of Eidolon; High cliff ledge above Mount Nang overlooking the northern plains."
       },
-      "EidolonFragment4": {
-        "location": "Plains of Eidolon; Glass Fish #4 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentD": {
+        "location": "Plains of Eidolon; Inside the ruined Grineer bunker at Twin Horns."
       },
-      "EidolonFragment5": {
-        "location": "Plains of Eidolon; Glass Fish #5 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentE": {
+        "location": "Plains of Eidolon; Submerged shallow pool near the Renthi Spring waterfall."
       },
-      "EidolonFragment6": {
-        "location": "Plains of Eidolon; Glass Fish #6 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentF": {
+        "location": "Plains of Eidolon; Rocky outcrop overlooking the Er-Phryah's Vigil outpost."
       },
-      "EidolonFragment7": {
-        "location": "Plains of Eidolon; Glass Fish #7 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentG": {
+        "location": "Plains of Eidolon; Behind the coastal cave entrance at the South-East shore."
       },
-      "EidolonFragment8": {
-        "location": "Plains of Eidolon; Glass Fish #8 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentH": {
+        "location": "Plains of Eidolon; On the iron pipe structure near the Grineer Windmill base."
       },
-      "EidolonFragment9": {
-        "location": "Plains of Eidolon; Glass Fish #9 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentI": {
+        "location": "Plains of Eidolon; Perched atop the stone archway over Ro-Set Pond."
       },
-      "EidolonFragment10": {
-        "location": "Plains of Eidolon; Glass Fish #10 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentJ": {
+        "location": "Plains of Eidolon; Inside the deep rocky ravine near Hek's Stiletto."
       },
-      "EidolonFragment11": {
-        "location": "Plains of Eidolon; Glass Fish #11 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentK": {
+        "location": "Plains of Eidolon; High mountain peak along the North-Western Ostwan Range."
       },
-      "EidolonFragment12": {
-        "location": "Plains of Eidolon; Glass Fish #12 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentL": {
+        "location": "Plains of Eidolon; Behind the ancient stone pillar near Hagra Stone."
       },
-      "EidolonFragment13": {
-        "location": "Plains of Eidolon; Glass Fish #13 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentM": {
+        "location": "Plains of Eidolon; At the edge of the geothermal sulfur pool in the Geyser Basin."
       },
-      "EidolonFragment14": {
-        "location": "Plains of Eidolon; Glass Fish #14 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentN": {
+        "location": "Plains of Eidolon; Beneath the iron catwalk of the coastal Grineer outpost."
       },
-      "EidolonFragment15": {
-        "location": "Plains of Eidolon; Glass Fish #15 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentO": {
+        "location": "Plains of Eidolon; Inside the collapsed stone culvert near the central river fork."
       },
-      "EidolonFragment16": {
-        "location": "Plains of Eidolon; Glass Fish #16 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentP": {
+        "location": "Plains of Eidolon; On the narrow rock shelf behind the Sentient bone ribcage."
       },
-      "EidolonFragment17": {
-        "location": "Plains of Eidolon; Glass Fish #17 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentQ": {
+        "location": "Plains of Eidolon; Under the wooden jetty at the Southern fishing cove."
       },
-      "EidolonFragment18": {
-        "location": "Plains of Eidolon; Glass Fish #18 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentR": {
+        "location": "Plains of Eidolon; Nestled inside the Grineer watchtower ladder base at Mount Nang."
       },
-      "EidolonFragment19": {
-        "location": "Plains of Eidolon; Glass Fish #19 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentS": {
+        "location": "Plains of Eidolon; Deep inside the Seaside Cave on an elevated stone ledge."
       },
-      "EidolonFragment20": {
-        "location": "Plains of Eidolon; Glass Fish #20 hidden along coastline rocks and cave entrances (20 total)."
+      "EidolonFragmentT": {
+        "location": "Plains of Eidolon; Top of the colossal Orokin tower structure on the Eastern coastline."
       }
     },
     "Fortuna Fragments": {
-      "SolarisFragment1": {
-        "location": "Orb Vallis; Scanned from Solaris Debt-Bond memory hashes hidden in Corpus outposts #1."
+      "TheBusinessLoreFragmentA": {
+        "location": "Orb Vallis; Solaris Memory Hash #1 for The Business (Wildlife & Conservation). Hidden in Corpus outpost structures and maintenance ducts."
       },
-      "SolarisFragment2": {
-        "location": "Orb Vallis; Scanned from Solaris Debt-Bond memory hashes hidden in Corpus outposts #2."
+      "TheBusinessLoreFragmentB": {
+        "location": "Orb Vallis; Solaris Memory Hash #2 for The Business (Wildlife & Conservation). Hidden in Corpus outpost structures and maintenance ducts."
       },
-      "SolarisFragment3": {
-        "location": "Orb Vallis; Scanned from Solaris Debt-Bond memory hashes hidden in Corpus outposts #3."
+      "TheBusinessLoreFragmentC": {
+        "location": "Orb Vallis; Solaris Memory Hash #3 for The Business (Wildlife & Conservation). Hidden in Corpus outpost structures and maintenance ducts."
       },
-      "SolarisFragment4": {
-        "location": "Orb Vallis; Scanned from Solaris Debt-Bond memory hashes hidden in Corpus outposts #4."
+      "TheBusinessLoreFragmentD": {
+        "location": "Orb Vallis; Solaris Memory Hash #4 for The Business (Wildlife & Conservation). Hidden in Corpus outpost structures and maintenance ducts."
       },
-      "SolarisFragment5": {
-        "location": "Orb Vallis; Scanned from Solaris Debt-Bond memory hashes hidden in Corpus outposts #5."
+      "TheBusinessLoreFragmentE": {
+        "location": "Orb Vallis; Solaris Memory Hash #5 for The Business (Wildlife & Conservation). Hidden in Corpus outpost structures and maintenance ducts."
       },
-      "SolarisFragment6": {
-        "location": "Orb Vallis; Scanned from Solaris Debt-Bond memory hashes hidden in Corpus outposts #6."
+      "EudicoLoreFragmentA": {
+        "location": "Orb Vallis; Solaris Memory Hash #1 for Eudico (Solaris United Leader). Hidden in Corpus outpost structures and maintenance ducts."
       },
-      "SolarisFragment7": {
-        "location": "Orb Vallis; Scanned from Solaris Debt-Bond memory hashes hidden in Corpus outposts #7."
+      "EudicoLoreFragmentB": {
+        "location": "Orb Vallis; Solaris Memory Hash #2 for Eudico (Solaris United Leader). Hidden in Corpus outpost structures and maintenance ducts."
       },
-      "SolarisFragment8": {
-        "location": "Orb Vallis; Scanned from Solaris Debt-Bond memory hashes hidden in Corpus outposts #8."
+      "EudicoLoreFragmentC": {
+        "location": "Orb Vallis; Solaris Memory Hash #3 for Eudico (Solaris United Leader). Hidden in Corpus outpost structures and maintenance ducts."
       },
-      "SolarisFragment9": {
-        "location": "Orb Vallis; Scanned from Solaris Debt-Bond memory hashes hidden in Corpus outposts #9."
+      "EudicoLoreFragmentD": {
+        "location": "Orb Vallis; Solaris Memory Hash #4 for Eudico (Solaris United Leader). Hidden in Corpus outpost structures and maintenance ducts."
       },
-      "SolarisFragment10": {
-        "location": "Orb Vallis; Scanned from Solaris Debt-Bond memory hashes hidden in Corpus outposts #10."
+      "EudicoLoreFragmentE": {
+        "location": "Orb Vallis; Solaris Memory Hash #5 for Eudico (Solaris United Leader). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "LegsLoreFragmentA": {
+        "location": "Orb Vallis; Solaris Memory Hash #1 for Legs (Moa Companions). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "LegsLoreFragmentB": {
+        "location": "Orb Vallis; Solaris Memory Hash #2 for Legs (Moa Companions). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "LegsLoreFragmentC": {
+        "location": "Orb Vallis; Solaris Memory Hash #3 for Legs (Moa Companions). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "LegsLoreFragmentD": {
+        "location": "Orb Vallis; Solaris Memory Hash #4 for Legs (Moa Companions). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "LegsLoreFragmentE": {
+        "location": "Orb Vallis; Solaris Memory Hash #5 for Legs (Moa Companions). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "LittleDuckLoreFragmentA": {
+        "location": "Orb Vallis; Solaris Memory Hash #1 for Little Duck (Vox Solaris). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "LittleDuckLoreFragmentB": {
+        "location": "Orb Vallis; Solaris Memory Hash #2 for Little Duck (Vox Solaris). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "LittleDuckLoreFragmentC": {
+        "location": "Orb Vallis; Solaris Memory Hash #3 for Little Duck (Vox Solaris). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "LittleDuckLoreFragmentD": {
+        "location": "Orb Vallis; Solaris Memory Hash #4 for Little Duck (Vox Solaris). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "LittleDuckLoreFragmentE": {
+        "location": "Orb Vallis; Solaris Memory Hash #5 for Little Duck (Vox Solaris). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "SmokefingerLoreFragmentA": {
+        "location": "Orb Vallis; Solaris Memory Hash #1 for Smokefinger (Mining & Minerals). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "SmokefingerLoreFragmentB": {
+        "location": "Orb Vallis; Solaris Memory Hash #2 for Smokefinger (Mining & Minerals). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "SmokefingerLoreFragmentC": {
+        "location": "Orb Vallis; Solaris Memory Hash #3 for Smokefinger (Mining & Minerals). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "SmokefingerLoreFragmentD": {
+        "location": "Orb Vallis; Solaris Memory Hash #4 for Smokefinger (Mining & Minerals). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "SmokefingerLoreFragmentE": {
+        "location": "Orb Vallis; Solaris Memory Hash #5 for Smokefinger (Mining & Minerals). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "TickerLoreFragmentA": {
+        "location": "Orb Vallis; Solaris Memory Hash #1 for Ticker (Debt-Bonds & Crew). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "TickerLoreFragmentB": {
+        "location": "Orb Vallis; Solaris Memory Hash #2 for Ticker (Debt-Bonds & Crew). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "TickerLoreFragmentC": {
+        "location": "Orb Vallis; Solaris Memory Hash #3 for Ticker (Debt-Bonds & Crew). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "TickerLoreFragmentD": {
+        "location": "Orb Vallis; Solaris Memory Hash #4 for Ticker (Debt-Bonds & Crew). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "TickerLoreFragmentE": {
+        "location": "Orb Vallis; Solaris Memory Hash #5 for Ticker (Debt-Bonds & Crew). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "RudeZuudLoreFragmentA": {
+        "location": "Orb Vallis; Solaris Memory Hash #1 for Rude Zuud (Kitguns). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "RudeZuudLoreFragmentB": {
+        "location": "Orb Vallis; Solaris Memory Hash #2 for Rude Zuud (Kitguns). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "RudeZuudLoreFragmentC": {
+        "location": "Orb Vallis; Solaris Memory Hash #3 for Rude Zuud (Kitguns). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "RudeZuudLoreFragmentD": {
+        "location": "Orb Vallis; Solaris Memory Hash #4 for Rude Zuud (Kitguns). Hidden in Corpus outpost structures and maintenance ducts."
+      },
+      "RudeZuudLoreFragmentE": {
+        "location": "Orb Vallis; Solaris Memory Hash #5 for Rude Zuud (Kitguns). Hidden in Corpus outpost structures and maintenance ducts."
       }
     },
     "The Tenets": {
-      "CorpusReliefFragment1": {
-        "location": "Corpus Ship remastered tilesets; Parvos Granum Relief monument #1."
+      "CorpusReliefA": {
+        "location": "Corpus Ship Remastered; Parvos Relief #1 'The Desires of the Void'. Located in the central atrium hall."
       },
-      "CorpusReliefFragment2": {
-        "location": "Corpus Ship remastered tilesets; Parvos Granum Relief monument #2."
+      "CorpusReliefB": {
+        "location": "Corpus Ship Remastered; Parvos Relief #2 'The Humble Seed'. Located in the hydroponics bay."
       },
-      "CorpusReliefFragment3": {
-        "location": "Corpus Ship remastered tilesets; Parvos Granum Relief monument #3."
+      "CorpusReliefC": {
+        "location": "Corpus Ship Remastered; Parvos Relief #3 'The Golden Hand'. Located in the Treasury approach hallway."
       },
-      "CorpusReliefFragment4": {
-        "location": "Corpus Ship remastered tilesets; Parvos Granum Relief monument #4."
+      "CorpusReliefD": {
+        "location": "Corpus Ship Remastered; Parvos Relief #4 'Idle Hands'. Located near the reactor maintenance corridor."
       },
-      "CorpusReliefFragment5": {
-        "location": "Corpus Ship remastered tilesets; Parvos Granum Relief monument #5."
+      "CorpusReliefE": {
+        "location": "Corpus Ship Remastered; Parvos Relief #5 'The Grand Design'. Located in the bridge access lift chamber."
       },
-      "CorpusReliefFragment6": {
-        "location": "Corpus Ship remastered tilesets; Parvos Granum Relief monument #6."
+      "CorpusReliefF": {
+        "location": "Corpus Ship Remastered; Parvos Relief #6 'A Bargain Struck'. Located in the security holding cell sector."
       },
-      "CorpusReliefFragment7": {
-        "location": "Corpus Ship remastered tilesets; Parvos Granum Relief monument #7."
+      "CorpusReliefG": {
+        "location": "Corpus Ship Remastered; Parvos Relief #7 'The Price of Greed'. Located in the cargo docking bay."
       },
-      "CorpusReliefFragment8": {
-        "location": "Corpus Ship remastered tilesets; Parvos Granum Relief monument #8."
+      "CorpusReliefH": {
+        "location": "Corpus Ship Remastered; Parvos Relief #8 'The Foundation'. Located in the crew quarters concourse."
       },
-      "CorpusReliefFragment9": {
-        "location": "Corpus Ship remastered tilesets; Parvos Granum Relief monument #9."
+      "CorpusReliefI": {
+        "location": "Corpus Ship Remastered; Parvos Relief #9 'The True Capital'. Located near the high-security vault door."
       },
-      "CorpusReliefFragment10": {
-        "location": "Corpus Ship remastered tilesets; Parvos Granum Relief monument #10."
+      "CorpusReliefJ": {
+        "location": "Corpus Ship Remastered; Parvos Relief #10 'The Eternal Market'. Located in the observation gallery."
+      },
+      "CorpusReliefK": {
+        "location": "Corpus Ship Remastered; Parvos Relief #11 'The Tenet of Will'. Located in the main temple sanctuary."
       }
     },
     "Partnership Fragments": {
-      "GasCityFragment1": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #1."
+      "GasCityLoreFragmentA": {
+        "location": "Jupiter Gas City; Secret Puzzle Room #1. Accessed via the laser switch puzzle in the power generator conduit."
       },
-      "GasCityFragment2": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #2."
+      "GasCityLoreFragmentB": {
+        "location": "Jupiter Gas City; Secret Puzzle Room #2. Accessed by breaking the vent fan grating in the turbine shaft."
       },
-      "GasCityFragment3": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #3."
+      "GasCityLoreFragmentC": {
+        "location": "Jupiter Gas City; Secret Puzzle Room #3. Accessed via the timed terminal access puzzle in the processing bay."
       },
-      "GasCityFragment4": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #4."
+      "GasCityLoreFragmentD": {
+        "location": "Jupiter Gas City; Secret Puzzle Room #4. Accessed through the upper airlock ceiling duct in the research lab."
       },
-      "GasCityFragment5": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #5."
+      "GasCityLoreFragmentE": {
+        "location": "Jupiter Gas City; Secret Puzzle Room #5. Accessed by destroying hidden security cameras to unlock the blast door."
       },
-      "GasCityFragment6": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #6."
+      "GasCityLoreFragmentF": {
+        "location": "Jupiter Gas City; Secret Puzzle Room #6. Accessed via the operator void dash barrier puzzle in the Amalgam vault."
       },
-      "GasCityFragment7": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #7."
+      "GasCityLoreFragmentG": {
+        "location": "Jupiter Gas City; Secret Puzzle Room #7. Accessed through the hidden maintenance pipe behind the cooling towers."
       },
-      "GasCityFragment8": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #8."
+      "GasCityLoreFragmentH": {
+        "location": "Jupiter Gas City; Secret Puzzle Room #8. Accessed in the subterranean bio-containment test chamber."
+      }
+    },
+    "Cephalon Fragments": {
+      "EarthFragmentA": {
+        "location": "Earth (Grineer Forest); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
       },
-      "GasCityFragment9": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #9."
+      "WildlifeFragmentA": {
+        "location": "Earth & open landscape missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
       },
-      "GasCityFragment10": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #10."
+      "EarthSettlementsFragmentA": {
+        "location": "Earth (Grineer Forest); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
       },
-      "GasCityFragment11": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #11."
+      "VenusFragmentA": {
+        "location": "Venus (Corpus Outpost); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
       },
-      "GasCityFragment12": {
-        "location": "Jupiter Gas City; Secret puzzle room laboratory console #12."
+      "DojoFragmentA": {
+        "location": "Clan Dojo / Research Labs; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "CorpusCrewFragmentA": {
+        "location": "Corpus Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "MercuryFragmentA": {
+        "location": "Mercury (Grineer Galleon); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "GrineerLeadershipFragmentA": {
+        "location": "Grineer Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "ArchaicWeaponsFragmentA": {
+        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "MarsFragmentA": {
+        "location": "Mars (Grineer Settlement); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "SentinelsFragmentA": {
+        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "CorpusWeaponsFragmentA": {
+        "location": "Corpus Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "PhobosFragmentA": {
+        "location": "Phobos (Corpus Settlement); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "GrineerFragmentA": {
+        "location": "Grineer Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "PhobosSettlementFragmentA": {
+        "location": "Phobos (Corpus Settlement); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "CeresFragmentA": {
+        "location": "Ceres (Grineer Shipyard); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "GrineerLabourFragmentA": {
+        "location": "Grineer Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "JupiterFragmentA": {
+        "location": "Jupiter (Corpus Gas City); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "RoboticsFragmentA": {
+        "location": "Corpus research facilities; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "EuropaFragmentA": {
+        "location": "Europa (Corpus Ice Planet); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "CorpusFragmentA": {
+        "location": "Corpus Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "EuropaLandscapeFragmentA": {
+        "location": "Europa (Corpus Ice Planet); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "VoidFragmentA": {
+        "location": "Orokin Void (Void Towers); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "OrokinFragmentA": {
+        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "SaturnFragmentA": {
+        "location": "Saturn (Grineer Asteroid); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "CitizensFragmentA": {
+        "location": "Saturn & Jupiter civilian sectors; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "LandingCraftFragmentA": {
+        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "UranusFragmentA": {
+        "location": "Uranus (Grineer Sealab); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "OrbiterFragmentA": {
+        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "NeptuneFragmentA": {
+        "location": "Neptune (Corpus Gas/Outpost); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "LotusFragmentA": {
+        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "MoonFragmentA": {
+        "location": "Lua (Orokin Moon); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "WarframesFragmentB": {
+        "location": "Star Chart planetary missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "PlutoFragmentA": {
+        "location": "Pluto (Corpus Outpost); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "InfestedFragmentA": {
+        "location": "Eris & Deimos Infested missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "OrokinDerelictFragmentA": {
+        "location": "Deimos (Former Derelicts); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "TheCollapseFragmentA": {
+        "location": "Orokin Void & Derelict sectors; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "LephantisFragmentA": {
+        "location": "Deimos boss assassination sectors; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "ErisFragmentA": {
+        "location": "Eris (Infested Corpus Ship); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "WarframesFragmentA": {
+        "location": "Star Chart planetary missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "InfestationFragmentA": {
+        "location": "Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "SednaFragmentA": {
+        "location": "Sedna (Grineer Galleon); Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "GrineerTechnologyFragmentA": {
+        "location": "Grineer Star Chart missions; Scanned from glowing blue Cephalon Fragments in missions (3-5 scans unlock the hidden Ordis lore audio)."
+      },
+      "DuviriLoreFragmentSetA": {
+        "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."
+      },
+      "DuviriLoreFragmentSetB": {
+        "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."
+      },
+      "DuviriLoreFragmentSetC": {
+        "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."
+      },
+      "DuviriLoreFragmentSetD": {
+        "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."
+      },
+      "DuviriLoreFragmentSetE": {
+        "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."
+      },
+      "DuviriLoreFragmentSetF": {
+        "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."
+      },
+      "DuviriLoreFragmentSetG": {
+        "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."
+      },
+      "DuviriLoreFragmentSetH": {
+        "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."
+      },
+      "DuviriLoreFragmentSetI": {
+        "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."
+      },
+      "DuviriLoreFragmentSetJ": {
+        "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."
+      },
+      "DuviriMITWLoreFragmentSetA": {
+        "location": "Duviri Landscape; Scanned from glowing codex tablets scattered across Duviri islands."
       }
     }
   },

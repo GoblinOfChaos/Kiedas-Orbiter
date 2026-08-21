@@ -314,7 +314,7 @@ const TaskCard = ({ task, completed, hidden, onToggle, onHide, timeLeft, nextRes
       
       <div className="flex items-start justify-between mb-1">
         <span className={`text-[14px] ${completed ? 'line-through text-kronos-dim' : ''}`}>
-          {task.labelKey ? t(task.labelKey) : task.label}
+          {(task.labelKey && t(task.labelKey) !== task.labelKey) ? t(task.labelKey) : task.label}
         </span>
         <span className="text-[10px] px-1.5 py-0.5 rounded text-kronos-accent flex-shrink-0" style={{ backgroundColor: 'rgba(var(--color-accent-rgb), 0.2)' }}>
           {resetLabels[task.reset]}

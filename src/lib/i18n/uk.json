@@ -576,5 +576,9 @@
     "ui.setup.game_assets": "Ігрові ресурси",
     "ui.setup.welcome": "Ласкаво просимо до Kieda's Orbiter",
     "wiki.refresh": "Оновити цю вкладку"
-  }
+  },
+  "checklist.task_glast": "Ergo Glast: Tenet Melee",
+  "checklist.task_eleanor": "Eleanor's Shop (1999)",
+  "checklist.eleanor_batch_a": "Batch A",
+  "checklist.eleanor_batch_b": "Batch B"
 }

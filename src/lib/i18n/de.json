@@ -576,5 +576,9 @@
     "ui.setup.game_assets": "Spiel-Assets",
     "ui.setup.welcome": "Willkommen bei Kieda's Orbiter",
     "wiki.refresh": "Diesen Tab aktualisieren"
-  }
+  },
+  "checklist.task_glast": "Ergo Glast: Tenet Melee",
+  "checklist.task_eleanor": "Eleanor's Shop (1999)",
+  "checklist.eleanor_batch_a": "Batch A",
+  "checklist.eleanor_batch_b": "Batch B"
 }

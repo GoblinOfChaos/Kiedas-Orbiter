@@ -293,7 +293,7 @@ export function MonitoringProvider({ children }) {
       // content.warframe.com serves every export icon via its contentHash;
       // browse.wf only mirrors a subset, so prefer the authoritative CDN.
       const hash = exportData.ExportImages?.[clean]?.contentHash
-      return hash ? `https://content.warframe.com/PublicExport${clean}!${hash}` : `https://browse.wf${clean}`
+      return hash ? `asset-cache://content.warframe.com/PublicExport${clean}!${hash}` : `asset-cache://browse.wf${clean}`
     }
 
     const indexEntry = (e, k, t) => {
@@ -309,9 +309,9 @@ export function MonitoringProvider({ children }) {
         if (!iconPath) {
           const resultUn = e.resultType
           iconPath = exportData.ExportImages?.[resultUn] || EI[resultUn]
-          // Strip https://browse.wf/ prefix if it was already resolved
-          if (typeof iconPath === 'string' && iconPath.startsWith('https://browse.wf')) {
-            iconPath = iconPath.replace('https://browse.wf', '')
+          // Strip asset-cache://browse.wf/ prefix if it was already resolved
+          if (typeof iconPath === 'string' && iconPath.startsWith('asset-cache://browse.wf')) {
+            iconPath = iconPath.replace('asset-cache://browse.wf', '')
           }
         }
       }

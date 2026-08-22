@@ -190,11 +190,11 @@ export default function Inventory() {
     if (e.target.dataset.wfFallback === 'true') return;
     e.target.dataset.wfFallback = 'true';
     const src = e.target.src;
-    if (!src || !src.startsWith('https://browse.wf')) return;
-    const iconPath = src.replace('https://browse.wf', '').replace(/\/\//g, '/');
+    if (!src || !src.startsWith('asset-cache://browse.wf')) return;
+    const iconPath = src.replace('asset-cache://browse.wf', '').replace(/\/\//g, '/');
     const entry = ExportImages?.[iconPath];
     if (entry?.contentHash) {
-      e.target.src = `https://content.warframe.com/PublicExport${iconPath}!${entry.contentHash}`;
+      e.target.src = `asset-cache://content.warframe.com/PublicExport${iconPath}!${entry.contentHash}`;
     }
   }, [ExportImages]);
 
@@ -528,8 +528,8 @@ export default function Inventory() {
       const peelyPackHash = ExportImages?.[peelyPackPath]?.contentHash;
       const icon = t.id === 'peely_pix'
         ? peelyPackHash
-          ? `https://content.warframe.com/PublicExport${peelyPackPath}!${peelyPackHash}`
-          : `https://browse.wf${peelyPackPath}`
+          ? `asset-cache://content.warframe.com/PublicExport${peelyPackPath}!${peelyPackHash}`
+          : `asset-cache://browse.wf${peelyPackPath}`
         : iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null;
       return { ...t, icon };
     })} activeTab={activeTab} onChange={(id) => {setActiveTab(id);setCurrentFilters({});setSortCriteria('name');setSortDirection('asc');}} />

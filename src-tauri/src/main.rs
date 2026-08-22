@@ -3302,7 +3302,150 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
 }
 // --- Entry Point ---
 
- fn main() {
+ 
+/// Asynchronous handler for `asset-cache://` URLs.
+/// Example: `asset-cache://browse.wf/WFCD/icon.png` -> `https://browse.wf/WFCD/icon.png`
+/// It checks if the image exists in the local `image_cache` directory.
+/// If yes, serves it. If no, fetches via HTTP, saves it, and serves it.
+
+fn handle_asset_cache_request<R: tauri::Runtime>(
+    _ctx: tauri::UriSchemeContext<'_, R>,
+    request: tauri::http::Request<Vec<u8>>,
+    responder: tauri::UriSchemeResponder,
+) {
+    let uri = request.uri().clone();
+    let path = uri.path(); // e.g. "/browse.wf/WFCD/icon.png"
+    let host = uri.authority().map(|a| a.as_str()).unwrap_or("");
+    let full_path = format!("{}{}", host, path);
+
+    let target_url = format!("https://{}", full_path.trim_start_matches('/'));
+    let cache_dir = get_data_root().join("image_cache");
+    let safe_path = full_path.trim_start_matches('/').replace("..", "").replace(":", "_").replace("\\", "_");
+    let local_file = cache_dir.join(&safe_path);
+
+    tauri::async_runtime::spawn(async move {
+        // 1. Try to read from cache
+        if local_file.exists() {
+            if let Ok(bytes) = std::fs::read(&local_file) {
+                let mime = mime_guess::from_path(&local_file).first_or_octet_stream().to_string();
+                let resp = tauri::http::Response::builder()
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Content-Type", mime)
+                    .body(bytes)
+                    .unwrap();
+                responder.respond(resp);
+                return;
+            }
+        }
+
+        // 2. Fetch from network
+        match reqwest::get(&target_url).await {
+            Ok(resp) if resp.status().is_success() => {
+                if let Ok(bytes) = resp.bytes().await {
+                    let bytes_vec = bytes.to_vec();
+                    if let Some(parent) = local_file.parent() {
+                        let _ = std::fs::create_dir_all(parent);
+                    }
+                    let _ = std::fs::write(&local_file, &bytes_vec);
+
+                    let mime = mime_guess::from_path(&local_file).first_or_octet_stream().to_string();
+                    let response = tauri::http::Response::builder()
+                        .header("Access-Control-Allow-Origin", "*")
+                        .header("Content-Type", mime)
+                        .body(bytes_vec)
+                        .unwrap();
+                    responder.respond(response);
+                    return;
+                }
+            }
+            Ok(resp) => {
+                eprintln!("[asset-cache] HTTP {} for {}", resp.status(), target_url);
+            }
+            Err(e) => {
+                eprintln!("[asset-cache] Fetch error for {}: {}", target_url, e);
+            }
+        }
+
+        // 3. Fallback on error (return 404)
+        responder.respond(
+            tauri::http::Response::builder()
+                .status(404)
+                .header("Access-Control-Allow-Origin", "*")
+                .body(Vec::new())
+                .unwrap(),
+        );
+    });
+}
+
+
+fn start_background_asset_sync() {
+    tauri::async_runtime::spawn(async move {
+        // Wait a few seconds for the app to start up and UI to render
+        tokio::time::sleep(std::time::Duration::from_secs(5)).await;
+
+        let export_dir = get_data_root().join("export");
+        let cache_dir = get_data_root().join("image_cache");
+
+        let mut image_urls = Vec::new();
+
+        if let Ok(entries) = std::fs::read_dir(&export_dir) {
+            for entry in entries.flatten() {
+                if let Ok(file_type) = entry.file_type() {
+                    if file_type.is_file() {
+                        if let Ok(text) = std::fs::read_to_string(entry.path()) {
+                            for chunk in text.split('"') {
+                                if (chunk.starts_with("/Lotus/") || chunk.starts_with("/Weapons/") || chunk.starts_with("\\/Lotus\\/")) 
+                                    && (chunk.ends_with(".png") || chunk.ends_with(".jpg")) 
+                                {
+                                    let clean_chunk = chunk.replace("\\/", "/");
+                                    image_urls.push(format!("https://browse.wf{}", clean_chunk));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        image_urls.sort();
+        image_urls.dedup();
+        
+        println!("[background-sync] Found {} unique images to sync.", image_urls.len());
+
+        let client = reqwest::Client::new();
+        for url in image_urls {
+            let uri: reqwest::Url = match url.parse() {
+                Ok(u) => u,
+                Err(_) => continue,
+            };
+            
+            let host = uri.host_str().unwrap_or("");
+            let path = uri.path();
+            let full_path = format!("{}{}", host, path);
+            let safe_path = full_path.trim_start_matches('/').replace("..", "");
+            let local_file = cache_dir.join(&safe_path);
+
+            if !local_file.exists() {
+                // Throttle downloads slightly to avoid locking the disk/network
+                tokio::time::sleep(std::time::Duration::from_millis(25)).await;
+                
+                if let Ok(resp) = client.get(&url).send().await {
+                    if resp.status().is_success() {
+                        if let Ok(bytes) = resp.bytes().await {
+                            if let Some(parent) = local_file.parent() {
+                                let _ = std::fs::create_dir_all(parent);
+                            }
+                            let _ = std::fs::write(&local_file, &bytes.to_vec());
+                        }
+                    }
+                }
+            }
+        }
+        println!("[background-sync] Finished background cache sync.");
+    });
+}
+
+fn main() {
     #[cfg(target_os = "linux")]
     {
         // The default 1024 isn't enough; give ourselves plenty of headroom.
@@ -3387,6 +3530,9 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
     // Linux env vars set above at process start
 
     let app = tauri::Builder::default()
+        .register_asynchronous_uri_scheme_protocol("asset-cache", |ctx, req, responder| {
+            handle_asset_cache_request(ctx, req, responder)
+        })
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_shell::init())
@@ -3420,6 +3566,7 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
             _ => {}
         })
         .setup(|app| {
+            start_background_asset_sync();
             // Explicitly grant the asset:// protocol scope access to the writable
             // data root, using the canonicalized path. This works around a bug
             // where Tauri's scope check canonicalizes the requested path (resolving

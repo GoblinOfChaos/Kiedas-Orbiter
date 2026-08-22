@@ -144,7 +144,7 @@
       }
     ],
     "security": {
-      "csp": null,
+      "csp": "default-src 'self' 'unsafe-inline' 'unsafe-eval' asset: asset-cache: data: blob: http: https: ws: wss:;",
       "assetProtocol": {
         "enable": true,
         "scope": [

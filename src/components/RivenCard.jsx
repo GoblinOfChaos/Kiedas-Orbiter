@@ -80,7 +80,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
   }).join('\n') || '';
 
   const polarity = riven.polarity || null;
-  const weaponImg = riven.image || 'https://browse.wf/Lotus/Interface/Cards/Images/OmegaModIndistinctUnveiled.png';
+  const weaponImg = riven.image || 'asset-cache://browse.wf/Lotus/Interface/Cards/Images/OmegaModIndistinctUnveiled.png';
 
   return (
     <div ref={cardRef} className="relative flex-shrink-0 select-none" style={{ width, aspectRatio: String(CARD_RATIO) }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>

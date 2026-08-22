@@ -54,8 +54,8 @@ function cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) {
   const icon = entry?.icon
   if (typeof icon === 'string' && icon.startsWith('/')) {
     const hash = exportData?.ExportImages?.[icon]?.contentHash
-    if (hash) return `https://content.warframe.com/PublicExport${icon}!${hash}`
-    return `https://browse.wf${icon}`
+    if (hash) return `asset-cache://content.warframe.com/PublicExport${icon}!${hash}`
+    return `asset-cache://browse.wf${icon}`
   }
   return resolveAnyImage(uniqueName, EI, nameToImage)
 }

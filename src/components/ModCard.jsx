@@ -17,18 +17,18 @@ const CANVAS_H = 409;
 // are not present in the bundled UI asset pack. Use the authoritative public
 // export CDN for these known gaps instead of generating local 403 requests.
 const MISSING_TAG_ICON_CDN = {
-  'FocusCleanNaramon_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanNaramon_d.png',
-  'FocusCleanMadurai_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanMadurai_d.png',
-  'Energy_d.png': 'https://browse.wf/Lotus/Interface/Graphics/Abilities/AbilityIcon/Energy_d.png',
-  'HildrynEnergyShield.png': 'https://browse.wf/Lotus/Interface/Graphics/Abilities/HildrynEnergyShield.png',
+  'FocusCleanNaramon_d.png': 'asset-cache://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanNaramon_d.png',
+  'FocusCleanMadurai_d.png': 'asset-cache://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanMadurai_d.png',
+  'Energy_d.png': 'asset-cache://browse.wf/Lotus/Interface/Graphics/Abilities/AbilityIcon/Energy_d.png',
+  'HildrynEnergyShield.png': 'asset-cache://browse.wf/Lotus/Interface/Graphics/Abilities/HildrynEnergyShield.png',
   // These legacy text-icon paths are not entries in ExportImages, so the
   // unhashed PublicExport endpoint returns 404. browse.wf serves these paths
   // directly (and is also used for the other text-description icons above).
-  'FocusCleanUnairu_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanUnairu_d.png',
-  'FocusCleanZenurik_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanZenurik_d.png',
-  'FocusCleanVazarin_d.png': 'https://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanVazarin_d.png',
-  'Affinity.png': 'https://browse.wf/Lotus/Interface/Icons/ModBuffIndicators/Affinity.png',
-  'SentientFactionIcon.png': 'https://content.warframe.com/PublicExport/Lotus/Interface/Icons/SentientFactionIcon.png!00_tZ2I0XDNB73b5-tqyBa6Dw',
+  'FocusCleanUnairu_d.png': 'asset-cache://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanUnairu_d.png',
+  'FocusCleanZenurik_d.png': 'asset-cache://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanZenurik_d.png',
+  'FocusCleanVazarin_d.png': 'asset-cache://browse.wf/Lotus/Interface/Icons/FocusSchool/FocusCleanVazarin_d.png',
+  'Affinity.png': 'asset-cache://browse.wf/Lotus/Interface/Icons/ModBuffIndicators/Affinity.png',
+  'SentientFactionIcon.png': 'asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/SentientFactionIcon.png!00_tZ2I0XDNB73b5-tqyBa6Dw',
 };
 
 const TIER_COLORS = {
@@ -303,11 +303,11 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
 
   const deriveIcon = (src) => {
     if (!src || typeof src !== 'string') return null;
-    const prefix = 'https://browse.wf';
+    const prefix = 'asset-cache://browse.wf';
     return src.startsWith(prefix) ? src.slice(prefix.length) : null;
   };
   const iconPath = mod.icon || deriveIcon(mod.image);
-  const cdnFallback = typeof mod.image === 'string' && mod.image.startsWith('https://browse.wf') ? mod.image : null;
+  const cdnFallback = typeof mod.image === 'string' && mod.image.startsWith('asset-cache://browse.wf') ? mod.image : null;
   const cardImageSrc = iconPath && cardImagesPath && mf !== 'Tektolyst' ?
   convertFileSrc(`${cardImagesPath}${iconPath}`) :
   null;

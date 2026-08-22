@@ -11,10 +11,14 @@ function CardImage({ uniqueName, name, EI, nameToImage, uniqueNameToName, classN
   return <ItemImage src={src} className={`object-contain ${className}`} placeholderClassName="h-full w-full rounded-lg bg-white/5" />
 }
 
-function PartRow({ part, imageProps }) {
+function PartRow({ part, imageProps, item }) {
+  const isMainBlueprint = part.uniqueName === item.blueprint
+  const displayName = (!part.name || part.name.toLowerCase() === 'blueprint') && isMainBlueprint ? item.name : part.name
+  const displayUniqueName = isMainBlueprint ? item.uniqueName : part.uniqueName
+
   return <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-black/15 px-2 py-1.5">
-    <CardImage {...imageProps} uniqueName={part.uniqueName} name={part.name} className="h-8 w-8" />
-    <div className="min-w-0 flex-1"><p className="truncate text-[11px] font-semibold">{part.name}</p><p className={`text-[9px] uppercase tracking-wider ${part.owned ? 'text-emerald-300' : 'text-kronos-dim'}`}>{part.owned ? 'Owned' : 'Missing'}{part.isBlueprint ? ' · Blueprint' : ''}</p></div>
+    <CardImage {...imageProps} uniqueName={displayUniqueName} name={displayName} className="h-8 w-8" />
+    <div className="min-w-0 flex-1"><p className="truncate text-[11px] font-semibold">{displayName}</p><p className={`text-[9px] uppercase tracking-wider ${part.owned ? 'text-emerald-300' : 'text-kronos-dim'}`}>{part.owned ? 'Owned' : 'Missing'}{part.isBlueprint ? ' · Blueprint' : ''}</p></div>
     {part.relics.length > 0 && <span className="text-[9px] text-kronos-dim">{part.relics.join(', ')}</span>}
   </div>
 }
@@ -26,7 +30,7 @@ function EquipmentCard({ item, imageProps }) {
       <CardImage {...imageProps} uniqueName={item.uniqueName} name={item.name} className="h-28 w-28 shrink-0" />
       <div className="min-w-0 flex-1"><div className="flex items-start justify-between gap-2"><h3 className="text-sm font-black">{item.name}</h3><span className={`shrink-0 rounded-full px-2 py-1 text-[9px] font-black uppercase ${item.owned ? 'bg-emerald-400 text-black' : 'bg-white/10 text-kronos-dim'}`}>{item.owned ? 'Owned' : `${missing} missing`}</span></div><p className="mt-2 text-[10px] text-kronos-dim">Prime Resurgence relic rewards</p><p className="mt-1 text-[10px] text-kronos-accent">{item.relics.join(' · ')}</p></div>
     </div>
-    <div className="space-y-1.5 p-3"><p className="mb-2 text-[10px] font-black uppercase tracking-widest text-kronos-dim">Available pieces</p>{item.parts.map((part) => <PartRow key={part.uniqueName} part={part} imageProps={imageProps} />)}</div>
+    <div className="space-y-1.5 p-3"><p className="mb-2 text-[10px] font-black uppercase tracking-widest text-kronos-dim">Available pieces</p>{item.parts.map((part) => <PartRow key={part.uniqueName} part={part} imageProps={imageProps} item={item} />)}</div>
   </Card>
 }
 

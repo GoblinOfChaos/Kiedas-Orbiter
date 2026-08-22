@@ -384,8 +384,8 @@ function resolveImage(un, ...tables) {
     const path = icon.startsWith('/') ? icon : `/${icon}`;
     const hash = imageMap?.[path]?.contentHash;
     return hash
-      ? `https://content.warframe.com/PublicExport${path}!${hash}`
-      : `https://browse.wf${path}`;
+      ? `asset-cache://content.warframe.com/PublicExport${path}!${hash}`
+      : `asset-cache://browse.wf${path}`;
   };
 
   // Check exact match first
@@ -1494,7 +1494,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     return {
       unique_name: ship.ItemType,
       name: leaf === 'DefaultShip' ? 'Liset' : leaf === 'NoraShip' ? 'Nightwave' : leaf === 'ZarimanShip' ? 'Parallax' : nameFromPath(ship.ItemType),
-      image: hash ? `https://content.warframe.com/PublicExport${iconPath}!${hash}` : `https://browse.wf${iconPath}`,
+      image: hash ? `asset-cache://content.warframe.com/PublicExport${iconPath}!${hash}` : `asset-cache://browse.wf${iconPath}`,
       category: 'landing_craft',
       quantity: ship.ItemCount ?? 1,
       owned: true,
@@ -1762,8 +1762,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         mod.description = ppn.description;
         mod.image = stickerPath
           ? stickerHash
-            ? `https://content.warframe.com/PublicExport${stickerPath}!${stickerHash}`
-            : `https://browse.wf${stickerPath}`
+            ? `asset-cache://content.warframe.com/PublicExport${stickerPath}!${stickerHash}`
+            : `asset-cache://browse.wf${stickerPath}`
           : mod.image;
         mod._isSticker = true;
       }
@@ -1873,8 +1873,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       mod.description = ppn.description;
       mod.image = stickerPath
         ? stickerHash
-          ? `https://content.warframe.com/PublicExport${stickerPath}!${stickerHash}`
-          : `https://browse.wf${stickerPath}`
+          ? `asset-cache://content.warframe.com/PublicExport${stickerPath}!${stickerHash}`
+          : `asset-cache://browse.wf${stickerPath}`
         : mod.image;
       mod._isSticker = true;
     }
@@ -1977,8 +1977,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       description: data.description,
       image: stickerPath
         ? stickerHash
-          ? `https://content.warframe.com/PublicExport${stickerPath}!${stickerHash}`
-          : `https://browse.wf${stickerPath}`
+          ? `asset-cache://content.warframe.com/PublicExport${stickerPath}!${stickerHash}`
+          : `asset-cache://browse.wf${stickerPath}`
         : owned?.image ?? null,
       category: 'peely_pix',
       quantity: owned?.quantity ?? 0,
@@ -2071,7 +2071,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     return {
       unique_name: un,
       name,
-      image: hash ? `https://content.warframe.com/PublicExport${iconPath}!${hash}` : `https://browse.wf${iconPath}`,
+      image: hash ? `asset-cache://content.warframe.com/PublicExport${iconPath}!${hash}` : `asset-cache://browse.wf${iconPath}`,
       category: 'landing_craft',
       // Ships are unique, non-stackable instances - raw.Ships entries never
       // carry an ItemCount field at all, so this was always 0 regardless of

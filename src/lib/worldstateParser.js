@@ -7,7 +7,7 @@
  * DATA PIPELINE
  * ─────────────────────────────────────────
  * MonitoringContext.jsx fetches the live worldstate JSON from
- * https://content.warframe.com/dynamic/worldState.php on each monitoring cycle.
+ * asset-cache://content.warframe.com/dynamic/worldState.php on each monitoring cycle.
  * That raw JSON object is passed to parseWorldstate() here, which returns a
  * clean, UI-friendly structure consumed by Dashboard.jsx.
  *
@@ -649,8 +649,8 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
         const eiImage = EI[r.uniqueName] || null
         const exportImageEntry = imagesMap[iconPath] || {}
         const contentHash = exportImageEntry.contentHash
-        const highQualityUrl = contentHash ? `https://content.warframe.com/PublicExport${iconPath}!${contentHash}` : null
-        const browseWfUrl = iconPath ? `https://browse.wf${iconPath}` : null
+        const highQualityUrl = contentHash ? `asset-cache://content.warframe.com/PublicExport${iconPath}!${contentHash}` : null
+        const browseWfUrl = iconPath ? `asset-cache://browse.wf${iconPath}` : null
         const modEntry = ExportUpgrades?.[r.uniqueName]
         const isMod = modEntry != null || (iconPath?.includes('/Upgrades/Mods/') || EI[r.uniqueName]?.includes('/Upgrades/Mods/') || false)
         const modFrame = isMod ? (() => {

@@ -677,7 +677,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Types/AvatarImages/FanChannel/AvatarImageBennyfits',
     {
       text: 'Legacy creator glyph. The current browse.wf record contains only a glyphwave identifier and no active promo code, giveaway, or source link; existing copies are legacy-owned.',
-      url: 'https://browse.wf/',
+      url: 'asset-cache://browse.wf/',
       source: 'browse.wf exact Bennyfits glyph record disposition',
     },
   ],
@@ -685,7 +685,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Types/AvatarImages/FanChannel/AvatarImageBikeman',
     {
       text: 'Legacy creator glyph. The current browse.wf record contains only a glyphwave identifier and no active promo code, giveaway, or source link; existing copies are legacy-owned.',
-      url: 'https://browse.wf/',
+      url: 'asset-cache://browse.wf/',
       source: 'browse.wf exact Bikeman glyph record disposition',
     },
   ],
@@ -693,7 +693,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Types/AvatarImages/FanChannel/AvatarImageSp00nerism',
     {
       text: 'Legacy creator glyph. The current browse.wf record contains only a glyphwave identifier and no active promo code, giveaway, or source link; existing copies are legacy-owned.',
-      url: 'https://browse.wf/',
+      url: 'asset-cache://browse.wf/',
       source: 'browse.wf exact Sp00nerism glyph record disposition',
     },
   ],
@@ -701,7 +701,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Types/AvatarImages/FanChannel/AvatarImageSummit1G',
     {
       text: 'Legacy creator glyph. The current browse.wf record contains only a glyphwave identifier and no active promo code, giveaway, or source link; existing copies are legacy-owned.',
-      url: 'https://browse.wf/',
+      url: 'asset-cache://browse.wf/',
       source: 'browse.wf exact Summit1g glyph record disposition',
     },
   ],

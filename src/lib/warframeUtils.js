@@ -789,37 +789,42 @@ export function resolveAnyImage(rewardOrItem, EI, nameToImage, uniqueNameToName 
     r = resolve(candidate)
     if (r) break
   }
-  if (r) return r;
 
   // Try StoreItem mapping
-  if (item.startsWith('/Lotus/StoreItems/')) {
+  if (!r && item.startsWith('/Lotus/StoreItems/')) {
     for (const candidate of pathCandidates(item.replace('/StoreItems/', '/'))) {
       r = resolve(candidate)
       if (r) break
     }
-    if (r) return r;
   }
 
   // Try case-insensitive lookup for the path itself in nameToImage if it's not a path
   if (!item.startsWith('/Lotus/')) {
     r = byName(item);
-    if (r) return r;
   }
 
-  if (typeof rewardOrItem === 'string') return null;
+  if (!r && typeof rewardOrItem !== 'string') {
+    const cItems = rewardOrItem.countedItems ?? rewardOrItem.CountedItems ?? [];
+    for (const ci of cItems) {
+      const name = typeof ci.type === 'string' ? ci.type : (ci.type?.uniqueName ?? ci.ItemType ?? ci.type?.name ?? ci.key ?? '');
+      r = resolve(name);
+      if (r) break;
+    }
 
-  const cItems = rewardOrItem.countedItems ?? rewardOrItem.CountedItems ?? []
-  for (const ci of cItems) {
-    const name = typeof ci.type === 'string' ? ci.type : (ci.type?.uniqueName ?? ci.ItemType ?? ci.type?.name ?? ci.key ?? '')
-    const ri = resolve(name); if (ri) return ri
+    if (!r) {
+      const itemName = rewardOrItem.item || rewardOrItem.itemString || rewardOrItem.asString || rewardOrItem.name || '';
+      if (itemName && !itemName.startsWith('/Lotus/')) { r = byName(itemName); }
+    }
   }
 
-  const itemName = rewardOrItem.item || rewardOrItem.itemString || rewardOrItem.asString || rewardOrItem.name || ''
-  if (itemName && !itemName.startsWith('/Lotus/')) { const ri = byName(itemName); if (ri) return ri }
+  if (r) {
+    if (r.startsWith('/')) return `asset-cache://browse.wf${r}`;
+    return r;
+  }
 
-  const thumb = rewardOrItem.thumbnail || rewardOrItem.image || ''
-  if (thumb && thumb.startsWith('https://browse.wf')) return thumb
-  return null
+  const thumb = rewardOrItem.thumbnail || rewardOrItem.image || '';
+  if (thumb && thumb.startsWith('asset-cache://')) return thumb;
+  return null;
 }
 
 

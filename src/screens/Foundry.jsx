@@ -195,6 +195,7 @@ export default function Foundry() {
         resolveAnyImage({ uniqueName: recipe.uniqueName, name: recipe.bpName }, EI, nameToImage, uniqueNameToName)
         || image
       ) : null
+      
       const recipeWithImages = recipe ? {
         ...recipe,
         bpImage,

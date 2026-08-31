@@ -3,6 +3,7 @@ import { useUi } from '../contexts/UiContext'
 import { invoke, convertFileSrc } from '@tauri-apps/api/core'
 import { PageLayout } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
+import ItemImage from '../components/ItemImage'
 
 // The newer /SongItems/ Somachord tracks have no entries in
 // collectible-locations.json (that file only covers the classic
@@ -169,7 +170,7 @@ function Subpanel({ cat, items, onClose }) {
         {cat && (
           <>
             <div className="sticky top-0 z-10 flex items-center gap-4 px-5 py-4 bg-[var(--color-panel)] border-b border-white/10">
-              {cat.icon && <img src={cat.icon} alt="" className="w-16 h-16 rounded-xl object-cover flex-shrink-0" />}
+              {cat.icon && <ItemImage src={cat.icon} alt="" className="w-16 h-16 rounded-xl object-cover flex-shrink-0" placeholderClassName="w-16 h-16 rounded-xl flex-shrink-0" />}
               <div className="flex-1 min-w-0">
                 <p className="text-lg font-bold text-white truncate">{cat.label}</p>
                 <p className="text-sm" style={{ color: cat.color }}>{cat.count} / {cat.total}</p>
@@ -199,7 +200,7 @@ function Subpanel({ cat, items, onClose }) {
               {items.map((item, i) => (
                 <div key={item.key ?? i} className="flex items-center gap-3 px-4 py-2.5">
                   <div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.found === true ? 'bg-emerald-400' : item.found === null ? 'bg-amber-300/60' : 'bg-white/10'}`} title={item.found === null ? 'Individual scan status unavailable' : undefined} />
-                  {item.icon && <img src={item.icon} alt="" className="w-7 h-7 rounded object-cover flex-shrink-0" />}
+                  {item.icon && <ItemImage src={item.icon} alt="" className="w-7 h-7 rounded object-cover flex-shrink-0" placeholderClassName="w-7 h-7 rounded flex-shrink-0" />}
                   <div className="min-w-0 flex-1">
                     <span className="block text-sm text-white/80 truncate">{item.name}</span>
                     {item.location && <span className="block text-xs text-kronos-dim leading-relaxed mt-0.5 break-words">{item.location}</span>}
@@ -226,7 +227,7 @@ function ProgressCard({ icon, label, subtitle, count, total, color, onClick }) {
     >
       <div className="flex-shrink-0 w-32 h-full overflow-hidden">
         {icon ? (
-          <img src={icon} alt="" className="w-full h-full object-cover" />
+          <ItemImage src={icon} alt="" className="w-full h-full object-cover" placeholderClassName="w-full h-full" />
         ) : (
           <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: color + '22' }}>
             <span style={{ color, fontWeight: 'bold', fontSize: '28px' }}>{label?.[0] || '?'}</span>

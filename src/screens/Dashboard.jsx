@@ -26,6 +26,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { PageLayout, Card, Button, CardHeader, Tabs, Modal, Tooltip } from '../components/UI';
 import ModCard from '../components/ModCard';
+import ItemImage from '../components/ItemImage';
 import {
   Package, DollarSign, RefreshCw,
   ShoppingBag,
@@ -719,10 +720,11 @@ export default function Dashboard() {
                           hideCategory /> :
 
 
-                        <img
+                        <ItemImage
                           src={r.image}
                           alt={r.name}
-                          className="max-w-full max-h-full object-contain" />
+                          className="max-w-full max-h-full object-contain"
+                          placeholderClassName="w-full h-full" />
 
                         }
                         </div>
@@ -880,10 +882,11 @@ export default function Dashboard() {
                   }
                     <div className="w-14 h-14 flex items-center justify-center">
                       {img ?
-                    <img
+                    <ItemImage
                       src={img}
                       alt=""
                       className="max-w-full max-h-full object-contain"
+                      placeholderClassName="w-full h-full"
                        /> :
 
 
@@ -1336,7 +1339,7 @@ export default function Dashboard() {
             return (
           <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
               <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0 relative">
-                <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
+                <ItemImage src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
                 {owned &&
                 <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
                     <Check size={10} className="text-black" />
@@ -1450,7 +1453,7 @@ export default function Dashboard() {
             {wishlist.map((item, idx) =>
           <div key={idx} className="bg-kronos-panel/40 p-3 rounded flex items-center gap-4 border border-transparent hover:border-kronos-accent/20 transition-all">
                 <div className="w-16 h-16 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
-                  <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
+                  <ItemImage src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-bold text-kronos-text uppercase" title={item.name}>{item.name}</p>
@@ -1749,14 +1752,14 @@ export default function Dashboard() {
                       <div className="grid grid-cols-2 gap-1.5">
                         <div className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
                           <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
-                            <img src={resolveAnyImage(arbitrationModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
+                            <ItemImage src={resolveAnyImage(arbitrationModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
                           </div>
                           <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(arbitrationModifiers.suitType, dict, uniqueNameToName)}</span>
                         </div>
                         {(arbitrationModifiers.wepTypes || []).map((w, i) =>
                   <div key={i} className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
                             <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
-                              <img src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
+                              <ItemImage src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
                             </div>
                             <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(w, dict, uniqueNameToName)}</span>
                           </div>
@@ -1783,10 +1786,11 @@ export default function Dashboard() {
                 </div>
                 <div className={`flex gap-4 items-start transition-all ${isOwned ? 'opacity-70' : ''}`}>
                   <div className="w-14 h-14 bg-kronos-panel/40 rounded flex items-center justify-center p-1 border border-kronos-panel flex-shrink-0 relative">
-                    <img
+                    <ItemImage
                       src={resolveAnyImage(deal, EI, nameToImage)}
                       alt=""
                       className="max-w-full max-h-full object-contain"
+                      placeholderClassName="w-full h-full"
                        />
                     {isOwned && (
                       <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
@@ -1849,7 +1853,7 @@ export default function Dashboard() {
                   return (
                     <div key={idx} className={`flex items-center gap-3 bg-kronos-panel/40 rounded p-2.5 transition-all ${isOwned ? 'opacity-60' : ''}`}>
                       <div className="w-14 h-14 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0 relative">
-                        <img src={resolveAnyImage(sale, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
+                        <ItemImage src={resolveAnyImage(sale, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
                         {isOwned && (
                           <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
                             <Check size={10} className="text-black" />
@@ -1933,14 +1937,14 @@ export default function Dashboard() {
                   <div className="grid grid-cols-2 gap-1.5">
                     <div className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
                       <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
-                        <img src={resolveAnyImage(archonModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
+                        <ItemImage src={resolveAnyImage(archonModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
                       </div>
                       <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(archonModifiers.suitType, dict, uniqueNameToName)}</span>
                     </div>
                     {(archonModifiers.wepTypes || []).map((w, i) =>
                 <div key={i} className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
                         <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
-                          <img src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
+                          <ItemImage src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
                         </div>
                         <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(w, dict, uniqueNameToName)}</span>
                       </div>
@@ -2059,9 +2063,10 @@ export default function Dashboard() {
                         {/* Attacker Icon */}
                         <div className="w-11 h-11 flex-shrink-0 flex items-center justify-center">
                           {inv.attacker.reward &&
-                        <img
+                        <ItemImage
                           src={resolveAnyImage(inv.attacker.reward, EI, nameToImage)}
-                          alt="" />
+                          alt=""
+                          placeholderClassName="w-full h-full" />
 
                         }
                         </div>
@@ -2081,9 +2086,10 @@ export default function Dashboard() {
                         {/* Defender Icon */}
                         <div className="w-11 h-11 flex-shrink-0 flex items-center justify-center">
                           {inv.defender.reward &&
-                        <img
+                        <ItemImage
                           src={resolveAnyImage(inv.defender.reward, EI, nameToImage)}
-                          alt="" />
+                          alt=""
+                          placeholderClassName="w-full h-full" />
 
                         }
                         </div>

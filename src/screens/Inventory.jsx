@@ -10,6 +10,7 @@ import { useUi } from '../contexts/UiContext'
 import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers } from 'lucide-react';
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
+import ItemImage from '../components/ItemImage';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
@@ -197,6 +198,17 @@ export default function Inventory() {
     if (entry?.contentHash) {
       e.target.src = `asset-cache://content.warframe.com/PublicExport${iconPath}!${entry.contentHash}`;
     }
+  }, [ExportImages]);
+
+  // Same second-source retry as handleImgError, in the form ItemImage takes:
+  // returns the replacement URL instead of mutating the <img> element.
+  const resolveImgFallback = useCallback((src) => {
+    if (!src || !src.startsWith('asset-cache://browse.wf')) return null;
+    const iconPath = src.replace('asset-cache://browse.wf', '').replace(/\/\//g, '/');
+    const entry = ExportImages?.[iconPath];
+    return entry?.contentHash
+      ? `asset-cache://content.warframe.com/PublicExport${iconPath}!${entry.contentHash}`
+      : null;
   }, [ExportImages]);
 
   const [sellStatusMap, setSellStatusMap] = useState({});
@@ -677,10 +689,7 @@ export default function Inventory() {
                       {/* Header: image + name + badges */}
                       <div className={`flex items-center gap-4 px-4 py-5 border-b border-white/5 relative ${isComplete ? 'bg-green-500/5' : ''}`}>
                         <div className="w-28 h-28 flex items-center justify-center flex-shrink-0">
-                          {set.image ?
-                      <img src={set.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} /> :
-                      <div className="w-14 h-14 rounded bg-white/5" />
-                      }
+                          <ItemImage src={set.image} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-14 h-14 rounded bg-white/5" resolveFallbackSrc={resolveImgFallback} />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex justify-between items-start">
@@ -738,10 +747,7 @@ export default function Inventory() {
                             <span className="absolute top-2 right-2 z-10 text-[9px] font-bold px-1 py-0.5 rounded bg-zinc-800 border border-zinc-600 text-zinc-300">{partPrice}p</span>
                             }
                                   <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
-                                    {part.image ?
-                              <img src={part.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} /> :
-                              <div className="w-7 h-7 rounded bg-white/5" />
-                              }
+                                    <ItemImage src={part.image} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-7 h-7 rounded bg-white/5" resolveFallbackSrc={resolveImgFallback} />
                                     {isBlueprint && <img src={uiPath ? convertFileSrc(`${uiPath}/BlueprintOverlay.png`) : ''} alt="" className="absolute inset-0 w-full h-full object-contain" />}
                                   </div>
                                   <p className="text-[12px] font-medium text-kronos-dim text-center leading-tight w-full px-1 truncate">{part.name.split(' ').slice(-1)[0]}</p>
@@ -823,7 +829,7 @@ export default function Inventory() {
                 }
                     <div className="w-24 flex-shrink-0 flex items-center justify-center p-3">
                       {item.image ?
-                  <img src={item.image} alt="" className="max-w-full max-h-full object-contain" onError={handleImgError} /> :
+                  <ItemImage src={item.image} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-12 h-12 rounded-lg" resolveFallbackSrc={resolveImgFallback} /> :
 
                   <div className="w-12 h-12 flex items-center justify-center bg-kronos-panel/30 rounded-lg">
                           <img src={uiPath ? convertFileSrc(`${uiPath}/Ayatan.png`) : ''} alt="" className="max-w-[60%] max-h-[60%] object-contain opacity-30" />
@@ -880,7 +886,7 @@ export default function Inventory() {
                           {modFrameTop(item.modFrame) && <img src={modFrameTop(item.modFrame)} className="absolute top-0 left-0 w-full pointer-events-none" alt="" style={{ objectFit: 'cover', objectPosition: 'top' }} />}
                           {modFrameBot(item.modFrame) && <img src={modFrameBot(item.modFrame)} className="absolute bottom-0 left-0 w-full pointer-events-none" alt="" style={{ objectFit: 'cover', objectPosition: 'bottom' }} />}
                           <div className={`relative z-10 flex flex-col items-center justify-center w-full h-full ${isUnowned ? 'grayscale opacity-40' : ''}`}>
-                            {item.image && <img src={item.image} className="max-w-[60%] max-h-[60%] object-contain" alt="" loading="lazy" onError={handleImgError} />}
+                            {item.image && <ItemImage src={item.image} className="max-w-[60%] max-h-[60%] object-contain" placeholderClassName="w-[60%] h-[60%]" alt="" loading="lazy" resolveFallbackSrc={resolveImgFallback} />}
                             {item.rank > 0 && item.max_rank > 0 &&
                       <span className="text-[8px] font-black text-white mt-0.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">R{item.rank}</span>
                       }
@@ -892,7 +898,7 @@ export default function Inventory() {
 
                   <>
                           <Box className="text-kronos-panel absolute w-20 h-20 opacity-10" />
-                          {item.image && <img src={item.image} alt="" className={`max-w-full max-h-full object-contain relative z-10 transition-all duration-500 group-hover:scale-110 ${isUnowned ? 'grayscale opacity-40' : ''}`} loading="lazy" onError={handleImgError} />}
+                          {item.image && <ItemImage src={item.image} alt="" className={`max-w-full max-h-full object-contain relative z-10 transition-all duration-500 group-hover:scale-110 ${isUnowned ? 'grayscale opacity-40' : ''}`} placeholderClassName="w-16 h-16 relative z-10" loading="lazy" resolveFallbackSrc={resolveImgFallback} />}
 
                           {!isUnowned && item.formas > 0 &&
                     <div className="absolute top-1 left-1 z-20 flex items-center gap-2 bg-black/50 text-yellow-400 px-1.5 py-0.5 rounded shadow-lg border border-white/10 backdrop-blur-sm">

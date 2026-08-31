@@ -25,6 +25,7 @@ import { getRelicEV, getRelicCatalog } from '../lib/relicParser';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
+import ItemImage from '../components/ItemImage';
 
 const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem', 'Omnia'];
 const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
@@ -454,7 +455,7 @@ export default function Relics() {
 
                             <div className="flex-1 flex items-center justify-center p-1 min-h-0 min-w-0">
                               {item.image &&
-                          <img src={item.image} alt="" className="max-w-full max-h-[80px] object-contain grayscale-[0.2] transition-all duration-500 group-hover:grayscale-0 group-hover:scale-110" loading="lazy" />
+                          <ItemImage src={item.image} alt="" className="max-w-full max-h-[80px] object-contain grayscale-[0.2] transition-all duration-500 group-hover:grayscale-0 group-hover:scale-110" placeholderClassName="w-full h-[80px]" loading="lazy" />
                           }
                             </div>
 

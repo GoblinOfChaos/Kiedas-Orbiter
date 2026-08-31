@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useUi } from '../../contexts/UiContext'
 import { Card } from '../UI';
+import ItemImage from '../ItemImage';
 import { Loader2, Check } from 'lucide-react';
 import { listen } from '@tauri-apps/api/event';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
@@ -433,11 +434,11 @@ function ItemArt({ icon, owned, blueprintCount }) {
   if (!icon) return null;
   return (
     <div className="relative bg-black/30 border-b border-white/5">
-      <img
+      <ItemImage
         src={icon}
         alt=""
         className="w-full h-24 object-contain p-2"
-        
+        placeholderClassName="w-full h-24"
       />
       {owned > 0 &&
       <div className="absolute top-1 left-1 flex items-center gap-1 px-1.5 py-0.5 rounded bg-green-500/20 border border-green-500/40 text-green-300 text-[8px] font-black uppercase">
@@ -524,7 +525,7 @@ function ComponentBadge({ comp }) {
       className={`relative w-9 h-9 rounded-full border-2 flex items-center justify-center ${ringClass}`}
       title={`${name}: ${have}/${need}`}
     >
-      {image ? <img src={image} alt="" className="w-7 h-7 object-contain rounded-full" /> : <span className="w-5 h-5 rounded-full bg-white/10" />}
+      {image ? <ItemImage src={image} alt="" className="w-7 h-7 object-contain rounded-full" placeholderClassName="w-7 h-7 rounded-full" /> : <span className="w-5 h-5 rounded-full bg-white/10" />}
       <span className={`absolute -bottom-1 -right-1 text-[7px] rounded-full px-0.5 leading-3 min-w-5 text-center font-black ${countClass}`}>{have}/{need}</span>
     </span>
   );

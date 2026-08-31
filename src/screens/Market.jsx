@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { PageLayout, Card, Input } from "../components/UI";
+import ItemImage from "../components/ItemImage";
 import { useUi } from "../contexts/UiContext";
 import { invoke } from "@tauri-apps/api/core";
 import { loadSettings, getSetting } from "../lib/settings";
@@ -689,7 +690,7 @@ export default function Market({ onNavigate }) {
                           {/* Item Column */}
                           <td className="py-3 px-4 font-medium text-white flex items-center gap-3">
                             {itemInfo.image ? (
-                              <img src={itemInfo.image} alt="" className="w-8 h-8 object-contain rounded bg-kronos-panel/60 p-0.5 border border-white/5" />
+                              <ItemImage src={itemInfo.image} alt="" className="w-8 h-8 object-contain rounded bg-kronos-panel/60 p-0.5 border border-white/5" placeholderClassName="w-8 h-8 rounded bg-kronos-panel/60 border border-white/5" />
                             ) : (
                               <div className="w-8 h-8 rounded bg-kronos-panel/50 border border-white/10 flex items-center justify-center text-kronos-dim">
                                 <Tag className="w-4 h-4" />
@@ -958,7 +959,7 @@ export default function Market({ onNavigate }) {
                       {/* Top Header */}
                       <div className="flex items-start gap-3">
                         {item.image ? (
-                          <img src={item.image} alt="" className="w-10 h-10 object-contain rounded bg-kronos-panel/60 p-1 border border-white/5 shrink-0" />
+                          <ItemImage src={item.image} alt="" className="w-10 h-10 object-contain rounded bg-kronos-panel/60 p-1 border border-white/5 shrink-0" placeholderClassName="w-10 h-10 rounded bg-kronos-panel/60 border border-white/5 shrink-0" />
                         ) : (
                           <div className="w-10 h-10 rounded bg-kronos-panel/50 border border-white/10 flex items-center justify-center text-kronos-dim shrink-0">
                             <Tag className="w-5 h-5" />

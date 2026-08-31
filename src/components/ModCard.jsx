@@ -1,7 +1,8 @@
 import { convertFileSrc } from '@tauri-apps/api/core';
 import { useUi } from '../contexts/UiContext'
 import { Box } from 'lucide-react';
-import { useState, useMemo, memo } from 'react';
+import { ImageUnavailable } from './ItemImage';
+import { useState, useEffect, useMemo, memo } from 'react';
 
 const CUSTOM = new Set(['Requiem', 'Tome', 'Antivirus', 'Potency', 'Tektolyst']);
 // Frames whose asset pack has no SideLight.png / CornerLights.png at all -
@@ -230,10 +231,22 @@ function Img({ src, className, style }) {
   return src ? <img src={src} className={className} style={{ ...style, opacity: 0, transition: 'opacity 0.15s' }} alt="" loading="lazy" onLoad={(e) => e.target.style.opacity = 1}  /> : null;
 }
 
-function SafeImg({ src, className, style, alt, onError }) {
+function SafeImg({ src, className, style, alt, onError, placeholderClassName }) {
+  const { t } = useUi();
   const [error, setError] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  if (!src || error) return null;
+  // Without this reset, the first failure latched `error` forever: onError
+  // swaps `src` to the CDN fallback, but the component was already returning
+  // null and never rendered the replacement, so the retry chain was dead.
+  useEffect(() => { setError(false); setLoaded(false); }, [src]);
+  if (!src || error) {
+    // Frame art (no placeholderClassName) stays invisible when it fails -
+    // a dashed box over a card layer would corrupt the card. Content art
+    // opts in, so a failed mod/weapon image is visible rather than silent.
+    return placeholderClassName
+      ? <ImageUnavailable className={placeholderClassName} label={t('ui.image_unavailable')} />
+      : null;
+  }
   return <img src={src} className={className} style={{ ...style, opacity: loaded ? 1 : 0, transition: 'opacity 0.15s' }} alt={alt || ''} loading="lazy" onLoad={() => setLoaded(true)} onError={() => {setError(true);onError?.();}} />;
 }
 
@@ -324,7 +337,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
       <div className="relative flex-shrink-0 select-none" style={{ width, aspectRatio: String(CARD_RATIO) }}>
         <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-start pt-[18%] z-1">
           {stickerHasImage &&
-          <SafeImg src={stickerSrc} className="w-[55%] h-auto object-contain" onError={() => setLocalImageFailed(true)} />
+          <SafeImg src={stickerSrc} className="w-[55%] h-auto object-contain" placeholderClassName="w-[55%] aspect-square" onError={() => setLocalImageFailed(true)} />
           }
           <div className="w-full text-center px-3 mt-3">
             <p className="font-bold leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]" style={{ fontFamily: 'Outfit, sans-serif', color: '#ddd', fontSize: `${14 * cardScale}px` }}>
@@ -485,7 +498,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
             {rank >= mod.max_rank ?
           <img src={f('Depleted')} className="w-2/5 h-auto object-contain" style={{ marginTop: '20%' }} alt=""  /> :
           finalSrc ?
-          <SafeImg src={finalSrc} className="w-2/5 h-auto object-contain" style={{ marginTop: '20%' }} onError={() => setLocalImageFailed(true)} /> :
+          <SafeImg src={finalSrc} className="w-2/5 h-auto object-contain" style={{ marginTop: '20%' }} placeholderClassName="w-2/5 aspect-square" onError={() => setLocalImageFailed(true)} /> :
           null}
           </div>
           <div className="absolute text-center" style={{ top: `${170 / CANVAS_H * 100}%`, left: 0, right: 0, padding: `${4 * cardScale}px ${4 * cardScale}px ${2 * cardScale}px` }}>
@@ -507,7 +520,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
           <div style={{ flex: '4 0 0' }} />
           <div className="flex items-start justify-center" style={{ width: '65%', flex: '0 0 auto' }}>
             {finalSrc ?
-          <SafeImg src={finalSrc} className="w-full h-auto object-contain" onError={() => setLocalImageFailed(true)} /> :
+          <SafeImg src={finalSrc} className="w-full h-auto object-contain" placeholderClassName="w-full aspect-square" onError={() => setLocalImageFailed(true)} /> :
           null}
           </div>
           <div style={{ flex: '3 0 0' }} />
@@ -551,10 +564,10 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
                 </div> :
           mf === 'Potency' ?
           <div className="w-full h-full overflow-hidden flex items-start justify-center">
-                  <SafeImg src={finalSrc} className="object-cover flex-shrink-0" style={{ width: '96%' }} onError={() => setLocalImageFailed(true)} />
+                  <SafeImg src={finalSrc} className="object-cover flex-shrink-0" style={{ width: '96%' }} placeholderClassName="w-[96%] aspect-square flex-shrink-0" onError={() => setLocalImageFailed(true)} />
                 </div> :
 
-          <SafeImg src={finalSrc} className="w-full h-full object-cover" onError={() => setLocalImageFailed(true)} /> :
+          <SafeImg src={finalSrc} className="w-full h-full object-cover" placeholderClassName="w-full h-full" onError={() => setLocalImageFailed(true)} /> :
 
           null}
           </div>

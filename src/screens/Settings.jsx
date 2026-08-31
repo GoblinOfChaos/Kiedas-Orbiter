@@ -118,12 +118,6 @@ export default function SettingsScreen() {
   const [sidebarWidth, setSidebarWidth] = useState(
     () => parseInt(getSetting('sidebar_width', 480)) || 480
   );
-  useEffect(() => {
-    // TEMP DIAGNOSTIC - remove once the sidebar-width-resets-on-restart bug is found.
-    invoke('log_terminal', {
-      message: `[SETTINGS-DEBUG] sidebarWidth state=${sidebarWidth}, getSetting('sidebar_width')=${getSetting('sidebar_width', 'MISSING')}, typeof=${typeof getSetting('sidebar_width', 'MISSING')}`
-    }).catch(() => {});
-  }, []);
   const [sidebarHideOnFocusLoss, setSidebarHideOnFocusLoss] = useState(
     () => getSetting('sidebar_hide_on_focus_loss', true)
   );
@@ -931,8 +925,15 @@ export default function SettingsScreen() {
               onChange={async (locale) => {
                 if (locale === getSetting('gameLocale', 'en')) return;
                 setLocaleLoading(true);
-                await setSetting('gameLocale', locale);
-                await invoke('check_exports', { locale, force: true });
+                // A rejected check_exports must still reload: without this the
+                // full-screen loading overlay never clears and the app is stuck
+                // until it's force-quit. Matches SetupScreen's handleLocaleChange.
+                try {
+                  await setSetting('gameLocale', locale);
+                  await invoke('check_exports', { locale, force: true });
+                } catch (err) {
+                  console.error('Failed to switch game language:', err);
+                }
                 window.location.reload();
               }} />
             

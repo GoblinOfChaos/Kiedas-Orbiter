@@ -45,13 +45,19 @@ export function UpdateProvider({ children }) {
           const win = getCurrentWindow()
           await win.close()
         } catch (err) {
-          setUpdateState({ status: 'error', manifest: null, error: err?.message ?? String(err) })
+          // Keep the manifest: the "Download manually" fallback link is driven
+          // by manifest.downloadUrl, so nulling it here removes the fallback in
+          // exactly the case it exists for - a failed install.
+          setUpdateState(prev => ({ ...prev, status: 'error', error: err?.message ?? String(err) }))
         }
       } else {
         try {
           await latestUpdateRef.current.downloadAndInstall()
         } catch (err) {
-          setUpdateState({ status: 'error', manifest: null, error: err?.message ?? String(err) })
+          // Keep the manifest: the "Download manually" fallback link is driven
+          // by manifest.downloadUrl, so nulling it here removes the fallback in
+          // exactly the case it exists for - a failed install.
+          setUpdateState(prev => ({ ...prev, status: 'error', error: err?.message ?? String(err) }))
         }
       }
     } finally {

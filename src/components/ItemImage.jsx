@@ -21,6 +21,23 @@ import { useUi } from '../contexts/UiContext'
  * MonitoringContext, which the overlay windows are NOT mounted inside, so
  * reading it here would crash every overlay that renders an item icon.
  */
+/**
+ * The "Image Unavailable" box itself, shared with card components that keep
+ * their own <img> (their fade-in and multi-source retry chains are not
+ * expressible through ItemImage's props) but still must not hide a failed
+ * content image silently.
+ */
+export function ImageUnavailable({ className = '', label }) {
+  return (
+    <div
+      title={label}
+      aria-label={label}
+      className={`flex items-center justify-center overflow-hidden rounded border border-dashed border-white/15 text-center text-[7px] font-bold uppercase leading-[1.05] tracking-tight text-kronos-dim/70 ${className}`}>
+      <span className="px-px">{label}</span>
+    </div>
+  )
+}
+
 export default function ItemImage({ src, alt = '', className = '', placeholderClassName = '', loading = 'lazy', resolveFallbackSrc = null }) {
   const { t } = useUi()
   const [failed, setFailed] = useState(false)
@@ -48,15 +65,7 @@ export default function ItemImage({ src, alt = '', className = '', placeholderCl
   }
 
   if (!currentSrc || failed) {
-    const label = t('ui.image_unavailable')
-    return (
-      <div
-        title={label}
-        aria-label={alt ? `${alt} — ${label}` : label}
-        className={`flex items-center justify-center overflow-hidden rounded border border-dashed border-white/15 text-center text-[7px] font-bold uppercase leading-[1.05] tracking-tight text-kronos-dim/70 ${placeholderClassName}`}>
-        <span className="px-px">{label}</span>
-      </div>
-    )
+    return <ImageUnavailable className={placeholderClassName} label={t('ui.image_unavailable')} />
   }
 
   return <img src={currentSrc} alt={alt} className={className} loading={loading} decoding="async" onError={handleError} />

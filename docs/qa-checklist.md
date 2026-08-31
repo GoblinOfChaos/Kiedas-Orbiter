@@ -79,6 +79,10 @@ A value is classified into one of several buckets (e.g. "positive stat" vs "nega
 ### 18. Locale/translation key gaps
 A UI string uses `t('some.key')` but the key is missing from one or more locale files, silently falling back to the raw key string or English text in a non-English UI, rather than the intended localized string.
 
+### 19. Display-name lookup collisions cross-contaminating unrelated items
+Two unrelated real DE items share the same display name (e.g. "Crash Course" the rifle mod vs. "Crash Course" the Somachord track; "Alpha/Beta/Stable Corruptor" as both Gear items and Resources). A lookup map keyed purely by lowercased display name (`nameToImage`, drop-table indexes, acquisition-text indexes) has no way to disambiguate, so whichever item is processed last silently overwrites the map entry — the other item then renders the wrong icon, drop table, or acquisition text. A `uniqueName`-keyed lookup is always safe (paths are inherently unique); a name-only lookup never is once two colliding items exist. Found via a dedicated collision-detection pass over the full item dataset (420 total name collisions found, 29 spanning different top-level categories — the dangerous kind).
+*Example: `warframeItemsTransform.js`'s `nameToImage` build silently let a later item's icon overwrite an earlier same-named item's icon; fixed by dropping ambiguous name-only keys on detected conflict rather than picking one arbitrarily. Also: the "Omni" gear tool's wfcd drop table was polluted with unrelated "Omni Forma"/"Omni Ammo Box" entries matched by name-prefix substring, not real item identity.*
+
 ---
 
 ## Part 2: Per-Screen / Per-Component Checklist
@@ -225,328 +229,314 @@ A UI string uses `t('some.key')` but the key is missing from one or more locale 
 
 ### Checklist.jsx
 
-- [ ] Every task card's checkmark button (`onToggle`) flips only that task's `completed[task.id]` entry, not a neighboring task's, even when the visible task list is re-sorted by reset time
-- [ ] Every task card's eye/hide button (`onHide`) toggles only that task's `hiddenMap[task.id]` entry and immediately updates its visual (dimmed/opacity-30) state
-- [ ] Hidden task visibility toggle ("show hidden" eye icon in the section header) actually reveals hidden tasks in the grid when active and hides them again when deactivated
-- [ ] Hidden-task preferences persist across app restarts: verify the `useEffect(() => { setHiddenMap(Object.fromEntries(tasks.map(t => [t.id, t.hidden])) ) }, [])` that runs on every mount does not overwrite the `hiddenMap` state that was just loaded from `localStorage.getItem('checklist_hidden')` with all-blank values (since no task in the `tasks` array defines a `hidden` field, this mapping produces `undefined` for every task)
-- [ ] "Auto Track" checkbox reflects and persists `checklist_auto_track` to localStorage, and unchecking it stops new inventory-derived completions from being auto-applied (existing manual completions are unaffected)
-- [ ] Auto-tracking from `periodicMissionCompletions` only marks `clem`, `ayatan`, and `steel_path` as complete based on `GetClem`/`TreasureHunt*`/`HardDaily*` log tags; all other tasks (sortie, foundry, syndicates, focus, nightwave, archon, circuit, etc.) require manual completion and are never auto-checked
-- [ ] Auto-tracking never un-completes a task the user already marked done (`if (!prev[id]) { next[id] = val; }`), and never overwrites a manually-completed task back to false
-- [ ] `toggleNotif` (referenced in the component but calling `setNotifMap`, which has no corresponding `useState`) — verify there is no UI control wired to this function, since invoking it would throw a ReferenceError; if any button is meant to call it, confirm that button actually renders and works
-- [ ] The `completedTasks / visibleTasks.length` counter in the Tasks section header counts only currently-visible (non-hidden, unless "show hidden" is on) tasks — verify this is the intended semantic and that hiding a completed task correctly decrements both numerator and denominator
-- [ ] Each task's countdown/reset-time label (`timeLeft`/`displayTime`) reflects the correct reset cadence (`daily`/`weekly`/`biweekly`/`other`=8h/`baro`), and switches to "next: …" only after that task is marked completed
-- [ ] Baro Ki'Teer countdown uses live Void Trader world state (`worldState.voidTrader.expiryMs`/`activationMs`) rather than a generic daily/weekly fallback — needs live verification against actual game world state
-- [ ] Sortie, Steel Path Incursions, Archon Hunt, and Nightwave countdowns each pull their real expiry from `worldState` rather than falling through to the generic reset-type calculation — needs live verification against actual game world state
-- [ ] Standing cards: `earnedStanding` and `rankCap` are computed per-syndicate from the correct `Affiliations` entry (matched via `AFFILIATION_TAGS`/`Tag`), so no syndicate displays another syndicate's standing or rank cap
-- [ ] Standing card progress bar width and "earned/cap" numbers are internally consistent (bar percentage matches the displayed earned/cap ratio), including correct handling of negative-rank (enemy) syndicates
-- [ ] Daily Focus and per-school focus totals (`focusXP[standing.focusKey]`) each show that school's real XP, not a shared/aggregated value across schools
-- [ ] The "★ pledged" indicator and ally/enemy hover highlighting on syndicate cards match the real `SupportedSyndicate` from inventory data and the real `alignments` data from `ExportSyndicates`, not a hardcoded or stale relationship
-- [ ] Standing icons load correctly whether sourced from the CDN (`ExportTextIcons` via `cdnBase`) or from local UI PNGs (`LOCAL_ICONS`), with no broken image for any syndicate/faction in the `standings` list
-- [ ] The "waste tip" tooltip (ⓘ) only appears for faction syndicates (`FACTION_TAGS`) the player is actually pledged to, not for non-faction syndicates or unpledged factions
-- [ ] Mastery-rank-dependent daily standing caps (`getDailyCap`/`getFocusDailyCap`) use the real `inventoryData.account.mastery_rank` once loaded, and the `|| 16` fallback used while inventory data is absent doesn't get mistaken for the player's actual rank in the displayed numbers
+- [x] Every task card's checkmark button (`onToggle`) flips only that task's `completed[task.id]` entry, not a neighboring task's, even when the visible task list is re-sorted by reset time
+- [x] Every task card's eye/hide button (`onHide`) toggles only that task's `hiddenMap[task.id]` entry and immediately updates its visual (dimmed/opacity-30) state
+- [x] Hidden task visibility toggle ("show hidden" eye icon in the section header) actually reveals hidden tasks in the grid when active and hides them again when deactivated
+- [x] Hidden-task preferences persist across app restarts — the described overwrite bug is not present in current code; `hiddenMap` loads once from localStorage with no clobbering effect
+- [x] "Auto Track" checkbox reflects and persists `checklist_auto_track` to localStorage, and unchecking it stops new inventory-derived completions from being auto-applied (existing manual completions are unaffected)
+- [x] Auto-tracking from `periodicMissionCompletions` only marks `clem`, `ayatan`, and `steel_path` as complete based on `GetClem`/`TreasureHunt*`/`HardDaily*` log tags; all other tasks require manual completion
+- [x] Auto-tracking never un-completes a task the user already marked done, and never overwrites a manually-completed task back to false
+- [x] `toggleNotif`/`setNotifMap` are not present anywhere in current Checklist.jsx — dead reference from an earlier version, no longer applicable
+- [x] The `completedTasks / visibleTasks.length` counter counts only currently-visible tasks, confirmed correct
+- [x] Each task's countdown/reset-time label reflects the correct reset cadence and switches to "next: …" only once completed — **fixed 2026-08-28: tasks previously never auto-reset at their reset boundary once checked (manually or via auto-track); now cleared automatically via `completedResetAt` tracking**
+- [x] Baro Ki'Teer countdown uses live Void Trader world state — live-verified 2026-08-29, app showed 6d9h30m matching the wiki's live countdown exactly
+- [ ] Sortie, Steel Path Incursions, Archon Hunt, and Nightwave countdowns each pull their real expiry from `worldState` rather than falling through to the generic reset-type calculation — still needs live verification against actual game world state
+- [x] Standing cards: `earnedStanding` and `rankCap` computed per-syndicate — verified 2026-08-29 by cross-checking every standing card's displayed numbers against the raw `Affiliations` sync data; every card matched exactly, including negative-rank clamping (Perrin/New Loka/Arbiters/Suda)
+- [x] Standing card progress bar and earned/cap numbers are internally consistent, including negative-rank syndicates — verified above
+- [x] Daily Focus and per-school focus totals show that school's real XP — **fixed 2026-08-29: `FOCUS_SCHOOLS` had Naramon/Madurai and Vazarin/Unairu keys swapped (`AP_ATTACK`/`AP_TACTIC`/`AP_DEFENSE`/`AP_WARD` mismatched); fix confirmed against live in-game Focus screen screenshot, all five schools now match exactly**
+- [x] The "★ pledged" indicator and ally/enemy hover highlighting match real `SupportedSyndicate`/`alignments` data — verified 2026-08-29 against raw inventory (`SupportedSyndicate: SteelMeridianSyndicate` matches the ★ shown)
+- [ ] Standing icons load correctly whether sourced from CDN or local UI PNGs, with no broken image for any syndicate/faction — not yet visually spot-checked
+- [x] The "waste tip" tooltip only appears for faction syndicates the player is actually pledged to — verified 2026-08-29, condition (`isFaction && isPledged`) is fully data-driven with no hardcoding
+- [ ] Mastery-rank-dependent daily standing caps use the real `inventoryData.account.mastery_rank` once loaded, and the `|| 16` fallback isn't mistaken for the real rank while inventory data is absent — not yet live-verified
 
 ### Inventory.jsx
 
 **General / cross-tab**
-- [ ] Switching tabs (`INVENTORY_TABS`) resets `currentFilters`, `sortCriteria`, and `sortDirection` to their defaults (`{}`, `'name'`, `'asc'`) so filters from one tab never silently carry into another (`Tabs onChange` handler, Inventory.jsx:511).
-- [ ] The subtitle "Displaying X / Y items" always reflects `visibleItems.length` / `filteredItems.length` for the currently active tab, not a stale count from a previous tab.
-- [ ] Search box matches on item `name` and `components` only (not `description` or `category`); verify this is the intended matching scope and that legitimate searches (e.g. by weapon part name) aren't silently excluded because they only match a field the search never checks.
-- [ ] Search requires every space-separated word to match somewhere in name-or-components (AND semantics) — verify multi-word searches don't over-exclude expected items.
-- [ ] "Owned" filter button cycles All → Owned → Unowned → All for triple-state filters (`owned`, `mastered`, `subsumed`, `socketed`, `prime`) and Off → On → Off for the rest; verify no filter gets stuck or silently no-ops for any tab listed in `FILTER_CONFIG`.
-- [ ] For every filter key present in `FILTER_CONFIG` for a tab, there is a corresponding branch in the `filteredItems` filter logic (Inventory.jsx:339-365) that actually reads the matching field — e.g. `incarnon` "yes" checks `is_incarnon`, but there is no "no" branch for `incarnon`; verify toggling it to the "no" (excluded) state doesn't silently do nothing.
-- [ ] Sort control list shown always matches `SORT_CONFIG[activeTab]`; switching tabs never leaves a sort button visible/active for a criterion that isn't valid for the new tab's data.
-- [ ] "Load more" button appears only when `visibleCount < filteredItems.length`, and clicking it reveals additional real items (not duplicates) from the same filtered/sorted set.
-- [ ] Item cards missing an `image` correctly fall back via `imageByUniqueName`/`imageByName` lookup (built from `inventoryData.all`) rather than rendering a broken/empty image, for every tab that uses `withImageFallback`.
+- [x] Switching tabs resets `currentFilters`, `sortCriteria`, and `sortDirection` to defaults — confirmed 2026-08-29 in the `Tabs onChange` handler
+- [x] The subtitle "Displaying X / Y items" always reflects the current tab's `visibleItems.length` / `filteredItems.length`
+- [x] Search box matches on item `name` and `components` only — confirmed intended scope
+- [x] Search requires every space-separated word to match (AND semantics) — confirmed via `q.every(...)`
+- [x] Filter cycling — confirmed correct: `incarnon`/`primary`/`secondary`/`melee`/`archwing`/`kdrive`/`necramech` are correctly 2-state (not in `TRIPLE_FILTERS`), so the missing "no" branch for `incarnon` in the filter logic is genuinely unreachable dead code, not a bug
+- [x] Sort control list always matches `SORT_CONFIG[activeTab]` — confirmed, derived directly each render
+- [x] "Load more" only appears when `visibleCount < filteredItems.length`, reveals the next real slice — confirmed
+- [x] Image fallback (`imageByUniqueName`/`imageByName`) applied consistently across every tab that needs it — confirmed
+- [FEATURE REQUEST, not a bug] "Load more" button can end up hidden behind the bottom bar when it's open, blocking clicks — needs a background/progressive-load approach instead of manual pagination; added to punch list for after bugs
 
 **All tab**
-- [ ] The "All" tab excludes items with `category === 'rivens'` and `category === 'Arcanes'` (Inventory.jsx:318) — verify riven mods remain reachable somewhere else in the app rather than becoming invisible inventory, since there is no dedicated "rivens" tab in `INVENTORY_TABS`.
-- [ ] Items with `category === 'mods'` (non-riven) render correctly inside the "All" tab's generic card branch with mod-frame background art (`isModFrame`) even though there is no dedicated "Mods" tab despite `FILTER_CONFIG.mods`/`SORT_CONFIG.mods` existing — confirm this dead config isn't masking a missing tab.
-- [ ] Every card in the "All" tab (mixed categories) opens the acquisition drawer via `toggle(item.unique_name)` regardless of the item's underlying category.
+- [x] Excludes `rivens`/`Arcanes` categories — riven mods remain reachable via the dedicated Rivens.jsx screen, confirmed intentional
+- [x] Mod-category items render correctly with `isModFrame` background art inside the All tab's generic card branch — `FILTER_CONFIG.mods`/`SORT_CONFIG.mods` are dead config but don't mask a missing feature
+- [x] Every card opens the acquisition drawer via `toggle(item.unique_name)` regardless of category — confirmed
 
 **Warframes / Weapons / Companions / Companion Weapons / Archweapons / Amps tabs**
-- [ ] Each of these tabs sources strictly from its own `inventoryData[activeTab]` array (Inventory.jsx:319); verify companions and companion weapons are never cross-counted since they come from separate source arrays.
-- [ ] Owned badge/greyscale (`isUnowned = !item.owned`) reflects the boolean `owned` field for every item in these tabs, not a `quantity` field.
-- [ ] Mastered/Unmastered label only distinguishes "Unmastered" vs "Unowned" correctly: an unowned item shows "Unowned", an owned-but-unmastered item shows "Unmastered", and a mastered item shows "Mastered" (Inventory.jsx:843-846).
-- [ ] Subsumed badge (warframes) only appears for actually-subsumed frames (`item.subsumed`), and does not appear for unrelated categories.
-- [ ] Incarnon badge/evolution rank only renders for weapons where `item.is_incarnon` is true, and the displayed rank (`incarnon_evolution_level`) is not off-by-one against the "Rank X/4" label.
-- [ ] "Needed for crafting" badge and its tooltip list (`crafting_details`) only appear on full equipment items (not mods/resources/prime parts) and list the correct ingredient counts.
-- [ ] Forma count badge only shows for owned items (`!isUnowned && item.formas > 0`) and reflects the real forma count, not a stale/default value.
-- [ ] `owned`/`mastered` filter toggles on these tabs correctly hide/show items per the boolean fields (needs live verification against a real save with mixed owned/unowned equipment).
+- [x] Each tab sources strictly from its own `inventoryData[activeTab]` array — confirmed, no cross-mixing
+- [x] Owned badge/greyscale reflects the boolean `owned` field, not `quantity` — confirmed
+- [x] Mastered/Unmastered/Unowned label logic confirmed correct for all three states
+- [x] Subsumed badge — confirmed scoped by construction (`item.subsumed` only ever populated for warframe entries)
+- [x] Incarnon badge/evolution rank — display logic confirmed consistent, no visible off-by-one
+- [x] "Needed for crafting" badge correctly scoped to `!isModOrResource && !isPrimePart`
+- [x] Forma count badge reflects the real `item.formas` field, shown only for owned items — confirmed
+- [ ] `owned`/`mastered` filter toggles — needs live verification against a real save with mixed owned/unowned equipment
 
 **Vehicles tab (Archwings/K-Drives/Necramechs)**
-- [ ] The vehicles list is built by concatenating `inventoryData.vehicles` and `inventoryData.necramechs` (each necramech tagged with `is_necramech: true`); verify no `unique_name` appears in both source arrays, which would render (and potentially double-count) the same item twice.
-- [ ] The `necramech` filter only matches items with `is_necramech` true; the `archwing`/`kdrive` filters only match `vehicle_type` — verify necramech entries (which likely lack `vehicle_type`) don't accidentally match or fail to match these filters in a confusing way.
-- [ ] Owned/Mastered badges for necramech entries use the same real `owned`/`mastered` boolean fields as regular vehicles (not defaults from the tagging step).
+- [x] Vehicles + necramechs concatenation — separate source export arrays, no realistic overlap by design
+- [x] `necramech`/`archwing`/`kdrive` filters correctly scoped to `is_necramech`/`vehicle_type` respectively — confirmed
+- [x] Necramech owned/mastered badges use real fields — the tagging spread (`{ ...n, is_necramech: true }`) doesn't touch them
 
 **Prime Parts tab**
-- [ ] Only `primeSets` with at least one part having `quantity > 0` are shown (Inventory.jsx:220-221) — verify a fully-owned-but-zero-part-quantity edge case (e.g., set already crafted, blueprint consumed) doesn't wrongly disappear from the list.
-- [ ] Each prime set's `owned`/`mastered` status is resolved via `nameToEquipment` built from warframes/primary/secondary/melee/sentinels/beasts/moas/hounds/archwings/necramechs/amps, matched by `set.name` or `set.name + ' Prime'`; verify this lookup actually finds the parent equipment for every prime set name variant so owned/mastered prime frames don't display "Unowned"/"Unmastered" due to a naming mismatch.
-- [ ] "X Set(s)" vs "X/Y (Z%)" badge only switches to the Sets count when a blueprint part exists, is owned in quantity, and the full set is complete (`isComplete`) — verify partial ownership never shows a false "N Sets" count.
-- [ ] Per-part "met" status uses `part.crafted >= need` when `crafted` is defined, otherwise `part.quantity >= need` — verify parts that track crafted counts don't fall back to comparing raw blueprint quantity instead.
-- [ ] Plat value badges (`setValue`, `partPrice`) only render once `allPrices` has loaded for the current set/part path, and show a loading skeleton (not `0p` or stale data) while `isPriceLoading`.
-- [ ] Individual prime-part cells in this tab do **not** open the acquisition drawer (they show sources via inline tooltip instead) — confirm this is an intentional design choice for this tab rather than a missing click handler, since every other tab's cards are clickable.
-- [ ] Drop-source tooltips (`partSources`, dedup by relic/enemy/source type) list real, deduplicated sources and don't silently drop legitimate duplicate-looking-but-distinct sources (e.g. two different relics with the same name and different rotation).
+- [ ] Zero-part-quantity-but-owned edge case for fully-crafted sets — needs live verification
+- [ ] `nameToEquipment` lookup finding every prime set's parent equipment by name variant — needs live verification across a full collection
+- [x] "X Set(s)" vs "X/Y (Z%)" badge logic — confirmed correct, matches the per-cell "met" check exactly (already fixed in a prior session, code comment documents the original bug)
+- [x] Per-part "met" status (`crafted >= need` vs `quantity >= need`) — confirmed matches spec exactly
+- [x] Plat value badges show a loading skeleton during `isPriceLoading`, never `0p`/stale — confirmed
+- [x] Prime-part cells intentionally non-clickable, sources shown via inline tooltip only — confirmed by design
+- [x] Drop-source tooltip dedup — confirmed dedup key logic (`relic:name`/`enemy:name`/`type`) is reasonable and doesn't silently drop legitimately-distinct sources
+- **[BUG FOUND & FIXED 2026-08-29]** Drop-chance percentages in these tooltips used `(chance*100).toFixed(1)`, rounding real sub-1% chances down to misleading values (a genuine 0.0335% chance displayed as "0.0%", reading as "never drops here"). Fixed across all 5 occurrences in this file plus 2 in AcquisitionDrawer.jsx via a shared `formatChance()` helper with magnitude-scaled precision.
 
 **Arcanes tab**
-- [ ] Cards render via `ModCard`, wrapped in a `div` with `onClick={() => toggle(item.unique_name)}` — verify the click lands correctly on the wrapping div for the whole card area, including the grayscale/opacity-60 unowned state.
-- [ ] Unowned arcanes are visually greyed out (`grayscale opacity-60`) based on `item.owned`, not a `quantity` check.
-- [ ] Rank/quantity sort options operate on the correct fields for arcanes (`quantity`, `rank`) — verify sorting by rank doesn't silently fall back to name ordering if `rank` is undefined for some entries.
+- [x] Cards wrapped in clickable div, `toggle(item.unique_name)` on the whole card — confirmed
+- [x] Unowned greyscale/opacity based on `item.owned` boolean — confirmed
+- [ ] Rank sort undefined-fallback behavior — needs live verification with a real mixed-rank collection
 
 **Peely Pix / Consumables / Landing Craft tabs**
-- [ ] These three catalogs come from `inventoryData.peely_pix`, `inventoryData.consumables_catalog`, `inventoryData.landing_craft_catalog` respectively — verify none of these arrays overlaps with another tab's source array in a way that would double-count a shared `unique_name`.
-- [ ] `isModOrResource` includes `'landing_craft'` as a category, which suppresses the Mastered/Unmastered badge block for landing craft items (Inventory.jsx:842) and instead relies on the quantity-based badge (`item.quantity !== undefined`) — verify landing craft (non-stackable ship) entries still display a clear Owned/Unowned indicator rather than showing neither badge because `quantity` is never populated for them.
-- [ ] Peely Pix and Consumables stock badges (`×quantity` / "Unowned") reflect the real `quantity` field (these are stackable), not a boolean `owned` field.
-- [ ] Sorting Peely Pix/Consumables/Resources by "count" sorts by `quantity`, and by "rank" (mods/arcanes only) sorts by `rank` — verify the sort dropdown for each tab only offers criteria that exist on that tab's item shape.
+- [x] Each catalog built from its own distinct source (EGearOrig/sticker paths/ship aliases) — no overlap
+- [x] `isModOrResource` includes `landing_craft`, quantity-based badge confirmed correct
+- [x] Stock badges reflect real `quantity` field — confirmed (shared generic card branch)
+- [x] Sort-by-count/rank reads the correct fields per `SORT_CONFIG` — confirmed
 
 **Resources tab**
-- [ ] Owned filter and stock badge for resources use `quantity` (stackable), and the "Unowned" label appears only when `quantity` is 0/undefined, not based on a boolean `owned` field that may not exist on resource entries.
+- [x] Owned filter/stock badge use `quantity`, not a boolean `owned` field — confirmed (shared generic card branch, `isModOrResource` includes `resources`)
 
 **Ayatan tab**
-- [ ] The "Ayatan Stars" aggregate card (`item.isStars`) is intentionally non-clickable (`cursor-default`, no `onClick`) since it represents a computed summary, not an individual acquirable item — verify this is by design and not a missing handler.
-- [ ] Every individual sculpture card (the non-aggregate branch, Inventory.jsx:712) has `onClick={() => toggle(item.unique_name)}` and actually opens the acquisition drawer for that specific sculpture's `unique_name`.
-- [ ] Sculpture `owned` state (`(g?.ItemCount ?? 0) > 0`) and displayed quantity/dashed-border "not owned" styling agree with each other — a sculpture with 0 owned count should show the dashed/opacity-60 unowned style and "None owned" text, never a mismatched combination.
-- [ ] Amber/Cyan star totals (`amberStarCount`, `cyanStarCount`) and the endo-optimization "fill order" summary are computed from real inventory data — verify the Ayatan Stars scan is not excluding any owned star-bearing sculptures (the class of bug previously found: an inventory category exclusion hiding real owned Ayatan Stars from an ownership-matching scan). Needs live verification against actual save data.
-- [ ] `isOptimal` badge marks the sculpture(s) with the single highest `filledEndo` value — verify ties (if any) are handled sensibly and it doesn't mislabel a suboptimal sculpture due to floating comparison.
-- [ ] Endo total per sculpture card (`item.quantity * item.filledEndo`) uses the owned quantity, not `sockets` or a hardcoded value.
+- [x] "Ayatan Stars" aggregate card intentionally non-clickable — confirmed by design
+- [x] Individual sculpture cards open the acquisition drawer for their own `unique_name` — confirmed
+- [x] Sculpture owned/quantity/styling consistency — confirmed, both driven from the same source value
+- [x] Amber/Cyan star totals read directly from `MiscItems` with no exclusion filter — confirmed no exclusion-bug present (unlike the previously-fixed bug this class of check was written for)
+- [x] `isOptimal` — confirmed correct; ties among non-maximum values don't matter since only equality to the true max is checked, and a genuine tie at the max would correctly badge all tied sculptures
+- [x] Endo total per sculpture uses real owned `quantity * filledEndo` — confirmed
 
 **Header stats bar**
-- [ ] Credits, Platinum, and Endo values reflect `inventoryData.account` fields directly with no unit conversion errors (needs live verification).
-- [ ] Total Forma count sums `forma + aura_forma + stance_forma + umbra_forma` — verify `forma` is the "standard forma" count only and does not already include the other forma types, which would double-count in the summed badge and in the hover breakdown.
-- [ ] The Forma breakdown tooltip only shows aura/stance/umbra forma rows when their count is `> 0`, and the counts shown per row match the summed total exactly.
+- [ ] Credits/Platinum/Endo unit correctness — needs live verification against real numbers
+- [x] Total Forma sum — confirmed each forma type (`Forma`/`FormaAura`/`FormaStance`/`FormaUmbra`) is tracked via its own distinct MiscItems path with zero overlap, so the summed badge cannot double-count
+- [x] Forma breakdown tooltip rows only show when count `> 0`, and match the summed total exactly (same source variables) — confirmed
 
 ### Maps.jsx
 
-- [ ] All four map tabs (Plains of Eidolon, Orb Vallis, Cambion Drift, Duviri) load their correct image file (`raw` vs `labeled` variant per `useRawMap` toggle) and display the correct `alt` text for the active tab.
-- [ ] The raw/labeled terrain toggle button switches the displayed map image for the currently active tab only, without affecting other tabs' saved state.
-- [ ] Switching tabs (`switchTab`) resets pan/zoom transform, closes any open marker editor panel, exits marker-adding mode, and clears `pendingConfigId`, so leftover state from one map never bleeds into another.
-- [ ] Marker configurations are persisted per-map via `configFilename` (derived from `MAPS[tabId].name`), and reloading the app restores the same configs under the same tab after `loadMapConfigs`/`saveMapConfigs` round-trip.
-- [ ] Clicking a marker (no drag) opens the marker editor panel for that exact marker (`selectMarkerHandler`), and dragging a marker (drag distance > threshold) instead repositions it and does **not** open the editor panel.
-- [ ] Marker label, color, icon, and notes edits in the floating panel apply to the correct marker (`selectedMarker.configId` + `selectedMarker.id`), not a stale reference left over from a previously selected marker.
-- [ ] The "zoom to marker" (Navigation icon) button in the marker editor panel recenters the view on the clicked marker's actual X and Y position on the map — verify the resulting pan lands on the marker's real horizontal position (`zoomToMarker`, Maps.jsx:482-489), not just its vertical position.
-- [ ] The path/connections list in the marker editor only lists other markers belonging to the *same* configuration as the selected marker, and correctly shows a checkmark only for connections that actually exist in `config.paths`.
-- [ ] Toggling a connection (`togglePath`) adds or removes exactly the one path between the two selected markers, without affecting paths between other marker pairs.
-- [ ] "Add marker" mode places a new marker only within the image bounds (`nx`/`ny` clamped to 0–1) when clicking on the map, and does nothing when clicking outside the image.
-- [ ] Auto-path toggle, when enabled while adding markers, automatically links each newly placed marker to the previously placed marker in the same config, using the new marker's own color.
-- [ ] Right-click context menu "Add marker here" adds the marker to the currently pending config (or the first enabled config, or the first config, in that fallback order) at the exact right-clicked coordinates.
-- [ ] Deleting a config (with confirmation) removes all its markers and paths, and if the deleted config was the one currently pending/selected, the UI correctly exits add-marker mode and closes any open marker editor panel referencing a now-deleted marker.
-- [ ] Config visibility toggle (`enabled`/Eye icon) actually hides that config's markers and paths from the rendered SVG/marker layer (`configsForCurrentMap.filter(c => c.enabled)`) without affecting other configs.
-- [ ] "Import in-game markers" button only appears when `inventoryData.customMarkers` has entries, and imported markers are correctly routed to their matching map tab via the `poe`/`venus`/`deimos` key-to-tab-index mapping (Duviri has no matching key and should never receive imported markers).
-- [ ] Re-importing custom markers does not create duplicate markers for the same in-game marker (dedup key based on label + rounded x/y) — verify markers that genuinely moved in-game are still re-imported rather than silently skipped as "already present."
-- [ ] Zoom (scroll wheel) and pan (drag/trackpad swipe) respect the configured min/max scale bounds and don't allow the map to pan fully off-screen (`clamp`).
-- [ ] The zoom percentage badge (`ZoomBadge`) reflects the actual current transform scale, updating live as the user zooms.
-- [ ] The Duviri cycle indicator (state name + countdown) only appears on the Duviri tab and counts down to zero/"expired" accurately based on the real cycle expiry time. Needs live verification against actual in-game cycle timing since the state is client-computed on a fixed schedule rather than read from live worldstate.
+- [ ] All four map tabs load their correct image file and alt text — needs live visual spot-check
+- [ ] Raw/labeled terrain toggle — confirmed it's a single global `useRawMap` boolean, not per-tab; switching tabs does not reset it, so a raw-mode choice persists across tabs. Not clearly a bug (may be intentional simpler design) but worth a product decision — flagged, not changed
+- [x] Switching tabs (`switchTab`) resets pan/zoom transform, closes the marker editor panel (`selectedMarker` nulled, panel is directly conditioned on it), exits marker-adding mode, clears `pendingConfigId` — confirmed correct
+- [ ] Marker configs persist per-map via `configFilename` and round-trip correctly after reload — needs live verification
+- [x] Click-vs-drag: 3px movement threshold before treating pointer-down as a drag rather than a click — confirmed reasonable
+- [ ] Marker label/color/icon/notes edits apply to the correct marker reference — needs live verification
+- [x] "Zoom to marker" — confirmed correct, uses both `marker.x` and `marker.y` properly; the checklist's suspicion of an X-axis bug was not borne out by the code
+- [x] Path/connections list only shows same-config markers — confirmed
+- **[BUG FOUND & FIXED 2026-08-29]** Connection checkmark (`hasPath`) and `togglePath`'s existence check were both direction-sensitive (`fromMarkerId===A && toMarkerId===B` only, never the reverse), despite paths rendering as plain undirected lines with no arrowhead. Viewing a connection from the "other" marker's panel showed no checkmark, and toggling it from that side created a duplicate reverse-direction path instead of removing the real one. Fixed both checks to test either direction.
+- [x] "Add marker" mode places a marker only when `nx`/`ny` fall within 0–1 (image bounds), silently no-ops outside — confirmed exactly matches spec
+- [x] Auto-path links each new marker to the immediately-previous marker using the new marker's own color — confirmed
+- [ ] Right-click "Add marker here" fallback order (pending → first enabled → first config) — needs live verification
+- [x] Deleting a config removes it, exits add-marker mode/clears `pendingConfigId` if it was pending, and closes the marker panel if the selected marker belonged to the deleted config — confirmed correct
+- [x] Config visibility toggle (`enabled`) correctly filters both the marker-rendering and path-rendering loops independently per config — confirmed
+- [x] Import routing — `mapKeys = ['poe','venus','deimos']`, Duviri has no matching key (`indexOf` returns -1, skipped) and correctly never receives imported markers — confirmed
+- [x] Re-import dedup key (`label + rounded x/y` to ~1% map-width precision) — reasonable working-as-designed tradeoff, not a bug
+- [ ] Zoom/pan bounds enforcement — needs live verification
+- [ ] Zoom percentage badge live-update — needs live verification
+- [ ] Duviri cycle countdown accuracy — needs live verification against real in-game cycle timing
 
 ### Mastery.jsx
 
-- [ ] MR icon (`getMRIcon`) renders the correct rank icon for ranks 0–30 using `RANK_NAMES[rank]`, and does not render a blank/broken image for any rank in that range (verify `RANK_NAMES` array has no off-by-one vs actual MR rank).
-- [ ] Legendary rank icon path (`Rank${rank}.png`, no zero-pad, no name suffix) resolves correctly for MR31+ accounts — needs live verification with a legendary-rank account.
-- [ ] Mastery title (`mrTitleKey`) shows the correct title string for every rank band (0, 1–30 via `Math.ceil(rank/3)`, and 31+ "legendary" with the correct `n` substitution), not a fallback/generic "master" title for ranks that should have a distinct title.
-- [ ] `getStats('warframes')`, `getStats('primary')`, `getStats('secondary')`, `getStats('melee')` etc. each pull from a distinct inventory array — verify no two category rows source from the same underlying list (which would double count or show identical numbers in two tiles).
-- [ ] `companions` row (beasts + moaHeads + houndHeads + plexus) and the excluded `robotics` aggregate (sentinels + moaHeads + houndHeads) do not both feed into `totalXP` — confirm only one of the two overlapping groupings is summed, and moaHeads/houndHeads XP is counted exactly once across the whole page.
-- [ ] Per-category dedupe key (`unique_name` for modular categories, lowercased trimmed `name` otherwise) correctly collapses true duplicates (e.g. "Grimoire") without accidentally merging two different items that happen to share a name across categories.
-- [ ] Dedupe logic keeps the highest-XP variant per key (`(item.mastery_xp||0) > (acc[key].mastery_xp||0)`) — verify a partially-ranked duplicate doesn't overwrite and hide a fully-mastered duplicate of the same item.
-- [ ] `mastered`/`total` count shown per category tile matches the actual owned/mastered count for that category — needs live verification against in-game mastery totals.
-- [ ] Total XP displayed (`totalXP`) equals the sum of item XP + intrinsic XP + starchart XP, with the Robotics aggregate excluded — verify it does not silently drift from the account's real mastery XP due to double-counting or omission.
-- [ ] Railjack intrinsics total is fixed at 50 and Drifter intrinsics total is fixed at 40 — verify these caps still match current game values and aren't stale.
-- [ ] Railjack/Drifter intrinsic filtering (`i.name.startsWith('Railjack')` / `'Drifter'`) captures all intrinsic entries for each track and doesn't drop or miscategorize any intrinsic due to a naming prefix mismatch.
-- [ ] Progress bar percentage (`progress`/`masteryProgress`) visually matches `xpIntoRank`/`xpNeeded` — verify the label position, percentage text, and bar fill width all agree with each other and don't clip outside the track for near-0% or near-100% values.
-- [ ] "Rank up ready" banner (`isRankUpReady`, `progress >= 100`) only appears when the account can actually rank up, and the normal progress card is shown otherwise — no state where both or neither render.
-- [ ] `xpAtCurrent`/`xpNeeded`/`xpUntilNext` use the correct quadratic (MR≤30) vs flat (legendary) XP formulas and never go negative (both are `Math.max(0, ...)` guarded) — spot-check a couple of ranks against wiki values.
-- [ ] Clicking any category tile (item, intrinsic, or starchart) opens the detail modal for that specific category, not a neighboring one — verify `onClick={() => setSelectedCategory(item)}` always captures the clicked tile's own data.
-- [ ] Detail modal header count (`selectedCategory.mastered / selectedCategory.total`) matches the tile the user clicked from, not a stale/previous selection.
-- [ ] Starchart modal: "Hide non-mastery nodes" checkbox correctly filters out only nodes with `mastery_xp === 0`, and toggling it back shows the full node list again.
-- [ ] Starchart modal: per-system "done/total" counts use `sp_played` for the Steel Path row and `played` for the origin row — verify the two starchart tiles never share the same completion source (i.e., Steel Path doesn't show origin completion or vice versa).
-- [ ] Starchart node list correctly marks a node complete (checkmark, strikethrough, dim) only for the refinement type matching the open tile (origin vs Steel Path), and Junction nodes are labeled distinctly.
+- [ ] MR icon renders correctly for every rank 0–30 with no blank/broken image — needs live visual spot-check
+- [ ] Legendary rank icon (MR31+) — needs live verification with a legendary-rank account
+- [x] Mastery title bands — confirmed `Math.ceil(rank/3)` against `MR_TITLE_SLUGS` produces the correct real Warframe title progression (Initiate 1-3, Novice 4-6, ... Master 28-29, True Master 30), no off-by-one
+- [x] Each `getStats(cat)` call reads from a genuinely distinct source array — confirmed
+- [x] Robotics aggregate double-count — confirmed **not present**: `getStats('robotics')` is dead code, never called anywhere in the file; `totalXP` only sums `itemCompletion` (which uses the merged `companions` row) + intrinsics + starchart, so moaHeads/houndHeads XP is counted exactly once
+- [x] Dedupe key (unique_name for modular categories, lowercased name otherwise) — confirmed correct and consistent
+- [x] Dedupe keeps the highest-XP variant — confirmed, a fully-mastered duplicate always has ≥ XP than a partial one so it's never overwritten
+- [ ] Mastered/total counts match real in-game mastery totals — needs live verification
+- [x] `totalXP` / progress-bar consistency — confirmed already fixed in a prior session: `MonitoringContext.jsx`'s `masteryProgress` computation was previously undeduped while Mastery.jsx's own total was deduped, causing the progress bar to potentially disagree with the "X mastery | Y left" label; both now use the identical dedupe rule against the identical source arrays (verified line-by-line, just different internal category-key names for the same underlying data)
+- [x] Railjack (50) / Drifter (40) intrinsic caps — confirmed correct against current real game values
+- [x] Intrinsic name-prefix filtering (`Railjack`/`Drifter`) — reasonable, matches expected naming convention
+- [ ] Progress bar visual (label/percentage/fill-width agreement at near-0%/near-100%) — needs live visual spot-check
+- [x] Rank-up banner vs normal progress card — confirmed mutually exclusive (`isRankUpReady` / `!isRankUpReady`), no both/neither state possible
+- [x] XP formulas — both `Math.max(0, ...)` guarded against negative values, formula matches in-code wiki-sourced comments, identical between Mastery.jsx and MonitoringContext.jsx
+- [x] Category tile clicks capture the correct per-tile data — confirmed standard `.map()` closure correctness, no stale reference risk
+- [x] Detail modal header reads directly from the clicked `selectedCategory` — confirmed, no staleness possible
+- [x] "Hide non-mastery nodes" filter (`mastery_xp > 0`) — confirmed exact match to spec
+- [x] Starchart origin vs Steel Path completion source separation (`played` vs `sp_played`) — confirmed correctly branched by `nodeType`, no cross-contamination between the two tiles
 - [ ] Non-starchart item modal list sorts unmastered items first, then alphabetically, and each row's rank/XP figures belong to that specific item (not a sibling item with a similar name).
 - [ ] "No items found" / "no mastery nodes" empty states render correctly when a category has zero entries, instead of a blank panel.
 
 ### Relics.jsx
 
-- [ ] Era tabs (Lith/Meso/Neo/Axi/Requiem/Other/All) only appear when at least one relic in the current data actually belongs to that era, and selecting a tab filters to exactly that era's relics.
-- [ ] Refinement quality tab filter (`Intact`/`Exceptional`/`Flawless`/`Radiant`/`All`) matches on the relic's own `refinements` object for the selected tier, and does not fall through to matching a different tier's count.
-- [ ] Vaulted/Unvaulted/All filter correctly separates relics using the catalog's `vaulted` boolean, and unowned catalog relics merged in via `getRelicCatalog` carry the correct vaulted status (not defaulted to false/true).
-- [ ] Owned/Unowned filter toggle only includes catalog (unowned) relics when `ownershipFilter !== 'owned'`, and switching back to "Owned" excludes all synthetic catalog entries.
-- [ ] Merging owned relics with the full catalog (`ownedByKey` keyed by `${era} ${category}`) correctly matches each owned relic to its catalog counterpart via case-insensitive era-prefix/"Relic"-suffix stripping — verify no owned relic is duplicated (shown twice) or dropped (missing) due to a name-matching mismatch.
-- [ ] Search box matches relic name AND reward name (both case-insensitively, multi-word AND), and multi-word queries with a mismatched case (e.g. "Glaive PRIME") still return matches.
-- [ ] Squad size buttons (1–4) recompute Expected Ducats/Platinum values live, and the selected size is visually highlighted correctly.
-- [ ] Refinement target buttons (Intact/Exceptional/Flawless/Radiant) recompute the EV footer for the chosen refinement quality, and the displayed EV values change when a different target is selected.
-- [ ] Sort mode buttons (Name/Ducats/Plat/Refine(D)/Refine(P)) each sort by their own stated metric, not accidentally reusing another metric's comparator.
-- [ ] Clicking an already-active sort button toggles ascending/descending order and the arrow icon rotates to reflect the new order.
-- [ ] When sorting by anything other than "Name", relics are grouped under a single "Sorted by X (Order)" pseudo-group instead of by era — verify the era-based grouping and header ("`${era} Era`") only shows when `sortMode === 'name'`.
-- [ ] Per-relic refinement count label (`countLabel`) shows the correct quantity for each owned tier and correctly compresses to one/two/four-tier display based on how many tiers are actually owned.
-- [ ] Per-reward ducat and platinum values shown inside each relic card belong to that specific reward item (`allPrices[r.uniqueName]`), never a sibling reward's or the parent relic's price.
-- [ ] Reward rarity coloring (COMMON/UNCOMMON/RARE-and-above) is applied per reward based on that reward's own `rarity` field, not a relic-wide value.
-- [ ] Search-match highlighting (`[ ... ]` brackets around a reward name) appears only on rewards whose name actually contains the search term, using the same word-by-word AND matching as the top-level filter.
-- [ ] Expected Ducats footer is hidden for Requiem-era relics (`era !== 'Requiem'`) since Requiem relics/mods don't yield ducats — verify Requiem cards never show a (misleading) ducat figure.
-- [ ] Expected Plat/Ducat "Refinement Gain" row only appears when sort mode is `ducat_gain`/`plat_gain`, and its values equal Radiant EV minus Intact EV for that specific relic.
-- [ ] "Vaulted" badge on a relic card appears only for relics where `vaulted === true`, and grayscale/dim styling for unowned relics (`item.owned` false) is applied consistently.
-- [ ] Clicking a relic card opens the Acquisition Drawer for that exact relic's `unique_name`, and vaulted relics with no drop sources show the explicit "vaulted, no active source" message rather than a generic "no source known" message.
-- [ ] Void Traces count/max displayed in the header matches the account's actual current/max trace values — needs live verification.
-- [ ] Header subtitle counts ("Showing N relic types · M total") reflect the currently filtered set (era/quality/vault/search applied), not the unfiltered full relic list.
-- [ ] Relic icon images (era icons, Ducats/Platinum icons) load from the correct asset path and don't silently show a broken/missing icon for any era or currency type.
+- [x] Era tabs only appear when at least one relic in the current data belongs to that era — confirmed
+- [x] Refinement quality tab filter matches the relic's own tier count, no fallthrough — confirmed
+- [x] Vaulted status always sourced from the live catalog (`c.vaulted`), for both owned and unowned entries — confirmed, never defaulted
+- [x] Owned/Unowned toggle — confirmed "Owned" mode skips the catalog merge entirely, synthetic entries are never even constructed
+- [ ] Owned-relic-to-catalog name matching (era-prefix/"Relic"-suffix stripping) — the stripping regexes are case-insensitive but the resulting Map key comparison is a plain case-sensitive string match; couldn't fully rule out a duplicate/missing relic if `r.era` and the catalog's `c.era` ever differ in casing — needs live verification against a real relic collection
+- [x] Search matches relic name AND reward name, case-insensitive, multi-word AND — confirmed
+- [x] Squad size / refinement target buttons recompute EV live — confirmed, both are `useMemo` dependencies
+- [x] Sort mode buttons each use their own distinct metric field — confirmed
+- [x] Clicking an active sort button toggles order; clicking a different mode resets to descending — confirmed
+- [x] Grouping by era only when `sortMode === 'name'`, single pseudo-group otherwise — confirmed
+- [x] `countLabel` compression — confirmed correct; the "3 of 4 tiers owned" case intentionally falls through to the same all-4-tiers display as 0/4 owned, matching the documented one/two/four-tier design (not a bug)
+- [x] Per-reward ducat/plat values use that reward's own `uniqueName` price lookup — confirmed
+- [x] Reward rarity coloring uses that reward's own `rarity` field — confirmed
+- [x] Search-match bracket highlighting uses the same word-by-word AND matching as the top-level filter — confirmed
+- [x] Ducats footer hidden for Requiem-era relics — confirmed
+- [x] "Vaulted" badge and unowned grayscale styling — confirmed, both strict boolean checks
+- [x] Relic card click opens the drawer for the exact clicked relic, vaulted-no-source gets the explicit message — confirmed
+- [ ] Void Traces count/max — needs live verification
+- [x] Header subtitle counts reflect the filtered set, not the unfiltered list — confirmed
+- [ ] Relic icon images load correctly for every era/currency — needs live visual spot-check
 
 ### RelicPlanner.jsx
 
-- [ ] "All" / "Never Obtained" / "Missing" part filter tabs each apply distinct logic: "Never Obtained" excludes only parts that were never crafted (`everObtained`), while "Missing" excludes parts currently in stock (`directOwned`) — verify these two filters produce different result sets when a part has been crafted before but used up.
-- [ ] Prime-part catalog (`allParts`) includes every prime part AND Forma blueprints across all eras (Lith through Requiem-adjacent primes), not restricted to a subset of eras or item types — verify no era's parts are silently excluded from the picker.
-- [ ] Owned/dot indicator next to each part in the picker list (green vs gray dot) reflects that specific part's own `directOwned` status, not a neighboring part's.
-- [ ] "Add All Missing Parts" button adds every part with `directOwned === false` (including parts already in the Need list are skipped, not duplicated) — verify the resulting Need list count matches the number of distinct missing parts.
-- [ ] "Add Never Obtained" button adds only parts with `everObtained === false`, and is a strict subset of (or equal to) what "Add All Missing Parts" would add.
-- [ ] Adding a part already in the Need list is a no-op (button becomes disabled, `addPart` returns early via `needKeys.has`) rather than creating a duplicate row.
-- [ ] Removing a part from the Need list (X button) removes only that specific part by `uniqueName`, leaving all others intact.
-- [ ] "Clear" button empties the entire Need list and the "Best Relics" panel reverts to its empty state.
-- [ ] Relic-to-part matching (`results`) correctly falls back to a name/era-based match when a direct key lookup (`ownedRelics.get(relic.key)`) misses, and this fallback does not silently produce zero matches for an era whose relic-name formatting differs from the catalog key format.
-- [ ] "N owned" badge on a matched relic row equals that relic's actual `ownedCount` (sum of all four refinement tiers), not a single tier's count or the parent item's count.
-- [ ] "Vaulted" badge on a matched relic row is shown only when that specific relic's catalog entry is vaulted.
-- [ ] Owned/Unowned/All filter on the results panel correctly includes/excludes relics based on `ownedCount`, and matches the "X owned · Y not owned" summary line at the bottom.
-- [ ] Results are sorted with owned relics first (`ownedCount` desc) then by match count — verify unowned relics with many matching parts don't get buried below owned relics with zero relevant matches, if that's the intended UX (or confirm the sort matches documented intent).
-- [ ] "Prime parts" / "Selected" / "Owned matches" summary tiles at the top show counts consistent with `allParts.length`, `need.length`, and `${ownedShown}/${results.length}` respectively — verify none of these counters is stuck at 0 or a stale value.
-- [ ] "Owned matches" tile and "N owned" per-relic badges stay in sync when the Need list or ownership filter changes (no stale count left over from a previous Need selection).
-- [ ] Era icon shown next to each matched relic row corresponds to that relic's actual era, not a generic/default icon shown for all eras.
-- [ ] Filtering/searching parts by name in the search box matches case-insensitively and updates the picker list live without needing to re-select a filter tab.
+- [x] "All"/"Never Obtained"/"Missing" filter tabs use distinct fields (`everObtained` vs `hasEnough`) — confirmed distinct logic
+- [ ] Prime-part catalog covers every era — not independently verified, relies on shared `getAllRelicRewards`
+- [x] Owned/dot indicator reflects that specific part's own status — confirmed, computed per-part in the map closure
+- [x] "Add All Missing Parts" — confirmed no duplicates (explicit `needKeys.has` check)
+- [x] "Add Never Obtained" is a logical subset of "Add All Missing Parts" — confirmed by construction (never-obtained implies not-enough)
+- [x] Adding an already-needed part is a no-op — confirmed double-protected (early return + disabled button)
+- [x] Removing a part removes only that `uniqueName` — confirmed
+- [x] "Clear" empties the Need list and reverts the Best Relics panel — confirmed
+- **[BUG FOUND & FIXED 2026-08-29]** Owned-relic key normalization used `/\\s+Relic$/i` — a double-escaped regex literal that matches a literal backslash character, not whitespace, so it could never actually strip the trailing " Relic" suffix from owned relic names. Confirmed with a live Node test. It appeared to work anyway only because a third fallback lookup coincidentally reconstructed the same broken format. Fixed to `/\s+Relic$/i` at the root, making the primary (first-choice) lookup key correct instead of relying on the fallback.
+- [x] "N owned" badge sums all four refinement tiers — confirmed
+- [x] "Vaulted" badge sourced from that specific relic's own catalog entry — confirmed
+- [x] Ownership filter and summary line share the exact same derived values — confirmed, cannot disagree
+- [x] Sort order (owned first, then match count) — confirmed intentional design (prioritizes relics farmable right now over raw match count), not a bug
+- [x] Summary tiles read live-computed values directly, no staleness possible — confirmed
+- [x] "Owned matches" tile and per-relic badges share the same source — confirmed, cannot desync
+- [x] Era icon uses that specific relic's own era — confirmed
+- [x] Search matches case-insensitively and updates live independent of filter tab — confirmed
 
 ### Mods.jsx
 
-- [ ] Category tabs (Warframe/Primary/Secondary/Melee/Sentinels/Robotic/Beasts/Stance/Aura/Exilus/Railjack/Archgun/Archmelee/Parazon/Augment/Antique/Tome/Vehicles) each filter to mods whose `category` field exactly matches that tab, with no tab silently showing an empty or all-mods result due to a label/category string mismatch.
-- [ ] Exilus tab uses trait-based filtering (`m.isExilus`) rather than the `category` field, so a mod that is both e.g. Tome and Exilus-compatible correctly appears under both its own category tab and the Exilus tab — verify this cross-cutting behavior actually works instead of exiling such mods from one of the two tabs.
-- [ ] Peely Pix/Archimedea "sticker" items are excluded from every mod category view (`!mod?._isSticker`) and do not appear miscounted in any category tab's item count.
-- [ ] Owned/Unowned/All ownership filter correctly includes/excludes mods based on each mod's own `owned` boolean.
-- [ ] "Max Rank" filter includes only mods where `rank >= max_rank`, and correctly excludes partially-ranked copies of the same mod.
-- [ ] "Hide Conclave" filter excludes only mods whose `unique_name` contains `/PvPMods/`, and doesn't accidentally exclude non-Conclave mods with a similar path substring.
-- [ ] Search box matches against mod name, description text, flattened `levelStats`, and `arcaneType`, case-insensitively with multi-word AND — verify a search term that only appears in stat text (not the name/description) still surfaces the right mod.
-- [ ] Sort options (Name/Rank/Quantity/Rarity/Value) each sort by their own field — particularly verify "Rarity" uses the fixed `['common','uncommon','rare','legendary']` order (not alphabetical) and "Value" uses `allPrices` keyed by the mod's own `unique_name`.
-- [ ] Clicking an active sort button toggles ascending/descending, and clicking a different sort button resets to ascending with the new criterion (per `handleSortChange`).
-- [ ] Subtitle counts ("`N total · M unique · D duplicate`") are computed from the currently filtered set, and `dupCount`/`uniqueMods` reflect real duplicate/unique mod names rather than double-counting distinct ranks of the same mod as "duplicates" incorrectly (or vice versa).
-- [ ] "Load more" button increments visible count by 60 and correctly shows the remaining count (`filtered.length - visibleCount`) in its label, disappearing once all filtered mods are visible.
-- [ ] Changing search/category/ownership/max-rank/conclave filters resets `visibleCount` back to 60 so a previously scrolled-down list doesn't show a mismatched item count for the new filter.
-- [ ] Per-mod-card plat value (`platValue`) shown on each card belongs to that card's own `mod.unique_name`, not a different rank/copy of the same mod or an unrelated mod.
-- [ ] Duplicate-copy badge on a mod card (`mod.quantity > 1`) shows the correct owned-copy count for that specific mod, not a stale or shared count across ranks.
-- [ ] Rank pips (`RankPips`) render the correct number of filled vs empty pips for `rank`/`max_rank`, capped visually at 10 even when `max_rank` exceeds 10 — verify a mod with `max_rank` > 10 doesn't silently show a wrong/overflowing pip count.
-- [ ] Polarity icon shown on a card (`POLARITY_FILES[mod.polarity]`) maps each raw polarity code (`AP_ATTACK`, `AP_DEFENSE`, `AP_TACTIC`, `AP_POWER`, `AP_PRECEPT`, `AP_FUSION`, `AP_WARD`, `AP_UMBRA`, `AP_ANY`) to its correct visual symbol — verify no polarity code renders as a blank icon or the wrong shape.
-- [ ] Raw polarity/category code strings are never displayed to the user unstranslated — confirm the category label shown on-card is the human-readable category, not an internal code.
-- [ ] "Complete" rank-line overlay (`displayCompleteLine`) appears only when a mod is genuinely at max rank, and does not appear for Arcanes (which are explicitly excluded from this overlay).
-- [ ] Trigger-only descriptions (ending in ":") correctly fall back to the max-rank `levelStats` text instead of showing a truncated/empty description.
-- [ ] Fusion core ("Legendary Core") and sticker card variants render distinctly from normal mod cards and show correct plat values without applying rank-pip/polarity chrome meant for standard mods.
-- [ ] Grayscale/dim styling applied to unowned mod cards (`mod.owned` false) is consistent with the Owned/Unowned filter state — an unowned mod shown under "All" is visually distinguished from an owned one.
-- [ ] Clicking a mod card opens the Acquisition Drawer scoped to that exact mod's `unique_name`, matching the mod actually clicked even after sort/filter changes shift list order.
+- [x] Category tabs filter by the internal English `category` field, not the translated label — confirmed, locale-safe by design (explicit code comment documents this)
+- [x] Exilus tab uses `m.isExilus` trait, not `category` — confirmed correct cross-cutting behavior
+- [x] Sticker items excluded from every mod view — confirmed, filtered at the base `mods` memo before any category split
+- [x] Ownership filter uses `m.owned` boolean — confirmed
+- [x] "Max Rank" filter (`rank >= max_rank`) — confirmed
+- [x] "Hide Conclave" filter (`/PvPMods/` path substring) — confirmed reasonably precise
+- [x] Search matches name/description/levelStats/arcaneType — confirmed, plus it now also searches `MOD_WIKI_TAGS`, an improvement beyond what this checklist item originally described, not a regression
+- [x] Sort: Rarity uses fixed common→legendary order (not alphabetical), Value keyed by own `unique_name` — confirmed
+- [x] Sort toggle/reset behavior (`handleSortChange`) — confirmed matches spec exactly
+- [x] Subtitle counts (`total`/`unique`/`duplicate`) — confirmed correct; `mods_catalog` is one entry per mod type (not per rank-copy), so `dupCount` genuinely counts distinct mod types with `quantity > 1`, no double-counting
+- [x] "Load more" increments by 60, correct remaining-count label, disappears when exhausted — confirmed
+- [x] `visibleCount` resets to 60 on any filter change — confirmed (sort changes correctly excluded from this reset, since re-sorting doesn't change which items are in the filtered set)
+- [x] Per-card plat value keyed by that card's own `unique_name` — confirmed
+- [ ] Duplicate-copy badge, rank pips, polarity icons, "Complete" overlay, trigger-description fallback, fusion-core/sticker card variants — these all live inside `ModCard.jsx`, which has its own dedicated checklist section later; deferring verification there instead of duplicating it
+- [x] Grayscale/dim styling matches `mod.owned` — confirmed, same field drives both filtering and styling
+- [x] Card click opens the drawer for the exact clicked mod, robust to sort/filter reordering — confirmed
 
 ### Foundry.jsx
 
-- [ ] Every category tab (All, Warframe, Primary, Secondary, Melee, Modular, Arch, Companion) filters the grid to only items in its mapped inventory keys, with no equipment items missing from every tab and none duplicated across tabs it shouldn't appear in
-- [ ] Selecting a category tab clears any currently-open recipe drawer (`selectedName` resets on tab change)
-- [ ] Clicking any equipment card opens the `RecipeDrawer` for that exact item, and clicking a different card while one is open switches the drawer content rather than stacking drawers
-- [ ] OWNED badge (green, "OWNED") is shown only when `item.owned` is true or `recipe.ownedCount > 0` — never when only `recipe.bpCount > 0` (unbuilt blueprint) is true
-- [ ] MISSING badge is shown whenever neither the item nor its recipe-tracked built count indicate ownership, even if a blueprint is owned
-- [ ] The amber "BP" bubble only appears when `recipe.bpCount > 0`, and shows the numeric count (e.g. "3 BP") when more than 1, plain "BP" when exactly 1
-- [ ] The BP bubble count reflects blueprint-only stock and is never conflated with the "Built" count shown in the recipe drawer
-- [ ] Ready-to-craft check icon appears only when `recipe.readyToCraft` is true, or when `allIngredientsMet` is true AND `bpCount > 0` (i.e., never marked ready with zero blueprints even if ingredients are complete)
-- [ ] Ingredient/component pips on each card show `have/need` counts that match the recipe drawer's own ingredient list for the same item
-- [ ] Component pip turns green/"complete" styling only when `have >= need`, for every ingredient across every category
-- [ ] Formas indicator (`●` dots) renders `min(item.formas, 10)` dots and never overflows the card for items with >10 formas
-- [ ] Recipe drawer's "Blueprint" stat tile shows `recipe.bpCount`, "Built" tile shows `recipe.ownedCount`, and these two numbers are never swapped or merged
-- [ ] Recipe drawer's "Time" tile shows a human-readable duration (e.g. "1h 30m") derived from `buildTime` in seconds, with correct hour/minute math at boundary values (e.g. exactly 3600s renders "1h 0m", not "1h" or blank)
-- [ ] Recipe drawer ingredient rows are colored green when `have >= need` and red otherwise, consistently with the card's own pip coloring for the same ingredient
-- [ ] Recipe drawer status banner reads "Ready to craft" only under the same `isReadyToCraft` condition as the card's check icon; reads "Missing blueprint" when `bpCount` is 0; reads "Missing ingredients" when blueprint is owned but ingredients aren't complete
-- [ ] Items with no matched recipe (no `resultType` or name match in `inventoryData.craftable`) show "No recipe data is available for this item." rather than a blank or broken drawer
-- [ ] Search box filters items by name substring, case-insensitively, across the currently active category only
-- [ ] Ownership filter button cycles All → Owned → Unowned → All on repeated clicks, and the displayed items match `hasFoundryOwnership` for the selected state
-- [ ] "Ready" toggle, when active, hides every item whose recipe is not ready-to-craft, using the same readiness definition as the check icon
-- [ ] Mastery filter (All/Mastered/Unmastered) excludes items where `masterable === false` (e.g. non-Head Zanuka Hound parts) from both the Mastered and Unmastered views, but keeps them visible under "All"
-- [ ] Header subtitle "`N / M owned`" count matches the count of items passing `hasFoundryOwnership` out of all items in the active category (unaffected by search/ownership/ready/mastery filters, since it's computed from `items` not `filteredItems`)
-- [ ] Prime-part items (`category === 'prime_parts'`) never appear in the Foundry grid in any category
-- [ ] Items sharing the same `unique_name` across overlapping category keys (e.g. Modular's kitguns/zaws/amps) are de-duplicated and appear only once
+- [x] Category tabs map to mutually-exclusive key lists, no cross-tab duplication (dedup `seen` Set also guards within a tab) — confirmed
+- [x] Selecting a category tab clears the open recipe drawer — confirmed
+- [x] Card clicks open/switch the drawer via a single `selectedName` state, no stacking — confirmed
+- [x] OWNED badge never counts an unbuilt blueprint as ownership — confirmed, matches the explicit code comment
+- [x] MISSING badge is the exact inverse of OWNED (same boolean drives both) — confirmed
+- [x] "BP" bubble text/count — confirmed matches spec exactly
+- [x] BP bubble is blueprint-only stock, never conflated with "Built" — confirmed, distinct fields
+- [x] Ready-to-craft check icon condition — confirmed matches spec exactly
+- [x] Card pips and drawer ingredient list read the same `recipe` object — confirmed, cannot disagree by construction
+- [x] Component "complete" styling (`have >= need`) — confirmed consistent in both card and drawer
+- [x] Forma dots capped at 10 — confirmed
+- [x] Blueprint/Built stat tiles use distinct fields, never swapped — confirmed
+- [x] Duration formatting at the 3600s boundary — confirmed renders "1h 0m" correctly
+- **[BUG FOUND & FIXED 2026-08-29]** Recipe drawer's status banner background color was driven by `recipe.allIngredientsMet` while its text was driven by the stricter `isReadyToCraft(recipe)` (which also requires `bpCount > 0`) — so a recipe with all ingredients stocked but zero blueprints owned showed a green "ready" background next to a "Missing blueprint" message. Fixed both to use `isReadyToCraft(recipe)` consistently.
+- [x] No-recipe-data fallback message — confirmed
+- [x] Search scoped to the active category (applied on top of the already-category-filtered `items`) — confirmed
+- [x] Ownership filter cycle and correctness — confirmed, same pattern as other screens
+- [x] "Ready" toggle uses the same `isReadyToCraft` definition as the check icon — confirmed
+- [x] Mastery filter excludes non-masterable items from Mastered/Unmastered but keeps them under "All" — confirmed matches the explicit code comment
+- [x] Header subtitle computed from `items`, not `filteredItems` — confirmed unaffected by search/ownership/ready/mastery filters
+- [x] Prime parts excluded from every category — confirmed
+- [x] Cross-key duplicate `unique_name`s deduplicated — confirmed
+- [x] "All" tab includes `kdrives` via `ALL_KEYS` even with no dedicated tab — confirmed
 - [ ] "All" tab includes every equipment key listed in `ALL_KEYS`, including `kdrives`, even though no dedicated tab surfaces that key alone
 
 ### Rivens.jsx
 
-- [ ] Type tabs (All, Rifle, Pistol, Melee, Shotgun, Sniper, Kitgun, Zaw, Archgun) filter rivens by `weapon_type` case-insensitively, and every riven with a set `weapon_type` appears under exactly one non-"All" tab
-- [ ] State tabs: "Unveiled" shows only rivens where both `veiled` and `challenge` are falsy; "Challenge" shows only `challenge`-truthy rivens; "Veiled" shows only `veiled`-truthy rivens; no riven appears in more than one of these three mutually exclusive buckets
-- [ ] Search box filters by riven name substring, case-insensitive, combined with (not overriding) the active type/state filters
-- [ ] Clicking a sort criterion (Name/Plat/Grade) not currently active selects it with descending direction by default; clicking the already-active criterion flips direction instead of resetting it
-- [ ] Sort direction arrow icon visibly flips (rotates) to reflect current asc/desc state
-- [ ] "Plat" sort orders by cached pricing estimate; rivens with no cached price yet (`estimate == null`) sort consistently to one end rather than interleaving randomly
-- [ ] "Grade" sort orders S > A > B > C > D > F correctly, with plat price used only as the tiebreaker within identical grades, and ungraded rivens (`grade` undefined) treated as F
-- [ ] Clicking a riven card opens `RivenGradeDrawer` for that specific riven (matched via `rivenKey`), and clicking the same card again toggles the drawer closed
-- [ ] Two different veiled rivens with the same weapon name produce distinct drawer/pricing keys (via the `_veiled` key suffix), so opening one never shows data from the other
-- [ ] Two different challenge rivens of the same weapon likewise get distinct keys (`_challenge` suffix) and don't collide with each other or with unveiled copies
-- [ ] Two unveiled rivens with identical stat rolls on the same weapon share a cache key by design (both must show the same price estimate) — confirm this is the intended, not accidental, behavior
-- [ ] Veiled riven cards show the "VEILED" label and, when `quantity > 1`, an "x{quantity}" badge, and never show stats, MR, rerolls, or grade/price badges
-- [ ] Challenge riven cards show the challenge description text and, when present, a nonzero reroll count, but never show the stat-grade badge or price badge (both gated on `!veiled && !challenge`)
-- [ ] Unveiled riven cards show MR requirement (`riven.mr`, falling back to "?" when absent), reroll count only when `rerolls > 0`, and rank pips reflecting `rank`/`maxRank` (8) accurately, including the "rank complete" line only at max rank
-- [ ] Grade badge (S/A/B/C/F color-coded) appears only after `statGradesReady` is true and only for unveiled, non-challenge rivens with a resolvable stat grade; its color mapping matches the grade letter for every grade value
-- [ ] Price badge (platinum estimate) appears only once `pricingCache` has an entry for that riven and only for unveiled, non-challenge rivens; hovering shows the detailed tooltip (weapon rank/total, avg value, your value, reroll potential) with numbers consistent with the badge
-- [ ] Riven pricer request splits stats into `positive`/`negative` arrays using each stat's own `positive` boolean — no stat is included in both, and no stat is dropped from both, before being sent to `estimate_riven_full_batch`
-- [ ] Stat name → pricer key mapping (`STAT_TO_PRICER`) correctly maps every riven stat tag the game can produce; any tag not in the table falls back to a lowercase/underscore transform rather than silently omitting the stat from pricing
-- [ ] Pricing uses the English stat/weapon name (`weapon_name_en`/`statKey`) even when the UI is localized, so pricer lookups don't silently fail on non-English installs
-- [ ] Batch pricing effect only fetches rivens not already cached (`toFetch`), and re-running the effect after new rivens arrive doesn't re-fetch already-priced rivens
-- [ ] If the pricer returns zero results (e.g. not yet warmed up), the app automatically retries once after 3s, and this doesn't loop indefinitely on persistent failure
-- [ ] Header subtitle counts ("`N unveiled · N challenge · N veiled · N/capacity`") reflect the true unfiltered totals across all rivens, not the currently filtered/searched subset
-- [ ] Riven capacity denominator reflects `account.riven_capacity` and updates if that account value changes
-- [ ] `RivenGradeDrawer` per-stat assessment rows render distinct, correctly colored labels (GOOD, OFF-TARGET, SAFE NEGATIVE, RISKY NEGATIVE, MISSING REQUIRED) matching each stat's actual grading status, with no stat silently falling into an unstyled default
-- [ ] `RivenGradeDrawer` "Target combo" line correctly lists mandatory stats, then the "+N of [...]" optional-stat clause only when optional stats exist, then safe-negatives only when present — no stale text bleeding in from a previously opened riven
-- [ ] Opening the grade drawer for a riven with no curated stat profile shows the explicit "No curated stat profile exists for this weapon" message rather than a blank or stale drawer
-- [ ] No raw internal stat-tag codes or riven type enum strings (e.g. untranslated `AP_*` polarity codes) leak into any visible label
+- [x] Type tabs filter by `weapon_type` case-insensitively — confirmed
+- [x] State tabs mutually exclusive by the game's own data model (a riven can't genuinely be both veiled and challenge) — confirmed
+- [x] Search combines with (doesn't override) type/state filters — confirmed, single ANDed filter pass
+- [x] Sort toggle/reset behavior — confirmed, same verified pattern as Mods.jsx/Relics.jsx
+- [x] Plat sort — unpriced rivens (`?? -1` sentinel) consistently cluster at one end in both directions — confirmed correct
+- [x] Grade sort — S→F order, price tiebreaker, ungraded defaults to F — confirmed matches spec exactly
+- [x] Card click toggles the grade drawer via the shared `useAcquisitionDrawer` hook — confirmed, same verified pattern as other screens
+- [x] `rivenKey()` collision safety — confirmed by the function's own detailed code comment: item_id (real per-instance identity) is used whenever present; the name-based veiled fallback is safe specifically because veiled rivens are always DE-stacked into one entry per weapon type (never rendered as separate colliding cards); challenge/unveiled rivens are individual instances that carry a real item_id in practice, so their name-based fallback branches are defensive, rarely-exercised paths rather than an active bug
+- [ ] Veiled/Challenge/Unveiled card content, grade badge, price badge — these render inside `RivenCard.jsx`, which has its own dedicated checklist section; deferring there
+- [x] Positive/negative stat split uses each stat's own `positive` boolean — confirmed mutually exclusive and exhaustive
+- [x] `STAT_TO_PRICER` has a lowercase/underscore fallback for any unmapped tag, never silently drops a stat — confirmed; the table's exhaustiveness against every possible tag wasn't independently cross-checked
+- [x] Pricing uses English weapon/stat names regardless of UI locale — confirmed
+- [x] Batch pricing only fetches uncached rivens (`pricingRef` mutable ref, synchronously updated) — confirmed no redundant re-fetching
+- **[BUG FOUND & FIXED 2026-08-29]** The pricer retry-on-empty-results logic had no attempt cap — every failed batch scheduled another retry 3s later with nothing to stop it, so a persistently-down pricer would get hammered indefinitely instead of "retrying once" as intended. Added a `retryCountRef` capping it to 3 attempts, resetting on any successful fetch.
+- [x] Header subtitle counts computed from `allRivens`, not the filtered list — confirmed unaffected by search/type/state filters
+- [x] Capacity denominator reads live `account.riven_capacity` — confirmed
+- [ ] `RivenGradeDrawer` per-stat assessment rows, target-combo line, no-curated-profile message — has its own dedicated checklist section; deferring there
+- [ ] No raw stat-tag/polarity codes leaking into visible labels — will check when covering RivenCard.jsx/RivenGradeDrawer.jsx directly
+
+Also cleaned up 5 stray `console.log` debug statements left in this file (render timing, pricing effect internals) while reviewing it — unrelated to any of the above findings, just leftover debugging noise.
 
 ### Cosmetics.jsx
 
-- [ ] Search box filters cosmetics by name substring case-insensitively
-- [ ] Kind filter buttons (Warframe, Primary, Secondary, Melee, Archwing, Sentinel, Syandana, Armor, Glyph, Sigil, Other) each show only items whose computed `type` matches that filter, and every skin/sigil/glyph item resolves to exactly one of these types (nothing silently falls into a type not represented by any button)
-- [ ] Ownership filter (All/Owned/Unowned) reflects each item's `owned` flag, computed from presence in `WeaponSkins`/`FlavourItems`/`MiscItems`/`ShipDecorations` inventory buckets by normalized `ItemType`
-- [ ] OWNED badge and border-color treatment on a cosmetic card match its computed `owned` boolean exactly, with no case where a partially-owned bundle or unbuilt state is misreported as fully owned
-- [ ] Changing search, kind filter, or ownership filter resets pagination (`visibleCount`) back to the first page rather than showing an empty/short page from a previous filter state
-- [ ] "Load more" button appears only when more filtered items remain beyond the current page, shows the correct remaining count, and loads exactly the next page size without skipping or duplicating items
-- [ ] Clicking anywhere on a cosmetic card (not just the "Acquisition" button) opens the Acquisition drawer for that specific item
-- [ ] The "Acquisition" button's `stopPropagation` prevents a double-trigger/duplicate drawer toggle when clicked directly on the button
-- [ ] Acquisition drawer content (`getAcquisitionInfo`) is correct for every cosmetic type: skins/armor/syandanas resolve to a specific route (drop, market, vendor, Baro, bundle, syndicate, TennoGen, etc.) rather than always falling back to a generic message — needs live verification against actual game data for a representative sample per category
-- [ ] Legacy/internal glyphs marked `excludeFromCodex`/`codexSecret` in the export data are hidden from the list unless actually owned, and never shown as an obtainable "MISSING" item
-- [ ] Header subtitle "`N / M owned`" total matches the count of `owned` items over all items (skins + sigils + glyphs), independent of active filters
-- [ ] Every cosmetic type-detection branch (`cosmeticType`) correctly classifies borderline uniqueNames (e.g. an item path containing both "sentinel" and "weapons" segments) into exactly one category, never two or zero
-- [ ] Empty-results state ("No cosmetics match.") appears only when the filtered list truly has zero items, not when data is still loading
+- [x] Search matches name substring case-insensitively — confirmed
+- [x] Kind filter buttons — confirmed each `cosmeticType()` branch returns immediately (mutually exclusive) with a final catch-all (never unclassified); doc's kind list is slightly stale (an 'Animation' type/button exists in code but isn't listed in this checklist item — not a bug, just newer than the doc)
+- [x] Ownership filter reads `owned` from the 4 correct raw inventory buckets — confirmed
+- [x] OWNED badge/border matches the boolean exactly — confirmed, binary Set-membership check, no partial-ownership ambiguity possible in this data model
+- [x] Pagination resets on any filter change — confirmed
+- [x] "Load more" — confirmed correct remaining-count and clamped increment, no skip/duplicate risk (always a prefix slice)
+- [x] Whole-card click opens the drawer — confirmed
+- [x] Acquisition button `stopPropagation` prevents double-trigger — confirmed
+- [ ] Acquisition drawer content correctness per cosmetic type — needs live verification across a representative sample
+- [x] Legacy/secret glyphs hidden unless owned — confirmed, same pattern applied to both skins and glyphs
+- [x] Header subtitle computed from the full `items` list, not `filtered` — confirmed
+- [x] Type-detection branch exclusivity/exhaustiveness — confirmed; this file's extensive inline comments show these exact edge cases (weapon-skin substring false-positives, Operator/Drifter miscategorization) were already debugged and fixed in a prior session
+- [x] Loading state vs. true-empty state are distinct render paths — confirmed, cannot be confused
 
 ### Collectibles.jsx
 
-- [ ] Each Series card (Kuria, Lost Islands of Duviri, Isleweaver Fragments) shows `count / total` sourced from the matching `collectibleSeries` entry's `Count`/`ReqScans`, and a card with no matching entry shows 0/0 rather than crashing or showing stale data
-- [ ] Progress bar fill percentage on every card matches `count/total` rounded correctly, including the 0-total edge case (must not divide by zero or render >100%)
-- [ ] Clicking a Series card opens its subpanel with exactly `total` generated slot entries; individual scan status per slot renders as unknown/amber (not falsely green or falsely empty) since the game data can't map bitset slots to specific Kurias
-- [ ] Open World marker cards (Plains of Eidolon Caves, Orb Vallis Caves, Fortuna, Necralisk) compute `total` as `discoveryState.length * 32` and `count` as the true popcount of all discovery bits — verify bit-counting (`countBits`) is accurate for values with the sign bit set (bit 31)
-- [ ] Clicking a marker card with no discovery data yet loaded shows the explicit "Caves not yet loaded from inventory" placeholder rather than an empty panel
-- [ ] Clicking a marker card with real discovery data lists exactly the discovered area/bit combinations, each marked found, with no extra or missing entries relative to the bitset
-- [ ] Every Lore Fragment category (Somachord Tunes, Frame Fighter Fragments, Cephalon Fragments, Leverian Prex Cards, Thousand-Year Fish, Encrypted Journal Fragments, Glass Shard Fragments, Fortuna Fragments, Albrecht's Notes, Nakak Memory Fragments, The Tenets, Partnership Fragments) has a `match` predicate that is mutually exclusive with every other category's predicate, so no single fragment ItemType is double-counted or attributed to the wrong category — this is checklist-critical given the "Cephalon Fragments" catch-all explicitly excludes many overlapping path segments
-- [ ] Cephalon Fragments' catch-all `match` predicate correctly excludes all fragment families it lists (Eidolon, Music, FrameFighter, LoreCard, Solaris, GrineerGhoul, Albrect, Revenant, CorpusRelief, GasCity, GlassFragments) — any newly added fragment family not in this exclusion list would silently miscount as a Cephalon Fragment
-- [ ] Fragment "found" count only increments when `f.Progress > 0`, not merely on presence of an entry
-- [ ] Fragment subpanel lists only fragments actually collected (`Progress > 0`) with resolved display names via `fragName`, falling back to a de-camel-cased leaf name when no dictionary entry exists, and shows "None collected yet" placeholder when the category has zero
-- [ ] `wikiTotal` denominators per fragment category are accurate to the current game version — needs live verification against the wiki, since a stale total would permanently cap progress below 100% or show impossible >100%
-- [ ] No raw internal `ItemType` path strings (e.g. `/Lotus/Types/Lore/Fragments/...`) leak into visible card or subpanel labels
+- [x] Series cards show `count/total` from the matching entry, 0/0 with no match — confirmed
+- [x] Progress bar percentage — confirmed divide-by-zero guarded, never exceeds 100% (count can't exceed total by construction)
+- [ ] Series subpanel per-slot found/not-found status — the code does attempt a real bit-level answer (`getSeriesTrackingBits`'s sliding-window match against the expected popcount) rather than always showing "unknown," which is a discrepancy from this checklist item's original expectation. Whether DE's `Tracking` bit order actually corresponds 1:1 with this app's slot enumeration order (i.e., whether a specific bit really means "this specific Kuria") isn't something I can verify from code alone — flagging as an open data-trust question, not a clear-cut bug
+- [x] Marker `total`/`count` via `discoveryState.length * 32` and `countBits` — confirmed accurate including bit 31 (uses unsigned right-shift `>>>=`, no sign-extension issue)
+- [x] "Not yet loaded" placeholder for markers with no discovery data — confirmed present
+- [x] Marker subpanel lists exactly the discovered bit combinations — confirmed, derived directly from the same bitset used for the count
+- [x] Lore Fragment category `match` predicates mutually exclusive — **confirmed and fixed earlier this session**: Cephalon Fragments was missing a `/Duviri` exclusion, double-counting the 10 DuviriFragments + 1 DuviriMITWFragments entries; fixed and wiki-verified (see punch list)
+- [x] "Found" count only increments on `Progress > 0` — confirmed
+- [x] Fragment subpanel — **checklist item was stale**: current code intentionally lists the *entire* catalog (found and not-found both, sorted not-found-first), not just collected fragments — an explicit prior-session improvement per the code's own comment ("so the subpanel can list every item, not just what's been scanned"), not a bug. Placeholder text is "Catalog not loaded yet" for the genuine loading-race case; there's no "None collected yet" state since the full catalog is always shown once loaded.
+- [ ] Fragment category totals accuracy — sourced live from `ExportCodex.json` (DE's own data), not hardcoded, per an explicit code comment referencing a prior fix; not independently re-verified against the wiki this pass
+- [x] No raw `ItemType` path strings leak into labels — confirmed, `fragName()` always resolves to a dictionary name or de-camel-cased leaf
 
 ### Adversaries.jsx
 
-- [ ] Progenitor Element reference table lists every Warframe under the correct element column per `PROGENITOR`, with no frame appearing under two elements or missing entirely
-- [ ] Nemesis history rows resolve each entry's `KillingSuit` to a display name via `resolveItemName`, falling back to the raw path leaf only when resolution fails — no raw internal path should appear as `wfName` in the UI under normal data
-- [ ] Element badge/icon per nemesis row matches the base (non-Prime) Warframe's progenitor element from `WF_PROGENITOR`, correctly stripping "Prime" suffix before lookup so Prime-frame nemeses still resolve an element
-- [ ] Status pill per row correctly distinguishes "Vanquished" (`n.k` true), "Traded" (`Traded` true, not killed), and "Converted" (neither) — these three states are mutually exclusive per row
-- [ ] "Show vanquished" checkbox, when unchecked, hides only rows where `n.k` is true; when checked, shows all rows including vanquished ones
-- [ ] Rank display (`R{n.Rank}`) shows "R?" gracefully when rank is missing rather than "Rundefined" or similar
-- [ ] Date column renders a valid localized date only when `d.$date.$numberLong` is present and parses to a valid timestamp; otherwise no date is shown (not "Invalid Date")
-- [ ] "Owned Sister weapons" section lists a Tenet weapon only if it's in `SISTER_TENET_WEAPON_NAMES`, actually owned, and not a `prime_parts` category entry, with duplicates (by unique_name/name) removed
-- [ ] "Owned Sister weapons" section is hidden entirely when the owned list is empty, never rendering an empty card
-- [ ] The "(N evidenced converted)" header count uses `max(non-killed-non-traded nemesis count, owned Sister weapon count)` — verify this doesn't double count when both a Nemesis History record AND an owned weapon exist for the same converted Sister (the max, not a sum, avoids double counting; confirm no plausible input makes it undercount instead)
-- [ ] Element icon images that fail to load (404/missing asset) hide gracefully via `onError` rather than showing a broken-image icon
-- [ ] No raw internal codex/nemesis JSON keys (e.g. `KillingSuit` path strings, `Traded` boolean literal) leak into the rendered UI text
+- [x] Progenitor Element table — confirmed already carefully sourced/corrected in a prior session (explicit wiki-sourced comment documents fixing Excalibur's element and removing two invented element categories); not independently re-verified frame-by-frame against the wiki this pass
+- [x] `KillingSuit` resolution falls back to path leaf only, never full path — confirmed
+- [x] Element lookup correctly strips "Prime" before the `WF_PROGENITOR` lookup — confirmed
+- [x] Status pill three-way mutual exclusivity — confirmed
+- [x] "Show vanquished" checkbox — confirmed
+- [x] Rank "R?" fallback uses `??` (not `||`), so a real Rank 0 still displays correctly instead of falling back to "?" — confirmed, good detail
+- [ ] Date rendering — the guard only checks that `$numberLong` *exists*, not that it parses to a valid timestamp; a malformed numeric string would produce a truthy `Invalid Date` object and render the literal text "Invalid Date". Real DE data is very unlikely to ever send a malformed timestamp here, so this is a theoretical hardening gap rather than an observed bug — not fixed, flagging for awareness
+- [x] "Owned Sister weapons" filtering/dedup — confirmed
+- [x] Section hidden entirely when empty — confirmed
+- [x] "(N evidenced converted)" uses `max()` not sum, explicitly avoiding double-count — confirmed, matches the code's own documented reasoning
+- [x] Neither element-icon `<img>` has an `onError` handler that hides the image — initially "fixed" this by adding `display:'none'` handlers, but the project's build audit explicitly bans that exact pattern (`onError` + `style.display='none'`) as "silent image element hiding... causes blank UI cards on missing network requests." Reverted — a visible broken-image icon is this project's deliberate, enforced choice over a silently vanishing card. Not a bug.
+- [x] No raw internal keys leak into UI text — confirmed
 
 ### Wiki.jsx
 
-- [ ] On first mount with zero existing tabs, a default tab (`wiki-0`) is created and shown automatically
-- [ ] On first mount with existing persisted tabs, the previously active tab (tracked via module-level `lastActiveId`) is re-shown; if that tab no longer exists, the last tab in the list is shown instead — never leaves the view with no active tab selected
-- [ ] Clicking a tab in the tab strip switches the visible webview to that tab's URL and highlights it as active
-- [ ] Middle-click (or other "open new tab" trigger) from within a wiki page opens a new tab in the same window that triggered it, not in every open window (`source_window` filter)
-- [ ] Closing a tab via the X button removes only that tab; if it was the active tab, another tab (the new last one) becomes active automatically; closing the last remaining tab creates a fresh default tab rather than leaving zero tabs
-- [ ] Tab title updates optimistically as pages load/navigate, scoped to the correct window (`source_window` check), and never overwrites another window's tab titles
-- [ ] The refresh button reloads only the currently active tab's content
-- [ ] Wiki container reflow (position/size sync to the native webview) fires when the container resizes or the sidebar becomes visible, keeping the embedded page visually aligned with its placeholder `div` — no visible misalignment or stale-size webview after a window resize
-- [ ] When the Wiki screen unmounts (navigating away), the active tab's webview is hidden but not closed, and its tab list persists for return visits within the same window
-- [ ] Every wiki link opened from other screens (Acquisition drawers, item detail links, etc.) resolves to the correct, unambiguous wiki page for that specific item — not a generic search results page or an unrelated same-named disambiguation page (e.g. an item named identically to an unrelated wiki topic) — needs live verification against the actual wiki content for a sample of items per category (weapons, mods, cosmetics, resources, quests)
-- [ ] Any wiki link built from a generic name-based search fallback (rather than a curated/verified URL) is flagged for the categories most likely to collide with disambiguation pages, and confirmed to land on the intended article rather than a same-named alternate topic — needs live verification
-- [ ] Tab count displayed in the tab strip matches the actual number of open webviews reported by `list_wiki_tabs`/`wiki-tabs-changed`, with no ghost tabs (UI shows a tab whose webview was already closed) or orphaned webviews (webview open but not shown in the tab strip)
+- [x] Default tab created on first mount with zero tabs — confirmed
+- [x] Previously-active tab re-shown on remount, falls back to last tab, never leaves nothing selected — confirmed
+- [x] Tab click switches and highlights correctly — confirmed
+- [x] New-tab events scoped to the originating window via `source_window` check — confirmed
+- [x] Closing a tab — confirmed, `wiki-tabs-changed` listener handles both "switch to last remaining" and "recreate default tab if none remain"
+- [x] Title updates scoped by `source_window`, same pattern as new-tab events — confirmed
+- [x] Refresh button targets only the active tab — confirmed
+- [x] Reflow — confirmed via `ResizeObserver` + window resize listener, debounced with a 2px-change threshold to avoid excessive calls while still catching real resizes
+- [x] Unmount hides (doesn't close) the active tab, `lastActiveId` saved for restore, tab list persists — confirmed
+- [ ] Wiki link resolution correctness per item (avoiding disambiguation-page collisions) — needs live verification, depends on link-building logic outside this file
+- [ ] Name-based-fallback link collision risk — needs live verification, same caveat as above
+- [x] Tab count sync — confirmed on the JS side (`tabs` state has exactly one mutation path, the `wiki-tabs-changed` event); backend correctness of firing that event on every open/close wasn't independently verified
+
+Also removed one stray debug `console.log` (container-rect logging) found while reviewing this file.
 
 ### Overlay Components (src/components/overlays/)
 
@@ -573,223 +563,229 @@ A UI string uses `t('some.key')` but the key is missing from one or more locale 
 
 ### RelicRewardOverlay.jsx
 
-- [ ] On mount, `get_active_relic_session` cached-data fetch and live event listeners (`scanner-relic-phase-start`, `overlay-update-relics`, etc.) cannot both apply stale/conflicting data — verify the cached fetch resolving after a live event has already updated state doesn't overwrite newer data with older cached data
-- [ ] `scanner-relic-phase-start` and `overlay-update-relics` both fully reset `ocrResults`, `localReward`, `remaining`, and `progress` before showing — a new relic-reward session never displays leftover reward/OCR data from the previous session
-- [ ] `triggerCount`/`triggerKey` increments on every new session-start event, and the resize effect depends on `triggerKey`, ensuring a same-squad-size back-to-back session still forces a re-measure instead of keeping stale layout dimensions
-- [ ] Each squad slot (`slotIdx` 1..squadSize) shows only its own player's confirmed reward — slot 1 combines `localReward` when present, other slots use `ocrResults[slotIdx]`; verify `ocrResults` keys are always slot-scoped and one player's OCR result can never populate another slot's card
-- [ ] `overlay-update-ocr` merges into `ocrResults` keyed by `slot` via functional `setOcrResults` — verify an out-of-order OCR event for an old session (arriving after a new `scanner-relic-phase-start` reset) cannot repopulate a stale slot (needs live verification: event ordering across session boundary)
-- [ ] The countdown/auto-close timer effect (keyed on `[data]`) uses wall-clock `Date.now()` elapsed time rather than a naive `setInterval` decrement, so the timer stays accurate even if the WebView is throttled while hidden — needs live verification under actual OS-level throttling
-- [ ] When the timer's `closed.current` flag is set (either by hitting zero or by effect cleanup on `data` changing), no further `tick()`/`schedule()` calls can fire and clobber state after the overlay has already moved to a new session
-- [ ] The `fissure-reward-closed` handler's 10ms `setTimeout` before clearing state doesn't race with a fast-following `scanner-relic-phase-start` for the very next fissure wave, which would otherwise get its fresh data wiped by the delayed close handler
-- [ ] The "safety net" effect that hides the window whenever `data` is null does not fire spuriously while a session is legitimately still loading (i.e., `data` is only null during real idle/close states, not fleetingly during a valid in-progress load)
-- [ ] Price-fetching effect (`fetchAllPrices`) builds its `entries` list from both `localReward` and all current `ocrResults` — verify a price fetched for a uniqueName from a previous session (in-flight `getPrice` promise) cannot land in `prices` and get attributed to a different item sharing/reusing that uniqueName in the new session
-- [ ] `prices` state is merged (`{...prices, ...newPrices}`) rather than replaced, but only for `uniqueName` keys returned by this fetch — verify a price is never displayed against the wrong `uniqueName` due to key collisions across different reward slots
-- [ ] `RewardSlot`'s `price` prop is looked up via `prices[confirmed.item?.uniqueName]` — each slot only ever shows the price keyed to its own item's uniqueName, never another slot's
-- [ ] `isLocal` is hardcoded to `slotIdx === 1` — verify slot 1 is always guaranteed to be the local player's slot in every squad configuration (solo, squad of 2-4), not just typical ones — needs live verification
-- [ ] `isCountLayout` (Requiem/Forma/bonus-reward badge layout) correctly triggers only for `isRequiem`, `isForma`, or names in `FISSURE_BONUS_REWARDS`, and normal prime-part rewards never get miscategorized into the count layout (or vice versa)
-- [ ] Displayed reward name (`displayName = confirmed.confirmed_reward`) always shows the resolved/localized name, never a raw internal OCR string or unresolved item code, when OCR confidently confirms a match
-- [ ] The "Parent Name" highlight (amber background) activates only when `subcomponents.length > 0 && !subcomponents.some(c => c.isDroppedReward)` — verify this condition correctly reflects "the main blueprint itself is the dropped reward" vs "a subcomponent was the dropped reward," and doesn't apply to the wrong reward
-- [ ] Each `ComponentBadge`'s have/need ring color and count badge reflect that specific subcomponent's own `have`/`need`/`isDroppedReward`, not a sibling subcomponent's state
-- [ ] `Badge` "Mastered"/"Owned"/"BP" labels and active/inactive coloring correctly reflect each item's own `inv.isMastered`/`craftedCount`/`blueprintCount`, not stale inventory data from a previously displayed item at the same slot position
-- [ ] Window resize (`resize_overlay_window`) is skipped when computed width/height match `lastSizeRef`, but still fires correctly whenever squad size, trigger key, ocrResults, or localReward genuinely change layout — verify no case where content changes but the resize is incorrectly skipped, leaving a card visually clipped
-- [ ] Icon path (`get_icons_path`) is fetched once per `RewardSlot` mount — verify a stale/broken `iconsPath` for a leftover slot from a previous mount doesn't linger and show wrong icons after remount
-- [ ] Ducat/Plat badges are hidden appropriately (`!isForma && !isRequiem`) so Forma/Requiem rewards never display a meaningless "0 Ducats" badge
+- **[BUG FOUND & FIXED 2026-08-29]** The `get_active_relic_session` cached-data fetch on mount had no guard against a live event arriving first: `sessionIdRef` existed and was incremented on every session-start/close event, but was never actually read anywhere — purely a write-only debug-log value. A slow-resolving cached fetch could silently overwrite fresher live-event state with stale data. Fixed by snapshotting `sessionIdRef.current` before the fetch and re-checking it hasn't moved before applying the result.
+- [x] Both session-start events fully reset `ocrResults`/`localReward`/`remaining`/`progress` — confirmed
+- [x] `triggerKey` increments on every session-start, forcing a re-measure even for same-squad-size back-to-back sessions — confirmed
+- [x] Squad slots are strictly slot-scoped (object-key lookup), no cross-slot leakage — confirmed
+- [ ] `overlay-update-ocr` session-boundary race: an old-session OCR event arriving after a new `scanner-relic-phase-start` (which resets `ocrResults` but does *not* null `data`) would pass the existing `!dataRef.current` guard and could populate the new session's slot with stale data. This is a real gap, but a proper fix needs the Rust side to tag each OCR event with its originating session id so the JS side has something real to compare against — a local-only JS guard can't distinguish "old event, new session" from "new event, same session" without that. Not fixed this pass; flagging as a known risk rather than attempting a partial fix.
+- [x] Timer uses wall-clock `Date.now()` elapsed time, not naive decrement — confirmed design is sound; actual behavior under OS-level throttling not independently tested
+- [x] `closed.current` flag correctly gates both `tick()`/`schedule()` after zero or cleanup — confirmed
+- [x] 10ms close-delay vs. fast-following new session — confirmed no race: the new session handler synchronously cancels the pending close timer before any of its own state updates, and JS event handlers run to completion before a `setTimeout` callback can interleave
+- [x] Safety-net hide-when-null effect — confirmed `data` is only ever null on deliberate close paths, never transiently during a legitimate load (traced every `setData` call site)
+- [x] Price-fetch cross-session attribution — confirmed not actually a risk: `uniqueName → price` is a stable global mapping independent of which session triggered the fetch, so a late-resolving price from an old session is still the *correct* price if the same uniqueName reappears
+- [x] `prices` merge only writes returned `uniqueName` keys — confirmed
+- [x] `RewardSlot` price lookup keyed to its own item's `uniqueName` — confirmed
+- [ ] `isLocal = slotIdx === 1` assumption — needs live/backend verification that slot 1 is always the local player across all squad configurations
+- [x] `isCountLayout` trigger conditions — confirmed exact match to spec
+- [x] `displayName` — JS side just displays whatever `confirmed_reward` the Rust/OCR backend sends; backend-side resolution correctness not independently verified here
+- [x] "Parent Name" amber-highlight condition — confirmed exact match to spec
+- [x] `ComponentBadge` per-subcomponent scoping — confirmed, each badge is a pure function of its own `comp` prop
+- [x] `Badge` per-item scoping — confirmed, `RewardSlot` is a pure function of its `confirmed` prop each render, no stale cross-render state possible
+- [x] Resize skip logic — confirmed sound: only skips when the freshly-measured DOM dimensions genuinely match, never based on state-change alone
+- [x] Per-`RewardSlot`-mount icon path — confirmed low-risk; the icons directory path is static app data that doesn't change mid-session, so mount-time caching can't produce a "wrong" icon
+- [x] Ducat/Plat badges hidden for Forma/Requiem — confirmed
 
 ### RivenOverlay.jsx
 
-- [ ] `extractWeaponName` never returns a raw/garbled OCR string as the "resolved" weapon name when no known-weapon or localized match is found — the last-resort fallback (first word of cleaned OCR text) is understood as a display fallback, not a false positive match
-- [ ] Positive vs. negative stat classification (`isNegativeValue`) is mutually exclusive per stat — a stat can land in `pos` or `neg` but never both, confirming the specific class of bug already found and fixed (x-prefixed multiplier stats and `-`-prefixed stats must not double-count)
-- [ ] The in-app stat grade (`getRivenStatGrade`) and the overlay's displayed grade are computed from the same shared grading function/scale, so the overlay's `S`/`A`/`B`/`C`/`D` badge can never contradict the grade shown on the main Rivens screen for the same riven
-- [ ] `doPricing`'s `invoke('estimate_riven_full', ...)` result is only applied (`setRivenInfo`/`setEstimatedPrice`) if `aliveRef.current` is still true — a pricing response arriving after the overlay was hidden/torn down cannot resurrect stale price data
-- [ ] `doOcr`'s OCR result and its downstream `doPricing` call are similarly gated on `aliveRef.current`, so an in-flight OCR call from a closed/previous card view cannot populate the currently-open overlay
-- [ ] The `riven-ocr-result` listener effect and the `riven-reroll`/`riven-reroll-confirmed`/`riven-screen-closed` listener effect(s) both write to `parsed`/`estimatedPrice`/`visible` — verify a manual "riven-ocr-result" push and a reroll-triggered `doOcr('Middle')` firing close together cannot leave two competing OCR/pricing calls racing, with the loser's stale result overwriting the winner's (per the code comment describing exactly this class of bug for `overlay-riven-current`)
-- [ ] For `overlay-riven-new` (isNew), `riven-reroll` schedules a 4s-delayed `show()` + `doOcr('Middle')`, and `riven-reroll-confirmed` clears that timer before scheduling `hide()` — verify a reroll-confirm arriving mid-way through the 4s delay reliably cancels the pending show/OCR rather than both firing
-- [ ] For `overlay-riven-current` (non-new), `riven-reroll-confirmed`'s 2s debounce timer is correctly cleared and restarted on rapid consecutive rerolls, so only the OCR/pricing call for the most recent reroll ever updates the visible price/grade (matches the fixed-bug comment in the code)
-- [ ] `riven-linked-open`/`riven-screen-open` both call `show()` + `doOcr(...)` with different OCR positions (`'Linked'` vs `'Middle'`) — verify the correct position is used for each entry point and results aren't cross-applied
-- [ ] `riven-linked-closed` and `riven-screen-closed` both call `hide()`, and `riven-screen-closed` additionally clears `refreshTimer` — verify a pending refresh timer cannot fire and repopulate the overlay after it's been explicitly closed
-- [ ] `show()` resets `ocrLoading` to `false` and `parsed` to `null` unconditionally on every show, preventing the overlay from getting stuck permanently on "scanning" when a prior OCR call's `finally` block was skipped due to `aliveRef` being false at resolution time (per the code's own comment)
-- [ ] `hide()` sets `aliveRef.current = false` before any in-flight `invoke` calls resolve, ensuring `doPricing`/`doOcr` callbacks check this flag correctly and never write to state after hide
-- [ ] Stat value coloring (`posClass`) correctly identifies `x`-prefixed values as negative (red) even though they don't start with `-`, matching the same classification logic used in `doPricing`'s `isNegativeValue` — verify no divergence between the two color/classification rules that could show a stat as visually positive (green) while it's priced as negative
-- [ ] `fmtVal` never double-prefixes a value that already starts with `+`/`-`/`x` (e.g. never renders `++12%`)
-- [ ] The weapon-name resolution pipeline (localized-weapon match → known-weapon exact → prefix → substring → suffix-stripping loop → last-resort) is tried in that priority order, and a correct known-weapon match is never skipped in favor of the last-resort fallback
-- [ ] Weapon rank "tier" label (`Meta`/`Popular`/`Average`/`Niche`/`Unpopular`) and roll-quality label (`Perfect`/`Good`/`Average`/`Mediocre`/`Bad`) are derived from `rivenInfo`/`statGrade` fields that are actually populated for the current riven, not leftover values from a previous riven while a new OCR request is still in flight
-- [ ] `knownWeaponsRef`/`knownWeaponsLowerRef`/`localizedWeaponsRef` are populated asynchronously on mount — verify an OCR result arriving before these refs are populated doesn't silently mis-resolve the weapon name (falls through to last-resort) and never crashes on an empty array
-- [ ] `garbageReForLocale`/`buildStatAliases` are recomputed via `useMemo` when `locale`/`i18nData` change — verify a locale change mid-session doesn't leave `doOcr`/`doPricing` operating on a stale `garbageRe`/`statAliases` closure (their `useCallback` deps include these, but confirm listener re-subscription actually happens on locale change too)
-- [ ] Riven name display (`parsed.name`) and displayed stat names (`displayStatName`) always show human-readable, localized text — no raw internal stat keys or English-only fallback strings leak into a non-English UI
+This file was already extensively hardened in prior sessions — nearly every item below has an explicit code comment documenting the exact bug it once was and how it was fixed. Re-verified all of them against current code; all confirmed correct, no regressions, no new bugs.
+
+- [x] `extractWeaponName` last-resort fallback is a display fallback, not a false-positive match — confirmed
+- [x] Positive/negative stat classification mutually exclusive (`x`-prefix and `-`-prefix both route through one partition) — confirmed
+- [x] Overlay grade uses the same shared `getRivenStatGrade` as the main Rivens screen — confirmed
+- [x] `doPricing` result gated on `aliveRef` — confirmed
+- [x] `doOcr` result/error/finally all gated on `aliveRef` + generation check — confirmed
+- [x] `captureGenRef` generation counter correctly guards manual-hotkey vs. reroll-triggered OCR races — confirmed, incremented at every capture-initiation point
+- [x] 4s reroll timer (isNew) correctly cancelled by reroll-confirmed — confirmed
+- [x] 2s reroll-confirmed debounce (non-new) correctly cleared/restarted on rapid rerolls — confirmed
+- [x] `riven-linked-open`/`riven-screen-open` use distinct OCR positions, never cross-applied — confirmed
+- [x] Close handlers correctly clear pending timers before hiding — confirmed
+- [x] `show()` unconditionally resets `ocrLoading`/`parsed`, can't get stuck on "scanning" — confirmed
+- [x] `hide()` sets `aliveRef.current = false` synchronously as the first statement, before any pending promise can resolve — confirmed
+- [x] `posClass` and `doPricing`'s `isNegativeValue` use the identical `/^x/i` regex — confirmed no divergence
+- [x] `fmtVal` never double-prefixes — confirmed
+- [x] Weapon-name resolution priority order — confirmed, sequential early-returns, no skip-ahead
+- [x] Tier/roll labels never show stale-riven values during a new capture — confirmed, `rivenInfo` is explicitly nulled at the start of every `doPricing` call and the UI shows "waiting" while null
+- [x] Empty `knownWeaponsRef`/`localizedWeaponsRef` before async population — confirmed safe, falls through to last-resort with no crash
+- [x] Locale change triggers listener re-subscription (not just callback recreation) — confirmed, `garbageRe`/`doOcr`/`doPricing` are all in the listener effect's own dependency array
+- [x] No raw internal keys leak into displayed riven/stat names — confirmed
+
+Also removed 4 stray debug `console.log('[PRICER] ...)` statements found while reviewing this file.
 
 ### SidebarOverlay.jsx
 
-- [ ] Every `NAV_ITEMS` entry's `onClick` correctly sets `activeTab` to that item's own `id`, and the corresponding `screens[activeTab]` entry exists for every nav id (no nav item pointing at a screen key that isn't in the `screens` map)
-- [ ] The active-tab highlight styling (background/icon color/opacity) is applied only to the actually-selected nav item, never to a sibling item due to stale `isActive` comparison
-- [ ] `sidebar_side` setting loaded on mount and updated live via `sidebar-side-changed` event both correctly flip `flex-row-reverse`, border side, resize-handle side, and resize-drag delta sign (`sidebarSide === 'left' ? ... : ...`) consistently — a mid-session side change doesn't leave the resize handle on the visually wrong edge
-- [ ] Sidebar resize drag (`onResizeStart`/`onMove`/`onUp`) persists width only on pointer-up (`persist: true`), with continuous drag updates sent as non-persisted (`persist: false`) — verify a resize that's interrupted (e.g. window loses focus mid-drag) doesn't leave a temporary width persisted as permanent, and pointer capture is always released via `onUp` even if the drag ends abnormally
-- [ ] Scanner status indicator dot (`scannerStatus`) polls every 5s via `get_scanner_status` and correctly maps `active`/`waiting`/`stale_offset`/other to the right color and tooltip text — a poll failure falls back to `idle` rather than leaving a stale `active`/`waiting` state displayed indefinitely (needs live verification of actual scanner-status transitions)
-- [ ] Sync status dot (`monitorResult` from `MonitoringContext`) correctly reflects `success`/`cached`/`error`/offline states with matching tooltip text — verify no state is visually ambiguous with another (e.g. error vs. offline both gray)
-- [ ] `formatLastUpdate(lastUpdate)` displays a genuinely fresh timestamp, not a stale one left over from a previous sync that failed silently
-- [ ] Icon assets (`uiIcon(item.icon)`) load correctly for every nav item and `IconKieda.png` — a failed/uncached icon load renders an empty mask rather than the wrong icon bleeding through from a previous `iconCache` state
-- [ ] `useUIIcons`'s icon-loading effect has a `cancelled` guard, so navigating away (or icon list changing) before all icon fetches resolve does not apply a stale icon-cache update — needs check that `iconNames` (derived from `ICON_NAMES`, a module-level constant) never spuriously changes to re-trigger unnecessary reloads
-- [ ] Every screen lazily loaded (`Dashboard`, `Inventory`, `Mods`, etc.) actually renders when its tab is selected, with the `Suspense` spinner shown only during genuine load and not stuck indefinitely if a lazy import fails — needs live verification
-- [ ] Sidebar overlay window's hide-on-focus-loss behavior (handled outside this file, e.g. in Rust) is consistent with expected UX: switching focus to the game hides the sidebar, and a hotkey reliably toggles it back — needs live verification, not verifiable from this component alone
+- [x] Every `NAV_ITEMS` entry maps to a real `screens[]` key — confirmed, all 16 ids match exactly
+- [x] Active-tab highlight scoped per-item, no cross-contamination — confirmed
+- [x] Side-change flips `flex-row-reverse`/border-side/tooltip-direction consistently — confirmed
+- [x] **Checklist item was stale**: this component has no drag-resize mechanism at all (`onResizeStart`/`onMove`/`onUp` don't exist here) — the sidebar now uses fixed S/M/L/XL preset buttons (`handleSetWidth`, always `persist: true`) instead of a live drag handle. The `persist: false` reference this item describes lives in `App.jsx` (the main window's settings-panel live preview), unrelated to this overlay. Not a bug, just a since-simplified feature.
+- [x] Scanner-status poll failure falls back to `idle` — confirmed
+- [x] Sync-status dot states are visually distinct (green/yellow/red/gray, no ambiguity) — confirmed
+- [x] `formatLastUpdate` reads live `lastUpdate` from `MonitoringContext`, already verified correct elsewhere this session — confirmed
+- [x] Failed/uncached icon renders empty, never a wrong icon — confirmed, `iconCache` is replaced wholesale on each successful load batch, never merged with stale entries
+- [x] `useUIIcons` cancelled-guard and stable `ICON_NAMES` reference — confirmed, module-level constant never spuriously re-triggers the effect
+- [ ] Lazy-loaded screens actually render, Suspense spinner not stuck — needs live verification (also: no ErrorBoundary wraps the Suspense, so a genuine import failure would crash rather than degrade gracefully, but this is unlikely in a fully-bundled desktop app)
+- [ ] Hide-on-focus-loss / hotkey toggle — not verifiable from this file, needs live verification
 
 ### ToastOverlay.jsx
 
-- [ ] `new-notification` events are filtered by `notifPos !== position`, so each `ToastOverlay` instance (`top-right`/`top-left`/`top-center`) only ever displays notifications targeted at its own position, never a sibling overlay's notification
-- [ ] Toast queue ordering is strictly FIFO — `queue` is appended to on receipt and only `queue[0]` is promoted to `visibleToasts` when a slot frees up, so notifications display in the order they were received, not reordered
-- [ ] `LIMITS` (1 toast visible at a time on Linux, 3 elsewhere) is respected — the promote-from-queue effect only fires `visibleToasts.length < LIMITS`, so the visible toast count never exceeds the platform limit
-- [ ] Each toast's auto-dismiss countdown (`ToastCard`'s `remaining` state, `TOAST_MS` = 5000ms) is independent per toast instance — dismissing/expiring one toast does not reset or affect another visible toast's timer
-- [ ] On Linux, `start_notif_autoclose_timer` (backend-driven 6s close) and the JS-side 5s `ToastCard` timer both exist — verify these two independent auto-dismiss mechanisms don't race to produce inconsistent close timing or a double-dismiss on the same toast id (needs live verification of the IPC-driven `expire-notification` event vs. the local JS timer)
-- [ ] `expire-notification` event correctly removes only the toast matching `e.payload` id, never a different visible toast
-- [ ] `wipe-state` event only clears `visibleToasts`/`queue` when `e.payload === position` or is `undefined` — a wipe targeted at one position's overlay does not clear a different position's toasts
-- [ ] The "+N more" queue-count badge (Linux: bounce badge on the visible toast; non-Linux: separate summary chip) always reflects the true remaining `queue.length`, updating live as items are promoted out of the queue
-- [ ] Overlay window resize (`resize_overlay_window`) correctly shrinks back to 1x1 only when both `visibleToasts` and `queue` are empty (`hadContent.current` guard prevents a spurious shrink-then-immediately-need-to-regrow flash on first mount with no content yet)
-- [ ] `ResizeObserver`-driven resize only fires while toasts are actually visible (`visibleToasts.length > 0 && height > 40`), so window sizing tracks real content growth/shrink as toasts are added/removed, without the transient collapsed-height reading being sent as a resize
-- [ ] Toast image/icon (`toast.image`) resolves via `uiIcon`, falling back to the generic `Bell` icon when no image is set or the specific icon fails to load from `iconCache`, rather than showing a broken image or wrong icon inherited from `iconCache`'s prior contents
-- [ ] `iconNames` (derived via `useMemo` from both `queue` and `visibleToasts`) triggers icon (re)loading whenever a new icon name appears — verify a toast requiring an icon not yet in `iconCache` doesn't render without its icon permanently if the fetch is still in flight when the toast becomes visible
-- [ ] Toast title/message text is always the resolved, localized/display string from the payload — no raw internal notification-type code or untranslated key leaks into `toast.title`/`toast.message`
-- [ ] Sound playback (if any, driven from the Rust side alongside `new-notification`) is synchronized with the visible toast appearing — needs live verification since sound triggering isn't visible in this component
-- [ ] The IPC listeners (`new-notification`, `expire-notification`, `wipe-state`) registered once per `position` are torn down and re-subscribed correctly if `position` prop changes, and no stale listener from a previous mount continues delivering toasts into an unmounted overlay instance
+- [x] Notifications filtered to their own position — confirmed
+- [x] Queue ordering strictly FIFO — confirmed
+- [x] `LIMITS` respected — confirmed
+- [x] Per-toast countdown independent (separate component instance per toast) — confirmed
+- [ ] Linux dual-timer redundancy — confirmed **not a functional bug**: the JS 5s timer always fires before the backend's 6s timer, so the later `expire-notification` for an already-removed toast is a harmless no-op (filtering an id out of an array that no longer has it). It is genuine wasted backend timer scheduling for no functional benefit, worth simplifying at some point, but not urgent and not touched this pass.
+- [x] `expire-notification` removes only the matching id — confirmed
+- [x] `wipe-state` scoped to its own position or `undefined` — confirmed
+- [x] "+N more" badge always reflects live `queue.length` — confirmed
+- [x] Shrink-to-1x1 guarded against a spurious first-mount flash — confirmed
+- [x] Resize only fires with real visible content — confirmed
+- [x] Icon fallback to `Bell` — confirmed
+- [x] Icon-not-yet-cached shows the `Bell` fallback only briefly, not permanently — confirmed, re-renders once `iconCache` updates
+- [x] Title/message are whatever the payload sends — JS side does no transformation; backend-side localization correctness not independently verified here
+- [ ] Sound playback sync — needs live verification, not visible in this component
+- [x] Listener re-subscription on `position` change — confirmed correct dependency array, though `position` is effectively static per window in practice
 
 ### Shared Card / UI Components (src/components/)
 
 ### AcquisitionDrawer.jsx
 
-- [ ] every `source.missionType` shown for a `mission`-type source is translated through `MAPPING_TYPES`, never a raw `MT_*` code string
-- [ ] when a mission-type code has no entry in `MAPPING_TYPES`, the parenthetical suffix is omitted entirely rather than showing the raw code
-- [ ] mission source label prefers `nodeName`/`node` as the primary label and only appends the translated mission type as a parenthetical when both a node and a mission type are known
-- [ ] `override`, `non-drop`, `wiki`, and `wiki-status` source types display their provided `text`, with a sensible fallback string when `text` is absent
-- [ ] `blueprint` sources show `location` (defaulting to "Foundry") plus `blueprintName` when present
-- [ ] `drop` sources run `location` through `formatDropLocation`, correctly rewriting `Endless: Tier N` patterns into "Endless reward — Tier N" (with optional region prefix and mode suffix)
-- [ ] `relic` sources show `relicName`/`relicManifest` with rarity suffix when available
-- [ ] `bounty`, `transient`, `key`, `syndicate`, `sortie`, `enemy`, `avatar` source types each render a real, non-code display string with correct fallback text
-- [ ] any source type not explicitly handled by the switch falls back to the first available human-readable field (`location`, `nodeName`, `name`, etc.) rather than crashing or showing `undefined`
-- [ ] sources with a numeric, finite `chance` are sorted before sources without one, and are ordered descending by chance; sources without a chance retain their original relative order
-- [ ] displayed chance percentages are formatted to one decimal place and match the underlying `chance` value
-- [ ] when `recipe` is present, a generic "Built in the Foundry from a blueprint…" `non-drop` source row is suppressed (since the recipe panel already covers it), while other concrete sources (e.g. a blueprint bounty) still render
-- [ ] the "No verified acquisition route…" message is shown only when there are no sources, no recipe, and Codex lookup isn't loading
-- [ ] the "Relic is Vaulted" message takes precedence over the generic no-route message when `info.vaulted` is true
-- [ ] while the Codex fallback fetch is in flight, a "Checking item data…" loading state is shown instead of a premature "no data" message
-- [ ] Codex-derived acquisition info (`codexInfo`) overrides `baseInfo` fields, but the wiki link falls back to the local resolver's `wikiLink` when Codex's own value is absent — so opening a generic drawer never loses its wiki link
-- [ ] recipe cost fields (`blueprintCost`, `buildCost`) render only when they resolve to a finite number, formatted with thousands separators and "Credits" suffix
-- [ ] recipe build time is converted from seconds to an "Xh Ym" / "Xh" / "Ym" display, and is omitted entirely when it rounds to zero or is non-finite
-- [ ] rush cost is shown only when greater than zero, in Platinum
-- [ ] each recipe ingredient shows its required count and name, and if `getItemDrops` returns any sources for that ingredient's item type, an "How to obtain" sub-list renders using the same translated `getSourceLabel` (not raw codes)
-- [ ] the wiki button label reads "View on Warframe Wiki" when `wikiLink.isDirect` is true and "Search Warframe Wiki" otherwise
-- [ ] clicking the wiki button invokes `open_url` with the correct URL only when a `wikiLink.url` is present; it is a no-op (or safely caught) otherwise
-- [ ] `useAcquisitionDrawer`: clicking the currently-open item's own trigger again closes the drawer; clicking a different item's trigger swaps content without needing a separate close/open cycle
+- [x] Mission-type codes translated through `MAPPING_TYPES`, with a documented fallback for already-readable drops.wf `gameMode` strings — confirmed
+- [x] Untranslatable raw-code mission types omit the parenthetical entirely — confirmed
+- [x] Mission label prefers node, only appends mission type when both are known — confirmed
+- [x] override/non-drop/wiki/wiki-status fallback text — confirmed
+- [x] blueprint source formatting — confirmed
+- [x] drop source `formatDropLocation` Endless-tier rewriting — confirmed
+- [x] relic source formatting — confirmed
+- [x] bounty/transient/key/syndicate/sortie/enemy/avatar fallback strings — confirmed
+- [x] Unhandled source types fall back through a real field chain, never crash or show literal `undefined` — confirmed
+- [x] Chance-based sorting (quantified sources first, descending, stable order for unquantified) — confirmed
+- [x] Chance percentage formatting — **superseded earlier this session**: no longer flat one-decimal (that was the bug fixed then); now uses magnitude-scaled precision via `formatChance()` so real sub-1% chances stay visible instead of rounding to a misleading value
+- [x] Generic Foundry sentence suppressed when a real recipe panel already covers it — confirmed
+- **[BUG FOUND & FIXED 2026-08-29]** Neither the "No verified acquisition route" message nor the "Relic is Vaulted" message were actually implemented anywhere in this component — the ternary chain silently fell through to `null` for both cases, showing a blank drawer body. This was a real regression: Relics.jsx explicitly sets `info.vaulted = true` with a code comment stating exactly why a vaulted relic should say so explicitly instead of showing nothing, but the drawer never read that field at all. Fixed by adding both messages, with vaulted taking precedence over the generic fallback.
+- [x] Codex-loading state now correctly reachable and shown before the (newly restored) final no-route message — confirmed
+- [x] Codex info overrides `baseInfo` but preserves the local `wikiLink` fallback — confirmed
+- [x] Recipe cost fields only render when finite, formatted correctly — confirmed
+- [x] Recipe build time formatting/omission — confirmed
+- [x] Rush cost shown only when `> 0` — confirmed
+- [x] Recipe ingredient "How to obtain" sub-list uses the same translated `getSourceLabel` — confirmed
+- [x] Wiki button label — confirmed
+- [x] Wiki button no-ops safely without a URL — confirmed
+- [x] `useAcquisitionDrawer` toggle/swap semantics — confirmed exact match to spec
 
 ### BackToTop.jsx
 
-- [ ] the button is hidden by default and appears only once the tracked scroll position exceeds `threshold` (default 200px)
-- [ ] when `containerRef` is provided, visibility and click-to-scroll both target that container's `scrollTop`, not `window`
-- [ ] when `containerRef` is omitted (or its `.current` is null), the component falls back to `window.scrollY` for visibility and `window.scrollTo` for the click action
-- [ ] clicking the button smooth-scrolls the correct target (container or window) to the top
-- [ ] the scroll listener is removed on unmount / when `containerRef` or `threshold` changes, without leaking duplicate listeners
-- [ ] this component's threshold/behavior matches the separate `BackToTopButton` defined inline in `UI.jsx`'s `PageLayout` — needs live verification that both back-to-top implementations feel consistent across screens that use one vs. the other
+- [x] Hidden until `threshold` exceeded — confirmed
+- [x] `containerRef` targets that container's `scrollTop`, not window — confirmed
+- [x] Falls back to `window` when no `containerRef` — confirmed
+- [x] Smooth-scrolls the correct target — confirmed
+- [x] Listener cleanup on unmount/dep-change — confirmed
+- [ ] Consistency with `UI.jsx`'s inline `BackToTopButton` — will check when reaching UI.jsx
 
 ### ItemImage.jsx
 
-- [ ] when `src` is falsy, the placeholder `div` (using `placeholderClassName`) renders instead of an `<img>`
-- [ ] when the `<img>` fails to load (`onError`), the component swaps to the same placeholder rather than leaving a broken image icon or blank gap
-- [ ] needs live verification: if the same mounted `ItemImage` instance is reused for a different item (new `src` prop) after a prior image failed, confirm the component does not stay stuck showing the placeholder for the new, potentially-valid `src` (the `failed` state is not reset on `src` change)
-- [ ] `alt`, `loading`, and `decoding="async"` props pass through correctly for accessibility/perf
+- [x] Falsy `src` renders the placeholder — confirmed
+- [x] `onError` swaps to the placeholder — confirmed
+- **[BUG FOUND & FIXED 2026-08-29]** Confirmed as a real code-level gap (not just a live-verification question): `failed` state was never reset when `src` changed, so a component instance reused for a different item after a prior image failure would stay stuck on the placeholder forever even for a perfectly valid new image. Fixed with a `useEffect(() => setFailed(false), [src])`.
+- [x] `alt`/`loading`/`decoding` props pass through — confirmed
 
 ### LanguagePicker.jsx
 
-- [ ] all 15 locale entries render with a distinct flag icon matching their `flag` code (no two locales sharing/misassigned to the same `FLAG` component)
-- [ ] the currently selected locale (`value` prop) is visually distinguished (accent border/background) from unselected options
-- [ ] clicking a locale button calls `onChange` with that locale's exact `value` string (e.g. `'tc'` for Traditional Chinese, not confused with `'zh'`)
-- [ ] needs live verification: selecting a language actually updates the app's displayed locale/text immediately and persists across restarts (persistence logic lives outside this file)
-- [ ] label text renders correctly for non-Latin scripts (Cyrillic, CJK, Thai) without truncation/clipping at the given font size
+- [x] All 15 locales map to distinct flag components, no collisions (`tc`→Taiwan vs `zh`→China correctly distinct) — confirmed
+- [x] Selected-locale highlight — confirmed
+- [x] `onChange` receives the exact clicked locale's own value — confirmed
+- [ ] Live locale switching/persistence — needs live verification, logic lives outside this file
+- [ ] Non-Latin label rendering at 9px — needs live visual verification, can't assess font-metric clipping from source alone
 
 ### ModCard.jsx
 
-- [ ] mod rank pips (`RankPips`) show exactly `rank` filled slots and `maxRank - rank` empty slots, capped at 10 total displayed pips even if `maxRank` exceeds 10
-- [ ] the "rank complete" line/overlay (`RankCompleteLine`) shows only when `rank >= max_rank` and is suppressed for `Arcanes`/`custom` frames where it isn't applicable
-- [ ] Fusion `Charges` display (Requiem/Antivirus/Potency) shows the correct number of "available" (bright) vs "used" (dimmed) charge icons, capped at 3, and renders nothing when `available <= 0`
-- [ ] polarity icon file is selected via `POLARITY_FILES[mod.polarity]` using the exact `AP_*` code — verify no case mismatch or missing mapping silently renders no icon for a valid polarity
-- [ ] the fusion-core "Legendary Core" special-case renders only when `mod.unique_name` contains `/Fusers/` (case-sensitive substring check) — confirm real fuser unique_names always match this exact casing
-- [ ] `mod.quantity` (owned/duplicate count) is shown only when `> 1`, using the Arcane-specific badge position for `Arcanes` frame and the backer+count layout for all other frames
-- [ ] image fallback chain resolves in order: local `cardImagesPath` composite (unless `localImageFailed`) → CDN fallback (`mod.image` when it starts with `https://browse.wf`) → nothing; `Requiem` frame mods intentionally prefer the CDN image over the local composite
-- [ ] `deriveIcon` correctly strips the `https://browse.wf` prefix only when `mod.image` actually starts with that exact prefix, otherwise yields `null` rather than a malformed path
-- [ ] `getSetFileName`/`SET_FILE_OVERRIDES` lookups are keyed by the mod set's exact internal path string — verify no case-sensitivity mismatch causes a known override to be missed and fall through to the generic `{firstWord}Set.png` guess
-- [ ] `TEKTOLYST_TEXT_COLORS`/`TEKTOLYST_COLOR_GROUPS`/background art lookups are keyed by exact `mod.name` string — verify every real Tektolyst mod name matches a key exactly (case, punctuation, spacing) so it doesn't silently fall back to the default Silver/white styling
-- [ ] Arcane background art (`Arcane{Rarity}`) capitalizes only the first letter of `mod.rarity` — verify this produces a valid filename for all rarity values actually present in the data
-- [ ] `SET_RARITY_FILTERS[mod.rarity]` CSS filter (COMMON/RARE tinting) applies only for the exact rarity string, with no filter (undefined) applied gracefully for other rarities
-- [ ] mod description resolution: a "trigger-only" description (text ending in `:` with nothing after) is replaced by joining the last `levelStats` entry's stat lines when available, and only falls back to the trigger-only label as a last resort
-- [ ] the redundant "`<Name> Augment: `" prefix is stripped from augment descriptions derived from `levelStats`, leaving the remaining effect text intact
-- [ ] `<DT_*>`/`<DT_*_COLOR>` tags in descriptions resolve to the correct color from `DT_COLORS`, with unrecognized `DT_*` tags falling back to the base `textColor` rather than rendering unstyled or crashing
-- [ ] non-`DT_` bracket tags in descriptions resolve their icon via `tagIconMap` (built from `exportTextIcons`), and `MISSING_TAG_ICON_CDN` entries substitute the correct external CDN URL when the local UI asset pack lacks that icon
-- [ ] `NO_SIDE`/`NO_CORNER` frame sets correctly suppress `SideLight`/`CornerLights` requests for frames whose asset pack lacks those files, avoiding console-spamming 404s
-- [ ] Conclave/PvP indicator icon shows only when `mod.unique_name` contains `/PvPMods/`
-- [ ] platinum price badge shows the loading skeleton while `pricesLoading` is true, the real `platValue` once loaded (only if `> 0`), and nothing when price is 0/unknown
-- [ ] sticker-type mods (`mod._isSticker`) render name/description/price without any of the frame/polarity/rank chrome meant for real mods
-- [ ] mod category (`cat`) text is hidden entirely when `hideCategory` is true or the frame is `Arcanes`, and positioned per-frame (`Antivirus`/`Potency`/`Tektolyst`/default) without overlapping other elements — needs live verification across frame types
+This file, like RivenOverlay.jsx, has clearly already been through careful iterative debugging — several code comments document prior fixes (Arcane Revive dedup, augment-prefix stripping, missing-icon CDN fallbacks, 404-avoidance). Re-verified all items below against current code; all confirmed correct, no new bugs.
+
+- [x] Rank pips fill/empty count, capped at 10 — confirmed
+- [x] "Rank complete" overlay suppressed for Arcanes and non-Tektolyst custom frames — confirmed
+- [x] `Charges` available/used count, capped at 3, renders nothing at 0 — confirmed
+- [x] Polarity file lookup — confirmed correct; DE's internal codes are consistently upper-snake-case throughout this codebase, no realistic case-mismatch risk
+- [x] Fuser special-case substring check — confirmed
+- [x] Quantity badge shown only `> 1`, mutually exclusive Arcane vs. other-frame layouts — confirmed
+- [x] Image fallback chain order, Requiem's CDN-first exception — confirmed exact match to spec
+- [x] `deriveIcon` prefix-strip — confirmed, returns `null` (not malformed) on mismatch
+- [x] `SET_FILE_OVERRIDES`/Tektolyst color maps — curated small lookup tables, no evidence of a mismatch; not independently cross-checked against every real in-game name
+- [x] Arcane rarity capitalization — confirmed produces the expected Title-Case filename pattern
+- [x] `SET_RARITY_FILTERS` graceful no-filter fallback for other rarities — confirmed
+- [x] Trigger-only description → levelStats fallback → trigger-only last resort — confirmed exact match, including the documented Arcane Revive dedup
+- [x] Augment-prefix stripping — confirmed
+- [x] `DT_*` color resolution with textColor fallback — confirmed
+- [x] Non-`DT_` tag icon resolution, CDN substitution checked first — confirmed
+- [x] `NO_SIDE`/`NO_CORNER` 404-avoidance — confirmed
+- [x] Conclave/PvP indicator — confirmed
+- [x] Platinum badge loading/value/hidden states — confirmed consistent across all three render branches (sticker/fuser/normal)
+- [x] Sticker cards render without mod chrome — confirmed
+- [ ] Category text positioning/no-overlap across frame types — needs live visual verification, as the checklist itself already expected
 
 ### NotificationManager.jsx
 
-- [ ] every trigger id returned by `getAllTriggerDefs()` has a real downstream consumer: `fissure`, `arbitration`, `void_traces`, `syndicate`, `syndicate_waste`, `foundry`, `mastery`, `checklist`, `sale`, `bounty` are evaluated in `evaluateNotifications` (monitoring polling loop), and `chat` is handled separately via the `chat-incoming-message` Tauri event listener — confirm none of the 11 trigger types are UI-only with no backend effect
-- [ ] toggling a notification's enabled switch (`Toggle`) persists immediately via `setSetting('notifications', …)` and is respected by the evaluator (disabled notifications never fire)
-- [ ] deleting a notification removes it from the persisted `notifications` array and it no longer appears in either the row list or the evaluator
-- [ ] adding a notification via the dropdown resets the `<select>` back to its placeholder value after selection, and creates a notification with the correct trigger's default config (`getDefaultNotification`)
-- [ ] multi-select config columns (`difficulties`, `tiers`, `missionTypes`, `grades`, `syndicates`) toggle membership correctly (add if absent, remove if present) and persist the updated array
-- [ ] number config inputs (`advance`, `cooldown`, `threshold`, `interval`) parse via `parseInt`, defaulting to `0` on invalid input — needs live verification that a `0` or negative value doesn't silently disable/misfire the trigger's cooldown or threshold logic, since no min/max clamping exists in the input or the consumer
-- [ ] `checklist` trigger's `taskFilter` multi-select correctly reflects and toggles membership against `window.__checklistTasks`
-- [ ] cooldown-based triggers (`void_traces`, `syndicate`, `syndicate_waste`, `sale`) actually suppress repeat notifications until the configured cooldown (minutes) elapses, tracked per-notification via `notification_last_fired`
-- [ ] session log modal shows each historical notification's icon (resolved via `useUIIcons`/`read_file_bytes`), title, message, and a correctly formatted local timestamp
-- [ ] when a history entry has no `image`, a generic placeholder box renders instead of a broken/missing image
-- [ ] the notification count badge next to "Session Log" matches `notificationHistory.length` exactly
-- [ ] labels for triggers/columns/options resolve through `t(labelKey)` when a `labelKey` is present, falling back to the raw `label` otherwise — verify no row shows an untranslated i18n key string
-- [ ] needs live verification: a failed `setSetting` invoke (backend write failure) doesn't leave the in-memory UI state permanently diverged from what's actually persisted to disk
+- [x] Every one of the 11 trigger ids has a real downstream consumer — confirmed, all 10 non-chat ids have `evaluateNotifications` case handlers (including `syndicate_waste`, easy to miss in a quick grep but present), `chat` confirmed handled via its own event listener in `MonitoringContext.jsx`
+- [x] Toggle persists immediately — confirmed; evaluator-side respect for disabled notifications lives in `evaluateNotifications`'s own `if (!notif.enabled) continue` guard, confirmed present
+- [x] Delete removes from persisted array — confirmed
+- [x] Add resets the select and uses `getDefaultNotification` — confirmed
+- [x] Multi-select toggle-membership — confirmed
+- [ ] Number inputs default to 0 on invalid input with no clamping — needs live verification of consumer-side behavior at 0/negative values, per the doc's own framing
+- [x] `taskFilter` reflects/toggles against `window.__checklistTasks` — confirmed
+- [ ] Cooldown suppression — lives in the evaluator, not this file; not independently re-verified this pass
+- [x] Session log entries show icon/title/message/timestamp — confirmed
+- [x] Missing-image placeholder — confirmed
+- [x] Notification count badge — confirmed, same variable
+- [x] Label resolution — confirmed consistent `labelKey ? t(...) : label` pattern everywhere
+- **[BUG FOUND & FIXED 2026-08-29]** Confirmed as a real bug, not just a live-verification question: `persist()` optimistically updated in-memory `notifications` state, then awaited `setSetting` with no error handling anywhere it's called — a failed disk write would leave the UI silently showing a change that never actually persisted, plus an unhandled promise rejection. Fixed by catching the failure and rolling back to the previous state.
 
 ### RivenCard.jsx
 
-- [ ] each riven stat renders exactly once in `statsText`, with `+`/`-` sign matching `s.positive`, and the numeric value never double-negated (i.e. for negative stats the leading `-` already in `s.value` is stripped before the manual `-` prefix is added, not left as `--`)
-- [ ] percent stats append `%` only when `s.isPercent` is true
-- [ ] veiled rivens show only the "Veiled" label (+ quantity badge if `quantity > 1`) — polarity, drain, stats, rank pips, MR, and reroll count are all suppressed while veiled
-- [ ] challenge (unveiled-via-Kuva-lich/Sister) rivens show the challenge text and reroll count instead of stats, drain, rank pips, and MR
-- [ ] fully unveiled, non-challenge rivens show stats text, drain value, rank pips, MR requirement, and reroll count (when `rerolls > 0`)
-- [ ] the `RightBacker` (`bk`) frame layer is shown only for non-veiled, non-challenge rivens, consistent with when the drain number is shown
-- [ ] rank pips show `rank` filled / `maxRank - rank` empty slots (fixed `maxRank = 8`), matching the drain calculation `10 + rank`
-- [ ] `RankCompleteLine` renders only when `rank >= maxRank`
-- [ ] MR requirement displays `riven.mr` when present, falling back to `'?'` rather than showing `undefined`/`NaN`
-- [ ] disposition/quality grade badge color mapping is correct: S=yellow, A=green, B=blue, C=zinc/gray, and any other grade (e.g. D/F) falls to red — confirm all real grade values map to an intentional color, not an unhandled default
-- [ ] the grade badge and its tooltip text (`statGrade.label`) are shown only for non-veiled, non-challenge rivens with a `statGrade.grade` present
-- [ ] price badge (top-right) shows only when `estimate.price != null` and the riven is neither veiled nor a challenge
-- [ ] hover tooltip's "weapon rank" tier label (Meta/Popular/Average/Niche/Unpopular) uses consistent percentile thresholds (`<=20%`, `<=50%`, `<=70%`, `<=90%`, else Unpopular) against `weapon_rank`/`total_weapons`
-- [ ] hover tooltip's "roll" quality label (perfect/Good/Average/Mediocre/Bad) maps 1:1 from the same `statGrade.grade` used for the corner badge color — verify these two derived labels never disagree about the riven's quality
-- [ ] reroll-potential percentage (`1 - probability_stagnant`) colors green above 50%, red at/below 50%, and correctly defaults `probability_stagnant` to `0.5` when absent
-- [ ] the price shown in the corner badge and in the tooltip's "Your Value" cell are the same rounded number (both derive from `estimate.price`) — no divergent computation between the two display spots
-- [ ] tooltip position recalculates from the card's bounding rect on each hover-enter and disappears on hover-leave without being left stuck visible
+- [x] Stat sign/no-double-negation — confirmed, existing leading `-` stripped before manual prefix, plus the x-prefix multiplier special case
+- [x] Percent suffix gated on `s.isPercent` — confirmed
+- [x] Veiled state suppresses everything but label/quantity — confirmed
+- [x] Challenge state shows challenge text + reroll, suppresses stats/drain/pips/MR — confirmed
+- [x] Fully unveiled state shows all real fields — confirmed
+- [x] `RightBacker` and drain number share the exact same gating condition — confirmed
+- [x] Rank pips / drain formula (`10 + rank`, `maxRank = 8`) — confirmed
+- [x] `RankCompleteLine` at `rank >= maxRank` — confirmed
+- [x] MR fallback uses `??`, not `||` — confirmed
+- [x] Grade badge color mapping has a catch-all, every grade value gets an intentional color — confirmed
+- [x] Grade badge gating — confirmed
+- [x] Price badge gating — confirmed
+- [x] Weapon-rank tier thresholds — confirmed, and identical to the same logic already verified in RivenOverlay.jsx (consistent between the two files)
+- [x] Roll-quality label and corner badge color — confirmed **cannot** disagree, both derive from the identical `statGrade.grade` value passed into this one component instance (not two independently computed values). Noted a trivial, purely cosmetic capitalization difference ("perfect" here vs "Perfect" in RivenOverlay.jsx's equivalent tooltip) — not fixed, not worth a special-case edit.
+- [x] Reroll-potential color threshold and `0.5` default — confirmed
+- [x] Corner-badge price and tooltip "Your Value" — confirmed same source field, cannot diverge
+- [x] Tooltip position recalculation and hide-on-leave — confirmed
 
 ### RivenGradeDrawer.jsx
 
-- [ ] when `statGrade.grade` is falsy, the drawer shows "No curated stat profile exists for this weapon" and omits the assessment grid/target-combo text entirely
-- [ ] each assessment row's status badge uses `STATUS_STYLE`/`STATUS_LABEL` for the exact status strings (`good`, `off-target`, `safe-negative`, `risky-negative`, `missing-required`); any unrecognized status string still renders (via the `|| a.status` / `|| 'text-kronos-dim'` fallbacks) rather than crashing or showing blank
-- [ ] "Target combo" line correctly lists `mandatory` stats joined by `+`, falls back to "(none required)" when empty, and appends the optional pick-N clause and safe-negatives clause only when those arrays are non-empty
-- [ ] the grade letter and label shown in this drawer's header exactly match the grade/label shown on the corresponding `RivenCard` badge for the same riven (both should read from the same `statGrade` object/computation, not be recomputed independently) — needs live verification by comparing the two side by side in-app
-- [ ] the drawer opens/closes for the correct riven when triggered from a `RivenCard`'s grade badge, and `Close` fully hides it without leaving stale data visible when reopened for a different riven
+- [x] No-curated-profile message replaces the whole assessment section — confirmed
+- [x] Status badge fallbacks for unrecognized status strings — confirmed
+- [x] Target-combo line construction — confirmed exact match to spec
+- [x] Grade consistency between drawer and card — **resolved without live testing**: traced `Rivens.jsx` and confirmed both `RivenCard` and `RivenGradeDrawer` receive `statGrades.get(riven)` from the identical `statGrades` Map, keyed by the same riven object reference — they read the literal same cached object, so they cannot disagree
+- [x] Open/close correctness, no stale data — confirmed; the drawer holds no internal state, it's a pure function of props, so closing (`openKey = null`) makes it return `null` outright
 
 ### UI.jsx
 
-- [ ] `Modal`: sets `document.body.style.overflow = 'hidden'` while open and restores `'unset'` on close and on unmount, with no leaked scroll-lock if the component unmounts while still open
-- [ ] `Modal`: clicking the backdrop overlay calls `onClose`; clicking inside the modal content does not
-- [ ] `Modal`: the `X` button calls `onClose`
-- [ ] `Modal`: renders nothing at all when `isOpen` is false (no residual DOM/backdrop)
-- [ ] `Modal`: `maxWidth` prop actually constrains the rendered width class as passed by each caller
-- [ ] `Tabs`: highlights the active tab correctly in both single-select mode (`activeTab === tab.id`) and multi-select mode (`activeTab` is an array, uses `.includes`) — verify callers pass the matching shape consistently
-- [ ] `Tabs`: clicking a tab calls `onChange(tab.id)` with the clicked tab's id, not a stale/previous id
-- [ ] `Tabs`: `fullWidth` prop causes tabs to flex-grow evenly rather than size to content
-- [ ] `Toggle`: `checked` prop fully controls the visual state (knob position, track color, `aria-checked`) — the control never gets visually "stuck" out of sync with the controlling state after rapid toggling
-- [ ] `Toggle`: clicking calls `onChange(!checked)`, i.e. the inverse of the current controlled value, not an internally-tracked value
-- [ ] `Tooltip`/`TooltipPortal`: position is computed correctly for each of `'right'`, `'top'`, `'bottom'` relative to the trigger's bounding rect, including scroll offset
-- [ ] `Tooltip`/`TooltipPortal`: recalculates position on window scroll/resize while visible, and removes those listeners when hidden/unmounted
-- [ ] `Tooltip`/`TooltipPortal`: needs live verification that the fade-out transition is visually smooth when unhovering (component unmounts as soon as `opacity` state reaches 0 in the same tick visibility flips false, which may cut the CSS transition short)
-- [ ] `Select`: the displayed value matches the `value` prop, and choosing a new option calls `onChange` with the new option's `id`
-- [ ] `PageLayout`'s internal `BackToTopButton` appears after 200px of scroll within its own `scrollRef` container and scrolls that same container smoothly to top — verify it doesn't accidentally interact with `window` scroll
-- [ ] `PageLayout`'s `BackToTopButton` behaves consistently with the standalone `BackToTop.jsx` component used elsewhere (same threshold, same visual treatment) — needs live verification since these are two independently-implemented copies of the same behavior
-- [ ] `MonitorState`: "Go to Settings" button locates the settings nav element via `#nav-settings` or `[data-nav="settings"]` and actually navigates when clicked — needs live verification that this selector still matches the current nav markup
-- [ ] `MonitorState`: shows the loading spinner variant only while `isLoading` is true, and the "no data" variant otherwise
-- [ ] `ItemCard`: mastery `current_rank`/`max_rank` fraction, "Mastered" check/cross, forma count (shown only when `> 0`), and "Subsumed" badge (shown only when `item.subsumed`) all reflect the passed `item` object correctly with no stale display when `item` changes
-- [ ] `CardHeader`: renders `imageSrc` when provided, otherwise the `Icon` component, otherwise neither — no case where both or neither unexpectedly show
+- [x] `Modal` scroll-lock set/restore, including on unmount-while-open (cleanup unconditionally resets) — confirmed
+- [x] `Modal` backdrop vs. content click — confirmed; they're siblings, not nested, so a content click can't bubble into the backdrop's `onClose`
+- [x] `Modal` X button — confirmed
+- [x] `Modal` renders nothing when closed — confirmed
+- [x] `Modal` `maxWidth` passthrough — confirmed
+- [x] `Tabs` single/multi-select highlight logic — confirmed component handles both shapes correctly; not every caller's usage individually audited
+- [x] `Tabs` click passes the clicked tab's own id — confirmed
+- [x] `Tabs` `fullWidth` — confirmed
+- [x] `Toggle` fully controlled, cannot desync — confirmed; it has *zero* internal state, so "stuck out of sync" is structurally impossible, not just unlikely
+- [x] `Toggle` onChange inverts the controlled value — confirmed
+- [x] `TooltipPortal` position math for all three directions, including scroll offset — confirmed
+- [x] `TooltipPortal` listener add/remove on visibility change — confirmed
+- [x] `TooltipPortal` fade-out timing — **confirmed correct, contradicts the checklist's speculative concern**: the code already keeps the node mounted for the full 200ms via `setTimeout` independent of when `opacity` state updates, with an explicit comment describing exactly this fix. Not a live-verification question — traceable and correct from the code alone.
+- [x] `Select` value binding and onChange — confirmed; noted a generic, unconfirmed-in-practice observation that native `<select>` always returns a string via `e.target.value`, so a caller using numeric `option.id`s would get a stringified id back. Every `Select`/`id` usage seen this session uses string ids, so no evidence this is an active issue — not fixed.
+- [x] `PageLayout`'s `BackToTopButton` targets only its own `scrollRef` container — confirmed, never touches `window`
+- [x] Consistency with standalone `BackToTop.jsx` — confirmed same threshold (200px) and behavior; noted a trivial cosmetic difference in Tailwind classes (opacity/transition details) between the two independent implementations, not worth fixing
+- [x] `MonitorState` "Go to Settings" dual-selector — confirmed **both** selectors are real and necessary: `App.jsx`'s main-window nav sets literal `id="nav-settings"`, while `SidebarOverlay.jsx`'s in-game overlay nav uses `data-nav="settings"` instead — the fallback chain correctly covers both actual contexts
+- [x] `MonitorState` loading vs. no-data variants mutually exclusive — confirmed
+- [x] `ItemCard` reflects live `item` prop with no internal state, cannot show stale data — confirmed
+- [x] `CardHeader` imageSrc/Icon/neither ternary — confirmed mutually exclusive, matches spec exactly
+
+This closes out every file in `docs/qa-checklist.md`.
 - [ ] `Button`: `disabled` prop visually dims the button and prevents `onClick` from firing
 - [ ] `StatCard`: `value`/`subtext`/`label` all render the passed values verbatim without formatting corruption (e.g. no accidental truncation or unit loss) — needs live verification per consuming screen since this is a generic passthrough

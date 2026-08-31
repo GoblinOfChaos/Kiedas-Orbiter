@@ -144,7 +144,7 @@
       }
     ],
     "security": {
-      "csp": "default-src 'self' 'unsafe-inline' 'unsafe-eval' asset: asset-cache: data: blob: http: https: ws: wss:;",
+      "csp": "default-src 'self' 'unsafe-inline' 'unsafe-eval' asset: asset-cache: data: blob: http: https: ws: wss: ipc: http://ipc.localhost; style-src 'self' 'unsafe-inline' https: http:; style-src-elem 'self' 'unsafe-inline' https: http:;",
       "assetProtocol": {
         "enable": true,
         "scope": [

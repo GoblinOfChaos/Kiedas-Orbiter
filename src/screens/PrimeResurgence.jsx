@@ -18,7 +18,7 @@ function PartRow({ part, imageProps, item }) {
 
   return <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-black/15 px-2 py-1.5">
     <CardImage {...imageProps} uniqueName={displayUniqueName} name={displayName} className="h-8 w-8" />
-    <div className="min-w-0 flex-1"><p className="truncate text-[11px] font-semibold">{displayName}</p><p className={`text-[9px] uppercase tracking-wider ${part.owned ? 'text-emerald-300' : 'text-kronos-dim'}`}>{part.owned ? 'Owned' : 'Missing'}{part.isBlueprint ? ' · Blueprint' : ''}</p></div>
+    <div className="min-w-0 flex-1"><p className="truncate text-[11px] font-semibold">{displayName}</p><p className={`text-[9px] uppercase tracking-wider ${part.owned ? 'text-emerald-300' : 'text-kronos-dim'}`}>{part.need > 1 ? `${part.have}/${part.need}${part.owned ? ' · Owned' : ''}` : (part.owned ? 'Owned' : 'Missing')}{part.isBlueprint ? ' · Blueprint' : ''}</p></div>
     {part.relics.length > 0 && <span className="text-[9px] text-kronos-dim">{part.relics.join(', ')}</span>}
   </div>
 }

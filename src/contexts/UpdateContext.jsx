@@ -10,6 +10,7 @@ export function UpdateProvider({ children }) {
   const [updateState, setUpdateState] = useState({ status: 'idle', manifest: null, error: null })
   const checkedRef = useRef(false)
   const latestUpdateRef = useRef(null)
+  const installingRef = useRef(false)
   const [platformInfo, setPlatformInfo] = useState(null)
 
   useEffect(() => {
@@ -17,35 +18,44 @@ export function UpdateProvider({ children }) {
   }, [])
 
   const runInstall = useCallback(async (url) => {
-    if (!latestUpdateRef.current) {
-      setUpdateState({ status: 'error', manifest: null, error: 'No update available to install' })
-      return
-    }
-    // Only the AppImage path needs an explicit download URL (it bypasses the
-    // plugin's own downloadAndInstall to handle the self-replace manually).
-    // Windows/macOS's downloadAndInstall() resolves its own asset URL
-    // internally - requiring `url` unconditionally silently blocked
-    // auto-install on those platforms, since it's only ever populated from
-    // the linux-x86_64 manifest entry.
-    if (platformInfo?.is_appimage && !url) {
-      setUpdateState({ status: 'error', manifest: null, error: 'No download URL available' })
-      return
-    }
-    setUpdateState(prev => ({ ...prev, status: 'installing' }))
-    if (platformInfo?.is_appimage) {
-      try {
-        await invoke('download_appimage_update', { url })
-        const win = getCurrentWindow()
-        await win.close()
-      } catch (err) {
-        setUpdateState({ status: 'error', manifest: null, error: err?.message ?? String(err) })
+    // Guards against a rapid double-click firing two concurrent installs -
+    // setUpdateState's 'installing' status alone isn't enough since a second
+    // click can land before the resulting re-render disables the button.
+    if (installingRef.current) return
+    installingRef.current = true
+    try {
+      if (!latestUpdateRef.current) {
+        setUpdateState({ status: 'error', manifest: null, error: 'No update available to install' })
+        return
       }
-    } else {
-      try {
-        await latestUpdateRef.current.downloadAndInstall()
-      } catch (err) {
-        setUpdateState({ status: 'error', manifest: null, error: err?.message ?? String(err) })
+      // Only the AppImage path needs an explicit download URL (it bypasses the
+      // plugin's own downloadAndInstall to handle the self-replace manually).
+      // Windows/macOS's downloadAndInstall() resolves its own asset URL
+      // internally - requiring `url` unconditionally silently blocked
+      // auto-install on those platforms, since it's only ever populated from
+      // the linux-x86_64 manifest entry.
+      if (platformInfo?.is_appimage && !url) {
+        setUpdateState({ status: 'error', manifest: null, error: 'No download URL available' })
+        return
       }
+      setUpdateState(prev => ({ ...prev, status: 'installing' }))
+      if (platformInfo?.is_appimage) {
+        try {
+          await invoke('download_appimage_update', { url })
+          const win = getCurrentWindow()
+          await win.close()
+        } catch (err) {
+          setUpdateState({ status: 'error', manifest: null, error: err?.message ?? String(err) })
+        }
+      } else {
+        try {
+          await latestUpdateRef.current.downloadAndInstall()
+        } catch (err) {
+          setUpdateState({ status: 'error', manifest: null, error: err?.message ?? String(err) })
+        }
+      }
+    } finally {
+      installingRef.current = false
     }
   }, [platformInfo])
 

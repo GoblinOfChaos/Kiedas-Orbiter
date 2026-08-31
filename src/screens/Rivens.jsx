@@ -93,7 +93,6 @@ function rivenKey(r) {
 
 export default function Rivens() {
   const { t } = useUi()
-  console.log('Rivens render', performance.now());
   const { inventoryData, isInventoryLoading } = useMonitoring();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeType, setActiveType] = useState('all');
@@ -106,6 +105,7 @@ export default function Rivens() {
   const [retryTick, setRetryTick] = useState(0);
   const [statGradesReady, setStatGradesReady] = useState(false);
   const pricingRef = useRef({});
+  const retryCountRef = useRef(0);
   useEffect(() => {
     invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});
     invoke('get_mod_frames_path').then((p) => setFramesPath(p)).catch(() => {});
@@ -178,10 +178,8 @@ export default function Rivens() {
 
   // Batch price all unveiled rivens in a single invoke call
   useEffect(() => {
-    console.log('pricing effect fire, rivens:', allRivens.length);
     const priceable = allRivens.filter((r) => !r.veiled && !r.challenge);
     const toFetch = priceable.filter((r) => !pricingRef.current[rivenKeys.get(r)]);
-    console.log('toFetch:', toFetch.length);
     if (toFetch.length === 0) return;
 
     const inputs = toFetch.map((r) => {
@@ -200,11 +198,9 @@ export default function Rivens() {
       };
     });
 
-    console.log('calling invoke with', inputs.length, 'inputs');
     let cancelled = false;
     invoke('estimate_riven_full_batch', { inputs }).then((results) => {
       if (cancelled) return;
-      console.log('batch results length:', results?.length, 'first:', results?.[0]);
       if (!results) return;
       const newCache = { ...pricingRef.current };
       let stored = 0;
@@ -213,10 +209,12 @@ export default function Rivens() {
       });
       pricingRef.current = newCache;
       setPricingCache(newCache);
-      console.log('pricingCache set, entries:', Object.keys(newCache).length);
-      // Retry if pricer wasn't ready (all results null)
-      if (stored === 0 && toFetch.length > 0) {
-        console.log('pricer returned no results, retrying in 3s...');
+      // Retry if pricer wasn't ready (all results null), capped so a
+      // persistently-down pricer doesn't get hammered every 3s forever.
+      if (stored > 0) {
+        retryCountRef.current = 0;
+      } else if (toFetch.length > 0 && retryCountRef.current < 3) {
+        retryCountRef.current += 1;
         setTimeout(() => setRetryTick((t) => t + 1), 3000);
       }
     }).catch((e) => console.error('pricer invoke failed:', e));

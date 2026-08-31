@@ -179,11 +179,6 @@ export default function RivenOverlay() {
     const pos = p.stats.filter((s) => !isNegativeValue(s.value)).map((s) => cleanStatName(s.name, statAliases));
     const neg = p.stats.filter((s) => isNegativeValue(s.value)).map((s) => cleanStatName(s.name, statAliases));
 
-    console.log('[PRICER] weaponName:', weaponName);
-    console.log('[PRICER] pos:', pos);
-    console.log('[PRICER] neg:', neg);
-    console.log('[PRICER] parsed.name was:', p.name);
-
     // Stat-quality grade (S/A/B/C/D) must come from the same place the main
     // Rivens screen uses (getRivenStatGrade) - not a separately-computed
     // market-price percentile. Two different letter grades on the same S-D

@@ -62,8 +62,16 @@ export default function NotificationManager() {
   }, []);
 
   async function persist(updated) {
+    const previous = notifications;
     setNotifications(updated);
-    await setSetting('notifications', updated);
+    try {
+      await setSetting('notifications', updated);
+    } catch (err) {
+      // A failed disk write must not leave the UI silently claiming a change
+      // that never actually persisted - revert the optimistic update.
+      console.error('Failed to persist notifications:', err);
+      setNotifications(previous);
+    }
   }
 
   function handleAdd(triggerId) {

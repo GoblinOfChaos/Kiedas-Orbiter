@@ -15,23 +15,28 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
           RELEASE_URL: ${{ github.event.release.html_url }}
         run: |
-          # 1. Construct the JSON payload safely using jq
-          # This handles all escaping for you automatically
+          # Fallback values for empty variables
+          TITLE_TEXT="New Release: ${RELEASE_NAME:-$RELEASE_TAG}"
+          BODY_TEXT="${RELEASE_BODY:-No release notes provided.}"
+          URL_TEXT="${RELEASE_URL:-https://github.com}"
+
+          # Construct JSON: jq truncates body to max 2000 chars and enforces non-empty strings
           PAYLOAD=$(jq -n \
-            --arg title "New Release: ${RELEASE_NAME:-$RELEASE_TAG}" \
-            --arg url "$RELEASE_URL" \
-            --arg desc "$RELEASE_BODY" \
+            --arg title "$TITLE_TEXT" \
+            --arg url "$URL_TEXT" \
+            --arg desc "$BODY_TEXT" \
             '{
               embeds: [{
-                title: $title,
+                title: (if $title == "" then "New Release" else $title end),
                 url: $url,
-                description: $desc,
+                description: ($desc | .[0:2000]),
                 color: 5814783,
                 footer: { text: "Cephalon Kronos Update" }
               }]
             }')
 
-          # 2. Send the payload
-          curl -X POST -H "Content-Type: application/json" \
+          # Send payload
+          curl --fail -sS -X POST \
+               -H "Content-Type: application/json" \
                -d "$PAYLOAD" \
                "$DISCORD_WEBHOOK"

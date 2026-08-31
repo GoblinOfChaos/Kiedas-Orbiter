@@ -52,12 +52,10 @@ export default function Mods() {
   const { inventoryData, isInventoryLoading, ExportTextIcons, cardImagesPath, fixProgress, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportComponentIndex } = useMonitoring();
 
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
-  const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
   useEffect(() => {
     invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
       .then((bytes) => setAcquisitionOverrides(JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))))
       .catch(() => setAcquisitionOverrides({ components: {}, mods: {} }));
-    loadAcquisitionData().then(() => setAcquisitionDataReady(true));
   }, []);
   const { openKey, toggle, close } = useAcquisitionDrawer();
   const [framesPath, setFramesPath] = useState('');
@@ -141,18 +139,18 @@ export default function Mods() {
       return sortDirection === 'asc' ? av < bv ? -1 : av > bv ? 1 : 0 : av < bv ? 1 : av > bv ? -1 : 0;
     });
     return sorted;
-  }, [mods, searchQuery, selectedCategoryKey, ownershipFilter, maxRankOnly, sortCriteria, sortDirection]);
+  }, [mods, searchQuery, selectedCategoryKey, ownershipFilter, maxRankOnly, hideConclave, sortCriteria, sortDirection]);
 
   const visible = filtered.slice(0, visibleCount);
   const uniqueMods = new Set(filtered.map((m) => m.name)).size;
   const dupCount = filtered.filter((m) => m.quantity > 1).length;
 
   const openItem = useMemo(() => {
-    if (!openKey || !acquisitionDataReady) return null;
+    if (!openKey) return null;
     const mod = visible.find((m) => m.unique_name === openKey);
     if (!mod) return null;
     return { uniqueName: mod.unique_name, displayName: mod.name, info: getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) };
-  }, [openKey, acquisitionDataReady, visible, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportComponentIndex]);
+  }, [openKey, visible, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportComponentIndex]);
 
   const handleSortChange = (id) => {
     if (id === sortCriteria) {

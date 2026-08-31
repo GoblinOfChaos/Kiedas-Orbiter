@@ -11,7 +11,8 @@
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build",
     "retrain:pricer": "python3 tools/riven-pricer/retrain.py",
-    "build:appimage": "NO_STRIP=1 tauri build --bundles appimage"
+    "build:appimage": "NO_STRIP=1 tauri build --bundles appimage",
+    "audit": "node scripts/audit_static.js && node scripts/audit_e2e.js"
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.0.0",

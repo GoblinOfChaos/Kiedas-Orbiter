@@ -179,7 +179,7 @@ fn init_pricer_inner() -> Option<RivenPricer> {
     ).unwrap_or_default();
 
     let mut weapon_name_to_url = HashMap::new();
-    for (_key, val) in &items_data {
+    for val in items_data.values() {
         if let (Some(item_name), Some(url_name)) = (
             val.get("item_name").and_then(|v| v.as_str()),
             val.get("url_name").and_then(|v| v.as_str()),
@@ -197,8 +197,8 @@ fn init_pricer_inner() -> Option<RivenPricer> {
         .map(|(i, s)| (s, i as i32)).collect();
 
     let mut attr_shortcuts = shortcuts;
-    let identity: Vec<(String, String)> = attr_shortcuts.iter()
-        .map(|(_, v)| (v.clone(), v.clone())).collect();
+    let identity: Vec<(String, String)> = attr_shortcuts.values()
+        .map(|v| (v.clone(), v.clone())).collect();
     for (k, v) in identity {
         attr_shortcuts.entry(k).or_insert(v);
     }
@@ -208,7 +208,7 @@ fn init_pricer_inner() -> Option<RivenPricer> {
 
     let weapon_rankings: HashMap<String, WeaponRankData> = {
         let mut name_to_url: HashMap<String, String> = HashMap::new();
-        for (_key, val) in &items_data {
+        for val in items_data.values() {
             if let (Some(iname), Some(url_name)) = (
                 val.get("item_name").and_then(|v| v.as_str()),
                 val.get("url_name").and_then(|v| v.as_str()),

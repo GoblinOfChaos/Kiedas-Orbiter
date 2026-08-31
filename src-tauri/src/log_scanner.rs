@@ -44,8 +44,6 @@ enum RivenState {
     Idle,
     ScreenOpen,
     AwaitingConfirm1,
-    Wait4s,
-    AwaitingConfirm2,
 }
 
 pub struct LogScanner {
@@ -219,7 +217,7 @@ impl LogScanner {
             // Omnia fallback: if squad relics span multiple tiers, it's Omnia
             if self.void_tier.as_deref() != Some("Omnia") {
                 if let Some(omnia) = detect_omnia_from_squad(&self.squad_relics) {
-                    crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Omnia detected from multi-tier squad relics"));
+                    crate::logger::log_to_disk(app, "[LOG SCANNER] Omnia detected from multi-tier squad relics");
                     self.void_tier = Some(omnia);
                 }
             }
@@ -282,46 +280,24 @@ impl LogScanner {
 
         // Track dialog lifecycle
         if s.contains("Dialog.lua: Dialog::CreateOkCancel(description=") {
-            match self.riven_state {
-                RivenState::ScreenOpen => {
-                    self.riven_state = RivenState::AwaitingConfirm1;
-                }
-                RivenState::Wait4s => {
-                    self.riven_state = RivenState::AwaitingConfirm2;
-                }
-                _ => {}
+            if self.riven_state != RivenState::Idle {
+                self.riven_state = RivenState::AwaitingConfirm1;
             }
             return;
         }
 
         if s.contains("Dialog.lua: SendResult_MENU_CANCEL()") || s.contains("Dialog.lua: Dialog::SendResult(5)") {
-            // Dialog cancelled - go back to previous state
-            match self.riven_state {
-                RivenState::AwaitingConfirm1 => {
-                    self.riven_state = RivenState::ScreenOpen;
-                }
-                RivenState::AwaitingConfirm2 => {
-                    // If second dialog cancelled, the whole menu might be closing
-                    self.riven_state = RivenState::ScreenOpen;
-                }
-                _ => {}
+            if self.riven_state != RivenState::Idle {
+                self.riven_state = RivenState::ScreenOpen;
             }
             return;
         }
 
         if s.contains("Dialog.lua: SendResult_MENU_SELECT()") || s.contains("Dialog.lua: Dialog::SendResult(4)") {
-            match self.riven_state {
-                RivenState::AwaitingConfirm1 => {
-                    self.riven_state = RivenState::Wait4s;
-                    crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll confirmed, waiting for second dialog (LogTS: {}s)", ts));
-                    app.emit("riven-reroll", ()).unwrap_or_default();
-                }
-                RivenState::AwaitingConfirm2 => {
-                    self.riven_state = RivenState::ScreenOpen;
-                    crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven new selection confirmed (LogTS: {}s)", ts));
-                    app.emit("riven-reroll-confirmed", ()).unwrap_or_default();
-                }
-                _ => {}
+            if self.riven_state != RivenState::Idle {
+                self.riven_state = RivenState::ScreenOpen;
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll confirmed (LogTS: {}s)", ts));
+                app.emit("riven-reroll", ()).unwrap_or_default();
             }
             return;
         }
@@ -440,7 +416,6 @@ impl LogScanner {
                         app.emit("chat-incoming-message", serde_json::json!({
                             "channel": channel,
                         })).unwrap_or_default();
-                        return;
                     }
                 }
             }
@@ -1046,6 +1021,78 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
         // Only clear IS_SCANNING if we're still the current generation.
         // If a newer thread was spawned (generation was bumped), it manages
         // the flag — clearing it here would orphan the new thread.
+        if SCANNER_GENERATION.load(Ordering::SeqCst) == my_gen {
+            IS_SCANNING.store(false, Ordering::SeqCst);
+        }
+    });
+
+    Ok(LogScannerHandle {
+        running: Arc::new(AtomicBool::new(true)),
+    })
+}
+pub fn spawn_file_watcher(app: AppHandle, path: String) -> Result<LogScannerHandle, String> {
+    if IS_SCANNING.load(Ordering::SeqCst) {
+        return Err("Already scanning".to_string());
+    }
+
+    IS_SCANNING.store(true, Ordering::SeqCst);
+    SCANNER_STATUS.store(1, Ordering::SeqCst);
+
+    let app_inner = app.clone();
+
+    std::thread::spawn(move || {
+        let my_gen = SCANNER_GENERATION.load(Ordering::SeqCst);
+        let mut scanner = LogScanner::new();
+
+        let mut file = loop {
+            if !IS_SCANNING.load(Ordering::SeqCst) || SCANNER_GENERATION.load(Ordering::SeqCst) != my_gen {
+                return;
+            }
+            match std::fs::File::open(&path) {
+                Ok(f) => break f,
+                Err(e) => {
+                    crate::logger::log_to_disk(&app_inner, &format!("[FILE WATCHER] Waiting for EE.log at {}: {}", path, e));
+                    std::thread::sleep(std::time::Duration::from_secs(5));
+                }
+            }
+        };
+
+        crate::logger::log_to_disk(&app_inner, &format!("[FILE WATCHER] Opened {}", path));
+        SCANNER_STATUS.store(2, Ordering::SeqCst);
+
+        use std::io::{BufRead, Seek};
+        
+        // Seek to end to avoid parsing old events on startup
+        let _ = file.seek(std::io::SeekFrom::End(0));
+        let mut reader = std::io::BufReader::new(file);
+        let mut line = String::new();
+
+        loop {
+            if !IS_SCANNING.load(Ordering::SeqCst) || SCANNER_GENERATION.load(Ordering::SeqCst) != my_gen {
+                break;
+            }
+
+            line.clear();
+            match reader.read_line(&mut line) {
+                Ok(0) => {
+                    // EOF - Wait before polling again
+                    let poll_ms = POLL_INTERVAL_MS.load(Ordering::Relaxed);
+                    std::thread::sleep(std::time::Duration::from_millis(poll_ms as u64));
+                    
+                    // Note: In a robust log tailing implementation we'd also handle log rotation
+                    // (e.g. Warframe truncating or recreating the EE.log), but for basic tailing
+                    // this handles the standard active game session.
+                }
+                Ok(_) => {
+                    scanner.on_line(&app_inner, &line);
+                }
+                Err(e) => {
+                    crate::logger::log_to_disk(&app_inner, &format!("[FILE WATCHER] Read error: {}", e));
+                    std::thread::sleep(std::time::Duration::from_secs(1));
+                }
+            }
+        }
+
         if SCANNER_GENERATION.load(Ordering::SeqCst) == my_gen {
             IS_SCANNING.store(false, Ordering::SeqCst);
         }

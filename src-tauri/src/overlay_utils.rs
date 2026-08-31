@@ -4,8 +4,6 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 use tauri::{AppHandle, Manager, PhysicalPosition, WebviewWindow, WebviewUrl, WebviewWindowBuilder};
 
-use active_win_pos_rs;
-
 static AOT_KEEPER_INSTALLED: Mutex<Vec<String>> = Mutex::new(Vec::new());
 static SHOWN_OVERLAYS: Mutex<Vec<String>> = Mutex::new(Vec::new());
 static LAST_OVERLAY_SIZES: Mutex<Vec<(String, f64, f64)>> = Mutex::new(Vec::new());
@@ -367,23 +365,23 @@ fn apply_x11_overlay_hints(xdisplay: *mut std::ffi::c_void, xid: u64, already_ma
         // sufficient for the WM to leave us alone.
 
         // _NET_WM_STATE: ABOVE + STICKY
-        let wm_state = XInternAtom(xdisplay, b"_NET_WM_STATE\0".as_ptr() as *const i8, 0);
-        let state_above = XInternAtom(xdisplay, b"_NET_WM_STATE_ABOVE\0".as_ptr() as *const i8, 0);
-        let state_sticky = XInternAtom(xdisplay, b"_NET_WM_STATE_STICKY\0".as_ptr() as *const i8, 0);
+        let wm_state = XInternAtom(xdisplay, c"_NET_WM_STATE".as_ptr(), 0);
+        let state_above = XInternAtom(xdisplay, c"_NET_WM_STATE_ABOVE".as_ptr(), 0);
+        let state_sticky = XInternAtom(xdisplay, c"_NET_WM_STATE_STICKY".as_ptr(), 0);
         let states: [u64; 2] = [state_above, state_sticky];
         XChangeProperty(xdisplay, xid, wm_state, xa_atom, 32, prop_replace,
             states.as_ptr() as *const u8, 2);
 
         // _NET_WM_DESKTOP = 0xFFFFFFFF: sticky, visible on all virtual desktops.
         // Survives Super+D (Show Desktop) in KWin.
-        let wm_desktop = XInternAtom(xdisplay, b"_NET_WM_DESKTOP\0".as_ptr() as *const i8, 0);
+        let wm_desktop = XInternAtom(xdisplay, c"_NET_WM_DESKTOP".as_ptr(), 0);
         let all_desktops: u64 = 0xFFFFFFFF;
         XChangeProperty(xdisplay, xid, wm_desktop, xa_cardinal, 32, prop_replace,
             &all_desktops as *const u64 as *const u8, 1);
 
         // _MOTIF_WM_HINTS: tell KWin to skip its "Center New Windows" placement
         // policy by removing decorations (flags=2, decorations=0).
-        let motif_hints = XInternAtom(xdisplay, b"_MOTIF_WM_HINTS\0".as_ptr() as *const i8, 0);
+        let motif_hints = XInternAtom(xdisplay, c"_MOTIF_WM_HINTS".as_ptr(), 0);
         let mwm_hints: [u64; 5] = [2, 0, 0, 0, 0];
         XChangeProperty(xdisplay, xid, motif_hints, motif_hints, 32, prop_replace,
             mwm_hints.as_ptr() as *const u8, 5);
@@ -507,9 +505,13 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
             .and_then(|v| v.as_str())
             .unwrap_or("left")
             .to_string();
+        // sidebar_width is written from JS via serde_json::json!(f64), which
+        // serializes whole numbers with a decimal point (e.g. 800.0) - as_u64()
+        // returns None for a float-typed JSON number, silently falling back to
+        // the default below every time. as_f64() accepts both encodings.
         let width = settings
             .get("sidebar_width")
-            .and_then(|v| v.as_u64())
+            .and_then(|v| v.as_f64())
             .map(|w| w as u32)
             .unwrap_or(400);
         return show_sidebar_internal(app_handle, &side, width);
@@ -1085,7 +1087,7 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
             let focused_now = is_warframe_focused();
 
             if focused_now && !was_focused {
-                for label in had_visible.drain(..).collect::<Vec<_>>() {
+                for label in std::mem::take(&mut had_visible) {
                     // Skip overlays that have been voluntarily closed (e.g. relic
                     // reward timer expired while hidden) — they were removed from
                     // SHOWN_OVERLAYS by clear_shown_overlay and should not re-appear.
@@ -1124,7 +1126,7 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
                         if is_sidebar {
                             stop_sidebar_ungrab_timer();
                         }
-                        if let Some(w) = find_overlay_window(&ah, &label) {
+                        if let Some(w) = find_overlay_window(&ah, label) {
                             let _ = w.hide();
                         }
                     }

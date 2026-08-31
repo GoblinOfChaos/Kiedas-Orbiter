@@ -4,6 +4,93 @@ import { invoke, convertFileSrc } from '@tauri-apps/api/core'
 import { PageLayout } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 
+// The newer /SongItems/ Somachord tracks have no entries in
+// collectible-locations.json (that file only covers the classic
+// /MusicFragments/ scan-based tracks). Their real acquisition routes are all
+// documented in one place on the wiki's main "Somachord" page (the per-track
+// wiki pages for these are largely bare, and ExportVendors.json only covers
+// a handful) - every entry below is transcribed directly from that page's
+// vendor table, not inferred from the item's name/category.
+const SONG_ITEM_VENDORS = {
+  // Baro Ki'Teer - originally a limited-time login bonus for that update's
+  // release window; resold afterward for Credits + Platinum if missed.
+  LotusEatersSongItem: "Originally a login bonus during The Lotus Eaters update. If missed, purchasable from Baro Ki'Teer for 150,000 Credits and 165 Platinum.",
+  AbyssofDagathSongItem: "Originally a login bonus during the Abyss of Dagath update. If missed, purchasable from Baro Ki'Teer for 155,000 Credits and 150 Platinum.",
+  EmpyreanSongItem: "Originally a login bonus during the Empyrean update. If missed, purchasable from Baro Ki'Teer for 155,000 Credits and 160 Platinum.",
+  WhispersInTheWallLoginSongItem: "Originally a login bonus during the Whispers in the Walls update. If missed, purchasable from Baro Ki'Teer for 170,000 Credits and 165 Platinum.",
+  ZarimanLoginSongItem: "Originally a login bonus during the Angels of the Zariman update. If missed, purchasable from Baro Ki'Teer for 180,000 Credits and 160 Platinum.",
+  CorpusRailjackLoginSongItem: "Originally a login bonus during the Railjack Retrofit update. If missed, purchasable from Baro Ki'Teer for 165,000 Credits and 150 Platinum.",
+  DanteUnboundLoginSongItem: "Originally a login bonus during the Dante Unbound update. If missed, purchasable from Baro Ki'Teer for 150,000 Credits and 150 Platinum.",
+  TenthAnniversaryLoginSongItem: "Originally a login bonus for Warframe's 10th Anniversary. If missed, purchasable from Baro Ki'Teer for 165,000 Credits and 145 Platinum.",
+  DeimosLoginSongItem: "Originally a login bonus during the Heart of Deimos update. If missed, purchasable from Baro Ki'Teer for 160,000 Credits and 155 Platinum.",
+  KuvaLichLoginSongItem: "Originally a login bonus during The Old Blood update. If missed, purchasable from Baro Ki'Teer for 170,000 Credits and 140 Platinum.",
+  JadeShadowsLoginSongItem: "Originally a login bonus during the Jade Shadows update. If missed, purchasable from Baro Ki'Teer for 170,000 Credits and 150 Platinum.",
+  TheNewWarLoginSongItem: "Originally a login bonus during The New War update. If missed, purchasable from Baro Ki'Teer for 160,000 Credits and 145 Platinum.",
+  DuviriKullervoLoginSongItem: "Originally a login bonus during The Seven Crimes of Kullervo update. If missed, purchasable from Baro Ki'Teer for 170,000 Credits and 140 Platinum.",
+  VoidEclipseLoginSongItem: "Originally a login bonus during the Lua's Prey update. If missed, purchasable from Baro Ki'Teer for 200,000 Credits and 135 Platinum.",
+  TheSacrificeLoginSongItem: "Originally a login bonus during The Sacrifice update. If missed, purchasable from Baro Ki'Teer for 180,000 Credits and 135 Platinum.",
+  VeilbreakerLoginSongItem: "Originally a login bonus during the Veilbreaker update. If missed, purchasable from Baro Ki'Teer for 150,000 Credits and 150 Platinum.",
+  CorpusLichLoginSongItem: "Originally a login bonus during the Sisters of Parvos update. If missed, purchasable from Baro Ki'Teer for 155,000 Credits and 150 Platinum.",
+
+  // Varzia (Prime Resurgence) - every Prime Theme track, 5 Aya each.
+  GaraPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  GaussPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  GrendelPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  HildrynPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  HydroidPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  KhoraPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  NekrosPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  NidusPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  OberonPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  OctaviaPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  ProteaPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  RevenantPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  VaubanPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  WispPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+  YareliPrimeSongItem: 'Purchased from Varzia (Prime Resurgence) for 5 Aya.',
+
+  // Other confirmed vendors.
+  DripSongItem: 'Purchased from Aspirant Zorba in Relays (after Chains of Harrow) for 200 Atramentum.',
+  StainedVespersSongItem: 'Purchased from Aspirant Zorba in Relays (after Chains of Harrow) for 200 Atramentum.',
+  DreadnaughtSongItem: 'Purchased from Aspirant Zorba in Relays (after Chains of Harrow) for 200 Atramentum.',
+  SacredLightSongItem: 'Purchased from Pontis Tower (Hunhow) for 60 Emerald Talent.',
+  CelestialClashSongItem: 'Purchased from Pontis Tower (Hunhow) for 60 Crimson Talent.',
+  TheTeacherSongItem: "Purchased from Teshin's Steel Path Honor Store for 25 Steel Essence.",
+  WhatIsMyFateSongItem: "Purchased from Koumei's Shrine for 100 Fate Pearl.",
+  SevagothDeluxeSongItem: 'Included with the Sevagoth Glaukus Skin (Market, 165 Platinum) or the Sevagoth Glaukus Collection (Market, 245 Platinum).',
+
+  // Aoi, in the Höllvania Central Mall / Round Table Pub - 5,000 Credits
+  // each, gated behind an exact Hex reputation rank per track.
+  CC16BitGirlsSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 1 - Leftovers with The Hex.',
+  CCAnnaKiGOBSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 1 - Leftovers with The Hex.',
+  OnlyneArsenalSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 1 - Leftovers with The Hex.',
+  OnlyneCoreContainmentSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 1 - Leftovers with The Hex.',
+  CCPsychoKillianSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 2 - Fresh Slice with The Hex.',
+  CCLundoraCallingSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 2 - Fresh Slice with The Hex.',
+  OnlyneCutThroughSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 2 - Fresh Slice with The Hex.',
+  OnlyneInfectionSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 2 - Fresh Slice with The Hex.',
+  CCAnnaKiPunkSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 3 - 2-For-1 with The Hex.',
+  CCKickOutTheGunsSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 3 - 2-For-1 with The Hex.',
+  OnlyneNumbSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 3 - 2-For-1 with The Hex.',
+  OnlynePartyOfYourLifetimeSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 3 - 2-For-1 with The Hex.',
+  CCIWannaBeYourGOBSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 4 - Hot & Fresh with The Hex.',
+  CCBizMarqueBopSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 4 - Hot & Fresh with The Hex.',
+  OnlynePickASideSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 4 - Hot & Fresh with The Hex.',
+  OnlyneRottenLivesSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 4 - Hot & Fresh with The Hex.',
+  OnlyneShutItDownSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 4 - Hot & Fresh with The Hex.',
+  OnlyneTheCallSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 5 - Pizza Party with The Hex.',
+  OnlyneTheGreatDespairSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 5 - Pizza Party with The Hex.',
+  OnlyneTheGreatKIMSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 5 - Pizza Party with The Hex.',
+  AliveAgainSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 5 - Pizza Party with The Hex.',
+  BelowZeroSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 5 - Pizza Party with The Hex.',
+  CrashCourseSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 5 - Pizza Party with The Hex.',
+  FromTheStarsSongItem: 'Purchased from Aoi in the Höllvania Central Mall for 5,000 Credits after reaching Rank 5 - Pizza Party with The Hex.',
+}
+
+function getSongItemLocationText(leaf) {
+  return SONG_ITEM_VENDORS[leaf] ?? null
+}
+
 const CATEGORIES = [
   // Series
   { type: 'series', key: '/Lotus/Objects/Orokin/Props/CollectibleSeriesOne', label: 'Kuria', icon: 'IconOrokitty.png', color: '#d4a843' },
@@ -22,7 +109,7 @@ const CATEGORIES = [
   // Frame Fighter, Leverian) all turned out wrong compared to the real catalog.
   { type: 'fragment', label: 'Somachord Tunes', codexSection: 'songs', icon: 'IconSomachord.png', color: '#f472b6', match: (type) => type.includes('/MusicFragments/') },
   { type: 'fragment', label: 'Frame Fighter Fragments', codexSection: 'fighterFrames', icon: 'IconFrameFighter.png', color: '#fb923c', match: (type) => type.includes('/FrameFighterFragments/') },
-  { type: 'fragment', label: 'Cephalon Fragments', icon: 'IconCephalonFragment.png', color: '#60a5fa', match: (type) => type.startsWith('/Lotus/Types/Lore/Fragments/') && !type.includes('/Eidolon') && !type.includes('/Music') && !type.includes('/FrameFighter') && !type.includes('/LoreCard') && !type.includes('/Solaris') && !type.includes('/GrineerGhoul') && !type.includes('/Albrect') && !type.includes('/Revenant') && !type.includes('/CorpusRelief') && !type.includes('/GasCity') && !type.includes('/GlassFragments') },
+  { type: 'fragment', label: 'Cephalon Fragments', icon: 'IconCephalonFragment.png', color: '#60a5fa', match: (type) => type.startsWith('/Lotus/Types/Lore/Fragments/') && !type.includes('/Eidolon') && !type.includes('/Music') && !type.includes('/FrameFighter') && !type.includes('/LoreCard') && !type.includes('/Solaris') && !type.includes('/GrineerGhoul') && !type.includes('/Albrect') && !type.includes('/Revenant') && !type.includes('/CorpusRelief') && !type.includes('/GasCity') && !type.includes('/GlassFragments') && !type.includes('/Duviri') },
   { type: 'fragment', label: 'Leverian Prex Cards', icon: 'IconTarotCards.png', color: '#a78bfa', match: (type) => type.includes('/LoreCardFragments/') },
   { type: 'fragment', label: 'Thousand-Year Fish', icon: 'GlassFish.png', color: '#34d399', match: (type) => type.includes('/EidolonFragments/') },
   { type: 'fragment', label: 'Encrypted Journal Fragments', icon: 'GhoulDataFragment.png', color: '#a3e635', match: (type) => type.includes('/GrineerGhoulFragments/') },
@@ -184,6 +271,7 @@ export default function Collectibles() {
   const collectibleSeries = inventoryData?.collectibleSeries ?? []
   const discoveredMarkers = inventoryData?.discoveredMarkers ?? []
   const loreFragmentScans = inventoryData?.loreFragmentScans ?? []
+  const songItemsOwned = inventoryData?.songItems ?? []
 
   const fragName = useCallback((type, codexEntry) => {
     const leaf = type.split('/').pop()
@@ -310,6 +398,19 @@ export default function Collectibles() {
         .filter(([itemType]) => cat.match(itemType))
         .map(([itemType, entry]) => ({ itemType, leaf: itemType.split('/').pop(), entry }))
     }
+    // Newer Somachord-style tracks (Caliber Chicks, Onlyne, etc.) are granted
+    // as owned MiscItems (/SongItems/) instead of scan-based codex progress,
+    // and have no ExportCodex "songs" entries at all - fold them into the
+    // same Somachord Tunes catalog (sourced from ExportResources.json
+    // instead) so they show up as more tracks in the same collectible, not a
+    // separate card.
+    const resourceExports = exportData?.ExportResources
+    if (resourceExports) {
+      const songItemEntries = Object.entries(resourceExports)
+        .filter(([itemType]) => itemType.startsWith('/Lotus/Types/Items/SongItems/'))
+        .map(([itemType, entry]) => ({ itemType, leaf: itemType.split('/').pop(), entry }))
+      out['Somachord Tunes'] = [...(out['Somachord Tunes'] ?? []), ...songItemEntries]
+    }
     return out
   }, [exportData])
 
@@ -318,8 +419,11 @@ export default function Collectibles() {
     for (const f of loreFragmentScans) {
       if (f.Progress > 0) s.add(f.ItemType)
     }
+    for (const it of songItemsOwned) {
+      s.add(it.unique_name)
+    }
     return s
-  }, [loreFragmentScans])
+  }, [loreFragmentScans, songItemsOwned])
 
   const fragmentCards = useMemo(() => {
     return CATEGORIES.filter(c => c.type === 'fragment').map((cat) => {
@@ -343,10 +447,12 @@ export default function Collectibles() {
           return catalog
             .map((it) => {
               const locData = collectibleLocations.fragmentItems?.[cat.label]?.[it.leaf]
+              const name = fragName(it.itemType, it.entry)
+              const isSongItem = it.itemType.startsWith('/Lotus/Types/Items/SongItems/')
               return {
                 key: it.itemType,
-                name: fragName(it.itemType, it.entry),
-                location: locData?.location,
+                name,
+                location: locData?.location ?? (isSongItem ? getSongItemLocationText(it.leaf) : undefined),
                 found: foundSet.has(it.itemType),
               }
             })

@@ -575,10 +575,12 @@
     "ui.setup.disclaimer_title": "Zastrzeżenie",
     "ui.setup.game_assets": "Zasoby gry",
     "ui.setup.welcome": "Witaj w Kieda's Orbiter",
-    "wiki.refresh": "Odśwież tę zakładkę"
+    "wiki.refresh": "Odśwież tę zakładkę",
+    "nav.market": "Rynek"
   },
   "checklist.task_glast": "Ergo Glast: Tenet Melee",
   "checklist.task_eleanor": "Eleanor's Shop (1999)",
   "checklist.eleanor_batch_a": "Batch A",
-  "checklist.eleanor_batch_b": "Batch B"
+  "checklist.eleanor_batch_b": "Batch B",
+  "nav.market": "Rynek"
 }

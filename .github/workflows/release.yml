@@ -182,6 +182,24 @@ jobs:
           cd /tmp/appimage-patch
           "$APPIMAGE_FILE" --appimage-extract > /dev/null 2>&1
 
+          # Tauri/linuxdeploy's default AppImage packaging puts app resources
+          # under usr/lib/<productName> ("Kieda's Orbiter", from tauri.conf.json),
+          # but Tauri resolves BaseDirectory::Resource at runtime as
+          # $APPIMAGE_DIR/usr/lib/<binary-name> ("kiedas-orbiter", from
+          # Cargo.toml) - a different string. Confirmed live: a v1.3.4 install
+          # built by this exact pipeline shipped with every resource-backed
+          # UI element (bounty portraits/rotation labels, etc.) silently blank,
+          # because the running binary looked in a directory that didn't exist.
+          # scripts/rebuild-appimage.sh already works around this for local
+          # builds by writing resources straight to the right path; do the
+          # equivalent here by renaming the directory before repacking.
+          WRONG_RESOURCE_DIR=$(find squashfs-root/usr/lib -maxdepth 1 -mindepth 1 -type d ! -name kiedas-orbiter | head -1)
+          if [ -n "$WRONG_RESOURCE_DIR" ] && [ ! -d squashfs-root/usr/lib/kiedas-orbiter ]; then
+            echo "Relocating resources: $WRONG_RESOURCE_DIR -> squashfs-root/usr/lib/kiedas-orbiter"
+            mv "$WRONG_RESOURCE_DIR" squashfs-root/usr/lib/kiedas-orbiter
+          fi
+          test -f squashfs-root/usr/lib/kiedas-orbiter/data/assets/data/wiki-baro-acquisition.json || { echo "Resource relocation failed - wiki-baro-acquisition.json not found at the expected path"; exit 1; }
+
           # Patch AppRun to use system libwayland-client to work around
           # Tauri AppImage EGL_BAD_PARAMETER bug on rolling-release distros.
           # See https://github.com/tauri-apps/tauri/pull/12491 for upstream fix.

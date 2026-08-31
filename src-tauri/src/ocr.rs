@@ -347,7 +347,7 @@ pub(crate) fn capture_monitor_image(app: &AppHandle, monitor: &Monitor) -> Resul
         }
 
         crate::logger::log_to_disk(app, "[OCR] Capture failed (all methods exhausted or returned invalid data)");
-        return Err("capture failed (all methods exhausted or returned invalid data)".to_string());
+        Err("capture failed (all methods exhausted or returned invalid data)".to_string())
     }
 
     #[cfg(not(target_os = "linux"))]
@@ -373,10 +373,10 @@ pub fn get_target_monitor(app: &AppHandle) -> Option<Monitor> {
         let wf_cy = wf_rect.1 + wf_rect.3 as i32 / 2;
         for m in &monitors {
             if let (Ok(x), Ok(y), Ok(w_), Ok(h_)) = (m.x(), m.y(), m.width(), m.height()) {
-                let right = x as i32 + w_ as i32;
-                let bottom = y as i32 + h_ as i32;
-                if wf_cx >= x as i32 && wf_cx < right
-                    && wf_cy >= y as i32 && wf_cy < bottom
+                let right = x + w_ as i32;
+                let bottom = y + h_ as i32;
+                if wf_cx >= x && wf_cx < right
+                    && wf_cy >= y && wf_cy < bottom
                 {
                     return Some(m.clone());
                 }
@@ -1120,14 +1120,14 @@ fn apply_ocr_preprocessing(slot_crop: &DynamicImage, _debug_slot: Option<usize>)
     for p in enhanced.pixels() { hist[p[0] as usize] += 1; }
     let total = (w * h) as f64;
     let (mut sum, mut sum_b, mut q1, mut max_var) = (0.0f64, 0.0f64, 0.0f64, 0.0f64);
-    for i in 0..256 { sum += i as f64 * hist[i] as f64; }
+    for (i, &count) in hist.iter().enumerate() { sum += i as f64 * count as f64; }
     let mut otsu_thresh = 128u8;
-    for i in 0..256 {
-        q1 += hist[i] as f64;
+    for (i, &count) in hist.iter().enumerate() {
+        q1 += count as f64;
         if q1 == 0.0 { continue; }
         let q2 = total - q1;
         if q2 == 0.0 { break; }
-        sum_b += i as f64 * hist[i] as f64;
+        sum_b += i as f64 * count as f64;
         let m1 = sum_b / q1;
         let m2 = (sum - sum_b) / q2;
         let var = q1 * q2 * (m1 - m2).powi(2);
@@ -1240,9 +1240,10 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
 
                 let midpoint = uh / 2;
                 let overlap = (uh as f32 * 0.05) as u32;
+                let crop_y = midpoint.saturating_sub(overlap);
                 let dyn_binary = image::DynamicImage::ImageLuma8(binary);
                 let line1 = dyn_binary.crop_imm(0, 0, uw, (midpoint + overlap).min(uh)).to_luma8();
-                let line2 = dyn_binary.crop_imm(0, (midpoint - overlap).max(0), uw, uh - ((midpoint - overlap).max(0))).to_luma8();
+                let line2 = dyn_binary.crop_imm(0, crop_y, uw, uh - crop_y).to_luma8();
 
                 let mut combined_lines = Vec::new();
                 for (_l_idx, line_img) in [(0usize, line1), (1usize, line2)] {
@@ -1287,9 +1288,9 @@ fn clean_ocr_output(raw: &str) -> String {
         if accept {
             // Reconstruct with original tokens (some may have junk prefixes to preserve)
             let mut result = String::new();
-            for j in i..tokens.len() {
-                if j > i { result.push(' '); }
-                result.push_str(strip_prefix_junk(tokens[j]));
+            for (idx, token) in tokens[i..].iter().enumerate() {
+                if idx > 0 { result.push(' '); }
+                result.push_str(strip_prefix_junk(token));
             }
             return result;
         }
@@ -1314,7 +1315,7 @@ fn clean_ocr_output(raw: &str) -> String {
 
         let mut slot_results = Vec::new();
         let mut found_loading = false;
-        for (_i, h) in handles.into_iter().enumerate() {
+        for h in handles {
             if let Ok(Some((slot, text))) = h.join() {
                 if text.contains("LOADING") { found_loading = true; }
                 slot_results.push(OcrSlotResult { slot, text });

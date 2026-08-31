@@ -18,6 +18,7 @@ cd "$REPO"
 export PATH="/home/jedwards/.local/share/pnpm/bin:$PATH"
 export APPIMAGE_EXTRACT_AND_RUN=1
 export NO_STRIP=1
+export ARCH=x86_64
 
 # Keep a live Warframe/Proton session responsive while building. Distrobox
 # shares the host's CPU, memory, and disk with the game, so an unrestricted
@@ -31,6 +32,9 @@ export RAYON_NUM_THREADS=4
 run_low_impact() {
   nice -n 10 ionice -c 3 taskset -c "$BUILD_CPUS" "$@"
 }
+
+echo "==> Running Full Pre-Build Audit (AST Scope, 3rd-Party Ban & All 19 Screens)"
+npm run audit
 
 echo "==> Building (the bundler's own linuxdeploy step will likely fail at the end - that's expected)"
 run_low_impact pnpm tauri build --bundles appimage || true
@@ -75,9 +79,14 @@ run_low_impact "$LINUXDEPLOY" \
 test -f "Kieda's Orbiter.AppDir/usr/lib/kiedas-orbiter/data/assets/data/wiki-baro-acquisition.json"
 
 echo "==> Copying result to both shortcut paths"
-cp "Kieda's_Orbiter-x86_64.AppImage" "Kieda's Orbiter_0.7.0_amd64.AppImage"
+# Plain cp fails with ETXTBSY if the previous build is still running (the
+# kernel locks the inode of an executing binary). --remove-destination
+# unlinks the old directory entry and writes a fresh inode instead of
+# overwriting in place, which the OS allows even while the old inode is
+# still open by the running process.
+cp --remove-destination "Kieda's_Orbiter-x86_64.AppImage" "Kieda's Orbiter_0.7.0_amd64.AppImage"
 chmod +x "Kieda's Orbiter_0.7.0_amd64.AppImage"
-cp "Kieda's_Orbiter-x86_64.AppImage" "$HOME/AppImages/kiedas_orbiter.appimage"
+cp --remove-destination "Kieda's_Orbiter-x86_64.AppImage" "$HOME/AppImages/kiedas_orbiter.appimage"
 chmod +x "$HOME/AppImages/kiedas_orbiter.appimage"
 
 echo "==> Done. Exit the distrobox and launch via your normal shortcut (never from inside the container)."

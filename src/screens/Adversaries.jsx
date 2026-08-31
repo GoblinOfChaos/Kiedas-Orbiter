@@ -106,7 +106,7 @@ export default function Adversaries() {
               {ELEMENT_ORDER.map((el) =>
               <div key={el} className="flex flex-col gap-1 min-w-[90px]">
                   <div className="flex flex-col items-center gap-1 pb-1.5 border-b border-white/10 mb-1">
-                    <img src={iconSrc(iconsPath, el)} className="w-5 h-5 object-contain" alt={el} onError={(e) => {e.target.style.display = 'none';}} />
+                    <img src={iconSrc(iconsPath, el)} className="w-5 h-5 object-contain" alt={el}  />
                     <span style={{ color: ELEMENT_COLORS[el] }} className="text-[10px] font-bold uppercase tracking-wider leading-tight">{el}</span>
                   </div>
                   <div className="flex flex-col items-center gap-0.5">
@@ -146,7 +146,7 @@ export default function Adversaries() {
                     src={iconSrc(iconsPath, n.element)}
                     className="w-4 h-4 object-contain flex-shrink-0"
                     alt=""
-                    onError={(e) => {e.target.style.display = 'none';}} />
+                     />
 
                   }
                     <span className="text-white/80 min-w-[100px]">{n.wfName}</span>

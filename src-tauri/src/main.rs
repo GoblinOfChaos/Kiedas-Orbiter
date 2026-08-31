@@ -17,6 +17,7 @@ use serde_json::Value;
 use serde::Serialize;
 
 mod log_scanner;
+mod market;
 mod ocr;
 mod ocr_engine;
 mod overlay_utils;
@@ -190,8 +191,25 @@ fn resolve_bundled_path(app_handle: &tauri::AppHandle, relative: &str) -> Option
 
 /// Simple command to proxy frontend logs to the terminal/stdout.
 #[tauri::command]
-fn log_terminal(message: String) {
-    eprintln!("[JS] {}", message);
+fn log_terminal(app: tauri::AppHandle, message: String) {
+    crate::logger::log_to_disk(&app, &format!("[JS] {}", message));
+}
+
+#[tauri::command]
+fn prepare_bug_report(app: tauri::AppHandle, description: String) -> Result<String, String> {
+    crate::logger::log_to_disk(&app, &format!("[BUG REPORT] User Description: {}", description));
+    
+    // Save to Desktop
+    let desktop = dirs::desktop_dir().unwrap_or_else(|| std::env::current_dir().unwrap());
+    let zip_path = crate::logger::zip_logs(&desktop)?;
+    
+    // Open GitHub issue page
+    let body = format!("**Describe the bug**\n{}\n\n**Logs**\nI have attached `Kiedas-Orbiter-Logs.zip` from my desktop to this issue.\n", description);
+    let url = format!("https://github.com/GoblinOfChaos/Kiedas-Orbiter/issues/new?title=Bug+Report&body={}", urlencoding::encode(&body));
+    
+    let _ = tauri_plugin_opener::open_url(url, None::<&str>);
+    
+    Ok(zip_path.to_string_lossy().into_owned())
 }
 
 // --- Export Management ---
@@ -222,6 +240,7 @@ const EXPORT_FILES: &[&str] = &[
     "ExportBoosterPacks.json",
     "ExportBundles.json",
     "ExportRecipes.json",
+    "ExportKeys.json",
     "ExportCustoms.json",
     "ExportVendors.json",
     "ExportGear.json",
@@ -1014,12 +1033,18 @@ async fn check_media_assets() -> Result<String, String> {
         fs::create_dir_all(&icons_dir).map_err(|e| e.to_string())?;
     }
     
-    for rank in 0..=40 {
-        let filename = if rank <= 30 {
-            format!("Rank{:02}{}.png", rank, RANK_NAMES[rank])
-        } else {
-            format!("Rank{}.png", rank)
-        };
+    for (rank, name) in RANK_NAMES.iter().enumerate() {
+        let filename = format!("Rank{:02}{}.png", rank, name);
+        let path = icons_dir.join(&filename);
+        if !path.exists() {
+            let url = format!("{}/masteryicons/{}", base_url, filename);
+            if download_file(&client, &url, &path).await.is_ok() {
+                downloaded += 1;
+            }
+        }
+    }
+    for rank in (RANK_NAMES.len())..=40 {
+        let filename = format!("Rank{}.png", rank);
         let path = icons_dir.join(&filename);
         if !path.exists() {
             let url = format!("{}/masteryicons/{}", base_url, filename);
@@ -1204,7 +1229,7 @@ async fn ensure_card_images(
             for e in rd.flatten() {
                 let p = e.path();
                 if p.is_dir() { stack.push(p); }
-                else if p.extension().map_or(false, |x| x.eq_ignore_ascii_case("png")) {
+                else if p.extension().is_some_and(|x| x.eq_ignore_ascii_case("png")) {
                     if let Ok(rel) = p.strip_prefix(&fix_root) {
                         let key = rel.to_string_lossy().replace('\\', "/");
                         if key.starts_with("Lotus/Interface/Icons/") { continue; }
@@ -1280,7 +1305,7 @@ fn count_unfixed_card_images(path: String) -> usize {
         for e in rd.flatten() {
             let p = e.path();
             if p.is_dir() { stack.push(p); }
-            else if p.extension().map_or(false, |x| x.eq_ignore_ascii_case("png")) {
+            else if p.extension().is_some_and(|x| x.eq_ignore_ascii_case("png")) {
                 if let Ok(rel) = p.strip_prefix(root) {
                     let key = rel.to_string_lossy().replace('\\', "/");
                     // Skip files under Lotus/Interface/Icons/ - these are
@@ -1337,7 +1362,7 @@ fn composite_overlay(card_path: &std::path::Path, overlay_path: &std::path::Path
 
     // Reduce overlay opacity to 50% before compositing
     for pixel in ov_scaled.pixels_mut() {
-        pixel[3] = pixel[3] / 2;
+        pixel[3] /= 2;
     }
 
     // Center the scaled overlay on the card
@@ -1827,9 +1852,12 @@ fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
             .to_string();
         saved.side = Some(side.clone());
         saved.active = true;
+        // sidebar_width is written from JS as a float (e.g. 800.0); as_u64()
+        // returns None for a float-typed JSON number and silently falls back
+        // to 400 below on every toggle - as_f64() accepts both encodings.
         let entry_width = settings
             .get("sidebar_width")
-            .and_then(|v| v.as_u64())
+            .and_then(|v| v.as_f64())
             .map(|w| w as u32)
             .unwrap_or(400);
 
@@ -2184,6 +2212,7 @@ async fn play_notification_sound(app_handle: tauri::AppHandle, sound: String) ->
 /// Emits 'new-notification' globally; the matching window picks it up.
 /// Plays the configured notification sound.
 #[tauri::command]
+#[allow(clippy::too_many_arguments)]
 async fn show_notification(
     app_handle: tauri::AppHandle,
     state: tauri::State<'_, AppState>,
@@ -2278,7 +2307,7 @@ async fn download_appimage_update(url: String) -> Result<String, String> {
     // produced two simultaneous running instances, both still offering to
     // update, after a "successful" install.
     let dest_path = appimage_path.clone();
-    let temp_filename = url.split('/').last().ok_or("Invalid URL")?;
+    let temp_filename = url.split('/').next_back().ok_or("Invalid URL")?;
     let temp_path = parent.join(format!(".{}.partial", temp_filename));
 
     // No timeout here previously meant a stalled connection (dropped
@@ -2375,19 +2404,123 @@ async fn open_url(_app_handle: tauri::AppHandle, url: String) -> Result<(), Stri
 
 // --- Log Scanner Commands ---
 
+fn get_setting_bool(key: &str, default: bool) -> bool {
+    let settings_dir = resolve_path("data/user");
+    let path = settings_dir.join("settings.json");
+    if let Ok(s) = std::fs::read_to_string(&path) {
+        if let Ok(v) = serde_json::from_str::<serde_json::Value>(&s) {
+            if let Some(b) = v.get(key).and_then(|v| v.as_bool()) {
+                return b;
+            }
+        }
+    }
+    default
+}
+
+fn get_setting_string(key: &str) -> Option<String> {
+    let settings_dir = resolve_path("data/user");
+    let path = settings_dir.join("settings.json");
+    if let Ok(s) = std::fs::read_to_string(&path) {
+        if let Ok(v) = serde_json::from_str::<serde_json::Value>(&s) {
+            if let Some(s) = v.get(key).and_then(|v| v.as_str()) {
+                return Some(s.to_string());
+            }
+        }
+    }
+    None
+}
+
+#[tauri::command]
+async fn post_market_order(
+    token: String,
+    item_id: String,
+    plat_price: i32,
+    quantity: i32,
+    rank: Option<i32>,
+) -> Result<(), String> {
+    crate::market::post_market_order(token, item_id, plat_price, quantity, rank).await
+}
+
+#[tauri::command]
+async fn get_my_market_orders(token: String) -> Result<String, String> {
+    crate::market::get_my_market_orders(token).await
+}
+
+#[tauri::command]
+async fn delete_market_order(token: String, order_id: String) -> Result<(), String> {
+    crate::market::delete_market_order(token, order_id).await
+}
+
+#[tauri::command]
+async fn update_market_order(
+    token: String,
+    order_id: String,
+    platinum: Option<i32>,
+    quantity: Option<i32>,
+    visible: Option<bool>,
+) -> Result<(), String> {
+    crate::market::update_market_order(token, order_id, platinum, quantity, visible).await
+}
+
+#[tauri::command]
+async fn close_market_order(token: String, order_id: String, quantity: i32) -> Result<(), String> {
+    crate::market::close_market_order(token, order_id, quantity).await
+}
+
 #[tauri::command]
 async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppState>) -> Result<(), String> {
     if state.log_scanner.lock().unwrap().is_some() {
         return Ok(());
     }
     
-    let handle = match log_scanner::spawn_memory_watcher(app.clone()) {
-        Ok(h) => h,
-        Err(e) => {
-            crate::log_scanner::stop_scanner(&app);
-            return Err(e);
+    let use_ee_log = get_setting_bool("use_ee_log", false);
+    
+    let handle = if use_ee_log {
+        let path = get_setting_string("ee_log_path").unwrap_or_else(|| {
+            #[cfg(target_os = "windows")]
+            {
+                if let Some(local_app_data) = std::env::var_os("LOCALAPPDATA") {
+                    let mut pb = std::path::PathBuf::from(local_app_data);
+                    pb.push("Warframe");
+                    pb.push("EE.log");
+                    pb.to_string_lossy().into_owned()
+                } else {
+                    "EE.log".to_string()
+                }
+            }
+            #[cfg(target_os = "linux")]
+            {
+                if let Some(home) = std::env::var_os("HOME") {
+                    let mut pb = std::path::PathBuf::from(home);
+                    pb.push(".local/share/Steam/steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log");
+                    pb.to_string_lossy().into_owned()
+                } else {
+                    "EE.log".to_string()
+                }
+            }
+            #[cfg(not(any(target_os = "windows", target_os = "linux")))]
+            {
+                "EE.log".to_string()
+            }
+        });
+        
+        match log_scanner::spawn_file_watcher(app.clone(), path) {
+            Ok(h) => h,
+            Err(e) => {
+                crate::log_scanner::stop_scanner(&app);
+                return Err(e);
+            }
+        }
+    } else {
+        match log_scanner::spawn_memory_watcher(app.clone()) {
+            Ok(h) => h,
+            Err(e) => {
+                crate::log_scanner::stop_scanner(&app);
+                return Err(e);
+            }
         }
     };
+    
     *state.log_scanner.lock().unwrap() = Some(handle);
     
     Ok(())
@@ -2766,8 +2899,8 @@ async fn auto_detect_warframe_monitor(state: tauri::State<'_, AppState>) -> Resu
 
     let monitors = xcap::Monitor::all().map_err(|e| e.to_string())?;
     for (idx, m) in monitors.iter().enumerate() {
-        let mx = m.x().unwrap_or(0) as i32;
-        let my = m.y().unwrap_or(0) as i32;
+        let mx = m.x().unwrap_or(0);
+        let my = m.y().unwrap_or(0);
         let mw = m.width().unwrap_or(1920) as i32;
         let mh = m.height().unwrap_or(1080) as i32;
         if cx >= mx && cx < mx + mw && cy >= my && cy < my + mh {
@@ -2879,7 +3012,7 @@ fn estimate_riven_full_batch(inputs: Vec<pricer::RivenInput>) -> Vec<Option<pric
 
 #[tauri::command]
 async fn get_known_weapon_names() -> Vec<String> {
-    tauri::async_runtime::spawn_blocking(|| crate::pricer::get_weapon_names())
+    tauri::async_runtime::spawn_blocking(crate::pricer::get_weapon_names)
         .await
         .unwrap_or_default()
 }
@@ -2982,7 +3115,7 @@ fn linux_reparent_and_position(
 
         if !already_in_overlay {
             if let Some(child_parent) = child_wv.parent() {
-                if let Some(container) = child_parent.dynamic_cast::<gtk::Container>().ok() {
+                if let Ok(container) = child_parent.dynamic_cast::<gtk::Container>() {
                     container.remove(&*child_wv);
                 }
             }
@@ -3047,7 +3180,7 @@ fn linux_ensure_overlay(main_webview: &tauri::Webview, child_webview: &tauri::We
 
         if !already_in_overlay {
             if let Some(child_parent) = child_wv.parent() {
-                if let Some(container) = child_parent.dynamic_cast::<gtk::Container>().ok() {
+                if let Ok(container) = child_parent.dynamic_cast::<gtk::Container>() {
                     container.remove(&*child_wv);
                 }
             }
@@ -3222,7 +3355,7 @@ document.addEventListener('auxclick', (e) => {
 
 #[tauri::command]
 fn hide_wiki_tab(webview: tauri::Webview, label: String) -> Result<(), String> {
-    let actual = wiki_actual(&webview.window().label(), &label);
+    let actual = wiki_actual(webview.window().label(), &label);
     if let Some(w) = webview.app_handle().get_webview(&actual) {
         w.hide().map_err(|e| e.to_string())?;
     }
@@ -3257,7 +3390,7 @@ fn close_wiki_tab(webview: tauri::Webview, label: String) -> Result<(), String> 
 
 #[tauri::command]
 fn refresh_wiki_tab(webview: tauri::Webview, label: String) -> Result<(), String> {
-    let actual = wiki_actual(&webview.window().label(), &label);
+    let actual = wiki_actual(webview.window().label(), &label);
     if let Some(w) = webview.app_handle().get_webview(&actual) {
         w.reload().map_err(|e| e.to_string())?;
     }
@@ -3266,7 +3399,7 @@ fn refresh_wiki_tab(webview: tauri::Webview, label: String) -> Result<(), String
 
 #[tauri::command]
 fn sync_wiki_tab(webview: tauri::Webview, label: String, url: String) -> Result<(), String> {
-    let actual = wiki_actual(&webview.window().label(), &label);
+    let actual = wiki_actual(webview.window().label(), &label);
     if let Some(w) = webview.app_handle().get_webview(&actual) {
         let parsed = url.parse().map_err(|e: url::ParseError| e.to_string())?;
         w.navigate(parsed).map_err(|e| e.to_string())?;
@@ -3277,7 +3410,7 @@ fn sync_wiki_tab(webview: tauri::Webview, label: String, url: String) -> Result<
 
 #[tauri::command]
 fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width: f64, height: f64) -> Result<(), String> {
-    let actual = wiki_actual(&webview.window().label(), &label);
+    let actual = wiki_actual(webview.window().label(), &label);
     #[cfg(target_os = "linux")]
     {
         let app = webview.app_handle();
@@ -3307,24 +3440,65 @@ fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width
 /// Example: `asset-cache://browse.wf/WFCD/icon.png` -> `https://browse.wf/WFCD/icon.png`
 /// It checks if the image exists in the local `image_cache` directory.
 /// If yes, serves it. If no, fetches via HTTP, saves it, and serves it.
-
 fn handle_asset_cache_request<R: tauri::Runtime>(
     _ctx: tauri::UriSchemeContext<'_, R>,
     request: tauri::http::Request<Vec<u8>>,
     responder: tauri::UriSchemeResponder,
 ) {
     let uri = request.uri().clone();
-    let path = uri.path(); // e.g. "/browse.wf/WFCD/icon.png"
+    let path = uri.path();
     let host = uri.authority().map(|a| a.as_str()).unwrap_or("");
-    let full_path = format!("{}{}", host, path);
+    let mut full_path = format!("{}{}", host, path);
 
-    let target_url = format!("https://{}", full_path.trim_start_matches('/'));
+    if let Some(idx) = full_path.find("content.warframe.com") {
+        full_path = full_path[idx..].to_string();
+    } else if let Some(idx) = full_path.find("browse.wf") {
+        full_path = full_path[idx..].to_string();
+    }
+
+    let raw_rel = full_path.trim_start_matches('/').replace("browse.wf/", "").replace("content.warframe.com/PublicExport/", "");
+    let target_url = if full_path.contains("content.warframe.com") {
+        format!("https://{}", full_path.trim_start_matches('/'))
+    } else {
+        format!("https://content.warframe.com/PublicExport/{}", raw_rel)
+    };
+
     let cache_dir = get_data_root().join("image_cache");
     let safe_path = full_path.trim_start_matches('/').replace("..", "").replace(":", "_").replace("\\", "_");
     let local_file = cache_dir.join(&safe_path);
 
+    // Also check if the raw file exists in card-images or UI assets
+    let card_images_file = get_data_root().join("data/assets/card-images").join(&raw_rel);
+    let ui_file = get_data_root().join("data/assets/ui").join(&raw_rel);
+
     tauri::async_runtime::spawn(async move {
-        // 1. Try to read from cache
+        // 1. Try local card-images or UI assets
+        if card_images_file.exists() {
+            if let Ok(bytes) = std::fs::read(&card_images_file) {
+                let mime = mime_guess::from_path(&card_images_file).first_or_octet_stream().to_string();
+                let resp = tauri::http::Response::builder()
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Content-Type", mime)
+                    .body(bytes)
+                    .unwrap();
+                responder.respond(resp);
+                return;
+            }
+        }
+        if ui_file.exists() {
+            if let Ok(bytes) = std::fs::read(&ui_file) {
+                let mime = mime_guess::from_path(&ui_file).first_or_octet_stream().to_string();
+                let resp = tauri::http::Response::builder()
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Content-Type", mime)
+                    .body(bytes)
+                    .unwrap();
+                responder.respond(resp);
+                return;
+            }
+        }
+
+        // 2. Try to read from cache
         if local_file.exists() {
             if let Ok(bytes) = std::fs::read(&local_file) {
                 let mime = mime_guess::from_path(&local_file).first_or_octet_stream().to_string();
@@ -3338,40 +3512,49 @@ fn handle_asset_cache_request<R: tauri::Runtime>(
             }
         }
 
-        // 2. Fetch from network
-        match reqwest::get(&target_url).await {
-            Ok(resp) if resp.status().is_success() => {
-                if let Ok(bytes) = resp.bytes().await {
-                    let bytes_vec = bytes.to_vec();
-                    if let Some(parent) = local_file.parent() {
-                        let _ = std::fs::create_dir_all(parent);
-                    }
-                    let _ = std::fs::write(&local_file, &bytes_vec);
+        // 3. Fetch from network with real User-Agent
+        let client = reqwest::Client::builder()
+            .timeout(std::time::Duration::from_secs(10))
+            .user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+            .build();
 
-                    let mime = mime_guess::from_path(&local_file).first_or_octet_stream().to_string();
-                    let response = tauri::http::Response::builder()
-                        .header("Access-Control-Allow-Origin", "*")
-                        .header("Content-Type", mime)
-                        .body(bytes_vec)
-                        .unwrap();
-                    responder.respond(response);
-                    return;
+        if let Ok(client) = client {
+            if let Ok(resp) = client.get(&target_url).send().await {
+                if resp.status().is_success() {
+                    if let Ok(bytes) = resp.bytes().await {
+                        let bytes_vec = bytes.to_vec();
+                        if let Some(parent) = local_file.parent() {
+                            let _ = std::fs::create_dir_all(parent);
+                        }
+                        let _ = std::fs::write(&local_file, &bytes_vec);
+
+                        let mime = mime_guess::from_path(&local_file).first_or_octet_stream().to_string();
+                        let response = tauri::http::Response::builder()
+                            .header("Access-Control-Allow-Origin", "*")
+                            .header("Content-Type", mime)
+                            .body(bytes_vec)
+                            .unwrap();
+                        responder.respond(response);
+                        return;
+                    }
                 }
-            }
-            Ok(resp) => {
-                eprintln!("[asset-cache] HTTP {} for {}", resp.status(), target_url);
-            }
-            Err(e) => {
-                eprintln!("[asset-cache] Fetch error for {}: {}", target_url, e);
             }
         }
 
-        // 3. Fallback on error (return 404)
+        // 4. Return transparent 1x1 fallback instead of failing with 404
+        static TRANSPARENT_PNG: &[u8] = &[
+            0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52,
+            0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4,
+            0x89, 0x00, 0x00, 0x00, 0x0A, 0x49, 0x44, 0x41, 0x54, 0x78, 0x9C, 0x63, 0x00, 0x01, 0x00, 0x00,
+            0x05, 0x00, 0x01, 0x0D, 0x0A, 0x2D, 0xB4, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4E, 0x44, 0xAE,
+            0x42, 0x60, 0x82
+        ];
         responder.respond(
             tauri::http::Response::builder()
-                .status(404)
+                .status(200)
                 .header("Access-Control-Allow-Origin", "*")
-                .body(Vec::new())
+                .header("Content-Type", "image/png")
+                .body(TRANSPARENT_PNG.to_vec())
                 .unwrap(),
         );
     });
@@ -3435,7 +3618,7 @@ fn start_background_asset_sync() {
                             if let Some(parent) = local_file.parent() {
                                 let _ = std::fs::create_dir_all(parent);
                             }
-                            let _ = std::fs::write(&local_file, &bytes.to_vec());
+                            let _ = std::fs::write(&local_file, &bytes);
                         }
                     }
                 }
@@ -3493,9 +3676,8 @@ fn main() {
             std::env::set_var("GST_DEBUG", "*:0");
         }
     }
-    // Clear old debug log on startup so it doesn't grow infinitely
-    let log_path = resolve_path("data/user/overlay_debug.log");
-    let _ = std::fs::write(&log_path, "");
+    // Clean up logs older than 48 hours
+    crate::logger::cleanup_old_logs();
 
     // Load settings at startup to get saved notif_sound and notif_position
     let saved_settings = std::fs::read_to_string(resolve_path("data/user/settings.json"))
@@ -3552,18 +3734,17 @@ fn main() {
             wiki_tabs: parking_lot::Mutex::new(Vec::new()),
             settings_lock: Arc::new(Mutex::new(())),
         })
-        .on_window_event(|window, event| match event {
-            tauri::WindowEvent::CloseRequested { api, .. } => {
+        .on_window_event(|window, event| {
+            if let tauri::WindowEvent::CloseRequested { api, .. } = event {
                 if window.label() == "main" {
-                    crate::log_scanner::stop_scanner(&window.app_handle());
-                    crate::log_scanner::log_app_stop(&window.app_handle());
+                    crate::log_scanner::stop_scanner(window.app_handle());
+                    crate::log_scanner::log_app_stop(window.app_handle());
                     std::process::exit(0);
                 } else {
                     let _ = window.hide();
                     api.prevent_close();
                 }
             }
-            _ => {}
         })
         .setup(|app| {
             start_background_asset_sync();
@@ -3580,7 +3761,7 @@ fn main() {
                 eprintln!("[asset scope] Failed to allow directory {:?}: {e}", canonical_root);
             }
 
-            crate::log_scanner::log_app_start(&app.handle());
+            crate::log_scanner::log_app_start(app.handle());
             let ah = app.handle().clone();
             // Register the frontend-ready listener BEFORE the blocking
             // extract_bundled_assets call, so we never miss the event if
@@ -3628,7 +3809,9 @@ fn main() {
                             }
                         }
                         #[cfg(any(debug_assertions, feature = "devtools"))]
-                        let _ = main_win.open_devtools();
+                        {
+                            main_win.open_devtools();
+                        }
                         eprintln!("[DEBUG] Force-showed main window after 5s (frontend-ready not received)");
                     }
                 }
@@ -3785,8 +3968,14 @@ fn main() {
             get_platform_info,
             save_settings,
             set_setting,
+            post_market_order,
+            get_my_market_orders,
+            delete_market_order,
+            update_market_order,
+            close_market_order,
             load_settings,
             log_terminal,
+            prepare_bug_report,
             set_hotkeys,
             crate::ocr::set_fissure_ui_scale,
             crate::ocr::ocr_riven_card,

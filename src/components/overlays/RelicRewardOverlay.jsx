@@ -57,9 +57,15 @@ export default function RelicRewardOverlay() {
   // The overlay is shown by the OCR pipeline via scanner-relic-phase-start event.
 
   useEffect(() => {
-    // 1. Immediately request the cached session data in case the event was missed
+    // 1. Immediately request the cached session data in case the event was missed.
+    // A live scanner-relic-phase-start/fissure-reward-closed event can arrive and
+    // bump sessionIdRef before this promise resolves - re-check it hasn't moved
+    // before applying the cached data, so a slow-resolving stale fetch can never
+    // clobber a newer live session's state.
+    const requestedSession = sessionIdRef.current;
     invoke('get_active_relic_session').
     then((cachedData) => {
+      if (sessionIdRef.current !== requestedSession) return;
       if (cachedData) {
         if (cachedData.squad_relics) {
           setData(cachedData.squad_relics);
@@ -374,7 +380,9 @@ function RewardSlot({ confirmed, isLocal, price }) {
         {!isForma && !isRequiem &&
         <div className="flex items-center gap-1.5 justify-evenly">
             <PriceBadge label="Ducats" value={`${item?.ducats ?? 0}`} color="amber" iconSrc={iconSrc('Ducats')} />
-            <PriceBadge label="Plat" value={`${price ?? 0}p`} color="blue" iconSrc={iconSrc('Platinum')} />
+            {price > 0 &&
+              <PriceBadge label="Plat" value={`${price}p`} color="blue" iconSrc={iconSrc('Platinum')} />
+            }
           </div>
         }
       </div>
@@ -429,7 +437,7 @@ function ItemArt({ icon, owned, blueprintCount }) {
         src={icon}
         alt=""
         className="w-full h-24 object-contain p-2"
-        onError={(e) => { e.target.closest('.relative').style.display = 'none'; }}
+        
       />
       {owned > 0 &&
       <div className="absolute top-1 left-1 flex items-center gap-1 px-1.5 py-0.5 rounded bg-green-500/20 border border-green-500/40 text-green-300 text-[8px] font-black uppercase">

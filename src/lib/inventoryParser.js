@@ -364,6 +364,22 @@ function getSuffixIndex(tbl) {
 }
 
 let activeExportImages = null;
+let activeLeafImageMap = null;
+
+function updateActiveExportImages(images) {
+  activeExportImages = images;
+  if (images) {
+    activeLeafImageMap = new Map();
+    for (const [k, v] of Object.entries(images)) {
+      const leaf = k.split("/").pop();
+      if (!activeLeafImageMap.has(leaf) || k.includes("StoreIcons")) {
+        activeLeafImageMap.set(leaf, { path: k, hash: v?.contentHash });
+      }
+    }
+  } else {
+    activeLeafImageMap = null;
+  }
+}
 
 // warframe-items currently carries stale wiki thumbnail filenames for these
 // two newer Warframes. Keep the identity-to-icon correction at the shared
@@ -380,11 +396,25 @@ function resolveImage(un, ...tables) {
   const imageUrl = (icon, uniqueName = un) => {
     const authoritativeIcon = AUTHORITATIVE_ITEM_ICONS[uniqueName];
     if (authoritativeIcon) icon = authoritativeIcon;
-    if (icon.startsWith('http://') || icon.startsWith('https://')) return icon;
+    if (!icon) return null;
+    if (icon.startsWith('http://') || icon.startsWith('https://') || icon.startsWith('asset-cache://') || icon.startsWith('asset://') || icon.startsWith('data:')) {
+      return icon;
+    }
     const path = icon.startsWith('/') ? icon : `/${icon}`;
-    const hash = imageMap?.[path]?.contentHash;
+    let hash = imageMap?.[path]?.contentHash;
+    let finalPath = path;
+
+    if (!hash && activeLeafImageMap) {
+      const leaf = path.split("/").pop();
+      const match = activeLeafImageMap.get(leaf);
+      if (match && match.hash) {
+        finalPath = match.path;
+        hash = match.hash;
+      }
+    }
+
     return hash
-      ? `asset-cache://content.warframe.com/PublicExport${path}!${hash}`
+      ? `asset-cache://content.warframe.com/PublicExport${finalPath}!${hash}`
       : `asset-cache://browse.wf${path}`;
   };
 
@@ -832,7 +862,7 @@ function detectArcaneCategory(un, name) {
 }
 
 export function parseInventory(raw, exports, dict, locale = 'en', i18nData = null) {
-  activeExportImages = exports?.ExportImages ?? null;
+  updateActiveExportImages(exports?.ExportImages ?? null);
   if (!raw || typeof raw !== 'object' || !exports) return { all: [] };
   dict = (dict && Object.keys(dict).length > 0) ? dict : (exports?.['dict.en'] || exports?.dict || {})
 
@@ -1061,6 +1091,18 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       }
     }
   }
+  // Several Railjack tactical mods (e.g. Death Blossom) share one generic
+  // placeholder card image in ModIconMap (RailjackModGenericNN.png) - the
+  // real per-ability icon only exists in this separate overlay table. Apply
+  // it after ModIconMap so those mods don't render the generic placeholder.
+  if (exports.CardOverlayMap) {
+    for (const entry of Object.values(EM)) {
+      if (!entry?.icon) continue;
+      const key = entry.icon.replace(/^\//, '');
+      const overlay = exports.CardOverlayMap[key];
+      if (overlay) entry.icon = `/${overlay}`;
+    }
+  }
   const EA = useWI
     ? mergeWithOrig(exports.WI_Arcanes, 'ExportArcanes')
     : toMap(exports.ExportArcanes, 'ExportArcanes');
@@ -1115,8 +1157,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   ].forEach(processList);
 
   const subsumedSet = new Set((raw.InfestedFoundry?.ConsumedSuits ?? []).map(s => s.s).filter(Boolean));
-  const incarnonSet = new Set((raw.EvolutionProgress ?? []).map(e => e.ItemType).filter(Boolean));
-  const evolutionLevels = new Map((raw.EvolutionProgress ?? []).filter(e => e.ItemType).map(e => [e.ItemType, e.EvolutionLevel]));
+  const evoList = raw.EvolutionProgress ?? [];
+  const incarnonTypes = new Set(evoList.map(e => e.ItemType).filter(Boolean));
+  const incarnonItemIds = new Set(evoList.map(e => String(e.ItemId?.$oid || e.ItemId || e.id || '')).filter(Boolean));
+  const incarnonLeaves = new Set(evoList.map(e => (e.ItemType || '').split('/').pop()?.toLowerCase()).filter(Boolean));
+  const evolutionLevels = new Map(evoList.filter(e => e.ItemType).map(e => [e.ItemType, e.EvolutionLevel]));
 
   // ── createItem ──
   // Central factory used by every category processor.
@@ -1301,8 +1346,19 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       masterable: entry?.masterable !== false,
       subsumed: subsumedSet.has(un),
       is_prime: entry?.variantType === 'VT_PRIME' || /Prime$/i.test(un.split('/').filter(Boolean).at(-1) ?? ''),
-      is_incarnon: incarnonSet.has(un),
-      incarnon_evolution_level: evolutionLevels.get(un) ?? -1,
+      is_incarnon: (() => {
+        if (sourceItem?.SkillTree != null) return true;
+        if (((sourceItem?.Features ?? 0) & 2) !== 0) return true;
+        if (incarnonTypes.has(un)) return true;
+        const sId = String(sourceItem?.ItemId?.$oid || sourceItem?.ItemId || sourceItem?.Id?.$oid || sourceItem?.Id || '');
+        if (sId && incarnonItemIds.has(sId)) return true;
+        const unLeaf = un.split('/').pop()?.toLowerCase() || '';
+        const nameLeaf = (entry?.name || '').split('/').pop()?.toLowerCase() || '';
+        if (incarnonLeaves.has(unLeaf) || incarnonLeaves.has(nameLeaf)) return true;
+        if ((sourceItem?.Upgrades || []).some(u => typeof u === 'string' && u.includes('Incarnon'))) return true;
+        return false;
+      })(),
+      incarnon_evolution_level: evolutionLevels.get(un) ?? (evolutionLevels.get(un.split('/').pop()) ?? -1),
       quantity: sourceItem?.ItemCount ?? (sourceItem ? 1 : 0),
       formas: sourceItem?.Polarized ?? 0,
       components,
@@ -2036,14 +2092,21 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     const description = descLoctag.startsWith('/Lotus/')
       ? (dict[descLoctag] || dict['/' + descLoctag] || '')
       : descLoctag;
+    // Omni is auto-granted on Archwing quest completion and never appears in
+    // raw.Consumables (it's not purchased/crafted with charges like normal
+    // gear) - the normal ownership check above would show it as permanently
+    // "Unowned" for every player regardless of quest state. Its real
+    // ownership signal is the account-wide ArchwingEnabled flag.
+    const isOmni = un === '/Lotus/Types/Restoratives/Consumable/RepairTool';
+    const reallyOwned = isOmni ? (!!owned || raw.ArchwingEnabled === true) : !!owned;
     const candidate = {
       unique_name: un,
       name,
       description: description.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim(),
       image: resolveImage(un, EGearOrig, EGear, ER, ERecipe),
       category: 'consumables',
-      quantity: owned?.quantity ?? 0,
-      owned: !!owned,
+      quantity: owned?.quantity ?? (reallyOwned ? 1 : 0),
+      owned: reallyOwned,
       blueprintOwned: !!owned?.blueprintOwned,
     };
     const nameKey = name.toLowerCase();
@@ -2055,17 +2118,21 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   const consumables_catalog = Array.from(consumablesByName.values());
 
   const landingCraftCatalog = [
-    ['DefaultShip', 'Liset', 'Liset'],
-    ['MantisShip', 'Mantis', 'Mantis'],
-    ['ScimitarShip', 'Scimitar', 'Scimitar'],
-    ['XiphosShip', 'Xiphos', 'Xiphos'],
-    ['NoraShip', 'Nightwave', 'Nightwave'],
-    ['ZarimanShip', 'Parallax', 'ZarimanShip'],
+    [['DefaultShip', 'LisetShip', 'Liset'], 'Liset', 'Liset'],
+    [['ScimitarShip', 'BlueSkyShip', 'Scimitar'], 'Scimitar', 'Scimitar'],
+    [['MantisShip', 'MantysShip', 'InsectShip', 'Mantis'], 'Mantis', 'Mantis'],
+    [['XiphosShip', 'GyroscopeShip', 'Gyroscope', 'Xiphos'], 'Xiphos', 'Xiphos'],
+    [['ZarimanShip', 'ParallaxShip', 'Parallax'], 'Parallax', 'ZarimanShip'],
+    [['GrineerShip', 'SkautShip', 'Skaut'], 'Skaut', 'GrineerShip'],
+    [['NoraShip', 'NightwaveShip', 'Nightwave'], 'Nightwave', 'Nightwave'],
   ];
-  const ownedLandingCraft = new Map((raw.Ships ?? []).map(ship => [ship.ItemType?.split('/').pop(), ship]));
-  const landing_craft_catalog = landingCraftCatalog.map(([leaf, name, iconLeaf]) => {
-    const owned = ownedLandingCraft.get(leaf);
-    const un = owned?.ItemType ?? `/Lotus/Types/Items/Ships/${leaf}`;
+  const rawShips = raw.Ships ?? [];
+  const landing_craft_catalog = landingCraftCatalog.map(([aliases, name, iconLeaf]) => {
+    const owned = rawShips.find(ship => {
+      const leaf = ship.ItemType?.split('/').pop();
+      return aliases.includes(leaf) || aliases.some(a => ship.ItemType?.includes(a));
+    });
+    const un = owned?.ItemType ?? `/Lotus/Types/Items/Ships/${aliases[0]}`;
     const iconPath = `/Lotus/Interface/Icons/StoreIcons/PlayerShip/Ships/${iconLeaf}.png`;
     const hash = exports.ExportImages?.[iconPath]?.contentHash;
     return {
@@ -2073,17 +2140,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       name,
       image: hash ? `asset-cache://content.warframe.com/PublicExport${iconPath}!${hash}` : `asset-cache://browse.wf${iconPath}`,
       category: 'landing_craft',
-      // Ships are unique, non-stackable instances - raw.Ships entries never
-      // carry an ItemCount field at all, so this was always 0 regardless of
-      // real ownership. The Inventory card's "stock count" display reads
-      // quantity (not the owned field) for this category, so every landing
-      // craft showed "Unowned" even when genuinely owned.
       quantity: owned ? 1 : 0,
       owned: !!owned,
     };
   });
 
-  const resources = [], prime_parts = [], primeSets = {};
+  const resources = [], components = [], songItems = [], prime_parts = [], primeSets = {};
 
   // Build owned items map for quick lookup (for prime sets)
   const primeItemCounts = new Map();
@@ -2126,7 +2188,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
     // Add the main item blueprint (always include, even if not owned)
     const bpQty = primeItemCounts.get(bpKey) ?? 0;
-    setParts.push({ unique_name: bpKey, name: resultName + (BLUEPRINT_SUFFIX[locale] ?? ' Blueprint'), image: parentImage, quantity: bpQty, owned: bpQty > 0, isBlueprint: true });
+    setParts.push({ unique_name: bpKey, name: resultName + (BLUEPRINT_SUFFIX[locale] ?? ' Blueprint'), image: parentImage, quantity: bpQty, owned: bpQty > 0, isBlueprint: true, ducats: ERecipe?.[bpKey]?.primeSellingPrice || ER?.[bpKey]?.primeSellingPrice || 0 });
     if (bpQty > 0) ownedCount += bpQty;
     totalCount += 1;
 
@@ -2156,11 +2218,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
             if (key.endsWith('/' + leaf)) { bpQty = count; break; }
           }
         }
-        setParts.push({ unique_name: data.ItemType, name: data.name, image: data.image, quantity: bpQty, crafted: craftedQty, owned: bpQty > 0 || craftedQty > 0, need: data.need });
+        setParts.push({ unique_name: data.ItemType, name: data.name, image: data.image, quantity: bpQty, crafted: craftedQty, owned: bpQty > 0 || craftedQty > 0, need: data.need, ducats: ERecipe[data.ItemType]?.primeSellingPrice || ER[data.ItemType]?.primeSellingPrice || EW[data.ItemType]?.primeSellingPrice || 0 });
         if (bpQty > 0 || craftedQty > 0) ownedCount += 1;
       } else {
         bpQty = primeItemCounts.get(data.ItemType) ?? 0;
-        setParts.push({ unique_name: data.ItemType, name: data.name, image: data.image, quantity: bpQty, owned: bpQty > 0, need: data.need });
+        setParts.push({ unique_name: data.ItemType, name: data.name, image: data.image, quantity: bpQty, owned: bpQty > 0, need: data.need, ducats: ERecipe[data.ItemType]?.primeSellingPrice || ER[data.ItemType]?.primeSellingPrice || EW[data.ItemType]?.primeSellingPrice || 0 });
         if (bpQty > 0) ownedCount += 1;
       }
       totalCount += 1;
@@ -2169,6 +2231,19 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (setParts.length > 0) {
       const quantityOwned = setParts.reduce((sum, p) => sum + (p.quantity || 0) + (p.crafted || 0), 0);
       const ownedPartTypes = ownedCount;
+      const isBaseMastered = (
+        warframes.some(w => (w.name === baseName || w.name === baseName + " Prime") && w.mastered) ||
+        primary.some(w => (w.name === baseName || w.name === baseName + " Prime") && w.mastered) ||
+        secondary.some(w => (w.name === baseName || w.name === baseName + " Prime") && w.mastered) ||
+        melee.some(w => (w.name === baseName || w.name === baseName + " Prime") && w.mastered) ||
+        sentinels.some(w => (w.name === baseName || w.name === baseName + " Prime") && w.mastered) ||
+        beasts.some(w => (w.name === baseName || w.name === baseName + " Prime") && w.mastered) ||
+        archwings.some(w => (w.name === baseName || w.name === baseName + " Prime") && w.mastered) ||
+        archweapons.some(w => (w.name === baseName || w.name === baseName + " Prime") && w.mastered) ||
+        necramechs.some(w => (w.name === baseName || w.name === baseName + " Prime") && w.mastered) ||
+        amps.some(w => (w.name === baseName || w.name === baseName + " Prime") && w.mastered)
+      );
+
       primeSets[baseName] = {
         name: baseName,
         parts: setParts,
@@ -2177,11 +2252,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         quantityOwned,
         totalCount,
         image: parentImage,
-        setPath: recipe.resultType
+        setPath: recipe.resultType,
+        mastered: isBaseMastered
       };
-      // Also add individual parts to prime_parts array for backwards compatibility
+      // Also add individual parts to prime_parts array with parent mastery status
       setParts.forEach(p => {
-        if (p.owned) prime_parts.push({ ...p, setName: baseName, category: 'prime_parts' });
+        if (p.owned) prime_parts.push({ ...p, setName: baseName, category: 'prime_parts', mastered: isBaseMastered });
       });
     }
   }
@@ -2197,7 +2273,31 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/')) continue;
     // Hidden resource — user requested it be excluded (Tethra Data Fragments)
     if (un === '/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag') continue;
+    // Somachord track unlocks (e.g. Crash Course, Core Containment) are music
+    // collectibles, not crafting resources — some even share their display
+    // name with an unrelated real mod (Crash Course is also an Eidolon Teralyst
+    // rifle mod drop). The classic scan-based tracks (/MusicFragments/) are
+    // tracked via LoreFragmentScans/codex in Collectibles.jsx, but these newer
+    // /SongItems/ tracks (Caliber Chicks, Onlyne, etc.) are granted as owned
+    // MiscItems instead and have no ExportCodex entry at all — route them to
+    // their own list so Collectibles.jsx can still surface them, instead of
+    // silently dropping them.
     const name = resolveName(un, dict, locale, ER, ERel, EW, ES);
+    if (un.startsWith('/Lotus/Types/Items/SongItems/')) {
+      const songEntry = ER[un];
+      const songDescLoctag = songEntry?.description ?? '';
+      const songRawDesc = songDescLoctag ? (dict[songDescLoctag] || dict['/' + songDescLoctag] || '') : '';
+      songItems.push({
+        unique_name: un,
+        name,
+        description: songRawDesc ? songRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '',
+        image: resolveImage(un, ER),
+        category: 'songItems',
+        quantity: item.ItemCount ?? 1,
+        owned: true
+      });
+      continue;
+    }
     // Prime parts are shown in the prime-sets tab, not as resources. Match the
     // ItemType path (always English) — localized names like "Afuris Prime: Lauf"
     // don't contain the English component words.
@@ -2207,9 +2307,55 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const resDescLoctag = entry?.description ?? '';
       const resRawDesc = resDescLoctag ? (dict[resDescLoctag] || dict['/' + resDescLoctag] || '') : '';
       const resDescription = resRawDesc ? resRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
-      const obj = { unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: 'resources', quantity: item.ItemCount ?? 1, owned: true };
-      resources.push(obj);
+      // Raw Amp/Zaw/Kitgun crafting pieces (grips, chassis, barrels, handles,
+      // tips, clips, balance parts) live in MiscItems alongside real resources
+      // but are weapon-building components, not resources - the `amps` array
+      // above only tracks assembled/mastery-bearing amps, not spare unbuilt
+      // parts, so these have no other home. Same story for non-Head MOA/Hound
+      // parts (legs, engine, chassis) - only Head parts get their own
+      // mastery-tracked array below; Head paths never appear in raw MiscItems
+      // (they're tracked via XPInfo instead), so excluding them here is a
+      // safety check against ever double-listing a head, not a live case.
+      // Route all of these to their own category instead of mislabeling them,
+      // matching the same real ownership data (and picking up their real
+      // per-part image via the same ER/ERel/EW/ES lookup used for resources).
+      const isPetComponent = (un.includes('/MoaPetParts/') || un.includes('/ZanukaPetParts/')) && !un.includes('Head');
+      const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent;
+      const obj = { unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: isModularComponent ? 'components' : 'resources', quantity: item.ItemCount ?? 1, owned: true };
+      (isModularComponent ? components : resources).push(obj);
     }
+  }
+
+  // Several real, findable resource categories only showed up in Resources
+  // when owned - an unowned one was completely absent, with no way to even
+  // discover it exists or where to find it. Unlike the rest of MiscItems
+  // (thousands of entries, many decorative/one-off), DE's own `parentName`
+  // field cleanly identifies these specific real catalogs, so it's safe to
+  // list every item in each one with an owned/unowned status, the same way
+  // Relics.jsx shows the full relic catalog rather than only owned relics.
+  // Deliberately NOT filtering by `excludeFromCodex` - spot-checking it
+  // showed real, legitimate items (Kavat Genetic Code, Höllvania apartment
+  // decorations) carry that flag too, so it's not a safe "hide this" signal.
+  const FULL_CATALOG_RESOURCE_PARENTS = new Set([
+    '/Lotus/Types/Items/Fish/FishItem',
+    '/Lotus/Types/Items/Fish/FishPartItem',
+    '/Lotus/Types/Items/MiscItems/ResourceItem',
+    '/Lotus/Types/Items/Gems/GemItem',
+    '/Lotus/Types/Items/MiscItems/IncarnonAdapters/BaseIncarnonUnlocker',
+    '/Lotus/Types/Gameplay/Duviri/Resource/DuviriBaseResourceItem',
+    '/Lotus/Types/Items/RailjackMiscItems/BaseRailjackItem',
+    '/Lotus/Types/Items/Plants/MiscItems/PlantItem',
+    '/Lotus/Types/Items/MiscItems/FocusLens',
+  ]);
+  const ownedResourceUns = new Set(resources.map((r) => r.unique_name));
+  for (const [un, entry] of Object.entries(ER)) {
+    if (!FULL_CATALOG_RESOURCE_PARENTS.has(entry?.parentName)) continue;
+    if (ownedResourceUns.has(un)) continue;
+    const name = resolveName(un, dict, locale, ER, ERel, EW, ES);
+    const resDescLoctag = entry?.description ?? '';
+    const resRawDesc = resDescLoctag ? (dict[resDescLoctag] || dict['/' + resDescLoctag] || '') : '';
+    const resDescription = resRawDesc ? resRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
+    resources.push({ unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: 'resources', quantity: 0, owned: false });
   }
 
   const resolveRelicRewards = (entry, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe, ERew) => {
@@ -2278,6 +2424,13 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const relDescription = relRawDesc ? relRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
       relicGroups[relicId] = {
         unique_name: relicId,
+        // Multiple refinement qualities of the same relic get merged into one
+        // row here (unique_name above is a synthetic display key like "Meso
+        // N17", not a real DE path), but acquisition lookups need a genuine
+        // path to resolve vaulted status and drop sources - real_unique_name
+        // carries that through. Prefer the Intact/Bronze variant since that's
+        // the canonical form other acquisition data is keyed against.
+        real_unique_name: un,
         name: baseName,
         era,
         description: relDescription,
@@ -2287,11 +2440,14 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         rewards: resolveRelicRewards(entry, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe, ERew),
         owned: true
       };
-    } else if (relicGroups[relicId].rewards.length === 0) {
-      // A previous refinement variant already created the group but had no entry;
-      // try to fill in the rewards now that we have one.
-      const rewards = resolveRelicRewards(entry, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe, ERew);
-      if (rewards.length > 0) relicGroups[relicId].rewards = rewards;
+    } else {
+      if (refinement === 'Intact') relicGroups[relicId].real_unique_name = un;
+      if (relicGroups[relicId].rewards.length === 0) {
+        // A previous refinement variant already created the group but had no entry;
+        // try to fill in the rewards now that we have one.
+        const rewards = resolveRelicRewards(entry, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe, ERew);
+        if (rewards.length > 0) relicGroups[relicId].rewards = rewards;
+      }
     }
 
     if (relicGroups[relicId].refinements[refinement] !== undefined) {
@@ -2599,11 +2755,15 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const rank = calculateRank(xp, 'moas', un);
       const mastery_xp = rank * 200;
       const ownedCustomName = moaHeadToCustomName[un]?.name || '';
-      const baseName = resolveName(un, dict, locale, EW);
+      // The per-part display image (e.g. Oloro Moa's actual head art) lives in
+      // the wfcd "Pets" data merged into the Sentinels/Companions table (ES),
+      // not the raw Weapons export (EW) - EW alone can 404 on a real path
+      // where ES actually has the asset.
+      const baseName = resolveName(un, dict, locale, EW, ES);
       return {
         unique_name: un,
         name: ownedCustomName ? `${baseName} (${ownedCustomName})` : baseName,
-        image: resolveImage(un, EW), category: 'moas',
+        image: resolveImage(un, EW, ES), category: 'moas',
         xp, rank, mastery_xp, owned: xp > 0, mastered: mastery_xp >= 6000,
         ownedCustomName,
       };
@@ -2618,17 +2778,61 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const rank = calculateRank(xp, 'hounds', un);
       const mastery_xp = rank * 200;
       const ownedCustomName = houndHeadToCustomName[un]?.name || '';
-      const baseName = resolveName(un, dict, locale, EW);
+      // Same reasoning as moaHeads above - the real per-part art (e.g. Bhaira/
+      // Hec Hound) lives in the wfcd "Pets" data merged into ES, not EW alone.
+      const baseName = resolveName(un, dict, locale, EW, ES);
       return {
         unique_name: un,
         name: ownedCustomName ? `${baseName} (${ownedCustomName})` : baseName,
-        image: resolveImage(un, EW), category: 'hounds',
+        image: resolveImage(un, EW, ES), category: 'hounds',
         xp, rank, mastery_xp, owned: xp > 0, mastered: mastery_xp >= 6000,
         ownedCustomName,
       };
     });
 
-  const all = [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...rivens, ...prime_parts];
+  // Exalted/ability weapons (Excalibur Umbra's Exalted Blade, Sevagoth's
+  // Shadow Claws Prime, Chesa's claw weapon, Necramech ability weapons, etc.)
+  // live in raw.SpecialItems, which was never read anywhere - these owned
+  // weapons (with their own mod configs/polarity/XP) never got surfaced at
+  // all. DE's own frame.exalted / sentinel.exalted / sentinel.defaultWeapon
+  // fields are the authoritative weapon->parent relationship (the same
+  // source acquisitionInfo.js's buildExaltedWeaponIndex uses for acquisition
+  // text) - attach each owned one directly onto its parent Warframe/
+  // companion card rather than listing it as a separate top-level item.
+  const exaltedParentOf = {};
+  for (const [parentUn, entry] of Object.entries(EWf)) {
+    for (const w of (entry?.exalted || [])) {
+      const key = (w || '').replace('/StoreItems/', '/');
+      if (key) exaltedParentOf[key] = parentUn;
+    }
+  }
+  for (const [parentUn, entry] of Object.entries(ES)) {
+    for (const w of (entry?.exalted || [])) {
+      const key = (w || '').replace('/StoreItems/', '/');
+      if (key) exaltedParentOf[key] = parentUn;
+    }
+    if (entry?.defaultWeapon) {
+      exaltedParentOf[entry.defaultWeapon.replace('/StoreItems/', '/')] = parentUn;
+    }
+  }
+  const exaltedWeaponsByParent = {};
+  for (const item of (raw.SpecialItems ?? [])) {
+    const un = item.ItemType;
+    if (!un) continue;
+    const parentUn = exaltedParentOf[un.replace('/StoreItems/', '/')];
+    if (!parentUn) continue;
+    const name = resolveName(un, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
+    const image = resolveImage(un, EW, EWf, ES, ER);
+    (exaltedWeaponsByParent[parentUn] ??= []).push({ unique_name: un, name, image, xp: item.XP ?? 0, owned: true });
+  }
+  for (const parentArray of [warframes, sentinels, moas, hounds, beasts, necramechs]) {
+    for (const parent of parentArray) {
+      const weapons = exaltedWeaponsByParent[parent.unique_name];
+      if (weapons) parent.exaltedWeapons = weapons;
+    }
+  }
+
+  const all = [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...components, ...rivens, ...prime_parts];
 
   const playerLevel = raw.PlayerLevel ?? 0;
   const rivenBin = raw.RandomModBin ?? { Slots: 0, Extra: 0 };
@@ -2734,7 +2938,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     companion_weapons,
     vehicles: [...archwings, ...kdrives], // Compatibility
     archwings, kdrives,
-    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, consumables, consumables_catalog, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
+    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, components, consumables, consumables_catalog, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
     kitgunChambers, zawStrikes, moaHeads, houndHeads,
 
     // ── Comprehensive owned-item-path set ──
@@ -2769,6 +2973,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     // ── Collectibles ──
     collectibleSeries: raw.CollectibleSeries ?? [],
     loreFragmentScans: raw.LoreFragmentScans ?? [],
+    songItems,
     discoveredMarkers: raw.DiscoveredMarkers ?? [],
     customMarkers: raw.CustomMarkers ?? [],
     NemesisHistory: raw.NemesisHistory ?? [],
@@ -2826,11 +3031,18 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // Also check the processed all array, for owned items whose category
       // (e.g. modular companions) isn't backed by any raw array above. Items
       // already counted from a raw array must not be added again here, or an
-      // item present in both (e.g. a Pistol) gets double-counted.
+      // item present in both (e.g. a Pistol) gets double-counted. This must
+      // also check resourceCounts, not just ownedItemCounts: a crafted-but-
+      // unassembled Prime weapon part (e.g. AfurisPrimeBarrel) is tracked as
+      // a MiscItem and already counted into resourceCounts above, but its
+      // ingredient ItemType doesn't contain "Component" so recipe ingredient
+      // resolution sums resourceCounts + ownedItemCounts for it - without
+      // this check it was recounted a second time here, inflating "have" to
+      // 2x the real owned quantity for every such part.
       all.forEach(item => {
         if (item.owned && item.unique_name && item.category !== 'resources') {
           const key = canonicalInventoryType(item.unique_name);
-          if (!(key in ownedItemCounts)) ownedItemCounts[key] = 1;
+          if (!(key in ownedItemCounts) && !(key in resourceCounts)) ownedItemCounts[key] = 1;
         }
       });
 

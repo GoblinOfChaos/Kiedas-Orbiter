@@ -35,15 +35,26 @@ async function fetchWfmItems() {
   if (!response.ok) return null;
   const body = await response.json();
   const items = body?.data || [];
-  const entries = items
-    .filter(item => item.gameRef)
-    .map(item => [item.gameRef, { slug: item.slug, tradable: item.tradable !== false }]);
+  const entries = [];
+  for (const item of items) {
+    if (item.gameRef) {
+      const info = { id: item.id, slug: item.slug, tradable: item.tradable !== false };
+      entries.push([item.gameRef, info]);
+      // Also index by leaf name for loose matching
+      const leaf = item.gameRef.split('/').pop();
+      if (leaf) entries.push([leaf, info]);
+    }
+    if (item.slug) {
+      const info = { id: item.id, slug: item.slug, tradable: item.tradable !== false };
+      entries.push([item.slug, info]);
+    }
+  }
   wfmItemMap = new Map(entries);
   localStorage.setItem(WFM_ITEMS_KEY, JSON.stringify({ entries, timestamp: Date.now() }));
   return wfmItemMap;
 }
 
-async function ensureWfmItems() {
+export async function ensureWfmItems() {
   const cached = loadWfmItemMap();
   if (cached) return cached;
   try {
@@ -56,16 +67,32 @@ async function ensureWfmItems() {
 // Look up item in WFM map, with fallback path transformations
 // (game export uses Component paths; WFM catalog uses Blueprint paths;
 //  relic rewards have /StoreItems/ prefix that WFM catalog lacks)
-function lookupWfmItem(map, gamePath) {
-  if (!map) return null;
-  const normalize = (p) => p.replace('/StoreItems/', '/');
-  let item = map.get(normalize(gamePath));
+export function lookupWfmItem(map, gamePath) {
+  if (!map || typeof map.get !== 'function' || !gamePath) return null;
+  const normalize = (p) => typeof p === 'string' ? p.replace('/StoreItems/', '/') : '';
+  const cleanPath = normalize(gamePath);
+  let item = map.get(cleanPath);
   if (item) return item;
-  if (gamePath.endsWith('Component')) {
-    const alt = normalize(gamePath).slice(0, -9) + 'Blueprint';
+
+  if (typeof gamePath === 'string' && gamePath.endsWith('Component')) {
+    const alt = cleanPath.slice(0, -9) + 'Blueprint';
     item = map.get(alt);
     if (item) return item;
   }
+
+  // Suffix / leaf matching fallback
+  if (typeof gamePath === 'string') {
+    const leaf = gamePath.split('/').pop();
+    if (leaf) {
+      item = map.get(leaf);
+      if (item) return item;
+      if (leaf.endsWith('Component')) {
+        item = map.get(leaf.slice(0, -9) + 'Blueprint');
+        if (item) return item;
+      }
+    }
+  }
+
   return null;
 }
 
@@ -93,10 +120,9 @@ export async function getPrice(itemUniqueName, itemName, ducatValue = 0, maxRank
 
   const map = loadWfmItemMap();
   let wfmItem = null;
-  if (map) {
+  if (map && itemUniqueName) {
     wfmItem = lookupWfmItem(map, itemUniqueName);
-    if (!wfmItem) return 0;
-    if (!wfmItem.tradable) return 0;
+    if (wfmItem && !wfmItem.tradable) return 0;
   }
 
   const cache = loadCache();

@@ -184,8 +184,9 @@
     "checklist.task_marie": "Marie's Shop",
     "checklist.task_narmer": "Help Kahl: Break Narmer",
     "checklist.task_nightcap": "Nightcap Shop",
-    "checklist.task_nightwave": "Nightwave Missions",
-    "checklist.task_nightwave_spend": "Nightwave Shop",
+    "checklist.task_nightwave": "Nightwave Season",
+    "checklist.task_nightwave_spend": "Nightwave Cred Offerings",
+    "checklist.task_nightwave_weekly": "Nightwave Weekly Missions",
     "checklist.task_palladino": "Palladino's Shop",
     "checklist.task_pulses": "Pulses: Netracell & Archimedea",
     "checklist.task_syndicates": "Syndicate Standing",
@@ -332,7 +333,7 @@
     "nav.adversaries": "Adversaries",
     "nav.checklist": "Checklist",
     "nav.collectibles": "Collectibles",
-    "nav.cosmetics": "Cosmetics",
+    "nav.cosmetics": "Cosmetics, Decorations, Emotes",
     "nav.dashboard": "Dashboard",
     "nav.foundry": "Foundry",
     "nav.inventory": "Inventory",
@@ -450,7 +451,7 @@
     "settings.test_relic_overlay": "Test relic reward overlay",
     "settings.theme": "Theme",
     "settings.tint_with_theme": "Tint with theme",
-    "settings.toast_position": "Toast notification position",
+    "settings.toast_position": "Popup notification position",
     "settings.ui_scale": "In-Game UI Scale",
     "settings.ui_scale_hint": "Set this to match your Warframe 'Menu Scale' setting (e.g. 100% for default)",
     "settings.up_to_date": "You have the latest version.",
@@ -512,6 +513,7 @@
     "ui.dashboard.no_descendia": "No Descendia data…",
     "ui.dashboard.no_incursions_today": "No incursions found for today…",
     "ui.dashboard.no_wishlist_items": "No items on your wishlist",
+    "ui.dashboard.total_cost": "Total",
     "ui.dashboard.orb_vallis": "Orb Vallis",
     "ui.dashboard.owned": "Owned",
     "ui.dashboard.personal_bonuses": "Personal Bonuses",
@@ -663,10 +665,12 @@
     "ui.setup.disclaimer_title": "Disclaimer",
     "ui.setup.game_assets": "Game Assets",
     "ui.setup.welcome": "Welcome to Kieda's Orbiter",
-    "wiki.refresh": "Refresh this tab"
+    "wiki.refresh": "Refresh this tab",
+    "nav.market": "Market"
   },
   "checklist.task_glast": "Ergo Glast: Tenet Melee",
   "checklist.task_eleanor": "Eleanor's Shop (1999)",
   "checklist.eleanor_batch_a": "Batch A",
-  "checklist.eleanor_batch_b": "Batch B"
+  "checklist.eleanor_batch_b": "Batch B",
+  "nav.market": "Market"
 }

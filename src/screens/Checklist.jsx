@@ -40,8 +40,9 @@ const tasks = [
 { id: 'grandmother', label: 'Grandmother\'s Tokens', labelKey: 'checklist.task_grandmother', reset: 'other' },
 { id: 'yonta_daily', label: 'Yonta: Daily Voidplumes', labelKey: 'checklist.task_yonta_daily', reset: 'other' },
 { id: 'voca', label: 'Loid: Voca', labelKey: 'checklist.task_voca', reset: 'other' },
-{ id: 'nightwave', label: 'Nightwave Missions', labelKey: 'checklist.task_nightwave', reset: 'weekly' },
-{ id: 'nightwave_spend', label: 'Nightwave Shop', labelKey: 'checklist.task_nightwave_spend', reset: 'weekly' },
+{ id: 'nightwave', label: 'Nightwave Season', labelKey: 'checklist.task_nightwave', reset: 'season' },
+{ id: 'nightwave_weekly', label: 'Nightwave Weekly Missions', labelKey: 'checklist.task_nightwave_weekly', reset: 'weekly' },
+{ id: 'nightwave_spend', label: 'Nightwave Cred Offerings', labelKey: 'checklist.task_nightwave_spend', reset: 'weekly' },
 { id: 'ayatan', label: "Maroo's Ayatan Hunt", labelKey: 'checklist.task_ayatan', reset: 'weekly' },
 { id: 'clem', label: "Help Clem", labelKey: 'checklist.task_clem', reset: 'weekly' },
 { id: 'narmer', label: 'Help Kahl: Break Narmer', labelKey: 'checklist.task_narmer', reset: 'weekly' },
@@ -218,10 +219,10 @@ function buildSyndicateConfig(exportSyndicates) {
 
 const FOCUS_SCHOOLS = [
 { id: 'zenurik', label: 'Zenurik', key: 'AP_POWER' },
-{ id: 'naramon', label: 'Naramon', key: 'AP_ATTACK' },
-{ id: 'vazarin', label: 'Vazarin', key: 'AP_WARD' },
-{ id: 'madurai', label: 'Madurai', key: 'AP_TACTIC' },
-{ id: 'unairu', label: 'Unairu', key: 'AP_DEFENSE' }];
+{ id: 'naramon', label: 'Naramon', key: 'AP_TACTIC' },
+{ id: 'vazarin', label: 'Vazarin', key: 'AP_DEFENSE' },
+{ id: 'madurai', label: 'Madurai', key: 'AP_ATTACK' },
+{ id: 'unairu', label: 'Unairu', key: 'AP_WARD' }];
 
 
 const standings = [
@@ -276,20 +277,9 @@ const formatTimeLeft = (ms) => {
 
 const TaskCard = ({ task, completed, hidden, onToggle, onHide, timeLeft, nextResetTime }) => {
   const { t } = useUi();
-  const resetLabels = { daily: 'Daily', weekly: 'Weekly', biweekly: 'Biweekly', other: '8h', baro: 'Trader', glast: '11:00 UTC', eleanor: '8 Days' };
-  const getIntervalMs = (resetType) => {
-    if (resetType === 'daily') return 24 * 60 * 60 * 1000;
-    if (resetType === 'weekly') return 7 * 24 * 60 * 60 * 1000;
-    if (resetType === 'biweekly') return 14 * 24 * 60 * 60 * 1000;
-    if (resetType === 'other') return 8 * 60 * 60 * 1000;
-    if (resetType === 'glast') return 24 * 60 * 60 * 1000;
-    if (resetType === 'eleanor') return 8 * 24 * 60 * 60 * 1000;
-    if (resetType === 'baro') return 14 * 24 * 60 * 60 * 1000;
-    return 24 * 60 * 60 * 1000;
-  };
-  const intervalMs = getIntervalMs(task.reset);
+  const resetLabels = { daily: 'Daily', weekly: 'Weekly', biweekly: 'Biweekly', other: '8h', baro: 'Trader', glast: '11:00 UTC', eleanor: '8 Days', season: 'Season' };
   const displayTime = completed && nextResetTime ?
-  `next: ${formatTimeLeft(nextResetTime + intervalMs - Date.now())}` :
+  `next: ${timeLeft}` :
   timeLeft;
   return (
     <div
@@ -510,40 +500,98 @@ export default function Checklist() {
       return JSON.parse(localStorage.getItem('checklist_auto_track') || 'true');
     } catch {return true;}
   });
+  // Reset boundary in effect at the moment each task was marked complete - lets us
+  // auto-uncheck a task once its daily/weekly reset has passed instead of leaving
+  // it checked forever.
+  const [completedResetAt, setCompletedResetAt] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('checklist_completed_reset_at') || '{}');
+    } catch {return {};}
+  });
   const [showHiddenTasks, setShowHiddenTasks] = useState(false);
   const [cdnBase, setCdnBase] = useState('');
-  const periodicCompletions = inventoryData?.periodicMissionCompletions ?? [];
+  const periodicCompletions = inventoryData?.PeriodicMissionCompletions ?? inventoryData?.periodicMissionCompletions ?? [];
 
-  // ── Auto-complete from inventory ──
+  // ── Auto-complete from inventory & worldstate ──
   useEffect(() => {
-    if (!autoTrack || !periodicCompletions.length) return;
+    if (!autoTrack || !inventoryData) return;
     const t = new Date();
     const todayStart = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate()));
     const lastMonday = new Date(todayStart);
     lastMonday.setUTCDate(lastMonday.getUTCDate() - (lastMonday.getUTCDay() + 6) % 7);
 
+    const extractEpoch = (val) => {
+      if (!val) return 0;
+      if (typeof val === "number") return val;
+      if (typeof val === "string") return parseInt(val, 10) || 0;
+      if (val.$numberLong) return parseInt(val.$numberLong, 10) || 0;
+      if (val.$date) return extractEpoch(val.$date);
+      if (val.date) return extractEpoch(val.date);
+      if (typeof val[""] !== "undefined") return extractEpoch(val[""]);
+      return 0;
+    };
+
     const isAfter = (ts, boundary) => ts >= boundary.getTime();
-    const parseTs = (entry) => new Date(entry.date?.$date?.$numberLong).getTime();
 
     const auto = {};
+
+    // 1. Periodic Mission Completions (Ayatan, Clem, Steel Path, Arbitration)
     for (const entry of periodicCompletions) {
-      const tag = entry.tag;
-      const ts = parseTs(entry);
-      if (isNaN(ts)) continue;
-      if (tag === 'GetClem' && isAfter(ts, lastMonday)) auto.clem = true;else
-      if (tag?.startsWith('TreasureHunt') && isAfter(ts, lastMonday)) auto.ayatan = true;else
-      if (tag?.startsWith('HardDaily') && isAfter(ts, todayStart)) auto.steel_path = true;
+      const tag = entry?.tag;
+      const ts = extractEpoch(entry?.date);
+      if (!ts) continue;
+      if (tag === "GetClem" && isAfter(ts, lastMonday)) auto.clem = true;
+      else if (tag?.startsWith("TreasureHunt") && isAfter(ts, lastMonday)) auto.ayatan = true;
+      else if (tag?.startsWith("HardDaily") && isAfter(ts, todayStart)) auto.steel_path = true;
+      else if (tag?.startsWith("EliteAlert") && isAfter(ts, todayStart)) auto.arbitration = true;
     }
 
+    // 2. Sortie Auto-Tracking
+    const activeSortieId = worldState?.sortie?.id;
+    const userLastSortieId = inventoryData?.LastSortieReward?.[0]?.SortieId?.$oid || inventoryData?.LastSortieReward?.[0]?.SortieId;
+    if (activeSortieId && userLastSortieId && String(activeSortieId) === String(userLastSortieId)) {
+      auto.sortie = true;
+    }
+
+    // 3. Archon Hunt Auto-Tracking
+    const activeArchonId = worldState?.archonHunt?.id;
+    const userLastArchonId = inventoryData?.LastLiteSortieReward?.[0]?.SortieId?.$oid || inventoryData?.LastLiteSortieReward?.[0]?.SortieId;
+    if (activeArchonId && userLastArchonId && String(activeArchonId) === String(userLastArchonId)) {
+      auto.archon = true;
+    }
+
+    // 4. Daily Focus Cap Auto-Tracking
+    // inventoryData.DailyFocus is the REMAINING focus earnable today (counts down to 0), not earned-so-far
+    const dailyFocusRemaining = inventoryData?.DailyFocus;
+    if (dailyFocusRemaining != null && dailyFocusRemaining <= 0) {
+      auto.focus = true;
+    }
+
+    const newlyCompleted = [];
     setCompleted((prev) => {
       const next = { ...prev };
       let changed = false;
       for (const [id, val] of Object.entries(auto)) {
-        if (!prev[id]) {next[id] = val;changed = true;}
+        if (!prev[id]) {
+          next[id] = val;
+          changed = true;
+          if (val) newlyCompleted.push(id);
+        }
       }
       return changed ? next : prev;
     });
-  }, [periodicCompletions, autoTrack]);
+    if (newlyCompleted.length > 0) {
+      setCompletedResetAt((prev) => {
+        const next = { ...prev };
+        for (const id of newlyCompleted) {
+          const taskDef = tasks.find((tk) => tk.id === id);
+          const boundary = taskDef ? getNextReset(id, taskDef.reset) : 0;
+          if (boundary && boundary > Date.now()) next[id] = boundary;
+        }
+        return next;
+      });
+    }
+  }, [periodicCompletions, inventoryData, worldState, autoTrack]);
   const hasInventory = !!inventoryData;
   const [now, setNow] = useState(Date.now());
   const masteryRank = hasInventory ? inventoryData?.account?.mastery_rank ?? 16 : 16;
@@ -566,6 +614,28 @@ export default function Checklist() {
   useEffect(() => {
     localStorage.setItem('checklist_auto_track', JSON.stringify(autoTrack));
   }, [autoTrack]);
+  useEffect(() => {
+    localStorage.setItem('checklist_completed_reset_at', JSON.stringify(completedResetAt));
+  }, [completedResetAt]);
+
+  // Auto-uncheck any completed task once the reset boundary in effect when it was
+  // completed has passed, instead of leaving it checked across resets forever.
+  useEffect(() => {
+    const expiredIds = Object.keys(completedResetAt).filter(
+      (id) => completed[id] && now >= completedResetAt[id]
+    );
+    if (expiredIds.length === 0) return;
+    setCompleted((prev) => {
+      const next = { ...prev };
+      for (const id of expiredIds) next[id] = false;
+      return next;
+    });
+    setCompletedResetAt((prev) => {
+      const next = { ...prev };
+      for (const id of expiredIds) delete next[id];
+      return next;
+    });
+  }, [now, completed, completedResetAt]);
   useEffect(() => {
     invoke('get_cdn_base_url').then(setCdnBase).catch(() => {});
   }, []);
@@ -738,10 +808,25 @@ export default function Checklist() {
   };
 
   const toggleTask = (taskId) => {
+    const willComplete = !completed[taskId];
     setCompleted((prev) => ({
       ...prev,
-      [taskId]: !prev[taskId]
+      [taskId]: willComplete
     }));
+    if (willComplete) {
+      const taskDef = tasks.find((tk) => tk.id === taskId);
+      const boundary = taskDef ? getNextReset(taskId, taskDef.reset) : 0;
+      if (boundary && boundary > Date.now()) {
+        setCompletedResetAt((prev) => ({ ...prev, [taskId]: boundary }));
+      }
+    } else {
+      setCompletedResetAt((prev) => {
+        if (!(taskId in prev)) return prev;
+        const next = { ...prev };
+        delete next[taskId];
+        return next;
+      });
+    }
   };
 
   const toggleHidden = (taskId) => {

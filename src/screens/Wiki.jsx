@@ -32,7 +32,6 @@ export default function Wiki() {
     Math.abs(last.left - r.left) < 2 && Math.abs(last.top - r.top) < 2) return;
     clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      console.log('📐 Wiki container rect (logical):', r.left, r.top, r.width, r.height);
       lastRectRef.current = { left: r.left, top: r.top, width: r.width, height: r.height };
       invoke('reflow_wiki_tab', {
         label: id, x: r.left, y: r.top, width: r.width, height: r.height

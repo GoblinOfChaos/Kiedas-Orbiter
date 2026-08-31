@@ -117,17 +117,30 @@ export function buildPrimeResurgenceModel(trader, exportData, inventoryData) {
 
   const equipmentCards = [...equipment.values()].map((item) => {
     const required = []
+    // How many of each ingredient the recipe actually needs (e.g. dual
+    // pistols like Afuris Prime need 2x Barrel/Receiver, 1x Link) - keyed
+    // both by the ingredient's own path and its resolved component
+    // blueprint path, since `required` below can push either form.
+    const needMap = new Map()
     if (item.blueprint && item.rewardKeys.has(canonicalPrimePath(item.blueprint))) required.push(item.blueprint)
     for (const ingredient of item.recipe?.ingredients || []) {
       if (!/Prime/i.test(ingredient.ItemType) || !ingredient.ItemType.includes('/Recipes/')) continue
       const componentRecipe = recipes.byResult.get(canonicalPrimePath(ingredient.ItemType))
       const componentBlueprint = componentRecipe?.blueprint
+      const need = ingredient.ItemCount ?? 1
+      needMap.set(canonicalPrimePath(ingredient.ItemType), need)
+      if (componentBlueprint) needMap.set(canonicalPrimePath(componentBlueprint), need)
       if (item.rewardKeys.has(canonicalPrimePath(ingredient.ItemType))) required.push(ingredient.ItemType)
       else if (componentBlueprint && item.rewardKeys.has(canonicalPrimePath(componentBlueprint))) required.push(componentBlueprint)
     }
     const parts = [...new Set(required)].map((uniqueName) => {
       const entry = owned.get(canonicalPrimePath(uniqueName))
-      return { uniqueName, name: resolveName(uniqueName, uniqueName, exportData), owned: !!entry && (!!entry.owned || !!entry.mastered || (entry.quantity || 0) > 0), isBlueprint: /Blueprint$/i.test(uniqueName), relics: [...(rewardToRelics.get(canonicalPrimePath(uniqueName)) || [])] }
+      // entry.quantity/crafted only exist when the part is owned at all
+      // (unowned parts are never pushed into inventoryData.prime_parts),
+      // so a missing entry correctly means have=0 rather than "unknown".
+      const have = Math.max(entry?.quantity ?? 0, entry?.crafted ?? 0)
+      const need = needMap.get(canonicalPrimePath(uniqueName)) ?? 1
+      return { uniqueName, name: resolveName(uniqueName, uniqueName, exportData), owned: have >= need, have, need, isBlueprint: /Blueprint$/i.test(uniqueName), relics: [...(rewardToRelics.get(canonicalPrimePath(uniqueName)) || [])] }
     })
     const parent = owned.get(canonicalPrimePath(item.uniqueName))
     return { type: 'equipment', uniqueName: item.uniqueName, name: item.name, owned: !!parent && (!!parent.owned || !!parent.mastered || (parent.quantity || 0) > 0), mastered: !!parent?.mastered, parts, relics: [...item.relics].sort() }

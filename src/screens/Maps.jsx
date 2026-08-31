@@ -442,7 +442,7 @@ export default function Maps() {
   const togglePath = useCallback((configId, fromId, toId, color) => {
     const config = configsForCurrentMap.find((c) => c.id === configId);
     if (!config) return;
-    const exists = config.paths.find((p) => p.fromMarkerId === fromId && p.toMarkerId === toId);
+    const exists = config.paths.find((p) => (p.fromMarkerId === fromId && p.toMarkerId === toId) || (p.fromMarkerId === toId && p.toMarkerId === fromId));
     if (exists) {
       updateConfigs(configsForCurrentMap.map((c) => c.id === configId ? { ...c, paths: c.paths.filter((p) => p.id !== exists.id) } : c));
     } else {
@@ -628,7 +628,7 @@ export default function Maps() {
                         {configsForCurrentMap.find((c) => c.id === selectedMarker.configId)?.markers.
                       filter((m) => m.id !== selectedMarker.id).
                       map((otherMarker) => {
-                        const hasPath = configsForCurrentMap.find((c) => c.id === selectedMarker.configId)?.paths.some((p) => p.fromMarkerId === selectedMarker.id && p.toMarkerId === otherMarker.id);
+                        const hasPath = configsForCurrentMap.find((c) => c.id === selectedMarker.configId)?.paths.some((p) => (p.fromMarkerId === selectedMarker.id && p.toMarkerId === otherMarker.id) || (p.fromMarkerId === otherMarker.id && p.toMarkerId === selectedMarker.id));
                         return (
                           <button key={otherMarker.id}
                           onClick={() => togglePath(selectedMarker.configId, selectedMarker.id, otherMarker.id, selectedMarker.color)}

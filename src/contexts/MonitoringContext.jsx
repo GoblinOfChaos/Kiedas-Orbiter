@@ -3,6 +3,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { parseInventory } from '../lib/inventoryParser'
 import { loadLocale } from '../lib/i18n'
 import { buildDropIndex } from '../lib/dropsParser'
+import { loadAcquisitionData } from '../lib/acquisitionData'
 import { buildRecipeResultIndex, buildExaltedWeaponIndex, buildMarketIndex, buildAlwaysAvailableIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex, buildWikiBlueprintIndex, buildWikiResearchIndex, buildWikiResourceIndex, buildWikiPageAcquisitionIndex, buildWikiAcquisitionStatusIndex, buildRelicStateIndex, buildExportVendorIndex, buildGlyphSupplementIndex, buildExportComponentIndex } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, getPartObtainedStatus, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
@@ -16,8 +17,8 @@ import { useUi } from './UiContext'
 
 
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
-const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
-const BOUNTY_CYCLE_API = 'https://oracle.browse.wf/bounty-cycle'
+const ORACLE_API = 'https://api.warframe.com/cdn/worldState.php'
+// Removed rogue third-party wrapper NIGHTWAVE_LIVE_API
 function toMap(data, key) {
   if (!data) return {}
   let arr = data
@@ -276,6 +277,7 @@ export function MonitoringProvider({ children }) {
     const tableNames = [
       'ExportWeapons', 'ExportWarframes', 'ExportSentinels',
       'ExportResources', 'ExportArcanes', 'ExportUpgrades',
+      'ExportAvionics', 'ExportRelics', 'ExportSyndicates',
       'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms', 'ExportGear', 'ExportFlavour', 'ExportBundles',
       // warframe-items pre-resolved maps
       'WI_Warframes', 'WI_Weapons', 'WI_Sentinels',
@@ -288,10 +290,8 @@ export function MonitoringProvider({ children }) {
     const uniqueNameToName = {}
     const toBrowseWf = (p) => {
       if (!p) return null
-      if (p.startsWith('http://') || p.startsWith('https://')) return p
+      if (p.startsWith('http://') || p.startsWith('https://') || p.startsWith('asset-cache://') || p.startsWith('asset://') || p.startsWith('data:')) return p
       const clean = p.startsWith('/') ? p : '/' + p
-      // content.warframe.com serves every export icon via its contentHash;
-      // browse.wf only mirrors a subset, so prefer the authoritative CDN.
       const hash = exportData.ExportImages?.[clean]?.contentHash
       return hash ? `asset-cache://content.warframe.com/PublicExport${clean}!${hash}` : `asset-cache://browse.wf${clean}`
     }
@@ -562,6 +562,15 @@ export function MonitoringProvider({ children }) {
       localeRef.current = getSetting('gameLocale', 'en')
       i18nRef.current = await loadLocale(localeRef.current)
       setStatusText('Checking updates & assets…')
+      // Populates the item/recipe/wiki-acquisition indices that
+      // getAcquisitionInfo() reads from (itemIndex, componentIndex,
+      // wikiAcquisitionIndex). Every acquisition-drawer screen imports
+      // loadAcquisitionData but none of them ever called it, so those
+      // indices stayed null for the whole session and every lookup that
+      // depended on them (getItemDrops, getItemRecipe, isCraftable) always
+      // came back empty. Fire it here once, in parallel, so it's ready by
+      // the time any drawer opens.
+      loadAcquisitionData().catch((err) => console.error('loadAcquisitionData failed', err))
       const [updatesRes, exportsRes, mediaRes, pricerRes, spiRes, arbRes, descRes] = await Promise.allSettled([
         invoke('check_exports', { locale: localeRef.current, force: false }),
         invoke('load_all_exports', { locale: localeRef.current }),
@@ -583,6 +592,7 @@ export function MonitoringProvider({ children }) {
           for (const [fname, key] of [
             ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'],
             ['mod-icon-map.json', 'ModIconMap'],
+            ['card-overlay-map.json', 'CardOverlayMap'],
             ['peely-pix-map.json', 'PeelyPixMap'],
             ['peely-pix-names.json', 'PeelyPixNames'],
           ]) {
@@ -700,13 +710,21 @@ export function MonitoringProvider({ children }) {
   const fetchWorldstate = useCallback(async () => {
     const locale = localeRef.current
     try {
-      const wsStr = await invoke('fetch_url', { url: OFFICIAL_API }).catch(() => null) || await invoke('fetch_url', { url: ORACLE_API }).catch(() => null)
+      const wsStr = await invoke('fetch_url', { url: OFFICIAL_API }).catch(() => null)
       const ws = wsStr ? JSON.parse(wsStr) : null
       if (ws && dict) {
-        const parsed = parseWorldstate(ws, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, ExportUpgrades: exportData?.ExportUpgrades, archimedeaMap, descendiaDesc, locale })
+        const challengeProgress = new Map()
+        if (Array.isArray(rawInventoryRef.current?.ChallengeProgress)) {
+          rawInventoryRef.current.ChallengeProgress.forEach((cp) => {
+            if (cp.Name && typeof cp.Progress === 'number') challengeProgress.set(cp.Name, cp.Progress)
+          })
+        }
+        const parsed = parseWorldstate(ws, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, ExportUpgrades: exportData?.ExportUpgrades, ExportRecipes: exportData?.ExportRecipes, ExportKeys: exportData?.ExportKeys, archimedeaMap, descendiaDesc, challengeProgress, locale })
         setWorldState(parsed)
       }
-    } catch (err) { }
+    } catch (err) {
+      console.error('fetchWorldstate: failed to parse worldstate', err)
+    }
   }, [dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENWRawRewards, ExportImages, archimedeaMap, descendiaDesc])
 
   useEffect(() => {
@@ -717,18 +735,6 @@ export function MonitoringProvider({ children }) {
     }
   }, [fetchWorldstate, dict])
 
-  // ── Bounty cycle polling (for bounty notifications) ──────────────────────
-  useEffect(() => {
-    const fetchBountyCycle = async () => {
-      const raw = await invoke('fetch_url', { url: BOUNTY_CYCLE_API }).catch(() => null)
-      if (raw) {
-        try { setBountyCycle(JSON.parse(raw)) } catch {}
-      }
-    }
-    fetchBountyCycle()
-    const iv = setInterval(fetchBountyCycle, 120_000)
-    return () => clearInterval(iv)
-  }, [])
 const [nextRetryAt, setNextRetryAt] = useState(0)
 
 const hasCachedData = useCallback(async () => {
@@ -1031,7 +1037,25 @@ const hasCachedData = useCallback(async () => {
           const modName = res.text.replace('Requiem ', '');
           bestMatch = { uniqueName: modName, name: modName, ducats: 0, isRequiem: true };
         } else {
-          bestMatch = fuzzyMatchReward(res.text, candidates, 0.60);
+          bestMatch = fuzzyMatchReward(res.text, candidates, 0.65);
+          // The squad-scoped candidate pool is built from each relic's own
+          // resolved reward list, which can be incomplete (an unresolved
+          // relic, a stale/incorrect reward manifest, etc.) even though the
+          // OCR text itself is a real, valid item. Before giving up and
+          // fabricating a fake uniqueName (which can never resolve an icon
+          // or owned/mastered inventory status), retry against the full
+          // drop-table catalog so a real item still gets full data.
+          if (!bestMatch && candidates !== globalRewardPool) {
+            bestMatch = fuzzyMatchReward(res.text, globalRewardPool || [], 0.65);
+          }
+          if (!bestMatch && res.text && res.text.trim().length >= 4) {
+            const cleanText = res.text.trim();
+            bestMatch = {
+              uniqueName: `/Lotus/Types/Recipes/${cleanText.replace(/\s+/g, '')}`,
+              name: cleanText,
+              ducats: cleanText.toUpperCase().includes('BLUEPRINT') ? 15 : 45
+            };
+          }
         }
 
         if (bestMatch) {

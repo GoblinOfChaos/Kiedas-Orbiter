@@ -12,7 +12,7 @@ import { getPricesBatch } from '../lib/marketEngine'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
 
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
-const ORACLE_API = 'https://oracle.browse.wf/worldState.json'
+const ORACLE_API = 'https://api.warframe.com/cdn/worldState.php'
 
 function toMap(data, key) {
   if (!data) return {}
@@ -50,6 +50,7 @@ export default function MirroredMonitoringProvider({ children }) {
   const autoStartRef = useRef(autoStart)
   const [lastUpdate, setLastUpdate] = useState(() => localStorage.getItem('lastUpdate') || null)
   const [rawInventory, setRawInventory] = useState(null)
+  const rawInventoryRef = useRef(null)
   const [inventoryData, setInventoryData] = useState(undefined)
   const [isInventoryLoading, setIsInventoryLoading] = useState(true)
   const [allPrices, setAllPrices] = useState(() => {
@@ -107,6 +108,7 @@ export default function MirroredMonitoringProvider({ children }) {
     ['ExportUpgrades_fixed.json', 'ExportUpgradesFixed'],
     ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'],
     ['mod-icon-map.json', 'ModIconMap'],
+    ['card-overlay-map.json', 'CardOverlayMap'],
     ['peely-pix-map.json', 'PeelyPixMap'],
     ['peely-pix-names.json', 'PeelyPixNames'],
   ]
@@ -201,6 +203,7 @@ export default function MirroredMonitoringProvider({ children }) {
         }
         if (result.inventory) {
           hasCachedDataRef.current = true
+          rawInventoryRef.current = result.inventory
           setRawInventory(result.inventory)
         } else {
           hasCachedDataRef.current = false
@@ -310,6 +313,7 @@ export default function MirroredMonitoringProvider({ children }) {
       invoke('sidebar_load_inventory')
         .then(result => {
           if (result.inventory) {
+            rawInventoryRef.current = result.inventory
             setRawInventory(result.inventory)
           }
           if (result.inventoryTimestamp) {
@@ -541,10 +545,17 @@ export default function MirroredMonitoringProvider({ children }) {
       const wsStr = await invoke('fetch_url', { url: OFFICIAL_API }).catch(() => null) || await invoke('fetch_url', { url: ORACLE_API }).catch(() => null)
       const ws = wsStr ? JSON.parse(wsStr) : null
       if (ws && dict) {
+        const challengeProgress = new Map()
+        if (Array.isArray(rawInventoryRef.current?.ChallengeProgress)) {
+          rawInventoryRef.current.ChallengeProgress.forEach((cp) => {
+            if (cp.Name && typeof cp.Progress === 'number') challengeProgress.set(cp.Name, cp.Progress)
+          })
+        }
         const parsed = parseWorldstate(ws, {
           dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName,
           ES, ENWRawRewards, ExportImages, ExportUpgrades: exportData?.ExportUpgrades,
-          archimedeaMap, descendiaDesc,
+          ExportRecipes: exportData?.ExportRecipes, ExportKeys: exportData?.ExportKeys,
+          archimedeaMap, descendiaDesc, challengeProgress,
           locale,
         })
         setWorldState(parsed)
@@ -586,6 +597,7 @@ export default function MirroredMonitoringProvider({ children }) {
 
   const applyRaw = useCallback((raw, ts, exports) => {
     if (!raw) return
+    rawInventoryRef.current = raw
     setRawInventory(raw)
     const ed = exports || exportData
     if (!ed) return

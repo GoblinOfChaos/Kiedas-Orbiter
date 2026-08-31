@@ -66,3 +66,49 @@ src-tauri/gen/
 .continue/
 *.png.tmp
 jacobcom3.png
+
+# Generated wiki reference archive (local lookup material, not app data;
+# regenerate via scripts/build_wiki_pdf_archive.py + scripts/wiki_page_to_pdf.py)
+wiki_pdf_archive/
+wiki_pdf_archive.sqlite
+wiki_pdf_examples/
+wiki_offline_test/
+wiki_api_samples/
+acquisition_staging/
+
+# CodeQL local analysis databases
+.codeql-dbs/
+codeql-custom-queries-rust/
+
+# Local AI-tool config/rules (not project deliverables)
+.agents/
+
+# One-off scratch scripts/exports from prior sessions - not referenced
+# anywhere in the app or build; real acquisition-pipeline tooling lives in
+# scripts/stage_*.py and scripts/audit_*.
+/fix_*.cjs
+/fix_*.js
+/fix_*.py
+/patch_*.cjs
+/plan_writer.cjs
+/task_writer.cjs
+/update_main.py
+/update_task.cjs
+/update_walkthrough*.cjs
+/write_guide.cjs
+/test_path
+/test_path.rs
+/main_async.patch
+/new_logger.rs
+/_tmp_*.png
+/audit_diff.txt
+/audit_frontend_diff.txt
+/gemini_wiki_pdf_task.md
+/warframe_all_items_acquisition_CURRENT.xlsx
+/warframe_all_items_empty.pdf
+/warframe_empty_acquisitions.xlsx
+/warframe_no_drop_coverage.txt
+/acquisition_fixes_*.xlsx
+/data/
+tools/warframe_api.http
+scripts/resolved_nightwave_rewards.json

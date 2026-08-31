@@ -27,7 +27,7 @@ function u(base, folder, file) {
 
 function SafeImg({ src, className, style, onError }) {
   if (!src) return null;
-  return <img src={src} className={className} style={{ ...style, opacity: 0, transition: 'opacity 0.15s' }} alt="" loading="lazy" onLoad={(e) => e.target.style.opacity = 1} onError={(e) => {e.target.style.display = 'none';onError?.();}} />;
+  return <img src={src} className={className} style={{ ...style, opacity: 0, transition: 'opacity 0.15s' }} alt="" loading="lazy" onLoad={(e) => e.target.style.opacity = 1}  />;
 }
 
 export default function RivenCard({ riven, framesPath, iconsPath, width = 180, estimate, statGrade }) {
@@ -150,7 +150,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
             const p = i < rank ? 'RankSlotActive' : 'RankSlotEmpty';
             const src = u(framesPath, mf, `${p}.png`);
             const s = Math.max(4, Math.round(7 * cardScale));
-            return src ? <img key={i} src={src} style={{ width: s, height: s }} className="object-contain flex-shrink-0" alt="" onError={(e) => e.target.style.display = 'none'} /> : null;
+            return src ? <img key={i} src={src} style={{ width: s, height: s }} className="object-contain flex-shrink-0" alt=""  /> : null;
           })}
           </div>
         </div>

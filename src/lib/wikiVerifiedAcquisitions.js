@@ -358,7 +358,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorFinisherSporesPrecept', 'Paralytic Spores'],
   ].map(([path, name]) => [path, {
     text: `Automatically acquired upon obtaining a Medjay Predasite; ${name} is one of the companion's two exclusive precepts.`,
-    url: 'https://warframe.fandom.com/wiki/Medjay_Predasite',
+    url: 'https://wiki.warframe.com/w/Medjay_Predasite',
     source: `Warframe Wiki exact Medjay Predasite exclusive-precept/acquisition record + DE ExportUpgrades exact ${name} compatName=Medjay Predasite`,
   }]),
   ...[
@@ -366,7 +366,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorSpitParasitePrecept', 'Endoparasitic Vector'],
   ].map(([path, name]) => [path, {
     text: `Automatically acquired upon obtaining a Pharaoh Predasite; ${name} is one of the companion's two exclusive precepts.`,
-    url: 'https://warframe.fandom.com/wiki/Pharaoh_Predasite',
+    url: 'https://wiki.warframe.com/w/Pharaoh_Predasite',
     source: `Warframe Wiki exact Pharaoh Predasite exclusive-precept record + DE ExportUpgrades exact ${name} compatName=Pharaoh Predasite`,
   }]),
   ...[
@@ -374,7 +374,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/HornedInfestedCatbrowRespawn', 'Crescent Devolution'],
   ].map(([path, name]) => [path, {
     text: `Automatically acquired upon obtaining a Crescent Vulpaphyla; ${name} is one of the companion's two exclusive precepts.`,
-    url: 'https://warframe.fandom.com/wiki/Crescent_Vulpaphyla',
+    url: 'https://wiki.warframe.com/w/Crescent_Vulpaphyla',
     source: `Warframe Wiki exact Crescent Vulpaphyla exclusive-precept record + DE ExportUpgrades exact ${name} compatName=Crescent Vulpaphyla`,
   }]),
   ...[
@@ -382,7 +382,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     ['/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/ChargerChargePrecept', 'Trample'],
   ].map(([path, name]) => [path, {
     text: `Automatically acquired upon obtaining a Helminth Charger; ${name} is an exclusive Helminth Charger precept.`,
-    url: `https://warframe.fandom.com/wiki/${name}`,
+    url: `https://wiki.warframe.com/w/${name}`,
     source: `Warframe Wiki exact ${name} acquisition section + DE ExportUpgrades exact ${name} compatName=Helminth Charger`,
   }]),
   ...[
@@ -390,7 +390,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     ['/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedKavatViralQuillsPrecept', 'Viral Quills'],
   ].map(([path, name]) => [path, {
     text: `Automatically acquired upon obtaining a Panzer Vulpaphyla; ${name} is one of the companion's exclusive precepts.`,
-    url: 'https://warframe.fandom.com/wiki/Panzer_Vulpaphyla',
+    url: 'https://wiki.warframe.com/w/Panzer_Vulpaphyla',
     source: `Warframe Wiki exact Panzer Vulpaphyla exclusive-precept record + DE ExportUpgrades exact ${name} compatName=Panzer Vulpaphyla`,
   }]),
   ...[
@@ -402,7 +402,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     ['/Lotus/Weapons/Tenno/Melee/SwordsAndBoards/DaxDuviriMaceShieldWeapon', 'Argo & Vel', 60, 225],
   ].map(([path, name, clamps, platinum]) => [path, {
     text: `Purchase ${name} from Teshin's Cave in Duviri for ${clamps} Pathos Clamps or ${platinum} Platinum; the Pathos Clamp purchase unlocks the Drifter weapon and delivers the Warframe blueprint. Additional Warframe blueprint copies are available from Cephalon Simaris for 100,000 standing.`,
-    url: 'https://warframe.fandom.com/wiki/Pathos_Clamp',
+    url: 'https://wiki.warframe.com/w/Pathos_Clamp',
     source: `Warframe Wiki Pathos Clamp/Teshin's Cave acquisition table exact ${name} costs + DE ExportWeapons exact identity`,
   }]),
   ...[
@@ -431,7 +431,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     ['/Lotus/Upgrades/Skins/Hammer/NoodleHammerSkin', 'Noodletron Hammer Skin', 280],
   ].map(([path, name, pearls]) => [path, {
     text: `Purchase from Nakak in Cetus during the Dog Days event for ${pearls} Nakak Pearls.`,
-    url: 'https://warframe.fandom.com/wiki/Dog_Days',
+    url: 'https://wiki.warframe.com/w/Dog_Days',
     source: `Warframe Wiki Dog Days offerings exact ${name} price + DE ExportCustoms exact identity`,
   }]),
   ...[
@@ -441,7 +441,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     ['/Lotus/Upgrades/Mods/DualSource/Shotgun/ShotgunMedicMod', 'Amalgam Shotgun Barrage', 25],
   ].map(([path, name, points]) => [path, {
     text: `Earn ${points} cumulative points in the Thermia Fractures event to receive ${name}; the reward is one-time and non-transmutable.`,
-    url: 'https://warframe.fandom.com/wiki/Thermia_Fractures',
+    url: 'https://wiki.warframe.com/w/Thermia_Fractures',
     source: `Warframe Wiki Thermia Fractures reward table exact ${name} milestone + DE ExportUpgrades exact identity`,
   }]),
   ...[
@@ -669,7 +669,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Weapons/Tenno/Melee/Swords/DarkSword/DarkSwordDaggerHybridWeapon',
     {
       text: 'Research and replicate the Dark Split-Sword blueprint in a Clan Dojo Tenno Lab; the complete weapon is also sold in the Market for 225 Platinum.',
-      url: 'https://warframe.fandom.com/wiki/Dark_Split-Sword',
+      url: 'https://wiki.warframe.com/w/Dark_Split-Sword',
       source: 'Warframe Wiki exact Dark Split-Sword acquisition record + DE ExportWeapons exact identity and 225-Platinum Market price',
     },
   ],
@@ -733,7 +733,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Types/AvatarImages/AvatarImageGlyphMashedNefAnyo',
     {
       text: 'Purchased individually for 20 Platinum or as part of the 110-Platinum MASHED Glyph Pack; the pack contains seven glyphs depicting moments from MASHED’s 100 Days of Warframe video.',
-      url: 'https://warframe.fandom.com/wiki/Glyph',
+      url: 'https://wiki.warframe.com/w/Glyph',
       source: 'Warframe Wiki MASHED Glyphs section + Module:Glyphes exact uniqueName',
     },
   ],
@@ -741,7 +741,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Upgrades/Skins/Ember/EmberDeluxeDualPistolSkin',
     {
       text: 'Exclusive to the Ember Vermillion Collection, which is purchased from the in-game Market for 225 Platinum; the local DE export identifies this exact record as the Nusku Dual Pistol Skin.',
-      url: 'https://warframe.fandom.com/wiki/Ember_Vermillion_Collection',
+      url: 'https://wiki.warframe.com/w/Ember_Vermillion_Collection',
       source: 'Warframe Wiki Ember Vermillion Collection acquisition + local DE ExportCustoms exact Nusku Dual Pistol Skin record',
     },
   ],
@@ -757,7 +757,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Upgrades/Skins/Sigils/MasterySigil',
     {
       text: 'Purchased from the in-game Market for 1 Credit; the sigil changes its design as your Mastery Rank increases.',
-      url: 'https://warframe.fandom.com/wiki/Sigils?page=2&title=Sigils',
+      url: 'https://wiki.warframe.com/w/Sigils?page=2&title=Sigils',
       source: 'Warframe Wiki Purchasable Sigils section + local DE ExportCustoms exact Mastery Sigil record',
     },
   ],
@@ -773,7 +773,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Types/Restoratives/Consumable/GlyphConsumable',
     {
       text: 'Purchased from the Glyph menu as the charged Glyph Prism gear item; the local DE export records a purchase quantity of 100 for 1,000 Credits.',
-      url: 'https://warframe.fandom.com/wiki/Glyph',
+      url: 'https://wiki.warframe.com/w/Glyph',
       source: 'DE ExportGear exact Glyph Prism record + Warframe Wiki Glyph usage record',
     },
   ],
@@ -781,7 +781,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Types/Restoratives/Consumable/GlyphConsumableNoCharges',
     {
       text: 'Purchased from the Glyph menu as the unlimited-use Glyph Prism gear item; the local DE export records a price of 50 Platinum.',
-      url: 'https://warframe.fandom.com/wiki/Glyph',
+      url: 'https://wiki.warframe.com/w/Glyph',
       source: 'DE ExportGear exact unlimited Glyph Prism record + Warframe Wiki Glyph usage record',
     },
   ],
@@ -933,7 +933,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Upgrades/Skins/Necramech/VoidrigDOTDSkin',
     {
       text: 'Purchased from Daughter during Nights of Naberus for 100 Mother Tokens; the linked Day of the Dead Necramech Helmet is granted with the skin.',
-      url: 'https://warframe.fandom.com/wiki/Necramech',
+      url: 'https://wiki.warframe.com/w/Necramech',
       source: 'Warframe Wiki (Necramech) + local export skin/helmet relationship',
     },
   ],
@@ -941,7 +941,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Upgrades/Skins/Necramech/VoidrigDOTDHelmet',
     {
       text: 'Granted with the Day of the Dead Necramech Skin, which is purchased from Daughter during Nights of Naberus for 100 Mother Tokens.',
-      url: 'https://warframe.fandom.com/wiki/Necramech',
+      url: 'https://wiki.warframe.com/w/Necramech',
       source: 'Warframe Wiki (Necramech) + local export skin/helmet relationship',
     },
   ],
@@ -981,7 +981,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Upgrades/Skins/Necramech/NecramechSnakeSkin',
     {
       text: 'Purchased from the Necraloid Syndicate’s Necramech Embellishments offerings for 60 Platinum.',
-      url: 'https://warframe.fandom.com/wiki/Necramech',
+      url: 'https://wiki.warframe.com/w/Necramech',
       source: 'Warframe Wiki (Necramech) + local export skin/helmet relationship',
     },
   ],
@@ -989,7 +989,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Upgrades/Skins/Necramech/NecramechSnakeHelmet',
     {
       text: 'Granted with the Snake Necramech Skin, purchased from the Necraloid Syndicate’s Necramech Embellishments offerings for 60 Platinum.',
-      url: 'https://warframe.fandom.com/wiki/Necramech',
+      url: 'https://wiki.warframe.com/w/Necramech',
       source: 'Warframe Wiki (Necramech) + local export skin/helmet relationship',
     },
   ],
@@ -997,7 +997,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     '/Lotus/Upgrades/Skins/Sigils/NecramechSigilSnake',
     {
       text: 'Purchased from the Necraloid Syndicate’s Necramech Embellishments offerings for 40 Platinum.',
-      url: 'https://warframe.fandom.com/wiki/Necramech',
+      url: 'https://wiki.warframe.com/w/Necramech',
       source: 'Warframe Wiki (Necramech)',
     },
   ],
@@ -1521,7 +1521,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   }]),
   ['/Lotus/Upgrades/Skins/Frumentarius/FrumentariusSkin', {
     text: 'Default Cyte-09 appearance; acquire Cyte-09’s blueprint from The Hex quest, with component blueprints from Höllvania Central Mall Bounties or Amir of The Hex for Standing, then build Cyte-09 in the Foundry.',
-    url: 'https://warframe.fandom.com/wiki/Cyte-09',
+    url: 'https://wiki.warframe.com/w/Cyte-09',
     source: 'WARFRAME Wiki Cyte-09 acquisition + official The Hex quest reward record + local export default skin relationship',
   }],
   ...[
@@ -1531,12 +1531,12 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     ['/Lotus/Upgrades/Skins/Promo/Void/VastoVoidSkin', 'Vasto Phased Skin'],
   ].map(([uniqueName, component]) => [uniqueName, {
     text: `${component} was a Steam Winter Sale 2013 crafting reward; these Phased cosmetics are no longer craftable, but existing copies can be traded through Steam or bought on the Steam Community Market.`,
-    url: 'https://warframe.fandom.com/wiki/Phased_Skins',
+    url: 'https://wiki.warframe.com/w/Phased_Skins',
     source: 'WARFRAME Wiki Phased Skins acquisition record + local export exact component record',
   }]),
   ['/Lotus/Upgrades/Skins/Events/BlackoutOrthos', {
     text: 'Unreleased Phased Orthos Skin; the Wiki records no acquisition route.',
-    url: 'https://warframe.fandom.com/wiki/Phased_Skins',
+    url: 'https://wiki.warframe.com/w/Phased_Skins',
     source: 'WARFRAME Wiki Phased Skins unreleased-item record + local export exact object',
   }],
   ['/Lotus/Upgrades/Skins/Motorcycle/MotorcycleNightwaveSkin', {
@@ -1561,7 +1561,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   }],
   ['/Lotus/Types/Items/PhotoBooth/JadeShadows/PhotoboothTileStalkerCave', {
     text: 'Granted by Hunhow in the Inbox after completing The Jade Shadows quest.',
-    url: 'https://warframe.fandom.com/wiki/Jade_Shadows',
+    url: 'https://wiki.warframe.com/w/Jade_Shadows',
     source: 'WARFRAME Wiki Jade Shadows quest rewards + local export exact Captura scene record',
   }],
   ['/Lotus/Types/Items/MiscItems/PhotoboothTilePurgatory', {
@@ -1581,7 +1581,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   }],
   ['/Lotus/Upgrades/Skins/Sigils/DogDays2023ASigil', {
     text: 'Awarded for completing the first Dog Days mission; during the fifth Dog Days appearance it was the first-mission reward alongside Nakak Pearls and Credits.',
-    url: 'https://warframe.fandom.com/wiki/Dog_Days',
+    url: 'https://wiki.warframe.com/w/Dog_Days',
     source: 'WARFRAME Wiki Dog Days reward table + local export exact sigil record',
   }],
   ...[
@@ -1611,7 +1611,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   }]),
   ['/Lotus/Upgrades/Skins/Sony/ObsidianGlaive', {
     text: 'Formerly included in the original PlayStation Plus starter pack; the Glaive Obsidian Skin is a PlayStation-exclusive cosmetic and is no longer a current general Market route.',
-    url: 'https://warframe.fandom.com/wiki/Glaive',
+    url: 'https://wiki.warframe.com/w/Glaive',
     source: 'WARFRAME Wiki Glaive acquisition and skin record + local export exact skin record',
   }],
   ['/Lotus/Upgrades/Skins/Motorcycle/MotorcycleOllieSkin', {
@@ -1636,22 +1636,22 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   }],
   ['/Lotus/Types/Items/MiscItems/PhotoboothTileSacrificeCourtyard', {
     text: 'Granted in the Inbox after completing The Sacrifice quest.',
-    url: 'https://warframe.fandom.com/wiki/The_Sacrifice',
+    url: 'https://wiki.warframe.com/w/The_Sacrifice',
     source: 'WARFRAME Wiki The Sacrifice reward record + local export exact scene record',
   }],
   ['/Lotus/Types/Items/MiscItems/PhotoboothTileTWWTeshinEnding', {
     text: 'Unlocked by completing The War Within for the first time; the scene is added to Captura and is retroactively granted to players who had already completed the quest.',
-    url: 'https://warframe.fandom.com/wiki/Captura',
+    url: 'https://wiki.warframe.com/w/Captura',
     source: 'WARFRAME Wiki Captura patch history + local export exact scene record',
   }],
   ['/Lotus/Types/Items/MiscItems/PhotoboothTileDrifterCamp', {
     text: 'Unlocked after completing The New War quest.',
-    url: 'https://warframe.fandom.com/wiki/Captura',
+    url: 'https://wiki.warframe.com/w/Captura',
     source: 'WARFRAME Wiki Captura scene list + local export exact scene record',
   }],
   ['/Lotus/Types/Items/MiscItems/PhotoboothTileGasCitySpawnTwo', {
     text: 'Obtained from the special violet Captura-scene locker in a solved Corpus Gas City secret room; open the symbol door by activating its consoles in sequence.',
-    url: 'https://warframe.fandom.com/wiki/Corpus_Gas_City',
+    url: 'https://wiki.warframe.com/w/Corpus_Gas_City',
     source: 'WARFRAME Wiki Corpus Gas City secret-room route + local export exact scene record',
   }],
   ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageBluyayogamer', {
@@ -1866,30 +1866,30 @@ for (const [uniqueName, text, url, source] of [
   ['/Lotus/Upgrades/Skins/Odalisk/ProteaImmortalSkin', 'The Protea Immortal Skin includes the Protea Immortal Helmet. The exact export record is non-tradable and excluded from the Market; the set is currently unobtainable and can only be chat-linked.', 'https://wiki.warframe.com/w/Protea_Immortal_Skin', 'DE ExportCustoms exact additionalItems relationship + current cosmetic availability record'],
   ['/Lotus/Upgrades/Skins/Rhino/RhinoRubedoSkinHelmet', 'This helmet was part of the retired Rubedo Plated Rhino Skin collection, which was distributed through Steam Trading Cards. The exact export record is non-tradable and excluded from the current Market.', 'https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards', 'Warframe Wiki retired Rubedo Plated collection record + DE ExportCustoms exact helmet identity'],
   ['/Lotus/Upgrades/Skins/Necramech/NecramechVoidRigDefaultHelmet', 'The default Voidrig helmet is included when you acquire and build a Voidrig. Complete Heart of Deimos for the Voidrig blueprints, or obtain the blueprints from the Necraloid syndicate; this exact default helmet is not a separate Market item.', 'https://www.warframe.com/en/news/necramechs-guide', 'Official Warframe Necramechs Guide + DE ExportCustoms exact default-helmet identity'],
-  ['/Lotus/Types/AvatarImages/AvatarImageChatModerator', 'Awarded to Warframe chat moderators as a role privilege; it is not a Market item or a general promo-code reward.', 'https://warframe.fandom.com/wiki/Glyph', 'Warframe Wiki exact glyph identity + role-gated Chat Moderator record'],
-  ['/Lotus/Types/AvatarImages/AvatarImageLotusGuide', 'Awarded to Guides of the Lotus while that volunteer program existed. The program was removed, so this glyph is no longer obtainable through a current player program.', 'https://warframe.fandom.com/wiki/Sigils?page=2&title=Sigils', 'Warframe Wiki Guides of the Lotus program disposition + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/AvatarImageTennoTranslator', 'Awarded to players who contributed translations for Warframe; it is a role/contribution reward, not a Market item or public promo-code reward.', 'https://warframe.fandom.com/wiki/Sigils?page=2&title=Sigils', 'Warframe Wiki translator contribution record + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerUpdated', 'Distributed through the Warframe Creator/Partner program to eligible creators; the exact legacy record has no universal public purchase route and is not tradable.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartner', 'Distributed through the Warframe Partner program to eligible creators; the exact legacy record has no universal public purchase route and is not tradable.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerMug', 'Distributed through the Warframe Partner program as a creator-glyph variant; the exact legacy record has no universal public purchase route and is not tradable.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageWarframeFanChannel', 'Distributed through the Warframe fan-channel/creator program; the exact legacy record has no universal public purchase route and is not tradable.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageMGLblaze', 'This is a creator glyph distributed through MGLblaze’s Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/AvatarImageCreatorSnowLit', 'This is a creator glyph distributed through Snowlit’s Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageSzczebrzeszyniarz', 'This is a creator glyph distributed through the named Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/AvatarImageCreatorWgrates', 'This Lotus Symbol Glyph is a creator/fan-channel distribution record, not a normal Market item. The exact legacy record is non-tradable and its creator-controlled distribution is the acquisition route when available.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/AvatarImageChatModerator', 'Awarded to Warframe chat moderators as a role privilege; it is not a Market item or a general promo-code reward.', 'https://wiki.warframe.com/w/Glyph', 'Warframe Wiki exact glyph identity + role-gated Chat Moderator record'],
+  ['/Lotus/Types/AvatarImages/AvatarImageLotusGuide', 'Awarded to Guides of the Lotus while that volunteer program existed. The program was removed, so this glyph is no longer obtainable through a current player program.', 'https://wiki.warframe.com/w/Sigils?page=2&title=Sigils', 'Warframe Wiki Guides of the Lotus program disposition + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/AvatarImageTennoTranslator', 'Awarded to players who contributed translations for Warframe; it is a role/contribution reward, not a Market item or public promo-code reward.', 'https://wiki.warframe.com/w/Sigils?page=2&title=Sigils', 'Warframe Wiki translator contribution record + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerUpdated', 'Distributed through the Warframe Creator/Partner program to eligible creators; the exact legacy record has no universal public purchase route and is not tradable.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartner', 'Distributed through the Warframe Partner program to eligible creators; the exact legacy record has no universal public purchase route and is not tradable.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImagePartnerMug', 'Distributed through the Warframe Partner program as a creator-glyph variant; the exact legacy record has no universal public purchase route and is not tradable.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageWarframeFanChannel', 'Distributed through the Warframe fan-channel/creator program; the exact legacy record has no universal public purchase route and is not tradable.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageMGLblaze', 'This is a creator glyph distributed through MGLblaze’s Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/AvatarImageCreatorSnowLit', 'This is a creator glyph distributed through Snowlit’s Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageSzczebrzeszyniarz', 'This is a creator glyph distributed through the named Warframe Partner/Creator channel, not a normal Market item. The exact legacy record is non-tradable; creator-controlled giveaways or promo distribution are the acquisition route when available.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/AvatarImageCreatorWgrates', 'This Lotus Symbol Glyph is a creator/fan-channel distribution record, not a normal Market item. The exact legacy record is non-tradable and its creator-controlled distribution is the acquisition route when available.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
   ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageDesRPG', 'The DesRPG Lotus Symbol Glyph was a creator glyph; the glyphs.wf partner record marks it as no longer in the game. Existing copies are legacy-owned only.', 'https://glyphs.wf/', 'glyphs.wf exact creator disposition + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageDramakins', 'This Lotus Symbol Glyph was distributed through Dramakins’ Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageKacchi', 'This Lotus Symbol Glyph was distributed through KingKacchi’s Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageLovinDaTacos', 'This Lotus Symbol Glyph was distributed through the named Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
-  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageSenastra', 'This Lotus Symbol Glyph was distributed through the named Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageDramakins', 'This Lotus Symbol Glyph was distributed through Dramakins’ Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageKacchi', 'This Lotus Symbol Glyph was distributed through KingKacchi’s Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageLovinDaTacos', 'This Lotus Symbol Glyph was distributed through the named Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/FanChannel/AvatarImageSenastra', 'This Lotus Symbol Glyph was distributed through the named Warframe Partner/Creator channel, not the Market; creator-controlled giveaways or promo distribution were the acquisition route.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
   ['/Lotus/Types/AvatarImages/Factions/GlyphFactionAmalgam', 'This is an internal faction glyph record for the Amalgam faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.', 'https://wiki.warframe.com/w/Amalgam_Glyph', 'DE/WFCD exact faction-glyph identity + current export route absence'],
   ['/Lotus/Types/AvatarImages/Factions/GlyphFactionInfested', 'This is an internal faction glyph record for the Infested faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.', 'https://wiki.warframe.com/w/Infestation_Glyph', 'DE/WFCD exact faction-glyph identity + current export route absence'],
   ['/Lotus/Types/AvatarImages/Factions/GlyphFactionDeimos', 'This is an internal faction glyph record for the Infested Deimos faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.', 'https://wiki.warframe.com/w/Infested_Deimos_Glyph', 'DE/WFCD exact faction-glyph identity + current export route absence'],
   ['/Lotus/Types/AvatarImages/Factions/GlyphFactionOrokin', 'This is an internal faction glyph record for the Orokin faction. It has no player-facing Market, drop, quest, or vendor route in the current export; existing copies are legacy-owned only.', 'https://wiki.warframe.com/w/Orokin_Glyph', 'DE/WFCD exact faction-glyph identity + current export route absence'],
   ['/Lotus/Types/AvatarImages/AvatarImageGlyphDELogo', 'This Digital Extremes logo glyph is a staff/promotional record, not a normal Market item. The exact legacy record is non-tradable and has no public player acquisition route recorded.', 'https://wiki.warframe.com/w/Digital_Extremes_Glyph', 'DE/WFCD exact glyph identity + current export route absence'],
-  ['/Lotus/Types/AvatarImages/AvatarImageChatModerator', 'Awarded to Warframe chat moderators as a role privilege; it is not a Market item or a general promo-code reward.', 'https://warframe.fandom.com/wiki/Glyph', 'Warframe Wiki exact glyph identity + role-gated Chat Moderator record'],
+  ['/Lotus/Types/AvatarImages/AvatarImageChatModerator', 'Awarded to Warframe chat moderators as a role privilege; it is not a Market item or a general promo-code reward.', 'https://wiki.warframe.com/w/Glyph', 'Warframe Wiki exact glyph identity + role-gated Chat Moderator record'],
   ['/Lotus/Types/AvatarImages/AvatarImageGamingCommunityExpoTwentyFour', 'This GCX 2024 glyph is an event/promotional record, not a normal Market item. The current export and exact Wiki identity record do not expose a reusable public code or active route; existing copies are legacy-owned only.', 'https://wiki.warframe.com/w/Gcx_2024_Glyph', 'DE/WFCD exact GCX glyph identity + current export route absence'],
-  ['/Lotus/Types/AvatarImages/AvatarImageGlyphLegendaryQuasars', 'This is a legacy creator/partner glyph distributed through creator-controlled promotions rather than the Market. The exact non-tradable record has no current universal public route.', 'https://warframe.fandom.com/wiki/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
+  ['/Lotus/Types/AvatarImages/AvatarImageGlyphLegendaryQuasars', 'This is a legacy creator/partner glyph distributed through creator-controlled promotions rather than the Market. The exact non-tradable record has no current universal public route.', 'https://wiki.warframe.com/w/Glyph#Creator_Glyphs', 'Warframe Wiki Creator Glyphs section + WFCD exact glyph identity'],
   ['/Lotus/Types/AvatarImages/AvatarImageGlyphCookieBoot', 'This is a legacy promotional/creator glyph, not a normal Market item. The exact non-tradable record has no current universal public code or active route.', 'https://wiki.warframe.com/w/Cookie_Boot_Glyph', 'WFCD exact glyph identity + current export route absence'],
   ['/Lotus/Types/AvatarImages/SavePopcornGlyph', 'This is a legacy promotional glyph, not a normal Market item. The exact non-tradable record has no current universal public code or active route.', 'https://wiki.warframe.com/w/Save_Popcorn_Glyph', 'WFCD exact glyph identity + current export route absence'],
 ]) {
@@ -1956,31 +1956,31 @@ for (const [uniqueName, text, url] of [
   ['/Lotus/Types/Keys/LimboQuest/LimboHelmetTheorem', 'Awarded during The Limbo Theorem quest; use the theorem to run the quest mission that awards the Limbo Neuroptics blueprint.', 'https://support.warframe.com/hc/en-us/articles/360029276132-The-Limbo-Theorem-FAQ'],
   ['/Lotus/Types/Keys/LimboQuest/LimboSystemsTheorem', 'Awarded during The Limbo Theorem quest; use the theorem to run the quest mission that awards the Limbo Systems blueprint.', 'https://support.warframe.com/hc/en-us/articles/360029276132-The-Limbo-Theorem-FAQ'],
   ['/Lotus/Types/Restoratives/Consumable/StalkerBall', 'The Stalker Specter blueprint was awarded at Rank 6 of Nightwave: Nora’s Mix Volume 7.', 'https://www.warframe.com/en/news/vol-7'],
-  ['/Lotus/Types/Recipes/Components/VorBoltRemoverFakeItem', 'Darvo gives the Ascaris Negator blueprint during Vor’s Prize; gather its quest materials and build it in the Foundry.', 'https://warframe.fandom.com/wiki/Ascaris_Negator'],
+  ['/Lotus/Types/Recipes/Components/VorBoltRemoverFakeItem', 'Darvo gives the Ascaris Negator blueprint during Vor’s Prize; gather its quest materials and build it in the Foundry.', 'https://wiki.warframe.com/w/Ascaris_Negator'],
   ['/Lotus/Types/Restoratives/Cipher', 'The 1x and 10x blueprints are bought from the Market Gear tab for 500 and 250,000 Credits; the reusable 100x blueprint is researched in a Dojo Tenno Lab.', 'https://wiki.warframe.com/w/Cipher'],
   ['/Lotus/Types/Restoratives/Consumable/FomorianNegator', 'The reusable blueprint is available in the Market under Equipment → Gear for 5,000 Credits.', 'https://wiki.warframe.com/w/Fomorian_Disruptor'],
   ['/Lotus/Types/Restoratives/Consumable/RazorbackCipher', 'Lotus sends the Razorback Cipher blueprint in the event message; its Cryptographic ALU component is obtained during the Razorback event.', 'https://wiki.warframe.com/w/Razorback_Cipher'],
-  ['/Lotus/Types/Restoratives/Consumable/Synthetics/FlareBlue', 'Purchase the reusable Fosfor Blau blueprint from Nakak in Cetus; the required Plains resources and the offered price rotate with Nakak’s daily inventory.', 'https://warframe.fandom.com/wiki/Fosfor'],
-  ['/Lotus/Types/Restoratives/Consumable/Synthetics/FlareRed', 'Purchase the reusable Fosfor Rahd blueprint from Nakak in Cetus; the required Plains resources and the offered price rotate with Nakak’s daily inventory.', 'https://warframe.fandom.com/wiki/Fosfor'],
-  ['/Lotus/Types/Restoratives/Consumable/InfestedIrradiatedBaitBall', 'The Potent Pherliac Pods blueprint is awarded during The Jordas Precept quest; build it in the Foundry using Pherliac Pods and Argon Crystals.', 'https://warframe.fandom.com/wiki/Pherliac_Pod?page=2'],
+  ['/Lotus/Types/Restoratives/Consumable/Synthetics/FlareBlue', 'Purchase the reusable Fosfor Blau blueprint from Nakak in Cetus; the required Plains resources and the offered price rotate with Nakak’s daily inventory.', 'https://wiki.warframe.com/w/Fosfor'],
+  ['/Lotus/Types/Restoratives/Consumable/Synthetics/FlareRed', 'Purchase the reusable Fosfor Rahd blueprint from Nakak in Cetus; the required Plains resources and the offered price rotate with Nakak’s daily inventory.', 'https://wiki.warframe.com/w/Fosfor'],
+  ['/Lotus/Types/Restoratives/Consumable/InfestedIrradiatedBaitBall', 'The Potent Pherliac Pods blueprint is awarded during The Jordas Precept quest; build it in the Foundry using Pherliac Pods and Argon Crystals.', 'https://wiki.warframe.com/w/Pherliac_Pod?page=2'],
   ['/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBDeck', 'The blueprint is acquired by completing the Dead Drop K-Drive Race on the Cambion Drift; active races rotate daily.', 'https://wiki.warframe.com/w/K-Drive'],
   ['/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBEngine', 'The blueprint is acquired by completing the Muck and Mire K-Drive Race on the Cambion Drift; active races rotate daily.', 'https://wiki.warframe.com/w/K-Drive'],
   ['/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBFront', 'The blueprint is acquired by completing the Exocrine Flow K-Drive Race on the Cambion Drift; active races rotate daily.', 'https://wiki.warframe.com/w/K-Drive'],
   ['/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBJet', 'The blueprint is acquired by completing the Pride Before a Fall K-Drive Race on the Cambion Drift; active races rotate daily.', 'https://wiki.warframe.com/w/K-Drive'],
   ['/Lotus/Weapons/Tenno/Bayonet/TnBayonetRifleWeapon', "Vinquibus' main and component blueprints are obtained from Roathe's Oblivion on Infernium 21 of The Descendia after The Old Peace, or purchased from Roathe in La Cathédrale for Maphica.", 'https://wiki.warframe.com/w/Vinquibus'],
-  ['/Lotus/Types/Recipes/WarframeRecipes/ChromaBeaconCComponent', 'The Chroma Mark blueprint is awarded during The New Strange quest and is required to progress the Chroma synthesis sequence.', 'https://warframe.fandom.com/wiki/The_New_Strange'],
-  ['/Lotus/Types/Recipes/Weapons/WeaponParts/DaxDuviriAsymmetricalLongBowString', 'The Cinta String blueprint is one of the Cinta component blueprints obtained by solving Enigma Puzzles in Duviri.', 'https://warframe.fandom.com/wiki/Cinta'],
-  ['/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipBlade', "The Dorrclave Blade blueprint is acquired from Dagath's Hollow in the Clan Dojo; its component blueprint requires Vainthorn from the Abyssal Zone.", 'https://warframe.fandom.com/wiki/Dorrclave'],
-  ['/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipHilt', "The Dorrclave Hilt blueprint is acquired from Dagath's Hollow in the Clan Dojo; its component blueprint requires Vainthorn from the Abyssal Zone.", 'https://warframe.fandom.com/wiki/Dorrclave'],
-  ['/Lotus/Types/Restoratives/Consumable/CorruptedBombardBall', 'The Corrupted Bombard Specter blueprint was a limited Baro Ki’Teer offering for 100 Ducats and 50,000 Credits (February 24–26, 2017 on PC).', 'https://warframe.fandom.com/wiki/Specter'],
+  ['/Lotus/Types/Recipes/WarframeRecipes/ChromaBeaconCComponent', 'The Chroma Mark blueprint is awarded during The New Strange quest and is required to progress the Chroma synthesis sequence.', 'https://wiki.warframe.com/w/The_New_Strange'],
+  ['/Lotus/Types/Recipes/Weapons/WeaponParts/DaxDuviriAsymmetricalLongBowString', 'The Cinta String blueprint is one of the Cinta component blueprints obtained by solving Enigma Puzzles in Duviri.', 'https://wiki.warframe.com/w/Cinta'],
+  ['/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipBlade', "The Dorrclave Blade blueprint is acquired from Dagath's Hollow in the Clan Dojo; its component blueprint requires Vainthorn from the Abyssal Zone.", 'https://wiki.warframe.com/w/Dorrclave'],
+  ['/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipHilt', "The Dorrclave Hilt blueprint is acquired from Dagath's Hollow in the Clan Dojo; its component blueprint requires Vainthorn from the Abyssal Zone.", 'https://wiki.warframe.com/w/Dorrclave'],
+  ['/Lotus/Types/Restoratives/Consumable/CorruptedBombardBall', 'The Corrupted Bombard Specter blueprint was a limited Baro Ki’Teer offering for 100 Ducats and 50,000 Credits (February 24–26, 2017 on PC).', 'https://wiki.warframe.com/w/Specter'],
   ['/Lotus/Types/Ship/BasicUcResourceDrone', 'Purchase the reusable Distilling Extractor blueprint from the in-game Market for 50,000 Credits, then build it in the Foundry.', 'https://support.warframe.com/hc/en-us/articles/200492204-Extractors'],
   ['/Lotus/Types/Ship/BasicResourceDrone', 'Purchase the reusable Titan Extractor blueprint from the in-game Market, then build the extractor in the Foundry.', 'https://support.warframe.com/hc/en-us/articles/200492204-Extractors'],
-  ['/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPowerSuit', 'Purchase the desired MOA component blueprints from Legs in Fortuna for Standing, build the parts, then configure the MOA at Legs for 4,000 Credits.', 'https://warframe.fandom.com/wiki/MOA_%28Companion%29'],
-  ['/Lotus/Types/Keys/InfestedAladVQuest/AssassinateInfestedAladVKey', 'The reusable Mutalist Alad V Assassinate blueprint is awarded for completing Patient Zero; build it with Mutalist Alad V Nav Coordinates to unlock the mission.', 'https://warframe.fandom.com/wiki/Blueprints'],
-  ['/Lotus/Types/Restoratives/TeamAmmoTotem', 'The reusable 1x and 10x Squad Ammo Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://warframe.fandom.com/wiki/Squad_Ammo_Restore'],
-  ['/Lotus/Types/Restoratives/TeamEnergyTotem', 'The reusable 1x and 10x Squad Energy Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://warframe.fandom.com/wiki/Squad_Energy_Restore'],
-  ['/Lotus/Types/Restoratives/TeamHealTotem', 'The reusable 1x and 10x Squad Health Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://warframe.fandom.com/wiki/Squad_Health_Restore'],
-  ['/Lotus/Types/Restoratives/TeamShieldTotem', 'The reusable 1x and 10x Squad Shield Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://warframe.fandom.com/wiki/Squad_Shield_Restore'],
+  ['/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPowerSuit', 'Purchase the desired MOA component blueprints from Legs in Fortuna for Standing, build the parts, then configure the MOA at Legs for 4,000 Credits.', 'https://wiki.warframe.com/w/MOA_%28Companion%29'],
+  ['/Lotus/Types/Keys/InfestedAladVQuest/AssassinateInfestedAladVKey', 'The reusable Mutalist Alad V Assassinate blueprint is awarded for completing Patient Zero; build it with Mutalist Alad V Nav Coordinates to unlock the mission.', 'https://wiki.warframe.com/w/Blueprints'],
+  ['/Lotus/Types/Restoratives/TeamAmmoTotem', 'The reusable 1x and 10x Squad Ammo Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://wiki.warframe.com/w/Squad_Ammo_Restore'],
+  ['/Lotus/Types/Restoratives/TeamEnergyTotem', 'The reusable 1x and 10x Squad Energy Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://wiki.warframe.com/w/Squad_Energy_Restore'],
+  ['/Lotus/Types/Restoratives/TeamHealTotem', 'The reusable 1x and 10x Squad Health Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://wiki.warframe.com/w/Squad_Health_Restore'],
+  ['/Lotus/Types/Restoratives/TeamShieldTotem', 'The reusable 1x and 10x Squad Shield Restore (Small) blueprints are purchased from the Market for 500 and 250,000 Credits.', 'https://wiki.warframe.com/w/Squad_Shield_Restore'],
   ['/Lotus/Types/Gameplay/EntratiLab/Quest/GargoyleMiscItem', 'During Operation: Gargoyle’s Cry, build the Vigile Jahu Gargoyle in a Clan Dojo after Whispers in the Walls; the limited operation ended January 15, 2024.', 'https://www.warframe.com/en/news/operation-gargoyles-cry'],
 ]) {
   WIKI_VERIFIED_ACQUISITIONS.set(uniqueName, {

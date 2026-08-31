@@ -1,3 +1,4 @@
+
 /**
  * worldstateParser.js
  *
@@ -23,12 +24,13 @@
 import {
   resolveNode,
   resolveMissionType,
+  resolveBountyTitle,
   resolveRewardText,
   resolveChallenge,
   resolveChallengeDesc,
   resolveItemName,
   splitPascal
-} from './warframeUtils'
+} from './warframeUtils.js'
 
 // ─── Descendia mapping tables (fallback when dict lookup fails) ───────────────
 const DESCENDIA_MISSION_TYPES = {
@@ -250,7 +252,7 @@ const CONQUEST_OVERRIDES = {
  * @param {object} raw         The raw worldstate JSON object from Warframe's servers.
  * @param {object} options     Resolution helpers:
  *   - dict            Main localisation dictionary (from dict.json)
- *   - suppDict        Supplementary dictionary (from oracle.browse.wf)
+ *   - suppDict        Supplementary dictionary (from DE PublicExport)
  *   - ERg             ExportRegions: node name resolution
  *   - EC              ExportChallenges: Nightwave challenge text
  *   - EI              Item unique name → image URL map
@@ -264,7 +266,178 @@ const CONQUEST_OVERRIDES = {
  *   - archimedeaMap   Archimedea localized name map
  *   - descendiaDesc   Descendia description map (key → description text)
  */
-export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, bountyCycle, ES, ENWRawRewards, ExportImages, ExportUpgrades, archimedeaMap, descendiaDesc, locale = 'en' }) {
+function mulberry32(a) {
+  return function() {
+    let t = (a += 0x6D2B79F5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function parseBounties(raw, { dict, suppDict, ERg, EC }) {
+  const mergedDict = suppDict ? { ...dict, ...suppDict } : dict;
+  const syndicates = raw.SyndicateMissions || [];
+
+  const BOUNTY_NAME_OVERRIDES = {
+    "RescueBountyResc": "Rescue Prisoner",
+    "AttritionBountyLib": "Camp Liberation",
+    "ReclamationBountyTheft": "Resource Recovery",
+    "AttritionBountyCap": "Capture Commander",
+    "AttritionBountySab": "Sabotage Supply Lines",
+    "ReclamationBountyCap": "Steel Path: Capture Commander",
+    "VenusChaosJobExcavation": "Excavation Defense",
+    "VenusHelpingJobSpy": "Spy Reconnaissance",
+    "VenusTheftJobResource": "Resource Extraction",
+    "VenusCullJobExterminate": "Cull Extermination",
+    "VenusIntelJobRecovery": "Intel Recovery",
+    "VenusSpyJobSpy": "Steel Path: Spy Reconnaissance",
+    "NarmerVenusCullJobAssassinate": "Narmer Assassination",
+    "DeimosCrpSurvivorBounty": "Corpus Survivor Extraction",
+    "DeimosExcavateBounty": "Infested Excavation",
+    "DeimosEndlessExcavateBounty": "Endless Infested Excavation",
+    "DeimosGrnSurvivorBounty": "Grineer Survivor Extraction",
+    "DeimosAssassinateBounty": "Infested Assassination",
+    "DeimosPurifyBounty": "Steel Path: Purify the Land"
+  };
+
+  const mapJob = (j, syndicateTag, idx) => {
+    const jobType = j.jobType || "";
+    const leaf = jobType.split("/").pop() || "";
+    const isNarmer = jobType.includes("Narmer") || syndicateTag.includes("Narmer");
+    const isSteelPath = (j.minEnemyLevel || 0) >= 100 || jobType.includes("Hard");
+    const isEndless = !!j.endless;
+
+    let title = BOUNTY_NAME_OVERRIDES[leaf] || resolveBountyTitle(jobType, mergedDict);
+    if (!title) {
+      if (!leaf) {
+        title = `Isolation Vault Tier ${idx - 5 || 1}`;
+      } else {
+        const cleanLeaf = leaf.replace(/Bounty/i, " Bounty").replace(/([A-Z])/g, " $1").trim();
+        title = cleanLeaf || "Bounty";
+      }
+    }
+
+    const standingTotal = Array.isArray(j.xpAmounts) ? j.xpAmounts.reduce((a, b) => a + b, 0) : 0;
+
+    let img = "BountyKonzu";
+    if (syndicateTag === "SolarisSyndicate") {
+      img = (title.toLowerCase().includes("business") || title.toLowerCase().includes("animal")) ? "BountyTheBusiness" : "BountyEudico";
+    } else if (syndicateTag === "EntratiSyndicate") {
+      img = title.toLowerCase().includes("otak") ? "BountyOtak" : "BountyMother";
+    } else if (syndicateTag === "ZarimanSyndicate") {
+      img = "BountyQuinn";
+    } else if (syndicateTag === "EntratiLabSyndicate") {
+      img = "BountyFibonacci";
+    } else if (syndicateTag === "HexSyndicate") {
+      img = "BountyTechrot";
+    }
+
+    let tier = `Lv ${j.minEnemyLevel || 0} - ${j.maxEnemyLevel || 0}`;
+    if (isSteelPath) tier = `Steel Path (Lv ${j.minEnemyLevel || 100})`;
+    else if (isNarmer) tier = `Narmer (Lv ${j.minEnemyLevel || 50}-${j.maxEnemyLevel || 70})`;
+    else if (isEndless) tier = `Endless (Lv ${j.minEnemyLevel || 25}+)`;
+
+    return {
+      name: title,
+      desc: isNarmer ? "Narmer Subjugation Bounty" : isSteelPath ? "Steel Path Bounty" : (standingTotal > 0 ? `Standing: +${standingTotal.toLocaleString()}` : "Syndicate Bounty"),
+      minLevel: j.minEnemyLevel || 0,
+      maxLevel: j.maxEnemyLevel || 0,
+      standing: standingTotal,
+      standingStages: j.xpAmounts || [],
+      isNarmer,
+      isSteelPath,
+      isEndless,
+      tier,
+      rewardsDeck: j.rewards,
+      img
+    };
+  };
+
+  const getSyndicateJobs = (tag) => {
+    const sm = syndicates.find(s => s.Tag === tag);
+    const liveJobs = (sm?.Jobs || []).map((j, idx) => mapJob(j, tag, idx));
+    if (liveJobs.length > 0) return liveJobs;
+
+    // Offline deterministic PRNG seed rotation calculation for Zariman, Cavia, and Hex
+    const seed = sm?.Seed || 61322;
+    const rng = mulberry32(Number(seed) || 12345);
+
+    const zarimanNodes = ["SolNode230", "SolNode231", "SolNode232", "SolNode233", "SolNode234"];
+    const caviaNodes = ["SolNode715", "SolNode716", "SolNode717", "SolNode718", "SolNode719", "SolNode720"];
+    const hexNodes = ["SolNode850", "SolNode851", "SolNode852", "SolNode853", "SolNode854", "SolNode855", "SolNode858"];
+
+    const zarimanChallenges = Object.keys(EC || {}).filter(k => k.includes("/Zariman/"));
+    const caviaChallenges = Object.keys(EC || {}).filter(k => k.includes("/EntratiLab/"));
+    const hexChallenges = Object.keys(EC || {}).filter(k => k.includes("/Vania/"));
+
+    let nodes = zarimanNodes;
+    let challenges = zarimanChallenges;
+    let hubImg = "BountyQuinn";
+    let hubName = "Zariman";
+
+    if (tag === "EntratiLabSyndicate") {
+      nodes = caviaNodes;
+      challenges = caviaChallenges;
+      hubImg = "BountyFibonacci";
+      hubName = "Sanctum Anatomica";
+    } else if (tag === "HexSyndicate") {
+      nodes = hexNodes;
+      challenges = hexChallenges;
+      hubImg = "BountyTechrot";
+      hubName = "Höllvania";
+    }
+
+    const count = tag === "HexSyndicate" ? 7 : 5;
+    const bounties = [];
+
+    for (let idx = 0; idx < count; idx++) {
+      const nodeKey = nodes[(idx + Math.floor(rng() * nodes.length)) % nodes.length];
+      const chalKey = challenges.length > 0 ? challenges[Math.floor(rng() * challenges.length)] : "";
+      
+      const nodeName = ERg?.[nodeKey]?.name ? (mergedDict[ERg[nodeKey].name] || ERg[nodeKey].name) : `${hubName} Mission`;
+      const chalName = EC?.[chalKey]?.name ? (mergedDict[EC[chalKey].name] || EC[chalKey].name) : (chalKey ? chalKey.split("/").pop() : "Complete Primary Objective");
+
+      bounties.push({
+        name: `${nodeName} - Tier ${idx + 1}`,
+        desc: chalName,
+        minLevel: 50 + idx * 10,
+        maxLevel: 55 + idx * 10,
+        standing: 1000 + idx * 500,
+        standingStages: [1000 + idx * 500],
+        isNarmer: false,
+        isSteelPath: false,
+        isEndless: idx === count - 1,
+        tier: `Tier ${idx + 1} (Lv ${50 + idx * 10}-${55 + idx * 10})`,
+        rewardsDeck: null,
+        img: hubImg
+      });
+    }
+
+    return bounties;
+  };
+
+  const safeSyndicateJobs = (tag) => {
+    try {
+      return getSyndicateJobs(tag);
+    } catch (err) {
+      console.error(`parseBounties: failed to resolve jobs for ${tag}`, err);
+      return [];
+    }
+  };
+
+  return {
+    cetus: safeSyndicateJobs("CetusSyndicate"),
+    vallis: safeSyndicateJobs("SolarisSyndicate"),
+    deimos: safeSyndicateJobs("EntratiSyndicate"),
+    holdfasts: safeSyndicateJobs("ZarimanSyndicate"),
+    cavia: safeSyndicateJobs("EntratiLabSyndicate"),
+    hex: safeSyndicateJobs("HexSyndicate"),
+    expiry: syndicates.find(s => s.Tag === "CetusSyndicate")?.Expiry
+  };
+}
+
+export function parseWorldstate(raw, { dict, suppDict, ERg, EC, EI, nameToImage, uniqueNameToName, bountyCycle, ES, ENWRawRewards, ExportImages, ExportUpgrades, ExportRecipes, ExportKeys, archimedeaMap, descendiaDesc, challengeProgress, locale = 'en' }) {
 
   const nightwaveRewards = ENWRawRewards || []
   const imagesMap = ExportImages || {}
@@ -632,19 +805,22 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
       params: raw.SeasonInfo.Params,
       affiliationTag: raw.SeasonInfo.AffiliationTag,
       credType: (() => {
-        const credReward = nightwaveRewards.find(r => r.name?.includes('Nora') && r.name?.includes('Cred'))
-        return credReward?.uniqueName || null
+        if (raw.SeasonInfo?.AffiliationTag?.includes('Intermission16')) return '/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds';
+        const credReward = nightwaveRewards.find(r => (r.name?.includes('Cred') || r.uniqueName?.includes('Cred')))
+        return credReward?.uniqueName || '/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds'
       })(),
       name: (() => {
-        const credReward = nightwaveRewards.find(r => r.name?.includes('Nora') && r.name?.includes('Cred'))
+        if (raw.SeasonInfo?.AffiliationTag?.includes('Intermission16')) return "Amir's Shockwave";
+        const credReward = nightwaveRewards.find(r => (r.name?.includes('Cred') || r.uniqueName?.includes('Cred')))
         if (credReward) {
           const credName = dict[credReward.name] || credReward.name || ''
           const match = credName.match(/:\s*(.+?)\s*Cred$/m)
           if (match) return match[1].trim()
         }
-        return ES?.[raw.SeasonInfo.AffiliationTag]?.name ? (dict[ES[raw.SeasonInfo.AffiliationTag].name] || 'Nightwave') : 'Nightwave'
+        return ES?.[raw.SeasonInfo.AffiliationTag]?.name ? (dict[ES[raw.SeasonInfo.AffiliationTag].name] || "Amir's Shockwave") : "Amir's Shockwave"
       })(),
-      rewards: nightwaveRewards.slice(0, 30).map((r, idx) => {
+      host: "Amir Beckett",
+      rewards: (raw.SeasonInfo?.AffiliationTag?.includes('Intermission16') || nightwaveRewards.length === 0 ? AMIRS_SHOCKWAVE_REWARDS : nightwaveRewards.slice(0, 30)).map((r, idx) => {
         const iconPath = r.icon || null
         const eiImage = EI[r.uniqueName] || null
         const exportImageEntry = imagesMap[iconPath] || {}
@@ -682,22 +858,42 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
       }),
       challenges: (raw.SeasonInfo.ActiveChallenges || []).map(c => {
         const challengeEntry = EC?.[c.Challenge] || {}
-        const standing = challengeEntry.standing || c.xpAmount || c.XP || 0
+        const isDaily = !!c.Daily
+        const isElite = c.Challenge?.includes('WeeklyHard') || (challengeEntry.standing || 0) >= 7000
+        const standing = challengeEntry.standing || (isDaily ? 1000 : (isElite ? 7000 : 4500))
+        const requiredCount = challengeEntry.requiredCount || 1
+        const rawKey = (c.Challenge || '').split('/').pop()
+        // ChallengeProgress (Name -> Progress from the player profile export) is
+        // the trustworthy completion signal - the raw ActiveChallenges entry has
+        // no reliable completed flag of its own.
+        const progress = challengeProgress?.get(rawKey) ?? 0
+        const isCompleted = requiredCount > 0 && progress >= requiredCount
+        const expiryMs = c.Expiry?.$date?.$numberLong
+          ? parseInt(c.Expiry.$date.$numberLong, 10)
+          : (c.Expiry ? new Date(c.Expiry).getTime() : 0)
+        const weekMs = 7 * 24 * 60 * 60 * 1000
+        const isRecovered = !isCompleted && expiryMs > 0 && (Date.now() - expiryMs > weekMs)
         return {
           id: c._id?.$oid || c._id,
+          challengeKey: rawKey,
+          rawChallenge: c.Challenge,
           name: resolveChallenge(c.Challenge, dict, EC),
           desc: resolveChallengeDesc(c.Challenge, dict, EC, ERg),
           expiry: c.Expiry,
-          isDaily: !!c.Daily,
+          isDaily,
           xp: standing,
-          isElite: standing >= 7000,
+          isElite,
+          requiredCount,
+          progress,
+          isCompleted,
+          isRecovered,
           icon: challengeEntry.icon || null
         }
       })
     } : null,
 
     archimedeas: (raw.Conquests || []).map(c => ({
-      id: c._id?.$oid || c._id,
+          id: c._id?.$oid || c._id,
       activation: c.Activation,
       expiry: c.Expiry,
       type: c.Type,
@@ -859,12 +1055,35 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
         expiry: t.Expiry,
         expiryMs: expMs,
         active: actMs > 0 && Date.now() >= actMs && (expMs === 0 || Date.now() < expMs),
-        inventory: (t.Manifest || []).map(item => ({
-          item: resolveItemName(item.ItemType, mergedDict, uniqueNameToName),
-          uniqueName: item.ItemType,
-          ducats: item.PrimePrice ?? 0,
-          credits: item.RegularPrice ?? 0,
-        }))
+        inventory: (t.Manifest || []).map(item => {
+          // Quest-key items (e.g. Sands of Inaros) resolve to the wrong name via
+          // leaf-matching (item.ItemType leaf != the quest's display name); follow
+          // the chain worldstate path -> ExportRecipes -> resultType -> ExportKeys
+          // to get the correct name/icon when available.
+          let name = resolveItemName(item.ItemType, mergedDict, uniqueNameToName)
+          let icon = null
+          const recipeKey = item.ItemType?.startsWith('/Lotus/StoreItems/')
+            ? item.ItemType.replace('/StoreItems/', '/')
+            : item.ItemType
+          const recipe = ExportRecipes?.[recipeKey]
+          if (recipe?.resultType) {
+            const keyEntry = ExportKeys?.[recipe.resultType]
+            if (keyEntry?.name) {
+              const localizedName = mergedDict[keyEntry.name] || mergedDict['/' + keyEntry.name]
+              if (localizedName && typeof localizedName === 'string' && !localizedName.startsWith('/Lotus/')) {
+                name = localizedName.replace(/<[^>]*>/g, '').trim()
+              }
+            }
+            if (keyEntry?.icon) icon = keyEntry.icon
+          }
+          return {
+            item: name,
+            uniqueName: item.ItemType,
+            icon,
+            ducats: item.PrimePrice ?? 0,
+            credits: item.RegularPrice ?? 0,
+          }
+        })
       }
     })(),
 
@@ -873,6 +1092,248 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
     cambionCycle: parseCambionCycle(raw),
     earthCycle: parseEarthCycle(raw),
     zarimanCycle: parseZarimanCycle(raw, bountyCycle),
-    duviriCycle: parseDuviriCycle(raw)
+    duviriCycle: parseDuviriCycle(raw),
+    bounties: parseBounties(raw, { dict, suppDict, ERg, EC })
   }
-}
+}export const AMIRS_SHOCKWAVE_REWARDS = [
+  {
+    rank: 1,
+    name: "Amir's Shockwave Cred",
+    uniqueName: "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds",
+    itemCount: 150,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  },
+  {
+    rank: 2,
+    name: "Drippy Floof",
+    uniqueName: "/Lotus/Types/Items/Flavour/Floofs/1999DrippyFloof",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/Player/ContentCreators/FloofyDwagon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/Player/ContentCreators/FloofyDwagon.png!00_+A3isA9C2S8wtxafTZPs9w"
+  },
+  {
+    rank: 3,
+    name: "Forma Bundle",
+    uniqueName: "/Lotus/StoreItems/Types/Items/MiscItems/FormaBundle",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/Episodes/Weekly/FormaWeapons.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/Episodes/Weekly/FormaWeapons.png!00_8HD-HsFu3c5IC9PoEvsoSw"
+  },
+  {
+    rank: 4,
+    name: "Techrot Armor Bundle",
+    uniqueName: "/Lotus/Upgrades/Cosmetics/Armor/TechrotArmorBundle",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/Player/FactionTechrot.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/Player/FactionTechrot.png!00_v-RUlMb4gQ-k9Lyl9lnDPA"
+  },
+  {
+    rank: 5,
+    name: "Globakk Syandana",
+    uniqueName: "/Lotus/Upgrades/Skins/Scarves/GlobakkSyandana",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Cosmetics/Armour/WarframeSpecific/RevenantMephistoSyandana.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Cosmetics/Armour/WarframeSpecific/RevenantMephistoSyandana.png!00_Rc-D2DaxNKDQjfZs7CkSSg"
+  },
+  {
+    rank: 6,
+    name: "Amir's Shockwave Cred",
+    uniqueName: "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds",
+    itemCount: 50,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  },
+  {
+    rank: 7,
+    name: "Submeower Decoration",
+    uniqueName: "/Lotus/Types/Items/ShipDecos/SubmeowerDecoration",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  },
+  {
+    rank: 8,
+    name: "Primary Arcane Adapter",
+    uniqueName: "/Lotus/Types/Items/MiscItems/WeaponPrimaryArcaneUnlocker",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/MiscItems/WeaponsArcanePrimary.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/MiscItems/WeaponsArcanePrimary.png!00_RSv+8CIHwAPfmJ0GRmY2pQ"
+  },
+  {
+    rank: 9,
+    name: "Weapon Slots",
+    uniqueName: "/Lotus/StoreItems/Types/StoreItems/SlotItems/TwoWeaponSlotItem",
+    itemCount: 2,
+    icon: "/Lotus/Interface/Icons/StoreIcons/MarketBundles/Slots/SlotRenderWeapons.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/MarketBundles/Slots/SlotRenderWeapons.png!00_GEw5aPjM++pn-alA7VGKkQ"
+  },
+  {
+    rank: 10,
+    name: "Prototype Shock Coils",
+    uniqueName: "/Lotus/Upgrades/Mods/Nightwave/PrototypeShockCoils",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  },
+  {
+    rank: 11,
+    name: "Amir's Shockwave Cred",
+    uniqueName: "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds",
+    itemCount: 50,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  },
+  {
+    rank: 12,
+    name: "Stance Forma",
+    uniqueName: "/Lotus/Types/Items/MiscItems/StanceForma",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Resources/CraftingComponents/StanceForma.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Resources/CraftingComponents/StanceForma.png!00_XsBk8CFIzUSTmLQJjTnoPQ"
+  },
+  {
+    rank: 13,
+    name: "Drippy Dog Days Glyph",
+    uniqueName: "/Lotus/Types/StoreItems/AvatarImages/DrippyGlyph",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/Player/DrippyGlyph.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/Player/DrippyGlyph.png!00_ru4Qg9vHlkUcs1aViIdm1w"
+  },
+  {
+    rank: 14,
+    name: "Arcane Guardian",
+    uniqueName: "/Lotus/Upgrades/CosmeticEnhancers/Defensive/ArmourOnDamage",
+    itemCount: 3,
+    icon: "/Lotus/Interface/Icons/CosmeticEnhancers/Arcanes/Projections/ArcaneEnergise.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/CosmeticEnhancers/Arcanes/Projections/ArcaneEnergise.png!00_Rq180X+K7xeLzlHptKlpgA"
+  },
+  {
+    rank: 15,
+    name: "Teisatz Oculus",
+    uniqueName: "/Lotus/Upgrades/Skins/Operator/Oculus/TeisatzOculus",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Operator/Cosmetics/Eyepieces/SWBlazeOculusEyepiece.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Operator/Cosmetics/Eyepieces/SWBlazeOculusEyepiece.png!00_wjhm8JMLzzfi4LzCvXvtQQ"
+  },
+  {
+    rank: 16,
+    name: "Amir's Shockwave Cred",
+    uniqueName: "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds",
+    itemCount: 50,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  },
+  {
+    rank: 17,
+    name: "Xaku Raya Skin",
+    uniqueName: "/Lotus/Upgrades/Skins/OtherWarframes/XakuRayaSkin",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Cards/Images/AbilityAugments/XakuEmbraceAugment.jpg",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Cards/Images/AbilityAugments/XakuEmbraceAugment.jpg!00_FmYkoYnBYbnB9cWEQRtk1w"
+  },
+  {
+    rank: 18,
+    name: "Drippy Keychain Sugatra",
+    uniqueName: "/Lotus/Upgrades/Skins/WeaponAccessories/DrippySugatra",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Cosmetics/Sugatras/AnpuSugatra.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Cosmetics/Sugatras/AnpuSugatra.png!00_IflcW4MtsFyYq130U+qVbg"
+  },
+  {
+    rank: 19,
+    name: "Veiled Riven Cipher",
+    uniqueName: "/Lotus/Types/Items/MiscItems/VeiledRivenCipher",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Gear/RivenCipher.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Gear/RivenCipher.png!00_EZkOI6rJOd1Xia3tcX2QlA"
+  },
+  {
+    rank: 20,
+    name: "Warframe Slot",
+    uniqueName: "/Lotus/StoreItems/Types/StoreItems/SlotItems/WarframeSlotItem",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/MarketBundles/Slots/SlotRenderWarframe.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/MarketBundles/Slots/SlotRenderWarframe.png!00_Yvd1JP+QArMiPaX47dWbpg"
+  },
+  {
+    rank: 21,
+    name: "Amir's Shockwave Cred",
+    uniqueName: "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds",
+    itemCount: 50,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  },
+  {
+    rank: 22,
+    name: "Come Here Emote",
+    uniqueName: "/Lotus/Types/Items/Emotes/ComeHereEmote",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/Categories/IconEmotes_256.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/Categories/IconEmotes_256.png!00_i5fSYm3w66pla3da6qIGww"
+  },
+  {
+    rank: 23,
+    name: "Wirematrix Ephemera",
+    uniqueName: "/Lotus/Upgrades/Cosmetics/Ephemera/WirematrixEphemera",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Cosmetics/Ephemera/ArchonShardEphemera.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Cosmetics/Ephemera/ArchonShardEphemera.png!00_ydWLnj5F5vNWyymwrsD1+w"
+  },
+  {
+    rank: 24,
+    name: "Amir's Shockwave Cred",
+    uniqueName: "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds",
+    itemCount: 50,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  },
+  {
+    rank: 25,
+    name: "Overpressured Rounds",
+    uniqueName: "/Lotus/Upgrades/Mods/Nightwave/OverpressuredRounds",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  },
+  {
+    rank: 26,
+    name: "Omni Forma",
+    uniqueName: "/Lotus/Types/Items/MiscItems/OmniForma",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  },
+  {
+    rank: 27,
+    name: "Entropic Color Palette",
+    uniqueName: "/Lotus/Types/Items/Flavour/ColourPickers/EntropicPalette",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Palettes/ColorPickerAccessibility.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Palettes/ColorPickerAccessibility.png!00_UwTs6EuKPq7n-Qzzcjk-QQ"
+  },
+  {
+    rank: 28,
+    name: "Umbra Forma",
+    uniqueName: "/Lotus/Types/Items/MiscItems/UmbraForma",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  },
+  {
+    rank: 29,
+    name: "90's Kid Honoria",
+    uniqueName: "/Lotus/Types/Items/Flavour/Honoria/90sKidHonoria",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/Player/ContentCreators/FloofyDwagon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/Player/ContentCreators/FloofyDwagon.png!00_+A3isA9C2S8wtxafTZPs9w"
+  },
+  {
+    rank: 30,
+    name: "Kaneshell Atomicycle Regalia",
+    uniqueName: "/Lotus/Upgrades/Cosmetics/Vehicles/KaneshellRegalia",
+    itemCount: 1,
+    icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
+    image: "https://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
+  }
+];

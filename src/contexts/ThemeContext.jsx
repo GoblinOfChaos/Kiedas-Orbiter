@@ -7,20 +7,20 @@ import { loadSettings, getSetting, setSetting } from '../lib/settings'
 const ThemeContext = createContext()
 
 export const THEMES = [
-  { id: 'vitruvian', name: 'Vitruvian' },
-  { id: 'baruuk', name: 'Baruuk' },
-  { id: 'conquera', name: 'Conquera' },
-  { id: 'corpus', name: 'Corpus' },
-  { id: 'darklotus', name: 'Dark Lotus' },
-  { id: 'deadlock', name: 'Deadlock' },
-  { id: 'equinox', name: 'Equinox' },
-  { id: 'fortuna', name: 'Fortuna' },
-  { id: 'grineer', name: 'Grineer' },
-  { id: 'legacy', name: 'Legacy' },
-  { id: 'lunar', name: 'Lunar Renewal' },
-  { id: 'pom2', name: 'POM-2' },
-  { id: 'stalker', name: 'Stalker' },
-  { id: 'harrier', name: 'Harrier' },
+  { id: 'vitruvian', name: 'Vitruvian', desc: 'Classic Vitruvian slate and blue' },
+  { id: 'corpus', name: 'Corpus', badge: 'Deuteranopia', desc: 'Optimized for Green-Blindness (Deuteranopia) — high-luminance cyan on deep navy avoids red-green confusion' },
+  { id: 'fortuna', name: 'Fortuna', badge: 'Protanopia', desc: 'Optimized for Red-Blindness (Protanopia) — electric neon cyan on dark purple avoids dark-red muddiness' },
+  { id: 'equinox', name: 'Equinox', badge: 'Monochrome / All', desc: '100% High-Contrast Monochrome (>18:1 ratio) — universal clarity for all color vision types' },
+  { id: 'harrier', name: 'Harrier', badge: 'Deuteranopia', desc: 'High-contrast safety orange on deep slate — distinct separation for green-weak vision' },
+  { id: 'grineer', name: 'Grineer', badge: 'Protanopia', desc: 'High-luminance amber-gold on dark olive — sharp luminance edge for red-weak vision' },
+  { id: 'stalker', name: 'Stalker', badge: 'Tritanopia', desc: 'Optimized for Blue-Yellow Blindness (Tritanopia) — stark crimson on pitch black' },
+  { id: 'conquera', name: 'Conquera', badge: 'Deuteranopia', desc: 'Vivid magenta-pink on deep purple with sharp text contrast' },
+  { id: 'lunar', name: 'Lunar Renewal', badge: 'Tritanopia', desc: 'High-contrast scarlet on dark burgundy for blue-yellow vision' },
+  { id: 'baruuk', name: 'Baruuk', desc: 'Warm desert amber and bronze' },
+  { id: 'darklotus', name: 'Dark Lotus', desc: 'Deep violet and orchid hues' },
+  { id: 'deadlock', name: 'Deadlock', desc: 'Golden Corpus aesthetics' },
+  { id: 'legacy', name: 'Legacy', desc: 'Classic teal and dark cyan' },
+  { id: 'pom2', name: 'POM-2', desc: 'Retro CRT phosphors' },
 ]
 
 export function ThemeProvider({ children }) {

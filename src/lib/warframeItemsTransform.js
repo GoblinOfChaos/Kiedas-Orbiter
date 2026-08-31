@@ -121,6 +121,14 @@ export function transformWarframeItems(rawData) {
   const uniqueNameToName = {}
   const nameToImage = {}
 
+  // Two unrelated real DE items sometimes share a display name (e.g. the
+  // "Crash Course" rifle mod vs. the Somachord track of the same name). A
+  // name-only key can't tell them apart, so silently letting whichever one
+  // is processed last win here previously caused one item's card to render
+  // the other's icon. Track and drop ambiguous name keys instead - the
+  // uniqueName-keyed entries below are inherently collision-proof and stay.
+  const nameConflicts = new Set()
+
   for (const [, map] of Object.entries(maps)) {
     for (const [un, entry] of Object.entries(map)) {
       const n = entry.name
@@ -129,12 +137,20 @@ export function transformWarframeItems(rawData) {
       }
       // Index wikiaThumbnails into nameToImage for resolveAnyImage fallback
       if (entry.icon && n && typeof n === 'string') {
-        nameToImage[n.toLowerCase()] = entry.icon
-        // Also key by uniqueName (lowered) for direct path lookups
+        const key = n.toLowerCase()
+        if (Object.prototype.hasOwnProperty.call(nameToImage, key) && nameToImage[key] !== entry.icon) {
+          nameConflicts.add(key)
+        } else {
+          nameToImage[key] = entry.icon
+        }
+        // Also key by uniqueName (lowered) for direct path lookups - always
+        // unambiguous, never subject to the same-name collision above.
         nameToImage[un.toLowerCase()] = entry.icon
       }
     }
   }
+
+  for (const key of nameConflicts) delete nameToImage[key]
 
   return { maps, supplement: { uniqueNameToName, nameToImage } }
 }

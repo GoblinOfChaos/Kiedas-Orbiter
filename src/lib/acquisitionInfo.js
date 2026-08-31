@@ -1,4 +1,4 @@
-import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisitionData';
+import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisitionData.js';
 
 // Keep compact Wiki maps available in the frontend as a last-resort fallback.
 // The AppImage also ships these JSON files as Tauri resources, but a card can
@@ -7,7 +7,8 @@ import bundledWikiBaroAcquisition from '../../src-tauri/data/assets/data/wiki-ba
 import bundledWikiResourceAcquisition from '../../src-tauri/data/assets/data/wiki-resources-acquisition.json';
 import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-page-acquisition.json';
 import bundledWikiDescriptionAcquisition from '../../src-tauri/data/assets/data/wiki-description-acquisition.json';
-import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions';
+import bundledPrimeRelicDrops from '../../src-tauri/data/assets/data/wiki-prime-relic-drops.json';
+import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions.js';
 
 const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map((name) => [name.toLowerCase().trim(), true]));
 const bundledWikiResourceIndex = new Map(Object.entries(bundledWikiResourceAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
@@ -117,6 +118,65 @@ function normalizeDisplayName(value) {
  * change and pass into getAcquisitionInfo, mirroring how dropIndex is built
  * once in MonitoringContext rather than per-call.
  */
+
+// Maps a component's uniqueName leaf suffix (e.g. "ChassisComponent",
+// "Barrel") to the exact key wiki-prime-relic-drops.json uses for that part
+// under a Prime item's `Parts`. Warframe components use a "*Component" DE
+// naming convention the wiki data doesn't; everything else (weapon parts)
+// already matches 1:1.
+const PRIME_PART_KEY_ALIASES = {
+  chassiscomponent: 'Chassis Blueprint',
+  systemscomponent: 'Systems Blueprint',
+  neuropticscomponent: 'Neuroptics Blueprint',
+  harnesscomponent: 'Harness Blueprint',
+  wingscomponent: 'Wings Blueprint',
+  kubrowcollarblueprint: 'Kubrow Collar Blueprint',
+  blueprintcomponent: 'Blueprint',
+};
+
+// warframe-items-acquisition.json (the app's primary drop-source dataset)
+// doesn't cover most Prime weapon/Warframe *component* blueprints - so those
+// fell through to a hand-written override that said "Void Relics opened
+// during Void Fissure missions" for every one of them, without ever naming
+// which relic. wiki-prime-relic-drops.json (pulled from the Warframe Wiki's
+// own Module:Void/data) has the real answer: exact relics and their
+// rarity tier per part, for every Prime item. Build a lookup keyed by
+// "<item name leaf, lowercased><part key, lowercased>" so a DE uniqueName
+// like ".../WeaponParts/AcceltraPrimeBarrel" or
+// ".../WarframeRecipes/TrinityPrimeChassisComponent" can resolve directly.
+function buildPrimeRelicDropIndex() {
+  const index = new Map();
+  for (const [primeName, entry] of Object.entries(bundledPrimeRelicDrops)) {
+    const leaf = primeName.replace(/\s+Prime$/i, '').replace(/\s+/g, '').toLowerCase();
+    for (const [partKey, partData] of Object.entries(entry.Parts || {})) {
+      if (!partKey) continue;
+      const normalizedPart = partKey.replace(/\s+/g, '').toLowerCase();
+      const drops = Object.entries(partData.Drops || {}).map(([relicName, rarity]) => ({ relicName, rarity }));
+      if (drops.length === 0) continue;
+      index.set(`${leaf}|${normalizedPart}`, { drops, ducatValue: partData.DucatValue, vaulted: entry.IsVaulted, primeName });
+    }
+  }
+  return index;
+}
+
+const primeRelicDropIndex = buildPrimeRelicDropIndex();
+
+// Parses a DE component uniqueName leaf into { itemLeaf, partKey } for
+// lookup in primeRelicDropIndex. Returns null for anything that isn't a
+// recognizable "<Item>Prime<Part>" component path.
+function parsePrimeComponentLeaf(dropIndexKey) {
+  if (typeof dropIndexKey !== 'string') return null;
+  if (!/\/(WeaponParts|WarframeRecipes)\//.test(dropIndexKey)) return null;
+  const leaf = dropIndexKey.split('/').pop() || '';
+  const primeIdx = leaf.indexOf('Prime');
+  if (primeIdx <= 0) return null;
+  const itemLeaf = leaf.slice(0, primeIdx).toLowerCase();
+  let partSuffix = leaf.slice(primeIdx + 5); // past "Prime"
+  const normalizedSuffix = partSuffix.replace(/\s+/g, '').toLowerCase();
+  const partKey = PRIME_PART_KEY_ALIASES[normalizedSuffix] || partSuffix;
+  return { itemLeaf, partKey: partKey.replace(/\s+/g, '').toLowerCase() };
+}
+
 export function buildRecipeResultIndex(exportData) {
   const index = new Map();
   const recipes = exportData?.ExportRecipes;
@@ -433,19 +493,102 @@ export function buildExportVendorIndex(exportData) {
     return exportedNames.get(canonical) || cleanResolvedName(value ? (dict[value] || dict[`/${value}`] || value) : '');
   };
   const vendorLabel = (manifestName) => {
-    if (/\/Duviri\/AcrithisVendorManifest$/.test(manifestName)) return 'Acrithis in Duviri';
-    if (/\/DeimosHalloweenVendorManifest$/.test(manifestName)) return 'Naberus event vendor in the Necralisk';
-    if (/\/RadioLegionIntermission\d+VendorManifest$/.test(manifestName)) return 'Nora Nightwave Cred offerings';
-    if (/\/FocusSchools\/MaduraiVendorManifest$/.test(manifestName)) return 'Madurai Focus vendor';
-    if (/\/FocusSchools\/NaramonVendorManifest$/.test(manifestName)) return 'Naramon Focus vendor';
-    if (/\/FocusSchools\/UnairuVendorManifest$/.test(manifestName)) return 'Unairu Focus vendor';
-    if (/\/FocusSchools\/VazarinVendorManifest$/.test(manifestName)) return 'Vazarin Focus vendor';
-    if (/\/FocusSchools\/ZenurikVendorManifest$/.test(manifestName)) return 'Zenurik Focus vendor';
-    if (/\/IronwakeDondaVendorManifest$/.test(manifestName)) return 'Donda in Iron Wake';
-    if (/\/Ostron\/MaskSalesmanManifest$/.test(manifestName)) return 'Mask Salesman in Cetus';
-    if (/\/TriadDecorationsVendorManifest$/.test(manifestName)) return 'Triad Decorations vendor';
-    if (/\/TriadEventVendorManifest$/.test(manifestName)) return 'Triad event vendor';
-    return 'an in-game vendor';
+    const rules = [
+      // Deimos / Necralisk
+      [/\/Deimos\/ConservationRewardsManifest$/, 'Conservation vendors (The Business, Master Teasonai, Son) in Deimos'],
+      [/\/Deimos\/EntratiFragmentVendorProductsManifest$/, 'Entrati Fragment vendor in the Necralisk'],
+      [/\/Deimos\/(FishmongerVendorManifest|HivemindCommisionsManifestFishmonger)$/, 'Daughter (Fishmonger) in the Necralisk'],
+      [/\/Deimos\/HivemindCommisionsManifestNecromech$/, "Father (Necramech shop) in the Necralisk"],
+      [/\/Deimos\/(PetVendorManifest|HivemindCommisionsManifestPetVendor)$/, 'Son (Predasite/Vulpaphyla) in the Necralisk'],
+      [/\/Deimos\/(ProspectorVendorManifest|HivemindCommisionsManifestProspector)$/, 'Grandmother (Prospector) in the Necralisk'],
+      [/\/Deimos\/(HivemindTokenVendorManifest|HivemindCommisionsManifestTokenVendor)$/, 'Loid in the Necralisk'],
+      [/\/Deimos\/HivemindCommisionsManifestWeaponsmith$/, 'Mother (Weaponsmith) in the Necralisk'],
+      [/\/Deimos\/OtakLastWishManifest$/, "Otak's Last Wish offerings in the Necralisk"],
+      // Duviri
+      [/\/Duviri\/AcrithisEnigmaGyrumShopManifest$/, "Acrithis's Enigma shop in Duviri"],
+      [/\/Duviri\/AcrithisKullervoShopManifest$/, "Acrithis's Kullervo shop in Duviri"],
+      [/\/Duviri\/AcrithisVendorManifest$/, 'Acrithis in Duviri'],
+      [/\/Duviri\/DrifterWeaponsVendorManifest$/, 'Drifter Weapons vendor in Duviri'],
+      // Entrati Labs (Cavia)
+      [/\/EntratiLabs\/EntratiLabsArcaneShopManifest$/, 'Cavia Arcane shop in the Entrati Labs'],
+      [/\/EntratiLabs\/EntratiLabsCommisionsManifest$/, 'Cavia Commissions vendor in the Entrati Labs'],
+      [/\/EntratiLabs\/EntratiLabsDisruptionVendorManifest$/, 'Cavia Disruption vendor in the Entrati Labs'],
+      [/\/EntratiLabs\/EntratiLabVendorManifest$/, 'Cavia vendor in the Entrati Labs'],
+      // Events
+      [/\/Events\/AmbulasEventVendorManifest$/, 'Ambulas Reborn event vendor'],
+      [/\/Events\/DeimosHalloweenVendorManifest$/, 'Naberus event vendor in the Necralisk'],
+      [/\/Events\/DuviriMurmurInvasionVendorManifest$/, 'Duviri Murmur Invasion event vendor'],
+      [/\/Events\/DuviriMurmurPostEventVendorManifest$/, 'Duviri Murmur post-event vendor'],
+      [/\/Events\/EntratiEventVendorManifest$/, 'Entrati event vendor'],
+      [/\/Events\/FortunaValentinesVendorManifest$/, "Fortuna Valentine's event vendor"],
+      [/\/Events\/JadeShadowsEventClanManifest$/, 'Jade Shadows event Clan vendor'],
+      [/\/Events\/JadeShadowsEventVendorManifest$/, 'Jade Shadows event vendor'],
+      [/\/Events\/MechSurvivalVendorManifest$/, 'Mech Survival event vendor'],
+      [/\/Events\/RadioLegionIntermission\d+VendorManifest$/, 'Nora Nightwave Cred offerings'],
+      [/\/Events\/RadioLegionDummyManifest$/, 'Nora Nightwave Cred offerings'],
+      [/\/Events\/ScarletSpearManifest$/, 'Scarlet Spear operation vendor'],
+      [/\/Events\/ShadowgrapherEventVendorManifest$/, 'Shadowgrapher event vendor'],
+      [/\/Events\/WaterFightVendorManifest$/, 'Water Fight event vendor'],
+      // Focus schools
+      [/\/FocusSchools\/MaduraiVendorManifest$/, 'Madurai Focus vendor'],
+      [/\/FocusSchools\/NaramonVendorManifest$/, 'Naramon Focus vendor'],
+      [/\/FocusSchools\/UnairuVendorManifest$/, 'Unairu Focus vendor'],
+      [/\/FocusSchools\/VazarinVendorManifest$/, 'Vazarin Focus vendor'],
+      [/\/FocusSchools\/ZenurikVendorManifest$/, 'Zenurik Focus vendor'],
+      // Game modes / Hubs
+      [/\/GameModes\/AscensionVendorManifest$/, 'Conclave Ascension vendor'],
+      [/\/Hubs\/AspirantZorbaVendorManifest$/, 'Zorba in Fortuna'],
+      [/\/Hubs\/EliteAlertVendorManifest$/, 'Arbitration Honors vendor (Rude Zuud, Void Relay)'],
+      [/\/Hubs\/GuildAdvertisementVendorManifest$/, 'Clan recruitment advertisement vendor'],
+      [/\/Hubs\/HunhowVendorManifest$/, 'Hunhow vendor'],
+      [/\/Hubs\/IronwakeDondaVendorManifest$/, 'Donda in Iron Wake'],
+      [/\/Hubs\/IronwakeFlawedModVendorManifest$/, 'Flawed Mod vendor in Iron Wake'],
+      [/\/Hubs\/PerrinSequenceWeaponVendorManifest$/, 'Perrin Sequence weapon vendor'],
+      [/\/Hubs\/RailjackCrewMemberVendorManifest$/, 'Railjack Crew Member vendor'],
+      [/\/Hubs\/RailjackResourcesCorpusVendorManifest$/, 'Railjack Corpus resource vendor'],
+      [/\/Hubs\/RailjackResourcesGrineerVendorManifest$/, 'Railjack Grineer resource vendor'],
+      [/\/Hubs\/TeshinHardModeVendorManifest$/, 'Teshin (Steel Path)'],
+      // Kahl
+      [/\/Kahl\/ChipperVendorManifest$/, "Chipper in Kahl's Garrison"],
+      // Ostron (Cetus)
+      [/\/Ostron\/ConservationRewardsManifest$/, 'Conservation vendors (The Business, Master Teasonai, Son) in Cetus'],
+      [/\/Ostron\/FishmongerVendorManifest$/, 'Fisher Hai-Luk in Cetus'],
+      [/\/Ostron\/FiveFatesVendorManifest$/, 'Five Fates offerings'],
+      [/\/Ostron\/MaskSalesmanManifest$/, 'Mask Salesman in Cetus'],
+      [/\/Ostron\/PetVendorManifest$/, 'Incubator Segment vendor (Kubrow/Kavat)'],
+      [/\/Ostron\/ProspectorVendorManifest$/, 'Prospector in Cetus'],
+      // Solaris (Fortuna)
+      [/\/Solaris\/ConservationRewardsManifest$/, 'Conservation vendors in Orb Vallis'],
+      [/\/Solaris\/DebtTokenVendorRepossessionsManifest$/, 'Debt-Bond Repossessions vendor in Fortuna'],
+      [/\/Solaris\/DebtTokenVendorManifest$/, 'Debt-Bond vendor in Fortuna'],
+      [/\/Solaris\/FishmongerVendorManifest$/, 'Fishmonger in Fortuna'],
+      [/\/Solaris\/NightcapCosmeticVendorManifest$/, 'Nightcap cosmetic shop in Fortuna'],
+      [/\/Solaris\/NightcapVendorManifest$/, 'Nightcap in Fortuna'],
+      [/\/Solaris\/ProspectorVendorManifest$/, 'Prospector in Fortuna'],
+      [/\/Solaris\/SentientInvasionManifest$/, 'Sentient invasion event vendor'],
+      // Tau / 1999 prequel
+      [/\/Tau\/Prequel\/RoatheHonoriaVendorManifest$/, 'Roathe Honoria vendor'],
+      [/\/Tau\/Prequel\/TriadAntiqueVendorManifest$/, 'Triad Antique vendor'],
+      [/\/Tau\/Prequel\/TriadDecorationsVendorManifest$/, 'Triad Decorations vendor'],
+      [/\/Tau\/Prequel\/TriadEventVendorManifest$/, 'Triad event vendor'],
+      [/\/Tau\/Prequel\/TriadExchangeVendorManifest$/, 'Triad Exchange vendor'],
+      [/\/Tau\/Prequel\/TriadPityVendorManifest$/, 'Triad Pity vendor'],
+      // The Hex / 1999 Höllvania
+      [/\/TheHex\/HexFurnitureVendorManifest$/, "The Hex furniture vendor in Höllvania"],
+      [/\/TheHex\/HexScaldranWeaponsVendorManifest$/, "The Hex Scaldra weapons vendor in Höllvania"],
+      [/\/TheHex\/InfestedLichWeaponVendorManifest$/, 'Infested Lich weapon vendor'],
+      [/\/TheHex\/Nova1999ConquestShopManifest$/, '1999 Conquest shop'],
+      [/\/TheHex\/Temple1999VendorManifest$/, "Temple vendor in Höllvania"],
+      // Zariman
+      [/\/Zariman\/ArchimedeanVendorManifest$/, 'Archimedean Yonta in the Zariman'],
+      [/\/Zariman\/ArchimedeanVoidEclipseManifest$/, 'Archimedean Void Eclipse vendor'],
+      [/\/Zariman\/ZarimanCommisionsManifestArchimedean$/, 'Zariman Archimedean Commissions vendor'],
+      [/\/Zariman\/ZarimanWeaponsmithIncarnonShopManifest$/, "Cavalero's Incarnon Weaponsmith shop in the Zariman"],
+    ];
+    for (const [pattern, label] of rules) {
+      if (pattern.test(manifestName)) return label;
+    }
+    return null;
   };
   const priceText = (item) => {
     const prices = (item?.itemPrices || []).map((price) => {
@@ -456,14 +599,19 @@ export function buildExportVendorIndex(exportData) {
     if (item?.numRandomItemPrices) prices.push('a vendor-selected resource cost');
     return prices.length ? ` Price listed in the export: ${prices.join(' and ')}.` : '';
   };
-  for (const vendor of Object.values(vendors)) {
+  for (const [manifestName, vendor] of Object.entries(vendors)) {
+    const label = vendorLabel(manifestName);
+    // An unidentified vendor manifest is worse than no route at all: "Listed
+    // by an in-game vendor" told the player nothing and blocked the resolver
+    // from ever reaching a real wiki/recipe answer further down. Skip it so
+    // this item falls through to a source that can actually name the vendor.
+    if (!label) continue;
     for (const item of vendor?.items || []) {
       const key = canonicalPath(item?.storeItem);
       if (!key) continue;
-      const manifestName = Object.entries(vendors).find(([, candidate]) => candidate === vendor)?.[0] || '';
       const route = {
-        text: `Listed by ${vendorLabel(manifestName)}.${priceText(item)}`,
-        source: `DE export vendor manifest ${manifestName || 'record'}`,
+        text: `Listed by ${label}.${priceText(item)}`,
+        source: `DE export vendor manifest ${manifestName}`,
       };
       const routes = index.get(key) || [];
       if (!routes.some((candidate) => candidate.text === route.text)) routes.push(route);
@@ -704,9 +852,18 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
 
   const norm = canonicalPath(dropIndexKey);
   const displayLower = normalizeDisplayName(displayName);
+  // A refined relic (Exceptional/Flawless/Radiant) is never dropped directly
+  // - only the base (Intact) relic drops from missions, and refinement to a
+  // higher quality happens afterward with Void Traces. Strip the quality
+  // suffix so these resolve to the same drop sources as the base relic
+  // instead of coming back with no data of their own.
+  const REFINEMENT_SUFFIX = /\s+(Exceptional|Flawless|Radiant)$/i;
+  const refinementMatch = displayLower?.match(REFINEMENT_SUFFIX);
+  const baseRelicDisplay = refinementMatch ? displayLower.slice(0, -refinementMatch[0].length) : null;
   const displayKeys = displayLower ? [
     'display:' + displayLower,
     ...(displayLower.endsWith(' relic') ? ['display:' + displayLower.slice(0, -6)] : []),
+    ...(baseRelicDisplay ? ['display:' + baseRelicDisplay] : []),
   ] : [];
   // Sources can exist under a real quality-specific DE path and under the
   // synthetic display key used by the relic cards. Merge all keys so a
@@ -724,7 +881,27 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     }
   }
   if (dropSources && dropSources.length > 0) {
-    return { sources: dropSources, wikiLink: getWikiLink(dropIndexKey, displayName) };
+    const usedBaseRelicFallback = baseRelicDisplay && !dropIndex?.['display:' + displayLower]?.length;
+    const sources = usedBaseRelicFallback
+      ? [{ type: 'status', text: `Refined from ${baseRelicDisplay.replace(/\b\w/g, (c) => c.toUpperCase())} using Void Traces - not obtained directly at this quality.`, source: 'Relic refinement mechanic' }, ...dropSources]
+      : dropSources;
+    return { sources, wikiLink: getWikiLink(dropIndexKey, displayName) };
+  }
+
+  // Prime weapon/Warframe component blueprints (Barrel, Chassis Blueprint,
+  // etc.) aren't in warframe-items-acquisition.json, so dropSources above is
+  // empty for them. Resolve the real per-relic drop list from the Wiki's own
+  // Void data before falling back to any generic recipe/status text.
+  const primeComponentKey = parsePrimeComponentLeaf(dropIndexKey);
+  if (primeComponentKey) {
+    const primeEntry = primeRelicDropIndex.get(`${primeComponentKey.itemLeaf}|${primeComponentKey.partKey}`);
+    if (primeEntry) {
+      return {
+        sources: primeEntry.drops.map((d) => ({ type: 'relic', relicName: d.relicName, rarity: d.rarity, source: 'Warframe Wiki Void relic data' })),
+        recipe: recipe || null,
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
   }
 
   const verifiedDisposition = WIKI_VERIFIED_DISPOSITIONS.get(canonicalPath(dropIndexKey));
@@ -738,6 +915,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (verifiedAggregateWiki) {
     return {
       sources: [{ type: 'non-drop', text: verifiedAggregateWiki.text, source: verifiedAggregateWiki.source }],
+      recipe: recipe || null,
       wikiLink: { url: verifiedAggregateWiki.url, isDirect: true },
     };
   }
@@ -756,6 +934,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     }
     return {
       sources: [{ type: 'non-drop', text: wikiPageAcquisition.text, source: wikiPageAcquisition.source || 'Warframe Wiki' }],
+      recipe: recipe || null,
       wikiLink: wikiPageAcquisition.url
         ? { url: wikiPageAcquisition.url, isDirect: true }
         : getWikiLink(dropIndexKey, displayName),
@@ -767,6 +946,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (wikiDescriptionText) {
     return {
       sources: [{ type: 'non-drop', text: wikiDescriptionText, source: wikiDescriptionAcquisition?.source || 'Warframe Wiki Repo (WFCD exact uniqueName description)' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -795,7 +975,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   // specific vendor record is more useful than the broad Focus-tree label.
   const nonDrop = NON_DROP_PATTERNS.find((p) => p.test(dropIndexKey));
   if (nonDrop) {
-    return { sources: [{ type: 'non-drop', text: nonDrop.text, source: 'DE export path rule' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
+    return { sources: [{ type: 'non-drop', text: nonDrop.text, source: 'DE export path rule' }], recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   const marketPrice = marketIndex?.get(canonicalPath(dropIndexKey));
@@ -806,6 +986,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
         text: "Earn this Incarnon Genesis from the rotating Steel Path Circuit reward choices after unlocking The Duviri Paradox, Angels of the Zariman, and Steel Path. Alternatively, purchase it from Cavalero in the Chrysalith for 120 Platinum, once per adapter.",
         source: 'Warframe Wiki Incarnon Genesis acquisition rules',
       }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -817,6 +998,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     const currency = typeof marketPrice === 'number' ? 'Platinum' : marketPrice.currency;
     return {
       sources: [{ type: 'non-drop', text: `Sold in the in-game Market for ${Number(amount).toLocaleString()} ${currency}.`, source: 'DE export' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -825,6 +1007,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (bundleName && !wikiResearchIndex?.has(displayLower)) {
     return {
       sources: [{ type: 'non-drop', text: `Sold as part of the "${bundleName}" Market bundle.`, source: 'DE export' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -838,7 +1021,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     const text = favour.standingCost > 0
       ? `Sold by ${favour.syndicateName} at Rank ${favour.level}+ for ${favour.standingCost} standing.`
       : `Unlocked at Rank ${favour.level} with ${favour.syndicateName}.`;
-    return { sources: [{ type: 'non-drop', text, source: 'DE export' }], wikiLink: getWikiLink(dropIndexKey, displayName) };
+    return { sources: [{ type: 'non-drop', text, source: 'DE export' }], recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   const baroRelicKey = displayLower?.endsWith(' relic') ? displayLower : `${displayLower} relic`;
@@ -847,6 +1030,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     || BARO_LOGIN_MUSIC_PATTERN.test(canonicalPath(dropIndexKey) || '')) {
     return {
       sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -855,6 +1039,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (wikiSigilCategory) {
     return {
       sources: [{ type: 'non-drop', text: `Listed under ${wikiSigilCategory} on the Warframe wiki.`, source: 'Warframe Wiki' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -863,6 +1048,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (variantAcquisition) {
     return {
       sources: [{ type: 'non-drop', text: variantAcquisition.text, source: 'DE export variant identity' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -870,6 +1056,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (alwaysAvailableIndex?.has(canonicalPath(dropIndexKey))) {
     return {
       sources: [{ type: 'non-drop', text: 'Available directly in the in-game customization menu.', source: 'DE export' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -880,6 +1067,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     const priceText = price ? ` for ${price}` : '';
     return {
       sources: [{ type: 'non-drop', text: `TennoGen skin - purchased via Steam Workshop/console store${priceText}.`, source: 'Warframe Wiki' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -888,6 +1076,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (relicState?.vaultedAt || relicState?.vaulted === true) {
     return {
       sources: [{ type: 'non-drop', text: 'Vaulted relic; no active drop source is listed in the current export.', source: 'DE export' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -896,6 +1085,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (wikiResearch) {
     return {
       sources: [{ type: 'non-drop', text: formatWikiResearch(wikiResearch), source: 'Warframe Wiki' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -905,6 +1095,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     const kind = [wikiResource.rarity, wikiResource.type].filter(Boolean).join(' ');
     return {
       sources: [{ type: 'non-drop', text: `Found at ${wikiResource.location}${kind ? ` (${kind}).` : '.'}`, source: 'Warframe Wiki' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -913,6 +1104,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (wikiBlueprint) {
     return {
       sources: [{ type: 'non-drop', text: formatWikiBlueprint(wikiBlueprint), source: 'Warframe Wiki' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -925,6 +1117,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (exportVendorRoutes?.length) {
     return {
       sources: exportVendorRoutes.map((route) => ({ type: 'non-drop', ...route })),
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -941,6 +1134,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     if (glyph['other-site']) details.push(`More information: ${glyph['other-site']}`);
     return {
       sources: [{ type: 'non-drop', text: details.length ? `Creator Glyph. ${details.join(' ')}` : 'Creator Glyph. See the linked creator source for availability.', source: 'browse.wf' }],
+      recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
   }
@@ -983,6 +1177,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
           text: `Included with ${component.parentDisplayName}. ${parentSource.text}`,
           source: `DE export additionalItems relationship + ${parentSource.source || 'parent acquisition record'}`,
         }],
+        recipe: recipe || null,
         wikiLink: getWikiLink(dropIndexKey, displayName),
       };
     }
@@ -1006,17 +1201,20 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     };
   }
 
+  // Only a real, specific export disposition is worth showing. Generic
+  // "a wiki page exists but nothing structured was found" prose is banned:
+  // it tells the player nothing and used to win over legitimate empty state.
   const wikiStatus = wikiAcquisitionStatusIndex?.get(canonicalPath(dropIndexKey));
-  if (wikiStatus) {
-    const text = wikiStatus.exportDisposition || (wikiStatus.pageFound
-      ? 'A Warframe Wiki page exists, but its current page audit found no explicit structured acquisition section.'
-      : 'No matching Warframe Wiki page was found, and no independent acquisition route is identified in the available export data.');
+  if (wikiStatus?.exportDisposition) {
     return {
-      sources: [{ type: 'status', text, source: wikiStatus.exportDisposition ? 'DE export status' : 'Acquisition audit' }],
+      sources: [{ type: 'status', text: wikiStatus.exportDisposition, source: 'DE export status' }],
       wikiLink: wikiStatus.url
         ? { url: wikiStatus.url, isDirect: true }
         : getWikiLink(dropIndexKey, displayName),
     };
+  }
+  if (wikiStatus?.url) {
+    return { sources: [], wikiLink: { url: wikiStatus.url, isDirect: true } };
   }
 
   return { sources: [], wikiLink: getWikiLink(dropIndexKey, displayName) };

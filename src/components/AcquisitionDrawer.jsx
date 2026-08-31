@@ -1,9 +1,22 @@
 import { useState, useCallback, useEffect } from 'react';
-import { Info, ExternalLink } from 'lucide-react';
+import { Info, ExternalLink, Flag } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
 import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from '../lib/codexSupplement';
 import { getItemDrops } from '../lib/acquisitionData';
 import { MAPPING_TYPES } from '../lib/warframeUtils';
+import BugReporterModal from './BugReporterModal';
+
+// A flat toFixed(1) rounds real sub-1% drop chances (0.06%, 0.0335%) down to
+// "0.1%" or even "0.0%" - the latter reads as "doesn't drop here", which is
+// wrong. Scale precision with magnitude so small-but-real chances stay visible.
+export function formatChance(chance) {
+  const pct = chance * 100;
+  if (pct <= 0) return '0%';
+  if (pct >= 1) return `${pct.toFixed(1)}%`;
+  if (pct >= 0.1) return `${pct.toFixed(2)}%`;
+  if (pct >= 0.01) return `${pct.toFixed(3)}%`;
+  return `${pct.toPrecision(2)}%`;
+}
 
 function formatDropLocation(location) {
   if (!location) return null;
@@ -30,6 +43,19 @@ function sortSourcesByChance(sources) {
       return a.index - b.index;
     })
     .map(({ source }) => source);
+}
+
+// Convention for hand-written overrides: a leading "Unconfirmed — " marks
+// text that isn't fully verified (e.g. a price is known but the wiki page
+// doesn't state a vendor/method). Stripped for display and shown as a flag
+// instead, so it reads as a caveat rather than part of the acquisition text.
+const UNCONFIRMED_PREFIX = 'Unconfirmed — ';
+
+function splitUnconfirmed(text) {
+  if (typeof text === 'string' && text.startsWith(UNCONFIRMED_PREFIX)) {
+    return { text: text.slice(UNCONFIRMED_PREFIX.length), unconfirmed: true };
+  }
+  return { text, unconfirmed: false };
 }
 
 export function getSourceLabel(source) {
@@ -116,6 +142,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
   const uniqueName = item?.uniqueName;
   const [codexInfo, setCodexInfo] = useState(null);
   const [codexLoading, setCodexLoading] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false);
   const baseInfo = item?.info;
 
   useEffect(() => {
@@ -178,20 +205,43 @@ export default function AcquisitionDrawer({ item, onClose }) {
 
         {sources.length > 0 ?
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-40 overflow-y-auto">
-            {sources.map((s, i) => (
-              <div key={i} className="flex items-start justify-between gap-2 px-3 py-2 rounded bg-black/30 border border-white/5">
-                <span className="text-xs text-kronos-text whitespace-normal break-words">{getSourceLabel(s)}</span>
-                {typeof s.chance === 'number' &&
-                  <span className="text-[10px] font-bold text-kronos-accent flex-shrink-0 ml-2">{(s.chance * 100).toFixed(1)}%</span>
-                }
-              </div>
-            ))}
+            {sources.map((s, i) => {
+              const { text, unconfirmed } = splitUnconfirmed(getSourceLabel(s));
+              return (
+                <div key={i} className="flex items-start justify-between gap-2 px-3 py-2 rounded bg-black/30 border border-white/5">
+                  <div className="min-w-0">
+                    {unconfirmed &&
+                      <span className="inline-block mb-1 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wide text-amber-400 bg-amber-400/10 border border-amber-400/30">
+                        Unconfirmed
+                      </span>
+                    }
+                    <span className="block text-xs text-kronos-text whitespace-normal break-words">{text}</span>
+                  </div>
+                  {typeof s.chance === 'number' &&
+                    <span className="text-[10px] font-bold text-kronos-accent flex-shrink-0 ml-2">{formatChance(s.chance)}</span>
+                  }
+                </div>
+              );
+            })}
           </div>
+        : info?.vaulted === true ?
+          <p className="text-xs text-amber-400/90 italic">This relic is vaulted and has no active acquisition source.</p>
         : recipe ? null : codexLoading ?
           <p className="text-xs text-kronos-dim italic">Checking item data…</p>
-        :
-          <p className="text-xs text-kronos-dim italic">
-            {info?.vaulted ? 'Relic is Vaulted, no drop locations' : 'No verified acquisition route is recorded in the current export or Wiki data.'}
+        : <div className="flex items-center justify-between gap-3">
+            <p className="text-xs text-kronos-dim italic">No verified acquisition route is known for this item.</p>
+            <button
+              onClick={() => setShowReportModal(true)}
+              className="flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wide text-kronos-accent border border-kronos-accent/30 hover:bg-kronos-accent/10"
+            >
+              <Flag size={11} />
+              Know where to find it?
+            </button>
+          </div>
+        }
+        {sources.some((s) => splitUnconfirmed(getSourceLabel(s)).unconfirmed) &&
+          <p className="mt-2 text-[11px] text-amber-400/90 italic">
+            This price is confirmed, but the source isn't — click the wiki link below for more accurate info.
           </p>
         }
 
@@ -214,7 +264,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
                   <p className="text-[9px] uppercase font-black text-kronos-dim">How to obtain</p>
                   {getItemDrops(ingredient.itemType).map((drop, dropIndex) => <div key={`${drop.location || 'source'}-${dropIndex}`} className="flex items-start justify-between gap-2 text-[9px] text-kronos-dim">
                     <span className="whitespace-normal break-words">{getSourceLabel(drop)}</span>
-                    {typeof drop.chance === 'number' && <span className="shrink-0 font-black text-kronos-accent">{(drop.chance * 100).toFixed(1)}%</span>}
+                    {typeof drop.chance === 'number' && <span className="shrink-0 font-black text-kronos-accent">{formatChance(drop.chance)}</span>}
                   </div>)}
                 </div>}
               </div>
@@ -232,6 +282,11 @@ export default function AcquisitionDrawer({ item, onClose }) {
           {wikiLink?.isDirect ? 'View on Warframe Wiki' : 'Search Warframe Wiki'}
         </button>
       </div>
+      <BugReporterModal
+        isOpen={showReportModal}
+        onClose={() => setShowReportModal(false)}
+        initialDescription={`Acquisition info missing for "${displayName}" (${uniqueName}). Where I found it: `}
+      />
     </div>
   );
 }

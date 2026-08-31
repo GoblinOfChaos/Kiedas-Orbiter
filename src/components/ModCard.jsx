@@ -183,7 +183,7 @@ function renderDesc(text, textColor, iconsPath, tagIconMap, resolveTagIcon) {
       } else {
         const iconFile = tagIconMap?.[tagName];
         if (iconFile && iconsPath) {
-          elements.push(<img key={elements.length} src={resolveTagIcon(iconFile)} style={{ width: '11px', height: '11px', display: 'inline', verticalAlign: 'middle' }} alt="" onError={(e) => e.target.style.display = 'none'} />);
+          elements.push(<img key={elements.length} src={resolveTagIcon(iconFile)} style={{ width: '11px', height: '11px', display: 'inline', verticalAlign: 'middle' }} alt=""  />);
         }
         currentColor = null;
         currentTag = null;
@@ -204,7 +204,7 @@ function renderDesc(text, textColor, iconsPath, tagIconMap, resolveTagIcon) {
           const rest = spaceIdx >= 0 ? line.slice(spaceIdx) : '';
           elements.push(
             <span key={`${elements.length}-color`} style={{ color: currentColor, display: 'inline-flex', alignItems: 'center', gap: '1px' }}>
-                {iconFile && (iconsPath || MISSING_TAG_ICON_CDN[iconFile]) ? <img src={resolveTagIcon(iconFile)} style={{ width: '11px', height: '11px', flexShrink: 0 }} alt="" onError={(e) => e.target.style.display = 'none'} /> : null}
+                {iconFile && (iconsPath || MISSING_TAG_ICON_CDN[iconFile]) ? <img src={resolveTagIcon(iconFile)} style={{ width: '11px', height: '11px', flexShrink: 0 }} alt=""  /> : null}
                 <span>{word}</span>
               </span>
           );
@@ -227,7 +227,7 @@ function u(base, folder, file) {
 }
 
 function Img({ src, className, style }) {
-  return src ? <img src={src} className={className} style={{ ...style, opacity: 0, transition: 'opacity 0.15s' }} alt="" loading="lazy" onLoad={(e) => e.target.style.opacity = 1} onError={(e) => e.target.style.display = 'none'} /> : null;
+  return src ? <img src={src} className={className} style={{ ...style, opacity: 0, transition: 'opacity 0.15s' }} alt="" loading="lazy" onLoad={(e) => e.target.style.opacity = 1}  /> : null;
 }
 
 function SafeImg({ src, className, style, alt, onError }) {
@@ -250,7 +250,7 @@ const RankPips = memo(function RankPips({ modFrame, rank, maxRank, framesPath, p
       {Array.from({ length: capped }, (_, i) => {
         const name = i < rank ? pipColorGroup ? `RankSlotActive${pipColorGroup}` : 'RankSlotActive' : 'RankSlotEmpty';
         const src = u(framesPath, modFrame, `${name}.png`);
-        return src ? <img key={i} src={src} style={{ width: s, height: s }} className="object-contain flex-shrink-0" alt="" onError={(e) => e.target.style.display = 'none'} /> : null;
+        return src ? <img key={i} src={src} style={{ width: s, height: s }} className="object-contain flex-shrink-0" alt=""  /> : null;
       })}
     </div>);
 
@@ -270,7 +270,7 @@ const Charges = memo(function Charges({ modFrame, rank, maxRank, framesPath, car
       {Array.from({ length: capped }, (_, i) => {
         const active = i < available;
         const src = u(framesPath, modFrame, 'Charge.png');
-        return src ? <img key={i} src={src} onError={(e) => e.target.style.display = 'none'} style={{ width: s, height: s, opacity: active ? 1 : 0.25 }} className="object-contain flex-shrink-0" alt="" /> : null;
+        return src ? <img key={i} src={src}  style={{ width: s, height: s, opacity: active ? 1 : 0.25 }} className="object-contain flex-shrink-0" alt="" /> : null;
       })}
     </div>);
 
@@ -307,12 +307,14 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
     return src.startsWith(prefix) ? src.slice(prefix.length) : null;
   };
   const iconPath = mod.icon || deriveIcon(mod.image);
-  const cdnFallback = typeof mod.image === 'string' && mod.image.startsWith('asset-cache://browse.wf') ? mod.image : null;
+  const cdnFallback = typeof mod.image === 'string' && (mod.image.startsWith('asset-cache://') || mod.image.startsWith('http'))
+    ? mod.image
+    : (iconPath ? `asset-cache://browse.wf${iconPath.startsWith('/') ? iconPath : '/' + iconPath}` : null);
   const cardImageSrc = iconPath && cardImagesPath && mf !== 'Tektolyst' ?
-  convertFileSrc(`${cardImagesPath}${iconPath}`) :
-  null;
+    convertFileSrc(`${cardImagesPath}${iconPath.startsWith('/') ? iconPath : '/' + iconPath}`) :
+    null;
   const [localImageFailed, setLocalImageFailed] = useState(false);
-  const finalSrc = mf === 'Requiem' && cdnFallback || !localImageFailed && cardImageSrc || cdnFallback;
+  const finalSrc = (mf === 'Requiem' && cdnFallback) || (!localImageFailed && cardImageSrc) || cdnFallback;
   const [hovered, setHovered] = useState(false);
 
   if (isSticker) {
@@ -407,7 +409,14 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
     if (mod.levelStats && Array.isArray(mod.levelStats)) {
       const max = mod.levelStats[mod.levelStats.length - 1];
       if (max && Array.isArray(max.stats)) {
-        const joined = max.stats.map((s) => s.replace(/<LINE_SEPARATOR>[\r\n]*/g, '').replace(/\\n/g, '\n')).join('\n');
+        let stats = max.stats.map((s) => s.replace(/<LINE_SEPARATOR>[\r\n]*/g, '').replace(/\\n/g, '\n'));
+        // warframe-items embeds "+1 Arcane Revive" inside the main stat text
+        // AND as a standalone entry at max rank - deduplicate.
+        const hasEmbeddedRevive = stats.some((s) => s !== '+1 Arcane Revive' && s.includes('+1 Arcane Revive'));
+        if (stats.length > 1 && hasEmbeddedRevive) {
+          stats = stats.filter((s) => s !== '+1 Arcane Revive');
+        }
+        const joined = stats.join('\n');
         // DE ships augment descriptions with a redundant "<Name> Augment: "
         // prefix baked into the localized stats; strip it (the title already
         // shows the mod name).
@@ -474,7 +483,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
       }}>
           <div className="absolute inset-0 flex items-start justify-center" style={{ bottom: '70px' }}>
             {rank >= mod.max_rank ?
-          <img src={f('Depleted')} className="w-2/5 h-auto object-contain" style={{ marginTop: '20%' }} alt="" onError={(e) => e.target.style.display = 'none'} /> :
+          <img src={f('Depleted')} className="w-2/5 h-auto object-contain" style={{ marginTop: '20%' }} alt=""  /> :
           finalSrc ?
           <SafeImg src={finalSrc} className="w-2/5 h-auto object-contain" style={{ marginTop: '20%' }} onError={() => setLocalImageFailed(true)} /> :
           null}
@@ -534,7 +543,7 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
       }}>
           <div className="flex-1 overflow-hidden flex items-start justify-center">
             {rank >= mod.max_rank && (mf === 'Requiem' || mf === 'Potency') ?
-          <img src={f('Depleted')} className="w-full h-full object-contain" alt="" onError={(e) => e.target.style.display = 'none'} style={mf === 'Potency' ? { transform: 'scale(1.12)' } : undefined} /> :
+          <img src={f('Depleted')} className="w-full h-full object-contain" alt=""  style={mf === 'Potency' ? { transform: 'scale(1.12)' } : undefined} /> :
           finalSrc && mf !== 'Tektolyst' ?
           mf === 'Requiem' ?
           <div className="flex items-start justify-center w-full pt-1" style={{ marginTop: '7%' }}>

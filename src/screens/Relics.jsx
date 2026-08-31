@@ -31,14 +31,12 @@ const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
 
 export default function Relics() {
   const { t } = useUi()
-  const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex } = useMonitoring();
+  const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex } = useMonitoring();
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
-  const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
   useEffect(() => {
     invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
       .then((bytes) => setAcquisitionOverrides(JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))))
       .catch(() => setAcquisitionOverrides({ components: {}, mods: {} }));
-    loadAcquisitionData().then(() => setAcquisitionDataReady(true));
   }, []);
   const { openKey, toggle, close } = useAcquisitionDrawer();
   const [searchQuery, setSearchQuery] = useState('');
@@ -95,33 +93,35 @@ export default function Relics() {
     return [...catalogRelics, ...ownedByKey.values()];
   }, [ownedRelics, exportData, ownershipFilter]);
 
-  const baseFiltered = relics.filter((r) => {
-    const matchOwnership = ownershipFilter === 'all' || (ownershipFilter === 'owned' ? r.owned : !r.owned);
-    if (!matchOwnership) return false;
-
-    const matchVaulted = vaultedFilter === 'all'
-      || (vaultedFilter === 'vaulted' && r.vaulted === true)
-      || (vaultedFilter === 'unvaulted' && r.vaulted === false);
-    if (!matchVaulted) return false;
-
-    const matchEra = activeEra === 'All' || r.era === activeEra;
-    if (!matchEra) return false;
-
-    const matchQuality = activeQuality === 'All'
-      || (activeQuality === 'has_refinements' && r.refinements && ((r.refinements.Exceptional ?? 0) > 0 || (r.refinements.Flawless ?? 0) > 0 || (r.refinements.Radiant ?? 0) > 0))
-      || (r.refinements && (r.refinements[activeQuality] ?? 0) > 0);
-    if (!matchQuality) return false;
-
+  const baseFiltered = useMemo(() => {
     const search = searchQuery.toLowerCase().split(/\s+/).filter((w) => w.length > 0);
-    if (search.length === 0) return true;
+    return relics.filter((r) => {
+      const matchOwnership = ownershipFilter === 'all' || (ownershipFilter === 'owned' ? r.owned : !r.owned);
+      if (!matchOwnership) return false;
 
-    const matchName = search.every((word) => r.name.toLowerCase().includes(word));
-    const matchRewards = r.rewards?.some((rw) =>
-    search.every((word) => rw.name.toLowerCase().includes(word))
-    );
+      const matchVaulted = vaultedFilter === 'all'
+        || (vaultedFilter === 'vaulted' && r.vaulted === true)
+        || (vaultedFilter === 'unvaulted' && r.vaulted === false);
+      if (!matchVaulted) return false;
 
-    return matchName || matchRewards;
-  });
+      const matchEra = activeEra === 'All' || r.era === activeEra;
+      if (!matchEra) return false;
+
+      const matchQuality = activeQuality === 'All'
+        || (activeQuality === 'has_refinements' && r.refinements && ((r.refinements.Exceptional ?? 0) > 0 || (r.refinements.Flawless ?? 0) > 0 || (r.refinements.Radiant ?? 0) > 0))
+        || (r.refinements && (r.refinements[activeQuality] ?? 0) > 0);
+      if (!matchQuality) return false;
+
+      if (search.length === 0) return true;
+
+      const matchName = search.every((word) => r.name.toLowerCase().includes(word));
+      const matchRewards = r.rewards?.some((rw) =>
+        search.every((word) => rw.name.toLowerCase().includes(word))
+      );
+
+      return matchName || matchRewards;
+    });
+  }, [relics, ownershipFilter, vaultedFilter, activeEra, activeQuality, searchQuery]);
 
   const grouped = useMemo(() => {
     // 1. Prepare data with EV for sorting
@@ -180,17 +180,17 @@ export default function Relics() {
       const orderLabel = sortOrder === 'desc' ? 'Descending' : 'Ascending';
       return { [`Sorted by ${sortLabel} (${orderLabel})`]: enriched };
     }
-  }, [baseFiltered, sortMode, allPrices, squadSize, evRefinementOverride, activeQuality]);
+  }, [baseFiltered, sortMode, sortOrder, allPrices, squadSize, evRefinementOverride, activeQuality]);
 
   const totalFilteredGroups = baseFiltered.length;
   const totalFilteredItems = baseFiltered.reduce((s, r) => s + Object.values(r.refinements || {}).reduce((a, b) => a + b, 0), 0);
 
   const openItem = useMemo(() => {
-    if (!openKey || !acquisitionDataReady) return null;
+    if (!openKey) return null;
     const allGrouped = Object.values(grouped).flat();
     const item = allGrouped.find((r) => r.unique_name === openKey);
     if (!item) return null;
-    const info = getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, undefined, undefined, undefined, exportVendorIndex, alwaysAvailableIndex, undefined, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex);
+    const info = getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex);
     // Vaulted relics genuinely have no active drop source - say so
     // explicitly instead of the generic "no specific source known"
     // fallback, which reads like a data gap rather than an accurate
@@ -199,7 +199,7 @@ export default function Relics() {
       return { uniqueName: item.unique_name, displayName: item.name, info: { ...info, vaulted: true } };
     }
     return { uniqueName: item.unique_name, displayName: item.name, info };
-  }, [openKey, acquisitionDataReady, grouped, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex]);
+  }, [openKey, grouped, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex]);
 
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
 

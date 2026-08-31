@@ -15,6 +15,8 @@ import { PageLayout, Card, Button, Toggle } from '../components/UI';
 import NotificationManager from '../components/NotificationManager';
 import LanguagePicker from '../components/LanguagePicker';
 import FeatureGuideModal from '../components/FeatureGuideModal';
+import BugReporterModal from '../components/BugReporterModal';
+import { Bug } from 'lucide-react';
 import { Compass, BookOpen } from 'lucide-react';
 
 function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
@@ -99,6 +101,7 @@ export default function SettingsScreen() {
   const [localeLoading, setLocaleLoading] = useState(false);
   const { t } = useUi();
   const [showGuideModal, setShowGuideModal] = useState(false);
+  const [showBugModal, setShowBugModal] = useState(false);
   const [tick, setTick] = useState(0);
   useEffect(() => {
     if (!isMonitoring) return;
@@ -115,6 +118,12 @@ export default function SettingsScreen() {
   const [sidebarWidth, setSidebarWidth] = useState(
     () => parseInt(getSetting('sidebar_width', 480)) || 480
   );
+  useEffect(() => {
+    // TEMP DIAGNOSTIC - remove once the sidebar-width-resets-on-restart bug is found.
+    invoke('log_terminal', {
+      message: `[SETTINGS-DEBUG] sidebarWidth state=${sidebarWidth}, getSetting('sidebar_width')=${getSetting('sidebar_width', 'MISSING')}, typeof=${typeof getSetting('sidebar_width', 'MISSING')}`
+    }).catch(() => {});
+  }, []);
   const [sidebarHideOnFocusLoss, setSidebarHideOnFocusLoss] = useState(
     () => getSetting('sidebar_hide_on_focus_loss', true)
   );
@@ -143,7 +152,7 @@ export default function SettingsScreen() {
 
   const HOTKEY_ACTIONS = [
   { id: 'manual_ocr', label: 'Manual Relic Recognition (OCR)' },
-  { id: 'toggle_sidebar', label: 'Toggle Ingame Menu' }];
+  { id: 'toggle_sidebar', label: 'Toggle Sidebar' }];
 
 
   const [version, setVersion] = useState('');
@@ -220,6 +229,15 @@ export default function SettingsScreen() {
   // Fissure Overlay Settings
   const [fissureOverlayEnabled, setFissureOverlayEnabled] = useState(
     () => getSetting('fissure_overlay_enabled')
+  );
+    const [useEELog, setUseEELog] = useState(
+    () => getSetting('use_ee_log') ?? false
+  );
+  const [eeLogPath, setEeLogPath] = useState(
+    () => getSetting('ee_log_path') ?? ''
+  );
+  const [wfmToken, setWfmToken] = useState(
+    () => getSetting('wfm_token') ?? ''
   );
   const [warframeCachePath, setWarframeCachePath] = useState(
     () => getSetting('warframe_cache_path', '')
@@ -391,6 +409,35 @@ export default function SettingsScreen() {
     invoke('set_sidebar_width', { width, side, persist: true }).catch(() => {});
   };
 
+    const handleUseEELogChange = async (val) => {
+    setUseEELog(val);
+    await setSetting('use_ee_log', val);
+    try {
+      await invoke('stop_log_scanner');
+      await invoke('start_log_scanner');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleEeLogPathChange = async (val) => {
+    setEeLogPath(val);
+    await setSetting('ee_log_path', val);
+    if (useEELog) {
+      try {
+        await invoke('stop_log_scanner');
+        await invoke('start_log_scanner');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
+
+  const handleWfmTokenChange = (val) => {
+    setWfmToken(val);
+    setSetting('wfm_token', val);
+  };
+
   const handleSetSidebarWidth = async (width) => {
     setSidebarWidth(width);
     await setSetting('sidebar_width', width);
@@ -431,6 +478,15 @@ export default function SettingsScreen() {
         event: 'scanner-relic-phase-start',
         payload: { squad_size: 4 }
       });
+      // The overlay discards overlay-update-ocr events until its `data` state
+      // is non-null (see RelicRewardOverlay.jsx), which only overlay-update-relics
+      // (or overlay-squad-size) sets. The real OCR pipeline always sends the
+      // relic list before per-slot OCR results; mirror that order here or every
+      // OCR update below gets silently dropped and slots stay stuck "Analyzing".
+      await invoke('relay_event', {
+        event: 'overlay-update-relics',
+        payload: { squad_relics: mockRelics, squad_size: 4 }
+      });
       // Await each staggered per-slot update in sequence before firing the
       // summary event - it previously fired immediately after only
       // *scheduling* the setTimeouts, so the summary arrived before any of
@@ -442,10 +498,6 @@ export default function SettingsScreen() {
           payload: { slot: i + 1, confirmed_reward: mockRewards[i], item: { ...mockRelics[i], name: mockRewards[i], ducats: [0, 100, 45, 35][i] } }
         }).catch(() => {});
       }
-      await invoke('relay_event', {
-        event: 'overlay-update-relics',
-        payload: { squad_relics: mockRelics, squad_size: 4 }
-      });
     } catch (err) {
       console.error(err);
     }
@@ -455,42 +507,85 @@ export default function SettingsScreen() {
     <PageLayout titleKey="screen.settings">
       <div className="space-y-6">
 
-        {/* Theme Selector - Leaner version */}
-        <Card glow className="p-4">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Palette className="text-kronos-accent" size={20} />
-              <h2 className="text-lg font-semibold uppercase tracking-tight">{t('settings.theme')}</h2>
+        {/* Theme Selector with Accessibility Badges */}
+        <Card glow className="p-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+            <div className="flex items-center gap-2.5">
+              <Palette className="text-kronos-accent" size={22} />
+              <div>
+                <h2 className="text-lg font-black uppercase tracking-tight">{t('settings.theme')}</h2>
+                <p className="text-[10px] text-kronos-dim uppercase font-bold tracking-widest mt-0.5">
+                  Includes tailored high-contrast & color vision profiles
+                </p>
+              </div>
             </div>
-            <p className="text-[10px] text-kronos-dim uppercase font-bold">{t('settings.current_theme')}
-              {themes.find((t) => t.id === theme)?.name}
-            </p>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] text-kronos-dim uppercase font-bold tracking-wider">Active:</span>
+              <span className="px-2.5 py-0.5 rounded-full bg-kronos-accent/15 border border-kronos-accent/30 text-xs font-black uppercase text-kronos-accent">
+                {themes.find((t) => t.id === theme)?.name}
+              </span>
+            </div>
           </div>
+
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {themes.map((t) =>
-            <button
-              key={t.id}
-              onClick={() => setTheme(t.id)}
-              data-theme={t.id}
-              title={t.name}
-              className={`
-                  min-h-[56px] p-2 rounded-lg border transition-all duration-200 relative group flex items-center justify-center text-center
-                  ${theme === t.id ?
-              'border-white ring-2 ring-white/30 scale-[1.02]' :
-              'border-white/5 hover:border-white/20 hover:scale-[1.01]'}
-                `
-              }
-              style={{
-                backgroundColor: 'var(--color-bg)'
-              }}>
-              
-                <div className="absolute inset-0 rounded-lg opacity-10 group-hover:opacity-20 transition-opacity" style={{ backgroundColor: `var(--color-accent)` }} />
-                <span className="relative text-xs font-bold uppercase tracking-tight leading-tight" style={{ color: 'var(--color-accent)' }}>
-                  {t.name}
-                </span>
-              </button>
-            )}
+            {themes.map((t) => {
+              const isSelected = theme === t.id;
+              return (
+                <button
+                  key={t.id}
+                  onClick={() => setTheme(t.id)}
+                  data-theme={t.id}
+                  title={t.desc || t.name}
+                  className={`
+                    min-h-[64px] p-2.5 rounded-xl border transition-all duration-200 relative group flex flex-col items-center justify-center text-center overflow-hidden
+                    ${isSelected ?
+                      'border-white ring-2 ring-white/40 scale-[1.02] shadow-[0_0_20px_rgba(255,255,255,0.15)]' :
+                      'border-white/10 hover:border-white/30 hover:scale-[1.01]'}
+                  `}
+                  style={{ backgroundColor: 'var(--color-bg)' }}
+                >
+                  <div
+                    className="absolute inset-0 rounded-xl opacity-10 group-hover:opacity-25 transition-opacity"
+                    style={{ backgroundColor: 'var(--color-accent)' }}
+                  />
+
+                  {/* Accessibility Badge */}
+                  {t.badge && (
+                    <span
+                      className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider leading-none shadow-sm"
+                      style={{
+                        backgroundColor: 'var(--color-accent)',
+                        color: 'var(--color-bg)',
+                      }}
+                    >
+                      {t.badge}
+                    </span>
+                  )}
+
+                  <span
+                    className="relative text-xs font-black uppercase tracking-tight leading-tight mt-1"
+                    style={{ color: 'var(--color-accent)' }}
+                  >
+                    {t.name}
+                  </span>
+                </button>
+              );
+            })}
           </div>
+
+          {/* Selected Theme Accessibility & Design Note */}
+          {(() => {
+            const current = themes.find((t) => t.id === theme);
+            if (!current?.desc) return null;
+            return (
+              <div className="mt-4 p-3 rounded-xl bg-black/25 border border-white/5 flex items-center gap-2.5 text-xs text-kronos-dim">
+                <span className="text-kronos-accent font-black uppercase text-[10px] tracking-wider shrink-0">
+                  {current.badge ? `✨ Vision Profile (${current.badge}):` : 'Theme Info:'}
+                </span>
+                <span className="text-white/80">{current.desc}</span>
+              </div>
+            );
+          })()}
         </Card>
 
         {/* Cursor Selector */}
@@ -844,25 +939,34 @@ export default function SettingsScreen() {
           </div>
         </Card>
 
-                {/* Feature Guide & Global Shortcuts */}
+                {/* Feature Guide & Support */}
         <Card glow className="p-5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <Compass className="text-kronos-accent" size={28} />
               <div>
-                <h2 className="text-xl font-black uppercase tracking-tight">Feature Guide & Shortcuts</h2>
+                <h2 className="text-xl font-black uppercase tracking-tight">Help & Diagnostics</h2>
                 <p className="text-[10px] text-kronos-dim uppercase font-bold tracking-widest mt-0.5">
-                  Quick reference for in-game overlay shortcuts, relic filters, and screen features
+                  Quick reference for shortcuts, features, and one-click bug reporting
                 </p>
               </div>
             </div>
-            <button
-              onClick={() => setShowGuideModal(true)}
-              className="py-2.5 px-4 rounded-xl border border-kronos-accent/30 bg-kronos-accent/15 text-kronos-accent text-xs font-black uppercase tracking-wider hover:bg-kronos-accent/25 transition-all flex items-center justify-center gap-2 flex-shrink-0"
-            >
-              <BookOpen size={16} />
-              Open Feature Guide
-            </button>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setShowGuideModal(true)}
+                className="py-2.5 px-4 rounded-xl border border-kronos-accent/30 bg-kronos-accent/15 text-kronos-accent text-xs font-black uppercase tracking-wider hover:bg-kronos-accent/25 transition-all flex items-center justify-center gap-2 flex-shrink-0"
+              >
+                <BookOpen size={16} />
+                Feature Guide
+              </button>
+              <button
+                onClick={() => setShowBugModal(true)}
+                className="py-2.5 px-4 rounded-xl border border-red-500/30 bg-red-500/15 text-red-400 text-xs font-black uppercase tracking-wider hover:bg-red-500/25 transition-all flex items-center justify-center gap-2 flex-shrink-0"
+              >
+                <Bug size={16} />
+                Report Issue
+              </button>
+            </div>
           </div>
         </Card>
 
@@ -1004,6 +1108,68 @@ export default function SettingsScreen() {
           </p>
         </Card>
 
+                {/* Safe Mode Tracking */}
+        <Card glow className="p-5 mb-6">
+          <div className="flex items-start gap-4 mb-6">
+            <div className="p-3 rounded-xl bg-kronos-accent/10 border border-kronos-accent/20">
+              <FolderOpen className="text-kronos-accent" size={24} />
+            </div>
+            <div className="flex-1 flex items-start justify-between">
+              <div>
+                <h2 className="text-xl font-black uppercase tracking-tight">Safe Mode Tracking</h2>
+                <p className="text-xs text-kronos-dim mt-1">Read from Warframe's EE.log instead of memory scanning.</p>
+              </div>
+              <Toggle checked={useEELog} onChange={handleUseEELogChange} />
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="text-xs font-bold text-white mb-1 block">Custom EE.log Path (Optional)</label>
+              <p className="text-[10px] text-kronos-dim leading-relaxed mb-3">
+                Kiedas Orbiter automatically finds EE.log on Windows and Steam Deck (Proton). Set this ONLY if you have a non-standard Wine/Proton setup.
+              </p>
+              <input
+                type="text"
+                className="w-full h-10 bg-black/40 border border-white/10 rounded-lg px-3 text-sm font-mono text-kronos-dim focus:outline-none focus:border-kronos-accent/50 transition-colors"
+                placeholder="e.g. /home/user/.steam/steam/steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log"
+                value={eeLogPath}
+                onChange={(e) => handleEeLogPathChange(e.target.value)}
+                disabled={!useEELog}
+              />
+            </div>
+          </div>
+        </Card>
+
+        {/* Warframe Market Integration */}
+        <Card glow className="p-5 mb-6">
+          <div className="flex items-start gap-4 mb-6">
+            <div className="p-3 rounded-xl bg-kronos-accent/10 border border-kronos-accent/20">
+              <RefreshCw className="text-kronos-accent" size={24} />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-xl font-black uppercase tracking-tight">Warframe.Market</h2>
+              <p className="text-xs text-kronos-dim mt-1">Configure your API token to enable 1-Click Trading.</p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="text-xs font-bold text-white mb-1 block">API Token (JWT)</label>
+              <p className="text-[10px] text-kronos-dim leading-relaxed mb-3">
+                Required for 1-Click Trading from the Inventory tab. To get your JWT token: open Warframe.Market in your browser, press F12 for Developer Tools, go to Application &gt; Cookies, and copy the value of the JWT cookie.
+              </p>
+              <input
+                type="password"
+                className="w-full h-10 bg-black/40 border border-white/10 rounded-lg px-3 text-sm font-mono text-kronos-dim focus:outline-none focus:border-kronos-accent/50 transition-colors"
+                placeholder="JWT eyJhbGciOiJIUzI1NiIs..."
+                value={wfmToken}
+                onChange={(e) => handleWfmTokenChange(e.target.value)}
+              />
+            </div>
+          </div>
+        </Card>
+
         {/* Updates & Price Cache */}
         <Card glow className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1135,6 +1301,7 @@ export default function SettingsScreen() {
       </div>
 
       <FeatureGuideModal isOpen={showGuideModal} onClose={() => setShowGuideModal(false)} />
+      <BugReporterModal isOpen={showBugModal} onClose={() => setShowBugModal(false)} />
     </PageLayout>
 
       {/* Locale change loading overlay */}

@@ -1,0 +1,8473 @@
+[
+  {
+    "name": "Blueprint",
+    "uniqueName": "/Lotus/Types/Recipes/SolarisRecipes/Arcanes/EnergyEfficiencyOnHeadshotBlueprint",
+    "usedIn": [
+      "Pax Bolt",
+      "Pax Charge",
+      "Pax Soar",
+      "Ash",
+      "Ash Prime",
+      "Atlas",
+      "Atlas Prime",
+      "Banshee",
+      "Banshee Prime",
+      "Baruuk",
+      "Baruuk Prime",
+      "Bonewidow",
+      "Caliban",
+      "Chroma",
+      "Chroma Prime",
+      "Citrine",
+      "Cyte-09",
+      "Dagath",
+      "Dante",
+      "Ember",
+      "Ember Prime",
+      "Equinox",
+      "Equinox Prime",
+      "Excalibur",
+      "Excalibur Umbra",
+      "Frost",
+      "Frost Prime",
+      "Gara",
+      "Gara Prime",
+      "Garuda",
+      "Garuda Prime",
+      "Gauss",
+      "Gauss Prime",
+      "Grendel",
+      "Grendel Prime",
+      "Gyre",
+      "Harrow",
+      "Harrow Prime",
+      "Hildryn",
+      "Hildryn Prime",
+      "Hydroid",
+      "Hydroid Prime",
+      "Inaros",
+      "Inaros Prime",
+      "Ivara",
+      "Ivara Prime",
+      "Jade",
+      "Khora",
+      "Khora Prime",
+      "Koumei",
+      "Kullervo",
+      "Lavos",
+      "Lavos Prime",
+      "Limbo",
+      "Limbo Prime",
+      "Loki",
+      "Loki Prime",
+      "Mag",
+      "Mag Prime",
+      "Mesa",
+      "Mesa Prime",
+      "Mirage",
+      "Mirage Prime",
+      "Nekros",
+      "Nekros Prime",
+      "Nezha",
+      "Nezha Prime",
+      "Nidus",
+      "Nidus Prime",
+      "Nova",
+      "Nova Prime",
+      "Nyx",
+      "Nyx Prime",
+      "Oberon",
+      "Oberon Prime",
+      "Octavia",
+      "Octavia Prime",
+      "Protea",
+      "Protea Prime",
+      "Qorvex",
+      "Revenant",
+      "Revenant Prime",
+      "Rhino",
+      "Rhino Prime",
+      "Saryn",
+      "Saryn Prime",
+      "Sevagoth",
+      "Sevagoth Prime",
+      "Styanax",
+      "Temple",
+      "Titania",
+      "Titania Prime",
+      "Trinity",
+      "Trinity Prime",
+      "Valkyr",
+      "Valkyr Prime",
+      "Vauban",
+      "Vauban Prime",
+      "Voidrig",
+      "Volt",
+      "Volt Prime",
+      "Voruna",
+      "Wisp",
+      "Wisp Prime",
+      "Wukong",
+      "Wukong Prime",
+      "Xaku",
+      "Xaku Prime",
+      "Yareli",
+      "Zephyr",
+      "Zephyr Prime",
+      "Acceltra",
+      "Acceltra Prime",
+      "Aeolak",
+      "Afentis",
+      "Alternox",
+      "Ambassador",
+      "Amprex",
+      "Arca Plasmor",
+      "Argonak",
+      "Astilla",
+      "Astilla Prime",
+      "Attica",
+      "Ax-52",
+      "Basmu",
+      "Battacor",
+      "Baza",
+      "Baza Prime",
+      "Boar",
+      "Boar Prime",
+      "Boltor",
+      "Boltor Prime",
+      "Braton Prime",
+      "Braton Vandal",
+      "Bubonico",
+      "Burston",
+      "Burston Prime",
+      "Buzlok",
+      "Carmine Penta",
+      "Cedo",
+      "Cedo Prime",
+      "Cernos",
+      "Cernos Prime",
+      "Cinta",
+      "Convectrix",
+      "Corinth",
+      "Corinth Prime",
+      "Daikyu",
+      "Dera",
+      "Dera Vandal",
+      "Drakgoon",
+      "Dread",
+      "Efv-5 Jupiter",
+      "Evensong",
+      "Exergis",
+      "Felarx",
+      "Ferrox",
+      "Flux Rifle",
+      "Fulmin",
+      "Fulmin Prime",
+      "Glaxion",
+      "Gorgon",
+      "Gorgon Wraith",
+      "Grakata",
+      "Grinlok",
+      "Harpak",
+      "Hek",
+      "Hema",
+      "Higasa",
+      "Hind",
+      "Ignis",
+      "Ignis Wraith",
+      "Javlok",
+      "Karak",
+      "Karak Wraith",
+      "Kohm",
+      "Komorex",
+      "Lanka",
+      "Latron",
+      "Latron Prime",
+      "Latron Wraith",
+      "Lenz",
+      "Miter",
+      "Mutalist Cernos",
+      "Mutalist Quanta",
+      "Nagantaka",
+      "Nagantaka Prime",
+      "Ogris",
+      "Opticor",
+      "Panthera",
+      "Panthera Prime",
+      "Paracyst",
+      "Paris",
+      "Paris Prime",
+      "Penta",
+      "Perigale",
+      "Phage",
+      "Phantasma",
+      "Phantasma Prime",
+      "Phenmor",
+      "Proboscis Cernos",
+      "Purgator 1",
+      "Quanta",
+      "Quartakk",
+      "Quellor",
+      "Rauta",
+      "Reconifex",
+      "Rubico",
+      "Rubico Prime",
+      "Scourge",
+      "Scourge Prime",
+      "Shedu",
+      "Simulor",
+      "Snipetron",
+      "Snipetron Vandal",
+      "Sobek",
+      "Soma",
+      "Soma Prime",
+      "Sporothrix",
+      "Stahlta",
+      "Steflos",
+      "Stradavar",
+      "Stradavar Prime",
+      "Strun Prime",
+      "Strun Wraith",
+      "Supra",
+      "Sybaris",
+      "Sybaris Prime",
+      "Synapse",
+      "Tenora",
+      "Tenora Prime",
+      "Tetra",
+      "Tiberon",
+      "Tiberon Prime",
+      "Tigris",
+      "Tigris Prime",
+      "Tonkor",
+      "Torid",
+      "Trumna",
+      "Trumna Prime",
+      "Vectis",
+      "Vectis Prime",
+      "Veldt",
+      "Vulkar",
+      "Zarr",
+      "Zenith",
+      "Zhuge",
+      "Zhuge Prime",
+      "Acrid",
+      "Aegrit",
+      "Afuris",
+      "Afuris Prime",
+      "Akarius",
+      "Akarius Prime",
+      "Akbolto",
+      "Akbolto Prime",
+      "Akbronco",
+      "Akbronco Prime",
+      "Akjagara",
+      "Akjagara Prime",
+      "Aklex",
+      "Aklex Prime",
+      "Akmagnus",
+      "Akmagnus Prime",
+      "Aksomati",
+      "Aksomati Prime",
+      "Akstiletto",
+      "Akstiletto Prime",
+      "Akvasto",
+      "Akvasto Prime",
+      "Akzani",
+      "Angstrum",
+      "Arca Scisco",
+      "Athodai",
+      "Atomos",
+      "Azima",
+      "Ballistica",
+      "Ballistica Prime",
+      "Bolto",
+      "Brakk",
+      "Bronco",
+      "Bronco Prime",
+      "Cantare",
+      "Castanas",
+      "Catabolyst",
+      "Cestra",
+      "Cyanex",
+      "Cycron",
+      "Despair",
+      "Detron",
+      "Dual Cestra",
+      "Dual Toxocyst",
+      "Efv-8 Mars",
+      "Embolist",
+      "Epitaph",
+      "Epitaph Prime",
+      "Euphona Prime",
+      "Furis",
+      "Fusilai",
+      "Gammacor",
+      "Grimoire",
+      "Hikou",
+      "Hikou Prime",
+      "Hystrix",
+      "Hystrix Prime",
+      "Knell",
+      "Knell Prime",
+      "Kohmak",
+      "Kompressa",
+      "Kraken",
+      "Kulstar",
+      "Kunai",
+      "Laetum",
+      "Lato Vandal",
+      "Lex Prime",
+      "Magnus",
+      "Magnus Prime",
+      "Marelok",
+      "Nukor",
+      "Ocucor",
+      "Onos",
+      "Pandero",
+      "Pandero Prime",
+      "Plinx",
+      "Pox",
+      "Pyrana",
+      "Pyrana Prime",
+      "Quatz",
+      "Riot-848",
+      "Seer",
+      "Sepulcrum",
+      "Sicarus Prime",
+      "Sonicor",
+      "Spectra",
+      "Spectra Vandal",
+      "Spira",
+      "Spira Prime",
+      "Staticor",
+      "Stubba",
+      "Stug",
+      "Talons",
+      "Twin Grakatas",
+      "Twin Gremlins",
+      "Twin Kohmak",
+      "Twin Rogga",
+      "Twin Vipers",
+      "Twin Vipers Wraith",
+      "Tysis",
+      "Vasto",
+      "Vasto Prime",
+      "Velox",
+      "Velox Prime",
+      "Vesper 77",
+      "Viper",
+      "Zakti",
+      "Zakti Prime",
+      "Zylok Prime",
+      "Zymos",
+      "Ack & Brunt",
+      "Amanata",
+      "Amphis",
+      "Anku",
+      "Ankyros",
+      "Ankyros Prime",
+      "Arca Titron",
+      "Argo & Vel",
+      "Arum Spinosa",
+      "Atterax",
+      "Azothane",
+      "Balla",
+      "Bo",
+      "Bo Prime",
+      "Boltace",
+      "Broken Scepter",
+      "Broken War",
+      "Cadus",
+      "Cassowar",
+      "Caustacyst",
+      "Ceramic Dagger",
+      "Cerata",
+      "Ceti Lacera",
+      "Cobra & Crane",
+      "Cobra & Crane Prime",
+      "Corufell",
+      "Cronus",
+      "Cyath",
+      "Dakra Prime",
+      "Dark Dagger",
+      "Dark Split-Sword",
+      "Dark Sword",
+      "Dehtat",
+      "Destreza",
+      "Destreza Prime",
+      "Dokrahm",
+      "Dorrclave",
+      "Dragon Nikana",
+      "Dual Cleavers",
+      "Dual Ether",
+      "Dual Heat Swords",
+      "Dual Ichor",
+      "Dual Kamas",
+      "Dual Kamas Prime",
+      "Dual Keres",
+      "Dual Keres Prime",
+      "Dual Raza",
+      "Dual Skana",
+      "Dual Viciss",
+      "Dual Zoren",
+      "Dual Zoren Prime",
+      "Edun",
+      "Ekhein",
+      "Ekwana Ii Jai",
+      "Ekwana Ii Ruhang",
+      "Ekwana Jai",
+      "Ekwana Jai Ii",
+      "Ekwana Ruhang",
+      "Ekwana Ruhang Ii",
+      "Endura",
+      "Ether Daggers",
+      "Ether Reaper",
+      "Ether Sword",
+      "Falcor",
+      "Fang",
+      "Fang Prime",
+      "Fragor",
+      "Fragor Prime",
+      "Furax",
+      "Furax Wraith",
+      "Galatine",
+      "Galatine Prime",
+      "Galvacord",
+      "Gazal Machete",
+      "Ghoulsaw",
+      "Glaive",
+      "Glaive Prime",
+      "Gram",
+      "Gram Prime",
+      "Guandao",
+      "Guandao Prime",
+      "Gunsen",
+      "Gunsen Prime",
+      "Halikar",
+      "Harmony",
+      "Hate",
+      "Heat Dagger",
+      "Heat Sword",
+      "Heliocor",
+      "Hespar",
+      "Hirudo",
+      "Innodem",
+      "Jai",
+      "Jai Ii",
+      "Jat Kittag",
+      "Jat Kusar",
+      "Jaw Sword",
+      "Jayap",
+      "Kama",
+      "Karyst",
+      "Karyst Prime",
+      "Keratinos",
+      "Kesheg",
+      "Kestrel",
+      "Kogake",
+      "Kogake Prime",
+      "Korb",
+      "Korrudo",
+      "Korumm",
+      "Kreska",
+      "Krohkur",
+      "Kronen",
+      "Kronen Prime",
+      "Kronsh",
+      "Kroostra",
+      "Kwath",
+      "Lacera",
+      "Laka",
+      "Lecta",
+      "Lesion",
+      "Machete",
+      "Magistar",
+      "Masseter",
+      "Masseter Prime",
+      "Mewan",
+      "Mios",
+      "Mire",
+      "Nami Skyla",
+      "Nami Skyla Prime",
+      "Nami Solo",
+      "Nepheri",
+      "Nikana",
+      "Nikana Prime",
+      "Ninkondi",
+      "Ninkondi Prime",
+      "Obex",
+      "Ohma",
+      "Okina",
+      "Okina Prime",
+      "Ooltha",
+      "Orthos",
+      "Orthos Prime",
+      "Orvius",
+      "Pangolin Prime",
+      "Pangolin Sword",
+      "Paracesis",
+      "Pathocyst",
+      "Pennant",
+      "Peye",
+      "Plague Akwin",
+      "Plague Bokwin",
+      "Plague Keewar",
+      "Plague Kripath",
+      "Plasma Sword",
+      "Praedos",
+      "Prova",
+      "Pulmonars",
+      "Pupacyst",
+      "Quassus",
+      "Quassus Prime",
+      "Rabvee",
+      "Reaper Prime",
+      "Redeemer",
+      "Redeemer Prime",
+      "Ripkas",
+      "Ruhang",
+      "Ruhang Ii",
+      "Ruvox",
+      "Sampotes",
+      "Sarofang",
+      "Sarpa",
+      "Scindo",
+      "Scindo Prime",
+      "Scoliac",
+      "Seekalla",
+      "Sepfahn",
+      "Serro",
+      "Shaku",
+      "Sheev",
+      "Shtung",
+      "Sibear",
+      "Sigma & Octantis",
+      "Silva & Aegis",
+      "Silva & Aegis Prime",
+      "Skana",
+      "Skiajati",
+      "Slaytra",
+      "Stropha",
+      "Sun & Moon",
+      "Syam",
+      "Sydon",
+      "Tatsu",
+      "Tatsu Prime",
+      "Tekko",
+      "Tekko Prime",
+      "Tenet Agendus",
+      "Tipedo",
+      "Tipedo Prime",
+      "Tonbo",
+      "Twin Basolk",
+      "Twin Krohkur",
+      "Vargeet Ii Jai",
+      "Vargeet Ii Ruhang",
+      "Vargeet Jai",
+      "Vargeet Jai Ii",
+      "Vargeet Ruhang",
+      "Vargeet Ruhang Ii",
+      "Venato",
+      "Venka",
+      "Venka Prime",
+      "Verdilac",
+      "Vitrica",
+      "Volnus",
+      "Volnus Prime",
+      "War",
+      "Wolf Sledge",
+      "Xoris",
+      "Zenistar",
+      "Amesha",
+      "Elytron",
+      "Itzal",
+      "Odonata",
+      "Odonata Prime",
+      "Cortege",
+      "Corvas",
+      "Corvas Prime",
+      "Cyngas",
+      "Dual Decurion",
+      "Fluctus",
+      "Grattler",
+      "Imperator",
+      "Imperator Vandal",
+      "Larkspur",
+      "Larkspur Prime",
+      "Mandonel",
+      "Morgha",
+      "Phaedra",
+      "Velocitus",
+      "Agkuza",
+      "Centaur",
+      "Kaszas",
+      "Knux",
+      "Onorix",
+      "Rathbone",
+      "Veritux",
+      "Carrier",
+      "Carrier Prime",
+      "Dethcube",
+      "Dethcube Prime",
+      "Diriga",
+      "Djinn",
+      "Helios",
+      "Helios Prime",
+      "Nautilus",
+      "Nautilus Prime",
+      "Oxylus",
+      "Shade",
+      "Shade Prime",
+      "Taxon",
+      "Wyrm",
+      "Wyrm Prime",
+      "Cryotra",
+      "Helstrum",
+      "Tazicor",
+      "Vulcax",
+      "Adrenal Stim",
+      "Advanced Nosam Cutter",
+      "Air Support Charges",
+      "Amethyst Antitoxin",
+      "Ancient Protector Specter",
+      "Antiserum Injector",
+      "Archwing Launcher",
+      "Beryl Antitoxin",
+      "Bleeding Dragon Key",
+      "Calcifin Stim",
+      "Charger Specter",
+      "Cipher",
+      "Citrine Antitoxin",
+      "Clem Clone",
+      "Clotra Stim",
+      "Corrupted Bombard Specter",
+      "Corrupted Lancer Specter",
+      "Cosmic Specter",
+      "Cuthol Bait",
+      "Decaying Dragon Key",
+      "Extinguished Dragon Key",
+      "Faithful Void Offering",
+      "Focused Nosam Cutter",
+      "Fomorian Disruptor",
+      "Force Specter",
+      "Fosfor Blau",
+      "Fosfor Rahd",
+      "Glappid Bait",
+      "Health Restore (Large)",
+      "Hobbled Dragon Key",
+      "Humble Void Offering",
+      "Lanzo Fishing Spear",
+      "Lapis Antitoxin",
+      "Loc-Pin",
+      "Luminous Dye",
+      "Moa Specter",
+      "Murkray Bait",
+      "Nightfall Apothic",
+      "Norg Bait",
+      "Nosam Cutter",
+      "Passionate Void Offering",
+      "Peppered Bait",
+      "Peram Fishing Spear",
+      "Pharoma",
+      "Phase Specter",
+      "Pherliac Pods",
+      "Potent Pherliac Pods",
+      "Processed Fass Residue",
+      "Processed Vome Residue",
+      "Razorback Cipher",
+      "Refract Stim",
+      "Roller Specter",
+      "Shield Osprey Specter",
+      "Shockprod Fishing Spear",
+      "Squad Ammo Restore (Large)",
+      "Squad Ammo Restore (Medium)",
+      "Squad Ammo Restore (Small)",
+      "Squad Energy Restore (Large)",
+      "Squad Energy Restore (Medium)",
+      "Squad Energy Restore (Small)",
+      "Squad Health Restore (Large)",
+      "Squad Health Restore (Medium)",
+      "Squad Health Restore (Small)",
+      "Squad Shield Restore (Large)",
+      "Squad Shield Restore (Medium)",
+      "Squad Shield Restore (Small)",
+      "Stalker Specter",
+      "Stunna Fishing Spear",
+      "Sunpoint Plasma Drill",
+      "Sunrise Apothic",
+      "Topaz Antitoxin",
+      "Tulok Fishing Spear",
+      "Twilight Apothic",
+      "Twilight Bait",
+      "Vapor Specter",
+      "Vasca Curative",
+      "Vermillion Antitoxin",
+      "Adramal Alloy",
+      "Aucrux Capacitors",
+      "Axidrol Alloy",
+      "Bonewidow Capsule",
+      "Bonewidow Casing",
+      "Bonewidow Engine",
+      "Bonewidow Weapon Pod",
+      "Bracoid",
+      "Carbides",
+      "Copernics",
+      "Cortege Barrel",
+      "Cortege Receiver",
+      "Cortege Stock",
+      "Cubic Diodes",
+      "Detonite Injector",
+      "Devolved Namalon",
+      "Esher Devar",
+      "Exceptional Sentient Core",
+      "Fieldron",
+      "Fresnels",
+      "Gallos Rods",
+      "Heart Nyth",
+      "Hespazym Alloy",
+      "Isos",
+      "Kesslers",
+      "Komms",
+      "Marquise Veridos",
+      "Morgha Barrel",
+      "Morgha Receiver",
+      "Morgha Stock",
+      "Mutagen Mass",
+      "Pustrels",
+      "Radian Sentirum",
+      "Relay Strut Component",
+      "Star Crimzian",
+      "Tear Azurite",
+      "Tempered Bapholite",
+      "Thaumic Distillate",
+      "Trachons",
+      "Travocyte Alloy",
+      "Venerdo Alloy",
+      "Voidrig Capsule",
+      "Voidrig Casing",
+      "Voidrig Engine",
+      "Voidrig Weapon Pod",
+      "Akvasto Forest-Camo Skin",
+      "Amniophysi Trophy",
+      "Aquapulmo Trophy",
+      "Arca Plasmor Solstice Skin",
+      "Arcane Aura Helmet",
+      "Arcane Aurora Helmet",
+      "Arcane Avalon Helmet",
+      "Arcane Backdraft Helmet",
+      "Arcane Chlora Helmet",
+      "Arcane Chorus Helmet",
+      "Arcane Coil Helmet",
+      "Arcane Esprit Helmet",
+      "Arcane Essence Helmet",
+      "Arcane Flux Helmet",
+      "Arcane Gambit Helmet",
+      "Arcane Hemlock Helmet",
+      "Arcane Locust Helmet",
+      "Arcane Mag Gauss Helmet",
+      "Arcane Menticide Helmet",
+      "Arcane Meridian Helmet",
+      "Arcane Pendragon Helmet",
+      "Arcane Phoenix Helmet",
+      "Arcane Pulse Helmet",
+      "Arcane Reverb Helmet",
+      "Arcane Scorpion Helmet",
+      "Arcane Squall Helmet",
+      "Arcane Storm Helmet",
+      "Arcane Swindle Helmet",
+      "Arcane Thrak Helmet",
+      "Arcane Vanguard Helmet",
+      "Arcane Vespa Helmet",
+      "Asa Syandana",
+      "Ash Locust Helmet",
+      "Ash Scorpion Helmet",
+      "Atlas Shikoro Helmet",
+      "Atlas Tartarus Helmet",
+      "Atomos Solstice Skin",
+      "Atterax Desert-Camo Skin",
+      "Banshee Chorus Helmet",
+      "Banshee Reverb Helmet",
+      "Barbisteo Trophy",
+      "Baruuk Meroe Helmet",
+      "Blazing Step Ephemera",
+      "Bleeding Body Ephemera",
+      "Boot Trophy",
+      "Boot Trophy",
+      "Brickie Trophy",
+      "Burston Solstice Skin",
+      "Caliban Cranion Helmet",
+      "Ceno Apparel (Operator)",
+      "Ceno Cuirass (Operator)",
+      "Ceno Greaves (Operator)",
+      "Ceno Helmet (Operator)",
+      "Ceno Pauldrons (Operator)",
+      "Charamote Trophy",
+      "Charc Eel Trophy",
+      "Chondricord Trophy",
+      "Chroma Amaru Helmet",
+      "Chroma Drac Helmet",
+      "Citrine Kalite Helmet",
+      "Corinth Solstice Skin",
+      "Cryptosuctus Trophy",
+      "Cuthol Trophy",
+      "Cycron Solstice Skin",
+      "Cyte-09 Espricor Helmet",
+      "Daedalus Chest Plate",
+      "Daedalus Shoulder Plates",
+      "Daedalus Spurs",
+      "Dagath Ganceann Helmet",
+      "Daman Sugatra",
+      "Dante Cantist Helmet",
+      "Detron Shock-Camo Skin",
+      "Diriga Desert-Camo Skin",
+      "Dual Keres Solstice Skin",
+      "Dual Zoren Dagger-Axe Skin",
+      "Duroid Trophy",
+      "Echowinder Trophy",
+      "Edo Chest Plate",
+      "Edo Shin Plates",
+      "Edo Shoulder Plates",
+      "Eidolon Ephemera",
+      "Ember Backdraft Helmet",
+      "Ember Immortal Skin",
+      "Ember Phoenix Helmet",
+      "Eos Chest Plate",
+      "Eos Shoulder Plates",
+      "Eos Spurs",
+      "Equinox Clisthert Helm",
+      "Equinox Solstice Helmet",
+      "Excalibur Avalon Helmet",
+      "Excalibur Immortal Skin",
+      "Excalibur Mordred Helmet",
+      "Excalibur Pendragon Helmet",
+      "Exergis Shock-Camo Skin",
+      "Eye-Eye Trophy",
+      "Falcor Shock-Camo Skin",
+      "Flagellocanth Trophy",
+      "Fragor Brokk Skin",
+      "Freezing Step Ephemera",
+      "Frost Aurora Helmet",
+      "Frost Immortal Skin",
+      "Frost Squall Helmet",
+      "Fulmin Solstice Skin",
+      "Galatine Solstice Skin",
+      "Gara Virago Helmet",
+      "Garuda Bathory Helmet",
+      "Gauss Mag Helmet",
+      "Glappid Trophy",
+      "Glutinox Trophy",
+      "Goopolla Trophy",
+      "Gram Solstice Skin",
+      "Greedy Milk",
+      "Grendel Glutt Helmet",
+      "Grinlok Desert-Camo Skin",
+      "Guandao Solstice Skin",
+      "Guandao Synoid Skin",
+      "Gyre Automaton Helmet",
+      "Hang Tenno",
+      "Harrow Crucis Helmet",
+      "Harrow Suffragan Helmet",
+      "Hawk Bishamo Cuirass (Operator)",
+      "Hawk Bishamo Greaves (Operator)",
+      "Hawk Bishamo Helmet (Operator)",
+      "Hawk Bishamo Pauldrons (Operator)",
+      "Haztech Apparel (Operator)",
+      "Haztech Cuirass (Operator)",
+      "Haztech Greaves (Operator)",
+      "Haztech Mask (Operator)",
+      "Haztech Pauldrons (Operator)",
+      "Hek Desert-Camo Skin",
+      "Hildryn Asuron Helmet",
+      "Hydroid Ketos Helmet",
+      "Hydroid Triton Helmet",
+      "Ignis Solstice Skin",
+      "Inaros Anubis Helmet",
+      "Inaros Canopic Helmet",
+      "Ivara Loxley Helmet",
+      "Ivara Zirastra Helmet",
+      "Jade Aureolt Helmet",
+      "Karak Desert-Camo Skin",
+      "Karkina Trophy",
+      "Kavasa Prime Kubrow Collar",
+      "Khora Delphi Helmet",
+      "Khut-Khut Trophy",
+      "Koumei Orihime Helmet",
+      "Kriller Trophy",
+      "Kubrodon Ventkid Apparel",
+      "Kubrodon Ventkid Cuirass",
+      "Kubrodon Ventkid Greaves",
+      "Kubrodon Ventkid Mask",
+      "Kubrodon Ventkid Pauldrons",
+      "Kullervo Usvah Helmet",
+      "Kymaeros Trophy",
+      "Lavos Cordatus Helmet",
+      "Lenz Solstice Skin",
+      "Limbo Aristeas Helmet",
+      "Limbo Magrite Helmet",
+      "Lobotriscid Trophy",
+      "Loid Sentinel Mask",
+      "Loid Sentinel Skin",
+      "Loid Sentinel Tail",
+      "Loid Sentinel Wing",
+      "Loki Enigma Helmet",
+      "Loki Essence Helmet",
+      "Loki Swindle Helmet",
+      "Longwinder Trophy",
+      "Mag Coil Helmet",
+      "Mag Gauss Helmet",
+      "Marelok Desert-Camo Skin",
+      "Mawfish Trophy",
+      "Mesa Longhorn Helmet",
+      "Mesa Ovis Helmet",
+      "Mirage Harlequin Helmet",
+      "Mirage Trivelin Helmet",
+      "Mirewinder Trophy",
+      "Mortus Lungfish Trophy",
+      "Murkray Trophy",
+      "Myxostomata Trophy",
+      "Naberus Ephemera",
+      "Nekros Raknis Helmet",
+      "Nekros Shroud Helmet",
+      "Nezha Circa Helmet",
+      "Nezha Jinza Helmet",
+      "Nidus Myxini Helmet",
+      "Nidus Prion Helmet",
+      "Norg Trophy",
+      "Nova Flux Helmet",
+      "Nova Quantum Helmet",
+      "Nova Slipstream Helmet",
+      "Nyx Menticide Helmet",
+      "Nyx Vespa Helmet",
+      "Oberon Markhor Helmet",
+      "Oberon Oryx Helmet",
+      "Octavia Cadenza Helmet",
+      "Ostimyr Trophy",
+      "Outrider Cuirass",
+      "Outrider Greaves",
+      "Outrider Mask",
+      "Outrider Pauldrons",
+      "Pazza Sugatra",
+      "Penta Shock-Camo Skin",
+      "Plinx Shock-Camo Skin",
+      "Protea Mavv Helmet",
+      "Protea Telema Helmet",
+      "Prova Shock-Camo Skin",
+      "Puppeteer",
+      "Pyrana Synoid Skin",
+      "Qorvex Raxpart Helmet",
+      "Raptwing Ephemera",
+      "Recaster Trophy",
+      "Revenant Vania Helmet",
+      "Rhino Thrak Helmet",
+      "Rhino Vanguard Helmet",
+      "Rubico Synoid Skin",
+      "Sapcaddy Trophy",
+      "Saryn Chlora Helmet",
+      "Saryn Hemlock Helmet",
+      "Scindo Dagger-Axe Skin",
+      "Scindo Forest-Camo Skin",
+      "Scindo Manticore Skin",
+      "Scindo Solstice Skin",
+      "Scrubber Trophy",
+      "Seeding Step Ephemera",
+      "Seraphayre Ephemera",
+      "Sevagoth Lucifuge Helmet",
+      "Sharrac Trophy",
+      "Shocking Step Ephemera",
+      "Smelter Apparel (Operator)",
+      "Smelter Cuirass (Operator)",
+      "Smelter Greaves (Operator)",
+      "Smelter Mask (Operator)",
+      "Smelter Pauldrons (Operator)",
+      "Smoking Body Ephemera",
+      "Soma Forest-Camo Skin",
+      "Styanax Agogean Helmet",
+      "Styanax Gerousic Helmet",
+      "Styanax Synmora Helmet",
+      "Synathid Trophy",
+      "Tantu Sugatra",
+      "Tatsu Solstice Skin",
+      "Tink Trophy",
+      "Titania Aurai Helmet",
+      "Titania Mab Helmet",
+      "Tonkor Desert-Camo Skin",
+      "Tralok Trophy",
+      "Trinity Aura Helmet",
+      "Trinity Meridian Helmet",
+      "Tromyzon Trophy",
+      "Uru Syandana",
+      "Vahd Apparel (Operator)",
+      "Vahd Cuirass (Operator)",
+      "Vahd Greaves (Operator)",
+      "Vahd Mask (Operator)",
+      "Vahd Pauldrons (Operator)",
+      "Valkyr Bastet Helmet",
+      "Valkyr Kara Helmet",
+      "Vauban Armistice Helmet",
+      "Vauban Esprit Helmet",
+      "Vauban Gambit Helmet",
+      "Vent Pobber Ventkid Apparel",
+      "Vent Pobber Ventkid Cuirass",
+      "Vent Pobber Ventkid Greaves",
+      "Vent Pobber Ventkid Mask",
+      "Vent Pobber Ventkid Pauldrons",
+      "Vent Rat Cuirass",
+      "Vent Rat Greaves",
+      "Vent Rat Mask",
+      "Vent Rat Pauldrons",
+      "Vitreospina Trophy",
+      "Vitus Illumina",
+      "Volt Pulse Helmet",
+      "Volt Storm Helmet",
+      "Voruna Anukas Helmet",
+      "Wisp Gaoth Helmet",
+      "Wolf Hood",
+      "Wukong Dasheng Helmet",
+      "Wukong Macak Helmet",
+      "Xaku Kintsu Helmet",
+      "Yareli Physalia Helmet",
+      "Yogwun Trophy",
+      "Yomo Syandana",
+      "Zauba Apparel (Operator)",
+      "Zauba Cuirass (Operator)",
+      "Zauba Greaves (Operator)",
+      "Zauba Mask (Operator)",
+      "Zauba Pauldrons (Operator)",
+      "Zephyr Cierzo Helmet",
+      "Zephyr Tengu Helmet",
+      "Anspatha Brace",
+      "Arc Twelve",
+      "Arcroid",
+      "Auroxium Alloy",
+      "Ayatan Amber Star",
+      "Bad Baby",
+      "Bashrack",
+      "Beaky",
+      "Bellows",
+      "Brash",
+      "Cabochon Embolos",
+      "Cantic Prism",
+      "Catchmoon",
+      "Certus Brace",
+      "Clapkra Brace",
+      "Coldfusor",
+      "Control Module",
+      "Coprite Alloy",
+      "Deepbreath",
+      "Dink-A-Donk",
+      "Dissic Scaffold",
+      "Distilling Extractor",
+      "Distilling Extractor Prime",
+      "Echoes Of Umbra",
+      "Eidolon Lens",
+      "Eidolon Madurai Lens",
+      "Eidolon Naramon Lens",
+      "Eidolon Phylaxis",
+      "Eidolon Unairu Lens",
+      "Eidolon Vazarin Lens",
+      "Eidolon Zenurik Lens",
+      "Exard Scaffold",
+      "Exilus Warframe Adapter",
+      "Exilus Weapon Adapter",
+      "Faceted Tiametrite",
+      "Fatboys",
+      "Fersteel Alloy",
+      "Feverspine",
+      "Flatbelly",
+      "Flutterfire",
+      "Forma",
+      "Gallium",
+      "Gaze",
+      "Genetic Code Template",
+      "Gibber",
+      "Goblite Tears",
+      "Granmu Prism",
+      "Gravimag",
+      "Greater Madurai Lens",
+      "Greater Naramon Lens",
+      "Greater Unairu Lens",
+      "Greater Vazarin Lens",
+      "Greater Zenurik Lens",
+      "Gristlebuck",
+      "Haymaker",
+      "Heart Noctrul",
+      "Helminth Archon Shard Segment",
+      "Helminth Coalescent Segment",
+      "Helminth Invigoration Segment",
+      "Helminth Segment",
+      "Highbrow",
+      "Hothead",
+      "Incubator Power Core",
+      "Infested Catalyst",
+      "Jahu Gargoyle",
+      "Juttni Brace",
+      "Kavat Incubator Upgrade Segment",
+      "Killstream",
+      "Klamora Prism",
+      "Klebrik Scaffold",
+      "Landing Craft Foundry Segment",
+      "Lega Prism",
+      "Limbo Chassis Theorem",
+      "Limbo Neuroptics Theorem",
+      "Limbo Systems Theorem",
+      "Lohrin Brace",
+      "Lovetap",
+      "Lua Lens",
+      "Lua Madurai Lens",
+      "Lua Naramon Lens",
+      "Lua Unairu Lens",
+      "Lua Vazarin Lens",
+      "Lua Zenurik Lens",
+      "Macro Arcroid",
+      "Macro Thymoid",
+      "Mandachord",
+      "Mantis",
+      "Marquise Thyst",
+      "Morphics",
+      "Needlenose",
+      "Neural Sensors",
+      "Neurodes",
+      "Nodulite",
+      "Nutrio Incubator Upgrade Segment",
+      "Omni Forma",
+      "Orokin Catalyst",
+      "Orokin Cell",
+      "Orokin Reactor",
+      "Palmaris",
+      "Parallax",
+      "Pencha Scaffold",
+      "Personal Quarters Segment",
+      "Phahd Scaffold",
+      "Plaga Brace",
+      "Propa Scaffold",
+      "Purged Dagonic",
+      "Purified Heciphron",
+      "Pyrotic Alloy",
+      "Radiant Zodian",
+      "Rahn Prism",
+      "Ramble",
+      "Ramflare",
+      "Raplak Prism",
+      "Rattleguts",
+      "Runway",
+      "Scimitar",
+      "Shraksun Scaffold",
+      "Shrewd",
+      "Shwaak Prism",
+      "Slap",
+      "Slapneedle",
+      "Smooth Phasmin",
+      "Sparkfire",
+      "Splat",
+      "Sporelacer",
+      "Stance Forma",
+      "Star Amarast",
+      "Steadyslam",
+      "Steeba",
+      "Stellated Necrathene",
+      "Step Tens",
+      "Stitch",
+      "Suo Brace",
+      "Swiftfire",
+      "Synthula",
+      "Test Forma",
+      "Thugs",
+      "Thunderdrum",
+      "Thymoid",
+      "Titan Extractor",
+      "Titan Extractor Prime",
+      "Tombfinger",
+      "Trapezium Xenorhast",
+      "Tremor",
+      "Twin Kavats",
+      "Two-Sloops",
+      "Ulnaris",
+      "Umbra Forma",
+      "Vermisplicer",
+      "Wingnut",
+      "Xiphos",
+      "Zip",
+      "Zipfire",
+      "Zipneedle",
+      "Adlet Core",
+      "Adra Mutagen",
+      "Aegron Gyro",
+      "Alcrom Core",
+      "Arioli Mutagen",
+      "Atheca Gyro",
+      "Bhaira Hound",
+      "Cela Bracket",
+      "Chiten Mutagen",
+      "Desus Antigen",
+      "Dorma Hound",
+      "Drex Core",
+      "Drimper Bracket",
+      "Elasmun Antigen",
+      "Elsa Mutagen",
+      "Frak Stabilizer",
+      "Garmr Core",
+      "Gauth Bracket",
+      "Harpen Gyro",
+      "Hec Hound",
+      "Hextra Gyro",
+      "Hinta Stabilizer",
+      "Hona Bracket",
+      "Ibexan Antigen",
+      "Iranon Antigen",
+      "Jonsin Bracket",
+      "Krisys Core",
+      "Lambeo Moa",
+      "Lehan Core",
+      "Leptosam Mutagen",
+      "Monachod Mutagen",
+      "Munit Gyro",
+      "Nychus Moa",
+      "Oloro Moa",
+      "Para Moa",
+      "Phazor Gyro",
+      "Phijar Mutagen",
+      "Plagen Antigen",
+      "Poxi Antigen",
+      "Raiju Core",
+      "Tethron Antigen",
+      "Tian Bracket",
+      "Trux Gyro",
+      "Tyli Gyro",
+      "Urga Bracket",
+      "Virox Antigen",
+      "Wanz Stabilizer",
+      "Zarim Mutagen",
+      "Zubb Bracket",
+      "Clan Key",
+      "Hidden Messages",
+      "Mutalist Alad V Assassinate",
+      "Patient Zero",
+      "Sands Of Inaros",
+      "The Jordas Precept",
+      "The Limbo Theorem",
+      "The Silver Grove",
+      "Afentis Prime"
+    ]
+  },
+  {
+    "name": "Eye-Eye Rotoblade",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishRotobladeItem",
+    "usedIn": [
+      "Pax Bolt",
+      "Cryotra",
+      "Gibber",
+      "Needlenose",
+      "Rattleguts",
+      "Tremor",
+      "Zipfire",
+      "Zipneedle",
+      "Bhaira Hound",
+      "Hextra Gyro",
+      "Lehan Core"
+    ]
+  },
+  {
+    "name": "Gorgaricus Spore",
+    "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/VenusCoconutItem",
+    "usedIn": [
+      "Pax Bolt",
+      "Eye-Eye Trophy",
+      "Puppeteer",
+      "Scrubber Trophy",
+      "Beaky",
+      "Dink-A-Donk",
+      "Rattleguts",
+      "Slap",
+      "Two-Sloops",
+      "Wingnut",
+      "Hextra Gyro",
+      "Lambeo Moa",
+      "Nychus Moa",
+      "Phazor Gyro"
+    ]
+  },
+  {
+    "name": "Radiant Zodian",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisEidolonGemACutItem",
+    "usedIn": [
+      "Pax Bolt",
+      "Pax Charge",
+      "Korumm",
+      "Larkspur",
+      "Haztech Mask (Operator)",
+      "Haztech Pauldrons (Operator)",
+      "Kubrodon Ventkid Mask",
+      "Kubrodon Ventkid Pauldrons",
+      "Outrider Mask",
+      "Outrider Pauldrons",
+      "Smelter Mask (Operator)",
+      "Smelter Pauldrons (Operator)",
+      "Vent Pobber Ventkid Mask",
+      "Vent Pobber Ventkid Pauldrons",
+      "Vent Rat Mask",
+      "Vent Rat Pauldrons",
+      "Cantic Prism",
+      "Klamora Prism",
+      "Lega Prism"
+    ]
+  },
+  {
+    "name": "Tromyzon Entroplasma",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/OrokinFishEntroplasmaItem",
+    "usedIn": [
+      "Pax Bolt",
+      "Battacor",
+      "Nepheri",
+      "Vulcax",
+      "Haztech Greaves (Operator)",
+      "Kubrodon Ventkid Greaves",
+      "Outrider Greaves",
+      "Smelter Greaves (Operator)",
+      "Vent Pobber Ventkid Greaves",
+      "Vent Rat Greaves",
+      "Certus Brace",
+      "Flutterfire",
+      "Klamora Prism",
+      "Propa Scaffold",
+      "Atheca Gyro"
+    ]
+  },
+  {
+    "name": "Longwinder Lathe Coagulant",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/SolarisFishLatheCoogulantItem",
+    "usedIn": [
+      "Pax Charge",
+      "Kreska",
+      "Oxylus",
+      "Tazicor",
+      "Haztech Pauldrons (Operator)",
+      "Kubrodon Ventkid Pauldrons",
+      "Outrider Pauldrons",
+      "Smelter Pauldrons (Operator)",
+      "Vent Pobber Ventkid Pauldrons",
+      "Vent Rat Pauldrons",
+      "Cantic Prism",
+      "Exard Scaffold",
+      "Killstream",
+      "Suo Brace",
+      "Two-Sloops"
+    ]
+  },
+  {
+    "name": "Mirewinder Parallel Biode",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishParralelBiodeItem",
+    "usedIn": [
+      "Pax Charge",
+      "Bad Baby",
+      "Bashrack",
+      "Dorma Hound",
+      "Tyli Gyro"
+    ]
+  },
+  {
+    "name": "Mytocardia Spore",
+    "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/FungusHeartItem",
+    "usedIn": [
+      "Pax Charge",
+      "Kreska",
+      "Boot Trophy",
+      "Brickie Trophy",
+      "Hang Tenno",
+      "Sapcaddy Trophy",
+      "Catchmoon",
+      "Deepbreath",
+      "Fatboys",
+      "Step Tens",
+      "Thugs",
+      "Twin Kavats",
+      "Drimper Bracket",
+      "Harpen Gyro",
+      "Hona Bracket",
+      "Munit Gyro",
+      "Para Moa"
+    ]
+  },
+  {
+    "name": "Kriller Thermal Laser",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishThermalLaserItem",
+    "usedIn": [
+      "Pax Soar",
+      "Vulcax",
+      "Beaky",
+      "Dink-A-Donk",
+      "Gaze",
+      "Runway",
+      "Slapneedle",
+      "Swiftfire",
+      "Two-Sloops",
+      "Wingnut"
+    ]
+  },
+  {
+    "name": "Marquise Thyst",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisEidolonGemBCutItem",
+    "usedIn": [
+      "Pax Soar",
+      "Haztech Apparel (Operator)",
+      "Haztech Cuirass (Operator)",
+      "Haztech Mask (Operator)",
+      "Kubrodon Ventkid Apparel",
+      "Kubrodon Ventkid Cuirass",
+      "Kubrodon Ventkid Mask",
+      "Outrider Cuirass",
+      "Outrider Mask",
+      "Smelter Apparel (Operator)",
+      "Smelter Cuirass (Operator)",
+      "Smelter Mask (Operator)",
+      "Vent Pobber Ventkid Apparel",
+      "Vent Pobber Ventkid Cuirass",
+      "Vent Pobber Ventkid Mask",
+      "Vent Rat Cuirass",
+      "Vent Rat Mask",
+      "Certus Brace",
+      "Plaga Brace",
+      "Suo Brace",
+      "Bhaira Hound"
+    ]
+  },
+  {
+    "name": "Synathid Ecosynth Analyzer",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/OrokinFishEcosynthAnalyzerItem",
+    "usedIn": [
+      "Pax Soar",
+      "Larkspur",
+      "Helstrum",
+      "Haztech Mask (Operator)",
+      "Kubrodon Ventkid Mask",
+      "Outrider Mask",
+      "Smelter Mask (Operator)",
+      "Vent Pobber Ventkid Mask",
+      "Vent Rat Mask",
+      "Splat"
+    ]
+  },
+  {
+    "name": "Tepa Nodule",
+    "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/VenusTreeItem",
+    "usedIn": [
+      "Pax Soar",
+      "Battacor",
+      "Kriller Trophy",
+      "Mirewinder Trophy",
+      "Recaster Trophy",
+      "Arc Twelve",
+      "Coldfusor",
+      "Gaze",
+      "Highbrow",
+      "Hothead",
+      "Zip",
+      "Atheca Gyro",
+      "Gauth Bracket",
+      "Jonsin Bracket",
+      "Tian Bracket"
+    ]
+  },
+  {
+    "name": "Chassis",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/AshChassisComponent",
+    "usedIn": [
+      "Ash",
+      "Ash Prime",
+      "Atlas",
+      "Atlas Prime",
+      "Banshee",
+      "Banshee Prime",
+      "Baruuk",
+      "Baruuk Prime",
+      "Caliban",
+      "Chroma",
+      "Chroma Prime",
+      "Citrine",
+      "Cyte-09",
+      "Dagath",
+      "Dante",
+      "Ember",
+      "Ember Prime",
+      "Equinox Prime",
+      "Excalibur",
+      "Frost",
+      "Frost Prime",
+      "Gara",
+      "Gara Prime",
+      "Garuda",
+      "Garuda Prime",
+      "Gauss",
+      "Gauss Prime",
+      "Grendel",
+      "Grendel Prime",
+      "Gyre",
+      "Harrow",
+      "Harrow Prime",
+      "Hildryn",
+      "Hildryn Prime",
+      "Hydroid",
+      "Hydroid Prime",
+      "Inaros",
+      "Inaros Prime",
+      "Ivara",
+      "Ivara Prime",
+      "Jade",
+      "Khora",
+      "Khora Prime",
+      "Koumei",
+      "Kullervo",
+      "Lavos",
+      "Lavos Prime",
+      "Limbo",
+      "Limbo Prime",
+      "Loki",
+      "Loki Prime",
+      "Mag",
+      "Mag Prime",
+      "Mesa",
+      "Mesa Prime",
+      "Mirage",
+      "Mirage Prime",
+      "Nekros",
+      "Nekros Prime",
+      "Nezha",
+      "Nezha Prime",
+      "Nidus",
+      "Nidus Prime",
+      "Nova",
+      "Nova Prime",
+      "Nyx",
+      "Nyx Prime",
+      "Oberon",
+      "Oberon Prime",
+      "Octavia",
+      "Octavia Prime",
+      "Protea",
+      "Protea Prime",
+      "Qorvex",
+      "Revenant",
+      "Revenant Prime",
+      "Rhino",
+      "Rhino Prime",
+      "Saryn",
+      "Saryn Prime",
+      "Sevagoth",
+      "Sevagoth Prime",
+      "Styanax",
+      "Temple",
+      "Titania",
+      "Titania Prime",
+      "Trinity",
+      "Trinity Prime",
+      "Valkyr",
+      "Valkyr Prime",
+      "Vauban",
+      "Vauban Prime",
+      "Volt",
+      "Volt Prime",
+      "Voruna",
+      "Wisp",
+      "Wisp Prime",
+      "Wukong",
+      "Wukong Prime",
+      "Xaku",
+      "Xaku Prime",
+      "Yareli",
+      "Zephyr",
+      "Zephyr Prime",
+      "Miter",
+      "Shedu",
+      "Spectra Vandal",
+      "Ghoulsaw"
+    ]
+  },
+  {
+    "name": "Neuroptics",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/AshHelmetComponent",
+    "usedIn": [
+      "Ash",
+      "Ash Prime",
+      "Atlas",
+      "Atlas Prime",
+      "Banshee",
+      "Banshee Prime",
+      "Baruuk",
+      "Baruuk Prime",
+      "Caliban",
+      "Chroma",
+      "Chroma Prime",
+      "Citrine",
+      "Cyte-09",
+      "Dagath",
+      "Dante",
+      "Ember",
+      "Ember Prime",
+      "Equinox Prime",
+      "Excalibur",
+      "Frost",
+      "Frost Prime",
+      "Gara",
+      "Gara Prime",
+      "Garuda",
+      "Garuda Prime",
+      "Gauss",
+      "Gauss Prime",
+      "Grendel",
+      "Grendel Prime",
+      "Gyre",
+      "Harrow",
+      "Harrow Prime",
+      "Hildryn",
+      "Hildryn Prime",
+      "Hydroid",
+      "Hydroid Prime",
+      "Inaros",
+      "Inaros Prime",
+      "Ivara",
+      "Ivara Prime",
+      "Jade",
+      "Khora",
+      "Khora Prime",
+      "Koumei",
+      "Kullervo",
+      "Lavos",
+      "Lavos Prime",
+      "Limbo",
+      "Limbo Prime",
+      "Loki",
+      "Loki Prime",
+      "Mag",
+      "Mag Prime",
+      "Mesa",
+      "Mesa Prime",
+      "Mirage",
+      "Mirage Prime",
+      "Nekros",
+      "Nekros Prime",
+      "Nezha",
+      "Nezha Prime",
+      "Nidus",
+      "Nidus Prime",
+      "Nova",
+      "Nova Prime",
+      "Nyx",
+      "Nyx Prime",
+      "Oberon",
+      "Oberon Prime",
+      "Octavia",
+      "Octavia Prime",
+      "Protea",
+      "Protea Prime",
+      "Qorvex",
+      "Revenant",
+      "Revenant Prime",
+      "Rhino",
+      "Rhino Prime",
+      "Saryn",
+      "Saryn Prime",
+      "Sevagoth",
+      "Sevagoth Prime",
+      "Styanax",
+      "Temple",
+      "Titania",
+      "Titania Prime",
+      "Trinity",
+      "Trinity Prime",
+      "Valkyr",
+      "Valkyr Prime",
+      "Vauban",
+      "Vauban Prime",
+      "Volt",
+      "Volt Prime",
+      "Voruna",
+      "Wisp",
+      "Wisp Prime",
+      "Wukong",
+      "Wukong Prime",
+      "Xaku",
+      "Xaku Prime",
+      "Yareli",
+      "Zephyr",
+      "Zephyr Prime"
+    ]
+  },
+  {
+    "name": "Orokin Cell",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/OrokinCell",
+    "usedIn": [
+      "Ash",
+      "Ash Prime",
+      "Atlas",
+      "Atlas Prime",
+      "Banshee",
+      "Banshee Prime",
+      "Baruuk",
+      "Baruuk Prime",
+      "Caliban",
+      "Chroma Prime",
+      "Citrine",
+      "Cyte-09",
+      "Dagath",
+      "Dante",
+      "Ember",
+      "Ember Prime",
+      "Equinox Prime",
+      "Excalibur",
+      "Excalibur Umbra",
+      "Frost",
+      "Frost Prime",
+      "Gara",
+      "Gara Prime",
+      "Garuda Prime",
+      "Gauss",
+      "Gauss Prime",
+      "Grendel",
+      "Grendel Prime",
+      "Gyre",
+      "Harrow Prime",
+      "Hildryn",
+      "Hildryn Prime",
+      "Hydroid",
+      "Hydroid Prime",
+      "Inaros",
+      "Inaros Prime",
+      "Ivara",
+      "Ivara Prime",
+      "Jade",
+      "Khora",
+      "Khora Prime",
+      "Lavos",
+      "Lavos Prime",
+      "Limbo",
+      "Limbo Prime",
+      "Loki",
+      "Loki Prime",
+      "Mag",
+      "Mag Prime",
+      "Mesa",
+      "Mesa Prime",
+      "Mirage Prime",
+      "Nekros",
+      "Nekros Prime",
+      "Nezha",
+      "Nezha Prime",
+      "Nidus Prime",
+      "Nova",
+      "Nova Prime",
+      "Nyx",
+      "Nyx Prime",
+      "Oberon",
+      "Oberon Prime",
+      "Octavia Prime",
+      "Protea",
+      "Protea Prime",
+      "Revenant",
+      "Revenant Prime",
+      "Rhino Prime",
+      "Saryn",
+      "Saryn Prime",
+      "Sevagoth",
+      "Sevagoth Prime",
+      "Styanax",
+      "Temple",
+      "Titania",
+      "Titania Prime",
+      "Trinity",
+      "Trinity Prime",
+      "Valkyr",
+      "Valkyr Prime",
+      "Vauban",
+      "Volt",
+      "Volt Prime",
+      "Wisp",
+      "Wisp Prime",
+      "Wukong",
+      "Wukong Prime",
+      "Xaku",
+      "Xaku Prime",
+      "Yareli",
+      "Zephyr",
+      "Zephyr Prime",
+      "Acceltra Prime",
+      "Astilla Prime",
+      "Baza Prime",
+      "Boar Prime",
+      "Boltor Prime",
+      "Braton Prime",
+      "Burston Prime",
+      "Cedo Prime",
+      "Corinth Prime",
+      "Fulmin Prime",
+      "Latron Prime",
+      "Nagantaka Prime",
+      "Panthera",
+      "Panthera Prime",
+      "Phantasma Prime",
+      "Rubico Prime",
+      "Scourge Prime",
+      "Simulor",
+      "Soma Prime",
+      "Stradavar Prime",
+      "Strun Prime",
+      "Sybaris Prime",
+      "Tenora Prime",
+      "Tiberon Prime",
+      "Tigris",
+      "Tigris Prime",
+      "Trumna Prime",
+      "Vectis",
+      "Vectis Prime",
+      "Afuris",
+      "Akbolto",
+      "Akbronco",
+      "Akjagara",
+      "Akjagara Prime",
+      "Aklex",
+      "Akmagnus",
+      "Aksomati",
+      "Akvasto",
+      "Athodai",
+      "Bolto",
+      "Brakk",
+      "Bronco Prime",
+      "Detron",
+      "Epitaph",
+      "Epitaph Prime",
+      "Euphona Prime",
+      "Hikou Prime",
+      "Hystrix Prime",
+      "Knell Prime",
+      "Kompressa",
+      "Lex Prime",
+      "Magnus",
+      "Magnus Prime",
+      "Pandero Prime",
+      "Pyrana Prime",
+      "Riot-848",
+      "Seer",
+      "Sicarus Prime",
+      "Spira Prime",
+      "Twin Vipers",
+      "Vasto Prime",
+      "Velox",
+      "Velox Prime",
+      "Zakti Prime",
+      "Zylok Prime",
+      "Ankyros Prime",
+      "Bo",
+      "Bo Prime",
+      "Cobra & Crane Prime",
+      "Corufell",
+      "Dakra Prime",
+      "Destreza Prime",
+      "Dual Kamas",
+      "Dual Raza",
+      "Fragor Prime",
+      "Galatine Prime",
+      "Glaive Prime",
+      "Gram Prime",
+      "Guandao Prime",
+      "Karyst Prime",
+      "Kogake Prime",
+      "Kronen Prime",
+      "Masseter Prime",
+      "Nami Skyla Prime",
+      "Nikana Prime",
+      "Ninkondi Prime",
+      "Okina Prime",
+      "Orthos Prime",
+      "Orvius",
+      "Pangolin Prime",
+      "Paracesis",
+      "Plasma Sword",
+      "Reaper Prime",
+      "Redeemer Prime",
+      "Scindo Prime",
+      "Silva & Aegis Prime",
+      "Skiajati",
+      "Tatsu Prime",
+      "Tekko Prime",
+      "Tipedo Prime",
+      "Venka Prime",
+      "Vitrica",
+      "Volnus Prime",
+      "Odonata Prime",
+      "Corvas Prime",
+      "Larkspur Prime",
+      "Carrier Prime",
+      "Dethcube Prime",
+      "Helios Prime",
+      "Nautilus Prime",
+      "Shade Prime",
+      "Wyrm Prime",
+      "Fresnels",
+      "Voidrig Engine",
+      "Akvasto Forest-Camo Skin",
+      "Arcane Aura Helmet",
+      "Arcane Aurora Helmet",
+      "Arcane Avalon Helmet",
+      "Arcane Backdraft Helmet",
+      "Arcane Chlora Helmet",
+      "Arcane Chorus Helmet",
+      "Arcane Coil Helmet",
+      "Arcane Esprit Helmet",
+      "Arcane Essence Helmet",
+      "Arcane Flux Helmet",
+      "Arcane Gambit Helmet",
+      "Arcane Hemlock Helmet",
+      "Arcane Locust Helmet",
+      "Arcane Mag Gauss Helmet",
+      "Arcane Menticide Helmet",
+      "Arcane Meridian Helmet",
+      "Arcane Pendragon Helmet",
+      "Arcane Phoenix Helmet",
+      "Arcane Pulse Helmet",
+      "Arcane Reverb Helmet",
+      "Arcane Scorpion Helmet",
+      "Arcane Squall Helmet",
+      "Arcane Storm Helmet",
+      "Arcane Swindle Helmet",
+      "Arcane Thrak Helmet",
+      "Arcane Vanguard Helmet",
+      "Arcane Vespa Helmet",
+      "Atlas Shikoro Helmet",
+      "Atlas Tartarus Helmet",
+      "Baruuk Meroe Helmet",
+      "Cyte-09 Espricor Helmet",
+      "Daedalus Chest Plate",
+      "Daedalus Shoulder Plates",
+      "Daedalus Spurs",
+      "Daman Sugatra",
+      "Detron Shock-Camo Skin",
+      "Edo Chest Plate",
+      "Edo Shin Plates",
+      "Edo Shoulder Plates",
+      "Eos Chest Plate",
+      "Eos Shoulder Plates",
+      "Eos Spurs",
+      "Equinox Clisthert Helm",
+      "Equinox Solstice Helmet",
+      "Excalibur Mordred Helmet",
+      "Gara Virago Helmet",
+      "Garuda Bathory Helmet",
+      "Gauss Mag Helmet",
+      "Grendel Glutt Helmet",
+      "Harrow Crucis Helmet",
+      "Harrow Suffragan Helmet",
+      "Hawk Bishamo Cuirass (Operator)",
+      "Hawk Bishamo Greaves (Operator)",
+      "Hawk Bishamo Helmet (Operator)",
+      "Hawk Bishamo Pauldrons (Operator)",
+      "Hildryn Asuron Helmet",
+      "Hydroid Triton Helmet",
+      "Inaros Anubis Helmet",
+      "Khora Delphi Helmet",
+      "Lavos Cordatus Helmet",
+      "Limbo Aristeas Helmet",
+      "Limbo Magrite Helmet",
+      "Mesa Longhorn Helmet",
+      "Mesa Ovis Helmet",
+      "Mirage Harlequin Helmet",
+      "Mirage Trivelin Helmet",
+      "Nekros Raknis Helmet",
+      "Nekros Shroud Helmet",
+      "Nezha Circa Helmet",
+      "Nezha Jinza Helmet",
+      "Nidus Myxini Helmet",
+      "Nidus Prion Helmet",
+      "Nova Quantum Helmet",
+      "Oberon Markhor Helmet",
+      "Oberon Oryx Helmet",
+      "Octavia Cadenza Helmet",
+      "Pazza Sugatra",
+      "Penta Shock-Camo Skin",
+      "Protea Mavv Helmet",
+      "Protea Telema Helmet",
+      "Prova Shock-Camo Skin",
+      "Revenant Vania Helmet",
+      "Scindo Forest-Camo Skin",
+      "Sevagoth Lucifuge Helmet",
+      "Smoking Body Ephemera",
+      "Soma Forest-Camo Skin",
+      "Styanax Synmora Helmet",
+      "Tantu Sugatra",
+      "Titania Aurai Helmet",
+      "Titania Mab Helmet",
+      "Valkyr Bastet Helmet",
+      "Valkyr Kara Helmet",
+      "Vauban Armistice Helmet",
+      "Wisp Gaoth Helmet",
+      "Wolf Hood",
+      "Wukong Dasheng Helmet",
+      "Yareli Physalia Helmet",
+      "Yomo Syandana",
+      "Zephyr Cierzo Helmet",
+      "Zephyr Tengu Helmet",
+      "Echoes Of Umbra",
+      "Exilus Warframe Adapter",
+      "Exilus Weapon Adapter",
+      "Forma",
+      "Greater Madurai Lens",
+      "Greater Naramon Lens",
+      "Greater Unairu Lens",
+      "Greater Vazarin Lens",
+      "Greater Zenurik Lens",
+      "Mantis",
+      "Orokin Catalyst",
+      "Orokin Reactor",
+      "Parallax",
+      "Scimitar",
+      "Test Forma",
+      "Xiphos",
+      "The Jordas Precept",
+      "The Limbo Theorem"
+    ]
+  },
+  {
+    "name": "Systems",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/AshSystemsComponent",
+    "usedIn": [
+      "Ash",
+      "Ash Prime",
+      "Atlas",
+      "Atlas Prime",
+      "Banshee",
+      "Banshee Prime",
+      "Baruuk",
+      "Baruuk Prime",
+      "Caliban",
+      "Chroma",
+      "Chroma Prime",
+      "Citrine",
+      "Cyte-09",
+      "Dagath",
+      "Dante",
+      "Ember",
+      "Ember Prime",
+      "Equinox Prime",
+      "Excalibur",
+      "Frost",
+      "Frost Prime",
+      "Gara",
+      "Gara Prime",
+      "Garuda",
+      "Garuda Prime",
+      "Gauss",
+      "Gauss Prime",
+      "Grendel",
+      "Grendel Prime",
+      "Gyre",
+      "Harrow",
+      "Harrow Prime",
+      "Hildryn",
+      "Hildryn Prime",
+      "Hydroid",
+      "Hydroid Prime",
+      "Inaros",
+      "Inaros Prime",
+      "Ivara",
+      "Ivara Prime",
+      "Jade",
+      "Khora",
+      "Khora Prime",
+      "Koumei",
+      "Kullervo",
+      "Lavos",
+      "Lavos Prime",
+      "Limbo",
+      "Limbo Prime",
+      "Loki",
+      "Loki Prime",
+      "Mag",
+      "Mag Prime",
+      "Mesa",
+      "Mesa Prime",
+      "Mirage",
+      "Mirage Prime",
+      "Nekros",
+      "Nekros Prime",
+      "Nezha",
+      "Nezha Prime",
+      "Nidus",
+      "Nidus Prime",
+      "Nova",
+      "Nova Prime",
+      "Nyx",
+      "Nyx Prime",
+      "Oberon",
+      "Oberon Prime",
+      "Octavia",
+      "Octavia Prime",
+      "Protea",
+      "Protea Prime",
+      "Qorvex",
+      "Revenant",
+      "Revenant Prime",
+      "Rhino",
+      "Rhino Prime",
+      "Saryn",
+      "Saryn Prime",
+      "Sevagoth",
+      "Sevagoth Prime",
+      "Styanax",
+      "Temple",
+      "Titania",
+      "Titania Prime",
+      "Trinity",
+      "Trinity Prime",
+      "Valkyr",
+      "Valkyr Prime",
+      "Vauban",
+      "Vauban Prime",
+      "Volt",
+      "Volt Prime",
+      "Voruna",
+      "Wisp",
+      "Wisp Prime",
+      "Wukong",
+      "Wukong Prime",
+      "Xaku",
+      "Xaku Prime",
+      "Yareli",
+      "Zephyr",
+      "Zephyr Prime",
+      "Amesha",
+      "Elytron",
+      "Itzal",
+      "Odonata",
+      "Odonata Prime",
+      "Carrier Prime",
+      "Dethcube Prime",
+      "Helios Prime",
+      "Nautilus",
+      "Nautilus Prime",
+      "Shade Prime",
+      "Wyrm Prime"
+    ]
+  },
+  {
+    "name": "Bonewidow Capsule",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartSystemsItem",
+    "usedIn": [
+      "Bonewidow"
+    ]
+  },
+  {
+    "name": "Bonewidow Casing",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartChassisItem",
+    "usedIn": [
+      "Bonewidow"
+    ]
+  },
+  {
+    "name": "Bonewidow Engine",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartEngineItem",
+    "usedIn": [
+      "Bonewidow"
+    ]
+  },
+  {
+    "name": "Bonewidow Weapon Pod",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartWeaponPodItem",
+    "usedIn": [
+      "Bonewidow"
+    ]
+  },
+  {
+    "name": "Volt Neuroptics",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/VOLTHelmetComponent",
+    "usedIn": [
+      "Chroma"
+    ]
+  },
+  {
+    "name": "Day Aspect",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/AnimusComponent",
+    "usedIn": [
+      "Equinox"
+    ]
+  },
+  {
+    "name": "Forma",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Forma",
+    "usedIn": [
+      "Equinox",
+      "Arca Plasmor",
+      "Argonak",
+      "Attica",
+      "Baza",
+      "Buzlok",
+      "Cedo",
+      "Convectrix",
+      "Daikyu",
+      "Dera",
+      "Ferrox",
+      "Flux Rifle",
+      "Glaxion",
+      "Grinlok",
+      "Hema",
+      "Ignis",
+      "Komorex",
+      "Lanka",
+      "Mutalist Quanta",
+      "Ogris",
+      "Opticor",
+      "Paracyst",
+      "Phage",
+      "Quanta",
+      "Supra",
+      "Sybaris",
+      "Synapse",
+      "Tenora",
+      "Tiberon",
+      "Torid",
+      "Veldt",
+      "Acrid",
+      "Akstiletto",
+      "Arca Scisco",
+      "Castanas",
+      "Cyanex",
+      "Cycron",
+      "Dual Cestra",
+      "Dual Toxocyst",
+      "Embolist",
+      "Kohmak",
+      "Marelok",
+      "Nukor",
+      "Pyrana",
+      "Spectra",
+      "Talons",
+      "Twin Grakatas",
+      "Twin Kohmak",
+      "Ack & Brunt",
+      "Broken War",
+      "Cassowar",
+      "Cerata",
+      "Dark Split-Sword",
+      "Dual Ichor",
+      "Falcor",
+      "Jat Kittag",
+      "Jat Kusar",
+      "Mios",
+      "Nikana",
+      "Prova",
+      "Pupacyst",
+      "Ripkas",
+      "Scoliac",
+      "Shaku",
+      "Silva & Aegis",
+      "Twin Krohkur",
+      "Venka",
+      "Grattler",
+      "Knux",
+      "Djinn",
+      "Helios",
+      "Exilus Warframe Adapter",
+      "Exilus Weapon Adapter",
+      "Greater Madurai Lens",
+      "Greater Naramon Lens",
+      "Greater Unairu Lens",
+      "Greater Vazarin Lens",
+      "Greater Zenurik Lens",
+      "Omni Forma",
+      "Stance Forma",
+      "Umbra Forma"
+    ]
+  },
+  {
+    "name": "Night Aspect",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/AnimaComponent",
+    "usedIn": [
+      "Equinox"
+    ]
+  },
+  {
+    "name": "Alloy Plate",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/AlloyPlate",
+    "usedIn": [
+      "Excalibur Umbra",
+      "Alternox",
+      "Argonak",
+      "Baza",
+      "Boar",
+      "Boltor",
+      "Burston",
+      "Corinth",
+      "Drakgoon",
+      "Felarx",
+      "Ferrox",
+      "Grakata",
+      "Javlok",
+      "Karak",
+      "Lanka",
+      "Latron",
+      "Lenz",
+      "Ogris",
+      "Penta",
+      "Phenmor",
+      "Quellor",
+      "Snipetron",
+      "Supra",
+      "Tetra",
+      "Zarr",
+      "Aegrit",
+      "Akstiletto",
+      "Angstrum",
+      "Bronco",
+      "Despair",
+      "Furis",
+      "Gammacor",
+      "Kraken",
+      "Magnus",
+      "Plinx",
+      "Pyrana",
+      "Sonicor",
+      "Staticor",
+      "Stug",
+      "Twin Rogga",
+      "Vasto",
+      "Zakti",
+      "Amphis",
+      "Ankyros",
+      "Bo",
+      "Ceramic Dagger",
+      "Destreza",
+      "Dual Cleavers",
+      "Dual Raza",
+      "Dual Skana",
+      "Dual Zoren",
+      "Endura",
+      "Ether Sword",
+      "Falcor",
+      "Fragor",
+      "Furax",
+      "Galatine",
+      "Gazal Machete",
+      "Gram",
+      "Harmony",
+      "Kesheg",
+      "Kogake",
+      "Krohkur",
+      "Machete",
+      "Magistar",
+      "Mire",
+      "Nikana",
+      "Obex",
+      "Okina",
+      "Orthos",
+      "Pangolin Sword",
+      "Peye",
+      "Prova",
+      "Scindo",
+      "Sibear",
+      "Silva & Aegis",
+      "Skana",
+      "Skiajati",
+      "Slaytra",
+      "Volnus",
+      "Carrier",
+      "Dethcube",
+      "Diriga",
+      "Shade",
+      "Wyrm",
+      "Adrenal Stim",
+      "Calcifin Stim",
+      "Force Specter",
+      "Pharoma",
+      "Phase Specter",
+      "Squad Energy Restore (Medium)",
+      "Squad Shield Restore (Large)",
+      "Squad Shield Restore (Medium)",
+      "Carbides",
+      "Gallos Rods",
+      "Komms",
+      "Akvasto Forest-Camo Skin",
+      "Arcane Aura Helmet",
+      "Arcane Aurora Helmet",
+      "Arcane Avalon Helmet",
+      "Arcane Backdraft Helmet",
+      "Arcane Chlora Helmet",
+      "Arcane Chorus Helmet",
+      "Arcane Coil Helmet",
+      "Arcane Esprit Helmet",
+      "Arcane Essence Helmet",
+      "Arcane Flux Helmet",
+      "Arcane Gambit Helmet",
+      "Arcane Hemlock Helmet",
+      "Arcane Locust Helmet",
+      "Arcane Mag Gauss Helmet",
+      "Arcane Menticide Helmet",
+      "Arcane Meridian Helmet",
+      "Arcane Pendragon Helmet",
+      "Arcane Phoenix Helmet",
+      "Arcane Pulse Helmet",
+      "Arcane Reverb Helmet",
+      "Arcane Scorpion Helmet",
+      "Arcane Squall Helmet",
+      "Arcane Storm Helmet",
+      "Arcane Swindle Helmet",
+      "Arcane Thrak Helmet",
+      "Arcane Vanguard Helmet",
+      "Arcane Vespa Helmet",
+      "Asa Syandana",
+      "Baruuk Meroe Helmet",
+      "Chroma Amaru Helmet",
+      "Chroma Drac Helmet",
+      "Cyte-09 Espricor Helmet",
+      "Daedalus Chest Plate",
+      "Daedalus Shoulder Plates",
+      "Daedalus Spurs",
+      "Dagath Ganceann Helmet",
+      "Daman Sugatra",
+      "Detron Shock-Camo Skin",
+      "Edo Chest Plate",
+      "Edo Shin Plates",
+      "Edo Shoulder Plates",
+      "Eos Chest Plate",
+      "Eos Shoulder Plates",
+      "Eos Spurs",
+      "Excalibur Mordred Helmet",
+      "Fragor Brokk Skin",
+      "Gara Virago Helmet",
+      "Gauss Mag Helmet",
+      "Grendel Glutt Helmet",
+      "Hang Tenno",
+      "Harrow Crucis Helmet",
+      "Harrow Suffragan Helmet",
+      "Hildryn Asuron Helmet",
+      "Hydroid Ketos Helmet",
+      "Hydroid Triton Helmet",
+      "Inaros Canopic Helmet",
+      "Ivara Zirastra Helmet",
+      "Khora Delphi Helmet",
+      "Lavos Cordatus Helmet",
+      "Loki Enigma Helmet",
+      "Mesa Longhorn Helmet",
+      "Mesa Ovis Helmet",
+      "Mirage Harlequin Helmet",
+      "Nekros Raknis Helmet",
+      "Nekros Shroud Helmet",
+      "Nezha Circa Helmet",
+      "Nezha Jinza Helmet",
+      "Nidus Myxini Helmet",
+      "Nidus Prion Helmet",
+      "Nova Quantum Helmet",
+      "Nova Slipstream Helmet",
+      "Oberon Markhor Helmet",
+      "Oberon Oryx Helmet",
+      "Octavia Cadenza Helmet",
+      "Pazza Sugatra",
+      "Penta Shock-Camo Skin",
+      "Protea Telema Helmet",
+      "Prova Shock-Camo Skin",
+      "Puppeteer",
+      "Qorvex Raxpart Helmet",
+      "Sapcaddy Trophy",
+      "Scindo Dagger-Axe Skin",
+      "Scindo Forest-Camo Skin",
+      "Scindo Manticore Skin",
+      "Sevagoth Lucifuge Helmet",
+      "Soma Forest-Camo Skin",
+      "Styanax Agogean Helmet",
+      "Styanax Gerousic Helmet",
+      "Tantu Sugatra",
+      "Titania Aurai Helmet",
+      "Titania Mab Helmet",
+      "Valkyr Bastet Helmet",
+      "Valkyr Kara Helmet",
+      "Vauban Armistice Helmet",
+      "Wisp Gaoth Helmet",
+      "Wukong Macak Helmet",
+      "Yareli Physalia Helmet",
+      "Yomo Syandana",
+      "Catchmoon",
+      "Control Module",
+      "Kavat Incubator Upgrade Segment",
+      "Neural Sensors",
+      "Neurodes",
+      "Orokin Cell",
+      "Titan Extractor Prime",
+      "Hinta Stabilizer"
+    ]
+  },
+  {
+    "name": "Kuva",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Kuva",
+    "usedIn": [
+      "Excalibur Umbra",
+      "Garuda",
+      "Harrow",
+      "Nidus",
+      "Zarr",
+      "Aegrit",
+      "Twin Rogga",
+      "Broken Scepter",
+      "Kesheg",
+      "Orvius",
+      "Slaytra",
+      "Tatsu",
+      "Bleeding Body Ephemera",
+      "Hawk Bishamo Cuirass (Operator)",
+      "Naberus Ephemera",
+      "Umbra Forma"
+    ]
+  },
+  {
+    "name": "Nano Spores",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Nanospores",
+    "usedIn": [
+      "Excalibur Umbra",
+      "Acceltra",
+      "Bubonico",
+      "Drakgoon",
+      "Fulmin",
+      "Harpak",
+      "Ignis",
+      "Mutalist Cernos",
+      "Mutalist Quanta",
+      "Nagantaka",
+      "Paracyst",
+      "Paris",
+      "Phage",
+      "Phantasma",
+      "Proboscis Cernos",
+      "Vectis",
+      "Acrid",
+      "Akarius",
+      "Ballistica",
+      "Cestra",
+      "Cyanex",
+      "Dual Toxocyst",
+      "Kunai",
+      "Pox",
+      "Tysis",
+      "Viper",
+      "Zakti",
+      "Ankyros",
+      "Cobra & Crane",
+      "Ether Daggers",
+      "Fang",
+      "Furax",
+      "Glaive",
+      "Gunsen",
+      "Halikar",
+      "Hate",
+      "Hirudo",
+      "Kestrel",
+      "Kronen",
+      "Lesion",
+      "Mios",
+      "Mire",
+      "Plague Keewar",
+      "Plague Kripath",
+      "Pulmonars",
+      "Scoliac",
+      "Carrier",
+      "Dethcube",
+      "Shade",
+      "Wyrm",
+      "Ancient Protector Specter",
+      "Charger Specter",
+      "Clem Clone",
+      "Clotra Stim",
+      "Corrupted Bombard Specter",
+      "Corrupted Lancer Specter",
+      "Cosmic Specter",
+      "Fomorian Disruptor",
+      "Moa Specter",
+      "Phase Specter",
+      "Refract Stim",
+      "Roller Specter",
+      "Shield Osprey Specter",
+      "Squad Ammo Restore (Large)",
+      "Squad Ammo Restore (Small)",
+      "Squad Energy Restore (Large)",
+      "Squad Energy Restore (Small)",
+      "Squad Health Restore (Large)",
+      "Squad Health Restore (Medium)",
+      "Squad Health Restore (Small)",
+      "Squad Shield Restore (Small)",
+      "Stalker Specter",
+      "Bracoid",
+      "Pustrels",
+      "Tempered Bapholite",
+      "Trachons",
+      "Amniophysi Trophy",
+      "Barbisteo Trophy",
+      "Brickie Trophy",
+      "Cryptosuctus Trophy",
+      "Dante Cantist Helmet",
+      "Glutinox Trophy",
+      "Ivara Loxley Helmet",
+      "Jade Aureolt Helmet",
+      "Koumei Orihime Helmet",
+      "Kymaeros Trophy",
+      "Lobotriscid Trophy",
+      "Mesa Longhorn Helmet",
+      "Nezha Circa Helmet",
+      "Nezha Jinza Helmet",
+      "Wolf Hood",
+      "Zephyr Cierzo Helmet",
+      "Zephyr Tengu Helmet",
+      "Control Module",
+      "Gallium",
+      "Genetic Code Template",
+      "Incubator Power Core",
+      "Infested Catalyst",
+      "Morphics",
+      "Neural Sensors",
+      "Neurodes",
+      "Orokin Cell",
+      "Titan Extractor Prime",
+      "Umbra Forma",
+      "Mutalist Alad V Assassinate",
+      "Patient Zero",
+      "Sands Of Inaros"
+    ]
+  },
+  {
+    "name": "Fate Pearl",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/ShrineFragment",
+    "usedIn": [
+      "Koumei",
+      "Higasa",
+      "Amanata"
+    ]
+  },
+  {
+    "name": "Pathos Clamp",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriDragonDropItem",
+    "usedIn": [
+      "Kullervo",
+      "Rauta"
+    ]
+  },
+  {
+    "name": "Argon Crystal",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/ArgonCrystal",
+    "usedIn": [
+      "Mirage",
+      "Afentis",
+      "Alternox",
+      "Amprex",
+      "Bubonico",
+      "Exergis",
+      "Fulmin",
+      "Harpak",
+      "Ignis Wraith",
+      "Kohm",
+      "Phantasma",
+      "Rubico",
+      "Simulor",
+      "Stradavar",
+      "Tonkor",
+      "Zhuge",
+      "Akzani",
+      "Angstrum",
+      "Atomos",
+      "Cantare",
+      "Gammacor",
+      "Knell",
+      "Onos",
+      "Pandero",
+      "Plinx",
+      "Quatz",
+      "Sonicor",
+      "Twin Rogga",
+      "Arca Titron",
+      "Atterax",
+      "Cobra & Crane",
+      "Destreza",
+      "Dragon Nikana",
+      "Dual Keres",
+      "Endura",
+      "Galvacord",
+      "Gazal Machete",
+      "Halikar",
+      "Karyst",
+      "Kronen",
+      "Masseter",
+      "Nami Solo",
+      "Nikana",
+      "Ninkondi",
+      "Ohma",
+      "Pulmonars",
+      "Redeemer",
+      "Tatsu",
+      "Volnus",
+      "Corvas",
+      "Fluctus",
+      "Diriga",
+      "Potent Pherliac Pods",
+      "Dagath Ganceann Helmet",
+      "Hawk Bishamo Cuirass (Operator)",
+      "Hydroid Ketos Helmet",
+      "Jade Aureolt Helmet",
+      "Loki Enigma Helmet",
+      "Nova Slipstream Helmet",
+      "Styanax Agogean Helmet",
+      "Uru Syandana",
+      "Xaku Kintsu Helmet",
+      "Exilus Warframe Adapter",
+      "Greater Madurai Lens",
+      "Greater Naramon Lens",
+      "Greater Unairu Lens",
+      "Greater Vazarin Lens",
+      "Greater Zenurik Lens",
+      "Incubator Power Core",
+      "Kavat Incubator Upgrade Segment",
+      "Landing Craft Foundry Segment",
+      "Nutrio Incubator Upgrade Segment",
+      "Omni Forma",
+      "Personal Quarters Segment",
+      "Stance Forma",
+      "Hidden Messages",
+      "The Jordas Precept",
+      "The Limbo Theorem"
+    ]
+  },
+  {
+    "name": "Mandachord",
+    "uniqueName": "/Lotus/Types/Keys/BardQuest/BardQuestSequencerItem",
+    "usedIn": [
+      "Octavia"
+    ]
+  },
+  {
+    "name": "Echo Voca",
+    "uniqueName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTagRare",
+    "usedIn": [
+      "Qorvex",
+      "Grimoire",
+      "Mandonel",
+      "Helminth Coalescent Segment"
+    ]
+  },
+  {
+    "name": "Gallium",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Gallium",
+    "usedIn": [
+      "Rhino",
+      "Cernos",
+      "Corinth",
+      "Evensong",
+      "Harpak",
+      "Lanka",
+      "Nagantaka",
+      "Opticor",
+      "Akstiletto",
+      "Ballistica",
+      "Cestra",
+      "Spira",
+      "Stug",
+      "Anku",
+      "Arca Titron",
+      "Boltace",
+      "Ceramic Dagger",
+      "Dual Cleavers",
+      "Endura",
+      "Fragor",
+      "Galatine",
+      "Gram",
+      "Guandao",
+      "Harmony",
+      "Lacera",
+      "Machete",
+      "Magistar",
+      "Nami Skyla",
+      "Scindo",
+      "Silva & Aegis",
+      "Tekko",
+      "Venka",
+      "Knux",
+      "Cosmic Specter",
+      "Razorback Cipher",
+      "Thaumic Distillate",
+      "Venerdo Alloy",
+      "Chroma Amaru Helmet",
+      "Fragor Brokk Skin",
+      "Nova Slipstream Helmet",
+      "Scindo Manticore Skin",
+      "Tromyzon Trophy",
+      "Wukong Macak Helmet",
+      "Orokin Catalyst",
+      "Synthula",
+      "Bhaira Hound",
+      "Dorma Hound",
+      "Hec Hound"
+    ]
+  },
+  {
+    "name": "Nitain Extract",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Alertium",
+    "usedIn": [
+      "Vauban Prime",
+      "Corinth",
+      "Javlok",
+      "Lenz",
+      "Proboscis Cernos",
+      "Scourge",
+      "Zhuge",
+      "Fusilai",
+      "Pox",
+      "Staticor",
+      "Broken War",
+      "Caustacyst",
+      "Destreza",
+      "Hirudo",
+      "Nepheri",
+      "Ohma",
+      "War",
+      "Wolf Sledge",
+      "Amesha",
+      "Atlas Shikoro Helmet",
+      "Citrine Kalite Helmet",
+      "Dante Cantist Helmet",
+      "Gyre Automaton Helmet",
+      "Hawk Bishamo Cuirass (Operator)",
+      "Inaros Anubis Helmet",
+      "Inaros Canopic Helmet",
+      "Ivara Loxley Helmet",
+      "Ivara Zirastra Helmet",
+      "Khora Delphi Helmet",
+      "Koumei Orihime Helmet",
+      "Kullervo Usvah Helmet",
+      "Nezha Circa Helmet",
+      "Nezha Jinza Helmet",
+      "Nidus Myxini Helmet",
+      "Nidus Prion Helmet",
+      "Sevagoth Lucifuge Helmet",
+      "Titania Aurai Helmet",
+      "Titania Mab Helmet",
+      "Voruna Anukas Helmet",
+      "Wukong Dasheng Helmet",
+      "Omni Forma",
+      "Stance Forma",
+      "Frak Stabilizer",
+      "Hinta Stabilizer",
+      "Wanz Stabilizer",
+      "Sands Of Inaros",
+      "The Silver Grove"
+    ]
+  },
+  {
+    "name": "Voidrig Capsule",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartSystemsItem",
+    "usedIn": [
+      "Voidrig"
+    ]
+  },
+  {
+    "name": "Voidrig Casing",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartChassisItem",
+    "usedIn": [
+      "Voidrig"
+    ]
+  },
+  {
+    "name": "Voidrig Engine",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartEngineItem",
+    "usedIn": [
+      "Voidrig"
+    ]
+  },
+  {
+    "name": "Voidrig Weapon Pod",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartWeaponPodItem",
+    "usedIn": [
+      "Voidrig"
+    ]
+  },
+  {
+    "name": "Lua Thrax Plasm",
+    "uniqueName": "/Lotus/Types/Gameplay/Zariman/Resources/EclipseVoidWraithItem",
+    "usedIn": [
+      "Voruna",
+      "Perigale",
+      "Sarofang"
+    ]
+  },
+  {
+    "name": "Hexenon",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/ConcentratedGas",
+    "usedIn": [
+      "Acceltra",
+      "Fulmin",
+      "Komorex",
+      "Akarius",
+      "Cyanex",
+      "Cortege Stock",
+      "Morgha Stock",
+      "Hawk Bishamo Helmet (Operator)"
+    ]
+  },
+  {
+    "name": "Neurodes",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Neurode",
+    "usedIn": [
+      "Acceltra",
+      "Boltor",
+      "Daikyu",
+      "Grakata",
+      "Hek",
+      "Hind",
+      "Karak",
+      "Nagantaka",
+      "Sobek",
+      "Steflos",
+      "Tenora",
+      "Vectis",
+      "Akarius",
+      "Ballistica",
+      "Bolto",
+      "Bronco",
+      "Cestra",
+      "Furis",
+      "Kraken",
+      "Quatz",
+      "Stubba",
+      "Stug",
+      "Twin Gremlins",
+      "Tysis",
+      "Vasto",
+      "Amphis",
+      "Dark Dagger",
+      "Dark Sword",
+      "Heat Sword",
+      "Lesion",
+      "Nami Skyla",
+      "Pathocyst",
+      "Onorix",
+      "Veritux",
+      "Taxon",
+      "Bracoid",
+      "Akvasto Forest-Camo Skin",
+      "Arcane Aura Helmet",
+      "Arcane Aurora Helmet",
+      "Arcane Avalon Helmet",
+      "Arcane Backdraft Helmet",
+      "Arcane Chlora Helmet",
+      "Arcane Chorus Helmet",
+      "Arcane Coil Helmet",
+      "Arcane Esprit Helmet",
+      "Arcane Essence Helmet",
+      "Arcane Flux Helmet",
+      "Arcane Gambit Helmet",
+      "Arcane Hemlock Helmet",
+      "Arcane Locust Helmet",
+      "Arcane Mag Gauss Helmet",
+      "Arcane Menticide Helmet",
+      "Arcane Meridian Helmet",
+      "Arcane Pendragon Helmet",
+      "Arcane Phoenix Helmet",
+      "Arcane Pulse Helmet",
+      "Arcane Reverb Helmet",
+      "Arcane Scorpion Helmet",
+      "Arcane Squall Helmet",
+      "Arcane Storm Helmet",
+      "Arcane Swindle Helmet",
+      "Arcane Thrak Helmet",
+      "Arcane Vanguard Helmet",
+      "Arcane Vespa Helmet",
+      "Atlas Tartarus Helmet",
+      "Baruuk Meroe Helmet",
+      "Chroma Drac Helmet",
+      "Cyte-09 Espricor Helmet",
+      "Daedalus Chest Plate",
+      "Daedalus Shoulder Plates",
+      "Daedalus Spurs",
+      "Daman Sugatra",
+      "Detron Shock-Camo Skin",
+      "Edo Chest Plate",
+      "Edo Shin Plates",
+      "Edo Shoulder Plates",
+      "Eos Chest Plate",
+      "Eos Shoulder Plates",
+      "Eos Spurs",
+      "Gara Virago Helmet",
+      "Gauss Mag Helmet",
+      "Grendel Glutt Helmet",
+      "Harrow Crucis Helmet",
+      "Harrow Suffragan Helmet",
+      "Hawk Bishamo Helmet (Operator)",
+      "Hawk Bishamo Pauldrons (Operator)",
+      "Hildryn Asuron Helmet",
+      "Hydroid Triton Helmet",
+      "Lavos Cordatus Helmet",
+      "Limbo Magrite Helmet",
+      "Loki Enigma Helmet",
+      "Longwinder Trophy",
+      "Mesa Longhorn Helmet",
+      "Mesa Ovis Helmet",
+      "Nova Quantum Helmet",
+      "Oberon Markhor Helmet",
+      "Oberon Oryx Helmet",
+      "Octavia Cadenza Helmet",
+      "Pazza Sugatra",
+      "Penta Shock-Camo Skin",
+      "Prova Shock-Camo Skin",
+      "Scindo Forest-Camo Skin",
+      "Soma Forest-Camo Skin",
+      "Tantu Sugatra",
+      "Valkyr Bastet Helmet",
+      "Valkyr Kara Helmet",
+      "Wisp Gaoth Helmet",
+      "Yareli Physalia Helmet",
+      "Yomo Syandana",
+      "Zephyr Tengu Helmet",
+      "Echoes Of Umbra",
+      "Forma",
+      "Orokin Reactor",
+      "Synthula",
+      "Test Forma",
+      "Umbra Forma",
+      "Patient Zero"
+    ]
+  },
+  {
+    "name": "Plastids",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Plastids",
+    "usedIn": [
+      "Acceltra",
+      "Amprex",
+      "Argonak",
+      "Astilla",
+      "Boar",
+      "Bubonico",
+      "Cernos",
+      "Dread",
+      "Evensong",
+      "Latron",
+      "Mutalist Cernos",
+      "Paris",
+      "Phantasma",
+      "Snipetron",
+      "Soma",
+      "Tiberon",
+      "Vulkar",
+      "Dual Toxocyst",
+      "Gammacor",
+      "Hikou",
+      "Kohmak",
+      "Kulstar",
+      "Sonicor",
+      "Spira",
+      "Tysis",
+      "Zakti",
+      "Caustacyst",
+      "Cerata",
+      "Cobra & Crane",
+      "Dark Dagger",
+      "Dark Sword",
+      "Destreza",
+      "Endura",
+      "Gazal Machete",
+      "Gunsen",
+      "Harmony",
+      "Hirudo",
+      "Kronen",
+      "Kwath",
+      "Lesion",
+      "Machete",
+      "Mios",
+      "Ninkondi",
+      "Ohma",
+      "Plague Akwin",
+      "Plague Bokwin",
+      "Plague Keewar",
+      "Plague Kripath",
+      "Sarpa",
+      "Scoliac",
+      "Shaku",
+      "Skana",
+      "Skiajati",
+      "Tonbo",
+      "Venka",
+      "Diriga",
+      "Adrenal Stim",
+      "Air Support Charges",
+      "Calcifin Stim",
+      "Cosmic Specter",
+      "Force Specter",
+      "Loc-Pin",
+      "Adramal Alloy",
+      "Detonite Injector",
+      "Fieldron",
+      "Hespazym Alloy",
+      "Mutagen Mass",
+      "Pustrels",
+      "Trachons",
+      "Travocyte Alloy",
+      "Aquapulmo Trophy",
+      "Flagellocanth Trophy",
+      "Gyre Automaton Helmet",
+      "Hydroid Ketos Helmet",
+      "Inaros Anubis Helmet",
+      "Inaros Canopic Helmet",
+      "Ivara Zirastra Helmet",
+      "Jade Aureolt Helmet",
+      "Karkina Trophy",
+      "Koumei Orihime Helmet",
+      "Kullervo Usvah Helmet",
+      "Limbo Aristeas Helmet",
+      "Limbo Magrite Helmet",
+      "Loki Enigma Helmet",
+      "Mirage Harlequin Helmet",
+      "Mirage Trivelin Helmet",
+      "Mirewinder Trophy",
+      "Mortus Lungfish Trophy",
+      "Nova Slipstream Helmet",
+      "Ostimyr Trophy",
+      "Qorvex Raxpart Helmet",
+      "Sharrac Trophy",
+      "Tralok Trophy",
+      "Vitreospina Trophy",
+      "Wukong Dasheng Helmet",
+      "Zephyr Tengu Helmet",
+      "Fersteel Alloy",
+      "Infested Catalyst",
+      "Sparkfire",
+      "Stitch",
+      "Aegron Gyro",
+      "Trux Gyro",
+      "Patient Zero",
+      "The Silver Grove"
+    ]
+  },
+  {
+    "name": "Barrel",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/AcceltraPrimeBarrel",
+    "usedIn": [
+      "Acceltra Prime",
+      "Aeolak",
+      "Ambassador",
+      "Astilla Prime",
+      "Baza Prime",
+      "Boar Prime",
+      "Boltor Prime",
+      "Braton Prime",
+      "Braton Vandal",
+      "Burston Prime",
+      "Carmine Penta",
+      "Cedo",
+      "Cedo Prime",
+      "Corinth Prime",
+      "Dera Vandal",
+      "Efv-5 Jupiter",
+      "Fulmin Prime",
+      "Gorgon Wraith",
+      "Higasa",
+      "Karak Wraith",
+      "Latron Prime",
+      "Latron Wraith",
+      "Miter",
+      "Nagantaka Prime",
+      "Panthera Prime",
+      "Perigale",
+      "Phantasma Prime",
+      "Purgator 1",
+      "Rauta",
+      "Reconifex",
+      "Rubico Prime",
+      "Scourge Prime",
+      "Shedu",
+      "Snipetron Vandal",
+      "Soma Prime",
+      "Sporothrix",
+      "Stahlta",
+      "Steflos",
+      "Stradavar Prime",
+      "Strun Prime",
+      "Strun Wraith",
+      "Sybaris Prime",
+      "Tenora Prime",
+      "Tiberon Prime",
+      "Tigris Prime",
+      "Trumna",
+      "Trumna Prime",
+      "Vectis Prime",
+      "Zhuge Prime",
+      "Afuris Prime",
+      "Akarius Prime",
+      "Akbolto Prime",
+      "Akjagara Prime",
+      "Aksomati Prime",
+      "Akstiletto Prime",
+      "Athodai",
+      "Brakk",
+      "Bronco Prime",
+      "Detron",
+      "Efv-8 Mars",
+      "Epitaph",
+      "Epitaph Prime",
+      "Euphona Prime",
+      "Hystrix Prime",
+      "Knell Prime",
+      "Kompressa",
+      "Lato Vandal",
+      "Lex Prime",
+      "Magnus Prime",
+      "Pandero Prime",
+      "Pyrana Prime",
+      "Riot-848",
+      "Seer",
+      "Sepulcrum",
+      "Sicarus Prime",
+      "Spectra Vandal",
+      "Vasto Prime",
+      "Velox",
+      "Velox Prime",
+      "Vesper 77",
+      "Zakti Prime",
+      "Zylok Prime",
+      "Zymos",
+      "Corufell",
+      "Stropha",
+      "Corvas",
+      "Corvas Prime",
+      "Cyngas",
+      "Fluctus",
+      "Imperator Vandal",
+      "Larkspur Prime",
+      "Mandonel",
+      "Phaedra",
+      "Velocitus",
+      "Afentis Prime"
+    ]
+  },
+  {
+    "name": "Receiver",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/AcceltraPrimeReceiver",
+    "usedIn": [
+      "Acceltra Prime",
+      "Aeolak",
+      "Ambassador",
+      "Astilla Prime",
+      "Baza Prime",
+      "Boar Prime",
+      "Boltor Prime",
+      "Braton Prime",
+      "Braton Vandal",
+      "Burston Prime",
+      "Carmine Penta",
+      "Cedo",
+      "Cedo Prime",
+      "Corinth Prime",
+      "Dera Vandal",
+      "Efv-5 Jupiter",
+      "Fulmin Prime",
+      "Gorgon Wraith",
+      "Higasa",
+      "Karak Wraith",
+      "Latron Prime",
+      "Latron Wraith",
+      "Nagantaka Prime",
+      "Panthera Prime",
+      "Perigale",
+      "Phantasma Prime",
+      "Purgator 1",
+      "Rauta",
+      "Reconifex",
+      "Rubico Prime",
+      "Shedu",
+      "Snipetron Vandal",
+      "Soma Prime",
+      "Sporothrix",
+      "Stahlta",
+      "Steflos",
+      "Stradavar Prime",
+      "Strun Prime",
+      "Strun Wraith",
+      "Sybaris Prime",
+      "Tenora Prime",
+      "Tiberon Prime",
+      "Tigris Prime",
+      "Trumna",
+      "Trumna Prime",
+      "Vectis Prime",
+      "Zhuge Prime",
+      "Afuris Prime",
+      "Akarius Prime",
+      "Akbolto Prime",
+      "Akjagara Prime",
+      "Aksomati Prime",
+      "Akstiletto Prime",
+      "Athodai",
+      "Ballistica Prime",
+      "Brakk",
+      "Bronco Prime",
+      "Detron",
+      "Efv-8 Mars",
+      "Epitaph",
+      "Epitaph Prime",
+      "Euphona Prime",
+      "Hystrix Prime",
+      "Knell Prime",
+      "Kompressa",
+      "Lato Vandal",
+      "Lex Prime",
+      "Magnus Prime",
+      "Pandero Prime",
+      "Pyrana Prime",
+      "Riot-848",
+      "Seer",
+      "Sepulcrum",
+      "Sicarus Prime",
+      "Vasto Prime",
+      "Velox",
+      "Velox Prime",
+      "Vesper 77",
+      "Zakti Prime",
+      "Zylok Prime",
+      "Zymos",
+      "Corufell",
+      "Stropha",
+      "Corvas",
+      "Corvas Prime",
+      "Cyngas",
+      "Imperator Vandal",
+      "Larkspur Prime",
+      "Mandonel",
+      "Phaedra",
+      "Velocitus",
+      "Afentis Prime"
+    ]
+  },
+  {
+    "name": "Stock",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/AcceltraPrimeStock",
+    "usedIn": [
+      "Acceltra Prime",
+      "Aeolak",
+      "Ambassador",
+      "Astilla Prime",
+      "Baza Prime",
+      "Boar Prime",
+      "Boltor Prime",
+      "Braton Prime",
+      "Braton Vandal",
+      "Burston Prime",
+      "Carmine Penta",
+      "Cedo",
+      "Cedo Prime",
+      "Corinth Prime",
+      "Dera Vandal",
+      "Efv-5 Jupiter",
+      "Fulmin Prime",
+      "Gorgon Wraith",
+      "Higasa",
+      "Karak Wraith",
+      "Latron Prime",
+      "Latron Wraith",
+      "Nagantaka Prime",
+      "Panthera Prime",
+      "Perigale",
+      "Phantasma Prime",
+      "Purgator 1",
+      "Rauta",
+      "Reconifex",
+      "Rubico Prime",
+      "Snipetron Vandal",
+      "Soma Prime",
+      "Sporothrix",
+      "Stahlta",
+      "Steflos",
+      "Stradavar Prime",
+      "Strun Prime",
+      "Strun Wraith",
+      "Sybaris Prime",
+      "Tenora Prime",
+      "Tiberon Prime",
+      "Tigris Prime",
+      "Trumna",
+      "Trumna Prime",
+      "Vectis Prime",
+      "Efv-8 Mars",
+      "Riot-848",
+      "Stropha",
+      "Corvas",
+      "Corvas Prime",
+      "Cyngas",
+      "Fluctus",
+      "Larkspur Prime",
+      "Mandonel",
+      "Phaedra",
+      "Velocitus",
+      "Afentis Prime"
+    ]
+  },
+  {
+    "name": "Thrax Plasm",
+    "uniqueName": "/Lotus/Types/Gameplay/Zariman/Resources/VoidWraithItem",
+    "usedIn": [
+      "Aeolak",
+      "Alternox",
+      "Hespar",
+      "Innodem",
+      "Praedos",
+      "Gyre Automaton Helmet",
+      "Raptwing Ephemera",
+      "Seraphayre Ephemera",
+      "Styanax Gerousic Helmet",
+      "Helminth Archon Shard Segment"
+    ]
+  },
+  {
+    "name": "Cryotic",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Cryotic",
+    "usedIn": [
+      "Afentis",
+      "Arca Plasmor",
+      "Baza",
+      "Corinth",
+      "Glaxion",
+      "Kohm",
+      "Lenz",
+      "Mutalist Cernos",
+      "Opticor",
+      "Tonkor",
+      "Veldt",
+      "Zhuge",
+      "Aksomati",
+      "Knell",
+      "Kulstar",
+      "Pandero",
+      "Plinx",
+      "Ack & Brunt",
+      "Cerata",
+      "Dual Raza",
+      "Laka",
+      "Masseter",
+      "Sarpa",
+      "Sibear",
+      "Volnus",
+      "Clotra Stim",
+      "Fomorian Disruptor",
+      "Refract Stim",
+      "Copernics",
+      "Fresnels",
+      "Kesslers",
+      "Charc Eel Trophy",
+      "Citrine Kalite Helmet",
+      "Echowinder Trophy",
+      "Equinox Clisthert Helm",
+      "Equinox Solstice Helmet",
+      "Freezing Step Ephemera",
+      "Garuda Bathory Helmet",
+      "Goopolla Trophy",
+      "Inaros Anubis Helmet",
+      "Khut-Khut Trophy",
+      "Mawfish Trophy",
+      "Revenant Vania Helmet",
+      "Uru Syandana",
+      "Wukong Dasheng Helmet",
+      "Yogwun Trophy",
+      "Gaze",
+      "Pyrotic Alloy"
+    ]
+  },
+  {
+    "name": "Ferrite",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Ferrite",
+    "usedIn": [
+      "Afentis",
+      "Amprex",
+      "Astilla",
+      "Attica",
+      "Baza",
+      "Burston",
+      "Cernos",
+      "Dera",
+      "Flux Rifle",
+      "Gorgon",
+      "Grinlok",
+      "Ignis",
+      "Ignis Wraith",
+      "Komorex",
+      "Penta",
+      "Simulor",
+      "Stradavar",
+      "Tetra",
+      "Veldt",
+      "Aegrit",
+      "Bronco",
+      "Cantare",
+      "Cycron",
+      "Despair",
+      "Furis",
+      "Hystrix",
+      "Kohmak",
+      "Kunai",
+      "Laetum",
+      "Magnus",
+      "Spectra",
+      "Spira",
+      "Staticor",
+      "Stubba",
+      "Talons",
+      "Twin Rogga",
+      "Vasto",
+      "Viper",
+      "Ankyros",
+      "Bo",
+      "Caustacyst",
+      "Ceramic Dagger",
+      "Cronus",
+      "Dark Dagger",
+      "Dark Sword",
+      "Dual Ether",
+      "Dual Heat Swords",
+      "Dual Skana",
+      "Dual Zoren",
+      "Ether Daggers",
+      "Ether Reaper",
+      "Ether Sword",
+      "Fang",
+      "Furax",
+      "Galvacord",
+      "Glaive",
+      "Guandao",
+      "Halikar",
+      "Hate",
+      "Heat Dagger",
+      "Heat Sword",
+      "Jaw Sword",
+      "Kama",
+      "Kesheg",
+      "Kestrel",
+      "Kogake",
+      "Kronen",
+      "Lecta",
+      "Magistar",
+      "Mire",
+      "Nami Solo",
+      "Ninkondi",
+      "Obex",
+      "Ohma",
+      "Orthos",
+      "Pangolin Sword",
+      "Pennant",
+      "Plasma Sword",
+      "Praedos",
+      "Shtung",
+      "Silva & Aegis",
+      "Tonbo",
+      "Imperator",
+      "Helios",
+      "Taxon",
+      "Air Support Charges",
+      "Ancient Protector Specter",
+      "Bleeding Dragon Key",
+      "Charger Specter",
+      "Cipher",
+      "Clem Clone",
+      "Corrupted Bombard Specter",
+      "Corrupted Lancer Specter",
+      "Decaying Dragon Key",
+      "Extinguished Dragon Key",
+      "Hobbled Dragon Key",
+      "Lanzo Fishing Spear",
+      "Luminous Dye",
+      "Moa Specter",
+      "Nosam Cutter",
+      "Roller Specter",
+      "Shield Osprey Specter",
+      "Shockprod Fishing Spear",
+      "Squad Ammo Restore (Medium)",
+      "Squad Energy Restore (Medium)",
+      "Squad Health Restore (Medium)",
+      "Squad Shield Restore (Large)",
+      "Squad Shield Restore (Medium)",
+      "Stalker Specter",
+      "Stunna Fishing Spear",
+      "Tulok Fishing Spear",
+      "Vapor Specter",
+      "Axidrol Alloy",
+      "Carbides",
+      "Copernics",
+      "Cubic Diodes",
+      "Pustrels",
+      "Arca Plasmor Solstice Skin",
+      "Atomos Solstice Skin",
+      "Atterax Desert-Camo Skin",
+      "Burston Solstice Skin",
+      "Corinth Solstice Skin",
+      "Cycron Solstice Skin",
+      "Diriga Desert-Camo Skin",
+      "Dual Keres Solstice Skin",
+      "Dual Zoren Dagger-Axe Skin",
+      "Ember Immortal Skin",
+      "Excalibur Immortal Skin",
+      "Excalibur Mordred Helmet",
+      "Exergis Shock-Camo Skin",
+      "Falcor Shock-Camo Skin",
+      "Frost Immortal Skin",
+      "Fulmin Solstice Skin",
+      "Galatine Solstice Skin",
+      "Gram Solstice Skin",
+      "Greedy Milk",
+      "Grinlok Desert-Camo Skin",
+      "Guandao Solstice Skin",
+      "Guandao Synoid Skin",
+      "Hawk Bishamo Pauldrons (Operator)",
+      "Hek Desert-Camo Skin",
+      "Ignis Solstice Skin",
+      "Karak Desert-Camo Skin",
+      "Kullervo Usvah Helmet",
+      "Lenz Solstice Skin",
+      "Limbo Magrite Helmet",
+      "Marelok Desert-Camo Skin",
+      "Plinx Shock-Camo Skin",
+      "Pyrana Synoid Skin",
+      "Rubico Synoid Skin",
+      "Scindo Solstice Skin",
+      "Scrubber Trophy",
+      "Styanax Gerousic Helmet",
+      "Tatsu Solstice Skin",
+      "Tonkor Desert-Camo Skin",
+      "Uru Syandana",
+      "Vauban Armistice Helmet",
+      "Xaku Kintsu Helmet",
+      "Control Module",
+      "Coprite Alloy",
+      "Gallium",
+      "Infested Catalyst",
+      "Landing Craft Foundry Segment",
+      "Morphics",
+      "Personal Quarters Segment",
+      "Titan Extractor",
+      "Frak Stabilizer",
+      "Clan Key",
+      "Mutalist Alad V Assassinate"
+    ]
+  },
+  {
+    "name": "Rubedo",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Rubedo",
+    "usedIn": [
+      "Afentis",
+      "Attica",
+      "Daikyu",
+      "Fulmin",
+      "Harpak",
+      "Hek",
+      "Hind",
+      "Ignis Wraith",
+      "Nagantaka",
+      "Quellor",
+      "Rubico",
+      "Soma",
+      "Sybaris",
+      "Tenora",
+      "Tiberon",
+      "Tigris",
+      "Vectis",
+      "Atomos",
+      "Ballistica",
+      "Cestra",
+      "Fusilai",
+      "Hikou",
+      "Knell",
+      "Pox",
+      "Quatz",
+      "Twin Gremlins",
+      "Atterax",
+      "Broken Scepter",
+      "Cassowar",
+      "Ceti Lacera",
+      "Cobra & Crane",
+      "Dark Split-Sword",
+      "Ether Reaper",
+      "Ether Sword",
+      "Fragor",
+      "Galatine",
+      "Gram",
+      "Heliocor",
+      "Jat Kittag",
+      "Jat Kusar",
+      "Jaw Sword",
+      "Jayap",
+      "Kogake",
+      "Korb",
+      "Korumm",
+      "Lacera",
+      "Magistar",
+      "Nami Skyla",
+      "Nami Solo",
+      "Pennant",
+      "Pupacyst",
+      "Slaytra",
+      "Tekko",
+      "War",
+      "Veritux",
+      "Taxon",
+      "Axidrol Alloy",
+      "Copernics",
+      "Devolved Namalon",
+      "Kesslers",
+      "Venerdo Alloy",
+      "Arca Plasmor Solstice Skin",
+      "Atomos Solstice Skin",
+      "Atterax Desert-Camo Skin",
+      "Burston Solstice Skin",
+      "Citrine Kalite Helmet",
+      "Corinth Solstice Skin",
+      "Cycron Solstice Skin",
+      "Dagath Ganceann Helmet",
+      "Diriga Desert-Camo Skin",
+      "Dual Keres Solstice Skin",
+      "Fragor Brokk Skin",
+      "Fulmin Solstice Skin",
+      "Galatine Solstice Skin",
+      "Gram Solstice Skin",
+      "Grinlok Desert-Camo Skin",
+      "Guandao Solstice Skin",
+      "Guandao Synoid Skin",
+      "Hek Desert-Camo Skin",
+      "Ignis Solstice Skin",
+      "Ivara Loxley Helmet",
+      "Jade Aureolt Helmet",
+      "Karak Desert-Camo Skin",
+      "Koumei Orihime Helmet",
+      "Kriller Trophy",
+      "Kullervo Usvah Helmet",
+      "Lenz Solstice Skin",
+      "Marelok Desert-Camo Skin",
+      "Mesa Ovis Helmet",
+      "Pyrana Synoid Skin",
+      "Qorvex Raxpart Helmet",
+      "Rubico Synoid Skin",
+      "Scindo Solstice Skin",
+      "Styanax Synmora Helmet",
+      "Tatsu Solstice Skin",
+      "Tonkor Desert-Camo Skin",
+      "Voruna Anukas Helmet",
+      "Wolf Hood",
+      "Zephyr Cierzo Helmet",
+      "Coprite Alloy",
+      "Fersteel Alloy",
+      "Landing Craft Foundry Segment",
+      "Personal Quarters Segment",
+      "Pyrotic Alloy",
+      "Rattleguts",
+      "Thunderdrum",
+      "Adlet Core",
+      "Garmr Core",
+      "Hextra Gyro",
+      "Phazor Gyro",
+      "Raiju Core"
+    ]
+  },
+  {
+    "name": "Entrati Lanthorn",
+    "uniqueName": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanMiscItemB",
+    "usedIn": [
+      "Alternox",
+      "Phenmor",
+      "Grimoire",
+      "Onos",
+      "Ekhein",
+      "Innodem",
+      "Raptwing Ephemera",
+      "Seraphayre Ephemera",
+      "Helminth Archon Shard Segment",
+      "Helminth Coalescent Segment"
+    ]
+  },
+  {
+    "name": "Fieldron",
+    "uniqueName": "/Lotus/Types/Items/Research/EnergyComponent",
+    "usedIn": [
+      "Amprex",
+      "Arca Plasmor",
+      "Battacor",
+      "Convectrix",
+      "Dera",
+      "Ferrox",
+      "Flux Rifle",
+      "Glaxion",
+      "Komorex",
+      "Lanka",
+      "Lenz",
+      "Opticor",
+      "Quanta",
+      "Supra",
+      "Arca Scisco",
+      "Cyanex",
+      "Cycron",
+      "Dual Cestra",
+      "Ocucor",
+      "Spectra",
+      "Staticor",
+      "Falcor",
+      "Kreska",
+      "Prova",
+      "Serro",
+      "Helios",
+      "Antiserum Injector"
+    ]
+  },
+  {
+    "name": "Control Module",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/ControlModule",
+    "usedIn": [
+      "Arca Plasmor",
+      "Convectrix",
+      "Evensong",
+      "Penta",
+      "Tetra",
+      "Castanas",
+      "Hystrix",
+      "Pyrana",
+      "Talons",
+      "Zakti",
+      "Pangolin Sword",
+      "Sarpa",
+      "Tonbo",
+      "Twin Basolk",
+      "Elytron",
+      "Itzal",
+      "Dual Decurion",
+      "Velocitus",
+      "Rathbone",
+      "Carrier",
+      "Dethcube",
+      "Shade",
+      "Wyrm",
+      "Aucrux Capacitors",
+      "Detonite Injector",
+      "Fieldron",
+      "Mutagen Mass",
+      "Charamote Trophy",
+      "Ember Immortal Skin",
+      "Excalibur Immortal Skin",
+      "Frost Immortal Skin",
+      "Hawk Bishamo Helmet (Operator)",
+      "Ivara Zirastra Helmet",
+      "Mirage Trivelin Helmet",
+      "Genetic Code Template",
+      "Incubator Power Core",
+      "Orokin Catalyst",
+      "Atheca Gyro"
+    ]
+  },
+  {
+    "name": "Detonite Injector",
+    "uniqueName": "/Lotus/Types/Items/Research/ChemComponent",
+    "usedIn": [
+      "Argonak",
+      "Buzlok",
+      "Grinlok",
+      "Ignis",
+      "Ignis Wraith",
+      "Javlok",
+      "Ogris",
+      "Kohmak",
+      "Marelok",
+      "Nukor",
+      "Ack & Brunt",
+      "Jat Kittag",
+      "Jat Kusar",
+      "Kesheg",
+      "Sydon",
+      "Twin Krohkur",
+      "Knux"
+    ]
+  },
+  {
+    "name": "Oxium",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/OxiumAlloy",
+    "usedIn": [
+      "Astilla",
+      "Convectrix",
+      "Exergis",
+      "Kohm",
+      "Scourge",
+      "Tonkor",
+      "Arca Scisco",
+      "Sonicor",
+      "Talons",
+      "Cassowar",
+      "Ceti Lacera",
+      "Dragon Nikana",
+      "Dual Keres",
+      "Guandao",
+      "Gunsen",
+      "Halikar",
+      "Karyst",
+      "Krohkur",
+      "Masseter",
+      "Nikana",
+      "Okina",
+      "Skiajati",
+      "Tonbo",
+      "Vitrica",
+      "Volnus",
+      "Grattler",
+      "Helios",
+      "Asa Syandana",
+      "Atlas Shikoro Helmet",
+      "Atlas Tartarus Helmet",
+      "Chroma Amaru Helmet",
+      "Chroma Drac Helmet",
+      "Equinox Clisthert Helm",
+      "Equinox Solstice Helmet",
+      "Garuda Bathory Helmet",
+      "Ivara Loxley Helmet",
+      "Revenant Vania Helmet",
+      "Styanax Agogean Helmet",
+      "Wukong Macak Helmet",
+      "Zephyr Cierzo Helmet",
+      "Auroxium Alloy",
+      "Distilling Extractor",
+      "Distilling Extractor Prime",
+      "Nutrio Incubator Upgrade Segment",
+      "Tyli Gyro",
+      "Hidden Messages",
+      "Sands Of Inaros"
+    ]
+  },
+  {
+    "name": "Tellurium",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Tellurium",
+    "usedIn": [
+      "Astilla",
+      "Quellor",
+      "Kulstar",
+      "Dual Keres",
+      "Gunsen",
+      "Krohkur",
+      "Okina",
+      "Pennant",
+      "Ripkas",
+      "Slaytra",
+      "Cyngas",
+      "Grattler",
+      "Imperator Vandal",
+      "Phaedra",
+      "Kaszas",
+      "Antiserum Injector",
+      "Chondricord Trophy",
+      "Chroma Amaru Helmet",
+      "Chroma Drac Helmet",
+      "Duroid Trophy",
+      "Equinox Clisthert Helm",
+      "Equinox Solstice Helmet",
+      "Garuda Bathory Helmet",
+      "Hawk Bishamo Greaves (Operator)",
+      "Haztech Greaves (Operator)",
+      "Kubrodon Ventkid Greaves",
+      "Myxostomata Trophy",
+      "Outrider Greaves",
+      "Qorvex Raxpart Helmet",
+      "Revenant Vania Helmet",
+      "Smelter Greaves (Operator)",
+      "Vent Pobber Ventkid Greaves",
+      "Vent Rat Greaves",
+      "Wukong Macak Helmet",
+      "Landing Craft Foundry Segment",
+      "Personal Quarters Segment"
+    ]
+  },
+  {
+    "name": "Morphics",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Morphic",
+    "usedIn": [
+      "Attica",
+      "Boar",
+      "Burston",
+      "Drakgoon",
+      "Dread",
+      "Gorgon",
+      "Latron",
+      "Paris",
+      "Snipetron",
+      "Soma",
+      "Sybaris",
+      "Veldt",
+      "Vulkar",
+      "Zenith",
+      "Aegrit",
+      "Akzani",
+      "Azima",
+      "Despair",
+      "Hikou",
+      "Kunai",
+      "Nukor",
+      "Viper",
+      "Anku",
+      "Broken Scepter",
+      "Ceti Lacera",
+      "Cronus",
+      "Dual Ether",
+      "Dual Heat Swords",
+      "Dual Skana",
+      "Dual Zoren",
+      "Ether Daggers",
+      "Ether Reaper",
+      "Ether Sword",
+      "Fang",
+      "Glaive",
+      "Harmony",
+      "Hate",
+      "Heliocor",
+      "Jaw Sword",
+      "Kestrel",
+      "Kogake",
+      "Krohkur",
+      "Lacera",
+      "Lecta",
+      "Orthos",
+      "Shaku",
+      "Sigma & Octantis",
+      "Skana",
+      "Zenistar",
+      "Imperator",
+      "Air Support Charges",
+      "Nightfall Apothic",
+      "Sunrise Apothic",
+      "Twilight Apothic",
+      "Fresnels",
+      "Hespazym Alloy",
+      "Kesslers",
+      "Relay Strut Component",
+      "Voidrig Capsule",
+      "Arca Plasmor Solstice Skin",
+      "Asa Syandana",
+      "Atomos Solstice Skin",
+      "Atterax Desert-Camo Skin",
+      "Blazing Step Ephemera",
+      "Boot Trophy",
+      "Boot Trophy",
+      "Burston Solstice Skin",
+      "Corinth Solstice Skin",
+      "Cuthol Trophy",
+      "Cycron Solstice Skin",
+      "Diriga Desert-Camo Skin",
+      "Dual Keres Solstice Skin",
+      "Dual Zoren Dagger-Axe Skin",
+      "Excalibur Mordred Helmet",
+      "Exergis Shock-Camo Skin",
+      "Falcor Shock-Camo Skin",
+      "Fulmin Solstice Skin",
+      "Galatine Solstice Skin",
+      "Glappid Trophy",
+      "Gram Solstice Skin",
+      "Grinlok Desert-Camo Skin",
+      "Guandao Solstice Skin",
+      "Guandao Synoid Skin",
+      "Hawk Bishamo Pauldrons (Operator)",
+      "Hek Desert-Camo Skin",
+      "Hydroid Ketos Helmet",
+      "Ignis Solstice Skin",
+      "Karak Desert-Camo Skin",
+      "Lenz Solstice Skin",
+      "Marelok Desert-Camo Skin",
+      "Murkray Trophy",
+      "Norg Trophy",
+      "Plinx Shock-Camo Skin",
+      "Pyrana Synoid Skin",
+      "Rubico Synoid Skin",
+      "Scindo Dagger-Axe Skin",
+      "Scindo Solstice Skin",
+      "Tatsu Solstice Skin",
+      "Tonkor Desert-Camo Skin",
+      "Wolf Hood",
+      "Anspatha Brace",
+      "Auroxium Alloy",
+      "Clapkra Brace",
+      "Forma",
+      "Mandachord",
+      "Orokin Catalyst",
+      "Orokin Reactor",
+      "Synthula",
+      "Test Forma",
+      "Lambeo Moa",
+      "Nychus Moa",
+      "Oloro Moa",
+      "Para Moa",
+      "Clan Key"
+    ]
+  },
+  {
+    "name": "Efervon Sample",
+    "uniqueName": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonA",
+    "usedIn": [
+      "Ax-52"
+    ]
+  },
+  {
+    "name": "HöLlvanian Pitchweave Fragment",
+    "uniqueName": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB",
+    "usedIn": [
+      "Ax-52"
+    ]
+  },
+  {
+    "name": "Techrot Chitin",
+    "uniqueName": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceUncommonA",
+    "usedIn": [
+      "Ax-52"
+    ]
+  },
+  {
+    "name": "Techrot Motherboard",
+    "uniqueName": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceRareA",
+    "usedIn": [
+      "Ax-52"
+    ]
+  },
+  {
+    "name": "Carbides",
+    "uniqueName": "/Lotus/Types/Items/RailjackMiscItems/CarbidesRailjackItem",
+    "usedIn": [
+      "Basmu",
+      "Protea Telema Helmet"
+    ]
+  },
+  {
+    "name": "Isos",
+    "uniqueName": "/Lotus/Types/Items/RailjackMiscItems/IsosRailjackItem",
+    "usedIn": [
+      "Basmu"
+    ]
+  },
+  {
+    "name": "Nullstones",
+    "uniqueName": "/Lotus/Types/Items/RailjackMiscItems/NullstonesRailjackItem",
+    "usedIn": [
+      "Basmu",
+      "Nautilus",
+      "Protea Mavv Helmet"
+    ]
+  },
+  {
+    "name": "Titanium",
+    "uniqueName": "/Lotus/Types/Items/RailjackMiscItems/TitaniumRailjackItem",
+    "usedIn": [
+      "Basmu",
+      "Bonewidow Engine",
+      "Protea Mavv Helmet"
+    ]
+  },
+  {
+    "name": "Heart Noctrul",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonGemBCutItem",
+    "usedIn": [
+      "Battacor",
+      "Cryotra",
+      "Hang Tenno",
+      "Lovetap",
+      "Shrewd",
+      "Slapneedle",
+      "Swiftfire",
+      "Twin Kavats",
+      "Aegron Gyro",
+      "Jonsin Bracket",
+      "Krisys Core",
+      "Lambeo Moa",
+      "Munit Gyro",
+      "Trux Gyro"
+    ]
+  },
+  {
+    "name": "Salvage",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Salvage",
+    "usedIn": [
+      "Boar",
+      "Boltor",
+      "Buzlok",
+      "Daikyu",
+      "Evensong",
+      "Exergis",
+      "Ferrox",
+      "Gorgon",
+      "Grakata",
+      "Hek",
+      "Hema",
+      "Hind",
+      "Karak",
+      "Kohm",
+      "Latron",
+      "Ogris",
+      "Quanta",
+      "Quartakk",
+      "Rubico",
+      "Snipetron",
+      "Sobek",
+      "Soma",
+      "Supra",
+      "Sybaris",
+      "Synapse",
+      "Tenora",
+      "Tigris",
+      "Tonkor",
+      "Torid",
+      "Vulkar",
+      "Zarr",
+      "Zenith",
+      "Acrid",
+      "Akstiletto",
+      "Akzani",
+      "Angstrum",
+      "Arca Scisco",
+      "Atomos",
+      "Azima",
+      "Castanas",
+      "Despair",
+      "Embolist",
+      "Furis",
+      "Fusilai",
+      "Hikou",
+      "Knell",
+      "Kraken",
+      "Kunai",
+      "Magnus",
+      "Marelok",
+      "Nukor",
+      "Onos",
+      "Pandero",
+      "Pyrana",
+      "Quatz",
+      "Spira",
+      "Stug",
+      "Twin Gremlins",
+      "Viper",
+      "Ack & Brunt",
+      "Amphis",
+      "Anku",
+      "Ankyros",
+      "Atterax",
+      "Bo",
+      "Broken Scepter",
+      "Cassowar",
+      "Ceti Lacera",
+      "Dual Cleavers",
+      "Dual Ether",
+      "Dual Heat Swords",
+      "Dual Ichor",
+      "Dual Keres",
+      "Dual Zoren",
+      "Fragor",
+      "Furax",
+      "Galatine",
+      "Gazal Machete",
+      "Glaive",
+      "Gram",
+      "Hate",
+      "Jat Kittag",
+      "Jat Kusar",
+      "Karyst",
+      "Kestrel",
+      "Lecta",
+      "Machete",
+      "Masseter",
+      "Obex",
+      "Plasma Sword",
+      "Prova",
+      "Pupacyst",
+      "Scindo",
+      "Seekalla",
+      "Serro",
+      "Sigma & Octantis",
+      "Skana",
+      "Sydon",
+      "Tenet Agendus",
+      "Venka",
+      "Zenistar",
+      "Grattler",
+      "Veritux",
+      "Djinn",
+      "Air Support Charges",
+      "Ancient Protector Specter",
+      "Antiserum Injector",
+      "Charger Specter",
+      "Cipher",
+      "Clem Clone",
+      "Corrupted Bombard Specter",
+      "Corrupted Lancer Specter",
+      "Moa Specter",
+      "Phase Specter",
+      "Roller Specter",
+      "Shield Osprey Specter",
+      "Squad Ammo Restore (Medium)",
+      "Stalker Specter",
+      "Vapor Specter",
+      "Aucrux Capacitors",
+      "Cubic Diodes",
+      "Detonite Injector",
+      "Fieldron",
+      "Isos",
+      "Mutagen Mass",
+      "Relay Strut Component",
+      "Travocyte Alloy",
+      "Akvasto Forest-Camo Skin",
+      "Arca Plasmor Solstice Skin",
+      "Arcane Aura Helmet",
+      "Arcane Aurora Helmet",
+      "Arcane Avalon Helmet",
+      "Arcane Backdraft Helmet",
+      "Arcane Chlora Helmet",
+      "Arcane Chorus Helmet",
+      "Arcane Coil Helmet",
+      "Arcane Esprit Helmet",
+      "Arcane Essence Helmet",
+      "Arcane Flux Helmet",
+      "Arcane Gambit Helmet",
+      "Arcane Hemlock Helmet",
+      "Arcane Locust Helmet",
+      "Arcane Mag Gauss Helmet",
+      "Arcane Menticide Helmet",
+      "Arcane Meridian Helmet",
+      "Arcane Pendragon Helmet",
+      "Arcane Phoenix Helmet",
+      "Arcane Pulse Helmet",
+      "Arcane Reverb Helmet",
+      "Arcane Scorpion Helmet",
+      "Arcane Squall Helmet",
+      "Arcane Storm Helmet",
+      "Arcane Swindle Helmet",
+      "Arcane Thrak Helmet",
+      "Arcane Vanguard Helmet",
+      "Arcane Vespa Helmet",
+      "Atlas Shikoro Helmet",
+      "Atlas Tartarus Helmet",
+      "Atomos Solstice Skin",
+      "Atterax Desert-Camo Skin",
+      "Baruuk Meroe Helmet",
+      "Burston Solstice Skin",
+      "Citrine Kalite Helmet",
+      "Corinth Solstice Skin",
+      "Cycron Solstice Skin",
+      "Cyte-09 Espricor Helmet",
+      "Daedalus Chest Plate",
+      "Daedalus Shoulder Plates",
+      "Daedalus Spurs",
+      "Daman Sugatra",
+      "Dante Cantist Helmet",
+      "Detron Shock-Camo Skin",
+      "Diriga Desert-Camo Skin",
+      "Dual Keres Solstice Skin",
+      "Edo Chest Plate",
+      "Edo Shin Plates",
+      "Edo Shoulder Plates",
+      "Eos Chest Plate",
+      "Eos Shoulder Plates",
+      "Eos Spurs",
+      "Exergis Shock-Camo Skin",
+      "Falcor Shock-Camo Skin",
+      "Fragor Brokk Skin",
+      "Fulmin Solstice Skin",
+      "Galatine Solstice Skin",
+      "Gara Virago Helmet",
+      "Gauss Mag Helmet",
+      "Gram Solstice Skin",
+      "Greedy Milk",
+      "Grendel Glutt Helmet",
+      "Grinlok Desert-Camo Skin",
+      "Guandao Solstice Skin",
+      "Guandao Synoid Skin",
+      "Harrow Crucis Helmet",
+      "Harrow Suffragan Helmet",
+      "Hawk Bishamo Greaves (Operator)",
+      "Hek Desert-Camo Skin",
+      "Hildryn Asuron Helmet",
+      "Hydroid Triton Helmet",
+      "Ignis Solstice Skin",
+      "Karak Desert-Camo Skin",
+      "Khora Delphi Helmet",
+      "Lavos Cordatus Helmet",
+      "Lenz Solstice Skin",
+      "Marelok Desert-Camo Skin",
+      "Mirage Trivelin Helmet",
+      "Nekros Raknis Helmet",
+      "Nekros Shroud Helmet",
+      "Nidus Myxini Helmet",
+      "Nidus Prion Helmet",
+      "Nova Quantum Helmet",
+      "Oberon Markhor Helmet",
+      "Oberon Oryx Helmet",
+      "Octavia Cadenza Helmet",
+      "Pazza Sugatra",
+      "Penta Shock-Camo Skin",
+      "Plinx Shock-Camo Skin",
+      "Protea Mavv Helmet",
+      "Prova Shock-Camo Skin",
+      "Pyrana Synoid Skin",
+      "Rubico Synoid Skin",
+      "Scindo Forest-Camo Skin",
+      "Scindo Manticore Skin",
+      "Scindo Solstice Skin",
+      "Soma Forest-Camo Skin",
+      "Styanax Synmora Helmet",
+      "Tantu Sugatra",
+      "Tatsu Solstice Skin",
+      "Titania Aurai Helmet",
+      "Titania Mab Helmet",
+      "Tonkor Desert-Camo Skin",
+      "Valkyr Bastet Helmet",
+      "Valkyr Kara Helmet",
+      "Voruna Anukas Helmet",
+      "Wisp Gaoth Helmet",
+      "Yareli Physalia Helmet",
+      "Yomo Syandana",
+      "Control Module",
+      "Gallium",
+      "Morphics",
+      "Neural Sensors",
+      "Neurodes",
+      "Orokin Cell",
+      "Wanz Stabilizer"
+    ]
+  },
+  {
+    "name": "Polymer Bundle",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/PolymerBundle",
+    "usedIn": [
+      "Boltor",
+      "Burston",
+      "Cernos",
+      "Dread",
+      "Grakata",
+      "Grinlok",
+      "Karak",
+      "Panthera",
+      "Paris",
+      "Proboscis Cernos",
+      "Rubico",
+      "Scourge",
+      "Simulor",
+      "Sobek",
+      "Stradavar",
+      "Tetra",
+      "Zenith",
+      "Zhuge",
+      "Akarius",
+      "Akzani",
+      "Atomos",
+      "Azima",
+      "Bolto",
+      "Bronco",
+      "Cantare",
+      "Fusilai",
+      "Kraken",
+      "Marelok",
+      "Tysis",
+      "Vasto",
+      "Arca Titron",
+      "Atterax",
+      "Cadus",
+      "Ceramic Dagger",
+      "Cronus",
+      "Dark Dagger",
+      "Dark Sword",
+      "Dual Cleavers",
+      "Dual Ether",
+      "Dual Heat Swords",
+      "Dual Skana",
+      "Ether Daggers",
+      "Ether Reaper",
+      "Fang",
+      "Guandao",
+      "Heat Dagger",
+      "Heat Sword",
+      "Heliocor",
+      "Jaw Sword",
+      "Kama",
+      "Karyst",
+      "Lacera",
+      "Nami Skyla",
+      "Nami Solo",
+      "Ninkondi",
+      "Okina",
+      "Orthos",
+      "Pennant",
+      "Plasma Sword",
+      "Sigma & Octantis",
+      "Tekko",
+      "Tipedo",
+      "War",
+      "Zenistar",
+      "Imperator",
+      "Diriga",
+      "Taxon",
+      "Adrenal Stim",
+      "Calcifin Stim",
+      "Faithful Void Offering",
+      "Force Specter",
+      "Humble Void Offering",
+      "Loc-Pin",
+      "Passionate Void Offering",
+      "Phase Specter",
+      "Razorback Cipher",
+      "Squad Ammo Restore (Large)",
+      "Squad Ammo Restore (Small)",
+      "Squad Energy Restore (Large)",
+      "Squad Energy Restore (Small)",
+      "Squad Health Restore (Small)",
+      "Carbides",
+      "Gallos Rods",
+      "Dagath Ganceann Helmet",
+      "Dual Zoren Dagger-Axe Skin",
+      "Hawk Bishamo Greaves (Operator)",
+      "Limbo Aristeas Helmet",
+      "Scindo Dagger-Axe Skin",
+      "Scindo Manticore Skin",
+      "Tink Trophy",
+      "Voruna Anukas Helmet",
+      "Distilling Extractor",
+      "Distilling Extractor Prime",
+      "Gallium",
+      "Morphics",
+      "Titan Extractor",
+      "Clan Key"
+    ]
+  },
+  {
+    "name": "Mutagen Mass",
+    "uniqueName": "/Lotus/Types/Items/Research/BioComponent",
+    "usedIn": [
+      "Bubonico",
+      "Hema",
+      "Mutalist Quanta",
+      "Paracyst",
+      "Phage",
+      "Synapse",
+      "Torid",
+      "Acrid",
+      "Catabolyst",
+      "Dual Toxocyst",
+      "Embolist",
+      "Pox",
+      "Caustacyst",
+      "Cerata",
+      "Dark Split-Sword",
+      "Dual Ichor",
+      "Mios",
+      "Pupacyst",
+      "Scoliac",
+      "Djinn"
+    ]
+  },
+  {
+    "name": "Circuits",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Circuits",
+    "usedIn": [
+      "Buzlok",
+      "Dera",
+      "Drakgoon",
+      "Dread",
+      "Flux Rifle",
+      "Glaxion",
+      "Gorgon",
+      "Hek",
+      "Hema",
+      "Hind",
+      "Mutalist Quanta",
+      "Paracyst",
+      "Penta",
+      "Phage",
+      "Quanta",
+      "Quellor",
+      "Scourge",
+      "Sobek",
+      "Synapse",
+      "Tigris",
+      "Torid",
+      "Vulkar",
+      "Zenith",
+      "Angstrum",
+      "Azima",
+      "Cantare",
+      "Castanas",
+      "Cycron",
+      "Embolist",
+      "Gammacor",
+      "Pandero",
+      "Spectra",
+      "Twin Gremlins",
+      "Amphis",
+      "Anku",
+      "Arca Titron",
+      "Cadus",
+      "Dual Ichor",
+      "Falcor",
+      "Galvacord",
+      "Heat Dagger",
+      "Heat Sword",
+      "Kama",
+      "Kroostra",
+      "Obex",
+      "Pangolin Sword",
+      "Scindo",
+      "Serro",
+      "Sigma & Octantis",
+      "Sydon",
+      "Zenistar",
+      "Odonata",
+      "Imperator",
+      "Rathbone",
+      "Veritux",
+      "Carrier",
+      "Dethcube",
+      "Djinn",
+      "Shade",
+      "Wyrm",
+      "Advanced Nosam Cutter",
+      "Archwing Launcher",
+      "Clotra Stim",
+      "Cosmic Specter",
+      "Faithful Void Offering",
+      "Focused Nosam Cutter",
+      "Force Specter",
+      "Humble Void Offering",
+      "Loc-Pin",
+      "Nosam Cutter",
+      "Passionate Void Offering",
+      "Refract Stim",
+      "Squad Health Restore (Large)",
+      "Sunpoint Plasma Drill",
+      "Cubic Diodes",
+      "Isos",
+      "Dante Cantist Helmet",
+      "Dual Zoren Dagger-Axe Skin",
+      "Exergis Shock-Camo Skin",
+      "Eye-Eye Trophy",
+      "Falcor Shock-Camo Skin",
+      "Hang Tenno",
+      "Plinx Shock-Camo Skin",
+      "Recaster Trophy",
+      "Scindo Dagger-Axe Skin",
+      "Shocking Step Ephemera",
+      "Bashrack",
+      "Genetic Code Template",
+      "Tombfinger",
+      "Frak Stabilizer",
+      "Harpen Gyro",
+      "Hinta Stabilizer",
+      "Munit Gyro",
+      "Wanz Stabilizer"
+    ]
+  },
+  {
+    "name": "Grip",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/PrimeCernosGrip",
+    "usedIn": [
+      "Cernos Prime",
+      "Cinta",
+      "Paris Prime",
+      "Zhuge Prime",
+      "Ghoulsaw"
+    ]
+  },
+  {
+    "name": "Lower Limb",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/PrimeCernosLowerLimb",
+    "usedIn": [
+      "Cernos Prime",
+      "Cinta",
+      "Paris Prime",
+      "Ballistica Prime"
+    ]
+  },
+  {
+    "name": "String",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/PrimeCernosString",
+    "usedIn": [
+      "Cernos Prime",
+      "Cinta",
+      "Paris Prime",
+      "Zhuge Prime",
+      "Ballistica Prime",
+      "Dorrclave"
+    ]
+  },
+  {
+    "name": "Upper Limb",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/PrimeCernosUpperLimb",
+    "usedIn": [
+      "Cernos Prime",
+      "Cinta",
+      "Paris Prime",
+      "Ballistica Prime"
+    ]
+  },
+  {
+    "name": "Repeller Systems",
+    "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/CorpusWidgetCItem",
+    "usedIn": [
+      "Exergis",
+      "Certus Brace",
+      "Gravimag",
+      "Plaga Brace",
+      "Suo Brace"
+    ]
+  },
+  {
+    "name": "Voidgel Orb",
+    "uniqueName": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanMiscItemA",
+    "usedIn": [
+      "Felarx",
+      "Laetum",
+      "Gyre Automaton Helmet",
+      "Raptwing Ephemera",
+      "Seraphayre Ephemera"
+    ]
+  },
+  {
+    "name": "Voidplume Pinion",
+    "uniqueName": "/Lotus/Types/Gameplay/Zariman/Resources/VoidAngelItem",
+    "usedIn": [
+      "Felarx",
+      "Phenmor",
+      "Laetum",
+      "Innodem",
+      "Praedos",
+      "Raptwing Ephemera",
+      "Seraphayre Ephemera"
+    ]
+  },
+  {
+    "name": "Voidplume Quill",
+    "uniqueName": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTagBounty",
+    "usedIn": [
+      "Felarx",
+      "Phenmor",
+      "Laetum",
+      "Innodem",
+      "Praedos"
+    ]
+  },
+  {
+    "name": "Javlok Capacitor",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/GrnFlameSpearPart",
+    "usedIn": [
+      "Javlok"
+    ]
+  },
+  {
+    "name": "Blade",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/MiterBlade",
+    "usedIn": [
+      "Miter",
+      "Scourge Prime",
+      "Spira Prime",
+      "Amanata",
+      "Ankyros Prime",
+      "Cobra & Crane Prime",
+      "Dakra Prime",
+      "Destreza Prime",
+      "Dorrclave",
+      "Dual Kamas Prime",
+      "Dual Keres Prime",
+      "Dual Viciss",
+      "Dual Zoren Prime",
+      "Fang Prime",
+      "Galatine Prime",
+      "Ghoulsaw",
+      "Glaive Prime",
+      "Gram Prime",
+      "Guandao Prime",
+      "Gunsen Prime",
+      "Hespar",
+      "Karyst Prime",
+      "Kronen Prime",
+      "Masseter Prime",
+      "Nami Skyla Prime",
+      "Nikana Prime",
+      "Okina Prime",
+      "Orthos Prime",
+      "Orvius",
+      "Pangolin Prime",
+      "Pathocyst",
+      "Quassus Prime",
+      "Reaper Prime",
+      "Redeemer Prime",
+      "Ruvox",
+      "Sarofang",
+      "Scindo Prime",
+      "Sheev",
+      "Silva & Aegis Prime",
+      "Stropha",
+      "Tatsu Prime",
+      "Tekko Prime",
+      "Xoris",
+      "Agkuza",
+      "Centaur",
+      "Kaszas",
+      "Onorix"
+    ]
+  },
+  {
+    "name": "Handle",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/MiterHandle",
+    "usedIn": [
+      "Miter",
+      "Scourge Prime",
+      "Shedu",
+      "Spectra Vandal",
+      "Vesper 77",
+      "Amanata",
+      "Bo Prime",
+      "Corufell",
+      "Dakra Prime",
+      "Destreza Prime",
+      "Dual Kamas Prime",
+      "Dual Keres Prime",
+      "Dual Zoren Prime",
+      "Fang Prime",
+      "Fragor Prime",
+      "Galatine Prime",
+      "Gram Prime",
+      "Guandao Prime",
+      "Gunsen Prime",
+      "Hespar",
+      "Karyst Prime",
+      "Kronen Prime",
+      "Masseter Prime",
+      "Nami Skyla Prime",
+      "Ninkondi Prime",
+      "Okina Prime",
+      "Orthos Prime",
+      "Pangolin Prime",
+      "Quassus Prime",
+      "Reaper Prime",
+      "Redeemer Prime",
+      "Sarofang",
+      "Scindo Prime",
+      "Tatsu Prime",
+      "Tipedo Prime",
+      "Volnus Prime",
+      "Wolf Sledge",
+      "Xoris",
+      "Agkuza",
+      "Centaur",
+      "Kaszas",
+      "Onorix",
+      "Rathbone"
+    ]
+  },
+  {
+    "name": "Cernos",
+    "uniqueName": "/Lotus/Weapons/Tenno/Bows/AntlerBow/AntlerBow",
+    "usedIn": [
+      "Mutalist Cernos"
+    ]
+  },
+  {
+    "name": "Hikou",
+    "uniqueName": "/Lotus/Weapons/Tenno/ThrowingWeapons/TennoStars",
+    "usedIn": [
+      "Panthera"
+    ]
+  },
+  {
+    "name": "Miter",
+    "uniqueName": "/Lotus/Weapons/Grineer/LongGuns/GrineerSawbladeGun/SawBladeGun",
+    "usedIn": [
+      "Panthera"
+    ]
+  },
+  {
+    "name": "Intact Sentient Core",
+    "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/QuillsDogTag",
+    "usedIn": [
+      "Phantasma",
+      "Verdilac",
+      "Exceptional Sentient Core"
+    ]
+  },
+  {
+    "name": "Mutalist Cernos",
+    "uniqueName": "/Lotus/Weapons/Infested/Bow/InfCernosBow/InfCernos",
+    "usedIn": [
+      "Proboscis Cernos"
+    ]
+  },
+  {
+    "name": "Fersteel Alloy",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/UncommonOreAAlloyAItem",
+    "usedIn": [
+      "Quartakk",
+      "Cyath",
+      "Dehtat",
+      "Ekwana Ii Jai",
+      "Ekwana Ii Ruhang",
+      "Jayap",
+      "Kroostra",
+      "Kwath",
+      "Mewan",
+      "Nepheri",
+      "Rabvee",
+      "Vargeet Ii Jai",
+      "Vargeet Ii Ruhang",
+      "Advanced Nosam Cutter",
+      "Peram Fishing Spear",
+      "Cortege Barrel",
+      "Morgha Barrel",
+      "Ceno Apparel (Operator)",
+      "Ceno Cuirass (Operator)",
+      "Vahd Apparel (Operator)",
+      "Vahd Cuirass (Operator)",
+      "Zauba Apparel (Operator)",
+      "Zauba Cuirass (Operator)",
+      "Killstream",
+      "Klebrik Scaffold",
+      "Raiju Core"
+    ]
+  },
+  {
+    "name": "Grokdrul",
+    "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/GrokdrulItem",
+    "usedIn": [
+      "Quartakk",
+      "Stubba",
+      "Kronsh",
+      "Plague Bokwin",
+      "Rabvee",
+      "Seekalla",
+      "Shtung",
+      "Archwing Launcher",
+      "Fosfor Blau",
+      "Lanzo Fishing Spear",
+      "Peram Fishing Spear",
+      "Shockprod Fishing Spear",
+      "Stunna Fishing Spear",
+      "Tulok Fishing Spear",
+      "Boot Trophy",
+      "Charc Eel Trophy",
+      "Cuthol Trophy",
+      "Glappid Trophy",
+      "Goopolla Trophy",
+      "Karkina Trophy",
+      "Khut-Khut Trophy",
+      "Mawfish Trophy",
+      "Mortus Lungfish Trophy",
+      "Murkray Trophy",
+      "Norg Trophy",
+      "Sharrac Trophy",
+      "Tralok Trophy",
+      "Yogwun Trophy",
+      "Eidolon Phylaxis",
+      "Pencha Scaffold",
+      "Phahd Scaffold",
+      "Shraksun Scaffold"
+    ]
+  },
+  {
+    "name": "Neural Sensors",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/NeuralSensor",
+    "usedIn": [
+      "Quartakk",
+      "Stradavar",
+      "Cadus",
+      "Heat Dagger",
+      "Kama",
+      "Lecta",
+      "Mire",
+      "Serro",
+      "Tipedo",
+      "Komms",
+      "Asa Syandana",
+      "Inaros Canopic Helmet",
+      "Limbo Aristeas Helmet",
+      "Mirage Harlequin Helmet",
+      "Nekros Raknis Helmet",
+      "Nekros Shroud Helmet",
+      "Sevagoth Lucifuge Helmet",
+      "Synathid Trophy",
+      "Uru Syandana",
+      "Vauban Armistice Helmet",
+      "Forma",
+      "Juttni Brace",
+      "Orokin Reactor",
+      "Test Forma",
+      "The Jordas Precept",
+      "The Limbo Theorem"
+    ]
+  },
+  {
+    "name": "Cranial Foremount",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishCPartItem",
+    "usedIn": [
+      "Sporothrix",
+      "Bonewidow Engine",
+      "Monachod Mutagen",
+      "Phijar Mutagen"
+    ]
+  },
+  {
+    "name": "Latron",
+    "uniqueName": "/Lotus/Weapons/Tenno/Rifle/SemiAutoRifle",
+    "usedIn": [
+      "Tiberon"
+    ]
+  },
+  {
+    "name": "Seriglass Shard",
+    "uniqueName": "/Lotus/Types/Items/Deimos/SeriglassShard",
+    "usedIn": [
+      "Trumna",
+      "Sepulcrum",
+      "Quassus"
+    ]
+  },
+  {
+    "name": "Drakgoon",
+    "uniqueName": "/Lotus/Weapons/Grineer/LongGuns/GrineerFlakCannon/FlakCannon",
+    "usedIn": [
+      "Zarr"
+    ]
+  },
+  {
+    "name": "Furis",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistol/AutoPistol",
+    "usedIn": [
+      "Afuris",
+      "Afuris"
+    ]
+  },
+  {
+    "name": "Link",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/AfurisPrimeLink",
+    "usedIn": [
+      "Afuris Prime",
+      "Akarius Prime",
+      "Akbolto Prime",
+      "Akbronco Prime",
+      "Akjagara Prime",
+      "Aklex Prime",
+      "Akmagnus Prime",
+      "Aksomati Prime",
+      "Akstiletto Prime",
+      "Akvasto Prime",
+      "Twin Vipers Wraith"
+    ]
+  },
+  {
+    "name": "Bolto",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistol/CrossBow",
+    "usedIn": [
+      "Akbolto",
+      "Akbolto",
+      "Hystrix"
+    ]
+  },
+  {
+    "name": "Bronco",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistol/HandShotGun",
+    "usedIn": [
+      "Akbronco",
+      "Akbronco"
+    ]
+  },
+  {
+    "name": "Bronco Prime",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistol/BroncoPrime",
+    "usedIn": [
+      "Akbronco Prime",
+      "Akbronco Prime"
+    ]
+  },
+  {
+    "name": "Akbolto",
+    "uniqueName": "/Lotus/Weapons/Tenno/Akimbo/AkimboBolto",
+    "usedIn": [
+      "Akjagara"
+    ]
+  },
+  {
+    "name": "Dual Skana",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/DualShortSword/DualShortSword",
+    "usedIn": [
+      "Akjagara",
+      "Dark Split-Sword",
+      "Redeemer"
+    ]
+  },
+  {
+    "name": "Lex",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistol/HeavyPistol",
+    "usedIn": [
+      "Aklex",
+      "Aklex"
+    ]
+  },
+  {
+    "name": "Lex Prime",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistols/PrimeLex/PrimeLex",
+    "usedIn": [
+      "Aklex Prime",
+      "Aklex Prime"
+    ]
+  },
+  {
+    "name": "Magnus",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistols/Magnum/Magnum",
+    "usedIn": [
+      "Akmagnus",
+      "Akmagnus"
+    ]
+  },
+  {
+    "name": "Magnus Prime",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistols/PrimeMagnus/PrimeMagnusWeapon",
+    "usedIn": [
+      "Akmagnus Prime",
+      "Akmagnus Prime"
+    ]
+  },
+  {
+    "name": "Akstiletto",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistols/TennoUzi/TennoUzi",
+    "usedIn": [
+      "Aksomati",
+      "Sarpa"
+    ]
+  },
+  {
+    "name": "Vasto",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistol/RevolverPistol",
+    "usedIn": [
+      "Akvasto",
+      "Akvasto",
+      "Redeemer"
+    ]
+  },
+  {
+    "name": "Vasto Prime",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistols/PrimeVasto/PrimeVastoPistol",
+    "usedIn": [
+      "Akvasto Prime",
+      "Akvasto Prime"
+    ]
+  },
+  {
+    "name": "Lato",
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistol/Pistol",
+    "usedIn": [
+      "Bolto"
+    ]
+  },
+  {
+    "name": "Ocular Stem-Root",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishFPartItem",
+    "usedIn": [
+      "Catabolyst",
+      "Gristlebuck",
+      "Nodulite"
+    ]
+  },
+  {
+    "name": "Scintillant",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/EntratiWispItem",
+    "usedIn": [
+      "Catabolyst",
+      "Quassus",
+      "Bonewidow Capsule",
+      "Loid Sentinel Mask",
+      "Loid Sentinel Skin",
+      "Loid Sentinel Tail",
+      "Loid Sentinel Wing",
+      "Arcroid",
+      "Macro Arcroid",
+      "Macro Thymoid",
+      "Thymoid"
+    ]
+  },
+  {
+    "name": "Stellated Necrathene",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosRareGemACutItem",
+    "usedIn": [
+      "Catabolyst",
+      "Nodulite"
+    ]
+  },
+  {
+    "name": "Cestra",
+    "uniqueName": "/Lotus/Weapons/Corpus/Pistols/CorpusMinigun/CorpusMinigun",
+    "usedIn": [
+      "Dual Cestra",
+      "Dual Cestra"
+    ]
+  },
+  {
+    "name": "Entrati Obols",
+    "uniqueName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabMiscItemA",
+    "usedIn": [
+      "Grimoire",
+      "Ekhein"
+    ]
+  },
+  {
+    "name": "Necracoil",
+    "uniqueName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabMiscItemB",
+    "usedIn": [
+      "Grimoire",
+      "Onos",
+      "Ekhein",
+      "Helminth Coalescent Segment"
+    ]
+  },
+  {
+    "name": "Pouch",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/PrimeHikouHolster",
+    "usedIn": [
+      "Hikou Prime",
+      "Spira Prime"
+    ]
+  },
+  {
+    "name": "Stars",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/PrimeHikouStars",
+    "usedIn": [
+      "Hikou Prime"
+    ]
+  },
+  {
+    "name": "Viper",
+    "uniqueName": "/Lotus/Weapons/Grineer/GrineerPistol/GrineerLightPistol",
+    "usedIn": [
+      "Hystrix",
+      "Twin Vipers",
+      "Twin Vipers"
+    ]
+  },
+  {
+    "name": "Kraken",
+    "uniqueName": "/Lotus/Weapons/Grineer/GrineerPistol/GrnHeavyPistol",
+    "usedIn": [
+      "Kulstar"
+    ]
+  },
+  {
+    "name": "Charamote Sagan Module",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/OrokinFishSaganModuleItem",
+    "usedIn": [
+      "Ocucor",
+      "Cryotra",
+      "Caliban Cranion Helmet",
+      "Haztech Apparel (Operator)",
+      "Haztech Cuirass (Operator)",
+      "Kubrodon Ventkid Apparel",
+      "Kubrodon Ventkid Cuirass",
+      "Outrider Cuirass",
+      "Smelter Apparel (Operator)",
+      "Smelter Cuirass (Operator)",
+      "Vent Pobber Ventkid Apparel",
+      "Vent Pobber Ventkid Cuirass",
+      "Vent Rat Cuirass",
+      "Dissic Scaffold",
+      "Lega Prism",
+      "Plaga Brace",
+      "Ramflare",
+      "Thugs"
+    ]
+  },
+  {
+    "name": "Thermal Sludge",
+    "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/CoolantItem",
+    "usedIn": [
+      "Ocucor",
+      "Boot Trophy",
+      "Echowinder Trophy",
+      "Greedy Milk",
+      "Puppeteer",
+      "Tink Trophy",
+      "Bad Baby",
+      "Bellows",
+      "Flatbelly",
+      "Needlenose",
+      "Runway",
+      "Tombfinger",
+      "Aegron Gyro",
+      "Drimper Bracket",
+      "Oloro Moa",
+      "Trux Gyro",
+      "Tyli Gyro",
+      "Urga Bracket"
+    ]
+  },
+  {
+    "name": "Venerdo Alloy",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisUncommonOreAAlloyItem",
+    "usedIn": [
+      "Ocucor",
+      "Larkspur",
+      "Haztech Apparel (Operator)",
+      "Haztech Cuirass (Operator)",
+      "Haztech Pauldrons (Operator)",
+      "Kriller Trophy",
+      "Kubrodon Ventkid Apparel",
+      "Kubrodon Ventkid Cuirass",
+      "Kubrodon Ventkid Pauldrons",
+      "Mirewinder Trophy",
+      "Ostimyr Trophy",
+      "Outrider Cuirass",
+      "Outrider Pauldrons",
+      "Recaster Trophy",
+      "Smelter Apparel (Operator)",
+      "Smelter Cuirass (Operator)",
+      "Smelter Pauldrons (Operator)",
+      "Tink Trophy",
+      "Vent Pobber Ventkid Apparel",
+      "Vent Pobber Ventkid Cuirass",
+      "Vent Pobber Ventkid Pauldrons",
+      "Vent Rat Cuirass",
+      "Vent Rat Pauldrons",
+      "Vitreospina Trophy",
+      "Arc Twelve",
+      "Bashrack",
+      "Flatbelly",
+      "Gaze",
+      "Rattleguts",
+      "Sparkfire",
+      "Step Tens",
+      "Thugs",
+      "Adlet Core",
+      "Gauth Bracket",
+      "Hona Bracket",
+      "Krisys Core",
+      "Lambeo Moa",
+      "Lehan Core",
+      "Nychus Moa"
+    ]
+  },
+  {
+    "name": "Gyromag Systems",
+    "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/CorpusWidgetAItem",
+    "usedIn": [
+      "Plinx",
+      "Cantic Prism",
+      "Gravimag",
+      "Klamora Prism",
+      "Lega Prism"
+    ]
+  },
+  {
+    "name": "Coprite Alloy",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/CommonOreBAlloyBItem",
+    "usedIn": [
+      "Stubba",
+      "Ekwana Jai",
+      "Ekwana Ruhang",
+      "Korumm",
+      "Kronsh",
+      "Laka",
+      "Plague Bokwin",
+      "Plague Keewar",
+      "Sepfahn",
+      "Vargeet Jai",
+      "Vargeet Ruhang",
+      "Peram Fishing Spear",
+      "Ceno Pauldrons (Operator)",
+      "Vahd Pauldrons (Operator)",
+      "Zauba Pauldrons (Operator)",
+      "Shraksun Scaffold",
+      "Slapneedle",
+      "Adlet Core"
+    ]
+  },
+  {
+    "name": "Grakata",
+    "uniqueName": "/Lotus/Weapons/Grineer/LongGuns/GrineerAssaultRifle/GrnAssaultRifle",
+    "usedIn": [
+      "Twin Grakatas",
+      "Twin Grakatas"
+    ]
+  },
+  {
+    "name": "Kohmak",
+    "uniqueName": "/Lotus/Weapons/Grineer/Pistols/GrnKohmPistol/GrnKohmPistol",
+    "usedIn": [
+      "Twin Kohmak",
+      "Twin Kohmak"
+    ]
+  },
+  {
+    "name": "Barrels",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithBarrel",
+    "usedIn": [
+      "Twin Vipers Wraith"
+    ]
+  },
+  {
+    "name": "Receivers",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithReceiver",
+    "usedIn": [
+      "Twin Vipers Wraith"
+    ]
+  },
+  {
+    "name": "Gauntlet",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/AnkyrosPrimeGauntlet",
+    "usedIn": [
+      "Ankyros Prime",
+      "Keratinos",
+      "Kogake Prime",
+      "Tekko Prime",
+      "Venka Prime"
+    ]
+  },
+  {
+    "name": "Aggristone",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriRockItem",
+    "usedIn": [
+      "Argo & Vel",
+      "Sampotes"
+    ]
+  },
+  {
+    "name": "Kovnik",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemA",
+    "usedIn": [
+      "Argo & Vel",
+      "Sampotes",
+      "Sun & Moon"
+    ]
+  },
+  {
+    "name": "Rune Marrow",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriFractalItem",
+    "usedIn": [
+      "Argo & Vel",
+      "Azothane",
+      "Edun",
+      "Sampotes",
+      "Sun & Moon",
+      "Syam"
+    ]
+  },
+  {
+    "name": "Silphsela",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemE",
+    "usedIn": [
+      "Argo & Vel",
+      "Sampotes",
+      "Sun & Moon"
+    ]
+  },
+  {
+    "name": "Cabochon Embolos",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosEidolonGemBCutItem",
+    "usedIn": [
+      "Arum Spinosa",
+      "Cortege Stock",
+      "Morgha Stock"
+    ]
+  },
+  {
+    "name": "Guard",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfWarFanGuard",
+    "usedIn": [
+      "Arum Spinosa",
+      "Cobra & Crane Prime",
+      "Silva & Aegis Prime",
+      "Agkuza"
+    ]
+  },
+  {
+    "name": "Rivet",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfWarFanRivet",
+    "usedIn": [
+      "Arum Spinosa"
+    ]
+  },
+  {
+    "name": "Trapezium Xenorhast",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosEidolonGemACutItem",
+    "usedIn": [
+      "Arum Spinosa",
+      "Cortege Receiver",
+      "Morgha Receiver",
+      "Hec Hound"
+    ]
+  },
+  {
+    "name": "Maw Fang",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/Fish/GenericDuviriFishPartCItem",
+    "usedIn": [
+      "Azothane",
+      "Syam"
+    ]
+  },
+  {
+    "name": "Saggen Pearl",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriProcessedItem",
+    "usedIn": [
+      "Azothane"
+    ]
+  },
+  {
+    "name": "Yao Shrub",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemD",
+    "usedIn": [
+      "Azothane"
+    ]
+  },
+  {
+    "name": "Fish Scales",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/EidolonFishScalesItem",
+    "usedIn": [
+      "Balla",
+      "Cyath",
+      "Dehtat",
+      "Dokrahm",
+      "Kronsh",
+      "Mewan",
+      "Ooltha",
+      "Plague Akwin",
+      "Plague Bokwin",
+      "Rabvee",
+      "Sepfahn",
+      "Shtung",
+      "Ceno Apparel (Operator)",
+      "Vahd Apparel (Operator)",
+      "Zauba Apparel (Operator)",
+      "Zauba Cuirass (Operator)",
+      "Zauba Greaves (Operator)",
+      "Zauba Mask (Operator)",
+      "Zauba Pauldrons (Operator)"
+    ]
+  },
+  {
+    "name": "Nistlepod",
+    "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/NistlebrushItem",
+    "usedIn": [
+      "Balla",
+      "Dokrahm",
+      "Ekwana Jai",
+      "Ekwana Ruhang",
+      "Jai",
+      "Jai Ii",
+      "Laka",
+      "Ruhang",
+      "Ruhang Ii",
+      "Vargeet Jai",
+      "Vargeet Ruhang",
+      "Lanzo Fishing Spear",
+      "Peppered Bait",
+      "Peram Fishing Spear",
+      "Shockprod Fishing Spear",
+      "Stunna Fishing Spear",
+      "Tulok Fishing Spear",
+      "Twilight Bait",
+      "Vasca Curative",
+      "Eidolon Phylaxis"
+    ]
+  },
+  {
+    "name": "Pyrotic Alloy",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/CommonOreAAlloyAItem",
+    "usedIn": [
+      "Balla",
+      "Dokrahm",
+      "Jai",
+      "Jai Ii",
+      "Korb",
+      "Ooltha",
+      "Peye",
+      "Plague Akwin",
+      "Plague Kripath",
+      "Ruhang",
+      "Ruhang Ii",
+      "Seekalla",
+      "Shtung",
+      "Focused Nosam Cutter",
+      "Shockprod Fishing Spear",
+      "Stunna Fishing Spear",
+      "Tulok Fishing Spear",
+      "Ceno Greaves (Operator)",
+      "Vahd Greaves (Operator)",
+      "Zauba Greaves (Operator)",
+      "Pencha Scaffold",
+      "Phahd Scaffold",
+      "Zipneedle",
+      "Urga Bracket"
+    ]
+  },
+  {
+    "name": "Tear Azurite",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/CommonGemACutAItem",
+    "usedIn": [
+      "Balla",
+      "Ooltha",
+      "Plague Kripath",
+      "Sepfahn",
+      "Focused Nosam Cutter",
+      "Rahn Prism",
+      "Raplak Prism",
+      "Zipfire"
+    ]
+  },
+  {
+    "name": "Ornament",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/PrimeBoOrnament",
+    "usedIn": [
+      "Bo Prime",
+      "Tipedo Prime"
+    ]
+  },
+  {
+    "name": "Boltor",
+    "uniqueName": "/Lotus/Weapons/Tenno/Rifle/BoltoRifle",
+    "usedIn": [
+      "Boltace"
+    ]
+  },
+  {
+    "name": "Kronen",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Tonfa/TonfaContestWinner/TennoTonfa",
+    "usedIn": [
+      "Boltace"
+    ]
+  },
+  {
+    "name": "War Blade",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/WarBlade",
+    "usedIn": [
+      "Broken War"
+    ]
+  },
+  {
+    "name": "War Hilt",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/WarHilt",
+    "usedIn": [
+      "Broken War"
+    ]
+  },
+  {
+    "name": "Bo",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Staff/Staff",
+    "usedIn": [
+      "Cadus",
+      "Tipedo"
+    ]
+  },
+  {
+    "name": "Hilt",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/CobraCranePrimeHandle",
+    "usedIn": [
+      "Cobra & Crane Prime",
+      "Dorrclave",
+      "Dual Viciss",
+      "Nikana Prime",
+      "Sheev",
+      "Silva & Aegis Prime"
+    ]
+  },
+  {
+    "name": "Breath Of The Eidolon",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Eidolonium",
+    "usedIn": [
+      "Cyath",
+      "Ekwana Jai Ii",
+      "Ekwana Ruhang Ii",
+      "Korrudo",
+      "Kroostra",
+      "Vargeet Jai Ii",
+      "Vargeet Ruhang Ii",
+      "Ceno Apparel (Operator)",
+      "Ceno Cuirass (Operator)",
+      "Ceno Greaves (Operator)",
+      "Ceno Helmet (Operator)",
+      "Ceno Pauldrons (Operator)",
+      "Vahd Apparel (Operator)",
+      "Vahd Cuirass (Operator)",
+      "Vahd Greaves (Operator)",
+      "Vahd Mask (Operator)",
+      "Vahd Pauldrons (Operator)",
+      "Zauba Apparel (Operator)",
+      "Zauba Cuirass (Operator)",
+      "Zauba Greaves (Operator)",
+      "Zauba Mask (Operator)",
+      "Zauba Pauldrons (Operator)",
+      "Eidolon Lens",
+      "Eidolon Madurai Lens",
+      "Eidolon Naramon Lens",
+      "Eidolon Unairu Lens",
+      "Eidolon Vazarin Lens",
+      "Eidolon Zenurik Lens",
+      "Granmu Prism",
+      "Klebrik Scaffold",
+      "Lohrin Brace"
+    ]
+  },
+  {
+    "name": "Marquise Veridos",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/UncommonGemACutAItem",
+    "usedIn": [
+      "Cyath",
+      "Dehtat",
+      "Dokrahm",
+      "Mewan",
+      "Vulcax",
+      "Advanced Nosam Cutter",
+      "Sunpoint Plasma Drill",
+      "Loid Sentinel Mask",
+      "Loid Sentinel Skin",
+      "Loid Sentinel Tail",
+      "Loid Sentinel Wing",
+      "Flutterfire",
+      "Granmu Prism",
+      "Shwaak Prism"
+    ]
+  },
+  {
+    "name": "Maprico",
+    "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/EidolonFruitItem",
+    "usedIn": [
+      "Dehtat",
+      "Ekwana Ii Jai",
+      "Ekwana Ii Ruhang",
+      "Jayap",
+      "Vargeet Ii Jai",
+      "Vargeet Ii Ruhang",
+      "Cuthol Bait",
+      "Fosfor Blau",
+      "Fosfor Rahd",
+      "Glappid Bait",
+      "Norg Bait",
+      "Twilight Bait",
+      "Vasca Curative"
+    ]
+  },
+  {
+    "name": "Hook",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipHook",
+    "usedIn": [
+      "Dorrclave"
+    ]
+  },
+  {
+    "name": "Nikana",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Swords/KatanaAndWakizashi/Katana",
+    "usedIn": [
+      "Dragon Nikana"
+    ]
+  },
+  {
+    "name": "Kama",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/DualKamas/SingleKama",
+    "usedIn": [
+      "Dual Kamas",
+      "Dual Kamas"
+    ]
+  },
+  {
+    "name": "Dual Kamas",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/DualKamas/DualKamas",
+    "usedIn": [
+      "Dual Raza"
+    ]
+  },
+  {
+    "name": "Connla Sprout",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemC",
+    "usedIn": [
+      "Edun"
+    ]
+  },
+  {
+    "name": "Nacreous Pebble",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/Fish/GenericDuviriFishPartAItem",
+    "usedIn": [
+      "Edun"
+    ]
+  },
+  {
+    "name": "Tasoma Extract",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriMushroomItem",
+    "usedIn": [
+      "Edun"
+    ]
+  },
+  {
+    "name": "Shrill Voca",
+    "uniqueName": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTagCommon",
+    "usedIn": [
+      "Ekhein",
+      "Jahu Gargoyle"
+    ]
+  },
+  {
+    "name": "Condroc Wing",
+    "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/BirdOfPreyPartItem",
+    "usedIn": [
+      "Ekwana Ii Jai",
+      "Ekwana Ii Ruhang",
+      "Ekwana Jai",
+      "Ekwana Jai Ii",
+      "Ekwana Ruhang",
+      "Ekwana Ruhang Ii",
+      "Jai",
+      "Jai Ii",
+      "Sepfahn",
+      "Naberus Ephemera"
+    ]
+  },
+  {
+    "name": "Mortus Horn",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/DayUncommonFishBPartItem",
+    "usedIn": [
+      "Ekwana Ii Jai",
+      "Vargeet Ii Jai",
+      "Verdilac",
+      "Murkray Bait",
+      "Ceno Greaves (Operator)"
+    ]
+  },
+  {
+    "name": "Tralok Eyes",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/DayUncommonFishAPartItem",
+    "usedIn": [
+      "Ekwana Ii Ruhang",
+      "Vargeet Ii Ruhang",
+      "Murkray Bait",
+      "Vahd Pauldrons (Operator)"
+    ]
+  },
+  {
+    "name": "Goopolla Spleen",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/BothCommonFishBPartItem",
+    "usedIn": [
+      "Ekwana Jai",
+      "Vargeet Jai",
+      "Cuthol Bait",
+      "Fosfor Blau",
+      "Murkray Bait"
+    ]
+  },
+  {
+    "name": "Auroxium Alloy",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/RareOreAAlloyAItem",
+    "usedIn": [
+      "Ekwana Jai Ii",
+      "Ekwana Ruhang Ii",
+      "Korrudo",
+      "Tatsu",
+      "Vargeet Jai Ii",
+      "Vargeet Ruhang Ii",
+      "Ceno Helmet (Operator)",
+      "Vahd Mask (Operator)",
+      "Zauba Mask (Operator)",
+      "Splat",
+      "Hinta Stabilizer"
+    ]
+  },
+  {
+    "name": "Cetus Wisp",
+    "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/CetusWispItem",
+    "usedIn": [
+      "Ekwana Jai Ii",
+      "Ekwana Ruhang Ii",
+      "Kwath",
+      "Mewan",
+      "Vargeet Jai Ii",
+      "Vargeet Ruhang Ii",
+      "Zauba Apparel (Operator)",
+      "Zauba Cuirass (Operator)",
+      "Zauba Greaves (Operator)",
+      "Zauba Mask (Operator)",
+      "Zauba Pauldrons (Operator)",
+      "Clapkra Brace",
+      "Juttni Brace",
+      "Klebrik Scaffold",
+      "Lohrin Brace",
+      "Pencha Scaffold",
+      "Shraksun Scaffold"
+    ]
+  },
+  {
+    "name": "Charc Electroplax",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/BothCommonFishAPartItem",
+    "usedIn": [
+      "Ekwana Ruhang",
+      "Vargeet Ruhang",
+      "Fosfor Rahd"
+    ]
+  },
+  {
+    "name": "Head",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/FragorPrimeHead",
+    "usedIn": [
+      "Fragor Prime",
+      "Volnus Prime",
+      "Wolf Sledge",
+      "Rathbone"
+    ]
+  },
+  {
+    "name": "Left Gauntlet",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/FuraxWraithLeftGauntlet",
+    "usedIn": [
+      "Furax Wraith"
+    ]
+  },
+  {
+    "name": "Right Gauntlet",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/FuraxWraithRightGauntlet",
+    "usedIn": [
+      "Furax Wraith"
+    ]
+  },
+  {
+    "name": "Atmo Systems",
+    "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/CorpusWidgetBItem",
+    "usedIn": [
+      "Galvacord",
+      "Dissic Scaffold",
+      "Exard Scaffold",
+      "Gravimag",
+      "Propa Scaffold"
+    ]
+  },
+  {
+    "name": "Engine",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/GrnGhoulSawEngine",
+    "usedIn": [
+      "Ghoulsaw"
+    ]
+  },
+  {
+    "name": "Disc",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/GlaivePrimeDisc",
+    "usedIn": [
+      "Glaive Prime",
+      "Orvius"
+    ]
+  },
+  {
+    "name": "Gammacor",
+    "uniqueName": "/Lotus/Weapons/Syndicates/CephalonSuda/Pistols/CSDroidArray",
+    "usedIn": [
+      "Heliocor"
+    ]
+  },
+  {
+    "name": "Kogake",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/BrassKnuckles/BrassKnuckles",
+    "usedIn": [
+      "Hirudo"
+    ]
+  },
+  {
+    "name": "Khut-Khut Venom Sac",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/DayCommonFishBPartItem",
+    "usedIn": [
+      "Jai"
+    ]
+  },
+  {
+    "name": "Yogwun Stomach",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/DayCommonFishCPartItem",
+    "usedIn": [
+      "Jai Ii",
+      "Ruhang Ii"
+    ]
+  },
+  {
+    "name": "Fish Oil",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/EidolonFishOilItem",
+    "usedIn": [
+      "Jayap",
+      "Korb",
+      "Kroostra",
+      "Kwath",
+      "Laka",
+      "Peye",
+      "Seekalla",
+      "Archwing Launcher",
+      "Twilight Bait",
+      "Anspatha Brace",
+      "Clapkra Brace",
+      "Juttni Brace",
+      "Lohrin Brace"
+    ]
+  },
+  {
+    "name": "Blades",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfTransformClawsWeaponBlade",
+    "usedIn": [
+      "Keratinos",
+      "Venka Prime"
+    ]
+  },
+  {
+    "name": "Boot",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/KogakePrimeBoot",
+    "usedIn": [
+      "Kogake Prime",
+      "Boot Trophy"
+    ]
+  },
+  {
+    "name": "Iradite",
+    "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/IraditeItem",
+    "usedIn": [
+      "Korb",
+      "Ooltha",
+      "Peye",
+      "Plague Akwin",
+      "Venato",
+      "Archwing Launcher",
+      "Fosfor Rahd",
+      "Luminous Dye",
+      "Pharoma",
+      "Boot Trophy",
+      "Charc Eel Trophy",
+      "Cuthol Trophy",
+      "Glappid Trophy",
+      "Goopolla Trophy",
+      "Karkina Trophy",
+      "Khut-Khut Trophy",
+      "Mawfish Trophy",
+      "Mortus Lungfish Trophy",
+      "Murkray Trophy",
+      "Norg Trophy",
+      "Sharrac Trophy",
+      "Tralok Trophy",
+      "Yogwun Trophy",
+      "Eidolon Phylaxis",
+      "Rahn Prism",
+      "Raplak Prism",
+      "Shwaak Prism",
+      "Cela Bracket"
+    ]
+  },
+  {
+    "name": "Esher Devar",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/CommonGemBCutAItem",
+    "usedIn": [
+      "Korrudo",
+      "Kronsh",
+      "Plague Keewar",
+      "Rabvee",
+      "Cryotra",
+      "Tazicor",
+      "Focused Nosam Cutter",
+      "Rahn Prism",
+      "Raplak Prism",
+      "Shwaak Prism",
+      "Swiftfire"
+    ]
+  },
+  {
+    "name": "Mawfish Bones",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/DayCommonFishAPartItem",
+    "usedIn": [
+      "Korrudo",
+      "Ruhang"
+    ]
+  },
+  {
+    "name": "Narmer Isoplast",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/NarmerBountyResource",
+    "usedIn": [
+      "Korumm",
+      "Nepheri",
+      "Venato",
+      "Verdilac",
+      "Caliban Cranion Helmet"
+    ]
+  },
+  {
+    "name": "Star Amarast",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisRareGemACutItem",
+    "usedIn": [
+      "Kreska",
+      "Verdilac",
+      "Helstrum",
+      "Synathid Trophy",
+      "Beaky",
+      "Dink-A-Donk",
+      "Ramflare",
+      "Splat",
+      "Step Tens",
+      "Wingnut",
+      "Atheca Gyro",
+      "Lehan Core",
+      "Tyli Gyro"
+    ]
+  },
+  {
+    "name": "Tipedo",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Staff/MonkSpade/TnoMonkStaff",
+    "usedIn": [
+      "Lesion"
+    ]
+  },
+  {
+    "name": "Chain",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/NinkondiPrimeChain",
+    "usedIn": [
+      "Ninkondi Prime"
+    ]
+  },
+  {
+    "name": "Eidolon Shard",
+    "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/SentientShardCommonItem",
+    "usedIn": [
+      "Paracesis"
+    ]
+  },
+  {
+    "name": "Galatine",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Swords/GreatSword/TennoGreatSword",
+    "usedIn": [
+      "Paracesis"
+    ]
+  },
+  {
+    "name": "Orokin Ducats",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/PrimeBucks",
+    "usedIn": [
+      "Paracesis"
+    ]
+  },
+  {
+    "name": "Subcortex",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfBoomerangDisc",
+    "usedIn": [
+      "Pathocyst"
+    ]
+  },
+  {
+    "name": "Devolved Namalon",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosUncommonOreAAlloyItem",
+    "usedIn": [
+      "Pulmonars",
+      "Quassus",
+      "Bonewidow Weapon Pod",
+      "Cortege Receiver",
+      "Morgha Receiver",
+      "Voidrig Capsule",
+      "Chondricord Trophy",
+      "Glutinox Trophy",
+      "Helminth Archon Shard Segment",
+      "Garmr Core"
+    ]
+  },
+  {
+    "name": "Parasitic Tethermaw",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishGPartItem",
+    "usedIn": [
+      "Pulmonars",
+      "Voidrig Engine",
+      "Feverspine",
+      "Steeba"
+    ]
+  },
+  {
+    "name": "Spinal Core Section",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishBPartItem",
+    "usedIn": [
+      "Quassus",
+      "Bonewidow Weapon Pod",
+      "Cortege Barrel",
+      "Morgha Barrel",
+      "Voidrig Capsule",
+      "Loid Sentinel Mask",
+      "Loid Sentinel Skin",
+      "Loid Sentinel Tail",
+      "Loid Sentinel Wing",
+      "Ulnaris",
+      "Arioli Mutagen",
+      "Zarim Mutagen"
+    ]
+  },
+  {
+    "name": "Ankyros",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Gauntlet/Gauntlet",
+    "usedIn": [
+      "Ripkas",
+      "Tekko"
+    ]
+  },
+  {
+    "name": "Dual Cleavers",
+    "uniqueName": "/Lotus/Weapons/Grineer/Melee/GrineerMachetteAndCleaver/DualCleaverWeapon",
+    "usedIn": [
+      "Ripkas"
+    ]
+  },
+  {
+    "name": "Kuaka Spinal Claw",
+    "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/ForestRodentPartItem",
+    "usedIn": [
+      "Ruhang",
+      "Ruhang Ii",
+      "Vargeet Ii Jai",
+      "Vargeet Ii Ruhang",
+      "Vargeet Jai",
+      "Vargeet Jai Ii",
+      "Vargeet Ruhang",
+      "Vargeet Ruhang Ii"
+    ]
+  },
+  {
+    "name": "Glove",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/EntFistIncarnonGlove",
+    "usedIn": [
+      "Ruvox"
+    ]
+  },
+  {
+    "name": "Ninkondi",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Nunchaku/Nunchaku/Nunchaku",
+    "usedIn": [
+      "Shaku"
+    ]
+  },
+  {
+    "name": "Heatsink",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/GrineerCombatKnifeHeatsink",
+    "usedIn": [
+      "Sheev"
+    ]
+  },
+  {
+    "name": "Magistar",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Maces/PaladinMace/PaladinMaceWeapon",
+    "usedIn": [
+      "Sibear"
+    ]
+  },
+  {
+    "name": "Lamentus",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriEnemyDropItem",
+    "usedIn": [
+      "Sun & Moon"
+    ]
+  },
+  {
+    "name": "Dracroot",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemF",
+    "usedIn": [
+      "Syam"
+    ]
+  },
+  {
+    "name": "Eevani",
+    "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemB",
+    "usedIn": [
+      "Syam"
+    ]
+  },
+  {
+    "name": "Amphis",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Staff/GrnStaff",
+    "usedIn": [
+      "Sydon"
+    ]
+  },
+  {
+    "name": "Hespazym Alloy",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisRareOreAAlloyItem",
+    "usedIn": [
+      "Tatsu",
+      "Charamote Trophy",
+      "Haztech Greaves (Operator)",
+      "Haztech Mask (Operator)",
+      "Kubrodon Ventkid Greaves",
+      "Kubrodon Ventkid Mask",
+      "Longwinder Trophy",
+      "Outrider Greaves",
+      "Outrider Mask",
+      "Smelter Greaves (Operator)",
+      "Smelter Mask (Operator)",
+      "Styanax Gerousic Helmet",
+      "Synathid Trophy",
+      "Tromyzon Trophy",
+      "Vent Pobber Ventkid Greaves",
+      "Vent Pobber Ventkid Mask",
+      "Vent Rat Greaves",
+      "Vent Rat Mask",
+      "Dissic Scaffold",
+      "Exard Scaffold",
+      "Highbrow",
+      "Hothead",
+      "Needlenose",
+      "Propa Scaffold",
+      "Runway",
+      "Stitch",
+      "Thunderdrum",
+      "Frak Stabilizer",
+      "Lehan Core"
+    ]
+  },
+  {
+    "name": "Kunai",
+    "uniqueName": "/Lotus/Weapons/Tenno/ThrowingWeapons/Kunai",
+    "usedIn": [
+      "Tipedo"
+    ]
+  },
+  {
+    "name": "Atomos",
+    "uniqueName": "/Lotus/Weapons/Grineer/Pistols/HeatGun/GrnHeatGun",
+    "usedIn": [
+      "Twin Basolk"
+    ]
+  },
+  {
+    "name": "Dual Zoren",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Axe/DualAxeWeapon",
+    "usedIn": [
+      "Twin Basolk"
+    ]
+  },
+  {
+    "name": "Krohkur",
+    "uniqueName": "/Lotus/Weapons/Grineer/Melee/GrnEgyptSwd/GrnEgyptSwdWeapon",
+    "usedIn": [
+      "Twin Krohkur",
+      "Twin Krohkur"
+    ]
+  },
+  {
+    "name": "Anomaly Shard",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/SentientFragmentLootItem",
+    "usedIn": [
+      "Venato",
+      "Caliban Cranion Helmet"
+    ]
+  },
+  {
+    "name": "Exceptional Sentient Core",
+    "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/QuillsUncommonDogTag",
+    "usedIn": [
+      "Venato",
+      "Exilus Weapon Adapter"
+    ]
+  },
+  {
+    "name": "Purified Heciphron",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosUncommonGemACutItem",
+    "usedIn": [
+      "Vitrica",
+      "Voidrig Weapon Pod"
+    ]
+  },
+  {
+    "name": "Tempered Bapholite",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonOreBAlloyItem",
+    "usedIn": [
+      "Vitrica",
+      "Bonewidow Casing",
+      "Cortege Stock",
+      "Morgha Stock",
+      "Voidrig Engine",
+      "Amniophysi Trophy",
+      "Barbisteo Trophy",
+      "Gristlebuck",
+      "Helminth Invigoration Segment",
+      "Ulnaris",
+      "Vermisplicer"
+    ]
+  },
+  {
+    "name": "Broken War",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Swords/StalkerTwo/StalkerTwoSmallSword",
+    "usedIn": [
+      "War"
+    ]
+  },
+  {
+    "name": "Motor",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/ThrowingHammerMotor",
+    "usedIn": [
+      "Wolf Sledge"
+    ]
+  },
+  {
+    "name": "Core",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpGhostCatcherGlaivePartCore",
+    "usedIn": [
+      "Xoris"
+    ]
+  },
+  {
+    "name": "Harness",
+    "uniqueName": "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingChassisComponent",
+    "usedIn": [
+      "Amesha",
+      "Elytron",
+      "Itzal",
+      "Odonata",
+      "Odonata Prime"
+    ]
+  },
+  {
+    "name": "Wings",
+    "uniqueName": "/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingWingsComponent",
+    "usedIn": [
+      "Amesha",
+      "Elytron",
+      "Itzal",
+      "Odonata",
+      "Odonata Prime"
+    ]
+  },
+  {
+    "name": "Cortege Barrel",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechArchGunBarrelItem",
+    "usedIn": [
+      "Cortege"
+    ]
+  },
+  {
+    "name": "Cortege Receiver",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechArchGunReceiverItem",
+    "usedIn": [
+      "Cortege"
+    ]
+  },
+  {
+    "name": "Cortege Stock",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechArchGunStockItem",
+    "usedIn": [
+      "Cortege"
+    ]
+  },
+  {
+    "name": "Decurion Barrel",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchHeavyPistolsBarrel",
+    "usedIn": [
+      "Dual Decurion"
+    ]
+  },
+  {
+    "name": "Decurion Receiver",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchHeavyPistolsReceiver",
+    "usedIn": [
+      "Dual Decurion"
+    ]
+  },
+  {
+    "name": "Limbs",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchRocketCrossbowStock",
+    "usedIn": [
+      "Fluctus"
+    ]
+  },
+  {
+    "name": "Crisma Toroid",
+    "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidCamperItem",
+    "usedIn": [
+      "Larkspur"
+    ]
+  },
+  {
+    "name": "Morgha Barrel",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechGrenadeLauncherBarrelItem",
+    "usedIn": [
+      "Morgha"
+    ]
+  },
+  {
+    "name": "Morgha Receiver",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechGrenadeLauncherReceiverItem",
+    "usedIn": [
+      "Morgha"
+    ]
+  },
+  {
+    "name": "Morgha Stock",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechGrenadeLauncherStockItem",
+    "usedIn": [
+      "Morgha"
+    ]
+  },
+  {
+    "name": "Aegis",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchSwordShieldAegis",
+    "usedIn": [
+      "Centaur"
+    ]
+  },
+  {
+    "name": "Furax",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Fist/Fist",
+    "usedIn": [
+      "Knux"
+    ]
+  },
+  {
+    "name": "Carapace",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/PrimeCarrierCarapace",
+    "usedIn": [
+      "Carrier Prime",
+      "Dethcube Prime",
+      "Helios Prime",
+      "Nautilus",
+      "Nautilus Prime",
+      "Shade Prime",
+      "Wyrm Prime"
+    ]
+  },
+  {
+    "name": "Cerebrum",
+    "uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/PrimeCarrierCerebrum",
+    "usedIn": [
+      "Carrier Prime",
+      "Dethcube Prime",
+      "Helios Prime",
+      "Nautilus",
+      "Nautilus Prime",
+      "Shade Prime",
+      "Wyrm Prime"
+    ]
+  },
+  {
+    "name": "Axidrol Alloy",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonOreBAlloyItem",
+    "usedIn": [
+      "Oxylus",
+      "Brickie Trophy",
+      "Eye-Eye Trophy",
+      "Bad Baby",
+      "Bellows",
+      "Brash",
+      "Fatboys",
+      "Gibber",
+      "Ramble",
+      "Tombfinger",
+      "Tremor",
+      "Zip",
+      "Alcrom Core",
+      "Drex Core",
+      "Drimper Bracket",
+      "Garmr Core",
+      "Jonsin Bracket",
+      "Krisys Core",
+      "Para Moa",
+      "Zubb Bracket"
+    ]
+  },
+  {
+    "name": "Goblite Tears",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisUncommonGemACutItem",
+    "usedIn": [
+      "Oxylus",
+      "Vulcax",
+      "Bonewidow Casing",
+      "Charamote Trophy",
+      "Longwinder Trophy",
+      "Puppeteer",
+      "Tromyzon Trophy",
+      "Fatboys",
+      "Flutterfire",
+      "Gibber",
+      "Haymaker",
+      "Killstream",
+      "Steadyslam",
+      "Steeba",
+      "Tremor",
+      "Two-Sloops",
+      "Gauth Bracket",
+      "Hextra Gyro",
+      "Hona Bracket",
+      "Nychus Moa",
+      "Oloro Moa",
+      "Phazor Gyro"
+    ]
+  },
+  {
+    "name": "Scrap",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/GenericFishScrapItem",
+    "usedIn": [
+      "Oxylus",
+      "Bonewidow Weapon Pod",
+      "Arc Twelve",
+      "Bad Baby",
+      "Bashrack",
+      "Bellows",
+      "Brash",
+      "Coldfusor",
+      "Deepbreath",
+      "Flatbelly",
+      "Flutterfire",
+      "Gibber",
+      "Haymaker",
+      "Highbrow",
+      "Hothead",
+      "Killstream",
+      "Lovetap",
+      "Needlenose",
+      "Ramble",
+      "Ramflare",
+      "Runway",
+      "Shrewd",
+      "Slap",
+      "Slapneedle",
+      "Sparkfire",
+      "Splat",
+      "Steadyslam",
+      "Stitch",
+      "Swiftfire",
+      "Thunderdrum",
+      "Tremor",
+      "Zip",
+      "Zipfire",
+      "Zipneedle"
+    ]
+  },
+  {
+    "name": "Recaster Neural Relay",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/SolarisFishNeuralRelayItem",
+    "usedIn": [
+      "Helstrum",
+      "Tazicor",
+      "Flatbelly",
+      "Haymaker",
+      "Steadyslam",
+      "Stitch",
+      "Thunderdrum"
+    ]
+  },
+  {
+    "name": "Star Crimzian",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/RareGemACutAItem",
+    "usedIn": [
+      "Helstrum",
+      "Bonewidow Capsule",
+      "Styanax Agogean Helmet",
+      "Granmu Prism",
+      "Ramflare"
+    ]
+  },
+  {
+    "name": "Smooth Phasmin",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonGemACutItem",
+    "usedIn": [
+      "Tazicor",
+      "Greedy Milk",
+      "Brash",
+      "Ramble",
+      "Thugs",
+      "Zipfire",
+      "Zipneedle",
+      "Alcrom Core",
+      "Drex Core",
+      "Harpen Gyro",
+      "Para Moa",
+      "Tian Bracket"
+    ]
+  },
+  {
+    "name": "Synthula",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Eventium",
+    "usedIn": [
+      "Adrenal Stim",
+      "Calcifin Stim",
+      "Clotra Stim",
+      "Refract Stim"
+    ]
+  },
+  {
+    "name": "Moonlight Threshcone",
+    "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/CommonNightPlantItem",
+    "usedIn": [
+      "Amethyst Antitoxin",
+      "Health Restore (Large)",
+      "Topaz Antitoxin"
+    ]
+  },
+  {
+    "name": "Antiserum Injector Fragment",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/SyringeComponent",
+    "usedIn": [
+      "Antiserum Injector"
+    ]
+  },
+  {
+    "name": "Sunlight Threshcone",
+    "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/CommonDayPlantItem",
+    "usedIn": [
+      "Beryl Antitoxin",
+      "Citrine Antitoxin",
+      "Health Restore (Large)",
+      "Nightfall Apothic"
+    ]
+  },
+  {
+    "name": "Void Traces",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/VoidTearDrop",
+    "usedIn": [
+      "Bleeding Dragon Key",
+      "Decaying Dragon Key",
+      "Extinguished Dragon Key",
+      "Hobbled Dragon Key"
+    ]
+  },
+  {
+    "name": "Sunlight Dragonlily",
+    "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/UnCommonDayPlantItem",
+    "usedIn": [
+      "Citrine Antitoxin",
+      "Lapis Antitoxin",
+      "Vermillion Antitoxin",
+      "The Silver Grove"
+    ]
+  },
+  {
+    "name": "Fish Meat",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/EidolonFishMeatItem",
+    "usedIn": [
+      "Cuthol Bait",
+      "Glappid Bait",
+      "Murkray Bait",
+      "Norg Bait",
+      "Peppered Bait",
+      "Twilight Bait"
+    ]
+  },
+  {
+    "name": "Murkray Liver",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/BothRareFishAPartItem",
+    "usedIn": [
+      "Cuthol Bait",
+      "Clapkra Brace",
+      "Pencha Scaffold",
+      "Raplak Prism"
+    ]
+  },
+  {
+    "name": "Omega Isotope",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/OmegaIsotope",
+    "usedIn": [
+      "Fomorian Disruptor"
+    ]
+  },
+  {
+    "name": "Karkina Antenna",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/BothUncommonFishBPartItem",
+    "usedIn": [
+      "Fosfor Blau",
+      "Norg Bait",
+      "Vasca Curative",
+      "Vahd Greaves (Operator)"
+    ]
+  },
+  {
+    "name": "Sharrac Teeth",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/BothUncommonFishAPartItem",
+    "usedIn": [
+      "Fosfor Rahd",
+      "Norg Bait",
+      "Ceno Pauldrons (Operator)"
+    ]
+  },
+  {
+    "name": "Cuthol Tendrils",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/NightRareFishBPartItem",
+    "usedIn": [
+      "Glappid Bait",
+      "Granmu Prism",
+      "Klebrik Scaffold",
+      "Lohrin Brace"
+    ]
+  },
+  {
+    "name": "Norg Brain",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/NightRareFishAPartItem",
+    "usedIn": [
+      "Glappid Bait",
+      "Vasca Curative",
+      "Juttni Brace",
+      "Shraksun Scaffold",
+      "Shwaak Prism"
+    ]
+  },
+  {
+    "name": "Moonlight Jadeleaf",
+    "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/RareNightPlantItem",
+    "usedIn": [
+      "Health Restore (Large)",
+      "Lapis Antitoxin",
+      "Twilight Apothic",
+      "Vermillion Antitoxin"
+    ]
+  },
+  {
+    "name": "Sunlight Jadeleaf",
+    "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/RareDayPlantItem",
+    "usedIn": [
+      "Health Restore (Large)",
+      "Lapis Antitoxin",
+      "Sunrise Apothic",
+      "Vermillion Antitoxin"
+    ]
+  },
+  {
+    "name": "Moonlight Dragonlily",
+    "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/UnCommonNightPlantItem",
+    "usedIn": [
+      "Lapis Antitoxin",
+      "Nightfall Apothic",
+      "Topaz Antitoxin",
+      "Vermillion Antitoxin",
+      "The Silver Grove"
+    ]
+  },
+  {
+    "name": "Dusklight Sarracenia",
+    "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/ZenCobraLotusPlantItem",
+    "usedIn": [
+      "Nightfall Apothic"
+    ]
+  },
+  {
+    "name": "Chitinous Husk",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/JuggernautPartC",
+    "usedIn": [
+      "Pherliac Pods"
+    ]
+  },
+  {
+    "name": "Infected Palpators",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/JuggernautPartB",
+    "usedIn": [
+      "Pherliac Pods"
+    ]
+  },
+  {
+    "name": "Pulsating Tubercles",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/JuggernautPartA",
+    "usedIn": [
+      "Pherliac Pods"
+    ]
+  },
+  {
+    "name": "Severed Bile Sac",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/JuggernautPartD",
+    "usedIn": [
+      "Pherliac Pods"
+    ]
+  },
+  {
+    "name": "Pherliac Pods",
+    "uniqueName": "/Lotus/Types/Restoratives/Consumable/InfestedBaitBall",
+    "usedIn": [
+      "Potent Pherliac Pods"
+    ]
+  },
+  {
+    "name": "Fass Residue",
+    "uniqueName": "/Lotus/Types/Game/FishBait/Infested/InfestedFishBaitA",
+    "usedIn": [
+      "Processed Fass Residue",
+      "Desus Antigen",
+      "Elasmun Antigen",
+      "Ibexan Antigen",
+      "Iranon Antigen",
+      "Plagen Antigen",
+      "Poxi Antigen",
+      "Tethron Antigen",
+      "Virox Antigen"
+    ]
+  },
+  {
+    "name": "Vome Residue",
+    "uniqueName": "/Lotus/Types/Game/FishBait/Infested/OrokinFishBaitA",
+    "usedIn": [
+      "Processed Vome Residue",
+      "Adra Mutagen",
+      "Arioli Mutagen",
+      "Chiten Mutagen",
+      "Elsa Mutagen",
+      "Leptosam Mutagen",
+      "Monachod Mutagen",
+      "Phijar Mutagen",
+      "Zarim Mutagen"
+    ]
+  },
+  {
+    "name": "Cryptographic Alu",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/RazorbackCipherPart",
+    "usedIn": [
+      "Razorback Cipher"
+    ]
+  },
+  {
+    "name": "Advanced Nosam Cutter",
+    "uniqueName": "/Lotus/Types/Restoratives/Consumable/MiningLaserC",
+    "usedIn": [
+      "Sunpoint Plasma Drill"
+    ]
+  },
+  {
+    "name": "Travocyte Alloy",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonOreAAlloyItem",
+    "usedIn": [
+      "Sunpoint Plasma Drill",
+      "Echowinder Trophy",
+      "Sapcaddy Trophy",
+      "Scrubber Trophy",
+      "Catchmoon",
+      "Coldfusor",
+      "Deepbreath",
+      "Haymaker",
+      "Lovetap",
+      "Shrewd",
+      "Slap",
+      "Steadyslam",
+      "Twin Kavats",
+      "Alcrom Core",
+      "Cela Bracket",
+      "Drex Core",
+      "Drimper Bracket",
+      "Oloro Moa",
+      "Tian Bracket",
+      "Zubb Bracket"
+    ]
+  },
+  {
+    "name": "Frostleaf",
+    "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/WildGingerBPlantItem",
+    "usedIn": [
+      "Sunrise Apothic"
+    ]
+  },
+  {
+    "name": "Vestan Moss",
+    "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/MossGroundCoverAPlantItem",
+    "usedIn": [
+      "Sunrise Apothic"
+    ]
+  },
+  {
+    "name": "Lunar Pitcher",
+    "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/ZenPitcherPlantItem",
+    "usedIn": [
+      "Twilight Apothic",
+      "Seeding Step Ephemera"
+    ]
+  },
+  {
+    "name": "Ruk's Claw",
+    "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/GftPlantRuksClawMaturePlantItem",
+    "usedIn": [
+      "Twilight Apothic"
+    ]
+  },
+  {
+    "name": "Adramalium",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonOreAItem",
+    "usedIn": [
+      "Adramal Alloy",
+      "Lobotriscid Trophy",
+      "Xaku Kintsu Helmet"
+    ]
+  },
+  {
+    "name": "Lucent Teroglobe",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/OrbStoneItem",
+    "usedIn": [
+      "Adramal Alloy",
+      "Devolved Namalon",
+      "Tempered Bapholite",
+      "Thaumic Distillate",
+      "Voidrig Casing",
+      "Chondricord Trophy",
+      "Duroid Trophy",
+      "Myxostomata Trophy"
+    ]
+  },
+  {
+    "name": "Travoride",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonOreAItem",
+    "usedIn": [
+      "Adramal Alloy",
+      "Travocyte Alloy"
+    ]
+  },
+  {
+    "name": "Fieldron Sample",
+    "uniqueName": "/Lotus/Types/Items/Research/EnergyFragment",
+    "usedIn": [
+      "Aucrux Capacitors",
+      "Fieldron",
+      "Isos"
+    ]
+  },
+  {
+    "name": "Axidite",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonOreBItem",
+    "usedIn": [
+      "Axidrol Alloy"
+    ]
+  },
+  {
+    "name": "Biotic Filter",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishAPartItem",
+    "usedIn": [
+      "Bonewidow Capsule",
+      "Voidrig Weapon Pod",
+      "Chiten Mutagen",
+      "Elsa Mutagen"
+    ]
+  },
+  {
+    "name": "Damaged Necramech Pod",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartSystemsItem",
+    "usedIn": [
+      "Bonewidow Capsule",
+      "Voidrig Capsule",
+      "Loid Sentinel Mask",
+      "Loid Sentinel Skin",
+      "Loid Sentinel Tail",
+      "Loid Sentinel Wing"
+    ]
+  },
+  {
+    "name": "Damaged Necramech Casing",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartChassisItem",
+    "usedIn": [
+      "Bonewidow Casing",
+      "Voidrig Casing"
+    ]
+  },
+  {
+    "name": "Thaumic Distillate",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosRareOreAAlloyItem",
+    "usedIn": [
+      "Bonewidow Casing",
+      "Aquapulmo Trophy",
+      "Duroid Trophy",
+      "Flagellocanth Trophy",
+      "Myxostomata Trophy",
+      "Wanz Stabilizer"
+    ]
+  },
+  {
+    "name": "Adramal Alloy",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonOreAAlloyItem",
+    "usedIn": [
+      "Bonewidow Engine",
+      "Cortege Barrel",
+      "Morgha Barrel",
+      "Voidrig Casing",
+      "Cryptosuctus Trophy",
+      "Kymaeros Trophy",
+      "Feverspine",
+      "Helminth Segment",
+      "Palmaris",
+      "Sporelacer",
+      "Raiju Core"
+    ]
+  },
+  {
+    "name": "Damaged Necramech Engine",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartEngineItem",
+    "usedIn": [
+      "Bonewidow Engine",
+      "Voidrig Engine"
+    ]
+  },
+  {
+    "name": "Damaged Necramech Weapon Pod",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartWeaponPodItem",
+    "usedIn": [
+      "Bonewidow Weapon Pod",
+      "Voidrig Weapon Pod"
+    ]
+  },
+  {
+    "name": "Mutagen Sample",
+    "uniqueName": "/Lotus/Types/Items/Research/BioFragment",
+    "usedIn": [
+      "Bracoid",
+      "Mutagen Mass",
+      "Trachons"
+    ]
+  },
+  {
+    "name": "Damaged Necramech Weapon Barrel",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechWeaponBarrelItem",
+    "usedIn": [
+      "Cortege Barrel",
+      "Morgha Barrel"
+    ]
+  },
+  {
+    "name": "Damaged Necramech Weapon Receiver",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechWeaponReceiverItem",
+    "usedIn": [
+      "Cortege Receiver",
+      "Morgha Receiver"
+    ]
+  },
+  {
+    "name": "Tink Dissipator Coil",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/SolarisFishDissipatorCoilItem",
+    "usedIn": [
+      "Cortege Receiver",
+      "Morgha Receiver",
+      "Arc Twelve",
+      "Tombfinger",
+      "Zip",
+      "Gauth Bracket",
+      "Harpen Gyro"
+    ]
+  },
+  {
+    "name": "Damaged Necramech Weapon Stock",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechWeaponStockItem",
+    "usedIn": [
+      "Cortege Stock",
+      "Morgha Stock"
+    ]
+  },
+  {
+    "name": "Detonite Ampule",
+    "uniqueName": "/Lotus/Types/Items/Research/ChemFragment",
+    "usedIn": [
+      "Detonite Injector",
+      "Gallos Rods",
+      "Komms"
+    ]
+  },
+  {
+    "name": "Ferros",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/UncommonOreAItem",
+    "usedIn": [
+      "Devolved Namalon",
+      "Fersteel Alloy"
+    ]
+  },
+  {
+    "name": "Namalon",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosUncommonOreAItem",
+    "usedIn": [
+      "Devolved Namalon"
+    ]
+  },
+  {
+    "name": "Devar",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/CommonGemBItem",
+    "usedIn": [
+      "Esher Devar"
+    ]
+  },
+  {
+    "name": "Heart Nyth",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/EidolonGemBCutAItem",
+    "usedIn": [
+      "Exceptional Sentient Core",
+      "Caliban Cranion Helmet",
+      "Vahd Apparel (Operator)",
+      "Vahd Cuirass (Operator)",
+      "Vahd Greaves (Operator)",
+      "Vahd Mask (Operator)",
+      "Vahd Pauldrons (Operator)",
+      "Phahd Scaffold"
+    ]
+  },
+  {
+    "name": "Radian Sentirum",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/EidolonGemACutAItem",
+    "usedIn": [
+      "Exceptional Sentient Core",
+      "Ceno Apparel (Operator)",
+      "Ceno Cuirass (Operator)",
+      "Ceno Greaves (Operator)",
+      "Ceno Helmet (Operator)",
+      "Ceno Pauldrons (Operator)",
+      "Eidolon Ephemera",
+      "Anspatha Brace",
+      "Dorma Hound"
+    ]
+  },
+  {
+    "name": "Nyth",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/EidolonGemBItem",
+    "usedIn": [
+      "Heart Nyth"
+    ]
+  },
+  {
+    "name": "Hesperon",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisRareOreAItem",
+    "usedIn": [
+      "Hespazym Alloy"
+    ]
+  },
+  {
+    "name": "Veridos",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/UncommonGemAItem",
+    "usedIn": [
+      "Marquise Veridos"
+    ]
+  },
+  {
+    "name": "Sentirum",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/EidolonGemAItem",
+    "usedIn": [
+      "Radian Sentirum"
+    ]
+  },
+  {
+    "name": "Trembera Essence",
+    "uniqueName": "/Lotus/Types/Items/RelayRebuild/PhaseThreeEarthEssence",
+    "usedIn": [
+      "Relay Strut Component"
+    ]
+  },
+  {
+    "name": "Crimzian",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/RareGemAItem",
+    "usedIn": [
+      "Star Crimzian"
+    ]
+  },
+  {
+    "name": "Azurite",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/CommonGemAItem",
+    "usedIn": [
+      "Tear Azurite"
+    ]
+  },
+  {
+    "name": "Bapholite",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonOreBItem",
+    "usedIn": [
+      "Tempered Bapholite"
+    ]
+  },
+  {
+    "name": "Pyrol",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/CommonOreAItem",
+    "usedIn": [
+      "Tempered Bapholite",
+      "Pyrotic Alloy"
+    ]
+  },
+  {
+    "name": "Thaumica",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosRareOreAItem",
+    "usedIn": [
+      "Thaumic Distillate"
+    ]
+  },
+  {
+    "name": "Venerol",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisUncommonOreItem",
+    "usedIn": [
+      "Thaumic Distillate",
+      "Venerdo Alloy"
+    ]
+  },
+  {
+    "name": "Faceted Tiametrite",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonGemACutItem",
+    "usedIn": [
+      "Voidrig Casing",
+      "Xaku Kintsu Helmet",
+      "Macro Arcroid",
+      "Thymoid",
+      "Ulnaris"
+    ]
+  },
+  {
+    "name": "Purged Dagonic",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonGemBCutItem",
+    "usedIn": [
+      "Voidrig Weapon Pod",
+      "Styanax Synmora Helmet",
+      "Arcroid",
+      "Macro Thymoid",
+      "Palmaris"
+    ]
+  },
+  {
+    "name": "Amniophysi",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonDFishItemLarge",
+    "usedIn": [
+      "Amniophysi Trophy"
+    ]
+  },
+  {
+    "name": "Ganglion",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/InfMapricoFruitItem",
+    "usedIn": [
+      "Amniophysi Trophy",
+      "Barbisteo Trophy",
+      "Cryptosuctus Trophy",
+      "Flagellocanth Trophy",
+      "Glutinox Trophy",
+      "Kymaeros Trophy",
+      "Lobotriscid Trophy",
+      "Arcroid",
+      "Feverspine",
+      "Helminth Segment",
+      "Macro Arcroid",
+      "Nodulite",
+      "Vermisplicer",
+      "Desus Antigen",
+      "Elasmun Antigen",
+      "Ibexan Antigen",
+      "Iranon Antigen",
+      "Plagen Antigen",
+      "Poxi Antigen",
+      "Tethron Antigen",
+      "Virox Antigen"
+    ]
+  },
+  {
+    "name": "Aquapulmo",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/HybridRareAFishItemLarge",
+    "usedIn": [
+      "Aquapulmo Trophy"
+    ]
+  },
+  {
+    "name": "Pustulite",
+    "uniqueName": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/InfGorgaricusSeedItem",
+    "usedIn": [
+      "Aquapulmo Trophy",
+      "Ostimyr Trophy",
+      "Vitreospina Trophy",
+      "Gristlebuck",
+      "Helminth Invigoration Segment",
+      "Macro Thymoid",
+      "Sporelacer",
+      "Steeba",
+      "Thymoid",
+      "Adra Mutagen",
+      "Arioli Mutagen",
+      "Chiten Mutagen",
+      "Elsa Mutagen",
+      "Leptosam Mutagen",
+      "Monachod Mutagen",
+      "Phijar Mutagen",
+      "Zarim Mutagen"
+    ]
+  },
+  {
+    "name": "Arcane Locust Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Ninja/NinjaHelmetAltB",
+    "usedIn": [
+      "Ash Locust Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Scorpion Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Ninja/NinjaHelmetAlt",
+    "usedIn": [
+      "Ash Scorpion Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Chorus Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Decree/DecreeAltHelmetB",
+    "usedIn": [
+      "Banshee Chorus Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Reverb Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Decree/DecreeAltHelmet",
+    "usedIn": [
+      "Banshee Reverb Helmet"
+    ]
+  },
+  {
+    "name": "Barbisteo",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonBFishItemLarge",
+    "usedIn": [
+      "Barbisteo Trophy"
+    ]
+  },
+  {
+    "name": "Ember Systems",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/EmberSystemsComponent",
+    "usedIn": [
+      "Blazing Step Ephemera"
+    ]
+  },
+  {
+    "name": "Vitus Essence",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Elitium",
+    "usedIn": [
+      "Blazing Step Ephemera",
+      "Bleeding Body Ephemera",
+      "Freezing Step Ephemera",
+      "Seeding Step Ephemera",
+      "Shocking Step Ephemera",
+      "Smoking Body Ephemera",
+      "Vitus Illumina",
+      "Ayatan Amber Star"
+    ]
+  },
+  {
+    "name": "Garuda Systems",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/GarudaSystemsComponent",
+    "usedIn": [
+      "Bleeding Body Ephemera"
+    ]
+  },
+  {
+    "name": "Crewman’S Boot",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/CorpusBootItem",
+    "usedIn": [
+      "Boot Trophy"
+    ]
+  },
+  {
+    "name": "Brickie",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmCommonFishBLargeItem",
+    "usedIn": [
+      "Brickie Trophy"
+    ]
+  },
+  {
+    "name": "Seram Beetle Shell",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/FishParts/NightLegendaryFishAPartItem",
+    "usedIn": [
+      "Ceno Cuirass (Operator)",
+      "Ceno Helmet (Operator)",
+      "Vahd Cuirass (Operator)",
+      "Vahd Mask (Operator)",
+      "Anspatha Brace",
+      "Phahd Scaffold",
+      "Rahn Prism"
+    ]
+  },
+  {
+    "name": "Charamote",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/OrokinBothRareFishALargeItem",
+    "usedIn": [
+      "Charamote Trophy"
+    ]
+  },
+  {
+    "name": "Charc Eel",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/BothCommonFishAItemLarge",
+    "usedIn": [
+      "Charc Eel Trophy"
+    ]
+  },
+  {
+    "name": "Chondricord",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/OrokinUncommonAFishItemLarge",
+    "usedIn": [
+      "Chondricord Trophy"
+    ]
+  },
+  {
+    "name": "Cryptosuctus",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonAFishItemLarge",
+    "usedIn": [
+      "Cryptosuctus Trophy"
+    ]
+  },
+  {
+    "name": "Cuthol",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/NightRareFishBItemLarge",
+    "usedIn": [
+      "Cuthol Trophy"
+    ]
+  },
+  {
+    "name": "Duroid",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/OrokinRareAFishItemLarge",
+    "usedIn": [
+      "Duroid Trophy"
+    ]
+  },
+  {
+    "name": "Echowinder",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmCommonFishALargeItem",
+    "usedIn": [
+      "Echowinder Trophy"
+    ]
+  },
+  {
+    "name": "Brilliant Eidolon Shard",
+    "uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/SentientShardBrilliantItem",
+    "usedIn": [
+      "Eidolon Ephemera"
+    ]
+  },
+  {
+    "name": "Revenant Systems",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/RevenantSystemsComponent",
+    "usedIn": [
+      "Eidolon Ephemera"
+    ]
+  },
+  {
+    "name": "Arcane Backdraft Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Ember/EmberHelmetAltB",
+    "usedIn": [
+      "Ember Backdraft Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Phoenix Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Ember/EmberHelmetAlt",
+    "usedIn": [
+      "Ember Phoenix Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Avalon Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ExcaliburHelmetAlt",
+    "usedIn": [
+      "Excalibur Avalon Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Pendragon Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ExcaliburHelmetAltB",
+    "usedIn": [
+      "Excalibur Pendragon Helmet"
+    ]
+  },
+  {
+    "name": "Eye-Eye",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/CorpusCoolUncommonFishALargeItem",
+    "usedIn": [
+      "Eye-Eye Trophy"
+    ]
+  },
+  {
+    "name": "Flagellocanth",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/InfestedRareAFishItemLarge",
+    "usedIn": [
+      "Flagellocanth Trophy"
+    ]
+  },
+  {
+    "name": "Frost Systems",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/FrostSystemsComponent",
+    "usedIn": [
+      "Freezing Step Ephemera"
+    ]
+  },
+  {
+    "name": "Arcane Aurora Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Frost/FrostHelmetAlt",
+    "usedIn": [
+      "Frost Aurora Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Squall Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Frost/FrostHelmetAltB",
+    "usedIn": [
+      "Frost Squall Helmet"
+    ]
+  },
+  {
+    "name": "Glappid",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/NightLegendaryFishAItemLarge",
+    "usedIn": [
+      "Glappid Trophy"
+    ]
+  },
+  {
+    "name": "Glutinox",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/InfestedUncommonAFishItemLarge",
+    "usedIn": [
+      "Glutinox Trophy"
+    ]
+  },
+  {
+    "name": "Goopolla",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/BothCommonFishBItemLarge",
+    "usedIn": [
+      "Goopolla Trophy"
+    ]
+  },
+  {
+    "name": "Calda Toroid",
+    "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidHungerItem",
+    "usedIn": [
+      "Haztech Apparel (Operator)",
+      "Haztech Cuirass (Operator)",
+      "Kubrodon Ventkid Apparel",
+      "Kubrodon Ventkid Cuirass",
+      "Outrider Cuirass",
+      "Smelter Apparel (Operator)",
+      "Smelter Cuirass (Operator)",
+      "Vent Pobber Ventkid Apparel",
+      "Vent Pobber Ventkid Cuirass",
+      "Vent Rat Cuirass",
+      "Dissic Scaffold",
+      "Exard Scaffold",
+      "Propa Scaffold",
+      "Urga Bracket"
+    ]
+  },
+  {
+    "name": "Sola Toroid",
+    "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidWraithItem",
+    "usedIn": [
+      "Haztech Greaves (Operator)",
+      "Kubrodon Ventkid Greaves",
+      "Outrider Greaves",
+      "Smelter Greaves (Operator)",
+      "Vent Pobber Ventkid Greaves",
+      "Vent Rat Greaves",
+      "Certus Brace",
+      "Plaga Brace",
+      "Suo Brace",
+      "Cela Bracket"
+    ]
+  },
+  {
+    "name": "Vega Toroid",
+    "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidMicroidItem",
+    "usedIn": [
+      "Haztech Pauldrons (Operator)",
+      "Kubrodon Ventkid Pauldrons",
+      "Outrider Pauldrons",
+      "Smelter Pauldrons (Operator)",
+      "Vent Pobber Ventkid Pauldrons",
+      "Vent Rat Pauldrons",
+      "Cantic Prism",
+      "Klamora Prism",
+      "Lega Prism",
+      "Zubb Bracket"
+    ]
+  },
+  {
+    "name": "Karkina",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/BothUncommonFishBItemLarge",
+    "usedIn": [
+      "Karkina Trophy"
+    ]
+  },
+  {
+    "name": "Kavasa Prime Band",
+    "uniqueName": "/Lotus/Types/Recipes/Kubrow/Collars/PrimeKubrowCollarABandComponent",
+    "usedIn": [
+      "Kavasa Prime Kubrow Collar"
+    ]
+  },
+  {
+    "name": "Kavasa Prime Buckle",
+    "uniqueName": "/Lotus/Types/Recipes/Kubrow/Collars/PrimeKubrowCollarABuckleComponent",
+    "usedIn": [
+      "Kavasa Prime Kubrow Collar"
+    ]
+  },
+  {
+    "name": "Khut-Khut",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/DayCommonFishBItemLarge",
+    "usedIn": [
+      "Khut-Khut Trophy"
+    ]
+  },
+  {
+    "name": "Kriller",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmUncommonFishALargeItem",
+    "usedIn": [
+      "Kriller Trophy"
+    ]
+  },
+  {
+    "name": "Kymaeros",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonCFishItemLarge",
+    "usedIn": [
+      "Kymaeros Trophy"
+    ]
+  },
+  {
+    "name": "Lobotriscid",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonEFishItemLarge",
+    "usedIn": [
+      "Lobotriscid Trophy"
+    ]
+  },
+  {
+    "name": "Arcane Essence Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Loki/LokiHelmetAlt",
+    "usedIn": [
+      "Loki Essence Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Swindle Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Loki/LokiHelmetAltB",
+    "usedIn": [
+      "Loki Swindle Helmet"
+    ]
+  },
+  {
+    "name": "Longwinder",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/SolarisWarmRareFishALargeItem",
+    "usedIn": [
+      "Longwinder Trophy"
+    ]
+  },
+  {
+    "name": "Arcane Coil Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Mag/MagHelmetAlt",
+    "usedIn": [
+      "Mag Coil Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Mag Gauss Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Mag/MagHelmetAltB",
+    "usedIn": [
+      "Mag Gauss Helmet"
+    ]
+  },
+  {
+    "name": "Mawfish",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/DayCommonFishAItemLarge",
+    "usedIn": [
+      "Mawfish Trophy"
+    ]
+  },
+  {
+    "name": "Mirewinder",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/CorpusBothUncommonFishALargeItem",
+    "usedIn": [
+      "Mirewinder Trophy"
+    ]
+  },
+  {
+    "name": "Mortus Lungfish",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/DayUncommonFishBItemLarge",
+    "usedIn": [
+      "Mortus Lungfish Trophy"
+    ]
+  },
+  {
+    "name": "Murkray",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/BothRareFishAItemLarge",
+    "usedIn": [
+      "Murkray Trophy"
+    ]
+  },
+  {
+    "name": "Myxostomata",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/OrokinLegendaryAFishItemLarge",
+    "usedIn": [
+      "Myxostomata Trophy"
+    ]
+  },
+  {
+    "name": "Norg",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/NightRareFishAItemLarge",
+    "usedIn": [
+      "Norg Trophy"
+    ]
+  },
+  {
+    "name": "Arcane Flux Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/AntiMatter/AntiAltHelmet",
+    "usedIn": [
+      "Nova Flux Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Menticide Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Jade/JadeHelmetAlt",
+    "usedIn": [
+      "Nyx Menticide Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Vespa Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Jade/JadeHelmetAltB",
+    "usedIn": [
+      "Nyx Vespa Helmet"
+    ]
+  },
+  {
+    "name": "Ostimyr",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/HybridUncommonAFishItemLarge",
+    "usedIn": [
+      "Ostimyr Trophy"
+    ]
+  },
+  {
+    "name": "Komms",
+    "uniqueName": "/Lotus/Types/Items/RailjackMiscItems/KommsRailjackItem",
+    "usedIn": [
+      "Protea Telema Helmet"
+    ]
+  },
+  {
+    "name": "Recaster",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/SolarisCoolUncommonFishALargeItem",
+    "usedIn": [
+      "Recaster Trophy"
+    ]
+  },
+  {
+    "name": "Arcane Thrak Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Rhino/RhinoHelmetAlt",
+    "usedIn": [
+      "Rhino Thrak Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Vanguard Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Rhino/RhinoHelmetAltB",
+    "usedIn": [
+      "Rhino Vanguard Helmet"
+    ]
+  },
+  {
+    "name": "Sapcaddy",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/CorpusCoolCommonFishALargeItem",
+    "usedIn": [
+      "Sapcaddy Trophy"
+    ]
+  },
+  {
+    "name": "Arcane Chlora Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Asp/AspAltHelmetB",
+    "usedIn": [
+      "Saryn Chlora Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Hemlock Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Asp/AspAltHelmet",
+    "usedIn": [
+      "Saryn Hemlock Helmet"
+    ]
+  },
+  {
+    "name": "Scrubber",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/SolarisBothCommonFishALargeItem",
+    "usedIn": [
+      "Scrubber Trophy"
+    ]
+  },
+  {
+    "name": "Oberon Systems",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/PaladinSystemsComponent",
+    "usedIn": [
+      "Seeding Step Ephemera"
+    ]
+  },
+  {
+    "name": "Sharrac",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/BothUncommonFishAItemLarge",
+    "usedIn": [
+      "Sharrac Trophy"
+    ]
+  },
+  {
+    "name": "Volt Systems",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/VOLTSystemsComponent",
+    "usedIn": [
+      "Shocking Step Ephemera"
+    ]
+  },
+  {
+    "name": "Ash Systems",
+    "uniqueName": "/Lotus/Types/Recipes/WarframeRecipes/AshSystemsComponent",
+    "usedIn": [
+      "Smoking Body Ephemera"
+    ]
+  },
+  {
+    "name": "Synathid",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/OrokinBothLegendaryFishALargeItem",
+    "usedIn": [
+      "Synathid Trophy"
+    ]
+  },
+  {
+    "name": "Tink",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/SolarisCoolCommonFishALargeItem",
+    "usedIn": [
+      "Tink Trophy"
+    ]
+  },
+  {
+    "name": "Tralok",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/DayUncommonFishAItemLarge",
+    "usedIn": [
+      "Tralok Trophy"
+    ]
+  },
+  {
+    "name": "Arcane Aura Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Trinity/TrinityHelmetAlt",
+    "usedIn": [
+      "Trinity Aura Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Meridian Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Trinity/TrinityHelmetAltB",
+    "usedIn": [
+      "Trinity Meridian Helmet"
+    ]
+  },
+  {
+    "name": "Tromyzon",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/OrokinCoolRareFishALargeItem",
+    "usedIn": [
+      "Tromyzon Trophy"
+    ]
+  },
+  {
+    "name": "Arcane Esprit Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Trapper/TrapperHelmetAlt",
+    "usedIn": [
+      "Vauban Esprit Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Gambit Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Trapper/TrapperHelmetAltB",
+    "usedIn": [
+      "Vauban Gambit Helmet"
+    ]
+  },
+  {
+    "name": "Vitreospina",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/HybridUncommonBFishItemLarge",
+    "usedIn": [
+      "Vitreospina Trophy"
+    ]
+  },
+  {
+    "name": "Arcane Pulse Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Volt/VoltHelmetAltB",
+    "usedIn": [
+      "Volt Pulse Helmet"
+    ]
+  },
+  {
+    "name": "Arcane Storm Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Volt/VoltHelmetAlt",
+    "usedIn": [
+      "Volt Storm Helmet"
+    ]
+  },
+  {
+    "name": "Yogwun",
+    "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/DayCommonFishCItemLarge",
+    "usedIn": [
+      "Yogwun Trophy"
+    ]
+  },
+  {
+    "name": "Tubercular Gill System",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosGenericOrokinFishPartItem",
+    "usedIn": [
+      "Arcroid",
+      "Macro Arcroid",
+      "Arioli Mutagen",
+      "Monachod Mutagen",
+      "Phijar Mutagen",
+      "Zarim Mutagen"
+    ]
+  },
+  {
+    "name": "Auron",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/RareOreAItem",
+    "usedIn": [
+      "Auroxium Alloy"
+    ]
+  },
+  {
+    "name": "Ayatan Cyan Star",
+    "uniqueName": "/Lotus/Types/Items/FusionTreasures/OroFusexOrnamentA",
+    "usedIn": [
+      "Ayatan Amber Star"
+    ]
+  },
+  {
+    "name": "Scrubber Exa Brain",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishExaBrainItem",
+    "usedIn": [
+      "Beaky",
+      "Catchmoon",
+      "Deepbreath",
+      "Dink-A-Donk",
+      "Highbrow",
+      "Wingnut",
+      "Munit Gyro"
+    ]
+  },
+  {
+    "name": "Echowinder Anoscopic Sensor",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishAnoscopicSensorItem",
+    "usedIn": [
+      "Bellows",
+      "Brash",
+      "Fatboys",
+      "Ramble",
+      "Step Tens",
+      "Twin Kavats",
+      "Tian Bracket",
+      "Trux Gyro"
+    ]
+  },
+  {
+    "name": "Embolos",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosEidolonGemBItem",
+    "usedIn": [
+      "Cabochon Embolos"
+    ]
+  },
+  {
+    "name": "Sapcaddy Venedo Case",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishVenedoCaseItem",
+    "usedIn": [
+      "Coldfusor",
+      "Lovetap",
+      "Shrewd",
+      "Slap",
+      "Hec Hound",
+      "Phazor Gyro"
+    ]
+  },
+  {
+    "name": "Coprun",
+    "uniqueName": "/Lotus/Types/Items/Gems/Eidolon/CommonOreBItem",
+    "usedIn": [
+      "Coprite Alloy"
+    ]
+  },
+  {
+    "name": "Somatic Fibers",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/MemoryCryptoFragment",
+    "usedIn": [
+      "Echoes Of Umbra",
+      "Lua Lens",
+      "Lua Madurai Lens",
+      "Lua Naramon Lens",
+      "Lua Unairu Lens",
+      "Lua Vazarin Lens",
+      "Lua Zenurik Lens"
+    ]
+  },
+  {
+    "name": "Greater Focus Lens",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/FocusLensGreater",
+    "usedIn": [
+      "Eidolon Lens"
+    ]
+  },
+  {
+    "name": "Greater Madurai Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/AttackLensGreater",
+    "usedIn": [
+      "Eidolon Madurai Lens"
+    ]
+  },
+  {
+    "name": "Greater Naramon Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/TacticLensGreater",
+    "usedIn": [
+      "Eidolon Naramon Lens"
+    ]
+  },
+  {
+    "name": "Greater Unairu Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/WardLensGreater",
+    "usedIn": [
+      "Eidolon Unairu Lens"
+    ]
+  },
+  {
+    "name": "Greater Vazarin Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/DefenseLensGreater",
+    "usedIn": [
+      "Eidolon Vazarin Lens"
+    ]
+  },
+  {
+    "name": "Greater Zenurik Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/PowerLensGreater",
+    "usedIn": [
+      "Eidolon Zenurik Lens"
+    ]
+  },
+  {
+    "name": "Tiametrite",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonGemAItem",
+    "usedIn": [
+      "Faceted Tiametrite"
+    ]
+  },
+  {
+    "name": "Benign Infested Tumor",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosGenericSharedFishPartItem",
+    "usedIn": [
+      "Feverspine",
+      "Palmaris",
+      "Sporelacer",
+      "Ulnaris",
+      "Vermisplicer",
+      "Desus Antigen",
+      "Elasmun Antigen",
+      "Ibexan Antigen",
+      "Iranon Antigen",
+      "Plagen Antigen",
+      "Poxi Antigen",
+      "Tethron Antigen",
+      "Virox Antigen"
+    ]
+  },
+  {
+    "name": "Goblite",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisUncommonGemAItem",
+    "usedIn": [
+      "Goblite Tears"
+    ]
+  },
+  {
+    "name": "Madurai Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/AttackLens",
+    "usedIn": [
+      "Greater Madurai Lens"
+    ]
+  },
+  {
+    "name": "Naramon Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/TacticLens",
+    "usedIn": [
+      "Greater Naramon Lens"
+    ]
+  },
+  {
+    "name": "Unairu Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/WardLens",
+    "usedIn": [
+      "Greater Unairu Lens"
+    ]
+  },
+  {
+    "name": "Vazarin Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/DefenseLens",
+    "usedIn": [
+      "Greater Vazarin Lens"
+    ]
+  },
+  {
+    "name": "Zenurik Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/PowerLens",
+    "usedIn": [
+      "Greater Zenurik Lens"
+    ]
+  },
+  {
+    "name": "Pustulent Cognitive Nodule",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishAPartItem",
+    "usedIn": [
+      "Gristlebuck",
+      "Helminth Invigoration Segment",
+      "Elasmun Antigen",
+      "Virox Antigen"
+    ]
+  },
+  {
+    "name": "Noctrul",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonGemBItem",
+    "usedIn": [
+      "Heart Noctrul"
+    ]
+  },
+  {
+    "name": "Sporulate Sac",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishEPartItem",
+    "usedIn": [
+      "Helminth Archon Shard Segment",
+      "Nodulite",
+      "Sporelacer",
+      "Adra Mutagen",
+      "Leptosam Mutagen"
+    ]
+  },
+  {
+    "name": "Stela",
+    "uniqueName": "/Lotus/Types/Gameplay/EntratiLab/Resources/MurmurItem",
+    "usedIn": [
+      "Helminth Coalescent Segment"
+    ]
+  },
+  {
+    "name": "Vizier Predasite Tag",
+    "uniqueName": "/Lotus/Types/Items/Deimos/AnimalTagInfestedPredatorCommon",
+    "usedIn": [
+      "Helminth Invigoration Segment"
+    ]
+  },
+  {
+    "name": "Purple Velocipod Tag",
+    "uniqueName": "/Lotus/Types/Items/Deimos/AnimalTagInfestedKdriveCommon",
+    "usedIn": [
+      "Helminth Segment"
+    ]
+  },
+  {
+    "name": "Saturated Muscle Mass",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishCPartItem",
+    "usedIn": [
+      "Helminth Segment",
+      "Steeba",
+      "Ibexan Antigen",
+      "Plagen Antigen"
+    ]
+  },
+  {
+    "name": "Brickie Muon Battery",
+    "uniqueName": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishMuonBatteryItem",
+    "usedIn": [
+      "Hothead",
+      "Sparkfire",
+      "Aegron Gyro",
+      "Alcrom Core",
+      "Cela Bracket",
+      "Drex Core",
+      "Hona Bracket",
+      "Jonsin Bracket",
+      "Krisys Core",
+      "Urga Bracket",
+      "Zubb Bracket"
+    ]
+  },
+  {
+    "name": "Kavat Genetic Code",
+    "uniqueName": "/Lotus/Types/Game/CatbrowPet/CatbrowGeneticSignature",
+    "usedIn": [
+      "Kavat Incubator Upgrade Segment"
+    ]
+  },
+  {
+    "name": "Proof Fragment",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/Beacon",
+    "usedIn": [
+      "Limbo Chassis Theorem",
+      "Limbo Neuroptics Theorem",
+      "Limbo Systems Theorem"
+    ]
+  },
+  {
+    "name": "Eidolon Lens",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/FocusLensOstron",
+    "usedIn": [
+      "Lua Lens"
+    ]
+  },
+  {
+    "name": "Eidolon Madurai Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/AttackLensOstron",
+    "usedIn": [
+      "Lua Madurai Lens"
+    ]
+  },
+  {
+    "name": "Eidolon Naramon Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/TacticLensOstron",
+    "usedIn": [
+      "Lua Naramon Lens"
+    ]
+  },
+  {
+    "name": "Eidolon Unairu Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/WardLensOstron",
+    "usedIn": [
+      "Lua Unairu Lens"
+    ]
+  },
+  {
+    "name": "Eidolon Vazarin Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/DefenseLensOstron",
+    "usedIn": [
+      "Lua Vazarin Lens"
+    ]
+  },
+  {
+    "name": "Eidolon Zenurik Lens",
+    "uniqueName": "/Lotus/Upgrades/Focus/PowerLensOstron",
+    "usedIn": [
+      "Lua Zenurik Lens"
+    ]
+  },
+  {
+    "name": "Ferment Bladder",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosGenericInfestedFishPartItem",
+    "usedIn": [
+      "Macro Thymoid",
+      "Thymoid",
+      "Adra Mutagen",
+      "Chiten Mutagen",
+      "Elsa Mutagen",
+      "Leptosam Mutagen"
+    ]
+  },
+  {
+    "name": "Mandachord Body",
+    "uniqueName": "/Lotus/Types/Keys/BardQuest/BardQuestSequencerPartA",
+    "usedIn": [
+      "Mandachord"
+    ]
+  },
+  {
+    "name": "Mandachord Bridge",
+    "uniqueName": "/Lotus/Types/Keys/BardQuest/BardQuestSequencerPartC",
+    "usedIn": [
+      "Mandachord"
+    ]
+  },
+  {
+    "name": "Mandachord Fret",
+    "uniqueName": "/Lotus/Types/Keys/BardQuest/BardQuestSequencerPartB",
+    "usedIn": [
+      "Mandachord"
+    ]
+  },
+  {
+    "name": "Avionics",
+    "uniqueName": "/Lotus/Types/Recipes/LandingCraftRecipes/Mantys/MantysStarChartComponent",
+    "usedIn": [
+      "Mantis",
+      "Parallax",
+      "Scimitar",
+      "Xiphos"
+    ]
+  },
+  {
+    "name": "Engines",
+    "uniqueName": "/Lotus/Types/Recipes/LandingCraftRecipes/Mantys/MantysPowerCoreComponent",
+    "usedIn": [
+      "Mantis",
+      "Parallax",
+      "Scimitar",
+      "Xiphos"
+    ]
+  },
+  {
+    "name": "Fuselage",
+    "uniqueName": "/Lotus/Types/Recipes/LandingCraftRecipes/Mantys/MantysExoskeletonComponent",
+    "usedIn": [
+      "Mantis",
+      "Parallax",
+      "Scimitar",
+      "Xiphos"
+    ]
+  },
+  {
+    "name": "Thyst",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisEidolonGemBItem",
+    "usedIn": [
+      "Marquise Thyst"
+    ]
+  },
+  {
+    "name": "Incubator Power Core",
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/EggHatcher",
+    "usedIn": [
+      "Nutrio Incubator Upgrade Segment"
+    ]
+  },
+  {
+    "name": "Dendrite Blastoma",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishBPartItem",
+    "usedIn": [
+      "Palmaris",
+      "Vermisplicer",
+      "Desus Antigen",
+      "Iranon Antigen"
+    ]
+  },
+  {
+    "name": "Dagonic",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonGemBItem",
+    "usedIn": [
+      "Purged Dagonic"
+    ]
+  },
+  {
+    "name": "Heciphron",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosUncommonGemAItem",
+    "usedIn": [
+      "Purified Heciphron"
+    ]
+  },
+  {
+    "name": "Zodian",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisEidolonGemAItem",
+    "usedIn": [
+      "Radiant Zodian"
+    ]
+  },
+  {
+    "name": "Phasmin",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonGemAItem",
+    "usedIn": [
+      "Smooth Phasmin"
+    ]
+  },
+  {
+    "name": "Amarast",
+    "uniqueName": "/Lotus/Types/Items/Gems/Solaris/SolarisRareGemAItem",
+    "usedIn": [
+      "Star Amarast"
+    ]
+  },
+  {
+    "name": "Necrathene",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosRareGemAItem",
+    "usedIn": [
+      "Stellated Necrathene"
+    ]
+  },
+  {
+    "name": "Xenorhast",
+    "uniqueName": "/Lotus/Types/Items/Gems/Deimos/DeimosEidolonGemAItem",
+    "usedIn": [
+      "Trapezium Xenorhast"
+    ]
+  },
+  {
+    "name": "Spectral Debris",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/SpecterParticleResidue",
+    "usedIn": [
+      "Adlet Core",
+      "Bhaira Hound",
+      "Dorma Hound",
+      "Garmr Core",
+      "Hec Hound",
+      "Raiju Core"
+    ]
+  },
+  {
+    "name": "Waxen Sebum Deposit",
+    "uniqueName": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishDPartItem",
+    "usedIn": [
+      "Poxi Antigen",
+      "Tethron Antigen"
+    ]
+  },
+  {
+    "name": "Orokin Cipher",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/MirageCode",
+    "usedIn": [
+      "Hidden Messages"
+    ]
+  },
+  {
+    "name": "Mutalist Alad V Nav Coordinate",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/InfestedAladCoordinate",
+    "usedIn": [
+      "Mutalist Alad V Assassinate"
+    ]
+  },
+  {
+    "name": "Nav Coordinate",
+    "uniqueName": "/Lotus/Types/Items/MiscItems/NavCode",
+    "usedIn": [
+      "Mutalist Alad V Assassinate"
+    ]
+  }
+]

@@ -16,6 +16,7 @@ import LanguagePicker from './components/LanguagePicker';
 const NAV_ITEMS = [
 { id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },
 { id: 'prime-resurgence', icon: 'BaroKiTeerFlat.png', label: 'Prime Resurgence' },
+  { id: 'market', icon: 'IconMarket.png', label: 'Market' },
 { id: 'inventory', icon: 'IconInventory.png', label: 'Inventory' },
 { id: 'foundry', icon: 'IconFoundry.png', label: 'Foundry' },
 { id: 'mods', icon: 'Mods.png', label: 'Mods' },
@@ -23,7 +24,7 @@ const NAV_ITEMS = [
 { id: 'relics', icon: 'IconRelic.png', label: 'Relics' },
 { id: 'relic-planner', icon: 'VoidSymbol.png', label: 'Relic Planner' },
 { id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
-{ id: 'cosmetics', icon: 'Appearance.png', label: 'Cosmetics' },
+{ id: 'cosmetics', icon: 'Appearance.png', label: 'Cosmetics, Decorations, Emotes' },
 { id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },
 { id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },
 { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
@@ -82,6 +83,7 @@ const Collectibles = lazy(() => import('./screens/Collectibles'));
 const Cosmetics = lazy(() => import('./screens/Cosmetics'));
 const PrimeResurgence = lazy(() => import('./screens/PrimeResurgence'));
 const Wiki = lazy(() => import('./screens/Wiki'));
+const Market = lazy(() => import('./screens/Market'));
 const Adversaries = lazy(() => import('./screens/Adversaries'));
 // Overlay (separate window, no monitoring context needed)
 const OverlayRouter = lazy(() => import('./components/overlays/OverlayRouter'));
@@ -310,6 +312,7 @@ function AppContent() {
 
   const screens = {
     dashboard: <Dashboard />,
+    market: <Market onNavigate={setActiveTab} />,
     inventory: <Inventory />,
     foundry: <Foundry />,
     rivens: <Rivens />,
@@ -350,7 +353,7 @@ function AppContent() {
                   {item.id === 'settings' && updateState.status === 'available' &&
                   <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full z-10 shadow-[0_0_6px_rgba(239,68,68,0.8)]" />
                   }
-                  <Tooltip content={t(`nav.${item.id}`)}>
+                  <Tooltip content={t(`nav.${item.id}`) || item.label}>
                     <button
                       id={item.id === 'settings' ? 'nav-settings' : undefined}
                       onClick={() => setActiveTab(item.id)}

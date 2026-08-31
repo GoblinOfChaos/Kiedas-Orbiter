@@ -151,7 +151,7 @@ function RecipeDrawer({ item, recipe, onClose }) {
               </div>
             })}
           </div>
-          <div className={`mt-4 rounded-lg p-3 text-[10px] font-black uppercase ${recipe.allIngredientsMet ? 'bg-emerald-500/15 text-emerald-300' : 'bg-white/5 text-kronos-dim'}`}>
+          <div className={`mt-4 rounded-lg p-3 text-[10px] font-black uppercase ${isReadyToCraft(recipe) ? 'bg-emerald-500/15 text-emerald-300' : 'bg-white/5 text-kronos-dim'}`}>
             {isReadyToCraft(recipe) ? 'Ready to craft' : recipe.bpCount > 0 ? 'Missing ingredients' : 'Missing blueprint'}
           </div>
         </>}

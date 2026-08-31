@@ -123,6 +123,40 @@ async function _doEnsurePriceMap() {
   return new Map();
 }
 
+// Display names known to collide between a real tradeable item and an
+// unrelated non-tradeable one (verified individually against wfcd-combined.json
+// and the wiki - see docs/qa-checklist.md bug class #19). The bare-name
+// fallback below only exists to cover a tradeable item whose gameRef mapping
+// hasn't synced from relics.run yet; for these specific names it would
+// instead attach the tradeable item's price to its non-tradeable namesake
+// (e.g. the "Crash Course" Somachord track showing the Crash Course rifle
+// mod's market price), so skip it for exactly these confirmed pairs.
+const AMBIGUOUS_PRICE_NAMES = new Set(['Crash Course', 'Twitch']);
+
+function lookupPriceInMap(priceMap, uniqueName, name) {
+  if (!priceMap) return 0;
+  const un = uniqueName || "";
+  const n = AMBIGUOUS_PRICE_NAMES.has(name) ? "" : (name || "");
+  const candidates = [
+    un,
+    un.replace("Component", "Blueprint"),
+    un.replace("Component", ""),
+    un.replace("/StoreItems/", "/"),
+    n,
+    n ? `${n} Blueprint` : null,
+    n ? `${n} Set` : null,
+    n && n.includes("Neuroptics") ? n.replace("Neuroptics", "Helmet") + " Blueprint" : null,
+    n && n.includes("Helmet") ? n.replace("Helmet", "Neuroptics") + " Blueprint" : null,
+  ];
+  for (const c of candidates) {
+    if (c) {
+      const p = priceMap.get(c);
+      if (p != null && p > 0) return p;
+    }
+  }
+  return 0;
+}
+
 export async function getPricesBatch(items, onProgress) {
   const priceMap = await ensurePriceMap();
   const results = {};
@@ -134,8 +168,7 @@ export async function getPricesBatch(items, onProgress) {
       results[item.uniqueName] = 0;
       continue;
     }
-    let price = priceMap.get(item.uniqueName);
-    if (!price) price = priceMap.get(item.name) ?? 0;
+    const price = lookupPriceInMap(priceMap, item.uniqueName, item.name);
     results[item.uniqueName] = price;
     if (onProgress) onProgress({ current: ++done, total, label: item.name });
   }
@@ -145,7 +178,5 @@ export async function getPricesBatch(items, onProgress) {
 
 export async function getPrice(uniqueName, itemName, _ducatValue = 0) {
   const priceMap = await ensurePriceMap();
-  let price = priceMap.get(uniqueName);
-  if (!price) price = priceMap.get(itemName) ?? 0;
-  return price;
+  return lookupPriceInMap(priceMap, uniqueName, itemName);
 }

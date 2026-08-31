@@ -5,6 +5,69 @@ import { BLUEPRINT_SUFFIX } from './warframeUtils';
 import { BARO_RELIC_NAMES } from './baroRelics';
 import { REQUIEM_MOD_ALIASES } from './requiemModAliases';
 
+const allRelicRewardsCache = new WeakMap();
+const relicCatalogCache = new WeakMap();
+const exportMapCache = new WeakMap();
+const recipeIndexCache = new WeakMap();
+
+function getRecipeIndexes(exportData, locale = "en") {
+  if (!exportData || !exportData.ExportRecipes) {
+    return { bpLookup: {}, ingredientIndex: new Map() };
+  }
+  if (recipeIndexCache.has(exportData)) return recipeIndexCache.get(exportData);
+
+  const bpLookup = {};
+  const ingredientIndex = new Map();
+  const clean = (s) => s ? s.replace("/StoreItems/", "/").toLowerCase() : "";
+
+  for (const [bpUniqueName, bpRecipe] of Object.entries(exportData.ExportRecipes)) {
+    if (bpRecipe.resultType) {
+      bpLookup[bpRecipe.resultType] = bpUniqueName;
+      bpLookup[clean(bpRecipe.resultType)] = bpUniqueName;
+    }
+    for (const ing of (bpRecipe.ingredients || [])) {
+      if (ing.ItemType) {
+        ingredientIndex.set(clean(ing.ItemType), {
+          bpRecipe,
+          bpUniqueName,
+          itemCount: ing.ItemCount ?? 1
+        });
+      }
+    }
+  }
+
+  const indexes = { bpLookup, ingredientIndex };
+  recipeIndexCache.set(exportData, indexes);
+  return indexes;
+}
+
+
+function getExportMaps(exportData) {
+  if (!exportData) return { relics: {}, rewards: {} };
+  if (exportMapCache.has(exportData)) return exportMapCache.get(exportData);
+
+  const toMap = (data) => {
+    if (!data) return {};
+    if (!Array.isArray(data)) return data;
+    const map = {};
+    for (const item of data) {
+      const k = item.uniqueName || item.ItemType || item.name || item.rewardManifest;
+      if (k) map[k] = item;
+    }
+    return map;
+  };
+
+  const maps = {
+    relics: toMap(exportData.ExportRelics),
+    rewards: toMap(exportData.ExportRewards)
+  };
+  exportMapCache.set(exportData, maps);
+  return maps;
+}
+
+
+
+
 // Helper: split PascalCase to spaced words
 function splitPascal(str) {
   if (!str) return '';
@@ -110,6 +173,7 @@ function resolveDisplayName(uniqueName, exportData, locale = 'en') {
  */
 export function getAllRelicRewards(exportData, locale = 'en') {
   if (!exportData || !exportData.ExportRelics || !exportData.ExportRewards) return [];
+  if (allRelicRewardsCache.has(exportData)) return allRelicRewardsCache.get(exportData);
 
   const relicData = Array.isArray(exportData.ExportRelics) ? exportData.ExportRelics : Object.values(exportData.ExportRelics);
   const rewardsMap = Array.isArray(exportData.ExportRewards) ? {} : exportData.ExportRewards;
@@ -170,6 +234,7 @@ export function getAllRelicRewards(exportData, locale = 'en') {
     });
   }
 
+  allRelicRewardsCache.set(exportData, allItems);
   return allItems;
 }
 
@@ -177,18 +242,7 @@ export function getAllRelicRewards(exportData, locale = 'en') {
  * Extracts the 6 possible rewards for a relic.
  */
 export function getRelicRewards(relicUniqueName, exportData, locale = 'en') {
-  const toMap = (data) => {
-    if (!data || !Array.isArray(data)) return data || {};
-    const map = {};
-    for (const item of data) {
-      const k = item.uniqueName || item.ItemType || item.name || item.rewardManifest;
-      if (k) map[k] = item;
-    }
-    return map;
-  };
-
-  const relics = toMap(exportData.ExportRelics);
-  const rewards = toMap(exportData.ExportRewards);
+  const { relics, rewards } = getExportMaps(exportData);
 
   const relicEntry = relics[relicUniqueName];
   if (!relicEntry) return [];
@@ -213,7 +267,7 @@ export function getRelicRewards(relicUniqueName, exportData, locale = 'en') {
       name: resolveDisplayName(un, exportData, locale),
       rarity: item.rarity || 'COMMON',
       ducats: recipe?.primeSellingPrice || itemData?.primeSellingPrice || 0,
-      icon: exportData.EI?.[un] || null,
+      icon: exportData.EI?.[un] || exportData.EI?.[norm] || null,
       isForma: norm.toLowerCase().includes('forma'),
       isPrimePart: norm.includes('Prime'),
     };
@@ -227,6 +281,7 @@ export function getRelicRewards(relicUniqueName, exportData, locale = 'en') {
  */
 export function getRelicCatalog(exportData, locale = 'en') {
   if (!exportData?.ExportRelics || !exportData?.ExportRewards) return [];
+  if (relicCatalogCache.has(exportData)) return relicCatalogCache.get(exportData);
 
   const relics = Array.isArray(exportData.ExportRelics)
     ? exportData.ExportRelics.map((entry) => [entry.uniqueName || entry.ItemType, entry])
@@ -267,6 +322,7 @@ export function getRelicCatalog(exportData, locale = 'en') {
     });
   }
 
+  relicCatalogCache.set(exportData, catalog);
   return catalog;
 }
 
@@ -274,7 +330,6 @@ export function getRelicCatalog(exportData, locale = 'en') {
  * Gets inventory and mastery context for a specific reward item.
  */
 export function getRewardInventoryContext(rewardUniqueName, inventoryData, exportData, locale = 'en') {
-  // Always compute parentName from item name, even without inventory
   const itemName = resolveDisplayName(rewardUniqueName, exportData, locale);
   let parentName = itemName;
   const bpSuffix = BLUEPRINT_SUFFIX[locale] ?? ' Blueprint';
@@ -305,7 +360,6 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
   };
 
   const ER = exportData.ExportResources || {};
-
   const isGenericResource = (un) => {
     return !!ER[un]
       && !un.includes('/WeaponParts/')
@@ -317,10 +371,8 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
   const isResource = isGenericResource(rewardUniqueName);
   const isForma = rewardUniqueName?.toLowerCase().includes('forma') ?? false;
 
-  // Forma special case
   if (isForma) {
     const formaCount = inventoryData.account?.forma || 0;
-    // Use craftable array - it has bpCount from ownedItemCounts which includes raw.Recipes
     const craftable = inventoryData.craftable ?? [];
     const formaEntry = craftable.find(i => i.uniqueName?.toLowerCase().includes('forma'));
     const bpStock = formaEntry?.bpCount ?? 0;
@@ -338,89 +390,99 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     };
   }
 
-  // Precompute reverse lookup for recipes -> bp
-  let bpLookup = {};
-  if (exportData.ExportRecipes) {
-    for (const [rName, rData] of Object.entries(exportData.ExportRecipes)) {
-      if (rData.resultType) {
-        bpLookup[rData.resultType] = rName;
-        bpLookup[rData.resultType.replace('/StoreItems/', '/').toLowerCase()] = rName;
-      }
-    }
-  }
+  const { bpLookup, ingredientIndex } = getRecipeIndexes(exportData, locale);
+  const inventoryIndex = getPartInventoryIndex(inventoryData, exportData);
 
+  const clean = (s) => s ? s.replace('/StoreItems/', '/').toLowerCase() : '';
   const recipe = exportData.ExportRecipes?.[rewardUniqueName]
     || exportData.ExportRecipes?.[rewardUniqueName.replace('/StoreItems/', '/')];
   let actualComponent = recipe ? recipe.resultType : rewardUniqueName;
 
   let parentRecipe = null;
   let parentRecipeUniqueName = null;
-  // How many of THIS reward the parent recipe actually needs (e.g. Afuris
-  // Prime Blueprint needs 2 Barrels, not 1) - captured from the matching
-  // ingredient entry in Pass 1 below. Defaults to 1 when no parent recipe
-  // is found (e.g. Forma) or the match came from the Pass 2 name fallback.
   let neededQuantity = 1;
 
-  // Normalize for comparison
-  const clean = (s) => s ? s.replace('/StoreItems/', '/').toLowerCase() : '';
   const rClean = clean(rewardUniqueName);
   const aClean = clean(actualComponent);
 
-  // Find if actualComponent is part of another recipe
-  if (exportData.ExportRecipes) {
-    for (const [bpUniqueName, bpRecipe] of Object.entries(exportData.ExportRecipes)) {
-      const ingredients = bpRecipe.ingredients || [];
-      // Pass 1: True reverse ingredient lookup
-      const matchedIngredient = ingredients.find(ing => {
-        const iClean = clean(ing.ItemType);
-        return iClean === aClean || iClean === rClean;
-      });
-      if (matchedIngredient) {
-        parentRecipe = bpRecipe;
-        parentRecipeUniqueName = bpUniqueName;
-        neededQuantity = matchedIngredient.ItemCount ?? 1;
-        parentName = resolveDisplayName(bpRecipe.resultType, exportData, locale).replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$'), '').trim();
-        break;
-      }
-      // Pass 2: Fallback to string matching the result type
-      const resName = resolveDisplayName(bpRecipe.resultType, exportData, locale).replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$'), '').trim();
-      if (resName === parentName) {
-        parentRecipe = bpRecipe;
-        parentRecipeUniqueName = bpUniqueName;
-      }
+  const directHit = ingredientIndex.get(aClean) || ingredientIndex.get(rClean);
+  if (directHit) {
+    parentRecipe = directHit.bpRecipe;
+    parentRecipeUniqueName = directHit.bpUniqueName;
+    neededQuantity = directHit.itemCount;
+    parentName = resolveDisplayName(parentRecipe.resultType, exportData, locale).replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$'), '').trim();
+  }
+  // A reward that IS a finished Blueprint (rewardUniqueName has its own
+  // recipe) is never anyone else's ingredient, so the lookup above never
+  // finds it and subcomponents silently stayed empty - the crafting
+  // requirements it lists (parts + credits) are exactly what belongs here.
+  // Only used to build the subcomponents list below; parentRecipeUniqueName
+  // stays unset so it doesn't affect the BP/Owned/Mastery counts, which are
+  // already correct for this case via the `recipe ? stock : ...` fallback.
+  const ownRecipeForSubcomponents = (!directHit && recipe && recipe.ingredients?.length > 0) ? recipe : null;
+
+  const rewardEntries = inventoryIndex.byUnique.get(rClean) || inventoryIndex.byName.get(itemName.toLowerCase()) || [];
+  const rewardEntry = rewardEntries[0];
+  const stock = rewardEntry?.quantity ?? 0;
+
+  const craftedEntries = inventoryIndex.byUnique.get(aClean) || [];
+  const craftedEntry = craftedEntries[0];
+  const craftedCount = craftedEntry?.quantity ?? 0;
+  const isMastered = craftedEntry?.mastered ?? false;
+
+  let parentBpCount = 0;
+  let parentCraftedCount = 0;
+  let parentIsMastered = false;
+
+  const parentNameLower = parentName.trim().toLowerCase();
+
+  if (parentRecipe && parentRecipeUniqueName) {
+    const pNorm = clean(parentRecipeUniqueName);
+    const pBpHits = inventoryIndex.byUnique.get(pNorm) || [];
+    parentBpCount = pBpHits[0]?.quantity ?? 0;
+
+    const prNorm = clean(parentRecipe.resultType);
+    const parentMatches = inventoryIndex.byUnique.get(prNorm)
+      || inventoryIndex.byName.get(parentNameLower)
+      || [];
+    const pCrafted = parentMatches.find(item => item.mastered || item.owned || (item.quantity ?? 0) > 0) || parentMatches[0];
+
+    parentCraftedCount = pCrafted?.quantity ?? (pCrafted?.owned ? 1 : 0);
+    parentIsMastered = pCrafted?.mastered || inventoryIndex.masteredUniques.has(prNorm) || inventoryIndex.masteredNames.has(parentNameLower) || false;
+  } else {
+    parentBpCount = recipe ? stock : 0;
+    parentCraftedCount = craftedCount;
+    parentIsMastered = isMastered || inventoryIndex.masteredUniques.has(rClean) || inventoryIndex.masteredNames.has(parentNameLower) || false;
+  }
+
+  if (!parentIsMastered && parentNameLower) {
+    if (inventoryIndex.masteredNames.has(parentNameLower)) {
+      parentIsMastered = true;
     }
   }
 
-  const subcomponents = (parentRecipe?.ingredients || []).map(ing => {
+  const subcomponents = (parentRecipe?.ingredients || ownRecipeForSubcomponents?.ingredients || []).map(ing => {
     const ingName = resolveDisplayName(ing.ItemType, exportData, locale);
     const ingBpUniqueName = bpLookup[ing.ItemType]
-      || bpLookup[ing.ItemType.replace('/StoreItems/', '/').toLowerCase()];
+      || bpLookup[clean(ing.ItemType)];
     const compIsResource = isGenericResource(ing.ItemType);
 
-    const haveCrafted = inventoryData.all?.find(i => i.unique_name === ing.ItemType)?.quantity
-      || inventoryData.prime_parts?.find(i => i.unique_name === ing.ItemType)?.quantity
-      || inventoryData.resources?.find(i => i.unique_name === ing.ItemType)?.quantity
-      || 0;
+    const ingHits = inventoryIndex.byUnique.get(clean(ing.ItemType)) || [];
+    const haveCrafted = ingHits[0]?.quantity ?? 0;
 
-    const bpCount = ingBpUniqueName
-      ? (inventoryData.prime_parts?.find(i => clean(i.unique_name) === clean(ingBpUniqueName))?.quantity
-        || inventoryData.all?.find(i => clean(i.unique_name) === clean(ingBpUniqueName))?.quantity
-        || 0)
-      : 0;
+    let bpCount = 0;
+    if (ingBpUniqueName) {
+      const bpHits = inventoryIndex.byUnique.get(clean(ingBpUniqueName)) || [];
+      bpCount = bpHits[0]?.quantity ?? 0;
+    }
+
     const isMatch = (ingUn) => {
       if (!ingUn || !rewardUniqueName) return false;
-
-      // 1. Path normalization match
-      const clean = (s) => s.replace('/StoreItems/', '/').replace(/Blueprint$/i, '').replace(/Recipe$/i, '').toLowerCase();
-      if (clean(ingUn) === clean(rewardUniqueName)) return true;
-      if (clean(ingUn) === clean(actualComponent)) return true;
-
-      // 2. Name-based match (very robust for Warframe parts)
+      const c1 = clean(ingUn);
+      if (c1 === rClean || c1 === aClean) return true;
       const ingNameClean = ingName.toLowerCase().replace('blueprint', '').trim();
       const rewardNameClean = itemName.toLowerCase().replace('blueprint', '').trim();
-      if (ingNameClean === rewardNameClean) return true;
-
-      return false;
+      return ingNameClean === rewardNameClean;
     };
 
     return {
@@ -435,111 +497,11 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     };
   }).filter(c => c.need > 0);
 
-  // Now determine the item's own counts - with path normalization for /StoreItems/ prefix
-  const normalizeUN = (s) => s ? s.replace('/StoreItems/', '/').toLowerCase() : '';
-  const rNorm = normalizeUN(rewardUniqueName);
-  const findInInventory = (arr) => arr?.find(i => normalizeUN(i.unique_name) === rNorm);
-  let rewardEntry = findInInventory(inventoryData.all)
-    || findInInventory(inventoryData.prime_parts)
-    || findInInventory(inventoryData.mods)
-    || findInInventory(inventoryData.resources)
-    || findInInventory(inventoryData.consumables_catalog)
-    || findInInventory(inventoryData.consumables);
-
-  // Fallback: if not found by uniqueName, search by display name (handles synthetic
-  // short uniqueNames from OCR, e.g. "Lohk" → /Lotus/Upgrades/Mods/Requiem/Lohk)
-  if (!rewardEntry && inventoryData.mods) {
-    rewardEntry = inventoryData.mods.find(m => m.name?.toLowerCase() === rewardUniqueName?.toLowerCase());
-  }
-
-  const stock = rewardEntry?.quantity ?? 0;
-
-  const aNorm = normalizeUN(actualComponent);
-  const findInInventorySimple = (arr) => arr?.find(i => normalizeUN(i.unique_name) === aNorm);
-  let craftedEntry = findInInventorySimple(inventoryData.all)
-    || findInInventorySimple(inventoryData.prime_parts)
-    || findInInventorySimple(inventoryData.resources)
-    || findInInventorySimple(inventoryData.consumables_catalog)
-    || findInInventorySimple(inventoryData.consumables);
-
-  // Fallback: search by name in mods (handles short OCR uniqueNames like "Lohk")
-  if (!craftedEntry && inventoryData.mods) {
-    craftedEntry = inventoryData.mods.find(m => m.name?.toLowerCase() === rewardUniqueName?.toLowerCase());
-  }
-
-  const craftedCount = craftedEntry?.quantity ?? 0;
-  const isMastered = craftedEntry?.mastered ?? false;
-
-  let parentBpCount = 0;
-  let parentCraftedCount = 0;
-  let parentIsMastered = false;
-
-  const equipmentEntries = [
-    ...(inventoryData.all || []),
-    ...(inventoryData.primary || []),
-    ...(inventoryData.secondary || []),
-    ...(inventoryData.melee || []),
-    ...(inventoryData.warframes || []),
-  ];
-
-  if (parentRecipe && parentRecipeUniqueName) {
-    const pNorm = normalizeUN(parentRecipeUniqueName);
-    parentBpCount = inventoryData.prime_parts?.find(i => normalizeUN(i.unique_name) === pNorm)?.quantity ?? 0;
-    const prNorm = normalizeUN(parentRecipe.resultType);
-    const parentDisplayName = resolveDisplayName(parentRecipe.resultType, exportData, locale)
-      .replace(new RegExp(bpSuffix.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$'), '').trim().toLowerCase();
-    // Prefer the authoritative export identity.  Do not merge a display-name
-    // fallback into an existing unique-name match: similarly named weapons
-    // (for example Tatsu and Tatsu Prime) can otherwise make an unrelated
-    // mastered item prove ownership of this part.
-    const exactParentMatches = equipmentEntries.filter((item) => normalizeUN(item.unique_name) === prNorm);
-    const parentMatches = exactParentMatches.length > 0
-      ? exactParentMatches
-      : equipmentEntries.filter((item) =>
-        item.name?.replace(/\s+Blueprint$/i, '').trim().toLowerCase() === parentDisplayName
-      );
-    const pCrafted = parentMatches.find((item) => item.mastered || item.owned || (item.quantity ?? 0) > 0)
-      || parentMatches[0];
-    parentCraftedCount = pCrafted?.quantity ?? (pCrafted?.owned ? 1 : 0);
-    parentIsMastered = pCrafted?.mastered ?? false;
-  } else {
-    parentBpCount = recipe ? stock : 0;
-    parentCraftedCount = craftedCount;
-    parentIsMastered = isMastered;
-  }
-
-  // Direct fallback, independent of the recipe-ingredient reverse lookup
-  // above (which can fail to find a match for reasons not always worth
-  // chasing case-by-case): if the *name* this component's suffix-stripping
-  // already resolved to (e.g. "Yareli Prime Neuroptics Blueprint" ->
-  // "Yareli Prime") matches a mastered piece of equipment, the component is
-  // satisfied - full prime mastered implies every one of its components was
-  // crafted at least once, regardless of whether the recipe-matching chain
-  // above found the connection. Confirmed live 2026-08-10: Yareli Prime
-  // Neuroptics/Gyre Prime Systems stayed flagged as missing despite both
-  // parent frames being mastered, because the recipe reverse-lookup never
-  // resolved for them.
-  if (!parentIsMastered && parentName) {
-    const parentNameLower = parentName.trim().toLowerCase();
-    if (equipmentEntries.some((item) => item.name?.trim().toLowerCase() === parentNameLower && item.mastered)) {
-      parentIsMastered = true;
-    }
-  }
-
   return {
     stock,
-    // blueprintCount/craftedCount must reflect THIS component's own current
-    // holdings, not the parent frame/weapon's. parentBpCount/parentCraftedCount
-    // are the completed parent's own count - real evidence the component was
-    // obtained at some point, but not proof any is held right now (a fully
-    // mastered, built frame usually holds zero spare components). Use them
-    // only for isMastered/isOwned, which is what "ever obtained" checks read.
     blueprintCount: parentRecipe ? stock : parentBpCount,
     craftedCount: parentRecipe ? craftedCount : parentCraftedCount,
     isRecipeComponent: !!parentRecipe,
-    // How many of this exact reward the parent recipe requires (e.g. 2 for
-    // Afuris Prime Barrel, since it's a dual weapon) - real per-part need,
-    // distinct from "owned at all".
     need: neededQuantity,
     parentName,
     isOwned: parentCraftedCount > 0,
@@ -632,7 +594,7 @@ export function getPartObtainedStatus(uniqueName, displayName, inventoryData, ex
 // every part.
 const partInventoryIndexes = new WeakMap();
 function getPartInventoryIndex(inventoryData, exportData) {
-  if (!inventoryData || typeof inventoryData !== 'object') return { byUnique: new Map(), byName: new Map(), foundryUnique: new Set(), foundryNames: new Set() };
+  if (!inventoryData || typeof inventoryData !== 'object') return { byUnique: new Map(), byName: new Map(), foundryUnique: new Set(), foundryNames: new Set(), masteredUniques: new Set(), masteredNames: new Set() };
   const cached = partInventoryIndexes.get(inventoryData);
   if (cached) return cached;
   const normalize = (value) => value?.replace('/StoreItems/', '/').toLowerCase();
@@ -641,30 +603,37 @@ function getPartInventoryIndex(inventoryData, exportData) {
   const byName = new Map();
   const foundryUnique = new Set();
   const foundryNames = new Set();
+  const masteredUniques = new Set();
+  const masteredNames = new Set();
+
   const entries = [
     ...(inventoryData.prime_parts || []),
     ...Object.values(inventoryData.primeSets || {}).flatMap((set) => set.parts || []),
     ...(inventoryData.all || []),
     ...(inventoryData.resources || []),
-    // Blueprint-backed adapters, stars, and other relic rewards are exposed
-    // through the consumables catalog rather than inventoryData.all.
     ...(inventoryData.consumables_catalog || []),
     ...(inventoryData.consumables || []),
-    // Requiem relic rewards are mods (Lohk, Netra, Isos, etc.) - `mods` is
-    // its own array, not folded into `all`, so it must be scanned too or
-    // Requiem mods the player owns always resolve as never-obtained.
     ...(inventoryData.mods || []),
+    ...(inventoryData.warframes || []),
+    ...(inventoryData.primary || []),
+    ...(inventoryData.secondary || []),
+    ...(inventoryData.melee || []),
+    ...(inventoryData.sentinels || []),
+    ...(inventoryData.archwing || []),
   ];
+
   for (const item of entries) {
     const unique = normalize(item.unique_name);
     const name = normalizeName(item.name);
     if (unique) byUnique.set(unique, [...(byUnique.get(unique) || []), item]);
     if (name) byName.set(name, [...(byName.get(name) || []), item]);
+
+    if (item.mastered) {
+      if (unique) masteredUniques.add(unique);
+      if (name) masteredNames.add(name);
+    }
   }
-  // PendingRecipes are proof that the player obtained the recipe/blueprint,
-  // even though the blueprint is no longer in current inventory while it is
-  // being consumed by the Foundry. Keep this separate from current stock so
-  // "Never Obtained" excludes it without making "Missing" claim it is held.
+
   for (const pending of inventoryData.foundry || []) {
     const uniqueNames = [pending.unique_name, pending.result_type].filter(Boolean);
     for (const uniqueName of uniqueNames) foundryUnique.add(normalize(uniqueName));
@@ -673,12 +642,6 @@ function getPartInventoryIndex(inventoryData, exportData) {
     if (name) foundryNames.add(name);
     if (parentName) foundryNames.add(parentName);
 
-    // A parent recipe can consume its component blueprints before the parent
-    // finishes. For example, building Voruna Prime removes the Helmet,
-    // Chassis, and Systems blueprints from inventory, but starting that
-    // parent recipe is definitive evidence that each component was obtained.
-    // Record both export identities used by relic rewards: recipes generally
-    // consume `...Component`, while relic pools award `...Blueprint`.
     const recipeEntries = exportData?.ExportRecipes || {};
     const recipe = recipeEntries[pending.unique_name]
       || recipeEntries[pending.result_type]
@@ -689,14 +652,11 @@ function getPartInventoryIndex(inventoryData, exportData) {
       const ingredientUnique = normalize(ingredient.ItemType);
       foundryUnique.add(ingredientUnique);
       if (/component$/i.test(ingredientUnique)) {
-        // ingredientUnique is already lowercased by normalize() above; the
-        // replacement must stay lowercase too, or the Set entry silently
-        // mismatches every lookup (which also normalizes/lowercases first).
         foundryUnique.add(ingredientUnique.replace(/component$/i, 'blueprint'));
       }
     }
   }
-  const index = { byUnique, byName, foundryUnique, foundryNames };
+  const index = { byUnique, byName, foundryUnique, foundryNames, masteredUniques, masteredNames };
   partInventoryIndexes.set(inventoryData, index);
   return index;
 }
@@ -823,17 +783,16 @@ export function levenshteinDistance(a, b) {
  * Performs a fuzzy match of an OCR string against a list of candidate items.
  * Returns the best matching item if the similarity is above the threshold.
  */
-export function fuzzyMatchReward(ocrText, candidates, threshold = 0.5) {
+export function fuzzyMatchReward(ocrText, candidates, threshold = 0.65) {
   if (!ocrText || !candidates || candidates.length === 0) return null;
 
   const clean = (s) => s.toUpperCase().replace(/[^A-Z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-
-  // Use the existing splitPascal helper to dynamically separate merged words
   const ocrClean = clean(splitPascal(ocrText));
 
   if (ocrClean.length < 3) return null;
 
   const ocrWords = ocrClean.split(' ');
+  const ocrRoot = ocrWords[0];
   let bestMatch = null;
   let bestScore = -1;
 
@@ -843,13 +802,22 @@ export function fuzzyMatchReward(ocrText, candidates, threshold = 0.5) {
     const itemClean = clean(item.name);
     if (!itemClean) continue;
     const itemWords = itemClean.split(' ');
+    const itemRoot = itemWords[0];
 
-    // 1. Exact or subset match (high priority)
-    if (ocrClean === itemClean || itemClean.includes(ocrClean) || ocrClean.includes(itemClean)) {
+    // 1. Exact match
+    if (ocrClean === itemClean) {
       return item;
     }
 
-    // 2. Word-by-word similarity
+    // 2. Root word validation: Root word must match well to avoid cross-item matching
+    const rootDist = levenshteinDistance(ocrRoot, itemRoot);
+    const rootMaxL = Math.max(ocrRoot.length, itemRoot.length);
+    const rootSim = 1.0 - (rootDist / (rootMaxL || 1));
+    if (rootSim < 0.60 && !ocrClean.includes(itemClean) && !itemClean.includes(ocrClean)) {
+      continue; // Discard mismatching roots (e.g. Afentis vs Paris)
+    }
+
+    // 3. Word-by-word similarity
     let totalSim = 0;
     let totalWeight = 0;
 
@@ -857,34 +825,24 @@ export function fuzzyMatchReward(ocrText, candidates, threshold = 0.5) {
       const iw = itemWords[i];
       let bestWordSim = 0;
       for (const ow of ocrWords) {
-        // Direct containment check (catches PZEXO -> EXO)
         if (ow.includes(iw) || iw.includes(ow)) {
           bestWordSim = Math.max(bestWordSim, 0.9);
         }
-        // Levenshtein similarity
         const d = levenshteinDistance(ow, iw);
         const maxL = Math.max(ow.length, iw.length);
         const s = 1.0 - (d / maxL);
         if (s > bestWordSim) bestWordSim = s;
       }
 
-      const weight = i === 0 ? 2.0 : 1.0; // Boost weight of the first word (item name)
+      const weight = i === 0 ? 3.0 : 1.0; // Heavily weight root word
       totalSim += (bestWordSim * weight);
       totalWeight += weight;
     }
 
-    const finalScoreWordBased = totalSim / totalWeight;
+    const finalScore = totalSim / totalWeight;
 
-    // Incorporate full-string similarity to penalize length mismatches
-    const fullDist = levenshteinDistance(ocrClean, itemClean);
-    const fullMaxL = Math.max(ocrClean.length, itemClean.length);
-    const fullSim = 1.0 - (fullDist / (fullMaxL || 1));
-
-    // Combine scores: 70% word-based, 30% full-string
-    const combinedScore = (finalScoreWordBased * 0.7) + (fullSim * 0.3);
-
-    if (combinedScore > bestScore && combinedScore >= threshold) {
-      bestScore = combinedScore;
+    if (finalScore > bestScore && finalScore >= threshold) {
+      bestScore = finalScore;
       bestMatch = item;
     }
   }

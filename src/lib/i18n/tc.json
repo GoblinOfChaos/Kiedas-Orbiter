@@ -575,10 +575,12 @@
     "ui.setup.disclaimer_title": "Disclaimer",
     "ui.setup.game_assets": "Game Assets",
     "ui.setup.welcome": "Welcome to Kieda's Orbiter",
-    "wiki.refresh": "刷新此分頁"
+    "wiki.refresh": "刷新此分頁",
+    "nav.market": "市場"
   },
   "checklist.task_glast": "Ergo Glast: Tenet Melee",
   "checklist.task_eleanor": "Eleanor's Shop (1999)",
   "checklist.eleanor_batch_a": "Batch A",
-  "checklist.eleanor_batch_b": "Batch B"
+  "checklist.eleanor_batch_b": "Batch B",
+  "nav.market": "市場"
 }

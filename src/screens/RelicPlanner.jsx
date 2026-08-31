@@ -8,10 +8,21 @@ import { getAllRelicRewards, getRelicCatalog, getPartObtainedStatus } from '../l
 export default function RelicPlanner() {
   const { inventoryData, exportData, isInventoryLoading } = useMonitoring();
   const [partSearch, setPartSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [partFilter, setPartFilter] = useState('all'); // 'all' | 'never-obtained' | 'missing'
   const [need, setNeed] = useState([]); // array of {uniqueName, name}
   const [ownershipFilter, setOwnershipFilter] = useState('all');
   const [iconsPath, setIconsPath] = useState('');
+  const [displayLimit, setDisplayLimit] = useState(60);
+
+  // Debounce search input to eliminate UI freezing while typing
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(partSearch);
+      setDisplayLimit(60);
+    }, 120);
+    return () => clearTimeout(timer);
+  }, [partSearch]);
 
   useEffect(() => {
     invoke('get_icons_path').then((path) => setIconsPath(path)).catch(() => {});
@@ -19,8 +30,7 @@ export default function RelicPlanner() {
 
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${name}.png`) : null;
 
-  // Full catalog of distinct prime parts (not just ones from owned relics),
-  // ported from wfinfo-ng's RELIC_PLANNER_TAB.py part picker.
+  // Catalog of distinct prime parts
   const allParts = useMemo(() => {
     if (!exportData) return [];
     return getAllRelicRewards(exportData, 'en')
@@ -30,6 +40,7 @@ export default function RelicPlanner() {
 
   const relicCatalog = useMemo(() => getRelicCatalog(exportData, 'en'), [exportData]);
 
+  // Pre-indexed owned relics by exact normalized key for instant O(1) matching
   const ownedRelics = useMemo(() => {
     const owned = new Map();
     for (const relic of inventoryData?.relics || []) {
@@ -39,35 +50,32 @@ export default function RelicPlanner() {
         .trim();
       const key = `${relic.era} ${baseName}`;
       const ownedCount = Object.values(relic.refinements || {}).reduce((sum, count) => sum + (count || 0), 0);
-      owned.set(key, { ...relic, ownedCount });
+      owned.set(key.toLowerCase(), { ...relic, ownedCount, era: relic.era, name: baseName });
     }
     return owned;
   }, [inventoryData]);
 
-  // Memoize the shared per-part ownership check once instead of calling it
-  // fresh on every render/filter/map pass - avoids reimplementing the logic
-  // itself, which must stay unified with the relic picker overlay's use of
-  // the same helper (see getPartObtainedStatus's docstring in relicParser.js).
+  // Fast memoized per-part ownership statuses
   const partStatuses = useMemo(() => {
+    if (!allParts.length) return new Map();
     return new Map(allParts.map((p) => [
       p.uniqueName,
       getPartObtainedStatus(p.uniqueName, p.name, inventoryData, exportData, 'en'),
     ]));
   }, [allParts, inventoryData, exportData]);
+
   const getPartStatus = (uniqueName) => partStatuses.get(uniqueName) || { directOwned: false, everObtained: false, hasEnough: false, need: 1 };
 
   const filteredParts = useMemo(() => {
-    const q = partSearch.trim().toLowerCase();
+    const q = debouncedSearch.trim().toLowerCase();
     let parts = q ? allParts.filter((p) => p.name.toLowerCase().includes(q)) : allParts;
     if (partFilter === 'never-obtained') {
       parts = parts.filter((p) => !getPartStatus(p.uniqueName).everObtained);
     } else if (partFilter === 'missing') {
-      // hasEnough (not directOwned) - a dual-weapon part like Afuris Prime
-      // Barrel needs 2; owning 1 is still missing for planning purposes.
       parts = parts.filter((p) => !getPartStatus(p.uniqueName).hasEnough);
     }
     return parts;
-  }, [allParts, partSearch, partFilter, partStatuses]);
+  }, [allParts, debouncedSearch, partFilter, partStatuses]);
 
   const needKeys = useMemo(() => new Set(need.map((n) => n.uniqueName)), [need]);
 
@@ -81,10 +89,6 @@ export default function RelicPlanner() {
   const clearNeed = () => setNeed([]);
 
   const addAllMissing = () => {
-    // "Missing" (per wfinfo-ng parity) only excludes currently-owned stock
-    // that's actually *enough* to cover the real recipe requirement (e.g. 2
-    // for a dual-weapon part like Afuris Prime Barrel), not prior crafts -
-    // distinct from "Add Never Obtained" below.
     const statuses = allParts.map((p) => ({ part: p, status: getPartStatus(p.uniqueName) }));
     const toAdd = statuses.filter(({ part, status }) => {
       if (needKeys.has(part.uniqueName)) return false;
@@ -99,15 +103,13 @@ export default function RelicPlanner() {
     if (toAdd.length) setNeed((prev) => [...prev, ...toAdd]);
   };
 
+  // Instant O(1) Relic Matching Loop
   const results = useMemo(() => {
     if (!relicCatalog.length || needKeys.size === 0) return [];
     const out = [];
     for (const relic of relicCatalog) {
-      const owned = ownedRelics.get(relic.key)
-        || [...ownedRelics.values()].find((candidate) => candidate.era === relic.era
-          && (candidate.name || '')
-            .replace(new RegExp(`^${candidate.era}\\s+`, 'i'), '')
-            .replace(/\s+Relic$/i, '').trim() === relic.name);
+      const lookupKey = `${relic.era} ${relic.name}`.toLowerCase();
+      const owned = ownedRelics.get(lookupKey) || ownedRelics.get(relic.key.toLowerCase()) || ownedRelics.get(`${relic.era} ${relic.name} relic`.toLowerCase());
       const ownedCount = owned?.ownedCount || 0;
       if (ownershipFilter === 'owned' && ownedCount === 0) continue;
       if (ownershipFilter === 'unowned' && ownedCount > 0) continue;
@@ -138,16 +140,22 @@ export default function RelicPlanner() {
           { label: 'Prime parts', value: allParts.length, icon: Package },
           { label: 'Selected', value: need.length, icon: Sparkles },
           { label: 'Owned matches', value: `${ownedShown}/${results.length}`, icon: Package },
-        ].map(({ label, value, icon: Icon }) => (
-          <Card key={label} className="p-3 flex items-center gap-3 bg-kronos-panel/30">
-            <div className="p-2 rounded-lg bg-kronos-accent/10 text-kronos-accent"><Icon size={16} /></div>
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">{label}</p>
-              <p className="text-lg font-black text-kronos-text leading-none mt-1">{value}</p>
-            </div>
-          </Card>
-        ))}
+        ].map((s) => {
+          const Icon = s.icon;
+          return (
+            <Card key={s.label} className="p-3 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-kronos-accent/10 flex items-center justify-center flex-shrink-0">
+                <Icon size={18} className="text-kronos-accent" />
+              </div>
+              <div>
+                <p className="text-[10px] uppercase font-black tracking-wider text-kronos-dim">{s.label}</p>
+                <p className="text-base font-black text-kronos-text">{s.value}</p>
+              </div>
+            </Card>
+          );
+        })}
       </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.5fr)] gap-3 min-w-0">
         {/* Left: part picker */}
         <Card glow className="p-3 flex flex-col min-h-0 min-w-0 overflow-hidden" style={{ maxHeight: 640 }}>
@@ -174,8 +182,8 @@ export default function RelicPlanner() {
               </button>
             ))}
           </div>
-          <div className="flex-1 overflow-y-auto min-h-0">
-            {filteredParts.map((p) => {
+          <div className="flex-1 overflow-y-auto min-h-0 space-y-1 pr-1 custom-scrollbar">
+            {filteredParts.slice(0, displayLimit).map((p) => {
               const owned = getPartStatus(p.uniqueName).directOwned;
               return (
                 <button
@@ -189,6 +197,14 @@ export default function RelicPlanner() {
                 </button>
               );
             })}
+            {filteredParts.length > displayLimit && (
+              <button
+                onClick={() => setDisplayLimit((prev) => prev + 60)}
+                className="w-full py-1.5 text-center text-[10px] font-bold uppercase text-kronos-accent hover:bg-kronos-accent/10 rounded transition"
+              >
+                Load More ({filteredParts.length - displayLimit} remaining)
+              </button>
+            )}
           </div>
         </Card>
 
@@ -198,13 +214,13 @@ export default function RelicPlanner() {
             <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">Need List</h2>
             <span className="text-[10px] font-black text-kronos-accent">{need.length} selected</span>
           </div>
-          <div className="flex-1 overflow-y-auto space-y-1 min-h-0 mb-3">
-            {need.length === 0 ?
+          <div className="flex-1 overflow-y-auto space-y-1 min-h-0 mb-3 custom-scrollbar">
+            {need.length === 0 ? (
               <div className="flex flex-col items-center justify-center text-center gap-2 py-10 px-3">
                 <Sparkles size={22} className="text-kronos-dim/60" />
                 <p className="text-xs text-kronos-dim italic">Add parts from the left to search relics for them.</p>
               </div>
-            :
+            ) : (
               need.map((n) => (
                 <div key={n.uniqueName} className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded bg-black/20 border border-white/5">
                   <span className="text-xs text-kronos-text truncate">{n.name}</span>
@@ -213,7 +229,7 @@ export default function RelicPlanner() {
                   </button>
                 </div>
               ))
-            }
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex gap-2">
@@ -221,7 +237,7 @@ export default function RelicPlanner() {
                 <Trash2 size={12} className="mr-1" /> Clear
               </Button>
             </div>
-            <Button onClick={addAllMissing} className="text-xs w-full" variant="secondary" title="Adds every prime part you currently own zero of (includes parts you've crafted before and used up).">
+            <Button onClick={addAllMissing} className="text-xs w-full" variant="secondary" title="Adds every prime part you currently own zero of.">
               Add All Missing Parts
             </Button>
             <Button onClick={addNeverObtained} className="text-xs w-full" variant="secondary" title="Adds only parts you have never owned or crafted at all.">
@@ -237,47 +253,51 @@ export default function RelicPlanner() {
               <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">Best Relics</h2>
               {need.length > 0 && <span className="px-1.5 py-0.5 rounded bg-kronos-accent/10 text-kronos-accent text-[9px] font-black">{results.length}</span>}
             </div>
-            <button type="button" onClick={() => setOwnershipFilter((value) => value === 'all' ? 'owned' : value === 'owned' ? 'unowned' : 'all')} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+            <button
+              type="button"
+              onClick={() => setOwnershipFilter((value) => value === 'all' ? 'owned' : value === 'owned' ? 'unowned' : 'all')}
+              className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+            >
               {ownershipFilter === 'all' ? 'All' : ownershipFilter === 'owned' ? 'Owned' : 'Unowned'}
             </button>
           </div>
-          {need.length === 0 ?
+          {need.length === 0 ? (
             <p className="text-xs text-kronos-dim italic">Add parts to your need list.</p>
-          :
-          <>
-            <div className="flex-1 overflow-y-auto space-y-2 min-h-0">
-              {results.map((r) => (
-                <div key={r.key} className="flex items-center gap-3 px-3 py-2.5 rounded-xl border border-white/5 bg-white/[0.02]">
-                  <div className="w-10 h-10 rounded-lg bg-kronos-accent/10 flex items-center justify-center flex-shrink-0">
-                    {iconSrc(r.era) ? <img src={iconSrc(r.era)} alt="" className="w-6 h-6 object-contain opacity-90" /> : <Package size={16} className="text-kronos-accent" />}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-kronos-text truncate">{r.era} {r.name}</span>
-                      {r.ownedCount > 0 &&
-                        <span className="text-[9px] font-black uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/25 flex-shrink-0">{r.ownedCount} owned</span>
-                      }
-                      {r.vaulted === true &&
-                        <span className="text-[9px] font-black uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex-shrink-0">Vaulted</span>
-                      }
+          ) : (
+            <>
+              <div className="flex-1 overflow-y-auto space-y-2 min-h-0 custom-scrollbar">
+                {results.map((r) => (
+                  <div key={r.key} className="flex items-center gap-3 px-3 py-2.5 rounded-xl border border-white/5 bg-white/[0.02]">
+                    <div className="w-10 h-10 rounded-lg bg-kronos-accent/10 flex items-center justify-center flex-shrink-0">
+                      {iconSrc(r.era) ? <img src={iconSrc(r.era)} alt="" className="w-6 h-6 object-contain opacity-90" /> : <Package size={16} className="text-kronos-accent" />}
                     </div>
-                    <div className="mt-1.5 flex flex-wrap gap-1">
-                      {r.matches.map((m) => (
-                        <span key={m.uniqueName} className="text-[10px] font-bold text-kronos-accent bg-kronos-accent/10 border border-kronos-accent/20 rounded px-1.5 py-0.5">
-                          {m.name}
-                        </span>
-                      ))}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-kronos-text truncate">{r.era} {r.name}</span>
+                        {r.ownedCount > 0 && (
+                          <span className="text-[9px] font-black uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/25 flex-shrink-0">{r.ownedCount} owned</span>
+                        )}
+                        {r.vaulted === true && (
+                          <span className="text-[9px] font-black uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex-shrink-0">Vaulted</span>
+                        )}
+                      </div>
+                      <div className="mt-1.5 flex flex-wrap gap-1">
+                        {r.matches.map((m) => (
+                          <span key={m.uniqueName} className="text-[10px] font-bold text-kronos-accent bg-kronos-accent/10 border border-kronos-accent/20 rounded px-1.5 py-0.5">
+                            {m.name}
+                          </span>
+                        ))}
+                      </div>
                     </div>
+                    <span className="text-[10px] font-bold text-kronos-dim flex-shrink-0 font-mono">{r.matches.length} needed</span>
                   </div>
-                  <span className="text-[10px] font-bold text-kronos-dim flex-shrink-0 font-mono">{r.matches.length} needed</span>
-                </div>
-              ))}
-            </div>
-            <p className="text-[11px] text-kronos-dim mt-2 pt-2 border-t border-white/5">
-              {results.length} relics match · {ownedShown} owned · {results.length - ownedShown} not owned
-            </p>
-          </>
-          }
+                ))}
+              </div>
+              <p className="text-[11px] text-kronos-dim mt-2 pt-2 border-t border-white/5">
+                {results.length} relics match · {ownedShown} owned · {results.length - ownedShown} not owned
+              </p>
+            </>
+          )}
         </Card>
       </div>
     </PageLayout>

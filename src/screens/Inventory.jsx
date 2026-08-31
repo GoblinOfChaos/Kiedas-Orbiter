@@ -13,9 +13,12 @@ import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
-import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
+import AcquisitionDrawer, { useAcquisitionDrawer, formatChance } from '../components/AcquisitionDrawer';
 import ModCard from '../components/ModCard';
 import { getRelicCatalog } from '../lib/relicParser';
+import { getSetting } from '../lib/settings';
+import { ensureWfmItems, lookupWfmItem } from '../lib/wfmCache';
+
 
 
 
@@ -145,14 +148,12 @@ export default function Inventory() {
     resources: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],
     ayatan: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }]
   };
-  const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, ExportImages, ExportTextIcons, cardImagesPath, exportComponentIndex } = useMonitoring();
+  const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, ExportImages, ExportTextIcons, cardImagesPath, exportComponentIndex } = useMonitoring();
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
-  const [acquisitionDataReady, setAcquisitionDataReady] = useState(false);
   useEffect(() => {
     invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
       .then((bytes) => setAcquisitionOverrides(JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))))
       .catch(() => setAcquisitionOverrides({ components: {}, mods: {} }));
-    loadAcquisitionData().then(() => setAcquisitionDataReady(true));
   }, []);
   const { openKey, toggle, close } = useAcquisitionDrawer();
   const [activeTab, setActiveTab] = useState('all');
@@ -198,7 +199,55 @@ export default function Inventory() {
     }
   }, [ExportImages]);
 
-  const primePrices = activeTab === 'prime_parts' ? allPrices : null;
+  const [sellStatusMap, setSellStatusMap] = useState({});
+
+  const handleSellOnWfm = useCallback(async (e, item) => {
+    e.stopPropagation();
+    const itemKey = item.unique_name || item.uniqueName || item.name;
+    try {
+      setSellStatusMap(prev => ({ ...prev, [itemKey]: "loading" }));
+      const wfmToken = await getSetting("wfm_token");
+      if (!wfmToken) {
+        alert("Please set your Warframe.Market API Token in Settings first.");
+        setSellStatusMap(prev => ({ ...prev, [itemKey]: "error" }));
+        return;
+      }
+
+      const wfmMap = await ensureWfmItems();
+      const targetPath = item.unique_name || item.uniqueName || item.item_path || item.name;
+      const wfmItem = lookupWfmItem(wfmMap, targetPath);
+
+      if (!wfmItem || !wfmItem.id) {
+        alert(`Could not find Warframe.Market item ID for ${item.name || targetPath}`);
+        setSellStatusMap(prev => ({ ...prev, [itemKey]: "error" }));
+        return;
+      }
+
+      const platPrice = Math.max(1, Math.round(item._value || 1));
+      await invoke("post_market_order", {
+        token: wfmToken,
+        itemId: wfmItem.id,
+        platPrice: platPrice,
+        quantity: 1,
+        rank: null
+      });
+
+      setSellStatusMap(prev => ({ ...prev, [itemKey]: "success" }));
+      setTimeout(() => {
+        setSellStatusMap(prev => {
+          const next = { ...prev };
+          delete next[itemKey];
+          return next;
+        });
+      }, 3000);
+    } catch (err) {
+      console.error("Failed to place market order:", err);
+      alert(`Warframe.Market error: ${err}`);
+      setSellStatusMap(prev => ({ ...prev, [itemKey]: "error" }));
+    }
+  }, []);
+
+  const primePrices = (activeTab === 'prime_parts') ? allPrices : null;
 
   const tabItems = useMemo(() => {
     if (!inventoryData) return [];
@@ -221,6 +270,13 @@ export default function Inventory() {
         || imageByName.get(item?.name?.trim().toLowerCase());
       return image ? { ...item, image } : item;
     });
+    if (activeTab === 'prime_junk') {
+      return (inventoryData.prime_parts ?? []).filter(p => p.quantity > 0 && p.ducats > 0).map(p => {
+        const _value = primePrices?.[p.unique_name] ?? 0;
+        const _ratio = p.ducats > 0 ? _value / p.ducats : 0;
+        return { ...p, _value, _ratio };
+      });
+    }
     if (activeTab === 'prime_parts') {
       const searchArrays = [
       inventoryData.warframes, inventoryData.primary, inventoryData.secondary,
@@ -398,6 +454,16 @@ export default function Inventory() {
         const bComplete = (b.ownedCount ?? 0) / (b.totalCount ?? 1);
         return sortDirection === 'asc' ? aComplete - bComplete : bComplete - aComplete;
       }
+      if (activeTab === 'prime_junk' && sortCriteria === 'ratio') {
+        const aVal = a._ratio ?? 0;
+        const bVal = b._ratio ?? 0;
+        return sortDirection === 'asc' ? aVal - bVal : bVal - aVal;
+      }
+      if (activeTab === 'prime_junk' && sortCriteria === 'value') {
+        const aVal = a._value ?? 0;
+        const bVal = b._value ?? 0;
+        return sortDirection === 'asc' ? aVal - bVal : bVal - aVal;
+      }
       if (activeTab === 'prime_parts' && sortCriteria === 'value') {
         const aVal = a._value ?? 0;
         const bVal = b._value ?? 0;
@@ -416,11 +482,15 @@ export default function Inventory() {
   const visibleItems = useMemo(() => filteredItems.slice(0, visibleCount), [filteredItems, visibleCount]);
 
   const openItem = useMemo(() => {
-    if (!openKey || !acquisitionDataReady) return null;
+    if (!openKey) return null;
     const item = visibleItems.find((it) => it.unique_name === openKey);
     if (!item) return null;
-    return { uniqueName: item.unique_name, displayName: item.name, info: getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, undefined, undefined, undefined, exportVendorIndex, alwaysAvailableIndex, undefined, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) };
-  }, [openKey, acquisitionDataReady, visibleItems, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex]);
+    // Relics are grouped under a synthetic display key (e.g. "Meso N17"),
+    // not a real DE path - real_unique_name carries the actual path needed
+    // to resolve vaulted status and drop sources. See inventoryParser.js.
+    const lookupKey = item.real_unique_name || item.unique_name;
+    return { uniqueName: item.unique_name, displayName: item.name, info: getAcquisitionInfo(lookupKey, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) };
+  }, [openKey, visibleItems, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex]);
 
   const modBg = useCallback((mf, item) => {
     if (!framesPath) return '';
@@ -692,7 +762,7 @@ export default function Inventory() {
                                 <p key={`r-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.relicName || s.relicManifest} ({s.rarity ? s.rarity.charAt(0).toUpperCase() + s.rarity.slice(1).toLowerCase() : ''})</p>
                                 )}
                                           {partSources.filter((s) => s.type === 'enemy').slice(0, 3).map((s, si) =>
-                                <p key={`e-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.enemyName}{s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}</p>
+                                <p key={`e-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.enemyName}{s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? formatChance(s.chance) : `${s.chance}%`}</span> : ''}</p>
                                 )}
                                         </div>
                               }>
@@ -784,7 +854,7 @@ export default function Inventory() {
               {visibleItems.map((item, idx) => {
             const isUnowned = !item.owned;
             const isPrimePart = item.category === 'prime_parts';
-            const isModOrResource = ['mods', 'resources', 'Arcanes', 'arcanes', 'peely_pix', 'consumables', 'landing_craft'].includes(item.category);
+            const isModOrResource = ['mods', 'resources', 'components', 'Arcanes', 'arcanes', 'peely_pix', 'consumables', 'landing_craft'].includes(item.category);
             if (activeTab === 'arcanes') {
               return (
                 <div key={item.unique_name + idx} className={`relative cursor-pointer flex justify-center rounded-xl ${isUnowned ? 'grayscale opacity-60' : ''}`} onClick={() => toggle(item.unique_name)}>
@@ -861,6 +931,13 @@ export default function Inventory() {
                       )}
                           </div>
                     }
+                        {item.exaltedWeapons && item.exaltedWeapons.length > 0 &&
+                    <div className="flex flex-wrap gap-x-2 gap-y-1 mt-1">
+                            {item.exaltedWeapons.map((w) =>
+                      <span key={w.unique_name} className="text-[11px] font-bold text-kronos-accent uppercase tracking-tight leading-none bg-kronos-accent/10 px-1.5 py-0.5 rounded border border-kronos-accent/20">{w.name}</span>
+                      )}
+                          </div>
+                    }
                       </div>
 
                       {/* Bottom: status row */}
@@ -893,6 +970,38 @@ export default function Inventory() {
                             {item.quantity > 0 ? `×${item.quantity}` : 'Unowned'}
                           </span>
                     }
+
+                        {activeTab === 'prime_junk' && item._ratio !== undefined && (
+                          <div className="flex items-center gap-3 text-[10px] font-black uppercase ml-auto">
+                            <span className="text-blue-400">{item._value}p</span>
+                            <span className="text-orange-400">{item.ducats}d</span>
+                            <span className={item._ratio < 0.15 ? "text-green-400" : "text-red-400"}>{item._ratio.toFixed(2)} p/d</span>
+                            {item.quantity > 0 && (
+                              <button 
+                                onClick={(e) => handleSellOnWfm(e, item)}
+                                className="ml-1 px-1.5 py-0.5 bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 rounded border border-blue-500/30 transition-colors"
+                                title="1-Click Sell on Warframe.Market"
+                              >
+                                Sell
+                              </button>
+                            )}
+                          </div>
+                        )}
+                        
+                        {activeTab === 'prime_parts' && item._value !== undefined && (
+                          <div className="flex items-center gap-3 text-[10px] font-black uppercase ml-auto">
+                            <span className="text-blue-400">{item._value}p</span>
+                            {item.quantity > 0 && (
+                              <button 
+                                onClick={(e) => handleSellOnWfm(e, item)}
+                                className="ml-1 px-1.5 py-0.5 bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 rounded border border-blue-500/30 transition-colors"
+                                title="1-Click Sell on Warframe.Market"
+                              >
+                                Sell
+                              </button>
+                            )}
+                          </div>
+                        )}
 
                         {/* Incarnon badge */}
                         {item.is_incarnon &&
@@ -969,7 +1078,7 @@ export default function Inventory() {
                                       {missionSources.map((s, i) =>
                               <p key={`m-${i}`} className="text-[10px] text-kronos-text leading-tight">
                                           {s.nodeName} {s.rotation ? `(Rot ${s.rotation})` : ''}
-                                          {s.chance ? <span className="text-kronos-dim ml-1">{(s.chance * 100).toFixed(1)}%</span> : ''}
+                                          {s.chance ? <span className="text-kronos-dim ml-1">{formatChance(s.chance)}</span> : ''}
                                         </p>
                               )}
                                     </div>
@@ -988,7 +1097,7 @@ export default function Inventory() {
                                       {enemySources.map((s, i) =>
                               <p key={`e-${i}`} className="text-[10px] text-kronos-text leading-tight">
                                           {s.enemyName}
-                                          {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}
+                                          {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? formatChance(s.chance) : `${s.chance}%`}</span> : ''}
                                         </p>
                               )}
                                     </div>
@@ -999,7 +1108,7 @@ export default function Inventory() {
                                       {bountySources.map((s, i) =>
                               <p key={`b-${i}`} className="text-[10px] text-kronos-text leading-tight">
                                           {s.bountyLevel}{s.stage ? ` (${s.stage})` : ''}{s.rotation ? ` Rot ${s.rotation}` : ''}
-                                          {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}
+                                          {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? formatChance(s.chance) : `${s.chance}%`}</span> : ''}
                                         </p>
                               )}
                                     </div>
@@ -1010,7 +1119,7 @@ export default function Inventory() {
                                       {otherSources.map((s, i) =>
                               <p key={`o-${i}`} className="text-[10px] text-kronos-text leading-tight">
                                           {s.syndicateName || s.objectiveName || s.keyName || s.sourceName || s.type}
-                                          {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? (s.chance * 100).toFixed(1) : s.chance}%</span> : ''}
+                                          {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? formatChance(s.chance) : `${s.chance}%`}</span> : ''}
                                         </p>
                               )}
                                     </div>

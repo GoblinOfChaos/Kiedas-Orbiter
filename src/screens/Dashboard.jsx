@@ -33,6 +33,7 @@ import {
   Settings, Check } from
 'lucide-react';
 import { useMonitoring } from '../contexts/MonitoringContext';
+import { getPrice } from '../lib/marketEngine';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import {
   resolveNode,
@@ -49,8 +50,6 @@ import {
   timeSince } from
 '../lib/warframeUtils';
 
-const LOCATION_BOUNTIES_API = 'https://oracle.browse.wf/location-bounties';
-const BOUNTY_CYCLE_API = 'https://oracle.browse.wf/bounty-cycle';
 
 // ── arbys.txt helpers ──────────────────────────────────────────────────────────
 function parseArbyLine(line, ERg, dict) {
@@ -164,16 +163,15 @@ export default function Dashboard() {
     exportData, worldState, spIncursions, arbys, archonModifiers, arbitrationModifiers,
     dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, arbyTiers,
     rawInventory, inventoryData, ES, ENWRawRewards, ExportImages, ExportTextIcons,
-    cardImagesPath
+    cardImagesPath, allPrices,
+    manualRefresh, lastUpdate
   } = useMonitoring();
   const [worldstate, setWorldstate] = useState(null);
-  const [locationBounties, setLocationBounties] = useState(null);
   const [bountyCycle, setBountyCycle] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [lastFetch, setLastFetch] = useState(null);
+    const [loading, setLoading] = useState(true);
   const [fissureTab, setFissureTab] = useState('normal');
   const [archimedeaTab, setArchimedeaTab] = useState('deep');
-  const [bountyTab, setBountyTab] = useState('holdfasts');
+  const [bountyTab, setBountyTab] = useState('cetus');
   const [showBaroModal, setShowBaroModal] = useState(false);
   const [showWishlistModal, setShowWishlistModal] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -189,6 +187,25 @@ export default function Dashboard() {
       return saved ? JSON.parse(saved) : [];
     } catch {return [];}
   });
+  // Neither DE field for Nightwave challenge state is reliable for repeating
+  // daily/weekly challenge types: SeasonChallengeHistory can contain a
+  // currently-active challenge's own instance id while its live progress is
+  // still 0 (not actually completed), and ChallengeProgress persists from a
+  // past occurrence of the same challenge type instead of resetting when it
+  // reappears - so a challenge can show maxed-out progress the moment it
+  // becomes active again, before the player has done anything this rotation.
+  // The only trustworthy signal is one we build ourselves: has THIS specific
+  // challenge instance (keyed by its own _id, unique per rotation) ever been
+  // observed below its goal during a live poll? If so, later reaching the
+  // goal is real progress made this rotation. If a challenge is already
+  // maxed the very first time we see its id, that's a stale carryover, not
+  // a fresh completion, until proven otherwise by an actual observed change.
+  const [nwSeenBelowGoal, setNwSeenBelowGoal] = useState(() => {
+    try {
+      const saved = localStorage.getItem('nightwave_seen_below_goal');
+      return saved ? JSON.parse(saved) : {};
+    } catch {return {};}
+  });
 
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
 
@@ -198,6 +215,49 @@ export default function Dashboard() {
   useEffect(() => {
     localStorage.setItem('dashboard_hidden_cards', JSON.stringify(hiddenCards));
   }, [hiddenCards]);
+
+  // Records, per live poll, which currently-active Nightwave challenge
+  // instances are genuinely below their completion goal - the only reliable
+  // basis for treating a later "goal reached" reading as a real completion
+  // rather than a stale leftover value from a past occurrence. See the
+  // nwSeenBelowGoal declaration above for why this can't just be read from
+  // DE's data directly.
+  useEffect(() => {
+    const challenges = worldstate?.nightwave?.challenges;
+    if (!Array.isArray(challenges) || challenges.length === 0) return;
+    if (!rawInventory || typeof rawInventory !== 'object') return;
+    const cpMap = new Map();
+    if (Array.isArray(rawInventory.ChallengeProgress)) {
+      rawInventory.ChallengeProgress.forEach((cp) => {
+        if (cp.Name && typeof cp.Progress === "number") cpMap.set(cp.Name, cp.Progress);
+      });
+    }
+    setNwSeenBelowGoal((prev) => {
+      const next = {};
+      let changed = false;
+      const activeIds = new Set();
+      for (const c of challenges) {
+        if (!c.id) continue;
+        activeIds.add(c.id);
+        const rawKey = c.challengeKey || (c.rawChallenge || "").split("/").pop() || "";
+        const goalCount = c.requiredCount || 1;
+        const progressVal = cpMap.get(rawKey) ?? 0;
+        if (prev[c.id]) {
+          next[c.id] = true;
+        } else if (progressVal < goalCount) {
+          next[c.id] = true;
+          changed = true;
+        }
+      }
+      // Any id in prev but no longer in activeIds has rotated out and is
+      // naturally dropped from next (not re-added above) - mark changed so
+      // the pruned result gets persisted.
+      if (!changed) changed = Object.keys(prev).some((id) => !activeIds.has(id));
+      if (!changed) return prev;
+      localStorage.setItem('nightwave_seen_below_goal', JSON.stringify(next));
+      return next;
+    });
+  }, [worldstate?.nightwave?.challenges, rawInventory]);
 
   useEffect(() => {
     if (!initialized1999 && worldstate?.calendar1999?.length > 0) {
@@ -259,24 +319,25 @@ export default function Dashboard() {
     }
   }, [worldState]);
 
-  // Fetch bounty-cycle and location-bounties (not mirrored from context)
-  const fetchBounties = useCallback(async () => {
+  // Cetus/Vallis/Deimos bounties come directly from official DE WorldState
+  // (worldstate.bounties). DE's own API never sends live Jobs for Zariman,
+  // Cavia, or Hex - only a PRNG Seed - so those three still need a real
+  // rotation source. oracle.browse.wf (Calamity Inc., open-source,
+  // github.com/calamity-inc/browse.wf) computes the actual DE rotation
+  // algorithm from that seed, including which companion (b.ally) joins each
+  // Hex bounty.
+  const fetchBountyCycle = useCallback(async () => {
     try {
-      const [loc, cycle] = await Promise.all([
-      fetch(LOCATION_BOUNTIES_API).then((r) => r.ok ? r.json() : null),
-      fetch(BOUNTY_CYCLE_API).then((r) => r.ok ? r.json() : null)]
-      );
-      if (loc) setLocationBounties(loc);
-      if (cycle) setBountyCycle(cycle);
-      setLastFetch(Date.now());
+      const cycleStr = await invoke('fetch_url', { url: 'https://oracle.browse.wf/bounty-cycle' }).catch(() => null);
+      if (cycleStr) setBountyCycle(JSON.parse(cycleStr));
     } catch {}
   }, []);
 
   useEffect(() => {
-    fetchBounties();
-    const iv = setInterval(fetchBounties, 120_000);
+    fetchBountyCycle();
+    const iv = setInterval(fetchBountyCycle, 120_000);
     return () => clearInterval(iv);
-  }, [fetchBounties]);
+  }, [fetchBountyCycle]);
 
   // ── Derived data ─────────────────────────────────────────────────────────────
   const currentArbyRaw = useMemo(() => getCurrentArby(arbys, ERg, dict), [arbys, ERg, dict]);
@@ -357,76 +418,37 @@ export default function Dashboard() {
   [iconsPath]);
 
   const renderBounties = () => {
-    if (!locationBounties || !bountyCycle) {
-      return <div className="min-h-[80px] flex items-center justify-center"><p className="text-xs text-kronos-dim italic">{t('ui.dashboard.loading_bounties')}</p></div>;
-    }
-
-    let items = [];
-
-    if (bountyTab === 'holdfasts' || bountyTab === 'cavia') {
-      const key = bountyTab === 'holdfasts' ? 'ZarimanSyndicate' : 'EntratiLabSyndicate';
-      const data = bountyCycle.bounties?.[key] || [];
+    let items;
+    if (bountyTab === 'holdfasts' || bountyTab === 'cavia' || bountyTab === 'hex') {
+      // DE's own WorldState never sends live Jobs for these three - only a
+      // PRNG Seed - so they come from oracle.browse.wf's bounty-cycle
+      // endpoint instead, which reproduces DE's actual seeded rotation
+      // (including which companion joins each Hex bounty via `ally`).
+      const key = bountyTab === 'holdfasts' ? 'ZarimanSyndicate' : bountyTab === 'cavia' ? 'EntratiLabSyndicate' : 'HexSyndicate';
+      const data = bountyCycle?.bounties?.[key] || [];
+      const tier = bountyCycle?.rot ? `Rotation ${bountyCycle.rot}` : '';
       items = data.map((b) => {
         const bName = b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Unknown Bounty';
-        const bDesc = b.challenge ? resolveChallengeFlavour(b.challenge, dict, EC, ERg) : '';
-        const bObj = b.challenge ? resolveChallengeDesc(b.challenge, dict, EC, ERg) : '';
-        const img = bountyTab === 'holdfasts'
-          ? resolveHoldfastsGiver(b.challenge, bName, bDesc, bObj)
-          : resolveCaviaGiver(b.challenge, bName, bDesc, bObj);
-        return {
-          name: bName,
-          desc: bDesc,
-          obj: bObj,
-          tier: b.rot ? `Rotation ${b.rot}` : '',
-          img
-        };
-      });
-    } else if (bountyTab === 'hex') {
-      const data = bountyCycle.bounties?.HexSyndicate || [];
-      items = data.map((b) => {
-        const flavour = b.challenge ? resolveChallengeFlavour(b.challenge, dict, EC, ERg, b.ally) : '';
-        const obj = b.challenge ? resolveChallengeDesc(b.challenge, dict, EC, ERg, b.ally) : '';
-        const allyLeaf = b.ally ? b.ally.split('/').pop().replace(/AllyAgent$/, '') : '';
-        const img = allyLeaf ? `Bounty${allyLeaf}` : 'BountyTechrot';
-        return {
-          name: b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Unknown Bounty',
-          desc: flavour,
-          obj,
-          tier: b.rot ? `Rotation ${b.rot}` : '',
-          img
-        };
-      });
-    } else if (bountyTab === 'cetus') {
-      const data = locationBounties.CetusSyndicate || {};
-      Object.entries(data).forEach(([key, list]) => {
-        if (Array.isArray(list)) {
-          const main = list[0] ? resolveBountyTitle(list[0], dict) || cleanBountyName(list[0]) : 'Bounty';
-          const stages = list.map((p) => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Cetus\s+/i, '')).join('\n');
-          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Tent', 'Pool '), img: 'BountyKonzu' });
+        const bDesc = b.challenge ? resolveChallengeFlavour(b.challenge, dict, EC, ERg, b.ally) : '';
+        const bObj = b.challenge ? resolveChallengeDesc(b.challenge, dict, EC, ERg, b.ally) : '';
+        let img;
+        if (bountyTab === 'holdfasts') img = resolveHoldfastsGiver(b.challenge, bName, bDesc, bObj);
+        else if (bountyTab === 'cavia') img = resolveCaviaGiver(b.challenge, bName, bDesc, bObj);
+        else {
+          const allyLeaf = b.ally ? b.ally.split('/').pop().replace(/AllyAgent$/, '') : '';
+          img = allyLeaf ? `Bounty${allyLeaf}` : 'BountyTechrot';
         }
+        return { name: bName, desc: bDesc, obj: bObj, tier, img };
       });
-    } else if (bountyTab === 'deimos') {
-      const data = locationBounties.EntratiSyndicate || {};
-      Object.entries(data).forEach(([key, list]) => {
-        if (Array.isArray(list)) {
-          const main = list[0] ? resolveBountyTitle(list[0], dict) || cleanBountyName(list[0]) : 'Bounty';
-          const stages = list.map((p) => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Deimos\s+/i, '')).join('\n');
-          const img = (main.toLowerCase().includes('otak') || stages.toLowerCase().includes('otak')) ? 'BountyOtak' : 'BountyMother';
-          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Chamber', 'Vault ').replace('Tent', 'Pool '), img });
-        }
-      });
-    } else if (bountyTab === 'vallis') {
-      const data = locationBounties.SolarisSyndicate || {};
-      Object.entries(data).forEach(([key, list]) => {
-        if (Array.isArray(list)) {
-          const main = list[0] ? resolveBountyTitle(list[0], dict) || cleanBountyName(list[0]) : 'Bounty';
-          const stages = list.map((p) => resolveBountyTitle(p, dict) || resolveChallenge(p, dict, EC).replace(/^Venus\s+/i, '').replace(/^Solaris\s+/i, '')).join('\n');
-          const img = (main.toLowerCase().includes('business') || stages.toLowerCase().includes('animal') || stages.toLowerCase().includes('conservation')) ? 'BountyTheBusiness' : 'BountyEudico';
-          items.push({ name: main, desc: '', obj: stages, node: '', tier: key.replace('Bounty', '').replace(/([A-Z])/g, ' $1').trim(), img });
-        }
-      });
+      if (items.length === 0) {
+        return <div className="min-h-[80px] flex items-center justify-center"><p className="text-xs text-kronos-dim italic">{t('ui.dashboard.loading_bounties')}</p></div>;
+      }
+    } else {
+      items = worldstate?.bounties?.[bountyTab] || [];
+      if (items.length === 0) {
+        return <div className="min-h-[80px] flex items-center justify-center"><p className="text-xs text-kronos-dim italic">{t('ui.dashboard.no_bounties')}</p></div>;
+      }
     }
-    if (items.length === 0) return <div className="min-h-[80px] flex items-center justify-center"><p className="text-xs text-kronos-dim italic">{t('ui.dashboard.no_bounties')}</p></div>;
 
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
@@ -442,7 +464,7 @@ export default function Dashboard() {
             alt={it.name}
             className="absolute inset-0 w-full h-full object-contain"
             style={{ objectPosition: 'right top' }}
-            onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+             />
 
           }
             {/* Darken the left transparent zone so overlaid text stays legible; the portrait is right/top anchored */}
@@ -561,7 +583,10 @@ export default function Dashboard() {
     const affiliationTag = nw.affiliationTag || '';
     const hasInventory = rawInventory !== null && Object.keys(rawInventory || {}).length > 0;
     const affiliations = hasInventory ? rawInventory?.Affiliations || [] : [];
-    const nwAffiliation = affiliations.find((a) => a.Tag === affiliationTag);
+    const normTag = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const nwAffiliation = affiliations.find((a) => normTag(a.Tag) === normTag(affiliationTag)) ||
+      affiliations.find((a) => normTag(a.Tag).includes('intermission16') || normTag(a.Tag).includes('radiolegion')) ||
+      affiliations[affiliations.length - 1];
     const nwStandingTotal = nwAffiliation?.Standing ?? 0;
     const currentRank = nwAffiliation?.Title ?? nw.phase ?? 0;
     const miscItems = hasInventory ? rawInventory?.MiscItems || [] : [];
@@ -571,14 +596,15 @@ export default function Dashboard() {
     // Handle overflow - if standing exceeds per-level max, flip to next rank
     const effectiveRank = currentRank + Math.floor(standingInLevelRaw / STANDING_PER_LEVEL);
     const standingInLevel = standingInLevelRaw % STANDING_PER_LEVEL;
-    const completedSet = new Set();
-    if (rawInventory?.SeasonChallengeHistory) {
-      rawInventory.SeasonChallengeHistory.forEach((h) => {
-        if (h.id) completedSet.add(h.id);
-        if (h.challenge) completedSet.add(h.challenge);
+    const normTok = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const cpMap = new Map();
+    if (Array.isArray(rawInventory?.ChallengeProgress)) {
+      rawInventory.ChallengeProgress.forEach((cp) => {
+        if (cp.Name && typeof cp.Progress === "number") {
+          cpMap.set(cp.Name, cp.Progress);
+        }
       });
     }
-
     const categories = ['Daily', 'Weekly', 'Elite Weekly'];
     const grouped = (nw.challenges || []).reduce((acc, c) => {
       let cat = 'Daily';
@@ -679,8 +705,7 @@ export default function Dashboard() {
                         <img
                           src={r.image}
                           alt={r.name}
-                          className="max-w-full max-h-full object-contain"
-                          onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                          className="max-w-full max-h-full object-contain" />
 
                         }
                         </div>
@@ -700,8 +725,15 @@ export default function Dashboard() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
           {categories.flatMap((cat) =>
           (grouped[cat] || []).map((c, idx) => {
-            const isDone = c.isCompleted || completedSet.has(c.id) || (c.uniqueName && completedSet.has(c.uniqueName.split('/').pop()));
+            const rawKey = c.challengeKey || (c.rawChallenge || "").split("/").pop() || "";
+            const goalCount = c.requiredCount || 1;
+            const progressVal = hasInventory ? (cpMap.get(rawKey) ?? 0) : 0;
+            // Neither raw DE field is trustworthy here (see nwSeenBelowGoal above) - only
+            // count this instance as done if we've actually watched it sit below goal on a
+            // live poll during this rotation, and it has since reached/passed the goal.
+            const isDone = Boolean(c.isCompleted || (hasInventory && progressVal >= goalCount && c.id && nwSeenBelowGoal[c.id]));
             const isRecovered = c.isRecovered || c.recovered;
+            const showProgress = hasInventory && !isDone && (goalCount > 1 || progressVal > 0);
             return (
               <div
                 key={`${cat}-${idx}`}
@@ -718,11 +750,15 @@ export default function Dashboard() {
                           Recovered
                         </span>
                       )}
-                      {isDone && (
+                      {isDone ? (
                         <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 flex items-center gap-0.5">
                           <Check size={10} /> Done
                         </span>
-                      )}
+                      ) : showProgress ? (
+                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-white/10 text-kronos-dim">
+                          {progressVal} / {goalCount}
+                        </span>
+                      ) : null}
                     </div>
                     <span className="text-[10px] text-kronos-accent font-black">{c.xp ? c.xp.toLocaleString() : ''}{t('ui.inventory.sort_xp')}</span>
                   </div>
@@ -780,10 +816,31 @@ export default function Dashboard() {
       }
 
       if (cat === 'Steel Path') {
-        // Owned if the weapon in inventory has the incarnon adapter installed
-        return (inventoryData.all || []).some((item) =>
-        item.is_incarnon && item.owned && isSameFamily(item.name, choiceName)
+        // 1. Installed Incarnon weapon in inventory
+        const hasInstalled = (inventoryData.all || []).some((item) =>
+          item.is_incarnon && item.owned && isSameFamily(item.name, choiceName)
         );
+        if (hasInstalled) return true;
+
+        // 2. Evolution progress in raw inventory
+        const evoList = rawInventory?.EvolutionProgress || [];
+        const hasEvo = evoList.some((e) => {
+          const type = (e.ItemType || '').toLowerCase();
+          return isSameFamily(type, choiceName) || type.includes(choiceName.toLowerCase());
+        });
+        if (hasEvo) return true;
+
+        // 3. Uninstalled Genesis adapter in inventory / misc items
+        const rawMisc = rawInventory?.MiscItems || [];
+        const hasLooseAdapter = rawMisc.some((m) => {
+          const type = (m.ItemType || '').toLowerCase();
+          return type.includes('incarnon') && (isSameFamily(type, choiceName) || type.includes(choiceName.toLowerCase()));
+        }) || (inventoryData.all || []).some((i) => {
+          const n = (i.name || i.unique_name || '').toLowerCase();
+          return n.includes('incarnon') && (isSameFamily(n, choiceName) || n.includes(choiceName.toLowerCase())) && (i.owned || (i.quantity ?? 0) > 0);
+        });
+
+        return hasLooseAdapter;
       }
       return false;
     };
@@ -810,7 +867,7 @@ export default function Dashboard() {
                       src={img}
                       alt=""
                       className="max-w-full max-h-full object-contain"
-                      onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} /> :
+                       /> :
 
 
                     <div className="w-full h-full bg-kronos-panel/40 rounded flex items-center justify-center">
@@ -913,8 +970,8 @@ export default function Dashboard() {
       <div className="space-y-3 mt-1">
         {/* Season header */}
         <div className="flex items-center justify-between px-1">
-          <p className={`text-sm font-black uppercase tracking-widest ${seasonInfo.color}`}>{seasonInfo.name}{t('dashboard.season')}</p>
-          <p className="text-[10px] text-kronos-dim font-mono">{timeRemaining(nextExpiry)}{t('dashboard.remaining')}</p>
+          <p className={`text-sm font-black uppercase tracking-widest ${seasonInfo.color}`}>{seasonInfo.name} {t('dashboard.season')}</p>
+          <p className="text-[10px] text-kronos-dim font-mono">{timeRemaining(nextExpiry)} {t('dashboard.remaining')}</p>
         </div>
 
         {/* Month tabs */}
@@ -1106,7 +1163,7 @@ export default function Dashboard() {
 
           })}
         </div>
-        <p className="text-[10px] text-kronos-dim font-mono mt-2 text-right">{timeRemaining(current.expiry)}{t('dashboard.remaining_caps')}</p>
+        <p className="text-[10px] text-kronos-dim font-mono mt-2 text-right">{timeRemaining(current.expiry)} {t('dashboard.remaining_caps')}</p>
       </div>);
 
   };
@@ -1262,7 +1319,7 @@ export default function Dashboard() {
             return (
           <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
               <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0 relative">
-                <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
                 {owned &&
                 <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
                     <Check size={10} className="text-black" />
@@ -1292,12 +1349,83 @@ export default function Dashboard() {
 
   const WishlistModal = () => {
     const wishlist = inventoryData?.wishlist ?? [];
+    const [wishlistPrices, setWishlistPrices] = useState({});
+    const bundles = exportData?.ExportBundles || {};
+    const resources = exportData?.ExportResources || {};
+    const customs = exportData?.ExportCustoms || {};
+    const gear = exportData?.ExportGear || {};
+    // Combined lookup for bundle-component price resolution: bundle component
+    // typeNames use /Lotus/StoreItems/... but export entries use /Lotus/..., so
+    // both the raw and normalized path are indexed.
+    const itemLookup = useMemo(() => {
+      const map = {};
+      for (const src of [resources, customs, bundles, gear]) {
+        for (const [k, v] of Object.entries(src)) {
+          if (v?.platinumCost) {
+            map[k] = v;
+            const norm = k.replace('/Lotus/StoreItems/', '/Lotus/');
+            if (norm !== k) map[norm] = v;
+          }
+        }
+      }
+      return map;
+    }, [resources, customs, bundles, gear]);
+    const normalizePath = (path) => path ? path.replace('/Lotus/StoreItems/', '/Lotus/') : path;
+    useEffect(() => {
+      if (!showWishlistModal || wishlist.length === 0) return;
+      const fetchPrices = async () => {
+        const prices = {};
+        for (const item of wishlist) {
+          let price = await getPrice(item.unique_name, item.name);
+          if (!price) {
+            const bundle = bundles[item.unique_name];
+            price = bundle?.platinumCost;
+            if (!price && bundle?.components) {
+              let componentTotal = 0;
+              let allResolved = true;
+              for (const comp of bundle.components) {
+                const typeName = comp.typeName;
+                const resolved = itemLookup[typeName] || itemLookup[normalizePath(typeName)];
+                const compPrice = resolved?.platinumCost;
+                if (compPrice != null) componentTotal += compPrice * (comp.purchaseQuantity || 1);
+                else allResolved = false;
+              }
+              if (allResolved && componentTotal > 0) {
+                const discount = bundle.packageDiscount || 0;
+                price = Math.ceil(componentTotal * (1 - discount));
+              }
+            }
+          }
+          if (!price) price = resources[item.unique_name]?.platinumCost;
+          if (!price) price = customs[item.unique_name]?.platinumCost;
+          // DE's static export has no platinumCost for individual booster
+          // items; fall back to the standard store prices (per DE).
+          if (!price && item.unique_name?.includes('Booster') && item.unique_name?.includes('StoreItem')) {
+            if (/3Day/.test(item.unique_name)) price = 40;
+            else if (/7Day/.test(item.unique_name)) price = 80;
+            else if (/30Day/.test(item.unique_name)) price = 200;
+          }
+          prices[item.unique_name] = price ?? 0;
+        }
+        setWishlistPrices(prices);
+      };
+      fetchPrices();
+    }, [showWishlistModal, wishlist, bundles, resources, customs, itemLookup]);
+    const prices = { ...allPrices, ...wishlistPrices };
+    const totalPlat = wishlist.reduce((sum, item) => sum + (prices[item.unique_name] ?? 0), 0);
     return (
       <Modal
         isOpen={showWishlistModal}
         onClose={() => setShowWishlistModal(false)}
         title={t('ui.dashboard.wishlist')}>
-        
+
+        {wishlist.length > 0 &&
+        <div className="flex items-center justify-end gap-1 text-xs text-kronos-accent font-bold mb-3">
+            <span>{t('ui.dashboard.total_cost')}:</span>
+            {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-4 h-4 object-contain" alt="" />}
+            {totalPlat}
+          </div>
+        }
         {wishlist.length === 0 ?
         <p className="text-xs text-kronos-dim italic text-center py-8">{t('ui.dashboard.no_wishlist_items')}</p> :
 
@@ -1305,10 +1433,20 @@ export default function Dashboard() {
             {wishlist.map((item, idx) =>
           <div key={idx} className="bg-kronos-panel/40 p-3 rounded flex items-center gap-4 border border-transparent hover:border-kronos-accent/20 transition-all">
                 <div className="w-16 h-16 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
-                  <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                  <img src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-bold text-kronos-text uppercase" title={item.name}>{item.name}</p>
+                </div>
+                <div className="flex-shrink-0">
+                  {prices[item.unique_name] > 0 ?
+                  <span className="flex items-center justify-end gap-1 px-2 py-1 bg-kronos-panel/60 rounded text-xs text-kronos-accent font-bold">
+                      <img src={iconSrc('Platinum')} className="w-3 h-3 object-contain" alt="" />
+                      {prices[item.unique_name]}
+                    </span> :
+
+                  <span className="text-xs text-kronos-dim">-</span>
+                  }
                 </div>
               </div>
           )}
@@ -1416,7 +1554,7 @@ export default function Dashboard() {
       <PageLayout
         titleKey="screen.dashboard"
         extra={
-        <Button variant="ghost" onClick={fetchBounties} disabled={loading} className="h-12 w-12 !p-0 !px-0 !py-0">
+        <Button variant="ghost" onClick={manualRefresh} disabled={loading} className="h-12 w-12 !p-0 !px-0 !py-0">
             <RefreshCw size={28} strokeWidth={3} className="animate-spin text-kronos-accent" />
           </Button>
         }>
@@ -1487,14 +1625,14 @@ export default function Dashboard() {
             </div>
         }
 
-          {lastFetch &&
+          {lastUpdate &&
         <span className="text-[10px] text-kronos-dim uppercase font-bold tracking-tighter">{t('dashboard.synced')}
-          {new Date(lastFetch).toLocaleTimeString()}
+          {new Date(Number(lastUpdate)).toLocaleTimeString()}
             </span>
         }
           <Button
           variant="ghost"
-          onClick={fetchBounties}
+          onClick={manualRefresh}
           disabled={loading}
           className="h-9 w-9 !p-0 hover:bg-kronos-accent/10 transition-colors">
           
@@ -1594,14 +1732,14 @@ export default function Dashboard() {
                       <div className="grid grid-cols-2 gap-1.5">
                         <div className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
                           <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
-                            <img src={resolveAnyImage(arbitrationModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                            <img src={resolveAnyImage(arbitrationModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
                           </div>
                           <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(arbitrationModifiers.suitType, dict, uniqueNameToName)}</span>
                         </div>
                         {(arbitrationModifiers.wepTypes || []).map((w, i) =>
                   <div key={i} className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
                             <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
-                              <img src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                              <img src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
                             </div>
                             <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(w, dict, uniqueNameToName)}</span>
                           </div>
@@ -1632,7 +1770,7 @@ export default function Dashboard() {
                       src={resolveAnyImage(deal, EI, nameToImage)}
                       alt=""
                       className="max-w-full max-h-full object-contain"
-                      onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                       />
                     {isOwned && (
                       <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
                         <Check size={10} className="text-black" />
@@ -1694,7 +1832,7 @@ export default function Dashboard() {
                   return (
                     <div key={idx} className={`flex items-center gap-3 bg-kronos-panel/40 rounded p-2.5 transition-all ${isOwned ? 'opacity-60' : ''}`}>
                       <div className="w-14 h-14 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0 relative">
-                        <img src={resolveAnyImage(sale, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                        <img src={resolveAnyImage(sale, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
                         {isOwned && (
                           <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
                             <Check size={10} className="text-black" />
@@ -1778,14 +1916,14 @@ export default function Dashboard() {
                   <div className="grid grid-cols-2 gap-1.5">
                     <div className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
                       <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
-                        <img src={resolveAnyImage(archonModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                        <img src={resolveAnyImage(archonModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
                       </div>
                       <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(archonModifiers.suitType, dict, uniqueNameToName)}</span>
                     </div>
                     {(archonModifiers.wepTypes || []).map((w, i) =>
                 <div key={i} className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
                         <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
-                          <img src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" onError={(e) => {e.target.style.display = 'none';e.target.onerror = null;}} />
+                          <img src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain"  />
                         </div>
                         <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(w, dict, uniqueNameToName)}</span>
                       </div>

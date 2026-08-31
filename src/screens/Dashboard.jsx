@@ -52,6 +52,8 @@ import {
 
 
 // ── arbys.txt helpers ──────────────────────────────────────────────────────────
+const ARBY_GRACE_PERIOD = 300000; // 5 minutes
+
 function parseArbyLine(line, ERg, dict) {
   const parts = line.split(',');
   if (parts.length < 2) return null;
@@ -74,13 +76,16 @@ function getCurrentArby(arbys, ERg, dict) {
   for (const line of lines) {
     const entry = parseArbyLine(line, ERg, dict);
     if (!entry || isNaN(entry.ts)) continue;
-    const GRACE_PERIOD = 300000; // 5 minutes
-    if (entry.ts <= now + GRACE_PERIOD) best = entry;else
+    if (entry.ts <= now + ARBY_GRACE_PERIOD) best = entry;else
     break;
   }
   return best;
 }
 
+// entry.ts can be up to ARBY_GRACE_PERIOD in the future and still be picked
+// as the current arby (see getCurrentArby), so upcoming entries must start
+// strictly after that same grace window or the imminent arby would show up
+// as both "Current" and the first "Upcoming" row.
 function getUpcomingArbies(arbys, ERg, dict, arbyTiers, count = 5) {
   if (!arbys) return [];
   const now = Date.now();
@@ -88,7 +93,7 @@ function getUpcomingArbies(arbys, ERg, dict, arbyTiers, count = 5) {
   const results = [];
   for (const line of lines) {
     const entry = parseArbyLine(line, ERg, dict);
-    if (entry && !isNaN(entry.ts) && entry.ts > now) {
+    if (entry && !isNaN(entry.ts) && entry.ts > now + ARBY_GRACE_PERIOD) {
       entry.grade = arbyTiers?.[entry.node] || 'F';
       results.push(entry);
       if (results.length >= count) break;
@@ -339,6 +344,18 @@ export default function Dashboard() {
     return () => clearInterval(iv);
   }, [fetchBountyCycle]);
 
+  // `loading` only ever flips false once on the initial worldState load, so
+  // the refresh button's disabled/spinner state needs its own tracking of a
+  // manualRefresh() call in flight, success or failure, to actually reflect it.
+  const handleRefresh = useCallback(async () => {
+    setLoading(true);
+    try {
+      await manualRefresh();
+    } finally {
+      setLoading(false);
+    }
+  }, [manualRefresh]);
+
   // ── Derived data ─────────────────────────────────────────────────────────────
   const currentArbyRaw = useMemo(() => getCurrentArby(arbys, ERg, dict), [arbys, ERg, dict]);
   const currentArby = useMemo(() => currentArbyRaw ? { ...currentArbyRaw, grade: arbyTiers?.[currentArbyRaw.node] || 'F' } : null, [currentArbyRaw, arbyTiers]);
@@ -510,7 +527,7 @@ export default function Dashboard() {
   const renderArchimedea = () => {
     if (!worldstate?.archimedeas) return <p className="text-xs text-kronos-dim italic text-center py-4">{t('ui.dashboard.no_archimedea')}</p>;
     const typeKey = archimedeaTab === 'deep' ? 'CT_LAB' : 'CT_HEX';
-    const data = worldstate.archimedeas.find((a) => a.type === typeKey) || worldstate.archimedeas[0];
+    const data = worldstate.archimedeas.find((a) => a.type === typeKey);
     if (!data) return <p className="text-xs text-kronos-dim italic text-center py-4">{t('ui.dashboard.no_data_for_type')}</p>;
 
     return (
@@ -1019,12 +1036,12 @@ export default function Dashboard() {
                   onClick={() => setSelected1999Day(allDays.indexOf(dayData))}
                   className="aspect-square flex items-center justify-center cursor-pointer">
                   
-                    <div className={`w-4 h-4 flex items-center justify-center rounded text-[11px] font-bold transition-all border ${isSelected ? fc : bc}`}>
+                    <div className={`w-4 h-4 flex items-center justify-center rounded text-[11px] font-bold transition-all border ${isSelected ? fc : bc} ${isToday ? 'ring-1 ring-kronos-accent ring-offset-1 ring-offset-kronos-bg' : ''}`}>
                       {dom}
                     </div>
                   </button> :
 
-                <div key={dom} className="aspect-square flex items-center justify-center text-kronos-dim/30 text-[11px] font-bold">{dom}</div>;
+                <div key={dom} className={`aspect-square flex items-center justify-center text-[11px] font-bold ${isToday ? 'text-kronos-accent font-black' : 'text-kronos-dim/30'}`}>{dom}</div>;
 
               })}
             </div>
@@ -1175,7 +1192,7 @@ export default function Dashboard() {
     return (
       <Modal
         isOpen={showDescendiaModal}
-        onClose={() => setShowDescendiaModal(false)}
+        onClose={() => { setShowDescendiaModal(false); setExpandedWeek(0); }}
         title={t('ui.dashboard.upcoming_rotations')}
         maxWidth="max-w-md">
         
@@ -1554,7 +1571,7 @@ export default function Dashboard() {
       <PageLayout
         titleKey="screen.dashboard"
         extra={
-        <Button variant="ghost" onClick={manualRefresh} disabled={loading} className="h-12 w-12 !p-0 !px-0 !py-0">
+        <Button variant="ghost" onClick={handleRefresh} disabled={loading} className="h-12 w-12 !p-0 !px-0 !py-0">
             <RefreshCw size={28} strokeWidth={3} className="animate-spin text-kronos-accent" />
           </Button>
         }>
@@ -1632,7 +1649,7 @@ export default function Dashboard() {
         }
           <Button
           variant="ghost"
-          onClick={manualRefresh}
+          onClick={handleRefresh}
           disabled={loading}
           className="h-9 w-9 !p-0 hover:bg-kronos-accent/10 transition-colors">
           
@@ -1698,7 +1715,7 @@ export default function Dashboard() {
                   <div className="bg-kronos-panel/40 rounded p-2 flex justify-between items-start gap-4">
                     <div className="min-w-0 flex-1">
                       <p className="text-xs text-kronos-dim uppercase mb-0.5">{t('ui.dashboard.current')}</p>
-                      <p className="text-sm font-bold text-kronos-accent truncate">{resolveNode(currentArby.type, dict, ERg)}</p>
+                      <p className="text-sm font-bold text-kronos-accent truncate">{resolveMissionType(currentArby.type, dict, ERg)}</p>
                       <p className="text-sm font-bold truncate">{resolveNode(currentArby.node, dict, ERg)}</p>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0 mt-1">
@@ -1714,7 +1731,7 @@ export default function Dashboard() {
                       <div className="space-y-1">
                         {upcomingArbies.map((a, i) =>
                   <div key={i} className="bg-kronos-panel/40 rounded p-1.5 flex justify-between items-center text-xs uppercase">
-                            <span className="font-bold truncate">{resolveNode(a.type, dict, ERg)} - {resolveNode(a.node, dict, ERg)}</span>
+                            <span className="font-bold truncate">{resolveMissionType(a.type, dict, ERg)} - {resolveNode(a.node, dict, ERg)}</span>
                             <div className="flex items-center gap-2 flex-shrink-0 ml-2">
                               <span className="text-kronos-dim font-mono">
                                 {new Date(a.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

@@ -26,8 +26,11 @@ export default function RelicPickerOverlay() {
     }
   }, [])
 
-  const hideWindow = useCallback(async () => {
-    if (!windowVisibleRef.current) return
+  // `force` exists because the main window calls show_overlay_window before it
+  // relays the payload, so an empty payload has to close a window this
+  // component never saw opened.
+  const hideWindow = useCallback(async (force = false) => {
+    if (!force && !windowVisibleRef.current) return
     windowVisibleRef.current = false
     setWindowVisible(false)
     setRelics(null)
@@ -39,9 +42,14 @@ export default function RelicPickerOverlay() {
 
     subs.push(listen('relic-picker-data', (e) => {
       const data = e.payload
-      if (data?.ducat_top || data?.plat_top || data?.need_top || data?.by_era) {
+      // Empty arrays are truthy: a player with no relics of the fissure's era
+      // yields ducat_top/plat_top/need_top (or by_era) present but empty, which
+      // would render an opaque overlay with nothing but column headings.
+      if (data?.ducat_top?.length || data?.plat_top?.length || data?.need_top?.length || data?.by_era?.length) {
         setRelics(data)
         showWindow(true)
+      } else {
+        hideWindow(true)
       }
     }))
 

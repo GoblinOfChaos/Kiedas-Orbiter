@@ -1432,7 +1432,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   });
 
-  const companionsRaw = processCategory(ES, 'companions', [ES], [ES]);
+  // EW is a fallback image table only: the Deimos Predasite/Vulpaphyla Antigen
+  // and Mutagen parts live in ES with no icon/thumbnail, but DE's weapons export
+  // carries their real StoreIcons art. resolveImage walks tables in order, so ES
+  // still wins for every companion that already resolves from it.
+  const companionsRaw = processCategory(ES, 'companions', [ES], [ES, EW]);
   const sentinels = [], moas = [], hounds = [], beasts = [], robotics = [];
 
   companionsRaw.forEach(i => {

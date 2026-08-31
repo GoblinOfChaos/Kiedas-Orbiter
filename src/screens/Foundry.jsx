@@ -116,7 +116,7 @@ function RecipeDrawer({ item, recipe, onClose }) {
       <div className="max-w-6xl mx-auto px-6 py-4 max-h-[52vh] overflow-y-auto">
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-3 min-w-0">
-            <ItemImage src={item.image} className="w-12 h-12 object-contain rounded-lg bg-black/20" placeholderClassName="" />
+            <ItemImage src={item.image} className="w-12 h-12 object-contain rounded-lg bg-black/20" placeholderClassName="w-12 h-12 rounded-lg bg-black/20" />
             <div className="min-w-0"><h2 className="font-black uppercase truncate">{item.name}</h2><p className="text-[10px] text-kronos-dim uppercase">{item.category || 'Equipment'}</p></div>
           </div>
           <button onClick={onClose} className="text-kronos-dim hover:text-white text-xs font-bold uppercase">Close</button>
@@ -132,7 +132,7 @@ function RecipeDrawer({ item, recipe, onClose }) {
             {recipe.bpCount !== undefined && (
               <div className={`flex items-center gap-2 rounded-lg bg-black/20 p-2 border ${recipe.bpCount >= 1 ? 'border-emerald-500/30' : 'border-white/5'}`}>
                 <div className="relative">
-                  <ItemImage src={recipe.bpImage || item.image} className="w-8 h-8 object-contain" placeholderClassName="" />
+                  <ItemImage src={recipe.bpImage || item.image} className="w-8 h-8 object-contain" placeholderClassName="w-8 h-8" />
                   <span className="absolute -top-1 -left-1 text-[6px] font-black bg-amber-400 text-black px-1 rounded-full">BP</span>
                 </div>
                 <div className="flex-1 min-w-0">
@@ -145,7 +145,7 @@ function RecipeDrawer({ item, recipe, onClose }) {
             {(recipe.ingredients || []).map((ingredient) => {
               const complete = ingredient.have >= ingredient.need
               return <div key={ingredient.itemType || ingredient.name} className="flex items-center gap-2 rounded-lg bg-black/20 p-2">
-                <ItemImage src={ingredient.image} className="w-8 h-8 object-contain" placeholderClassName="" />
+                <ItemImage src={ingredient.image} className="w-8 h-8 object-contain" placeholderClassName="w-8 h-8" />
                 <span className="text-[11px] flex-1 whitespace-normal break-words">{ingredient.name}</span>
                 <span className={`text-[10px] font-black shrink-0 ${complete ? 'text-emerald-400' : 'text-red-400'}`}>{formatCount(ingredient.have)}/{formatCount(ingredient.need)}</span>
               </div>

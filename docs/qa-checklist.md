@@ -91,6 +91,8 @@ Two unrelated real DE items share the same display name (e.g. "Crash Course" the
 
 ### Dashboard.jsx
 
+*Not yet started — no QA pass on record for this screen as of 2026-08-30.*
+
 - [ ] Fissure tabs (Normal/Steel Path/Void Storm): `visibleFissures` filter correctly buckets by `f.isStorm`/`f.isHard` so every fissure and void storm entry from worldstate appears in exactly one tab, never zero and never two
 - [ ] Fissures list: expired fissures (`exp <= now`) are excluded from all three tabs, and remaining entries are sorted ascending by `tierNum`
 - [ ] Fissures list: each row's countdown (`timeRemaining(f.expiry)`) ticks down and the row disappears once expired rather than freezing at 00:00
@@ -143,6 +145,8 @@ Two unrelated real DE items share the same display name (e.g. "Crash Course" the
 
 ### About.jsx
 
+*Not yet started — no QA pass on record for this screen as of 2026-08-30.*
+
 - [ ] "GitHub" link, "Cephalon Kronos" fork-attribution link, and every credit entry's name button all call `handleOpenLink`/`open_url` with their respective correct URL (verify no credit link is copy-pasted from a different entry)
 - [ ] All 8 entries in the `CREDITS` list render with correct name/description pairing and open the correct external URL when clicked
 - [ ] App icon (`IconKieda.png`) only attempts to load once `uiPath` has been resolved via `get_ui_path`, avoiding a broken-image flash before the path arrives
@@ -151,6 +155,8 @@ Two unrelated real DE items share the same display name (e.g. "Crash Course" the
 - [ ] A failed `open_url` invocation (e.g., no default browser handler) fails silently to console only — verify this doesn't leave the user thinking the click did nothing, i.e., the button remains clickable for retry rather than becoming inert
 
 ### PrimeResurgence.jsx
+
+*Not yet started — no QA pass on record for this screen as of 2026-08-30.*
 
 - [ ] Loading state (`isInventoryLoading`) and no-rotation state (`!trader`) each show their own message and never both render simultaneously or leave a blank screen
 - [ ] Filter chips (All/Prime sets/Cosmetics/Owned/Missing) each correctly narrow `visible` — "Owned" excludes any item where `item.owned` is false, "Missing" excludes any item where `item.owned` is true, and "equipment"/"cosmetics" filter strictly by `item.type`
@@ -165,6 +171,8 @@ Two unrelated real DE items share the same display name (e.g. "Crash Course" the
 - [ ] `buildPrimeResurgenceModel`'s combined `allItems` (`equipment` + `cosmetics` + `bundles`) contains no duplicate `uniqueName` entries across those three source arrays that would cause an item to render twice or double-count in the owned total
 
 ### Settings.jsx
+
+*Partial pass 2026-08-28: 15 of these 42 items verified, 2 bugs found and fixed (sidebar_width sent as `.as_u64()` instead of `.as_f64()` in `main.rs`/`overlay_utils.rs`, causing a startup value bug; relic overlay test-sequence mock-event reordering). Which specific 15 lines were covered was not itemized at the time, so individual boxes below are left unchecked rather than guessed — treat this whole section as needing a full re-pass.*
 
 - [ ] HotkeyRecorder: pressing a bare key with no modifier (e.g. just `F`) is rejected (button flashes red) and does not get saved as a shortcut, since Warframe hotkeys must be grabbable over a fullscreen game
 - [ ] HotkeyRecorder: pressing a modifier alone (Control/Shift/Alt/Meta/CapsLock) does not end recording or produce an empty/garbage shortcut string
@@ -211,21 +219,23 @@ Two unrelated real DE items share the same display name (e.g. "Crash Course" the
 
 ### Notes.jsx
 
-- [ ] Clicking a note tab in the tab strip (`selectFile(f)`) always switches the editor to that note's content, and the previously active note is saved first if dirty
-- [ ] Double-clicking a tab enters rename mode for that specific tab, not a different one
-- [ ] Renaming a note (Enter to commit, Escape to cancel, or blur) only calls `onRename` when the trimmed name actually changed from the original filename
-- [ ] Renaming to a name that collides with an existing file shows the "A note with that name already exists" alert and does not silently overwrite or duplicate the file
-- [ ] The per-tab delete (X) button opens the delete confirmation modal for that specific file (`fileToDelete`), and clicking it does not also trigger `selectFile` on the tab underneath (`stopPropagation` on the delete click)
-- [ ] Confirming delete on the currently active note clears the editor and selects the next available note (or shows "select or create" if none remain); confirming delete on a non-active note leaves the currently open note untouched
-- [ ] "New Note" button generates a non-colliding filename (`New Note.md`, `New Note 2.md`, …) by checking against `files`, and immediately opens the newly created note
-- [ ] "Open Notes Folder" button invokes `open_notes_folder` and opens the real on-disk notes directory — needs live verification (depends on OS file manager)
-- [ ] Editing content marks the note dirty (`isDirtyRef.current = true`) and the "Saved" indicator only appears after the periodic 15s autosave actually persists a dirty note, not on every keystroke
-- [ ] The 15-second autosave interval only writes when the note is actually dirty and only for the currently active file (no autosave firing for a file that's no longer open, and no wasted writes when nothing changed)
-- [ ] Switching tabs while an edit is unsaved triggers a save-before-switch (`saveIfDirty` before `selectFile` continues) so content is not lost when tabbing away quickly
-- [ ] Unmounting the Notes screen (navigating away) saves any dirty content via the cleanup effect, so notes are not lost when leaving the page mid-edit
-- [ ] Renaming a note preserves its content: the file is saved under the new name using the correct source content (`latestContentRef.current` if it's the active file, otherwise a fresh `read_note`) before the old file is deleted
-- [ ] Markdown toolbar controls (bold/italic/lists/table/code/link/undo-redo/diff view) each apply the expected formatting to the actual document content, not a stale buffer
-- [ ] Code block language selector in the editor's code blocks lists real language labels (JS/TS/JSX/TSX/CSS/HTML/JSON/Bash/Python/Rust/Plain Text) rather than raw language codes leaking into the UI
+*Verified 2026-08-28: all 15 items below code-verified, plus a live test of folder/toolbar behavior. No bugs found.*
+
+- [x] Clicking a note tab in the tab strip (`selectFile(f)`) always switches the editor to that note's content, and the previously active note is saved first if dirty
+- [x] Double-clicking a tab enters rename mode for that specific tab, not a different one
+- [x] Renaming a note (Enter to commit, Escape to cancel, or blur) only calls `onRename` when the trimmed name actually changed from the original filename
+- [x] Renaming to a name that collides with an existing file shows the "A note with that name already exists" alert and does not silently overwrite or duplicate the file
+- [x] The per-tab delete (X) button opens the delete confirmation modal for that specific file (`fileToDelete`), and clicking it does not also trigger `selectFile` on the tab underneath (`stopPropagation` on the delete click)
+- [x] Confirming delete on the currently active note clears the editor and selects the next available note (or shows "select or create" if none remain); confirming delete on a non-active note leaves the currently open note untouched
+- [x] "New Note" button generates a non-colliding filename (`New Note.md`, `New Note 2.md`, …) by checking against `files`, and immediately opens the newly created note
+- [x] "Open Notes Folder" button invokes `open_notes_folder` and opens the real on-disk notes directory — needs live verification (depends on OS file manager)
+- [x] Editing content marks the note dirty (`isDirtyRef.current = true`) and the "Saved" indicator only appears after the periodic 15s autosave actually persists a dirty note, not on every keystroke
+- [x] The 15-second autosave interval only writes when the note is actually dirty and only for the currently active file (no autosave firing for a file that's no longer open, and no wasted writes when nothing changed)
+- [x] Switching tabs while an edit is unsaved triggers a save-before-switch (`saveIfDirty` before `selectFile` continues) so content is not lost when tabbing away quickly
+- [x] Unmounting the Notes screen (navigating away) saves any dirty content via the cleanup effect, so notes are not lost when leaving the page mid-edit
+- [x] Renaming a note preserves its content: the file is saved under the new name using the correct source content (`latestContentRef.current` if it's the active file, otherwise a fresh `read_note`) before the old file is deleted
+- [x] Markdown toolbar controls (bold/italic/lists/table/code/link/undo-redo/diff view) each apply the expected formatting to the actual document content, not a stale buffer
+- [x] Code block language selector in the editor's code blocks lists real language labels (JS/TS/JSX/TSX/CSS/HTML/JSON/Bash/Python/Rust/Plain Text) rather than raw language codes leaking into the UI
 
 ### Checklist.jsx
 
@@ -542,6 +552,8 @@ Also removed one stray debug `console.log` (container-rect logging) found while 
 
 ### OverlayRouter.jsx
 
+*Not yet started — no QA pass on record for this component as of 2026-08-30.*
+
 - [ ] Each Tauri window label (`overlay-tr`, `overlay-tl`, `overlay-tc`, `overlay-relic`, `overlay-riven-current`, `overlay-riven-new`, `overlay-relic-picker`, `overlay-sidebar`) renders its intended overlay component, with no label silently falling through to the final `return null`
 - [ ] An unrecognized/future window label renders nothing rather than crashing, and this is a deliberate no-op, not a masked routing bug
 - [ ] `overlay-riven-current` and `overlay-riven-new` both mount `RivenOverlay`, and the component correctly branches its "new riven" vs "current riven" behavior off `label` rather than assuming one case
@@ -550,6 +562,8 @@ Also removed one stray debug `console.log` (container-rect logging) found while 
 - [ ] `LABEL_TO_POS` mapping is checked before the other label checks, and a hypothetical future label collision (e.g. reusing `overlay-tr` for a non-toast purpose) is not silently possible
 
 ### RelicPickerOverlay.jsx
+
+*Not yet started — no QA pass on record for this component as of 2026-08-30.*
 
 - [ ] `relic-picker-data` events only trigger a visible update when at least one of `ducat_top`, `plat_top`, `need_top`, or `by_era` is present — an empty/malformed payload does not show a blank overlay window
 - [ ] `showWindow`/`hideWindow` guard against duplicate show/hide calls via `windowVisibleRef`, so a rapid double-fire of `relic-picker-data` cannot invoke `show_overlay_window` twice or desync the ref from the actual window state

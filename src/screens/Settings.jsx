@@ -20,6 +20,7 @@ import { Bug } from 'lucide-react';
 import { Compass, BookOpen } from 'lucide-react';
 
 function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
+  const { t } = useUi();
   const [recording, setRecording] = useState(false);
   const [needsModifier, setNeedsModifier] = useState(false);
   const buttonRef = useRef(null);
@@ -83,10 +84,10 @@ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
         'border-white/10 bg-black/20 text-kronos-dim hover:border-white/20'}`
         }>
 
-        {needsModifier ? 'Hold Ctrl/Alt/Shift + a key' : recording ? 'Recording...' : value || placeholder}
+        {needsModifier ? 'Hold Ctrl/Alt/Shift + a key' : recording ? t('settings.hotkey_recording') : value || placeholder}
       </button>
       {recording && !needsModifier &&
-      <p className="text-[10px] text-kronos-dim mt-1">Must include Ctrl, Alt, Shift, or Cmd</p>
+      <p className="text-[10px] text-kronos-dim mt-1">{t('settings.hotkey_modifier_required')}</p>
       }
     </div>);
 
@@ -509,12 +510,12 @@ export default function SettingsScreen() {
               <div>
                 <h2 className="text-lg font-black uppercase tracking-tight">{t('settings.theme')}</h2>
                 <p className="text-[10px] text-kronos-dim uppercase font-bold tracking-widest mt-0.5">
-                  Includes tailored high-contrast & color vision profiles
+                  {t('settings.theme_accessibility_hint')}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] text-kronos-dim uppercase font-bold tracking-wider">Active:</span>
+              <span className="text-[10px] text-kronos-dim uppercase font-bold tracking-wider">{t('settings.active_label')}</span>
               <span className="px-2.5 py-0.5 rounded-full bg-kronos-accent/15 border border-kronos-accent/30 text-xs font-black uppercase text-kronos-accent">
                 {themes.find((t) => t.id === theme)?.name}
               </span>
@@ -574,7 +575,7 @@ export default function SettingsScreen() {
             return (
               <div className="mt-4 p-3 rounded-xl bg-black/25 border border-white/5 flex items-center gap-2.5 text-xs text-kronos-dim">
                 <span className="text-kronos-accent font-black uppercase text-[10px] tracking-wider shrink-0">
-                  {current.badge ? `✨ Vision Profile (${current.badge}):` : 'Theme Info:'}
+                  {current.badge ? t('settings.vision_profile_label', { badge: current.badge }) : t('settings.theme_info_label')}
                 </span>
                 <span className="text-white/80">{current.desc}</span>
               </div>
@@ -662,9 +663,9 @@ export default function SettingsScreen() {
               <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">{t('settings.notification_sound')}</p>
               <div className="grid grid-cols-3 gap-2">
                 {[
-                { label: 'None', value: 'none', icon: VolumeX },
-                { label: 'Sound 1', value: 'notification1.wav', icon: Play },
-                { label: 'Sound 2', value: 'notification2.wav', icon: Play }].
+                { label: t('settings.sound_none'), value: 'none', icon: VolumeX },
+                { label: t('settings.sound_1'), value: 'notification1.wav', icon: Play },
+                { label: t('settings.sound_2'), value: 'notification2.wav', icon: Play }].
                 map((s) =>
                 <button
                   key={s.value}
@@ -772,10 +773,10 @@ export default function SettingsScreen() {
                     scannerStatus === 'stale_offset' ? 'text-red-400' :
                     'text-zinc-600'}`
                     }>
-                      {scannerStatus === 'active' ? 'Hooked into Warframe - scanner running' :
-                      scannerStatus === 'waiting' ? 'Waiting for Warframe to launch…' :
-                      scannerStatus === 'stale_offset' ? 'Scanner offset out of date - auto-retrying' :
-                      'Scanner offline'}
+                      {scannerStatus === 'active' ? t('settings.scanner_active') :
+                      scannerStatus === 'waiting' ? t('settings.scanner_waiting') :
+                      scannerStatus === 'stale_offset' ? t('settings.scanner_stale') :
+                      t('settings.scanner_offline')}
                     </span>
                   </div>
                   <Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />
@@ -946,9 +947,9 @@ export default function SettingsScreen() {
             <div className="flex items-center gap-3">
               <Compass className="text-kronos-accent" size={28} />
               <div>
-                <h2 className="text-xl font-black uppercase tracking-tight">Help & Diagnostics</h2>
+                <h2 className="text-xl font-black uppercase tracking-tight">{t('settings.help_diagnostics')}</h2>
                 <p className="text-[10px] text-kronos-dim uppercase font-bold tracking-widest mt-0.5">
-                  Quick reference for shortcuts, features, and one-click bug reporting
+                  {t('settings.help_diagnostics_desc')}
                 </p>
               </div>
             </div>
@@ -958,14 +959,14 @@ export default function SettingsScreen() {
                 className="py-2.5 px-4 rounded-xl border border-kronos-accent/30 bg-kronos-accent/15 text-kronos-accent text-xs font-black uppercase tracking-wider hover:bg-kronos-accent/25 transition-all flex items-center justify-center gap-2 flex-shrink-0"
               >
                 <BookOpen size={16} />
-                Feature Guide
+                {t('settings.feature_guide_button')}
               </button>
               <button
                 onClick={() => setShowBugModal(true)}
                 className="py-2.5 px-4 rounded-xl border border-red-500/30 bg-red-500/15 text-red-400 text-xs font-black uppercase tracking-wider hover:bg-red-500/25 transition-all flex items-center justify-center gap-2 flex-shrink-0"
               >
                 <Bug size={16} />
-                Report Issue
+                {t('settings.report_issue_button')}
               </button>
             </div>
           </div>
@@ -997,19 +998,19 @@ export default function SettingsScreen() {
                   }>
                   
                     {s === 'left' ? <PanelLeft size={16} /> : <PanelRight size={16} />}
-                    {s === 'left' ? 'Left Side' : 'Right Side'}
+                    {s === 'left' ? t('settings.side_left') : t('settings.side_right')}
                   </button>
                 )}
               </div>
             </div>
             <div>
-              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">Sidebar Width</p>
+              <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">{t('settings.sidebar_width')}</p>
               <div className="grid grid-cols-4 gap-2">
                 {[
-                  { label: 'Compact', width: 380 },
-                  { label: 'Default', width: 480 },
-                  { label: 'Wide', width: 640 },
-                  { label: 'Full', width: 800 },
+                  { label: t('settings.width_compact'), width: 380 },
+                  { label: t('settings.width_default'), width: 480 },
+                  { label: t('settings.width_wide'), width: 640 },
+                  { label: t('settings.width_full'), width: 800 },
                 ].map(({ label, width }) => (
                   <button
                     key={width}
@@ -1030,7 +1031,7 @@ export default function SettingsScreen() {
               <Toggle
                 checked={sidebarHideOnFocusLoss}
                 onChange={handleSetSidebarHideOnFocusLoss}
-                label="Hide sidebar when alt-tabbing" />
+                label={t('settings.hide_sidebar_alt_tab')} />
               
             </div>
           </div>
@@ -1117,18 +1118,18 @@ export default function SettingsScreen() {
             </div>
             <div className="flex-1 flex items-start justify-between">
               <div>
-                <h2 className="text-xl font-black uppercase tracking-tight">Safe Mode Tracking</h2>
-                <p className="text-xs text-kronos-dim mt-1">Read from Warframe's EE.log instead of memory scanning.</p>
+                <h2 className="text-xl font-black uppercase tracking-tight">{t('settings.safe_mode_tracking')}</h2>
+                <p className="text-xs text-kronos-dim mt-1">{t('settings.safe_mode_tracking_desc')}</p>
               </div>
               <Toggle checked={useEELog} onChange={handleUseEELogChange} />
             </div>
           </div>
-          
+
           <div className="space-y-4">
             <div>
-              <label className="text-xs font-bold text-white mb-1 block">Custom EE.log Path (Optional)</label>
+              <label className="text-xs font-bold text-white mb-1 block">{t('settings.custom_ee_log_path')}</label>
               <p className="text-[10px] text-kronos-dim leading-relaxed mb-3">
-                Kiedas Orbiter automatically finds EE.log on Windows and Steam Deck (Proton). Set this ONLY if you have a non-standard Wine/Proton setup.
+                {t('settings.ee_log_path_hint')}
               </p>
               <input
                 type="text"
@@ -1156,9 +1157,9 @@ export default function SettingsScreen() {
           
           <div className="space-y-4">
             <div>
-              <label className="text-xs font-bold text-white mb-1 block">API Token (JWT)</label>
+              <label className="text-xs font-bold text-white mb-1 block">{t('settings.api_token_jwt')}</label>
               <p className="text-[10px] text-kronos-dim leading-relaxed mb-3">
-                Required for 1-Click Trading from the Inventory tab. To get your JWT token: open Warframe.Market in your browser, press F12 for Developer Tools, go to Application &gt; Cookies, and copy the value of the JWT cookie.
+                {t('settings.jwt_instructions')}
               </p>
               <input
                 type="password"
@@ -1189,7 +1190,7 @@ export default function SettingsScreen() {
                   <Toggle
                     checked={updateOnStartup}
                     onChange={handleSetUpdateOnStartup}
-                    label="Check on startup" />
+                    label={t('settings.check_on_startup')} />
                   
                 </div>
 
@@ -1207,7 +1208,7 @@ export default function SettingsScreen() {
                     {updateState.manifest.version}
                     </p>
                     <p className="text-[10px] text-kronos-dim font-mono leading-relaxed max-h-20 overflow-y-auto">
-                      {updateState.manifest.body || 'No release notes available.'}
+                      {updateState.manifest.body || t('settings.no_release_notes')}
                     </p>
                     <p className="text-[10px] text-zinc-600 font-mono">{t('settings.released')}
                     {new Date(updateState.manifest.date).toLocaleDateString()}
@@ -1245,7 +1246,7 @@ export default function SettingsScreen() {
                     'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'}`
                     }>
                     
-                    {updateState.status === 'checking' ? 'Checking...' : updateState.status === 'installing' ? 'Installing...' : 'Check for Updates'}
+                    {updateState.status === 'checking' ? t('settings.btn_checking') : updateState.status === 'installing' ? t('settings.btn_installing') : t('settings.btn_check_updates')}
                   </button>
                   {updateState.status === 'available' &&
                   <button
@@ -1289,7 +1290,7 @@ export default function SettingsScreen() {
                     'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed'}`
                     }>
                     
-                    {isPriceLoading ? 'Fetching...' : 'Refresh Prices'}
+                    {isPriceLoading ? t('settings.fetching_prices') : t('settings.refresh_prices_button')}
                   </button>
                   {priceFetchProgress &&
                   <span className="text-[10px] font-mono text-kronos-accent/60">{priceFetchProgress.current} / {priceFetchProgress.total}</span>

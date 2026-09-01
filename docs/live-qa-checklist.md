@@ -38,7 +38,7 @@ Pure looking. No special account state needed.
 - [ ] Look at The Circuit card's reward icons. Each icon matches its reward's name. **Wrong:** a reward showing a visually different item's icon — this one is a real risk, since the image lookup falls back to a partial name match. [L116]
 
 ### Anywhere with stat tiles
-- [ ] Glance at the stat cards (Dashboard, Inventory headers). Numbers and labels read as written. **Wrong:** a truncated number, a missing unit, or a mangled label. [L805]
+- [x] ~~Glance at the stat cards (Dashboard, Inventory headers).~~ **Resolved 9/1** — this item was based on a guess that was never actually checked. `StatCard` (`UI.jsx:430`) has zero call sites anywhere in the app — nothing renders it, so there's no screen to look at. Nothing to do here.
 
 ### Language (only if you use a non-English UI)
 - [ ] Switch the UI language to a non-Latin one (Japanese, Korean, Chinese, Russian, Thai). Small labels stay readable. **Wrong:** characters clipped top or bottom at the smallest text sizes. [L709]

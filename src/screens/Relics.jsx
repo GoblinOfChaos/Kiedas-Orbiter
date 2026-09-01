@@ -15,7 +15,7 @@
  * - Filter by Era and refinement status.
  * - Displays all four refinement tiers for each relic in a single card.
  */
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { Search, AlertCircle, Users, Zap, TrendingUp, Coins, ArrowUpDown } from 'lucide-react';
 import { PageLayout, Input, Card, Tabs, MonitorState, Select } from '../components/UI';
@@ -32,7 +32,7 @@ const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
 
 export default function Relics() {
   const { t } = useUi()
-  const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex } = useMonitoring();
+  const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex, ExportImages } = useMonitoring();
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
   useEffect(() => {
     invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
@@ -57,6 +57,17 @@ export default function Relics() {
 
   const ownedRelics = inventoryData?.relics ?? [];
 
+  // Same hashed-asset resolution the inventory parser uses for owned relics,
+  // so a catalog-only (unowned) relic resolves the identical artwork.
+  const relicIconUrl = useCallback((icon) => {
+    if (!icon) return null;
+    const path = icon.startsWith('/') ? icon : `/${icon}`;
+    const hash = ExportImages?.[path]?.contentHash;
+    return hash
+      ? `asset-cache://content.warframe.com/PublicExport${path}!${hash}`
+      : `asset-cache://browse.wf${path}`;
+  }, [ExportImages]);
+
   // When showing unowned relics too, merge the full catalog (every relic
   // the game has, per getRelicCatalog) with owned data - inventory parsing
   // only ever produces relics the account actually has.
@@ -78,7 +89,7 @@ export default function Relics() {
         name: `${c.era} ${c.name} Relic`,
         era: c.era,
         description: '',
-        image: null,
+        image: relicIconUrl(c.icon),
         category: 'relics',
         refinements: { Intact: 0, Exceptional: 0, Flawless: 0, Radiant: 0 },
         rewards: c.rewards,
@@ -92,7 +103,7 @@ export default function Relics() {
     // would otherwise disappear entirely once the catalog replaces the
     // owned-only list, instead of just missing its "unowned" placeholders.
     return [...catalogRelics, ...ownedByKey.values()];
-  }, [ownedRelics, exportData, ownershipFilter]);
+  }, [ownedRelics, exportData, ownershipFilter, relicIconUrl]);
 
   const baseFiltered = useMemo(() => {
     const search = searchQuery.toLowerCase().split(/\s+/).filter((w) => w.length > 0);

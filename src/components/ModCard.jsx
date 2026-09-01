@@ -2,7 +2,7 @@ import { convertFileSrc } from '@tauri-apps/api/core';
 import { useUi } from '../contexts/UiContext'
 import { Box } from 'lucide-react';
 import { ImageUnavailable } from './ItemImage';
-import { useState, useEffect, useMemo, memo } from 'react';
+import { useState, useMemo, memo } from 'react';
 
 const CUSTOM = new Set(['Requiem', 'Tome', 'Antivirus', 'Potency', 'Tektolyst']);
 // Frames whose asset pack has no SideLight.png / CornerLights.png at all -
@@ -233,12 +233,16 @@ function Img({ src, className, style }) {
 
 function SafeImg({ src, className, style, alt, onError, placeholderClassName }) {
   const { t } = useUi();
-  const [error, setError] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  // Without this reset, the first failure latched `error` forever: onError
-  // swaps `src` to the CDN fallback, but the component was already returning
-  // null and never rendered the replacement, so the retry chain was dead.
-  useEffect(() => { setError(false); setLoaded(false); }, [src]);
+  // Track WHICH src loaded/failed rather than a boolean needing a reset effect.
+  // A passive effect runs after paint, but a cached image's load event can fire
+  // before it - so resetting `loaded` in an effect could clobber a load that had
+  // already happened and pin the image at opacity 0 forever. Deriving both flags
+  // from the current src is race-free and still lets the CDN retry render, which
+  // a latched `error` boolean prevented.
+  const [loadedSrc, setLoadedSrc] = useState(null);
+  const [errorSrc, setErrorSrc] = useState(null);
+  const loaded = loadedSrc === src;
+  const error = errorSrc === src;
   if (!src || error) {
     // Frame art (no placeholderClassName) stays invisible when it fails -
     // a dashed box over a card layer would corrupt the card. Content art
@@ -247,7 +251,7 @@ function SafeImg({ src, className, style, alt, onError, placeholderClassName }) 
       ? <ImageUnavailable className={placeholderClassName} label={t('ui.image_unavailable')} />
       : null;
   }
-  return <img src={src} className={className} style={{ ...style, opacity: loaded ? 1 : 0, transition: 'opacity 0.15s' }} alt={alt || ''} loading="lazy" onLoad={() => setLoaded(true)} onError={() => {setError(true);onError?.();}} />;
+  return <img src={src} className={className} style={{ ...style, opacity: loaded ? 1 : 0, transition: 'opacity 0.15s' }} alt={alt || ''} loading="lazy" onLoad={(e) => setLoadedSrc(e.target.getAttribute('src'))} onError={(e) => {setErrorSrc(e.target.getAttribute('src'));onError?.();}} />;
 }
 
 const RankPips = memo(function RankPips({ modFrame, rank, maxRank, framesPath, pipColorGroup, cardWidth }) {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { useUi } from '../contexts/UiContext'
 
 /**
@@ -40,28 +40,30 @@ export function ImageUnavailable({ className = '', label }) {
 
 export default function ItemImage({ src, alt = '', className = '', placeholderClassName = '', loading = 'lazy', resolveFallbackSrc = null }) {
   const { t } = useUi()
-  const [failed, setFailed] = useState(false)
-  const [currentSrc, setCurrentSrc] = useState(src)
-  const triedFallback = useRef(false)
   // If this component instance is reused for a different item (new src prop
   // without a remount), a prior failure must not stick around and hide a
-  // perfectly valid new image behind the placeholder forever.
-  useEffect(() => {
-    setFailed(false)
-    setCurrentSrc(src)
-    triedFallback.current = false
-  }, [src])
+  // perfectly valid new image behind the placeholder forever. This resets
+  // during render rather than in an effect: an effect runs after paint, so a
+  // cached image's load/error event can fire first and then be clobbered by
+  // the reset - the race that pinned mod art at opacity 0.
+  const [state, setState] = useState({ key: src, src, failed: false, triedFallback: false })
+  if (state.key !== src) {
+    setState({ key: src, src, failed: false, triedFallback: false })
+  }
+  const currentSrc = state.key === src ? state.src : src
+  const failed = state.key === src && state.failed
 
   const handleError = () => {
-    if (!triedFallback.current && resolveFallbackSrc) {
-      triedFallback.current = true
-      const next = resolveFallbackSrc(currentSrc)
-      if (next && next !== currentSrc) {
-        setCurrentSrc(next)
-        return
+    setState(prev => {
+      if (prev.key !== src) return prev
+      if (!prev.triedFallback && resolveFallbackSrc) {
+        const next = resolveFallbackSrc(prev.src)
+        if (next && next !== prev.src) {
+          return { ...prev, src: next, triedFallback: true }
+        }
       }
-    }
-    setFailed(true)
+      return { ...prev, failed: true, triedFallback: true }
+    })
   }
 
   if (!currentSrc || failed) {

@@ -315,6 +315,9 @@ export function getRelicCatalog(exportData, locale = 'en') {
       name: category,
       era,
       rewards,
+      // Carried so unowned relics can render art too: inventory parsing only
+      // ever produces owned relics, so a catalog-only entry had no image at all.
+      icon: entry.icon || null,
       // DE export variants differ in whether this field is present. Keep an
       // unknown value unknown instead of labelling an unverified relic as
       // farmable.

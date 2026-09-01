@@ -944,6 +944,11 @@ const hasCachedData = useCallback(async () => {
 
   const fissureStateRef = useRef({ squad_relics: [] })
   const ocrActiveRef = useRef(false)
+  // Bumped on every relic-session boundary (start and close). OCR matching is
+  // async (price + inventory lookups), so a batch can finish resolving after a
+  // new session has already begun; the emit is dropped in that case so a stale
+  // reward can never land in the new session's slot on the overlay.
+  const ocrSessionRef = useRef(0)
   const relicSoundPlayed = useRef(false)
 
   useEffect(() => {
@@ -953,6 +958,7 @@ const hasCachedData = useCallback(async () => {
     subs.push(listen('scanner-relic-phase-start', (e) => {
       const { squad_size } = e.payload
       ocrActiveRef.current = true
+      ocrSessionRef.current += 1
       relicSoundPlayed.current = false // Reset for new session
       fissureStateRef.current.squad_relics = [] // Drop stale candidates from the previous round
       invoke('show_overlay_window', { label: 'overlay-relic' }).catch(() => { })
@@ -991,6 +997,7 @@ const hasCachedData = useCallback(async () => {
       if (!ocrActiveRef.current && !is_debug) return
       if (is_debug) ocrActiveRef.current = true
       if (!slot_results) return
+      const batchSession = ocrSessionRef.current
 
       // Process all slots - keep matching sequential, emit events in parallel at end
       const slotPromises = slot_results.map(async (res) => {
@@ -1069,6 +1076,10 @@ const hasCachedData = useCallback(async () => {
 
       // Wait for all slots to process and emit all events together
       const results = await Promise.all(slotPromises);
+      // A session boundary crossed while this batch was resolving means these
+      // results belong to the previous round - drop them rather than writing
+      // them into the new session's slots.
+      if (ocrSessionRef.current !== batchSession) return;
       for (const result of results) {
         if (result) {
           invoke('relay_event', {
@@ -1082,6 +1093,7 @@ const hasCachedData = useCallback(async () => {
 
     subs.push(listen('fissure-reward-closed', () => {
       ocrActiveRef.current = false
+      ocrSessionRef.current += 1
       fissureStateRef.current.squad_relics = [] // Prevent a stale pool bleeding into the next round's OCR matching
     }))
 

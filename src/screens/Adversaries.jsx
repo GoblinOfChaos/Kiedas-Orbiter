@@ -138,7 +138,11 @@ export default function Adversaries() {
 
           <div className="space-y-1 max-h-[500px] overflow-y-auto custom-scrollbar">
               {displayed.map((n, i) => {
-              const d = n.d?.$date?.$numberLong ? new Date(Number(n.d.$date.$numberLong)) : null;
+              // Guard on the parsed value, not just on the field's presence: a
+              // malformed $numberLong would otherwise render the literal text
+              // "Invalid Date" instead of simply omitting the date.
+              const dRaw = n.d?.$date?.$numberLong ? new Date(Number(n.d.$date.$numberLong)) : null;
+              const d = dRaw && !Number.isNaN(dRaw.getTime()) ? dRaw : null;
               return (
                 <div key={n.fp || i} className="flex items-center gap-3 py-1.5 px-2 rounded hover:bg-white/5 text-xs">
                     {iconsPath && n.element &&

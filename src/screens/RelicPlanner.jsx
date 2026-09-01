@@ -4,8 +4,10 @@ import { PageLayout, Card, Input, Button, MonitorState } from '../components/UI'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { getAllRelicRewards, getRelicCatalog, getPartObtainedStatus } from '../lib/relicParser';
+import { useUi } from '../contexts/UiContext';
 
 export default function RelicPlanner() {
+  const { t } = useUi();
   const { inventoryData, exportData, isInventoryLoading } = useMonitoring();
   const [partSearch, setPartSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -131,15 +133,15 @@ export default function RelicPlanner() {
   const ownedShown = results.filter((r) => r.ownedCount > 0).length;
   const ownedParts = [...partStatuses.values()].filter((status) => status.directOwned).length;
 
-  if (isInventoryLoading) return <PageLayout title="Relic Planner"><MonitorState isLoading className="py-20" /></PageLayout>;
+  if (isInventoryLoading) return <PageLayout title={t('nav.relic-planner')}><MonitorState isLoading className="py-20" /></PageLayout>;
 
   return (
-    <PageLayout title="Relic Planner" subtitle="Find which relics give you a part you need">
+    <PageLayout title={t('nav.relic-planner')} subtitle={t('relic_planner.subtitle')}>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
         {[
-          { label: 'Prime parts', value: allParts.length, icon: Package },
-          { label: 'Selected', value: need.length, icon: Sparkles },
-          { label: 'Owned matches', value: `${ownedShown}/${results.length}`, icon: Package },
+          { label: t('relic_planner.stat_prime_parts'), value: allParts.length, icon: Package },
+          { label: t('relic_planner.stat_selected'), value: need.length, icon: Sparkles },
+          { label: t('relic_planner.stat_owned_matches'), value: `${ownedShown}/${results.length}`, icon: Package },
         ].map((s) => {
           const Icon = s.icon;
           return (
@@ -165,13 +167,13 @@ export default function RelicPlanner() {
           </div>
           <div className="relative mb-2">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} />
-            <Input placeholder="Search parts..." value={partSearch} onChange={(e) => setPartSearch(e.target.value)} className="pl-9 h-9 text-xs" />
+            <Input placeholder={t('relic_planner.search_placeholder')} value={partSearch} onChange={(e) => setPartSearch(e.target.value)} className="pl-9 h-9 text-xs" />
           </div>
           <div className="flex gap-1 mb-2 p-1 bg-black/20 rounded-lg border border-white/5">
             {[
-              { id: 'all', label: 'All' },
-              { id: 'never-obtained', label: 'Never Obtained' },
-              { id: 'missing', label: 'Missing' },
+              { id: 'all', label: t('mods.cat_all') },
+              { id: 'never-obtained', label: t('relic_planner.filter_never_obtained') },
+              { id: 'missing', label: t('relic_planner.filter_missing') },
             ].map((f) => (
               <button
                 key={f.id}
@@ -202,7 +204,7 @@ export default function RelicPlanner() {
                 onClick={() => setDisplayLimit((prev) => prev + 60)}
                 className="w-full py-1.5 text-center text-[10px] font-bold uppercase text-kronos-accent hover:bg-kronos-accent/10 rounded transition"
               >
-                Load More ({filteredParts.length - displayLimit} remaining)
+                {t('mods.load_more', { remaining: filteredParts.length - displayLimit })}
               </button>
             )}
           </div>
@@ -211,14 +213,14 @@ export default function RelicPlanner() {
         {/* Middle: need list */}
         <Card glow className="p-3 flex flex-col min-h-0 min-w-0 overflow-hidden" style={{ maxHeight: 640 }}>
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">Need List</h2>
+            <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">{t('relic_planner.need_list')}</h2>
             <span className="text-[10px] font-black text-kronos-accent">{need.length} selected</span>
           </div>
           <div className="flex-1 overflow-y-auto space-y-1 min-h-0 mb-3 custom-scrollbar">
             {need.length === 0 ? (
               <div className="flex flex-col items-center justify-center text-center gap-2 py-10 px-3">
                 <Sparkles size={22} className="text-kronos-dim/60" />
-                <p className="text-xs text-kronos-dim italic">Add parts from the left to search relics for them.</p>
+                <p className="text-xs text-kronos-dim italic">{t('relic_planner.add_parts_hint')}</p>
               </div>
             ) : (
               need.map((n) => (
@@ -237,11 +239,11 @@ export default function RelicPlanner() {
                 <Trash2 size={12} className="mr-1" /> Clear
               </Button>
             </div>
-            <Button onClick={addAllMissing} className="text-xs w-full" variant="secondary" title="Adds every prime part you currently own zero of.">
-              Add All Missing Parts
+            <Button onClick={addAllMissing} className="text-xs w-full" variant="secondary" title={t('relic_planner.add_all_missing_title')}>
+              {t('relic_planner.add_all_missing_button')}
             </Button>
-            <Button onClick={addNeverObtained} className="text-xs w-full" variant="secondary" title="Adds only parts you have never owned or crafted at all.">
-              Add Never Obtained
+            <Button onClick={addNeverObtained} className="text-xs w-full" variant="secondary" title={t('relic_planner.add_never_obtained_title')}>
+              {t('relic_planner.add_never_obtained_button')}
             </Button>
           </div>
         </Card>
@@ -250,7 +252,7 @@ export default function RelicPlanner() {
         <Card glow className="p-3 flex flex-col min-h-0 min-w-0 overflow-hidden" style={{ maxHeight: 640 }}>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">Best Relics</h2>
+              <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">{t('relic_planner.best_relics')}</h2>
               {need.length > 0 && <span className="px-1.5 py-0.5 rounded bg-kronos-accent/10 text-kronos-accent text-[9px] font-black">{results.length}</span>}
             </div>
             <button

@@ -167,7 +167,7 @@ export default function Market({ onNavigate }) {
     try {
       await invoke("delete_market_order", { token, orderId });
       setOrders(prev => prev.filter(o => o.id !== orderId));
-      setSuccessMsg("Order deleted successfully.");
+      setSuccessMsg(t("market.msg_order_deleted"));
       setTimeout(() => setSuccessMsg(null), 3000);
     } catch (err) {
       alert("Failed to delete order: " + err);
@@ -181,7 +181,7 @@ export default function Market({ onNavigate }) {
     try {
       await invoke("close_market_order", { token, orderId, quantity });
       setOrders(prev => prev.filter(o => o.id !== orderId));
-      setSuccessMsg("Order marked as sold!");
+      setSuccessMsg(t("market.msg_order_sold"));
       setTimeout(() => setSuccessMsg(null), 3000);
     } catch (err) {
       alert("Failed to close order: " + err);
@@ -222,7 +222,7 @@ export default function Market({ onNavigate }) {
       });
       setOrders(prev => prev.map(o => o.id === orderId ? { ...o, platinum: parseInt(editPrice, 10) } : o));
       setEditingOrder(null);
-      setSuccessMsg("Price updated successfully.");
+      setSuccessMsg(t("market.msg_price_updated"));
       setTimeout(() => setSuccessMsg(null), 3000);
     } catch (err) {
       alert("Failed to update price: " + err);
@@ -304,17 +304,17 @@ export default function Market({ onNavigate }) {
       // Decision rules:
       // High plat value if price >= 15p OR ratio >= 0.2 (e.g. >=10p for 45d, >=5p for 15d)
       let decision = "neutral";
-      let decisionLabel = "FAIR VALUE";
-      let decisionReason = `Balanced (~${ducats}d / ${platPrice || "?"}p)`;
+      let decisionLabel = t("market.decision_fair_value");
+      let decisionReason = t("market.reason_balanced", { ducats, plat: platPrice || "?" });
 
       if (platPrice >= 15 || pdRatio >= 0.22) {
         decision = "sell_plat";
-        decisionLabel = "SELL FOR PLAT";
-        decisionReason = `High Plat Profit (${platPrice}p vs ${ducats}d)`;
+        decisionLabel = t("market.decision_sell_plat");
+        decisionReason = t("market.reason_high_plat", { plat: platPrice, ducats });
       } else if (dpRatio >= 15 || (ducats >= 45 && platPrice <= 3)) {
         decision = "ducats";
-        decisionLabel = "KEEP FOR DUCATS";
-        decisionReason = `High Ducat Yield (${ducats}d vs ${platPrice}p)`;
+        decisionLabel = t("market.decision_keep_ducats");
+        decisionReason = t("market.reason_high_ducat", { ducats, plat: platPrice });
       }
 
       return {
@@ -395,7 +395,7 @@ export default function Market({ onNavigate }) {
   const handleSellStockItem = async (item) => {
     const customPrice = sellPriceInput[item.name] || item.platPrice || 10;
     if (!token) {
-      alert("Please configure your Warframe.Market JWT token in Settings to list items.");
+      alert(t("market.alert_configure_jwt"));
       return;
     }
 
@@ -459,13 +459,13 @@ export default function Market({ onNavigate }) {
         <div>
           <div className="flex items-center gap-2">
             <TrendingUp className="w-6 h-6 text-kronos-accent" />
-            <h1 className="text-xl font-bold text-white tracking-wide">Market & Trading Hub</h1>
+            <h1 className="text-xl font-bold text-white tracking-wide">{t("market.title")}</h1>
             <span className="px-2 py-0.5 text-xs font-semibold bg-kronos-accent/10 text-kronos-accent border border-kronos-accent/20 rounded-full">
               Warframe.Market v2
             </span>
           </div>
           <p className="text-xs text-kronos-dim mt-1">
-            Manage live listings, evaluate Ducat vs. Platinum trade-offs, and sell stock directly.
+            {t("market.subtitle")}
           </p>
         </div>
 
@@ -476,7 +476,7 @@ export default function Market({ onNavigate }) {
             className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-kronos-panel/50 hover:bg-[#334155] border border-white/10 text-xs font-medium text-white transition disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-kronos-accent" : ""}`} />
-            Sync Listings
+            {t("market.sync_listings")}
           </button>
           <a
             href="https://warframe.market"
@@ -485,7 +485,7 @@ export default function Market({ onNavigate }) {
             className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-kronos-accent/10 hover:bg-kronos-accent/20 border border-kronos-accent/30 text-xs font-medium text-kronos-accent transition"
           >
             <ExternalLink className="w-3.5 h-3.5" />
-            Open Website
+            {t("market.open_website")}
           </a>
         </div>
       </div>
@@ -495,16 +495,16 @@ export default function Market({ onNavigate }) {
         <div className="m-6 p-4 rounded-xl bg-[#f59e0b]/10 border border-[#f59e0b]/30 flex items-start gap-3">
           <AlertCircle className="w-5 h-5 text-[#f59e0b] shrink-0 mt-0.5" />
           <div className="flex-1">
-            <h3 className="text-sm font-semibold text-[#fbbf24]">Warframe.Market Token Required</h3>
+            <h3 className="text-sm font-semibold text-[#fbbf24]">{t("market.token_required_title")}</h3>
             <p className="text-xs text-kronos-text mt-1">
-              To view active listings, update prices, or sell items with 1-click, configure your JWT cookie in Settings.
+              {t("market.token_required_desc")}
             </p>
             {onNavigate && (
               <button
                 onClick={() => onNavigate("settings")}
                 className="mt-2.5 px-3 py-1 bg-[#f59e0b] hover:bg-[#d97706] text-black font-semibold text-xs rounded-lg transition"
               >
-                Go to Settings
+                {t("market.go_to_settings")}
               </button>
             )}
           </div>
@@ -536,7 +536,7 @@ export default function Market({ onNavigate }) {
               <Coins className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs text-kronos-dim">Potential Earnings</div>
+              <div className="text-xs text-kronos-dim">{t("market.stat_potential_earnings")}</div>
               <div className="text-lg font-bold text-white flex items-center gap-1">
                 {metrics.totalPlat.toLocaleString()} <span className="text-xs text-kronos-accent">plat</span>
               </div>
@@ -548,7 +548,7 @@ export default function Market({ onNavigate }) {
               <Package className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs text-kronos-dim">Active Orders</div>
+              <div className="text-xs text-kronos-dim">{t("market.stat_active_orders")}</div>
               <div className="text-lg font-bold text-white">{metrics.activeCount} listings</div>
             </div>
           </div>
@@ -558,7 +558,7 @@ export default function Market({ onNavigate }) {
               <Eye className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs text-kronos-dim">Visibility</div>
+              <div className="text-xs text-kronos-dim">{t("market.stat_visibility")}</div>
               <div className="text-lg font-bold text-white">{metrics.visibleCount} visible / {metrics.hiddenCount} hidden</div>
             </div>
           </div>
@@ -568,7 +568,7 @@ export default function Market({ onNavigate }) {
               <Layers className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs text-kronos-dim">Tradeable Inventory</div>
+              <div className="text-xs text-kronos-dim">{t("market.stat_tradeable_inventory")}</div>
               <div className="text-lg font-bold text-white">{tradeableStock.length} items</div>
             </div>
           </div>
@@ -658,9 +658,9 @@ export default function Market({ onNavigate }) {
             {filteredOrders.length === 0 ? (
               <div className="p-12 rounded-xl bg-kronos-panel/30 border border-white/5 flex flex-col items-center justify-center text-center">
                 <Package className="w-12 h-12 text-[#475569] mb-3" />
-                <h3 className="text-sm font-semibold text-white">No active orders found</h3>
+                <h3 className="text-sm font-semibold text-white">{t("market.no_active_orders")}</h3>
                 <p className="text-xs text-kronos-dim mt-1 max-w-sm">
-                  {searchQuery ? "No listings match your search filter." : "You have no active orders matching this filter on Warframe.Market."}
+                  {searchQuery ? t("market.no_listings_search") : t("market.no_active_orders_filter")}
                 </p>
               </div>
             ) : (
@@ -668,12 +668,12 @@ export default function Market({ onNavigate }) {
                 <table className="w-full text-left text-xs">
                   <thead className="bg-kronos-panel/60 text-kronos-dim uppercase text-[10px] tracking-wider border-b border-white/5">
                     <tr>
-                      <th className="py-3 px-4">Item</th>
-                      <th className="py-3 px-4">Type</th>
-                      <th className="py-3 px-4">Quantity</th>
-                      <th className="py-3 px-4">Price</th>
-                      <th className="py-3 px-4">Status</th>
-                      <th className="py-3 px-4 text-right">Actions</th>
+                      <th className="py-3 px-4">{t("market.col_item")}</th>
+                      <th className="py-3 px-4">{t("market.col_type")}</th>
+                      <th className="py-3 px-4">{t("market.col_quantity")}</th>
+                      <th className="py-3 px-4">{t("market.col_price")}</th>
+                      <th className="py-3 px-4">{t("market.col_status")}</th>
+                      <th className="py-3 px-4 text-right">{t("market.col_actions")}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#1f293d]/50 text-slate-300">
@@ -770,7 +770,7 @@ export default function Market({ onNavigate }) {
                               title={order.visible ? "Visible to buyers (Click to hide)" : "Hidden (Click to make visible)"}
                             >
                               {order.visible ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
-                              <span>{order.visible ? "Visible" : "Hidden"}</span>
+                              <span>{order.visible ? t("market.visible") : t("market.hidden")}</span>
                             </button>
                           </td>
 
@@ -784,7 +784,7 @@ export default function Market({ onNavigate }) {
                                   className="px-2.5 py-1 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-[11px] font-medium transition disabled:opacity-50"
                                   title="Mark 1 sold"
                                 >
-                                  {isClosing ? "..." : "Sold"}
+                                  {isClosing ? "..." : t("market.sold")}
                                 </button>
                               )}
                               <button
@@ -831,7 +831,7 @@ export default function Market({ onNavigate }) {
                   }`}
                 >
                   <Tag className="w-3 h-3 text-emerald-400" />
-                  Sell for Plat ({tradeableStock.filter(i => i.decision === "sell_plat").length})
+                  {t("market.filter_sell_plat", { n: tradeableStock.filter(i => i.decision === "sell_plat").length })}
                 </button>
                 <button
                   onClick={() => setStockFilter("ducats")}
@@ -840,7 +840,7 @@ export default function Market({ onNavigate }) {
                   }`}
                 >
                   <Coins className="w-3 h-3 text-amber-400" />
-                  Best for Ducats ({tradeableStock.filter(i => i.decision === "ducats").length})
+                  {t("market.filter_best_ducats", { n: tradeableStock.filter(i => i.decision === "ducats").length })}
                 </button>
                 <button
                   onClick={() => setStockFilter("duplicates")}
@@ -848,7 +848,7 @@ export default function Market({ onNavigate }) {
                     stockFilter === "duplicates" ? "bg-[#a855f7]/20 text-[#c084fc] font-bold" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  Duplicates 2+ ({tradeableStock.filter(i => i.isDuplicate).length})
+                  {t("market.filter_duplicates", { n: tradeableStock.filter(i => i.isDuplicate).length })}
                 </button>
                 <button
                   onClick={() => setStockFilter("mastered")}
@@ -856,7 +856,7 @@ export default function Market({ onNavigate }) {
                     stockFilter === "mastered" ? "bg-kronos-accent/20 text-kronos-accent font-bold" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  Mastered ({tradeableStock.filter(i => i.isMastered).length})
+                  {t("market.filter_mastered", { n: tradeableStock.filter(i => i.isMastered).length })}
                 </button>
               </div>
 
@@ -882,12 +882,12 @@ export default function Market({ onNavigate }) {
                   >
                     <ArrowUpDown className="w-3.5 h-3.5 text-kronos-accent" />
                     <span>
-                      {stockSort === "plat_ratio" && "Sort: Best Plat to Sell"}
-                      {stockSort === "ducat_ratio" && "Sort: Best Ducats for Baro"}
-                      {stockSort === "plat_desc" && "Highest Plat Price"}
-                      {stockSort === "owned_desc" && "Most Owned"}
-                      {stockSort === "ducats_desc" && "Highest Ducats"}
-                      {stockSort === "name_asc" && "Name (A-Z)"}
+                      {stockSort === "plat_ratio" && t("market.sort_best_plat")}
+                      {stockSort === "ducat_ratio" && t("market.sort_best_ducats")}
+                      {stockSort === "plat_desc" && t("market.sort_highest_plat")}
+                      {stockSort === "owned_desc" && t("market.sort_most_owned")}
+                      {stockSort === "ducats_desc" && t("market.sort_highest_ducats")}
+                      {stockSort === "name_asc" && t("market.sort_name_az")}
                     </span>
                     <span className="text-[10px] text-kronos-dim">▼</span>
                   </button>
@@ -897,12 +897,12 @@ export default function Market({ onNavigate }) {
                       <div className="fixed inset-0 z-40" onClick={() => setIsSortOpen(false)} />
                       <div className="absolute right-0 mt-1.5 w-56 bg-[#0f172a] border border-white/20 rounded-xl shadow-[0_12px_36px_rgba(0,0,0,0.85)] z-50 py-1.5 overflow-hidden backdrop-blur-md">
                         {[
-                          { id: "plat_ratio", label: "Sort: Best Plat to Sell" },
-                          { id: "ducat_ratio", label: "Sort: Best Ducats for Baro" },
-                          { id: "plat_desc", label: "Highest Plat Price" },
-                          { id: "owned_desc", label: "Most Owned" },
-                          { id: "ducats_desc", label: "Highest Ducats" },
-                          { id: "name_asc", label: "Name (A-Z)" },
+                          { id: "plat_ratio", label: t("market.sort_best_plat") },
+                          { id: "ducat_ratio", label: t("market.sort_best_ducats") },
+                          { id: "plat_desc", label: t("market.sort_highest_plat") },
+                          { id: "owned_desc", label: t("market.sort_most_owned") },
+                          { id: "ducats_desc", label: t("market.sort_highest_ducats") },
+                          { id: "name_asc", label: t("market.sort_name_az") },
                         ].map(opt => (
                           <button
                             key={opt.id}
@@ -932,9 +932,9 @@ export default function Market({ onNavigate }) {
             {processedStock.length === 0 ? (
               <div className="p-12 rounded-xl bg-kronos-panel/30 border border-white/5 flex flex-col items-center justify-center text-center">
                 <Layers className="w-12 h-12 text-[#475569] mb-3" />
-                <h3 className="text-sm font-semibold text-white">No items found in stock</h3>
+                <h3 className="text-sm font-semibold text-white">{t("market.no_items_stock")}</h3>
                 <p className="text-xs text-kronos-dim mt-1 max-w-sm">
-                  {stockSearch ? "No tradeable items match your search." : "No tradeable prime items match this filter."}
+                  {stockSearch ? t("market.no_items_stock_search") : t("market.no_items_stock_filter")}
                 </p>
               </div>
             ) : (
@@ -970,8 +970,8 @@ export default function Market({ onNavigate }) {
                             {item.name}
                           </div>
                           <div className="text-[10px] text-kronos-dim mt-0.5 flex flex-wrap items-center gap-2">
-                            <span>Owned: <b className="text-white">{item.quantity}</b></span>
-                            {item.ducats > 0 && <span>Ducats: <b className="text-amber-400">{item.ducats}d</b></span>}
+                            <span>{t("market.owned_label")} <b className="text-white">{item.quantity}</b></span>
+                            {item.ducats > 0 && <span>{t("market.ducats_label")} <b className="text-amber-400">{item.ducats}d</b></span>}
                             {item.isMastered && (
                               <span className="text-[9px] px-1 py-0.2 rounded bg-kronos-accent/10 text-kronos-accent font-bold border border-kronos-accent/20">
                                 Mastered
@@ -1005,7 +1005,7 @@ export default function Market({ onNavigate }) {
                       {/* Pricing & 1-Click Sell Footer */}
                       <div className="pt-2 border-t border-white/5/50 flex items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] text-kronos-dim">Plat:</span>
+                          <span className="text-[10px] text-kronos-dim">{t("market.plat_label")}</span>
                           <input
                             type="number"
                             min="1"
@@ -1032,10 +1032,10 @@ export default function Market({ onNavigate }) {
                             <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                           ) : isListed ? (
                             <>
-                              <Check className="w-3.5 h-3.5" /> Listed!
+                              <Check className="w-3.5 h-3.5" /> {t("market.listed")}
                             </>
                           ) : (
-                            "Sell on WFM"
+                            t("market.sell_on_wfm")
                           )}
                         </button>
                       </div>

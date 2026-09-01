@@ -22,6 +22,7 @@ Pure looking. No special account state needed.
 - [ ] Zoom in and out on a map. The zoom percentage badge updates as you zoom. **Wrong:** it sticks at one number or lags a step behind. [L351]
 - [ ] Zoom all the way in, then drag the map as far as it will go in each direction. **Wrong:** the map slides completely out of view, or you can pan into empty space with no way back. [L350]
 - [ ] Toggle raw/labeled terrain, then switch to a different map tab. The toggle stays where you set it. **Wrong:** it silently resets to labeled when you change tabs. [L335 — verified in code, just confirming]
+- [x] ~~Duviri's raw/labeled toggle appears to do nothing.~~ **Resolved 9/1** — confirmed, not a toggle bug: Duviri's `raw` and `labeled` entries both point at the same file (`Duviri_map_with_caves.png`, `Maps.jsx:22`), and no second Duviri map exists anywhere in the repo, the build output, or the wiki archive (its `Duviri_Map` page is the only Duviri map source). This is a missing asset, not a code defect — nothing to fix without a distinct "raw" Duviri map to source. The toggle itself works correctly on the other three maps.
 
 ### Mastery
 - [ ] Look at the MR rank icon. It renders as a real icon. **Wrong:** blank space or a broken-image box. [L356]

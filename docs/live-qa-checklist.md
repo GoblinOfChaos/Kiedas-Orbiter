@@ -42,6 +42,7 @@ Pure looking. No special account state needed.
 
 ### Language (only if you use a non-English UI)
 - [ ] Switch the UI language to a non-Latin one (Japanese, Korean, Chinese, Russian, Thai). Small labels stay readable. **Wrong:** characters clipped top or bottom at the smallest text sizes. [L709]
+  - Note (confirmed 9/1): item/Warframe/weapon *names* staying in English while everything around them is translated is expected, not a bug — checked DE's own Thai dict.json against the exact key the app uses for item names (`/Lotus/Language/Items/BratonPrimeName` → literally `"Braton Prime"`, no Thai). DE's official localization keeps proper-noun item names untranslated in every language; only descriptions, UI chrome, and generic words are translated. Don't re-flag this — just watch for actual text clipping.
 - [ ] While you're there: switching language should never hang. **Wrong:** the loading overlay stays up forever and needs a force-quit. *(Fixed today — this is confirming the fix.)* [L708]
 
 ---

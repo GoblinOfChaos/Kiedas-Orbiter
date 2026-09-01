@@ -1700,9 +1700,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     // app credits with mastery has an entry there. A prism with no XPInfo
     // entry has earned no mastery, so the `?? a.XP` fallback above (the
     // assembled amp's own affinity) must not be turned into mastery points.
-    // The Mote Amp is the only case in practice - it is handed out pre-built,
-    // accumulates affinity on the amp instance, and never appears in XPInfo -
-    // and crediting it was inflating the Mastery total by exactly 3,000.
+    // The Mote Amp is the exception in practice - it's handed out pre-built
+    // and never gilded, so it accumulates affinity on the amp instance and
+    // never gets an XPInfo entry; crediting that fallback was inflating the
+    // Mastery total by exactly 3,000. Per the wiki, the Mote Amp DOES earn
+    // Mastery once gilded, "similar to other Amp Prisms" - at which point it
+    // gets a real XPInfo entry and this check picks it up like any other amp.
     const mastery_xp = xpMap[prismPath] != null ? rank * 100 : 0;
     const owned = xp > 0;
     const mastered = mastery_xp >= 3000;

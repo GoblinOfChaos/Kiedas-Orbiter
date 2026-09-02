@@ -182,17 +182,17 @@ export default function Relics() {
         return acc;
       }, {});
     } else {
-      const SORT_LABELS = {
-        ducat: 'Expected Ducats',
-        plat: 'Expected Platinum',
-        ducat_gain: 'Refinement Gain (Ducats)',
-        plat_gain: 'Refinement Gain (Platinum)'
+      const SORT_LABEL_KEYS = {
+        ducat: 'relics.sort_label_ducat',
+        plat: 'relics.sort_label_plat',
+        ducat_gain: 'relics.sort_label_ducat_gain',
+        plat_gain: 'relics.sort_label_plat_gain'
       };
-      const sortLabel = SORT_LABELS[sortMode] || 'Name';
-      const orderLabel = sortOrder === 'desc' ? 'Descending' : 'Ascending';
-      return { [`Sorted by ${sortLabel} (${orderLabel})`]: enriched };
+      const sortLabel = t(SORT_LABEL_KEYS[sortMode] || 'mods.sort_name');
+      const orderLabel = sortOrder === 'desc' ? t('relics.order_descending') : t('relics.order_ascending');
+      return { [t('relics.sorted_by_group', { label: sortLabel, order: orderLabel })]: enriched };
     }
-  }, [baseFiltered, sortMode, sortOrder, allPrices, squadSize, evRefinementOverride, activeQuality]);
+  }, [baseFiltered, sortMode, sortOrder, allPrices, squadSize, evRefinementOverride, activeQuality, t]);
 
   const totalFilteredGroups = baseFiltered.length;
   const totalFilteredItems = baseFiltered.reduce((s, r) => s + Object.values(r.refinements || {}).reduce((a, b) => a + b, 0), 0);
@@ -226,7 +226,7 @@ export default function Relics() {
   const qualityTabs = [
     { id: 'All', label: 'All' },
     { id: 'Intact', label: 'Intact' },
-    { id: 'has_refinements', label: 'Refined' },
+    { id: 'has_refinements', label: t('relics.refined_tab') },
     { id: 'Exceptional', label: 'Exceptional' },
     { id: 'Flawless', label: 'Flawless' },
     { id: 'Radiant', label: 'Radiant' },
@@ -251,7 +251,7 @@ export default function Relics() {
           <button
             onClick={() => setOwnershipFilter((v) => v === 'all' ? 'owned' : v === 'owned' ? 'unowned' : 'all')}
             className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
-            {ownershipFilter === 'unowned' ? 'Unowned' : ownershipFilter === 'owned' ? 'Owned' : 'All'}
+            {ownershipFilter === 'unowned' ? t('relics.ownership_unowned') : ownershipFilter === 'owned' ? t('relics.ownership_owned') : t('relics.ownership_all')}
           </button>
         </div>
 
@@ -309,12 +309,12 @@ export default function Relics() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">Vault</span>
+          <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">{t('relics.vault_group_label')}</span>
           <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
             {[
-              { id: 'all', label: 'All' },
-              { id: 'vaulted', label: 'Vaulted' },
-              { id: 'unvaulted', label: 'Unvaulted' },
+              { id: 'all', label: t('relics.vault_filter_all') },
+              { id: 'vaulted', label: t('relics.vault_filter_vaulted') },
+              { id: 'unvaulted', label: t('relics.vault_filter_unvaulted') },
             ].map((filter) => (
               <button
                 key={filter.id}
@@ -332,11 +332,11 @@ export default function Relics() {
           <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">{t('relics.sort')}</span>
           <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
             {[
-          { id: 'name', label: 'Name', icon: null },
-          { id: 'ducat', label: 'Ducats', icon: iconSrc('Ducats') },
-          { id: 'plat', label: 'Plat', icon: iconSrc('Platinum') },
-          { id: 'ducat_gain', label: 'Refine (D)', icon: iconSrc('Ducats') },
-          { id: 'plat_gain', label: 'Refine (P)', icon: iconSrc('Platinum') }].
+          { id: 'name', label: t('mods.sort_name'), icon: null },
+          { id: 'ducat', label: t('relics.sort_ducats'), icon: iconSrc('Ducats') },
+          { id: 'plat', label: t('relics.sort_plat'), icon: iconSrc('Platinum') },
+          { id: 'ducat_gain', label: t('relics.sort_refine_ducats'), icon: iconSrc('Ducats') },
+          { id: 'plat_gain', label: t('relics.sort_refine_plat'), icon: iconSrc('Platinum') }].
           map((mode) => {
             const isActive = sortMode === mode.id;
             return (
@@ -382,7 +382,7 @@ export default function Relics() {
     <>
     <PageLayout
       titleKey="screen.relics"
-      subtitle={`Showing ${totalFilteredGroups} relic types · ${totalFilteredItems} total`}
+      subtitle={t('relics.subtitle', { groups: totalFilteredGroups, items: totalFilteredItems })}
       headerPanel={renderHeaderPanel()}>
 
       <div className="space-y-4 pt-2">
@@ -394,7 +394,7 @@ export default function Relics() {
         <Card glow>
             <div className="text-center py-12">
               <p className="text-kronos-dim">
-                {relics.length === 0 ? 'No relics found in inventory' : 'No relics match your search'}
+                {relics.length === 0 ? t('relics.no_relics_in_inventory') : t('relics.no_relics_match_search')}
               </p>
             </div>
           </Card> :
@@ -430,7 +430,7 @@ export default function Relics() {
               {Object.entries(grouped).sort(([a], [b]) => ERA_ORDER.indexOf(a) - ERA_ORDER.indexOf(b)).map(([era, eraRelics]) =>
             <div key={era} className="space-y-4">
                   <h3 className="font-black text-sm uppercase tracking-[0.2em] text-kronos-accent border-b border-kronos-accent/20 pb-1 ml-1">
-                    {era.startsWith('Sorted by') ? era : `${era} Era`}
+                    {sortMode !== 'name' ? era : t('relics.era_heading', { era })}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3">
                     {eraRelics.map((item, idx) => {
@@ -461,7 +461,7 @@ export default function Relics() {
                               {item.name.replace(' Relic', '')}
                             </h4>
                             {item.vaulted === true &&
-                              <span className="text-[8px] font-black uppercase text-red-400 tracking-wider">Vaulted</span>
+                              <span className="text-[8px] font-black uppercase text-red-400 tracking-wider">{t('relics.vaulted')}</span>
                             }
 
                             <div className="flex-1 flex items-center justify-center p-1 min-h-0 min-w-0">

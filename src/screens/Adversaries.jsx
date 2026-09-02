@@ -161,7 +161,7 @@ export default function Adversaries() {
                     <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold uppercase ${
                   n.k ? 'bg-red-900/50 text-red-300' : 'bg-green-900/50 text-green-300'}`
                   }>
-                      {n.k ? 'Vanquished' : n.Traded ? 'Traded' : 'Converted'}
+                      {n.k ? t('adversaries.status_vanquished') : n.Traded ? t('adversaries.status_traded') : t('adversaries.status_converted')}
                     </span>
                     {d && <span className="text-white/30 ml-auto">{d.toLocaleDateString()}</span>}
                   </div>);
@@ -171,11 +171,11 @@ export default function Adversaries() {
           }
         </Card>
         {ownedSisterWeapons.length > 0 && <Card glow className="p-4">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-white/70 mb-1">Owned Sister weapons</h2>
-          <p className="text-[11px] text-white/40 mb-3">These weapons confirm Sister victories even when the original Sister is missing from Nemesis History. They do not identify the Sister’s name or outcome date.</p>
+          <h2 className="text-sm font-bold uppercase tracking-wider text-white/70 mb-1">{t('adversaries.owned_sister_weapons')}</h2>
+          <p className="text-[11px] text-white/40 mb-3">{t('adversaries.sister_weapons_note')}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1">
             {ownedSisterWeapons.map((weapon) => <div key={weapon.unique_name} className="flex items-center gap-2 py-1.5 px-2 rounded bg-white/5 text-xs">
-              <span className="text-green-300 font-bold">Converted evidence</span>
+              <span className="text-green-300 font-bold">{t('adversaries.converted_evidence')}</span>
               <span className="text-white/80 truncate">{weapon.name}</span>
             </div>)}
           </div>

@@ -390,7 +390,7 @@ export default function Dashboard() {
   },
   { label: 'Zariman', data: worldstate?.zarimanCycle, getState: (d) => d.state },
   { label: 'Duviri', data: worldstate?.duviriCycle, getState: (d) => d.state },
-  { label: 'Daily Reset', data: { expiry: new Date(new Date().setUTCHours(24, 0, 0, 0)) }, getState: () => 'Reset' }].
+  { label: t('dashboard.daily_reset'), data: { expiry: new Date(new Date().setUTCHours(24, 0, 0, 0)) }, getState: () => 'Reset' }].
   filter((t) => t.data);
 
   const spIncursionNodes = useMemo(() => {
@@ -514,7 +514,7 @@ export default function Dashboard() {
               )}
               {it.finalReward && (
                 <div className="mt-1 pt-1 border-t border-white/10 flex items-center gap-1">
-                  <span className="text-[9px] font-bold text-amber-300 uppercase">Guaranteed:</span>
+                  <span className="text-[9px] font-bold text-amber-300 uppercase">{t('dashboard.guaranteed_label')}</span>
                   <span className="text-[9px] text-white/90 truncate">{it.finalReward}</span>
                 </div>
               )}
@@ -762,16 +762,16 @@ export default function Dashboard() {
                   <div className="flex items-center justify-between gap-1.5 mb-2">
                     <div className="flex items-center gap-1 flex-wrap">
                       <span className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded ${cat === 'Elite Weekly' ? 'bg-yellow-500/20 text-yellow-400' : cat === 'Weekly' ? 'bg-blue-500/20 text-blue-400' : 'bg-green-500/20 text-green-400'}`}>
-                        {cat}
+                        {cat === 'Elite Weekly' ? t('dashboard.category_elite_weekly') : cat === 'Weekly' ? t('dashboard.category_weekly') : t('dashboard.category_daily')}
                       </span>
                       {isRecovered && (
                         <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300">
-                          Recovered
+                          {t('dashboard.recovered_badge')}
                         </span>
                       )}
                       {isDone ? (
                         <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 flex items-center gap-0.5">
-                          <Check size={10} /> Done
+                          <Check size={10} /> {t('dashboard.done_badge')}
                         </span>
                       ) : showProgress ? (
                         <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-white/10 text-kronos-dim">
@@ -1202,7 +1202,7 @@ export default function Dashboard() {
         <div className="space-y-2">
           {upcoming.map((set, setIdx) => {
             const isExpanded = expandedWeek === setIdx;
-            const label = setIdx === 0 ? 'Next Week' : `In ${setIdx + 1} Weeks`;
+            const label = setIdx === 0 ? t('dashboard.next_week') : t('dashboard.in_n_weeks', { n: setIdx + 1 });
 
             return (
               <div key={setIdx} className="bg-kronos-panel/20 rounded-lg border border-transparent hover:border-kronos-accent/10 transition-all overflow-hidden">
@@ -1229,7 +1229,7 @@ export default function Dashboard() {
                           </Tooltip>
                         </div>
                         <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded flex-shrink-0 ${s.isCheckpoint ? 'text-kronos-accent bg-kronos-accent/20' : 'text-kronos-dim bg-kronos-panel/40'}`}>
-                          {s.isCheckpoint ? `CHECKPOINT ${s.index}` : `INF. ${s.index}`}
+                          {s.isCheckpoint ? t('dashboard.checkpoint_n', { n: s.index }) : t('dashboard.inf_n', { n: s.index })}
                         </span>
                       </div>
                   )}
@@ -1299,7 +1299,7 @@ export default function Dashboard() {
         <div className="bg-kronos-panel/40 rounded p-2">
           <p className="text-sm font-bold text-kronos-text uppercase">{vt.node}</p>
           <p className="text-xs text-kronos-dim mt-0.5 font-mono">
-            {vt.active ? 'Departing in ' + timeRemaining(vt.expiry) : 'Arriving in ' + timeRemaining(vt.activation)}
+            {vt.active ? t('dashboard.departing_in', { time: timeRemaining(vt.expiry) }) : t('dashboard.arriving_in', { time: timeRemaining(vt.activation) })}
           </p>
         </div>
       </Card>);
@@ -1555,7 +1555,7 @@ export default function Dashboard() {
               </div>
               <div className="flex flex-col items-end flex-shrink-0 ml-2">
                 <span className="text-[10px] text-kronos-accent font-black px-2 py-0.5 bg-kronos-accent/10 rounded-full">
-                  5 Essence
+                  {t('dashboard.essence_reward', { n: 5 })}
                 </span>
               </div>
             </div>);
@@ -1611,25 +1611,25 @@ export default function Dashboard() {
               </div>
               <div className="space-y-2 max-h-[60vh] overflow-y-auto custom-scrollbar">
                 {[
-            { id: 'bounty', label: 'Bounties' },
-            { id: 'news', label: 'Latest News' },
-            { id: 'timers', label: 'World Timers' },
-            { id: 'arb', label: 'Arbitration' },
-            { id: 'nightwave', label: 'Nightwave' },
-            { id: 'inv', label: 'Invasions' },
-            { id: 'fiss', label: 'Fissures' },
-            { id: 'baro', label: 'Baro Ki\'Teer' },
-            { id: 'arch', label: 'Archimedea' },
-            { id: '1999', label: '1999 Calendar' },
-            { id: 'inf', label: 'SP Incursions' },
-            { id: 'desc', label: 'Descendia' },
-            { id: 'sortie', label: 'Sorties' },
-            { id: 'hunt', label: 'Archon Hunts' },
-            { id: 'circuit', label: 'The Circuit' },
-            { id: 'deal', label: 'Daily Deals' },
-            { id: 'sales', label: 'Market Sales' },
-            { id: 'alerts', label: 'Alerts' },
-            { id: 'event', label: 'Events' }].
+            { id: 'bounty', label: t('ui.dashboard.bounties') },
+            { id: 'news', label: t('ui.dashboard.latest_news') },
+            { id: 'timers', label: t('ui.dashboard.world_timers') },
+            { id: 'arb', label: t('ui.dashboard.arbitration') },
+            { id: 'nightwave', label: t('ui.dashboard.nightwave') },
+            { id: 'inv', label: t('ui.dashboard.invasions') },
+            { id: 'fiss', label: t('dashboard.fissures') },
+            { id: 'baro', label: t('ui.dashboard.baro_kiteer') },
+            { id: 'arch', label: t('ui.dashboard.archimedea') },
+            { id: '1999', label: t('checklist.task_calendar') },
+            { id: 'inf', label: t('ui.dashboard.sp_incursions') },
+            { id: 'desc', label: t('ui.dashboard.descendia') },
+            { id: 'sortie', label: t('dashboard.sorties') },
+            { id: 'hunt', label: t('dashboard.archon_hunts') },
+            { id: 'circuit', label: t('ui.dashboard.the_circuit') },
+            { id: 'deal', label: t('dashboard.daily_deals') },
+            { id: 'sales', label: t('ui.dashboard.market_sales') },
+            { id: 'alerts', label: t('ui.dashboard.alerts') },
+            { id: 'event', label: t('ui.dashboard.events') }].
             map((card) =>
             <label key={card.id} className="flex items-center justify-between group cursor-pointer">
                     <span className="text-xs text-kronos-dim group-hover:text-kronos-text transition-colors">{card.label}</span>
@@ -1999,7 +1999,7 @@ export default function Dashboard() {
           {/* 1999 Calendar */}
           {isVisible('1999') &&
           <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('RetroTaskbarCalendarLg')} title="1999 Calendar" />
+              <CardHeader imageSrc={iconSrc('RetroTaskbarCalendarLg')} title={t('checklist.task_calendar')} />
               {render1999()}
             </Card>
           }

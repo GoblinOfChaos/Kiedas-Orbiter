@@ -265,8 +265,8 @@ const standings = [
 { id: 'conclave', label: 'Conclave', tag: 'conclave' }];
 
 
-const formatTimeLeft = (ms) => {
-  if (!ms || ms <= 0 || isNaN(ms)) return 'Now';
+const formatTimeLeft = (ms, nowLabel = 'Now') => {
+  if (!ms || ms <= 0 || isNaN(ms)) return nowLabel;
   const days = Math.floor(ms / (1000 * 60 * 60 * 24));
   const hours = Math.floor(ms % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
   const minutes = Math.floor(ms % (1000 * 60 * 60) / (1000 * 60));
@@ -277,7 +277,7 @@ const formatTimeLeft = (ms) => {
 
 const TaskCard = ({ task, completed, hidden, onToggle, onHide, timeLeft, nextResetTime }) => {
   const { t } = useUi();
-  const resetLabels = { daily: 'Daily', weekly: 'Weekly', biweekly: 'Biweekly', other: '8h', baro: 'Trader', glast: '11:00 UTC', eleanor: '8 Days', season: 'Season' };
+  const resetLabels = { daily: t('checklist.reset_daily'), weekly: t('checklist.reset_weekly'), biweekly: t('checklist.reset_biweekly'), other: t('checklist.reset_other'), baro: t('checklist.reset_baro'), glast: t('checklist.reset_glast'), eleanor: t('checklist.reset_eleanor'), season: t('dashboard.season') };
   const displayTime = completed && nextResetTime ?
   `next: ${timeLeft}` :
   timeLeft;
@@ -316,7 +316,7 @@ const TaskCard = ({ task, completed, hidden, onToggle, onHide, timeLeft, nextRes
           <button
             onClick={onHide}
             className="p-1 rounded hover:bg-white/10"
-            title={hidden ? 'Show' : 'Hide'}>
+            title={hidden ? t('checklist.show_label') : t('checklist.hide_label')}>
             
             {hidden ? <Eye size={14} /> : <EyeOff size={14} />}
           </button>
@@ -726,7 +726,7 @@ export default function Checklist() {
   };
 
   const formatTimeLeft = (ms) => {
-    if (!ms || ms <= 0 || isNaN(ms)) return 'Now';
+    if (!ms || ms <= 0 || isNaN(ms)) return t('checklist.now');
     const days = Math.floor(ms / (1000 * 60 * 60 * 24));
     const hours = Math.floor(ms % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
     const minutes = Math.floor(ms % (1000 * 60 * 60) / (1000 * 60));
@@ -865,7 +865,7 @@ export default function Checklist() {
   return (
     <>
       <ColorFilters config={SYNDICATE_CONFIG} />
-      <PageLayout titleKey="screen.checklist" subtitle="Track daily and weekly activities">
+      <PageLayout titleKey="screen.checklist" subtitle={t('checklist.subtitle')}>
         {/* Focus Section - Full Width */}
         {hasInventory &&
         <div className="mb-6">

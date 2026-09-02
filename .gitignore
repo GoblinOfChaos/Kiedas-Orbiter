@@ -112,3 +112,4 @@ codeql-custom-queries-rust/
 /data/
 tools/warframe_api.http
 scripts/resolved_nightwave_rewards.json
+*.kate-swp

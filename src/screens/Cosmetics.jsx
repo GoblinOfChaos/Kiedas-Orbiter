@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Search, Sparkles } from 'lucide-react'
 import { invoke } from '@tauri-apps/api/core'
+import { useUi } from '../contexts/UiContext'
 import { PageLayout, Card, Input } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { resolveAnyImage } from '../lib/warframeUtils'
@@ -61,6 +62,7 @@ function cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) {
 }
 
 function CosmeticCard({ item, onAcquire }) {
+  const { t } = useUi()
   return (
     <Card
       className={`overflow-hidden cursor-pointer transition-colors hover:border-kronos-accent/40 ${item.owned ? 'border-emerald-500/60' : 'border-white/10'}`}
@@ -69,14 +71,14 @@ function CosmeticCard({ item, onAcquire }) {
       <div className="relative h-48 flex items-center justify-center bg-black/20">
         <ItemImage src={item.icon} alt={item.name} className="max-h-44 max-w-[90%] object-contain" placeholderClassName="w-full h-full bg-white/5" />
         <span className={`absolute bottom-2 left-2 rounded-full px-2 py-1 text-[9px] font-black ${item.owned ? 'bg-emerald-400 text-black' : 'bg-black/70 text-kronos-dim'}`}>
-          {item.owned ? 'OWNED' : 'MISSING'}
+          {item.owned ? t('cosmetics.owned_badge') : t('cosmetics.missing_badge')}
         </span>
         <span className="absolute top-2 right-2 rounded-full bg-black/70 px-2 py-1 text-[9px] font-black text-kronos-accent">{item.kind}</span>
       </div>
       <div className="p-3">
         <p className="truncate text-sm font-black" title={item.name}>{item.name}</p>
         <button type="button" onClick={(e) => { e.stopPropagation(); onAcquire(item.uniqueName); }} className="mt-3 w-full rounded-lg border border-kronos-accent/30 px-3 py-2 text-[10px] font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">
-          Acquisition
+          {t('cosmetics.acquisition_button')}
         </button>
       </div>
     </Card>
@@ -84,6 +86,7 @@ function CosmeticCard({ item, onAcquire }) {
 }
 
 export default function Cosmetics() {
+  const { t } = useUi()
   const { exportData, rawInventory, EI, nameToImage, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportVendorIndex, glyphSupplementIndex, exportComponentIndex } = useMonitoring()
   const [search, setSearch] = useState('')
   const [kindFilter, setKindFilter] = useState('all')
@@ -173,21 +176,44 @@ export default function Cosmetics() {
     return { uniqueName: item.uniqueName, displayName: item.name, info: getAcquisitionInfo(item.uniqueName, item.name, dropIndex, overrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, undefined, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) }
   }, [openKey, overrides, items, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportVendorIndex, glyphSupplementIndex, exportComponentIndex])
 
-  if (!exportData) return <PageLayout title="Cosmetics, Decorations, Emotes"><Card className="p-8 text-center text-kronos-dim">Loading cosmetics...</Card></PageLayout>
+  const kindFilterKeys = {
+    all: 'foundry.cat_all',
+    warframe: 'foundry.cat_warframe',
+    primary: 'foundry.cat_primary',
+    secondary: 'foundry.cat_secondary',
+    melee: 'foundry.cat_melee',
+    archwing: 'mastery.cat_archwing',
+    sentinel: 'mastery.cat_sentinel',
+    syandana: 'cosmetics.kind_syandana',
+    armor: 'cosmetics.kind_armor',
+    animation: 'cosmetics.kind_animation',
+    glyph: 'cosmetics.kind_glyph',
+    sigil: 'cosmetics.kind_sigil',
+    decoration: 'cosmetics.kind_decoration',
+    emote: 'cosmetics.kind_emote',
+    other: 'ui.inventory.other',
+  }
+  const ownershipFilterKeys = {
+    all: 'ui.inventory.tab_all',
+    owned: 'ui.inventory.filter_owned',
+    unowned: 'ui.inventory.unowned',
+  }
+
+  if (!exportData) return <PageLayout title={t('nav.cosmetics')}><Card className="p-8 text-center text-kronos-dim">{t('cosmetics.loading')}</Card></PageLayout>
 
   return (
-    <PageLayout title="Cosmetics, Decorations, Emotes" subtitle={`${items.filter((item) => item.owned).length} / ${items.length} owned - skins, sigils, glyphs, ship decorations, and emotes`}>
+    <PageLayout title={t('nav.cosmetics')} subtitle={t('cosmetics.subtitle', { owned: items.filter((item) => item.owned).length, total: items.length })}>
       <div className="mb-4 flex flex-col gap-3">
-        <div className="relative max-w-sm"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder="Search cosmetics..." value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>
+        <div className="relative max-w-sm"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('cosmetics.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>
         <div className="flex flex-wrap gap-1 rounded-xl border border-white/5 bg-black/20 p-1 self-start">
-          {['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'decoration', 'emote', 'other'].map((value) => <button key={value} type="button" onClick={() => setKindFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${kindFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value === 'all' ? 'All' : value}</button>)}
+          {['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'decoration', 'emote', 'other'].map((value) => <button key={value} type="button" onClick={() => setKindFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${kindFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{t(kindFilterKeys[value])}</button>)}
           <span className="mx-1 border-l border-white/10" />
-          {['all', 'owned', 'unowned'].map((value) => <button key={value} type="button" onClick={() => setOwnershipFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${ownershipFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{value[0].toUpperCase() + value.slice(1)}</button>)}
+          {['all', 'owned', 'unowned'].map((value) => <button key={value} type="button" onClick={() => setOwnershipFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${ownershipFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{t(ownershipFilterKeys[value])}</button>)}
         </div>
       </div>
-      {filtered.length === 0 ? <Card className="p-8 text-center text-kronos-dim"><Sparkles className="mx-auto mb-2" size={20} />No cosmetics match.</Card> : <>
+      {filtered.length === 0 ? <Card className="p-8 text-center text-kronos-dim"><Sparkles className="mx-auto mb-2" size={20} />{t('cosmetics.no_match')}</Card> : <>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3 pb-4">{visibleItems.map((item) => <CosmeticCard key={item.uniqueName} item={item} onAcquire={toggle} />)}</div>
-        {visibleCount < filtered.length && <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + COSMETICS_PAGE_SIZE, filtered.length))} className="mx-auto mb-4 rounded-lg border border-kronos-accent/40 px-5 py-2 text-xs font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">Load more ({filtered.length - visibleCount} remaining)</button>}
+        {visibleCount < filtered.length && <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + COSMETICS_PAGE_SIZE, filtered.length))} className="mx-auto mb-4 rounded-lg border border-kronos-accent/40 px-5 py-2 text-xs font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">{t('cosmetics.load_more', { remaining: filtered.length - visibleCount })}</button>}
       </>}
       {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
     </PageLayout>

@@ -542,8 +542,8 @@ Also cleaned up 5 stray `console.log` debug statements left in this file (render
 - [x] Refresh button targets only the active tab — confirmed
 - [x] Reflow — confirmed via `ResizeObserver` + window resize listener, debounced with a 2px-change threshold to avoid excessive calls while still catching real resizes
 - [x] Unmount hides (doesn't close) the active tab, `lastActiveId` saved for restore, tab list persists — confirmed
-- [ ] Wiki link resolution correctness per item (avoiding disambiguation-page collisions) — needs live verification, depends on link-building logic outside this file
-- [ ] Name-based-fallback link collision risk — needs live verification, same caveat as above
+- [x] Wiki link resolution correctness per item (avoiding disambiguation-page collisions) — needs live verification, depends on link-building logic outside this file **[Fixed 9/1: user found "Aetigo Kaithe" 404ing — getWikiLink()'s unverified fallback (acquisitionData.js) guessed a /w/Item_Name article slug regardless of whether isDirect was true or false, so an item with no confirmed wiki page always 404d even on the "Search" button. Now builds a real wiki search query when unverified. Confirmed via the wiki archive that no "Aetigo Kaithe" page exists.]**
+- [x] Name-based-fallback link collision risk — needs live verification, same caveat as above **[Fixed 9/1: same root cause and fix as above — see getWikiLink() in acquisitionData.js.]**
 - [x] Tab count sync — confirmed on the JS side (`tabs` state has exactly one mutation path, the `wiki-tabs-changed` event); backend correctness of firing that event on every open/close wasn't independently verified
 
 Also removed one stray debug `console.log` (container-rect logging) found while reviewing this file.

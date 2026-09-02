@@ -74,7 +74,7 @@ use rather than hunted down.
 - [several items when under the warframe tab are not for warframes. examples are Aebolg Tail and Aegrae Eye-Guard and Aqua Heart Emblem ] Open the acquisition drawer on a few different cosmetic types (a skin, a sigil, a glyph, a decoration, an emote). Each shows acquisition info that's actually right for that item. **Wrong:** text describing a different item, or a generic fallback where a real route exists. [L499]
 
 ### Wiki
-- [ Aetigo Kaithe is linked to a non-existant wiki. create suggestions on fixes for app] Open wiki links for a few items, especially ones with common or ambiguous names. Each lands on the right page. **Wrong:** a disambiguation page, or a different item's page entirely. [L545, L546]
+- [x] ~~Aetigo Kaithe is linked to a non-existant wiki.~~ **Fixed 9/1** — real bug, not just this one item: `getWikiLink()`'s fallback always guessed an article-page URL from the item name, even when it had already marked the link "unverified" — so any item with no confirmed wiki page (like this one; no "Aetigo Kaithe" page exists) 404'd regardless of the button saying "View" or "Search". Now builds an actual wiki search query when unverified. Worth spot-checking a few more obscure items once rebuilt, but the underlying cause is fixed, not papered over for this one item. [L545, L546]
 
 ### Maps (marker editing)
 - [x ] Add markers on one map, restart the app, and confirm they're still there and on the right map. **Wrong:** markers lost, or bleeding onto a different map. [L337]

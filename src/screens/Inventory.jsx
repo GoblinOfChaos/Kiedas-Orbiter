@@ -93,10 +93,10 @@ export default function Inventory() {
   { id: 'archweapons', label: t('ui.inventory.tab_archweapons') },
   { id: 'vehicles', label: t('ui.inventory.tab_vehicles') },
   { id: 'amps', label: t('ui.inventory.tab_amps') },
-  { id: 'arcanes', label: 'Arcanes' },
-  { id: 'peely_pix', label: 'Peely Pix' },
-  { id: 'consumables', label: 'Consumables' },
-  { id: 'landing_craft', label: 'Landing Craft' },
+  { id: 'arcanes', label: t('ui.inventory.tab_arcanes') },
+  { id: 'peely_pix', label: t('ui.inventory.tab_peely_pix') },
+  { id: 'consumables', label: t('ui.inventory.tab_consumables') },
+  { id: 'landing_craft', label: t('ui.inventory.tab_landing_craft') },
   { id: 'resources', label: t('ui.inventory.tab_resources') },
   { id: 'prime_parts', label: t('ui.inventory.tab_prime_parts') },
   { id: 'ayatan', label: t('ui.inventory.tab_ayatan') }];
@@ -128,7 +128,7 @@ export default function Inventory() {
     subsumed: t('ui.inventory.filter_subsumed'),
     socketed: t('ui.inventory.filter_socketed'),
     prime: t('ui.inventory.filter_prime'),
-    vaulted: 'Vaulted'
+    vaulted: t('relics.vaulted')
   };
 
   const SORT_CONFIG = {
@@ -529,7 +529,7 @@ export default function Inventory() {
         <div className="relative flex-1 group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
           <Input
-          placeholder={`Search ${tabLabel}...`}
+          placeholder={t('ui.inventory.search_placeholder', { tab: tabLabel })}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="pl-12 bg-black/20 border-white/5 focus:bg-black/40 h-[42px]" />
@@ -545,7 +545,7 @@ export default function Inventory() {
             const state = currentFilters[f];
             const isTriple = TRIPLE_FILTERS.has(f);
             const label = f === 'owned'
-              ? (state === 'no' ? 'Unowned' : state === 'yes' ? 'Owned' : 'All')
+              ? (state === 'no' ? t('ui.inventory.unowned') : state === 'yes' ? t('ui.inventory.filter_owned') : t('ui.inventory.tab_all'))
               : state === 'no' ? NEG_LABELS[f] ?? f.replace(/_/g, ' ') : f.replace(/_/g, ' ');
             return (
               <button
@@ -622,7 +622,7 @@ export default function Inventory() {
     <>
     <PageLayout
       titleKey="screen.inventory"
-      subtitle={`Displaying ${visibleItems.length} / ${filteredItems.length} items`}
+      subtitle={t('ui.inventory.displaying_items', { shown: visibleItems.length, total: filteredItems.length })}
       extra={renderHeaderStats(inventoryData, iconsPath)}
       headerPanel={renderHeaderPanel()}>
 
@@ -641,7 +641,7 @@ export default function Inventory() {
                   <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                   <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                   <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                  <span className="text-[10px] font-black uppercase text-kronos-accent">Fetching plat values {priceFetchProgress.current}{t('inventory.fetching_of')}{priceFetchProgress.total}...</span>
+                  <span className="text-[10px] font-black uppercase text-kronos-accent">{t('inventory.fetching_plat')} {priceFetchProgress.current}{t('inventory.fetching_of')}{priceFetchProgress.total}...</span>
                 </div>
           }
               {isPriceLoading && !priceFetchProgress &&
@@ -697,7 +697,7 @@ export default function Inventory() {
                               <p className="text-xl font-black text-kronos-text uppercase whitespace-normal leading-tight">{set.name}{t('inventory.set')}</p>
                               <div className="flex items-center gap-2 mt-2">
                                 <span className={`text-[10px] font-black px-2 py-0.5 rounded inline-block ${isComplete ? 'bg-green-500/20 text-green-400' : 'bg-kronos-accent/20 text-kronos-accent'}`}>
-                                  {setsPossible > 0 ? `${setsPossible} Set${setsPossible > 1 ? 's' : ''}` : `${partsMet}/${totalNeeded} (${Math.round(completion)}%)`}
+                                  {setsPossible > 0 ? t(setsPossible > 1 ? 'ui.inventory.set_plural' : 'ui.inventory.set_singular', { count: setsPossible }) : t('ui.inventory.parts_progress', { met: partsMet, total: totalNeeded, pct: Math.round(completion) })}
                                 </span>
                               </div>
                             </div>
@@ -706,12 +706,12 @@ export default function Inventory() {
                           <div className="flex flex-wrap gap-2 mt-4">
                             {/* Owned Status */}
                             <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${isParentOwned ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : 'bg-white/5 border-white/5 text-kronos-dim'}`}>
-                              <span className="text-[10px] font-black uppercase tracking-wider">{isParentOwned ? 'Owned' : 'Unowned'}</span>
+                              <span className="text-[10px] font-black uppercase tracking-wider">{isParentOwned ? t('ui.inventory.filter_owned') : t('ui.inventory.unowned')}</span>
                             </div>
 
                             {/* Mastery Status */}
                             <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors ${isParentMastered ? 'bg-purple-500/10 border-purple-500/30 text-purple-400' : 'bg-white/5 border-white/5 text-kronos-dim'}`}>
-                              <span className="text-[10px] font-black uppercase tracking-wider">{isParentMastered ? 'Mastered' : 'Unmastered'}</span>
+                              <span className="text-[10px] font-black uppercase tracking-wider">{isParentMastered ? t('ui.inventory.filter_mastered') : t('ui.inventory.unmastered')}</span>
                             </div>
                           </div>
                         </div>
@@ -838,7 +838,7 @@ export default function Inventory() {
                     </div>
                     <div className="flex flex-col justify-center gap-1 py-3 pr-4 min-w-0 flex-1">
                       <p className="text-sm font-black text-kronos-text uppercase leading-tight whitespace-normal">{item.name.replace('Ayatan ', '').replace(' Sculpture', '')}</p>
-                      <p className="text-base font-bold text-kronos-text leading-tight">{item.quantity > 0 ? `×${item.quantity}` : 'None owned'}</p>
+                      <p className="text-base font-bold text-kronos-text leading-tight">{item.quantity > 0 ? `×${item.quantity}` : t('ui.inventory.none_owned')}</p>
                       <p className={`text-[11px] font-black ${item.sockets > 0 ? 'text-green-400' : 'text-kronos-dim'}`}>
                         {item.sockets} filled · {(item.quantity * item.filledEndo).toLocaleString()}{t('inventory.endo')}
                   </p>
@@ -986,24 +986,24 @@ export default function Inventory() {
                               <button 
                                 onClick={(e) => handleSellOnWfm(e, item)}
                                 className="ml-1 px-1.5 py-0.5 bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 rounded border border-blue-500/30 transition-colors"
-                                title="1-Click Sell on Warframe.Market"
+                                title={t('ui.inventory.sell_1click_title')}
                               >
-                                Sell
+                                {t('ui.inventory.sell_button')}
                               </button>
                             )}
                           </div>
                         )}
-                        
+
                         {activeTab === 'prime_parts' && item._value !== undefined && (
                           <div className="flex items-center gap-3 text-[10px] font-black uppercase ml-auto">
                             <span className="text-blue-400">{item._value}p</span>
                             {item.quantity > 0 && (
-                              <button 
+                              <button
                                 onClick={(e) => handleSellOnWfm(e, item)}
                                 className="ml-1 px-1.5 py-0.5 bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 rounded border border-blue-500/30 transition-colors"
-                                title="1-Click Sell on Warframe.Market"
+                                title={t('ui.inventory.sell_1click_title')}
                               >
-                                Sell
+                                {t('ui.inventory.sell_button')}
                               </button>
                             )}
                           </div>
@@ -1171,9 +1171,9 @@ function renderHeaderStats(inventoryData, iconsPath) {
 
   return (
     <div className="flex items-center gap-5 ml-auto pr-3">
-      <StatWidget icon={iconSrc('Credits')} label="Credits" value={credits.toLocaleString()} />
-      <StatWidget icon={iconSrc('Platinum')} label="Platinum" value={platinum.toLocaleString()} accent="text-kronos-accent" />
-      <StatWidget icon={iconSrc('EndoIconRenderLarge')} label="Endo" value={endo.toLocaleString()} accent="text-orange-400" />
+      <StatWidget icon={iconSrc('Credits')} label={t('ui.dashboard.credits')} value={credits.toLocaleString()} />
+      <StatWidget icon={iconSrc('Platinum')} label={t('ui.dashboard.platinum')} value={platinum.toLocaleString()} accent="text-kronos-accent" />
+      <StatWidget icon={iconSrc('EndoIconRenderLarge')} label={t('ui.inventory.stat_endo')} value={endo.toLocaleString()} accent="text-orange-400" />
       <div className="h-8 w-px bg-white/10" />
       <StatWidget icon={iconSrc('Forma')} label="Forma" value={forma + aura_forma + stance_forma + umbra_forma} accent="text-kronos-accent"
       tooltip={
@@ -1190,8 +1190,8 @@ function renderHeaderStats(inventoryData, iconsPath) {
           </div>
       } />
       
-      <StatWidget icon={iconSrc('Reactor')} label="Reactors" value={orokin_reactor} accent="text-yellow-500" />
-      <StatWidget icon={iconSrc('Catalyst')} label="Catalysts" value={orokin_catalyst} accent="text-blue-400" />
+      <StatWidget icon={iconSrc('Reactor')} label={t('ui.inventory.stat_reactors')} value={orokin_reactor} accent="text-yellow-500" />
+      <StatWidget icon={iconSrc('Catalyst')} label={t('ui.inventory.stat_catalysts')} value={orokin_catalyst} accent="text-blue-400" />
     </div>);
 
 }

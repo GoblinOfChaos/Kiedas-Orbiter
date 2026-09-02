@@ -139,7 +139,7 @@ export default function Maps() {
     if (!duviriCycle) return;
     const tick = () => {
       const ms = duviriCycle.expiry - Date.now();
-      if (ms <= 0) {setTimeLeft('expired');return;}
+      if (ms <= 0) {setTimeLeft(t('maps.cycle_expired'));return;}
       const m = Math.floor(ms / 60000);
       const s = Math.floor(ms % 60000 / 1000);
       setTimeLeft(`${m}m ${s}s`);
@@ -375,7 +375,7 @@ export default function Maps() {
   }, [activeTab]);
 
   const addConfig = useCallback((name, description) => {
-    const newConfig = { id: genId(), name: name || 'New Configuration', description: description || '', enabled: true, markers: [], paths: [] };
+    const newConfig = { id: genId(), name: name || t('maps.new_config'), description: description || '', enabled: true, markers: [], paths: [] };
     updateConfigs([...configsForCurrentMap, newConfig]);
   }, [configsForCurrentMap, updateConfigs]);
 
@@ -502,10 +502,10 @@ export default function Maps() {
       const tabId = ti.toString();
       setAllConfigs((prev) => {
         const current = prev[tabId] || [];
-        let config = current.find((c) => c.name === 'Game Markers');
+        let config = current.find((c) => c.name === t('maps.game_markers_name'));
         let next;
         if (!config) {
-          config = { id: genId(), name: 'Game Markers', description: 'Imported in-game custom markers', enabled: true, markers: [], paths: [] };
+          config = { id: genId(), name: t('maps.game_markers_name'), description: t('maps.game_markers_desc'), enabled: true, markers: [], paths: [] };
           next = [...current, config];
         } else {
           next = current;
@@ -542,7 +542,7 @@ export default function Maps() {
                 <ZoomBadge xfRef={xfRef} />
                 <button onClick={() => setUseRawMap((v) => !v)}
                 className={`p-2 rounded-lg transition-colors ${useRawMap ? 'bg-kronos-accent/20 text-kronos-accent border border-kronos-accent/30' : 'bg-kronos-bg/80 backdrop-blur text-kronos-dim hover:text-kronos-text border border-white/5'}`}
-                title={useRawMap ? 'Switch to labeled map' : 'Switch to raw terrain map'}>
+                title={useRawMap ? t('maps.switch_to_labeled') : t('maps.switch_to_raw')}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
                     <line x1="8" y1="2" x2="8" y2="18" />
@@ -698,10 +698,10 @@ export default function Maps() {
                 }}>
                   <img
                     ref={imgRef}
-                    src={mapsPath ? convertFileSrc(`${mapsPath}/${mapFilename}`) : placeholderSvg(t('maps.image_unavailable'))}
+                    src={mapsPath ? convertFileSrc(`${mapsPath}/${mapFilename}`) : placeholderSvg(t('ui.image_unavailable'))}
                     alt={MAPS[parseInt(activeTab)].name}
                     onLoad={onImgLoad}
-                    onError={(e) => {e.currentTarget.onerror = null;e.currentTarget.src = placeholderSvg(t('maps.image_unavailable'));}}
+                    onError={(e) => {e.currentTarget.onerror = null;e.currentTarget.src = placeholderSvg(t('ui.image_unavailable'));}}
                     style={{ width: '100%', height: '100%', display: 'block', userSelect: 'none', pointerEvents: 'none', maxWidth: 'none', maxHeight: 'none' }}
                     draggable={false} />
                   
@@ -818,7 +818,7 @@ export default function Maps() {
                 title={t('maps.open_configs')}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" /></svg>
                   </button>
-                  <button onClick={() => setConfigToEdit({ name: `Config ${configsForCurrentMap.length + 1}`, description: '' })}
+                  <button onClick={() => setConfigToEdit({ name: t('maps.config_default_name', { n: configsForCurrentMap.length + 1 }), description: '' })}
                 className="p-1.5 rounded-lg bg-kronos-accent/20 text-kronos-accent hover:bg-kronos-accent/40 transition-colors"
                 title={t('maps.add_config')}>
                     <Plus size={14} />
@@ -839,7 +839,7 @@ export default function Maps() {
                       <div className="flex items-center gap-2">
                         <button onClick={() => updateConfig(config.id, { enabled: !config.enabled })}
                       className={`p-1 rounded transition-colors flex-shrink-0 ${config.enabled ? 'text-kronos-accent' : 'text-kronos-dim hover:text-kronos-text'}`}
-                      title={config.enabled ? 'Visible' : 'Hidden'}>
+                      title={config.enabled ? t('maps.visible') : t('maps.hidden')}>
                           {config.enabled ? <Eye size={16} /> : <EyeOff size={16} />}
                         </button>
                         <div className="flex-1 min-w-0">
@@ -872,7 +872,7 @@ export default function Maps() {
                           {setMode('addMarker');setPendingConfigId(config.id);setSelectedMarker(null);closeMarkerPanel();}
                         }}
                         className={`flex-1 text-xs py-1.5 rounded-lg transition-colors flex items-center justify-center gap-1.5 ${isAdding ? 'bg-kronos-accent text-kronos-bg font-black' : 'hover:bg-white/5 text-kronos-dim hover:text-kronos-text'}`}>
-                          <MapPin size={12} /> {isAdding ? 'Adding...' : 'Marker'}
+                          <MapPin size={12} /> {isAdding ? t('maps.adding_ellipsis') : t('maps.marker_button')}
                         </button>
                       </div>
                     </div>);
@@ -918,7 +918,7 @@ export default function Maps() {
           <div className="flex flex-col gap-4">
             <p className="text-sm text-kronos-dim">{t('notes.delete')}
             <span className="text-kronos-text font-bold">{deleteConfirm.name}</span>?
-              {deleteConfirm.type === 'config' && ' All markers and paths in this configuration will be removed.'}
+              {deleteConfirm.type === 'config' && t('maps.delete_config_warning')}
             </p>
             <div className="flex gap-2 pt-2 border-t border-white/5">
               <Button variant="ghost" className="flex-1 text-xs" onClick={() => setDeleteConfirm(null)}>{t('notes.cancel')}</Button>
@@ -972,7 +972,7 @@ export default function Maps() {
 
           </button>
             <div className="px-3 py-1 text-[10px] text-kronos-dim uppercase tracking-wider border-t border-white/5 mt-1 pt-2">{t('maps.to')}
-            {configsForCurrentMap.find((c) => c.id === contextMenu.configId)?.name || 'Config'}
+            {configsForCurrentMap.find((c) => c.id === contextMenu.configId)?.name || t('maps.config_fallback')}
             </div>
           </div>
         </div>

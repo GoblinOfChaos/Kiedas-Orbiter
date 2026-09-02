@@ -162,10 +162,11 @@ export default function Notes() {
   }, [activeFile, saveIfDirty]);
 
   const newFile = async () => {
-    let name = 'New Note.md',n = 2;
-    while (files.includes(name)) name = `New Note ${n++}.md`;
+    const newNoteName = t('notes.new_note_name');
+    let name = `${newNoteName}.md`,n = 2;
+    while (files.includes(name)) name = `${newNoteName} ${n++}.md`;
     try {
-      await invoke('save_note', { filename: name, content: '# New Note\n' });
+      await invoke('save_note', { filename: name, content: `# ${newNoteName}\n` });
       const list = await invoke('list_notes');
       setFiles(list);selectFile(name);
     } catch {}
@@ -175,7 +176,7 @@ export default function Notes() {
   const handleRename = useCallback(async (oldName, newName) => {
     if (!newName.trim() || newName === oldName.replace('.md', '')) return;
     const finalName = newName.endsWith('.md') ? newName : `${newName}.md`;
-    if (files.includes(finalName)) {alert('A note with that name already exists');return;}
+    if (files.includes(finalName)) {alert(t('notes.duplicate_name_alert'));return;}
     try {
       const src = activeFile === oldName ? latestContentRef.current : await invoke('read_note', { filename: oldName });
       await invoke('save_note', { filename: finalName, content: src });

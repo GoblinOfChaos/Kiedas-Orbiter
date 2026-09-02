@@ -97,12 +97,13 @@ use rather than hunted down.
 ### Overlays
 - [unable to reliably test ] Every overlay screen renders rather than sitting on a spinner. **Wrong:** a permanent loading spinner — there's no error boundary there, so a failed import would hang silently. [L639]
 - [hide on alt tabbing does not hide sidebar ] The hide-on-focus-loss toggle and hotkey actually hide/show the sidebar in game. [L640]
-- [unable to test. as we can only go down to 1 minute and the no item above a minute is less than an hour that I can craft. when notification is set to 0 minutes, no notification happens with sound or visual. tested the test notification button and no sounds happen at all, notification shows] Notification sound fires in sync with the toast appearing. **Wrong:** sound noticeably early, late, or missing. [L657]
+- [x] ~~Test Notification button: no sound at all, toast shows.~~ **Fixed 9/1** — real bug, not a live-testing limitation: `handleTestNotification` in Settings.jsx only ever called `show_notification` (the visual toast), never `play_notification_sound` — every real notification path calls both together, the test button was just never wired to the sound call. Should work once rebuilt.
+  Separately, "0 minutes = no notification at all" is also real but different — traced it: `remaining > 0 && remaining <= advance` can never be true when `advance` is 0 or negative, so that specific notification's advance-warning trigger goes silently permanently inert with no error. Not fixed (a UX polish/clamping decision, not a bug fix) — just documented so it's not mysterious. [L657]
 
 ### Settings
-- [refresh price has no progress counter ever ] Hit "Refresh Prices" and watch the progress counter climb and then clear. **Wrong:** counter stuck, or lingering after completion. [L217]
+- [x] ~~Refresh Prices has no progress counter ever.~~ **Fixed 9/1** — real bug: the progress updates were firing correctly internally, but the price-lookup loop had no async yield point, so hundreds of updates ran back-to-back in one JS tick and the browser never got a chance to paint between them — it jumped from 0 straight to done invisibly. Now yields periodically so it can actually render. [L217]
 - [ x] With more than one monitor: the monitor refresh button updates the dropdown list. [L205]
-- [dont know what this is suppsed to mean ] Notification threshold inputs behave sensibly at 0 and at negative values. [L743]
+- [x] ~~Unclear what this meant.~~ **Clarified 9/1**, and it's the same thing you found independently above — the small number boxes on Settings' Notification Triggers panel (e.g. "Alert before (min)" on Foundry/Arbitration, "Cooldown (min)"). Traced it: typing 0 or a negative number there doesn't error, but silently makes that notification's trigger condition impossible to satisfy — it goes permanently inert with zero feedback. Documented, not fixed (a clamping/UX decision, not a bug fix). [L743]
 
 ### About
 - [no it constantly says theres an update ] The version string matches the release you're actually running. [L153]

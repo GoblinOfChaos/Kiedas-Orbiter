@@ -171,6 +171,13 @@ export async function getPricesBatch(items, onProgress) {
     const price = lookupPriceInMap(priceMap, item.uniqueName, item.name);
     results[item.uniqueName] = price;
     if (onProgress) onProgress({ current: ++done, total, label: item.name });
+    // lookupPriceInMap is a synchronous in-memory lookup, so with no yield
+    // point this loop runs hundreds of items within a single JS tick - every
+    // onProgress call above fires, but the browser never gets to paint
+    // between them, so the progress counter jumps straight from 0 to done
+    // with no visible intermediate frame. Yielding periodically lets it
+    // actually render.
+    if (done % 20 === 0) await new Promise((resolve) => setTimeout(resolve, 0));
   }
 
   return { results, hadNetworkActivity: done > 0 };

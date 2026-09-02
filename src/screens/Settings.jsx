@@ -447,6 +447,12 @@ export default function SettingsScreen() {
 
   const handleTestNotification = (position, delay = 0) => {
     setTimeout(() => {
+      // Every real notification path (MonitoringContext.jsx) pairs
+      // play_notification_sound with show_notification - this test button
+      // only ever called the latter, so it always showed the toast with no
+      // sound, unlike what it's meant to be previewing.
+      const sound = getSetting('notif_sound', 'notification1.wav');
+      invoke('play_notification_sound', { sound }).catch(console.error);
       invoke('show_notification', {
         title: 'Foundry Complete',
         message: 'Harrow Chassis has finished crafting and is ready to claim.',

@@ -630,6 +630,24 @@ export function MonitoringProvider({ children }) {
             const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${file}` }).catch(() => null)
             if (bytes) exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
           }
+          // Hand-reviewed additions for real cosmetics missing from
+          // export-plus (e.g. Mesa's entire Heirloom set) - see
+          // cosmetic-catalog-additions.json's own comment. Unlike
+          // wfcdGapFill.js's audit pipeline, every entry here was
+          // individually verified, so this merges unconditionally.
+          const cosmeticAdditionsBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/cosmetic-catalog-additions.json' }).catch(() => null)
+          if (cosmeticAdditionsBytes) {
+            const additions = JSON.parse(new TextDecoder().decode(new Uint8Array(cosmeticAdditionsBytes)))
+            delete additions._comment
+            // Only fill in keys export-plus genuinely lacks - if it catches
+            // up on its own later, its real entry must win, not this static
+            // stand-in.
+            const customs = { ...(exports.ExportCustoms || {}) }
+            for (const [un, entry] of Object.entries(additions)) {
+              if (!customs[un]) customs[un] = entry
+            }
+            exports.ExportCustoms = customs
+          }
         } catch { }
       }
 

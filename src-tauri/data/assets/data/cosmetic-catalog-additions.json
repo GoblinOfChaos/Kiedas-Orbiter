@@ -1,0 +1,43 @@
+{
+  "_comment": "Hand-reviewed additions to ExportCustoms for real, released cosmetics missing from warframe-public-export-plus. Each entry was individually verified (not bulk-imported) against live WFCD data - see src/lib/wfcdGapFill.js for the audit pipeline that surfaces candidates; this file is where a human-approved candidate actually gets shipped. Do not add entries here without verifying them individually first (see feedback_no_bulk_data_fixes memory).",
+  "/Lotus/Upgrades/Skins/Cowgirl/MesaHeirloomSkin": {
+    "name": "Mesa Heirloom Skin",
+    "description": "The legendary gunslinger. The notorious heartbreaker. Better call the undertaker, 'cause Mesa Heirloom just sauntered into town.",
+    "codexSecret": false,
+    "excludeFromCodex": false,
+    "productCategory": "WeaponSkins",
+    "icon": null
+  },
+  "/Lotus/Upgrades/Skins/Cowgirl/MesaHeirloomHelmet": {
+    "name": "Mesa Heirloom Helmet",
+    "description": "Mesa Heirloom's signature helmet.",
+    "codexSecret": false,
+    "excludeFromCodex": false,
+    "productCategory": "WeaponSkins",
+    "icon": null
+  },
+  "/Lotus/Upgrades/Skins/Cowgirl/MesaHeirloomPoncho": {
+    "name": "Mesa Heirloom Duster",
+    "description": "Mesa Heirloom's signature duster.",
+    "codexSecret": false,
+    "excludeFromCodex": false,
+    "productCategory": "WeaponSkins",
+    "icon": null
+  },
+  "/Lotus/Upgrades/Skins/Cowgirl/MesaHeirloomArmGunSkin": {
+    "name": "Mesa Heirloom Regulators Skin",
+    "description": "Mesa Heirloom's signature Regulators.",
+    "codexSecret": false,
+    "excludeFromCodex": false,
+    "productCategory": "WeaponSkins",
+    "icon": null
+  },
+  "/Lotus/Upgrades/Skins/Crowns/HeirloomMesaCrown": {
+    "name": "Mesa Heirloom Signa",
+    "description": "Mesa Heirloom's signature signa reveals a dazzling hidden side to the vagabond enforcer.",
+    "codexSecret": false,
+    "excludeFromCodex": false,
+    "productCategory": "WeaponSkins",
+    "icon": null
+  }
+}

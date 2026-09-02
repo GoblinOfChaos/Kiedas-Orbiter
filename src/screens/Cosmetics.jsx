@@ -13,7 +13,35 @@ const normalize = (uniqueName) => typeof uniqueName === 'string' ? uniqueName.re
 const isSigil = (uniqueName) => /\/Upgrades\/Skins\/Sigils\//i.test(uniqueName || '')
 const COSMETICS_PAGE_SIZE = 120
 
-function cosmeticType(uniqueName, icon, kind) {
+// DE mostly files a Warframe's skins under /Upgrades/Skins/<FamilyCodename>/,
+// the same internal family segment that appears in that Warframe's own
+// uniqueName under /Lotus/Powersuits/<FamilyCodename>/... (e.g. Lavos is
+// "Alchemist", Wisp is "Wisp", Equinox is "YinYang") - but a few (Hydroid,
+// Excalibur Umbra, ...) instead get a Skins/ folder matching their real
+// display name ("Hydroid", "Umbra") rather than the internal codename
+// ("Pirate", "Excalibur"). Combining both the codename segment and every
+// non-"Prime" word of the resolved display name (via exportData.dict, same
+// resolution acquisitionInfo.js/buildExaltedWeaponIndex uses) from
+// ExportWarframes.json (productCategory === 'Suits', which excludes
+// Archwings/Necramechs living in the same table) covers both. This stays
+// correct as DE adds new Warframes, instead of needing another
+// hand-maintained list patched every time a non-Warframe folder slips through.
+function buildWarframeFamilies(exportData) {
+  const dict = exportData?.dict || {}
+  const families = new Set()
+  for (const [uniqueName, entry] of Object.entries(exportData?.ExportWarframes || {})) {
+    if (entry?.productCategory !== 'Suits') continue
+    const match = /^\/Lotus\/Powersuits\/([^/]+)\//.exec(uniqueName)
+    if (match) families.add(match[1].toLowerCase())
+    const displayName = dict[entry?.name] || ''
+    for (const word of displayName.split(/[^A-Za-z0-9]+/)) {
+      if (word && word.toLowerCase() !== 'prime') families.add(word.toLowerCase())
+    }
+  }
+  return families
+}
+
+function cosmeticType(uniqueName, icon, kind, warframeFamilies) {
   if (kind !== 'Skin') return kind
   const value = `${uniqueName || ''} ${icon || ''}`.toLowerCase()
   // Real weapon-skin paths are /Upgrades/Skins/Weapons/<Class>/... - DE never
@@ -31,12 +59,16 @@ function cosmeticType(uniqueName, icon, kind) {
   if (/syandana|\/upgrades\/skins\/scarves\//.test(value)) return 'Syandana'
   if (/armor/.test(value)) return 'Armor'
   if (/animationsets/.test(value)) return 'Animation'
-  // These folders sit under /Upgrades/Skins/ just like real Warframe skins,
-  // so the old catch-all (anything under Skins/ that wasn't a weapon) wrongly
-  // bucketed all of them as "Warframe" - Operator/Drifter cosmetics alone
-  // outnumber every other single category (739 of ~2700 real Skin entries).
-  if (/\/upgrades\/skins\/(operator|clan|railjack|hoverboard)\//.test(value)) return 'Other'
-  if (/warframe|\/upgrades\/skins\/(?:[a-z]+)\//.test(value) && !/weapons/.test(value)) return 'Warframe'
+  // A Warframe skin only resolves to "Warframe" when its /Upgrades/Skins/
+  // folder matches a real Warframe family name pulled from ExportWarframes.json
+  // (see buildWarframeFamilies above). Every other folder under Skins/ -
+  // Operator/Drifter, Clan, Railjack, Hoverboard, but also companion cosmetics
+  // (Kubrows, Catbrows, MoaPet), Necramechs, Duviri Kaithe ("Horse"), Kahl,
+  // seasonal Promo badges, KDrive, and dozens more - falls through to "Other".
+  // This replaces a catch-all regex that matched ANY non-weapon folder under
+  // Skins/ and mis-bucketed all of the above as "Warframe".
+  const folderMatch = /\/upgrades\/skins\/([a-z0-9]+)\//.exec(value)
+  if (folderMatch && warframeFamilies?.has(folderMatch[1])) return 'Warframe'
   return 'Other'
 }
 
@@ -105,6 +137,7 @@ export default function Cosmetics() {
   const items = useMemo(() => {
     const customs = exportData?.ExportCustoms
     const dict = exportData?.dict || {}
+    const warframeFamilies = buildWarframeFamilies(exportData)
     const skinItems = customs && typeof customs === 'object' ? Object.entries(customs).flatMap(([uniqueName, entry]) => {
       if (!/\/Upgrades\/Skins\//i.test(uniqueName)) return []
       const isOwned = owned.has(normalize(uniqueName))
@@ -113,7 +146,7 @@ export default function Cosmetics() {
       const kind = isSigil(uniqueName) ? 'Sigil' : 'Skin'
       const name = dict[entry?.name] || entry?.name
       if (!name) return []
-      return [{ uniqueName, name, kind, type: cosmeticType(uniqueName, entry?.icon, kind), owned: isOwned, icon: cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) }]
+      return [{ uniqueName, name, kind, type: cosmeticType(uniqueName, entry?.icon, kind, warframeFamilies), owned: isOwned, icon: cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) }]
     }) : []
     const glyphItems = Object.entries(exportData?.WI_Glyphs || {}).flatMap(([uniqueName, entry]) => {
       const name = entry?.name

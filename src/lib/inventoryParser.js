@@ -1436,7 +1436,20 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   // and Mutagen parts live in ES with no icon/thumbnail, but DE's weapons export
   // carries their real StoreIcons art. resolveImage walks tables in order, so ES
   // still wins for every companion that already resolves from it.
-  const companionsRaw = processCategory(ES, 'companions', [ES], [ES, EW]);
+  // codexSecret entries (currently only Prisma Shade) are Baro/vault items DE
+  // withholds from the public Codex until discovered - same field the
+  // Cosmetics screen already uses to hide undiscovered skins. Confirmed
+  // against the user's real profile: including Prisma Shade + its default
+  // weapon Prisma Burst Laser Pistol overcounts the combined Sentinels/MOA/
+  // Hound/Sentinel-Weapon ("Robotics") mastery total by exactly 2 relative to
+  // the in-game total (34/48 computed vs 34/46 actual).
+  // The filterFn runs before the ownedItems lookup below, so excluding every
+  // codexSecret entry unconditionally would also drop a genuinely-owned
+  // Prisma Shade from this array entirely - and Inventory.jsx reads
+  // inventoryData.sentinels directly, so that would hide an owned item from
+  // the player's own Companions list, not just trim the mastery denominator.
+  // Only exclude it when unowned.
+  const companionsRaw = processCategory(ES, 'companions', [ES], [ES, EW], (e, un) => !e.codexSecret || ownedItems[un]);
   const sentinels = [], moas = [], hounds = [], beasts = [], robotics = [];
 
   companionsRaw.forEach(i => {
@@ -1487,7 +1500,10 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   });
 
-  const companion_weapons = processCategory(EW, 'companion_weapons', [EW], [EW], (e) => e.productCategory === 'SentinelWeapons');
+  // Same ownership carve-out as companionsRaw above: never hide a genuinely-
+  // owned codexSecret item (e.g. Prisma Burst Laser Pistol) from Inventory,
+  // only exclude it from the catalog/mastery total while unowned.
+  const companion_weapons = processCategory(EW, 'companion_weapons', [EW], [EW], (e, un) => e.productCategory === 'SentinelWeapons' && (!e.codexSecret || ownedItems[un]));
 
   const archweapons = processCategory(EW, 'archweapons', [EW], [EW], (e) => ['SpaceGuns', 'SpaceMelee'].includes(e.productCategory))
     .map(i => { i.weapon_type = EW[i.unique_name].productCategory === 'SpaceGuns' ? 'archgun' : 'archmelee'; return i; });

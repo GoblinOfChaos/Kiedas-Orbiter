@@ -224,8 +224,9 @@ function NotificationRow({ notif, def, onDelete, onToggle, onConfigChange, onMul
                   <span className="text-[10px] text-kronos-dim uppercase">{col.labelKey ? t(col.labelKey) : col.label}</span>
                   <input
                 type="number"
-                value={notif.config[col.key] ?? col.default ?? 0}
-                onChange={(e) => onConfigChange(notif.id, col.key, parseInt(e.target.value) || 0)}
+                min={1}
+                value={notif.config[col.key] ?? col.default ?? 1}
+                onChange={(e) => onConfigChange(notif.id, col.key, Math.max(1, parseInt(e.target.value) || 1))}
                 className="w-16 px-2 py-1 rounded bg-black/20 border border-white/10 text-xs text-white text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
               
                 </div>

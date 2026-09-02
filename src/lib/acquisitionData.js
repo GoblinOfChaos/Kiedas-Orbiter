@@ -14854,8 +14854,12 @@ export function getIngredientDetails(ingredient, parentName) {
 export function getWikiLink(dropIndexKey, displayName) {
   const name = displayName || dropIndexKey;
   if (!name) return { url: "https://wiki.warframe.com", isDirect: false };
-  const formatted = name.trim().replace(/\s+/g, "_");
-  return { url: `https://wiki.warframe.com/w/${encodeURIComponent(formatted)}`, isDirect: false };
+  // isDirect: false means the target page was never confirmed to exist (no
+  // verified per-item wiki source matched this item) - so this must be an
+  // actual search query, not a guessed /w/Item_Name article slug. A guessed
+  // slug for an item with no wiki page (e.g. a niche cosmetic never given
+  // its own article) 404s regardless of the button being labeled "Search".
+  return { url: `https://wiki.warframe.com/index.php?search=${encodeURIComponent(name.trim())}`, isDirect: false };
 }
 
 export function isCraftable(uniqueName) {

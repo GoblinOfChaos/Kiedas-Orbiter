@@ -302,6 +302,30 @@ const DROPDATA_FILES: &[(&str, &str)] = &[
     ("VaultTrader.json", "https://api.warframestat.us/pc/vaultTrader"),
 ];
 
+// WFCD's warframe-items data, fetched live from GitHub's master branch
+// rather than the bundled npm package. The npm package (last published
+// April 2025) is over a year stale despite the GitHub repo actively
+// committing through the present - npm publishing has stalled but the
+// repo itself hasn't. This is a gap-fill source only: our main data
+// (ExportWeapons/ExportCustoms, from warframe-public-export-plus) is
+// itself typically about a month behind the live game, so a brand-new
+// item can be missing from it for a while. Confirmed concretely, not
+// theoretically: as of this writing, Mesa's entire Heirloom cosmetic set
+// (7 pieces) is missing from export-plus's ExportCustoms.json but
+// present in this live WFCD Skins.json. The frontend cross-checks each
+// of these against the corresponding main-source table and only uses an
+// entry to fill a genuine gap - never to override or duplicate anything
+// that already exists there. Refreshed once a day like the other
+// exports; failures here are non-fatal, since losing this source only
+// means missing a very recently released item, not breaking anything
+// that works today.
+const WFCD_GAPFILL_FILES: &[(&str, &str)] = &[
+    ("WFCD_Primary.json", "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Primary.json"),
+    ("WFCD_Secondary.json", "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Secondary.json"),
+    ("WFCD_Melee.json", "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Melee.json"),
+    ("WFCD_Skins.json", "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Skins.json"),
+];
+
 // --- Shared Download Helper ---
 
 /// Download a file from `url` and write it to `dest` atomically.
@@ -425,6 +449,21 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
 
     // Drop data files (warframe-drop-data) - refresh every 24 hours; non-fatal
     for (file_name, url) in DROPDATA_FILES {
+        let path = export_dir.join(file_name);
+        let needs_update = force || !path.exists() || file_age_secs(&path) > 86_400;
+
+        if needs_update {
+            match download_file(&client, url, &path).await {
+                Ok(_) => updated_count += 1,
+                Err(e) => eprintln!("Warning: could not download {}: {}", file_name, e),
+            }
+        }
+    }
+
+    // WFCD weapon gap-fill files - refresh every 24 hours; non-fatal. See the
+    // WFCD_GAPFILL_FILES doc comment for why this exists alongside the main
+    // weapon export.
+    for (file_name, url) in WFCD_GAPFILL_FILES {
         let path = export_dir.join(file_name);
         let needs_update = force || !path.exists() || file_age_secs(&path) > 86_400;
 
@@ -721,6 +760,27 @@ async fn load_all_exports(app_handle: tauri::AppHandle, locale: String) -> Resul
     for handle in drop_handles {
         let (key, json) = handle.await.map_err(|e| e.to_string())??;
         result.insert(key, json);
+    }
+
+    // WFCD gap-fill files - purely supplemental (see WFCD_GAPFILL_FILES
+    // doc comment), so unlike every other block in this function, a failure
+    // here must never propagate and take down the main export load. Each
+    // file is read and parsed independently; a missing or corrupt one is
+    // silently skipped rather than failing the whole command with `?`.
+    for (file_name, _url) in WFCD_GAPFILL_FILES {
+        let path = export_dir.join(file_name);
+        if !path.exists() { continue; }
+        let key = file_name.trim_end_matches(".json").to_string();
+        let path_clone = path.clone();
+        let parsed = tokio::task::spawn_blocking(move || -> Option<Value> {
+            let file = fs::File::open(&path_clone).ok()?;
+            serde_json::from_reader(std::io::BufReader::new(file)).ok()
+        }).await;
+        match parsed {
+            Ok(Some(json)) => { result.insert(key, json); }
+            Ok(None) => eprintln!("Warning: WFCD weapon gap-fill file {} exists but failed to parse, skipping", file_name),
+            Err(e) => eprintln!("Warning: WFCD weapon gap-fill file {} read task failed: {}, skipping", file_name, e),
+        }
     }
 
     // Locale-specific ExportUpgrades from DE public manifest (localized levelStats).

@@ -12,6 +12,7 @@ import { getPrice, getPricesBatch } from '../lib/marketEngine'
 import { resolveNode, resolveMissionType, resolveChallenge, resolveAnyImage } from '../lib/warframeUtils'
 import { evaluateNotifications } from '../lib/notificationManager'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
+import { fillDataGaps, logGapFillAudit } from '../lib/wfcdGapFill'
 import { loadSettings, getSetting, setSetting } from '../lib/settings'
 import { useUi } from './UiContext'
 
@@ -632,14 +633,36 @@ export function MonitoringProvider({ children }) {
         } catch { }
       }
 
+      // Fill gaps in the main export data (which can be ~a month behind the
+      // live game) using WFCD's live-fetched data, before anything ever
+      // reads exports.ExportWeapons/ExportCustoms. See wfcdGapFill.js for
+      // the exact-match-only safety rules - this never overrides or
+      // duplicates anything that already exists, only adds what's
+      // genuinely missing. Wrapped defensively: if this throws for any
+      // reason, exports itself is untouched and we proceed exactly as
+      // before this feature existed.
+      let filledExports = exports
+      if (exports) {
+        try {
+          const { exportData: filled, audit } = fillDataGaps(exports)
+          filledExports = filled
+          logGapFillAudit(audit)
+        } catch (err) {
+          console.error('WFCD gap-fill failed, continuing without it:', err)
+        }
+      }
+
       // Set exports immediately (no wfcd blocking) — defer the wfcd load to
       // the background so the shell UI renders without a 15s hitch.
-      setExportData(exports)
-      exportDataRef.current = exports
+      setExportData(filledExports)
+      exportDataRef.current = filledExports
 
-      if (exports) {
+      if (filledExports) {
         loadWarframeItemsMaps().then(({ maps: wiMaps, supplement: wiSupplement }) => {
-          const enhanced = { ...exports, ...wiMaps }
+          // Spread from filledExports, not exports - otherwise this silently
+          // reverts ExportWeapons/ExportCustoms back to their pre-gap-fill
+          // state the moment the wfcd name/image supplement lands.
+          const enhanced = { ...filledExports, ...wiMaps }
           enhanced.uniqueNameToName = { ...enhanced.uniqueNameToName, ...wiSupplement.uniqueNameToName }
           enhanced.nameToImage = { ...enhanced.nameToImage, ...wiSupplement.nameToImage }
           enhanced.WI_Supplement = wiSupplement

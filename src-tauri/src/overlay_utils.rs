@@ -564,7 +564,7 @@ pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), S
                     main_gtk.connect_window_state_event(move |_, _| {
                         let ah2 = ah.clone();
                         glib::idle_add_local_once(move || {
-                            if !is_warframe_focused() {
+                            if !is_warframe_focused_diag(&ah2, false) {
                                 return;
                             }
                             for lbl in SHOWN_OVERLAYS.lock().unwrap().iter() {
@@ -1058,14 +1058,39 @@ fn warframe_monitor(app_handle: &AppHandle) -> Option<tauri::Monitor> {
 }
 
 /// Check whether the currently focused window is Warframe's (PID-based).
-fn is_warframe_focused() -> bool {
+///
+/// `diag` requests one-shot diagnostic logging (to the real on-disk log file
+/// via logger::log_to_disk, not eprintln - the app launches from a desktop
+/// shortcut with no attached terminal, so raw stderr is never seen or
+/// retrievable) of the raw inputs: Warframe's detected PID, and what
+/// active_win_pos_rs reports as the focused window. Throttled by the caller
+/// rather than logged every poll. This exists to diagnose why hide-on-
+/// focus-loss can silently never fire (e.g. a PID mismatch between /proc and
+/// what the window manager reports, which happens when the game runs inside
+/// Steam's sandboxed Linux Runtime container).
+fn is_warframe_focused_diag(app: &AppHandle, diag: bool) -> bool {
     let warframe_pid = match crate::log_scanner::get_warframe_pid() {
         Some(p) => p,
-        None => return false,
+        None => {
+            if diag { crate::logger::log_to_disk(app, "[FOCUS_WATCHER] get_warframe_pid() found no Warframe process"); }
+            return false;
+        }
     };
     match active_win_pos_rs::get_active_window() {
-        Ok(active) => active.process_id == warframe_pid as u64,
-        Err(_) => false,
+        Ok(active) => {
+            let matched = active.process_id == warframe_pid as u64;
+            if diag {
+                crate::logger::log_to_disk(app, &format!(
+                    "[FOCUS_WATCHER] warframe_pid={} active_window(pid={}, app={:?}, title={:?}) matched={}",
+                    warframe_pid, active.process_id, active.app_name, active.title, matched
+                ));
+            }
+            matched
+        }
+        Err(e) => {
+            if diag { crate::logger::log_to_disk(app, &format!("[FOCUS_WATCHER] get_active_window() failed: {:?} (warframe_pid={})", e, warframe_pid)); }
+            false
+        }
     }
 }
 
@@ -1080,13 +1105,21 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
     std::thread::spawn(move || {
         let mut had_visible: Vec<String> = Vec::new();
         let mut was_focused = false;
+        let mut poll_count: u32 = 0;
 
         while FOCUS_WATCHER_RUNNING.load(Ordering::SeqCst) {
             update_warframe_cache();
 
-            let focused_now = is_warframe_focused();
+            // Log the raw diagnostic every ~60 polls (30s at the 500ms cadence
+            // below) rather than every poll - otherwise a case where the game
+            // is simply never detected as focused at all produces zero log
+            // evidence to diagnose from. Transitions (the two branches below)
+            // get their own cheap marker regardless of this cadence.
+            poll_count = poll_count.wrapping_add(1);
+            let focused_now = is_warframe_focused_diag(&ah, poll_count % 60 == 0);
 
             if focused_now && !was_focused {
+                crate::logger::log_to_disk(&ah, "[FOCUS_WATCHER] transition: unfocused -> focused, re-showing overlays");
                 for label in std::mem::take(&mut had_visible) {
                     // Skip overlays that have been voluntarily closed (e.g. relic
                     // reward timer expired while hidden) — they were removed from
@@ -1096,6 +1129,7 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
                     let _ = show_window_internal(&ah, &label);
                 }
             } else if !focused_now && was_focused {
+                crate::logger::log_to_disk(&ah, "[FOCUS_WATCHER] transition: focused -> unfocused, hiding overlays");
                 // Don't hide overlays if focus moved to one of our own overlay
                 // windows (e.g. user clicked the sidebar) — that would trigger a
                 // hide-then-re-show loop when focus falls through to Warframe.

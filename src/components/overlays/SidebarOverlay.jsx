@@ -208,7 +208,7 @@ function SidebarContent() {
                 { label: 'L', width: 640 },
                 { label: 'XL', width: 800 },
               ].map((preset) => (
-                <Tooltip key={preset.label} content={`${preset.label}: ${preset.width}px (Click to set)`}>
+                <Tooltip key={preset.label} content={`${preset.label}: ${preset.width}px (${t('sidebar_overlay.click_to_set')})`}>
                   <button
                     onClick={() => handleSetWidth(preset.width)}
                     className={`h-5 text-[9px] font-bold rounded font-mono transition-all flex items-center justify-center border ${

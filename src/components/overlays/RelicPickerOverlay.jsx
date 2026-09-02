@@ -75,10 +75,10 @@ export default function RelicPickerOverlay() {
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="w-full">
             <div className="flex gap-3">
-              <Column items={relics.ducat_top} title={`Top Ducat EV${eraSuffix}`} accent="text-amber-400" valueKey="evDucats" suffix="" />
-              <Column items={relics.plat_top} title={`Top Plat EV${eraSuffix}`} accent="text-blue-400" valueKey="evPlat" suffix="p" />
+              <Column items={relics.ducat_top} title={t('relic_picker.top_ducat_ev', { eraSuffix })} accent="text-amber-400" valueKey="evDucats" suffix="" />
+              <Column items={relics.plat_top} title={t('relic_picker.top_plat_ev', { eraSuffix })} accent="text-blue-400" valueKey="evPlat" suffix="p" />
               {relics.need_top &&
-                <Column items={relics.need_top} title={`Top Need EV${eraSuffix}`} accent="text-green-400" valueKey="evDucatsNeed" suffix="" />
+                <Column items={relics.need_top} title={t('relic_picker.top_need_ev', { eraSuffix })} accent="text-green-400" valueKey="evDucatsNeed" suffix="" />
               }
             </div>
           </div>
@@ -96,17 +96,17 @@ export default function RelicPickerOverlay() {
         <div className="w-full max-w-xl mx-auto rounded-2xl border border-white/10 bg-black/40 p-5">
           <div className="flex items-center gap-2 mb-1">
             <span className="w-2 h-2 rounded-full bg-kronos-accent-secondary shadow-[0_0_8px_rgba(185,147,84,0.7)]" />
-            <span className="text-[13px] font-black uppercase tracking-widest text-kronos-dim">Relic Recommendations</span>
+            <span className="text-[13px] font-black uppercase tracking-widest text-kronos-dim">{t('relic_picker.recommendations')}</span>
           </div>
           <p className="text-xs text-kronos-dim/70 mb-4">
-            Era unknown pre-mission — showing <span className="text-kronos-accent-secondary font-bold">all eras</span>
+            {t('relic_picker.era_unknown_prefix')} <span className="text-kronos-accent-secondary font-bold">{t('relic_picker.era_unknown_all')}</span>
           </p>
 
           <div className="grid gap-2" style={{ gridTemplateColumns: '74px 1fr 1fr 1fr' }}>
             <span />
-            <span className="text-[11px] font-black uppercase tracking-wide text-center text-kronos-accent-secondary">Ducat</span>
-            <span className="text-[11px] font-black uppercase tracking-wide text-center text-kronos-accent">Plat</span>
-            <span className="text-[11px] font-black uppercase tracking-wide text-center leading-tight text-green-400">Missing<br />Prime Parts</span>
+            <span className="text-[11px] font-black uppercase tracking-wide text-center text-kronos-accent-secondary">{t('relic_picker.ducat_col')}</span>
+            <span className="text-[11px] font-black uppercase tracking-wide text-center text-kronos-accent">{t('relic_picker.plat_col')}</span>
+            <span className="text-[11px] font-black uppercase tracking-wide text-center leading-tight text-green-400">{t('relic_picker.missing')}<br />{t('relic_picker.prime_parts')}</span>
 
             {relics.by_era.map((row) => (
               <React.Fragment key={row.era}>

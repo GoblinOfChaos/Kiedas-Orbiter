@@ -415,8 +415,8 @@ export default function RivenOverlay() {
                 (() => {
                   const wr = rivenInfo.weapon_rank ?? 999;
                   const total = rivenInfo.total_weapons ?? 1;
-                  const tier = wr <= total * 0.2 ? 'Meta' : wr <= total * 0.5 ? 'Popular' : wr <= total * 0.7 ? 'Average' : wr <= total * 0.9 ? 'Niche' : 'Unpopular';
-                  const roll = statGrade?.grade === 'S' ? 'Perfect' : statGrade?.grade === 'A' ? 'Good' : statGrade?.grade === 'B' ? 'Average' : statGrade?.grade === 'C' ? 'Mediocre' : 'Bad';
+                  const tier = t(wr <= total * 0.2 ? 'riven_overlay.tier_meta' : wr <= total * 0.5 ? 'riven_overlay.tier_popular' : wr <= total * 0.7 ? 'riven_overlay.tier_average' : wr <= total * 0.9 ? 'riven_overlay.tier_niche' : 'riven_overlay.tier_unpopular');
+                  const roll = t(statGrade?.grade === 'S' ? 'riven_overlay.roll_perfect' : statGrade?.grade === 'A' ? 'riven_overlay.roll_good' : statGrade?.grade === 'B' ? 'riven_overlay.roll_average' : statGrade?.grade === 'C' ? 'riven_overlay.roll_mediocre' : 'riven_overlay.roll_bad');
                   return (
                     <span className="text-[11px] font-bold text-zinc-200 uppercase tracking-wider">
                           {tier} {t('riven_card.tier_weapon')} &middot; {roll}{t('riven_card.rolls')}

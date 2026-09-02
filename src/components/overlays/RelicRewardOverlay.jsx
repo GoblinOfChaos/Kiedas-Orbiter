@@ -431,6 +431,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
 }
 
 function ItemArt({ icon, owned, blueprintCount }) {
+  const { t } = useUi();
   if (!icon) return null;
   return (
     <div className="relative bg-black/30 border-b border-white/5">
@@ -443,19 +444,26 @@ function ItemArt({ icon, owned, blueprintCount }) {
       {owned > 0 &&
       <div className="absolute top-1 left-1 flex items-center gap-1 px-1.5 py-0.5 rounded bg-green-500/20 border border-green-500/40 text-green-300 text-[8px] font-black uppercase">
         <Check size={9} />
-        {owned > 1 ? `${owned} Owned` : 'Owned'}
+        {owned > 1 ? t('relic_reward.owned_count', { count: owned }) : t('relics.ownership_owned')}
       </div>
       }
       {blueprintCount > 0 &&
       <div className="absolute top-1 right-1 flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[8px] font-black uppercase">
-        {blueprintCount > 1 ? `${blueprintCount} BP` : 'BP'}
+        {blueprintCount > 1 ? t('relic_reward.bp_count', { count: blueprintCount }) : t('ui.relic_reward.bp')}
       </div>
       }
     </div>
   );
 }
 
+const BADGE_LABEL_KEY = {
+  'Mastered': 'ui.comp.mastered',
+  'Owned': 'relics.ownership_owned',
+  'BP': 'ui.relic_reward.bp'
+};
+
 function Badge({ label, count, isMastered, canMastered = true }) {
+  const { t } = useUi();
   const value = count ?? 0;
   const mastered = canMastered && isMastered;
 
@@ -464,7 +472,7 @@ function Badge({ label, count, isMastered, canMastered = true }) {
   let colorClass = '';
 
   if (label === 'Mastered') {
-    displayValue = mastered ? 'MASTERED' : 'UNMASTERED';
+    displayValue = mastered ? t('relic_reward.mastered_caps') : t('relic_reward.unmastered_caps');
     isActive = mastered;
     colorClass = isActive ?
     'bg-blue-500/15 border-blue-500/30 text-blue-300' :
@@ -486,13 +494,19 @@ function Badge({ label, count, isMastered, canMastered = true }) {
   const showLabel = label !== 'Mastered';
   return (
     <div className={`flex items-center justify-center gap-1 px-2 py-1 rounded-lg border text-[9px] font-black uppercase transition-all ${colorClass}`}>
-      {showLabel && <span className={isActive ? 'opacity-80 text-white' : 'opacity-50'}>{label}:</span>}
+      {showLabel && <span className={isActive ? 'opacity-80 text-white' : 'opacity-50'}>{t(BADGE_LABEL_KEY[label] || label)}:</span>}
       <span className={showLabel ? "text-[10px]" : ""}>{displayValue}</span>
     </div>);
 
 }
 
+const PRICE_BADGE_LABEL_KEY = {
+  'Plat': 'relics.sort_plat',
+  'Ducats': 'relics.sort_ducats'
+};
+
 function PriceBadge({ label, value, color, iconSrc }) {
+  const { t } = useUi();
   const styles = {
     amber: 'bg-amber-500/5 border-white/5 text-amber-500/50',
     blue: 'bg-blue-400/20 border-blue-400/50 text-blue-200 shadow-[0_0_10px_rgba(96,165,250,0.3)]'
@@ -500,7 +514,7 @@ function PriceBadge({ label, value, color, iconSrc }) {
   return (
     <div className={`flex items-center gap-1 px-2 py-1 rounded-lg border transition-all ${styles[color]}`}>
       {iconSrc && <img src={iconSrc} className="w-3.5 h-3.5 object-contain" alt="" />}
-      <span className="text-[8px] font-black uppercase tracking-wider opacity-70">{label}</span>
+      <span className="text-[8px] font-black uppercase tracking-wider opacity-70">{t(PRICE_BADGE_LABEL_KEY[label] || label)}</span>
       <span className="text-[10px] font-bold">{value}</span>
     </div>);
 

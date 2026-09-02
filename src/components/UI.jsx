@@ -470,7 +470,7 @@ export function ItemCard({ item }) {
 
         {item.subsumed &&
         <div className="text-purple-400 text-xs">
-            ⚗️ Subsumed
+            ⚗️ {t('ui.comp.subsumed')}
           </div>
         }
       </div>

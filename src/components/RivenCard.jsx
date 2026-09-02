@@ -235,7 +235,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
               <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">{t('ui.riven_card.avg_value')}</div>
               <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">{t('ui.riven_card.your_value')}</div>
               <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">{t('ui.riven_card.reroll_potential')}</div>
-              <div className="text-center font-bold">{estimate.weapon_rank != null ? `#${estimate.weapon_rank}/${estimate.total_weapons ?? '?'}` : 'N/A'}</div>
+              <div className="text-center font-bold">{estimate.weapon_rank != null ? `#${estimate.weapon_rank}/${estimate.total_weapons ?? '?'}` : t('ui.riven_card.na')}</div>
               <div className="text-center font-bold">{Math.round(estimate.expected_value)}p</div>
               <div className="text-center font-bold text-yellow-400">{Math.round(estimate.price)}p</div>
               <div className={`text-center font-bold ${(1 - (estimate.probability_stagnant ?? 0.5)) * 100 > 50 ? 'text-green-400' : 'text-red-400'}`}>

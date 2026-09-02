@@ -1,4 +1,5 @@
 import { Award } from 'lucide-react';
+import { useUi } from '../contexts/UiContext';
 
 const STATUS_STYLE = {
   'good': 'text-green-400',
@@ -8,18 +9,19 @@ const STATUS_STYLE = {
   'missing-required': 'text-red-400'
 };
 
-const STATUS_LABEL = {
-  'good': 'GOOD',
-  'off-target': 'OFF-TARGET',
-  'safe-negative': 'SAFE NEGATIVE',
-  'risky-negative': 'RISKY NEGATIVE',
-  'missing-required': 'MISSING REQUIRED'
+const STATUS_LABEL_KEY = {
+  'good': 'riven_grade_drawer.status_good',
+  'off-target': 'riven_grade_drawer.status_off_target',
+  'safe-negative': 'riven_grade_drawer.status_safe_negative',
+  'risky-negative': 'riven_grade_drawer.status_risky_negative',
+  'missing-required': 'riven_grade_drawer.status_missing_required'
 };
 
 /** Bottom drawer showing the stat-combo breakdown behind a riven's grade
  * badge - same shell/interaction as AcquisitionDrawer, ported content from
  * wfinfo-ng's riven_grader_overlay.py per-stat assessment card. */
 export default function RivenGradeDrawer({ riven, statGrade, onClose }) {
+  const { t } = useUi();
   if (!riven || !statGrade) return null;
 
   return (
@@ -34,12 +36,12 @@ export default function RivenGradeDrawer({ riven, statGrade, onClose }) {
             }
           </div>
           <button onClick={onClose} className="text-kronos-dim hover:text-kronos-text text-xs font-bold uppercase">
-            Close
+            {t('foundry.close')}
           </button>
         </div>
 
         {!statGrade.grade ?
-          <p className="text-xs text-kronos-dim italic">No curated stat profile exists for this weapon - grade not available.</p>
+          <p className="text-xs text-kronos-dim italic">{t('riven_grade_drawer.no_curated_profile')}</p>
         :
         <>
           {statGrade.assessment.length > 0 &&
@@ -48,16 +50,16 @@ export default function RivenGradeDrawer({ riven, statGrade, onClose }) {
                 <div key={i} className="flex items-center justify-between px-3 py-2 rounded bg-black/30 border border-white/5">
                   <span className="text-xs text-kronos-text truncate">{a.text}</span>
                   <span className={`text-[10px] font-bold flex-shrink-0 ml-2 ${STATUS_STYLE[a.status] || 'text-kronos-dim'}`}>
-                    {STATUS_LABEL[a.status] || a.status}
+                    {STATUS_LABEL_KEY[a.status] ? t(STATUS_LABEL_KEY[a.status]) : a.status}
                   </span>
                 </div>
               ))}
             </div>
           }
           <p className="mt-3 text-[11px] text-kronos-dim">
-            Target combo: {statGrade.mandatory.length > 0 ? statGrade.mandatory.join(' + ') : '(none required)'}
+            {t('riven_grade_drawer.target_combo')}{statGrade.mandatory.length > 0 ? statGrade.mandatory.join(' + ') : t('riven_grade_drawer.none_required')}
             {statGrade.optional.length > 0 && ` + ${statGrade.pickN} of [${statGrade.optional.join(', ')}]`}
-            {statGrade.safeNegatives.length > 0 && ` · Safe negatives: ${statGrade.safeNegatives.join(', ')}`}
+            {statGrade.safeNegatives.length > 0 && ` · ${t('riven_grade_drawer.safe_negatives')}${statGrade.safeNegatives.join(', ')}`}
           </p>
         </>
         }

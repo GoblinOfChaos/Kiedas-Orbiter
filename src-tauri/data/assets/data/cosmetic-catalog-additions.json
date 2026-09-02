@@ -39,5 +39,21 @@
     "excludeFromCodex": false,
     "productCategory": "WeaponSkins",
     "icon": null
+  },
+  "/Lotus/Upgrades/Skins/Daybreak/DaybreakBubonicoSkin": {
+    "name": "Bubonico Daybreak Skin",
+    "description": "This skin for the Bubonico graces the Infestation with the light of day.",
+    "codexSecret": false,
+    "excludeFromCodex": false,
+    "productCategory": "WeaponSkins",
+    "icon": null
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/AtomicycleKeychainMeleeDangle": {
+    "name": "Atomicycle Key Sugatra",
+    "description": "Never lose your keys again with this convenient sugatra.",
+    "codexSecret": false,
+    "excludeFromCodex": false,
+    "productCategory": "WeaponSkins",
+    "icon": null
   }
 }

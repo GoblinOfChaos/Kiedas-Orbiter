@@ -637,7 +637,7 @@ Also removed 4 stray debug `console.log('[PRICER] ...)` statements found while r
 - [x] Failed/uncached icon renders empty, never a wrong icon — confirmed, `iconCache` is replaced wholesale on each successful load batch, never merged with stale entries
 - [x] `useUIIcons` cancelled-guard and stable `ICON_NAMES` reference — confirmed, module-level constant never spuriously re-triggers the effect
 - [ ] Lazy-loaded screens actually render, Suspense spinner not stuck — needs live verification (also: no ErrorBoundary wraps the Suspense, so a genuine import failure would crash rather than degrade gracefully, but this is unlikely in a fully-bundled desktop app)
-- [ ] Hide-on-focus-loss / hotkey toggle — not verifiable from this file, needs live verification
+- [x] Hide-on-focus-loss / hotkey toggle — not verifiable from this file, needs live verification **[Confirmed working 9/1. No root cause identified for the original report - the diagnostic logging added for this (overlay_utils.rs FOCUS_WATCHER) shows zero entries in the session where this was tested, meaning that build wasn't actually the one running. Working now; cause of the original failure report remains unexplained.]**
 
 ### ToastOverlay.jsx
 

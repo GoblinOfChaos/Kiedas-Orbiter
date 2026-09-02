@@ -336,13 +336,13 @@ Two unrelated real DE items share the same display name (e.g. "Crash Course" the
 - [x] Switching tabs (`switchTab`) resets pan/zoom transform, closes the marker editor panel (`selectedMarker` nulled, panel is directly conditioned on it), exits marker-adding mode, clears `pendingConfigId` — confirmed correct
 - [ ] Marker configs persist per-map via `configFilename` and round-trip correctly after reload — needs live verification
 - [x] Click-vs-drag: 3px movement threshold before treating pointer-down as a drag rather than a click — confirmed reasonable
-- [ ] Marker label/color/icon/notes edits apply to the correct marker reference — needs live verification
+- [x] Marker label/color/icon/notes edits apply to the correct marker reference — needs live verification **[Confirmed 9/1 with screenshot: full editor (label/color/icon/connections/notes) works correctly. What looked like a bug ("can't edit, only name and place") was markers being click-disabled while still in "adding pins" mode, by design — exiting that mode first and clicking a placed marker opens the working editor.]**
 - [x] "Zoom to marker" — confirmed correct, uses both `marker.x` and `marker.y` properly; the checklist's suspicion of an X-axis bug was not borne out by the code
 - [x] Path/connections list only shows same-config markers — confirmed
 - **[BUG FOUND & FIXED 2026-08-29]** Connection checkmark (`hasPath`) and `togglePath`'s existence check were both direction-sensitive (`fromMarkerId===A && toMarkerId===B` only, never the reverse), despite paths rendering as plain undirected lines with no arrowhead. Viewing a connection from the "other" marker's panel showed no checkmark, and toggling it from that side created a duplicate reverse-direction path instead of removing the real one. Fixed both checks to test either direction.
 - [x] "Add marker" mode places a marker only when `nx`/`ny` fall within 0–1 (image bounds), silently no-ops outside — confirmed exactly matches spec
 - [x] Auto-path links each new marker to the immediately-previous marker using the new marker's own color — confirmed
-- [ ] Right-click "Add marker here" fallback order (pending → first enabled → first config) — needs live verification
+- [x] Right-click "Add marker here" fallback order (pending → first enabled → first config) — needs live verification **[Confirmed working 9/1.]**
 - [x] Deleting a config removes it, exits add-marker mode/clears `pendingConfigId` if it was pending, and closes the marker panel if the selected marker belonged to the deleted config — confirmed correct
 - [x] Config visibility toggle (`enabled`) correctly filters both the marker-rendering and path-rendering loops independently per config — confirmed
 - [x] Import routing — `mapKeys = ['poe','venus','deimos']`, Duviri has no matching key (`indexOf` returns -1, skipped) and correctly never receives imported markers — confirmed

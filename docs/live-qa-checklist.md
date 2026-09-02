@@ -82,8 +82,8 @@ use rather than hunted down.
 
 ### Maps (marker editing)
 - [x ] Add markers on one map, restart the app, and confirm they're still there and on the right map. **Wrong:** markers lost, or bleeding onto a different map. [L337]
-- [ you cannot edit a marker at all.you can name and place. thats all ] Edit a marker's label/colour/icon/notes. The change lands on the marker you edited. **Wrong:** it edits a different marker. [L339]
-- [ this as far as I know has never been a feature and doesnt work. ] Right-click a map to "Add marker here" with several marker configs enabled. It picks a sensible config. [L345]
+- [x] ~~You cannot edit a marker at all, only name and place.~~ **Resolved 9/1** — not a bug: markers are click-disabled while "adding pins" mode is still active (`pointerEvents: 'none'`, deliberately, so placing your next pin can't misfire onto an existing one). Exit that mode first (X on the "Adding markers…" banner), then click a placed marker — the full editor opens correctly: label, color, icon, connections, and notes all work as built. Confirmed working via screenshot. Worth a product decision (not done): should placing a marker auto-open its editor, or auto-exit add-mode, so this doesn't read as "broken" again? [L339]
+- [x] ~~This has never been a feature and doesn't work.~~ **Confirmed working 9/1** after rebuild — right-click to add a pin now works. [L345]
 
 ---
 

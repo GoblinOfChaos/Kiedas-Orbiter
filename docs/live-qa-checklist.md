@@ -59,11 +59,15 @@ use rather than hunted down.
 - [x ] Credits / Platinum / Endo match what the game shows. **Wrong:** off by a factor of 1000, or the wrong currency. [L328]
 
 ### Mastery
-- [ mastery items mismatch. game shows primary 137/196. secondary 98/151, melee 185/234, some of these numbers may be because of kitguns, zaws etc that we seperate in app but arent in the game seperated. robotics shows 34/46 which combines weapons and sentinals and robototic companions. companions shows 5/15 which is kavats, kubrows etc. vehicles has same totals as the three split vehicles in the app, except one more called Plexus. amps shows one more amp than our app, just called AMP. ] Mastered/total counts match your real in-game mastery numbers. **Wrong:** any mismatch against the in-game profile. [L363]
+- [x] ~~Mastery mismatch across several categories.~~ **Fixed 9/1**, verified against your real inventory.json — 3 of 4 confirmed:
+  - Kitguns/Zaws folded into Secondary/Melee's real total (DE tracks them there, not separately) — Melee now reproduces your exact reported 185/234; dedicated Kitgun/Zaw tabs stay as display-only breakdowns.
+  - Sentinels/MOAs/Hounds/Sentinel-Weapons combined into one "Robotics" total matching DE's own grouping; root cause of the gap was Prisma Shade + its weapon (a Baro-vault item DE hides from the Codex) inflating the denominator — excluding it reproduces your exact 34/46. "Companions" now correctly means Kavats/Kubrows/Predasites/Vulpaphylas only.
+  - Plexus was miscounted inside Companions — now its own row combined into a "Vehicles" total with Archwings/Necramechs/K-Drives, matching your "+1" exactly.
+  - The generic "AMP" item **could not be confirmed** — checked every amp path in the real export data and your real inventory, found nothing matching. Left unfixed rather than guessed; if you can find its internal name in-game that would help. [L363]
 
 ### Relics
 - [ x] Void Traces count and max match in-game. [L396]
-- [ in game shows collected 76/772] Your owned relics match up to the right catalog entries. **Wrong:** an owned relic not showing as owned, or matching the wrong relic. [L383]
+- [x] ~~In game shows collected 76/772.~~ **Investigated 9/1, no code defect found.** The app doesn't actually show a comparable "X/772" number anywhere — the Relics subtitle is a filtered live count, not a fixed collected/catalog ratio. Traced both sides against your real data: the app's relic-catalog total (Lith–Axi only, by design) is 763, and all distinct relic tables including Requiem/Vanguard is exactly 772 — matching your reported denominator, which suggests DE's in-game stat counts more than this screen's Prime-relic-planner scope does. Your currently-held distinct relic types come out to 77, not ≤76, which doesn't fit a "lifetime collected" reading either — more consistent with the two numbers having drifted since you checked (relics used/picked up since) than a parsing bug. No grouping or dedup defect found. [L383]
 
 ### Dashboard / Checklist
 - [x ] Sortie, Steel Path Incursions, Archon Hunt and Nightwave countdowns match the real in-game timers. **Wrong:** a countdown frozen, wildly off, or showing a default instead of the real expiry. [L253]
@@ -71,7 +75,7 @@ use rather than hunted down.
 - [x ] Prime Resurgence rotation end date matches the real rotation. [L168]
 
 ### Cosmetics
-- [several items when under the warframe tab are not for warframes. examples are Aebolg Tail and Aegrae Eye-Guard and Aqua Heart Emblem ] Open the acquisition drawer on a few different cosmetic types (a skin, a sigil, a glyph, a decoration, an emote). Each shows acquisition info that's actually right for that item. **Wrong:** text describing a different item, or a generic fallback where a real route exists. [L499]
+- [x] ~~Items under the Warframe tab that aren't for Warframes (Aebolg Tail, Aegrae Eye-Guard, Aqua Heart Emblem).~~ **Fixed 9/1** — this was a tab-categorization bug, not an acquisition-text bug: the "Warframe" filter matched any non-weapon cosmetic subfolder, wrongly catching a Duviri horse-tail cosmetic, Kahl's eyepatch, a seasonal badge, and more broadly Kubrows/Catbrows/MOA companions/Necramechs/K-Drives. Replaced with an allowlist built from DE's real Warframe list so it can't happen again as new Warframes are added. **Still open:** whether the acquisition-drawer *text* itself is correct per cosmetic type (the original intent of this checklist line) hasn't been separately verified — worth a look once rebuilt, now that the tab miscategorization won't confuse the sample. [L499]
 
 ### Wiki
 - [x] ~~Aetigo Kaithe is linked to a non-existant wiki.~~ **Fixed 9/1** — real bug, not just this one item: `getWikiLink()`'s fallback always guessed an article-page URL from the item name, even when it had already marked the link "unverified" — so any item with no confirmed wiki page (like this one; no "Aetigo Kaithe" page exists) 404'd regardless of the button saying "View" or "Search". Now builds an actual wiki search query when unverified. Worth spot-checking a few more obscure items once rebuilt, but the underlying cause is fixed, not papered over for this one item. [L545, L546]

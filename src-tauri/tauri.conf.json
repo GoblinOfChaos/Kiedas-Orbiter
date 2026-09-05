@@ -157,6 +157,7 @@
   },
   "bundle": {
     "active": true,
+    "category": "Utility",
     "targets": [
       "msi",
       "dmg",

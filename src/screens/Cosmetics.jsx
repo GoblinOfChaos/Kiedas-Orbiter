@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Search, Sparkles } from 'lucide-react'
+import { Search, Sparkles, ArrowUpDown } from 'lucide-react'
 import { invoke } from '@tauri-apps/api/core'
 import { useUi } from '../contexts/UiContext'
-import { PageLayout, Card, Input } from '../components/UI'
+import { PageLayout, Card, Input, Tabs } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import { resolveAnyImage } from '../lib/warframeUtils'
 import { getAcquisitionInfo } from '../lib/acquisitionInfo'
@@ -44,13 +44,25 @@ function buildWarframeFamilies(exportData) {
 function cosmeticType(uniqueName, icon, kind, warframeFamilies) {
   if (kind !== 'Skin') return kind
   const value = `${uniqueName || ''} ${icon || ''}`.toLowerCase()
-  // Real weapon-skin paths are /Upgrades/Skins/Weapons/<Class>/... - DE never
-  // uses the literal substrings "primaryweapons"/"secondaryweapons"/
-  // "meleeweapons" anywhere in the export, so those checks never matched a
-  // single real item (verified against ExportCustoms.json: 58 weapon skins,
-  // zero containing those strings). Pistols/dual-pistols are Secondary,
-  // rifles are Primary; every other weapon-skin class (swords, daggers,
-  // glaives, staves, claws, etc.) is Melee.
+  // The previous check here (`/upgrades/skins/weapons/(pistols|dspistols|
+  // longguns|rifle)/`) only matched a weapon skin's uniqueName, and only the
+  // narrow slice of weapon skins (58 of them) that happen to be filed under
+  // the literal /Upgrades/Skins/Weapons/ folder. The other ~450+ real weapon
+  // skins are filed under a per-weapon-family folder instead (the same
+  // convention Warframe skins use, e.g. /Upgrades/Skins/Koumei/... for a
+  // Warfan skin) and never matched, silently falling through to the
+  // Warframe-family check below and landing on "Warframe" whenever that
+  // folder name happened to also be a real Warframe's codename (confirmed
+  // live: Koumei is both a Warframe and this weapon-family folder). The
+  // reliable signal DE actually uses everywhere is the ICON path's
+  // StoreIcons/Weapons/{Primary,Secondary,Melee}Weapons/ segment - verified
+  // against the current export: 569 items carry this segment, 534
+  // unambiguously (the other 35 are Exalted/Archgun/Arrow skins that
+  // legitimately have no ground-weapon-slot kind and correctly fall through
+  // to the existing Warframe/Other logic below instead).
+  if (/storeicons\/weapons\/secondaryweapons\//.test(value)) return 'Secondary'
+  if (/storeicons\/weapons\/primaryweapons\//.test(value)) return 'Primary'
+  if (/storeicons\/weapons\/meleeweapons\//.test(value)) return 'Melee'
   if (/\/upgrades\/skins\/weapons\/(pistols|dspistols)\//.test(value)) return 'Secondary'
   if (/\/upgrades\/skins\/weapons\/(longguns|rifle)\//.test(value)) return 'Primary'
   if (/\/upgrades\/skins\/weapons\//.test(value)) return 'Melee'
@@ -90,6 +102,11 @@ function cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) {
     if (hash) return `asset-cache://content.warframe.com/PublicExport${icon}!${hash}`
     return `asset-cache://browse.wf${icon}`
   }
+  // Hand-curated catalog additions (see cosmetic-catalog-additions.json) use a
+  // direct, verified CDN URL instead of a DE-internal path when the item is
+  // missing from the primary export entirely - no DE PublicExport hash exists
+  // to build an asset-cache:// URL from.
+  if (typeof icon === 'string' && icon.startsWith('http')) return icon
   return resolveAnyImage(uniqueName, EI, nameToImage)
 }
 
@@ -119,10 +136,15 @@ function CosmeticCard({ item, onAcquire }) {
 
 export default function Cosmetics() {
   const { t } = useUi()
+  const SORT_OPTIONS = [
+    { id: 'name', label: t('mods.sort_name') },
+  ]
   const { exportData, rawInventory, EI, nameToImage, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportVendorIndex, glyphSupplementIndex, exportComponentIndex } = useMonitoring()
   const [search, setSearch] = useState('')
   const [kindFilter, setKindFilter] = useState('all')
   const [ownershipFilter, setOwnershipFilter] = useState('all')
+  const [sortCriteria, setSortCriteria] = useState('name')
+  const [sortDirection, setSortDirection] = useState('asc')
   const [visibleCount, setVisibleCount] = useState(COSMETICS_PAGE_SIZE)
   const [overrides, setOverrides] = useState(null)
   const { openKey, toggle, close } = useAcquisitionDrawer()
@@ -141,8 +163,20 @@ export default function Cosmetics() {
     const skinItems = customs && typeof customs === 'object' ? Object.entries(customs).flatMap(([uniqueName, entry]) => {
       if (!/\/Upgrades\/Skins\//i.test(uniqueName)) return []
       const isOwned = owned.has(normalize(uniqueName))
-      // Filter unowned internal engine debug/placeholder animation sets with no icon
-      if (!isOwned && (entry?.excludeFromCodex === true || entry?.codexSecret === true || (!entry?.icon && !entry?.texture))) return []
+      // Filter unowned internal engine debug/placeholder items with no real
+      // artwork to show. `codexSecret`/`excludeFromCodex` alone is NOT a
+      // reliable signal for this - DE sets it on the vast majority of normal,
+      // real, obtainable cosmetics (Prime armor pieces, holster stances,
+      // sigils, Baro/TennoCon armor, Operator heads/hoods, every per-Warframe
+      // Agile/Noble Animation Set...) simply to hide them from the in-game
+      // Codex until first encountered/unlocked, not because they're internal
+      // debug items. Verified against the current export: every one of the
+      // ~1,315 unowned items that had a real icon/texture was ALSO flagged
+      // codexSecret/excludeFromCodex, while every item genuinely lacking
+      // icon+texture was flagged too - so the icon/texture check alone
+      // reproduces the intended "no real artwork" filter with zero loss,
+      // without also hiding ~1,315 legitimate real cosmetics.
+      if (!isOwned && !entry?.icon && !entry?.texture) return []
       const kind = isSigil(uniqueName) ? 'Sigil' : 'Skin'
       const name = dict[entry?.name] || entry?.name
       if (!name) return []
@@ -191,10 +225,22 @@ export default function Cosmetics() {
     return [...skinItems, ...glyphItems, ...decorationItems, ...emoteItems]
   }, [exportData, owned, EI, nameToImage])
 
+  const handleSortChange = (id) => {
+    if (id === sortCriteria) {
+      setSortDirection((d) => d === 'desc' ? 'asc' : 'desc')
+    } else {
+      setSortCriteria(id)
+      setSortDirection('asc')
+    }
+  }
+
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
-    return items.filter((item) => (!q || item.name.toLowerCase().includes(q)) && (kindFilter === 'all' || item.type.toLowerCase() === kindFilter) && (ownershipFilter === 'all' || (ownershipFilter === 'owned' ? item.owned : !item.owned))).sort((a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name))
-  }, [items, search, kindFilter, ownershipFilter])
+    const dir = sortDirection === 'desc' ? -1 : 1
+    return items
+      .filter((item) => (!q || item.name.toLowerCase().includes(q)) && (kindFilter === 'all' || item.type.toLowerCase() === kindFilter) && (ownershipFilter === 'all' || (ownershipFilter === 'owned' ? item.owned : !item.owned)))
+      .sort((a, b) => a.name.localeCompare(b.name) * dir)
+  }, [items, search, kindFilter, ownershipFilter, sortCriteria, sortDirection])
 
   useEffect(() => {
     setVisibleCount(COSMETICS_PAGE_SIZE)
@@ -237,12 +283,38 @@ export default function Cosmetics() {
   return (
     <PageLayout title={t('nav.cosmetics')} subtitle={t('cosmetics.subtitle', { owned: items.filter((item) => item.owned).length, total: items.length })}>
       <div className="mb-4 flex flex-col gap-3">
-        <div className="relative max-w-sm"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('cosmetics.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>
-        <div className="flex flex-wrap gap-1 rounded-xl border border-white/5 bg-black/20 p-1 self-start">
-          {['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'decoration', 'emote', 'other'].map((value) => <button key={value} type="button" onClick={() => setKindFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${kindFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{t(kindFilterKeys[value])}</button>)}
-          <span className="mx-1 border-l border-white/10" />
-          {['all', 'owned', 'unowned'].map((value) => <button key={value} type="button" onClick={() => setOwnershipFilter(value)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${ownershipFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5'}`}>{t(ownershipFilterKeys[value])}</button>)}
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="relative max-w-sm flex-1 min-w-[200px]"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('cosmetics.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>
+          <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-9 px-2">
+            <ArrowUpDown size={12} className="text-kronos-accent mx-1" />
+            <div className="flex gap-1">
+              {SORT_OPTIONS.map((c) => {
+                const isActive = sortCriteria === c.id
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => handleSortChange(c.id)}
+                    className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all flex items-center gap-1.5 ${isActive ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+                  >
+                    {c.label}
+                    {isActive && <ArrowUpDown size={10} className={sortDirection === 'desc' ? 'rotate-180' : ''} />}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
         </div>
+        <Tabs
+          tabs={['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'decoration', 'emote', 'other'].map((value) => ({ id: value, label: t(kindFilterKeys[value]) }))}
+          activeTab={kindFilter}
+          onChange={setKindFilter}
+        />
+        <Tabs
+          tabs={['all', 'owned', 'unowned'].map((value) => ({ id: value, label: t(ownershipFilterKeys[value]) }))}
+          activeTab={ownershipFilter}
+          onChange={setOwnershipFilter}
+        />
       </div>
       {filtered.length === 0 ? <Card className="p-8 text-center text-kronos-dim"><Sparkles className="mx-auto mb-2" size={20} />{t('cosmetics.no_match')}</Card> : <>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3 pb-4">{visibleItems.map((item) => <CosmeticCard key={item.uniqueName} item={item} onAcquire={toggle} />)}</div>

@@ -59,6 +59,14 @@ pub struct LogScanner {
     expecting_elite_alert_boosts: bool,
     is_archon_elite_alert: bool,
     min_ts: f64,
+    // Netracell missions declare `mission type=MT_VAULTS` at start (confirmed
+    // against a real EE.log excerpt, 2026-09-03). Unlike Deep Archimedea
+    // (detected via the distinct "LabConquest.lua ... Last mission on the
+    // chain" line), a Netracell's own EndOfMatch sequence is completely
+    // generic ("Mission Succeeded" fires identically for any mission type),
+    // so completion must be inferred by remembering this flag from mission
+    // start through to that generic success line.
+    is_netracell: bool,
 }
 
 fn parse_timestamp(line: &str) -> Option<f64> {
@@ -93,6 +101,7 @@ impl LogScanner {
             expecting_elite_alert_boosts: false,
             is_archon_elite_alert: false,
             min_ts: f64::MAX,
+            is_netracell: false,
         }
     }
 
@@ -130,6 +139,7 @@ impl LogScanner {
             self.relic_picker_open = false;
             self.void_tier = None;
             self.squad_relics.clear();
+            self.is_netracell = false;
             crate::ocr::ICON_SCAN_ACTIVE.store(false, Ordering::SeqCst);
             set_poll_interval(150);
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Step 7: MISSION EXIT (LogTS: {}s)", ts));
@@ -139,6 +149,27 @@ impl LogScanner {
             }
             app.emit("fissure-reward-closed", ()).unwrap_or_default();
             return;
+        }
+
+        // === Netracell start/completion ===
+        // MT_VAULTS confirmed against a real EE.log excerpt, 2026-09-03: a
+        // Netracell declares `mission type=MT_VAULTS` at start; unlike a
+        // fissure it does not go through the "_ActiveMission"-with-
+        // MissionInfo line above, so this is tracked independently of
+        // is_fissure/in_mission. CaviaVaults is an operator-reported
+        // alternate mission-type string for the same activity (not
+        // independently confirmed against a captured log sample) - included
+        // as an additional match, not a replacement, so a wrong guess here
+        // only risks a missed detection, never a false positive against
+        // MT_VAULTS's verified case.
+        if s.contains("mission type=MT_VAULTS") || s.contains("mission type=CaviaVaults") {
+            self.is_netracell = true;
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Netracell mission started (LogTS: {}s)", ts));
+        }
+        if self.is_netracell && s.contains("EndOfMatch.lua: Mission Succeeded") {
+            self.is_netracell = false;
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Netracell/Deep Archimedea run completed (Netracell success) (LogTS: {}s)", ts));
+            app.emit("conquest-completed", ts).unwrap_or_default();
         }
 
         // === 2. Relic Pool Detection ===
@@ -308,17 +339,43 @@ impl LogScanner {
         if self.riven_state != RivenState::Idle {
             if s.contains("CancelJobs batchcount 0") {
                 self.riven_state = RivenState::Idle;
+                crate::ocr::RIVEN_CAPTURE_GEN.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
                 crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll menu closed (CancelJobs) (LogTS: {}s)", ts));
                 app.emit("riven-screen-closed", ()).unwrap_or_default();
                 return;
             }
             if s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false") {
                 self.riven_state = RivenState::Idle;
+                crate::ocr::RIVEN_CAPTURE_GEN.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
                 crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven overlays closed (ClearAgents) (LogTS: {}s)", ts));
                 app.emit("riven-screen-closed", ()).unwrap_or_default();
                 app.emit("riven-linked-closed", ()).unwrap_or_default();
                 return;
             }
+        }
+
+        // -- Deep Archimedea / Temporal Archimedea completion --
+        // DE names each Archimedea variant's mission-chain script after its
+        // reward deck: Deep Archimedea (Cavia/Albrecht's Labs) uses
+        // "LabConquest.lua" (mapping to MissionDecks/EntratiLabConquestRewards),
+        // confirmed against a real EE.log excerpt from an operator's live run,
+        // 2026-09-03. Temporal Archimedea (The Hex/1999 Hollvania) uses
+        // "HexConquest.lua" (MissionDecks/HexConquestRewards) by the same
+        // naming convention - independently corroborated by
+        // "EchoesHexConquestBonusTokensGiven" appearing in a real EE.log
+        // sample from this operator's own game. Matching "Conquest.lua"
+        // generally (rather than hardcoding both exact names) also covers
+        // any future Archimedea-style chain DE adds using the same
+        // convention. This line fires on completing the final mission of the
+        // chain. No PeriodicMissionCompletions tag or ChallengeProgress entry
+        // exists for any of this anywhere in inventory data (checked
+        // exhaustively), so this is the only available completion signal for
+        // the multi-mission chains; a standalone Netracell is handled
+        // separately below via its MT_VAULTS mission-type instead, since it
+        // never goes through a Conquest.lua script at all.
+        if s.contains("Conquest.lua") && s.contains("Last mission on the chain") {
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Archimedea run completed (Conquest last mission) (LogTS: {}s)", ts));
+            app.emit("conquest-completed", ts).unwrap_or_default();
         }
 
         // -- Elite Alert modifiers: first = Archon Hunt, subsequent = Arbitration --
@@ -1078,10 +1135,23 @@ pub fn spawn_file_watcher(app: AppHandle, path: String) -> Result<LogScannerHand
                     // EOF - Wait before polling again
                     let poll_ms = POLL_INTERVAL_MS.load(Ordering::Relaxed);
                     std::thread::sleep(std::time::Duration::from_millis(poll_ms as u64));
-                    
-                    // Note: In a robust log tailing implementation we'd also handle log rotation
-                    // (e.g. Warframe truncating or recreating the EE.log), but for basic tailing
-                    // this handles the standard active game session.
+
+                    // Warframe recreates EE.log on every relaunch, leaving
+                    // this fd pointing at the old (unlinked/replaced) file -
+                    // without this check the scanner sits at permanent EOF
+                    // forever, silently, never seeing new events. A size
+                    // shrink below our current read position is the signal:
+                    // a fresh EE.log always starts smaller than the session
+                    // we were already tailing.
+                    if let (Ok(pos), Ok(meta)) = (reader.stream_position(), std::fs::metadata(&path)) {
+                        if meta.len() < pos {
+                            if let Ok(f) = std::fs::File::open(&path) {
+                                crate::logger::log_to_disk(&app_inner, &format!("[FILE WATCHER] {} was rotated (shrank from {} to {} bytes), reopening", path, pos, meta.len()));
+                                reader = std::io::BufReader::new(f);
+                                continue;
+                            }
+                        }
+                    }
                 }
                 Ok(_) => {
                     scanner.on_line(&app_inner, &line);

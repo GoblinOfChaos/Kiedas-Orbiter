@@ -5,7 +5,7 @@
  * arcanes and resources.  Provides categorised tabs and multi-column
  * filtering (e.g., "Owned + Unmastered").
  */
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers } from 'lucide-react';
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI';
@@ -212,10 +212,20 @@ export default function Inventory() {
   }, [ExportImages]);
 
   const [sellStatusMap, setSellStatusMap] = useState({});
+  const sellingRef = useRef(new Set());
 
   const handleSellOnWfm = useCallback(async (e, item) => {
     e.stopPropagation();
     const itemKey = item.unique_name || item.uniqueName || item.name;
+    // sellStatusMap was tracked but never used to guard re-entry or disable
+    // the button - a double-click or a slow network response let a second
+    // invocation fire while the first was still in flight, posting two
+    // separate real listings on Warframe.Market for one intended click. A
+    // ref (rather than adding sellStatusMap to this callback's deps) keeps
+    // the check synchronous and avoids recreating this callback on every
+    // status change across the whole list.
+    if (sellingRef.current.has(itemKey)) return;
+    sellingRef.current.add(itemKey);
     try {
       setSellStatusMap(prev => ({ ...prev, [itemKey]: "loading" }));
       const wfmToken = await getSetting("wfm_token");
@@ -256,6 +266,8 @@ export default function Inventory() {
       console.error("Failed to place market order:", err);
       alert(`Warframe.Market error: ${err}`);
       setSellStatusMap(prev => ({ ...prev, [itemKey]: "error" }));
+    } finally {
+      sellingRef.current.delete(itemKey);
     }
   }, []);
 
@@ -493,6 +505,21 @@ export default function Inventory() {
 
   const visibleItems = useMemo(() => filteredItems.slice(0, visibleCount), [filteredItems, visibleCount]);
 
+  // Keep loading more items in the background instead of leaving it entirely
+  // up to the "Load More Items" button - that button sits at the bottom of
+  // the page, the same spot the acquisition-info drawer pins itself to
+  // (fixed bottom-0), so a manual click can be unreachable while the drawer
+  // is open. Auto-loading means the list eventually finishes on its own and
+  // the button just disappears once there's nothing left to load; a manual
+  // click still works too, for anyone who doesn't want to wait.
+  useEffect(() => {
+    if (visibleCount >= filteredItems.length) return;
+    const timer = setTimeout(() => {
+      setVisibleCount((prev) => Math.min(prev + ITEMS_PER_PAGE, filteredItems.length));
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [visibleCount, filteredItems.length]);
+
   const openItem = useMemo(() => {
     if (!openKey) return null;
     const item = visibleItems.find((it) => it.unique_name === openKey);
@@ -542,11 +569,39 @@ export default function Inventory() {
             <Filter size={14} className="text-kronos-dim mx-1" />
             <div className="flex gap-1">
               {(FILTER_CONFIG[activeTab] ?? []).map((f) => {
+            if (f === 'owned') {
+              // All/Owned/Unowned as three directly-clickable buttons, matching
+              // the ownership filter on every other screen (Mods, Foundry,
+              // Relics, RelicPlanner, Cosmetics) - this one used to be a
+              // single button cycling through the three states instead.
+              const ownedState = currentFilters.owned;
+              return (
+                <div key="owned" className="flex gap-1">
+                  {[
+                  { id: undefined, label: t('ui.inventory.tab_all') },
+                  { id: 'yes', label: t('ui.inventory.filter_owned') },
+                  { id: 'no', label: t('ui.inventory.unowned') }].
+                  map((opt) => (
+                    <button
+                      key={opt.label}
+                      onClick={() => setCurrentFilters((prev) => {
+                        if (opt.id === undefined) { const { owned: _, ...rest } = prev; return rest; }
+                        return { ...prev, owned: opt.id };
+                      })}
+                      className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all whitespace-nowrap ${
+                      ownedState === opt.id ?
+                      'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' :
+                      'text-kronos-dim hover:text-white hover:bg-white/5'}`
+                      }>
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              );
+            }
             const state = currentFilters[f];
             const isTriple = TRIPLE_FILTERS.has(f);
-            const label = f === 'owned'
-              ? (state === 'no' ? t('ui.inventory.unowned') : state === 'yes' ? t('ui.inventory.filter_owned') : t('ui.inventory.tab_all'))
-              : state === 'no' ? NEG_LABELS[f] ?? f.replace(/_/g, ' ') : f.replace(/_/g, ' ');
+            const label = state === 'no' ? NEG_LABELS[f] ?? f.replace(/_/g, ' ') : f.replace(/_/g, ' ');
             return (
               <button
                 key={f}
@@ -565,7 +620,7 @@ export default function Inventory() {
                 'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]' :
                 'text-kronos-dim hover:text-white hover:bg-white/5'}`
                 }>
-                
+
                     {label}
                   </button>);
 
@@ -983,12 +1038,13 @@ export default function Inventory() {
                             <span className="text-orange-400">{item.ducats}d</span>
                             <span className={item._ratio < 0.15 ? "text-green-400" : "text-red-400"}>{item._ratio.toFixed(2)} p/d</span>
                             {item.quantity > 0 && (
-                              <button 
+                              <button
                                 onClick={(e) => handleSellOnWfm(e, item)}
-                                className="ml-1 px-1.5 py-0.5 bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 rounded border border-blue-500/30 transition-colors"
+                                disabled={sellStatusMap[item.unique_name || item.uniqueName || item.name] === 'loading'}
+                                className="ml-1 px-1.5 py-0.5 bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 rounded border border-blue-500/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 title={t('ui.inventory.sell_1click_title')}
                               >
-                                {t('ui.inventory.sell_button')}
+                                {sellStatusMap[item.unique_name || item.uniqueName || item.name] === 'loading' ? '…' : t('ui.inventory.sell_button')}
                               </button>
                             )}
                           </div>

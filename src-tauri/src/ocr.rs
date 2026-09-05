@@ -2,7 +2,7 @@ use xcap::Monitor;
 use image::DynamicImage;
 use tauri::{AppHandle, Emitter, Manager};
 use serde::Serialize;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 #[cfg(target_os = "linux")]
 use std::process::Command;
 #[cfg(target_os = "linux")]
@@ -11,6 +11,16 @@ use std::time::Duration;
 /// Set to true by log_scanner when 10-reactant fires, false when reward screen
 /// closes or mission exits. The icon poll loop checks this each iteration.
 pub static ICON_SCAN_ACTIVE: AtomicBool = AtomicBool::new(false);
+
+/// Bumped by log_scanner whenever the riven screen closes. Unlike
+/// ICON_SCAN_ACTIVE's simple flag, ocr_riven_card has no poll loop to check a
+/// bool against - it runs once per invocation - so a generation counter lets
+/// it detect "the screen state moved on since I started" even after an
+/// in-flight capture+OCR pipeline (a few hundred ms to ~1-2s) has already
+/// begun. Without this, a capture that started just before the riven screen
+/// closed still ran to completion and unconditionally logged its (often
+/// garbage) result and a debug crop image, confirmed live 2026-09-03.
+pub static RIVEN_CAPTURE_GEN: AtomicU32 = AtomicU32::new(0);
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub enum RivenCardPosition {
@@ -45,6 +55,16 @@ impl RivenCardPosition {
 }
 
 fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPosition, save_crop: bool) -> Result<RivenOcrResult, String> {
+    ocr_card_image_impl(app, full, position, save_crop, None)
+}
+
+/// `cancel_gen`: for the live-capture path only (None for the file-replay
+/// debug command), the RIVEN_CAPTURE_GEN value captured when this capture
+/// started. Checked again right before the result is saved/logged - if it
+/// has since changed, the riven screen closed while this capture was in
+/// flight and the result is discarded silently instead of being logged as if
+/// still current.
+fn ocr_card_image_impl(app: &AppHandle, full: DynamicImage, position: RivenCardPosition, save_crop: bool, cancel_gen: Option<u32>) -> Result<RivenOcrResult, String> {
     let sw = full.width() as f64;
     let sh = full.height() as f64;
     let sx = sw / 1920.0;
@@ -58,13 +78,32 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
     let scaled_cy = (540.0 + (box_cy - 540.0) * scale) * sy;
     let scaled_w = bw * scale * sx;
     let scaled_h = bh * scale * sy;
-    let cx = (scaled_cx - scaled_w / 2.0).round() as u32;
-    let cy = (scaled_cy - scaled_h / 2.0).round() as u32;
+    let cx_f = (scaled_cx - scaled_w / 2.0).round();
+    let cy_f = (scaled_cy - scaled_h / 2.0).round();
+    // `as u32` on a negative f64 silently saturates to 0 rather than
+    // erroring - at a large negative UI-scale offset or a monitor smaller
+    // than expected, this let the crop silently target the wrong region of
+    // the screen (clamped to the left/top edge) and produce bogus-but-
+    // plausible-looking OCR text instead of a clean, visible failure.
+    if cx_f < 0.0 || cy_f < 0.0 {
+        return Err("Card bounds out of screen (negative offset)".to_string());
+    }
+    let cx = cx_f as u32;
+    let cy = cy_f as u32;
     let cw = scaled_w.round() as u32;
     let ch = scaled_h.round() as u32;
 
+    if cw == 0 || ch == 0 {
+        return Err("Card bounds degenerate (zero-size crop)".to_string());
+    }
     if cx + cw > full.width() || cy + ch > full.height() {
         return Err("Card bounds out of screen".to_string());
+    }
+
+    if let Some(gen) = cancel_gen {
+        if RIVEN_CAPTURE_GEN.load(Ordering::SeqCst) != gen {
+            return Err("cancelled: riven screen closed mid-capture".to_string());
+        }
     }
 
     let crop = full.crop_imm(cx, cy, cw, ch);
@@ -119,6 +158,13 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
         .crop_imm(0, text_start, w, h - text_start);
 
     let results = crate::ocr_engine::recognize_riven(&text_region);
+
+    if let Some(gen) = cancel_gen {
+        if RIVEN_CAPTURE_GEN.load(Ordering::SeqCst) != gen {
+            return Err("cancelled: riven screen closed mid-capture".to_string());
+        }
+    }
+
     crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Raw lines: {:?}", results));
 
     let mut merged: Vec<String> = Vec::new();
@@ -132,6 +178,12 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
         merged.push(text);
     }
 
+    if let Some(gen) = cancel_gen {
+        if RIVEN_CAPTURE_GEN.load(Ordering::SeqCst) != gen {
+            return Err("cancelled: riven screen closed mid-capture".to_string());
+        }
+    }
+
     let combined = merged.join(" | ");
     crate::logger::log_to_disk(app, &format!("[RIVEN OCR] Card {:?}: {:?}", position, combined));
 
@@ -140,11 +192,12 @@ fn ocr_card_image(app: &AppHandle, full: DynamicImage, position: RivenCardPositi
 
 #[tauri::command]
 pub fn ocr_riven_card(app: AppHandle, position: RivenCardPosition) -> Result<RivenOcrResult, String> {
+    let my_gen = RIVEN_CAPTURE_GEN.load(Ordering::SeqCst);
     let Some(monitor) = get_target_monitor(&app) else {
         return Err("No target monitor".to_string());
     };
     let image = capture_monitor_image(&app, &monitor)?;
-    ocr_card_image(&app, DynamicImage::ImageRgba8(image), position, false)
+    ocr_card_image_impl(&app, DynamicImage::ImageRgba8(image), position, false, Some(my_gen))
 }
 
 #[tauri::command]
@@ -1316,9 +1369,21 @@ fn clean_ocr_output(raw: &str) -> String {
         let mut slot_results = Vec::new();
         let mut found_loading = false;
         for h in handles {
-            if let Ok(Some((slot, text))) = h.join() {
-                if text.contains("LOADING") { found_loading = true; }
-                slot_results.push(OcrSlotResult { slot, text });
+            match h.join() {
+                Ok(Some((slot, text))) => {
+                    if text.contains("LOADING") { found_loading = true; }
+                    slot_results.push(OcrSlotResult { slot, text });
+                }
+                Ok(None) => {}
+                // A panicked slot thread previously vanished from
+                // slot_results with no trace anywhere in the log, treated
+                // identically to a slot that legitimately found nothing.
+                Err(e) => {
+                    let msg = e.downcast_ref::<&str>().map(|s| s.to_string())
+                        .or_else(|| e.downcast_ref::<String>().cloned())
+                        .unwrap_or_else(|| "unknown panic payload".to_string());
+                    ocr_log!(&app_c, "[OCR] slot thread panicked: {}", msg);
+                }
             }
         }
 

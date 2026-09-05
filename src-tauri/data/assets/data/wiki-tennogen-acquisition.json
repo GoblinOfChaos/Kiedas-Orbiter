@@ -1954,5 +1954,29 @@
   "Zhivira Shoulder Armor": {
     "pcPrice": "$2.99",
     "consolePrice": "50"
+  },
+  "F19 Condroc Headphones": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Butterfly Wings Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Choroid Oculus": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Frame Friend Earpiece": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Millennium Visor Diadem": {
+    "pcPrice": "$1.99",
+    "consolePrice": "35"
+  },
+  "Maulleus Hammer Skin": {
+    "pcPrice": "$5.99",
+    "consolePrice": "105"
   }
 }

@@ -24,6 +24,7 @@ import { Check, Circle, Eye, EyeOff } from 'lucide-react';
 import { PageLayout } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { invoke, convertFileSrc } from '@tauri-apps/api/core';
+import { listen } from '@tauri-apps/api/event';
 
 const tasks = [
 { id: 'baro', label: 'Baro Ki\'Teer', labelKey: 'ui.dashboard.baro_kiteer', reset: 'baro' },
@@ -500,6 +501,23 @@ export default function Checklist() {
       return JSON.parse(localStorage.getItem('checklist_auto_track') || 'true');
     } catch {return true;}
   });
+  // Netracell/Deep Archimedea completion has no inventory-data signal at all
+  // (checked exhaustively: no PeriodicMissionCompletions tag, no
+  // ChallengeProgress entry) - the only detection is log_scanner.rs live-
+  // parsing EE.log for the run's completion line and emitting this event, so
+  // unlike every other auto-tracked task here, this one is persisted
+  // locally rather than read from inventoryData each render.
+  const [lastConquestCompletion, setLastConquestCompletion] = useState(() => {
+    try {return parseInt(localStorage.getItem('checklist_last_conquest_completion') || '0', 10);} catch {return 0;}
+  });
+  useEffect(() => {
+    const unlisten = listen('conquest-completed', () => {
+      const now = Date.now();
+      setLastConquestCompletion(now);
+      try {localStorage.setItem('checklist_last_conquest_completion', String(now));} catch {}
+    });
+    return () => {unlisten.then((f) => f());};
+  }, []);
   // Reset boundary in effect at the moment each task was marked complete - lets us
   // auto-uncheck a task once its daily/weekly reset has passed instead of leaving
   // it checked forever.
@@ -543,7 +561,6 @@ export default function Checklist() {
       if (tag === "GetClem" && isAfter(ts, lastMonday)) auto.clem = true;
       else if (tag?.startsWith("TreasureHunt") && isAfter(ts, lastMonday)) auto.ayatan = true;
       else if (tag?.startsWith("HardDaily") && isAfter(ts, todayStart)) auto.steel_path = true;
-      else if (tag?.startsWith("EliteAlert") && isAfter(ts, todayStart)) auto.arbitration = true;
     }
 
     // 2. Sortie Auto-Tracking
@@ -565,6 +582,26 @@ export default function Checklist() {
     const dailyFocusRemaining = inventoryData?.DailyFocus;
     if (dailyFocusRemaining != null && dailyFocusRemaining <= 0) {
       auto.focus = true;
+    }
+
+    // 5. Syndicate Standing Auto-Tracking
+    // inventoryData.DailyAffiliation is the REMAINING main-syndicate standing
+    // earnable today (counts down to 0, same shape as DailyFocus above) -
+    // confirmed live 2026-09-03 by cross-checking against the in-game
+    // standing page showing 0 remaining for Red Veil while this field also
+    // read 0. Hub-specific pools (Cetus/Solaris/Ventkids/Zariman/etc.) each
+    // have their own separate DailyAffiliation<Hub> field and are not what
+    // this task tracks.
+    const dailyAffiliationRemaining = inventoryData?.DailyAffiliation;
+    if (dailyAffiliationRemaining != null && dailyAffiliationRemaining <= 0) {
+      auto.syndicates = true;
+    }
+
+    // 6. Netracell / Deep Archimedea ("Pulses") Auto-Tracking
+    // See lastConquestCompletion's declaration above - this is a live
+    // EE.log-detected event timestamp, not an inventory field.
+    if (lastConquestCompletion && isAfter(lastConquestCompletion, lastMonday)) {
+      auto.pulses = true;
     }
 
     const newlyCompleted = [];
@@ -591,7 +628,7 @@ export default function Checklist() {
         return next;
       });
     }
-  }, [periodicCompletions, inventoryData, worldState, autoTrack]);
+  }, [periodicCompletions, inventoryData, worldState, autoTrack, lastConquestCompletion]);
   const hasInventory = !!inventoryData;
   const [now, setNow] = useState(Date.now());
   const masteryRank = hasInventory ? inventoryData?.account?.mastery_rank ?? 16 : 16;

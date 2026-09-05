@@ -151,6 +151,20 @@ export function MonitoringProvider({ children }) {
   const exportDataRef = useRef(null)
   const [inventoryData, setInventoryData] = useState(undefined)
   const [isInventoryLoading, setIsInventoryLoading] = useState(false)
+
+  // Load inventory history from disk (lazy - only when the History screen accesses it)
+  const loadInventoryHistory = useCallback(async (opts = {}) => {
+    try {
+      const range = opts.range || 'all'
+      const filter = opts.filter || 'all'
+      const search = opts.search || ''
+      const result = await invoke('load_inventory_history', { range, filter, search })
+      return result || []
+    } catch (e) {
+      console.error('Failed to load inventory history:', e)
+      return []
+    }
+  }, [])
   const allPricesRef = useRef({})
   const [allPrices, setAllPrices] = useState(() => {
     try {
@@ -438,6 +452,12 @@ export function MonitoringProvider({ children }) {
       for (const r of results) {
         notifiedRef.current.notifMgr.add(`${r.notifId}::${r.title}::${r.message}`)
       }
+      // Was never set, so every subsequent run of this effect re-took this
+      // same "first run" branch forever - the actual firing logic below was
+      // unreachable and no notification-manager rule (fissure, arbitration,
+      // void trace, syndicate, foundry, mastery, checklist, sale, bounty)
+      // could ever fire.
+      notifInitRef.current = true
       return
     }
     const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle, t })
@@ -750,6 +770,23 @@ export function MonitoringProvider({ children }) {
 
   const fetchWorldstate = useCallback(async () => {
     const locale = localeRef.current
+    // Piggybacks on this existing 60s poll rather than a new timer -
+    // refresh_vault_trader() is a cheap local-file check (only downloads
+    // anything when Varzia's rotation has actually expired, roughly every
+    // two weeks). Without this, a session left running continuously
+    // through a rotation changeover would never notice: check_exports'
+    // own expiry check only ever runs once, at app startup.
+    invoke('refresh_vault_trader').then(async (updated) => {
+      if (!updated) return
+      try {
+        const bytes = await invoke('read_file_bytes', { relative: 'data/export/VaultTrader.json' })
+        const vaultTrader = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
+        setExportData((prev) => prev ? { ...prev, VaultTrader: vaultTrader } : prev)
+        if (exportDataRef.current) exportDataRef.current = { ...exportDataRef.current, VaultTrader: vaultTrader }
+      } catch (err) {
+        console.error('Failed to reload refreshed VaultTrader.json:', err)
+      }
+    }).catch(() => {})
     try {
       const wsStr = await invoke('fetch_url', { url: OFFICIAL_API }).catch(() => null)
       const ws = wsStr ? JSON.parse(wsStr) : null
@@ -1096,14 +1133,14 @@ const hasCachedData = useCallback(async () => {
           if (!bestMatch && candidates !== globalRewardPool) {
             bestMatch = fuzzyMatchReward(res.text, globalRewardPool || [], 0.65);
           }
-          if (!bestMatch && res.text && res.text.trim().length >= 4) {
-            const cleanText = res.text.trim();
-            bestMatch = {
-              uniqueName: `/Lotus/Types/Recipes/${cleanText.replace(/\s+/g, '')}`,
-              name: cleanText,
-              ducats: cleanText.toUpperCase().includes('BLUEPRINT') ? 15 : 45
-            };
-          }
+          // No further fallback below the fuzzy-match threshold: fabricating
+          // a synthetic item here (invented uniqueName, guessed ducat value)
+          // violates the project's zero-fallback-text rule and produces a
+          // plausible-looking but fake reward card with no real icon or
+          // ownership data behind it. Falling through to `return null` below
+          // means this slot's OCR result is simply not emitted - the caller
+          // already filters out null results - rather than showing invented
+          // data as if it were real.
         }
 
         if (bestMatch) {
@@ -1392,6 +1429,7 @@ const hasCachedData = useCallback(async () => {
       masteryProgress, allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices,
       startMonitoring, stopMonitoring, manualRefresh, callApiHelper,
       cardImagesPath, fixProgress, retryCardImages, notificationHistory,
+      loadInventoryHistory,
     }}>
       {children}
     </MonitoringContext.Provider>

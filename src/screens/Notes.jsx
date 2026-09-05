@@ -20,6 +20,7 @@ import { useUi } from '../contexts/UiContext'
 import { FileText, Plus, X, FolderOpen } from 'lucide-react';
 import { PageLayout, Card, Button } from '../components/UI';
 import { invoke } from '@tauri-apps/api/core';
+import { listen } from '@tauri-apps/api/event';
 import { open, save } from '@tauri-apps/plugin-dialog';
 import { MDXEditor } from '@mdxeditor/editor';
 import {
@@ -124,6 +125,20 @@ export default function Notes() {
         saveIfDirty(activeFileRef.current, latestContentRef.current).catch(() => {});
       }
     };
+  }, [saveIfDirty]);
+
+  // The main window's close handler holds the process open briefly and
+  // waits for this event's handler to run before actually exiting (see
+  // main.rs) - without it, unsaved edits within the 15s autosave window are
+  // lost on quit with no warning, since process::exit(0) doesn't give React
+  // a chance to flush anything.
+  useEffect(() => {
+    const unlisten = listen('app-closing', () => {
+      if (activeFileRef.current) {
+        saveIfDirty(activeFileRef.current, latestContentRef.current).catch(() => {});
+      }
+    });
+    return () => {unlisten.then((f) => f());};
   }, [saveIfDirty]);
 
   const selectFile = useCallback(async (filename) => {

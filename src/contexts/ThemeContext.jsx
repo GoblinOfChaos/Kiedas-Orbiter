@@ -162,25 +162,33 @@ export function ThemeProvider({ children }) {
 
   // Set up listeners
   useEffect(() => {
+    // If the component unmounts before a listen() promise resolves, pushing
+    // its unlisten fn into this array after the fact does nothing - cleanup
+    // already ran over whatever was in the array at that moment. `cancelled`
+    // lets a late-resolving registration unlisten itself immediately instead
+    // of leaking a handler that outlives the component (and duplicates on
+    // remount).
+    let cancelled = false
     const unlistens = []
 
     listen('theme-changed', (event) => {
       if (event.payload !== themeRef.current) {
         setTheme(event.payload, true)
       }
-    }).then(un => unlistens.push(un))
+    }).then(un => { if (cancelled) un(); else unlistens.push(un) })
 
     const isMain = getCurrentWindow().label === 'main'
-    
+
     if (isMain) {
       listen('request-theme', () => {
         emit('theme-changed', themeRef.current)
-      }).then(un => unlistens.push(un))
+      }).then(un => { if (cancelled) un(); else unlistens.push(un) })
     } else {
       emit('request-theme', {})
     }
 
     return () => {
+      cancelled = true
       unlistens.forEach(un => un())
     }
   }, [])

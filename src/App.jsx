@@ -6,7 +6,7 @@ import { MonitoringProvider } from './contexts/MonitoringContext';
 import { UpdateProvider, useUpdate } from './contexts/UpdateContext';
 import { Tooltip } from './components/UI';
 import { UiProvider, useUi } from './contexts/UiContext';
-import { AlertTriangle, FolderOpen } from 'lucide-react';
+import { AlertTriangle, FolderOpen, BarChart3 } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
 import { listen, emit } from '@tauri-apps/api/event';
 import { open as openDialog } from '@tauri-apps/plugin-dialog';
@@ -27,6 +27,7 @@ const NAV_ITEMS = [
 { id: 'cosmetics', icon: 'Appearance.png', label: 'Cosmetics, Decorations, Emotes' },
 { id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },
 { id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },
+{ id: 'history', lucide: BarChart3, label: 'History' },
 { id: 'maps', icon: 'IconMap.png', label: 'Maps' },
 { id: 'wiki', icon: 'Wiki.png', label: 'Wiki' },
 { id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
@@ -35,7 +36,7 @@ const NAV_ITEMS = [
 { id: 'about', icon: 'IconInfo.png', label: 'About' }];
 
 
-const ICON_NAMES = [...NAV_ITEMS.map((i) => i.icon), 'IconKieda.png'];
+const ICON_NAMES = [...NAV_ITEMS.filter((i) => i.icon).map((i) => i.icon), 'IconKieda.png'];
 
 function useUIIcons(iconNames) {
   const [iconCache, setIconCache] = useState({});
@@ -70,6 +71,7 @@ const Dashboard = lazy(() => import('./screens/Dashboard'));
 const Inventory = lazy(() => import('./screens/Inventory'));
 const Foundry = lazy(() => import('./screens/Foundry'));
 const Mastery = lazy(() => import('./screens/Mastery'));
+const History = lazy(() => import('./screens/History'));
 const Notes = lazy(() => import('./screens/Notes'));
 const Maps = lazy(() => import('./screens/Maps'));
 const Checklist = lazy(() => import('./screens/Checklist'));
@@ -320,6 +322,7 @@ function AppContent() {
     'relic-planner': <RelicPlanner />,
     mods: <Mods />,
     mastery: <Mastery />,
+    history: <History />,
     notes: <Notes />,
     maps: <Maps />,
     collectibles: <Collectibles />,
@@ -365,6 +368,9 @@ function AppContent() {
                       'text-kronos-dim hover:bg-white/5 hover:text-white'}
                       `}>
                       
+                      {item.lucide ?
+                      <item.lucide className="w-7 h-7 flex-shrink-0 transition-colors duration-200" style={{ opacity: isActive ? 1 : 0.6 }} /> :
+
                       <div
                         className="w-7 h-7 flex-shrink-0 transition-colors duration-200"
                         style={{
@@ -379,6 +385,7 @@ function AppContent() {
                           WebkitMaskPosition: 'center',
                           opacity: isActive ? 1 : 0.6
                         }} />
+                      }
                       
                     </button>
                   </Tooltip>

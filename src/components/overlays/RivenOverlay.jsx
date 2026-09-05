@@ -13,6 +13,7 @@ import {
   garbageReForLocale } from
 '../../lib/rivenOcrI18n';
 import { getRivenStatGrade, loadRivenGoodRolls } from '../../lib/rivenGrader';
+import { getRivenBaseData, computeRivenPerfectness } from '../../lib/rivenPerfectness';
 
 
 export default function RivenOverlay() {
@@ -30,6 +31,16 @@ export default function RivenOverlay() {
   // already in flight, with whichever's estimate_riven_full round-trip
   // finished last winning regardless of which was actually more recent.
   const captureGenRef = useRef(0);
+  // Safety-net auto-hide: if OCR reads no usable text (parseRivenOcr returns
+  // null - card mid-animation, wrong resolution, etc.), the overlay renders
+  // the same "waiting for card" state as before any scan ever ran, with no
+  // way to tell the two apart and no retry. If the game then never emits the
+  // EE.log line this app watches for to close the overlay (happens - the
+  // legacy Python overlay hit the identical problem for the relic-recommend
+  // popup and fixed it the same way), the window sits stuck over the game
+  // indefinitely. This timer force-hides it if nothing resolves the capture.
+  const stuckHideTimerRef = useRef(null);
+  const STUCK_HIDE_MS = 8000;
   const knownWeaponsRef = useRef([]);
   const knownWeaponsLowerRef = useRef([]);
   const localizedWeaponsRef = useRef([]);
@@ -191,6 +202,22 @@ export default function RivenOverlay() {
     ];
     setStatGrade(getRivenStatGrade({ stats: gradeStats, perfectness: 0 }, weaponName));
 
+    // Upgrade the grade with a real perfectness score once the weapon's
+    // Riven disposition/base-stat data resolves (async Tauri round-trip) -
+    // this can only ever raise A -> S (see GOD_ROLL_THRESHOLD in
+    // rivenGrader.js), never change the underlying stat-combo grade itself.
+    getRivenBaseData(weaponName).then((baseData) => {
+      if (!aliveRef.current || captureGenRef.current !== gen || !baseData) return;
+      const perfStats = p.stats.map((s) => ({
+        statKey: cleanStatName(s.name, statAliases),
+        positive: !isNegativeValue(s.value),
+        rawValue: s.value
+      }));
+      const perfectness = computeRivenPerfectness(baseData, perfStats);
+      if (perfectness == null) return;
+      setStatGrade(getRivenStatGrade({ stats: gradeStats, perfectness }, weaponName));
+    }).catch(() => {});
+
     invoke('estimate_riven_full', {
       input: {
         weapon_name: weaponName,
@@ -208,10 +235,18 @@ export default function RivenOverlay() {
     }).catch(console.error);
   }, [statAliases]);
 
+  const clearStuckHideTimer = useCallback(() => {
+    if (stuckHideTimerRef.current) {
+      clearTimeout(stuckHideTimerRef.current);
+      stuckHideTimerRef.current = null;
+    }
+  }, []);
+
   const doOcr = useCallback((pos) => {
     if (!aliveRef.current) return;
     captureGenRef.current++;
     const gen = captureGenRef.current;
+    clearStuckHideTimer();
     setOcrLoading(true);
     setParsed(null);
     setEstimatedPrice(null);
@@ -221,11 +256,18 @@ export default function RivenOverlay() {
         const p = parseRivenOcr(res.text, garbageRe);
         setParsed(p);
         doPricing(p);
+        if (!p) {
+          // Nothing readable on this capture - arm the safety net instead of
+          // leaving "waiting for card" up forever with no retry in flight.
+          stuckHideTimerRef.current = setTimeout(() => {
+            if (aliveRef.current && captureGenRef.current === gen) hide();
+          }, STUCK_HIDE_MS);
+        }
       }
     }).
     catch(() => {if (aliveRef.current && captureGenRef.current === gen) setParsed({ name: '', mr: '', stats: [], raw: '[OCR failed]' });}).
     finally(() => {if (aliveRef.current && captureGenRef.current === gen) setOcrLoading(false);});
-  }, [doPricing, garbageRe]);
+  }, [doPricing, garbageRe, clearStuckHideTimer]);
 
   const show = useCallback(() => {
     if (showingRef.current) return;
@@ -239,17 +281,27 @@ export default function RivenOverlay() {
     // forever with no OCR call in flight to ever clear it.
     setOcrLoading(false);
     invoke('show_overlay_window', { label }).catch(() => {}).
-    finally(() => {showingRef.current = false;});
+    finally(() => {
+      showingRef.current = false;
+      // show_overlay_window does real X11 work (~50ms+) and can resolve
+      // after a hide() called shortly after this show() already ran and
+      // returned - hide()'s own invoke is comparatively instant, so without
+      // this check the late-resolving show can win the race at the OS level
+      // and leave the window stuck visible even though app state (aliveRef)
+      // has already moved on to "hidden". Reproduced live 2026-09-03.
+      if (!aliveRef.current) invoke('hide_overlay_window', { label }).catch(() => {});
+    });
   }, [label]);
 
   const hide = useCallback(() => {
     aliveRef.current = false;
     showingRef.current = false;
+    clearStuckHideTimer();
     setVisible(false);
     setParsed(null);
     setEstimatedPrice(null);
     invoke('hide_overlay_window', { label }).catch(() => {});
-  }, [label]);
+  }, [label, clearStuckHideTimer]);
 
   useEffect(() => {
     const unsubs = [
@@ -260,11 +312,18 @@ export default function RivenOverlay() {
         // calls already in flight from the reroll-debounce timers below -
         // bump the generation so this capture wins over anything older.
         captureGenRef.current++;
+        const gen = captureGenRef.current;
+        clearStuckHideTimer();
         setVisible(true);
         setOcrLoading(false);
         const p = parseRivenOcr(payload, garbageRe);
         setParsed(p);
         doPricing(p);
+        if (!p) {
+          stuckHideTimerRef.current = setTimeout(() => {
+            if (aliveRef.current && captureGenRef.current === gen) hide();
+          }, STUCK_HIDE_MS);
+        }
       }
     })];
 
@@ -289,6 +348,7 @@ export default function RivenOverlay() {
       );
       return () => {
         if (timer) clearTimeout(timer);
+        clearStuckHideTimer();
         unsubs.forEach((p) => p.then((f) => f()));
       };
     } else {
@@ -320,10 +380,11 @@ export default function RivenOverlay() {
       );
       return () => {
         if (refreshTimer) clearTimeout(refreshTimer);
+        clearStuckHideTimer();
         unsubs.forEach((p) => p.then((f) => f()));
       };
     }
-  }, [isNew, show, hide, doOcr, doPricing, label, garbageRe]);
+  }, [isNew, show, hide, doOcr, doPricing, label, garbageRe, clearStuckHideTimer]);
 
   if (!visible) return null;
 
@@ -406,7 +467,7 @@ export default function RivenOverlay() {
                   <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">{t('ui.riven_card.your_value')}</span>
                   <span className="text-[14px] font-black text-yellow-400">{rivenInfo ? `${Math.round(estimatedPrice)}p` : '--'}</span>
                 </div>
-                <div className="bg-white/[0.04] px-2 py-2 text-center">
+                <div className="bg-white/[0.04] px-2 py-2 text-center" title={t('ui.riven_card.reroll_potential_hint')}>
                   <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest block">{t('ui.riven_card.reroll_potential')}</span>
                   <span className="text-[14px] font-black text-zinc-500">{rivenInfo ? `${Math.round((1 - (rivenInfo.probability_stagnant ?? 0.5)) * 100)}%` : '--'}</span>
                 </div>
@@ -415,11 +476,11 @@ export default function RivenOverlay() {
                 (() => {
                   const wr = rivenInfo.weapon_rank ?? 999;
                   const total = rivenInfo.total_weapons ?? 1;
-                  const tier = t(wr <= total * 0.2 ? 'riven_overlay.tier_meta' : wr <= total * 0.5 ? 'riven_overlay.tier_popular' : wr <= total * 0.7 ? 'riven_overlay.tier_average' : wr <= total * 0.9 ? 'riven_overlay.tier_niche' : 'riven_overlay.tier_unpopular');
-                  const roll = t(statGrade?.grade === 'S' ? 'riven_overlay.roll_perfect' : statGrade?.grade === 'A' ? 'riven_overlay.roll_good' : statGrade?.grade === 'B' ? 'riven_overlay.roll_average' : statGrade?.grade === 'C' ? 'riven_overlay.roll_mediocre' : 'riven_overlay.roll_bad');
+                  const tier = t(wr <= total * 0.2 ? 'ui.riven_overlay.tier_meta' : wr <= total * 0.5 ? 'ui.riven_overlay.tier_popular' : wr <= total * 0.7 ? 'ui.riven_overlay.tier_average' : wr <= total * 0.9 ? 'ui.riven_overlay.tier_niche' : 'ui.riven_overlay.tier_unpopular');
+                  const roll = t(statGrade?.grade === 'S' ? 'ui.riven_overlay.roll_perfect' : statGrade?.grade === 'A' ? 'ui.riven_overlay.roll_good' : statGrade?.grade === 'B' ? 'ui.riven_overlay.roll_average' : statGrade?.grade === 'C' ? 'ui.riven_overlay.roll_mediocre' : 'ui.riven_overlay.roll_bad');
                   return (
                     <span className="text-[11px] font-bold text-zinc-200 uppercase tracking-wider">
-                          {tier} {t('riven_card.tier_weapon')} &middot; {roll}{t('riven_card.rolls')}
+                          {tier} {t('ui.riven_card.tier_weapon')} &middot; {roll}{t('ui.riven_card.rolls')}
                     </span>);
 
                 })() :

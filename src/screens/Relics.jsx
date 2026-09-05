@@ -202,7 +202,12 @@ export default function Relics() {
     const allGrouped = Object.values(grouped).flat();
     const item = allGrouped.find((r) => r.unique_name === openKey);
     if (!item) return null;
-    const info = getAcquisitionInfo(item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex);
+    // item.unique_name is a synthetic display key ("Meso N17") for owned
+    // relics (see inventoryParser.js's relicGroups comment) - acquisition
+    // lookups (vaulted status, drop sources) need the genuine DE path,
+    // carried separately as real_unique_name. Falls back to unique_name for
+    // catalog-only (unowned) relics, which never have a real_unique_name.
+    const info = getAcquisitionInfo(item.real_unique_name || item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex);
     // Vaulted relics genuinely have no active drop source - say so
     // explicitly instead of the generic "no specific source known"
     // fallback, which reads like a data gap rather than an accurate
@@ -248,11 +253,18 @@ export default function Relics() {
 
         {/* Ownership Filter */}
         <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
-          <button
-            onClick={() => setOwnershipFilter((v) => v === 'all' ? 'owned' : v === 'owned' ? 'unowned' : 'all')}
-            className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
-            {ownershipFilter === 'unowned' ? t('relics.ownership_unowned') : ownershipFilter === 'owned' ? t('relics.ownership_owned') : t('relics.ownership_all')}
-          </button>
+          {[
+            { id: 'all', label: t('relics.ownership_all') },
+            { id: 'owned', label: t('relics.ownership_owned') },
+            { id: 'unowned', label: t('relics.ownership_unowned') },
+          ].map((opt) => (
+            <button
+              key={opt.id}
+              onClick={() => setOwnershipFilter(opt.id)}
+              className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${ownershipFilter === opt.id ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+              {opt.label}
+            </button>
+          ))}
         </div>
 
         {/* Squad Size */}

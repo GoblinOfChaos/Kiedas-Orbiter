@@ -34,7 +34,7 @@ fn get_or_create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<W
 
 /// Find an existing overlay window without creating one.
 /// Checks cache first (bypasses Tauri registry corruption), then get_webview_window.
-fn find_overlay_window(app_handle: &AppHandle, label: &str) -> Option<WebviewWindow> {
+pub(crate) fn find_overlay_window(app_handle: &AppHandle, label: &str) -> Option<WebviewWindow> {
     // Cache bypasses Tauri's corrupted get_webview_window.
     {
         let cache = CACHED_OVERLAY_WINDOWS.lock().unwrap();
@@ -1116,7 +1116,7 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
             // evidence to diagnose from. Transitions (the two branches below)
             // get their own cheap marker regardless of this cadence.
             poll_count = poll_count.wrapping_add(1);
-            let focused_now = is_warframe_focused_diag(&ah, poll_count % 60 == 0);
+            let focused_now = is_warframe_focused_diag(&ah, poll_count.is_multiple_of(60));
 
             if focused_now && !was_focused {
                 crate::logger::log_to_disk(&ah, "[FOCUS_WATCHER] transition: unfocused -> focused, re-showing overlays");

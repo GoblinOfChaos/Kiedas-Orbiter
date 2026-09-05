@@ -68,7 +68,18 @@ fn read_process_memory(pid: u32, va: u64, buf: &mut [u8]) -> Result<(), &'static
     use std::os::unix::fs::FileExt;
     let path = format!("/proc/{pid}/mem");
     let f = fs::File::open(&path).map_err(|_| "open_mem_failed")?;
-    f.read_at(buf, va).map_err(|_| "read_failed")?;
+    // read_at (pread64) is documented as allowed to short-read without
+    // erroring - a page spanning the read that becomes unreadable partway
+    // through returns Ok(n) with n < buf.len(). The Windows sibling below
+    // and memory_scan.rs's own Linux scanner both check the returned count;
+    // this was the only one of the three that discarded it, silently
+    // treating a short read as a full success and leaving stale bytes from
+    // a prior cycle in the untouched tail of the buffer (Vec::resize is a
+    // no-op, not a re-zero, when the length doesn't change).
+    let n = f.read_at(buf, va).map_err(|_| "read_failed")?;
+    if n != buf.len() {
+        return Err("short_read");
+    }
     Ok(())
 }
 

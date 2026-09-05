@@ -6,6 +6,24 @@ use std::sync::OnceLock;
 static ENGINE: OnceLock<Option<RecModel>> = OnceLock::new();
 static PIPELINE: OnceLock<Option<OcrEngine>> = OnceLock::new();
 
+// crate::logger::log_to_disk's AppHandle parameter is unused internally, but
+// these functions have no AppHandle available to pass one anyway. Writing to
+// the same app-<date>.log file directly (rather than falling back to a plain
+// eprintln that's easily lost in a GUI-launched AppImage) is what makes a
+// broken OCR install distinguishable from a genuinely blank card - both
+// previously returned the identical empty result with zero trace anywhere.
+fn log_engine(message: &str) {
+    let dir = crate::get_data_root().join("data/user/logs");
+    let _ = std::fs::create_dir_all(&dir);
+    let date = chrono::Local::now().format("%Y-%m-%d").to_string();
+    let line = format!("[{}] {}", chrono::Local::now().format("%H:%M:%S%.3f"), message);
+    eprintln!("{line}");
+    if let Ok(mut f) = std::fs::OpenOptions::new().create(true).append(true).open(dir.join(format!("app-{date}.log"))) {
+        use std::io::Write;
+        let _ = writeln!(f, "{line}");
+    }
+}
+
 fn get_engine() -> Option<&'static RecModel> {
     ENGINE.get_or_init(|| {
         let models_dir = models_dir();
@@ -47,7 +65,10 @@ fn get_pipeline() -> Option<&'static OcrEngine> {
 pub fn recognize(gray_image: &image::GrayImage) -> String {
     let engine = match get_engine() {
         Some(e) => e,
-        None => return String::new(),
+        None => {
+            log_engine("[OCR-ENGINE] recognize() called but no engine loaded (missing model files or load failure) - returning empty text, indistinguishable downstream from a genuinely blank capture");
+            return String::new();
+        }
     };
     let (w, h) = gray_image.dimensions();
     if h == 0 { return String::new(); }
@@ -64,6 +85,7 @@ pub fn recognize(gray_image: &image::GrayImage) -> String {
     let dyn_img = DynamicImage::ImageLuma8(upscaled);
     let raw = engine
         .recognize(&dyn_img)
+        .inspect_err(|e| log_engine(&format!("[OCR-ENGINE] recognize() failed: {e} - returning empty text")))
         .map(|r| r.text)
         .unwrap_or_default();
     raw.chars()
@@ -74,11 +96,17 @@ pub fn recognize(gray_image: &image::GrayImage) -> String {
 pub fn recognize_riven(text_region: &DynamicImage) -> Vec<String> {
     let pipeline = match get_pipeline() {
         Some(p) => p,
-        None => return Vec::new(),
+        None => {
+            log_engine("[OCR-ENGINE] recognize_riven() called but no pipeline loaded (missing model files or load failure) - returning empty results, indistinguishable downstream from a genuinely blank card");
+            return Vec::new();
+        }
     };
     let results = match pipeline.recognize(text_region) {
         Ok(r) => r,
-        Err(_) => return Vec::new(),
+        Err(e) => {
+            log_engine(&format!("[OCR-ENGINE] recognize_riven() failed: {e} - returning empty results"));
+            return Vec::new();
+        }
     };
     let mut sorted: Vec<_> = results
         .into_iter()

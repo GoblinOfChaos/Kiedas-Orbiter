@@ -842,6 +842,21 @@ export function fuzzyMatchReward(ocrText, candidates, threshold = 0.65) {
       totalWeight += weight;
     }
 
+    // Penalize a candidate for OCR words it has no counterpart for. Without
+    // this, only itemWords were ever iterated above, so a general/parent
+    // name that's a strict word-subset of a more specific name (e.g.
+    // "Yareli Prime Blueprint" vs OCR "Yareli Prime Chassis Blueprint")
+    // scored an identical perfect match to the correct, longer candidate -
+    // the extra OCR word was never penalized either way, so ties were
+    // broken by candidate array order (DE drop-table manifest position)
+    // rather than by which name actually fits the OCR text better.
+    // Confirmed live: this produced a wrong "Yareli Prime Blueprint" result
+    // when the real reward was "Yareli Prime Chassis Blueprint". Each
+    // unaccounted OCR word counts as zero similarity at the same weight as
+    // any other non-root word.
+    const extraOcrWords = Math.max(0, ocrWords.length - itemWords.length);
+    totalWeight += extraOcrWords;
+
     const finalScore = totalSim / totalWeight;
 
     if (finalScore > bestScore && finalScore >= threshold) {

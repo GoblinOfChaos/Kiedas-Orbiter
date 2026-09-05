@@ -27,6 +27,7 @@ mod mem_reader;
 
 mod memory_scan;
 mod weapon_i18n;
+mod riven_math;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -160,6 +161,21 @@ fn resolve_path(relative: &str) -> PathBuf {
     get_data_root().join(relative)
 }
 
+/// Join a caller-supplied relative path onto `root`, rejecting absolute
+/// paths and `..` parent-directory components so a compromised webview (or
+/// a future frontend defect) can't read/write/delete files outside the
+/// intended folder. Every Tauri command that joins frontend-supplied path
+/// text onto a data-root directory must go through this rather than a bare
+/// `.join()`.
+fn safe_relative_join(root: &std::path::Path, relative: &str) -> Result<PathBuf, String> {
+    use std::path::Component;
+    let candidate = std::path::Path::new(relative);
+    if candidate.components().any(|c| matches!(c, Component::ParentDir | Component::RootDir | Component::Prefix(_))) {
+        return Err(format!("invalid path: {}", relative));
+    }
+    Ok(root.join(candidate))
+}
+
 /// Write JSON to `path` via a temp-file-then-rename so a process killed
 /// mid-write (e.g. the window closed while a background task is writing)
 /// can never leave a truncated/corrupt file behind - rename is atomic on
@@ -179,8 +195,37 @@ fn write_json_atomic(path: &std::path::Path, value: &Value) -> Result<(), String
     ));
     let content = serde_json::to_string_pretty(value).map_err(|e| e.to_string())?;
     std::fs::write(&tmp, content).map_err(|e| e.to_string())?;
+    // Every current caller of this helper writes settings.json, which can
+    // hold a Warframe.Market auth JWT (wfm_token) - restrict to owner-only
+    // before the rename so it's never briefly (or persistently, if the
+    // umask/rename doesn't otherwise narrow it) world-readable. Confirmed:
+    // the file was previously mode 0644, letting any other local user
+    // account read a credential capable of authenticated market operations.
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let _ = std::fs::set_permissions(&tmp, std::fs::Permissions::from_mode(0o600));
+    }
     std::fs::rename(&tmp, path).map_err(|e| e.to_string())?;
     Ok(())
+}
+
+/// Same write-to-temp-then-rename pattern as write_json_atomic, for callers
+/// that have already serialized their own bytes (a specific pretty-print
+/// style, non-Value data, etc.) rather than holding a `Value` to hand off.
+/// A process killed mid-write with a plain fs::write truncates the file in
+/// place, corrupting it permanently; rename is atomic so readers only ever
+/// see the old complete file or the new complete file, never a partial one.
+fn write_bytes_atomic(path: &std::path::Path, content: impl AsRef<[u8]>) -> std::io::Result<()> {
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent)?;
+    }
+    let tmp = path.with_file_name(format!(
+        "{}.tmp",
+        path.file_name().and_then(|n| n.to_str()).unwrap_or("data.json")
+    ));
+    std::fs::write(&tmp, content)?;
+    std::fs::rename(&tmp, path)
 }
 
 /// Build an absolute path from a path relative to the bundled app root.
@@ -301,6 +346,40 @@ const DROPDATA_FILES: &[(&str, &str)] = &[
     ("DropsAll.json", "https://drops.warframestat.us/data/all.json"),
     ("VaultTrader.json", "https://api.warframestat.us/pc/vaultTrader"),
 ];
+
+/// True if the cached VaultTrader.json's own `expiry` timestamp has already
+/// passed - i.e. Varzia's rotation has definitely changed since this file
+/// was last downloaded, regardless of the file's age. Missing/unreadable/
+/// unparsable data is treated as "not expired" (no forced refresh) so a
+/// transient read glitch can never spam the API; the existing 24h TTL still
+/// catches those cases on its own schedule.
+fn vault_trader_expired(path: &std::path::Path) -> bool {
+    let Ok(bytes) = std::fs::read(path) else { return false };
+    let Ok(cached) = serde_json::from_slice::<Value>(&bytes) else { return false };
+    let Some(expiry) = cached.get("expiry").and_then(|v| v.as_str()) else { return false };
+    let Ok(expiry_time) = chrono::DateTime::parse_from_rfc3339(expiry) else { return false };
+    chrono::Utc::now() >= expiry_time
+}
+
+/// Re-checks VaultTrader.json's own expiry (see `vault_trader_expired`) and
+/// redownloads it if Varzia's rotation has changed. Called both once at
+/// startup (inside check_exports) and periodically while the app is open
+/// (see the frontend's worldstate poll), since a session left running
+/// continuously through a rotation changeover would otherwise never notice
+/// - check_exports itself only ever runs once per launch.
+#[tauri::command]
+async fn refresh_vault_trader() -> Result<bool, String> {
+    let export_dir = resolve_path("data/export");
+    let path = export_dir.join("VaultTrader.json");
+    if !vault_trader_expired(&path) {
+        return Ok(false);
+    }
+    let client = reqwest::Client::new();
+    download_file(&client, "https://api.warframestat.us/pc/vaultTrader", &path)
+        .await
+        .map_err(|e| e.to_string())?;
+    Ok(true)
+}
 
 // WFCD's warframe-items data, fetched live from GitHub's master branch
 // rather than the bundled npm package. The npm package (last published
@@ -450,7 +529,22 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
     // Drop data files (warframe-drop-data) - refresh every 24 hours; non-fatal
     for (file_name, url) in DROPDATA_FILES {
         let path = export_dir.join(file_name);
-        let needs_update = force || !path.exists() || file_age_secs(&path) > 86_400;
+        let mut needs_update = force || !path.exists() || file_age_secs(&path) > 86_400;
+
+        // VaultTrader (Varzia's Prime Resurgence rotation) changes at an
+        // exact scheduled moment carried in its own `expiry` field, not on
+        // a rolling 24h clock like the other drop-data files. A blind 24h
+        // TTL can keep serving the old rotation for hours after the real
+        // changeover if the last refresh happened to land shortly before
+        // it (confirmed live: this showed stale rotation data the day
+        // Varzia's stock last rolled over). Force a refresh whenever the
+        // cached rotation has already expired, regardless of file age. See
+        // also `vault_trader_expired()` / `refresh_vault_trader` below,
+        // which re-runs this same check periodically while the app is
+        // open (this block here only ever runs once, at startup).
+        if !needs_update && *file_name == "VaultTrader.json" && vault_trader_expired(&path) {
+            needs_update = true;
+        }
 
         if needs_update {
             match download_file(&client, url, &path).await {
@@ -609,7 +703,7 @@ fn merge_nemesis_history(value: &mut Value) {
             return;
         }
     }
-    if let Err(error) = fs::write(&archive_path, serde_json::to_vec_pretty(&Value::Array(merged)).unwrap_or_default()) {
+    if let Err(error) = write_bytes_atomic(&archive_path, serde_json::to_vec_pretty(&Value::Array(merged)).unwrap_or_default()) {
         eprintln!("[nemesis history] failed to write archive: {error}");
     }
 }
@@ -647,6 +741,343 @@ async fn load_cached_inventory() -> Result<Option<(Value, u64)>, String> {
         .map_err(|e| format!("Failed to parse inventory.json: {e}"))?;
     merge_nemesis_history(&mut json);
     Ok(Some((json, timestamp)))
+}
+
+/// Diff the new inventory against the previous snapshot, save both the diff
+/// to a history log and the new snapshot to disk for the next comparison.
+/// Returns the diff so the frontend can show recent gains in real-time.
+#[tauri::command]
+async fn diff_and_save_inventory(new_raw: Value) -> Result<Option<Value>, String> {
+    let inv_dir = crate::resolve_path("data/user");
+    if !inv_dir.exists() {
+        fs::create_dir_all(&inv_dir).map_err(|e| e.to_string())?;
+    }
+
+    let snapshot_path = inv_dir.join("inventory_snapshot.json");
+    let history_path = inv_dir.join("inventory_history.json");
+
+    // Load previous snapshot (if any)
+    let prev_raw: Option<Value> = if snapshot_path.exists() {
+        let content = fs::read_to_string(&snapshot_path).map_err(|e| e.to_string())?;
+        serde_json::from_str(&content).ok()
+    } else {
+        None
+    };
+
+    // Save new snapshot to disk
+    let snapshot_str = serde_json::to_string(&new_raw).map_err(|e| e.to_string())?;
+    write_bytes_atomic(&snapshot_path, &snapshot_str).map_err(|e| e.to_string())?;
+
+    // Build the diff
+    let now_ms = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_millis() as u64;
+
+    // If no previous snapshot, write a baseline entry so history always has at least one row.
+    let diff = match prev_raw {
+        Some(prev) => {
+            let d = diff_inventory(&prev, &new_raw, now_ms);
+            if d.is_null() {
+                return Ok(None);
+            }
+            d
+        }
+        None => serde_json::json!({
+            "timestamp": now_ms,
+            "increases": {},
+            "decreases": {},
+            "scalars": {},
+        }),
+    };
+
+    // Attach absolute group totals from the current inventory snapshot.
+    // Old history entries won't have this; the frontend handles the gap gracefully.
+    let mut diff_with_totals = diff.as_object().cloned().unwrap_or_default();
+    diff_with_totals.insert("totals".to_string(), compute_group_totals(&new_raw));
+    let diff = Value::Object(diff_with_totals);
+
+    // Append diff to history log
+    let history_entry = serde_json::json!({
+        "timestamp": now_ms,
+        "diff": diff,
+    });
+
+    let mut history: Vec<Value> = if history_path.exists() {
+        let content = fs::read_to_string(&history_path).map_err(|e| e.to_string())?;
+        serde_json::from_str(&content).unwrap_or_default()
+    } else {
+        vec![]
+    };
+    history.push(history_entry);
+
+    // Cap at 10,000 entries (~7 months at 3min intervals, ~3.5MB). split_off(at)
+    // returns the tail (at..len) and leaves the original holding the head
+    // (0..at) - the most recent entries are the tail, so history must be
+    // reassigned to the split_off result, not have it discarded.
+    if history.len() > 10_000 {
+        history = history.split_off(history.len() - 10_000);
+    }
+
+    let history_str = serde_json::to_string(&history).map_err(|e| e.to_string())?;
+    let history_json: Value = serde_json::from_str(&history_str).unwrap_or(Value::Null);
+    let history_pretty = serde_json::to_string_pretty(&history_json).map_err(|e| e.to_string())?;
+    write_bytes_atomic(&history_path, &history_pretty).map_err(|e| e.to_string())?;
+
+    Ok(Some(diff))
+}
+
+/// Load the saved inventory history log, filtered by range, filter type, and search.
+/// range: "1d", "1m", "1y", "all"
+/// filter: "all", "credits", "plat", "endo", "mods", "resources", "items"
+/// search: case-insensitive substring match against item type names
+#[tauri::command]
+async fn load_inventory_history(range: Option<String>, filter: Option<String>, search: Option<String>) -> Result<Vec<Value>, String> {
+    let history_path = crate::resolve_path("data/user/inventory_history.json");
+    if !history_path.exists() {
+        return Ok(vec![]);
+    }
+    let content = fs::read_to_string(&history_path).map_err(|e| e.to_string())?;
+    let history: Vec<Value> = serde_json::from_str(&content).unwrap_or_default();
+
+    let filter = filter.as_deref().unwrap_or("all");
+    let search_lower = search.unwrap_or_default().to_lowercase();
+
+    let now_ms = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_millis() as u64;
+
+    let cutoff_ms = match range.as_deref().unwrap_or("1d") {
+        "1d" => now_ms.saturating_sub(86_400_000),
+        "1m" => now_ms.saturating_sub(30 * 86_400_000),
+        "1y" => now_ms.saturating_sub(365 * 86_400_000),
+        "all" => 0,
+        _ => now_ms.saturating_sub(86_400_000),
+    };
+
+    let mut result: Vec<Value> = history
+        .into_iter()
+        .filter(|entry| {
+            // Filter by time range
+            if let Some(ts) = entry.get("timestamp").and_then(|v| v.as_u64()) {
+                if ts < cutoff_ms {
+                    return false;
+                }
+            }
+
+            // If no filter or search, include everything in range
+            if filter == "all" && search_lower.is_empty() {
+                return true;
+            }
+
+            let diff = match entry.get("diff") {
+                Some(d) => d,
+                None => return true, // include entries without diff
+            };
+
+            // Apply filter
+            let mut matches_filter = true;
+            if filter != "all" {
+                matches_filter = match filter {
+                    "credits" | "plat" | "endo" | "scalars" => {
+                        diff.get("scalars").is_some()
+                    }
+                    "mods" => {
+                        diff.get("increases").and_then(|d| d.get("Upgrades")).is_some()
+                            || diff.get("decreases").and_then(|d| d.get("Upgrades")).is_some()
+                    }
+                    "items" => {
+                        let has_misc = diff.get("increases").and_then(|d| d.get("MiscItems")).is_some()
+                            || diff.get("decreases").and_then(|d| d.get("MiscItems")).is_some();
+                        let has_resources = diff.get("increases").and_then(|d| d.get("Resources")).is_some()
+                            || diff.get("decreases").and_then(|d| d.get("Resources")).is_some();
+                        let has_consumables = diff.get("increases").and_then(|d| d.get("Consumables")).is_some()
+                            || diff.get("decreases").and_then(|d| d.get("Consumables")).is_some();
+                        has_misc || has_resources || has_consumables
+                    }
+                    _ => true,
+                };
+            }
+
+            if !matches_filter {
+                return false;
+            }
+
+            // Apply search (only if there's a diff to search in)
+            if search_lower.is_empty() {
+                return true;
+            }
+
+            let search_in = serde_json::to_string(diff).unwrap_or_default().to_lowercase();
+            search_in.contains(&search_lower)
+        })
+        .collect();
+
+    result.reverse(); // most recent first
+    Ok(result)
+}
+
+/// Compute the diff between two raw inventory snapshots.
+/// Returns a JSON object with `increases`, `decreases`, and scalar deltas.
+fn diff_inventory(prev: &Value, cur: &Value, timestamp: u64) -> Value {
+    let mut increases: serde_json::Map<String, Value> = serde_json::Map::new();
+    let mut decreases: serde_json::Map<String, Value> = serde_json::Map::new();
+    let mut scalars: serde_json::Map<String, Value> = serde_json::Map::new();
+
+    // Compare scalar fields (credits, etc.) — always emit tracked scalars so the
+    // frontend can read absolute values even when nothing changed between scans.
+    const TRACKED_SCALARS: &[&str] = &["RegularCredits", "PremiumCredits", "FusionPoints"];
+    for field in TRACKED_SCALARS {
+        let prev_val = prev.get(field).and_then(|v| v.as_i64()).unwrap_or(0);
+        let cur_val = cur.get(field).and_then(|v| v.as_i64()).unwrap_or(0);
+        scalars.insert(field.to_string(), serde_json::json!({
+            "from": prev_val,
+            "to": cur_val,
+            "delta": cur_val - prev_val,
+        }));
+    }
+
+    // Ducats (PrimeBucks) live inside MiscItems, not as a top-level scalar.
+    fn misc_item_count(inv: &Value, item_type: &str) -> i64 {
+        inv.get("MiscItems")
+            .and_then(|v| v.as_array())
+            .and_then(|arr| arr.iter().find(|i| i.get("ItemType").and_then(|v| v.as_str()) == Some(item_type)))
+            .and_then(|i| i.get("ItemCount").and_then(|v| v.as_i64()))
+            .unwrap_or(0)
+    }
+    let prev_ducats = misc_item_count(prev, "/Lotus/Types/Items/MiscItems/PrimeBucks");
+    let cur_ducats = misc_item_count(cur, "/Lotus/Types/Items/MiscItems/PrimeBucks");
+    scalars.insert("PrimeBucks".to_string(), serde_json::json!({
+        "from": prev_ducats,
+        "to": cur_ducats,
+        "delta": cur_ducats - prev_ducats,
+    }));
+
+    // Also diff noise scalars but only record when changed (not charted)
+    for field in ["PlayerLevel", "DailyFocus", "RandomModBin"] {
+        let prev_val = prev.get(field).and_then(|v| v.as_i64()).unwrap_or(0);
+        let cur_val = cur.get(field).and_then(|v| v.as_i64()).unwrap_or(0);
+        if prev_val != cur_val {
+            scalars.insert(field.to_string(), serde_json::json!({
+                "from": prev_val,
+                "to": cur_val,
+                "delta": cur_val - prev_val,
+            }));
+        }
+    }
+
+    // Compare array fields (items, mods, resources, etc.)
+    // Each of these is an array of objects with ItemType/uniqueName and ItemCount/quantity
+    let array_fields: &[(&str, &str, &str)] = &[
+        ("MiscItems", "ItemType", "ItemCount"),
+        ("Resources", "ItemType", "ItemCount"),
+        ("Consumables", "ItemType", "ItemCount"),
+        ("Recipes", "ItemType", "ItemCount"),
+        ("Upgrades", "uniqueName", "ItemCount"),
+    ];
+
+    for (field, key_field, count_field) in array_fields {
+        let prev_items = prev.get(field).and_then(|v| v.as_array()).map(|a| a.as_slice()).unwrap_or(&[]);
+        let cur_items = cur.get(field).and_then(|v| v.as_array()).map(|a| a.as_slice()).unwrap_or(&[]);
+
+        // Build maps of uniqueName -> count
+        let mut prev_map: std::collections::HashMap<String, i64> = std::collections::HashMap::new();
+        for item in prev_items {
+            if let (Some(key), Some(count)) = (item.get(key_field).and_then(|v| v.as_str()), item.get(count_field).and_then(|v| v.as_i64())) {
+                prev_map.insert(key.to_string(), count);
+            }
+        }
+
+        let mut cur_map: std::collections::HashMap<String, i64> = std::collections::HashMap::new();
+        for item in cur_items {
+            if let (Some(key), Some(count)) = (item.get(key_field).and_then(|v| v.as_str()), item.get(count_field).and_then(|v| v.as_i64())) {
+                cur_map.insert(key.to_string(), count);
+            }
+        }
+
+        let all_keys: std::collections::HashSet<String> = prev_map.keys().chain(cur_map.keys()).cloned().collect();
+
+        for key in all_keys {
+            let prev_count = prev_map.get(&key).copied().unwrap_or(0);
+            let cur_count = cur_map.get(&key).copied().unwrap_or(0);
+            let delta = cur_count - prev_count;
+            if delta != 0 {
+                let entry = serde_json::json!({
+                    "from": prev_count,
+                    "to": cur_count,
+                    "delta": delta,
+                });
+                if delta > 0 {
+                    increases.insert(key, entry);
+                } else {
+                    decreases.insert(key, entry);
+                }
+            }
+        }
+    }
+
+    if increases.is_empty() && decreases.is_empty() && scalars.is_empty() {
+        return Value::Null;
+    }
+
+    serde_json::json!({
+        "timestamp": timestamp,
+        "increases": Value::Object(increases),
+        "decreases": Value::Object(decreases),
+        "scalars": Value::Object(scalars),
+    })
+}
+
+/// Categorize an item path into a group for history charting.
+/// Matches the frontend's METRICS category in History.jsx.
+fn item_path_group(item_path: &str) -> Option<&'static str> {
+    if item_path.contains("/Upgrades/Mods/") || item_path.contains("/Recipes/") {
+        Some("mods")
+    } else if item_path.contains("/Types/Resources/")
+        || item_path.contains("/Types/Items/Gems/")
+        || item_path.contains("/Types/Items/Research/")
+        || item_path.contains("/Types/Items/Deimos/")
+        || item_path.contains("/Types/Items/Tokens/")
+        || item_path.contains("/Types/Items/MiscItems/")
+        || item_path.contains("/Types/Restoratives/")
+        || item_path.contains("/Types/Items/SyndicateDogTags/")
+        || item_path.contains("/Types/Gameplay/Shadowgrapher/")
+        || item_path.contains("/Types/Gameplay/Zariman/")
+    {
+        Some("items")
+    } else {
+        None
+    }
+}
+
+fn compute_group_totals(inv: &Value) -> Value {
+    let mut totals: std::collections::HashMap<&str, i64> = std::collections::HashMap::new();
+    let array_fields: &[(&str, &str, &str)] = &[
+        ("MiscItems", "ItemType", "ItemCount"),
+        ("Resources", "ItemType", "ItemCount"),
+        ("Consumables", "ItemType", "ItemCount"),
+        ("Recipes", "ItemType", "ItemCount"),
+        ("Upgrades", "uniqueName", "ItemCount"),
+    ];
+    for (field, key_field, count_field) in array_fields {
+        if let Some(items) = inv.get(field).and_then(|v| v.as_array()) {
+            for item in items {
+                if let (Some(path), Some(count)) = (
+                    item.get(key_field).and_then(|v| v.as_str()),
+                    item.get(count_field).and_then(|v| v.as_i64()),
+                ) {
+                    if let Some(group) = item_path_group(path) {
+                        *totals.entry(group).or_insert(0) += count;
+                    }
+                }
+            }
+        }
+    }
+    serde_json::json!({
+        "mods": totals.get("mods").copied().unwrap_or(0),
+        "items": totals.get("items").copied().unwrap_or(0),
+    })
 }
 
 /// Scan Warframe process memory for the auth token, then fetch inventory from
@@ -696,7 +1127,14 @@ async fn call_api_helper(_app_handle: tauri::AppHandle) -> Result<Value, String>
     }
     let inv_path = inv_dir.join("inventory.json");
     let cached_body = serde_json::to_vec(&value).map_err(|e| e.to_string())?;
-    fs::write(&inv_path, cached_body).map_err(|e| e.to_string())?;
+    write_bytes_atomic(&inv_path, cached_body).map_err(|e| e.to_string())?;
+
+    // Diff against the previous snapshot and append to history log.
+    // Spawn on a blocking task so we don't hold the async runtime.
+    let value_for_diff = value.clone();
+    tokio::task::spawn(async move {
+        let _ = diff_and_save_inventory(value_for_diff).await;
+    });
 
     Ok(value)
 }
@@ -889,7 +1327,7 @@ Basic text formatting like **bold**, *italic*, <u>underscore</u>
 /// Returns an empty string if the file doesn't exist.
 #[tauri::command]
 async fn read_note(filename: String) -> Result<String, String> {
-    let path = resolve_path("data/user/notes").join(filename);
+    let path = safe_relative_join(&resolve_path("data/user/notes"), &filename)?;
     if path.exists() {
         fs::read_to_string(path).map_err(|e| e.to_string())
     } else {
@@ -904,13 +1342,14 @@ async fn save_note(filename: String, content: String) -> Result<(), String> {
     if !notes_dir.exists() {
         fs::create_dir_all(&notes_dir).map_err(|e| e.to_string())?;
     }
-    fs::write(notes_dir.join(filename), content).map_err(|e| e.to_string())
+    let path = safe_relative_join(&notes_dir, &filename)?;
+    fs::write(path, content).map_err(|e| e.to_string())
 }
 
 /// Delete a note file.  No-op if it doesn't exist.
 #[tauri::command]
 async fn delete_note(app_handle: tauri::AppHandle, filename: String) -> Result<(), String> {
-    let path = resolve_path("data/user/notes").join(&filename);
+    let path = safe_relative_join(&resolve_path("data/user/notes"), &filename)?;
     if path.exists() {
         fs::remove_file(path).map_err(|e| e.to_string())
     } else {
@@ -969,7 +1408,7 @@ async fn open_map_configs_folder() -> Result<(), String> {
 /// Read a map config JSON file from the map-configs directory.
 #[tauri::command]
 async fn read_map_config(filename: String) -> Result<String, String> {
-    let path = resolve_path("data/user/map-configs").join(&filename);
+    let path = safe_relative_join(&resolve_path("data/user/map-configs"), &filename)?;
     fs::read_to_string(&path).map_err(|e| e.to_string())
 }
 
@@ -978,7 +1417,8 @@ async fn read_map_config(filename: String) -> Result<String, String> {
 async fn write_map_config(filename: String, content: String) -> Result<(), String> {
     let dir = resolve_path("data/user/map-configs");
     fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
-    fs::write(dir.join(&filename), content).map_err(|e| e.to_string())
+    let path = safe_relative_join(&dir, &filename)?;
+    fs::write(path, content).map_err(|e| e.to_string())
 }
 
 /// List all `.json` files in the map-configs directory.
@@ -1162,6 +1602,14 @@ fn get_cdn_base_url() -> String {
     "https://browse.wf".to_string()
 }
 
+/// Return the absolute path to the writable data root, so the frontend can
+/// build an absolute path (e.g. for `write_file`) to a report or export file
+/// that lives under it without needing a save-dialog round trip.
+#[tauri::command]
+fn get_data_root_path() -> String {
+    get_data_root().to_string_lossy().to_string()
+}
+
 // --- Mod Images Extraction ---
 //
 // Mod images are extracted from the local Warframe game cache using the
@@ -1186,7 +1634,7 @@ fn read_file(path: String) -> Result<Vec<u8>, String> {
 /// bypass CORS restrictions on the asset protocol when processing images via canvas.
 #[tauri::command]
 fn read_file_bytes(app_handle: tauri::AppHandle, relative: String) -> Result<Vec<u8>, String> {
-    let path = resolve_path(&relative);
+    let path = safe_relative_join(&get_data_root(), &relative)?;
     if path.exists() {
         return fs::read(&path).map_err(|e| e.to_string());
     }
@@ -1205,7 +1653,7 @@ fn read_file_bytes(app_handle: tauri::AppHandle, relative: String) -> Result<Vec
 /// without the 200-300% bloat of Vec<u8> JSON serialization.
 #[tauri::command]
 fn resolve_asset_path(app_handle: tauri::AppHandle, relative: String) -> Result<String, String> {
-    let path = resolve_path(&relative);
+    let path = safe_relative_join(&get_data_root(), &relative)?;
     if path.exists() {
         return Ok(path.to_string_lossy().to_string());
     }
@@ -1868,7 +2316,13 @@ fn hide_overlay_window(
     label: String,
 ) -> Result<(), String> {
     overlay_utils::clear_shown_overlay(&label);
-    if let Some(w) = app_handle.get_webview_window(&label) {
+    // get_webview_window returns None for all windows after the Tauri 2
+    // registry-corruption bug (see overlay_utils::CACHED_OVERLAY_WINDOWS) -
+    // show_overlay_window's path already routes around this via the cache;
+    // this command silently no-opped once that corruption had occurred,
+    // leaving an overlay stuck visible with hide() reporting success anyway.
+    // Reproduced live 2026-09-03.
+    if let Some(w) = overlay_utils::find_overlay_window(&app_handle, &label) {
         let _ = w.hide();
     }
     Ok(())
@@ -2483,7 +2937,16 @@ fn get_setting_string(key: &str) -> Option<String> {
     if let Ok(s) = std::fs::read_to_string(&path) {
         if let Ok(v) = serde_json::from_str::<serde_json::Value>(&s) {
             if let Some(s) = v.get(key).and_then(|v| v.as_str()) {
-                return Some(s.to_string());
+                // An emptied field (user cleared a text input to reset it)
+                // must be treated the same as a missing key, not as "set to
+                // the empty string" - otherwise start_log_scanner's
+                // unwrap_or_else fallback to auto-detection never fires for
+                // a cleared ee_log_path, and the scanner loops forever
+                // trying to open "".
+                let trimmed = s.trim();
+                if !trimmed.is_empty() {
+                    return Some(trimmed.to_string());
+                }
             }
         }
     }
@@ -3082,6 +3545,14 @@ async fn get_localized_weapon_names(app: tauri::AppHandle, locale: String) -> Ve
     tauri::async_runtime::spawn_blocking(move || weapon_i18n::localized_weapon_names(&app, &locale))
         .await
         .unwrap_or_default()
+}
+
+#[tauri::command]
+async fn get_riven_base_data(app: tauri::AppHandle, weapon_name: String) -> Option<riven_math::RivenBaseData> {
+    tauri::async_runtime::spawn_blocking(move || riven_math::get_riven_base_data(&app, &weapon_name))
+        .await
+        .ok()
+        .flatten()
 }
 
 #[cfg(target_os = "linux")]
@@ -3797,9 +4268,23 @@ fn main() {
         .on_window_event(|window, event| {
             if let tauri::WindowEvent::CloseRequested { api, .. } = event {
                 if window.label() == "main" {
-                    crate::log_scanner::stop_scanner(window.app_handle());
-                    crate::log_scanner::log_app_stop(window.app_handle());
-                    std::process::exit(0);
+                    // Give the frontend a brief window to flush unsaved state
+                    // (e.g. a dirty note not yet hit by its 15s autosave) via
+                    // the "app-closing" event before the process actually
+                    // exits - a bare process::exit(0) here gives React zero
+                    // chance to run any save logic. The delay is a fixed
+                    // grace period rather than an ack-based handshake so a
+                    // stuck/crashed frontend can never block the app from
+                    // closing.
+                    api.prevent_close();
+                    let _ = window.emit("app-closing", ());
+                    let app_handle = window.app_handle().clone();
+                    tauri::async_runtime::spawn(async move {
+                        tokio::time::sleep(std::time::Duration::from_millis(1200)).await;
+                        crate::log_scanner::stop_scanner(&app_handle);
+                        crate::log_scanner::log_app_stop(&app_handle);
+                        std::process::exit(0);
+                    });
                 } else {
                     let _ = window.hide();
                     api.prevent_close();
@@ -3958,6 +4443,8 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             // --- data ---
             load_cached_inventory,
+            diff_and_save_inventory,
+            load_inventory_history,
             call_api_helper,
             check_exports,
             check_ocr_models,
@@ -3981,6 +4468,7 @@ fn main() {
             get_maps_path,
             get_assets_path,
             get_cdn_base_url,
+            get_data_root_path,
             get_mod_frames_path,
             get_icons_path,
             get_ui_path,
@@ -4045,6 +4533,8 @@ fn main() {
             estimate_riven_full_batch,
             get_known_weapon_names,
             get_localized_weapon_names,
+            get_riven_base_data,
+            refresh_vault_trader,
             get_available_monitors,
             set_target_monitor,
             get_warframe_window_rect,

@@ -147,6 +147,7 @@ function getSeriesTrackingBits(cs) {
 }
 
 function Subpanel({ cat, items, onClose }) {
+  const { t } = useUi()
   const panelRef = useRef(null)
   const handleOpenLink = async (url) => {
     try { await invoke('open_url', { url }) } catch { /* ignore */ }
@@ -185,12 +186,12 @@ function Subpanel({ cat, items, onClose }) {
                 <div className="flex gap-3">
                   {cat.guideSource && (
                     <button onClick={() => handleOpenLink(cat.guideSource)} className="mt-1.5 text-xs font-bold text-kronos-accent hover:underline cursor-pointer">
-                      Open full wiki guide ↗
+                      {t('ui.collectibles.wiki_guide_link')}
                     </button>
                   )}
                   {cat.videoGuide && (
                     <button onClick={() => handleOpenLink(cat.videoGuide)} className="mt-1.5 text-xs font-bold text-kronos-accent hover:underline cursor-pointer">
-                      Video guide ↗
+                      {t('ui.collectibles.video_guide_link')}
                     </button>
                   )}
                 </div>
@@ -219,6 +220,7 @@ function Subpanel({ cat, items, onClose }) {
 }
 
 function ProgressCard({ icon, label, subtitle, count, total, color, onClick }) {
+  const { t } = useUi()
   const pct = total > 0 ? Math.round((count / total) * 100) : 0
   return (
     <div
@@ -247,7 +249,7 @@ function ProgressCard({ icon, label, subtitle, count, total, color, onClick }) {
               </div>
             </>
           ) : count > 0 && (
-            <p className="text-xs font-bold mt-1" style={{ color }}>{count} found (total unverified)</p>
+            <p className="text-xs font-bold mt-1" style={{ color }}>{t('ui.collectibles.found_total_unverified', { count })}</p>
           )}
         </div>
       </div>
@@ -349,7 +351,7 @@ export default function Collectibles() {
       key: cat.key,
       icon: cat.icon && uiPath ? convertFileSrc(`${uiPath}/${cat.icon}`) : null,
       label: cat.label,
-      subtitle: cat.key.includes('Cave') ? 'caves explored' : 'areas discovered',
+      subtitle: cat.key.includes('Cave') ? t('ui.collectibles.subtitle_caves') : t('ui.collectibles.subtitle_areas'),
       color: cat.color,
       count: foundCount,
       total: definedTotal,
@@ -359,7 +361,7 @@ export default function Collectibles() {
     return {
       ...card,
       onClick: () => openSubpanel(card, () => {
-        if (!m || !m.discoveryState) return [{ key: 'placeholder', name: `Not yet loaded from inventory`, found: false }]
+        if (!m || !m.discoveryState) return [{ key: 'placeholder', name: t('ui.collectibles.not_loaded'), found: false }]
         const items = (markerMeta?.items || []).map((info, idx) => {
           let isFound = false
           if (definedTotal === 1) {
@@ -379,7 +381,7 @@ export default function Collectibles() {
         })
         return items.length
           ? items.sort((a, b) => (a.found === b.found ? a.name.localeCompare(b.name, undefined, { numeric: true }) : a.found ? 1 : -1))
-          : [{ key: 'placeholder', name: `None discovered`, found: false }]
+          : [{ key: 'placeholder', name: t('ui.collectibles.none_discovered'), found: false }]
       }),
     }
   }), [discoveredMarkers, collectibleLocations, uiPath, openSubpanel])
@@ -444,7 +446,7 @@ export default function Collectibles() {
       return {
         ...card,
         onClick: () => openSubpanel(card, () => {
-          if (!catalog.length) return [{ key: 'placeholder', name: `Catalog not loaded yet`, found: false }]
+          if (!catalog.length) return [{ key: 'placeholder', name: t('ui.collectibles.catalog_not_loaded'), found: false }]
           return catalog
             .map((it) => {
               const locData = collectibleLocations.fragmentItems?.[cat.label]?.[it.leaf]

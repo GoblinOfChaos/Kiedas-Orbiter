@@ -162,7 +162,7 @@ export default function RelicPlanner() {
         {/* Left: part picker */}
         <Card glow className="p-3 flex flex-col min-h-0 min-w-0 overflow-hidden" style={{ maxHeight: 640 }}>
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">Prime Parts</h2>
+            <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">{t('relic_picker.prime_parts')}</h2>
             <span className="text-[10px] font-black text-kronos-accent">{ownedParts} owned</span>
           </div>
           <div className="relative mb-2">
@@ -255,16 +255,20 @@ export default function RelicPlanner() {
               <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">{t('relic_planner.best_relics')}</h2>
               {need.length > 0 && <span className="px-1.5 py-0.5 rounded bg-kronos-accent/10 text-kronos-accent text-[9px] font-black">{results.length}</span>}
             </div>
-            <button
-              type="button"
-              onClick={() => setOwnershipFilter((value) => value === 'all' ? 'owned' : value === 'owned' ? 'unowned' : 'all')}
-              className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
-            >
-              {ownershipFilter === 'all' ? 'All' : ownershipFilter === 'owned' ? 'Owned' : 'Unowned'}
-            </button>
+            <div className="flex items-center gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
+              {[
+                { id: 'all', label: t('relics.ownership_all') },
+                { id: 'owned', label: t('relics.ownership_owned') },
+                { id: 'unowned', label: t('relics.ownership_unowned') },
+              ].map((opt) => (
+                <button key={opt.id} type="button" onClick={() => setOwnershipFilter(opt.id)} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === opt.id ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+                  {opt.label}
+                </button>
+              ))}
+            </div>
           </div>
           {need.length === 0 ? (
-            <p className="text-xs text-kronos-dim italic">Add parts to your need list.</p>
+            <p className="text-xs text-kronos-dim italic">{t('relic_planner.add_parts_hint')}</p>
           ) : (
             <>
               <div className="flex-1 overflow-y-auto space-y-2 min-h-0 custom-scrollbar">
@@ -280,7 +284,7 @@ export default function RelicPlanner() {
                           <span className="text-[9px] font-black uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/25 flex-shrink-0">{r.ownedCount} owned</span>
                         )}
                         {r.vaulted === true && (
-                          <span className="text-[9px] font-black uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex-shrink-0">Vaulted</span>
+                          <span className="text-[9px] font-black uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex-shrink-0">{t('relics.vaulted')}</span>
                         )}
                       </div>
                       <div className="mt-1.5 flex flex-wrap gap-1">

@@ -107,6 +107,7 @@ export default function Maps() {
   const xfRef = useRef({ x: 0, y: 0, scale: 1 });
   const autoPathRef = useRef(false);
   const contextMenuRef = useRef(null);
+  const saveDebounceTimerRef = useRef(null);
   const imgRef = useRef(null);
   const wrapRef = useRef(null);
   const transformRef = useRef(null);
@@ -369,7 +370,17 @@ export default function Maps() {
   const updateConfigs = useCallback((newConfigs) => {
     setAllConfigs((prev) => {
       const updated = { ...prev, [activeTab]: newConfigs };
-      saveMapConfigs(updated);
+      // Debounced: this previously fired one unawaited, unordered
+      // write_map_config IPC call per keystroke while editing a marker's
+      // label/notes. Concurrent writes for the same file had no ordering
+      // guarantee, so a later keystroke's write could complete before an
+      // earlier one's, silently reverting the file to stale content and
+      // losing part of what was typed. Local state (setAllConfigs) still
+      // updates immediately above, so the UI stays responsive - only the
+      // disk write is delayed, and delaying it also means only one write is
+      // ever in flight at a time for a given burst of edits.
+      if (saveDebounceTimerRef.current) clearTimeout(saveDebounceTimerRef.current);
+      saveDebounceTimerRef.current = setTimeout(() => {saveMapConfigs(updated);}, 400);
       return updated;
     });
   }, [activeTab]);

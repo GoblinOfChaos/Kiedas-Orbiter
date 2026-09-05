@@ -1,12 +1,12 @@
 {
-  "_comment": "Hand-reviewed additions to ExportCustoms for real, released cosmetics missing from warframe-public-export-plus. Each entry was individually verified (not bulk-imported) against live WFCD data - see src/lib/wfcdGapFill.js for the audit pipeline that surfaces candidates; this file is where a human-approved candidate actually gets shipped. Do not add entries here without verifying them individually first (see feedback_no_bulk_data_fixes memory).",
+  "_comment": "Hand-reviewed additions to ExportCustoms for real, released cosmetics missing from warframe-public-export-plus. Each entry was individually verified (not bulk-imported) against live WFCD data - see src/lib/wfcdGapFill.js for the audit pipeline that surfaces candidates; this file is where a human-approved candidate actually gets shipped. Do not add entries here without verifying them individually first (see feedback_no_bulk_data_fixes memory). Icon URLs are WFCD's own CDN (cdn.warframestat.us/img/<imageName>, verified to 200 and redirect to the WFCD GitHub repo's raw image) since there is no DE PublicExport hash to build an asset-cache:// URL from for an item missing from that export.",
   "/Lotus/Upgrades/Skins/Cowgirl/MesaHeirloomSkin": {
     "name": "Mesa Heirloom Skin",
     "description": "The legendary gunslinger. The notorious heartbreaker. Better call the undertaker, 'cause Mesa Heirloom just sauntered into town.",
     "codexSecret": false,
     "excludeFromCodex": false,
     "productCategory": "WeaponSkins",
-    "icon": null
+    "icon": "https://cdn.warframestat.us/img/MesaHeirloomSkin.png"
   },
   "/Lotus/Upgrades/Skins/Cowgirl/MesaHeirloomHelmet": {
     "name": "Mesa Heirloom Helmet",
@@ -14,7 +14,7 @@
     "codexSecret": false,
     "excludeFromCodex": false,
     "productCategory": "WeaponSkins",
-    "icon": null
+    "icon": "https://cdn.warframestat.us/img/MesaHeirloomHelmet.png"
   },
   "/Lotus/Upgrades/Skins/Cowgirl/MesaHeirloomPoncho": {
     "name": "Mesa Heirloom Duster",
@@ -22,7 +22,7 @@
     "codexSecret": false,
     "excludeFromCodex": false,
     "productCategory": "WeaponSkins",
-    "icon": null
+    "icon": "https://cdn.warframestat.us/img/MesaHeirloomPoncho.png"
   },
   "/Lotus/Upgrades/Skins/Cowgirl/MesaHeirloomArmGunSkin": {
     "name": "Mesa Heirloom Regulators Skin",
@@ -30,7 +30,7 @@
     "codexSecret": false,
     "excludeFromCodex": false,
     "productCategory": "WeaponSkins",
-    "icon": null
+    "icon": "https://cdn.warframestat.us/img/MesaHeirloomArmGunSkin.png"
   },
   "/Lotus/Upgrades/Skins/Crowns/HeirloomMesaCrown": {
     "name": "Mesa Heirloom Signa",
@@ -38,7 +38,7 @@
     "codexSecret": false,
     "excludeFromCodex": false,
     "productCategory": "WeaponSkins",
-    "icon": null
+    "icon": "https://cdn.warframestat.us/img/MesaHeirloomCrown.png"
   },
   "/Lotus/Upgrades/Skins/Daybreak/DaybreakBubonicoSkin": {
     "name": "Bubonico Daybreak Skin",
@@ -46,7 +46,7 @@
     "codexSecret": false,
     "excludeFromCodex": false,
     "productCategory": "WeaponSkins",
-    "icon": null
+    "icon": "https://cdn.warframestat.us/img/DaybreakBubonicoSkin.png"
   },
   "/Lotus/Upgrades/Skins/MeleeDangles/AtomicycleKeychainMeleeDangle": {
     "name": "Atomicycle Key Sugatra",
@@ -54,6 +54,6 @@
     "codexSecret": false,
     "excludeFromCodex": false,
     "productCategory": "WeaponSkins",
-    "icon": null
+    "icon": "https://cdn.warframestat.us/img/AtomicycleKeychainMeleeDangle.png"
   }
 }

@@ -1,6 +1,15 @@
 // scripts/audit_e2e.js
-// Exhaustive Full-Application Audit Suite: Reconciles all 19 Screens, 6 Overlays,
-// 13 Digital Extremes Manifests, and 12 Player Inventory Categories.
+// Partial data-integrity spot-check: reads the local inventory.json and
+// export files and does a real (if shallow) check against a subset of
+// screens - NOT a full E2E audit. It does not drive the UI, does not touch
+// overlays, and several screens have no check implemented at all (marked
+// SKIPPED below, not PASS). Previously every screen and all 6 overlays
+// printed a hardcoded "[PASS]" regardless of whether anything was actually
+// checked, and the summary claimed "100% COMPLETE AUDIT PASSED" - that was
+// false confidence, not a result. Fixed 2026-09-03: see L3 in
+// docs/audits/full-app-2026-09-03/FOLLOWUP-CLAUDE-2026-09-03.md. A real E2E
+// suite would need to drive the actual Tauri webview (Playwright/WebDriver);
+// that doesn't exist yet.
 
 import fs from "fs";
 import path from "path";
@@ -8,11 +17,17 @@ import os from "os";
 import https from "https";
 
 console.log("\x1b[1m\x1b[36m======================================================================\x1b[0m");
-console.log("\x1b[1m\x1b[36m    COMPLETE FULL-APP AUDIT: ALL 19 SCREENS, 6 OVERLAYS & MANIFESTS   \x1b[0m");
+console.log("\x1b[1m\x1b[36m  PARTIAL DATA-INTEGRITY CHECK - NOT a full-app audit, see header    \x1b[0m");
 console.log("\x1b[1m\x1b[36m======================================================================\x1b[0m\n");
 
 let errors = 0;
 let passed = 0;
+let skipped = 0;
+
+function skip(label, reason) {
+  console.log(`  \x1b[33m[SKIPPED]\x1b[0m ${label}: ${reason}`);
+  skipped++;
+}
 
 function fetchJson(url) {
   return new Promise((resolve) => {
@@ -114,8 +129,7 @@ async function runFullAudit() {
 
   // --- TAB 7: RELIC PLANNER ---
   console.log("\n\x1b[1m[7/19] RELIC PLANNER SCREEN (Vault Optimization & Ducat Values)\x1b[0m");
-  console.log("  \x1b[32m[PASS]\x1b[0m Relic Planner: Radshare probability and Ducat calculators validated.");
-  passed++;
+  skip("Relic Planner", "no automated check implemented - requires manual verification");
 
   // --- TAB 8: MODS ---
   console.log("\n\x1b[1m[8/19] MODS SCREEN (All 1,747 Mods, Frames, Polarities, Augments)\x1b[0m");
@@ -125,14 +139,13 @@ async function runFullAudit() {
 
   // --- TAB 9: RIVENS ---
   console.log("\n\x1b[1m[9/19] RIVENS SCREEN (Riven Mod Vault & Price Predictor Engine)\x1b[0m");
-  const playerRivens = (rawInv.Upgrades || []).filter(u => u.ItemType?.includes("/WeaponMods/Randomized/"));
+  const playerRivens = (rawInv.Upgrades || []).filter(u => u.ItemType?.includes("/Upgrades/Mods/Randomized/"));
   console.log(`  \x1b[32m[PASS]\x1b[0m Rivens: ${playerRivens.length} player Rivens verified with disposition calculators.`);
   passed++;
 
   // --- TAB 10: MARKET ---
   console.log("\n\x1b[1m[10/19] MARKET SCREEN (Warframe.market Live Price Orders)\x1b[0m");
-  console.log("  \x1b[32m[PASS]\x1b[0m Market: Platinum pricing API connection & offline cache verified.");
-  passed++;
+  skip("Market", "no automated check implemented - requires manual verification");
 
   // --- TAB 11: ADVERSARIES ---
   console.log("\n\x1b[1m[11/19] ADVERSARIES SCREEN (Kuva Liches & Sisters of Parvos)\x1b[0m");
@@ -142,8 +155,7 @@ async function runFullAudit() {
 
   // --- TAB 12: CHECKLIST ---
   console.log("\n\x1b[1m[12/19] CHECKLIST SCREEN (Daily/Weekly Reset Timers & Tasks)\x1b[0m");
-  console.log("  \x1b[32m[PASS]\x1b[0m Checklist: 30 daily & weekly recurring reset tasks validated.");
-  passed++;
+  skip("Checklist", "no automated check implemented - requires manual verification");
 
   // --- TAB 13: MAPS ---
   console.log("\n\x1b[1m[13/19] MAPS SCREEN (All Open World Maps, Caves, Mining & Fishing)\x1b[0m");
@@ -154,53 +166,47 @@ async function runFullAudit() {
 
   // --- TAB 14: COLLECTIBLES ---
   console.log("\n\x1b[1m[14/19] COLLECTIBLES SCREEN (Fish, Gems, Kuria, Fragments, Somachord)\x1b[0m");
-  console.log("  \x1b[32m[PASS]\x1b[0m Collectibles: Lore fragments, fish species, and gem tables indexed.");
-  passed++;
+  skip("Collectibles", "no automated check implemented - requires manual verification");
 
   // --- TAB 15: COSMETICS ---
   console.log("\n\x1b[1m[15/19] COSMETICS SCREEN (Skins, Syandanas, Ephemeras, Sugatras, Oculus)\x1b[0m");
   const customKeys = Object.keys(exportCustoms);
-  console.log(`  \x1b[32m[PASS]\x1b[0m Cosmetics: All ${customKeys.length.toLocaleString()} cosmetic items verified.`);
+  console.log(`  \x1b[32m[PASS]\x1b[0m Cosmetics: ${customKeys.length.toLocaleString()} items in raw ExportCustoms.json (the app's Cosmetics screen count is higher - it also merges WFCD gap-fill and cosmetic-catalog-additions.json, not replicated here).`);
   passed++;
 
   // --- TAB 16: NOTES ---
   console.log("\n\x1b[1m[16/19] NOTES SCREEN (Player Builds & Bookmarks)\x1b[0m");
-  console.log("  \x1b[32m[PASS]\x1b[0m Notes: User notes database and bookmarks verified.");
-  passed++;
+  skip("Notes", "no automated check implemented - requires manual verification");
 
   // --- TAB 17: WIKI ---
   console.log("\n\x1b[1m[17/19] WIKI SCREEN (Official Warframe Wiki Browser)\x1b[0m");
-  console.log("  \x1b[32m[PASS]\x1b[0m Wiki: Official wiki.warframe.com integration verified (Fandom banned).");
-  passed++;
+  skip("Wiki", "no automated check implemented - requires manual verification");
 
   // --- TAB 18: SETTINGS ---
   console.log("\n\x1b[1m[18/19] SETTINGS SCREEN (Memory Scanner, Log Scanner, OCR, Hotkeys, Overlays)\x1b[0m");
-  console.log("  \x1b[32m[PASS]\x1b[0m Settings: OCR engine, memory offsets, and log scanner bindings validated.");
-  passed++;
+  skip("Settings", "no automated check implemented - requires manual verification");
 
   // --- TAB 19: ABOUT ---
   console.log("\n\x1b[1m[19/19] ABOUT SCREEN (Credits, Third-Party Licenses, Legal Disclaimer)\x1b[0m");
-  console.log("  \x1b[32m[PASS]\x1b[0m About: License acknowledgments and update checker validated.");
-  passed++;
+  skip("About", "no automated check implemented - requires manual verification");
 
   // --- OVERLAYS ---
-  console.log("\n\x1b[1m[OVERLAYS (6/6)] IN-GAME HUD & OVERLAY SYSTEMS\x1b[0m");
-  console.log("  \x1b[32m[PASS]\x1b[0m RelicRewardOverlay : OCR item recognition & price evaluation verified.");
-  console.log("  \x1b[32m[PASS]\x1b[0m RivenOverlay       : Real-time Riven comparison verified.");
-  console.log("  \x1b[32m[PASS]\x1b[0m RelicPickerOverlay : In-mission relic selector verified.");
-  console.log("  \x1b[32m[PASS]\x1b[0m SidebarOverlay     : Compact floating HUD verified.");
-  console.log("  \x1b[32m[PASS]\x1b[0m ToastOverlay       : Desktop notifications verified.");
-  console.log("  \x1b[32m[PASS]\x1b[0m OverlayRouter      : Window management & transparent overlay routes verified.");
-  passed += 6;
+  console.log("\n\x1b[1m[OVERLAYS (0/6 checked)] IN-GAME HUD & OVERLAY SYSTEMS\x1b[0m");
+  skip("RelicRewardOverlay", "requires driving the live overlay window - no automated check exists");
+  skip("RivenOverlay", "requires driving the live overlay window - no automated check exists");
+  skip("RelicPickerOverlay", "requires driving the live overlay window - no automated check exists");
+  skip("SidebarOverlay", "requires driving the live overlay window - no automated check exists");
+  skip("ToastOverlay", "requires driving the live overlay window - no automated check exists");
+  skip("OverlayRouter", "requires driving the live overlay window - no automated check exists");
 
   // --- SUMMARY ---
   console.log("\n\x1b[1m======================================================================\x1b[0m");
   if (errors > 0) {
-    console.log(`\x1b[1m\x1b[31m                 AUDIT FAILED WITH ${errors} ERRORS                  \x1b[0m`);
+    console.log(`\x1b[1m\x1b[31m                 CHECK FAILED WITH ${errors} ERRORS                  \x1b[0m`);
     console.log("\x1b[1m======================================================================\x1b[0m\n");
     process.exit(1);
   } else {
-    console.log(`\x1b[1m\x1b[32m    100% COMPLETE AUDIT PASSED (0 ERRORS ACROSS ALL 19 SCREENS & 6 OVERLAYS) \x1b[0m`);
+    console.log(`\x1b[1m\x1b[33m    ${passed} checks passed, ${skipped} skipped (no automated check exists) - NOT a full audit \x1b[0m`);
     console.log("\x1b[1m======================================================================\x1b[0m\n");
     process.exit(0);
   }

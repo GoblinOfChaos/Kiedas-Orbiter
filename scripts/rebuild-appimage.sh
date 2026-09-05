@@ -54,15 +54,23 @@ Name=Kieda's Orbiter
 Comment=Warframe companion app
 Exec=kiedas-orbiter
 Icon=kiedas-orbiter
-Categories=Game;Utility;
+Categories=Utility;
 Terminal=false
 EOF
 
 # linuxdeploy creates a fresh AppDir from the executable, so it does not
 # retain Tauri's prepared resource tree. Tauri resolves BaseDirectory::Resource
-# in an AppImage as $APPDIR/usr/lib/kiedas-orbiter; copy the staged resources
-# there before linuxdeploy emits the final AppImage.
-RESOURCE_DIR="$BUNDLE_DIR/Kieda's Orbiter.AppDir/usr/lib/kiedas-orbiter"
+# in an AppImage as $APPDIR/usr/lib/<productName> (from tauri.conf.json's
+# "productName": "Kieda's Orbiter" - NOT the lowercase-hyphenated crate name);
+# copy the staged resources there before linuxdeploy emits the final AppImage.
+# Confirmed 2026-09-03 via a genuinely fresh/isolated profile launch: the
+# real runtime error named the exact bundled path it was looking for -
+# "usr/lib/Kieda's Orbiter/data/bin/Warframe-Exporter-CLI" - and this
+# script was instead populating "usr/lib/kiedas-orbiter/...", so a clean
+# install found none of its bundled Riven roll data, weapon vocabulary, or
+# exporter fallback until separately downloaded/copied data happened to
+# mask the gap.
+RESOURCE_DIR="$BUNDLE_DIR/Kieda's Orbiter.AppDir/usr/lib/Kieda's Orbiter"
 mkdir -p "$RESOURCE_DIR"
 cp -a "$REPO/src-tauri/target/release/data" "$RESOURCE_DIR/"
 test -f "$RESOURCE_DIR/data/assets/data/wiki-baro-acquisition.json"
@@ -76,7 +84,7 @@ run_low_impact "$LINUXDEPLOY" \
   --output appimage \
   --plugin gtk
 
-test -f "Kieda's Orbiter.AppDir/usr/lib/kiedas-orbiter/data/assets/data/wiki-baro-acquisition.json"
+test -f "Kieda's Orbiter.AppDir/usr/lib/Kieda's Orbiter/data/assets/data/wiki-baro-acquisition.json"
 
 echo "==> Copying result to both shortcut paths"
 # Plain cp fails with ETXTBSY if the previous build is still running (the

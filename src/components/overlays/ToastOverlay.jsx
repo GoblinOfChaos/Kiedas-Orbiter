@@ -49,8 +49,8 @@ export default function ToastOverlay({ position }) {
 
   const iconNames = useMemo(() => {
     const names = new Set();
-    for (const t of queue) if (t.image) names.add(t.image);
-    for (const t of visibleToasts) if (t.image) names.add(t.image);
+    for (const toast of queue) if (toast.image) names.add(toast.image);
+    for (const toast of visibleToasts) if (toast.image) names.add(toast.image);
     return Array.from(names);
   }, [queue, visibleToasts]);
 
@@ -136,9 +136,9 @@ export default function ToastOverlay({ position }) {
 
   return (
     <div ref={containerRef} className={`flex flex-col gap-2 items-center p-10 w-[440px] select-none pointer-events-none ${isEmpty ? 'opacity-0' : ''}`}>
-      {visibleToasts.map((t, index) =>
-      <div key={t.id} className="relative">
-          <ToastCard toast={t} onExpire={() => removeToast(t.id)} uiIcon={uiIcon} />
+      {visibleToasts.map((toast, index) =>
+      <div key={toast.id} className="relative">
+          <ToastCard toast={toast} onExpire={() => removeToast(toast.id)} uiIcon={uiIcon} />
           {IS_LINUX && index === 0 && queue.length > 0 &&
         <div className="absolute -top-2 -right-2 z-50 animate-bounce">
               <div className="text-white text-[10px] font-black px-2 py-0.5 rounded-full border border-white/20 bg-kronos-accent">

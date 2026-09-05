@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Palette, Bell, RefreshCw, X, FolderOpen, Keyboard, MousePointer, AlignStartVertical, AlignEndVertical, AlignVerticalJustifyStart, VolumeX, Play, PanelLeft, PanelRight } from 'lucide-react';
+import { Palette, Bell, RefreshCw, X, FolderOpen, Keyboard, MousePointer, AlignStartVertical, AlignEndVertical, AlignVerticalJustifyStart, VolumeX, Play, PanelLeft, PanelRight, FileSearch } from 'lucide-react';
 
 import { open as openDialog } from '@tauri-apps/plugin-dialog';
 import { invoke } from '@tauri-apps/api/core';
@@ -95,13 +95,15 @@ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
 
 export default function SettingsScreen() {
   const { theme, setTheme, themes, cursorStyle, setCursorStyle, cursorTint, setCursorTint } = useTheme();
-  const { isMonitoring, startMonitoring, stopMonitoring, manualRefresh, lastUpdate, statusText, autoStart, setAutoStart, monitorResult, nextRetryAt, refreshPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, retryCardImages } = useMonitoring();
+  const { isMonitoring, startMonitoring, stopMonitoring, manualRefresh, lastUpdate, statusText, autoStart, setAutoStart, monitorResult, nextRetryAt, refreshPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, retryCardImages,
+    exportData, inventoryData, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportComponentIndex } = useMonitoring();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [scannerStatus, setScannerStatus] = useState('idle'); // 'idle' | 'waiting' | 'active'
   const [localeLoading, setLocaleLoading] = useState(false);
   const { t } = useUi();
   const [showGuideModal, setShowGuideModal] = useState(false);
+  const [coverageAuditStatus, setCoverageAuditStatus] = useState(null); // { text, error } | null
   const [showBugModal, setShowBugModal] = useState(false);
   const [tick, setTick] = useState(0);
   useEffect(() => {
@@ -146,8 +148,8 @@ export default function SettingsScreen() {
   };
 
   const HOTKEY_ACTIONS = [
-  { id: 'manual_ocr', label: 'Manual Relic Recognition (OCR)' },
-  { id: 'toggle_sidebar', label: 'Toggle Sidebar' }];
+  { id: 'manual_ocr', label: t('settings.hotkey_action_manual_ocr') },
+  { id: 'toggle_sidebar', label: t('settings.hotkey_action_toggle_sidebar') }];
 
 
   const [version, setVersion] = useState('');
@@ -231,6 +233,7 @@ export default function SettingsScreen() {
   const [eeLogPath, setEeLogPath] = useState(
     () => getSetting('ee_log_path') ?? ''
   );
+  const eeLogPathRestartTimerRef = useRef(null);
   const [wfmToken, setWfmToken] = useState(
     () => getSetting('wfm_token') ?? ''
   );
@@ -419,12 +422,19 @@ export default function SettingsScreen() {
     setEeLogPath(val);
     await setSetting('ee_log_path', val);
     if (useEELog) {
-      try {
-        await invoke('stop_log_scanner');
-        await invoke('start_log_scanner');
-      } catch (e) {
-        console.error(e);
-      }
+      // Debounced: this field previously restarted the scanner on every
+      // keystroke, so typing a full path (the placeholder example is 90+
+      // characters) caused dozens of rapid stop/start cycles, each trying
+      // to open a partial/invalid path.
+      if (eeLogPathRestartTimerRef.current) clearTimeout(eeLogPathRestartTimerRef.current);
+      eeLogPathRestartTimerRef.current = setTimeout(async () => {
+        try {
+          await invoke('stop_log_scanner');
+          await invoke('start_log_scanner');
+        } catch (e) {
+          console.error(e);
+        }
+      }, 800);
     }
   };
 
@@ -443,6 +453,51 @@ export default function SettingsScreen() {
     setSidebarHideOnFocusLoss(val);
     await setSetting('sidebar_hide_on_focus_loss', val);
     invoke('set_sidebar_hide_on_focus_loss', { hide: val }).catch(console.error);
+  };
+
+  const handleExportAcquisitionCoverageReport = async () => {
+    setCoverageAuditStatus({ text: t('settings.acquisition_coverage_running'), error: false });
+    try {
+      const { runAcquisitionCoverageAudit, formatAuditReport, buildCosmeticsCatalog, buildModsCatalog, buildRelicsCatalog, buildInventoryCatalog } = await import('../lib/acquisitionAudit.js');
+      let overridesData = { components: {}, mods: {} };
+      try {
+        const bytes = await invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' });
+        overridesData = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)));
+      } catch (err) {
+        console.error('Failed to load acquisition overrides for coverage audit:', err);
+      }
+      const catalogs = {
+        cosmetics: buildCosmeticsCatalog(exportData),
+        mods: buildModsCatalog(inventoryData),
+        inventory: buildInventoryCatalog(inventoryData),
+        relics: buildRelicsCatalog(exportData, inventoryData),
+      };
+      const indices = {
+        dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex,
+        wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex,
+        alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex,
+        relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex,
+        exaltedWeaponIndex, exportComponentIndex,
+      };
+      const audit = runAcquisitionCoverageAudit(catalogs, indices);
+      const report = formatAuditReport(audit);
+      const dataRoot = await invoke('get_data_root_path');
+      const relativePath = 'data/user/acquisition_coverage_report.txt';
+      const absolutePath = `${dataRoot}/${relativePath}`;
+      await invoke('write_file', { path: absolutePath, data: new TextEncoder().encode(report) });
+      setCoverageAuditStatus({
+        text: t('settings.acquisition_coverage_done', { count: audit.totalMissing, path: absolutePath }),
+        error: false,
+      });
+      invoke('show_notification', {
+        title: t('settings.acquisition_coverage_button'),
+        message: t('settings.acquisition_coverage_done', { count: audit.totalMissing, path: absolutePath }),
+        position: 'bottom-right',
+      }).catch(() => {});
+    } catch (err) {
+      console.error('Acquisition coverage audit failed:', err);
+      setCoverageAuditStatus({ text: t('settings.acquisition_coverage_failed'), error: true });
+    }
   };
 
   const handleTestNotification = (position, delay = 0) => {
@@ -974,8 +1029,20 @@ export default function SettingsScreen() {
                 <Bug size={16} />
                 {t('settings.report_issue_button')}
               </button>
+              <button
+                onClick={handleExportAcquisitionCoverageReport}
+                className="py-2.5 px-4 rounded-xl border border-kronos-accent/30 bg-kronos-accent/15 text-kronos-accent text-xs font-black uppercase tracking-wider hover:bg-kronos-accent/25 transition-all flex items-center justify-center gap-2 flex-shrink-0"
+              >
+                <FileSearch size={16} />
+                {t('settings.acquisition_coverage_button')}
+              </button>
             </div>
           </div>
+          {coverageAuditStatus &&
+            <p className={`text-[10px] font-bold uppercase tracking-widest mt-3 ${coverageAuditStatus.error ? 'text-red-400' : 'text-kronos-dim'}`}>
+              {coverageAuditStatus.text}
+            </p>
+          }
         </Card>
 
         {/* In-Game Sidebar */}
@@ -1157,7 +1224,7 @@ export default function SettingsScreen() {
             </div>
             <div className="flex-1">
               <h2 className="text-xl font-black uppercase tracking-tight">Warframe.Market</h2>
-              <p className="text-xs text-kronos-dim mt-1">Configure your API token to enable 1-Click Trading.</p>
+              <p className="text-xs text-kronos-dim mt-1">{t('settings.wfm_card_desc')}</p>
             </div>
           </div>
           

@@ -193,11 +193,18 @@ export default function Mods() {
         <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
           <Filter size={14} className="text-kronos-dim mx-1" />
           <div className="flex gap-1">
-            <button
-            onClick={() => setOwnershipFilter((value) => value === 'all' ? 'owned' : value === 'owned' ? 'unowned' : 'all')}
-            className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
-            >{ownershipFilter === 'unowned' ? 'Unowned' : ownershipFilter === 'owned' ? 'Owned' : 'All'}
-            </button>
+            {[
+              { id: 'all', label: t('ui.inventory.tab_all') },
+              { id: 'owned', label: t('ui.inventory.filter_owned') },
+              { id: 'unowned', label: t('ui.inventory.unowned') },
+            ].map((opt) => (
+              <button
+              key={opt.id}
+              onClick={() => setOwnershipFilter(opt.id)}
+              className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${ownershipFilter === opt.id ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+              >{opt.label}
+              </button>
+            ))}
             <button
             onClick={() => setMaxRankOnly((v) => !v)}
             className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all ${maxRankOnly ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>{t('mods.max_rank')}

@@ -11,7 +11,13 @@ import bundledPrimeRelicDrops from '../../src-tauri/data/assets/data/wiki-prime-
 import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions.js';
 
 const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map((name) => [name.toLowerCase().trim(), true]));
-const bundledWikiResourceIndex = new Map(Object.entries(bundledWikiResourceAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
+// wiki-resources-acquisition.json stores each entry as a plain location
+// string, but the lookup below reads `wikiResource.location` (the shape
+// buildWikiResourceIndex's richer object-based source uses) - without this
+// normalization every bundled string entry silently failed the `.location`
+// check and fell through as if no data existed, for any resource whose
+// richer index lacked a matching entry.
+const bundledWikiResourceIndex = new Map(Object.entries(bundledWikiResourceAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), typeof entry === 'string' ? { location: entry } : entry]));
 const bundledWikiPageIndex = new Map(Object.entries(bundledWikiPageAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
 const bundledWikiDescriptionIndex = new Map(Object.entries(bundledWikiDescriptionAcquisition).map(([uniqueName, text]) => [uniqueName.replaceAll('/StoreItems/', '/'), text]));
 
@@ -367,13 +373,21 @@ export function buildMarketIndex(exportData) {
  * these separate from Market prices so a zero-cost entry cannot be mistaken
  * for a missing price or a priced bundle component.
  */
+// A Map, not a Set: `alwaysAvailable: true` does not mean "no acquisition
+// needed" by itself. 151 real ExportCustoms/ExportFlavour entries (mostly
+// Warframe Agile/Noble Animation Sets) also carry a `requirement` field - a
+// separate item (usually an "Unlock..." token) that must be obtained first
+// before this one becomes selectable in the customization menu. The value
+// stored here is that requirement uniqueName, or null when there truly is
+// none - the consumer in getAcquisitionInfo uses this to tell "genuinely
+// always available" apart from "available once you've unlocked it".
 export function buildAlwaysAvailableIndex(exportData) {
-  const index = new Set();
+  const index = new Map();
   for (const tableName of ['ExportCustoms', 'ExportFlavour']) {
     const table = exportData?.[tableName];
     if (!table || typeof table !== 'object') continue;
     for (const [uniqueName, entry] of Object.entries(table)) {
-      if (entry?.alwaysAvailable === true) index.add(canonicalPath(uniqueName));
+      if (entry?.alwaysAvailable === true) index.set(canonicalPath(uniqueName), entry.requirement || null);
     }
   }
   return index;
@@ -746,10 +760,17 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   }
 
   const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
+  // The bare-displayName key is unsafe on its own: it's shared across every
+  // item that happens to have this exact display name (e.g. a Warframe and
+  // an unrelated Prex Card can both be "Follie"), so a more specific,
+  // type-scoped key must win when one exists. Confirmed live: without this
+  // ordering, ~34 items showed a bundle/promo blurb meant for a cosmetic
+  // variant instead of their own correct `${displayName}|Blueprint` entry
+  // sitting right next to it in the same file.
   const overrideText = overridesData?.mods?.[displayName]
     ?? overridesData?.components?.[dropIndexKey]
-    ?? overridesData?.components?.[displayName]
-    ?? overridesData?.components?.[`${displayName}|Blueprint`];
+    ?? overridesData?.components?.[`${displayName}|Blueprint`]
+    ?? overridesData?.components?.[displayName];
   // Component overrides written for an item's old recipe summary sometimes
   // say "Market purchase" even when the component itself is a resource. If
   // the exact resource has a structured Wiki acquisition record, let that
@@ -781,6 +802,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       || wikiBaroIndex?.has(`${displayLowerForOverride} relic`)
       || bundledWikiBaroIndex.has(displayLowerForOverride)
       || bundledWikiBaroIndex.has(`${displayLowerForOverride} relic`));
+  // Some TennoGen overrides are a raw, unformatted dump of wiki infobox
+  // fields (author/round/batch/price run together with no punctuation) -
+  // e.g. "Designed by X and Y Round 22 [Batch 1] $2.99 (PC) Platinum 35
+  // (Console)". The structured TennoGen index has the same information
+  // (pcPrice/consolePrice) cleanly, so prefer it over the raw override text
+  // exactly like the Baro/vendor/research structured-route checks above.
+  const structuredTennoGenForOverride = wikiTennoGenIndex?.get(displayLowerForOverride);
+  const tennoGenOverrideHasStructuredRoute = !!structuredTennoGenForOverride;
   const structuredVendorsForOverride = wikiVendorIndex?.get(displayLowerForOverride);
   const vendorOverrideHasStructuredRoute = Array.isArray(structuredVendorsForOverride)
     && structuredVendorsForOverride.length > 0;
@@ -827,6 +856,15 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     if (baroOverrideHasStructuredRoute) {
       return {
         sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki Baro acquisition index' }],
+        recipe: recipe || null,
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
+    if (tennoGenOverrideHasStructuredRoute) {
+      const price = structuredTennoGenForOverride.pcPrice || structuredTennoGenForOverride.consolePrice;
+      const priceText = price ? ` for ${price}` : '';
+      return {
+        sources: [{ type: 'non-drop', text: `TennoGen skin - purchased via Steam Workshop/console store${priceText}.`, source: 'Warframe Wiki' }],
         recipe: recipe || null,
         wikiLink: getWikiLink(dropIndexKey, displayName),
       };
@@ -1053,12 +1091,79 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     };
   }
 
-  if (alwaysAvailableIndex?.has(canonicalPath(dropIndexKey))) {
+  // Agile/Noble Animation Sets are a uniform, wiki-verified mechanic
+  // (https://wiki.warframe.com/w/Animation_Set): innately unlocked for free
+  // on the Warframe they belong to, and purchasable from the Market for 50
+  // Platinum (35 for Equinox's sets specifically - the wiki's one stated
+  // numeric exception) to use on other Warframes. Excalibur Umbra's sets are
+  // a separate special case, unlocked for every Warframe on completing The
+  // Sacrifice quest. This is a real, confirmed, general game mechanic - not
+  // a per-item guess - so it's safe to apply to all matching entries at
+  // once, unlike the individual acquisition_overrides.json text fixes
+  // elsewhere in this file which are verified one item at a time. Checked
+  // ahead of the alwaysAvailableIndex block below because these entries
+  // (mostly) have a `requirement` gate that would otherwise just fall
+  // through to an honest-but-empty "no data" state - confirmed live 2026-09-02
+  // that state covers 97% of these 150 real entries, which is correct but
+  // useless; this replaces "no data" with the real mechanic instead.
+  const animSetMatch = displayName?.match(/^(.+?) (Agile|Noble) Animation Set$/);
+  if (animSetMatch && /(AgileAnims|NobleAnims)$/.test(canonicalPath(dropIndexKey))) {
+    const warframeName = animSetMatch[1];
+    let text;
+    if (warframeName === 'Excalibur Umbra') {
+      text = 'Innately unlocked for every Warframe after completing The Sacrifice quest.';
+    } else {
+      const price = warframeName.startsWith('Equinox') ? 35 : 50;
+      text = `Innate for ${warframeName}; purchasable from the Market for ${price} Platinum to use on other Warframes.`;
+    }
     return {
-      sources: [{ type: 'non-drop', text: 'Available directly in the in-game customization menu.', source: 'DE export' }],
+      sources: [{ type: 'non-drop', text, source: 'Warframe Wiki' }],
       recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };
+  }
+
+  if (alwaysAvailableIndex?.has(canonicalPath(dropIndexKey))) {
+    const requirementUniqueName = alwaysAvailableIndex.get(canonicalPath(dropIndexKey));
+    // `alwaysAvailable: true` only means "no acquisition needed" when there's
+    // no `requirement` gate. 151 real entries (mostly per-Warframe Agile/Noble
+    // Animation Sets, now handled above) also need a separate "Unlock..."
+    // item first - and that requirement item is itself absent from the
+    // primary export for most of them (confirmed: not a real ExportCustoms
+    // key, only referenced by this field), so there's no concrete route to
+    // describe here. Don't claim direct availability in that case; fall
+    // through to the rest of this function's checks (and its honest
+    // empty-state fallback) instead of asserting something false.
+    // A second, distinct false-positive shape: 18 real entries under
+    // /Armor/WarframeDefaults/ (e.g. "Lavos Prime Shoulder Guard", "Voruna
+    // Armor") also have alwaysAvailable:true and no requirement, but are
+    // NOT actually selectable/purchasable on their own - they're each
+    // Warframe's own built-in default armor piece, only usable at all once
+    // you own that specific Warframe (confirmed uniform excludeFromMarket:
+    // true + platinumCost:1000 shape, and the audit caught this exact case
+    // live: "Lavos Prime Shoulder Guard... that wording is not credible for
+    // a Prime-exclusive item"). The Warframe's real name is derived from
+    // displayName itself (already dict-resolved, so no internal-codename
+    // risk - confirmed one WarframeDefaults entry's path segment uses the
+    // codename "Werewolf" for Voruna, which is why this doesn't parse the
+    // path) by stripping the item's own known trailing suffix word.
+    const warframeDefaultMatch = !requirementUniqueName
+      && /\/Armor\/WarframeDefaults\//i.test(canonicalPath(dropIndexKey))
+      && displayName?.match(/^(.+?) (Armor|Shoulder Guard)$/);
+    if (warframeDefaultMatch) {
+      return {
+        sources: [{ type: 'non-drop', text: `Included with owning ${warframeDefaultMatch[1]}.`, source: 'DE export' }],
+        recipe: recipe || null,
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
+    if (!requirementUniqueName) {
+      return {
+        sources: [{ type: 'non-drop', text: 'Available directly in the in-game customization menu.', source: 'DE export' }],
+        recipe: recipe || null,
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
   }
 
   const tennoGen = wikiTennoGenIndex?.get(displayLower);

@@ -232,13 +232,18 @@ export default function Foundry() {
   return <PageLayout title={t('nav.foundry')} subtitle={t('foundry.subtitle_owned', { owned: ownedCount, total: items.length })}>
     <div className="flex flex-col gap-3 mb-4">
       <div className="flex flex-col lg:flex-row gap-3 lg:items-center">
-        <Tabs tabs={categoriesWithLabels} activeTab={activeCat} onChange={(id) => { setActiveCat(id); setSelectedName(null) }} />
-        <div className="flex items-center gap-2 flex-1 justify-end flex-wrap">
-          <div className="relative w-full sm:w-64"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('foundry.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 h-9 text-xs" /></div>
+        <div className="relative flex-1 min-w-[200px]"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('foundry.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 h-9 text-xs" /></div>
+        <div className="flex items-center gap-2 flex-wrap">
           <div className="flex items-center gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
-            <button type="button" onClick={() => setOwnershipFilter((value) => value === 'all' ? 'owned' : value === 'owned' ? 'unowned' : 'all')} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === 'owned' ? 'bg-kronos-accent text-kronos-bg' : ownershipFilter === 'unowned' ? 'bg-red-500/20 text-red-400' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
-                {ownershipFilter === 'all' ? t('foundry.cat_all') : ownershipFilter === 'owned' ? t('foundry.owned') : t('ui.inventory.unowned')}
+            {[
+              { id: 'all', label: t('foundry.cat_all') },
+              { id: 'owned', label: t('foundry.owned') },
+              { id: 'unowned', label: t('ui.inventory.unowned') },
+            ].map((opt) => (
+              <button key={opt.id} type="button" onClick={() => setOwnershipFilter(opt.id)} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === opt.id ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+                {opt.label}
               </button>
+            ))}
             <button type="button" onClick={() => setReadyOnly(!readyOnly)} className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${readyOnly ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`} aria-pressed={readyOnly}>
                 {t('ui.inventory.ready')}
               </button>
@@ -252,6 +257,7 @@ export default function Foundry() {
           </div>
         </div>
       </div>
+      <Tabs tabs={categoriesWithLabels} activeTab={activeCat} onChange={(id) => { setActiveCat(id); setSelectedName(null) }} />
     </div>
     <div className="space-y-4">
       {filteredItems.length === 0 ? <Card className="p-8 text-center text-kronos-dim text-sm">{t('foundry.no_match')}</Card> : <div className="grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-2 content-start">{filteredItems.map((item) => <ItemCard key={item.unique_name} item={item} recipe={item.recipe} selected={item.unique_name === selectedName} onClick={() => setSelectedName(item.unique_name)} t={t} />)}</div>}

@@ -324,7 +324,7 @@ export default function Mastery() {
                 <div className="flex items-center gap-12 mb-8">
                   <div className="relative">
                     <img src={getMRIcon(currentRank, iconsPath)} alt="" className="w-20 h-20 opacity-40 grayscale contrast-125" />
-                    <p className="text-[10px] text-kronos-dim uppercase font-black mt-2">{t('settings.current_theme')}{currentRank}</p>
+                    <p className="text-[10px] text-kronos-dim uppercase font-black mt-2">{t('mastery.current_rank')}: {currentRank}</p>
                   </div>
 
                   <div className="flex flex-col items-center">
@@ -377,7 +377,7 @@ export default function Mastery() {
                   <div>
                     <div className="text-[10px] text-kronos-accent uppercase font-black tracking-[0.3em] mb-1 opacity-80">{t('mastery.current_rank')}</div>
                     <h2 className="text-4xl font-black text-kronos-text leading-none tracking-tight">
-                      {currentRank > 30 ? `Legendary Rank ${currentRank - 30}` : `Mastery Rank ${currentRank}`}
+                      {currentRank > 30 ? t('mastery.heading_legendary_rank', { rank: currentRank - 30 }) : t('mastery.heading_mastery_rank', { rank: currentRank })}
                     </h2>
                     <p className="text-lg text-kronos-dim mt-1 font-bold italic tracking-wider flex items-center gap-2">
                       {currentTitle}

@@ -48,7 +48,7 @@ fn resolve_file(app: &tauri::AppHandle, relative: &str) -> Option<std::path::Pat
 
 /// English weapon names from wfcd-combined.json (weapon categories plus kitgun
 /// chambers), mapped to their uniqueName.
-fn wfcd_vocab_weapons(app: &tauri::AppHandle) -> HashMap<String, String> {
+pub(crate) fn wfcd_vocab_weapons(app: &tauri::AppHandle) -> HashMap<String, String> {
     let mut map: HashMap<String, String> = HashMap::new();
     let Some(wfcd_path) = resolve_file(app, "data/assets/wfcd/wfcd-combined.json") else {
         eprintln!("[WEAPON-I18N] wfcd-combined.json not found");

@@ -1,8 +1,32 @@
 import { fetch as tauriFetch } from '@tauri-apps/plugin-http';
 
-const CACHE_KEY = 'wfm_price_cache';
+// v3: keyed by WFM item id (not display name / game unique_name) and stores
+// an explicit status ('ready' | 'no_orders' | 'error') instead of a bare
+// plat number. A guessed-slug lookup has no verified id to key by, and a
+// bare number can't distinguish "confirmed no sell orders" from "the
+// request failed" - both of which caused permanent fake 0p prices in
+// earlier versions of this cache. Callers must resolve a real catalog
+// entry (via lookupWfmItem) before calling getPriceState; there is no
+// guess-based fallback anymore.
+const CACHE_KEY = 'wfm_price_cache_v3';
 const RATE_LIMIT_MS = 500;
 let lastFetchTime = 0;
+// Market.jsx fires getPriceState() for a whole chunk of items concurrently
+// (Promise.all), and a naive rate-limit check (read-then-wait) done
+// independently by each call would let a burst of ~8 requests go out
+// near-simultaneously instead of 500ms apart, which WFM's API rate-limits.
+// rateLimitGate() chains every actual network call through a single queue
+// so they're genuinely serialized regardless of caller concurrency.
+let rateLimitQueue = Promise.resolve();
+function rateLimitGate() {
+  const gate = rateLimitQueue.then(async () => {
+    const wait = RATE_LIMIT_MS - (Date.now() - lastFetchTime);
+    if (wait > 0) await new Promise(resolve => setTimeout(resolve, wait));
+    lastFetchTime = Date.now();
+  });
+  rateLimitQueue = gate.catch(() => {});
+  return gate;
+}
 const pendingRequests = new Map();
 let cachedData = null;
 let lastCacheLoad = 0;
@@ -87,7 +111,13 @@ export function lookupWfmItem(map, gamePath) {
       item = map.get(leaf);
       if (item) return item;
       if (leaf.endsWith('Component')) {
-        item = map.get(leaf.slice(0, -9) + 'Blueprint');
+        const bareLeaf = leaf.slice(0, -9);
+        // Weapon parts (barrel/receiver/stock/chassis/systems/etc) are
+        // indexed under their bare name with no suffix at all - only the
+        // full recipe item uses "Blueprint".
+        item = map.get(bareLeaf);
+        if (item) return item;
+        item = map.get(bareLeaf + 'Blueprint');
         if (item) return item;
       }
     }
@@ -115,148 +145,12 @@ function loadCache(force = false) {
   }
 }
 
-export async function getPrice(itemUniqueName, itemName, ducatValue = 0, maxRank = null) {
-  if (!itemName || itemName.includes('Forma')) return 0;
-
-  const map = loadWfmItemMap();
-  let wfmItem = null;
-  if (map && itemUniqueName) {
-    wfmItem = lookupWfmItem(map, itemUniqueName);
-    if (wfmItem && !wfmItem.tradable) return 0;
-  }
-
+function saveCacheEntry(wfmItemId, entry) {
   const cache = loadCache();
-  const cached = cache[itemUniqueName];
-  const ttl = getTTL();
-
-  if (cached && (Date.now() - cached.lastUpdated < ttl)) {
-    return cached.plat;
-  }
-
-  if (pendingRequests.has(itemUniqueName)) {
-    return pendingRequests.get(itemUniqueName);
-  }
-
-  const fetchPromise = (async () => {
-    const now = Date.now();
-    const timeSinceLast = now - lastFetchTime;
-    if (timeSinceLast < RATE_LIMIT_MS) {
-      await new Promise(resolve => setTimeout(resolve, RATE_LIMIT_MS - timeSinceLast));
-    }
-
-    const slug = wfmItem ? wfmItem.slug : toWfmSlug(itemName);
-    const plat = await fetchWfmPrice(slug, maxRank);
-
-    if (plat !== null) {
-      saveToCache(itemUniqueName, plat);
-      pendingRequests.delete(itemUniqueName);
-      return plat;
-    }
-
-    pendingRequests.delete(itemUniqueName);
-    return cached ? cached.plat : 0;
-  })();
-
-  pendingRequests.set(itemUniqueName, fetchPromise);
-  return fetchPromise;
-}
-
-export async function getPricesBatch(items, onProgress) {
-  const map = await ensureWfmItems();
-  const cache = loadCache(true);
-  const ttl = getTTL();
-  const results = {};
-
-  for (const item of items) {
-    if (item.name?.includes('Forma')) {
-      results[item.uniqueName] = 0;
-      continue;
-    }
-    if (map) {
-      const wfmItem = lookupWfmItem(map, item.uniqueName);
-      if (!wfmItem || !wfmItem.tradable) {
-        results[item.uniqueName] = 0;
-        continue;
-      }
-    }
-    const cached = cache[item.uniqueName];
-    if (cached) results[item.uniqueName] = cached.plat;
-  }
-
-  const needsFetch = items.filter(item => {
-    if (!item.name || item.name.includes('Forma')) return false;
-    if (map) {
-      const wfmItem = lookupWfmItem(map, item.uniqueName);
-      if (!wfmItem || !wfmItem.tradable) return false;
-    }
-    const cached = cache[item.uniqueName];
-    return !cached || (Date.now() - cached.lastUpdated >= ttl);
-  });
-
-  if (needsFetch.length === 0) {
-    return { results, hadNetworkActivity: false };
-  }
-
-  for (let i = 0; i < needsFetch.length; i++) {
-    const item = needsFetch[i];
-    const price = await getPrice(item.uniqueName, item.name, item.ducats, item.maxRank);
-    results[item.uniqueName] = price;
-    if (onProgress) onProgress({ current: i + 1, total: needsFetch.length, label: item.name });
-  }
-
-  return { results, hadNetworkActivity: true };
-}
-
-const WFM_MISSPELLINGS = {
-  'kompressa_prime_receiver': 'kompressa_prime_reciever',
-};
-
-function toWfmSlug(itemName) {
-  let slug = itemName
-    .toLowerCase()
-    .trim()
-    .replace(/'/g, '')
-    .replace(/-/g, '_')
-    .replace(/\s+/g, '_')
-    .replace(/&/g, 'and')
-    .replace(/[()]/g, '')
-    .replace(/_blueprints$/, '_blueprint')
-    .replace(/_blueprint_blueprint$/, '_blueprint');
-
-  if (WFM_MISSPELLINGS[slug]) {
-    slug = WFM_MISSPELLINGS[slug];
-  }
-
-  return slug;
-}
-
-function generateSlugVariants(itemName) {
-  const variants = [];
-  const base = itemName
-    .toLowerCase()
-    .trim()
-    .replace(/'/g, '')
-    .replace(/-/g, '_')
-    .replace(/\s+/g, '_')
-    .replace(/&/g, 'and')
-    .replace(/[()]/g, '')
-    .replace(/_blueprints$/, '_blueprint')
-    .replace(/_blueprint_blueprint$/, '_blueprint');
-
-  variants.push(base);
-
-  if (base.includes('_prime_')) {
-    const withoutPrime = base.replace('_prime_', '_');
-    variants.push(withoutPrime);
-  }
-
-  if (base.includes('blueprint')) {
-    const withoutS = base.replace('blueprint', 'blueprints');
-    const withS = base.replace('blueprints', 'blueprint');
-    variants.push(withoutS, withS);
-  }
-
-  return [...new Set(variants)];
+  cache[wfmItemId] = entry;
+  cachedData = cache;
+  lastCacheLoad = Date.now();
+  localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
 }
 
 function medianPrice(sells) {
@@ -267,6 +161,8 @@ function medianPrice(sells) {
   return Math.round(sum / count);
 }
 
+// Returns: null = request failed (rate-limited/timeout/network error, retry
+// later), 0 = confirmed no current sell orders, >0 = median sell price.
 async function tryFetchPrice(slug, maxRank = null) {
   const headers = {
     'Platform': 'pc',
@@ -275,11 +171,13 @@ async function tryFetchPrice(slug, maxRank = null) {
     'Crossplay': 'true'
   };
 
+  await rateLimitGate();
+
   const controller = new AbortController();
   const timer = setTimeout(() => { controller.abort(); }, 15000);
 
   try {
-    let url = `https://api.warframe.market/v2/orders/item/${slug}/top`;
+    const url = `https://api.warframe.market/v2/orders/item/${slug}/top`;
 
     const response = await tauriFetch(url, { method: 'GET', headers, signal: controller.signal });
     clearTimeout(timer);
@@ -290,7 +188,6 @@ async function tryFetchPrice(slug, maxRank = null) {
     }
 
     const body = await response.json();
-
     let sells = body?.data?.sell;
 
     if (!sells || sells.length === 0) return 0;
@@ -300,41 +197,50 @@ async function tryFetchPrice(slug, maxRank = null) {
       if (ranked.length > 0) sells = ranked;
     }
 
-    const price = medianPrice(sells);
-    return price;
-
+    return medianPrice(sells);
   } catch (err) {
     clearTimeout(timer);
     return null;
   }
 }
 
-async function fetchWfmPrice(slug, maxRank = null) {
-  lastFetchTime = Date.now();
+// Fetch (or serve from cache) an explicit price state for a WFM catalog
+// item. `wfmItemId` and `slug` must come from a verified catalog match
+// (lookupWfmItem) - there is no name-guessing fallback, so an unresolved
+// item should never reach this function.
+export async function getPriceState(wfmItemId, slug, maxRank = null) {
+  if (!wfmItemId || !slug) return { status: 'error' };
 
-  let price = await tryFetchPrice(slug, maxRank);
-  if (price !== null && price > 0) {
-    return price;
-  }
-
-  const itemName = slug.replace(/_/g, ' ').replace(/market$/i, '').trim();
-  const variants = generateSlugVariants(itemName);
-
-  for (const variant of variants) {
-    if (variant === slug) continue;
-    price = await tryFetchPrice(variant);
-    if (price !== null && price > 0) {
-      return price;
-    }
-  }
-
-  return 0;
-}
-
-function saveToCache(itemUniqueName, plat) {
   const cache = loadCache();
-  cache[itemUniqueName] = { plat, lastUpdated: Date.now() };
-  cachedData = cache;
-  lastCacheLoad = Date.now();
-  localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+  const cached = cache[wfmItemId];
+  const ttl = getTTL();
+  if (cached && (Date.now() - cached.timestamp < ttl)) {
+    return cached;
+  }
+
+  if (pendingRequests.has(wfmItemId)) {
+    return pendingRequests.get(wfmItemId);
+  }
+
+  const fetchPromise = (async () => {
+    const plat = await tryFetchPrice(slug, maxRank);
+    let result;
+    if (plat === null) {
+      // A real failure must not be cached as a confirmed result - it should
+      // be retried on the next load rather than permanently reported as
+      // "no orders" or a stale/wrong price.
+      result = { status: 'error', timestamp: Date.now() };
+    } else if (plat === 0) {
+      result = { status: 'no_orders', timestamp: Date.now() };
+      saveCacheEntry(wfmItemId, result);
+    } else {
+      result = { status: 'ready', price: plat, timestamp: Date.now() };
+      saveCacheEntry(wfmItemId, result);
+    }
+    pendingRequests.delete(wfmItemId);
+    return result;
+  })();
+
+  pendingRequests.set(wfmItemId, fetchPromise);
+  return fetchPromise;
 }

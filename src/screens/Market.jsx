@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { PageLayout, Card, Input } from "../components/UI";
 import ItemImage from "../components/ItemImage";
 import { useUi } from "../contexts/UiContext";
@@ -6,7 +6,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { loadSettings, getSetting } from "../lib/settings";
 import { useMonitoring } from "../contexts/MonitoringContext";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
-import { ensureWfmItems, lookupWfmItem, getPrice } from "../lib/wfmCache";
+import { ensureWfmItems, lookupWfmItem, getPriceState } from "../lib/wfmCache";
 import {
   TrendingUp,
   Package,
@@ -30,12 +30,24 @@ import {
 
 const WFM_ID_CATALOG_KEY = "wfm_id_catalog_v2";
 
+function priceAgeLabel(timestamp) {
+  if (!timestamp) return "";
+  const ageMs = Date.now() - timestamp;
+  const mins = Math.floor(ageMs / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  return `${Math.floor(hours / 24)}d ago`;
+}
+
 export default function Market({ onNavigate }) {
   const { t } = useUi();
   const { inventoryData } = useMonitoring();
   const [token, setToken] = useState("");
   const [activeTab, setActiveTab] = useState("active_orders");
-  const [wfmMap, setWfmMap] = useState(null); // "active_orders" | "tradeable_stock"
+  const [wfmMap, setWfmMap] = useState(null);
+  const [catalogStatus, setCatalogStatus] = useState("loading"); // "loading" | "ready" | "error"
   
   // Active Orders state
   const [orderFilter, setOrderFilter] = useState("all"); // "all" | "sell" | "buy" | "hidden"
@@ -57,10 +69,18 @@ export default function Market({ onNavigate }) {
   const [sellingItem, setSellingItem] = useState(null);
   const [sellPriceInput, setSellPriceInput] = useState({});
   const [sellStatus, setSellStatus] = useState({});
-  const [stockPrices, setStockPrices] = useState({});
+  // Keyed by WFM item id (not display name / unique_name) - see wfmCache.js.
+  // Each value is { status: 'loading' | 'ready' | 'no_orders' | 'error', price?, timestamp? }.
+  const [priceStates, setPriceStates] = useState({});
+  // Card order is intentionally NOT recomputed every time a price resolves
+  // (see stockOrderKeys effect below) - bumping this is how the user
+  // explicitly asks for the list to re-sort using currently-known prices.
+  const [sortRefreshToken, setSortRefreshToken] = useState(0);
+  const [stockOrderKeys, setStockOrderKeys] = useState([]);
 
   // 1. Load WFM items catalog (ID -> name/icon map)
   const ensureCatalog = useCallback(async () => {
+    setCatalogStatus("loading");
     try {
       const cached = localStorage.getItem(WFM_ID_CATALOG_KEY);
       if (cached) {
@@ -71,7 +91,12 @@ export default function Market({ onNavigate }) {
       }
 
       const map = await ensureWfmItems();
-      if (map) setWfmMap(map);
+      if (!map) {
+        setCatalogStatus("error");
+        return;
+      }
+      setWfmMap(map);
+      setCatalogStatus("ready");
 
       const res = await tauriFetch("https://api.warframe.market/v2/items", {
         method: "GET",
@@ -285,90 +310,129 @@ export default function Market({ onNavigate }) {
   // --------------------------------------------------------------------------
   // Tradeable Stock Processing & Valuation Logic
   // --------------------------------------------------------------------------
-  const tradeableStock = useMemo(() => {
-    if (!inventoryData?.prime_parts) return [];
-    
-    return inventoryData.prime_parts.map(part => {
-      const wfmItem = wfmMap ? lookupWfmItem(wfmMap, part.unique_name) : null;
-      const platPrice = stockPrices[part.name] || (part.estimated_platinum || 0);
+  // Step 1: which owned items are actually saleable at all. This is Market's
+  // own inventory selection, deliberately separate from raw prime_parts
+  // (which also serves crafting/collection tracking elsewhere) - a crafted
+  // part with zero spare copies, or a part with no verified WFM listing,
+  // must never appear here just because its game path looks similar to a
+  // real one.
+  const saleableStock = useMemo(() => {
+    if (!inventoryData?.prime_parts || catalogStatus !== "ready" || !wfmMap) return [];
+
+    return inventoryData.prime_parts
+      .filter(part => (part.quantity || 0) > 0)
+      .map(part => {
+        const wfmItem = lookupWfmItem(wfmMap, part.unique_name);
+        return wfmItem && wfmItem.tradable !== false ? { ...part, wfmItem } : null;
+      })
+      .filter(Boolean);
+  }, [inventoryData, wfmMap, catalogStatus]);
+
+  // Step 2: attach current price state + a derived recommendation. Recomputes
+  // whenever a price resolves, but this does NOT drive card order (see the
+  // stockOrderKeys effect below) - only what's shown on an already-placed card.
+  const stockWithPricing = useMemo(() => {
+    return saleableStock.map(part => {
+      const priceState = priceStates[part.wfmItem.id] || { status: "loading" };
       const ducats = part.ducats || 0;
-      
-      // Calculate decision & ratios
-      let pdRatio = 0;
-      let dpRatio = 0;
+      const isDuplicate = (part.quantity || 0) > 1;
+      const isMastered = !!part.mastered;
+
+      if (priceState.status !== "ready") {
+        // No confirmed price yet (still loading, no sell orders, or the
+        // request failed) - there is nothing to compare ducats against, so
+        // say so explicitly instead of treating the missing price as 0.
+        return {
+          ...part,
+          priceState,
+          platPrice: null,
+          ducats,
+          pdRatio: 0,
+          dpRatio: 0,
+          decision: "unknown",
+          decisionLabel: t("market.decision_cannot_compare"),
+          decisionReason: priceState.status === "no_orders"
+            ? t("market.reason_no_orders")
+            : priceState.status === "error"
+            ? t("market.reason_price_unavailable")
+            : t("market.reason_price_loading"),
+          isDuplicate,
+          isMastered
+        };
+      }
+
+      const platPrice = priceState.price;
+      let pdRatio = 0, dpRatio = 0;
       if (ducats > 0 && platPrice > 0) {
         pdRatio = platPrice / ducats;
         dpRatio = ducats / platPrice;
       }
 
-      // Decision rules:
-      // High plat value if price >= 15p OR ratio >= 0.2 (e.g. >=10p for 45d, >=5p for 15d)
       let decision = "neutral";
       let decisionLabel = t("market.decision_fair_value");
-      let decisionReason = t("market.reason_balanced", { ducats, plat: platPrice || "?" });
+      let decisionReason = t("market.reason_balanced", { ducats, plat: platPrice, age: priceAgeLabel(priceState.timestamp) });
 
       if (platPrice >= 15 || pdRatio >= 0.22) {
         decision = "sell_plat";
         decisionLabel = t("market.decision_sell_plat");
-        decisionReason = t("market.reason_high_plat", { plat: platPrice, ducats });
+        decisionReason = t("market.reason_high_plat", { plat: platPrice, ducats, age: priceAgeLabel(priceState.timestamp) });
       } else if (dpRatio >= 15 || (ducats >= 45 && platPrice <= 3)) {
         decision = "ducats";
         decisionLabel = t("market.decision_keep_ducats");
-        decisionReason = t("market.reason_high_ducat", { ducats, plat: platPrice });
+        decisionReason = t("market.reason_high_ducat", { ducats, plat: platPrice, age: priceAgeLabel(priceState.timestamp) });
       }
 
-      return {
-        ...part,
-        wfmItem,
-        platPrice,
-        ducats,
-        pdRatio,
-        dpRatio,
-        decision,
-        decisionLabel,
-        decisionReason,
-        isDuplicate: (part.quantity || 0) > 1,
-        isMastered: !!part.mastered
-      };
+      return { ...part, priceState, platPrice, ducats, pdRatio, dpRatio, decision, decisionLabel, decisionReason, isDuplicate, isMastered };
     });
-  }, [inventoryData, wfmMap, stockPrices]);
+  }, [saleableStock, priceStates, t]);
 
+  // Step 3: fetch price state for each saleable item, applied as each one
+  // resolves (not batched) so results show up progressively.
+  const priceStatesRef = useRef(priceStates);
+  priceStatesRef.current = priceStates;
 
   useEffect(() => {
-    if (!inventoryData?.prime_parts) return;
+    if (saleableStock.length === 0) return;
     let isMounted = true;
 
     const loadPrices = async () => {
-      const owned = inventoryData.prime_parts.filter(p => (p.quantity || 0) > 0);
       const chunkSize = 8;
-      
-      for (let i = 0; i < owned.length; i += chunkSize) {
+      for (let i = 0; i < saleableStock.length; i += chunkSize) {
         if (!isMounted) break;
-        const chunk = owned.slice(i, i + chunkSize);
-        const batchResults = {};
-        
-        await Promise.all(chunk.map(async part => {
-          try {
-            const plat = await getPrice(part.unique_name, part.name, part.ducats || 0);
-            if (plat !== null && plat !== undefined) {
-              batchResults[part.name] = plat;
-            }
-          } catch {}
-        }));
+        const chunk = saleableStock.slice(i, i + chunkSize);
 
-        if (isMounted && Object.keys(batchResults).length > 0) {
-          setStockPrices(prev => ({ ...prev, ...batchResults }));
-        }
+        await Promise.all(chunk.map(async part => {
+          const id = part.wfmItem.id;
+          const existing = priceStatesRef.current[id];
+          if (existing && (existing.status === "ready" || existing.status === "no_orders")) return;
+          try {
+            const result = await getPriceState(id, part.wfmItem.slug, part.maxRank ?? null);
+            if (!isMounted) return;
+            setPriceStates(prev => ({ ...prev, [id]: result }));
+          } catch {
+            if (!isMounted) return;
+            setPriceStates(prev => ({ ...prev, [id]: { status: "error", timestamp: Date.now() } }));
+          }
+        }));
       }
     };
 
     loadPrices();
     return () => { isMounted = false; };
-  }, [inventoryData?.prime_parts]);
+  }, [saleableStock]);
 
-  // Filtered & Sorted Tradeable Stock
-  const processedStock = useMemo(() => {
-    let list = tradeableStock.filter(item => {
+  // Step 4: filter + sort. Card order is only recomputed when the set of
+  // saleable items changes, the filter/search/sort mode changes, or the user
+  // explicitly clicks "Refresh Sort" (sortRefreshToken) - NOT on every price
+  // update, so cards don't reshuffle out from under the user mid-load.
+  const stockByKey = useMemo(() => {
+    const m = new Map();
+    for (const item of stockWithPricing) m.set(item.unique_name, item);
+    return m;
+  }, [stockWithPricing]);
+
+  useEffect(() => {
+    const filtered = stockWithPricing.filter(item => {
       if (stockFilter === "sell_plat" && item.decision !== "sell_plat") return false;
       if (stockFilter === "ducats" && item.decision !== "ducats") return false;
       if (stockFilter === "duplicates" && !item.isDuplicate) return false;
@@ -378,7 +442,7 @@ export default function Market({ onNavigate }) {
       return true;
     });
 
-    list.sort((a, b) => {
+    filtered.sort((a, b) => {
       if (stockSort === "plat_ratio") return (b.pdRatio || 0) - (a.pdRatio || 0) || (b.platPrice || 0) - (a.platPrice || 0);
       if (stockSort === "ducat_ratio") return (b.dpRatio || 0) - (a.dpRatio || 0) || (b.ducats || 0) - (a.ducats || 0);
       if (stockSort === "plat_desc") return (b.platPrice || 0) - (a.platPrice || 0);
@@ -388,67 +452,58 @@ export default function Market({ onNavigate }) {
       return 0;
     });
 
-    return list;
-  }, [tradeableStock, stockFilter, stockSort, stockSearch]);
+    setStockOrderKeys(filtered.map(item => item.unique_name));
+    // Deliberately excludes `stockWithPricing`/`priceStates` - see comment above.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [saleableStock, stockFilter, stockSort, stockSearch, sortRefreshToken]);
 
-  // 1-Click Sell from Tradeable Stock
+  const processedStock = useMemo(() => {
+    return stockOrderKeys.map(key => stockByKey.get(key)).filter(Boolean);
+  }, [stockOrderKeys, stockByKey]);
+
+  // 1-Click Sell from Tradeable Stock. `item` always comes from
+  // saleableStock, so item.wfmItem.id is already a verified catalog match -
+  // there is no re-resolution or name-based re-matching here on purpose.
   const handleSellStockItem = async (item) => {
-    const customPrice = sellPriceInput[item.name] || item.platPrice || 10;
     if (!token) {
       alert(t("market.alert_configure_jwt"));
       return;
     }
 
-    // Resolve 24-char hexadecimal WFM itemId
-    let itemId = item.wfmItem?.id || (wfmMap ? lookupWfmItem(wfmMap, item.unique_name)?.id : null);
-    if (!itemId && idCatalog) {
-      const slug = item.wfmItem?.slug || item.name.toLowerCase().replace(/\s+/g, '_');
-      const entry = Object.values(idCatalog).find(e => e.slug === slug || e.name === item.name);
-      if (entry) itemId = entry.id;
-    }
-
+    const itemId = item.wfmItem?.id;
     if (!itemId) {
-      try {
-        const catRes = await tauriFetch("https://api.warframe.market/v2/items", {
-          method: "GET",
-          headers: { Platform: "pc", Accept: "application/json", "User-Agent": "KiedasOrbiter/1.3.3" }
-        });
-        if (catRes.ok) {
-          const body = await catRes.json();
-          const items = body?.data || [];
-          const leaf = item.unique_name ? item.unique_name.split('/').pop() : null;
-          const matched = items.find(it => {
-            if (it.gameRef && (it.gameRef === item.unique_name || (leaf && it.gameRef.endsWith(leaf)))) return true;
-            if (it.i18n?.en?.name?.toLowerCase() === item.name?.toLowerCase()) return true;
-            return false;
-          });
-          if (matched) itemId = matched.id;
-        }
-      } catch {}
-    }
-
-    if (!itemId) {
-      alert("Could not resolve Warframe.Market item ID for: " + item.name);
+      alert("No verified Warframe.Market listing for: " + item.name);
       return;
     }
 
-    setSellStatus(prev => ({ ...prev, [item.name]: "listing" }));
+    const rawPrice = sellPriceInput[item.unique_name];
+    const enteredPrice = rawPrice !== undefined && rawPrice !== "" ? parseInt(rawPrice, 10) : null;
+    if (!enteredPrice || enteredPrice < 1) {
+      alert("Enter a listing price before selling.");
+      return;
+    }
+    if ((item.quantity || 0) <= 0) {
+      alert("No saleable quantity for: " + item.name);
+      return;
+    }
+
+    setSellStatus(prev => ({ ...prev, [item.unique_name]: "listing" }));
     try {
       await invoke("post_market_order", {
         token,
         itemId,
-        platPrice: parseInt(customPrice, 10),
+        platPrice: enteredPrice,
         quantity: 1,
         rank: null
       });
-      setSellStatus(prev => ({ ...prev, [item.name]: "success" }));
+      setSellStatus(prev => ({ ...prev, [item.unique_name]: "success" }));
       fetchMyOrders();
       setTimeout(() => {
-        setSellStatus(prev => ({ ...prev, [item.name]: null }));
+        setSellStatus(prev => ({ ...prev, [item.unique_name]: null }));
       }, 3000);
     } catch (err) {
       alert("Failed to list order on Warframe.Market: " + err);
-      setSellStatus(prev => ({ ...prev, [item.name]: "error" }));
+      setSellStatus(prev => ({ ...prev, [item.unique_name]: "error" }));
     }
   };
 
@@ -569,7 +624,7 @@ export default function Market({ onNavigate }) {
             </div>
             <div>
               <div className="text-xs text-kronos-dim">{t("market.stat_tradeable_inventory")}</div>
-              <div className="text-lg font-bold text-white">{tradeableStock.length} items</div>
+              <div className="text-lg font-bold text-white">{stockWithPricing.length} items</div>
             </div>
           </div>
         </div>
@@ -596,7 +651,7 @@ export default function Market({ onNavigate }) {
             }`}
           >
             <Sparkles className="w-4 h-4 text-[#fbbf24]" />
-            Tradeable Stock ({tradeableStock.length})
+            Tradeable Stock ({stockWithPricing.length})
           </button>
         </div>
 
@@ -822,7 +877,7 @@ export default function Market({ onNavigate }) {
                     stockFilter === "all" ? "bg-kronos-panel/50 text-white" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  All ({tradeableStock.length})
+                  All ({stockWithPricing.length})
                 </button>
                 <button
                   onClick={() => setStockFilter("sell_plat")}
@@ -831,7 +886,7 @@ export default function Market({ onNavigate }) {
                   }`}
                 >
                   <Tag className="w-3 h-3 text-emerald-400" />
-                  {t("market.filter_sell_plat", { n: tradeableStock.filter(i => i.decision === "sell_plat").length })}
+                  {t("market.filter_sell_plat", { n: stockWithPricing.filter(i => i.decision === "sell_plat").length })}
                 </button>
                 <button
                   onClick={() => setStockFilter("ducats")}
@@ -840,7 +895,7 @@ export default function Market({ onNavigate }) {
                   }`}
                 >
                   <Coins className="w-3 h-3 text-amber-400" />
-                  {t("market.filter_best_ducats", { n: tradeableStock.filter(i => i.decision === "ducats").length })}
+                  {t("market.filter_best_ducats", { n: stockWithPricing.filter(i => i.decision === "ducats").length })}
                 </button>
                 <button
                   onClick={() => setStockFilter("duplicates")}
@@ -848,7 +903,7 @@ export default function Market({ onNavigate }) {
                     stockFilter === "duplicates" ? "bg-[#a855f7]/20 text-[#c084fc] font-bold" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  {t("market.filter_duplicates", { n: tradeableStock.filter(i => i.isDuplicate).length })}
+                  {t("market.filter_duplicates", { n: stockWithPricing.filter(i => i.isDuplicate).length })}
                 </button>
                 <button
                   onClick={() => setStockFilter("mastered")}
@@ -856,7 +911,7 @@ export default function Market({ onNavigate }) {
                     stockFilter === "mastered" ? "bg-kronos-accent/20 text-kronos-accent font-bold" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  {t("market.filter_mastered", { n: tradeableStock.filter(i => i.isMastered).length })}
+                  {t("market.filter_mastered", { n: stockWithPricing.filter(i => i.isMastered).length })}
                 </button>
               </div>
 
@@ -925,11 +980,40 @@ export default function Market({ onNavigate }) {
                     </>
                   )}
                 </div>
+
+                <button
+                  type="button"
+                  onClick={() => setSortRefreshToken(v => v + 1)}
+                  title="Re-sort using currently known prices (list order stays fixed while prices are loading)"
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-kronos-panel/50 hover:bg-kronos-panel/70 border border-white/5 hover:border-kronos-accent/50 rounded-lg text-xs font-medium text-white transition"
+                >
+                  <RefreshCw className="w-3.5 h-3.5 text-kronos-accent" />
+                  {t("market.refresh_sort")}
+                </button>
               </div>
             </div>
 
+            {catalogStatus === "loading" && (
+              <div className="p-4 rounded-xl bg-kronos-panel/30 border border-white/5 flex items-center gap-2 text-xs text-kronos-dim">
+                <RefreshCw className="w-4 h-4 animate-spin text-kronos-accent" />
+                {t("market.catalog_loading")}
+              </div>
+            )}
+            {catalogStatus === "error" && (
+              <div className="p-4 rounded-xl bg-red-950/30 border border-red-500/20 flex items-center justify-between gap-2 text-xs text-red-300">
+                <span className="flex items-center gap-2"><AlertCircle className="w-4 h-4" /> {t("market.catalog_error")}</span>
+                <button
+                  type="button"
+                  onClick={ensureCatalog}
+                  className="px-3 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-300 text-xs font-medium transition"
+                >
+                  {t("market.retry")}
+                </button>
+              </div>
+            )}
+
             {/* Stock Cards Grid */}
-            {processedStock.length === 0 ? (
+            {catalogStatus === "ready" && processedStock.length === 0 ? (
               <div className="p-12 rounded-xl bg-kronos-panel/30 border border-white/5 flex flex-col items-center justify-center text-center">
                 <Layers className="w-12 h-12 text-[#475569] mb-3" />
                 <h3 className="text-sm font-semibold text-white">{t("market.no_items_stock")}</h3>
@@ -940,10 +1024,14 @@ export default function Market({ onNavigate }) {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {processedStock.map(item => {
-                  const isListing = sellStatus[item.name] === "listing";
-                  const isListed = sellStatus[item.name] === "success";
-                  const hasCustomPrice = sellPriceInput[item.name] !== undefined;
-                  const currentPrice = hasCustomPrice ? sellPriceInput[item.name] : (item.platPrice || 10);
+                  const isListing = sellStatus[item.unique_name] === "listing";
+                  const isListed = sellStatus[item.unique_name] === "success";
+                  const hasCustomPrice = sellPriceInput[item.unique_name] !== undefined;
+                  // Never silently substitute a price - prefill with the
+                  // confirmed WFM price once known, otherwise leave blank
+                  // so a listing can't go out at a made-up value.
+                  const currentPrice = hasCustomPrice ? sellPriceInput[item.unique_name] : (item.platPrice ?? "");
+                  const canSell = !!item.wfmItem?.id && (item.quantity || 0) > 0 && currentPrice !== "" && Number(currentPrice) >= 1;
 
                   return (
                     <div
@@ -1010,7 +1098,8 @@ export default function Market({ onNavigate }) {
                             type="number"
                             min="1"
                             value={currentPrice}
-                            onChange={(e) => setSellPriceInput(prev => ({ ...prev, [item.name]: e.target.value }))}
+                            placeholder={item.platPrice == null ? "?" : undefined}
+                            onChange={(e) => setSellPriceInput(prev => ({ ...prev, [item.unique_name]: e.target.value }))}
                             className="w-14 px-1.5 py-0.5 bg-kronos-panel/60 border border-white/5 focus:border-kronos-accent rounded text-white text-xs font-bold text-center"
                             title="Edit listing price"
                           />
@@ -1019,7 +1108,8 @@ export default function Market({ onNavigate }) {
 
                         <button
                           onClick={() => handleSellStockItem(item)}
-                          disabled={isListing || isListed}
+                          disabled={isListing || isListed || !canSell}
+                          title={!canSell ? "Enter a price to enable selling" : undefined}
                           className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-sm ${
                             isListed
                               ? "bg-emerald-500 text-black cursor-default"

@@ -12,32 +12,6 @@ import { loadRivenGoodRolls, getRivenStatGrade } from '../lib/rivenGrader';
 import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewRivensLayout from '../components/PreviewRivensLayout';
 
-const TYPE_TABS = [
-{ id: 'all', label: 'All' },
-{ id: 'rifle', label: 'Rifle' },
-{ id: 'pistol', label: 'Pistol' },
-{ id: 'melee', label: 'Melee' },
-{ id: 'shotgun', label: 'Shotgun' },
-{ id: 'sniper', label: 'Sniper' },
-{ id: 'kitgun', label: 'Kitgun' },
-{ id: 'zaw', label: 'Zaw' },
-{ id: 'archgun', label: 'Archgun' }];
-
-
-const STATE_TABS = [
-{ id: 'all', label: 'All States' },
-{ id: 'unveiled', label: 'Unveiled' },
-{ id: 'challenge', label: 'Challenge' },
-{ id: 'veiled', label: 'Veiled' }];
-
-
-const SORT_CRITERIA = [
-{ id: 'name', label: 'Name' },
-{ id: 'plat', label: 'Plat' },
-{ id: 'grade', label: 'Grade' },
-{ id: 'rank', label: 'Rank' }];
-
-
 const GRADE_ORDER = { S: 0, A: 1, B: 2, C: 3, D: 4, F: 5 };
 
 const STAT_TO_PRICER = {
@@ -96,6 +70,26 @@ function rivenKey(r) {
 
 export default function Rivens() {
   const { t } = useUi()
+  const TYPE_TABS = [
+  { id: 'all', label: t('rivens.type_all') },
+  { id: 'rifle', label: t('rivens.type_rifle') },
+  { id: 'pistol', label: t('rivens.type_pistol') },
+  { id: 'melee', label: t('rivens.type_melee') },
+  { id: 'shotgun', label: t('rivens.type_shotgun') },
+  { id: 'sniper', label: t('rivens.type_sniper') },
+  { id: 'kitgun', label: t('rivens.type_kitgun') },
+  { id: 'zaw', label: t('rivens.type_zaw') },
+  { id: 'archgun', label: t('rivens.type_archgun') }];
+  const STATE_TABS = [
+  { id: 'all', label: t('rivens.state_all') },
+  { id: 'unveiled', label: t('rivens.state_unveiled') },
+  { id: 'challenge', label: t('rivens.state_challenge') },
+  { id: 'veiled', label: t('rivens.state_veiled') }];
+  const SORT_CRITERIA = [
+  { id: 'name', label: t('rivens.sort_name') },
+  { id: 'plat', label: t('rivens.sort_plat') },
+  { id: 'grade', label: t('rivens.sort_grade') },
+  { id: 'rank', label: t('rivens.sort_rank') }];
   const { inventoryData, isInventoryLoading } = useMonitoring();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeType, setActiveType] = useState('all');

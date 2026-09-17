@@ -238,17 +238,17 @@ export default function Relics() {
   filter((e) => e === 'All' || relics.some((r) => r.era === e)).
   map((e) => ({
     id: e,
-    label: e,
+    label: e === 'All' ? t('relics.era_all') : e === 'Other' ? t('relics.era_other') : e,
     icon: e !== 'All' && e !== 'Other' ? iconSrc(e) : null
   }));
 
   const qualityTabs = [
-    { id: 'All', label: 'All' },
-    { id: 'Intact', label: 'Intact' },
+    { id: 'All', label: t('relics.quality_all') },
+    { id: 'Intact', label: t('relics.quality_intact') },
     { id: 'has_refinements', label: t('relics.refined_tab') },
-    { id: 'Exceptional', label: 'Exceptional' },
-    { id: 'Flawless', label: 'Flawless' },
-    { id: 'Radiant', label: 'Radiant' },
+    { id: 'Exceptional', label: t('relics.quality_exceptional') },
+    { id: 'Flawless', label: t('relics.quality_flawless') },
+    { id: 'Radiant', label: t('relics.quality_radiant') },
   ];
 
   const renderHeaderPanel = () =>

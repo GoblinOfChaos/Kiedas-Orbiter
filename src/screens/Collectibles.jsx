@@ -92,35 +92,43 @@ function getSongItemLocationText(leaf) {
   return SONG_ITEM_VENDORS[leaf] ?? null
 }
 
+// `label` doubles as an internal lookup key into collectibleLocations.json /
+// codexCatalog (keyed by these exact English strings) - never change it to a
+// translated value. `labelKey` is the i18n key used only for display text;
+// see collectibleDisplayLabel() below.
 const CATEGORIES = [
   // Series
-  { type: 'series', key: '/Lotus/Objects/Orokin/Props/CollectibleSeriesOne', label: 'Kuria', icon: 'IconOrokitty.png', color: '#d4a843' },
-  { type: 'series', key: '/Lotus/Types/Lore/Fragments/DuviriFragments/DuviriCollectibleDeco', label: 'Lost Islands of Duviri', icon: 'DuviriFragment.png', color: '#7ec8e3' },
-  { type: 'series', key: '/Lotus/Types/Lore/Fragments/DuviriMITWFragments/DuviriMITWCollectibleDeco', label: 'Isleweaver Fragments', icon: 'IsleweaverFragment.png', color: '#c084fc' },
+  { type: 'series', key: '/Lotus/Objects/Orokin/Props/CollectibleSeriesOne', label: 'Kuria', labelKey: 'collectibles.cat_kuria', icon: 'IconOrokitty.png', color: '#d4a843' },
+  { type: 'series', key: '/Lotus/Types/Lore/Fragments/DuviriFragments/DuviriCollectibleDeco', label: 'Lost Islands of Duviri', labelKey: 'collectibles.cat_duviri_islands', icon: 'DuviriFragment.png', color: '#7ec8e3' },
+  { type: 'series', key: '/Lotus/Types/Lore/Fragments/DuviriMITWFragments/DuviriMITWCollectibleDeco', label: 'Isleweaver Fragments', labelKey: 'collectibles.cat_isleweaver', icon: 'IsleweaverFragment.png', color: '#c084fc' },
 
   // Open World
-  { type: 'marker', key: 'EidolonPlainsDiscoverable', label: 'Plains of Eidolon Caves', icon: 'IconPlainsOfEidolon.png', color: '#4ade80' },
-  { type: 'marker', key: 'OrbVallisCaveDiscoverable', label: 'Orb Vallis Caves', icon: 'VallisLandscape.png', color: '#60a5fa' },
-  { type: 'marker', key: 'FortunaMarker', label: 'Fortuna', icon: 'FortunaTown.png', color: '#fbbf24' },
-  { type: 'marker', key: 'NecraliskMarker', label: 'Necralisk', icon: 'IconNecralisk.png', color: '#c084fc' },
+  { type: 'marker', key: 'EidolonPlainsDiscoverable', label: 'Plains of Eidolon Caves', labelKey: 'collectibles.cat_eidolon_caves', icon: 'IconPlainsOfEidolon.png', color: '#4ade80' },
+  { type: 'marker', key: 'OrbVallisCaveDiscoverable', label: 'Orb Vallis Caves', labelKey: 'collectibles.cat_vallis_caves', icon: 'VallisLandscape.png', color: '#60a5fa' },
+  { type: 'marker', key: 'FortunaMarker', label: 'Fortuna', labelKey: 'collectibles.cat_fortuna', icon: 'FortunaTown.png', color: '#fbbf24' },
+  { type: 'marker', key: 'NecraliskMarker', label: 'Necralisk', labelKey: 'collectibles.cat_necralisk', icon: 'IconNecralisk.png', color: '#c084fc' },
 
   // Lore Fragments - totals are computed live from ExportCodex.json (DE's own
   // authoritative catalog), not hardcoded. See qa-findings.md 2026-08-19: three
   // different hand-entered/wiki-derived totals for this section (Somachord,
   // Frame Fighter, Leverian) all turned out wrong compared to the real catalog.
-  { type: 'fragment', label: 'Somachord Tunes', codexSection: 'songs', icon: 'IconSomachord.png', color: '#f472b6', match: (type) => type.includes('/MusicFragments/') },
-  { type: 'fragment', label: 'Frame Fighter Fragments', codexSection: 'fighterFrames', icon: 'IconFrameFighter.png', color: '#fb923c', match: (type) => type.includes('/FrameFighterFragments/') },
-  { type: 'fragment', label: 'Cephalon Fragments', icon: 'IconCephalonFragment.png', color: '#60a5fa', match: (type) => type.startsWith('/Lotus/Types/Lore/Fragments/') && !type.includes('/Eidolon') && !type.includes('/Music') && !type.includes('/FrameFighter') && !type.includes('/LoreCard') && !type.includes('/Solaris') && !type.includes('/GrineerGhoul') && !type.includes('/Albrect') && !type.includes('/Revenant') && !type.includes('/CorpusRelief') && !type.includes('/GasCity') && !type.includes('/GlassFragments') && !type.includes('/Duviri') },
-  { type: 'fragment', label: 'Leverian Prex Cards', icon: 'IconTarotCards.png', color: '#a78bfa', match: (type) => type.includes('/LoreCardFragments/') },
-  { type: 'fragment', label: 'Thousand-Year Fish', icon: 'GlassFish.png', color: '#34d399', match: (type) => type.includes('/EidolonFragments/') },
-  { type: 'fragment', label: 'Encrypted Journal Fragments', icon: 'GhoulDataFragment.png', color: '#a3e635', match: (type) => type.includes('/GrineerGhoulFragments/') },
-  { type: 'fragment', label: 'Glass Shard Fragments', icon: 'GlassFragment.png', color: '#6ee7b7', match: (type) => type.includes('/GlassFragments/') },
-  { type: 'fragment', label: 'Fortuna Fragments', icon: 'DebtTokenD.png', color: '#facc15', match: (type) => type.includes('/SolarisFragments/') },
-  { type: 'fragment', label: "Albrecht's Notes", icon: 'Grimoire.png', color: '#818cf8', match: (type) => type.includes('/AlbrectFragments/') },
-  { type: 'fragment', label: 'Nakak Memory Fragments', icon: 'RevenantQuestKeyChain.png', color: '#c084fc', match: (type) => type.includes('/RevenantFragments/') },
-  { type: 'fragment', label: 'The Tenets', icon: 'IconCorpusRelief.png', color: '#67e8f9', match: (type) => type.includes('/CorpusReliefFragments/') },
-  { type: 'fragment', label: 'Partnership Fragments', icon: 'IconGasCityLoreFragment.png', color: '#22d3ee', match: (type) => type.includes('/GasCityFragments/') },
+  { type: 'fragment', label: 'Somachord Tunes', labelKey: 'collectibles.cat_somachord', codexSection: 'songs', icon: 'IconSomachord.png', color: '#f472b6', match: (type) => type.includes('/MusicFragments/') },
+  { type: 'fragment', label: 'Frame Fighter Fragments', labelKey: 'collectibles.cat_frame_fighter', codexSection: 'fighterFrames', icon: 'IconFrameFighter.png', color: '#fb923c', match: (type) => type.includes('/FrameFighterFragments/') },
+  { type: 'fragment', label: 'Cephalon Fragments', labelKey: 'collectibles.cat_cephalon', icon: 'IconCephalonFragment.png', color: '#60a5fa', match: (type) => type.startsWith('/Lotus/Types/Lore/Fragments/') && !type.includes('/Eidolon') && !type.includes('/Music') && !type.includes('/FrameFighter') && !type.includes('/LoreCard') && !type.includes('/Solaris') && !type.includes('/GrineerGhoul') && !type.includes('/Albrect') && !type.includes('/Revenant') && !type.includes('/CorpusRelief') && !type.includes('/GasCity') && !type.includes('/GlassFragments') && !type.includes('/Duviri') },
+  { type: 'fragment', label: 'Leverian Prex Cards', labelKey: 'collectibles.cat_leverian', icon: 'IconTarotCards.png', color: '#a78bfa', match: (type) => type.includes('/LoreCardFragments/') },
+  { type: 'fragment', label: 'Thousand-Year Fish', labelKey: 'collectibles.cat_fish', icon: 'GlassFish.png', color: '#34d399', match: (type) => type.includes('/EidolonFragments/') },
+  { type: 'fragment', label: 'Encrypted Journal Fragments', labelKey: 'collectibles.cat_journal', icon: 'GhoulDataFragment.png', color: '#a3e635', match: (type) => type.includes('/GrineerGhoulFragments/') },
+  { type: 'fragment', label: 'Glass Shard Fragments', labelKey: 'collectibles.cat_glass_shard', icon: 'GlassFragment.png', color: '#6ee7b7', match: (type) => type.includes('/GlassFragments/') },
+  { type: 'fragment', label: 'Fortuna Fragments', labelKey: 'collectibles.cat_fortuna_fragments', icon: 'DebtTokenD.png', color: '#facc15', match: (type) => type.includes('/SolarisFragments/') },
+  { type: 'fragment', label: "Albrecht's Notes", labelKey: 'collectibles.cat_albrecht', icon: 'Grimoire.png', color: '#818cf8', match: (type) => type.includes('/AlbrectFragments/') },
+  { type: 'fragment', label: 'Nakak Memory Fragments', labelKey: 'collectibles.cat_nakak', icon: 'RevenantQuestKeyChain.png', color: '#c084fc', match: (type) => type.includes('/RevenantFragments/') },
+  { type: 'fragment', label: 'The Tenets', labelKey: 'collectibles.cat_tenets', icon: 'IconCorpusRelief.png', color: '#67e8f9', match: (type) => type.includes('/CorpusReliefFragments/') },
+  { type: 'fragment', label: 'Partnership Fragments', labelKey: 'collectibles.cat_partnership', icon: 'IconGasCityLoreFragment.png', color: '#22d3ee', match: (type) => type.includes('/GasCityFragments/') },
 ]
+
+function collectibleDisplayLabel(cat, t) {
+  return (cat.labelKey && t(cat.labelKey) !== cat.labelKey) ? t(cat.labelKey) : cat.label
+}
 
 function countBits(n) {
   let c = 0
@@ -300,7 +308,7 @@ export default function Collectibles() {
     const card = {
       key: cat.key,
       icon: cat.icon && uiPath ? convertFileSrc(`${uiPath}/${cat.icon}`) : null,
-      label: cat.label,
+      label: collectibleDisplayLabel(cat, t),
       color: cat.color,
       count: cs?.Count ?? 0,
       total: cs?.ReqScans ?? 0,
@@ -317,7 +325,7 @@ export default function Collectibles() {
           const isFound = trackingBits ? trackingBits[i] === '1' : null
           return {
             key: itemKey,
-            name: `${data?.name || cat.label} (${itemKey})`,
+            name: `${data?.name || collectibleDisplayLabel(cat, t)} (${itemKey})`,
             location: data?.location,
             found: isFound,
           }
@@ -350,7 +358,7 @@ export default function Collectibles() {
     const card = {
       key: cat.key,
       icon: cat.icon && uiPath ? convertFileSrc(`${uiPath}/${cat.icon}`) : null,
-      label: cat.label,
+      label: collectibleDisplayLabel(cat, t),
       subtitle: cat.key.includes('Cave') ? t('ui.collectibles.subtitle_caves') : t('ui.collectibles.subtitle_areas'),
       color: cat.color,
       count: foundCount,
@@ -435,7 +443,7 @@ export default function Collectibles() {
       const card = {
         key: cat.label,
         icon: cat.icon && uiPath ? convertFileSrc(`${uiPath}/${cat.icon}`) : null,
-        label: cat.label,
+        label: collectibleDisplayLabel(cat, t),
         color: cat.color,
         count: foundCount,
         total: catalog.length,

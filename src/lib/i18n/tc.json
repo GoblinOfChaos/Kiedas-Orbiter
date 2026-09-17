@@ -1399,7 +1399,13 @@
     "preview.nav.compact_navigation": "精簡導覽",
     "preview.nav.main_navigation": "主要導覽",
     "preview.nav.navigation_heading": "導覽",
-    "preview.nav.application_status": "應用程式狀態"
+    "preview.nav.application_status": "應用程式狀態",
+    "relic_planner.selected_count": "已選 {n} 個",
+    "relic_planner.clear_button": "清除",
+    "relic_planner.remove_part": "移除 {name}",
+    "relic_planner.needed_count": "需要 {n} 個",
+    "relic_planner.match_summary": "{matches} 個符合的遺物 · {owned} 個已擁有 · {notOwned} 個未擁有",
+    "acquisition_drawer.bug_report_template": "「{displayName}」（{uniqueName}）缺少取得方式資訊。我在哪裡找到的："
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

@@ -1399,7 +1399,13 @@
     "preview.nav.compact_navigation": "コンパクトナビゲーション",
     "preview.nav.main_navigation": "メインナビゲーション",
     "preview.nav.navigation_heading": "ナビゲーション",
-    "preview.nav.application_status": "アプリケーションステータス"
+    "preview.nav.application_status": "アプリケーションステータス",
+    "relic_planner.selected_count": "{n}件選択中",
+    "relic_planner.clear_button": "クリア",
+    "relic_planner.remove_part": "{name}を削除",
+    "relic_planner.needed_count": "{n}件必要",
+    "relic_planner.match_summary": "{matches}件のレリックが一致・{owned}件所持・{notOwned}件未所持",
+    "acquisition_drawer.bug_report_template": "「{displayName}」（{uniqueName}）の入手方法情報が不足しています。どこで見つけたか: "
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

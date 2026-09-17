@@ -1399,7 +1399,13 @@
     "preview.nav.compact_navigation": "การนำทางแบบย่อ",
     "preview.nav.main_navigation": "การนำทางหลัก",
     "preview.nav.navigation_heading": "การนำทาง",
-    "preview.nav.application_status": "สถานะแอปพลิเคชัน"
+    "preview.nav.application_status": "สถานะแอปพลิเคชัน",
+    "relic_planner.selected_count": "เลือกแล้ว {n} รายการ",
+    "relic_planner.clear_button": "ล้าง",
+    "relic_planner.remove_part": "ลบ {name}",
+    "relic_planner.needed_count": "ต้องการ {n} รายการ",
+    "relic_planner.match_summary": "Relic ที่ตรงกัน {matches} รายการ · เป็นเจ้าของ {owned} รายการ · ไม่ได้เป็นเจ้าของ {notOwned} รายการ",
+    "acquisition_drawer.bug_report_template": "ไม่มีข้อมูลวิธีการรับสำหรับ \"{displayName}\" ({uniqueName}) ฉันพบมันที่ไหน: "
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

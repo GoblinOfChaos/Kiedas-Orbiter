@@ -1399,7 +1399,13 @@
     "preview.nav.compact_navigation": "Navigation compacte",
     "preview.nav.main_navigation": "Navigation principale",
     "preview.nav.navigation_heading": "Navigation",
-    "preview.nav.application_status": "État de l'application"
+    "preview.nav.application_status": "État de l'application",
+    "relic_planner.selected_count": "{n} sélectionnés",
+    "relic_planner.clear_button": "Effacer",
+    "relic_planner.remove_part": "Retirer {name}",
+    "relic_planner.needed_count": "{n} nécessaires",
+    "relic_planner.match_summary": "{matches} reliques correspondent · {owned} possédées · {notOwned} non possédées",
+    "acquisition_drawer.bug_report_template": "Informations d'acquisition manquantes pour « {displayName} » ({uniqueName}). Où je l'ai trouvé : "
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

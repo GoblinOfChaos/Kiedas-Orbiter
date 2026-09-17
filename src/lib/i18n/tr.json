@@ -1399,7 +1399,13 @@
     "preview.nav.compact_navigation": "Kompakt gezinme",
     "preview.nav.main_navigation": "Ana gezinme",
     "preview.nav.navigation_heading": "Gezinme",
-    "preview.nav.application_status": "Uygulama durumu"
+    "preview.nav.application_status": "Uygulama durumu",
+    "relic_planner.selected_count": "{n} seçildi",
+    "relic_planner.clear_button": "Temizle",
+    "relic_planner.remove_part": "{name} kaldır",
+    "relic_planner.needed_count": "{n} gerekli",
+    "relic_planner.match_summary": "{matches} relik eşleşiyor · {owned} sahip olunan · {notOwned} sahip olunmayan",
+    "acquisition_drawer.bug_report_template": "\"{displayName}\" ({uniqueName}) için edinim bilgisi eksik. Nerede buldum: "
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

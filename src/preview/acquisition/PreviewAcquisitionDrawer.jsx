@@ -212,7 +212,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
                 {formatCredits(recipe.blueprintCost) && <span>{t('acquisition_drawer.blueprint_label')} <strong>{formatCredits(recipe.blueprintCost)}</strong></span>}
                 {formatCredits(recipe.buildCost) && <span>{t('acquisition_drawer.build_label')} <strong>{formatCredits(recipe.buildCost)}</strong></span>}
                 {formatDuration(recipe.buildTime) && <span>{t('acquisition_drawer.time_label')} <strong>{formatDuration(recipe.buildTime)}</strong></span>}
-                {recipe.rushCost > 0 && <span>{t('acquisition_drawer.rush_label')} <strong>{recipe.rushCost} Platinum</strong></span>}
+                {recipe.rushCost > 0 && <span>{t('acquisition_drawer.rush_label')} <strong>{recipe.rushCost} {t('ui.dashboard.platinum')}</strong></span>}
               </div>
               {recipe.ingredients?.length > 0 &&
                 <div className="preview-acq-ingredients">
@@ -256,7 +256,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
       <BugReporterModal
         isOpen={showReportModal}
         onClose={() => setShowReportModal(false)}
-        initialDescription={`Acquisition info missing for "${displayName}" (${uniqueName}). Where I found it: `}
+        initialDescription={t('acquisition_drawer.bug_report_template', { displayName, uniqueName })}
       />
     </>
   );

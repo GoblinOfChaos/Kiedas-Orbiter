@@ -1399,7 +1399,13 @@
     "preview.nav.compact_navigation": "간단 탐색",
     "preview.nav.main_navigation": "기본 탐색",
     "preview.nav.navigation_heading": "탐색",
-    "preview.nav.application_status": "애플리케이션 상태"
+    "preview.nav.application_status": "애플리케이션 상태",
+    "relic_planner.selected_count": "{n}개 선택됨",
+    "relic_planner.clear_button": "지우기",
+    "relic_planner.remove_part": "{name} 제거",
+    "relic_planner.needed_count": "{n}개 필요",
+    "relic_planner.match_summary": "{matches}개 유물 일치 · {owned}개 보유 · {notOwned}개 미보유",
+    "acquisition_drawer.bug_report_template": "\"{displayName}\" ({uniqueName})의 획득 정보가 없습니다. 발견한 위치: "
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

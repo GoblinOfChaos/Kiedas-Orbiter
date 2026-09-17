@@ -1399,7 +1399,13 @@
     "preview.nav.compact_navigation": "Kompakte Navigation",
     "preview.nav.main_navigation": "Hauptnavigation",
     "preview.nav.navigation_heading": "Navigation",
-    "preview.nav.application_status": "Anwendungsstatus"
+    "preview.nav.application_status": "Anwendungsstatus",
+    "relic_planner.selected_count": "{n} ausgewählt",
+    "relic_planner.clear_button": "Leeren",
+    "relic_planner.remove_part": "{name} entfernen",
+    "relic_planner.needed_count": "{n} benötigt",
+    "relic_planner.match_summary": "{matches} passende Relikte · {owned} im Besitz · {notOwned} nicht im Besitz",
+    "acquisition_drawer.bug_report_template": "Beschaffungsinfo fehlt für \"{displayName}\" ({uniqueName}). Wo ich es gefunden habe: "
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

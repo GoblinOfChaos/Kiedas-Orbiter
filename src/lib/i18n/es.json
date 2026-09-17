@@ -1399,7 +1399,13 @@
     "preview.nav.compact_navigation": "Navegación compacta",
     "preview.nav.main_navigation": "Navegación principal",
     "preview.nav.navigation_heading": "Navegación",
-    "preview.nav.application_status": "Estado de la aplicación"
+    "preview.nav.application_status": "Estado de la aplicación",
+    "relic_planner.selected_count": "{n} seleccionados",
+    "relic_planner.clear_button": "Limpiar",
+    "relic_planner.remove_part": "Eliminar {name}",
+    "relic_planner.needed_count": "{n} necesarios",
+    "relic_planner.match_summary": "{matches} reliquias coinciden · {owned} en posesión · {notOwned} sin poseer",
+    "acquisition_drawer.bug_report_template": "Falta información de adquisición para \"{displayName}\" ({uniqueName}). Dónde lo encontré: "
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

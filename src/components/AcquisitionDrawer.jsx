@@ -279,7 +279,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
               {formatCredits(recipe.blueprintCost) && <span>{t('acquisition_drawer.blueprint_label')} <strong className="text-kronos-text">{formatCredits(recipe.blueprintCost)}</strong></span>}
               {formatCredits(recipe.buildCost) && <span>{t('acquisition_drawer.build_label')} <strong className="text-kronos-text">{formatCredits(recipe.buildCost)}</strong></span>}
               {formatDuration(recipe.buildTime) && <span>{t('acquisition_drawer.time_label')} <strong className="text-kronos-text">{formatDuration(recipe.buildTime)}</strong></span>}
-              {recipe.rushCost > 0 && <span>{t('acquisition_drawer.rush_label')} <strong className="text-kronos-text">{recipe.rushCost} Platinum</strong></span>}
+              {recipe.rushCost > 0 && <span>{t('acquisition_drawer.rush_label')} <strong className="text-kronos-text">{recipe.rushCost} {t('ui.dashboard.platinum')}</strong></span>}
             </div>
             {recipe.ingredients?.length > 0 &&
               <div className="mt-2 flex flex-wrap gap-1.5">
@@ -313,7 +313,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
       <BugReporterModal
         isOpen={showReportModal}
         onClose={() => setShowReportModal(false)}
-        initialDescription={`Acquisition info missing for "${displayName}" (${uniqueName}). Where I found it: `}
+        initialDescription={t('acquisition_drawer.bug_report_template', { displayName, uniqueName })}
       />
     </div>
   );

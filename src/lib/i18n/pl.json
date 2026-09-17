@@ -1399,7 +1399,13 @@
     "preview.nav.compact_navigation": "Kompaktowa nawigacja",
     "preview.nav.main_navigation": "Główna nawigacja",
     "preview.nav.navigation_heading": "Nawigacja",
-    "preview.nav.application_status": "Status aplikacji"
+    "preview.nav.application_status": "Status aplikacji",
+    "relic_planner.selected_count": "{n} wybranych",
+    "relic_planner.clear_button": "Wyczyść",
+    "relic_planner.remove_part": "Usuń {name}",
+    "relic_planner.needed_count": "{n} potrzebnych",
+    "relic_planner.match_summary": "{matches} pasujących reliktów · {owned} posiadanych · {notOwned} nieposiadanych",
+    "acquisition_drawer.bug_report_template": "Brak informacji o zdobyciu dla \"{displayName}\" ({uniqueName}). Gdzie to znalazłem/am: "
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

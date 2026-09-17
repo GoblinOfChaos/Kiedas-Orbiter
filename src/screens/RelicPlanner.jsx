@@ -225,7 +225,7 @@ export default function RelicPlanner() {
         <Card glow className="p-3 flex flex-col min-h-0 min-w-0 overflow-hidden" style={{ maxHeight: 'min(640px, calc(100vh - 260px))' }} data-preview-relic-planner-panel={IS_PREVIEW ? 'need' : undefined}>
           <div className="flex items-center justify-between mb-2" data-preview-relic-planner-heading={IS_PREVIEW ? '' : undefined}>
             <h2 className="text-xs font-black uppercase tracking-widest text-kronos-dim">{t('relic_planner.need_list')}</h2>
-            <span className="text-[10px] font-black text-kronos-accent">{need.length} selected</span>
+            <span className="text-[10px] font-black text-kronos-accent">{t('relic_planner.selected_count', { n: need.length })}</span>
           </div>
           <div className="flex-1 overflow-y-auto space-y-1 min-h-0 mb-3 custom-scrollbar">
             {need.length === 0 ? (
@@ -237,7 +237,7 @@ export default function RelicPlanner() {
               need.map((n) => (
                 <div key={n.uniqueName} className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded bg-black/20 border border-white/5">
                   <span className="text-xs text-kronos-text truncate">{n.name}</span>
-                  <button onClick={() => removePart(n.uniqueName)} aria-label={IS_PREVIEW ? `Remove ${n.name}` : undefined} className="text-kronos-dim hover:text-red-400 flex-shrink-0">
+                  <button onClick={() => removePart(n.uniqueName)} aria-label={IS_PREVIEW ? t('relic_planner.remove_part', { name: n.name }) : undefined} className="text-kronos-dim hover:text-red-400 flex-shrink-0">
                     <X size={14} />
                   </button>
                 </div>
@@ -247,7 +247,7 @@ export default function RelicPlanner() {
           <div className="flex flex-col gap-2" data-preview-relic-planner-actions={IS_PREVIEW ? '' : undefined}>
             <div className="flex gap-2">
               <Button onClick={clearNeed} className="flex-1 text-xs" variant="secondary">
-                <Trash2 size={12} className="mr-1" /> Clear
+                <Trash2 size={12} className="mr-1" /> {t('relic_planner.clear_button')}
               </Button>
             </div>
             <Button onClick={addAllMissing} className="text-xs w-full" variant="secondary" title={t('relic_planner.add_all_missing_title')}>
@@ -306,12 +306,12 @@ export default function RelicPlanner() {
                         ))}
                       </div>
                     </div>
-                    <span className="text-[10px] font-bold text-kronos-dim flex-shrink-0 font-mono">{r.matches.length} needed</span>
+                    <span className="text-[10px] font-bold text-kronos-dim flex-shrink-0 font-mono">{t('relic_planner.needed_count', { n: r.matches.length })}</span>
                   </div>
                 ))}
               </div>
               <p className="text-[11px] text-kronos-dim mt-2 pt-2 border-t border-white/5" data-preview-relic-planner-summary={IS_PREVIEW ? '' : undefined}>
-                {results.length} relics match · {ownedShown} owned · {results.length - ownedShown} not owned
+                {t('relic_planner.match_summary', { matches: results.length, owned: ownedShown, notOwned: results.length - ownedShown })}
               </p>
             </>
           )}

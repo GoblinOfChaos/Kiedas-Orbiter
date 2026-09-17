@@ -1298,7 +1298,17 @@
     "settings.theme_desc_darklotus": "Глибокі відтінки фіолетового й орхідеї",
     "settings.theme_desc_deadlock": "Золотиста естетика Corpus",
     "settings.theme_desc_legacy": "Класичний бірюзовий і темний ціан",
-    "settings.theme_desc_pom2": "Ретро ЕПТ-люмінофори"
+    "settings.theme_desc_pom2": "Ретро ЕПТ-люмінофори",
+    "dashboard.tier_steel_path": "Сталевий Шлях (Рів. {min})",
+    "dashboard.tier_narmer": "Нармер (Рів. {min}-{max})",
+    "dashboard.tier_endless": "Нескінченний (Рів. {min}+)",
+    "dashboard.bounty_desc_narmer": "Завдання з підкорення Нармера",
+    "dashboard.bounty_desc_steel_path": "Завдання Сталевого Шляху",
+    "dashboard.bounty_desc_standing": "Репутація: +{standing}",
+    "dashboard.bounty_desc_syndicate": "Завдання синдикату",
+    "mods.stat_total": "всього",
+    "mods.stat_unique": "унікальних",
+    "mods.stat_duplicate": "дублікатів"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

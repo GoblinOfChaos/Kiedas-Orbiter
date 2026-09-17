@@ -450,7 +450,7 @@ export default function Mods() {
 
   const pageLayoutProps = {
     titleKey: 'screen.mods',
-    subtitle: `${filtered.length} total · ${uniqueMods} unique · ${dupCount} duplicate`,
+    subtitle: `${filtered.length} ${t('mods.stat_total')} · ${uniqueMods} ${t('mods.stat_unique')} · ${dupCount} ${t('mods.stat_duplicate')}`,
     headerPanel: renderHeaderPanel()
   };
 

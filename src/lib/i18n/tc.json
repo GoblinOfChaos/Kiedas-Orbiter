@@ -1298,7 +1298,17 @@
     "settings.theme_desc_darklotus": "深紫與蘭花色調",
     "settings.theme_desc_deadlock": "金色 Corpus 美學",
     "settings.theme_desc_legacy": "經典藍綠與深青色",
-    "settings.theme_desc_pom2": "復古 CRT 螢光色"
+    "settings.theme_desc_pom2": "復古 CRT 螢光色",
+    "dashboard.tier_steel_path": "鋼鐵之路（等級 {min}）",
+    "dashboard.tier_narmer": "納爾梅爾（等級 {min}-{max}）",
+    "dashboard.tier_endless": "無盡（等級 {min}+）",
+    "dashboard.bounty_desc_narmer": "納爾梅爾鎮壓懸賞",
+    "dashboard.bounty_desc_steel_path": "鋼鐵之路懸賞",
+    "dashboard.bounty_desc_standing": "聲望：+{standing}",
+    "dashboard.bounty_desc_syndicate": "集團懸賞",
+    "mods.stat_total": "總計",
+    "mods.stat_unique": "獨特",
+    "mods.stat_duplicate": "重複"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

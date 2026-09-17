@@ -1298,7 +1298,17 @@
     "settings.theme_desc_darklotus": "โทนสีม่วงเข้มและกล้วยไม้",
     "settings.theme_desc_deadlock": "สุนทรียศาสตร์ Corpus สีทอง",
     "settings.theme_desc_legacy": "สีเขียวอมฟ้าคลาสสิกและสีฟ้าอมเขียวเข้ม",
-    "settings.theme_desc_pom2": "แสงฟอสเฟอร์ CRT ย้อนยุค"
+    "settings.theme_desc_pom2": "แสงฟอสเฟอร์ CRT ย้อนยุค",
+    "dashboard.tier_steel_path": "Steel Path (Lv {min})",
+    "dashboard.tier_narmer": "Narmer (Lv {min}-{max})",
+    "dashboard.tier_endless": "ไม่จำกัด (Lv {min}+)",
+    "dashboard.bounty_desc_narmer": "ภารกิจปราบปราม Narmer",
+    "dashboard.bounty_desc_steel_path": "ภารกิจ Steel Path",
+    "dashboard.bounty_desc_standing": "ชื่อเสียง: +{standing}",
+    "dashboard.bounty_desc_syndicate": "ภารกิจ Syndicate",
+    "mods.stat_total": "ทั้งหมด",
+    "mods.stat_unique": "ไม่ซ้ำกัน",
+    "mods.stat_duplicate": "ซ้ำ"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

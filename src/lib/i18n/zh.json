@@ -1298,7 +1298,17 @@
     "settings.theme_desc_darklotus": "深紫与兰花色调",
     "settings.theme_desc_deadlock": "金色 Corpus 美学",
     "settings.theme_desc_legacy": "经典蓝绿与深青色",
-    "settings.theme_desc_pom2": "复古 CRT 荧光色"
+    "settings.theme_desc_pom2": "复古 CRT 荧光色",
+    "dashboard.tier_steel_path": "钢铁之路（等级 {min}）",
+    "dashboard.tier_narmer": "纳尔梅尔（等级 {min}-{max}）",
+    "dashboard.tier_endless": "无尽（等级 {min}+）",
+    "dashboard.bounty_desc_narmer": "纳尔梅尔镇压悬赏",
+    "dashboard.bounty_desc_steel_path": "钢铁之路悬赏",
+    "dashboard.bounty_desc_standing": "声望：+{standing}",
+    "dashboard.bounty_desc_syndicate": "集团悬赏",
+    "mods.stat_total": "总计",
+    "mods.stat_unique": "独特",
+    "mods.stat_duplicate": "重复"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

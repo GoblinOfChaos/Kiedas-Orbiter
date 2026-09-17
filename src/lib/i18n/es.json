@@ -1298,7 +1298,17 @@
     "settings.theme_desc_darklotus": "Tonos profundos de violeta y orquídea",
     "settings.theme_desc_deadlock": "Estética dorada de Corpus",
     "settings.theme_desc_legacy": "Turquesa clásico y cian oscuro",
-    "settings.theme_desc_pom2": "Fósforos retro de CRT"
+    "settings.theme_desc_pom2": "Fósforos retro de CRT",
+    "dashboard.tier_steel_path": "Sendero de Acero (Nv {min})",
+    "dashboard.tier_narmer": "Narmer (Nv {min}-{max})",
+    "dashboard.tier_endless": "Infinito (Nv {min}+)",
+    "dashboard.bounty_desc_narmer": "Bounty de Subyugación de Narmer",
+    "dashboard.bounty_desc_steel_path": "Bounty del Sendero de Acero",
+    "dashboard.bounty_desc_standing": "Reputación: +{standing}",
+    "dashboard.bounty_desc_syndicate": "Bounty de Sindicato",
+    "mods.stat_total": "total",
+    "mods.stat_unique": "únicos",
+    "mods.stat_duplicate": "duplicados"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

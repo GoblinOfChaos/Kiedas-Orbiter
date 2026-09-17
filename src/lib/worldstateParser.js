@@ -334,13 +334,19 @@ function parseBounties(raw, { dict, suppDict, ERg, EC }) {
     }
 
     let tier = `Lv ${j.minEnemyLevel || 0} - ${j.maxEnemyLevel || 0}`;
-    if (isSteelPath) tier = `Steel Path (Lv ${j.minEnemyLevel || 100})`;
-    else if (isNarmer) tier = `Narmer (Lv ${j.minEnemyLevel || 50}-${j.maxEnemyLevel || 70})`;
-    else if (isEndless) tier = `Endless (Lv ${j.minEnemyLevel || 25}+)`;
+    let tierKey = null, tierParams = null;
+    if (isSteelPath) { tier = `Steel Path (Lv ${j.minEnemyLevel || 100})`; tierKey = 'dashboard.tier_steel_path'; tierParams = { min: j.minEnemyLevel || 100 }; }
+    else if (isNarmer) { tier = `Narmer (Lv ${j.minEnemyLevel || 50}-${j.maxEnemyLevel || 70})`; tierKey = 'dashboard.tier_narmer'; tierParams = { min: j.minEnemyLevel || 50, max: j.maxEnemyLevel || 70 }; }
+    else if (isEndless) { tier = `Endless (Lv ${j.minEnemyLevel || 25}+)`; tierKey = 'dashboard.tier_endless'; tierParams = { min: j.minEnemyLevel || 25 }; }
+
+    const descKey = isNarmer ? 'dashboard.bounty_desc_narmer' : isSteelPath ? 'dashboard.bounty_desc_steel_path' : (standingTotal > 0 ? 'dashboard.bounty_desc_standing' : 'dashboard.bounty_desc_syndicate');
+    const descParams = standingTotal > 0 ? { standing: standingTotal.toLocaleString() } : null;
 
     return {
       name: title,
       desc: isNarmer ? "Narmer Subjugation Bounty" : isSteelPath ? "Steel Path Bounty" : (standingTotal > 0 ? `Standing: +${standingTotal.toLocaleString()}` : "Syndicate Bounty"),
+      descKey,
+      descParams,
       minLevel: j.minEnemyLevel || 0,
       maxLevel: j.maxEnemyLevel || 0,
       standing: standingTotal,
@@ -349,6 +355,8 @@ function parseBounties(raw, { dict, suppDict, ERg, EC }) {
       isSteelPath,
       isEndless,
       tier,
+      tierKey,
+      tierParams,
       rewardsDeck: j.rewards,
       img
     };

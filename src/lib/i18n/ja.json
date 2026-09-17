@@ -1298,7 +1298,17 @@
     "settings.theme_desc_darklotus": "深い紫とオーキッドの色調",
     "settings.theme_desc_deadlock": "黄金のCorpus美学",
     "settings.theme_desc_legacy": "クラシックなティールと暗いシアン",
-    "settings.theme_desc_pom2": "レトロなCRTフォスファー"
+    "settings.theme_desc_pom2": "レトロなCRTフォスファー",
+    "dashboard.tier_steel_path": "スティールパス（Lv {min}）",
+    "dashboard.tier_narmer": "ナルメル（Lv {min}-{max}）",
+    "dashboard.tier_endless": "エンドレス（Lv {min}+）",
+    "dashboard.bounty_desc_narmer": "ナルメル制圧バウンティ",
+    "dashboard.bounty_desc_steel_path": "スティールパス・バウンティ",
+    "dashboard.bounty_desc_standing": "評判：+{standing}",
+    "dashboard.bounty_desc_syndicate": "シンジケート・バウンティ",
+    "mods.stat_total": "合計",
+    "mods.stat_unique": "ユニーク",
+    "mods.stat_duplicate": "重複"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

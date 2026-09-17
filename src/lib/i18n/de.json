@@ -1298,7 +1298,17 @@
     "settings.theme_desc_darklotus": "Tiefe Violett- und Orchideentöne",
     "settings.theme_desc_deadlock": "Goldene Corpus-Ästhetik",
     "settings.theme_desc_legacy": "Klassisches Türkis und dunkles Cyan",
-    "settings.theme_desc_pom2": "Retro-CRT-Phosphore"
+    "settings.theme_desc_pom2": "Retro-CRT-Phosphore",
+    "dashboard.tier_steel_path": "Stahlpfad (Lv {min})",
+    "dashboard.tier_narmer": "Narmer (Lv {min}-{max})",
+    "dashboard.tier_endless": "Endlos (Lv {min}+)",
+    "dashboard.bounty_desc_narmer": "Narmer-Unterwerfungs-Bounty",
+    "dashboard.bounty_desc_steel_path": "Stahlpfad-Bounty",
+    "dashboard.bounty_desc_standing": "Ansehen: +{standing}",
+    "dashboard.bounty_desc_syndicate": "Syndikat-Bounty",
+    "mods.stat_total": "gesamt",
+    "mods.stat_unique": "einzigartig",
+    "mods.stat_duplicate": "doppelt"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

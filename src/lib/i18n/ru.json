@@ -1298,7 +1298,17 @@
     "settings.theme_desc_darklotus": "Глубокие тона фиолетового и орхидеи",
     "settings.theme_desc_deadlock": "Золотистая эстетика Corpus",
     "settings.theme_desc_legacy": "Классический бирюзовый и тёмный циан",
-    "settings.theme_desc_pom2": "Ретро ЭЛТ-люминофоры"
+    "settings.theme_desc_pom2": "Ретро ЭЛТ-люминофоры",
+    "dashboard.tier_steel_path": "Стальной Путь (Ур. {min})",
+    "dashboard.tier_narmer": "Нармер (Ур. {min}-{max})",
+    "dashboard.tier_endless": "Бесконечный (Ур. {min}+)",
+    "dashboard.bounty_desc_narmer": "Задание по покорению Нармера",
+    "dashboard.bounty_desc_steel_path": "Задание Стального Пути",
+    "dashboard.bounty_desc_standing": "Репутация: +{standing}",
+    "dashboard.bounty_desc_syndicate": "Задание синдиката",
+    "mods.stat_total": "всего",
+    "mods.stat_unique": "уникальных",
+    "mods.stat_duplicate": "дубликатов"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

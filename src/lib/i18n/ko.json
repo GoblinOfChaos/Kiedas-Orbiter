@@ -1298,7 +1298,17 @@
     "settings.theme_desc_darklotus": "짙은 보라와 오키드 색조",
     "settings.theme_desc_deadlock": "황금빛 Corpus 미학",
     "settings.theme_desc_legacy": "클래식 틸과 짙은 시안",
-    "settings.theme_desc_pom2": "레트로 CRT 형광체"
+    "settings.theme_desc_pom2": "레트로 CRT 형광체",
+    "dashboard.tier_steel_path": "스틸 패스 (Lv {min})",
+    "dashboard.tier_narmer": "나르메르 (Lv {min}-{max})",
+    "dashboard.tier_endless": "엔드리스 (Lv {min}+)",
+    "dashboard.bounty_desc_narmer": "나르메르 제압 바운티",
+    "dashboard.bounty_desc_steel_path": "스틸 패스 바운티",
+    "dashboard.bounty_desc_standing": "명성: +{standing}",
+    "dashboard.bounty_desc_syndicate": "신디케이트 바운티",
+    "mods.stat_total": "전체",
+    "mods.stat_unique": "고유",
+    "mods.stat_duplicate": "중복"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

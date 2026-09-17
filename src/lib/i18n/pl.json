@@ -1298,7 +1298,17 @@
     "settings.theme_desc_darklotus": "Głębokie odcienie fioletu i orchidei",
     "settings.theme_desc_deadlock": "Złota estetyka Corpus",
     "settings.theme_desc_legacy": "Klasyczny turkus i ciemny cyjan",
-    "settings.theme_desc_pom2": "Retro fosfory CRT"
+    "settings.theme_desc_pom2": "Retro fosfory CRT",
+    "dashboard.tier_steel_path": "Stalowy Szlak (Poz {min})",
+    "dashboard.tier_narmer": "Narmer (Poz {min}-{max})",
+    "dashboard.tier_endless": "Nieskończony (Poz {min}+)",
+    "dashboard.bounty_desc_narmer": "Bounty Podporządkowania Narmera",
+    "dashboard.bounty_desc_steel_path": "Bounty Stalowego Szlaku",
+    "dashboard.bounty_desc_standing": "Reputacja: +{standing}",
+    "dashboard.bounty_desc_syndicate": "Bounty Syndykatu",
+    "mods.stat_total": "łącznie",
+    "mods.stat_unique": "unikalnych",
+    "mods.stat_duplicate": "duplikatów"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

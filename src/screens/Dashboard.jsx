@@ -507,12 +507,12 @@ export default function Dashboard({ onNavigate = () => {} }) {
                     )}
                     {it.tier && (
                       <span className="text-[10px] font-bold text-kronos-accent uppercase bg-kronos-panel/70 px-1.5 py-0.5 rounded">
-                        {it.tier}
+                        {(it.tierKey && t(it.tierKey, it.tierParams) !== it.tierKey) ? t(it.tierKey, it.tierParams) : it.tier}
                       </span>
                     )}
                   </div>
                 </div>
-                {it.desc && <p className="text-xs text-kronos-text/90 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] mb-1">{it.desc}</p>}
+                {it.desc && <p className="text-xs text-kronos-text/90 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] mb-1">{(it.descKey && t(it.descKey, it.descParams) !== it.descKey) ? t(it.descKey, it.descParams) : it.desc}</p>}
               </div>
               {it.obj && (
                 <p className="text-xs font-medium text-kronos-accent mt-auto leading-tight break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">

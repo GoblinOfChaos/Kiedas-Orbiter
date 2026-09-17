@@ -1298,7 +1298,17 @@
     "settings.theme_desc_darklotus": "Derin mor ve orkide tonları",
     "settings.theme_desc_deadlock": "Altın Corpus estetiği",
     "settings.theme_desc_legacy": "Klasik camgöbeği ve koyu camgöbeği",
-    "settings.theme_desc_pom2": "Retro CRT fosforları"
+    "settings.theme_desc_pom2": "Retro CRT fosforları",
+    "dashboard.tier_steel_path": "Çelik Yol (Sv {min})",
+    "dashboard.tier_narmer": "Narmer (Sv {min}-{max})",
+    "dashboard.tier_endless": "Sonsuz (Sv {min}+)",
+    "dashboard.bounty_desc_narmer": "Narmer Boyun Eğdirme Ödülü",
+    "dashboard.bounty_desc_steel_path": "Çelik Yol Ödülü",
+    "dashboard.bounty_desc_standing": "İtibar: +{standing}",
+    "dashboard.bounty_desc_syndicate": "Sendika Ödülü",
+    "mods.stat_total": "toplam",
+    "mods.stat_unique": "benzersiz",
+    "mods.stat_duplicate": "kopya"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

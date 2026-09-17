@@ -6,21 +6,28 @@ import { loadSettings, getSetting, setSetting } from '../lib/settings'
 
 const ThemeContext = createContext()
 
+// `name` deliberately stays English-only (mix of Warframe faction/frame
+// names and this app's own invented theme names - not worth guessing at
+// official localizations for, same call as the Checklist syndicate names).
+// `badge`/`desc` are this app's own text (accessibility category, design
+// blurb) and do get badgeKey/descKey for translation - see Settings.jsx's
+// theme grid for how these are consumed (t() with a same-value English
+// fallback if a locale has no translation).
 export const THEMES = [
-  { id: 'vitruvian', name: 'Vitruvian', desc: 'Classic Vitruvian slate and blue' },
-  { id: 'corpus', name: 'Corpus', badge: 'Deuteranopia', desc: 'Optimized for Green-Blindness (Deuteranopia) — high-luminance cyan on deep navy avoids red-green confusion' },
-  { id: 'fortuna', name: 'Fortuna', badge: 'Protanopia', desc: 'Optimized for Red-Blindness (Protanopia) — electric neon cyan on dark purple avoids dark-red muddiness' },
-  { id: 'equinox', name: 'Equinox', badge: 'Monochrome / All', desc: '100% High-Contrast Monochrome (>18:1 ratio) — universal clarity for all color vision types' },
-  { id: 'harrier', name: 'Harrier', badge: 'Deuteranopia', desc: 'High-contrast safety orange on deep slate — distinct separation for green-weak vision' },
-  { id: 'grineer', name: 'Grineer', badge: 'Protanopia', desc: 'High-luminance amber-gold on dark olive — sharp luminance edge for red-weak vision' },
-  { id: 'stalker', name: 'Stalker', badge: 'Tritanopia', desc: 'Optimized for Blue-Yellow Blindness (Tritanopia) — stark crimson on pitch black' },
-  { id: 'conquera', name: 'Conquera', badge: 'Deuteranopia', desc: 'Vivid magenta-pink on deep purple with sharp text contrast' },
-  { id: 'lunar', name: 'Lunar Renewal', badge: 'Tritanopia', desc: 'High-contrast scarlet on dark burgundy for blue-yellow vision' },
-  { id: 'baruuk', name: 'Baruuk', desc: 'Warm desert amber and bronze' },
-  { id: 'darklotus', name: 'Dark Lotus', desc: 'Deep violet and orchid hues' },
-  { id: 'deadlock', name: 'Deadlock', desc: 'Golden Corpus aesthetics' },
-  { id: 'legacy', name: 'Legacy', desc: 'Classic teal and dark cyan' },
-  { id: 'pom2', name: 'POM-2', desc: 'Retro CRT phosphors' },
+  { id: 'vitruvian', name: 'Vitruvian', desc: 'Classic Vitruvian slate and blue', descKey: 'settings.theme_desc_vitruvian' },
+  { id: 'corpus', name: 'Corpus', badge: 'Deuteranopia', badgeKey: 'settings.vision_deuteranopia', desc: 'Optimized for Green-Blindness (Deuteranopia) — high-luminance cyan on deep navy avoids red-green confusion', descKey: 'settings.theme_desc_corpus' },
+  { id: 'fortuna', name: 'Fortuna', badge: 'Protanopia', badgeKey: 'settings.vision_protanopia', desc: 'Optimized for Red-Blindness (Protanopia) — electric neon cyan on dark purple avoids dark-red muddiness', descKey: 'settings.theme_desc_fortuna' },
+  { id: 'equinox', name: 'Equinox', badge: 'Monochrome / All', badgeKey: 'settings.vision_monochrome', desc: '100% High-Contrast Monochrome (>18:1 ratio) — universal clarity for all color vision types', descKey: 'settings.theme_desc_equinox' },
+  { id: 'harrier', name: 'Harrier', badge: 'Deuteranopia', badgeKey: 'settings.vision_deuteranopia', desc: 'High-contrast safety orange on deep slate — distinct separation for green-weak vision', descKey: 'settings.theme_desc_harrier' },
+  { id: 'grineer', name: 'Grineer', badge: 'Protanopia', badgeKey: 'settings.vision_protanopia', desc: 'High-luminance amber-gold on dark olive — sharp luminance edge for red-weak vision', descKey: 'settings.theme_desc_grineer' },
+  { id: 'stalker', name: 'Stalker', badge: 'Tritanopia', badgeKey: 'settings.vision_tritanopia', desc: 'Optimized for Blue-Yellow Blindness (Tritanopia) — stark crimson on pitch black', descKey: 'settings.theme_desc_stalker' },
+  { id: 'conquera', name: 'Conquera', badge: 'Deuteranopia', badgeKey: 'settings.vision_deuteranopia', desc: 'Vivid magenta-pink on deep purple with sharp text contrast', descKey: 'settings.theme_desc_conquera' },
+  { id: 'lunar', name: 'Lunar Renewal', badge: 'Tritanopia', badgeKey: 'settings.vision_tritanopia', desc: 'High-contrast scarlet on dark burgundy for blue-yellow vision', descKey: 'settings.theme_desc_lunar' },
+  { id: 'baruuk', name: 'Baruuk', desc: 'Warm desert amber and bronze', descKey: 'settings.theme_desc_baruuk' },
+  { id: 'darklotus', name: 'Dark Lotus', desc: 'Deep violet and orchid hues', descKey: 'settings.theme_desc_darklotus' },
+  { id: 'deadlock', name: 'Deadlock', desc: 'Golden Corpus aesthetics', descKey: 'settings.theme_desc_deadlock' },
+  { id: 'legacy', name: 'Legacy', desc: 'Classic teal and dark cyan', descKey: 'settings.theme_desc_legacy' },
+  { id: 'pom2', name: 'POM-2', desc: 'Retro CRT phosphors', descKey: 'settings.theme_desc_pom2' },
 ]
 
 export function ThemeProvider({ children }) {

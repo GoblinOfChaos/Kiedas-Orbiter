@@ -606,14 +606,16 @@ export default function SettingsScreen() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3" data-preview-settings-grid={IS_PREVIEW ? 'themes' : undefined}>
-            {themes.map((t) => {
-              const isSelected = theme === t.id;
+            {themes.map((th) => {
+              const isSelected = theme === th.id;
+              const badgeText = th.badgeKey ? t(th.badgeKey) : th.badge;
+              const descText = th.descKey ? t(th.descKey) : th.desc;
               return (
                 <button
-                  key={t.id}
-                  onClick={() => setTheme(t.id)}
-                  data-theme={t.id}
-                  title={t.desc || t.name}
+                  key={th.id}
+                  onClick={() => setTheme(th.id)}
+                  data-theme={th.id}
+                  title={descText || th.name}
                   className={`
                     min-h-[64px] p-2.5 rounded-xl border transition-all duration-200 relative group flex flex-col items-center justify-center text-center overflow-hidden
                     ${isSelected ?
@@ -628,7 +630,7 @@ export default function SettingsScreen() {
                   />
 
                   {/* Accessibility Badge */}
-                  {t.badge && (
+                  {th.badge && (
                     <span
                       className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider leading-none shadow-sm"
                       style={{
@@ -636,7 +638,7 @@ export default function SettingsScreen() {
                         color: 'var(--color-bg)',
                       }}
                     >
-                      {t.badge}
+                      {badgeText}
                     </span>
                   )}
 
@@ -644,7 +646,7 @@ export default function SettingsScreen() {
                     className="relative text-xs font-black uppercase tracking-tight leading-tight mt-1"
                     style={{ color: 'var(--color-accent)' }}
                   >
-                    {t.name}
+                    {th.name}
                   </span>
                 </button>
               );
@@ -653,14 +655,16 @@ export default function SettingsScreen() {
 
           {/* Selected Theme Accessibility & Design Note */}
           {(() => {
-            const current = themes.find((t) => t.id === theme);
+            const current = themes.find((th) => th.id === theme);
             if (!current?.desc) return null;
+            const badgeText = current.badgeKey ? t(current.badgeKey) : current.badge;
+            const descText = current.descKey ? t(current.descKey) : current.desc;
             return (
               <div className="mt-4 p-3 rounded-xl bg-black/25 border border-white/5 flex items-center gap-2.5 text-xs text-kronos-dim">
                 <span className="text-kronos-accent font-black uppercase text-[10px] tracking-wider shrink-0">
-                  {current.badge ? t('settings.vision_profile_label', { badge: current.badge }) : t('settings.theme_info_label')}
+                  {badgeText ? t('settings.vision_profile_label', { badge: badgeText }) : t('settings.theme_info_label')}
                 </span>
-                <span className="text-white/80">{current.desc}</span>
+                <span className="text-white/80">{descText}</span>
               </div>
             );
           })()}

@@ -301,7 +301,7 @@ export default function Rivens() {
     <>
     <PageLayout
       titleKey="screen.rivens"
-      subtitle={`${unveiledCount} unveiled · ${challengeCount} challenge · ${veiledCount} veiled · ${unveiledCount + challengeCount}/${capacity} capacity`}
+      subtitle={`${unveiledCount} ${t('rivens.state_unveiled')} · ${challengeCount} ${t('rivens.state_challenge')} · ${veiledCount} ${t('rivens.state_veiled')} · ${unveiledCount + challengeCount}/${capacity} ${t('rivens.capacity_label')}`}
       headerPanel={renderHeaderPanel()}>
 
       <div className="space-y-4 pt-2">

@@ -684,7 +684,7 @@ export default function Market({ onNavigate }) {
             }`}
           >
             <Package className="w-4 h-4" />
-            Active Orders ({orders.length})
+            {t('market.tab_active_orders')} ({orders.length})
           </button>
           <button
             onClick={() => setActiveTab("tradeable_stock")}
@@ -695,7 +695,7 @@ export default function Market({ onNavigate }) {
             }`}
           >
             <Sparkles className="w-4 h-4 text-[#fbbf24]" />
-            Tradeable Stock ({stockWithPricing.length})
+            {t('market.tab_tradeable_stock')} ({stockWithPricing.length})
           </button>
         </div>
 
@@ -713,7 +713,7 @@ export default function Market({ onNavigate }) {
                     orderFilter === "all" ? "bg-kronos-panel/50 text-white" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  All ({orders.length})
+                  {t('market.filter_all')} ({orders.length})
                 </button>
                 <button
                   onClick={() => setOrderFilter("sell")}
@@ -721,7 +721,7 @@ export default function Market({ onNavigate }) {
                     orderFilter === "sell" ? "bg-[#10b981]/20 text-[#10b981]" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  Sell ({orders.filter(o => o.type === "sell").length})
+                  {t('market.filter_sell')} ({orders.filter(o => o.type === "sell").length})
                 </button>
                 <button
                   onClick={() => setOrderFilter("buy")}
@@ -729,7 +729,7 @@ export default function Market({ onNavigate }) {
                     orderFilter === "buy" ? "bg-kronos-accent/20 text-kronos-accent" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  Buy ({orders.filter(o => o.type === "buy").length})
+                  {t('market.filter_buy')} ({orders.filter(o => o.type === "buy").length})
                 </button>
                 <button
                   onClick={() => setOrderFilter("hidden")}
@@ -737,7 +737,7 @@ export default function Market({ onNavigate }) {
                     orderFilter === "hidden" ? "bg-[#64748b]/20 text-kronos-text" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  Hidden ({orders.filter(o => !o.visible).length})
+                  {t('market.hidden')} ({orders.filter(o => !o.visible).length})
                 </button>
               </div>
 
@@ -745,7 +745,7 @@ export default function Market({ onNavigate }) {
                 <Search className="w-4 h-4 absolute left-3 top-2.5 text-kronos-dim" />
                 <input
                   type="text"
-                  placeholder="Search active listings..."
+                  placeholder={t('market.search_active_listings')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-9 pr-4 py-1.5 bg-kronos-panel/50 border border-white/5 rounded-lg text-xs text-white placeholder-[#64748b] focus:outline-none focus:border-kronos-accent w-full sm:w-64"

@@ -17,15 +17,15 @@ import { invoke, convertFileSrc } from '@tauri-apps/api/core';
 import { version } from '../../package.json';
 
 const CREDITS = [
-{ name: 'RHPestilence', desc: 'App icon, commissioned artwork', links: [{ label: 'Ko-fi', href: 'https://ko-fi.com/rhpestilence' }, { label: 'Etsy shop', href: 'https://rottingtrove.etsy.com' }, { label: 'X/Twitter', href: 'https://x.com/RHPestilence' }] },
-{ name: 'glowseeker/cephalon-kronos', desc: 'Kieda\'s Orbiter is a fork of Cephalon Kronos, used under the MIT License (see LICENSE)', href: 'https://github.com/glowseeker/cephalon-kronos' },
-{ name: 'calamity-inc', desc: 'browse.wf & warframe-public-export-plus', href: 'https://github.com/calamity-inc' },
-{ name: 'relics.run', desc: 'Daily price history / market engine data', href: 'https://relics.run' },
-{ name: 'Sainan/warframe-api-helper', desc: 'Template for session token extraction', href: 'https://github.com/Sainan/warframe-api-helper' },
-{ name: 'WFCD/warframe-items', desc: 'warframe-items dataset (names, descriptions, images)', href: 'https://github.com/WFCD/warframe-items' },
-{ name: 'warframetools.com', desc: 'Checklist inspiration', href: 'https://warframetools.com/Task-Checklist/' },
-{ name: 'Warframe Wiki', desc: 'Game information reference', href: 'https://wiki.warframe.com' },
-{ name: 'cjtho/WarframeRivenPricer', desc: 'Riven pricing with Neural Network', href: 'https://github.com/cjtho/WarframeRivenPricer' }];
+{ name: 'RHPestilence', descKey: 'about.credit_icon', links: [{ label: 'Ko-fi', href: 'https://ko-fi.com/rhpestilence' }, { label: 'Etsy shop', href: 'https://rottingtrove.etsy.com' }, { label: 'X/Twitter', href: 'https://x.com/RHPestilence' }] },
+{ name: 'glowseeker/cephalon-kronos', descKey: 'about.credit_fork', href: 'https://github.com/glowseeker/cephalon-kronos' },
+{ name: 'calamity-inc', descKey: 'about.credit_browsewf', href: 'https://github.com/calamity-inc' },
+{ name: 'relics.run', descKey: 'about.credit_relics_run', href: 'https://relics.run' },
+{ name: 'Sainan/warframe-api-helper', descKey: 'about.credit_api_helper', href: 'https://github.com/Sainan/warframe-api-helper' },
+{ name: 'WFCD/warframe-items', descKey: 'about.credit_wfcd', href: 'https://github.com/WFCD/warframe-items' },
+{ name: 'warframetools.com', descKey: 'about.credit_checklist', href: 'https://warframetools.com/Task-Checklist/' },
+{ name: 'Warframe Wiki', descKey: 'about.credit_wiki', href: 'https://wiki.warframe.com' },
+{ name: 'cjtho/WarframeRivenPricer', descKey: 'about.credit_riven_pricer', href: 'https://github.com/cjtho/WarframeRivenPricer' }];
 
 
 export default function About() {
@@ -58,14 +58,14 @@ export default function About() {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{t('about.title')}</h2>
-              <p className="text-kronos-dim text-sm">v{version} - Open source Warframe companion</p>
+              <p className="text-kronos-dim text-sm">v{version} - {t('about.tagline')}</p>
             </div>
           </div>
           <p className="text-kronos-text/90 mb-4 leading-relaxed text-sm">{t('about.subtitle')}
 
           </p>
           <p className="text-kronos-text/70 mb-4 text-xs leading-relaxed">
-            Kieda's Orbiter is a fork of <button onClick={() => handleOpenLink('https://github.com/glowseeker/cephalon-kronos')} className="text-kronos-accent hover:underline cursor-pointer font-medium">Cephalon Kronos</button> by glowseeker, used under the MIT License. See the Credits section below and the project's LICENSE file for full attribution.
+            {t('about.fork_notice_pre')} <button onClick={() => handleOpenLink('https://github.com/glowseeker/cephalon-kronos')} className="text-kronos-accent hover:underline cursor-pointer font-medium">Cephalon Kronos</button> {t('about.fork_notice_post')}
           </p>
           <div className="flex gap-3">
             <button
@@ -82,7 +82,7 @@ export default function About() {
         <Card glow>
           <h3 className="text-sm font-bold uppercase tracking-widest text-kronos-dim mb-3">{t('ui.dashboard.credits')}</h3>
           <ul className="space-y-2">
-            {CREDITS.map(({ name, desc, href, links }) =>
+            {CREDITS.map(({ name, descKey, href, links }) =>
             <li key={href ?? name} className="flex items-start gap-2 text-sm">
                 <span className="text-kronos-accent font-bold flex-shrink-0">•</span>
                 <span>
@@ -96,7 +96,7 @@ export default function About() {
                     {name}
                   </button>
                   }
-                  <span className="text-kronos-dim ml-1.5">- {desc}</span>
+                  <span className="text-kronos-dim ml-1.5">- {t(descKey)}</span>
                   {links &&
                   <span className="text-kronos-dim">
                       {' ('}

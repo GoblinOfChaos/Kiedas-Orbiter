@@ -1,3 +1,5 @@
+import { useUi } from '../contexts/UiContext'
+
 export function PreviewSettingsDisabled({ enabled, reason, children }) {
   if (!enabled) return children;
 
@@ -15,6 +17,7 @@ export function PreviewSettingsDisabled({ enabled, reason, children }) {
 }
 
 export default function PreviewSettingsLayout({ enabled, sections, children }) {
+  const { t } = useUi()
   if (!enabled) return children;
 
   return (
@@ -23,10 +26,10 @@ export default function PreviewSettingsLayout({ enabled, sections, children }) {
         role="status"
         className="mb-3 rounded-xl border border-kronos-accent/25 bg-kronos-accent/10 px-4 py-3 text-xs text-kronos-dim"
       >
-        Live monitoring, scanner and hotkey registration, notification and overlay tests, and app updates are disabled in Preview. Profile preferences and read-only data tools remain available.
+        {t('settings.preview_disabled_notice')}
       </div>
       <nav
-        aria-label="Settings sections"
+        aria-label={t('settings.sections_nav_label')}
         className="preview-settings-rail custom-scrollbar sticky top-0 z-20 mb-4 flex max-w-full gap-2 overflow-x-auto rounded-xl border border-white/5 bg-kronos-bg/95 p-2 backdrop-blur"
       >
         {sections.map((section) => (

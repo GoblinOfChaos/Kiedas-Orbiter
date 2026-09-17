@@ -218,52 +218,62 @@ function buildSyndicateConfig(exportSyndicates) {
   return config;
 }
 
+// labelKey values are English-only for now (no verified official DE
+// localization on hand for these faction/school names) - kept so a future
+// wiki-verified translation pass only needs to add locale entries, not
+// touch this code again. standingDisplayLabel() below falls back to
+// `label` if a key has no translation, same pattern as Checklist's own
+// `task.labelKey` and Collectibles' `collectibleDisplayLabel()`.
 const FOCUS_SCHOOLS = [
-{ id: 'zenurik', label: 'Zenurik', key: 'AP_POWER' },
-{ id: 'naramon', label: 'Naramon', key: 'AP_TACTIC' },
-{ id: 'vazarin', label: 'Vazarin', key: 'AP_DEFENSE' },
-{ id: 'madurai', label: 'Madurai', key: 'AP_ATTACK' },
-{ id: 'unairu', label: 'Unairu', key: 'AP_WARD' }];
+{ id: 'zenurik', label: 'Zenurik', labelKey: 'checklist.school_zenurik', key: 'AP_POWER' },
+{ id: 'naramon', label: 'Naramon', labelKey: 'checklist.school_naramon', key: 'AP_TACTIC' },
+{ id: 'vazarin', label: 'Vazarin', labelKey: 'checklist.school_vazarin', key: 'AP_DEFENSE' },
+{ id: 'madurai', label: 'Madurai', labelKey: 'checklist.school_madurai', key: 'AP_ATTACK' },
+{ id: 'unairu', label: 'Unairu', labelKey: 'checklist.school_unairu', key: 'AP_WARD' }];
 
 
 const standings = [
 // Focus total
-{ id: 'focus_total', label: 'Daily Focus', color: 'focus' },
+{ id: 'focus_total', label: 'Daily Focus', labelKey: 'checklist.standing_daily_focus', color: 'focus' },
 
 // Focus schools
-...FOCUS_SCHOOLS.map((s) => ({ id: s.id, label: s.label, color: s.id, focusKey: s.key })),
+...FOCUS_SCHOOLS.map((s) => ({ id: s.id, label: s.label, labelKey: s.labelKey, color: s.id, focusKey: s.key })),
 
 // Faction Syndicates
-{ id: 'steel', label: 'Steel Meridian', tag: 'steel' },
-{ id: 'perrin', label: 'Perrin Sequence', tag: 'perrin' },
-{ id: 'arbiters', label: 'Arbiters of Hexis', tag: 'arbiters' },
-{ id: 'suda', label: 'Cephalon Suda', tag: 'suda' },
-{ id: 'veil', label: 'Red Veil', tag: 'veil' },
-{ id: 'newloka', label: 'New Loka', tag: 'newloka' },
+{ id: 'steel', label: 'Steel Meridian', labelKey: 'checklist.syn_steel', tag: 'steel' },
+{ id: 'perrin', label: 'Perrin Sequence', labelKey: 'checklist.syn_perrin', tag: 'perrin' },
+{ id: 'arbiters', label: 'Arbiters of Hexis', labelKey: 'checklist.syn_arbiters', tag: 'arbiters' },
+{ id: 'suda', label: 'Cephalon Suda', labelKey: 'checklist.syn_suda', tag: 'suda' },
+{ id: 'veil', label: 'Red Veil', labelKey: 'checklist.syn_veil', tag: 'veil' },
+{ id: 'newloka', label: 'New Loka', labelKey: 'checklist.syn_newloka', tag: 'newloka' },
 
 // Cephalon Simaris
-{ id: 'simaris', label: 'Cephalon Simaris', tag: 'simaris' },
+{ id: 'simaris', label: 'Cephalon Simaris', labelKey: 'checklist.syn_simaris', tag: 'simaris' },
 
 // Open World - Cetus
-{ id: 'ostron', label: 'Ostron', tag: 'ostron' },
-{ id: 'quills', label: 'The Quills', tag: 'quills' },
+{ id: 'ostron', label: 'Ostron', labelKey: 'checklist.syn_ostron', tag: 'ostron' },
+{ id: 'quills', label: 'The Quills', labelKey: 'checklist.syn_quills', tag: 'quills' },
 
 // Open World - Fortuna
-{ id: 'solaris', label: 'Solaris United', tag: 'solaris' },
-{ id: 'vox', label: 'Vox Solaris', tag: 'vox' },
-{ id: 'ventkids', label: 'Ventkids', tag: 'ventkids' },
+{ id: 'solaris', label: 'Solaris United', labelKey: 'checklist.syn_solaris', tag: 'solaris' },
+{ id: 'vox', label: 'Vox Solaris', labelKey: 'checklist.syn_vox', tag: 'vox' },
+{ id: 'ventkids', label: 'Ventkids', labelKey: 'checklist.syn_ventkids', tag: 'ventkids' },
 
 // Open World - Necralisk
-{ id: 'entrati', label: 'Entrati', tag: 'entrati' },
-{ id: 'necraloid', label: 'Necraloid', tag: 'necraloid' },
-{ id: 'cavia', label: 'Cavia', tag: 'cavia' },
+{ id: 'entrati', label: 'Entrati', labelKey: 'checklist.syn_entrati', tag: 'entrati' },
+{ id: 'necraloid', label: 'Necraloid', labelKey: 'checklist.syn_necraloid', tag: 'necraloid' },
+{ id: 'cavia', label: 'Cavia', labelKey: 'checklist.syn_cavia', tag: 'cavia' },
 
 // Zariman
-{ id: 'holdfasts', label: 'Holdfasts', tag: 'holdfasts' },
-{ id: 'hex', label: 'The Hex', tag: 'hex' },
+{ id: 'holdfasts', label: 'Holdfasts', labelKey: 'checklist.syn_holdfasts', tag: 'holdfasts' },
+{ id: 'hex', label: 'The Hex', labelKey: 'checklist.syn_hex', tag: 'hex' },
 
 // Other
-{ id: 'conclave', label: 'Conclave', tag: 'conclave' }];
+{ id: 'conclave', label: 'Conclave', labelKey: 'checklist.syn_conclave', tag: 'conclave' }];
+
+function standingDisplayLabel(entry, t) {
+  return (entry.labelKey && t(entry.labelKey) !== entry.labelKey) ? t(entry.labelKey) : entry.label
+}
 
 
 const formatTimeLeft = (ms, nowLabel = 'Now') => {
@@ -430,7 +440,7 @@ const StandingCard = ({ standing, affiliation, earnedStanding, rankCap, dailyCap
         {/* Row 1: Name -- Rank X */}
         <div className="flex items-baseline justify-between gap-2">
           <span className="text-[15px] font-mono font-bold" style={{ color: config.accent }}>
-            {standing.label}{isPledged ? ' ★' : ''}
+            {standingDisplayLabel(standing, t)}{isPledged ? ' ★' : ''}
           </span>
           {rank !== 0 &&
           <span className="text-[11px] flex-shrink-0 font-mono font-bold" style={{ color: config.accent, opacity: 0.6 }}>{t('ui.comp.rank')}
@@ -932,7 +942,7 @@ export default function Checklist() {
                       </div>
                   }
                     <div className="flex-1 min-w-0 p-2 flex flex-col gap-1">
-                      <span className="text-[18px] font-medium truncate" style={{ color: config.accent }}>{standing.label}</span>
+                      <span className="text-[18px] font-medium truncate" style={{ color: config.accent }}>{standingDisplayLabel(standing, t)}</span>
                       <span className="text-[18px] font-mono" style={{ color: config.accent }}>
                         {earned.toLocaleString()}
                       </span>

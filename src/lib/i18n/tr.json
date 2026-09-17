@@ -1405,7 +1405,9 @@
     "relic_planner.remove_part": "{name} kaldır",
     "relic_planner.needed_count": "{n} gerekli",
     "relic_planner.match_summary": "{matches} relik eşleşiyor · {owned} sahip olunan · {notOwned} sahip olunmayan",
-    "acquisition_drawer.bug_report_template": "\"{displayName}\" ({uniqueName}) için edinim bilgisi eksik. Nerede buldum: "
+    "acquisition_drawer.bug_report_template": "\"{displayName}\" ({uniqueName}) için edinim bilgisi eksik. Nerede buldum: ",
+    "inventory.endo_max": "{n} maks. endo",
+    "inventory.sockets_filled": "{n} dolduruldu"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

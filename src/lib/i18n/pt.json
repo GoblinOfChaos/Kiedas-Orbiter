@@ -1405,7 +1405,9 @@
     "relic_planner.remove_part": "Remover {name}",
     "relic_planner.needed_count": "{n} necessários",
     "relic_planner.match_summary": "{matches} relíquias correspondem · {owned} possuídas · {notOwned} não possuídas",
-    "acquisition_drawer.bug_report_template": "Informação de aquisição ausente para \"{displayName}\" ({uniqueName}). Onde encontrei: "
+    "acquisition_drawer.bug_report_template": "Informação de aquisição ausente para \"{displayName}\" ({uniqueName}). Onde encontrei: ",
+    "inventory.endo_max": "{n} endo máx.",
+    "inventory.sockets_filled": "{n} preenchido"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

@@ -20,6 +20,7 @@ import ModCard from '../components/ModCard';
 import { getRelicCatalog } from '../lib/relicParser';
 import { getSetting } from '../lib/settings';
 import { ensureWfmItems, lookupWfmItem } from '../lib/wfmCache';
+import { formatNumber } from '../lib/formatNumber';
 import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewInventoryLayout from '../components/PreviewInventoryLayout';
 import { categoryDisplayLabel } from '../lib/categoryLabels';
@@ -87,7 +88,7 @@ const modFrameBotMap = {
 };
 
 export default function Inventory() {
-  const { t } = useUi()
+  const { t, locale } = useUi()
   const INVENTORY_TABS = [
   { id: 'all', label: t('ui.inventory.tab_all') },
   { id: 'warframes', label: t('ui.inventory.tab_warframes') },
@@ -900,7 +901,7 @@ export default function Inventory() {
     </div>;
 
 
-  const headerStats = renderHeaderStats(inventoryData, iconsPath, t);
+  const headerStats = renderHeaderStats(inventoryData, iconsPath, t, locale);
   const headerPanel = renderHeaderPanel();
   // Extracted into a variable (rather than left inline in the return
   // statement) so the Preview-only category-navigator sidebar can wrap it
@@ -1084,15 +1085,15 @@ export default function Inventory() {
                         <div className="flex gap-6 items-center">
                           <div className="flex flex-col items-center gap-1">
                             <img src={starImg('OroFusexOrnamentB')} className="w-8 h-8 object-contain" alt="" />
-                            <span className="text-sm font-black text-yellow-400">{item.amberCount.toLocaleString()}</span>
+                            <span className="text-sm font-black text-yellow-400">{formatNumber(item.amberCount, locale)}</span>
                           </div>
                           <div className="flex flex-col items-center gap-1">
                             <img src={starImg('OroFusexOrnamentA')} className="w-8 h-8 object-contain" alt="" />
-                            <span className="text-sm font-black text-cyan-400">{item.cyanCount.toLocaleString()}</span>
+                            <span className="text-sm font-black text-cyan-400">{formatNumber(item.cyanCount, locale)}</span>
                           </div>
                         </div>
                         <p className="text-[10px] font-black text-kronos-dim uppercase tracking-widest">{t('ui.inventory.ayatan_stars')}</p>
-                        <p className="text-xs font-black text-kronos-text text-center">~{item.maxEndoTotal.toLocaleString()} endo max</p>
+                        <p className="text-xs font-black text-kronos-text text-center">{t('inventory.endo_max', { n: formatNumber(item.maxEndoTotal, locale) })}</p>
                       </div>
                       {item.fillSummary &&
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-5 transition-opacity duration-200 opacity-0 group-hover:opacity-100">
@@ -1123,7 +1124,7 @@ export default function Inventory() {
                       <p className="text-sm font-black text-kronos-text uppercase leading-tight whitespace-normal">{item.name.replace('Ayatan ', '').replace(' Sculpture', '')}</p>
                       <p className="text-base font-bold text-kronos-text leading-tight">{item.quantity > 0 ? `×${item.quantity}` : t('ui.inventory.none_owned')}</p>
                       <p className={`text-[11px] font-black ${item.sockets > 0 ? 'text-green-400' : 'text-kronos-dim'}`}>
-                        {item.sockets} filled · {(item.quantity * item.filledEndo).toLocaleString()}{t('inventory.endo')}
+                        {t('inventory.sockets_filled', { n: item.sockets })} · {formatNumber(item.quantity * item.filledEndo, locale)}{t('inventory.endo')}
                   </p>
                       <div className="flex items-center gap-1.5 mt-0.5">
                         {Array.from({ length: item.amberSlots }).map((_, i) =>
@@ -1497,7 +1498,7 @@ export default function Inventory() {
 
 }
 
-function renderHeaderStats(inventoryData, iconsPath, t) {
+function renderHeaderStats(inventoryData, iconsPath, t, locale) {
   if (!inventoryData?.account) return null;
   const { credits, platinum, forma, aura_forma, stance_forma, umbra_forma, orokin_reactor, orokin_catalyst, endo, ducats, aya, aya_image, void_traces, void_traces_max, steel_essence, steel_essence_image, riven_slivers, riven_slivers_image } = inventoryData.account;
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
@@ -1513,27 +1514,27 @@ function renderHeaderStats(inventoryData, iconsPath, t) {
 
   return (
     <div className="flex items-center gap-5 ml-auto pr-3 flex-nowrap">
-      <StatWidget icon={iconSrc('Credits')} label={t('ui.dashboard.credits')} value={credits.toLocaleString()} />
-      <StatWidget icon={iconSrc('Platinum')} label={t('ui.dashboard.platinum')} value={platinum.toLocaleString()} accent="text-kronos-accent" />
-      <StatWidget icon={iconSrc('EndoIconRenderLarge')} label={t('ui.inventory.stat_endo')} value={endo.toLocaleString()} accent="text-orange-400" />
+      <StatWidget icon={iconSrc('Credits')} label={t('ui.dashboard.credits')} value={formatNumber(credits, locale)} />
+      <StatWidget icon={iconSrc('Platinum')} label={t('ui.dashboard.platinum')} value={formatNumber(platinum, locale)} accent="text-kronos-accent" />
+      <StatWidget icon={iconSrc('EndoIconRenderLarge')} label={t('ui.inventory.stat_endo')} value={formatNumber(endo, locale)} accent="text-orange-400" />
       <div className="h-8 w-px bg-white/10 flex-shrink-0" />
-      <StatWidget icon={iconSrc('Forma')} label="Forma" value={forma + aura_forma + stance_forma + umbra_forma} accent="text-kronos-accent"
+      <StatWidget icon={iconSrc('Forma')} label={t('ui.inventory.forma')} value={formatNumber(forma + aura_forma + stance_forma + umbra_forma, locale)} accent="text-kronos-accent"
       tooltip={
       <div className="absolute top-full right-0 mt-2 p-3 bg-kronos-bg border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110] min-w-[180px] glass-panel">
             <div className="space-y-3">
               <div className="flex justify-between items-center gap-3">
                 <span className="flex items-center gap-2 text-[15px] text-kronos-dim uppercase font-bold whitespace-nowrap">{iconSrc('Forma') && <img src={iconSrc('Forma')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_standard')}</span>
-                <span className="text-[15px] font-bold text-kronos-text tabular-nums">{forma}</span>
+                <span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(forma, locale)}</span>
               </div>
-              {aura_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-blue-300 uppercase font-bold whitespace-nowrap">{iconSrc('FormaUmbra') && <img src={iconSrc('FormaUmbra')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_aura')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{aura_forma}</span></div>}
-              {stance_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-green-300 uppercase font-bold whitespace-nowrap">{iconSrc('FormaStance') && <img src={iconSrc('FormaStance')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_stance')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{stance_forma}</span></div>}
-              {umbra_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-purple-400 uppercase font-bold whitespace-nowrap">{iconSrc('OmegaForma') && <img src={iconSrc('OmegaForma')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_umbra')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{umbra_forma}</span></div>}
+              {aura_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-blue-300 uppercase font-bold whitespace-nowrap">{iconSrc('FormaUmbra') && <img src={iconSrc('FormaUmbra')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_aura')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(aura_forma, locale)}</span></div>}
+              {stance_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-green-300 uppercase font-bold whitespace-nowrap">{iconSrc('FormaStance') && <img src={iconSrc('FormaStance')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_stance')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(stance_forma, locale)}</span></div>}
+              {umbra_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-purple-400 uppercase font-bold whitespace-nowrap">{iconSrc('OmegaForma') && <img src={iconSrc('OmegaForma')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_umbra')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(umbra_forma, locale)}</span></div>}
             </div>
           </div>
       } />
       
-      <StatWidget icon={iconSrc('Reactor')} label={t('ui.inventory.stat_reactors')} value={orokin_reactor} accent="text-yellow-500" />
-      <StatWidget icon={iconSrc('Catalyst')} label={t('ui.inventory.stat_catalysts')} value={orokin_catalyst} accent="text-blue-400" />
+      <StatWidget icon={iconSrc('Reactor')} label={t('ui.inventory.stat_reactors')} value={formatNumber(orokin_reactor, locale)} accent="text-yellow-500" />
+      <StatWidget icon={iconSrc('Catalyst')} label={t('ui.inventory.stat_catalysts')} value={formatNumber(orokin_catalyst, locale)} accent="text-blue-400" />
       <div className="h-8 w-px bg-white/10 flex-shrink-0" />
       {/* Ducats/Aya/Steel Essence/Riven Slivers/Void Traces - GitHub issue
           #109 ("header currency tracker missing..."). Regal Aya and Vitus
@@ -1541,11 +1542,11 @@ function renderHeaderStats(inventoryData, iconsPath, t) {
           anywhere in this build's own bundled export data (verified
           directly, not assumed absent), likely the same export-plus
           staleness already tracked as DATA-001 in #109. */}
-      <StatWidget icon={iconSrc('Ducats')} label={t('ui.dashboard.ducats')} value={ducats.toLocaleString()} accent="text-cyan-300" />
-      <StatWidget icon={aya_image} label={t('ui.inventory.stat_aya')} value={aya.toLocaleString()} accent="text-amber-300" />
-      <StatWidget icon={iconSrc('VoidTraces')} label={t('ui.inventory.stat_void_traces')} value={`${void_traces.toLocaleString()} / ${void_traces_max.toLocaleString()}`} accent="text-purple-300" />
-      <StatWidget icon={steel_essence_image} label={t('ui.inventory.stat_steel_essence')} value={steel_essence.toLocaleString()} accent="text-slate-300" />
-      <StatWidget icon={riven_slivers_image} label={t('ui.inventory.stat_riven_slivers')} value={riven_slivers.toLocaleString()} accent="text-rose-300" />
+      <StatWidget icon={iconSrc('Ducats')} label={t('ui.dashboard.ducats')} value={formatNumber(ducats, locale)} accent="text-cyan-300" />
+      <StatWidget icon={aya_image} label={t('ui.inventory.stat_aya')} value={formatNumber(aya, locale)} accent="text-amber-300" />
+      <StatWidget icon={iconSrc('VoidTraces')} label={t('ui.inventory.stat_void_traces')} value={`${formatNumber(void_traces, locale)} / ${formatNumber(void_traces_max, locale)}`} accent="text-purple-300" />
+      <StatWidget icon={steel_essence_image} label={t('ui.inventory.stat_steel_essence')} value={formatNumber(steel_essence, locale)} accent="text-slate-300" />
+      <StatWidget icon={riven_slivers_image} label={t('ui.inventory.stat_riven_slivers')} value={formatNumber(riven_slivers, locale)} accent="text-rose-300" />
     </div>);
 
 }

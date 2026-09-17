@@ -1405,7 +1405,9 @@
     "relic_planner.remove_part": "Удалить {name}",
     "relic_planner.needed_count": "{n} нужно",
     "relic_planner.match_summary": "{matches} подходящих реликвий · {owned} в наличии · {notOwned} нет в наличии",
-    "acquisition_drawer.bug_report_template": "Отсутствует информация о получении для \"{displayName}\" ({uniqueName}). Где я это нашёл: "
+    "acquisition_drawer.bug_report_template": "Отсутствует информация о получении для \"{displayName}\" ({uniqueName}). Где я это нашёл: ",
+    "inventory.endo_max": "Макс. эндо {n}",
+    "inventory.sockets_filled": "{n} заполнено"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

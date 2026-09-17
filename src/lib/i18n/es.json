@@ -1405,7 +1405,9 @@
     "relic_planner.remove_part": "Eliminar {name}",
     "relic_planner.needed_count": "{n} necesarios",
     "relic_planner.match_summary": "{matches} reliquias coinciden · {owned} en posesión · {notOwned} sin poseer",
-    "acquisition_drawer.bug_report_template": "Falta información de adquisición para \"{displayName}\" ({uniqueName}). Dónde lo encontré: "
+    "acquisition_drawer.bug_report_template": "Falta información de adquisición para \"{displayName}\" ({uniqueName}). Dónde lo encontré: ",
+    "inventory.endo_max": "{n} endo máx.",
+    "inventory.sockets_filled": "{n} rellenado"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

@@ -1405,7 +1405,9 @@
     "maps.loc_eidolon": "Plains of Eidolon",
     "maps.loc_vallis": "Orb Vallis",
     "maps.loc_cambion": "Cambion Drift",
-    "maps.loc_duviri": "Duviri"
+    "maps.loc_duviri": "Duviri",
+    "inventory.endo_max": "{n} Endo max",
+    "inventory.sockets_filled": "{n} filled"
   },
   "nav.market": "Market"
 }

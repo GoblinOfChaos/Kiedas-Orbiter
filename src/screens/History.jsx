@@ -15,6 +15,7 @@ import { useMonitoring } from '../contexts/MonitoringContext'
 import { PageLayout, Card } from '../components/UI'
 import { resolveItemName } from '../lib/warframeUtils'
 import { relicNameFromPath } from '../lib/inventoryParser'
+import { formatNumber } from '../lib/formatNumber'
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 
 const METRICS = [
@@ -96,7 +97,7 @@ function formatYTick(v) {
 
 // ─── Chart (Recharts) ──────────────────────────────────────────────
 function Chart({ allData, activeMetrics, trackedItems = [], startTime, endTime }) {
-  const { t } = useUi()
+  const { t, locale } = useUi()
 
   // Merge all series into a single array keyed by timestamp for Recharts
   const { chartData, span } = useMemo(() => {
@@ -204,7 +205,7 @@ function CustomTooltip({ active, payload, label, span, activeMetrics, trackedIte
           <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getColor(p.dataKey) }} />
           <span className="text-kronos-dim">{getName(p.dataKey)}</span>
           <span className="font-black ml-auto" style={{ color: getColor(p.dataKey) }}>
-            {typeof p.value === 'number' ? p.value.toLocaleString() : p.value}
+            {typeof p.value === 'number' ? formatNumber(p.value, locale) : p.value}
           </span>
         </div>
       ))}
@@ -312,7 +313,7 @@ function Scrubber({ data, trackMin, trackMax, startTime, endTime, onChange }) {
 // ─── Log ────────────────────────────────────────────────────────────
 const LOG_MAX = 200
 
-function Log({ history, startTime, endTime, t, dict, uniqueNameToName, exportData }) {
+function Log({ history, startTime, endTime, t, locale, dict, uniqueNameToName, exportData }) {
   const entries = useMemo(() => {
     return history
       .filter(e => e.timestamp >= startTime && e.timestamp <= endTime && e.diff)
@@ -388,7 +389,7 @@ function Log({ history, startTime, endTime, t, dict, uniqueNameToName, exportDat
               style={{ backgroundColor: c.delta > 0 ? '#34D399' : '#F87171' }} />
             <span className="text-xs text-kronos-dim truncate flex-1">{c.display}</span>
             <span className={`text-xs font-black ${c.delta > 0 ? 'text-green-400' : 'text-red-400'}`}>
-              {c.delta > 0 ? '+' : ''}{c.delta.toLocaleString()}
+              {c.delta > 0 ? '+' : ''}{formatNumber(c.delta, locale)}
             </span>
           </div>
         ))}
@@ -399,7 +400,7 @@ function Log({ history, startTime, endTime, t, dict, uniqueNameToName, exportDat
 
 // ─── Main Screen ────────────────────────────────────────────────────
 function HistoryScreen() {
-  const { t } = useUi()
+  const { t, locale } = useUi()
   const { loadInventoryHistory, dict, uniqueNameToName, exportData } = useMonitoring()
   const [history, setHistory] = useState([])
   const [loading, setLoading] = useState(false)
@@ -719,7 +720,7 @@ function HistoryScreen() {
         <div className="lg:w-[380px] xl:w-[440px] flex-shrink-0">
           <Card className="p-4 lg:h-[calc(100vh-8rem)] flex flex-col">
             <Log history={history} startTime={startTime} endTime={endTime}
-              t={t} dict={dict} uniqueNameToName={uniqueNameToName} exportData={exportData} />
+              t={t} locale={locale} dict={dict} uniqueNameToName={uniqueNameToName} exportData={exportData} />
           </Card>
         </div>
       </div>

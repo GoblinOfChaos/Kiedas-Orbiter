@@ -20,6 +20,7 @@
  */
 import { useState, useEffect, useMemo } from 'react';
 import { useUi } from '../contexts/UiContext'
+import { formatNumber } from '../lib/formatNumber';
 import { Check, Circle, Eye, EyeOff } from 'lucide-react';
 import { PageLayout } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
@@ -388,7 +389,7 @@ const FACTION_TAGS = new Set(['steel', 'perrin', 'arbiters', 'suda', 'veil', 'ne
 
 const StandingCard = ({ standing, affiliation, earnedStanding, rankCap, dailyCap, iconUrl, localIconUrl, supportedSyndicate, syndicateConfig, hoveredTag, onHover }) => {
   const rank = affiliation?.Title ?? 0;
-  const { t } = useUi();
+  const { t, locale } = useUi();
   const tagKey = standing.tag || standing.color;
   const config = syndicateConfig[tagKey] || { bg: '#1a1a2e', accent: '#a0a0a0' };
   const isNegative = rank < 0;
@@ -459,14 +460,14 @@ const StandingCard = ({ standing, affiliation, earnedStanding, rankCap, dailyCap
 
         {/* Row 3: total / max */}
         <span className="text-[14px] font-mono font-bold" style={{ color: config.accent }}>
-          {earnedStanding.toLocaleString()}
-          <span style={{ opacity: 0.7 }}> / {rankCap.toLocaleString()}</span>
+          {formatNumber(earnedStanding, locale)}
+          <span style={{ opacity: 0.7 }}> / {formatNumber(rankCap, locale)}</span>
         </span>
 
         {/* Row 4: daily remaining */}
         {dailyCap > 0 &&
         <span className="text-[12px] font-mono font-bold" style={{ color: config.accent, opacity: 0.6 }}>{t('checklist.daily')}
-          {dailyCap.toLocaleString()}
+          {formatNumber(dailyCap, locale)}
           </span>
         }
 
@@ -487,7 +488,7 @@ const StandingCard = ({ standing, affiliation, earnedStanding, rankCap, dailyCap
 };
 
 export default function Checklist() {
-  const { t } = useUi()
+  const { t, locale } = useUi()
   const { inventoryData, ExportTextIcons, worldState, ES } = useMonitoring();
   const supportedSyndicate = inventoryData?.SupportedSyndicate || null;
   const SYNDICATE_CONFIG = useMemo(() => buildSyndicateConfig(ES), [ES]);
@@ -927,7 +928,7 @@ export default function Checklist() {
               })()}
                 <span className="text-[18px] font-semibold text-kronos-text">{t('checklist.daily_focus')}</span>
               </div>
-              <span className="text-[18px] font-mono text-kronos-accent">{dailyFocus.toLocaleString()} {t('checklist.left')}</span>
+              <span className="text-[18px] font-mono text-kronos-accent">{formatNumber(dailyFocus, locale)} {t('checklist.left')}</span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
               {standings.filter((s) => s.focusKey).map((standing) => {
@@ -944,7 +945,7 @@ export default function Checklist() {
                     <div className="flex-1 min-w-0 p-2 flex flex-col gap-1">
                       <span className="text-[18px] font-medium truncate" style={{ color: config.accent }}>{standingDisplayLabel(standing, t)}</span>
                       <span className="text-[18px] font-mono" style={{ color: config.accent }}>
-                        {earned.toLocaleString()}
+                        {formatNumber(earned, locale)}
                       </span>
                     </div>
                   </div>);

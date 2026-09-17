@@ -1405,7 +1405,9 @@
     "relic_planner.remove_part": "{name}を削除",
     "relic_planner.needed_count": "{n}件必要",
     "relic_planner.match_summary": "{matches}件のレリックが一致・{owned}件所持・{notOwned}件未所持",
-    "acquisition_drawer.bug_report_template": "「{displayName}」（{uniqueName}）の入手方法情報が不足しています。どこで見つけたか: "
+    "acquisition_drawer.bug_report_template": "「{displayName}」（{uniqueName}）の入手方法情報が不足しています。どこで見つけたか: ",
+    "inventory.endo_max": "エンド最大 {n}",
+    "inventory.sockets_filled": "{n} 個装填"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

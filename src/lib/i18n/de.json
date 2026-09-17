@@ -1405,7 +1405,9 @@
     "relic_planner.remove_part": "{name} entfernen",
     "relic_planner.needed_count": "{n} benötigt",
     "relic_planner.match_summary": "{matches} passende Relikte · {owned} im Besitz · {notOwned} nicht im Besitz",
-    "acquisition_drawer.bug_report_template": "Beschaffungsinfo fehlt für \"{displayName}\" ({uniqueName}). Wo ich es gefunden habe: "
+    "acquisition_drawer.bug_report_template": "Beschaffungsinfo fehlt für \"{displayName}\" ({uniqueName}). Wo ich es gefunden habe: ",
+    "inventory.endo_max": "{n} Endo max.",
+    "inventory.sockets_filled": "{n} gefüllt"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

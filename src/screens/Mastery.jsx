@@ -24,6 +24,7 @@ import { Trophy, X, Check, Circle } from 'lucide-react';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { IS_PREVIEW } from '../lib/buildProfile';
+import { formatNumber } from '../lib/formatNumber';
 import PreviewMasteryLayout from '../components/PreviewMasteryLayout';
 
 // Each MR1–30 rank costs a flat 75,000 XP. Cumulative at MR30 = 2,250,000.
@@ -78,7 +79,7 @@ function getXPNeededFor(rank) {
 }
 
 export default function Mastery() {
-  const { t } = useUi()
+  const { t, locale } = useUi()
   const { inventoryData, isInventoryLoading, masteryProgress } = useMonitoring();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [iconsPath, setIconsPath] = useState('');
@@ -313,7 +314,7 @@ export default function Mastery() {
             </span>
             {item.earnedXP > 0 &&
         <span className="text-[10px] text-kronos-dim uppercase font-bold truncate w-full px-1">
-                ({item.earnedXP.toLocaleString()}{t('mastery.mp_close')}
+                ({formatNumber(item.earnedXP, locale)}{t('mastery.mp_close')}
         </span>
         }
           </div>
@@ -428,7 +429,7 @@ export default function Mastery() {
                   style={{ left: `${Math.min(Math.max(progress, 15), 85)}%` }}>
                   
                     <div className="text-xs font-black text-kronos-accent uppercase whitespace-nowrap bg-kronos-bg/80 backdrop-blur-md px-3 py-1 rounded border border-kronos-accent/30 mb-1 shadow-lg">
-                      {totalXP.toLocaleString()} {t('mastery.progress_unit')} | {xpUntilNext.toLocaleString()} {t('checklist.left')}
+                      {formatNumber(totalXP, locale)} {t('mastery.progress_unit')} | {formatNumber(xpUntilNext, locale)} {t('checklist.left')}
                   </div>
                     <div className="w-px h-3 bg-kronos-accent/60" />
                   </div>
@@ -460,8 +461,8 @@ export default function Mastery() {
 
                   {/* Floor/Ceiling Labels */}
                   <div className="flex justify-between mt-3 px-1 items-center">
-                    <span className="text-sm text-kronos-dim font-black uppercase tracking-widest opacity-60">{xpAtCurrent.toLocaleString()}</span>
-                    <span className="text-sm text-kronos-dim font-black uppercase tracking-widest opacity-60">{getXPForRank(nextRank).toLocaleString()}</span>
+                    <span className="text-sm text-kronos-dim font-black uppercase tracking-widest opacity-60">{formatNumber(xpAtCurrent, locale)}</span>
+                    <span className="text-sm text-kronos-dim font-black uppercase tracking-widest opacity-60">{formatNumber(getXPForRank(nextRank), locale)}</span>
                   </div>
                 </div>
               </div>
@@ -577,7 +578,7 @@ export default function Mastery() {
 
                               <div className="text-[10px] font-mono text-right">
                                 {hasXP ?
-                            <span className="text-kronos-accent">+{node.mastery_xp.toLocaleString()}{t('mastery.mp')}</span> :
+                            <span className="text-kronos-accent">+{formatNumber(node.mastery_xp, locale)}{t('mastery.mp')}</span> :
 
                             <span className="text-kronos-dim/30 italic uppercase text-[9px]">{t('mastery.non_mastery')}</span>
                             }
@@ -612,7 +613,7 @@ export default function Mastery() {
                       <div className="text-xs font-mono text-kronos-dim text-right">
                         <div>{t('ui.comp.rank')}{item.rank || 0}</div>
                         <div className="text-[10px] opacity-75">
-                          {item.mastery_xp ? `${item.mastery_xp.toLocaleString()} MP` : '0 MP'}
+                          {item.mastery_xp ? `${formatNumber(item.mastery_xp, locale)} ${t('mastery.mp')}` : `0 ${t('mastery.mp')}`}
                         </div>
                       </div>
                     </div>

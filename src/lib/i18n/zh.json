@@ -1405,7 +1405,9 @@
     "relic_planner.remove_part": "移除 {name}",
     "relic_planner.needed_count": "需要 {n} 个",
     "relic_planner.match_summary": "{matches} 个匹配的遗物 · {owned} 个已拥有 · {notOwned} 个未拥有",
-    "acquisition_drawer.bug_report_template": "「{displayName}」（{uniqueName}）缺少获取方式信息。我在哪里找到的："
+    "acquisition_drawer.bug_report_template": "「{displayName}」（{uniqueName}）缺少获取方式信息。我在哪里找到的：",
+    "inventory.endo_max": "最大 Endo {n}",
+    "inventory.sockets_filled": "已填充 {n}"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

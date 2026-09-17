@@ -27,6 +27,7 @@ import { createDashboardViewModel } from '../preview/view-models/dashboardViewMo
  */
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useUi } from '../contexts/UiContext'
+import { formatNumber } from '../lib/formatNumber';
 import { PageLayout, Card, Button, CardHeader, Tabs, Modal, Tooltip } from '../components/UI';
 import ModCard from '../components/ModCard';
 import ItemImage from '../components/ItemImage';
@@ -167,7 +168,7 @@ function resolveCaviaGiver(challenge, name, desc, obj) {
 }
 
 export default function Dashboard({ onNavigate = () => {} }) {
-  const { t } = useUi()
+  const { t, locale } = useUi()
   const {
     exportData, worldState, spIncursions, arbys, archonModifiers, arbitrationModifiers,
     dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, arbyTiers,
@@ -512,7 +513,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
                     )}
                   </div>
                 </div>
-                {it.desc && <p className="text-xs text-kronos-text/90 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] mb-1">{(it.descKey && t(it.descKey, it.descParams) !== it.descKey) ? t(it.descKey, it.descParams) : it.desc}</p>}
+                {it.desc && <p className="text-xs text-kronos-text/90 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] mb-1">{(it.descKey && t(it.descKey, it.descParams) !== it.descKey) ? t(it.descKey, it.descParams && { ...it.descParams, standing: formatNumber(it.descParams.standing, locale) }) : it.desc}</p>}
               </div>
               {it.obj && (
                 <p className="text-xs font-medium text-kronos-accent mt-auto leading-tight break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">
@@ -668,7 +669,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-[12px] text-kronos-dim uppercase">{t('ui.dashboard.standing')}</span>
-                    <span className="text-[14px] font-black text-kronos-accent">{standingInLevel.toLocaleString()} / {STANDING_PER_LEVEL.toLocaleString()}</span>
+                    <span className="text-[14px] font-black text-kronos-accent">{formatNumber(standingInLevel, locale)} / {formatNumber(STANDING_PER_LEVEL, locale)}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] font-black text-kronos-text">{currentRank}</span>
@@ -786,7 +787,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
                         </span>
                       ) : null}
                     </div>
-                    <span className="text-[10px] text-kronos-accent font-black">{c.xp ? c.xp.toLocaleString() : ''}{t('ui.inventory.sort_xp')}</span>
+                    <span className="text-[10px] text-kronos-accent font-black">{c.xp ? formatNumber(c.xp, locale) : ''}{t('ui.inventory.sort_xp')}</span>
                   </div>
                   <p className={`text-sm font-bold text-kronos-text leading-tight mb-1 ${isDone ? 'line-through text-kronos-dim' : ''}`}>{c.name}</p>
                   <p className="text-xs text-kronos-dim/80 leading-relaxed">{c.desc}</p>
@@ -1362,7 +1363,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
                   </span>
                   <span className="text-[10px] flex items-center gap-1 font-bold text-blue-400">
                     {iconSrc('Credits') && <img src={iconSrc('Credits')} className="w-3.5 h-3.5 object-contain" alt="" />}
-                    {item.credits.toLocaleString()} <span className="text-kronos-dim text-[8px] uppercase">{t('ui.dashboard.credits')}</span>
+                    {formatNumber(item.credits, locale)} <span className="text-kronos-dim text-[8px] uppercase">{t('ui.dashboard.credits')}</span>
                   </span>
                 </div>
               </div>

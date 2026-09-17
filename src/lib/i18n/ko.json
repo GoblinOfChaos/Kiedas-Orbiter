@@ -1405,7 +1405,9 @@
     "relic_planner.remove_part": "{name} 제거",
     "relic_planner.needed_count": "{n}개 필요",
     "relic_planner.match_summary": "{matches}개 유물 일치 · {owned}개 보유 · {notOwned}개 미보유",
-    "acquisition_drawer.bug_report_template": "\"{displayName}\" ({uniqueName})의 획득 정보가 없습니다. 발견한 위치: "
+    "acquisition_drawer.bug_report_template": "\"{displayName}\" ({uniqueName})의 획득 정보가 없습니다. 발견한 위치: ",
+    "inventory.endo_max": "Endo 최대 {n}",
+    "inventory.sockets_filled": "{n}개 장착됨"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

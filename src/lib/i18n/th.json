@@ -1405,7 +1405,9 @@
     "relic_planner.remove_part": "ลบ {name}",
     "relic_planner.needed_count": "ต้องการ {n} รายการ",
     "relic_planner.match_summary": "Relic ที่ตรงกัน {matches} รายการ · เป็นเจ้าของ {owned} รายการ · ไม่ได้เป็นเจ้าของ {notOwned} รายการ",
-    "acquisition_drawer.bug_report_template": "ไม่มีข้อมูลวิธีการรับสำหรับ \"{displayName}\" ({uniqueName}) ฉันพบมันที่ไหน: "
+    "acquisition_drawer.bug_report_template": "ไม่มีข้อมูลวิธีการรับสำหรับ \"{displayName}\" ({uniqueName}) ฉันพบมันที่ไหน: ",
+    "inventory.endo_max": "Endo สูงสุด {n}",
+    "inventory.sockets_filled": "เติมแล้ว {n}"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

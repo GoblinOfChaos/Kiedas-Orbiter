@@ -8,6 +8,7 @@ import { useMonitoring } from "../contexts/MonitoringContext";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
 import { ensureWfmItems, lookupWfmItem, getPriceState } from "../lib/wfmCache";
 import { IS_PREVIEW } from "../lib/buildProfile";
+import { formatNumber } from "../lib/formatNumber";
 import PreviewMarketLayout from "../components/PreviewMarketLayout";
 import {
   TrendingUp,
@@ -44,7 +45,7 @@ function priceAgeLabel(timestamp) {
 }
 
 export default function Market({ onNavigate }) {
-  const { t } = useUi();
+  const { t, locale } = useUi();
   const { inventoryData } = useMonitoring();
   const [token, setToken] = useState("");
   const [activeTab, setActiveTab] = useState("active_orders");
@@ -631,7 +632,7 @@ export default function Market({ onNavigate }) {
               <div className="text-xs text-kronos-dim">{t("market.stat_potential_earnings")}</div>
               {token ? (
                 <div className="text-lg font-bold text-white flex items-center gap-1">
-                  {metrics.totalPlat.toLocaleString()} <span className="text-xs text-kronos-accent">plat</span>
+                  {formatNumber(metrics.totalPlat, locale)} <span className="text-xs text-kronos-accent">plat</span>
                 </div>
               ) : (
                 // A bare "0" here reads as "your listings are worth nothing"

@@ -340,7 +340,7 @@ function parseBounties(raw, { dict, suppDict, ERg, EC }) {
     else if (isEndless) { tier = `Endless (Lv ${j.minEnemyLevel || 25}+)`; tierKey = 'dashboard.tier_endless'; tierParams = { min: j.minEnemyLevel || 25 }; }
 
     const descKey = isNarmer ? 'dashboard.bounty_desc_narmer' : isSteelPath ? 'dashboard.bounty_desc_steel_path' : (standingTotal > 0 ? 'dashboard.bounty_desc_standing' : 'dashboard.bounty_desc_syndicate');
-    const descParams = standingTotal > 0 ? { standing: standingTotal.toLocaleString() } : null;
+    const descParams = standingTotal > 0 ? { standing: standingTotal } : null;
 
     return {
       name: title,

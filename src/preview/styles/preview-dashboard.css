@@ -1,0 +1,67 @@
+/* The live-activities aside used a narrow 310-350px minmax band, so it
+   effectively never changed width as the window was resized - clamp() ties
+   it to viewport width instead (with a floor so cards stay usable and a
+   ceiling so it doesn't dominate on very wide windows), giving it real
+   responsive scaling like the main column already has. */
+.preview-dashboard__layout { display: grid; grid-template-columns: minmax(0, 1fr) clamp(280px, 22vw, 460px); gap: 28px; align-items: start; }
+.preview-dashboard__main, .preview-dashboard__live { min-width: 0; }
+.preview-dashboard__summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px; }
+.preview-dashboard__stat { min-height: 80px; display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 12px; padding: 14px 16px; }
+.preview-dashboard__stat > svg { width: 30px; height: 30px; color: var(--preview-accent); }
+.preview-dashboard__stat strong, .preview-dashboard__stat small { display: block; }
+.preview-dashboard__stat strong { font-size: 24px; line-height: 1; }
+.preview-dashboard__stat small { margin-top: 5px; color: var(--preview-muted); font-size: 11px; }
+.preview-dashboard__stat em { grid-column: 2; color: var(--preview-muted); font-size: 9px; font-style: normal; }
+
+.preview-dashboard__panel { padding: 10px; }
+.preview-dashboard__panel > header, .preview-dashboard__section > header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 5px 4px 8px; }
+/* .preview-panel is the base class every PreviewPanel instance gets
+   (Continue your plans, Since this session, Ready in your Foundry, etc) -
+   matching on it here instead of each panel's own specific modifier class
+   is what actually makes every dashboard heading share one weight/size,
+   instead of only the one panel whose modifier happened to be named
+   "preview-dashboard__panel" getting styled and the rest silently falling
+   back to the browser's plain default h2. */
+.preview-panel h2, .preview-dashboard__section h2, .preview-dashboard__live > h2, .preview-dashboard__panel-header h2 { margin: 0; font-size: 18px; font-weight: 750; text-transform: none; }
+
+.preview-dashboard__target-empty { min-height: 176px; display: grid; place-items: center; align-content: center; gap: 9px; padding: 24px; text-align: center; background: radial-gradient(circle at 50% 0%, rgba(var(--color-accent-rgb), .12), transparent 58%); }
+.preview-dashboard__target-empty > svg { width: 34px; height: 34px; color: var(--preview-detail); }
+.preview-dashboard__target-empty strong { font-size: 16px; }
+.preview-dashboard__target-empty p { max-width: 430px; margin: 0; color: var(--preview-muted); font-size: 12px; }
+.preview-dashboard__target-notice { color: var(--preview-warning) !important; }
+
+.preview-dashboard__live { border-left: 1px solid var(--preview-line); padding-left: 24px; }
+.preview-dashboard__live > h2 { margin: 16px 0 12px; }
+.preview-dashboard__live-cards { display: grid; gap: 12px; }
+.preview-dashboard__live-card { min-width: 0; max-height: 270px; overflow: auto; border: 1px solid var(--preview-line); border-radius: var(--preview-radius-md); background: var(--preview-surface); scrollbar-width: thin; }
+.preview-dashboard__live-card > * { border: 0 !important; border-radius: 0 !important; }
+.preview-dashboard__live-empty { padding: 20px; color: var(--preview-muted); font-size: 12px; }
+.preview-dashboard__view-all { width: 100%; margin-top: 12px; color: var(--preview-accent); }
+
+.preview-dashboard__session { margin-top: 16px; padding: 10px; }
+.preview-dashboard__session-list { display: grid; gap: 8px; }
+.preview-dashboard__session-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px; border-top: 1px solid var(--preview-line-subtle); }
+.preview-dashboard__session-item strong, .preview-dashboard__session-item small { display: block; }
+.preview-dashboard__session-item strong { font-size: 12px; }
+.preview-dashboard__session-item small { margin-top: 3px; color: var(--preview-muted); font-size: 10px; }
+
+.preview-dashboard__foundry { grid-column: 1 / -1; margin-top: 18px; padding: 12px; }
+.preview-dashboard__foundry-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.preview-dashboard__recipe { min-height: 104px; display: grid; grid-template-columns: 92px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 8px 12px; border: 1px solid var(--preview-line-subtle); background: color-mix(in srgb, var(--preview-surface) 80%, transparent); }
+.preview-dashboard__recipe img, .preview-dashboard__recipe-image { width: 80px; height: 84px; object-fit: contain; }
+.preview-dashboard__recipe-image { display: grid; place-items: center; color: var(--preview-muted); }
+.preview-dashboard__recipe h3 { margin: 0; font-size: 15px; }
+.preview-dashboard__recipe p { margin: 4px 0 0; color: var(--preview-muted); font-size: 10px; }
+
+.preview-dashboard__all { grid-column: 1 / -1; margin-top: 18px; }
+.preview-dashboard__section { margin-top: 18px; }
+/* Flexbox rather than CSS Grid on purpose: a trailing row with fewer cards
+   than a full row needs those cards to grow and fill the leftover width
+   instead of leaving bare gaps next to unused grid tracks - flex-wrap does
+   this per-row automatically, where a fixed grid-template-columns can't. */
+.preview-dashboard__card-grid { display: flex; flex-wrap: wrap; gap: 14px; }
+.preview-dashboard__card-slot { flex: 1 1 280px; min-width: 0; }
+.preview-dashboard__card-slot--wide { flex: 2 1 560px; }
+.preview-dashboard__card-slot > * { height: 100%; margin: 0; }
+
+.preview-dashboard__loading { padding-top: 44px; }

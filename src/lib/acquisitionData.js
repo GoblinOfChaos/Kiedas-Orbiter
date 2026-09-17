@@ -7233,6 +7233,93 @@ export const WARFRAME_ACQUISITIONS = {
   }
 };
 export const RESOURCE_LOCATIONS = {
+  // 5 gear-wheel Specters with no acquisition info anywhere in the app's
+  // data layers (RESOURCE_LOCATIONS, wiki fallback JSONs, DropsAll.json) -
+  // none of these are RNG mission drops, quest-adjacent, or standing
+  // purchases, so no existing layer could ever have modeled them. Sources
+  // verified against the wiki's master Specter page (wiki.warframe.com/w/
+  // Specter, "Miscellaneous Specters" section) 2026-09-14.
+  "clem clone": "Reward for the final mission of the \"A Man of Few Words\" quest. Additional blueprints from Darvo's weekly \"merchandise acquisition\" Survival mission.",
+  "corrupted bombard specter": "Was a Baro Ki'Teer exclusive offer, available Feb 24–26, 2017 (PC) for 100 Ducats + 50,000 Credits. No longer available for purchase.",
+  "corrupted heavy gunner specter": "Was a Baro Ki'Teer exclusive offer, available May 4–6, 2018 (PC) for 100 Ducats + 40,000 Credits. No longer available for purchase.",
+  "desert skate specter": "Guaranteed reward from the Baro Void-Signal mission.",
+  "stalker specter": "Reward from Nightwave's Nora's Mix Volume 7; also returned as a reward in Operation: Belly of the Beast.",
+  // Hex Treasures - the 8 items collected in Höllvania missions and traded
+  // to Leticia Garcia for Hex standing. Verified against the real wiki
+  // (2026-09-07): Big Bytes Pizza and Argon Burger Meal are each a
+  // guaranteed find in every Höllvania mission; the other 6 are a random
+  // draw among themselves per mission - the wiki doesn't differentiate
+  // acquisition further between those 6, so the same text is accurate for
+  // all of them, not a guessed pattern. Also obtainable from the Techrot
+  // Safe (Hell-Scrub missions, requires a Biocode), Höllvania Bounties, and
+  // Parazon Mercy on Technocyte Coda enemies.
+  "big bytes pizza": "Guaranteed find in Höllvania missions (Hex Treasure, trade to Leticia Garcia). Also from the Techrot Safe (Hell-Scrub, requires a Biocode), Höllvania Bounties, or Parazon Mercy on Technocyte Coda.",
+  "argon burger meal": "Guaranteed find in Höllvania missions (Hex Treasure, trade to Leticia Garcia). Also from the Techrot Safe (Hell-Scrub, requires a Biocode), Höllvania Bounties, or Parazon Mercy on Technocyte Coda.",
+  "35mm film": "Random find in Höllvania missions (Hex Treasure, trade to Leticia Garcia). Also from the Techrot Safe (Hell-Scrub, requires a Biocode), Höllvania Bounties, or Parazon Mercy on Technocyte Coda.",
+  "cheddar crowns cereal": "Random find in Höllvania missions (Hex Treasure, trade to Leticia Garcia). Also from the Techrot Safe (Hell-Scrub, requires a Biocode), Höllvania Bounties, or Parazon Mercy on Technocyte Coda.",
+  "mood crystal": "Random find in Höllvania missions (Hex Treasure, trade to Leticia Garcia). Also from the Techrot Safe (Hell-Scrub, requires a Biocode), Höllvania Bounties, or Parazon Mercy on Technocyte Coda.",
+  "chuggin' along sixpack": "Random find in Höllvania missions (Hex Treasure, trade to Leticia Garcia). Also from the Techrot Safe (Hell-Scrub, requires a Biocode), Höllvania Bounties, or Parazon Mercy on Technocyte Coda.",
+  "on-lyne cd": "Random find in Höllvania missions (Hex Treasure, trade to Leticia Garcia). Also from the Techrot Safe (Hell-Scrub, requires a Biocode), Höllvania Bounties, or Parazon Mercy on Technocyte Coda.",
+  "the countessa comic": "Random find in Höllvania missions (Hex Treasure, trade to Leticia Garcia). Also from the Techrot Safe (Hell-Scrub, requires a Biocode), Höllvania Bounties, or Parazon Mercy on Technocyte Coda.",
+  // DIRECTGIFTZ store items (KIM app / Kinemantik Instant Messenger) - a
+  // separate mechanic from Hex Treasures above (purchased with Höllars, not
+  // found in missions/traded to Leticia). Verified directly against the
+  // real wiki (2026-09-15, wiki.warframe.com/w/Kinemantik_Instant_Messenger),
+  // not guessed from item names - originally misdiagnosed as Velimir's Mall
+  // "Furnishings" vendor (a completely different, non-overlapping item list
+  // also checked against the wiki) before finding the real source. All 49
+  // Gift items (/Lotus/Types/Gameplay/1999Wf/Gifts/*) covered by this one
+  // store, cross-checked 1:1 against the wiki's own DIRECTGIFTZ table - no
+  // leftover/unmatched items either direction.
+  "kinemantik hockey table": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 85,000 Höllars, stock limited to 1 copy. Compatible gift for: Amir (20) Chemistry.",
+  "kinemantik a/v reciever": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 15,000 Höllars, stock limited to 2 copies. Compatible gift for: Amir (10), Quincy (10) Chemistry.",
+  "kinebasik bicycle": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 80,000 Höllars, stock limited to 1 copy.",
+  "file-a-style binder": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 8,000 Höllars, stock limited to 4 copies. Compatible gift for: Eleanor (5) Chemistry.",
+  "file-a-style deluxe calculator": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 12,000 Höllars, stock limited to 2 copies.",
+  "kinebasik cardboard box": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 25,000 Höllars, stock limited to 4 copies. Compatible gift for: Leticia (5) Chemistry.",
+  "kinemantik cellphone": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 14,000 Höllars, stock limited to 4 copies. Compatible gift for: Quincy (5) Chemistry.",
+  "file-a-style coffee cups": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 4,000 Höllars, stock limited to 4 copies. Compatible gift for: Leticia (5) Chemistry.",
+  "kinekitchen coffee machine": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 45,000 Höllars, stock limited to 1 copy. Compatible gift for: Leticia (20) Chemistry.",
+  "on-lyne: the boys r back": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 4,000 Höllars, stock limited to 1 copy. Compatible gift for: Aoi (20) Chemistry.",
+  "kinemantik digital phone": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 12,000 Höllars, stock limited to 4 copies.",
+  "file-a-style insta-print poster": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 2,500 Höllars, stock limited to 4 copies. Compatible gift for: Quincy (5) Chemistry.",
+  "kinebasik fire extinguisher": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 15,000 Höllars, stock limited to 2 copies.",
+  "kinemagik! party light": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 80,000 Höllars, stock limited to 1 copy.",
+  "kinemantik 256 gpu": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 70,000 Höllars, stock limited to 2 copies. Compatible gift for: Amir (10) Chemistry.",
+  "kinemagik! wireless headphones": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 10,000 Höllars, stock limited to 1 copy. Compatible gift for: Amir (20), Aoi (20) Chemistry.",
+  "file-a-style highlighters": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 8,000 Höllars, stock limited to 4 copies.",
+  "kinebasik gas can (large)": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 5,500 Höllars, stock limited to 4 copies. Compatible gift for: Aoi (5) Chemistry.",
+  "kinebasik gas can (small)": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 2,500 Höllars, stock limited to 4 copies.",
+  "kinebasik asst. metal keychains": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 5,000 Höllars, stock limited to 4 copies. Compatible gift for: Arthur (5) Chemistry.",
+  "kinebasik metal lunch box": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 7,000 Höllars, stock limited to 2 copies.",
+  "kinebasik medical kit": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 60,000 Höllars, stock limited to 2 copies. Compatible gift for: Leticia (10) Chemistry.",
+  "kinemantik announce": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 30,000 Höllars, stock limited to 1 copy. Compatible gift for: Arthur (20) Chemistry.",
+  "kinekitchen microwave": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 45,000 Höllars, stock limited to 1 copy. Compatible gift for: Arthur (20) Chemistry.",
+  "file-a-style mouse pad": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 8,000 Höllars, stock limited to 4 copies.",
+  "kinebasik coffee mug": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 2,000 Höllars, stock limited to 4 copies. Compatible gift for: Leticia (5) Chemistry.",
+  "file-a-style notepad": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 9,000 Höllars, stock limited to 2 copies. Compatible gift for: Eleanor (10) Chemistry.",
+  "file-a-style office phone": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 12,000 Höllars, stock limited to 1 copy.",
+  "kinemagik! boom box": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 22,000 Höllars, stock limited to 2 copies.",
+  "k.a.h. game system": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 20,000 Höllars, stock limited to 2 copies. Compatible gift for: Amir (10) Chemistry.",
+  "k.a.h. game monitor": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 12,500 Höllars, stock limited to 2 copies. Compatible gift for: Amir (10) Chemistry.",
+  "kinemagik! portable tv": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 8,500 Höllars, stock limited to 2 copies.",
+  "kinemantik speaker": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 22,000 Höllars, stock limited to 2 copies. Compatible gift for: Quincy (10) Chemistry.",
+  "kinemantik speaker system": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 22,000 Höllars, stock limited to 1 copy. Compatible gift for: Aoi (20) Chemistry.",
+  "kinemantik digital video camera": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 35,000 Höllars, stock limited to 1 copy. Compatible gift for: Quincy (20) Chemistry.",
+  "kinebasik paper party hats": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 22,000 Höllars, stock limited to 4 copies.",
+  "file-a-style pens": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 6,000 Höllars, stock limited to 4 copies. Compatible gift for: Eleanor (5) Chemistry.",
+  "file-a-style pencils": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 5,000 Höllars, stock limited to 4 copies. Compatible gift for: Eleanor (5) Chemistry.",
+  "kinebasik pillows": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 4,000 Höllars, stock limited to 4 copies. Compatible gift for: Eleanor (5), Leticia (5) Chemistry.",
+  "kinebasik pizza boxes": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 22,000 Höllars, stock limited to 2 copies.",
+  "kinebasik hanging planter": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 10,000 Höllars, stock limited to 1 copy. Compatible gift for: Eleanor (20) Chemistry.",
+  "green gorilla propane tank": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 10,000 Höllars, stock limited to 2 copies. Compatible gift for: Arthur (10) Chemistry.",
+  "the scooticle": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 100,000 Höllars, stock limited to 1 copy. Compatible gift for: Aoi (20) Chemistry.",
+  "kinebasik assorted roadsigns": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 32,000 Höllars, stock limited to 4 copies. Compatible gift for: Aoi (5) Chemistry.",
+  "file-a-style sticky notes": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 5,000 Höllars, stock limited to 4 copies.",
+  "kinemantik 840hd tv": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 8,500 Höllars, stock limited to 2 copies. Compatible gift for: Amir (10) Chemistry.",
+  "kinekitchen toaster": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 22,000 Höllars, stock limited to 1 copy. Compatible gift for: Arthur (20) Chemistry.",
+  "kinekitchen toaster oven": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 35,000 Höllars, stock limited to 1 copy. Compatible gift for: Arthur (20) Chemistry.",
+  "\"circle of comrades\" series on vhs": "Purchased from the DIRECTGIFTZ store via KIM (Kinemantik Instant Messenger) for 12,000 Höllars, stock limited to 4 copies. Compatible gift for: Quincy (5) Chemistry.",
   "pyrotic alloy": "The reusable blueprint can be purchased from Old Man Suumbaat for 500 Standing, requiring the rank of '''Neutral''' with the Ostron.",
   "tear azurite": "The reusable blueprint can be purchased from Old Man Suumbaat for 500 Standing, requiring the rank of '''Neutral''' with the Ostron.",
   "marquise veridos": "The reusable blueprint can be purchased from Old Man Suumbaat for 5,000 Standing, requiring the rank of '''Visitor''' with the Ostron.",
@@ -14659,6 +14746,33 @@ export function loadAcquisitionData() {
   return loadPromise;
 }
 
+// warframe-items-acquisition.json represents every acquisition path as a
+// `drops` entry with a `chance`, including guaranteed standing/reputation
+// vendor purchases (Syndicates, Cetus/Fortuna/Deimos/Duviri hub vendors,
+// Conclave, etc.), which get `chance: 1` (100%) since the purchase is
+// always available - not because it's a real drop. That's indistinguishable
+// from a genuine 100%-guaranteed boss/container reward at the data-shape
+// level, so it silently outranks acquisition_overrides.json's real vendor
+// text (confirmed live: "Abating Link" showed a "New Loka, Flawless - 100%"
+// pseudo-drop-table instead of the actual Standing-cost purchase text).
+// This list is the exact, manually-verified set of vendor/Syndicate/hub
+// names observed in that file's `location` field for this pattern - it
+// intentionally does NOT include boss/enemy/container names (Alad V,
+// Jackal, Orokin Storage Container, etc.), which really are guaranteed
+// on-kill/on-open rewards and should keep showing as 100%.
+const FAKE_DROP_VENDOR_NAMES = new Set([
+  'Arbiters of Hexis', 'Cephalon Simaris', 'Cephalon Suda', 'Conclave', 'Entrati',
+  "Kahl's Garrison", 'NecraLoid', 'New Loka', 'Operational Supply', 'Ostron',
+  'Red Veil', 'Solaris United', 'Steel Meridian', 'The Holdfasts',
+  'The Perrin Sequence', 'The Quills', 'Ventkids', 'Vox Solaris',
+]);
+
+function isFakeVendorPurchaseDrop(d) {
+  if (d?.chance !== 1) return false;
+  const vendorName = (d.location || '').split(',')[0].split('(')[0].trim();
+  return FAKE_DROP_VENDOR_NAMES.has(vendorName);
+}
+
 export function getItemDrops(uniqueName) {
   const candidates = [
     itemIndex?.get(uniqueName),
@@ -14666,10 +14780,16 @@ export function getItemDrops(uniqueName) {
     componentIndex?.get(uniqueName),
     componentIndex?.get(canonicalPath(uniqueName)),
   ];
-  const item = candidates.find((candidate) => Array.isArray(candidate?.drops) && candidate.drops.length > 0);
-  if (!item || !Array.isArray(item.drops) || item.drops.length === 0) return null;
+  const item = candidates.find((candidate) => {
+    if (!Array.isArray(candidate?.drops) || candidate.drops.length === 0) return false;
+    return candidate.drops.some((d) => !isFakeVendorPurchaseDrop(d));
+  });
+  if (!item) return null;
 
-  return [...item.drops]
+  const realDrops = item.drops.filter((d) => !isFakeVendorPurchaseDrop(d));
+  if (realDrops.length === 0) return null;
+
+  return [...realDrops]
     .sort((a, b) => (b.chance ?? 0) - (a.chance ?? 0))
     .map((d) => ({
       type: 'drop',

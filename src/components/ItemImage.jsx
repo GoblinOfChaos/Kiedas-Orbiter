@@ -46,12 +46,23 @@ export default function ItemImage({ src, alt = '', className = '', placeholderCl
   // during render rather than in an effect: an effect runs after paint, so a
   // cached image's load/error event can fire first and then be clobbered by
   // the reset - the race that pinned mod art at opacity 0.
-  const [state, setState] = useState({ key: src, src, failed: false, triedFallback: false })
+  //
+  // `phase` distinguishes three outcomes once a src is known, since they mean
+  // different things to a reviewer or user: `loading` (still fetching, not
+  // yet a problem), `loaded` (succeeded), and `error` (a URL existed but
+  // never rendered even after the fallback retry - a real fetch failure,
+  // separate from `!currentSrc`/"unavailable" below where no URL was ever
+  // known at all).
+  const [state, setState] = useState({ key: src, src, phase: 'loading', triedFallback: false })
   if (state.key !== src) {
-    setState({ key: src, src, failed: false, triedFallback: false })
+    setState({ key: src, src, phase: 'loading', triedFallback: false })
   }
   const currentSrc = state.key === src ? state.src : src
-  const failed = state.key === src && state.failed
+  const phase = state.key === src ? state.phase : 'loading'
+
+  const handleLoad = () => {
+    setState(prev => prev.key === src ? { ...prev, phase: 'loaded' } : prev)
+  }
 
   const handleError = () => {
     setState(prev => {
@@ -59,16 +70,28 @@ export default function ItemImage({ src, alt = '', className = '', placeholderCl
       if (!prev.triedFallback && resolveFallbackSrc) {
         const next = resolveFallbackSrc(prev.src)
         if (next && next !== prev.src) {
-          return { ...prev, src: next, triedFallback: true }
+          return { ...prev, src: next, phase: 'loading', triedFallback: true }
         }
       }
-      return { ...prev, failed: true, triedFallback: true }
+      return { ...prev, phase: 'error', triedFallback: true }
     })
   }
 
-  if (!currentSrc || failed) {
+  if (!currentSrc) {
     return <ImageUnavailable className={placeholderClassName} label={t('ui.image_unavailable')} />
   }
+  if (phase === 'error') {
+    return <ImageUnavailable className={placeholderClassName} label={t('ui.image_error')} />
+  }
 
-  return <img src={currentSrc} alt={alt} className={className} loading={loading} decoding="async" onError={handleError} />
+  return (
+    <img
+      src={currentSrc}
+      alt={alt}
+      className={`${className} ${phase === 'loading' ? 'animate-pulse bg-white/5' : ''}`}
+      loading={loading}
+      decoding="async"
+      onLoad={handleLoad}
+      onError={handleError} />
+  )
 }

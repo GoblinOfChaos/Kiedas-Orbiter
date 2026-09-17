@@ -5,137 +5,216 @@
 /* Warframe Theme System - Based on official game themes */
 :root {
   --color-bg: #04060b;
+  --color-bg-rgb: 4, 6, 11;
+  --color-bg-tw: 4 6 11;
   --color-panel: #0c101a;
+  --color-panel-rgb: 12, 16, 26;
+  --color-panel-tw: 12 16 26;
   --color-accent: #5590ab;
   --color-accent-rgb: 85, 144, 171;
+  --color-accent-tw: 85 144 171;
   --color-accent-secondary: #b99354;
   --color-text: #ffffff;
+  --color-text-rgb: 255, 255, 255;
+  --color-text-tw: 255 255 255;
   --color-text-dim: #9ca3af;
+  --color-text-dim-rgb: 156, 163, 175;
+  --color-text-dim-tw: 156 163 175;
   --glow-color: rgba(85, 144, 171, 0.5);
 }
 
 [data-theme='vitruvian'] {
   --color-bg: #04060b;
+  --color-bg-rgb: 4, 6, 11;
+  --color-bg-tw: 4 6 11;
   --color-panel: #0c101a;
+  --color-panel-rgb: 12, 16, 26;
+  --color-panel-tw: 12 16 26;
   --color-accent: #5590ab;
   --color-accent-rgb: 85, 144, 171;
+  --color-accent-tw: 85 144 171;
   --color-accent-secondary: #b99354;
   --glow-color: rgba(85, 144, 171, 0.5);
 }
 
 [data-theme='baruuk'] {
   --color-bg: #1d1b18;
+  --color-bg-rgb: 29, 27, 24;
+  --color-bg-tw: 29 27 24;
   --color-panel: #2b2822;
+  --color-panel-rgb: 43, 40, 34;
+  --color-panel-tw: 43 40 34;
   --color-accent: #c09e62;
   --color-accent-rgb: 192, 158, 98;
+  --color-accent-tw: 192 158 98;
   --color-accent-secondary: #8b6b4b;
   --glow-color: rgba(192, 158, 98, 0.5);
 }
 
 [data-theme='conquera'] {
   --color-bg: #1a0822;
+  --color-bg-rgb: 26, 8, 34;
+  --color-bg-tw: 26 8 34;
   --color-panel: #421954;
+  --color-panel-rgb: 66, 25, 84;
+  --color-panel-tw: 66 25 84;
   --color-accent: #ff85e0;
   --color-accent-rgb: 255, 133, 224;
+  --color-accent-tw: 255 133 224;
   --color-accent-secondary: #b95c9e;
   --glow-color: rgba(255, 133, 224, 0.5);
 }
 
 [data-theme='corpus'] {
   --color-bg: #020e1a;
+  --color-bg-rgb: 2, 14, 26;
+  --color-bg-tw: 2 14 26;
   --color-panel: #0e2e52;
+  --color-panel-rgb: 14, 46, 82;
+  --color-panel-tw: 14 46 82;
   --color-accent: #29b6f6;
   --color-accent-rgb: 41, 182, 246;
+  --color-accent-tw: 41 182 246;
   --color-accent-secondary: #0d7ea3;
   --glow-color: rgba(41, 182, 246, 0.5);
 }
 
 [data-theme='darklotus'] {
   --color-bg: #13032d;
+  --color-bg-rgb: 19, 3, 45;
+  --color-bg-tw: 19 3 45;
   --color-panel: #2d0e58;
+  --color-panel-rgb: 45, 14, 88;
+  --color-panel-tw: 45 14 88;
   --color-accent: #a066ff;
   --color-accent-rgb: 160, 102, 255;
+  --color-accent-tw: 160 102 255;
   --color-accent-secondary: #6b3bb3;
   --glow-color: rgba(160, 102, 255, 0.5);
 }
 
 [data-theme='deadlock'] {
   --color-bg: #060a13;
+  --color-bg-rgb: 6, 10, 19;
+  --color-bg-tw: 6 10 19;
   --color-panel: #162138;
+  --color-panel-rgb: 22, 33, 56;
+  --color-panel-tw: 22 33 56;
   --color-accent: #b99354;
   --color-accent-rgb: 185, 147, 84;
+  --color-accent-tw: 185 147 84;
   --color-accent-secondary: #8a6b3c;
   --glow-color: rgba(185, 147, 84, 0.5);
 }
 
 [data-theme='equinox'] {
   --color-bg: #06070a;
+  --color-bg-rgb: 6, 7, 10;
+  --color-bg-tw: 6 7 10;
   --color-panel: #1e2129;
+  --color-panel-rgb: 30, 33, 41;
+  --color-panel-tw: 30 33 41;
   --color-accent: #ffffff;
   --color-accent-rgb: 255, 255, 255;
+  --color-accent-tw: 255 255 255;
   --color-accent-secondary: #b0bec5;
   --glow-color: rgba(255, 255, 255, 0.5);
 }
 
 [data-theme='fortuna'] {
   --color-bg: #0c021a;
+  --color-bg-rgb: 12, 2, 26;
+  --color-bg-tw: 12 2 26;
   --color-panel: #240a3f;
+  --color-panel-rgb: 36, 10, 63;
+  --color-panel-tw: 36 10 63;
   --color-accent: #37d7ff;
   --color-accent-rgb: 55, 215, 255;
+  --color-accent-tw: 55 215 255;
   --color-accent-secondary: #1f94b3;
   --glow-color: rgba(55, 215, 255, 0.5);
 }
 
 [data-theme='grineer'] {
   --color-bg: #0a0b04;
+  --color-bg-rgb: 10, 11, 4;
+  --color-bg-tw: 10 11 4;
   --color-panel: #262612;
+  --color-panel-rgb: 38, 38, 18;
+  --color-panel-tw: 38 38 18;
   --color-accent: #e1ad3a;
   --color-accent-rgb: 225, 173, 58;
+  --color-accent-tw: 225 173 58;
   --color-accent-secondary: #a87c2b;
   --glow-color: rgba(225, 173, 58, 0.5);
 }
 
 [data-theme='legacy'] {
   --color-bg: #0d1a1d;
+  --color-bg-rgb: 13, 26, 29;
+  --color-bg-tw: 13 26 29;
   --color-panel: #1a3034;
+  --color-panel-rgb: 26, 48, 52;
+  --color-panel-tw: 26 48 52;
   --color-accent: #78a9a9;
   --color-accent-rgb: 120, 169, 169;
+  --color-accent-tw: 120 169 169;
   --color-accent-secondary: #4f7a7a;
   --glow-color: rgba(120, 169, 169, 0.5);
 }
 
 [data-theme='lunar'] {
   --color-bg: #110202;
+  --color-bg-rgb: 17, 2, 2;
+  --color-bg-tw: 17 2 2;
   --color-panel: #360a0a;
+  --color-panel-rgb: 54, 10, 10;
+  --color-panel-tw: 54 10 10;
   --color-accent: #e53232;
   --color-accent-rgb: 229, 50, 50;
+  --color-accent-tw: 229 50 50;
   --color-accent-secondary: #b32020;
   --glow-color: rgba(229, 50, 50, 0.5);
 }
 
 [data-theme='pom2'] {
   --color-bg: #020b08;
+  --color-bg-rgb: 2, 11, 8;
+  --color-bg-tw: 2 11 8;
   --color-panel: #0e2e21;
+  --color-panel-rgb: 14, 46, 33;
+  --color-panel-tw: 14 46 33;
   --color-accent: #4ade80;
   --color-accent-rgb: 74, 222, 128;
+  --color-accent-tw: 74 222 128;
   --color-accent-secondary: #2f9e4e;
   --glow-color: rgba(74, 222, 128, 0.5);
 }
 
 [data-theme='stalker'] {
   --color-bg: #0a0000;
+  --color-bg-rgb: 10, 0, 0;
+  --color-bg-tw: 10 0 0;
   --color-panel: #280000;
+  --color-panel-rgb: 40, 0, 0;
+  --color-panel-tw: 40 0 0;
   --color-accent: #ff0000;
   --color-accent-rgb: 255, 0, 0;
+  --color-accent-tw: 255 0 0;
   --color-accent-secondary: #b30000;
   --glow-color: rgba(255, 0, 0, 0.5);
 }
 
 [data-theme='harrier'] {
   --color-bg: #0a111a;
+  --color-bg-rgb: 10, 17, 26;
+  --color-bg-tw: 10 17 26;
   --color-panel: #18283a;
+  --color-panel-rgb: 24, 40, 58;
+  --color-panel-tw: 24 40 58;
   --color-accent: #f26d1d;
   --color-accent-rgb: 242, 109, 29;
+  --color-accent-tw: 242 109 29;
   --color-accent-secondary: #b95216;
   --glow-color: rgba(242, 109, 29, 0.5);
 }

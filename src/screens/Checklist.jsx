@@ -917,7 +917,7 @@ export default function Checklist() {
               })()}
                 <span className="text-[18px] font-semibold text-kronos-text">{t('checklist.daily_focus')}</span>
               </div>
-              <span className="text-[18px] font-mono text-kronos-accent">{dailyFocus.toLocaleString()}{t('checklist.left')}</span>
+              <span className="text-[18px] font-mono text-kronos-accent">{dailyFocus.toLocaleString()} {t('checklist.left')}</span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
               {standings.filter((s) => s.focusKey).map((standing) => {

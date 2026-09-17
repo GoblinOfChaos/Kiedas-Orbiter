@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useUi } from '../../contexts/UiContext'
 import { Card } from '../UI';
 import ItemImage from '../ItemImage';
-import { Loader2, Check } from 'lucide-react';
+import { Loader2, Check, HelpCircle } from 'lucide-react';
 import { listen } from '@tauri-apps/api/event';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { getPrice } from '../../lib/marketEngine';
@@ -127,8 +127,8 @@ export default function RelicRewardOverlay() {
         return;
       }
       console.log(`[RelicOverlay] EVENT: overlay-update-ocr slot=${e.payload.slot} reward=${e.payload.confirmed_reward}`, e.payload);
-      const { slot, confirmed_reward, item } = e.payload;
-      setOcrResults((prev) => ({ ...prev, [slot]: { confirmed_reward, item } }));
+      const { slot, confirmed_reward, item, unmatched, raw_text } = e.payload;
+      setOcrResults((prev) => ({ ...prev, [slot]: { confirmed_reward, item, unmatched, raw_text } }));
     }));
 
     subs.push(listen('overlay-squad-size', (e) => {
@@ -287,7 +287,9 @@ export default function RelicRewardOverlay() {
               result;
               return (
                 <div key={i} className="flex flex-col">
-                  {confirmed ?
+                  {confirmed?.unmatched ?
+                  <UnmatchedSlot rawText={confirmed.raw_text} /> :
+                  confirmed ?
                   <RewardSlot confirmed={confirmed} isLocal={isLocal} price={prices[confirmed.item?.uniqueName]} /> :
                   <LoadingSlot />
                   }
@@ -319,6 +321,21 @@ function LoadingSlot() {
       <span className="text-[7px] font-black text-zinc-600 uppercase">{t('ui.relic_reward.analyzing')}</span>
     </div>);
 
+}
+
+// Shown when OCR read real text but it didn't fuzzy-match any known reward
+// closely enough to trust - deliberately does not fabricate an item identity
+// (see the zero-fallback-text rule in MonitoringContext.jsx). Shows the
+// actual raw OCR text instead of leaving the slot stuck on "ANALYZING..."
+// forever (GitHub issue #109).
+function UnmatchedSlot({ rawText }) {
+  const { t } = useUi();
+  return (
+    <div className="flex-1 bg-white/5 rounded-xl border border-dashed border-white/10 flex flex-col items-center justify-center p-2 text-center min-h-[140px] mx-1">
+      <HelpCircle size={12} className="text-zinc-500 mb-1" />
+      <span className="text-[7px] font-black text-zinc-600 uppercase">{t('ui.relic_reward.unrecognized')}</span>
+      {rawText && <span className="text-[7px] text-zinc-500 mt-1 px-1 break-words">{rawText}</span>}
+    </div>);
 }
 
 const FISSURE_BONUS_REWARDS = new Set([

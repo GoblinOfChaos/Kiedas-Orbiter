@@ -95,13 +95,17 @@ export const RIVEN_STAT_MAP = {
   'WeaponMeleeComboBonusOnHitMod': 'Combo Count',
 };
 
-/** Clean a dict stat label for display: drop value tokens (%|val|, |STAT1|),
- *  HTML color tags, and the seconds glue DE appends (|val|sn). */
+/** Clean a dict stat label for display: drop value tokens (%|val|, |val|%,
+ *  |STAT1|), HTML color tags, and the seconds glue DE appends (|val|sn).
+ *  DE's raw text puts the '%' on either side of the placeholder depending on
+ *  the stat, and RivenCard.jsx always appends its own '%' when rendering the
+ *  value - a trailing '%' left behind here (the "|val|%" case, previously
+ *  unhandled) showed up as a doubled "23% %" in the Riven popover. */
 function cleanStatLabel(raw) {
   if (!raw || typeof raw !== 'string' || raw.startsWith('/Lotus/')) return '';
   return raw
     .replace(/<[^>]*>/g, '')
-    .replace(/%?\|(?:val|STAT\d+)\|(?:sn|s)?\s*/g, '')
+    .replace(/%?\|(?:val|STAT\d+)\|(?:sn|s)?%?\s*/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -188,22 +192,18 @@ function splitPascal(str) {
 }
 
 const FOLDER_OVERRIDES = {
-  Harlequin: 'Mirage', Pirate: 'Hydroid', Tengu: 'Zephyr',
-  Paladin: 'Oberon', Berserker: 'Valkyr', Priest: 'Trinity',
-  Sandman: 'Equinox', Ranger: 'Ivara', AntiMatter: 'Limbo',
-  Pacifist: 'Baruuk', Magician: 'Nyx', YinYang: 'Equinox',
-  Trapper: 'Khora', Necro: 'Nekros', Dragon: 'Chroma',
-  Brawler: 'Atlas', Cowgirl: 'Cyte-09',
-  BrokenFrame: 'Broken Warframe',
-  ConcreteFrame: 'Kullervo',
-  Alchemist: 'Citrine', PaxDuviricus: 'Voruna',
-  Infestation: 'Nidus', Geode: 'Gauss',
-  IronFrame: 'Styanax', Frumentarius: 'Grendel',
-  Devourer: 'Lavos', Choir: 'Octavia',
-  Bard: 'Octavia', Odalisk: 'Caliban',
-  Pagemaster: 'Xaku', Werewolf: 'Voruna',
-  Glass: 'Gara', Temple: 'Whisper',
-  Fairy: 'Wisp', Jade: 'Nyx',
+  Alchemist: 'Lavos', AntiMatter: 'Nova', Bard: 'Octavia', Berserker: 'Valkyr',
+  Brawler: 'Atlas', BrokenFrame: 'Xaku', Choir: 'Jade', ConcreteFrame: 'Qorvex',
+  Cowgirl: 'Mesa', DemonFrame: 'Uriel', Devourer: 'Grendel', Dragon: 'Chroma',
+  Fairy: 'Titania', Frumentarius: 'Cyte-09', Geode: 'Citrine', Glass: 'Gara',
+  Harlequin: 'Mirage', Hoplite: 'Styanax', Infestation: 'Nidus', Inkblot: 'Follie',
+  IronFrame: 'Hildryn', Jade: 'Nyx', Magician: 'Limbo', MonkeyKing: 'Wukong',
+  Necro: 'Nekros', Ninja: 'Ash', Odalisk: 'Protea', Oraxia: 'Oraxia',
+  Pacifist: 'Baruuk', Pagemaster: 'Dante', Paladin: 'Oberon', PaxDuviricus: 'Kullervo',
+  Pirate: 'Hydroid', Priest: 'Harrow', Ranger: 'Ivara', Runner: 'Gauss',
+  Sandman: 'Inaros', Sentient: 'Caliban', SiriusOrion: 'Sirius & Orion', Temple: 'Temple',
+  Tengu: 'Zephyr', Trapper: 'Vauban', Werewolf: 'Voruna', Wraith: 'Sevagoth',
+  YinYang: 'Equinox'
 };
 
 
@@ -641,8 +641,25 @@ function extractModCategory(exportType, un, entry) {
 // not a family of its own - so this is tracked separately from
 // extractModCategory's result instead of overriding it. A mod like Fass
 // Canticle needs to show as both Tome AND Exilus, not one or the other.
-function isModExilus(un, entry) {
-  return !!un && (un.includes('ExilusMod') || entry?.polarity === 'AP_TACTIC')
+function isFlawedMod(entry, originalEntry) {
+  // DE's `isStarter` flag marks a mod as the reduced-power "Flawed" variant
+  // (formerly "Damaged Mods") sold as antiques near Cressa Tal in Iron Wake.
+  // Its name loctag resolves to the exact same display string as the normal
+  // mod - DE doesn't distinguish them by name at all - so without this
+  // prefix the catalog's display-name dedup treats "Flawed Rush" as a
+  // duplicate of "Rush" and silently drops one of the two real, separately
+  // obtainable items.
+  return entry?.isStarter === true || originalEntry?.isStarter === true
+}
+
+function isModExilus(un, entry, originalEntry) {
+  // DE's own field for this is `isUtility` (the mod screen's older internal
+  // name for the Exilus slot) - not polarity. AP_TACTIC is just the Naramon
+  // polarity value and most Naramon-polarized mods are ordinary mods, not
+  // Exilus ones (verified against the wiki's List of Mods Exilus subcategory:
+  // isUtility gives 152 matches vs. the wiki's 153, while polarity alone gives
+  // 329 - more than double, nearly all false positives).
+  return !!un && (un.includes('ExilusMod') || entry?.isUtility === true || originalEntry?.isUtility === true)
 }
 
 function resolveArcaneDesc(levelStats, dict) {
@@ -1034,6 +1051,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   const EM = useWI
     ? mergeWithOrig(exports.WI_Upgrades, 'ExportUpgrades')
     : toMap(exports.ExportUpgrades, 'ExportUpgrades');
+  // DE's own export is the only source that carries the `isUtility` flag
+  // that marks a mod Exilus-compatible - the WI_Upgrades catalog merged into
+  // EM above does not preserve it, so isModExilus() must check this
+  // untouched map instead of EM for that one field.
+  const originalUpgradesMap = toMap(exports.ExportUpgrades, 'ExportUpgrades');
   // Merge Railjack avionics into EM
   if (exports.ExportAvionics) {
     const avMap = toMap(exports.ExportAvionics, 'ExportAvionics');
@@ -1125,6 +1147,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     ? mergeWithOrig(exports.WI_Gear, 'ExportGear')
     : toMap(exports.ExportGear, 'ExportGear');
   const EGearOrig = toMap(exports.ExportGear, 'ExportGear');
+  const ECustOrig = toMap(exports.ExportCustoms, 'ExportCustoms');
   const EB = toMap(exports.ExportBundles, 'ExportBundles');
 
   // ── XP lookup ──
@@ -1204,10 +1227,23 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     const modularCategories = ['moas', 'hounds', 'zaws', 'kitguns', 'amps'];
     const isModular = modularCategories.includes(category);
 
-    // Gilding is indicated by: Features bit 0 set, or has CustomName, or Polarized > 0
+    // Gilding is indicated by: Features bit 0 set, or has CustomName, or Polarized > 0.
+    // Zaw Tips and Kitgun Barrels (the mastery-bearing piece for those two
+    // categories) are identified purely by XP - the player's actual built
+    // weapon lives in raw.Melee/raw.Pistols under its OWN generated identity
+    // (encoding which Tip/Barrel/Grip was used in its Fingerprint), never
+    // under the Tip/Barrel's own uniqueName, so `sourceItem` is always null
+    // here and the Features/Polarized/CustomName check above can never fire.
+    // Per this function's own "only grant mastery when Gilded" rule, a
+    // modular part only ever accrues XP in the first place after Gilding -
+    // so real recorded XP alone is proof of Gilding for these XP-only-
+    // identified parts. Confirmed against the user's real account data:
+    // "Balla" (a Zaw Tip) has 44,681,109 XP but no raw.Melee entry of its
+    // own, and was wrongly shown as unmastered/unowned before this fix.
     const isGilded = (sourceItem?.Features & 1) ||
       (sourceItem?.Polarized > 0) ||
-      (!!sourceItem?.CustomName && !sourceItem.CustomName.startsWith('/Lotus/'));
+      (!!sourceItem?.CustomName && !sourceItem.CustomName.startsWith('/Lotus/')) ||
+      (!sourceItem && xp > 0);
     const grantsMastery = !isModular || isGilded;
 
     // Get polarization count from sourceItem
@@ -1337,13 +1373,31 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // ranked up at some point", not "currently in inventory". `owned` must
       // reflect current possession only; `mastered` above already carries
       // the lifetime-XP signal correctly.
-      owned: !!sourceItem,
+      // Exception: Zaw Tips/Kitgun Barrels have no `sourceItem` at all (see
+      // the isGilded comment above) - there's no separate "do I still have
+      // this specific part" signal to check for these, and the existing
+      // (unused) zawStrikes/kitgunChambers computations elsewhere in this
+      // file already treat `xp > 0` as "owned" for exactly this reason, so
+      // this matches established precedent rather than inventing a new rule.
+      owned: !!sourceItem || (isModular && xp > 0),
       mastered,
       // wfcd's own curated data marks some items (e.g. non-Head Zanuka Hound
       // body/legs/tail parts) masterable:false - they're real, ownable crafting
       // components but have no in-game mastery state of their own. Default to
       // true since DE's raw export never carries this field.
-      masterable: entry?.masterable !== false,
+      //
+      // Exception: wfcd's Melee.json also marks the Zaw Tip record itself
+      // masterable:false (a part isn't directly masterable under wfcd's own
+      // schema - the assembled weapon is), which directly contradicts this
+      // function's own established convention just above: the Tip/Barrel IS
+      // the mastery-bearing identity for modular weapons, identified by the
+      // same "no sourceItem, real XP" signal as isGilded. Trusting wfcd's
+      // flag literally for exactly this case made Balla/Plague Keewar
+      // (real, mastered Zaws) vanish from both the Mastered and Unmastered
+      // filters, since `masterable === false` fails both. Force true for
+      // this specific, narrow case instead of trusting wfcd's part-schema
+      // flag.
+      masterable: (isModular && !sourceItem && xp > 0) ? true : (entry?.masterable !== false),
       subsumed: subsumedSet.has(un),
       is_prime: entry?.variantType === 'VT_PRIME' || /Prime$/i.test(un.split('/').filter(Boolean).at(-1) ?? ''),
       is_incarnon: (() => {
@@ -1378,7 +1432,14 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       if (filterFn && !filterFn(entry, un)) continue;
       const instances = ownedItems[un];
       if (!instances && FOUNDER_ITEMS.has(un)) continue;
-      (instances ?? [null]).forEach(inst => results.push(createItem(un, category, nameTbls, imgTbls, inst)));
+      // `category` may be a resolver (entry, un) => categoryString instead of
+      // a fixed string - needed so mastery computation inside createItem
+      // (which gates Kitgun/Zaw/Amp mastery on `modularCategories.includes
+      // (category)`) sees the real modular category up front, rather than a
+      // generic 'weapons' string that gets relabeled to 'kitguns'/'zaws'
+      // only after mastery was already computed under the wrong category.
+      const resolvedCategory = typeof category === 'function' ? category(entry, un) : category;
+      (instances ?? [null]).forEach(inst => results.push(createItem(un, resolvedCategory, nameTbls, imgTbls, inst)));
     }
     return results;
   };
@@ -1386,7 +1447,30 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   const warframes = processCategory(EWf, 'warframes', [EWf], [EWf],
     (e, un) => e.productCategory === 'Suits' && !un.includes('SpaceSuits') && !un.includes('MechSuits'));
 
-  const weaponsRaw = processCategory(EW, 'weapons', [EW], [EW], (e) => {
+  // Real Kitgun chamber (mastery-bearing barrel) paths - verified against the
+  // actual export data, not guessed from a plausible-looking substring. The
+  // previous `un.includes('ModularPistol') || un.includes('ModularPrimary')`
+  // check matched zero real Kitgun parts (those substrings only appear on an
+  // unrelated Corpus Vandal pistol, itself excluded by the Vandal check) -
+  // real Kitgun parts live under these two prefixes instead. Zaw's
+  // `ModularMelee` check is separately confirmed correct against real data
+  // (e.g. /Lotus/Weapons/Ostron/Melee/ModularMelee01/Tip/...).
+  const KITGUN_BARREL_PREFIXES = [
+    '/Lotus/Weapons/SolarisUnited/Secondary/SUModularSecondarySet1/Barrel/',
+    '/Lotus/Weapons/Infested/Pistols/InfKitGun/Barrels/',
+  ];
+  const isKitgunPart = (un) => KITGUN_BARREL_PREFIXES.some((p) => un.startsWith(p));
+
+  // Kitgun/Zaw parts must resolve to their real modular category up front
+  // (not the generic 'weapons' string) so createItem's Gilded-only-mastery
+  // gate for modular items actually applies to them - see processCategory's
+  // comment above. Same isKitgun/isZaw check the classification loop below
+  // uses for which parts to display, just applied earlier for mastery.
+  const weaponsRaw = processCategory(EW, (e, un) => {
+    if (isKitgunPart(un)) return 'kitguns';
+    if (un.includes('ModularMelee') && !un.includes('Vandal') && !un.includes('Wraith') && !un.includes('Prisma')) return 'zaws';
+    return 'weapons';
+  }, [EW], [EW], (e) => {
     if (e.sentinel) return false;
     if (['SpaceGuns', 'SpaceMelee', 'SentinelWeapons'].includes(e.productCategory)) return false;
     // Include hidden weapons if they are known special variants
@@ -1402,7 +1486,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (!e) return;
     const name = (e.name || "").toLowerCase();
     const un = i.unique_name;
-    const isKitgun = (un.includes('ModularPistol') || un.includes('ModularPrimary')) && !un.includes('Vandal') && !un.includes('Wraith') && !un.includes('Prisma');
+    const isKitgun = isKitgunPart(un);
     const isZaw = un.includes('ModularMelee') && !un.includes('Vandal') && !un.includes('Wraith') && !un.includes('Prisma');
 
     if (isKitgun) {
@@ -1449,7 +1533,29 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   // inventoryData.sentinels directly, so that would hide an owned item from
   // the player's own Companions list, not just trim the mastery denominator.
   // Only exclude it when unowned.
-  const companionsRaw = processCategory(ES, 'companions', [ES], [ES, EW], (e, un) => !e.codexSecret || ownedItems[un]);
+  // Resolve MOAs/Hounds/Beasts to their real category up front (not the
+  // generic 'companions' string), for the same reason Kitgun/Zaw parts get
+  // an early resolver above: createItem's isModular/masterable gate and its
+  // ownership computation both key off `category`, and only see the correct
+  // rules if the real category is known before createItem runs, not after
+  // (the reclassification loop below used to run entirely post-hoc, which
+  // meant MOAs/Hounds never got the modular Gilded-only-mastery treatment
+  // and their ownership matching used the wrong, non-modular code path -
+  // this caused Vizier Predasite to show falsely OWNED, Fetch.exe Hound to
+  // show falsely UNOWNED, and Balla/Plague Keewar Zaws to vanish from both
+  // the Mastered and Unmastered filters. Mirrors the exact branch conditions
+  // the reclassification loop below already used, just applied earlier).
+  const resolveCompanionCategory = (e, un) => {
+    if (e?.productCategory === 'Sentinels') return 'sentinels';
+    if (un.includes('/Sentinels/MoaPets/')) return 'moas';
+    if (un.includes('/Sentinels/ZanukaPets/')) return 'hounds';
+    if (e?.productCategory === 'KubrowPets' || [
+      '/Lotus/Powersuits/Khora/Kavat/KhoraKavatPowerSuit',
+      '/Lotus/Powersuits/Khora/Kavat/KhoraPrimeKavatPowerSuit'
+    ].includes(un)) return 'beasts';
+    return 'companions';
+  };
+  const companionsRaw = processCategory(ES, resolveCompanionCategory, [ES], [ES, EW], (e, un) => !e.codexSecret || ownedItems[un]);
   const sentinels = [], moas = [], hounds = [], beasts = [], robotics = [];
 
   companionsRaw.forEach(i => {
@@ -1824,6 +1930,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       mod.polarity = entry?.polarity ?? null;
       mod.compatName = entry?.compatName ?? null;
       mod.modFrame = detectModFrame(un, mod.rarity, mod.name);
+      if (isFlawedMod(entry, originalUpgradesMap[un])) mod.name = `Flawed ${mod.name}`;
       if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
       const descLoctag = entry?.description ?? '';
       const rawDesc = descLoctag
@@ -1834,7 +1941,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/\\n/g, '\n').trim() : '';
       mod.levelStats = entry?.levelStats ?? null;
       mod.category = extractModCategory(entry?.type, un, entry);
-      mod.isExilus = isModExilus(un, entry);
+      mod.isExilus = isModExilus(un, entry, originalUpgradesMap[un]);
       mod.baseDrain = entry?.baseDrain ?? null;
       mod.icon = entry?.icon ?? null;
       if (!mod.icon && exports.PeelyPixMap?.[un]) {
@@ -1913,12 +2020,27 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       '/Lotus/Upgrades/Mods/Warframe/Expert/AvatarShieldRechargeRateModExpert',
       '/Lotus/Upgrades/Mods/Syndicate/BallisticaMod',
     ]);
+    // DE's Primed-tier variant of a mod reuses the base mod's old
+    // difficulty-variant internal path convention (.../Expert) and marks the
+    // definition excludeFromCodex/codexSecret so the in-game Codex doesn't
+    // show it as a separate entry from the base mod's card - but it IS a
+    // real, separately purchasable item. Confirmed via wiki: Primed
+    // Combustion Rounds (introduced Hotfix 42.0.11, 2026-05-14) is a current
+    // Baro Ki'Teer offering, not unreleased/hidden/removed content, so the
+    // blanket excludeFromCodex skip below would otherwise wrongly hide it
+    // from the unowned catalog. Verified individually, not pattern-guessed -
+    // add further entries here only after the same wiki-level confirmation.
+    const VERIFIED_REAL_DESPITE_EXCLUDE_FROM_CODEX = new Set([
+      '/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponFireDamageModExpert', // Primed Combustion Rounds
+      '/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponFreezeDamageModExpert', // Primed Polar Magazine (Hotfix 43.5.4, 2026-08-19)
+    ]);
     const isEmptyArtifactPlaceholder = entry?.name === '/Lotus/Language/Items/EmptyArtifact' && entry?.excludeFromCodex === true;
     // DE keeps legacy Conclave/K-Drive definitions in the export so old
     // inventory records can still be decoded, but explicitly marks them as
     // outside the Codex. Do not manufacture unowned catalog cards for any
     // such definition; preserve a card only when the player actually owns it.
-    if (!owned && (entry?.excludeFromCodex === true || UNOBTAINABLE_UNOWNED_MODS.has(canonicalUniqueName(un)) || isEmptyArtifactPlaceholder)) continue;
+    if (!owned && (entry?.excludeFromCodex === true || UNOBTAINABLE_UNOWNED_MODS.has(canonicalUniqueName(un)) || isEmptyArtifactPlaceholder) &&
+        !VERIFIED_REAL_DESPITE_EXCLUDE_FROM_CODEX.has(canonicalUniqueName(un))) continue;
     // The acquisition dataset is for enrichment (how-to-get info) below)
     // only - it must never gate whether a mod appears in the browsable
     // catalog at all. Its coverage is thin for whole categories (Stance,
@@ -1934,6 +2056,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     mod.polarity = entry?.polarity ?? mod.polarity ?? null;
     mod.compatName = entry?.compatName ?? mod.compatName ?? null;
     mod.modFrame = mod.modFrame || detectModFrame(un, mod.rarity, name);
+    if (isFlawedMod(entry, originalUpgradesMap[un])) mod.name = `Flawed ${mod.name}`;
     if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
     const descLoctag = entry?.description ?? '';
     const rawDesc = descLoctag
@@ -1944,7 +2067,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (!mod.description) mod.description = rawDesc ? rawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').replace(/\\n/g, '\n').trim() : '';
     mod.levelStats = entry?.levelStats ?? mod.levelStats ?? null;
     mod.category = extractModCategory(entry?.type, un, entry) || mod.category || 'mods';
-    mod.isExilus = isModExilus(un, entry) || mod.isExilus || false;
+    mod.isExilus = isModExilus(un, entry, originalUpgradesMap[un]) || mod.isExilus || false;
     mod.baseDrain = entry?.baseDrain ?? mod.baseDrain ?? null;
     mod.icon = entry?.icon ?? mod.icon ?? null;
     if (!mod.image) mod.image = resolveImage(un, EM);
@@ -2128,7 +2251,15 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     // "Unowned" for every player regardless of quest state. Its real
     // ownership signal is the account-wide ArchwingEnabled flag.
     const isOmni = un === '/Lotus/Types/Restoratives/Consumable/RepairTool';
-    const reallyOwned = isOmni ? (!!owned || raw.ArchwingEnabled === true) : !!owned;
+    // Railjack Recall is the same situation - it's part of owning a Railjack
+    // (not something purchased/crafted with charges), so it never appears in
+    // raw.Consumables either. Its real ownership signal is having at least
+    // one entry in raw.CrewShips (the player's owned Railjack).
+    const isRailjackRecall = un === '/Lotus/Types/Restoratives/Consumable/RecallToRailjack';
+    const hasRailjack = Array.isArray(raw.CrewShips) && raw.CrewShips.length > 0;
+    const reallyOwned = isOmni ? (!!owned || raw.ArchwingEnabled === true)
+      : isRailjackRecall ? (!!owned || hasRailjack)
+      : !!owned;
     const candidate = {
       unique_name: un,
       name,
@@ -2146,6 +2277,41 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
   const consumables_catalog = Array.from(consumablesByName.values());
+
+  // "Appearance" Foundry category: craftable armor sets/attachments and
+  // sentinel masks under /Upgrades/Skins/ that have a real build recipe -
+  // never surfaced as a Foundry tab before (GitHub issue #109, Fix Group E).
+  // Default Warframe/weapon skins (DE's alwaysAvailable flag, see Cosmetics
+  // screen) live under this same export path but have no recipe at all, so
+  // they're naturally excluded by Foundry's existing `if (!recipe) continue`
+  // gate without needing a separate filter here - this catalog intentionally
+  // includes every /Upgrades/Skins/ entry, not just the 281 known-craftable
+  // ones, for the same reason consumables_catalog includes every Gear entry.
+  // Ownership isn't tracked in any of the per-category raw arrays used for
+  // ownedItems above (weapons/warframes/companions) - cosmetics use their own
+  // raw buckets, same ones the Cosmetics screen's ownedUniqueNames() reads.
+  const ownedAppearanceKeys = new Set();
+  for (const bucket of ['WeaponSkins', 'FlavourItems', 'MiscItems', 'ShipDecorations']) {
+    for (const entry of raw[bucket] ?? []) {
+      const key = canonicalUniqueName(entry?.ItemType)?.toLowerCase();
+      if (key) ownedAppearanceKeys.add(key);
+    }
+  }
+  const appearance_catalog = [];
+  for (const [un, entry] of Object.entries(ECustOrig)) {
+    if (!un.startsWith('/Lotus/Upgrades/Skins/')) continue;
+    const isOwned = ownedAppearanceKeys.has(canonicalUniqueName(un).toLowerCase());
+    const name = resolveName(un, dict, locale, ECustOrig, ECust, ER, ERecipe) || nameFromPath(un);
+    if (!name) continue;
+    appearance_catalog.push({
+      unique_name: un,
+      name,
+      image: resolveImage(un, ECustOrig, ECust, ER, ERecipe),
+      category: 'appearance',
+      owned: isOwned,
+      quantity: isOwned ? 1 : 0,
+    });
+  }
 
   const landingCraftCatalog = [
     [['DefaultShip', 'LisetShip', 'Liset'], 'Liset', 'Liset'],
@@ -2303,6 +2469,20 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/')) continue;
     // Hidden resource — user requested it be excluded (Tethra Data Fragments)
     if (un === '/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag') continue;
+    // Deimos Conservation "Wounded Animal" reward trophies (Common/Uncommon/
+    // Rare, Predasite and Vulpaphyla/"Critter" alike) share their exact DE
+    // localization string with the real companion breed of the same name
+    // (e.g. this item's name loc-tag resolves to "Vizier Predasite", identical
+    // to the actual ownable Predasite). Adding one here under that shared name
+    // as an owned "resource" made nameToItem's owned-preference collision
+    // logic (see its own comment, same bug class as the Grimoire fix) resolve
+    // every other name-keyed lookup for the real companion - including the
+    // Foundry gilding recipe's ownedCount - as "owned", even when zero of
+    // that companion are actually owned (GitHub issue #109, Vizier Predasite
+    // falsely OWNED). Already excluded from the separate modular-parts
+    // catalog loop below for the same reason; excluded here too since this
+    // loop is where the wrongly-named resource entry actually gets created.
+    if (un.includes('/WoundedInfested')) continue;
     // Somachord track unlocks (e.g. Crash Course, Core Containment) are music
     // collectibles, not crafting resources — some even share their display
     // name with an unrelated real mod (Crash Course is also an Eidolon Teralyst
@@ -2351,9 +2531,59 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // per-part image via the same ER/ERel/EW/ES lookup used for resources).
       const isPetComponent = (un.includes('/MoaPetParts/') || un.includes('/ZanukaPetParts/')) && !un.includes('Head');
       const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent;
-      const obj = { unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: isModularComponent ? 'components' : 'resources', quantity: item.ItemCount ?? 1, owned: true };
+      // These are raw crafting components (Hound/MOA/Amp/Zaw parts, etc.) with
+      // no mastery state of their own - `masterable: false` (not left
+      // undefined) so they're correctly excluded from both the Mastered and
+      // Unmastered filters, matching the pattern createItem already uses for
+      // other no-mastery parts (see its own masterable comment).
+      const obj = { unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: isModularComponent ? 'components' : 'resources', quantity: item.ItemCount ?? 1, owned: true, masterable: false };
       (isModularComponent ? components : resources).push(obj);
     }
+  }
+
+  // Full catalog (owned + unowned) for modular companion-crafting parts DE
+  // tags with a real `partType` field in ExportWeapons.json - MOA parts,
+  // Hound (Zanuka) parts, Vulpaphyla (Catbrow) and Predasite (internally
+  // named "Kubrow" here, a leftover from shared breeding-mechanic code)
+  // Antigens/Mutagens. Verified against the user's own real in-game Foundry
+  // screenshots (2026-09-08) - "Adlet Core"/"Cela Bracket" (Hound),
+  // "Virox Antigen"/"Tethron Antigen" (Predasite) all confirmed present
+  // under exactly these partTypes. The raw-inventory scan above only ever
+  // surfaces items the player currently owns (and never correctly routed
+  // Catbrow/Kubrow-Antigen items to `components` at all, even when owned -
+  // left as-is here to avoid an unrelated change); every other Foundry
+  // category shows the full browsable catalog including unowned items, so
+  // this does the same. Amp/Zaw/Kitgun/K-Drive parts already have their own
+  // dedicated full-catalog arrays elsewhere (`amps`, the Kitgun/Zaw
+  // reclassification above, `raw.Hoverboards`) and are deliberately excluded
+  // here to avoid duplicating them.
+  const MODULAR_COMPANION_PART_TYPES = new Set([
+    'LWPT_MOA_ENGINE', 'LWPT_MOA_HEAD', 'LWPT_MOA_LEG', 'LWPT_MOA_PAYLOAD',
+    'LWPT_ZANUKA_BODY', 'LWPT_ZANUKA_HEAD', 'LWPT_ZANUKA_LEG', 'LWPT_ZANUKA_TAIL',
+    'LWPT_CATBROW_ANTIGEN', 'LWPT_CATBROW_MUTAGEN',
+    'LWPT_KUBROW_ANTIGEN', 'LWPT_KUBROW_MUTAGEN',
+  ]);
+  const seenComponentUniqueNames = new Set(components.map((c) => c.unique_name));
+  const ownedRawItemTypes = new Set();
+  for (const arr of [raw.MiscItems, raw.Resources]) {
+    for (const item of (arr ?? [])) {
+      if (item?.ItemType) ownedRawItemTypes.add(item.ItemType);
+    }
+  }
+  for (const [un, entry] of Object.entries(EW)) {
+    if (!MODULAR_COMPANION_PART_TYPES.has(entry?.partType) || seenComponentUniqueNames.has(un) || un.includes("/WoundedInfested")) continue;
+    const name = dict[entry.name] || entry.name;
+    if (!name) continue;
+    components.push({
+      unique_name: un,
+      name,
+      description: '',
+      image: resolveImage(un, ER, ERel, EW, ES),
+      category: 'components',
+      quantity: 0,
+      owned: ownedRawItemTypes.has(un),
+      masterable: false,
+    });
   }
 
   // Several real, findable resource categories only showed up in Resources
@@ -2462,6 +2692,13 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         // the canonical form other acquisition data is keyed against.
         real_unique_name: un,
         name: baseName,
+        // Raw DE `category` field (e.g. "A10"), not the display-string-derived
+        // `name` above - used by Relics.jsx to merge with getRelicCatalog's
+        // entries by real structured identity instead of re-parsing "Lith A10
+        // Relic" back apart with regex, which was the root cause of relics
+        // silently vanishing under ownership filters on any name-format
+        // mismatch (GitHub issue #109, Fix Group B).
+        code: entry?.category || null,
         era,
         description: relDescription,
         image: resolveImage(un, ERel),
@@ -2730,13 +2967,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   });
 
-  // Kitgun: mastery is per chamber (barrel part), not per full build
-  const KITGUN_BARREL_PREFIXES = [
-    '/Lotus/Weapons/SolarisUnited/Secondary/SUModularSecondarySet1/Barrel/',
-    '/Lotus/Weapons/Infested/Pistols/InfKitGun/Barrels/',
-  ];
+  // Kitgun: mastery is per chamber (barrel part), not per full build.
+  // KITGUN_BARREL_PREFIXES/isKitgunPart defined earlier, shared with the
+  // weaponsRaw classification above.
   const kitgunChambers = Object.entries(EW)
-    .filter(([un]) => KITGUN_BARREL_PREFIXES.some(p => un.startsWith(p)) && un.endsWith('Part'))
+    .filter(([un]) => isKitgunPart(un) && un.endsWith('Part'))
     .map(([un]) => {
       const xp = xpMap[un] ?? 0;
       // Kitguns are weapons (100 mastery per rank)
@@ -2870,6 +3105,23 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   const miscItems = raw.MiscItems ?? [];
   const voidTraces = miscItems.find(i => i.ItemType === '/Lotus/Types/Items/MiscItems/VoidTearDrop')?.ItemCount ?? 0;
   const voidTracesMax = (playerLevel * 50) + 100;
+  // Paths confirmed against this build's own bundled export data (GitHub
+  // issue #109: header currency counters), not guessed from memory. Regal
+  // Aya and Vitus Essence are NOT included here - neither path exists
+  // anywhere in the bundled export data (checked directly), likely the
+  // same export-plus staleness already tracked as DATA-001 in #109 - do not
+  // add a guessed path for either without re-verifying against fresh data.
+  const ducats = miscItems.find(i => i.ItemType === '/Lotus/Types/Items/MiscItems/PrimeBucks')?.ItemCount ?? 0;
+  const aya = miscItems.find(i => i.ItemType === '/Lotus/Types/Items/MiscItems/SchismKey')?.ItemCount ?? 0;
+  const steelEssence = miscItems.find(i => i.ItemType === '/Lotus/Types/Items/MiscItems/SteelEssence')?.ItemCount ?? 0;
+  const rivenSlivers = miscItems.find(i => i.ItemType === '/Lotus/Types/Items/MiscItems/RivenFragment')?.ItemCount ?? 0;
+  // Resolved directly here (not looked up from the `resources` array) since
+  // that array only contains an entry when the player owns at least one -
+  // these header counters need a real icon even at 0 (e.g. a fresh account
+  // with 0 Ducats/Aya).
+  const ayaImage = resolveImage('/Lotus/Types/Items/MiscItems/SchismKey', ER, ERel, EW, ES);
+  const steelEssenceImage = resolveImage('/Lotus/Types/Items/MiscItems/SteelEssence', ER, ERel, EW, ES);
+  const rivenSliversImage = resolveImage('/Lotus/Types/Items/MiscItems/RivenFragment', ER, ERel, EW, ES);
 
   const formaCount = miscItems.find(i => i.ItemType === '/Lotus/Types/Items/MiscItems/Forma')?.ItemCount ?? 0;
   const auraFormaCount = miscItems.find(i => i.ItemType === '/Lotus/Types/Items/MiscItems/FormaAura')?.ItemCount ?? 0;
@@ -2945,6 +3197,13 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       riven_capacity: 15 + playerLevel + (rivenBin.Extra ?? 0),
       void_traces: voidTraces,
       void_traces_max: voidTracesMax,
+      ducats,
+      aya,
+      aya_image: ayaImage,
+      steel_essence: steelEssence,
+      steel_essence_image: steelEssenceImage,
+      riven_slivers: rivenSlivers,
+      riven_slivers_image: rivenSliversImage,
       forma: formaCount,
       aura_forma: auraFormaCount,
       stance_forma: stanceFormaCount,
@@ -2968,7 +3227,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     companion_weapons,
     vehicles: [...archwings, ...kdrives], // Compatibility
     archwings, kdrives,
-    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, components, consumables, consumables_catalog, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
+    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, components, consumables, consumables_catalog, appearance_catalog, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
     kitgunChambers, zawStrikes, moaHeads, houndHeads,
 
     // ── Comprehensive owned-item-path set ──
@@ -3081,8 +3340,25 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         all.filter(i => i.mastered).map(i => i.name)
       );
 
-      // name → item index for O(1) lookups inside the recipe loop
-      const nameToItem = new Map(all.map(i => [i.name, i]));
+      // name → item index for O(1) lookups inside the recipe loop.
+      // Two unrelated real DE items can share a display name (e.g. the real
+      // "Grimoire" Tome secondary vs. an unowned "TnDoppelgangerGrimoire"
+      // variant also named "Grimoire") - naively letting whichever is
+      // iterated last in `all` win previously caused a real, mastered
+      // weapon's own name-keyed lookups (recipe/mastery) to resolve to the
+      // wrong, never-owned duplicate instead. Same collision class already
+      // solved in warframeItemsTransform.js's nameToImage build (see
+      // `nameConflicts`) - here, prefer an owned/mastered entry over an
+      // unowned duplicate rather than dropping the key outright, since
+      // downstream consumers expect every real item name to resolve to
+      // something.
+      const nameToItem = new Map();
+      for (const item of all) {
+        const existing = nameToItem.get(item.name);
+        if (!existing || ((item.owned || item.mastered) && !(existing.owned || existing.mastered))) {
+          nameToItem.set(item.name, item);
+        }
+      }
       const equipmentCategories = new Set([
         'warframes', 'primary', 'secondary', 'melee', 'sentinels', 'moas',
         'hounds', 'beasts', 'robotics', 'companions', 'companion_weapons',
@@ -3202,16 +3478,27 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
                 return subHave >= (subIng.ItemCount ?? 1);
               });
 
-              // Get sub-ingredients for tooltip
-              subIngredients = bpRecipe.ingredients.map(subIng => ({
-                name: resolveName(subIng.ItemType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
-                have: (() => {
-                  const subKey = canonicalInventoryType(subIng.ItemType);
-                  return (resourceCounts[subKey] ?? 0) + (ownedItemCounts[subKey] ?? 0);
-                })(),
-                need: subIng.ItemCount ?? 1,
-                image: resolveImage(subIng.ItemType, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe)
-              }));
+              // Get sub-ingredients for tooltip. Uses the same shared
+              // `ingredientUsage` allocation tracker as the top-level loop
+              // below (GitHub issue #109) - without it, a resource needed by
+              // more than one component's own blueprint (e.g. both
+              // Neuroptics and Chassis needing Rubedo) would show the full
+              // owned count in each tooltip independently, instead of
+              // splitting it across both, the same double-counting bug the
+              // top-level loop was already fixed for.
+              subIngredients = bpRecipe.ingredients.map(subIng => {
+                const subKey = canonicalInventoryType(subIng.ItemType);
+                const subNeed = subIng.ItemCount ?? 1;
+                const subAlreadyAllocated = ingredientUsage[subKey] ?? 0;
+                const subHave = Math.max(0, (resourceCounts[subKey] ?? 0) + (ownedItemCounts[subKey] ?? 0) - subAlreadyAllocated);
+                ingredientUsage[subKey] = subAlreadyAllocated + subNeed;
+                return {
+                  name: resolveName(subIng.ItemType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
+                  have: subHave,
+                  need: subNeed,
+                  image: resolveImage(subIng.ItemType, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe)
+                };
+              });
             }
           } else {
             // For regular resources/items - count both resources and owned items

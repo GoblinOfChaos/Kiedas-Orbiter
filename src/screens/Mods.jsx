@@ -1,14 +1,18 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useUi } from '../contexts/UiContext'
-import { Search, ArrowUpDown, Filter, Layers } from 'lucide-react';
+import { Search, ArrowUpDown, Filter, Layers, LayoutGrid, List } from 'lucide-react';
 import { PageLayout, Input, Button, Tabs, MonitorState } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import ModCard from '../components/ModCard';
+import ItemImage from '../components/ItemImage';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
+import PreviewAcquisitionDrawer from '../preview/acquisition/PreviewAcquisitionDrawer';
 import { MOD_WIKI_TAGS } from '../lib/modWikiTags';
+import { IS_PREVIEW } from '../lib/buildProfile';
+import PreviewModsLayout from '../components/PreviewModsLayout';
 
 const CARD_WIDTH = 200;
 const COL_GAP = 50;
@@ -69,6 +73,7 @@ export default function Mods() {
   const [maxRankOnly, setMaxRankOnly] = useState(false);
   const [hideConclave, setHideConclave] = useState(false);
   const [visibleCount, setVisibleCount] = useState(60);
+  const [viewMode, setViewMode] = useState('grid'); // Preview-only
   const mods = useMemo(() => (inventoryData?.mods_catalog ?? inventoryData?.mods ?? [])
     // Peely Pix/Archimedea stickers have their own tab. They are represented
     // alongside mods in the parser for inventory compatibility, but must not
@@ -149,8 +154,15 @@ export default function Mods() {
     if (!openKey) return null;
     const mod = visible.find((m) => m.unique_name === openKey);
     if (!mod) return null;
-    return { uniqueName: mod.unique_name, displayName: mod.name, info: getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) };
-  }, [openKey, visible, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportComponentIndex]);
+    return {
+      uniqueName: mod.unique_name,
+      displayName: mod.name,
+      image: cardImagesPath && mod.icon ? convertFileSrc(`${cardImagesPath}${mod.icon.startsWith('/') ? mod.icon : '/' + mod.icon}`) : mod.image,
+      category: mod.rarity || 'Mod',
+      owned: mod.owned,
+      info: getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex),
+    };
+  }, [openKey, visible, cardImagesPath, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportComponentIndex]);
 
   const handleSortChange = (id) => {
     if (id === sortCriteria) {
@@ -161,16 +173,45 @@ export default function Mods() {
     }
   };
 
+  // Preview-only persistent category sidebar (wide widths). Independent of
+  // the horizontal categories row above (kept as the compact/narrow-width
+  // selector) - a small duplication of the icon-resolution rather than
+  // sharing it, so this stays isolated from the already-verified header.
+  const renderCategoryNavigator = () =>
+  <nav
+    className="hidden lg:flex flex-col gap-1 w-48 flex-shrink-0 overflow-y-auto py-1"
+    style={{ scrollbarWidth: 'thin' }}
+    aria-label={t('screen.mods')}>
+    {CATEGORIES.map(({ label, icon, category }) => {
+      const iconUrl = iconsPath ? convertFileSrc(`${iconsPath}/Categories/${icon}.png`) : null;
+      const isActive = selectedCategoryKey === category;
+      return (
+        <button
+          key={category}
+          onClick={() => setSelectedCategoryKey(category)}
+          aria-current={isActive ? 'page' : undefined}
+          className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-bold uppercase tracking-tight text-left transition-all whitespace-nowrap ${
+          isActive ?
+          'bg-kronos-accent text-kronos-bg' :
+          'text-kronos-dim hover:text-white hover:bg-white/5'}`
+          }>
+          {iconUrl && <img src={iconUrl} alt="" className="w-4 h-4 object-contain flex-shrink-0" />}
+          <span className="truncate">{label}</span>
+        </button>
+      );
+    })}
+  </nav>;
+
   const renderHeaderPanel = () =>
-  <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-3 flex-wrap">
-        <div className="relative flex-1 min-w-[200px] group">
+  <div className="flex flex-col gap-4" data-preview-mods-header={IS_PREVIEW ? '' : undefined}>
+      <div className="flex items-center gap-3 flex-wrap" data-preview-mods-toolbar={IS_PREVIEW ? '' : undefined}>
+        <div className="relative flex-1 min-w-[200px] group" data-preview-mods-search={IS_PREVIEW ? '' : undefined}>
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
           <Input placeholder={t('mods.search_placeholder')} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-12 bg-black/20 border-white/5 h-[42px]" />
         </div>
 
         {/* Sort Controls */}
-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-mods-sort={IS_PREVIEW ? '' : undefined}>
           <ArrowUpDown size={12} className="text-kronos-accent mx-1" />
           <div className="flex gap-1">
             {SORT_OPTIONS.map((c) => {
@@ -190,7 +231,7 @@ export default function Mods() {
         </div>
 
         {/* Filters (Max Rank + Hide Conclave) */}
-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-mods-filters={IS_PREVIEW ? '' : undefined}>
           <Filter size={14} className="text-kronos-dim mx-1" />
           <div className="flex gap-1">
             {[
@@ -219,10 +260,29 @@ export default function Mods() {
           </button>
           </div>
         </div>
+
+        {IS_PREVIEW &&
+        <div className="flex items-center gap-1 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-1.5">
+            {[{ id: 'grid', Icon: LayoutGrid, label: t('ui.inventory.view_grid') }, { id: 'list', Icon: List, label: t('ui.inventory.view_list') }].map(({ id, Icon, label }) => (
+              <button
+                key={id}
+                onClick={() => setViewMode(id)}
+                aria-pressed={viewMode === id}
+                title={label}
+                className={`p-1.5 rounded-lg transition-all ${viewMode === id ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+                <Icon size={14} />
+              </button>
+            ))}
+          </div>
+        }
       </div>
 
-      <div className="flex items-center gap-3">
-        <div className="flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
+      {/* Preview-only: categories also move to a persistent sidebar
+          (renderCategoryNavigator) at wide widths, so this row - already
+          wrapping rather than a hidden horizontal rail - is hidden there and
+          remains only as the compact/narrow-width selector. */}
+      <div className={IS_PREVIEW ? 'flex items-center gap-3 lg:hidden' : 'flex items-center gap-3'} data-preview-mods-categories-row={IS_PREVIEW ? '' : undefined}>
+        <div className="flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5" data-preview-mods-categories={IS_PREVIEW ? '' : undefined}>
           {CATEGORIES.map(({ label, icon, category }) => {
           const iconUrl = iconsPath ?
           convertFileSrc(`${iconsPath}/Categories/${icon}.png`) :
@@ -246,13 +306,8 @@ export default function Mods() {
     </div>;
 
 
-  return (
+  const mainContent = (
     <>
-    <PageLayout
-      titleKey="screen.mods"
-      subtitle={`${filtered.length} total · ${uniqueMods} unique · ${dupCount} duplicate`}
-      headerPanel={renderHeaderPanel()}>
-
       {inventoryData && (fixProgress.checking || fixProgress.phase && fixProgress.phase !== 'done') ?
       fixProgress.phase ?
       <div className="flex flex-col items-center justify-center py-20 gap-4">
@@ -316,19 +371,59 @@ export default function Mods() {
             </div>
         }
           <div
-          className="grid pb-4"
-          style={{
+          className={IS_PREVIEW && viewMode === 'list' ? 'flex flex-col gap-1.5 pb-4' : 'grid pb-4'}
+          data-preview-mods-grid={IS_PREVIEW ? '' : undefined}
+          style={IS_PREVIEW && viewMode === 'list' ? undefined : {
             gridTemplateColumns: `repeat(auto-fill, ${CARD_WIDTH}px)`,
             gap: `${COL_GAP}px`,
             justifyContent: 'center'
           }}>
-          
+
           {visible.map((mod, i) => (
+          IS_PREVIEW && viewMode === 'list' ?
+          // Dense list row: same underlying mod, a single-line alternative to
+          // ModCard for aligning name/polarity/rank/owned/value across many
+          // mods at once for comparison.
+          <div
+            key={`${mod.unique_name}_${mod.rank}_${i}`}
+            className={`relative flex items-center gap-3 px-3 py-2 rounded-xl border border-white/5 bg-black/20 cursor-pointer transition-all hover:bg-white/5 ${mod.owned ? '' : 'grayscale opacity-60'}`}
+            onClick={() => toggle(mod.unique_name)}
+            onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(mod.unique_name); } }}
+            role="button"
+            tabIndex={0}
+            aria-label={mod.name}>
+            <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center bg-kronos-panel/30 rounded overflow-hidden">
+              {mod.image && (
+                <ItemImage
+                  src={cardImagesPath && mod.icon ? convertFileSrc(`${cardImagesPath}${mod.icon.startsWith('/') ? mod.icon : '/' + mod.icon}`) : mod.image}
+                  resolveFallbackSrc={cardImagesPath && mod.icon ? () => mod.image : undefined}
+                  alt=""
+                  className="max-w-full max-h-full object-contain"
+                  placeholderClassName="w-full h-full text-[5px]" />
+              )}
+            </div>
+            <h4 className="font-bold text-xs uppercase text-kronos-text truncate flex-1 min-w-0">{mod.name}</h4>
+            <div className="flex items-center gap-3 flex-shrink-0 text-[10px] font-black uppercase">
+              {mod.polarity && <span className="text-kronos-dim">{mod.polarity}</span>}
+              {mod.max_rank > 0 && <span className={mod.rank >= mod.max_rank ? 'text-blue-400' : 'text-kronos-dim'}>R{mod.rank ?? 0}/{mod.max_rank}</span>}
+              <span className={mod.owned ? 'text-kronos-accent' : 'text-kronos-dim/30'}>{mod.owned ? (mod.quantity > 1 ? `×${mod.quantity}` : t('ui.inventory.filter_owned')) : t('ui.inventory.unowned')}</span>
+              {(modPrices?.[mod.unique_name] ?? 0) > 0 && <span className="text-kronos-accent">{modPrices[mod.unique_name]}p</span>}
+            </div>
+          </div> :
           <div
             key={`${mod.unique_name}_${mod.rank}_${i}`}
             className={`relative cursor-pointer ${mod.owned ? '' : 'grayscale opacity-60'}`}
-            style={{ contentVisibility: 'auto', containIntrinsicSize: `${CARD_WIDTH}px 409px` }}
-            onClick={() => toggle(mod.unique_name)}>
+            onClick={() => toggle(mod.unique_name)}
+            onKeyDown={IS_PREVIEW ? (event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggle(mod.unique_name);
+              }
+            } : undefined}
+            role={IS_PREVIEW ? 'button' : undefined}
+            tabIndex={IS_PREVIEW ? 0 : undefined}
+            aria-label={IS_PREVIEW ? mod.name : undefined}
+            data-preview-mod-card={IS_PREVIEW ? '' : undefined}>
             <ModCard
               mod={mod}
               framesPath={framesPath}
@@ -350,8 +445,34 @@ export default function Mods() {
         }
         </>
       }
-    </PageLayout>
-    {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
+    </>
+  );
+
+  const pageLayoutProps = {
+    titleKey: 'screen.mods',
+    subtitle: `${filtered.length} total · ${uniqueMods} unique · ${dupCount} duplicate`,
+    headerPanel: renderHeaderPanel()
+  };
+
+  return (
+    <>
+    {IS_PREVIEW ? (
+      <div className="flex gap-4 flex-1 min-h-0 h-full">
+        {renderCategoryNavigator()}
+        <div className="flex-1 min-w-0 min-h-0 flex flex-col">
+          <PreviewModsLayout enabled={IS_PREVIEW}>
+            <PageLayout {...pageLayoutProps}>{mainContent}</PageLayout>
+          </PreviewModsLayout>
+        </div>
+      </div>
+    ) : (
+      <PreviewModsLayout enabled={IS_PREVIEW}>
+        <PageLayout {...pageLayoutProps}>{mainContent}</PageLayout>
+      </PreviewModsLayout>
+    )}
+    {openItem && (IS_PREVIEW
+      ? <PreviewAcquisitionDrawer item={openItem} onClose={close} />
+      : <AcquisitionDrawer item={openItem} onClose={close} />)}
     </>);
 
 }

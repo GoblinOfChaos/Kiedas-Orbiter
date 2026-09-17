@@ -216,7 +216,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
 
       {estimate && !riven.veiled && !riven.challenge && estimate.price != null &&
       <div className="absolute top-1 right-1" style={{ zIndex: 10 }}>
-          <span className="flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-600 text-zinc-300">
+          <span className="flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-600 text-zinc-300" title={t('ui.riven_card.your_value')}>
             {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3 h-3 object-contain" alt="" />}
             {Math.round(estimate.price)}p
           </span>
@@ -231,7 +231,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
       }}>
           <div className="w-72 p-3 bg-kronos-panel border border-white/10 rounded-lg shadow-2xl text-[10px] leading-tight">
             <div className="grid grid-cols-4 gap-2 mb-2">
-              <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">{t('ui.riven_card.weapon_rank')}</div>
+              <div className="text-kronos-dim text-center font-bold uppercase tracking-wider" title={t('ui.riven_card.weapon_rank_hint')}>{t('ui.riven_card.weapon_rank')}</div>
               <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">{t('ui.riven_card.avg_value')}</div>
               <div className="text-kronos-dim text-center font-bold uppercase tracking-wider">{t('ui.riven_card.your_value')}</div>
               <div className="text-kronos-dim text-center font-bold uppercase tracking-wider" title={t('ui.riven_card.reroll_potential_hint')}>{t('ui.riven_card.reroll_potential')}</div>

@@ -70,6 +70,7 @@ function buildNameToUniqueNameMap(exportData, dict) {
       }
     }
   }
+
   // Index ExportRelics by their display name (era + category). Relic entries
   // have no name/uniqueName/displayName fields - the uniqueName is the dict
   // key - so they were never indexed before, meaning DropsAll's "Axi A21
@@ -92,6 +93,23 @@ function buildNameToUniqueNameMap(exportData, dict) {
   return map
 }
 
+// Maps an assembled item's uniqueName (recipe.resultType) to its own
+// blueprint's uniqueName (the ExportRecipes object key). A two-tier item
+// (e.g. most Primes) has two distinct real game entities - the blueprint
+// and the assembled item - each independently ownable/droppable. Used so a
+// drops.wf reward literally named "X Blueprint" can be attributed to the
+// blueprint itself instead of to the assembled item, when a separate
+// blueprint genuinely exists (see addNamedSource's " Blueprint" fallback).
+function buildResultTypeToBlueprintMap(exportData) {
+  const map = {}
+  const recipes = exportData?.ExportRecipes
+  if (!recipes || typeof recipes !== 'object' || Array.isArray(recipes)) return map
+  for (const [blueprintUn, recipe] of Object.entries(recipes)) {
+    if (recipe?.resultType) map[recipe.resultType] = blueprintUn
+  }
+  return map
+}
+
 function addSource(index, itemUn, source) {
   if (!itemUn) return
   const norm = itemUn.replace('/StoreItems/', '/')
@@ -99,7 +117,7 @@ function addSource(index, itemUn, source) {
   index[norm].push(source)
 }
 
-function addNamedSource(index, nameMap, itemName, source) {
+function addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint) {
   if (!itemName) return
   const lc = itemName.toLowerCase().trim()
   // Skip generic credit/endo/affinity caches
@@ -119,10 +137,27 @@ function addNamedSource(index, nameMap, itemName, source) {
   // Try the name as-is
   let found = tryName(lc)
 
-  // Try without trailing " Blueprint"
+  // Try without trailing " Blueprint". A reward literally named "X
+  // Blueprint" usually means the game's own indexed name for the blueprint
+  // itself doesn't match this exact string (single-tier items like Braton
+  // have no separately-searchable blueprint name), so stripping the suffix
+  // and matching "X" was a safe fallback there. But for a two-tier item
+  // (most Primes), "X" resolves to the ASSEMBLED item's own uniqueName - a
+  // real, separately-owned entity distinct from its blueprint - so matching
+  // there misattributes the blueprint's drop source to the assembled item.
+  // Confirmed live: "Afuris Prime Blueprint" relic-drop rewards were being
+  // filed under Afuris Prime the weapon instead of Afuris Prime Blueprint.
+  // Redirect to the item's own real blueprint uniqueName when one exists.
   if (!found && lc.endsWith(' blueprint')) {
     const without = lc.slice(0, -10)
-    found = tryName(without)
+    const uniqueNames = nameMap[without]
+    if (uniqueNames && uniqueNames.length > 0) {
+      for (const un of uniqueNames) {
+        const blueprintUn = resultTypeToBlueprint?.[un];
+        addSource(index, blueprintUn || un, source);
+      }
+      found = true;
+    }
     if (!found) {
       const fallbackKey = 'display:' + without
       if (!index[fallbackKey]) index[fallbackKey] = []
@@ -172,8 +207,9 @@ function addNamedSource(index, nameMap, itemName, source) {
 
 const normChance = (c) => c != null ? c / 100 : null
 
-function processDropsAll(index, DropsAll, nameMap) {
+function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
   if (!DropsAll || typeof DropsAll !== 'object') return
+  const addNamed = (itemName, source) => addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint)
 
   // ── missionRewards: planet -> node -> rotation -> rewards ──────────────
   // Two shapes exist in the drops.wf feed:
@@ -191,7 +227,7 @@ function processDropsAll(index, DropsAll, nameMap) {
         const rewards = nodeData.rewards
         const addEntry = (entry, rotation) => {
           if (!entry || !entry.itemName) return
-          addNamedSource(index, nameMap, entry.itemName, {
+          addNamed(entry.itemName, {
             type: 'mission',
             region: planet,
             node: nodeName,
@@ -225,7 +261,7 @@ function processDropsAll(index, DropsAll, nameMap) {
       const relicName = relic.relicName || ''
       const state = relic.state || ''
       for (const entry of relic.rewards) {
-        addNamedSource(index, nameMap, entry.itemName, {
+        addNamed(entry.itemName, {
           type: 'relic',
           relicEra,
           relicName: relicEra ? `${relicEra} ${relicName}` : relicName,
@@ -245,7 +281,7 @@ function processDropsAll(index, DropsAll, nameMap) {
     for (const modLoc of modLocations) {
       if (!modLoc || !modLoc.modName || !modLoc.enemies) continue
       for (const enemy of modLoc.enemies) {
-        addNamedSource(index, nameMap, modLoc.modName, {
+        addNamed(modLoc.modName, {
           type: 'enemy',
           enemyName: enemy.enemyName,
           rarity: enemy.rarity || '',
@@ -263,7 +299,7 @@ function processDropsAll(index, DropsAll, nameMap) {
     for (const enemy of enemyModTables) {
       if (!enemy || !enemy.enemyName || !enemy.mods) continue
       for (const mod of enemy.mods) {
-        addNamedSource(index, nameMap, mod.modName, {
+        addNamed(mod.modName, {
           type: 'enemy',
           enemyName: enemy.enemyName,
           rarity: mod.rarity || '',
@@ -281,7 +317,7 @@ function processDropsAll(index, DropsAll, nameMap) {
       if (!bpLoc || !bpLoc.itemName || !bpLoc.enemies) continue
       const itemName = bpLoc.blueprintName || bpLoc.itemName
       for (const enemy of bpLoc.enemies) {
-        addNamedSource(index, nameMap, itemName, {
+        addNamed(itemName, {
           type: 'enemy',
           enemyName: enemy.enemyName,
           rarity: enemy.rarity || '',
@@ -299,7 +335,7 @@ function processDropsAll(index, DropsAll, nameMap) {
       if (!enemy || !enemy.enemyName) continue
       if (enemy.items) {
         for (const item of enemy.items) {
-          addNamedSource(index, nameMap, item.itemName, {
+          addNamed(item.itemName, {
             type: 'enemy',
             enemyName: enemy.enemyName,
             rarity: item.rarity || '',
@@ -310,7 +346,7 @@ function processDropsAll(index, DropsAll, nameMap) {
       }
       if (enemy.mods) {
         for (const mod of enemy.mods) {
-          addNamedSource(index, nameMap, mod.modName, {
+          addNamed(mod.modName, {
             type: 'enemy',
             enemyName: enemy.enemyName,
             rarity: mod.rarity || '',
@@ -342,7 +378,7 @@ function processDropsAll(index, DropsAll, nameMap) {
         const entries = rewards[rotation]
         if (!Array.isArray(entries)) continue
         for (const entry of entries) {
-          addNamedSource(index, nameMap, entry.itemName, {
+          addNamed(entry.itemName, {
             type: 'bounty',
             bountyLevel,
             rotation: rotation === 'A' ? null : rotation,
@@ -361,7 +397,7 @@ function processDropsAll(index, DropsAll, nameMap) {
   if (Array.isArray(sortieRewards)) {
     for (const entry of sortieRewards) {
       if (!entry) continue
-      addNamedSource(index, nameMap, entry.itemName, {
+      addNamed(entry.itemName, {
         type: 'sortie',
         rarity: entry.rarity || '',
         chance: normChance(entry.chance),
@@ -377,7 +413,7 @@ function processDropsAll(index, DropsAll, nameMap) {
       if (!group || !group.rewards) continue
       const objectiveName = group.objectiveName || ''
       for (const entry of group.rewards) {
-        addNamedSource(index, nameMap, entry.itemName, {
+        addNamed(entry.itemName, {
           type: 'transient',
           objectiveName,
           rotation: entry.rotation || '',
@@ -400,7 +436,7 @@ function processDropsAll(index, DropsAll, nameMap) {
         const entries = rewards[rotation]
         if (!Array.isArray(entries)) continue
         for (const entry of entries) {
-          addNamedSource(index, nameMap, entry.itemName, {
+          addNamed(entry.itemName, {
             type: 'key',
             keyName,
             rotation: rotation === 'A' ? null : rotation,
@@ -420,7 +456,7 @@ function processDropsAll(index, DropsAll, nameMap) {
       if (!Array.isArray(offerings)) continue
       for (const entry of offerings) {
         if (!entry) continue
-        addNamedSource(index, nameMap, entry.item, {
+        addNamed(entry.item, {
           type: 'syndicate',
           syndicateName,
           place: entry.place || '',
@@ -443,7 +479,7 @@ function processDropsAll(index, DropsAll, nameMap) {
       const sourceName = entry.source
       for (const item of entry.items) {
         if (!item || !item.item) continue
-        addNamedSource(index, nameMap, item.item, {
+        addNamed(item.item, {
           type: 'avatar',
           sourceName,
           rarity: item.rarity || '',
@@ -578,7 +614,8 @@ export function buildDropIndex(exportData) {
 
   // ── New: warframe-drop-data ────────────────────────────────────────────
   const DropsAll = exportData.DropsAll
-  processDropsAll(index, DropsAll, nameMap)
+  const resultTypeToBlueprint = buildResultTypeToBlueprintMap(exportData)
+  processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint)
   processBaroRelics(index)
   processModSetSources(index, exportData)
 

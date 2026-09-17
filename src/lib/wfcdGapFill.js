@@ -1,4 +1,5 @@
 import { invoke } from '@tauri-apps/api/core'
+import { itemsToMap } from './warframeItemsTransform'
 
 // Fills gaps in our main data sources (ExportWeapons, ExportCustoms - both
 // from warframe-public-export-plus) using WFCD's warframe-items data,
@@ -131,6 +132,46 @@ export function fillDataGaps(exportData) {
   }
 
   return { exportData: result, audit }
+}
+
+// Mods get their own gap-fill path instead of a SOURCES entry above: the
+// main mod catalog (WI_Upgrades) is already built from the warframe-items
+// *npm package* bundled at build time (see wfcdLoader.js/sync-wfcd.js), not
+// live-fetched - so it only goes stale on our own release cadence, not
+// npm's. Confirmed concretely: as of this writing the bundled package
+// (1.1269.87, the latest published version) already carries all 82 current
+// Plexus mods, but is missing "Overpressured Rounds" and "Prototype Shock
+// Coils" (Update 43.5, 2026-08-12) because npm publishing lags the
+// warframe-items GitHub repo by weeks. WFCD_Mods (live-fetched, refreshed
+// daily - see WFCD_GAPFILL_FILES) tracks the repo directly, so it catches
+// whatever a stale npm publish hasn't picked up yet. Only ever adds a
+// uniqueName genuinely absent from the bundled WI_Upgrades map - never
+// overrides it, so a real bundled entry is never shadowed by a live one.
+export function fillModGaps(wiUpgradesMap, liveWfcdMods) {
+  const audit = { added: [] }
+  if (!Array.isArray(liveWfcdMods)) return { map: wiUpgradesMap, audit }
+  const base = wiUpgradesMap || {}
+  let enriched = null
+  for (const item of liveWfcdMods) {
+    const un = item?.uniqueName
+    if (!un || typeof un !== 'string' || !un.startsWith('/Lotus/Upgrades/Mods/')) continue
+    if (base[un]) continue
+    if (!enriched) enriched = { ...base }
+    enriched[un] = itemsToMap([item])[un]
+    audit.added.push({ uniqueName: un, name: item.name })
+  }
+  return { map: enriched || base, audit }
+}
+
+export function logModGapFillAudit(audit) {
+  if (!audit.added.length) return
+  try {
+    const lines = [`[WFCD-MOD-GAPFILL] Added ${audit.added.length} mod(s) missing from the bundled warframe-items package:`]
+    for (const a of audit.added) lines.push(`    + "${a.name}" (${a.uniqueName})`)
+    invoke('log_terminal', { message: lines.join('\n') }).catch(() => {})
+  } catch {
+    // Logging must never be able to break the actual data load.
+  }
 }
 
 export function logGapFillAudit(audit) {

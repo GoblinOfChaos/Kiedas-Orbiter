@@ -12,7 +12,7 @@
 import { readFileSync, mkdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
 
-const SRC = 'node_modules/warframe-items/data/json'
+const SRC = 'node_modules/@wfcd/items/data/json'
 const DEST = 'src-tauri/data/assets/wfcd'
 
 const FILES = [

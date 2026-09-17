@@ -677,67 +677,29 @@ const DROP_CHANCES = {
 };
 
 /**
- * Calculates the Expected Value (EV) of picking the best reward in a squad.
+ * Calculates the solo Expected Value (EV) of a single relic crack: each
+ * reward's value weighted by its own drop probability.
  * @param {Array} rewards - List of 6 reward items with 'plat' or 'ducats' values.
  * @param {string} refinement - 'Intact', 'Exceptional', 'Flawless', or 'Radiant'.
- * @param {number} squadSize - Number of identical relics (1-4).
  * @param {string} valueKey - 'plat' or 'ducats'.
  */
-export function getRelicEV(rewards, refinement, squadSize = 1, valueKey = 'plat') {
+export function getRelicEV(rewards, refinement, valueKey = 'plat') {
   if (!rewards || rewards.length === 0) return 0;
   const chances = DROP_CHANCES[refinement] || DROP_CHANCES['Intact'];
 
-  // Map rewards to their values and individual probabilities
-  const items = rewards.map(r => {
+  // Requiem relics have a flat drop table - each of the 8 mods has equal probability (12.5%)
+  if (rewards.length >= 7 && rewards.every(r => r.rarity === 'COMMON')) {
+    const flatP = 1 / rewards.length;
+    return rewards.reduce((ev, r) => ev + (r[valueKey] || 0) * flatP, 0);
+  }
+
+  return rewards.reduce((ev, r) => {
     let p = 0;
     if (r.rarity === 'COMMON') p = chances[0];
     else if (r.rarity === 'UNCOMMON') p = chances[1];
     else if (r.rarity === 'RARE') p = chances[2];
-    return { val: r[valueKey] || 0, p };
-  });
-
-  // Requiem relics have a flat drop table - each of the 8 mods has equal probability (12.5%)
-  if (rewards.length >= 7) {
-    const isRequiem = rewards.every(r => r.rarity === 'COMMON');
-    if (isRequiem) {
-      const flatP = 1 / rewards.length;
-      const itemsFlat = items.map(i => ({ ...i, p: flatP }));
-      // Re-sort by value descending (should already be sorted)
-      itemsFlat.sort((a, b) => b.val - a.val);
-      let ev = 0;
-      let cum = 0;
-      for (let i = 0; i < itemsFlat.length; i++) {
-        const item = itemsFlat[i];
-        const nextCum = 1 - Math.pow(1 - (cum + item.p), squadSize);
-        const probBest = nextCum - (1 - Math.pow(1 - cum, squadSize));
-        ev += item.val * probBest;
-        cum += item.p;
-      }
-      return ev;
-    }
-  }
-
-  // Sort by value descending to calculate "probability this is the best item available"
-  items.sort((a, b) => b.val - a.val);
-
-  let expectedValue = 0;
-  let cumulativeProb = 0;
-
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
-    // Probability that AT LEAST ONE of the top i+1 items drops:
-    // 1 - (1 - sum(p_0...p_i))^N
-    const nextCumulativeProb = 1 - Math.pow(1 - (cumulativeProb + item.p), squadSize);
-
-    // Probability that item i is the BEST item in the result set:
-    // P(at least one of 0...i) - P(at least one of 0...i-1)
-    const probThisIsBest = nextCumulativeProb - (1 - Math.pow(1 - cumulativeProb, squadSize));
-
-    expectedValue += item.val * probThisIsBest;
-    cumulativeProb += item.p;
-  }
-
-  return expectedValue;
+    return ev + (r[valueKey] || 0) * p;
+  }, 0);
 }
 
 export function parseRelicName(uniqueName) {

@@ -1,0 +1,3086 @@
+SOURCE: https://wiki.warframe.com/w/Warframes (live rendered page)
+Warframes Comparison
+Warframe Mods
+Warframe Cosmetics
+⭐
+Ash
+⭐
+Atlas
+⭐
+Banshee
+⭐
+Baruuk
+⭐
+Caliban
+⭐
+Chroma
+Citrine
+Cyte-09
+Dagath
+Dante
+⭐
+Ember
+⭐
+Equinox
+⭐
+Excalibur
+Follie
+⭐
+Frost
+⭐
+Gara
+⭐
+Garuda
+⭐
+Gauss
+⭐
+Grendel
+⭐
+Gyre
+⭐
+Harrow
+⭐
+Hildryn
+⭐
+Hydroid
+⭐
+Inaros
+⭐
+Ivara
+Jade
+⭐
+Khora
+Koumei
+Kullervo
+⭐
+Lavos
+⭐
+Limbo
+⭐
+Loki
+⭐
+Mag
+⭐
+Mesa
+⭐
+Mirage
+⭐
+Nekros
+⭐
+Nezha
+⭐
+Nidus
+Nokko
+⭐
+Nova
+⭐
+Nyx
+⭐
+Oberon
+⭐
+Octavia
+Oraxia
+⭐
+Protea
+Qorvex
+⭐
+Revenant
+⭐
+Rhino
+⭐
+Saryn
+⭐
+Sevagoth
+Sirius & Orion
+⭐
+Styanax
+Temple
+⭐
+Titania
+⭐
+Trinity
+Contents
+1 Overview
+2 Lore & History
+2.1 Overview
+2.2 Creation
+2.3 The Next Generation
+2.4 Within the Orokin Era
+2.5 Kinemantik Instant Messaging
+3 Acquisition
+3.1 Foundry
+3.2 Market
+3.3 Storage
+4 Attributes
+5 Leveling Up
+6 Cosmetics
+7 Release Order
+7.1 Raw Data
+8 Trivia
+9 Media
+10 References
+11 Patch History
+Uriel
+⭐
+Valkyr
+⭐
+Vauban
+⭐
+Volt
+⭐
+Voruna
+⭐
+Wisp
+⭐
+Wukong
+⭐
+Xaku
+⭐
+Yareli
+⭐
+Zephyr
+For the game itself, see WARFRAME.
+Warframe
+(Left to right) Loki, Excalibur, and Ivara
+• 
+• 
+◦ 
+◦ 
+◦ 
+◦ 
+◦ 
+• 
+◦ 
+◦ 
+◦ 
+• 
+• 
+• 
+• 
+◦ 
+• 
+• 
+• 
+• 
+“The true nature of the Warframes and their Tenno connection
+is a secret lost to the Old War. Together, they represent our
+best hope in turning the tide of the machine war. Warframes
+are unique from Dax and other Infantry, deploying dangerous
+and esoteric Void energy, and equipped with often mundane
+physical weapons – this is key to fighting an enemy that had
+turned our technology against us.”
+—Warframes Fragment
+“A mysterious weaponized armor controlled solely by the
+Tenno. Through the Warframe, Tenno can cheat death, channel
+the forbidden Void energies and face scores of enemies
+without fatigue. Due to apparent resistances of their Bio-Metal
+exoskeletons, Warframes can be safely deployed to Infestation
+Outbreaks, should they occur. In-depth information of the
+Warframe mandate is forbidden to all but the Seven.”
+—Warframe Technology Fragment
+The Warframe is an advanced weapons system used exclusively by the 
+Tenno in their missions throughout the Origin System. The Warframes
+possess regenerative shields, greatly enhanced mobility, and the use of
+an array of supernatural abilities – all of which further augment the
+Tenno's deadly use of traditional combat arts. 
+Overview
+[edit | edit source]
+Warframes are divided into a collection of diverse models, each of which
+personifies a great warrior spirit. Players may don Excalibur to gain his
+prowess with bladed weapons, for instance. Each Warframe is moreover
+highly reconfigurable, meaning players can tailor their choice of
+Warframe to fit a multitude of playstyles. While certain Warframes excel
+in a particular situation, none are limited to a singular role and no role
+demands the use of a singular Warframe. 
+Players customize Warframes via the installation of Mods which can
+upgrade their Warframe Attributes, endow them with additional utilities,
+and even alter their abilities. Further bonuses can be achieved by
+equipping add-ons, such as Arcane Helmets or Arcane Enhancements. 
+Frost using Freeze
+Each Warframe features four unique and extraordinary activatable
+powers that allow for a large degree of control over the surrounding
+environment. Warframes also possess passive abilities – powers that
+activate on their own accord. These powers allow a Tenno to cast
+virtually anything, with examples ranging from devastating waves of
+energy, to bullet-nullifying barriers, mass healing, portals to the stars
+beyond, radial waves of antimatter, and even ethereal weapons.
+Warframes greatly augment the physical abilities of a Tenno as well,
+affecting natural skills like swordsmanship, marksmanship and, most
+notably, acrobatics. 
+New players start the game by selecting their first Warframe, from 
+Excalibur, Mag, or Volt, and playing through the Vor's Prize
+Introductory Quest. As the player progresses, they may craft or buy
+other Warframes from the full list of offerings. 
+As of Hotfix 43.5.4, there are a total of 117 Warframes consisting of both
+original models (65) and special variants. Only two of these special
+variants are exclusive to a certain group of players; Excalibur Prime is
+exclusive to Founders of the Global build, and Excalibur Umbra Prime is
+exclusive to Founders of the Chinese build. Of the distinct Warframes, 33
+are male, 30 are female, and 2 are non-binary. 
+Lore & History
+[edit | edit source]
+“The Sentients had won. They had turned our weapons, our
+technology, against us. The more advanced we became, the
+greater our losses. The war was over unless we found a new
+way. In our desperation we turned to the Void. The blinding
+night, the hellspace where our science and reason failed. 
+We took the twisted few that had returned from that place. We
+built a frame around them, a conduit of their affliction. Gave
+them the weapons of the old ways. Gun and blade. A new
+warrior, a new code was born. These rejects, these Tenno,
+became our saviors. Warrior-Gods cast in steel and fury
+striking our enemies in a way they could never comprehend. 
+Excalibur was the first. 
+-Orokin 'Warframe' Archives”
+—Excalibur's Codex entry
+Overview
+[edit | edit source]
+Warframes are highly advanced, bio-mechanical suits of armor that
+were used by the Tenno during The Old War[1]. Unlike Dax, another 
+Orokin infantry, Warframes able to channel Void energy and safely enter
+Infestation Outbreaks.[2] It was revealed by Ballas that Warframes are
+created from a specialized form of the Infestation called the Helminth.
+Originally cultivated to prevent to a converted host's mind from falling
+under the Technocyte influence, the first Warframes ultimately regressed
+into feral animals. To remedy this, the Orokin enlisted the survivors of
+the Zariman Ten Zero accident; along with the use of Transference,
+these 'Operators' would control the now tamed Warframes, using them
+as battle proxies and becoming a warrior caste known as the Tenno. 
+Despite the Operators control and the influence of the Technocyte, some
+Warframes who did not yet fully succumb still retained their awareness,
+with some notable frames being Excalibur Umbra[3], Dante[4], 
+Kullervo[5], Dagath[6], Jade[7], and the Stalker. 
+While Warframes are created by infecting and converting a host with the
+Helminth strain, two unique cases were born immediately as Warframes
+without being human before, that being Sirius & Orion, as a result of
+Jade being converted while still pregnant. 
+Creation
+[edit | edit source]
+As The Old War raged on, Sentients, with their ability to adapt and take
+over technology, would easily counter any of the Orokin's attacks. On
+the brink of losing the war, Orokin Executor Ballas chose a different
+route, turning to the flesh and disease of the Infestation. Cultivating a
+new hybridized strain called the Helminth[8], Ballas would inoculate the
+strongest subjects that could be found, volunteers or not; even including
+the Orokin's own Dax soldiers, creating the first generation of 
+Warframes. 
+During the conversion process, the subject's skin would harden into
+sword-like steel[9], while their organs would interlink and hybridized to
+improve resilience. However, the conversion would also render the
+subject unable to speak coherently, only being able to produce metallic
+screams, howls, and groans[10]. Despite their Infested nature, these
+hosts remained relatively sane for a time, able to operate and and obey
+via their own free will, although they were considered dangerous and
+were often feared by those they were meant to defend. 
+These Warframes where then sent out into the battlefields in an attempt
+to turn the war in the Orokin's favor. However, the Technocyte's
+corrupting prescience would soon prove too much, turning them into
+little more than savage and feral animals, leading most to violently rebel
+against the Orokin. The Orokin, deciding these frames to now be
+defective, had no choice but purge and eradicate nearly all of them. In
+an attempt to extend their control, Ballas ordered any future and
+surviving frames to undergo extensive torture and drug therapy to
+destroy their minds, hoping to render them into mindless puppets.[11]
+Researchers were tasked with restraining the feral hosts within Lua, and
+if they were not rejected, would often perform live vivisections on them
+and any newly crafted Warframe, even recording their responses to
+torture for study.[12] Any frames who did not yet succumb to the frenzy
+went into hiding, becoming fugitives in the process, as sheltering them
+became an offense punishable by death or glassing. 
+The Next Generation
+[edit | edit source]
+The Reservoir
+Still desperate for victory, the Orokin would find their salvation almost
+by accident. In a research facility within Lua, a Rhino had broken loose,
+implied to have been released intentionally by a researcher named 
+Davis. It effortlessly tore apart the security guards attempting to
+recapture it, only to be distracted from consuming their remains by the
+sight of one of the fleeing researchers along with Davis. Remembering
+the tortures it had suffered at their hands, the Rhino gave chase, only
+for Davis to pull his fellow researcher into one of the facility's cells.
+When the Warframe reached the doorway, it mysteriously became calm
+and docile as Davis revealed the cell contained the survivors from the 
+Zariman Ten Zero accident. 
+Due to this discovery, the the children of the Zariman would be enlisted,
+although now hidden away in the Reservoir on Lua to control their
+chaotic Void powers. Through the creation of Transference, They would
+became the new "Operators" of the feral Warframes, as they were the
+only ones who managed to tame them. With their minds linked together,
+instead of resorting to force of will like the Orokin, the children instead
+chose compassion and empathy, being able to "see inside an ugly,
+broken thing and take away its pain".[13]
+Equipped with archaic ballistic and melee weapons, the newly operated
+Warframes were deployed onto the battlefield with great success against
+their Sentient assailants, finally turning the tide of war in the Orokin's
+favor.[14]
+Within the Orokin Era
+[edit | edit source]
+While the Old War continued, Warframes were also employed to control
+the Orokin's colonies[15], to serve as political assassins[16], and to purge
+Infestation outbreaks.[17] Any details surrounding the truth of the
+Warframes and their Tenno operators were kept hidden by the Council of
+Executors.[18][19][20] A mythos surrounding them were created to mask
+the source of their power and to incite fear throughout the Orokin
+Empire.[21] Due to their sparse numbers, civilian populations in the
+current WARFRAME era may still believe in these ancient myths about
+the Warframes and Tenno.[22][23]
+Kinemantik Instant Messaging
+[edit | edit source]
+According to the Drifter, most of the modern-day Warframes are
+replications of the originals. When the Drifter performs Transference into
+a Warframe, they take on some fragments of that Warframe's
+personality, such as their stance or the way they move. 
+Acquisition
+[edit | edit source]
+Warframes are obtained by two general methods: crafting them with in-
+game materials at the Foundry or purchasing them fully assembled from
+the Market. Additionally, obtaining a Warframe requires the use of a
+storage slot. Players possess a finite number of storage slots, which can
+be expanded by purchasing additional slots at the Market. 
+Foundry
+[edit | edit source]
+Assembling a Warframe at the Foundry requires the Warframe's main
+blueprint and three component parts: 
+Main Blueprint
+Neuroptics
+Chassis
+Systems
+To construct a Warframe, players must first assemble each of its
+components. This is performed by expending Resources earned
+throughout the game, including a copy of the part's corresponding 
+blueprint. Component blueprints are generally obtained by completing
+appropriate Assassination missions, Quests, or Clan Dojo research,
+though exceptions exist. After collecting and assembling all of the
+necessary parts, players can purchase the Warframe's main blueprint
+from the Market with Credits (the game's free-to-play currency) to
+complete the construction process. Once assembled, a Warframe may
+be upgraded at any time with the installation of an Orokin Reactor. 
+Market
+[edit | edit source]
+Warframes can also be purchased fully assembled in the Market with 
+Platinum. When acquired in this manner, a Warframe comes pre-
+installed with an Orokin Reactor and is provided with a complimentary
+Warframe storage slot. 
+• 
+• 
+• 
+• 
+Storage
+[edit | edit source]
+Main article: Slots
+Players begin the game with three Warframe storage slots and can
+acquire additional slots from the Market for a nominal fee of 20 
+Platinum each (Players also gain a complimentary slot for any Warframe
+purchased directly from the Market). Warframe slots can also be
+acquired through Nightwave. Note that a player can acquire Platinum
+without spending real world money by trading with other players. 
+Attributes
+[edit | edit source]
+Main article: Warframe Attributes
+Attributes are the stats and functionality of Warframes such as Health, 
+Armor, Shields, Energy, and Sprint Speed. Each Warframe is made
+unique with a different combination of these and their powers. 
+Leveling Up
+[edit | edit source]
+Main article: Affinity
+Warframes require Affinity, conventionally known in other games as
+experience points (XP), in order to attain higher ranks. Each Warframe
+levels up separately from other Warframes to a maximum of Rank 30.
+Note that each of the Warframe's equipped weapons have Affinity
+rankings as well which also increase separately from Warframes. During
+missions, players are awarded Affinity through actions getting such as
+killing enemies, using abilities, completing objectives or reviving downed
+allies. 
+With each successive rank, a Warframe gains mod capacity as well as
+increases to Health, Shields, and Energy capacity, as well as 200 
+mastery points. Stat boosts received from ranking up are calculated
+from the base value of the Warframe for each stat, preventing mods
+from affecting the bonus. 
+During level up, all Warframe stats gain: 
++10 Health capacity every 3 ranks starting at Rank 1
++10 Shield capacity every 3 ranks starting at Rank 2
++5 Energy capacity every 3 ranks starting at Rank 3
+For a total of +100 Health, +100 Shields and +50 Energy capacity at
+Rank 30. 
+• 
+• 
+• 
+Nidus and Nidus Prime
++5 Health/s Regeneration at Unranked
++10 Health capacity every 3 ranks starting at Rank 1
++20 Armor every 6 ranks starting at Rank 2
++3% Ability Strength every 6 ranks starting at Rank 3
++10 Energy capacity every 6 ranks starting at Rank 5
++2 Health/s Regeneration every 6 ranks starting at Rank 6
+For a total of +100 Health, +100 Armor, +15% Ability Strength, +50
+Energy capacity, and +15 Health/s Regeneration at Rank 30. 
+Warframe Rank Up Exceptions (from 
+Module:Warframes/data) 
+Warframe 
+Health
+Shield
+Armor
+Energy
+Baruuk
+100
+100
+0
+100
+Baruuk Prime
+100
+100
+0
+100
+Chroma Prime
+100
+100
+0
+100
+Dante
+90
+90
+0
+70
+Garuda
+100
+100
+0
+100
+Garuda Prime
+100
+100
+0
+100
+Grendel
+200
+0
+0
+50
+Grendel Prime
+200
+0
+0
+50
+Hildryn
+100
+500
+0
+0
+Hildryn Prime
+100
+500
+0
+0
+Inaros
+200
+0
+0
+50
+Inaros Prime
+200
+0
+0
+50
+Koumei
+100
+100
+0
+100
+Kullervo
+200
+0
+100
+50
+Lavos
+200
+100
+100
+0
+Lavos Prime
+200
+100
+100
+0
+Nezha
+100
+50
+0
+50
+Nezha Prime
+100
+50
+0
+50
+Nidus
+100
+0
+100
+50
+Nidus Prime
+100
+0
+100
+50
+Saryn Prime
+100
+100
+0
+100
+Valkyr
+100
+50
+0
+50
+Valkyr Prime
+100
+50
+0
+50
+View Rank-Up Exceptions List
+▾
+▾
+• 
+• 
+• 
+• 
+• 
+• 
+Volt Prime
+100
+100
+0
+100
+Wisp
+100
+100
+0
+100
+Wisp Prime
+100
+100
+0
+100
+Xaku
+90
+90
+0
+70
+Xaku Prime
+90
+90
+0
+70
+Yareli
+100
+100
+0
+100
+Yareli Prime
+100
+100
+0
+100
+Since Update 15.0 (2014-10-24), Warframe Abilities unlock and rank up
+with affinity. The maximum Rank for any Ability is Rank 3. 
+Warframe /
+Archwing
+Rank 
+Ability and Rank 
+First
+Ability
+Second
+Ability 
+Third
+Ability
+Fourth
+Ability
+0
+Rank
+0
+Locked
+Locked
+Locked
+3
+Rank 0
+Rank 0
+Locked
+Locked
+5
+Rank 0
+Rank 0
+Rank
+0
+Locked
+7
+Rank
+1
+Rank 0
+Rank 0
+Locked
+10
+Rank 1
+Rank 0
+Rank 0
+Rank
+0
+12
+Rank 1
+Rank 1
+Rank 0
+Rank 0
+14
+Rank
+2
+Rank 1
+Rank 0
+Rank 0
+16
+Rank 2
+Rank 1
+Rank
+1
+Rank 0
+18
+Rank
+3
+Rank 1
+Rank 1
+Rank 0
+20
+Rank 3
+Rank 1
+Rank 1
+Rank
+1
+22
+Rank 3
+Rank 2
+Rank 1
+Rank 1
+24
+Rank 3
+Rank 2
+Rank
+2
+Rank 1
+25
+Rank 3
+Rank 2
+Rank 2
+Rank
+2
+27
+Rank 3
+Rank 3
+Rank 2
+Rank 2
+Rank 2
+View Ability Leveling List
+▾
+▾
+28
+Rank 3
+Rank 3
+Rank
+3
+30
+Rank 3
+Rank 3
+Rank 3
+Rank
+3
+Cosmetics
+[edit | edit source]
+Main article: Warframe Cosmetics
+Every Warframe can equip various kinds of alternative equipment or
+skins. These cosmetic items include Helmets, Idle Animations,
+holographic Emblems, Sigils and Cosmetic Armor. 
+Some of these items are available by default, some can either be bought
+from the Market or found as blueprints via the Cred Offering system.
+They can all be equipped in the Arsenal under the Appearance Tab. 
+Release Order
+[edit | edit source]
+This section is transcluded from Warframes Comparison/Release
+Dates. To change it, please edit the transcluded page.
+[All ]
+Warframe Release Dates (from Module:Warframes/data) 
+Warframe Name 
+Gender 
+Release Date (yyyy-mm-dd)
+Update Version 
+Styanax Prime
+Male
+2026-06-17
+Update 43.0 (2026
+Sirius & Orion
+Male
+2026-06-17
+Update 43.0 (2026
+Voruna Prime
+Female
+2026-04-08
+Hotfix 42.0.6 (2026
+Follie
+Female
+2026-03-25
+Update 42.0 (2026
+Uriel
+Male
+2025-12-10
+Update 41.0 (2025
+Gyre Prime
+Female
+2025-12-10
+Update 41.0 (2025
+Nokko
+Male
+2025-10-15
+Update 40.0 (2025
+Caliban Prime
+Male
+2025-08-26
+Update 39.1 (2025
+Oraxia
+Female
+2025-06-25
+Update 39.0 (2025
+Yareli Prime
+Female
+2025-05-21
+Update 38.6 (2025
+Temple
+Non-binary
+2025-03-19
+Update 38.5 (2025
+Lavos Prime
+Male
+2025-02-12
+Hotfix 38.0.10 (202
+Cyte-09
+Male
+2024-12-13
+Update 38.0 (2024
+Xaku Prime
+Non-binary
+2024-11-13
+Hotfix 37.0.9 (2024
+Koumei
+Female
+2024-10-02
+Update 37.0 (2024
+Sevagoth Prime
+Male
+2024-08-21
+Update 36.1 (2024
+Jade
+Female
+2024-06-18
+Update 36.0 (2024
+Protea Prime
+Female
+2024-05-01
+Hotfix 35.5.9 (2024
+Dante
+Male
+2024-03-27
+Update 35.5 (2024
+Gauss Prime
+Male
+2024-01-17
+Hotfix 35.0.9 (2024
+Qorvex
+Male
+2023-12-13
+Update 35.0 (2023
+Grendel Prime
+Male
+2023-10-18
+Update 34.0 (2023
+Dagath
+Female
+2023-10-18
+Update 34.0 (2023
+Wisp Prime
+Female
+2023-07-27
+Update 33.6 (2023
+Kullervo
+Male
+2023-06-21
+Update 33.5 (2023
+Hildryn Prime
+Female
+2023-03-15
+Hotfix 32.3.6 (2023
+Citrine
+Female
+2023-02-15
+Update 32.3 (2023
+Baruuk Prime
+Male
+2022-12-14
+Hotfix 32.2.5 (2022
+Voruna
+Female
+2022-11-30
+Update 32.2 (2022
+Revenant Prime
+Male
+2022-10-05
+Hotfix 32.0.9 (2022
+Styanax
+Male
+2022-09-07
+Update 32.0 (2022
+Khora Prime
+Female
+2022-07-16
+Update 31.7 (2022
+Gyre
+Female
+2022-04-27
+Update 31.5 (2022
+Garuda Prime
+Female
+2022-03-28
+Update 31.3 (2022
+Harrow Prime
+Male
+2021-12-15
+Update 31.0 (2021
+Caliban
+Male
+2021-12-15
+Update 31.0 (2021
+Nidus Prime
+Male
+2021-09-08
+Update 30.7 (2021
+Yareli
+Female
+2021-07-06
+Update 30.5 (2021
+Gara Prime
+Female
+2021-05-25
+Update 30.3 (2021
+Sevagoth
+Male
+2021-04-13
+Update 30.0 (2021
+Octavia Prime
+Female
+2021-02-23
+Update 29.9 (2021
+Lavos
+Male
+2020-12-18
+Update 29.6 (2020
+Nezha Prime
+Male
+2020-10-27
+Update 29.3 (2020
+Xaku
+Non-binary
+2020-08-25
+Update 29.0 (2020
+Inaros Prime
+Male
+2020-07-14
+Update 28.2 (2020
+Protea
+Female
+2020-06-11
+Update 28.0 (2020
+Titania Prime
+Female
+2020-03-31
+Hotfix 27.3.6 (2020
+Ivara Prime
+Female
+2019-12-17
+Hotfix 27.0.4 (2019
+Grendel
+Male
+2019-10-31
+Update 26.0 (2019
+Atlas Prime
+Male
+2019-10-01
+Update 25.8 (2019
+Gauss
+Male
+2019-08-29
+Update 25.7 (2019
+Wukong Prime
+Male
+2019-07-06
+Update 25.3 (2019
+Wisp
+Female
+2019-05-22
+Update 25.0 (2019
+Equinox Prime
+Female
+2019-04-02
+Hotfix 24.5.8 (2019
+Hildryn
+Female
+2019-03-08
+Update 24.4 (2019
+Mesa Prime
+Female
+2018-12-18
+Hotfix 24.2.2 (2018
+Baruuk
+Male
+2018-12-18
+Update 24.2 (2018
+Garuda
+Female
+2018-11-08
+Update 24.0 (2018
+Chroma Prime
+Male
+2018-09-25
+Update 23.9 (2018
+Revenant
+Male
+2018-08-24
+Update 23.5 (2018
+Limbo Prime
+Male
+2018-06-19
+Hotfix 23.0.3 (2018
+Excalibur Umbra
+Male
+2018-06-15
+Update 23.0 (2018
+Khora
+Female
+2018-04-20
+Update 22.18 (201
+Zephyr Prime
+Female
+2018-03-20
+Hotfix 22.16.4 (201
+Mirage Prime
+Female
+2017-12-12
+Update 22.7 (2017
+Gara
+Female
+2017-10-12
+Update 22.0 (2017
+Hydroid Prime
+Male
+2017-08-29
+Update 21.6 (2017
+Harrow
+Male
+2017-06-29
+Update 21.0 (2017
+Oberon Prime
+Male
+2017-05-30
+Hotfix 20.6.2 (2017
+Octavia
+Female
+2017-03-24
+Update 20.0 (2017
+Banshee Prime
+Female
+2017-02-28
+Hotfix 19.11.5 (201
+Nidus
+Male
+2016-12-22
+Update 19.5 (2016
+Valkyr Prime
+Female
+2016-11-22
+Hotfix 19.0.7 (2016
+Nekros Prime
+Male
+2016-08-23
+Hotfix: The Silver G
+Titania
+Female
+2016-08-19
+Update: The Silver 
+Vauban Prime
+Male
+2016-05-17
+Update 18.12 (201
+Inaros
+Male
+2016-03-04
+Update 18.5 (2016
+Saryn Prime
+Female
+2016-02-16
+Hotfix 18.4.12 (201
+Nezha
+Male
+2015-12-16
+Update 18.1 (2015
+Ivara
+Female
+2015-12-03
+Update 18.0 (2015
+Wukong
+Male
+2015-11-25
+Update 17.12 (201
+Trinity Prime
+Female
+2015-10-06
+Update 17.6 (2015
+Atlas
+Male
+2015-10-01
+Update 17.5 (2015
+Equinox
+Female
+2015-07-31
+Update 17.0 (2015
+Ash Prime
+Male
+2015-07-07
+Update 16.11 (201
+Volt Prime
+Male
+2015-03-25
+Update 16.1 (2015
+Chroma
+Male
+2015-03-19
+Update 16.0 (2015
+Nova Prime
+Female
+2014-12-17
+Update 15.7 (2014
+Mesa
+Female
+2014-11-27
+Update 15.5 (2014
+Limbo
+Male
+2014-10-24
+Update 15.0 (2014
+Nyx Prime
+Female
+2014-09-24
+Update 14.8 (2014
+Mirage
+Female
+2014-07-18
+Update 14.0 (2014
+Loki Prime
+Male
+2014-06-11
+Update 13.7 (2014
+Hydroid
+Male
+2014-04-09
+Update 13.0 (2014
+Rhino Prime
+Male
+2014-03-05
+Update 12.4 (2014
+Zephyr
+Female
+2014-02-05
+Update 12.0 (2014
+Oberon
+Male
+2013-12-19
+Update 11.5 (2013
+Valkyr
+Female
+2013-11-20
+Update 11.0 (2013
+Ember Prime
+Female
+2013-11-20
+Update 11.0 (2013
+Nekros
+Male
+2013-09-13
+Update 10.0 (2013
+Mag Prime
+Female
+2013-09-13
+Update 10.0 (2013
+Nova
+Female
+2013-07-13
+Update 9.0 (2013-0
+Vauban
+Male
+2013-05-17
+Update 7.11 (2013
+Frost Prime
+Male
+2013-05-03
+Update 7.10 (2013
+Saryn
+Female
+2013-03-18
+Update 7.0 (2013-0
+Banshee
+Female
+2013-03-18
+Update 7.0 (2013-0
+Nyx
+Female
+2013-01-29
+Update 6.0 (2013-0
+Frost
+Male
+2013-01-29
+Update 6.0 (2013-0
+Excalibur Prime
+Male
+2012-12-18
+Update 5.0 (2012-1
+Volt
+Male
+2012-10-25
+Vanilla (2012-10-25
+Trinity
+Female
+2012-10-25
+Vanilla (2012-10-25
+Rhino
+Male
+2012-10-25
+Vanilla (2012-10-25
+Mag
+Female
+2012-10-25
+Vanilla (2012-10-25
+Loki
+Male
+2012-10-25
+Vanilla (2012-10-25
+Excalibur
+Male
+2012-10-25
+Vanilla (2012-10-25
+Ember
+Female
+2012-10-25
+Vanilla (2012-10-25
+Ash
+Male
+2012-10-25
+Vanilla (2012-10-25
+[Original ]
+Warframe Release Dates (from Module:Warframes/data) 
+Warframe Name 
+Gender 
+Release Date (yyyy-mm-dd)
+Update Version 
+Sirius & Orion
+Male
+2026-06-17
+Update 43.0 (2026
+Follie
+Female
+2026-03-25
+Update 42.0 (2026
+Uriel
+Male
+2025-12-10
+Update 41.0 (2025
+Nokko
+Male
+2025-10-15
+Update 40.0 (2025
+Oraxia
+Female
+2025-06-25
+Update 39.0 (2025
+Temple
+Non-binary
+2025-03-19
+Update 38.5 (2025
+Cyte-09
+Male
+2024-12-13
+Update 38.0 (2024
+Koumei
+Female
+2024-10-02
+Update 37.0 (2024
+Jade
+Female
+2024-06-18
+Update 36.0 (2024
+Dante
+Male
+2024-03-27
+Update 35.5 (2024
+Qorvex
+Male
+2023-12-13
+Update 35.0 (2023
+Dagath
+Female
+2023-10-18
+Update 34.0 (2023
+Kullervo
+Male
+2023-06-21
+Update 33.5 (2023
+Citrine
+Female
+2023-02-15
+Update 32.3 (2023
+Voruna
+Female
+2022-11-30
+Update 32.2 (2022
+Styanax
+Male
+2022-09-07
+Update 32.0 (2022
+Gyre
+Female
+2022-04-27
+Update 31.5 (2022
+Caliban
+Male
+2021-12-15
+Update 31.0 (2021
+Yareli
+Female
+2021-07-06
+Update 30.5 (2021
+Sevagoth
+Male
+2021-04-13
+Update 30.0 (2021
+Lavos
+Male
+2020-12-18
+Update 29.6 (2020
+Xaku
+Non-binary
+2020-08-25
+Update 29.0 (2020
+Protea
+Female
+2020-06-11
+Update 28.0 (2020
+Grendel
+Male
+2019-10-31
+Update 26.0 (2019
+Gauss
+Male
+2019-08-29
+Update 25.7 (2019
+Wisp
+Female
+2019-05-22
+Update 25.0 (2019
+Hildryn
+Female
+2019-03-08
+Update 24.4 (2019
+Baruuk
+Male
+2018-12-18
+Update 24.2 (2018
+Garuda
+Female
+2018-11-08
+Update 24.0 (2018
+Revenant
+Male
+2018-08-24
+Update 23.5 (2018
+Excalibur Umbra
+Male
+2018-06-15
+Update 23.0 (2018
+Khora
+Female
+2018-04-20
+Update 22.18 (201
+Gara
+Female
+2017-10-12
+Update 22.0 (2017
+Harrow
+Male
+2017-06-29
+Update 21.0 (2017
+Octavia
+Female
+2017-03-24
+Update 20.0 (2017
+Nidus
+Male
+2016-12-22
+Update 19.5 (2016
+Titania
+Female
+2016-08-19
+Update: The Silver 
+Inaros
+Male
+2016-03-04
+Update 18.5 (2016
+Nezha
+Male
+2015-12-16
+Update 18.1 (2015
+Ivara
+Female
+2015-12-03
+Update 18.0 (2015
+Wukong
+Male
+2015-11-25
+Update 17.12 (201
+Atlas
+Male
+2015-10-01
+Update 17.5 (2015
+Equinox
+Female
+2015-07-31
+Update 17.0 (2015
+Chroma
+Male
+2015-03-19
+Update 16.0 (2015
+Mesa
+Female
+2014-11-27
+Update 15.5 (2014
+Limbo
+Male
+2014-10-24
+Update 15.0 (2014
+Mirage
+Female
+2014-07-18
+Update 14.0 (2014
+Hydroid
+Male
+2014-04-09
+Update 13.0 (2014
+Zephyr
+Female
+2014-02-05
+Update 12.0 (2014
+Oberon
+Male
+2013-12-19
+Update 11.5 (2013
+Valkyr
+Female
+2013-11-20
+Update 11.0 (2013
+Nekros
+Male
+2013-09-13
+Update 10.0 (2013
+Nova
+Female
+2013-07-13
+Update 9.0 (2013-0
+Vauban
+Male
+2013-05-17
+Update 7.11 (2013
+Saryn
+Female
+2013-03-18
+Update 7.0 (2013-0
+Banshee
+Female
+2013-03-18
+Update 7.0 (2013-0
+Nyx
+Female
+2013-01-29
+Update 6.0 (2013-0
+Frost
+Male
+2013-01-29
+Update 6.0 (2013-0
+Volt
+Male
+2012-10-25
+Vanilla (2012-10-25
+Trinity
+Female
+2012-10-25
+Vanilla (2012-10-25
+Rhino
+Male
+2012-10-25
+Vanilla (2012-10-25
+Mag
+Female
+2012-10-25
+Vanilla (2012-10-25
+Loki
+Male
+2012-10-25
+Vanilla (2012-10-25
+Excalibur
+Male
+2012-10-25
+Vanilla (2012-10-25
+Ember
+Female
+2012-10-25
+Vanilla (2012-10-25
+Ash
+Male
+2012-10-25
+Vanilla (2012-10-25
+[Prime ]
+Warframe Release Dates (from Module:Warframes/data) 
+Warframe Name 
+Gender 
+Release Date (yyyy-mm-dd)
+Update Version 
+Styanax Prime
+Male
+2026-06-17
+Update 43.0 (2026
+Voruna Prime
+Female
+2026-04-08
+Hotfix 42.0.6 (2026
+Gyre Prime
+Female
+2025-12-10
+Update 41.0 (2025
+Caliban Prime
+Male
+2025-08-26
+Update 39.1 (2025
+Yareli Prime
+Female
+2025-05-21
+Update 38.6 (2025
+Lavos Prime
+Male
+2025-02-12
+Hotfix 38.0.10 (202
+Xaku Prime
+Non-binary
+2024-11-13
+Hotfix 37.0.9 (2024
+Sevagoth Prime
+Male
+2024-08-21
+Update 36.1 (2024
+Protea Prime
+Female
+2024-05-01
+Hotfix 35.5.9 (2024
+Gauss Prime
+Male
+2024-01-17
+Hotfix 35.0.9 (2024
+Grendel Prime
+Male
+2023-10-18
+Update 34.0 (2023
+Wisp Prime
+Female
+2023-07-27
+Update 33.6 (2023
+Hildryn Prime
+Female
+2023-03-15
+Hotfix 32.3.6 (2023
+Baruuk Prime
+Male
+2022-12-14
+Hotfix 32.2.5 (2022
+Revenant Prime
+Male
+2022-10-05
+Hotfix 32.0.9 (2022
+Khora Prime
+Female
+2022-07-16
+Update 31.7 (2022
+Garuda Prime
+Female
+2022-03-28
+Update 31.3 (2022
+Harrow Prime
+Male
+2021-12-15
+Update 31.0 (2021
+Nidus Prime
+Male
+2021-09-08
+Update 30.7 (2021
+Gara Prime
+Female
+2021-05-25
+Update 30.3 (2021
+Octavia Prime
+Female
+2021-02-23
+Update 29.9 (2021
+Nezha Prime
+Male
+2020-10-27
+Update 29.3 (2020
+Inaros Prime
+Male
+2020-07-14
+Update 28.2 (2020
+Titania Prime
+Female
+2020-03-31
+Hotfix 27.3.6 (2020
+Ivara Prime
+Female
+2019-12-17
+Hotfix 27.0.4 (2019
+Atlas Prime
+Male
+2019-10-01
+Update 25.8 (2019
+Wukong Prime
+Male
+2019-07-06
+Update 25.3 (2019
+Equinox Prime
+Female
+2019-04-02
+Hotfix 24.5.8 (2019
+Mesa Prime
+Female
+2018-12-18
+Hotfix 24.2.2 (2018
+Chroma Prime
+Male
+2018-09-25
+Update 23.9 (2018
+Limbo Prime
+Male
+2018-06-19
+Hotfix 23.0.3 (2018
+Zephyr Prime
+Female
+2018-03-20
+Hotfix 22.16.4 (201
+Mirage Prime
+Female
+2017-12-12
+Update 22.7 (2017
+Hydroid Prime
+Male
+2017-08-29
+Update 21.6 (2017
+Oberon Prime
+Male
+2017-05-30
+Hotfix 20.6.2 (2017
+Banshee Prime
+Female
+2017-02-28
+Hotfix 19.11.5 (201
+Valkyr Prime
+Female
+2016-11-22
+Hotfix 19.0.7 (2016
+Nekros Prime
+Male
+2016-08-23
+Hotfix: The Silver G
+Vauban Prime
+Male
+2016-05-17
+Update 18.12 (201
+Saryn Prime
+Female
+2016-02-16
+Hotfix 18.4.12 (201
+Trinity Prime
+Female
+2015-10-06
+Update 17.6 (2015
+Ash Prime
+Male
+2015-07-07
+Update 16.11 (201
+Volt Prime
+Male
+2015-03-25
+Update 16.1 (2015
+Nova Prime
+Female
+2014-12-17
+Update 15.7 (2014
+Nyx Prime
+Female
+2014-09-24
+Update 14.8 (2014
+Loki Prime
+Male
+2014-06-11
+Update 13.7 (2014
+Rhino Prime
+Male
+2014-03-05
+Update 12.4 (2014
+Ember Prime
+Female
+2013-11-20
+Update 11.0 (2013
+Mag Prime
+Female
+2013-09-13
+Update 10.0 (2013
+Frost Prime
+Male
+2013-05-03
+Update 7.10 (2013
+Excalibur Prime
+Male
+2012-12-18
+Update 5.0 (2012-1
+[Female ]
+Warframe Release Dates (from Module:Warframes/data) 
+Warframe Name 
+Gender 
+Release Date (yyyy-mm-dd)
+Update Version 
+Voruna Prime
+Female
+2026-04-08
+Hotfix 42.0.6 (2026-0
+Follie
+Female
+2026-03-25
+Update 42.0 (2026-0
+Gyre Prime
+Female
+2025-12-10
+Update 41.0 (2025-1
+Oraxia
+Female
+2025-06-25
+Update 39.0 (2025-0
+Yareli Prime
+Female
+2025-05-21
+Update 38.6 (2025-0
+Koumei
+Female
+2024-10-02
+Update 37.0 (2024-1
+Jade
+Female
+2024-06-18
+Update 36.0 (2024-0
+Protea Prime
+Female
+2024-05-01
+Hotfix 35.5.9 (2024-0
+Dagath
+Female
+2023-10-18
+Update 34.0 (2023-1
+Wisp Prime
+Female
+2023-07-27
+Update 33.6 (2023-0
+Hildryn Prime
+Female
+2023-03-15
+Hotfix 32.3.6 (2023-0
+Citrine
+Female
+2023-02-15
+Update 32.3 (2023-0
+Voruna
+Female
+2022-11-30
+Update 32.2 (2022-1
+Khora Prime
+Female
+2022-07-16
+Update 31.7 (2022-0
+Gyre
+Female
+2022-04-27
+Update 31.5 (2022-0
+Garuda Prime
+Female
+2022-03-28
+Update 31.3 (2022-0
+Yareli
+Female
+2021-07-06
+Update 30.5 (2021-0
+Gara Prime
+Female
+2021-05-25
+Update 30.3 (2021-0
+Octavia Prime
+Female
+2021-02-23
+Update 29.9 (2021-0
+Protea
+Female
+2020-06-11
+Update 28.0 (2020-0
+Titania Prime
+Female
+2020-03-31
+Hotfix 27.3.6 (2020-0
+Ivara Prime
+Female
+2019-12-17
+Hotfix 27.0.4 (2019-1
+Wisp
+Female
+2019-05-22
+Update 25.0 (2019-0
+Equinox Prime
+Female
+2019-04-02
+Hotfix 24.5.8 (2019-0
+Hildryn
+Female
+2019-03-08
+Update 24.4 (2019-0
+Mesa Prime
+Female
+2018-12-18
+Hotfix 24.2.2 (2018-1
+Garuda
+Female
+2018-11-08
+Update 24.0 (2018-1
+Khora
+Female
+2018-04-20
+Update 22.18 (2018-
+Zephyr Prime
+Female
+2018-03-20
+Hotfix 22.16.4 (2018
+Mirage Prime
+Female
+2017-12-12
+Update 22.7 (2017-1
+Gara
+Female
+2017-10-12
+Update 22.0 (2017-1
+Octavia
+Female
+2017-03-24
+Update 20.0 (2017-0
+Banshee Prime
+Female
+2017-02-28
+Hotfix 19.11.5 (2017
+Valkyr Prime
+Female
+2016-11-22
+Hotfix 19.0.7 (2016-1
+Titania
+Female
+2016-08-19
+Update: The Silver G
+Saryn Prime
+Female
+2016-02-16
+Hotfix 18.4.12 (2016
+Ivara
+Female
+2015-12-03
+Update 18.0 (2015-1
+Trinity Prime
+Female
+2015-10-06
+Update 17.6 (2015-1
+Equinox
+Female
+2015-07-31
+Update 17.0 (2015-0
+Nova Prime
+Female
+2014-12-17
+Update 15.7 (2014-1
+Mesa
+Female
+2014-11-27
+Update 15.5 (2014-1
+Nyx Prime
+Female
+2014-09-24
+Update 14.8 (2014-0
+Mirage
+Female
+2014-07-18
+Update 14.0 (2014-0
+Zephyr
+Female
+2014-02-05
+Update 12.0 (2014-0
+Valkyr
+Female
+2013-11-20
+Update 11.0 (2013-1
+Ember Prime
+Female
+2013-11-20
+Update 11.0 (2013-1
+Mag Prime
+Female
+2013-09-13
+Update 10.0 (2013-0
+Nova
+Female
+2013-07-13
+Update 9.0 (2013-07
+Saryn
+Female
+2013-03-18
+Update 7.0 (2013-03
+Banshee
+Female
+2013-03-18
+Update 7.0 (2013-03
+Nyx
+Female
+2013-01-29
+Update 6.0 (2013-01
+Trinity
+Female
+2012-10-25
+Vanilla (2012-10-25) 
+Mag
+Female
+2012-10-25
+Vanilla (2012-10-25) 
+Ember
+Female
+2012-10-25
+Vanilla (2012-10-25) 
+[Male ]
+Warframe Release Dates (from Module:Warframes/data) 
+Warframe Name 
+Gender 
+Release Date (yyyy-mm-dd)
+Update Version 
+Styanax Prime
+Male
+2026-06-17
+Update 43.0 (2026-0
+Sirius & Orion
+Male
+2026-06-17
+Update 43.0 (2026-0
+Uriel
+Male
+2025-12-10
+Update 41.0 (2025-1
+Nokko
+Male
+2025-10-15
+Update 40.0 (2025-1
+Caliban Prime
+Male
+2025-08-26
+Update 39.1 (2025-0
+Lavos Prime
+Male
+2025-02-12
+Hotfix 38.0.10 (2025
+Cyte-09
+Male
+2024-12-13
+Update 38.0 (2024-1
+Sevagoth Prime
+Male
+2024-08-21
+Update 36.1 (2024-0
+Dante
+Male
+2024-03-27
+Update 35.5 (2024-0
+Gauss Prime
+Male
+2024-01-17
+Hotfix 35.0.9 (2024-0
+Qorvex
+Male
+2023-12-13
+Update 35.0 (2023-1
+Grendel Prime
+Male
+2023-10-18
+Update 34.0 (2023-1
+Kullervo
+Male
+2023-06-21
+Update 33.5 (2023-0
+Baruuk Prime
+Male
+2022-12-14
+Hotfix 32.2.5 (2022-1
+Revenant Prime
+Male
+2022-10-05
+Hotfix 32.0.9 (2022-1
+Styanax
+Male
+2022-09-07
+Update 32.0 (2022-0
+Harrow Prime
+Male
+2021-12-15
+Update 31.0 (2021-1
+Caliban
+Male
+2021-12-15
+Update 31.0 (2021-1
+Nidus Prime
+Male
+2021-09-08
+Update 30.7 (2021-0
+Sevagoth
+Male
+2021-04-13
+Update 30.0 (2021-0
+Lavos
+Male
+2020-12-18
+Update 29.6 (2020-1
+Nezha Prime
+Male
+2020-10-27
+Update 29.3 (2020-1
+Inaros Prime
+Male
+2020-07-14
+Update 28.2 (2020-0
+Grendel
+Male
+2019-10-31
+Update 26.0 (2019-1
+Atlas Prime
+Male
+2019-10-01
+Update 25.8 (2019-1
+Gauss
+Male
+2019-08-29
+Update 25.7 (2019-0
+Wukong Prime
+Male
+2019-07-06
+Update 25.3 (2019-0
+Baruuk
+Male
+2018-12-18
+Update 24.2 (2018-1
+Chroma Prime
+Male
+2018-09-25
+Update 23.9 (2018-0
+Revenant
+Male
+2018-08-24
+Update 23.5 (2018-0
+Limbo Prime
+Male
+2018-06-19
+Hotfix 23.0.3 (2018-0
+Excalibur Umbra
+Male
+2018-06-15
+Update 23.0 (2018-0
+Hydroid Prime
+Male
+2017-08-29
+Update 21.6 (2017-0
+Harrow
+Male
+2017-06-29
+Update 21.0 (2017-0
+Oberon Prime
+Male
+2017-05-30
+Hotfix 20.6.2 (2017-0
+Nidus
+Male
+2016-12-22
+Update 19.5 (2016-1
+Nekros Prime
+Male
+2016-08-23
+Hotfix: The Silver Gro
+Vauban Prime
+Male
+2016-05-17
+Update 18.12 (2016-
+Inaros
+Male
+2016-03-04
+Update 18.5 (2016-0
+Nezha
+Male
+2015-12-16
+Update 18.1 (2015-1
+Wukong
+Male
+2015-11-25
+Update 17.12 (2015-
+Atlas
+Male
+2015-10-01
+Update 17.5 (2015-1
+Ash Prime
+Male
+2015-07-07
+Update 16.11 (2015-
+Volt Prime
+Male
+2015-03-25
+Update 16.1 (2015-0
+Chroma
+Male
+2015-03-19
+Update 16.0 (2015-0
+Limbo
+Male
+2014-10-24
+Update 15.0 (2014-1
+Loki Prime
+Male
+2014-06-11
+Update 13.7 (2014-0
+Hydroid
+Male
+2014-04-09
+Update 13.0 (2014-0
+Rhino Prime
+Male
+2014-03-05
+Update 12.4 (2014-0
+Oberon
+Male
+2013-12-19
+Update 11.5 (2013-1
+Nekros
+Male
+2013-09-13
+Update 10.0 (2013-0
+Vauban
+Male
+2013-05-17
+Update 7.11 (2013-0
+Frost Prime
+Male
+2013-05-03
+Update 7.10 (2013-0
+Frost
+Male
+2013-01-29
+Update 6.0 (2013-01
+Excalibur Prime
+Male
+2012-12-18
+Update 5.0 (2012-12
+Volt
+Male
+2012-10-25
+Vanilla (2012-10-25) 
+Rhino
+Male
+2012-10-25
+Vanilla (2012-10-25) 
+Loki
+Male
+2012-10-25
+Vanilla (2012-10-25) 
+Excalibur
+Male
+2012-10-25
+Vanilla (2012-10-25) 
+Ash
+Male
+2012-10-25
+Vanilla (2012-10-25) 
+[Non-binary ]
+Warframe Release Dates (from Module:Warframes/data) 
+Warframe Name 
+Gender 
+Release Date (yyyy-mm-dd)
+Update Version 
+Temple
+Non-binary
+2025-03-19
+Update 38.5 (2025
+Xaku Prime
+Non-binary
+2024-11-13
+Hotfix 37.0.9 (2024
+Xaku
+Non-binary
+2020-08-25
+Update 29.0 (2020
+Raw Data
+[edit | edit source]
+Main article: Module:Warframes/data
+Trivia
+[edit | edit source]
+Warframe, from the Orokin , literally means "War platform".
+The name "Warframes" comes from a 1950s Boeing (Company) WWII
+research project equipping WWII soldiers with exoskeletons, as
+mentioned by Steve Sinclair during Devstream #1.[24]
+Such a project did not actually exist and never saw development or
+research with Boeing[citation needed], which never developed
+significant military ground equipment of any kind until 2014. It is
+likely that the creator was referring to a failed system referred to as
+Hardiman, which was developed by General Electric in the mid to
+late 1960s, just prior to America's involvement in the Vietnam
+War[citation needed].
+The naming convention for Warframes and its correspondence to
+various roles for combat hearkens to Japanese popular media design
+elements of using referential and real world mythology-based lore, in
+where they are not just used to evoke powerful reminiscence to their
+namesake and a sense of exoticism, but to also connotate
+otherworldliness and mysterious fantastical power rooted in
+dimensions beyond the everyday.
+The 'Alphabet of Frames' was completed at TennoCon 2025 by Uriel,
+the 63rd Warframe to be released.
+Despite being designed to be incapable of speech, Stalker is fully
+capable of speaking single words and full sentences (albeit slowly), 
+Dante and Uriel vocalize Voidtongue, Koumei vocalizes Japanese
+phrases, Cyte-09 has radio chatter noise, and Brysko has internal
+monologue. 
+Dante also bypassed his speech impairment by writing, whose
+"voice" was described to be beautiful.
+Despite being heavily converted and having no visible mouth, Jade
+Shadows: Constellations reveals that Warframes are still capable of
+• 
+• 
+◦ 
+• 
+• 
+• 
+◦ 
+• 
+eating and drinking, although it is unknown whether they require it
+regularly or even gain nutrition from doing so.
+Media
+[edit | edit source]
+(Left to right) Frost, Excalibur, Ash and Nyx
+(Left to right) Baruuk, Excalibur, and Mesa
+(Left to right) Ivara, Rhino, Excalibur, and Loki. Ivara, Rhino, and Loki
+are equipped with platform exclusive skins for Playstation, Xbox, and
+Switch.
+(Left to right) Rhino, Loki, Excalibur, Mag, Ivara
+A group shot of Zephyr, Mag, Gara, Banshee crouching, Ember, Atlas,
+Ash crouching, Volt, and Chroma. (Left to right)
+(Left to right) Frost, Ash, Ember, Trinity, Excalibur, Nyx, Volt, Loki,
+Mag, and Rhino.
+References
+[edit | edit source]
+↑A mysterious weaponized armor controlled solely by the Tenno.
+Through the Warframe, Tenno can cheat death, channel the
+forbidden Void energies and face scores of enemies without fatigue.
+Due to apparent resistances of their Bio-Metal exoskeletons,
+Warframes can be safely deployed to Infestation Outbreaks, should
+they occur. In-depth information of the Warframe mandate is
+forbidden to all but the Seven. - Warframe Technology Fragment
+↑The true nature of the Warframes and their Tenno connection is a
+secret lost to the Old War. Together, they represent our best hope in
+turning the tide of the machine war. Warframes are unique from 
+Dax and other Infantry, deploying dangerous and esoteric Void
+energy, and equipped with often mundane physical weapons – this
+is key to fighting an enemy that had turned our technology against
+us. - Warframes Fragment
+↑Umbra is able to move of his own will, independently acting even
+without an Operator controlling him.
+↑Dante existed before the use of Transference, even acting as
+historian and studying alongside the Entrati. "-Those like Dante who
+• 
+• 
+• 
+• 
+• 
+• 
+1. 
+2. 
+3. 
+4. 
+had yet to succumb became fugitives. To shelter them meant death
+- or glassing." - Loid.
+↑Kullervo was in service before Transference was used and even
+witnessed it himself. "You saw the new generation of your kind and
+the Tenno whose deviltry blent with theirs-" - The Warden
+↑While Dagath did lose most of her personality at first, she did
+manage to leave the place where she lost her face, and would
+ultimately kill the Orokin couple who ordered it gone.
+↑Jade's Memory Feathers recount her own thoughts, and how she
+fought without an Operator.
+↑"We cultured the Infestation, conceiving of a hybrid.
+Transformed, but only just. The 'Helminth' was created, born to
+yield these new warriors, worthy of battle against you. The great
+and terrible Hunhow. We took our greatest, volunteers or not, and
+polluted them with these cultured reagents. They transformed.
+They became Infested... but only just. Their skin blossomed into
+sword-steel. Their organs, interlinked with untold resilience. Yet
+their minds were free of the Infested madness. Or so we thought." -
+Ballas during The Sacrifice
+↑"Oh! Aren't you a fascinating specimen? Organic-ferrous
+exoflesh, hybridized internals, Untime trace..." - Daughter during
+the Heart of Deimos.
+↑"Warframes cannot speak, as a rule. Their creator decided they
+should only scream, or roar, or howl.-" - Loid
+↑"We had created monsters we couldn't control. We drugged
+them, tortured them, eviscerated them... We brutalized their
+minds... but it did not work. Until they came." - Ballas during The
+Sacrifice
+↑"I have seen this monster before. I have cut its shell and
+eviscerated its brothers. I have given it pain and measured its
+response. I have crafted then rejected countless like it. But I've
+never seen this beast so close, without the shield, without
+restraints. I have never seen it... free." - Excerpt from Rhino
+Prime's Codex.
+↑Quote from The Sacrifice
+↑"Warframes" Cephalon Fragment
+↑See Atlas' and Gauss' Leverian entries
+↑Ash's Leverian entry
+↑"Warframe Technology" Cephalon Fragment
+↑"In-depth information of the Warframe mandate is forbidden to all
+but the Seven." - "Warframes" Cephalon Fragment
+↑"Every time we tear a Tenno corpse from its metal womb we find
+nothing to explain their power. Our Warframe engineers gesture
+wildly about nanotechnology, how reactive dissolution hides the
+answers. What if a Warframe is merely a lightning rod? A conduit
+for these demons of the Void? Consider how it could change our
+plan." - Intercepted inbox message from Captain Vor during 
+Operation: Arid Fear
+↑"Found the Reservoir? Hm, as unpleasant as our past is, I have to
+ask; I've, uh, seen inside a Tenno, yes. And what I've found didn't
+make sense. Does this Reservoir conceal some great deception?" - 
+Alad V during The Second Dream
+5. 
+6. 
+7. 
+8. 
+9. 
+10. 
+11. 
+12. 
+13. 
+14. 
+15. 
+16. 
+17. 
+18. 
+19. 
+20. 
+↑"I had been, until then, a Tenno denier. They were ghosts,
+propaganda, twisted casualties of the Void Era. Not possibly real." - 
+Mag Prime Codex entry
+↑"Tenno! The myths... they weren't myths!" - Myconian Male 1
+during The Glast Gambit
+↑"The dogmatic Arbiters seek a truth through discipline and
+practice. They reject the 'Tenno as Warrior' mythology – a lie
+constructed to limit their potential." - Arbiters of Hexis description
+↑Origins of the word "Warframes"
+Patch History
+[edit | edit source]
+21. 
+22. 
+23. 
+24. 
+Update 38.0 (2024-12-13) 
+More Starter Slots!
+Throughout the New Player Experience improvements we’ve made
+this year, the biggest point of feedback we’ve received is to increase
+the starting Weapon and Warframe Slots amounts. So we’ve done just
+that! 
+New players will now start with more Slots: 
+Weapon Slots: Increased from 8 to 11
+Warframe Slots: Increased from 2 to 3
+If you’re an existing player, these additional Warframe (1) and
+Weapon Slots (3) will be delivered to you via inbox message on log in!
+Update 34.0 (2023-10-18) 
+Base vs Final Stats in Modding - Health / Energy / Shield / Armor Stat
+Overhaul
+If you’ve spent any time invested in the deeper nuances of Modding,
+you may be familiar with “Warframe Math” - math that upon first
+glance doesn’t really make sense, but once you learn the inner
+workings of the game, it all comes together. While we can appreciate
+the value that complex systems offer to a certain subsect of players,
+there are other aspects of the game that should have clear and
+understandable outcomes. Namely: Shield, Health, Energy, and Armor
+Modding. 
+Pop quiz: what is 300 + 440%? If you answered 740, you may just
+be an Excalibur player. 
+Vitality (+440% Heath), Redirection (+440% Shields), Flow (+150%
+Energy), and Steel Fiber (+110% Armor) come with large modifier
+values that don’t seem to match their outcome in-game. This is
+because these Mods apply their multiplier to the base stats of
+the Warframe - i.e., the stats you have at Rank 0. In the
+• 
+• 
+Excalibur example, a Rank 30 Excalibur’s Health stat of 300 earns an
+additional 440 Health from max rank Vitality (+440% Heath) since it
+applies to his base rank Health stat of 100, resulting in 740 total
+health. 
+In this update, we have removed this obfuscation by having Health,
+Shield, Energy, and Armor Mods apply to the stats of
+Warframes at their current rank. Continuing our Excalibur
+example, instead of Vitality always applying to Excalibur’s base rank
+100 Health, it would apply to his Health stat based on his rank -
+namely, the stat you can actually see in your Arsenal. If your
+Excalibur were Rank 30, his Health stat would be 300, which means
+Vitality’s multiplier would be calculated off of 300. 
+With previous Health and Mod values, additional adjustments are
+needed to make this revision work while maintaining game balance.
+By only changing where the multiplier applies, a Rank 30 Excalibur
+would receive an extra 1,320 Health from max rank Vitality, resulting
+in a total health stat of 1,600. This outcome is a significant buff,
+which is not the intention of this system change. 
+To remedy this, we approached this problem in two ways: 
+1 - We reduced the overall multiplier for Health, Shield,
+Energy, and Armor Mods.
+Since these now affect Max Rank Warframe stats, these Mods need to
+scale differently to maintain the status quo. Additionally, we wanted
+these new values to be as clear and understandable to all players as
+possible! Here are a few examples of these value changes: 
+Vitality: Reduced from +440% to +100% Health
+Redirection: Reduced from +440% to +100% Shield Capacity
+Steel Fiber: Reduced from +110% to +100% Armor
+Flow: Reduced from +150% to +100% Energy Max
+Note: These are not all of the Mods affected by this change.
+We share the comprehensive list further down in this section
+of the update notes.
+Doing some quick math, this means that a Rank 30 Excalibur (300
+Health) with a reworked Vitality Mod (+100% Health, applied to the
+final Health stat) would receive 300 extra Health, for a total of 600.
+That, in contrast, is a nerf, which we also don’t want to do. 
+So, our next step: 
+2 - We adjusted Warframe Health, Shield, Energy, and Armor
+values to keep the end result of the revised Mods as close to
+the original values as possible.
+With this change, Excalibur’s Rank 30 Health stat is 370. With +100%
+Health from a max Vitality Mod, his resulting Health stat would be
+740, which matches what it was originally. 
+• 
+• 
+• 
+• 
+While this path to the same result may seem a little complicated, the
+outcome matches our intention: we want players to be able to
+look at their Health, Shield, and Armor Mods, and be able to
+understand how they affect the stats they see in their
+Arsenal.
+In addition to everything above, we also increased the base stat
+values for Warframes so that these revised Mods offer similar
+value for lower-ranked Frames. To do so, we reduced the amount
+of Health/Shield/Energy that Warframes earn per rank in half, and
+transferred the sum of that value to their base stats. 
+For Armor, this is the one stat that does not increase with your
+Warframe’s level (with some exceptions). Armor values across the
+board have been slightly increased to compensate for the Mod
+changes. 
+Not to beat a dead Kaithe, but Mods will now be applying to the Max
+Rank stat instead of the Base Rank. You may look at these
+numbers and think “nerf” or “buff” depending, but the
+outcome is that total Modded values are the same, if not a
+little higher in some cases. Here are a few outliers before we get
+into the nitty-gritty of it: 
+Lavos, Nidus, Nidus Prime, and Kullervo all have buffs to their
+Armor values as a result of this change. 
+Ex: Nidus Prime’s Armor stat increased from 910 (previous) to
+1,050 (new with this update) with max Steel Fiber Equipped.
+With all 3 Umbral Warframe Mods equipped, this buff results in a
+difference of 1198 Armor (previous) to 1470 Armor (new with
+this update).
+Garuda and Garuda Prime’s received buffs to their Modded Energy
+pool. 
+ie. Garuda Prime’s Energy stat has been increased from 800
+(previous) to 912 (new with this update) with max Primed Flow
+equipped.
+Warframe Stat Changes:
+ASH
+Health: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+ASH PRIME
+Health: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Shields: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+• 
+◦ 
+• 
+◦ 
+Reveal hidden contents 
+▾
+▾
+Armor: Base Rank - 185 (from 175)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+ATLAS
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 475 (from 450)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+ATLAS PRIME
+Health: Base Rank - 550 (from 175) / Max Rank - 650 (from 525)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 500 (from 475)
+Energy: Base Rank - 215 (from 175) / Max Rank - 265 (from 263) 
+BANSHEE
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+BANSHEE PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 215 (from 175) / Max Rank - 265 (from 263) 
+BARUUK
+Health: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 185 (from 175)
+Energy: Base Rank - 200 (from 200) / Max Rank - 300 (from 300) 
+BARUUK PRIME
+Health: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Shields: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Armor: Base Rank - 240 (from 225)
+Energy: Base Rank - 200 (from 200) / Max Rank - 300 (from 300) 
+CALIBAN
+Health: Base Rank - 170 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 450 (from 175) / Max Rank - 650 (from 525)
+Armor: Base Rank - 290 (from 275)
+Energy: Base Rank - 140 (from 125) / Max Rank - 190 (from 188) 
+CHROMA
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 370 (from 350)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+CHROMA PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 450 (from 425)
+Energy: Base Rank - 200 (from 200) / Max Rank - 300 (from 300) 
+CITRINE
+Health: Base Rank - 400 (from 135) / Max Rank - 500 (from 405)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 265 (from 250)
+Energy: Base Rank - 130 (from 120) / Max Rank - 180 (from 180) 
+EMBER
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+EMBER PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Armor: Base Rank - 160 (from 150)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+EQUINOX
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+EQUINOX PRIME
+Health: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 160 (from 150)
+Energy: Base Rank - 200 (from 165) / Max Rank - 250 (from 248) 
+EXCALIBUR
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 240 (from 225)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+EXCALIBUR PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 315 (from 300)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+EXCALIBUR UMBRA
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 315 (from 300)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+FROST
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 315 (from 300)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+FROST PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 550 (from 175) / Max Rank - 650 (from 525)
+Armor: Base Rank - 315 (from 300)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+GARA
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 160 (from 150)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+GARA PRIME
+Health: Base Rank - 345 (from 120) / Max Rank - 445 (from 360)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 200 (from 190)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+GARUDA
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 315 (from 300)
+Energy: Base Rank - 140 (from 120) / Max Rank - 240 (from 270) 
+GARUDA PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 420 (from 400)
+Energy: Base Rank - 220 (from 160) / Max Rank - 320 (from 360) 
+GAUSS
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 185 (from 175)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+GRENDEL Health: Base Rank - 1095 (from 350) / Max Rank - 1295
+(from 1050) Shields: Base Rank - 95 (from 25) / Max Rank - 95 (from
+75) Armor: Base Rank - 370 (from 350) Energy: Base Rank - 175 (from
+150) / Max Rank - 225 (from 225) 
+GYRE
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 550 (from 175) / Max Rank - 650 (from 525)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 190 (from 160) / Max Rank - 240 (from 240) 
+HARROW
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 185 (from 175)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+HARROW PRIME Health: Base Rank - 270 (from 100) / Max Rank - 370
+(from 300) Shields: Base Rank - 640 (from 175) / Max Rank - 740
+(from 525) Armor: Base Rank - 185 (from 175) Energy: Base Rank -
+140 (from 125) / Max Rank - 190 (from 188) 
+HILDRYN
+Health: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Shields: Base Rank - 1280 (from 450) / Max Rank - 1780 (from 1575)
+Armor: Base Rank - 315 (from 300)
+Energy: Base Rank - 0 (from 0) / Max Rank - 0 (from 0) 
+HILDRYN PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 1380 (from 475) / Max Rank - 1880 (from 1662.5)
+Armor: Base Rank - 315 (from 300)
+Energy: Base Rank - 0 (from 0) / Max Rank - 0 (from 0) 
+HYDROID
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Armor: Base Rank - 240 (from 225)
+Energy: Base Rank - 140 (from 125) / Max Rank - 190 (from 188) 
+HYDROID PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 550 (from 175) / Max Rank - 650 (from 525)
+Armor: Base Rank - 290 (from 275)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+INAROS
+Health: Base Rank - 2110 (from 550) / Max Rank - 2310 (from 2200)
+Shields: Base Rank - 0 (from 0) / Max Rank - 0 (from 0)
+Armor: Base Rank - 240 (from 225)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+INAROS PRIME
+Health: Base Rank - 2215 (from 575) / Max Rank - 2415 (from 2300)
+Shields: Base Rank - 0 (from 0) / Max Rank - 0 (from 0)
+Armor: Base Rank - 240 (from 225)
+Energy: Base Rank - 140 (from 125) / Max Rank - 190 (from 188) 
+IVARA Health: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 105 (from 100) Energy: Base Rank - 215 (from
+175) / Max Rank - 265 (from 263) 
+IVARA PRIME Health: Base Rank - 180 (from 75) / Max Rank - 280
+(from 225) Shields: Base Rank - 455 (from 150) / Max Rank - 555
+(from 450) Armor: Base Rank - 135 (from 125) Energy: Base Rank -
+250 (from 200) / Max Rank - 300 (from 300) 
+KHORA
+Health: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 290 (from 275)
+Energy: Base Rank - 140 (from 125) / Max Rank - 190 (from 188) 
+KHORA PRIME
+Health: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Shields: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Armor: Base Rank - 345 (from 325)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+KULLERVO
+Health: Base Rank - 1005 (from 325) / Max Rank - 1205 (from 975)
+Shields: Base Rank - 0 (from 0) / Max Rank - 0 (from 0)
+Armor: Base Rank - 550 (from 325) / Max Rank - 650 (from 650)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+LAVOS
+Health: Base Rank - 540 (from 200) / Max Rank - 740 (from 600)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 575 (from 450) / Max Rank - 675 (from 675)
+Energy: Base Rank - 0 (from 0) / Max Rank - 0 (from 0) 
+LIMBO
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+LIMBO PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 215 (from 175) / Max Rank - 265 (from 263) 
+LOKI
+Health: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Shields: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+LOKI PRIME
+Health: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Shields: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 215 (from 175) / Max Rank - 265 (from 263) 
+MAG
+Health: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 140 (from 125) / Max Rank - 190 (from 188) 
+MAG PRIME Health: Base Rank - 270 (from 100) / Max Rank - 370
+(from 300) Shields: Base Rank - 455 (from 150) / Max Rank - 555
+(from 450) Armor: Base Rank - 135 (from 125) Energy: Base Rank -
+215 (from 175) / Max Rank - 265 (from 263) 
+MESA
+Health: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Shields: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+MESA PRIME
+Health: Base Rank - 400 (from 135) / Max Rank - 500 (from 405)
+Shields: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 140 (from 125) / Max Rank - 190 (from 188) 
+MIRAGE
+Health: Base Rank - 200 (from 80) / Max Rank - 300 (from 240)
+Shields: Base Rank - 120 (from 80) / Max Rank - 300 (from 240)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+MIRAGE PRIME
+Health: Base Rank - 200 (from 80) / Max Rank - 300 (from 240)
+Shields: Base Rank - 310 (from 110) / Max Rank - 410 (from 330)
+Armor: Base Rank - 185 (from 175)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+NEKROS
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 235 (from 90) / Max Rank - 335 (from 270)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+NEKROS PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 140 (from 125) / Max Rank - 190 (from 188) 
+NEZHA Health: Base Rank - 365 (from 125) / Max Rank - 465 (from
+375) Shields: Base Rank - 135 (from 50) / Max Rank - 185 (from 150)
+Armor: Base Rank - 200 (from 190) Energy: Base Rank - 175 (from
+150) / Max Rank - 225 (from 225) 
+NEZHA PRIME Health: Base Rank - 365 (from 125) / Max Rank - 465
+(from 375) Shields: Base Rank - 135 (from 50) / Max Rank - 185 (from
+150) Armor: Base Rank - 265 (from 250) Energy: Base Rank - 175
+(from 150) / Max Rank - 225 (from 225) 
+NIDUS Health: Base Rank - 455 (from 150) / Max Rank - 555 (from
+450) Shields: Base Rank - 0 (from 0) / Max Rank - 0 (from 0) Armor:
+Base Rank - 350 (from 300) / Max Rank - 450 (from 450) Energy: Base
+Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+NIDUS PRIME
+Health: Base Rank - 550 (from 175) / Max Rank - 650 (from 525)
+Shields: Base Rank - 0 (from 0) / Max Rank - 0 (from 0)
+Armor: Base Rank - 425 (from 350) / Max Rank - 525 (from 525)
+Energy: Base Rank - 140 (from 125) / Max Rank - 190 (from 188) 
+NOVA
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+NOVA PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 215 (from 175) / Max Rank - 265 (from 263) 
+NYX
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+NYX PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+OBERON
+Health: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 185 (from 175)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+OBERON PRIME
+Health: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 240 (from 225)
+Energy: Base Rank - 215 (from 175) / Max Rank - 265 (from 263) 
+OCTAVIA
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Armor: Base Rank - 160 (from 150)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+OCTAVIA PRIME Health: Base Rank - 270 (from 100) / Max Rank - 370
+(from 300) Shields: Base Rank - 270 (from 100) / Max Rank - 370
+(from 300) Armor: Base Rank - 160 (from 150) Energy: Base Rank -
+215 (from 175) / Max Rank - 265 (from 263) 
+PROTEA
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+REVENANT
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 735 (from 225) / Max Rank - 835 (from 675)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 140 (from 125) / Max Rank - 190 (from 188) 
+REVENANT PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 825 (from 250) / Max Rank - 925 (from 750)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+RHINO
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 240 (from 225)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+RHINO PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 290 (from 275)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+SARYN
+Health: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 240 (from 225)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+SARYN PRIME
+Health: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 315 (from 300)
+Energy: Base Rank - 200 (from 200) / Max Rank - 300 (from 300) 
+SEVAGOTH
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 235 (from 90) / Max Rank - 335 (from 270)
+Armor: Base Rank - 160 (from 150)
+Energy: Base Rank - 140 (from 125) / Max Rank - 190 (from 188) 
+SEVAGOTH'S SHADOW
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 135 (from 50) / Max Rank - 185 (from 150)
+Armor: Base Rank - 475 (from 450)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+STYANAX
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 825 (from 250) / Max Rank - 925 (from 750)
+Armor: Base Rank - 265 (from 250)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+TITANIA
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+TITANIA PRIME
+Health: Base Rank - 365 (from 125) / Max Rank - 465 (from 375)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 215 (from 175) / Max Rank - 265 (from 263) 
+TRINITY
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+TRINITY PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+VALKYR
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 135 (from 50) / Max Rank - 185 (from 150)
+Armor: Base Rank - 630 (from 600)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+VALKYR PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 135 (from 50) / Max Rank - 185 (from 150)
+Armor: Base Rank - 735 (from 700)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+VAUBAN
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Armor: Base Rank - 160 (from 150)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+VAUBAN PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 210 (from 200)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+VOLT
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+VOLT PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 200 (from 200) / Max Rank - 300 (from 300) 
+VORUNA
+Health: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 200 (from 190)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+WISP
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 180 (from 75) / Max Rank - 280 (from 225)
+Armor: Base Rank - 185 (from 175)
+Energy: Base Rank - 200 (from 200) / Max Rank - 300 (from 300) 
+WISP PRIME
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 210 (from 200)
+Energy: Base Rank - 200 (from 200) / Max Rank - 300 (from 300) 
+WUKONG
+Health: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Shields: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Armor: Base Rank - 265 (from 250)
+Energy: Base Rank - 130 (from 120) / Max Rank - 180 (from 180) 
+WUKONG PRIME
+Health: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Shields: Base Rank - 345 (from 120) / Max Rank - 445 (from 360)
+Armor: Base Rank - 290 (from 275)
+Energy: Base Rank - 145 (from 130) / Max Rank - 195 (from 195) 
+XAKU
+Health: Base Rank - 269 (from 97) / Max Rank - 359 (from 291)
+Shields: Base Rank - 239 (from 89) / Max Rank - 329 (from 267)
+Armor: Base Rank - 145 (from 137)
+Energy: Base Rank - 160 (from 153) / Max Rank - 230 (from 230) 
+YARELI
+Health: Base Rank - 270 (from 100) / Max Rank - 370 (from 300)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 200 (from 200) / Max Rank - 300 (from 300) 
+ZEPHYR
+Health: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 105 (from 100)
+Energy: Base Rank - 100 (from 100) / Max Rank - 150 (from 150) 
+ZEPHYR PRIME
+Health: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Shields: Base Rank - 455 (from 150) / Max Rank - 555 (from 450)
+Armor: Base Rank - 135 (from 125)
+Energy: Base Rank - 175 (from 150) / Max Rank - 225 (from 225) 
+Warframe Mod Changes:
+As promised, here is the comprehensive list of Mod changes to go
+with the stat changes above.
+*the values below are at Max Rank!
+Health-Specific Mods:
+Vitality: +100% Health (was +440%)
+Umbral Vitality: +100% Health (was +440%) 
++130% and +180% with set bonuses (was +550% and +770%)
+The 2-Mod set bonus for Umbral Vitality is more substantial than
+it was before, so builds that use Umbral Vitality and only one
+other Umbral Mod should see a buff to their Health stat.
+Archon Vitality: +100% Health (was +440%)
+Physique: +20% Health (was +90%)
+Gladiator Resolve: +40% Health (was +180%)
+Nira's Hatred: +35% Health (was +150%)
+Reveal hidden contents 
+▾
+▾
+• 
+• 
+◦ 
+◦ 
+• 
+• 
+• 
+• 
+Shield-Specific Mods:
+Redirection: +100% Shield Capacity (was +440%)
+Augur Accord: +70% Shield Capacity (was +180%)
+Boreal's Hatred: +65% Shield Capacity (was +150%)
+Armor-Specific Mods:
+Steel Fiber: +100% Armor (was +110%)
+Umbral Fiber: +100% Armor (was +110%) 
++130% and +180% with set bonuses (was +137.5% and
++192.5%)
+The 2-Mod set bonus for Umbral Fiber is more substantial than it
+was before, so builds that use Umbral Fiber and only one other
+Umbral Mod should see a buff to their Armor stat.
+Stand United: +25% Armor (was +25.5%)
+Armored Agility: +40% Armor (was +45%)
+Amar's Hatred: +25% Armor (was +30%)
+Gladiator Aegis: +40% Armor (was +45%)
+Mecha Pulse: +60% Armor (unchanged)
+Ironclad Charge: +50% Armor (unchanged)
+Energy-Specific Mods:
+Flow: +100% Energy Max (was +150%)
+Primed Flow: +185% Energy Max (was +275%)
+Archon Flow: +185% Energy Max (was +275%)
+Endurance Drift: +10% Energy Max (was +15%)
+Mods with Various Stats:
+Vigor: +50% Shield Capacity, +50% Health (was +120% each)
+Primed Vigor: +75% Shield Capacity, +75% Health (was +220%
+each)
+Carnis Carapace: +55% Armor, +20% Health (was +60% Armor,
++90% Health)
+Jugulus Carapace: +55% Armor, +20% Health (was +60% Armor,
++90% Health)
+Saxum Carapace: +55% Armor, +20% Health (was +60% Armor,
++90% Health)
+While there may be significant changes to Warframe Stats
+and Mod values as a part of this overhaul, the end result is
+that your Builds should mostly stay the same. The key
+difference is the added clarity of what your Health / Shield /
+Energy / Armor Mods do in your Upgrade screens!
+Update 24.4 (2019-03-08) 
+• 
+• 
+• 
+• 
+• 
+◦ 
+◦ 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+UI Changes & Fixes
+The Warframe Abilities screen has received a visual and functional
+overhaul! 
+Ability information is now displayed in a more condensed form,
+with hover-over functionality to display specific Stats and expand
+the information.
+A new ‘Tips’ section can be hover-overed to display tips for that
+respective Warframe’s Abilities such as tricks to synergize with
+other Warframes, most effective Damage output methods, Ability
+interactions within the Warframe itself, and more!
+Respective Ability videos now also appear upon hover-over to
+add that little extra spice! This initial Ability video aspect is
+currently functional for Excalibur, Mag, Volt, Garuda, Baruuk,
+Revenant, and Hildryn! More to gradually come!
+Your chosen UI Theme is now thematically reflected.
+Respective Warframe Ability stats can now be seen in the Warframe
+Arsenal Upgrade screen.
+Added stats to your Warframe’s Passive description in the Abilities
+menu.
+Update: Specters of the Rail 0.0 (2016-07-08) 
+Warframe Helmet blueprints are now labeled as ‘Neuroptics’.
+Please note that when trading components, full Warframe sets now
+contain Systems, Chassis, and Neuroptics (previously Helmet) as
+components.
+Update 17.5 (2015-10-01) 
+Duration Mods now have an effect on toggled Abilities. 
+For example: Mods that added 100% duration will make a 10
+Energy drain become a 5 Energy drain.
+The minimum energy cost of an Ability cannot go below 25% of
+the base cost.
+Update 15.9 (2015-01-08) 
+Warframes will now have temporary immunity while loading into a
+mission in progress, to prevent spawning into a mission half-dead
+due to enemy attacks.
+Update 15.0 (2014-10-24) 
+New Mods - Ability Augment Mods (x20)!
+Ability Augment Mods tweak and enhance Warframe Abilities in
+interesting ways. They are equipped in Mod Slots via the Warframe
+Upgrade Screen.
+These mods can be found within the Reward tiers of Syndicates.
+Higher Standing will allow Tenno to access the corresponding
+Augments per Syndicate.
+• 
+◦ 
+◦ 
+◦ 
+◦ 
+• 
+• 
+• 
+• 
+◦ 
+◦ 
+• 
+• 
+• 
+Edit
+Warframes
+A-
+G
+Ash ( Prime) • Atlas ( Prime) • Banshee ( Prime) • Baruuk
+( Prime) • Caliban ( Prime) • Chroma ( Prime) • Citrine • 
+Cyte-09 • Dagath • Dante • Ember ( Prime) • Equinox ( Prime)
+• Excalibur ( Prime, Umbra) • Follie • Frost ( Prime) • Gara
+( Prime) • Garuda ( Prime) • Gauss ( Prime) • Grendel ( Prime) •
+Gyre ( Prime) 
+H-
+N
+Harrow ( Prime) • Hildryn ( Prime) • Hydroid ( Prime) • Inaros
+( Prime) • Ivara ( Prime) • Jade • Khora ( Prime) • Koumei • 
+Kullervo • Lavos ( Prime) • Limbo ( Prime) • Loki ( Prime) • 
+Mag ( Prime) • Mesa ( Prime) • Mirage ( Prime) • Nekros
+( Prime) • Nezha ( Prime) • Nidus ( Prime) • Nokko • Nova
+( Prime) • Nyx ( Prime) 
+O-
+V
+Oberon ( Prime) • Octavia ( Prime) • Oraxia • Protea ( Prime) • 
+Qorvex • Revenant ( Prime) • Rhino ( Prime) • Saryn ( Prime) • 
+Sevagoth ( Prime) • Sirius & Orion • Styanax ( Prime) • Temple
+• Titania ( Prime) • Trinity ( Prime) • Uriel • Valkyr ( Prime) • 
+Vauban ( Prime) • Volt ( Prime) • Voruna ( Prime) 
+W-
+Z
+Wisp ( Prime) • Wukong ( Prime) • Xaku ( Prime) • Yareli
+( Prime) • Zephyr ( Prime) 
+Upcoming 
+A-
+Z 
+Brysko • Narin
+Attributes • Helminth • Augments • Compare All • Cosmetics
+New Customization - Sigils!
+Found in the “Regalia” section of the Arsenal, equip and customize
+Sigils to show your loyalties and accomplishments! 
+Please note: All Founders will be receiving Sigils corresponding to
+their rank at a later Update.
+New Customization - Warframe Idles Feature!
+You can now equip the 40+ Agile and Noble stances across all
+Warframes! Each Stance is unlocked with Platinum and will work
+across all Warframes once purchased.
+• 
+◦ 
+• 

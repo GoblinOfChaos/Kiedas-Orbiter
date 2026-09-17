@@ -1,0 +1,11 @@
+[package]
+name = "preview-isolation-checks"
+version = "0.1.0"
+edition = "2021"
+[dependencies]
+serde_json = "1"
+tauri-utils = "2"
+json-patch = "3"
+[features]
+default = ["preview"]
+preview = []

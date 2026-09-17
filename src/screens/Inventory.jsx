@@ -7,7 +7,7 @@
  */
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { useUi } from '../contexts/UiContext'
-import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers } from 'lucide-react';
+import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers, LayoutGrid, List } from 'lucide-react';
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import ItemImage from '../components/ItemImage';
@@ -15,10 +15,14 @@ import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer, formatChance } from '../components/AcquisitionDrawer';
+import PreviewAcquisitionDrawer from '../preview/acquisition/PreviewAcquisitionDrawer';
 import ModCard from '../components/ModCard';
 import { getRelicCatalog } from '../lib/relicParser';
 import { getSetting } from '../lib/settings';
 import { ensureWfmItems, lookupWfmItem } from '../lib/wfmCache';
+import { IS_PREVIEW } from '../lib/buildProfile';
+import PreviewInventoryLayout from '../components/PreviewInventoryLayout';
+import { categoryDisplayLabel } from '../lib/categoryLabels';
 
 
 
@@ -130,6 +134,28 @@ export default function Inventory() {
     prime: t('ui.inventory.filter_prime'),
     vaulted: t('relics.vaulted')
   };
+  // Preview-only. NEG_LABELS above is left untouched because Stable's
+  // unmodified cycling-button code path still reads it - it was never a true
+  // "negative state" label (owned/mastered/etc all resolve to their positive
+  // word), which was invisible as a bug in a single button showing one label
+  // at a time, but became "ALL MASTERED MASTERED" once the three-button
+  // version put both states on screen simultaneously. These are the actual
+  // distinct negative-state words.
+  const TRIPLE_NEG_LABELS = {
+    mastered: t('ui.inventory.unmastered'),
+    subsumed: t('ui.inventory.filter_subsumed_no'),
+    socketed: t('ui.inventory.filter_socketed_no'),
+    prime: t('ui.inventory.filter_prime_no'),
+    vaulted: t('ui.inventory.filter_vaulted_no')
+  };
+  // Mutually-exclusive sub-type filters were previously rendered as independent
+  // cycling toggles, so a user could select e.g. Primary AND Secondary at once
+  // even though a weapon is only ever one type. Grouped here into single
+  // segmented controls (All/Primary/Secondary/Melee, All/Archwing/K-Drive/Necramech)
+  // instead. The underlying per-key filter predicates (filteredItems, above) are
+  // unchanged - only the control shape and the fact that selecting one member
+  // clears its siblings changes.
+  const FILTER_GROUPS = { primary: 'weapon_type', secondary: 'weapon_type', melee: 'weapon_type', archwing: 'vehicle_type', kdrive: 'vehicle_type', necramech: 'vehicle_type' };
 
   const SORT_CONFIG = {
     all: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
@@ -179,6 +205,11 @@ export default function Inventory() {
   const [sortCriteria, setSortCriteria] = useState('name');
   const [sortDirection, setSortDirection] = useState('asc');
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+  // Preview-only. Applies to the generic item branch only (12 of 15
+  // categories) - Prime Parts and Ayatan keep their existing bespoke
+  // layouts regardless of this, and Arcanes keeps rendering via the shared
+  // ModCard component in both modes rather than a custom list row for it.
+  const [viewMode, setViewMode] = useState('grid');
   const [framesPath, setFramesPath] = useState('');
   const [uiPath, setUiPath] = useState('');
   const [iconsPath, setIconsPath] = useState('');
@@ -522,14 +553,27 @@ export default function Inventory() {
 
   const openItem = useMemo(() => {
     if (!openKey) return null;
-    const item = visibleItems.find((it) => it.unique_name === openKey);
+    // Look up against filteredItems, not the paginated visibleItems - visibleItems
+    // gets a new array reference every ~300ms while background pagination is
+    // running (see the effect above), which was making this memo (and the
+    // getAcquisitionInfo() call inside it) recompute on every pagination tick
+    // while the drawer was open, causing the acquisition drawer to rapidly
+    // flicker between its loading/resolved states.
+    const item = filteredItems.find((it) => it.unique_name === openKey);
     if (!item) return null;
     // Relics are grouped under a synthetic display key (e.g. "Meso N17"),
     // not a real DE path - real_unique_name carries the actual path needed
     // to resolve vaulted status and drop sources. See inventoryParser.js.
     const lookupKey = item.real_unique_name || item.unique_name;
-    return { uniqueName: item.unique_name, displayName: item.name, info: getAcquisitionInfo(lookupKey, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) };
-  }, [openKey, visibleItems, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex]);
+    return {
+      uniqueName: item.unique_name,
+      displayName: item.name,
+      image: item.image,
+      category: categoryDisplayLabel(item.category, t),
+      owned: item.owned,
+      info: getAcquisitionInfo(lookupKey, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex),
+    };
+  }, [openKey, filteredItems, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex, t]);
 
   const modBg = useCallback((mf, item) => {
     if (!framesPath) return '';
@@ -549,26 +593,84 @@ export default function Inventory() {
 
   const tabLabel = INVENTORY_TABS.find((t) => t.id === activeTab)?.label ?? activeTab;
 
+  // Preview-only persistent category sidebar (wide widths). Independent of
+  // renderHeaderPanel's horizontal Tabs strip (still the compact/narrow-width
+  // selector) - a small duplication of the icon-resolution logic rather than
+  // sharing it, so this stays isolated from the already-verified header code.
+  const renderCategoryNavigator = () =>
+  <nav
+    className="hidden lg:flex flex-col gap-1 w-48 flex-shrink-0 overflow-y-auto py-1"
+    style={{ scrollbarWidth: 'thin' }}
+    aria-label={t('screen.inventory')}>
+    {INVENTORY_TABS.map((tab) => {
+      const iconMap = { all: 'All', warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', vehicles: 'Vehicles', amps: 'Amps', arcanes: 'Arcanes', peely_pix: 'Mods', consumables: 'Resources', landing_craft: 'Vehicles', resources: 'Resources', prime_parts: 'PrimeParts', ayatan: 'Ayatan' };
+      const iconName = iconMap[tab.id] || tab.label;
+      const peelyPackPath = '/Lotus/Interface/Icons/StoreIcons/Resources/1999Wf/StickerPack.png';
+      const peelyPackHash = ExportImages?.[peelyPackPath]?.contentHash;
+      const icon = tab.id === 'peely_pix'
+        ? peelyPackHash
+          ? `asset-cache://content.warframe.com/PublicExport${peelyPackPath}!${peelyPackHash}`
+          : `asset-cache://browse.wf${peelyPackPath}`
+        : iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null;
+      const isActive = activeTab === tab.id;
+      return (
+        <button
+          key={tab.id}
+          onClick={() => { setActiveTab(tab.id); setCurrentFilters({}); setSortCriteria('name'); setSortDirection('asc'); }}
+          aria-current={isActive ? 'page' : undefined}
+          className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-bold uppercase tracking-tight text-left transition-all whitespace-nowrap ${
+          isActive ?
+          'bg-kronos-accent text-kronos-bg' :
+          'text-kronos-dim hover:text-white hover:bg-white/5'}`
+          }>
+          {icon && <img src={icon} alt="" className="w-4 h-4 object-contain flex-shrink-0" />}
+          <span className="truncate min-w-0 flex-1">{tab.label}</span>
+        </button>
+      );
+    })}
+  </nav>;
+
   const renderHeaderPanel = () =>
   <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-3">
-        {/* Search Bar */}
-        <div className="relative flex-1 group">
+      {/* Preview-only: flex-wrap so the search field is never squeezed to
+          near-zero width by the filter/sort blocks at narrow content widths -
+          they now drop to their own row instead ("clipped search controls"
+          from live review). Stable keeps its exact original non-wrapping row
+          unchanged. */}
+      <div className={`flex items-center gap-3 ${IS_PREVIEW ? 'flex-wrap' : ''}`}>
+        {/* Search Bar. Below `lg`, forced to its own full-width row
+            (basis-full) instead of sharing the wrap group with the filter/
+            sort/view buttons - mixing a flex-1 search bar into the same
+            wrap group as several button clusters produced confusing,
+            order-dependent splits (search+sort+view on one line, filters
+            alone on the next) rather than a clean, predictable wrap. */}
+        <div className={`relative flex-1 group ${IS_PREVIEW ? 'min-w-[200px] basis-full lg:basis-0' : ''}`}>
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
           <Input
           placeholder={t('ui.inventory.search_placeholder', { tab: tabLabel })}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="pl-12 bg-black/20 border-white/5 focus:bg-black/40 h-[42px]" />
-        
+
         </div>
 
+        {/* Filters + Sort + View grouped into one shared wrapping unit so they
+            move together at narrow widths, instead of each block wrapping
+            independently and scattering onto separate lines (Filters landing
+            top-right, Sort alone bottom-left, View alone below that). Uses
+            `display: contents` for Stable so this wrapper is fully
+            transparent to layout there - zero visual change, same flat
+            sibling structure as before. */}
+        <div className={IS_PREVIEW ? 'flex items-center gap-3 flex-wrap' : 'contents'}>
         {/* Filter Tags In-line */}
         {(FILTER_CONFIG[activeTab] ?? []).length > 0 &&
       <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
             <Filter size={14} className="text-kronos-dim mx-1" />
             <div className="flex gap-1">
-              {(FILTER_CONFIG[activeTab] ?? []).map((f) => {
+              {(() => {
+            const keys = FILTER_CONFIG[activeTab] ?? [];
+            const renderedGroups = new Set();
+            return keys.map((f) => {
             if (f === 'owned') {
               // All/Owned/Unowned as three directly-clickable buttons, matching
               // the ownership filter on every other screen (Mods, Foundry,
@@ -599,32 +701,123 @@ export default function Inventory() {
                 </div>
               );
             }
+            if (!IS_PREVIEW) {
+              // Stable: exact original behavior, unchanged - every non-owned
+              // filter is one button cycling off -> yes -> (no, if triple) ->
+              // off. The uniform segmented/three-button/checkbox treatment
+              // below is Preview-only until separately approved as a Stable
+              // correction.
+              const state = currentFilters[f];
+              const isTriple = TRIPLE_FILTERS.has(f);
+              const label = state === 'no' ? NEG_LABELS[f] ?? f.replace(/_/g, ' ') : f.replace(/_/g, ' ');
+              return (
+                <button
+                  key={f}
+                  onClick={() => {
+                    setCurrentFilters((prev) => {
+                      if (prev[f] === undefined) return { ...prev, [f]: 'yes' };
+                      if (prev[f] === 'yes' && isTriple) return { ...prev, [f]: 'no' };
+                      const { [f]: _, ...rest } = prev;
+                      return rest;
+                    });
+                  }}
+                  className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all whitespace-nowrap ${
+                  state === 'yes' ?
+                  'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' :
+                  state === 'no' ?
+                  'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]' :
+                  'text-kronos-dim hover:text-white hover:bg-white/5'}`
+                  }>
+                  {label}
+                </button>);
+            }
+            const groupId = FILTER_GROUPS[f];
+            if (groupId) {
+              if (renderedGroups.has(groupId)) return null;
+              renderedGroups.add(groupId);
+              const members = keys.filter((k) => FILTER_GROUPS[k] === groupId);
+              const activeMember = members.find((m) => currentFilters[m] === 'yes');
+              return (
+                <div key={groupId} className="flex gap-1">
+                  {[{ id: undefined, label: t('ui.inventory.tab_all') }, ...members.map((m) => ({ id: m, label: m.replace(/_/g, ' ') }))].
+                  map((opt) => (
+                    <button
+                      key={opt.label}
+                      onClick={() => setCurrentFilters((prev) => {
+                        const rest = { ...prev };
+                        members.forEach((m) => { delete rest[m]; });
+                        if (opt.id !== undefined) rest[opt.id] = 'yes';
+                        return rest;
+                      })}
+                      className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all whitespace-nowrap ${
+                      (opt.id === undefined ? !activeMember : activeMember === opt.id) ?
+                      'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' :
+                      'text-kronos-dim hover:text-white hover:bg-white/5'}`
+                      }>
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              );
+            }
             const state = currentFilters[f];
             const isTriple = TRIPLE_FILTERS.has(f);
-            const label = state === 'no' ? NEG_LABELS[f] ?? f.replace(/_/g, ' ') : f.replace(/_/g, ' ');
+            if (isTriple) {
+              // Same All/Positive/Negative three-button pattern as `owned`,
+              // for uniformity - this used to be a single button that cycled
+              // through the three states with no visible indication a third
+              // state existed.
+              return (
+                <div key={f} className="flex gap-1">
+                  {[
+                  { id: undefined, label: t('ui.inventory.tab_all') },
+                  { id: 'yes', label: f.replace(/_/g, ' ') },
+                  { id: 'no', label: TRIPLE_NEG_LABELS[f] ?? f.replace(/_/g, ' ') }].
+                  map((opt) => (
+                    <button
+                      key={opt.label}
+                      onClick={() => setCurrentFilters((prev) => {
+                        if (opt.id === undefined) { const { [f]: _, ...rest } = prev; return rest; }
+                        return { ...prev, [f]: opt.id };
+                      })}
+                      className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all whitespace-nowrap ${
+                      state === opt.id ?
+                      'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' :
+                      'text-kronos-dim hover:text-white hover:bg-white/5'}`
+                      }>
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              );
+            }
+            // Independent boolean (currently only `incarnon`) - a real
+            // checkbox rather than a highlight-button, since it can combine
+            // freely with other active filters instead of being exclusive.
             return (
               <button
                 key={f}
+                role="checkbox"
+                aria-checked={state === 'yes'}
                 onClick={() => {
                   setCurrentFilters((prev) => {
-                    if (prev[f] === undefined) return { ...prev, [f]: 'yes' };
-                    if (prev[f] === 'yes' && isTriple) return { ...prev, [f]: 'no' };
-                    const { [f]: _, ...rest } = prev;
-                    return rest;
+                    if (prev[f] === 'yes') { const { [f]: _, ...rest } = prev; return rest; }
+                    return { ...prev, [f]: 'yes' };
                   });
                 }}
-                className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all whitespace-nowrap ${
+                className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all whitespace-nowrap flex items-center gap-1.5 ${
                 state === 'yes' ?
                 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' :
-                state === 'no' ?
-                'bg-red-500/20 text-red-400 shadow-[0_0_10px_rgba(255,0,0,0.15)]' :
                 'text-kronos-dim hover:text-white hover:bg-white/5'}`
                 }>
+                <span className={`w-3 h-3 rounded-sm border flex items-center justify-center flex-shrink-0 ${state === 'yes' ? 'bg-kronos-bg border-kronos-bg' : 'border-current'}`}>
+                  {state === 'yes' && <Check size={9} strokeWidth={3.5} className="text-kronos-accent" />}
+                </span>
+                {f.replace(/_/g, ' ')}
+              </button>);
 
-                    {label}
-                  </button>);
-
-          })}
+          });
+          })()}
             </div>
           </div>
       }
@@ -655,32 +848,67 @@ export default function Inventory() {
           })}
           </div>
         </div>
+
+        {/* View selector - Preview-only, and only meaningful for the generic
+            item grid (Prime Parts and Ayatan keep their own bespoke layout
+            regardless of this control). */}
+        {IS_PREVIEW && activeTab !== 'prime_parts' && activeTab !== 'ayatan' &&
+        <div className="flex items-center gap-1 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-1.5">
+            {[{ id: 'grid', Icon: LayoutGrid, label: t('ui.inventory.view_grid') }, { id: 'list', Icon: List, label: t('ui.inventory.view_list') }].map(({ id, Icon, label }) => (
+              <button
+                key={id}
+                onClick={() => setViewMode(id)}
+                aria-pressed={viewMode === id}
+                title={label}
+                className={`p-1.5 rounded-lg transition-all ${viewMode === id ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+                <Icon size={14} />
+              </button>
+            ))}
+          </div>
+        }
+        </div>
       </div>
 
       {/* Category Tabs */}
-      <Tabs tabs={INVENTORY_TABS.map((t) => {
-      const iconMap = { warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', arcanes: 'Arcanes', peely_pix: 'Mods', consumables: 'Resources', landing_craft: 'Vehicles', prime_parts: 'PrimeParts', ayatan: 'Ayatan' };
-      const iconName = iconMap[t.id] || t.label;
-      const peelyPackPath = '/Lotus/Interface/Icons/StoreIcons/Resources/1999Wf/StickerPack.png';
-      const peelyPackHash = ExportImages?.[peelyPackPath]?.contentHash;
-      const icon = t.id === 'peely_pix'
-        ? peelyPackHash
-          ? `asset-cache://content.warframe.com/PublicExport${peelyPackPath}!${peelyPackHash}`
-          : `asset-cache://browse.wf${peelyPackPath}`
-        : iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null;
-      return { ...t, icon };
-    })} activeTab={activeTab} onChange={(id) => {setActiveTab(id);setCurrentFilters({});setSortCriteria('name');setSortDirection('asc');}} />
+      {(() => {
+        const categoryTabs = (
+          <Tabs tabs={INVENTORY_TABS.map((t) => {
+          const iconMap = { all: 'All', warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', vehicles: 'Vehicles', amps: 'Amps', arcanes: 'Arcanes', peely_pix: 'Mods', consumables: 'Resources', landing_craft: 'Vehicles', resources: 'Resources', prime_parts: 'PrimeParts', ayatan: 'Ayatan' };
+          const iconName = iconMap[t.id] || t.label;
+          const peelyPackPath = '/Lotus/Interface/Icons/StoreIcons/Resources/1999Wf/StickerPack.png';
+          const peelyPackHash = ExportImages?.[peelyPackPath]?.contentHash;
+          const icon = t.id === 'peely_pix'
+            ? peelyPackHash
+              ? `asset-cache://content.warframe.com/PublicExport${peelyPackPath}!${peelyPackHash}`
+              : `asset-cache://browse.wf${peelyPackPath}`
+            : iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null;
+          return { ...t, icon };
+        })} activeTab={activeTab} onChange={(id) => {setActiveTab(id);setCurrentFilters({});setSortCriteria('name');setSortDirection('asc');}} />
+        );
+        // Preview-only: explicit overflow-x plus a visible thin scrollbar (the
+        // default browser scrollbar for a plain overflow-x-auto row was
+        // effectively invisible on some platforms, leaving no indication
+        // there was more to scroll to). `lg:hidden` because the category
+        // sidebar takes over as the primary selector at that width - this
+        // strip was left visible at all widths by mistake initially, so both
+        // selectors showed simultaneously. Stable renders the bare Tabs
+        // element with no extra wrapping node, exactly as before.
+        return IS_PREVIEW
+          ? <div className="overflow-x-auto lg:hidden" style={{ scrollbarWidth: 'thin' }}>{categoryTabs}</div>
+          : categoryTabs;
+      })()}
     </div>;
 
 
-  return (
-    <>
-    <PageLayout
-      titleKey="screen.inventory"
-      subtitle={t('ui.inventory.displaying_items', { shown: visibleItems.length, total: filteredItems.length })}
-      extra={renderHeaderStats(inventoryData, iconsPath)}
-      headerPanel={renderHeaderPanel()}>
-
+  const headerStats = renderHeaderStats(inventoryData, iconsPath, t);
+  const headerPanel = renderHeaderPanel();
+  // Extracted into a variable (rather than left inline in the return
+  // statement) so the Preview-only category-navigator sidebar can wrap it
+  // without duplicating this ~500-line block into two near-identical
+  // branches - one wrapped, one not. No content or behavior changed by
+  // this extraction; it is the exact same JSX that was previously written
+  // directly inside <PageLayout>.
+  const mainContent = (
       <div className="flex flex-col gap-6 flex-1 min-h-0">
         {inventoryData === undefined ?
         <MonitorState isLoading className="py-20" /> :
@@ -911,7 +1139,7 @@ export default function Inventory() {
           })}
             </div> :
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 pb-4">
+        <div className={IS_PREVIEW && viewMode === 'list' && activeTab !== 'arcanes' ? 'flex flex-col gap-1.5 pb-4' : 'grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 pb-4'}>
               {visibleItems.map((item, idx) => {
             const isUnowned = !item.owned;
             const isPrimePart = item.category === 'prime_parts';
@@ -928,6 +1156,36 @@ export default function Inventory() {
                     exportTextIcons={ExportTextIcons}
                     pricesLoading={false} />
                 </div>
+              );
+            }
+            // Preview-only dense list row: same underlying item, a single-line
+            // alternative to the wide Card below for faster side-by-side
+            // comparison (name, rank/mastery/quantity status in one row).
+            if (IS_PREVIEW && viewMode === 'list') {
+              return (
+                <Card key={item.unique_name + idx} glow={!isUnowned} onClick={() => toggle(item.unique_name)} className={`relative p-0 overflow-hidden flex items-center gap-3 px-3 py-2 cursor-pointer transition-all ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
+                  <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center bg-kronos-panel/30 rounded">
+                    {item.image && <ItemImage src={item.image} alt="" className={`max-w-full max-h-full object-contain ${isUnowned ? 'grayscale opacity-40' : ''}`} placeholderClassName="w-6 h-6" loading="lazy" resolveFallbackSrc={resolveImgFallback} />}
+                  </div>
+                  <span className="text-[9px] font-black text-kronos-accent uppercase tracking-widest w-24 flex-shrink-0 truncate">
+                    {item.category === 'mods' ? item.rarity || t('inventory.category_mod') : item.weapon_type || item.vehicle_type || (isPrimePart ? t('inventory.category_prime_part') : categoryDisplayLabel(item.category, t))}
+                  </span>
+                  <h4 className="font-bold text-xs uppercase text-kronos-text truncate flex-1 min-w-0">{item.name}</h4>
+                  <div className="flex items-center gap-3 flex-shrink-0">
+                    {!isUnowned && item.rank !== undefined && item.max_rank !== undefined && item.max_rank > 0 &&
+                      <span className={`text-[10px] font-black uppercase ${item.rank === item.max_rank ? 'text-blue-400' : 'text-kronos-dim'}`}>R{item.rank}/{item.max_rank}</span>
+                    }
+                    {!isModOrResource && (
+                      item.mastered ?
+                      <span className="text-[10px] font-black uppercase text-blue-400 flex items-center gap-1"><Gem size={10} />{t('ui.comp.mastered')}</span> :
+                      <span className={`text-[10px] font-black uppercase flex items-center gap-1 ${isUnowned ? 'text-kronos-dim/30' : 'text-kronos-dim'}`}><Gem size={10} />{item.owned ? 'Unmastered' : 'Unowned'}</span>
+                    )}
+                    {item.subsumed && <span className="text-[10px] font-black uppercase text-purple-400">⚗ {t('ui.comp.subsumed')}</span>}
+                    {(isModOrResource || isPrimePart || item.veiled) && item.quantity !== undefined &&
+                      <span className={`text-[10px] font-black uppercase ${item.quantity > 0 ? 'text-kronos-accent' : 'text-kronos-dim/30'}`}>{item.quantity > 0 ? `×${item.quantity}` : 'Unowned'}</span>
+                    }
+                  </div>
+                </Card>
               );
             }
             return (
@@ -971,9 +1229,9 @@ export default function Inventory() {
                       {/* Top: category label + name */}
                       <div className="min-w-0">
                         <span className="text-[9px] font-black text-kronos-accent uppercase tracking-widest block whitespace-normal leading-none mb-1">
-                          {item.category === 'mods' ? item.rarity || 'Mod' : item.weapon_type || item.vehicle_type || (isPrimePart ? 'Prime Part' : item.category?.replace(/_/g, ' '))}
+                          {item.category === 'mods' ? item.rarity || t('inventory.category_mod') : item.weapon_type || item.vehicle_type || (isPrimePart ? t('inventory.category_prime_part') : categoryDisplayLabel(item.category, t))}
                         </span>
-                        <h4 className="font-bold text-sm uppercase whitespace-normal text-kronos-text leading-tight mt-0.5">
+                        <h4 className="font-bold text-sm uppercase line-clamp-2 text-kronos-text leading-tight mt-0.5">
                           {item.name}
                         </h4>
                         {item.description &&
@@ -1014,20 +1272,20 @@ export default function Inventory() {
                         {/* Mastery (equipment) */}
                         {!isModOrResource && (
                     item.mastered ?
-                    <span className="text-[10px] font-black uppercase text-blue-400 flex items-center gap-1"><Gem size={10} className="fill-current/20" />{t('ui.comp.mastered')}</span> :
-                    <span className={`text-[10px] font-black uppercase flex items-center gap-1 ${isUnowned ? 'text-kronos-dim/30' : 'text-kronos-dim'}`}><Gem size={10} />{item.owned ? 'Unmastered' : 'Unowned'}</span>)
+                    <span className="text-[10px] font-black uppercase text-blue-400 flex items-center gap-1 min-w-0 max-w-full"><Gem size={10} className="fill-current/20 flex-shrink-0" /><span className="truncate min-w-0 flex-1">{t('ui.comp.mastered')}</span></span> :
+                    <span className={`text-[10px] font-black uppercase flex items-center gap-1 min-w-0 max-w-full ${isUnowned ? 'text-kronos-dim/30' : 'text-kronos-dim'}`}><Gem size={10} className="flex-shrink-0" /><span className="truncate min-w-0 flex-1">{item.owned ? 'Unmastered' : 'Unowned'}</span></span>)
                     }
 
                         {/* Subsumed (warframes) */}
                         {item.subsumed &&
-                    <span className="text-[10px] font-black uppercase text-purple-400 flex items-center gap-1">
-                            <span className="text-xs">⚗</span>{t('ui.comp.subsumed')}
+                    <span className="text-[10px] font-black uppercase text-purple-400 flex items-center gap-1 min-w-0 max-w-full">
+                            <span className="text-xs flex-shrink-0">⚗</span><span className="truncate min-w-0 flex-1">{t('ui.comp.subsumed')}</span>
                     </span>
                     }
 
                         {/* Stock count (mods, resources, arcanes, prime parts, veiled rivens) */}
                         {(isModOrResource || isPrimePart || item.veiled) && item.quantity !== undefined &&
-                    <span className={`text-[10px] font-black uppercase ${item.quantity > 0 ? 'text-kronos-accent' : 'text-kronos-dim/30'}`}>
+                    <span className={`text-[10px] font-black uppercase truncate max-w-full ${item.quantity > 0 ? 'text-kronos-accent' : 'text-kronos-dim/30'}`}>
                             {item.quantity > 0 ? `×${item.quantity}` : 'Unowned'}
                           </span>
                     }
@@ -1080,8 +1338,8 @@ export default function Inventory() {
                               </div>
                       }>
                       
-                            <span className="text-[10px] font-black uppercase text-orange-400 flex items-center gap-1 cursor-help">
-                              <Zap size={10} className="fill-current" />{t('ui.inventory.filter_incarnon')}
+                            <span className="text-[10px] font-black uppercase text-orange-400 flex items-center gap-1 cursor-help min-w-0 max-w-full">
+                              <Zap size={10} className="fill-current flex-shrink-0" /><span className="truncate min-w-0 flex-1">{t('ui.inventory.filter_incarnon')}</span>
                       </span>
                           </Tooltip>
                     }
@@ -1102,8 +1360,8 @@ export default function Inventory() {
                               </div>
                       }>
                       
-                            <span className="text-[10px] font-black uppercase text-yellow-500 flex items-center gap-1 cursor-help">
-                              <Zap size={10} className="fill-current" />{t('ui.inventory.crafting_ingredient')}
+                            <span className="text-[10px] font-black uppercase text-yellow-500 flex items-center gap-1 cursor-help min-w-0 max-w-full">
+                              <Zap size={10} className="fill-current flex-shrink-0" /><span className="truncate min-w-0 flex-1">{t('ui.inventory.crafting_ingredient')}</span>
                       </span>
                           </Tooltip>
                     }
@@ -1189,8 +1447,8 @@ export default function Inventory() {
                                 </div>
                           }>
                           
-                              <span className="text-[10px] font-black uppercase text-kronos-dim flex items-center gap-1 cursor-help hover:text-kronos-accent transition-colors">
-                                <Layers size={10} />{t('ui.inventory.sources')}
+                              <span className="text-[10px] font-black uppercase text-kronos-dim flex items-center gap-1 cursor-help hover:text-kronos-accent transition-colors min-w-0 max-w-full">
+                                <Layers size={10} className="flex-shrink-0" /><span className="truncate min-w-0 flex-1">{t('ui.inventory.sources')}</span>
                           </span>
                             </Tooltip>);
 
@@ -1204,19 +1462,47 @@ export default function Inventory() {
         }
         {visibleCount < filteredItems.length && <div className="flex justify-center py-8"><Button onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}>{t('ui.inventory.load_more_items')}</Button></div>}
       </div>
-    </PageLayout>
-    {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
+  );
+
+  const pageLayoutProps = {
+    titleKey: 'screen.inventory',
+    subtitle: t('ui.inventory.displaying_items', { shown: visibleItems.length, total: filteredItems.length }),
+    extra: IS_PREVIEW ? null : headerStats,
+    headerPanel: IS_PREVIEW ? <PreviewInventoryLayout stats={headerStats} controls={headerPanel} /> : headerPanel
+  };
+
+  return (
+    <>
+    {IS_PREVIEW ? (
+      // Category navigator: a persistent sidebar at wide widths, replacing
+      // the horizontal tab strip as the primary way to switch categories
+      // (the strip above still exists for narrower widths where the sidebar
+      // is hidden via `lg:flex`/`hidden`, per the master plan's "persistent
+      // navigator on wide screens; labeled menu on compact" rule). Stable
+      // renders PageLayout directly with no sidebar or extra wrapping node,
+      // exactly as before.
+      <div className="flex gap-4 flex-1 min-h-0 h-full">
+        {renderCategoryNavigator()}
+        <div className="flex-1 min-w-0 min-h-0 flex flex-col">
+          <PageLayout {...pageLayoutProps}>{mainContent}</PageLayout>
+        </div>
+      </div>
+    ) : (
+      <PageLayout {...pageLayoutProps}>{mainContent}</PageLayout>
+    )}
+    {openItem && (IS_PREVIEW
+      ? <PreviewAcquisitionDrawer item={openItem} onClose={close} />
+      : <AcquisitionDrawer item={openItem} onClose={close} />)}
     </>);
 
 }
 
-function renderHeaderStats(inventoryData, iconsPath) {
+function renderHeaderStats(inventoryData, iconsPath, t) {
   if (!inventoryData?.account) return null;
-  const { credits, platinum, forma, aura_forma, stance_forma, umbra_forma, orokin_reactor, orokin_catalyst, endo } = inventoryData.account;
-  const { t } = useUi();
+  const { credits, platinum, forma, aura_forma, stance_forma, umbra_forma, orokin_reactor, orokin_catalyst, endo, ducats, aya, aya_image, void_traces, void_traces_max, steel_essence, steel_essence_image, riven_slivers, riven_slivers_image } = inventoryData.account;
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
   const StatWidget = ({ icon, label, value, accent = 'text-kronos-dim', tooltip = null }) =>
-  <div className="flex items-stretch gap-1.5 min-w-[50px] relative group">
+  <div className="flex items-stretch gap-1.5 min-w-[50px] relative group flex-shrink-0">
       {icon && <img src={icon} className="w-[30px] object-contain flex-shrink-0 self-stretch" alt="" />}
       <div className="flex flex-col justify-between py-[1px] min-w-0">
         <span className={`text-[10px] ${accent} uppercase font-black tracking-widest leading-tight`}>{label}</span>
@@ -1226,11 +1512,11 @@ function renderHeaderStats(inventoryData, iconsPath) {
     </div>;
 
   return (
-    <div className="flex items-center gap-5 ml-auto pr-3">
+    <div className="flex items-center gap-5 ml-auto pr-3 flex-nowrap">
       <StatWidget icon={iconSrc('Credits')} label={t('ui.dashboard.credits')} value={credits.toLocaleString()} />
       <StatWidget icon={iconSrc('Platinum')} label={t('ui.dashboard.platinum')} value={platinum.toLocaleString()} accent="text-kronos-accent" />
       <StatWidget icon={iconSrc('EndoIconRenderLarge')} label={t('ui.inventory.stat_endo')} value={endo.toLocaleString()} accent="text-orange-400" />
-      <div className="h-8 w-px bg-white/10" />
+      <div className="h-8 w-px bg-white/10 flex-shrink-0" />
       <StatWidget icon={iconSrc('Forma')} label="Forma" value={forma + aura_forma + stance_forma + umbra_forma} accent="text-kronos-accent"
       tooltip={
       <div className="absolute top-full right-0 mt-2 p-3 bg-kronos-bg border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110] min-w-[180px] glass-panel">
@@ -1248,6 +1534,18 @@ function renderHeaderStats(inventoryData, iconsPath) {
       
       <StatWidget icon={iconSrc('Reactor')} label={t('ui.inventory.stat_reactors')} value={orokin_reactor} accent="text-yellow-500" />
       <StatWidget icon={iconSrc('Catalyst')} label={t('ui.inventory.stat_catalysts')} value={orokin_catalyst} accent="text-blue-400" />
+      <div className="h-8 w-px bg-white/10 flex-shrink-0" />
+      {/* Ducats/Aya/Steel Essence/Riven Slivers/Void Traces - GitHub issue
+          #109 ("header currency tracker missing..."). Regal Aya and Vitus
+          Essence are deliberately NOT included - neither item path exists
+          anywhere in this build's own bundled export data (verified
+          directly, not assumed absent), likely the same export-plus
+          staleness already tracked as DATA-001 in #109. */}
+      <StatWidget icon={iconSrc('Ducats')} label={t('ui.dashboard.ducats')} value={ducats.toLocaleString()} accent="text-cyan-300" />
+      <StatWidget icon={aya_image} label={t('ui.inventory.stat_aya')} value={aya.toLocaleString()} accent="text-amber-300" />
+      <StatWidget icon={iconSrc('VoidTraces')} label={t('ui.inventory.stat_void_traces')} value={`${void_traces.toLocaleString()} / ${void_traces_max.toLocaleString()}`} accent="text-purple-300" />
+      <StatWidget icon={steel_essence_image} label={t('ui.inventory.stat_steel_essence')} value={steel_essence.toLocaleString()} accent="text-slate-300" />
+      <StatWidget icon={riven_slivers_image} label={t('ui.inventory.stat_riven_slivers')} value={riven_slivers.toLocaleString()} accent="text-rose-300" />
     </div>);
 
 }

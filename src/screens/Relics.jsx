@@ -17,7 +17,7 @@
  */
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useUi } from '../contexts/UiContext'
-import { Search, AlertCircle, Users, Zap, TrendingUp, Coins, ArrowUpDown } from 'lucide-react';
+import { Search, AlertCircle, Zap, TrendingUp, Coins, ArrowUpDown } from 'lucide-react';
 import { PageLayout, Input, Card, Tabs, MonitorState, Select } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
@@ -25,7 +25,10 @@ import { getRelicEV, getRelicCatalog } from '../lib/relicParser';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
+import PreviewAcquisitionDrawer from '../preview/acquisition/PreviewAcquisitionDrawer';
 import ItemImage from '../components/ItemImage';
+import { IS_PREVIEW } from '../lib/buildProfile';
+import PreviewRelicsLayout from '../components/PreviewRelicsLayout';
 
 const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem', 'Omnia'];
 const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
@@ -45,7 +48,6 @@ export default function Relics() {
   const [vaultedFilter, setVaultedFilter] = useState('all'); // 'all' | 'vaulted' | 'unvaulted'
   const [activeEra, setActiveEra] = useState('All');
   const [activeQuality, setActiveQuality] = useState('All');
-  const [squadSize, setSquadSize] = useState(1);
   const [sortMode, setSortMode] = useState('name'); // 'name' | 'ducat' | 'plat'
   const [sortOrder, setSortOrder] = useState('desc'); // 'asc' | 'desc'
   const [evRefinementOverride, setEvRefinementOverride] = useState('Intact'); // quality
@@ -73,8 +75,15 @@ export default function Relics() {
   // only ever produces relics the account actually has.
   const relics = useMemo(() => {
     if (ownershipFilter === 'owned' || !exportData) return ownedRelics;
+    // Prefer the real DE `code` field (inventoryParser.js) over re-parsing
+    // the display string - string-parsing "Lith A10 Relic" back apart with
+    // regex was the root cause of some relics (varies by exact name/era
+    // formatting) silently failing to match the catalog and vanishing under
+    // ownership filters. Fall back to the old regex only for any owned-relic
+    // row that predates this field (shouldn't happen post-rebuild, kept as
+    // a safety net, not a primary path).
     const ownedByKey = new Map(ownedRelics.map((r) => {
-      const category = (r.name || '').replace(new RegExp(`^${r.era}\\s+`, 'i'), '').replace(/\s+Relic$/i, '').trim();
+      const category = r.code || (r.name || '').replace(new RegExp(`^${r.era}\\s+`, 'i'), '').replace(/\s+Relic$/i, '').trim();
       return [`${r.era} ${category}`, r];
     }));
     const catalogRelics = getRelicCatalog(exportData, 'en').map((c) => {
@@ -145,14 +154,14 @@ export default function Relics() {
 
       const evRefinement = evRefinementOverride;
 
-      const evPlat = getRelicEV(sortedRewards, evRefinement, squadSize, 'plat');
-      const evDucats = getRelicEV(sortedRewards, evRefinement, squadSize, 'ducats');
+      const evPlat = getRelicEV(sortedRewards, evRefinement, 'plat');
+      const evDucats = getRelicEV(sortedRewards, evRefinement, 'ducats');
 
       // Refinement Gain (Radiant - Intact)
-      const evPlatIntact = getRelicEV(sortedRewards, 'Intact', squadSize, 'plat');
-      const evPlatRadiant = getRelicEV(sortedRewards, 'Radiant', squadSize, 'plat');
-      const evDucatsIntact = getRelicEV(sortedRewards, 'Intact', squadSize, 'ducats');
-      const evDucatsRadiant = getRelicEV(sortedRewards, 'Radiant', squadSize, 'ducats');
+      const evPlatIntact = getRelicEV(sortedRewards, 'Intact', 'plat');
+      const evPlatRadiant = getRelicEV(sortedRewards, 'Radiant', 'plat');
+      const evDucatsIntact = getRelicEV(sortedRewards, 'Intact', 'ducats');
+      const evDucatsRadiant = getRelicEV(sortedRewards, 'Radiant', 'ducats');
 
       const platGain = evPlatRadiant - evPlatIntact;
       const ducatGain = evDucatsRadiant - evDucatsIntact;
@@ -192,7 +201,7 @@ export default function Relics() {
       const orderLabel = sortOrder === 'desc' ? t('relics.order_descending') : t('relics.order_ascending');
       return { [t('relics.sorted_by_group', { label: sortLabel, order: orderLabel })]: enriched };
     }
-  }, [baseFiltered, sortMode, sortOrder, allPrices, squadSize, evRefinementOverride, activeQuality, t]);
+  }, [baseFiltered, sortMode, sortOrder, allPrices, evRefinementOverride, activeQuality, t]);
 
   const totalFilteredGroups = baseFiltered.length;
   const totalFilteredItems = baseFiltered.reduce((s, r) => s + Object.values(r.refinements || {}).reduce((a, b) => a + b, 0), 0);
@@ -209,13 +218,18 @@ export default function Relics() {
     // catalog-only (unowned) relics, which never have a real_unique_name.
     const info = getAcquisitionInfo(item.real_unique_name || item.unique_name, item.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex);
     // Vaulted relics genuinely have no active drop source - say so
-    // explicitly instead of the generic "no specific source known"
-    // fallback, which reads like a data gap rather than an accurate
-    // "this isn't obtainable right now" answer.
-    if (item.vaulted === true && info.sources.length === 0) {
-      return { uniqueName: item.unique_name, displayName: item.name, info: { ...info, vaulted: true } };
+    // explicitly instead of showing whatever getAcquisitionInfo returns.
+    // Previously only suppressed the generic "no specific source known"
+    // fallback (when info.sources was empty), but dropIndex (DropsAll.json)
+    // isn't itself vault-aware and can still carry stale/historical Star
+    // Chart drop entries for a relic that's since been vaulted - always
+    // check vaulted status first and override regardless of what sources
+    // came back, rather than only as a fallback for the empty case
+    // (GitHub issue #109, Fix Group B).
+    if (item.vaulted === true) {
+      return { uniqueName: item.unique_name, displayName: item.name, image: item.image, category: item.era, owned: item.owned, info: { ...info, sources: [], vaulted: true } };
     }
-    return { uniqueName: item.unique_name, displayName: item.name, info };
+    return { uniqueName: item.unique_name, displayName: item.name, image: item.image, category: item.era, owned: item.owned, info };
   }, [openKey, grouped, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, exportComponentIndex]);
 
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
@@ -238,10 +252,10 @@ export default function Relics() {
   ];
 
   const renderHeaderPanel = () =>
-  <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-3">
+  <div className="flex flex-col gap-4" data-preview-relics-header={IS_PREVIEW ? '' : undefined}>
+      <div className={IS_PREVIEW ? "flex flex-wrap items-center gap-3 preview-relics-primary-controls" : "flex flex-wrap items-center gap-3"} data-preview-relics-primary-controls={IS_PREVIEW ? '' : undefined}>
         {/* Search Bar */}
-        <div className="relative flex-1 min-w-[200px] group">
+        <div className="relative flex-1 min-w-[200px] group" data-preview-relics-search={IS_PREVIEW ? '' : undefined}>
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
           <Input
           placeholder={t('relics.search')}
@@ -252,7 +266,7 @@ export default function Relics() {
         </div>
 
         {/* Ownership Filter */}
-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-relics-ownership={IS_PREVIEW ? '' : undefined}>
           {[
             { id: 'all', label: t('relics.ownership_all') },
             { id: 'owned', label: t('relics.ownership_owned') },
@@ -267,27 +281,8 @@ export default function Relics() {
           ))}
         </div>
 
-        {/* Squad Size */}
-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
-          <div className="px-2 flex items-center gap-2 border-r border-white/5 h-6">
-            <Users size={14} className="text-kronos-dim" />
-            <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">{t('relics.squad')}</span>
-          </div>
-          <div className="flex gap-1">
-            {[1, 2, 3, 4].map((size) =>
-          <button
-            key={size}
-            onClick={() => setSquadSize(size)}
-            className={`w-7 h-7 rounded-lg text-xs font-black transition-all ${squadSize === size ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white'}`}>
-            
-                {size}
-              </button>
-          )}
-          </div>
-        </div>
-
         {/* Refinement Override (for EV calculation) */}
-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-relics-target={IS_PREVIEW ? '' : undefined}>
           <div className="px-2 flex items-center gap-2 border-r border-white/5 h-6">
             <Zap size={14} className="text-kronos-dim" />
             <span className="text-[10px] font-black uppercase text-kronos-dim tracking-wider">{t('relics.target')}</span>
@@ -307,22 +302,28 @@ export default function Relics() {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-4">
+      {/* `overflow-x-auto` without `flex-wrap` - was previously combined with
+          flex-wrap, which wrapped this row onto multiple lines before the
+          scroll behavior ever had a chance to engage, consuming up to half
+          the screen's vertical space on narrower windows (GitHub issue
+          #109). Each rail below still fits on one line at any width; a
+          horizontal scrollbar appears instead of vertical stacking. */}
+      <div className={IS_PREVIEW ? "flex items-center gap-4 overflow-x-auto preview-relics-secondary-controls" : "flex items-center gap-4 overflow-x-auto"} data-preview-relics-secondary-controls={IS_PREVIEW ? '' : undefined}>
         {/* Era Filter */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 flex-shrink-0" data-preview-relics-rail={IS_PREVIEW ? 'era' : undefined}>
           <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">{t('relics.era')}</span>
-          <Tabs tabs={eraTabs} activeTab={activeEra} onChange={setActiveEra} />
+          <Tabs tabs={eraTabs} activeTab={activeEra} onChange={setActiveEra} className={IS_PREVIEW ? 'preview-relics-tabs' : ''} />
         </div>
 
         {/* Inventory Quality Filter */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 flex-shrink-0" data-preview-relics-rail={IS_PREVIEW ? 'quality' : undefined}>
           <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">{t('relics.owned')}</span>
-          <Tabs tabs={qualityTabs} activeTab={activeQuality} onChange={setActiveQuality} />
+          <Tabs tabs={qualityTabs} activeTab={activeQuality} onChange={setActiveQuality} className={IS_PREVIEW ? 'preview-relics-tabs' : ''} />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 flex-shrink-0" data-preview-relics-rail={IS_PREVIEW ? 'vault' : undefined}>
           <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">{t('relics.vault_group_label')}</span>
-          <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
+          <div className="flex flex-wrap bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
             {[
               { id: 'all', label: t('relics.vault_filter_all') },
               { id: 'vaulted', label: t('relics.vault_filter_vaulted') },
@@ -340,9 +341,9 @@ export default function Relics() {
         </div>
 
         {/* Sort Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 flex-shrink-0" data-preview-relics-rail={IS_PREVIEW ? 'sort' : undefined}>
           <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">{t('relics.sort')}</span>
-          <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
+          <div className="flex flex-wrap bg-black/20 rounded-xl p-1 border border-white/5 gap-1">
             {[
           { id: 'name', label: t('mods.sort_name'), icon: null },
           { id: 'ducat', label: t('relics.sort_ducats'), icon: iconSrc('Ducats') },
@@ -375,7 +376,7 @@ export default function Relics() {
 
         {/* Void Traces - Aligned Right in the same row */}
         {inventoryData?.account &&
-      <div className="ml-auto flex items-center gap-3 bg-black/20 px-3 py-1 rounded-xl border border-white/5 h-[34px]">
+      <div className="ml-auto flex items-center gap-3 bg-black/20 px-3 py-1 rounded-xl border border-white/5 h-[34px]" data-preview-relics-traces={IS_PREVIEW ? '' : undefined}>
             {uiPath && <img src={convertFileSrc(`${uiPath}/VoidTraces.png`)} alt="" className="w-7 h-7 object-contain" />}
             <div className="flex flex-col items-end">
               <span className="text-[9px] font-black text-kronos-accent uppercase tracking-widest leading-none mb-0.5">{t('relics.void_traces')}</span>
@@ -391,6 +392,7 @@ export default function Relics() {
 
 
   return (
+    <PreviewRelicsLayout enabled={IS_PREVIEW}>
     <>
     <PageLayout
       titleKey="screen.relics"
@@ -465,7 +467,17 @@ export default function Relics() {
                       key={item.unique_name + idx}
                       glow
                       onClick={() => toggle(item.unique_name)}
-                      className={`flex group p-1 transition-all duration-300 relative overflow-hidden cursor-pointer ${item.owned ? '' : 'grayscale opacity-60'}`}>
+                      onKeyDown={IS_PREVIEW ? (event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          toggle(item.unique_name);
+                        }
+                      } : undefined}
+                      role={IS_PREVIEW ? 'button' : undefined}
+                      tabIndex={IS_PREVIEW ? 0 : undefined}
+                      aria-label={IS_PREVIEW ? item.name : undefined}
+                      data-preview-relic-card={IS_PREVIEW ? '' : undefined}
+                      className={`flex group p-1 transition-all duration-300 relative overflow-hidden cursor-pointer ${item.owned ? '' : 'grayscale opacity-60'}${IS_PREVIEW ? ' focus-visible:outline focus-visible:outline-2 focus-visible:outline-kronos-accent focus-visible:outline-offset-2' : ''}`}>
 
                           {/* Left: Metadata Stack*/}
                           <div className="w-24 flex-shrink-0 flex flex-col items-center text-center mr-4 py-1">
@@ -535,13 +547,13 @@ export default function Relics() {
                             <div className="mt-2 pt-2 border-t border-white/5 flex flex-col gap-1.5">
                               <div className="flex items-center justify-between">
                                 {item.era !== 'Requiem' &&
-                            <div className="flex items-center gap-1.5" title={`Expected Ducats (${evRefinement}, Squad of ${squadSize})`}>
+                            <div className="flex items-center gap-1.5" title={`Expected Ducats (${evRefinement})`}>
                                     {iconSrc('Ducats') && <img src={iconSrc('Ducats')} className="w-3.5 h-3.5 object-contain" alt="" />}
                                     <span className="text-[12px] font-black text-kronos-dim uppercase tracking-tighter">{t('relics.exp_ducats')}</span>
                                     <span className="text-[12px] font-black text-blue-400">{Math.round(item.evDucats)}</span>
                                   </div>
                             }
-                                <div className="flex items-center gap-1.5" title={`Expected Platinum (${evRefinement}, Squad of ${squadSize})`}>
+                                <div className="flex items-center gap-1.5" title={`Expected Platinum (${evRefinement})`}>
                                   {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-3.5 h-3.5 object-contain" alt="" />}
                                   <span className="text-[12px] font-black text-kronos-dim uppercase tracking-tighter">{t('relics.exp_plat')}</span>
                                   <span className="text-[12px] font-black text-kronos-accent">{Math.round(item.evPlat)}P</span>
@@ -576,7 +588,10 @@ export default function Relics() {
         }
       </div>
     </PageLayout>
-    {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
-    </>);
+    {openItem && (IS_PREVIEW
+      ? <PreviewAcquisitionDrawer item={openItem} onClose={close} />
+      : <AcquisitionDrawer item={openItem} onClose={close} />)}
+    </>
+    </PreviewRelicsLayout>);
 
 }

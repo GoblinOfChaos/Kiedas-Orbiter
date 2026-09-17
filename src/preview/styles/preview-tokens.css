@@ -1,0 +1,28 @@
+.preview-command-center {
+  --preview-canvas: var(--color-bg);
+  --preview-surface: var(--color-panel);
+  --preview-surface-raised: color-mix(in srgb, var(--color-panel) 88%, white 12%);
+  --preview-surface-selected: rgba(var(--color-accent-rgb), 0.12);
+  --preview-line: rgba(var(--color-accent-rgb), 0.24);
+  --preview-line-subtle: color-mix(in srgb, var(--color-text) 10%, transparent);
+  --preview-text: var(--color-text);
+  --preview-muted: var(--color-text-dim);
+  --preview-accent: var(--color-accent);
+  --preview-detail: var(--color-accent-secondary);
+  --preview-positive: #69df8b;
+  --preview-warning: #f0bd5f;
+  --preview-danger: #ff6e78;
+  --preview-channel: #aa8cff;
+  --preview-space-1: 4px;
+  --preview-space-2: 8px;
+  --preview-space-3: 12px;
+  --preview-space-4: 16px;
+  --preview-space-5: 20px;
+  --preview-space-6: 24px;
+  --preview-space-8: 32px;
+  --preview-radius-sm: 6px;
+  --preview-radius-md: 9px;
+  --preview-radius-lg: 13px;
+  --preview-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+  color: var(--preview-text);
+}

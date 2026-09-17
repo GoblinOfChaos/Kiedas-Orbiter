@@ -2,11 +2,13 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from "react"
 import { PageLayout, Card, Input } from "../components/UI";
 import ItemImage from "../components/ItemImage";
 import { useUi } from "../contexts/UiContext";
-import { invoke } from "@tauri-apps/api/core";
+import { invoke, convertFileSrc } from "@tauri-apps/api/core";
 import { loadSettings, getSetting } from "../lib/settings";
 import { useMonitoring } from "../contexts/MonitoringContext";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
 import { ensureWfmItems, lookupWfmItem, getPriceState } from "../lib/wfmCache";
+import { IS_PREVIEW } from "../lib/buildProfile";
+import PreviewMarketLayout from "../components/PreviewMarketLayout";
 import {
   TrendingUp,
   Package,
@@ -28,7 +30,7 @@ import {
   Award
 } from "lucide-react";
 
-const WFM_ID_CATALOG_KEY = "wfm_id_catalog_v2";
+const WFM_ID_CATALOG_ASSET_PATH = "data/user/wfm_id_catalog_cache.json";
 
 function priceAgeLabel(timestamp) {
   if (!timestamp) return "";
@@ -82,12 +84,14 @@ export default function Market({ onNavigate }) {
   const ensureCatalog = useCallback(async () => {
     setCatalogStatus("loading");
     try {
-      const cached = localStorage.getItem(WFM_ID_CATALOG_KEY);
-      if (cached) {
-        const parsed = JSON.parse(cached);
+      try {
+        const absolutePath = await invoke("resolve_asset_path", { relative: WFM_ID_CATALOG_ASSET_PATH });
+        const parsed = await fetch(convertFileSrc(absolutePath)).then((r) => r.json());
         if (parsed && Object.keys(parsed).length > 0) {
           setIdCatalog(parsed);
         }
+      } catch {
+        // No cache file yet (first run) - fall through to a fresh fetch below.
       }
 
       const map = await ensureWfmItems();
@@ -122,7 +126,9 @@ export default function Market({ onNavigate }) {
           }
         }
         setIdCatalog(catalog);
-        localStorage.setItem(WFM_ID_CATALOG_KEY, JSON.stringify(catalog));
+        invoke("cache_market_catalog", { data: JSON.stringify(catalog) }).catch((e) =>
+          console.warn("Failed to cache WFM items catalog:", e)
+        );
       }
     } catch (e) {
       console.warn("Failed to fetch WFM items catalog:", e);
@@ -188,6 +194,7 @@ export default function Market({ onNavigate }) {
 
   // Order Actions
   const handleDeleteOrder = async (orderId) => {
+    if (IS_PREVIEW) return;
     setActionLoading(prev => ({ ...prev, [orderId]: "deleting" }));
     try {
       await invoke("delete_market_order", { token, orderId });
@@ -202,6 +209,7 @@ export default function Market({ onNavigate }) {
   };
 
   const handleCloseOrder = async (orderId, quantity = 1) => {
+    if (IS_PREVIEW) return;
     setActionLoading(prev => ({ ...prev, [orderId]: "closing" }));
     try {
       await invoke("close_market_order", { token, orderId, quantity });
@@ -216,6 +224,7 @@ export default function Market({ onNavigate }) {
   };
 
   const handleToggleVisibility = async (order) => {
+    if (IS_PREVIEW) return;
     const newVis = !order.visible;
     setActionLoading(prev => ({ ...prev, [order.id]: "toggling" }));
     try {
@@ -235,6 +244,7 @@ export default function Market({ onNavigate }) {
   };
 
   const handleSavePrice = async (orderId) => {
+    if (IS_PREVIEW) return;
     if (!editPrice || editPrice < 1) return;
     setActionLoading(prev => ({ ...prev, [orderId]: "updating" }));
     try {
@@ -319,7 +329,23 @@ export default function Market({ onNavigate }) {
   const saleableStock = useMemo(() => {
     if (!inventoryData?.prime_parts || catalogStatus !== "ready" || !wfmMap) return [];
 
-    return inventoryData.prime_parts
+    // Prime parts, Arcanes, and Resources all carry a real unique_name +
+    // quantity from inventoryParser.js, so the same WFM-catalog-match +
+    // tradable gate below (the actual safety check - a part only appears
+    // here if WFM's own catalog confirms it's a real, tradable listing) works
+    // unmodified for all three. Relics and Ayatan sculptures are deliberately
+    // NOT included here: relics track ownership per-refinement (Intact/
+    // Radiant/etc.), not a single flat quantity, and Ayatan sculptures come
+    // through as raw un-normalized inventory records - both would need their
+    // own dedicated mapping into this shape rather than a one-line addition,
+    // so they're left for a separate pass instead of guessing at one.
+    const candidates = [
+      ...inventoryData.prime_parts,
+      ...(inventoryData.arcanes ?? []),
+      ...(inventoryData.resources ?? []),
+    ];
+
+    return candidates
       .filter(part => (part.quantity || 0) > 0)
       .map(part => {
         const wfmItem = lookupWfmItem(wfmMap, part.unique_name);
@@ -465,6 +491,7 @@ export default function Market({ onNavigate }) {
   // saleableStock, so item.wfmItem.id is already a verified catalog match -
   // there is no re-resolution or name-based re-matching here on purpose.
   const handleSellStockItem = async (item) => {
+    if (IS_PREVIEW) return;
     if (!token) {
       alert(t("market.alert_configure_jwt"));
       return;
@@ -477,7 +504,9 @@ export default function Market({ onNavigate }) {
     }
 
     const rawPrice = sellPriceInput[item.unique_name];
-    const enteredPrice = rawPrice !== undefined && rawPrice !== "" ? parseInt(rawPrice, 10) : null;
+    const enteredPrice = rawPrice !== undefined && rawPrice !== ""
+      ? parseInt(rawPrice, 10)
+      : item.platPrice;
     if (!enteredPrice || enteredPrice < 1) {
       alert("Enter a listing price before selling.");
       return;
@@ -508,9 +537,10 @@ export default function Market({ onNavigate }) {
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden bg-transparent text-kronos-text">
+    <PreviewMarketLayout enabled={IS_PREVIEW}>
+    <div className="flex-1 flex flex-col h-full overflow-hidden bg-transparent text-kronos-text" data-preview-market-root={IS_PREVIEW ? "" : undefined}>
       {/* Header */}
-      <div className="p-6 border-b border-white/5 bg-kronos-panel/30 backdrop-blur flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="p-6 border-b border-white/5 bg-kronos-panel/30 backdrop-blur flex flex-col md:flex-row justify-between items-start md:items-center gap-4" data-preview-market-header={IS_PREVIEW ? "" : undefined}>
         <div>
           <div className="flex items-center gap-2">
             <TrendingUp className="w-6 h-6 text-kronos-accent" />
@@ -524,7 +554,7 @@ export default function Market({ onNavigate }) {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3" data-preview-market-header-actions={IS_PREVIEW ? "" : undefined}>
           <button
             onClick={fetchMyOrders}
             disabled={loading}
@@ -544,6 +574,13 @@ export default function Market({ onNavigate }) {
           </a>
         </div>
       </div>
+
+      {IS_PREVIEW && (
+        <div role="status" data-preview-market-readonly className="mx-6 mt-4 px-4 py-3 rounded-xl bg-sky-950/40 border border-sky-400/25 text-xs text-sky-200 flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 shrink-0" />
+          <span>Preview mode: market data is read-only. Listing, editing, visibility, sold, and delete actions are disabled.</span>
+        </div>
+      )}
 
       {/* No Token Warning */}
       {!token && (
@@ -583,18 +620,25 @@ export default function Market({ onNavigate }) {
       )}
 
       {/* Main Container */}
-      <div className="flex-1 p-6 flex flex-col gap-6 overflow-y-auto">
+      <div className="flex-1 p-6 flex flex-col gap-6 overflow-y-auto" data-preview-market-main={IS_PREVIEW ? "" : undefined}>
         {/* Metrics Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-preview-market-metrics={IS_PREVIEW ? "" : undefined}>
           <div className="p-4 rounded-xl bg-kronos-panel/40 border border-white/5 flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-kronos-accent/10 border border-kronos-accent/20 flex items-center justify-center text-kronos-accent">
               <Coins className="w-5 h-5" />
             </div>
             <div>
               <div className="text-xs text-kronos-dim">{t("market.stat_potential_earnings")}</div>
-              <div className="text-lg font-bold text-white flex items-center gap-1">
-                {metrics.totalPlat.toLocaleString()} <span className="text-xs text-kronos-accent">plat</span>
-              </div>
+              {token ? (
+                <div className="text-lg font-bold text-white flex items-center gap-1">
+                  {metrics.totalPlat.toLocaleString()} <span className="text-xs text-kronos-accent">plat</span>
+                </div>
+              ) : (
+                // A bare "0" here reads as "your listings are worth nothing"
+                // when the real reason is simply no token configured yet -
+                // indistinguishable from a real zero without this placeholder.
+                <div className="text-lg font-bold text-kronos-dim" title={t("market.token_required_title")}>—</div>
+              )}
             </div>
           </div>
 
@@ -630,7 +674,7 @@ export default function Market({ onNavigate }) {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-white/5 gap-6">
+        <div className="flex border-b border-white/5 gap-6" data-preview-market-tabs={IS_PREVIEW ? "" : undefined}>
           <button
             onClick={() => setActiveTab("active_orders")}
             className={`pb-3 text-sm font-semibold transition border-b-2 flex items-center gap-2 ${
@@ -661,8 +705,8 @@ export default function Market({ onNavigate }) {
         {activeTab === "active_orders" && (
           <div className="flex flex-col gap-4">
             {/* Filter / Search Bar */}
-            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
-              <div className="flex items-center gap-1.5 p-1 bg-kronos-panel/50 rounded-lg border border-white/5">
+            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3" data-preview-market-toolbar={IS_PREVIEW ? "orders" : undefined}>
+              <div className="flex items-center gap-1.5 p-1 bg-kronos-panel/50 rounded-lg border border-white/5" data-preview-market-rail={IS_PREVIEW ? "orders" : undefined}>
                 <button
                   onClick={() => setOrderFilter("all")}
                   className={`px-3 py-1 rounded text-xs font-medium transition ${
@@ -719,8 +763,8 @@ export default function Market({ onNavigate }) {
                 </p>
               </div>
             ) : (
-              <div className="rounded-xl border border-white/5 bg-kronos-panel/40 overflow-hidden shadow-lg">
-                <table className="w-full text-left text-xs">
+              <div className="rounded-xl border border-white/5 bg-kronos-panel/40 overflow-hidden shadow-lg" data-preview-market-table-viewport={IS_PREVIEW ? "" : undefined}>
+                <table className="w-full text-left text-xs" data-preview-market-table={IS_PREVIEW ? "" : undefined}>
                   <thead className="bg-kronos-panel/60 text-kronos-dim uppercase text-[10px] tracking-wider border-b border-white/5">
                     <tr>
                       <th className="py-3 px-4">{t("market.col_item")}</th>
@@ -801,12 +845,14 @@ export default function Market({ onNavigate }) {
                               </div>
                             ) : (
                               <div
-                                onClick={() => {
+                                onClick={IS_PREVIEW ? undefined : () => {
                                   setEditingOrder(order.id);
                                   setEditPrice(order.platinum);
                                 }}
-                                className="cursor-pointer group flex items-center gap-1.5 font-bold text-kronos-accent hover:text-[#7dd3fc]"
-                                title="Click to edit price"
+                                className={`${IS_PREVIEW ? "cursor-not-allowed opacity-60" : "cursor-pointer"} group flex items-center gap-1.5 font-bold text-kronos-accent hover:text-[#7dd3fc]`}
+                                title={IS_PREVIEW ? "Market changes are disabled in Preview" : "Click to edit price"}
+                                aria-disabled={IS_PREVIEW ? "true" : undefined}
+                                data-preview-market-mutation={IS_PREVIEW ? "edit-price" : undefined}
                               >
                                 <span>{order.platinum}p</span>
                                 <span className="text-[10px] opacity-0 group-hover:opacity-100 text-kronos-dim">✎</span>
@@ -818,11 +864,12 @@ export default function Market({ onNavigate }) {
                           <td className="py-3 px-4">
                             <button
                               onClick={() => handleToggleVisibility(order)}
-                              disabled={isToggling}
+                              disabled={IS_PREVIEW || isToggling}
                               className={`flex items-center gap-1 text-[11px] font-medium transition ${
                                 order.visible ? "text-emerald-400 hover:text-emerald-300" : "text-slate-500 hover:text-slate-400"
                               }`}
-                              title={order.visible ? "Visible to buyers (Click to hide)" : "Hidden (Click to make visible)"}
+                              title={IS_PREVIEW ? "Market changes are disabled in Preview" : order.visible ? "Visible to buyers (Click to hide)" : "Hidden (Click to make visible)"}
+                              data-preview-market-mutation={IS_PREVIEW ? "visibility" : undefined}
                             >
                               {order.visible ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
                               <span>{order.visible ? t("market.visible") : t("market.hidden")}</span>
@@ -835,18 +882,20 @@ export default function Market({ onNavigate }) {
                               {order.type === "sell" && (
                                 <button
                                   onClick={() => handleCloseOrder(order.id, 1)}
-                                  disabled={isClosing}
+                                  disabled={IS_PREVIEW || isClosing}
                                   className="px-2.5 py-1 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-[11px] font-medium transition disabled:opacity-50"
-                                  title="Mark 1 sold"
+                                  title={IS_PREVIEW ? "Market changes are disabled in Preview" : "Mark 1 sold"}
+                                  data-preview-market-mutation={IS_PREVIEW ? "sold" : undefined}
                                 >
                                   {isClosing ? "..." : t("market.sold")}
                                 </button>
                               )}
                               <button
                                 onClick={() => handleDeleteOrder(order.id)}
-                                disabled={isDeleting}
+                                disabled={IS_PREVIEW || isDeleting}
                                 className="p-1.5 rounded bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-xs transition disabled:opacity-50"
-                                title="Delete listing"
+                                title={IS_PREVIEW ? "Market changes are disabled in Preview" : "Delete listing"}
+                                data-preview-market-mutation={IS_PREVIEW ? "delete" : undefined}
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </button>
@@ -868,9 +917,9 @@ export default function Market({ onNavigate }) {
         {activeTab === "tradeable_stock" && (
           <div className="flex flex-col gap-4">
             {/* Filter and Sort Toolbar */}
-            <div className="flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-3">
+            <div className="flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-3" data-preview-market-toolbar={IS_PREVIEW ? "stock" : undefined}>
               {/* Decision and Category Filter Pills */}
-              <div className="flex flex-wrap items-center gap-1.5 p-1 bg-kronos-panel/50 rounded-lg border border-white/5">
+              <div className="flex flex-wrap items-center gap-1.5 p-1 bg-kronos-panel/50 rounded-lg border border-white/5" data-preview-market-rail={IS_PREVIEW ? "stock" : undefined}>
                 <button
                   onClick={() => setStockFilter("all")}
                   className={`px-3 py-1 rounded text-xs font-medium transition ${
@@ -916,7 +965,7 @@ export default function Market({ onNavigate }) {
               </div>
 
               {/* Search & Sort Dropdown */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3" data-preview-market-stock-tools={IS_PREVIEW ? "" : undefined}>
                 <div className="relative flex-1 sm:w-56">
                   <Search className="w-4 h-4 absolute left-3 top-2.5 text-kronos-dim" />
                   <input
@@ -1022,7 +1071,7 @@ export default function Market({ onNavigate }) {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" data-preview-market-stock-grid={IS_PREVIEW ? "" : undefined}>
                 {processedStock.map(item => {
                   const isListing = sellStatus[item.unique_name] === "listing";
                   const isListed = sellStatus[item.unique_name] === "success";
@@ -1100,16 +1149,19 @@ export default function Market({ onNavigate }) {
                             value={currentPrice}
                             placeholder={item.platPrice == null ? "?" : undefined}
                             onChange={(e) => setSellPriceInput(prev => ({ ...prev, [item.unique_name]: e.target.value }))}
+                            disabled={IS_PREVIEW}
                             className="w-14 px-1.5 py-0.5 bg-kronos-panel/60 border border-white/5 focus:border-kronos-accent rounded text-white text-xs font-bold text-center"
-                            title="Edit listing price"
+                            title={IS_PREVIEW ? "Market changes are disabled in Preview" : "Edit listing price"}
+                            data-preview-market-mutation={IS_PREVIEW ? "listing-price" : undefined}
                           />
                           <span className="text-xs text-kronos-accent font-bold">p</span>
                         </div>
 
                         <button
                           onClick={() => handleSellStockItem(item)}
-                          disabled={isListing || isListed || !canSell}
-                          title={!canSell ? "Enter a price to enable selling" : undefined}
+                          disabled={IS_PREVIEW || isListing || isListed || !canSell}
+                          title={IS_PREVIEW ? "Market changes are disabled in Preview" : !canSell ? "Enter a price to enable selling" : undefined}
+                          data-preview-market-mutation={IS_PREVIEW ? "sell" : undefined}
                           className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-sm ${
                             isListed
                               ? "bg-emerald-500 text-black cursor-default"
@@ -1138,5 +1190,6 @@ export default function Market({ onNavigate }) {
         )}
       </div>
     </div>
+    </PreviewMarketLayout>
   );
 }

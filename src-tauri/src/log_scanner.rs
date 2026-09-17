@@ -552,12 +552,12 @@ pub struct LogScannerHandle {
 pub fn log_app_start(app: &AppHandle) {
     crate::logger::log_to_disk(app, "");
     crate::logger::log_to_disk(app, "══════════════════════════════════════════");
-    crate::logger::log_to_disk(app, "[KRONOS] Application started");
+    crate::logger::log_to_disk(app, "[KIEDA'S ORBITER] Application started");
     crate::logger::log_to_disk(app, "══════════════════════════════════════════");
 }
 
 pub fn log_app_stop(app: &AppHandle) {
-    crate::logger::log_to_disk(app, "[KRONOS] Application shutting down");
+    crate::logger::log_to_disk(app, "[KIEDA'S ORBITER] Application shutting down");
     crate::logger::log_to_disk(app, "══════════════════════════════════════════");
     crate::logger::log_to_disk(app, "");
 }

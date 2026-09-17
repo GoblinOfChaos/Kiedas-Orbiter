@@ -1,0 +1,214 @@
+{
+  "productName": "Kieda's Orbiter Preview",
+  "identifier": "com.jacob.kiedasorbiter.preview",
+  "mainBinaryName": "kiedas-orbiter-preview",
+  "build": {
+    "beforeDevCommand": "node node_modules/vite/bin/vite.js --mode preview --port 1421",
+    "beforeBuildCommand": "node node_modules/vite/bin/vite.js build --mode preview",
+    "devUrl": "http://localhost:1421"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "fullscreen": false,
+        "resizable": true,
+        "title": "Kieda's Orbiter Preview",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 900,
+        "minHeight": 500,
+        "visible": false
+      },
+      {
+        "label": "overlay-tl",
+        "title": "Kieda's Orbiter Preview Notification",
+        "url": "/?overlay=true",
+        "width": 440,
+        "height": 1,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false,
+        "shadow": false
+      },
+      {
+        "label": "overlay-tc",
+        "title": "Kieda's Orbiter Preview Notification",
+        "url": "/?overlay=true",
+        "width": 440,
+        "height": 1,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false,
+        "shadow": false
+      },
+      {
+        "label": "overlay-tr",
+        "title": "Kieda's Orbiter Preview Notification",
+        "url": "/?overlay=true",
+        "width": 440,
+        "height": 1,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false,
+        "shadow": false
+      },
+      {
+        "label": "overlay-riven-current",
+        "title": "Kieda's Orbiter Preview Overlay",
+        "url": "/?overlay=true",
+        "width": 360,
+        "height": 320,
+        "decorations": false,
+        "transparent": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false,
+        "shadow": false
+      },
+      {
+        "label": "overlay-riven-new",
+        "title": "Kieda's Orbiter Preview Overlay",
+        "url": "/?overlay=true",
+        "width": 360,
+        "height": 320,
+        "decorations": false,
+        "transparent": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false,
+        "shadow": false
+      },
+      {
+        "label": "overlay-relic",
+        "title": "Kieda's Orbiter Preview Overlay",
+        "url": "/?overlay=true",
+        "width": 640,
+        "height": 140,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false,
+        "shadow": false
+      },
+      {
+        "label": "overlay-relic-picker",
+        "title": "Kieda's Orbiter Preview Overlay",
+        "url": "/?overlay=true",
+        "width": 620,
+        "height": 460,
+        "decorations": false,
+        "transparent": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": false,
+        "shadow": false
+      },
+      {
+        "label": "overlay-sidebar",
+        "title": "Kieda's Orbiter Preview Overlay",
+        "url": "/?overlay=true",
+        "width": 400,
+        "height": 600,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "visible": false,
+        "focus": true,
+        "shadow": false
+      }
+    ],
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["**", "**/*", "/**"]
+      },
+      "capabilities": [
+        {
+          "identifier": "preview",
+          "description": "Preview capabilities: updater and hotkey plugin access disabled",
+          "windows": [
+            "main",
+            "overlay-*"
+          ],
+          "permissions": [
+            "core:default",
+            "core:window:default",
+            "core:window:allow-close",
+            "core:window:allow-hide",
+            "core:window:allow-show",
+            "core:window:allow-set-size",
+            "core:window:allow-set-position",
+            "core:window:allow-set-always-on-top",
+            "core:window:allow-set-focus",
+            "core:window:allow-set-skip-taskbar",
+            "core:window:allow-set-ignore-cursor-events",
+            "core:event:default",
+            "core:event:allow-emit",
+            "core:event:allow-listen",
+            "dialog:default",
+            "http:default",
+            {
+              "identifier": "http:default",
+              "allow": [
+                {
+                  "url": "https://api.warframe.market/*"
+                },
+                {
+                  "url": "https://github.com/glowseeker/cephalon-kronos/*"
+                },
+                {
+                  "url": "https://oracle.browse.wf/*"
+                },
+                {
+                  "url": "https://relics.run/*"
+                },
+                {
+                  "url": "https://api.warframe.com/*"
+                }
+              ]
+            },
+            "shell:allow-open"
+          ]
+        }
+      ]
+    }
+  },
+  "plugins": {
+    "updater": null
+  },
+  "bundle": {
+    "active": false,
+    "icon": [
+      "icons/preview/32x32.png",
+      "icons/preview/128x128.png",
+      "icons/preview/128x128@2x.png",
+      "icons/preview/icon.icns",
+      "icons/preview/icon.ico",
+      "icons/preview/icon.png"
+    ]
+  }
+}

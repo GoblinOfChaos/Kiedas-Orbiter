@@ -35,6 +35,12 @@ importers:
       '@uiw/react-md-editor':
         specifier: ^4.0.11
         version: 4.0.11(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@wfcd/items':
+        specifier: ^1.1275.87
+        version: 1.1275.87(warframe-worldstate-data@2.25.0)
+      comlink:
+        specifier: ^4.4.2
+        version: 4.4.2
       country-flag-icons:
         specifier: ^1.6.20
         version: 1.6.20
@@ -53,9 +59,6 @@ importers:
       remark-gfm:
         specifier: ^4.0.1
         version: 4.0.1
-      warframe-items:
-        specifier: ^1.1269.87
-        version: 1.1269.87(warframe-worldstate-data@2.25.0)
       warframe-public-export-plus:
         specifier: latest
         version: 0.6.8
@@ -1362,6 +1365,11 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
+  '@wfcd/items@1.1275.87':
+    resolution: {integrity: sha512-xEeIlqOoHMlIxTL2lLQ4pR0zxIodSuibl7Uh456N82VR4KwBYiPyWwx45sOPB6cOLpKiHCZ8m4mayllOAaQAZg==}
+    peerDependencies:
+      warframe-worldstate-data: ^3.0.0
+
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -1477,6 +1485,9 @@ packages:
 
   codemirror@6.0.2:
     resolution: {integrity: sha512-VhydHotNW5w1UGK0Qj96BwSk/Zqbp9WbnyK2W/eVMv4QyF41INRGpjUhFJY7/uDNuudSc33a/PKr4iDqRduvHw==}
+
+  comlink@4.4.2:
+    resolution: {integrity: sha512-OxGdvBmJuNKSCMO4NTl1L47VRp6xn2wG4F/2hYzB6tiCb709otOxtEYCSvK80PtjODfXXZu8ds+Nw5kVCjqd2g==}
 
   comma-separated-tokens@2.0.3:
     resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
@@ -2595,11 +2606,6 @@ packages:
 
   w3c-keyname@2.2.8:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
-
-  warframe-items@1.1269.87:
-    resolution: {integrity: sha512-FBHlgLGWxgVFJY2SgGC6afj6xzi6apl+kXm3NLbSg5knYRKpmYqSX6/uv3O3mJniIwMoBajJ9TW7NCEVkxQmXQ==}
-    peerDependencies:
-      warframe-worldstate-data: ^2.24
 
   warframe-public-export-plus@0.6.8:
     resolution: {integrity: sha512-5f6Yeplc9eXm7WhBHuFhA+HTimeZ7AncQvfVE1lGRMua2SUtPMkyGCA02kaxKdrsCq+GWJYCblMCmulCbndkpQ==}
@@ -4147,6 +4153,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@wfcd/items@1.1275.87(warframe-worldstate-data@2.25.0)':
+    dependencies:
+      warframe-worldstate-data: 2.25.0
+
   acorn-jsx@5.3.2(acorn@8.16.0):
     dependencies:
       acorn: 8.16.0
@@ -4256,6 +4266,8 @@ snapshots:
       '@codemirror/search': 6.6.0
       '@codemirror/state': 6.6.0
       '@codemirror/view': 6.40.0
+
+  comlink@4.4.2: {}
 
   comma-separated-tokens@2.0.3: {}
 
@@ -5843,10 +5855,6 @@ snapshots:
       fsevents: 2.3.3
 
   w3c-keyname@2.2.8: {}
-
-  warframe-items@1.1269.87(warframe-worldstate-data@2.25.0):
-    dependencies:
-      warframe-worldstate-data: 2.25.0
 
   warframe-public-export-plus@0.6.8: {}
 

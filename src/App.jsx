@@ -6,37 +6,17 @@ import { MonitoringProvider } from './contexts/MonitoringContext';
 import { UpdateProvider, useUpdate } from './contexts/UpdateContext';
 import { Tooltip } from './components/UI';
 import { UiProvider, useUi } from './contexts/UiContext';
-import { AlertTriangle, FolderOpen, BarChart3 } from 'lucide-react';
+import { AlertTriangle, FolderOpen } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
 import { listen, emit } from '@tauri-apps/api/event';
 import { open as openDialog } from '@tauri-apps/plugin-dialog';
 import { loadSettings, getSetting, setSetting } from './lib/settings';
 import LanguagePicker from './components/LanguagePicker';
 
-const NAV_ITEMS = [
-{ id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },
-{ id: 'prime-resurgence', icon: 'BaroKiTeerFlat.png', label: 'Prime Resurgence' },
-  { id: 'market', icon: 'IconMarket.png', label: 'Market' },
-{ id: 'inventory', icon: 'IconInventory.png', label: 'Inventory' },
-{ id: 'foundry', icon: 'IconFoundry.png', label: 'Foundry' },
-{ id: 'mods', icon: 'Mods.png', label: 'Mods' },
-{ id: 'rivens', icon: 'IconRiven.png', label: 'Rivens' },
-{ id: 'relics', icon: 'IconRelic.png', label: 'Relics' },
-{ id: 'relic-planner', icon: 'VoidSymbol.png', label: 'Relic Planner' },
-{ id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
-{ id: 'cosmetics', icon: 'Appearance.png', label: 'Cosmetics, Decorations, Emotes' },
-{ id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },
-{ id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },
-{ id: 'history', lucide: BarChart3, label: 'History' },
-{ id: 'maps', icon: 'IconMap.png', label: 'Maps' },
-{ id: 'wiki', icon: 'Wiki.png', label: 'Wiki' },
-{ id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
-{ id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
-{ id: 'settings', icon: 'IconSettings.png', label: 'Settings' },
-{ id: 'about', icon: 'IconInfo.png', label: 'About' }];
-
-
-const ICON_NAMES = [...NAV_ITEMS.filter((i) => i.icon).map((i) => i.icon), 'IconKieda.png'];
+import { IS_PREVIEW } from './lib/buildProfile';
+import PreviewAppShell from './preview/shell/PreviewAppShell';
+import { NAV_ICON_NAMES, STABLE_NAV_ITEMS } from './preview/navigation';
+import { ErrorBoundary, CriticalLoadErrorScreen } from './components/ErrorBoundary';
 
 function useUIIcons(iconNames) {
   const [iconCache, setIconCache] = useState({});
@@ -145,12 +125,12 @@ function SetupScreen() {
 
       const savedHotkeys = getSetting('hotkeys', []);
       const valid = savedHotkeys.filter((hk) => hk.shortcut && hk.action);
-      if (valid.length > 0) {
+      if (!IS_PREVIEW && valid.length > 0) {
         invoke('set_hotkeys', { hotkeys: valid }).
         catch((err) => console.error('Failed to register startup hotkeys:', err));
       }
 
-      if (getSetting('fissure_overlay_enabled')) {
+      if (!IS_PREVIEW && getSetting('fissure_overlay_enabled')) {
         invoke('start_log_scanner').catch(console.error);
       }
       setReady(true);
@@ -251,15 +231,16 @@ function AppContent() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [sidebarActive, setSidebarActive] = useState(false);
   const [sidebarSide, setSidebarSide] = useState('left');
-  const { lastUpdate, monitorResult, isMonitoring } = useMonitoring();
+  const { lastUpdate, monitorResult, isMonitoring, statusText, criticalLoadError } = useMonitoring();
   const { updateState, installLatestUpdate } = useUpdate();
   const [updateBannerDismissed, setUpdateBannerDismissed] = useState(false);
-  const [scannerStatus, setScannerStatus] = useState('idle'); // 'idle' | 'waiting' | 'active'
+  const [scannerStatus, setScannerStatus] = useState(IS_PREVIEW ? 'disabled' : 'idle'); // 'idle' | 'waiting' | 'active'
 
-  const { uiIcon } = useUIIcons(ICON_NAMES);
+  const { uiIcon } = useUIIcons(NAV_ICON_NAMES);
   const { t } = useUi();
 
   useEffect(() => {
+    if (IS_PREVIEW) return undefined;
     // Poll scanner status every 2s so sidebar dot stays in sync
     const checkScanner = () => {
       invoke('get_scanner_status').then(setScannerStatus).catch(() => setScannerStatus('idle'));
@@ -271,6 +252,7 @@ function AppContent() {
 
   // Show toast when scanner latches onto Warframe (single notification, main window only)
   useEffect(() => {
+    if (IS_PREVIEW) return undefined;
     const unsub = listen('scanner-hooked', () => {
       invoke('show_notification', {
         title: 'Scanner',
@@ -302,7 +284,8 @@ function AppContent() {
       const side = e.payload.side;
       if (!containerRef.current) return;
       containerRef.current.classList.toggle('flex-row-reverse', side === 'right');
-      const nav = containerRef.current.querySelector('nav');
+      const nav = containerRef.current.querySelector('[data-shell-nav-primary]') ??
+        containerRef.current.querySelector('nav');
       if (nav) {
         nav.classList.toggle('border-l', side === 'right');
         nav.classList.toggle('border-r', side !== 'right');
@@ -313,7 +296,7 @@ function AppContent() {
   }, []);
 
   const screens = {
-    dashboard: <Dashboard />,
+    dashboard: <Dashboard onNavigate={setActiveTab} />,
     market: <Market onNavigate={setActiveTab} />,
     inventory: <Inventory />,
     foundry: <Foundry />,
@@ -335,8 +318,56 @@ function AppContent() {
     adversaries: <Adversaries />
   };
 
+  const screenContent = (
+    <Suspense fallback={
+      <div className="h-full flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-kronos-accent/20 border-t-kronos-accent rounded-full animate-spin" />
+      </div>
+    }>
+      {screens[activeTab]}
+    </Suspense>
+  );
+  const syncLabel = monitorResult === 'success' ? t('sync.success') :
+    monitorResult === 'cached' ? t('sync.cached') :
+    monitorResult === 'error' ? t('sync.error') : t('sync.offline');
+  const previewStatus = {
+    inventorySync: {
+      state: monitorResult,
+      label: syncLabel,
+      detail: statusText || `${t('last_update')} ${formatLastUpdate(lastUpdate)}`,
+    },
+    liveIntegrations: {
+      state: 'disabled',
+      label: t('preview.status.live_disabled'),
+      detail: t('preview.status.live_disabled_detail'),
+    },
+    profile: {
+      state: 'preview',
+      label: t('preview.status.preview'),
+      detail: t('preview.status.isolated_profile'),
+    },
+  };
+
+  if (criticalLoadError) {
+    return <CriticalLoadErrorScreen message={criticalLoadError} />;
+  }
+
   return (
-    <div ref={containerRef} className={`flex h-screen overflow-hidden ${sidebarActive && sidebarSide === 'right' ? 'flex-row-reverse' : ''}`}>
+    <>
+      {IS_PREVIEW ? (
+        <PreviewAppShell
+          ref={containerRef}
+          activeRouteId={activeTab}
+          onNavigate={setActiveTab}
+          status={previewStatus}
+          uiIcon={uiIcon}
+          t={t}
+          sidebarActive={sidebarActive}
+          sidebarSide={sidebarSide}
+        >
+          {screenContent}
+        </PreviewAppShell>
+      ) : <div ref={containerRef} className={`flex h-screen overflow-hidden ${sidebarActive && sidebarSide === 'right' ? 'flex-row-reverse' : ''}`}>
       {/* Sidebar */}
       <nav className={`glass-panel w-20 flex flex-col items-center py-6 gap-4 z-40 relative flex-shrink-0 ${sidebarActive && sidebarSide === 'right' ? 'border-l' : 'border-r'}`}>
         {/* Logo */}
@@ -349,7 +380,7 @@ function AppContent() {
         {/* Nav items */}
         <div className="flex-1 w-full overflow-y-auto py-2 custom-scrollbar">
           <div className="flex flex-col gap-6 items-center min-h-min pb-4">
-            {NAV_ITEMS.map((item) => {
+            {STABLE_NAV_ITEMS.map((item) => {
               const isActive = activeTab === item.id;
               return (
                 <div key={item.id} className="relative">
@@ -434,15 +465,10 @@ function AppContent() {
       </nav>
 
       {/* Main content */}
-      <main className="flex-1 overflow-hidden bg-kronos-bg">
-        <Suspense fallback={
-        <div className="h-full flex items-center justify-center">
-            <div className="w-8 h-8 border-2 border-kronos-accent/20 border-t-kronos-accent rounded-full animate-spin" />
-          </div>
-        }>
-          {screens[activeTab]}
-        </Suspense>
+      <main className="flex-1 min-w-0 overflow-hidden bg-kronos-bg">
+        {screenContent}
       </main>
+      </div>}
 
       {/* ── Resize handle for sidebar mode ── */}
       {sidebarActive &&
@@ -512,7 +538,7 @@ function AppContent() {
         <p className="text-xs font-black uppercase tracking-wider text-kronos-text">Installing update…</p>
       </div>
       }
-    </div>);
+    </>);
 
 }
 
@@ -524,22 +550,26 @@ export default function App() {
 
   if (isOverlay) {
     return (
-      <ThemeProvider>
-        <OverlayApp />
-      </ThemeProvider>);
+      <ErrorBoundary>
+        <ThemeProvider>
+          <OverlayApp />
+        </ThemeProvider>
+      </ErrorBoundary>);
 
   }
 
   return (
-    <ThemeProvider>
-      <UiProvider>
-        <MonitoringProvider>
-          <UpdateProvider>
-            <SetupScreen />
-            <AppContent />
-          </UpdateProvider>
-        </MonitoringProvider>
-      </UiProvider>
-    </ThemeProvider>);
+    <ErrorBoundary>
+      <ThemeProvider>
+        <UiProvider>
+          <MonitoringProvider>
+            <UpdateProvider>
+              <SetupScreen />
+              <AppContent />
+            </UpdateProvider>
+          </MonitoringProvider>
+        </UiProvider>
+      </ThemeProvider>
+    </ErrorBoundary>);
 
 }

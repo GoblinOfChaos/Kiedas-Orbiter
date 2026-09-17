@@ -1,7 +1,7 @@
 // UI primitives and shared components
 import { useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X, AlertCircle, RefreshCw } from 'lucide-react';
+import { X, AlertCircle, RefreshCw, ChevronDown } from 'lucide-react';
 import { useUi } from '../contexts/UiContext';
 
 // Portal tooltip that follows trigger during scroll/resize
@@ -92,8 +92,8 @@ export function Tooltip({ children, content, position = 'right' }) {
         ref={triggerRef}
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
-        className="inline-block">
-        
+        className="inline-block min-w-0 max-w-full">
+
         {children}
       </div>
       <TooltipPortal triggerRef={triggerRef} visible={visible} position={position}>
@@ -193,6 +193,13 @@ function BackToTopButton({ scrollRef }) {
 export function PageLayout({ title, titleKey, subtitle, children, extra, headerPanel }) {
   const { t } = useUi();
   const scrollRef = useRef(null);
+  // Default expanded - matches every screen's existing behavior exactly
+  // until someone actually clicks the toggle. Not persisted across
+  // navigation/restarts (resets to expanded each mount) - deliberately
+  // simple; every screen passing `headerPanel` gets this for free (GitHub
+  // issue #109: filter panels eating too much vertical space on short
+  // windows, most visibly on Relics).
+  const [panelCollapsed, setPanelCollapsed] = useState(false);
 
   return (
     <div className="h-full flex flex-col">
@@ -204,14 +211,27 @@ export function PageLayout({ title, titleKey, subtitle, children, extra, headerP
               <h1 className="text-3xl font-bold uppercase tracking-tight">{titleKey ? t(titleKey) : title}</h1>
               {subtitle && <p className="text-kronos-dim mt-1 text-sm font-medium uppercase tracking-wide">{subtitle}</p>}
             </div>
-            {extra && <div className="flex items-center gap-4">{extra}</div>}
+            <div className="flex items-center gap-4">
+              {extra}
+              {headerPanel &&
+                <button
+                  type="button"
+                  onClick={() => setPanelCollapsed((v) => !v)}
+                  aria-expanded={!panelCollapsed}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider text-kronos-dim hover:text-white hover:bg-white/5 border border-white/10 flex-shrink-0"
+                >
+                  <ChevronDown size={12} className={`transition-transform ${panelCollapsed ? '-rotate-90' : ''}`} />
+                  {t('ui.filters_toggle')}
+                </button>
+              }
+            </div>
           </div>
         </div>
       </div>
-      
+
       {/* Scrollable Content Area */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 pb-8 pt-0 min-h-0 flex flex-col custom-scrollbar">
-        {headerPanel &&
+        {headerPanel && !panelCollapsed &&
         <div className="sticky top-0 z-30 py-4 bg-kronos-bg -mx-8 px-8 border-b border-white/5 mb-6 flex-shrink-0">
             {headerPanel}
           </div>

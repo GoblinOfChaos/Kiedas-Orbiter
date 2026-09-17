@@ -23,6 +23,8 @@ import { PageLayout, Card, MonitorState } from '../components/UI';
 import { Trophy, X, Check, Circle } from 'lucide-react';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { IS_PREVIEW } from '../lib/buildProfile';
+import PreviewMasteryLayout from '../components/PreviewMasteryLayout';
 
 // Each MR1–30 rank costs a flat 75,000 XP. Cumulative at MR30 = 2,250,000.
 // Legendary ranks (MR31+) each cost 147,500 XP.
@@ -278,16 +280,26 @@ export default function Mastery() {
   const currentTitle = t(mrTitleKey(currentRank), currentRank > 30 ? { n: currentRank - 30 } : undefined);
   const nextTitle = t(mrTitleKey(nextRank), nextRank > 30 ? { n: nextRank - 30 } : undefined);
 
-  const Section = ({ title, items, gridCols = "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6" }) =>
-  <div className="space-y-3">
+  const Section = ({ title, items, kind, gridCols = "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6" }) =>
+  <div className="space-y-3" data-preview-mastery-section={IS_PREVIEW ? kind : undefined}>
       <h3 className="text-xs font-bold text-kronos-accent uppercase tracking-widest opacity-70">
         {title}
       </h3>
-      <div className={`grid ${gridCols} gap-2`}>
+      <div className={`grid ${gridCols} gap-2`} data-preview-mastery-grid={IS_PREVIEW ? kind : undefined}>
         {items.map((item) =>
       <div
         key={item.label}
         onClick={() => setSelectedCategory(item)}
+        onKeyDown={IS_PREVIEW ? (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setSelectedCategory(item);
+          }
+        } : undefined}
+        role={IS_PREVIEW ? 'button' : undefined}
+        tabIndex={IS_PREVIEW ? 0 : undefined}
+        aria-label={IS_PREVIEW ? `${item.label}: ${item.mastered} / ${item.total}` : undefined}
+        data-preview-mastery-card={IS_PREVIEW ? '' : undefined}
         className={`rounded p-2 flex flex-col items-center justify-center text-center transition-all duration-200 hover:glow-hover cursor-pointer active:scale-95 border-2 ${item.mastered < item.total ?
         'bg-kronos-panel/10 border-dashed border-kronos-accent opacity-100' :
         'bg-kronos-panel border-kronos-panel/40'}`
@@ -312,12 +324,15 @@ export default function Mastery() {
 
   return (
     <PageLayout titleKey="screen.mastery">
+      <PreviewMasteryLayout enabled={IS_PREVIEW}>
       <div className="space-y-8">
         {/* MR card */}
         <Card glow className="p-0 overflow-hidden border-kronos-accent/30 shadow-2xl">
           {/* Rank-up banner - shown when ready*/}
           {isRankUpReady &&
-          <div className="flex flex-col md:flex-row relative overflow-hidden bg-gradient-to-br from-kronos-accent/20 via-kronos-accent/5 to-transparent min-h-[400px]">
+          <div
+            data-preview-mastery-rank-state={IS_PREVIEW ? 'ready' : undefined}
+            className="flex flex-col md:flex-row relative overflow-hidden bg-gradient-to-br from-kronos-accent/20 via-kronos-accent/5 to-transparent min-h-[400px]">
               {/* Content on the left */}
 
               <div className="relative z-10 flex-1 p-10 flex flex-col items-start text-left">
@@ -352,7 +367,9 @@ export default function Mastery() {
               </div>
 
               {/* Teshin Image on the right - transparent png */}
-              <div className="relative w-full md:w-[45%] h-80 md:h-[450px] overflow-visible">
+              <div
+                data-preview-mastery-art={IS_PREVIEW ? '' : undefined}
+                className="relative w-full md:w-[45%] h-80 md:h-[450px] overflow-visible">
                 <img
                 src={uiPath ? convertFileSrc(`${uiPath}/teshin.png`) : ''}
                 alt="Teshin"
@@ -364,7 +381,9 @@ export default function Mastery() {
 
           {/* Progress card - visible only when NOT ready for rank up */}
           {!isRankUpReady &&
-          <div className="bg-gradient-to-br from-kronos-accent/10 via-transparent to-transparent p-6">
+          <div
+            data-preview-mastery-rank-state={IS_PREVIEW ? 'progress' : undefined}
+            className="bg-gradient-to-br from-kronos-accent/10 via-transparent to-transparent p-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
                 <div className="flex items-center gap-6">
                   <div className="relative w-20 h-20 flex items-center justify-center">
@@ -409,7 +428,7 @@ export default function Mastery() {
                   style={{ left: `${Math.min(Math.max(progress, 15), 85)}%` }}>
                   
                     <div className="text-xs font-black text-kronos-accent uppercase whitespace-nowrap bg-kronos-bg/80 backdrop-blur-md px-3 py-1 rounded border border-kronos-accent/30 mb-1 shadow-lg">
-                      {totalXP.toLocaleString()} mastery | {xpUntilNext.toLocaleString()}{t('checklist.left')}
+                      {totalXP.toLocaleString()} mastery | {xpUntilNext.toLocaleString()} {t('checklist.left')}
                   </div>
                     <div className="w-px h-3 bg-kronos-accent/60" />
                   </div>
@@ -451,18 +470,23 @@ export default function Mastery() {
         </Card>
 
         <div className="space-y-8">
-          <Section title={t('mastery.section_item_completion')} items={itemCompletion} />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Section title={t('mastery.section_intrinsic_completion')} items={intrinsicCompletion} gridCols="grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-2" />
-            <Section title={t('mastery.section_starchart_completion')} items={starchartCompletion} gridCols="grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-2" />
+          <Section title={t('mastery.section_item_completion')} items={itemCompletion} kind="items" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8" data-preview-mastery-secondary={IS_PREVIEW ? '' : undefined}>
+            <Section title={t('mastery.section_intrinsic_completion')} items={intrinsicCompletion} kind="intrinsics" gridCols="grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-2" />
+            <Section title={t('mastery.section_starchart_completion')} items={starchartCompletion} kind="starchart" gridCols="grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-2" />
           </div>
         </div>
       </div>
+      </PreviewMasteryLayout>
 
       {/* Detail Modal */}
       {selectedCategory &&
       <div
         className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-kronos-bg/80 backdrop-blur-sm animate-in fade-in duration-200"
+        role={IS_PREVIEW ? 'dialog' : undefined}
+        aria-modal={IS_PREVIEW ? true : undefined}
+        aria-labelledby={IS_PREVIEW ? 'preview-mastery-dialog-title' : undefined}
+        data-preview-mastery-modal={IS_PREVIEW ? '' : undefined}
         onClick={() => setSelectedCategory(null)}>
         
           <Card
@@ -472,7 +496,7 @@ export default function Mastery() {
           
             <div className="p-6 border-b border-kronos-panel flex items-center justify-between bg-kronos-panel/20">
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-kronos-accent">{selectedCategory.label}{t('mastery.details')}</h3>
+                <h3 id={IS_PREVIEW ? 'preview-mastery-dialog-title' : undefined} className="text-xl font-bold text-kronos-accent">{selectedCategory.label}{t('mastery.details')}</h3>
                 <p className="text-sm text-kronos-dim">
                   {selectedCategory.mastered} / {selectedCategory.total}{t('mastery.completed')}
               </p>

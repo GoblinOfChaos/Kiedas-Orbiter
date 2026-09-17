@@ -32,6 +32,13 @@ const SISTER_TENET_WEAPON_NAMES = new Set([
   'Tenet Flux Rifle', 'Tenet Glaxion', 'Tenet Grigori', 'Tenet Livia',
   'Tenet Plinx', 'Tenet Quanta', 'Tenet Spirex', 'Tenet Tetra',
 ]);
+// These 5 are also sold directly by Ergo Glast in Relays for 40 Corrupted
+// Holokeys each (verified against wiki.warframe.com/w/Ergo_Glast, 2026-09-14),
+// so owning one is not durable proof a Sister was converted/killed - unlike
+// the other 11 Tenet weapons, which have no non-Sister acquisition route.
+const HOLOKEY_TENET_WEAPON_NAMES = new Set([
+  'Tenet Agendus', 'Tenet Exec', 'Tenet Livia', 'Tenet Grigori', 'Tenet Ferrox',
+]);
 const WF_PROGENITOR = {};
 for (const [el, frames] of Object.entries(PROGENITOR)) {
   for (const f of frames) WF_PROGENITOR[f] = el;
@@ -81,7 +88,7 @@ export default function Adversaries() {
   const ownedSisterWeapons = useMemo(() => {
     const seen = new Set();
     return (inventoryData?.all ?? [])
-      .filter((item) => item?.owned && SISTER_TENET_WEAPON_NAMES.has(item.name) && item.category !== 'prime_parts')
+      .filter((item) => item?.owned && SISTER_TENET_WEAPON_NAMES.has(item.name) && !HOLOKEY_TENET_WEAPON_NAMES.has(item.name) && item.category !== 'prime_parts')
       .filter((item) => {
         const key = item.unique_name || item.name;
         if (seen.has(key)) return false;

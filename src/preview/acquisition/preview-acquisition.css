@@ -1,0 +1,420 @@
+/* Option 01 acquisition drawer (GitHub #110). Scoped selectors only - built
+   entirely on the --preview-* tokens from preview-tokens.css, no hardcoded
+   hex values, so it follows the app's active theme automatically. */
+
+.preview-acq-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 39;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.preview-acq-drawer {
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  z-index: 40;
+  width: 520px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--preview-canvas);
+  border-left: 1px solid var(--preview-line-subtle);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.4);
+  color: var(--preview-text);
+}
+
+.preview-acq-topstrip {
+  flex-shrink: 0;
+  height: 58px;
+  padding-inline: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--preview-line-subtle);
+}
+
+.preview-acq-topstrip-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--preview-accent);
+}
+
+.preview-acq-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--preview-radius-sm);
+  color: var(--preview-muted);
+  background: transparent;
+}
+
+.preview-acq-close:hover {
+  color: var(--preview-text);
+  background: var(--preview-surface-raised);
+}
+
+.preview-acq-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 24px;
+  scrollbar-gutter: stable;
+}
+
+.preview-acq-hero {
+  min-height: 161px;
+  margin-bottom: 20px;
+}
+
+.preview-acq-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--preview-detail);
+  margin-bottom: 6px;
+}
+
+.preview-acq-hero-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.preview-acq-title {
+  font-size: 29px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--preview-text);
+  margin: 0;
+}
+
+.preview-acq-hero-image {
+  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
+}
+
+.preview-acq-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.preview-acq-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--preview-muted);
+  background: var(--preview-surface-raised);
+  border: 1px solid var(--preview-line-subtle);
+  border-radius: var(--preview-radius-sm);
+}
+
+.preview-acq-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.preview-acq-section-head h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--preview-text);
+  margin: 0;
+}
+
+.preview-acq-muted {
+  color: var(--preview-muted);
+  font-size: 12px;
+}
+
+.preview-acq-featured {
+  position: relative;
+  border: 1px solid var(--preview-line);
+  border-left: 3px solid var(--preview-accent);
+  border-radius: var(--preview-radius-md);
+  padding: 18px;
+  background: var(--preview-surface);
+}
+
+.preview-acq-featured-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.preview-acq-muted-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--preview-muted);
+}
+
+.preview-acq-chance {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--preview-accent);
+  flex-shrink: 0;
+}
+
+.preview-acq-featured-text {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--preview-text);
+}
+
+.preview-acq-unconfirmed-badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--preview-warning);
+  background: color-mix(in srgb, var(--preview-warning) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--preview-warning) 35%, transparent);
+  border-radius: var(--preview-radius-sm);
+}
+
+.preview-acq-vaulted-note,
+.preview-acq-no-source p {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--preview-warning);
+}
+
+.preview-acq-no-source {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.preview-acq-report-inline {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--preview-accent);
+  border: 1px solid var(--preview-line);
+  border-radius: var(--preview-radius-sm);
+}
+
+.preview-acq-alternatives {
+  margin-top: 12px;
+}
+
+.preview-acq-disclosure-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--preview-text);
+}
+
+.preview-acq-chevron {
+  transition: transform 0.15s ease;
+}
+
+.preview-acq-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+.preview-acq-count-badge {
+  padding: 1px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--preview-muted);
+  background: var(--preview-surface-raised);
+  border-radius: 999px;
+}
+
+.preview-acq-alt-rows {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.preview-acq-alt-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--preview-surface);
+  border: 1px solid var(--preview-line-subtle);
+  border-radius: var(--preview-radius-sm);
+  font-size: 12px;
+}
+
+.preview-acq-alt-row-text {
+  min-width: 0;
+  word-break: break-word;
+}
+
+.preview-acq-chance-sm {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--preview-accent);
+}
+
+.preview-acq-unconfirmed-note {
+  margin-top: 10px;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--preview-warning);
+}
+
+.preview-acq-recipe {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--preview-line-subtle);
+}
+
+.preview-acq-recipe h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: var(--preview-text);
+}
+
+.preview-acq-recipe-costs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 12px;
+  color: var(--preview-muted);
+  margin-bottom: 10px;
+}
+
+.preview-acq-recipe-costs strong {
+  color: var(--preview-text);
+}
+
+.preview-acq-ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.preview-acq-ingredient {
+  padding: 8px 10px;
+  background: var(--preview-surface);
+  border: 1px solid var(--preview-line-subtle);
+  border-radius: var(--preview-radius-sm);
+  font-size: 12px;
+}
+
+.preview-acq-ingredient-sources {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--preview-line-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.preview-acq-ingredient-source-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--preview-muted);
+}
+
+.preview-acq-footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 23px;
+  border-top: 1px solid var(--preview-line-subtle);
+}
+
+.preview-acq-wiki-button,
+.preview-acq-report-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 10px 16px;
+  border-radius: var(--preview-radius-sm);
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.preview-acq-wiki-button {
+  flex: 1;
+  color: var(--preview-canvas);
+  background: var(--preview-accent);
+}
+
+.preview-acq-report-button {
+  color: var(--preview-text);
+  background: transparent;
+  border: 1px solid var(--preview-line);
+}
+
+@media (max-width: 900px) {
+  .preview-acq-drawer {
+    width: 465px;
+  }
+
+  .preview-acq-topstrip {
+    height: 48px;
+    padding-inline: 18px;
+  }
+
+  .preview-acq-body {
+    padding: 18px;
+  }
+
+  .preview-acq-hero {
+    min-height: 130px;
+  }
+
+  .preview-acq-title {
+    font-size: 24px;
+  }
+
+  .preview-acq-hero-image {
+    width: 110px;
+    height: 120px;
+  }
+
+  .preview-acq-footer {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+  }
+}

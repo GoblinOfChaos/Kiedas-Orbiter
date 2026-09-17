@@ -52,7 +52,7 @@ function sortSourcesByChance(sources) {
 // instead, so it reads as a caveat rather than part of the acquisition text.
 const UNCONFIRMED_PREFIX = 'Unconfirmed — ';
 
-function splitUnconfirmed(text) {
+export function splitUnconfirmed(text) {
   if (typeof text === 'string' && text.startsWith(UNCONFIRMED_PREFIX)) {
     return { text: text.slice(UNCONFIRMED_PREFIX.length), unconfirmed: true };
   }
@@ -138,13 +138,29 @@ export function useAcquisitionDrawer() {
   return { openKey, toggle, close };
 }
 
-export default function AcquisitionDrawer({ item, onClose }) {
-  const { t } = useUi();
+export function formatCredits(value) {
+  return Number.isFinite(Number(value)) ? `${Number(value).toLocaleString()} Credits` : null;
+}
+
+export function formatDuration(seconds) {
+  const totalMinutes = Math.round(Number(seconds) / 60);
+  if (!Number.isFinite(totalMinutes) || totalMinutes <= 0) return null;
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return hours && minutes ? `${hours}h ${minutes}m` : hours ? `${hours}h` : `${minutes}m`;
+}
+
+/**
+ * Shared data layer for every acquisition-drawer presentation (Stable's
+ * bottom drawer, and Preview's right-side panel/modal). Codex enrichment,
+ * source sorting/filtering, and recipe/wiki resolution live here once so
+ * each presentation only owns its own layout and interaction chrome.
+ */
+export function useAcquisitionDrawerData(item) {
   const displayName = item?.displayName;
   const uniqueName = item?.uniqueName;
   const [codexInfo, setCodexInfo] = useState(null);
   const [codexLoading, setCodexLoading] = useState(false);
-  const [showReportModal, setShowReportModal] = useState(false);
   const baseInfo = item?.info;
 
   useEffect(() => {
@@ -160,7 +176,9 @@ export default function AcquisitionDrawer({ item, onClose }) {
     return () => { cancelled = true; };
   }, [uniqueName, baseInfo]);
 
-  if (!item) return null;
+  if (!item) {
+    return { displayName, uniqueName, info: null, wikiLink: null, openWikiLink: () => {}, recipe: null, sources: [], codexLoading };
+  }
 
   // Codex fallback responses contain only the enriched source/recipe data;
   // they do not carry the local resolver's wikiLink. Preserve the local link
@@ -183,18 +201,26 @@ export default function AcquisitionDrawer({ item, onClose }) {
     recipe && source?.type === 'non-drop' &&
     /^Built in the Foundry from a blueprint(?: and its components)?/.test(source.text || '')
   )));
-  const formatCredits = (value) => Number.isFinite(Number(value)) ? `${Number(value).toLocaleString()} Credits` : null;
-  const formatDuration = (seconds) => {
-    const totalMinutes = Math.round(Number(seconds) / 60);
-    if (!Number.isFinite(totalMinutes) || totalMinutes <= 0) return null;
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
-    return hours && minutes ? `${hours}h ${minutes}m` : hours ? `${hours}h` : `${minutes}m`;
-  };
+
+  return { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, codexLoading };
+}
+
+export default function AcquisitionDrawer({ item, onClose }) {
+  const { t } = useUi();
+  const [showReportModal, setShowReportModal] = useState(false);
+  const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, codexLoading } = useAcquisitionDrawerData(item);
+
+  if (!item) return null;
+
+  // Stable-only bottom drawer. Preview uses PreviewAcquisitionDrawer
+  // (src/preview/acquisition/) instead - see GitHub #110.
+  const rootClassName = 'fixed bottom-0 left-0 right-0 z-40 bg-kronos-bg border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.4)]';
+  const innerClassName = 'max-w-6xl mx-auto px-6 py-4';
+  const sourcesGridClassName = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-40 overflow-y-auto';
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-kronos-bg border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.4)]">
-      <div className="max-w-6xl mx-auto px-6 py-4">
+    <div className={rootClassName}>
+      <div className={innerClassName}>
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <Info size={16} className="text-kronos-accent" />
@@ -206,21 +232,21 @@ export default function AcquisitionDrawer({ item, onClose }) {
         </div>
 
         {sources.length > 0 ?
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-40 overflow-y-auto">
+          <div className={sourcesGridClassName}>
             {sources.map((s, i) => {
               const { text, unconfirmed } = splitUnconfirmed(getSourceLabel(s, t));
               return (
                 <div key={i} className="flex items-start justify-between gap-2 px-3 py-2 rounded bg-black/30 border border-white/5">
                   <div className="min-w-0">
                     {unconfirmed &&
-                      <span className="inline-block mb-1 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wide text-amber-400 bg-amber-400/10 border border-amber-400/30">
+                      <span className="inline-block mb-1 px-1.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wide text-amber-400 bg-amber-400/10 border border-amber-400/30">
                         {t('acquisition_drawer.unconfirmed_badge')}
                       </span>
                     }
                     <span className="block text-xs text-kronos-text whitespace-normal break-words">{text}</span>
                   </div>
                   {typeof s.chance === 'number' &&
-                    <span className="text-[10px] font-bold text-kronos-accent flex-shrink-0 ml-2">{formatChance(s.chance)}</span>
+                    <span className="text-[12px] font-bold text-kronos-accent flex-shrink-0 ml-2">{formatChance(s.chance)}</span>
                   }
                 </div>
               );
@@ -234,7 +260,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
             <p className="text-xs text-kronos-dim italic">{t('acquisition_drawer.no_verified_route')}</p>
             <button
               onClick={() => setShowReportModal(true)}
-              className="flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wide text-kronos-accent border border-kronos-accent/30 hover:bg-kronos-accent/10"
+              className="flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded text-[12px] font-bold uppercase tracking-wide text-kronos-accent border border-kronos-accent/30 hover:bg-kronos-accent/10"
             >
               <Flag size={11} />
               {t('acquisition_drawer.know_where_found')}
@@ -242,14 +268,14 @@ export default function AcquisitionDrawer({ item, onClose }) {
           </div>
         }
         {sources.some((s) => splitUnconfirmed(getSourceLabel(s, t)).unconfirmed) &&
-          <p className="mt-2 text-[11px] text-amber-400/90 italic">
+          <p className="mt-2 text-[13px] text-amber-400/90 italic">
             {t('acquisition_drawer.unconfirmed_price_note')}
           </p>
         }
 
         {recipe &&
           <div className="mt-3 rounded bg-black/20 border border-white/5 px-3 py-2">
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-kronos-dim">
+            <div className="flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-kronos-dim">
               {formatCredits(recipe.blueprintCost) && <span>{t('acquisition_drawer.blueprint_label')} <strong className="text-kronos-text">{formatCredits(recipe.blueprintCost)}</strong></span>}
               {formatCredits(recipe.buildCost) && <span>{t('acquisition_drawer.build_label')} <strong className="text-kronos-text">{formatCredits(recipe.buildCost)}</strong></span>}
               {formatDuration(recipe.buildTime) && <span>{t('acquisition_drawer.time_label')} <strong className="text-kronos-text">{formatDuration(recipe.buildTime)}</strong></span>}
@@ -258,13 +284,13 @@ export default function AcquisitionDrawer({ item, onClose }) {
             {recipe.ingredients?.length > 0 &&
               <div className="mt-2 flex flex-wrap gap-1.5">
             {recipe.ingredients.map((ingredient, i) => (
-              <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="rounded bg-white/5 px-2 py-1 text-[10px] text-kronos-text">
+              <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="rounded bg-white/5 px-2 py-1 text-[12px] text-kronos-text">
                 <div className="flex items-start justify-between gap-2">
                   <span className="whitespace-normal break-words">{ingredient.count}x {ingredient.name}</span>
                 </div>
                 {getItemDrops(ingredient.itemType)?.length > 0 && <div className="mt-1 space-y-0.5 border-t border-white/5 pt-1">
-                  <p className="text-[9px] uppercase font-black text-kronos-dim">{t('acquisition_drawer.how_to_obtain')}</p>
-                  {getItemDrops(ingredient.itemType).map((drop, dropIndex) => <div key={`${drop.location || 'source'}-${dropIndex}`} className="flex items-start justify-between gap-2 text-[9px] text-kronos-dim">
+                  <p className="text-[11px] uppercase font-black text-kronos-dim">{t('acquisition_drawer.how_to_obtain')}</p>
+                  {getItemDrops(ingredient.itemType).map((drop, dropIndex) => <div key={`${drop.location || 'source'}-${dropIndex}`} className="flex items-start justify-between gap-2 text-[11px] text-kronos-dim">
                     <span className="whitespace-normal break-words">{getSourceLabel(drop, t)}</span>
                     {typeof drop.chance === 'number' && <span className="shrink-0 font-black text-kronos-accent">{formatChance(drop.chance)}</span>}
                   </div>)}
@@ -278,7 +304,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
 
         <button
           onClick={openWikiLink}
-          className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-bold text-kronos-dim hover:text-kronos-accent transition-colors"
+          className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-bold text-kronos-dim hover:text-kronos-accent transition-colors"
         >
           <ExternalLink size={12} />
           {wikiLink?.isDirect ? t('acquisition_drawer.view_wiki') : t('acquisition_drawer.search_wiki')}

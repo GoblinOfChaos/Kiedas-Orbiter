@@ -4,10 +4,12 @@ import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { getSetting } from '../lib/settings'
 
+import { IS_PREVIEW } from '../lib/buildProfile'
+
 const UpdateContext = createContext()
 
 export function UpdateProvider({ children }) {
-  const [updateState, setUpdateState] = useState({ status: 'idle', manifest: null, error: null })
+  const [updateState, setUpdateState] = useState({ status: IS_PREVIEW ? 'disabled' : 'idle', manifest: null, error: null })
   const checkedRef = useRef(false)
   const latestUpdateRef = useRef(null)
   const installingRef = useRef(false)
@@ -17,7 +19,8 @@ export function UpdateProvider({ children }) {
     invoke('get_platform_info').then(setPlatformInfo).catch(() => {})
   }, [])
 
-  const runInstall = useCallback(async (url) => {
+  const runInstall = useCallback(async () => {
+    if (IS_PREVIEW) return
     // Guards against a rapid double-click firing two concurrent installs -
     // setUpdateState's 'installing' status alone isn't enough since a second
     // click can land before the resulting re-render disables the button.
@@ -28,37 +31,24 @@ export function UpdateProvider({ children }) {
         setUpdateState({ status: 'error', manifest: null, error: 'No update available to install' })
         return
       }
-      // Only the AppImage path needs an explicit download URL (it bypasses the
-      // plugin's own downloadAndInstall to handle the self-replace manually).
-      // Windows/macOS's downloadAndInstall() resolves its own asset URL
-      // internally - requiring `url` unconditionally silently blocked
-      // auto-install on those platforms, since it's only ever populated from
-      // the linux-x86_64 manifest entry.
-      if (platformInfo?.is_appimage && !url) {
-        setUpdateState({ status: 'error', manifest: null, error: 'No download URL available' })
-        return
-      }
       setUpdateState(prev => ({ ...prev, status: 'installing' }))
-      if (platformInfo?.is_appimage) {
-        try {
-          await invoke('download_appimage_update', { url })
+      // Every platform, AppImage included, goes through the plugin's own
+      // downloadAndInstall() - it verifies the manifest's minisign signature
+      // against tauri.conf.json's pubkey before installing anything. AppImage
+      // previously bypassed this entirely via a custom command that downloaded
+      // the raw release-asset URL and overwrote the running binary with no
+      // signature check at all (GitHub issue #109, SEC-UPD-001).
+      try {
+        await latestUpdateRef.current.downloadAndInstall()
+        if (platformInfo?.is_appimage) {
           const win = getCurrentWindow()
           await win.close()
-        } catch (err) {
-          // Keep the manifest: the "Download manually" fallback link is driven
-          // by manifest.downloadUrl, so nulling it here removes the fallback in
-          // exactly the case it exists for - a failed install.
-          setUpdateState(prev => ({ ...prev, status: 'error', error: err?.message ?? String(err) }))
         }
-      } else {
-        try {
-          await latestUpdateRef.current.downloadAndInstall()
-        } catch (err) {
-          // Keep the manifest: the "Download manually" fallback link is driven
-          // by manifest.downloadUrl, so nulling it here removes the fallback in
-          // exactly the case it exists for - a failed install.
-          setUpdateState(prev => ({ ...prev, status: 'error', error: err?.message ?? String(err) }))
-        }
+      } catch (err) {
+        // Keep the manifest: the "Download manually" fallback link is driven
+        // by manifest.downloadUrl, so nulling it here removes the fallback in
+        // exactly the case it exists for - a failed install.
+        setUpdateState(prev => ({ ...prev, status: 'error', error: err?.message ?? String(err) }))
       }
     } finally {
       installingRef.current = false
@@ -66,6 +56,7 @@ export function UpdateProvider({ children }) {
   }, [platformInfo])
 
   const checkForUpdates = useCallback(async () => {
+    if (IS_PREVIEW) return
     setUpdateState({ status: 'checking', manifest: null, error: null })
     try {
       const result = await check()
@@ -95,7 +86,7 @@ export function UpdateProvider({ children }) {
     }
   }, [])
 
-  const installLatestUpdate = useCallback(() => runInstall(updateState.manifest?.downloadUrl), [runInstall, updateState.manifest?.downloadUrl])
+  const installLatestUpdate = useCallback(() => runInstall(), [runInstall])
 
   // Checks for updates on startup, but never auto-installs: only reports
   // availability. Installing is always an explicit user click (see

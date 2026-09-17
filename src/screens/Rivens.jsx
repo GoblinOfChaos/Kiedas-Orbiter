@@ -9,6 +9,8 @@ import RivenCard from '../components/RivenCard';
 import RivenGradeDrawer from '../components/RivenGradeDrawer';
 import { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
 import { loadRivenGoodRolls, getRivenStatGrade } from '../lib/rivenGrader';
+import { IS_PREVIEW } from '../lib/buildProfile';
+import PreviewRivensLayout from '../components/PreviewRivensLayout';
 
 const TYPE_TABS = [
 { id: 'all', label: 'All' },
@@ -32,7 +34,8 @@ const STATE_TABS = [
 const SORT_CRITERIA = [
 { id: 'name', label: 'Name' },
 { id: 'plat', label: 'Plat' },
-{ id: 'grade', label: 'Grade' }];
+{ id: 'grade', label: 'Grade' },
+{ id: 'rank', label: 'Rank' }];
 
 
 const GRADE_ORDER = { S: 0, A: 1, B: 2, C: 3, D: 4, F: 5 };
@@ -172,6 +175,14 @@ export default function Rivens() {
         const pb = eb?.price ?? -1;
         return (pa - pb) * dir;
       }
+      if (sortCriteria === 'rank') {
+        // Lower weapon_rank = more valuable/popular roll for that weapon
+        // (matches the #rank/total shown in RivenCard's hover tooltip) - a
+        // riven with no priced estimate yet sorts last regardless of direction.
+        const ra = ea?.weapon_rank ?? Infinity;
+        const rb = eb?.weapon_rank ?? Infinity;
+        return (ra - rb) * dir;
+      }
       return 0;
     });
   }, [allRivens, searchQuery, activeType, activeState, sortCriteria, sortDirection, statGrades]);
@@ -227,9 +238,9 @@ export default function Rivens() {
   const capacity = inventoryData?.account?.riven_capacity ?? 0;
 
   const renderHeaderPanel = () =>
-  <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <div className="relative flex-1 group">
+  <div className="flex flex-col gap-4" data-preview-rivens-header={IS_PREVIEW ? '' : undefined}>
+      <div className={IS_PREVIEW ? "flex items-center gap-4 preview-rivens-primary-controls" : "flex items-center gap-4"} data-preview-rivens-primary-controls={IS_PREVIEW ? '' : undefined}>
+        <div className="relative flex-1 group" data-preview-rivens-search={IS_PREVIEW ? '' : undefined}>
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
           <Input
           placeholder={t('rivens.search_placeholder')}
@@ -239,7 +250,7 @@ export default function Rivens() {
         
         </div>
 
-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-rivens-state={IS_PREVIEW ? '' : undefined}>
           <Filter size={14} className="text-kronos-dim mx-1" />
           <div className="flex gap-1">
             {STATE_TABS.map((t) =>
@@ -254,7 +265,7 @@ export default function Rivens() {
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-rivens-sort={IS_PREVIEW ? '' : undefined}>
           <ArrowUpDown size={12} className="text-kronos-accent mx-1" />
           <div className="flex gap-1">
             {SORT_CRITERIA.map((c) => {
@@ -281,17 +292,18 @@ export default function Rivens() {
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3" data-preview-rivens-types-row={IS_PREVIEW ? '' : undefined}>
         <Tabs tabs={TYPE_TABS.map((t) => {
         const iconMap = { rifle: 'Primary', pistol: 'Secondary' };
         const iconName = iconMap[t.id] || t.label;
         return { ...t, icon: iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null };
-      })} activeTab={activeType} onChange={setActiveType} className="flex-1" />
+      })} activeTab={activeType} onChange={setActiveType} className={IS_PREVIEW ? "flex-1 preview-rivens-types" : "flex-1"} />
       </div>
     </div>;
 
 
   return (
+    <PreviewRivensLayout enabled={IS_PREVIEW}>
     <>
     <PageLayout
       titleKey="screen.rivens"
@@ -312,13 +324,26 @@ export default function Rivens() {
             </div>
           </Card> :
 
-        <div className="grid pb-4" style={{
+        <div className="grid pb-4" data-preview-rivens-grid={IS_PREVIEW ? '' : undefined} style={{
           gridTemplateColumns: 'repeat(auto-fill, 200px)',
-          gap: '50px',
+          gap: IS_PREVIEW ? undefined : '50px',
           justifyContent: 'center'
         }}>
             {filtered.map((riven, idx) =>
-          <div key={idx} className="cursor-pointer" onClick={() => toggle(rivenKeys.get(riven))}>
+          <div
+            key={idx}
+            className={IS_PREVIEW ? "cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-kronos-accent focus-visible:outline-offset-4 rounded-xl" : "cursor-pointer"}
+            data-preview-riven-card={IS_PREVIEW ? '' : undefined}
+            role={IS_PREVIEW ? 'button' : undefined}
+            tabIndex={IS_PREVIEW ? 0 : undefined}
+            aria-label={IS_PREVIEW ? riven.name : undefined}
+            onClick={() => toggle(rivenKeys.get(riven))}
+            onKeyDown={IS_PREVIEW ? (event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggle(rivenKeys.get(riven));
+              }
+            } : undefined}>
               <RivenCard riven={riven} framesPath={framesPath} iconsPath={iconsPath} width={200} estimate={pricingCache[rivenKeys.get(riven)]} statGrade={statGrades.get(riven)} />
             </div>
           )}
@@ -327,6 +352,7 @@ export default function Rivens() {
       </div>
     </PageLayout>
     {openRiven && <RivenGradeDrawer riven={openRiven} statGrade={statGrades.get(openRiven)} onClose={close} />}
-    </>);
+    </>
+    </PreviewRivensLayout>);
 
 }

@@ -86,6 +86,30 @@ pub struct SidebarSavedState {
 // get_legacy_data_root() is kept only to support one-time migration of
 // existing installs from the old app-adjacent location.
 
+mod build_profile;
+mod preview_import;
+
+#[tauri::command]
+fn get_build_profile() -> bool { build_profile::IS_PREVIEW }
+
+#[tauri::command]
+fn import_preview_profile(app: tauri::AppHandle, source: String, categories: Vec<String>, replace: bool) -> Result<String, String> {
+    build_profile::require_preview()?;
+    let state = app.state::<AppState>();
+    let _guard = state.settings_lock.lock().map_err(|e| e.to_string())?;
+    preview_import::import(Path::new(&source), &resolve_path("data/user"), &categories, replace)
+}
+
+#[tauri::command]
+fn load_preview_checklist() -> Result<Option<Value>, String> {
+    build_profile::require_preview()?;
+    let path = resolve_path("data/user/preview-checklist-import.json");
+    if !path.exists() { return Ok(None); }
+    let bytes = fs::read(path).map_err(|e| e.to_string())?;
+    serde_json::from_slice(&bytes).map(Some).map_err(|e| e.to_string())
+}
+
+
 fn get_legacy_data_root() -> PathBuf {
     if let Ok(appimage_path) = std::env::var("APPIMAGE") {
         return PathBuf::from(appimage_path)
@@ -131,6 +155,11 @@ fn copy_dir_recursive(src: &Path, dst: &Path) -> std::io::Result<()> {
 
 /// Returns the writable data root.
 pub fn get_data_root() -> PathBuf {
+    if build_profile::IS_PREVIEW {
+        // Must precede BOTH debug resolution and the stable auto-migration branch.
+        return build_profile::preview_root(dirs::data_dir())
+            .expect("Preview initialization failed: OS data directory unavailable");
+    }
     if cfg!(debug_assertions) {
         return PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     }
@@ -403,6 +432,7 @@ const WFCD_GAPFILL_FILES: &[(&str, &str)] = &[
     ("WFCD_Secondary.json", "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Secondary.json"),
     ("WFCD_Melee.json", "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Melee.json"),
     ("WFCD_Skins.json", "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Skins.json"),
+    ("WFCD_Mods.json", "https://raw.githubusercontent.com/WFCD/warframe-items/master/data/json/Mods.json"),
 ];
 
 // --- Shared Download Helper ---
@@ -650,18 +680,21 @@ async fn check_ocr_models() -> Result<String, String> {
 /// Called by the Dashboard to load arbitration/Steel Path data.
 #[tauri::command]
 async fn load_txt_file(app_handle: tauri::AppHandle, name: String) -> Result<String, String> {
-    // Try writable location first, fall back to bundled
-    let path = resolve_path("data/export").join(&name);
+    // Reject traversal/absolute paths in the frontend-supplied `name` before
+    // ever touching the filesystem - this command previously joined it
+    // directly with no check (GitHub issue #109, SEC-PATH-001), unlike most
+    // other file commands which already route through safe_relative_join.
+    let path = safe_relative_join(&resolve_path("data/export"), &name)?;
     if path.exists() {
         return fs::read_to_string(&path).map_err(|e| e.to_string());
     }
-    
-    if let Some(bundled) = resolve_bundled_path(&app_handle, &format!("data/export/{}", name)) {
+
+    if let Some(bundled) = resolve_bundled_path(&app_handle, &safe_relative_join(std::path::Path::new("data/export"), &name)?.to_string_lossy()) {
         if bundled.exists() {
             return fs::read_to_string(&bundled).map_err(|e| e.to_string());
         }
     }
-    
+
     Ok(String::new())
 }
 
@@ -1084,6 +1117,7 @@ fn compute_group_totals(inv: &Value) -> Value {
 /// mobile.warframe.com.
 #[tauri::command]
 async fn call_api_helper(_app_handle: tauri::AppHandle) -> Result<Value, String> {
+    build_profile::require_live()?;
     // Find Warframe PID on a blocking thread (reads /proc or uses Win32 API).
     let pid = tokio::task::spawn_blocking(move || {
         crate::log_scanner::get_warframe_pid()
@@ -1139,11 +1173,24 @@ async fn call_api_helper(_app_handle: tauri::AppHandle) -> Result<Value, String>
     Ok(value)
 }
 
-/// Load all JSON export files into a single JSON object keyed by file stem
-/// (e.g. `{ "ExportWeapons": [...], "ExportWarframes": [...], ... }`).
+/// Assembles every export file into a single JSON object keyed by file stem
+/// (e.g. `{ "ExportWeapons": [...], "ExportWarframes": [...], ... }`), writes
+/// it to a cache file, and returns the cache file's path (relative to the
+/// data root) instead of the assembled object itself.
+///
+/// This used to return the ~79MB assembled object directly through Tauri's
+/// IPC bridge in one call - confirmed via GitHub issue #108 to force a large
+/// synchronous JSON round-trip on the JS main thread (especially bad in the
+/// postMessage IPC fallback mode, see IPC-RUNTIME-001). Writing to disk and
+/// having the caller fetch it via the asset protocol (see
+/// `src/lib/wfcdLoader.js`'s existing resolve_asset_path+convertFileSrc+fetch
+/// pattern, already used for wfcd-combined.json) moves the actual byte
+/// transfer and JSON parse off the invoke() round-trip entirely, onto the
+/// browser's native streaming fetch/parse pipeline instead.
+///
 /// Called by MonitoringContext once on startup; passed to inventoryParser.js.
 #[tauri::command]
-async fn load_all_exports(app_handle: tauri::AppHandle, locale: String) -> Result<Value, String> {
+async fn load_all_exports(app_handle: tauri::AppHandle, locale: String) -> Result<String, String> {
     let export_dir = resolve_path("data/export");
 
     // Pre-resolve all paths (fast metadata ops, non-blocking)
@@ -1236,7 +1283,15 @@ async fn load_all_exports(app_handle: tauri::AppHandle, locale: String) -> Resul
         result.insert(lk, lv);
     }
 
-    Ok(Value::Object(result))
+    let cache_relative = "data/export/combined_export_cache.json".to_string();
+    let cache_path = export_dir.join("combined_export_cache.json");
+    let value = Value::Object(result);
+    tokio::task::spawn_blocking(move || -> Result<(), String> {
+        let file = fs::File::create(&cache_path).map_err(|e| e.to_string())?;
+        serde_json::to_writer(std::io::BufWriter::new(file), &value).map_err(|e| e.to_string())
+    }).await.map_err(|e| e.to_string())??;
+
+    Ok(cache_relative)
 }
 
 // --- Notes Management ---
@@ -1396,6 +1451,7 @@ async fn open_notes_folder() -> Result<(), String> {
 #[tauri::command]
 async fn open_map_configs_folder() -> Result<(), String> {
     let path = resolve_path("data/user/map-configs");
+    fs::create_dir_all(&path).map_err(|e| e.to_string())?;
     #[cfg(target_os = "windows")]
     { std::process::Command::new("explorer").arg(&path).spawn().map_err(|e| e.to_string())?; }
     #[cfg(target_os = "linux")]
@@ -1418,7 +1474,7 @@ async fn write_map_config(filename: String, content: String) -> Result<(), Strin
     let dir = resolve_path("data/user/map-configs");
     fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
     let path = safe_relative_join(&dir, &filename)?;
-    fs::write(path, content).map_err(|e| e.to_string())
+    write_bytes_atomic(&path, content).map_err(|e| e.to_string())
 }
 
 /// List all `.json` files in the map-configs directory.
@@ -1670,10 +1726,38 @@ fn resolve_asset_path(app_handle: tauri::AppHandle, relative: String) -> Result<
 fn write_file(path: String, data: Vec<u8>) -> Result<(), String> {
     use std::path::Path;
     let p = Path::new(&path);
+    if build_profile::IS_PREVIEW {
+        if !p.is_absolute() || p.components().any(|c| matches!(c, std::path::Component::ParentDir)) {
+            return Err("Preview export requires an absolute path without parent traversal".into());
+        }
+        if fs::symlink_metadata(p).map(|m| m.file_type().is_symlink()).unwrap_or(false) {
+            return Err("Preview export destination must not be a symlink".into());
+        }
+        let stable = dirs::data_dir().ok_or("OS data directory unavailable")?.join("kiedas-orbiter");
+        if p.starts_with(&stable) { return Err("Preview cannot write into the stable profile".into()); }
+        let stable = stable.canonicalize().unwrap_or(stable);
+        let mut ancestor = p;
+        while !ancestor.exists() { ancestor = ancestor.parent().ok_or("Invalid destination")?; }
+        let resolved = ancestor.canonicalize().map_err(|e| e.to_string())?;
+        if resolved.starts_with(&stable) { return Err("Preview cannot write into the stable profile".into()); }
+    }
     if let Some(parent) = p.parent() {
         fs::create_dir_all(parent).map_err(|e| e.to_string())?;
     }
     fs::write(p, &data).map_err(|e| e.to_string())
+}
+
+/// Write the WFM items ID->name/icon catalog to the data root instead of
+/// localStorage. See GitHub issue #109: the full catalog exceeds localStorage's
+/// quota (QuotaExceededError, silently fails to persist). Same pattern as
+/// load_all_exports's disk-cache fix for #108 - caller reads it back via
+/// resolve_asset_path + convertFileSrc + fetch (see wfcdLoader.js).
+#[tauri::command]
+fn cache_market_catalog(data: String) -> Result<String, String> {
+    let dir = resolve_path("data/user");
+    fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+    fs::write(dir.join("wfm_id_catalog_cache.json"), data.as_bytes()).map_err(|e| e.to_string())?;
+    Ok("data/user/wfm_id_catalog_cache.json".to_string())
 }
 
 /// Fetch a URL and return the response body as text.
@@ -2282,6 +2366,7 @@ async fn show_relic_overlay(
     rewards: Value,
     persistent: Option<bool>,
 ) -> Result<(), String> {
+    build_profile::require_live()?;
     // Play sound
     let sound = state.notif_sound.lock().unwrap().clone();
     let app = app_handle.clone();
@@ -2334,6 +2419,7 @@ fn hide_overlay_window(
 /// so KWin places it above fullscreen games.
 #[tauri::command]
 fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
+    build_profile::require_live()?;
     if overlay_utils::SIDEBAR_TOGGLING.swap(true, Ordering::SeqCst) {
         eprintln!("[SIDEBAR-TOGGLE] SKIPPED (already toggling)");
         return Ok(());
@@ -2604,6 +2690,7 @@ fn show_overlay_window(
     app_handle: tauri::AppHandle,
     label: String,
 ) -> Result<(), String> {
+    build_profile::require_live()?;
     overlay_utils::show_window_internal(&app_handle, &label)
 }
 
@@ -2639,6 +2726,7 @@ fn set_ignore_cursor_events(
 
 #[tauri::command]
 async fn play_notification_sound(app_handle: tauri::AppHandle, sound: String) -> Result<(), String> {
+    build_profile::require_live()?;
     if sound == "none" {
         return Ok(());
     }
@@ -2739,6 +2827,7 @@ async fn show_notification(
     silent: Option<bool>,
     no_focus: Option<bool>,
 ) -> Result<(), String> {
+    build_profile::require_live()?;
     let pos       = position.unwrap_or_else(|| "top-right".to_string());
     let img       = image.unwrap_or_default();
     let persist   = persistent.unwrap_or(false);
@@ -2803,68 +2892,13 @@ fn get_platform_info() -> serde_json::Value {
     })
 }
 
-#[tauri::command]
-async fn download_appimage_update(url: String) -> Result<String, String> {
-    eprintln!("[UPDATER] downloading {url}");
-    let appimage_path =
-        std::env::var("APPIMAGE").map_err(|_| "Not running from AppImage".to_string())?;
-    let appimage_path = std::path::PathBuf::from(appimage_path);
-    let parent = appimage_path
-        .parent()
-        .ok_or("Cannot determine AppImage directory")?;
-    // Must land on the exact path the desktop shortcut/launcher points at
-    // ($APPIMAGE), not a filename derived from the release asset. That
-    // previously wrote a differently-named sibling file and spawned that
-    // instead - the shortcut kept launching the old, never-replaced file,
-    // which reports its own version unchanged and so finds the "same"
-    // update available again on every future launch. Confirmed live: this
-    // produced two simultaneous running instances, both still offering to
-    // update, after a "successful" install.
-    let dest_path = appimage_path.clone();
-    let temp_filename = url.split('/').next_back().ok_or("Invalid URL")?;
-    let temp_path = parent.join(format!(".{}.partial", temp_filename));
-
-    // No timeout here previously meant a stalled connection (dropped
-    // packets, a proxy holding the socket open, etc.) hung this call - and
-    // therefore the whole silent auto-update flow - forever with no error
-    // and nothing in the logs to explain why. Confirmed live: the app sat
-    // on "installing update" for 13+ minutes with no progress or failure,
-    // while the same URL downloaded in ~2s from a plain curl.
-    let client = reqwest::Client::builder()
-        .user_agent("KiedasOrbiter-Updater")
-        .connect_timeout(std::time::Duration::from_secs(15))
-        .timeout(std::time::Duration::from_secs(300))
-        .build()
-        .map_err(|e| e.to_string())?;
-    let response = client
-        .get(&url)
-        .send()
-        .await
-        .map_err(|e| format!("Download failed: {}", e))?;
-    eprintln!("[UPDATER] response status {}", response.status());
-    let bytes = response
-        .bytes()
-        .await
-        .map_err(|e| format!("Read failed: {}", e))?;
-    eprintln!("[UPDATER] downloaded {} bytes", bytes.len());
-
-    std::fs::write(&temp_path, &bytes).map_err(|e| format!("Write failed: {}", e))?;
-    eprintln!("[UPDATER] wrote {}", temp_path.display());
-
-    #[cfg(unix)]
-    {
-        use std::os::unix::fs::PermissionsExt;
-        std::fs::set_permissions(&temp_path, std::fs::Permissions::from_mode(0o755))
-            .map_err(|e| format!("Chmod failed: {}", e))?;
-    }
-
-    std::fs::rename(&temp_path, &dest_path).map_err(|e| format!("Rename failed: {}", e))?;
-    eprintln!("[UPDATER] installed {}, relaunching", dest_path.display());
-
-    let _ = std::process::Command::new(&dest_path).spawn();
-
-    Ok(dest_path.to_string_lossy().to_string())
-}
+// AppImage updates used to be installed by this command downloading the
+// release asset URL directly and overwriting the running binary with zero
+// signature verification (GitHub issue #109, SEC-UPD-001). The Windows/macOS
+// path already went through tauri-plugin-updater's own downloadAndInstall(),
+// which verifies the manifest's minisign signature against the pubkey in
+// tauri.conf.json before installing - the frontend now uses that same call
+// for every platform, AppImage included, instead of this bypass.
 
 #[tauri::command]
 async fn open_url(_app_handle: tauri::AppHandle, url: String) -> Result<(), String> {
@@ -2961,6 +2995,7 @@ async fn post_market_order(
     quantity: i32,
     rank: Option<i32>,
 ) -> Result<(), String> {
+    build_profile::require_live()?;
     crate::market::post_market_order(token, item_id, plat_price, quantity, rank).await
 }
 
@@ -2971,6 +3006,7 @@ async fn get_my_market_orders(token: String) -> Result<String, String> {
 
 #[tauri::command]
 async fn delete_market_order(token: String, order_id: String) -> Result<(), String> {
+    build_profile::require_live()?;
     crate::market::delete_market_order(token, order_id).await
 }
 
@@ -2982,16 +3018,19 @@ async fn update_market_order(
     quantity: Option<i32>,
     visible: Option<bool>,
 ) -> Result<(), String> {
+    build_profile::require_live()?;
     crate::market::update_market_order(token, order_id, platinum, quantity, visible).await
 }
 
 #[tauri::command]
 async fn close_market_order(token: String, order_id: String, quantity: i32) -> Result<(), String> {
+    build_profile::require_live()?;
     crate::market::close_market_order(token, order_id, quantity).await
 }
 
 #[tauri::command]
 async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppState>) -> Result<(), String> {
+    build_profile::require_live()?;
     if state.log_scanner.lock().unwrap().is_some() {
         return Ok(());
     }
@@ -3116,6 +3155,7 @@ struct HotkeyDef {
 
 #[tauri::command]
 async fn set_hotkeys(app: AppHandle, hotkeys: Vec<HotkeyDef>) -> Result<(), String> {
+    build_profile::require_live()?;
     // Fallback: register individually via plugin
     use tauri_plugin_global_shortcut::GlobalShortcutExt;
     let _ = app.global_shortcut().unregister_all();
@@ -3129,6 +3169,7 @@ async fn set_hotkeys(app: AppHandle, hotkeys: Vec<HotkeyDef>) -> Result<(), Stri
 }
 
 async fn register_one_via_plugin(app: &AppHandle, shortcut: &str, action: &str) -> Result<(), String> {
+    build_profile::require_live()?;
     use tauri_plugin_global_shortcut::{GlobalShortcutExt, ShortcutState};
     let shortcut_owned = shortcut.to_string();
     let action_owned = action.to_string();
@@ -3253,6 +3294,7 @@ async fn set_setting(app_handle: tauri::AppHandle, key: String, value: Value) ->
 /// Set the shared monitoring active flag and notify all windows.
 #[tauri::command]
 fn set_monitoring_active(app_handle: tauri::AppHandle, active: bool, result: Option<String>, status_text: Option<String>) -> Result<(), String> {
+    if active { build_profile::require_live()?; }
     let state = app_handle.state::<AppState>();
     state.monitoring_active.store(active, Ordering::SeqCst);
     app_handle.emit("monitoring-active-changed", serde_json::json!({
@@ -4097,7 +4139,14 @@ fn start_background_asset_sync() {
         // Wait a few seconds for the app to start up and UI to render
         tokio::time::sleep(std::time::Duration::from_secs(5)).await;
 
-        let export_dir = get_data_root().join("export");
+        // Every other reader of the export directory in this file goes
+        // through resolve_path("data/export") - this was the one place
+        // still joining "export" directly onto the data root (missing the
+        // "data/" segment), so it silently scanned a nonexistent directory
+        // and always found zero images to prefetch (GitHub issue #109,
+        // DATA-ASSET-002; confirmed live via the "[background-sync] Found 0
+        // unique images to sync" log line every run).
+        let export_dir = resolve_path("data/export");
         let cache_dir = get_data_root().join("image_cache");
 
         let mut image_urls = Vec::new();
@@ -4160,6 +4209,18 @@ fn start_background_asset_sync() {
 }
 
 fn main() {
+    // Validate identity before log cleanup, profile reads or migration can run.
+    let context = tauri::generate_context!();
+    if (context.config().identifier == "com.jacob.kiedasorbiter.preview") != build_profile::IS_PREVIEW {
+        eprintln!("Preview identity and Cargo feature must be selected together");
+        std::process::exit(1);
+    }
+    if build_profile::IS_PREVIEW {
+        if let Err(message) = build_profile::preview_root(dirs::data_dir()) {
+            eprintln!("{message}");
+            std::process::exit(1);
+        }
+    }
     #[cfg(target_os = "linux")]
     {
         // The default 1024 isn't enough; give ourselves plenty of headroom.
@@ -4207,6 +4268,27 @@ fn main() {
             std::env::set_var("GST_DEBUG", "*:0");
         }
     }
+    // Recover before any profile-dependent state is read or normal services start.
+    let _preview_profile_guard = if build_profile::IS_PREVIEW {
+        match preview_import::initialize(&get_data_root().join("data/user")) {
+            Ok(guard) => Some(guard),
+            Err(message) => {
+                eprintln!("{message}");
+                // An error-only native dialog: no app windows, commands, or profile reads.
+                use tauri_plugin_dialog::DialogExt;
+                let mut error_context = context;
+                error_context.config_mut().app.windows.clear();
+                let _ = tauri::Builder::default().plugin(tauri_plugin_dialog::init())
+                    .setup(move |app| {
+                        app.dialog().message(&message).title("Kieda's Orbiter Preview recovery blocked")
+                            .kind(tauri_plugin_dialog::MessageDialogKind::Error)
+                            .show(|_| std::process::exit(1));
+                        Ok(())
+                    }).run(error_context);
+                std::process::exit(1);
+            }
+        }
+    } else { None };
     // Clean up logs older than 48 hours
     crate::logger::cleanup_old_logs();
 
@@ -4242,7 +4324,11 @@ fn main() {
     // software-renderer path and GDK_BACKEND is forced to X11.
     // Linux env vars set above at process start
 
-    let app = tauri::Builder::default()
+    let builder = tauri::Builder::default();
+    let builder = if build_profile::IS_PREVIEW { builder } else {
+        builder.plugin(tauri_plugin_updater::Builder::new().build())
+    };
+    let app = builder
         .register_asynchronous_uri_scheme_protocol("asset-cache", |ctx, req, responder| {
             handle_asset_cache_request(ctx, req, responder)
         })
@@ -4250,7 +4336,6 @@ fn main() {
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_http::init())
-        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_opener::init())
         .manage(AppState {
             notif_sound: Arc::new(Mutex::new(saved_sound.to_string())),
@@ -4292,6 +4377,10 @@ fn main() {
             }
         })
         .setup(|app| {
+            let preview_identity = app.config().identifier == "com.jacob.kiedasorbiter.preview";
+            if preview_identity != build_profile::IS_PREVIEW {
+                return Err("Preview identity and Cargo feature must be selected together".into());
+            }
             start_background_asset_sync();
             // Explicitly grant the asset:// protocol scope access to the writable
             // data root, using the canonicalized path. This works around a bug
@@ -4381,6 +4470,7 @@ fn main() {
             });
             // Extract card images in the background (was synchronous before
             // app.run(), which froze the window during startup).
+            if !build_profile::IS_PREVIEW {
             let ah4 = ah.clone();
             std::thread::spawn(move || {
                 std::thread::sleep(std::time::Duration::from_millis(500));
@@ -4391,6 +4481,8 @@ fn main() {
                     }
                 }
             });
+
+            }
 
             // Pricer is NOT eagerly loaded here - it lazy-inits on first use
             // (estimate_riven_*, get_weapon_names from the Rivens tab).
@@ -4408,7 +4500,7 @@ fn main() {
                 // grants it.  Once granted the portal remembers and subsequent
                 // probes succeed silently, so we persist the flag in settings.
                 let settings = load_settings_sync();
-                if settings.get("screenshot_probe_granted") != Some(&serde_json::json!(true)) {
+                if !build_profile::IS_PREVIEW && settings.get("screenshot_probe_granted") != Some(&serde_json::json!(true)) {
                     let ah = app.handle().clone();
                     tauri::async_runtime::spawn(async move {
                         let status = (|| -> Result<(), String> {
@@ -4441,6 +4533,7 @@ fn main() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
+            get_build_profile, import_preview_profile, load_preview_checklist,
             // --- data ---
             load_cached_inventory,
             diff_and_save_inventory,
@@ -4476,6 +4569,7 @@ fn main() {
             get_card_images_path,
             read_file,
             write_file,
+            cache_market_catalog,
             read_file_bytes,
             resolve_asset_path,
             count_unfixed_card_images,
@@ -4512,7 +4606,6 @@ fn main() {
             relay_event,
             get_active_relic_session,
             open_url,
-            download_appimage_update,
             get_platform_info,
             save_settings,
             set_setting,
@@ -4551,7 +4644,7 @@ fn main() {
             sync_wiki_tab,
             fetch_url,
         ])
-        .build(tauri::generate_context!())
+        .build(context)
         .expect("error while building tauri application");
 
     app.run(|_app_handle, _event| {});

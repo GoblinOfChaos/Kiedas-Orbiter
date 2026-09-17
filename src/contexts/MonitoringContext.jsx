@@ -1,8 +1,8 @@
 import { createContext, useContext, useState, useRef, useCallback, useEffect, useMemo } from 'react'
-import { invoke } from '@tauri-apps/api/core'
-import { parseInventory } from '../lib/inventoryParser'
+import { invoke, convertFileSrc } from '@tauri-apps/api/core'
+import * as Comlink from 'comlink'
+import DataProcessingWorker from '../lib/dataProcessing.worker.js?worker'
 import { loadLocale } from '../lib/i18n'
-import { buildDropIndex } from '../lib/dropsParser'
 import { loadAcquisitionData } from '../lib/acquisitionData'
 import { buildRecipeResultIndex, buildExaltedWeaponIndex, buildMarketIndex, buildAlwaysAvailableIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex, buildWikiBlueprintIndex, buildWikiResearchIndex, buildWikiResourceIndex, buildWikiPageAcquisitionIndex, buildWikiAcquisitionStatusIndex, buildRelicStateIndex, buildExportVendorIndex, buildGlyphSupplementIndex, buildExportComponentIndex } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
@@ -12,10 +12,12 @@ import { getPrice, getPricesBatch } from '../lib/marketEngine'
 import { resolveNode, resolveMissionType, resolveChallenge, resolveAnyImage } from '../lib/warframeUtils'
 import { evaluateNotifications } from '../lib/notificationManager'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
-import { fillDataGaps, logGapFillAudit } from '../lib/wfcdGapFill'
+import { fillDataGaps, logGapFillAudit, fillModGaps, logModGapFillAudit } from '../lib/wfcdGapFill'
 import { loadSettings, getSetting, setSetting } from '../lib/settings'
 import { useUi } from './UiContext'
 
+
+import { IS_PREVIEW } from '../lib/buildProfile'
 
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
 const ORACLE_API = 'https://api.warframe.com/cdn/worldState.php'
@@ -128,14 +130,30 @@ function getUpcomingArbies(arbys, ERg, dict, arbyTiers, count = 10) {
   return results
 }
 
+// Module-level singleton: one Worker for the lifetime of the app, created
+// lazily on first use rather than at module load (avoids spinning up a
+// Worker for the overlay window, which never touches this data).
+let dataWorkerApi = null
+function getDataWorker() {
+  if (!dataWorkerApi) {
+    dataWorkerApi = Comlink.wrap(new DataProcessingWorker())
+  }
+  return dataWorkerApi
+}
+
 const MonitoringContext = createContext(null)
 
 export function MonitoringProvider({ children }) {
   const { t } = useUi()
   const [exportData, setExportData] = useState(null)
+  // Set when load_all_exports genuinely fails (not just null-on-first-render
+  // before it resolves) - see the exportsRes.status check below. Distinct
+  // from ErrorBoundary: this is a detected failed-promise result, not a
+  // thrown exception, so nothing would otherwise catch it.
+  const [criticalLoadError, setCriticalLoadError] = useState(null)
   const [isMonitoring, setIsMonitoring] = useState(false)
   const [monitorResult, setMonitorResult] = useState('idle') // 'idle' | 'success' | 'error'
-  const [autoStart, setAutoStartState] = useState(localStorage.getItem('autoStartMonitoring') === 'true')
+  const [autoStart, setAutoStartState] = useState(!IS_PREVIEW && localStorage.getItem('autoStartMonitoring') === 'true')
   const autoStartRef = useRef(autoStart)
 
   const setAutoStart = useCallback((val) => {
@@ -387,7 +405,22 @@ export function MonitoringProvider({ children }) {
 
   const globalRewardPool = useMemo(() => getAllRelicRewards(exportData, localeRef.current), [exportData, localeRef.current])
 
-  const dropIndex = useMemo(() => buildDropIndex(exportData), [exportData])
+  // Moved off the main thread into a Worker (GitHub issue #108 - this used
+  // to run fully synchronously and unyielded inside a useMemo). Starts null
+  // like every other data field in this context and fills in once the
+  // worker resolves, same pattern already used for exportData itself.
+  const [dropIndex, setDropIndex] = useState(null)
+  useEffect(() => {
+    if (!exportData) { setDropIndex(null); return undefined }
+    let cancelled = false
+    getDataWorker().buildDropIndex(exportData).then((result) => {
+      if (!cancelled) setDropIndex(result)
+    }).catch((err) => {
+      console.error('buildDropIndex worker call failed:', err)
+      if (!cancelled) setDropIndex(null)
+    })
+    return () => { cancelled = true }
+  }, [exportData])
 
   const recipeResultIndex = useMemo(() => buildRecipeResultIndex(exportData), [exportData])
   const exaltedWeaponIndex = useMemo(() => buildExaltedWeaponIndex(exportData), [exportData])
@@ -440,26 +473,35 @@ export function MonitoringProvider({ children }) {
     if (!Array.isArray(raw) || raw.length === 0) return
     // Wait for real worldstate data before evaluating
     if (!worldState) return
-    if (!notifiedRef.current.notifMgr) notifiedRef.current.notifMgr = new Set()
+
+    // notifMgr's dedup set is seeded from persisted state (survives restarts)
+    // so an item that finished while the app was closed still fires once on
+    // the next launch, instead of being silently swallowed as "already seen".
+    let seededFromPersisted = false
+    if (!notifiedRef.current.notifMgr) {
+      const persisted = getSetting('notification_seen_ids', null)
+      notifiedRef.current.notifMgr = new Set(Array.isArray(persisted) ? persisted : [])
+      seededFromPersisted = persisted !== null
+    }
 
     const position = getSetting('notif_position', 'top-right')
     const lastFired = getSetting('notification_last_fired', {})
     let updatedLastFired = false
 
-    // On first real data, mark everything as seen - no startup flood
-    if (!notifInitRef.current) {
+    // On the very first run ever (no persisted history at all), mark
+    // whatever is currently true as seen without firing - no startup flood
+    // on first install. Once persisted, every later launch (including after
+    // a full restart) skips this branch and evaluates for real below.
+    if (!notifInitRef.current && !seededFromPersisted) {
       const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle, t })
       for (const r of results) {
         notifiedRef.current.notifMgr.add(`${r.notifId}::${r.title}::${r.message}`)
       }
-      // Was never set, so every subsequent run of this effect re-took this
-      // same "first run" branch forever - the actual firing logic below was
-      // unreachable and no notification-manager rule (fissure, arbitration,
-      // void trace, syndicate, foundry, mastery, checklist, sale, bounty)
-      // could ever fire.
+      setSetting('notification_seen_ids', Array.from(notifiedRef.current.notifMgr))
       notifInitRef.current = true
       return
     }
+    notifInitRef.current = true
     const results = evaluateNotifications(raw, { inventoryData, worldstate: worldState, arbys, ERg, dict, ES, EC, bountyCycle, t })
 
     // Fire each new notification individually; play sound in main window first
@@ -474,7 +516,8 @@ export function MonitoringProvider({ children }) {
 
       if (!notifiedRef.current.notifMgr.has(dedupKey) || (cooldownMs > 0 && now - lastTime >= cooldownMs)) {
         notifiedRef.current.notifMgr.add(dedupKey)
-        
+        setSetting('notification_seen_ids', Array.from(notifiedRef.current.notifMgr))
+
         if (cooldownMs > 0) {
           lastFired[dedupKey] = now
           updatedLastFired = true
@@ -502,10 +545,15 @@ export function MonitoringProvider({ children }) {
 
     // Reset dedup for notifications that no longer match
     const activeKeys = new Set(results.map(r => `${r.notifId}::${r.title}::${r.message}`))
+    let removedStale = false
     for (const key of notifiedRef.current.notifMgr) {
       if (!activeKeys.has(key)) {
         notifiedRef.current.notifMgr.delete(key)
+        removedStale = true
       }
+    }
+    if (removedStale) {
+      setSetting('notification_seen_ids', Array.from(notifiedRef.current.notifMgr))
     }
   }, [inventoryData, worldState, arbys, ERg, dict, ES])
 
@@ -560,19 +608,21 @@ export function MonitoringProvider({ children }) {
     rawInventoryRef.current = raw
     const ed = exports || exportDataRef.current || exportData
     if (!ed) return
-    // Yield frame before heavy parseInventory to prevent UI freeze
-    setTimeout(() => {
-      try {
-        const parsed = parseInventory(raw, ed, dict, localeRef.current, i18nRef.current)
-        setInventoryData(parsed || null)
-      } catch (err) {
-        setInventoryData(null)
-      }
+    // Moved off the main thread into a Worker (GitHub issue #108 - this
+    // previously ran synchronously, with only a setTimeout yield-one-frame
+    // as a partial mitigation; the actual parse could still block the main
+    // thread for its full duration once it started).
+    getDataWorker().parseInventory(raw, ed, dict, localeRef.current, i18nRef.current).then((parsed) => {
+      setInventoryData(parsed || null)
+    }).catch((err) => {
+      console.error('parseInventory worker call failed:', err)
+      setInventoryData(null)
+    }).finally(() => {
       const tsStr = String(ts ?? Date.now())
       setLastUpdate(tsStr)
       localStorage.setItem('lastUpdate', tsStr)
       invoke('relay_event', { event: 'sidebar-data-updated', payload: { ts: tsStr } }).catch(() => {})
-    }, 0)
+    })
   }, [exportData, dict])
   useEffect(() => {
     if (startedRef.current) return
@@ -602,7 +652,38 @@ export function MonitoringProvider({ children }) {
         invoke('load_txt_file', { name: 'descendia.txt' }),
       ])
 
-      const exports = exportsRes.status === 'fulfilled' ? exportsRes.value : null
+      // load_all_exports now returns a cache-file path (see main.rs) instead
+      // of the ~79MB assembled object directly through invoke()'s IPC bridge
+      // (GitHub issue #108) - fetch the actual data via the same
+      // resolve_asset_path + convertFileSrc + fetch pattern wfcdLoader.js
+      // already uses for wfcd-combined.json, so the byte transfer and JSON
+      // parse happen via the browser's native fetch pipeline instead of a
+      // single large IPC round-trip.
+      let exports = null
+      let exportsLoadErrorReason = null
+      if (exportsRes.status === 'fulfilled' && exportsRes.value) {
+        try {
+          const absolutePath = await invoke('resolve_asset_path', { relative: exportsRes.value })
+          const url = convertFileSrc(absolutePath)
+          exports = await fetch(url).then((r) => r.json())
+        } catch (err) {
+          exportsLoadErrorReason = String(err?.message || err)
+        }
+      }
+      // load_all_exports is the one genuinely critical load in this batch -
+      // without it, essentially every screen has nothing to render. A real
+      // disk error here used to leave exportData permanently null with no
+      // indication to the user why. Surface it explicitly instead.
+      if (!exports) {
+        setCriticalLoadError(
+          exportsLoadErrorReason
+            || (exportsRes.status === 'rejected'
+              ? String(exportsRes.reason?.message || exportsRes.reason || 'Unknown error loading game data.')
+              : 'Game data failed to load (empty result).')
+        )
+      } else {
+        setCriticalLoadError(null)
+      }
       const spiText = spiRes.status === 'fulfilled' ? spiRes.value : null
       const arbText = arbRes.status === 'fulfilled' ? arbRes.value : null
       // Retired in v0.8: ExportUpgrades_fixed.json patched file — the DE
@@ -704,6 +785,13 @@ export function MonitoringProvider({ children }) {
           enhanced.uniqueNameToName = { ...enhanced.uniqueNameToName, ...wiSupplement.uniqueNameToName }
           enhanced.nameToImage = { ...enhanced.nameToImage, ...wiSupplement.nameToImage }
           enhanced.WI_Supplement = wiSupplement
+          try {
+            const { map: enrichedUpgrades, audit: modAudit } = fillModGaps(enhanced.WI_Upgrades, filledExports.WFCD_Mods)
+            enhanced.WI_Upgrades = enrichedUpgrades
+            logModGapFillAudit(modAudit)
+          } catch (err) {
+            console.error('WFCD mod gap-fill failed, continuing without it:', err)
+          }
           setExportData(enhanced)
           exportDataRef.current = enhanced
           // wfcd English names (WI_Weapons) attach in the background after
@@ -762,7 +850,7 @@ export function MonitoringProvider({ children }) {
       // once regardless of which screen is active. Settings are already
       // loaded by this point (awaited above), so getSetting is safe to read.
       if (getSetting('fissure_overlay_enabled')) {
-        invoke('start_log_scanner').catch(() => {})
+        if (!IS_PREVIEW) invoke('start_log_scanner').catch(() => {})
       }
     })()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -1135,12 +1223,12 @@ const hasCachedData = useCallback(async () => {
           }
           // No further fallback below the fuzzy-match threshold: fabricating
           // a synthetic item here (invented uniqueName, guessed ducat value)
-          // violates the project's zero-fallback-text rule and produces a
-          // plausible-looking but fake reward card with no real icon or
-          // ownership data behind it. Falling through to `return null` below
-          // means this slot's OCR result is simply not emitted - the caller
-          // already filters out null results - rather than showing invented
-          // data as if it were real.
+          // violates the project's zero-fallback-text rule and would produce
+          // a plausible-looking but fake reward card with no real icon or
+          // ownership data behind it. Below, an "unmatched" result carrying
+          // only the real OCR text is emitted instead - see GitHub issue
+          // #109 (slot was previously stuck on "ANALYZING..." forever with
+          // no resolution, since a dropped event never updates ocrResults).
         }
 
         if (bestMatch) {
@@ -1149,7 +1237,7 @@ const hasCachedData = useCallback(async () => {
           inventory.subcomponents = (inventory.subcomponents || []).map((c) => ({ ...c, image: resolveAnyImage(c.uniqueName, EI, nameToImage) }))
           return { slot: res.slot, confirmed_reward: bestMatch.name, item: { ...bestMatch, icon: EI[bestMatch.uniqueName], platPrice, inventory } };
         }
-        return null;
+        return { slot: res.slot, unmatched: true, raw_text: res.text };
       });
 
       // Wait for all slots to process and emit all events together
@@ -1212,8 +1300,8 @@ const hasCachedData = useCallback(async () => {
           ...rw,
           plat: allPricesRef.current[rw.uniqueName] ?? 0,
         }))
-        const evPlat = getRelicEV(sortedRewards, 'Intact', 1, 'plat')
-        const evDucats = getRelicEV(sortedRewards, 'Intact', 1, 'ducats')
+        const evPlat = getRelicEV(sortedRewards, 'Intact', 'plat')
+        const evDucats = getRelicEV(sortedRewards, 'Intact', 'ducats')
 
         let missingCount = 0
         const neededRewards = sortedRewards.map(rw => {
@@ -1224,8 +1312,8 @@ const hasCachedData = useCallback(async () => {
           if (!everObtained && !isUncountableFillerReward(rw.uniqueName)) missingCount++
           return everObtained ? { ...rw, plat: 0, ducats: 0 } : rw
         })
-        const evPlatNeed = getRelicEV(neededRewards, 'Intact', 1, 'plat')
-        const evDucatsNeed = getRelicEV(neededRewards, 'Intact', 1, 'ducats')
+        const evPlatNeed = getRelicEV(neededRewards, 'Intact', 'plat')
+        const evDucatsNeed = getRelicEV(neededRewards, 'Intact', 'ducats')
 
         const ownedCount = Object.values(r.refinements || {}).reduce((sum, c) => sum + (c || 0), 0)
 
@@ -1387,11 +1475,20 @@ const hasCachedData = useCallback(async () => {
     }
     cardInitStarted.current = true
 
+    // Same unmount race as ThemeContext.jsx (GitHub issue #109, REL-EVENT-003):
+    // if this effect's cleanup runs before the `await listen(...)` below
+    // resolves, `unlisten` is still undefined at that moment and the
+    // eventually-resolved unlisten function is never called - a leaked,
+    // permanently-registered listener. `cancelled` lets the resolution
+    // itself call unlisten immediately when that happens.
+    let cancelled = false;
     let unlisten;
     (async () => {
-      unlisten = await listen('card-progress', (e) => {
+      const un = await listen('card-progress', (e) => {
         setFixProgress(e.payload);
       });
+      if (cancelled) { un(); return; }
+      unlisten = un;
 
       const savedPath = getSetting('warframe_cache_path', '')
       const cachePath = savedPath || await invoke('detect_warframe_cache').catch(() => null)
@@ -1418,12 +1515,12 @@ const hasCachedData = useCallback(async () => {
       }
     })();
 
-    return () => { if (unlisten) unlisten() }
+    return () => { cancelled = true; if (unlisten) unlisten() }
   }, [inventoryData?.mods?.length])
 
   return (
     <MonitoringContext.Provider value={{
-      exportData, spIncursions, arbys, archonModifiers, arbitrationModifiers,
+      exportData, criticalLoadError, spIncursions, arbys, archonModifiers, arbitrationModifiers,
       dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, ES, ENW, ENWRawRewards, ExportImages, ExportTextIcons, arbyTiers: ARBY_TIERS, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, glyphSupplementIndex, exportComponentIndex,
       isMonitoring, monitorResult, autoStart, setAutoStart, lastUpdate, nextRetryAt, rawInventory, inventoryData, isInventoryLoading, worldState, setWorldState, statusText,
       masteryProgress, allPrices, isPriceLoading, priceFetchProgress, priceLastUpdated, refreshPrices,

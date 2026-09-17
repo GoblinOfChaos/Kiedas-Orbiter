@@ -754,11 +754,6 @@ export function buildExportComponentIndex(exportData) {
 }
 
 export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) {
-  const itemDrops = getItemDrops(dropIndexKey);
-  if (itemDrops) {
-    return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), wikiLink: getWikiLink(dropIndexKey, displayName) };
-  }
-
   const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
   // The bare-displayName key is unsafe on its own: it's shared across every
   // item that happens to have this exact display name (e.g. a Warframe and
@@ -815,6 +810,18 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     && structuredVendorsForOverride.length > 0;
   const marketMentioned = typeof overrideText === 'string'
     && /market purchase|market bundle|complete .*market/i.test(overrideText);
+  // Broader than `marketMentioned` above (which only matches specific
+  // phrasings used elsewhere in this function) - this just checks whether
+  // the override text mentions a Market route in any form at all. Used to
+  // stop the baro/tennoGen/vendor structured-route branches below from
+  // fully replacing an override that ALSO has a real Market route the
+  // structured indices don't know about (GitHub issue #109: confirmed on
+  // Mag, whose override "Blueprint purchasable from Market for 75 Platinum
+  // or Purchased from Conclave..." was being truncated to just "Sold by
+  // Conclave." because `vendorOverrideHasStructuredRoute` fired and fully
+  // replaced the text instead of merging with it).
+  const overrideMentionsMarketRoute = typeof overrideText === 'string'
+    && /\bmarket\b/i.test(overrideText);
   const overrideForbidsBlueprint = typeof overrideText === 'string'
     && /fully built|no blueprint/i.test(overrideText);
   const marketAmount = marketEntry ? Number(marketEntry.amount) : 0;
@@ -853,14 +860,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
         wikiLink: getWikiLink(dropIndexKey, displayName),
       };
     }
-    if (baroOverrideHasStructuredRoute) {
+    if (baroOverrideHasStructuredRoute && !overrideMentionsMarketRoute) {
       return {
         sources: [{ type: 'non-drop', text: "Sold by Baro Ki'Teer.", source: 'Warframe Wiki Baro acquisition index' }],
         recipe: recipe || null,
         wikiLink: getWikiLink(dropIndexKey, displayName),
       };
     }
-    if (tennoGenOverrideHasStructuredRoute) {
+    if (tennoGenOverrideHasStructuredRoute && !overrideMentionsMarketRoute) {
       const price = structuredTennoGenForOverride.pcPrice || structuredTennoGenForOverride.consolePrice;
       const priceText = price ? ` for ${price}` : '';
       return {
@@ -869,7 +876,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
         wikiLink: getWikiLink(dropIndexKey, displayName),
       };
     }
-    if (vendorOverrideHasStructuredRoute) {
+    if (vendorOverrideHasStructuredRoute && !overrideMentionsMarketRoute) {
       return {
         sources: [{ type: 'non-drop', text: `Sold by ${structuredVendorsForOverride.join(' and ')}.`, source: 'Warframe Wiki vendor acquisition index' }],
         recipe: recipe || null,
@@ -888,6 +895,24 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     };
   }
 
+  // drops.wf (DropsAll.json, official warframestat.us mirror) is checked
+  // before the bundled warframe-items package below, but only after a
+  // manual override/exalted-weapon grant has had its chance above: a
+  // hand-verified override can correctly combine multiple valid routes
+  // (e.g. Mag: "Market for 75 Platinum OR Conclave for standing") which
+  // drops.wf's single-route-per-item data cannot express on its own -
+  // checking drops.wf before the override silently drops whichever route
+  // the override captured that drops.wf doesn't also have (confirmed
+  // 2026-09-14: reordering drops.wf ahead of overrides made Mag's drawer
+  // show only "Conclave" and lose the Market route entirely). warframe-items
+  // conflates guaranteed Syndicate/vendor standing purchases with real
+  // mission/enemy drops (both show as chance:1/100% entries with no type
+  // distinction), which caused ~78% of merged mod overrides to be silently
+  // shadowed by wrong vendor-as-drop entries (found 2026-09-10, e.g.
+  // "Abating Link" showing a drop table instead of "Sold by New Loka and
+  // The Perrin Sequence") - drops.wf tags syndicate offerings with their own
+  // `type: 'syndicate'` distinct from real drops, so for anything with no
+  // override, prefer it over warframe-items whenever it has data.
   const norm = canonicalPath(dropIndexKey);
   const displayLower = normalizeDisplayName(displayName);
   // A refined relic (Exceptional/Flawless/Radiant) is never dropped directly
@@ -924,6 +949,11 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       ? [{ type: 'status', text: `Refined from ${baseRelicDisplay.replace(/\b\w/g, (c) => c.toUpperCase())} using Void Traces - not obtained directly at this quality.`, source: 'Relic refinement mechanic' }, ...dropSources]
       : dropSources;
     return { sources, wikiLink: getWikiLink(dropIndexKey, displayName) };
+  }
+
+  const itemDrops = getItemDrops(dropIndexKey);
+  if (itemDrops) {
+    return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   // Prime weapon/Warframe component blueprints (Barrel, Chassis Blueprint,
@@ -1230,8 +1260,27 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const glyph = glyphSupplementIndex?.get(canonicalPath(dropIndexKey));
   if (glyph) {
     const details = [];
-    if (glyph.promo_code) details.push(`Promo code: ${glyph.promo_code}.`);
-    if (glyph.markdown) details.push(glyph.markdown);
+    // A promo code is a universal, freely-redeemable route (per the wiki's
+    // own "Creator Glyphs" section) - when one exists it fully supersedes
+    // the raw markdown, which is just the creator's own promotional blurb
+    // for personal-distribution glyphs and previously got dumped alongside
+    // the code as unrendered bullet syntax regardless (GitHub issue #109).
+    if (glyph.promo_code) {
+      details.push(`Redeem promo code ${glyph.promo_code} in the in-game Market, or via warframe.com/promocode?code=${glyph.promo_code}.`);
+    } else if (glyph.markdown) {
+      // No documented universal code - this is genuinely personal-creator
+      // distribution, not a fixable data gap. Strip markdown syntax (list
+      // bullets, link brackets, strikethrough) instead of rendering it as
+      // literal asterisks/tildes, and frame it honestly as a personal perk.
+      const cleaned = glyph.markdown
+        .replace(/~~/g, '')
+        .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+        .split('\n')
+        .map((line) => line.replace(/^\s*[*-]\s*/, '').trim())
+        .filter(Boolean)
+        .join('; ');
+      if (cleaned) details.push(`No universal promo code documented; distributed personally by the creator (${cleaned}).`);
+    }
     if (glyph.twitch) details.push(`Twitch: ${glyph.twitch}`);
     if (glyph.youtube) details.push(`YouTube: ${glyph.youtube}`);
     if (glyph.twitter) details.push(`Twitter: ${glyph.twitter}`);

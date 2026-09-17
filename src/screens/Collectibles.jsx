@@ -239,8 +239,8 @@ function ProgressCard({ icon, label, subtitle, count, total, color, onClick }) {
       <div className="flex-1 relative overflow-hidden">
         <div className="absolute inset-0" style={{ background: `linear-gradient(to right, transparent, var(--color-panel) 40px)` }} />
         <div className="relative z-10 h-full flex flex-col justify-center px-3 py-2 min-w-0">
-          <p className="text-sm font-bold text-white leading-tight">{label}</p>
-          {subtitle && <p className="text-[10px] text-kronos-dim leading-tight">{subtitle}</p>}
+          <p className="text-sm font-bold text-white leading-tight truncate">{label}</p>
+          {subtitle && <p className="text-[10px] text-kronos-dim leading-tight truncate">{subtitle}</p>}
           {total > 0 ? (
             <>
               <p className="text-xs font-bold mt-1" style={{ color }}>{count} / {total}</p>

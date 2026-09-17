@@ -7,7 +7,10 @@ import { useMonitoring } from '../contexts/MonitoringContext'
 import { resolveAnyImage } from '../lib/warframeUtils'
 import { getAcquisitionInfo } from '../lib/acquisitionInfo'
 import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer'
+import PreviewAcquisitionDrawer from '../preview/acquisition/PreviewAcquisitionDrawer'
 import ItemImage from '../components/ItemImage'
+import { IS_PREVIEW } from '../lib/buildProfile'
+import PreviewCosmeticsLayout from '../components/PreviewCosmeticsLayout'
 
 const normalize = (uniqueName) => typeof uniqueName === 'string' ? uniqueName.replaceAll('/StoreItems/', '/').toLowerCase() : uniqueName
 const isSigil = (uniqueName) => /\/Upgrades\/Skins\/Sigils\//i.test(uniqueName || '')
@@ -84,6 +87,50 @@ function cosmeticType(uniqueName, icon, kind, warframeFamilies) {
   return 'Other'
 }
 
+// A handful of Warframe Animation Set folders use a legacy internal codename
+// that matches neither the Warframe's current Powersuits folder nor its
+// display name (the same class of mismatch buildWarframeFamilies already
+// handles for regular skins, just one level deeper here). Verified directly
+// against the export data + dict (not guessed from the name): Anima ->
+// Equinox, Asp -> Saryn, Decree -> Banshee. The other 62 of 66 Animation Set
+// folders match the Warframe's real current codename/display-name words
+// with no override needed.
+const ANIMATION_FOLDER_FAMILY_OVERRIDES = { anima: 'equinox', asp: 'saryn', decree: 'banshee' }
+
+// Per wiki.warframe.com/w/Animation_Set: "Each Warframe has two of their own
+// animation sets unlocked by default, Agile and Noble" - free with the frame,
+// no separate purchase. DE's export data confirms this: every Animation Set
+// entry carries `alwaysAvailable: true` plus a paired `requirement` token
+// that never appears anywhere in the raw inventory (see acquisitionInfo.js's
+// buildAlwaysAvailableIndex comment - this is NOT the same as the emote case,
+// where alwaysAvailable alone means free-for-everyone). Since a purchased
+// cross-Warframe animation license already shows up correctly via the normal
+// owned-items scan (DE files it under productCategory "WeaponSkins", the
+// same bucket a regular skin purchase uses), the only real gap is this
+// default-per-frame case: true whenever the player owns a Warframe in the
+// matching family, independent of anything in the raw inventory buckets.
+function buildOwnedWarframeFamilies(rawInventory, exportData) {
+  const dict = exportData?.dict || {}
+  const warframesByUniqueName = exportData?.ExportWarframes || {}
+  const ownedFolders = new Set()
+  for (const suit of rawInventory?.Suits || []) {
+    const match = /^\/Lotus\/Powersuits\/([^/]+)\//.exec(suit?.ItemType || '')
+    if (match) ownedFolders.add(match[1].toLowerCase())
+  }
+  const families = new Set()
+  for (const [uniqueName, entry] of Object.entries(warframesByUniqueName)) {
+    if (entry?.productCategory !== 'Suits') continue
+    const match = /^\/Lotus\/Powersuits\/([^/]+)\//.exec(uniqueName)
+    if (!match || !ownedFolders.has(match[1].toLowerCase())) continue
+    families.add(match[1].toLowerCase())
+    const displayName = dict[entry?.name] || ''
+    for (const word of displayName.split(/[^A-Za-z0-9]+/)) {
+      if (word && word.toLowerCase() !== 'prime') families.add(word.toLowerCase())
+    }
+  }
+  return families
+}
+
 function ownedUniqueNames(rawInventory) {
   const owned = new Set()
   for (const bucket of ['WeaponSkins', 'FlavourItems', 'MiscItems', 'ShipDecorations']) {
@@ -116,6 +163,7 @@ function CosmeticCard({ item, onAcquire }) {
     <Card
       className={`overflow-hidden cursor-pointer transition-colors hover:border-kronos-accent/40 ${item.owned ? 'border-emerald-500/60' : 'border-white/10'}`}
       onClick={() => onAcquire(item.uniqueName)}
+      data-preview-cosmetic-card={IS_PREVIEW ? '' : undefined}
     >
       <div className="relative h-48 flex items-center justify-center bg-black/20">
         <ItemImage src={item.icon} alt={item.name} className="max-h-44 max-w-[90%] object-contain" placeholderClassName="w-full h-full bg-white/5" />
@@ -143,6 +191,7 @@ export default function Cosmetics() {
   const [search, setSearch] = useState('')
   const [kindFilter, setKindFilter] = useState('all')
   const [ownershipFilter, setOwnershipFilter] = useState('all')
+  const [animationTierFilter, setAnimationTierFilter] = useState('all')
   const [sortCriteria, setSortCriteria] = useState('name')
   const [sortDirection, setSortDirection] = useState('asc')
   const [visibleCount, setVisibleCount] = useState(COSMETICS_PAGE_SIZE)
@@ -160,9 +209,29 @@ export default function Cosmetics() {
     const customs = exportData?.ExportCustoms
     const dict = exportData?.dict || {}
     const warframeFamilies = buildWarframeFamilies(exportData)
+    const ownedWarframeFamilies = buildOwnedWarframeFamilies(rawInventory, exportData)
     const skinItems = customs && typeof customs === 'object' ? Object.entries(customs).flatMap(([uniqueName, entry]) => {
       if (!/\/Upgrades\/Skins\//i.test(uniqueName)) return []
-      const isOwned = owned.has(normalize(uniqueName))
+      const type = cosmeticType(uniqueName, entry?.icon, isSigil(uniqueName) ? 'Sigil' : 'Skin', warframeFamilies)
+      // A purchased-for-every-Warframe animation license shows up in the raw
+      // owned-items scan (DE files it as a normal WeaponSkins purchase); the
+      // family-match fallback only ever catches the free default set, which
+      // is usable on that one Warframe alone - so which path set `isOwned`
+      // is itself the signal for "universal" vs "frame_only".
+      // Default-granted skins (e.g. Amesha's default Archwing skin) carry
+      // DE's own `alwaysAvailable: true` flag and never appear in the raw
+      // owned-items scan - same bug class already fixed for Emotes below.
+      let isOwned = owned.has(normalize(uniqueName)) || entry?.alwaysAvailable === true
+      let ownershipTier = isOwned ? 'universal' : 'unowned'
+      if (!isOwned && type === 'Animation') {
+        const folderMatch = /\/upgrades\/skins\/([a-z0-9]+)\//i.exec(uniqueName)
+        const folder = folderMatch ? folderMatch[1].toLowerCase() : null
+        const familyKey = folder ? (ANIMATION_FOLDER_FAMILY_OVERRIDES[folder] || folder) : null
+        if (familyKey && ownedWarframeFamilies.has(familyKey)) {
+          isOwned = true
+          ownershipTier = 'frame_only'
+        }
+      }
       // Filter unowned internal engine debug/placeholder items with no real
       // artwork to show. `codexSecret`/`excludeFromCodex` alone is NOT a
       // reliable signal for this - DE sets it on the vast majority of normal,
@@ -180,7 +249,7 @@ export default function Cosmetics() {
       const kind = isSigil(uniqueName) ? 'Sigil' : 'Skin'
       const name = dict[entry?.name] || entry?.name
       if (!name) return []
-      return [{ uniqueName, name, kind, type: cosmeticType(uniqueName, entry?.icon, kind, warframeFamilies), owned: isOwned, icon: cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) }]
+      return [{ uniqueName, name, kind, type, owned: isOwned, ownershipTier, icon: cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) }]
     }) : []
     const glyphItems = Object.entries(exportData?.WI_Glyphs || {}).flatMap(([uniqueName, entry]) => {
       const name = entry?.name
@@ -190,7 +259,7 @@ export default function Cosmetics() {
       // presented as obtainable missing cosmetics.
       const isOwned = owned.has(normalize(uniqueName))
       if (!isOwned && (entry?.excludeFromCodex === true || entry?.codexSecret === true)) return []
-      return [{ uniqueName, name, kind: 'Glyph', type: 'Glyph', owned: isOwned, icon: entry.icon || resolveAnyImage(uniqueName, EI, nameToImage) }]
+      return [{ uniqueName, name, kind: 'Glyph', type: 'Glyph', owned: isOwned, ownershipTier: isOwned ? 'universal' : 'unowned', icon: entry.icon || resolveAnyImage(uniqueName, EI, nameToImage) }]
     })
     // Ship decorations (Orbiter furnishings, trophies, plushies, drawings,
     // Shawzin-playable pieces) live under a handful of ShipDecos-family
@@ -211,19 +280,23 @@ export default function Cosmetics() {
       const isOwned = owned.has(normalize(uniqueName))
       const name = dict[entry?.name] || entry?.name
       if (!name) return []
-      return [{ uniqueName, name, kind: 'Decoration', type: 'Decoration', owned: isOwned, icon: cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) }]
+      return [{ uniqueName, name, kind: 'Decoration', type: 'Decoration', owned: isOwned, ownershipTier: isOwned ? 'universal' : 'unowned', icon: cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) }]
     })
     // Emotes are a separate export table entirely (ExportFlavour.json),
     // matching the raw ownership bucket they're granted into (FlavourItems).
+    // 30 of the 143 emotes (Agree, Wave, Dance, etc.) carry DE's own
+    // `alwaysAvailable: true` flag - these are granted to every account by
+    // default and never appear in FlavourItems at all, so the raw-inventory
+    // check alone would wrongly show them as missing.
     const emoteItems = Object.entries(exportData?.ExportFlavour || {}).flatMap(([uniqueName, entry]) => {
       if (!uniqueName.startsWith('/Lotus/Types/Items/Emotes/')) return []
-      const isOwned = owned.has(normalize(uniqueName))
+      const isOwned = owned.has(normalize(uniqueName)) || entry?.alwaysAvailable === true
       const name = dict[entry?.name] || entry?.name
       if (!name) return []
-      return [{ uniqueName, name, kind: 'Emote', type: 'Emote', owned: isOwned, icon: cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) }]
+      return [{ uniqueName, name, kind: 'Emote', type: 'Emote', owned: isOwned, ownershipTier: isOwned ? 'universal' : 'unowned', icon: cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) }]
     })
     return [...skinItems, ...glyphItems, ...decorationItems, ...emoteItems]
-  }, [exportData, owned, EI, nameToImage])
+  }, [exportData, owned, EI, nameToImage, rawInventory])
 
   const handleSortChange = (id) => {
     if (id === sortCriteria) {
@@ -238,13 +311,17 @@ export default function Cosmetics() {
     const q = search.trim().toLowerCase()
     const dir = sortDirection === 'desc' ? -1 : 1
     return items
-      .filter((item) => (!q || item.name.toLowerCase().includes(q)) && (kindFilter === 'all' || item.type.toLowerCase() === kindFilter) && (ownershipFilter === 'all' || (ownershipFilter === 'owned' ? item.owned : !item.owned)))
+      .filter((item) => (!q || item.name.toLowerCase().includes(q)) && (kindFilter === 'all' || item.type.toLowerCase() === kindFilter) && (ownershipFilter === 'all' || (ownershipFilter === 'owned' ? item.owned : !item.owned)) && (kindFilter !== 'animation' || animationTierFilter === 'all' || item.ownershipTier === animationTierFilter))
       .sort((a, b) => a.name.localeCompare(b.name) * dir)
-  }, [items, search, kindFilter, ownershipFilter, sortCriteria, sortDirection])
+  }, [items, search, kindFilter, ownershipFilter, animationTierFilter, sortCriteria, sortDirection])
 
   useEffect(() => {
     setVisibleCount(COSMETICS_PAGE_SIZE)
-  }, [search, kindFilter, ownershipFilter])
+  }, [search, kindFilter, ownershipFilter, animationTierFilter])
+
+  useEffect(() => {
+    if (kindFilter !== 'animation') setAnimationTierFilter('all')
+  }, [kindFilter])
 
   const visibleItems = filtered.slice(0, visibleCount)
 
@@ -252,7 +329,14 @@ export default function Cosmetics() {
     if (!openKey || !overrides) return null
     const item = items.find((candidate) => candidate.uniqueName === openKey)
     if (!item) return null
-    return { uniqueName: item.uniqueName, displayName: item.name, info: getAcquisitionInfo(item.uniqueName, item.name, dropIndex, overrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, undefined, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) }
+    return {
+      uniqueName: item.uniqueName,
+      displayName: item.name,
+      image: item.icon,
+      category: item.kind || item.type,
+      owned: item.owned,
+      info: getAcquisitionInfo(item.uniqueName, item.name, dropIndex, overrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, undefined, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex),
+    }
   }, [openKey, overrides, items, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportVendorIndex, glyphSupplementIndex, exportComponentIndex])
 
   const kindFilterKeys = {
@@ -277,50 +361,137 @@ export default function Cosmetics() {
     owned: 'ui.inventory.filter_owned',
     unowned: 'ui.inventory.unowned',
   }
+  // "frame_only" / "universal" only meaningfully distinguish Animation Sets
+  // (a default per-Warframe unlock vs. a purchased-for-every-Warframe
+  // license - see buildOwnedWarframeFamilies above); every other cosmetic
+  // kind is inherently unrestricted once owned, so this filter only appears
+  // when the Animation kind tab is active, rather than replacing the normal
+  // All/Owned/Unowned filter for every category.
+  const animationTierFilterKeys = {
+    all: 'ui.inventory.tab_all',
+    frame_only: 'cosmetics.filter_frame_only',
+    universal: 'cosmetics.filter_universal',
+  }
 
-  if (!exportData) return <PageLayout title={t('nav.cosmetics')}><Card className="p-8 text-center text-kronos-dim">{t('cosmetics.loading')}</Card></PageLayout>
+  const KIND_VALUES = ['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'decoration', 'emote', 'other']
 
-  return (
-    <PageLayout title={t('nav.cosmetics')} subtitle={t('cosmetics.subtitle', { owned: items.filter((item) => item.owned).length, total: items.length })}>
-      <div className="mb-4 flex flex-col gap-3">
-        <div className="flex items-center gap-3 flex-wrap">
-          <div className="relative max-w-sm flex-1 min-w-[200px]"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('cosmetics.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>
-          <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-9 px-2">
-            <ArrowUpDown size={12} className="text-kronos-accent mx-1" />
-            <div className="flex gap-1">
-              {SORT_OPTIONS.map((c) => {
-                const isActive = sortCriteria === c.id
-                return (
-                  <button
-                    key={c.id}
-                    type="button"
-                    onClick={() => handleSortChange(c.id)}
-                    className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all flex items-center gap-1.5 ${isActive ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
-                  >
-                    {c.label}
-                    {isActive && <ArrowUpDown size={10} className={sortDirection === 'desc' ? 'rotate-180' : ''} />}
-                  </button>
-                )
-              })}
-            </div>
+  // Preview-only persistent category sidebar (wide widths), replacing the
+  // kind Tabs strip as the primary selector there (it remains, wrapping
+  // normally rather than forced into a hidden horizontal rail, as the
+  // compact/narrow-width selector).
+  const renderCategoryNavigator = () => (
+    <nav className="hidden lg:flex flex-col gap-1 w-48 flex-shrink-0 overflow-y-auto py-1" style={{ scrollbarWidth: 'thin' }} aria-label={t('cosmetics.page_title')}>
+      {KIND_VALUES.map((value) => {
+        const isActive = kindFilter === value
+        return (
+          <button
+            key={value}
+            type="button"
+            onClick={() => setKindFilter(value)}
+            aria-current={isActive ? 'page' : undefined}
+            className={`px-3 py-2 rounded-lg text-[11px] font-bold uppercase tracking-tight text-left transition-all whitespace-nowrap ${isActive ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+          >
+            {t(kindFilterKeys[value])}
+          </button>
+        )
+      })}
+    </nav>
+  )
+
+  if (!exportData) return <PageLayout title={t('cosmetics.page_title')}><Card className="p-8 text-center text-kronos-dim">{t('cosmetics.loading')}</Card></PageLayout>
+
+  // Rendered via PageLayout's `headerPanel` prop (see UI.jsx), which wraps it
+  // in `sticky top-0` inside the scroll container - matching the pattern
+  // Mods.jsx/Relics.jsx already use. Previously this toolbar was inlined into
+  // mainContent instead, which put it in normal document flow inside the
+  // scrollable area, so it scrolled away with the grid instead of staying on
+  // screen.
+  const renderHeaderPanel = () => (
+    <div className="flex flex-col gap-3" data-preview-cosmetics-controls={IS_PREVIEW ? '' : undefined}>
+      <div className="flex items-center gap-3 flex-wrap" data-preview-cosmetics-toolbar={IS_PREVIEW ? '' : undefined}>
+        <div className="relative max-w-sm flex-1 min-w-[200px]" data-preview-cosmetics-search={IS_PREVIEW ? '' : undefined}><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('cosmetics.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>
+        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-9 px-2" data-preview-cosmetics-sort={IS_PREVIEW ? '' : undefined}>
+          <ArrowUpDown size={12} className="text-kronos-accent mx-1" />
+          <div className="flex gap-1">
+            {SORT_OPTIONS.map((c) => {
+              const isActive = sortCriteria === c.id
+              return (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() => handleSortChange(c.id)}
+                  className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all flex items-center gap-1.5 ${isActive ? 'bg-kronos-accent text-kronos-bg shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}
+                >
+                  {c.label}
+                  {isActive && <ArrowUpDown size={10} className={sortDirection === 'desc' ? 'rotate-180' : ''} />}
+                </button>
+              )
+            })}
           </div>
         </div>
-        <Tabs
-          tabs={['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'decoration', 'emote', 'other'].map((value) => ({ id: value, label: t(kindFilterKeys[value]) }))}
-          activeTab={kindFilter}
-          onChange={setKindFilter}
-        />
-        <Tabs
-          tabs={['all', 'owned', 'unowned'].map((value) => ({ id: value, label: t(ownershipFilterKeys[value]) }))}
-          activeTab={ownershipFilter}
-          onChange={setOwnershipFilter}
-        />
       </div>
-      {filtered.length === 0 ? <Card className="p-8 text-center text-kronos-dim"><Sparkles className="mx-auto mb-2" size={20} />{t('cosmetics.no_match')}</Card> : <>
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3 pb-4">{visibleItems.map((item) => <CosmeticCard key={item.uniqueName} item={item} onAcquire={toggle} />)}</div>
-        {visibleCount < filtered.length && <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + COSMETICS_PAGE_SIZE, filtered.length))} className="mx-auto mb-4 rounded-lg border border-kronos-accent/40 px-5 py-2 text-xs font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">{t('cosmetics.load_more', { remaining: filtered.length - visibleCount })}</button>}
-      </>}
+      <Tabs
+        tabs={KIND_VALUES.map((value) => ({ id: value, label: t(kindFilterKeys[value]) }))}
+        activeTab={kindFilter}
+        onChange={setKindFilter}
+        className={IS_PREVIEW ? 'lg:hidden' : undefined}
+      />
+      <Tabs
+        tabs={['all', 'owned', 'unowned'].map((value) => ({ id: value, label: t(ownershipFilterKeys[value]) }))}
+        activeTab={ownershipFilter}
+        onChange={setOwnershipFilter}
+      />
+      {kindFilter === 'animation' &&
+        <Tabs
+          tabs={['all', 'frame_only', 'universal'].map((value) => ({ id: value, label: t(animationTierFilterKeys[value]) }))}
+          activeTab={animationTierFilter}
+          onChange={setAnimationTierFilter}
+        />
+      }
+    </div>
+  )
+
+  const mainContent = (
+    filtered.length === 0 ? <Card className="p-8 text-center text-kronos-dim"><Sparkles className="mx-auto mb-2" size={20} />{t('cosmetics.no_match')}</Card> : <>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3 pb-4" data-preview-cosmetics-grid={IS_PREVIEW ? '' : undefined}>{visibleItems.map((item) => <CosmeticCard key={item.uniqueName} item={item} onAcquire={toggle} />)}</div>
+      {visibleCount < filtered.length && <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + COSMETICS_PAGE_SIZE, filtered.length))} className="mx-auto mb-4 rounded-lg border border-kronos-accent/40 px-5 py-2 text-xs font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">{t('cosmetics.load_more', { remaining: filtered.length - visibleCount })}</button>}
+    </>
+  )
+
+  const pageLayoutProps = {
+    title: t('cosmetics.page_title'),
+    subtitle: t('cosmetics.subtitle', { owned: items.filter((item) => item.owned).length, total: items.length }),
+    headerPanel: renderHeaderPanel()
+  }
+
+  // The acquisition panel is rendered as a sibling OUTSIDE PageLayout's
+  // internal scroll container (same as Mods.jsx/Relics.jsx), not inside
+  // mainContent. Its `panel` variant uses `absolute inset-y-0 right-0`,
+  // anchored to the nearest *positioned* ancestor - when it was nested
+  // inside the scrollable area, that ancestor scrolled with the page, so the
+  // panel scrolled away instead of staying pinned to the viewport.
+  if (IS_PREVIEW) {
+    return (
+      <>
+        <div className="flex gap-4 flex-1 min-h-0 h-full">
+          {renderCategoryNavigator()}
+          <div className="flex-1 min-w-0 min-h-0 flex flex-col">
+            <PreviewCosmeticsLayout enabled={IS_PREVIEW}>
+              <PageLayout {...pageLayoutProps}>{mainContent}</PageLayout>
+            </PreviewCosmeticsLayout>
+          </div>
+        </div>
+        {openItem && <PreviewAcquisitionDrawer item={openItem} onClose={close} />}
+      </>
+    )
+  }
+
+  return (
+    <>
+      <PreviewCosmeticsLayout enabled={IS_PREVIEW}>
+        <PageLayout {...pageLayoutProps}>{mainContent}</PageLayout>
+      </PreviewCosmeticsLayout>
       {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
-    </PageLayout>
+    </>
   )
 }

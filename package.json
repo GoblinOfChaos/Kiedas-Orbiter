@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/sync-wfcd.js",
+    "prebuild": "node scripts/sync-wfcd.js && node scripts/validate-tauri-configs.js",
+    "validate-configs": "node scripts/validate-tauri-configs.js",
     "build": "vite build",
     "preview": "vite preview",
     "tauri": "tauri",
@@ -12,7 +13,9 @@
     "tauri:build": "tauri build",
     "retrain:pricer": "python3 tools/riven-pricer/retrain.py",
     "build:appimage": "NO_STRIP=1 tauri build --bundles appimage",
-    "audit": "node scripts/audit_static.js && node scripts/audit_e2e.js"
+    "audit": "node scripts/audit_static.js && node scripts/audit_e2e.js",
+    "preview:dev": "node scripts/run-preview.mjs dev",
+    "preview:build": "node scripts/run-preview.mjs build"
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.0.0",
@@ -23,13 +26,14 @@
     "@tauri-apps/plugin-http": "^2",
     "@tauri-apps/plugin-updater": "^2",
     "@uiw/react-md-editor": "^4.0.11",
+    "comlink": "^4.4.2",
     "country-flag-icons": "^1.6.20",
     "lucide-react": "^0.344.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recharts": "^3.10.1",
     "remark-gfm": "^4.0.1",
-    "warframe-items": "^1.1269.87",
+    "@wfcd/items": "^1.1275.87",
     "warframe-public-export-plus": "latest"
   },
   "devDependencies": {

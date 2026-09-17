@@ -1,4 +1,12 @@
 {
+  "app": {
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["**", "**/*", "/**"]
+      }
+    }
+  },
   "bundle": {
     "resources": [
       "data/assets/mod-frames/**/*",

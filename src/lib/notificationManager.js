@@ -19,11 +19,19 @@ for (const [code, enName] of Object.entries(MAPPING_TYPES)) {
 export function missionTypeMatches(localized, option, dict, ERg) {
   if (!localized || !option) return false
   const opt = option.toLowerCase()
-  if (localized.toLowerCase().includes(opt)) return true
+  const loc0 = localized.toLowerCase()
+  if (loc0.includes(opt)) return true
+  // `localized` is already resolved through the game dict, so it's never in
+  // English on a non-English client - comparing it against the freshly
+  // resolved candidate's name (also localized) rather than back against the
+  // English `opt` string is what actually makes this locale-independent.
+  // The previous version compared the resolved candidate name against `opt`
+  // instead, which only ever matched when the game itself was in English
+  // (GitHub issue #109, L10N-FILTER-002).
   const codes = EN_NAME_TO_CODES[opt] || []
   for (const code of codes) {
-    const loc = resolveMissionType(code, dict, ERg)
-    if (loc && loc.toLowerCase().includes(opt)) return true
+    const candidate = resolveMissionType(code, dict, ERg)
+    if (candidate && loc0.includes(candidate.toLowerCase())) return true
   }
   return false
 }

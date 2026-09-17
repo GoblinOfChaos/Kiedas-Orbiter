@@ -1402,6 +1402,7 @@ fn clean_ocr_output(raw: &str) -> String {
 
 #[tauri::command]
 pub async fn save_debug_screenshot(app: AppHandle) -> Result<String, String> {
+    crate::build_profile::require_live()?;
     tokio::time::sleep(std::time::Duration::from_secs(5)).await;
     let Some(monitor) = get_target_monitor(&app) else { return Err("No target monitor resolved".to_string()); };
     let image = capture_monitor_image(&app, &monitor)?;
@@ -1462,6 +1463,7 @@ pub async fn save_debug_screenshot(app: AppHandle) -> Result<String, String> {
 }
 #[tauri::command]
 pub async fn trigger_manual_ocr(app: AppHandle, _squad_size: Option<usize>) -> Result<(), String> {
+    crate::build_profile::require_live()?;
     let now = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
         .map(|d| d.as_millis())
@@ -1476,6 +1478,7 @@ pub async fn trigger_manual_ocr(app: AppHandle, _squad_size: Option<usize>) -> R
 
 #[tauri::command]
 pub async fn start_debug_ocr_session(app: AppHandle) -> Result<(), String> {
+    crate::build_profile::require_live()?;
     let now = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
         .map(|d| d.as_millis())

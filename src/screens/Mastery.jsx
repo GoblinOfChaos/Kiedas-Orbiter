@@ -428,7 +428,7 @@ export default function Mastery() {
                   style={{ left: `${Math.min(Math.max(progress, 15), 85)}%` }}>
                   
                     <div className="text-xs font-black text-kronos-accent uppercase whitespace-nowrap bg-kronos-bg/80 backdrop-blur-md px-3 py-1 rounded border border-kronos-accent/30 mb-1 shadow-lg">
-                      {totalXP.toLocaleString()} mastery | {xpUntilNext.toLocaleString()} {t('checklist.left')}
+                      {totalXP.toLocaleString()} {t('mastery.progress_unit')} | {xpUntilNext.toLocaleString()} {t('checklist.left')}
                   </div>
                     <div className="w-px h-3 bg-kronos-accent/60" />
                   </div>

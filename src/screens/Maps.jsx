@@ -17,11 +17,14 @@ const ICONS = {
   Diamond: Diamond
 };
 
+// `name` also derives each map's saved-config filename (see getConfigFileName
+// below) - never change it to a translated value. `nameKey` is the i18n key
+// used only for display text (tab labels, alt text).
 const MAPS = [
-{ name: 'Plains of Eidolon', raw: 'poe_full.png', labeled: 'PlainsofEidolon_4k_Map.png' },
-{ name: 'Orb Vallis', raw: 'venus_full.png', labeled: 'OrbVallis4kMap-min.png' },
-{ name: 'Cambion Drift', raw: 'deimos_full.png', labeled: 'CambianDrift4kMap.png' },
-{ name: 'Duviri', raw: 'Duviri_map_with_caves.png', labeled: 'Duviri_map_with_caves.png' }];
+{ name: 'Plains of Eidolon', nameKey: 'maps.loc_eidolon', raw: 'poe_full.png', labeled: 'PlainsofEidolon_4k_Map.png' },
+{ name: 'Orb Vallis', nameKey: 'maps.loc_vallis', raw: 'venus_full.png', labeled: 'OrbVallis4kMap-min.png' },
+{ name: 'Cambion Drift', nameKey: 'maps.loc_cambion', raw: 'deimos_full.png', labeled: 'CambianDrift4kMap.png' },
+{ name: 'Duviri', nameKey: 'maps.loc_duviri', raw: 'Duviri_map_with_caves.png', labeled: 'Duviri_map_with_caves.png' }];
 
 
 const placeholderSvg = (text) => `data:image/svg+xml;utf8,${encodeURIComponent(
@@ -502,7 +505,7 @@ export default function Maps() {
     requestAnimationFrame(applyTransform);
   }, [applyTransform, clamp, imgNatural]);
 
-  const mapTabs = MAPS.map((m, i) => ({ id: i.toString(), label: m.name }));
+  const mapTabs = MAPS.map((m, i) => ({ id: i.toString(), label: (m.nameKey && t(m.nameKey) !== m.nameKey) ? t(m.nameKey) : m.name }));
 
   const importCustomMarkersFromGame = useCallback(() => {
     if (!inventoryData?.customMarkers?.length) return;
@@ -715,7 +718,7 @@ export default function Maps() {
                   <img
                     ref={imgRef}
                     src={mapsPath ? convertFileSrc(`${mapsPath}/${mapFilename}`) : placeholderSvg(t('ui.image_unavailable'))}
-                    alt={MAPS[parseInt(activeTab)].name}
+                    alt={(() => { const m = MAPS[parseInt(activeTab)]; return (m.nameKey && t(m.nameKey) !== m.nameKey) ? t(m.nameKey) : m.name; })()}
                     onLoad={onImgLoad}
                     onError={(e) => {e.currentTarget.onerror = null;e.currentTarget.src = placeholderSvg(t('ui.image_unavailable'));}}
                     style={{ width: '100%', height: '100%', display: 'block', userSelect: 'none', pointerEvents: 'none', maxWidth: 'none', maxHeight: 'none' }}

@@ -68,7 +68,7 @@ export default function PreviewRouteSearch({ activeRouteId, onNavigate, t, uiIco
         onKeyDown={onKeyDown}
       />
       {query && (
-        <button type="button" aria-label="Clear search" onClick={() => { setQuery(''); setHighlighted(0); inputRef.current?.focus(); }}>
+        <button type="button" aria-label={t('preview.shell.clear_search')} onClick={() => { setQuery(''); setHighlighted(0); inputRef.current?.focus(); }}>
           <X aria-hidden="true" />
         </button>
       )}
@@ -92,7 +92,7 @@ export default function PreviewRouteSearch({ activeRouteId, onNavigate, t, uiIco
                   <strong>{t(`nav.${item.id}`) || item.label}</strong>
                   <small>{groups.get(item.groupId)}</small>
                 </span>
-                {item.id === activeRouteId && <small>Current</small>}
+                {item.id === activeRouteId && <small>{t('preview.shell.current')}</small>}
               </button>
             );
           }) : <p role="status">{t('preview.shell.search_no_results')}</p>}

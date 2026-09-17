@@ -6,10 +6,13 @@
 // horizontal rail"). A category navigator sidebar now replaces the kind Tabs
 // at wide widths; the toolbar and remaining Tabs wrap on their own via the
 // existing `flex-wrap` classes already in Cosmetics.jsx's JSX.
+import { useUi } from '../contexts/UiContext'
+
 export default function PreviewCosmeticsLayout({ enabled, children }) {
+  const { t } = useUi()
   if (!enabled) return children;
   return (
-    <section aria-label="Cosmetics collection" className="min-w-0 min-h-0 h-full flex flex-col flex-1">
+    <section aria-label={t('preview.landmark.cosmetics')} className="min-w-0 min-h-0 h-full flex flex-col flex-1">
       {children}
     </section>
   );

@@ -6,10 +6,13 @@
 // wraps correctly on its own and the category navigator sidebar now
 // replaces the horizontal categories row at wide widths, so no override is
 // needed here any more.
+import { useUi } from '../contexts/UiContext'
+
 export default function PreviewModsLayout({ enabled, children }) {
+  const { t } = useUi()
   if (!enabled) return children;
   return (
-    <section aria-label="Mods collection" className="min-w-0 min-h-0 h-full flex flex-col flex-1">
+    <section aria-label={t('preview.landmark.mods')} className="min-w-0 min-h-0 h-full flex flex-col flex-1">
       {children}
     </section>
   );

@@ -128,7 +128,7 @@ export default function Adversaries() {
         </Card>
         <Card glow className="p-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-white/70">{t('adversaries.nemesis_history')} <span className="text-kronos-accent">({Math.max(nemeses.filter((n) => !n.k && !n.Traded).length, ownedSisterWeapons.length)} evidenced converted)</span></h2>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-white/70">{t('adversaries.nemesis_history')} <span className="text-kronos-accent">({Math.max(nemeses.filter((n) => !n.k && !n.Traded).length, ownedSisterWeapons.length)} {t('adversaries.evidenced_converted')})</span></h2>
             <label className="flex items-center gap-2 text-xs text-white/50 cursor-pointer select-none">
               <input
                 type="checkbox"

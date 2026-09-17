@@ -1,10 +1,13 @@
+import { useUi } from '../contexts/UiContext'
+
 export default function PreviewRelicsLayout({ enabled, children }) {
+  const { t } = useUi()
   if (!enabled) return children;
 
   return (
     <section
       data-preview-relics-layout
-      aria-label="Relic collection"
+      aria-label={t('preview.landmark.relics')}
       className="preview-relics-layout h-full min-w-0"
       style={{ containerType: 'inline-size', containerName: 'preview-relics' }}
     >

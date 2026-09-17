@@ -12,7 +12,7 @@ import { loadLocale } from '../lib/i18n'
  * Every key falls back to English, so a partially-translated locale never
  * renders raw keys.
  */
-const UiContext = createContext(null)
+export const UiContext = createContext(null)
 
 export function UiProvider({ children }) {
   const [state, setState] = useState({ ui: {}, locale: 'en', ready: false, i18nData: null })

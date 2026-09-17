@@ -1036,11 +1036,17 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
         'GAMEPLAY_MONEY_REWARD_AMOUNT': 'Credit Booster',
         'GAMEPLAY_PICKUP_AMOUNT': 'Resource Booster'
       }
+      const typeMapKeys = {
+        'GAMEPLAY_KILL_XP_AMOUNT': 'dashboard.booster_affinity',
+        'GAMEPLAY_MONEY_REWARD_AMOUNT': 'dashboard.booster_credit',
+        'GAMEPLAY_PICKUP_AMOUNT': 'dashboard.booster_resource'
+      }
       const locTag = u.LocalizeTag || ''
-      if (locTag.includes('DoubleCredits')) return { name: 'Double Credits', expiry: u.ExpiryDate, activation: u.Activation }
-      if (locTag.includes('DoubleAffinity')) return { name: 'Double Affinity', expiry: u.ExpiryDate, activation: u.Activation }
+      if (locTag.includes('DoubleCredits')) return { name: 'Double Credits', nameKey: 'dashboard.booster_double_credits', expiry: u.ExpiryDate, activation: u.Activation }
+      if (locTag.includes('DoubleAffinity')) return { name: 'Double Affinity', nameKey: 'dashboard.booster_double_affinity', expiry: u.ExpiryDate, activation: u.Activation }
       return {
         name: typeMap[u.UpgradeType] || splitPascal(u.UpgradeType.replace('GAMEPLAY_', '')),
+        nameKey: typeMapKeys[u.UpgradeType],
         expiry: u.ExpiryDate || u.Expiry,
         activation: u.Activation
       }

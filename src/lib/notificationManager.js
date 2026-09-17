@@ -533,13 +533,13 @@ function evaluateChecklist(notif, inventoryData, results, t) {
     }
   }
 }
-const SYNDICATE_LABELS = {
-  ZarimanSyndicate: 'Zariman',
-  EntratiLabSyndicate: 'Cavia',
-  HexSyndicate: 'Hex',
-  CetusSyndicate: 'Cetus',
-  EntratiSyndicate: 'Deimos',
-  SolarisSyndicate: 'Vallis',
+const SYNDICATE_LABEL_KEYS = {
+  ZarimanSyndicate: 'ui.dashboard.zariman',
+  EntratiLabSyndicate: 'ui.dashboard.cavia',
+  HexSyndicate: 'ui.dashboard.hex',
+  CetusSyndicate: 'ui.dashboard.cetus',
+  EntratiSyndicate: 'ui.dashboard.deimos',
+  SolarisSyndicate: 'dashboard.vallis_short',
 }
 
 // Prefixes that appear as the first camelCase word in challenge filenames
@@ -564,7 +564,7 @@ function evaluateBounty(notif, state, results, t) {
   if (bountyCycle?.bounties) {
     for (const [key, bounties] of Object.entries(bountyCycle.bounties)) {
       if (syndicates.length > 0 && !syndicates.includes(key)) continue
-      const synLabel = SYNDICATE_LABELS[key] || key
+      const synLabel = SYNDICATE_LABEL_KEYS[key] ? tr(t, SYNDICATE_LABEL_KEYS[key]) : key
 
       for (const b of bounties) {
         const name = b.challenge ? resolveChallenge(b.challenge, dict, EC) : tr(t, 'ui.dashboard.bounty')
@@ -599,7 +599,7 @@ function evaluateBounty(notif, state, results, t) {
   for (const sm of worldstate.SyndicateMissions) {
     if (!['CetusSyndicate', 'EntratiSyndicate', 'SolarisSyndicate'].includes(sm.Tag)) continue
     if (syndicates.length > 0 && !syndicates.includes(sm.Tag)) continue
-    const synLabel = SYNDICATE_LABELS[sm.Tag] || sm.Tag
+    const synLabel = SYNDICATE_LABEL_KEYS[sm.Tag] ? tr(t, SYNDICATE_LABEL_KEYS[sm.Tag]) : sm.Tag
 
     for (const job of (sm.Jobs || [])) {
       const fn = (job.jobType || '').split('/').pop()

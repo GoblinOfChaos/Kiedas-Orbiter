@@ -357,7 +357,7 @@ export default function Mods() {
               <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
               <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
               <div className="w-1 h-1 bg-kronos-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-              <span className="text-[10px] font-black uppercase text-kronos-accent">Fetching plat values {priceFetchProgress.current}{t('inventory.fetching_of')}{priceFetchProgress.total}...</span>
+              <span className="text-[10px] font-black uppercase text-kronos-accent">{t('mods.fetching_plat_values')} {priceFetchProgress.current}{t('inventory.fetching_of')}{priceFetchProgress.total}...</span>
             </div>
         }
           {loadingPrices && !priceFetchProgress &&

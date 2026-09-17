@@ -1493,7 +1493,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
           {worldstate?.globalBoosters?.map((b, idx) =>
           <div key={`booster-${idx}`} className="space-y-1 pb-2 border-kronos-panel/40 last:border-0">
               <div className="flex justify-between items-start">
-                <p className="text-xs font-black text-kronos-accent uppercase tracking-widest">{b.name}</p>
+                <p className="text-xs font-black text-kronos-accent uppercase tracking-widest">{(b.nameKey && t(b.nameKey) !== b.nameKey) ? t(b.nameKey) : b.name}</p>
                 <span className="text-[10px] text-kronos-dim font-mono">{timeRemaining(b.expiry)}{t('dashboard.left')}</span>
               </div>
             </div>
@@ -1747,7 +1747,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
 
                     <div className="flex justify-between items-center mt-2">
                       <span className="text-[10px] text-kronos-dim font-bold uppercase tracking-wider">
-                        {left}/{deal.total}{t('dashboard.in_stock')}{isSoldOut && <span className="text-red-500 font-black ml-1">(SOLD OUT)</span>}
+                        {left}/{deal.total}{t('dashboard.in_stock')}{isSoldOut && <span className="text-red-500 font-black ml-1">{t('dashboard.sold_out')}</span>}
                       </span>
                       <span className="text-[10px] text-kronos-dim font-mono uppercase">{timeRemaining(deal.expiry)}{t('dashboard.left')}</span>
                     </div>

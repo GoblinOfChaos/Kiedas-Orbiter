@@ -1,10 +1,13 @@
+import { useUi } from '../contexts/UiContext'
+
 export default function PreviewRivensLayout({ enabled, children }) {
+  const { t } = useUi()
   if (!enabled) return children;
 
   return (
     <section
       data-preview-rivens-layout
-      aria-label="Riven collection"
+      aria-label={t('preview.landmark.rivens')}
       className="preview-rivens-layout h-full min-w-0"
       style={{ containerType: 'inline-size', containerName: 'preview-rivens' }}
     >

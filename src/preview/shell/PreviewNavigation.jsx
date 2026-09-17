@@ -32,7 +32,7 @@ function GroupedNavigation({ activeRouteId, onNavigate, uiIcon, t, state, setSta
       localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
       setStorageError('');
     } catch (error) {
-      setStorageError(error?.message || 'Navigation preferences could not be saved.');
+      setStorageError(error?.message || t('preview.nav.storage_error'));
     }
   };
 
@@ -70,7 +70,7 @@ function GroupedNavigation({ activeRouteId, onNavigate, uiIcon, t, state, setSta
           aria-controls={`preview-nav-group-${group.id}`}
           onClick={() => persist({ ...state, collapsed: { ...state.collapsed, [group.id]: !collapsed } })}
         >
-          <span id={`preview-nav-group-title-${group.id}`}>{group.label}</span>
+          <span id={`preview-nav-group-title-${group.id}`}>{t(`preview.nav_group.${group.id.replace(/-/g, '_')}`) || group.label}</span>
           {collapsed ? <ChevronRight aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
         </button>
         <div id={`preview-nav-group-${group.id}`} hidden={collapsed}>
@@ -91,7 +91,7 @@ function GroupedNavigation({ activeRouteId, onNavigate, uiIcon, t, state, setSta
               <button
                 type="button"
                 className={state.favorites.includes(item.id) ? 'is-favorite' : ''}
-                aria-label={`${state.favorites.includes(item.id) ? 'Unpin' : 'Pin'} ${t(`nav.${item.id}`) || item.label}`}
+                aria-label={`${state.favorites.includes(item.id) ? t('preview.nav.unpin') : t('preview.nav.pin')} ${t(`nav.${item.id}`) || item.label}`}
                 onClick={() => toggleFavorite(item.id)}
               >
                 <Star aria-hidden="true" />
@@ -144,14 +144,14 @@ export default function PreviewNavigation({ activeRouteId, onNavigate, uiIcon, t
       <nav data-shell-nav-primary aria-labelledby={headingId} className="preview-nav preview-nav--expanded">
         <div className="preview-nav__brand">
           <img src={uiIcon('IconKieda.png')} alt="" />
-          <span><strong id={headingId}>Kieda's<br />Orbiter</strong><small>Preview command</small></span>
+          <span><strong id={headingId}>Kieda's<br />Orbiter</strong><small>{t('preview.nav.brand_tagline')}</small></span>
         </div>
         <GroupedNavigation {...common} onNavigate={onNavigate} />
         {storageError && <p className="preview-nav__error" role="alert">{storageError}</p>}
-        <div className="preview-nav__profile"><span>KO</span><p><strong>Preview</strong><small>Isolated profile</small></p></div>
+        <div className="preview-nav__profile"><span>KO</span><p><strong>{t('preview.status.preview')}</strong><small>{t('preview.status.isolated_profile')}</small></p></div>
       </nav>
 
-      <nav aria-label="Compact navigation" className="preview-nav preview-nav--rail">
+      <nav aria-label={t('preview.nav.compact_navigation')} className="preview-nav preview-nav--rail">
         <div className="preview-nav__rail-brand"><img src={uiIcon('IconKieda.png')} alt="Kieda's Orbiter" /></div>
         <button type="button" className="preview-nav__menu" aria-label={t('preview.shell.menu')} aria-expanded={drawerOpen} onClick={onOpenDrawer}><Menu aria-hidden="true" /></button>
         <GroupedNavigation {...common} onNavigate={onNavigate} compact />
@@ -159,8 +159,8 @@ export default function PreviewNavigation({ activeRouteId, onNavigate, uiIcon, t
 
       {drawerOpen && (
         <div className="preview-nav-drawer-layer" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onCloseDrawer(); }}>
-          <nav ref={drawerRef} className="preview-nav-drawer" aria-label="Main navigation">
-            <header><strong>Navigation</strong><button type="button" onClick={onCloseDrawer} aria-label={t('preview.shell.close_navigation')}><X aria-hidden="true" /></button></header>
+          <nav ref={drawerRef} className="preview-nav-drawer" aria-label={t('preview.nav.main_navigation')}>
+            <header><strong>{t('preview.nav.navigation_heading')}</strong><button type="button" onClick={onCloseDrawer} aria-label={t('preview.shell.close_navigation')}><X aria-hidden="true" /></button></header>
             <GroupedNavigation {...common} onNavigate={navigate} />
             {storageError && <p className="preview-nav__error" role="alert">{storageError}</p>}
           </nav>

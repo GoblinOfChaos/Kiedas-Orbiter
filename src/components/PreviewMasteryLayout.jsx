@@ -1,10 +1,13 @@
+import { useUi } from '../contexts/UiContext'
+
 export default function PreviewMasteryLayout({ enabled, children }) {
+  const { t } = useUi()
   if (!enabled) return children;
 
   return (
     <section
       data-preview-mastery-layout
-      aria-label="Mastery overview"
+      aria-label={t('preview.landmark.mastery')}
       className="preview-mastery-layout min-w-0"
       style={{ containerType: 'inline-size', containerName: 'preview-mastery' }}
     >

@@ -255,8 +255,8 @@ function AppContent() {
     if (IS_PREVIEW) return undefined;
     const unsub = listen('scanner-hooked', () => {
       invoke('show_notification', {
-        title: 'Scanner',
-        message: 'Log scanner hooked into Warframe',
+        title: t('app.scanner_title'),
+        message: t('app.scanner_hooked_message'),
         image: '',
         position: 'top-right',
         no_focus: true,
@@ -514,20 +514,20 @@ function AppContent() {
       <div className="fixed bottom-4 right-4 z-[9999] glass-panel rounded-xl border border-kronos-accent/30 shadow-2xl px-4 py-3 flex items-center gap-3 bg-kronos-bg">
         <div className="w-2 h-2 rounded-full bg-kronos-accent shadow-[0_0_6px_rgba(var(--kronos-accent-rgb),0.8)] flex-shrink-0" />
         <div className="text-xs">
-          <p className="font-black uppercase tracking-wider text-kronos-text">Update available</p>
+          <p className="font-black uppercase tracking-wider text-kronos-text">{t('app.update_available')}</p>
           {updateState.manifest?.version &&
-          <p className="text-kronos-dim">Version {updateState.manifest.version}</p>
+          <p className="text-kronos-dim">{t('app.update_version', { version: updateState.manifest.version })}</p>
           }
         </div>
         <button
           onClick={installLatestUpdate}
           className="ml-1 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider bg-kronos-accent text-kronos-bg hover:opacity-90 transition-opacity flex-shrink-0">
-          Update Now
+          {t('app.update_now')}
         </button>
         <button
           onClick={() => setUpdateBannerDismissed(true)}
           className="text-kronos-dim hover:text-white text-xs px-1 flex-shrink-0"
-          aria-label="Dismiss">
+          aria-label={t('app.dismiss')}>
           ✕
         </button>
       </div>
@@ -535,7 +535,7 @@ function AppContent() {
       {updateState.status === 'installing' &&
       <div className="fixed bottom-4 right-4 z-[9999] glass-panel rounded-xl border border-kronos-accent/30 shadow-2xl px-4 py-3 flex items-center gap-3 bg-kronos-bg">
         <div className="w-3 h-3 border-2 border-kronos-accent/30 border-t-kronos-accent rounded-full animate-spin flex-shrink-0" />
-        <p className="text-xs font-black uppercase tracking-wider text-kronos-text">Installing update…</p>
+        <p className="text-xs font-black uppercase tracking-wider text-kronos-text">{t('app.installing_update')}</p>
       </div>
       }
     </>);

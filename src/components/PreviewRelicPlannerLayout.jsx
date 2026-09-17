@@ -1,10 +1,13 @@
+import { useUi } from '../contexts/UiContext'
+
 export default function PreviewRelicPlannerLayout({ enabled, children }) {
+  const { t } = useUi()
   if (!enabled) return children;
 
   return (
     <section
       data-preview-relic-planner-layout
-      aria-label="Relic planning workspace"
+      aria-label={t('preview.landmark.relic_planner')}
       className="preview-relic-planner-layout h-full min-w-0"
       style={{ containerType: 'inline-size', containerName: 'preview-relic-planner' }}
     >

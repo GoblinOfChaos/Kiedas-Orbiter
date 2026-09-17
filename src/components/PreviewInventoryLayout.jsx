@@ -6,11 +6,14 @@
 // resource-stats row's horizontal scroll legible - a real, intentional
 // horizontal-scroll case (a row of currency/resource badges), not a stand-in
 // for missing wrap behavior elsewhere.
+import { useUi } from '../contexts/UiContext'
+
 export default function PreviewInventoryLayout({ stats, controls }) {
+  const { t } = useUi()
   return (
-    <section aria-label="Inventory controls" className="min-w-0">
+    <section aria-label={t('preview.landmark.inventory_controls')} className="min-w-0">
       {stats && (
-        <div className="mb-3 overflow-x-auto" style={{ scrollbarWidth: 'thin' }} aria-label="Account resources">
+        <div className="mb-3 overflow-x-auto" style={{ scrollbarWidth: 'thin' }} aria-label={t('preview.landmark.account_resources')}>
           {stats}
         </div>
       )}

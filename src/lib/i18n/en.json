@@ -1485,7 +1485,17 @@
     "descendia.penance.ShockingLeech": "Shocking Leech",
     "descendia.penance.Oraxia": "Oraxia",
     "descendia.penance.HeavyWeaponsOnly": "Heavy Weapons Only",
-    "descendia.penance.ArbitersNightmareLich": "Arbiter's Nightmare Lich"
+    "descendia.penance.ArbitersNightmareLich": "Arbiter's Nightmare Lich",
+    "dashboard.cycle_day": "Day",
+    "dashboard.cycle_night": "Night",
+    "dashboard.cycle_warm": "Warm",
+    "dashboard.cycle_cold": "Cold",
+    "dashboard.cycle_sorrow": "Sorrow",
+    "dashboard.cycle_fear": "Fear",
+    "dashboard.cycle_joy": "Joy",
+    "dashboard.cycle_anger": "Anger",
+    "dashboard.cycle_envy": "Envy",
+    "dashboard.cycle_reset": "Reset"
   },
   "nav.market": "Market"
 }

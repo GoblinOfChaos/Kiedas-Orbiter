@@ -314,7 +314,7 @@ export default function Mastery() {
             </span>
             {item.earnedXP > 0 &&
         <span className="text-[10px] text-kronos-dim uppercase font-bold truncate w-full px-1">
-                ({formatNumber(item.earnedXP, locale)}{t('mastery.mp_close')}
+                ({formatNumber(item.earnedXP, locale)} {t('mastery.mp_close')}
         </span>
         }
           </div>
@@ -578,7 +578,7 @@ export default function Mastery() {
 
                               <div className="text-[10px] font-mono text-right">
                                 {hasXP ?
-                            <span className="text-kronos-accent">+{formatNumber(node.mastery_xp, locale)}{t('mastery.mp')}</span> :
+                            <span className="text-kronos-accent">+{formatNumber(node.mastery_xp, locale)} {t('mastery.mp')}</span> :
 
                             <span className="text-kronos-dim/30 italic uppercase text-[9px]">{t('mastery.non_mastery')}</span>
                             }

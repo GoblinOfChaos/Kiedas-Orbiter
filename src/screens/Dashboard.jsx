@@ -393,16 +393,26 @@ export default function Dashboard({ onNavigate = () => {} }) {
     return false;
   }, [ownedNamesAndTypes]);
 
+  const CYCLE_STATE_KEYS = {
+    Day: 'dashboard.cycle_day', Night: 'dashboard.cycle_night',
+    Warm: 'dashboard.cycle_warm', Cold: 'dashboard.cycle_cold',
+    Sorrow: 'dashboard.cycle_sorrow', Fear: 'dashboard.cycle_fear',
+    Joy: 'dashboard.cycle_joy', Anger: 'dashboard.cycle_anger', Envy: 'dashboard.cycle_envy',
+  };
+  const translateCycleState = (raw) => CYCLE_STATE_KEYS[raw] ? t(CYCLE_STATE_KEYS[raw]) : raw;
+
   const timers = [
-  { label: t('ui.dashboard.cetus'), data: worldstate?.cetusCycle, getState: (d) => d.state },
-  { label: t('ui.dashboard.orb_vallis'), data: worldstate?.vallisCycle, getState: (d) => d.state },
+  { label: t('ui.dashboard.cetus'), data: worldstate?.cetusCycle, getState: (d) => translateCycleState(d.state) },
+  { label: t('ui.dashboard.orb_vallis'), data: worldstate?.vallisCycle, getState: (d) => translateCycleState(d.state) },
   {
+    // Fass/Vome are official DE proper nouns kept identical in every
+    // localization (verified against dict.<locale>.json) - no i18n key needed.
     label: t('dashboard.cambion_drift'), data: worldstate?.cambionCycle, getState: (d) =>
     typeof d.active === 'boolean' ? d.active ? 'Fass' : 'Vome' : d.active || d.state || '?'
   },
   { label: t('ui.dashboard.zariman'), data: worldstate?.zarimanCycle, getState: (d) => d.state },
-  { label: t('dashboard.duviri'), data: worldstate?.duviriCycle, getState: (d) => d.state },
-  { label: t('dashboard.daily_reset'), data: { expiry: new Date(new Date().setUTCHours(24, 0, 0, 0)) }, getState: () => 'Reset' }].
+  { label: t('dashboard.duviri'), data: worldstate?.duviriCycle, getState: (d) => translateCycleState(d.state) },
+  { label: t('dashboard.daily_reset'), data: { expiry: new Date(new Date().setUTCHours(24, 0, 0, 0)) }, getState: () => t('dashboard.cycle_reset') }].
   filter((t) => t.data);
 
   const spIncursionNodes = useMemo(() => {
@@ -774,27 +784,27 @@ export default function Dashboard({ onNavigate = () => {} }) {
                 className={`bg-kronos-panel/40 p-2.5 rounded border border-white/5 hover:border-kronos-accent/20 transition-all flex flex-col justify-between ${isDone ? 'opacity-50' : ''}`}
               >
                 <div>
-                  <div className="flex items-center justify-between gap-1.5 mb-2">
-                    <div className="flex items-center gap-1 flex-wrap">
-                      <span className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded ${cat === 'Elite Weekly' ? 'bg-yellow-500/20 text-yellow-400' : cat === 'Weekly' ? 'bg-blue-500/20 text-blue-400' : 'bg-green-500/20 text-green-400'}`}>
+                  <div className="flex items-start justify-between gap-1.5 mb-2">
+                    <div className="flex items-center gap-1 flex-wrap min-w-0">
+                      <span className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded whitespace-nowrap ${cat === 'Elite Weekly' ? 'bg-yellow-500/20 text-yellow-400' : cat === 'Weekly' ? 'bg-blue-500/20 text-blue-400' : 'bg-green-500/20 text-green-400'}`}>
                         {cat === 'Elite Weekly' ? t('dashboard.category_elite_weekly') : cat === 'Weekly' ? t('dashboard.category_weekly') : t('dashboard.category_daily')}
                       </span>
                       {isRecovered && (
-                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300">
+                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 whitespace-nowrap">
                           {t('dashboard.recovered_badge')}
                         </span>
                       )}
                       {isDone ? (
-                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 flex items-center gap-0.5">
+                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 flex items-center gap-0.5 whitespace-nowrap">
                           <Check size={10} /> {t('dashboard.done_badge')}
                         </span>
                       ) : showProgress ? (
-                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-white/10 text-kronos-dim">
+                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-white/10 text-kronos-dim whitespace-nowrap">
                           {progressVal} / {goalCount}
                         </span>
                       ) : null}
                     </div>
-                    <span className="text-[10px] text-kronos-accent font-black">{c.xp ? formatNumber(c.xp, locale) : ''}{t('ui.inventory.sort_xp')}</span>
+                    <span className="text-[10px] text-kronos-accent font-black flex-shrink-0 whitespace-nowrap">{c.xp ? `${formatNumber(c.xp, locale)} ` : ''}{t('ui.inventory.sort_xp')}</span>
                   </div>
                   <p className={`text-sm font-bold text-kronos-text leading-tight mb-1 ${isDone ? 'line-through text-kronos-dim' : ''}`}>{c.name}</p>
                   <p className="text-xs text-kronos-dim/80 leading-relaxed">{c.desc}</p>

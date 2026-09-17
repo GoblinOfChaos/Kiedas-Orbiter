@@ -1124,7 +1124,7 @@ export default function Inventory() {
                       <p className="text-sm font-black text-kronos-text uppercase leading-tight whitespace-normal">{item.name.replace('Ayatan ', '').replace(' Sculpture', '')}</p>
                       <p className="text-base font-bold text-kronos-text leading-tight">{item.quantity > 0 ? `×${item.quantity}` : t('ui.inventory.none_owned')}</p>
                       <p className={`text-[11px] font-black ${item.sockets > 0 ? 'text-green-400' : 'text-kronos-dim'}`}>
-                        {t('inventory.sockets_filled', { n: item.sockets })} · {formatNumber(item.quantity * item.filledEndo, locale)}{t('inventory.endo')}
+                        {t('inventory.sockets_filled', { n: item.sockets })} · {formatNumber(item.quantity * item.filledEndo, locale)} {t('inventory.endo')}
                   </p>
                       <div className="flex items-center gap-1.5 mt-0.5">
                         {Array.from({ length: item.amberSlots }).map((_, i) =>

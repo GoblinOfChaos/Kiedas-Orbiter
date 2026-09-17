@@ -279,28 +279,6 @@ function parseBounties(raw, { dict, suppDict, ERg, EC }) {
   const mergedDict = suppDict ? { ...dict, ...suppDict } : dict;
   const syndicates = raw.SyndicateMissions || [];
 
-  const BOUNTY_NAME_OVERRIDES = {
-    "RescueBountyResc": "Rescue Prisoner",
-    "AttritionBountyLib": "Camp Liberation",
-    "ReclamationBountyTheft": "Resource Recovery",
-    "AttritionBountyCap": "Capture Commander",
-    "AttritionBountySab": "Sabotage Supply Lines",
-    "ReclamationBountyCap": "Steel Path: Capture Commander",
-    "VenusChaosJobExcavation": "Excavation Defense",
-    "VenusHelpingJobSpy": "Spy Reconnaissance",
-    "VenusTheftJobResource": "Resource Extraction",
-    "VenusCullJobExterminate": "Cull Extermination",
-    "VenusIntelJobRecovery": "Intel Recovery",
-    "VenusSpyJobSpy": "Steel Path: Spy Reconnaissance",
-    "NarmerVenusCullJobAssassinate": "Narmer Assassination",
-    "DeimosCrpSurvivorBounty": "Corpus Survivor Extraction",
-    "DeimosExcavateBounty": "Infested Excavation",
-    "DeimosEndlessExcavateBounty": "Endless Infested Excavation",
-    "DeimosGrnSurvivorBounty": "Grineer Survivor Extraction",
-    "DeimosAssassinateBounty": "Infested Assassination",
-    "DeimosPurifyBounty": "Steel Path: Purify the Land"
-  };
-
   const mapJob = (j, syndicateTag, idx) => {
     const jobType = j.jobType || "";
     const leaf = jobType.split("/").pop() || "";
@@ -308,7 +286,7 @@ function parseBounties(raw, { dict, suppDict, ERg, EC }) {
     const isSteelPath = (j.minEnemyLevel || 0) >= 100 || jobType.includes("Hard");
     const isEndless = !!j.endless;
 
-    let title = BOUNTY_NAME_OVERRIDES[leaf] || resolveBountyTitle(jobType, mergedDict);
+    let title = resolveBountyTitle(jobType, mergedDict);
     if (!title) {
       if (!leaf) {
         title = `Isolation Vault Tier ${idx - 5 || 1}`;
@@ -746,12 +724,21 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
         const rawPenance = c.Challenge
         const resolvedType = resolveMissionType(rawType, dict, ERg)
         const resolvedPenance = resolveNode(rawPenance, dict, ERg)
+        // Our own display-name tables take priority over resolveNode's naive
+        // splitPascal fallback (e.g. "BasicLootCreatures" -> "Basic Loot
+        // Creatures"), since these Descendia/"1999" identifiers have no
+        // official DE localization yet (verified absent from both dict.json
+        // and every structured Export*.json in warframe-public-export-plus).
+        const typeKey = DESCENDIA_MISSION_TYPES[rawType] ? `descendia.type.${rawType}` : null
+        const penanceKey = DESCENDIA_PENANCES[rawPenance] ? `descendia.penance.${rawPenance}` : null
         return {
           index: c.Index,
-          missionType: (resolvedType !== rawType) ? resolvedType : (DESCENDIA_MISSION_TYPES[rawType] || rawType),
+          missionType: DESCENDIA_MISSION_TYPES[rawType] || ((resolvedType !== rawType) ? resolvedType : rawType),
+          missionTypeKey: typeKey,
           missionTypeRaw: rawType,
           missionTypeDesc: (descendiaDesc || {})[rawType] || '',
-          penance: (resolvedPenance !== rawPenance) ? resolvedPenance : (DESCENDIA_PENANCES[rawPenance] || rawPenance),
+          penance: DESCENDIA_PENANCES[rawPenance] || ((resolvedPenance !== rawPenance) ? resolvedPenance : rawPenance),
+          penanceKey,
           penanceRaw: rawPenance,
           penanceDesc: (descendiaDesc || {})[rawPenance] || '',
           arena: levelName,

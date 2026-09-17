@@ -27,7 +27,7 @@ import { createDashboardViewModel } from '../preview/view-models/dashboardViewMo
  */
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useUi } from '../contexts/UiContext'
-import { formatNumber } from '../lib/formatNumber';
+import { formatNumber, toBcp47 } from '../lib/formatNumber';
 import { PageLayout, Card, Button, CardHeader, Tabs, Modal, Tooltip } from '../components/UI';
 import ModCard from '../components/ModCard';
 import ItemImage from '../components/ItemImage';
@@ -58,6 +58,13 @@ import {
 
 // ── arbys.txt helpers ──────────────────────────────────────────────────────────
 const ARBY_GRACE_PERIOD = 300000; // 5 minutes
+
+function descendiaType(s, t) {
+  return (s.missionTypeKey && t(s.missionTypeKey) !== s.missionTypeKey) ? t(s.missionTypeKey) : s.missionType;
+}
+function descendiaPenance(s, t) {
+  return (s.penanceKey && t(s.penanceKey) !== s.penanceKey) ? t(s.penanceKey) : s.penance;
+}
 
 function parseArbyLine(line, ERg, dict) {
   const parts = line.split(',');
@@ -943,8 +950,15 @@ export default function Dashboard({ onNavigate = () => {} }) {
       return { ...d, date: dDate, monthName: mName };
     }).sort((a, b) => a.day - b.day);
 
-    // Dynamically derive months from the days in this season
+    // Dynamically derive months from the days in this season. monthName is
+    // an internal English grouping key (kept locale-independent so it can
+    // be compared/looked-up consistently); monthLabels below is the actual
+    // locale-aware text shown to the user.
     const seasonMonths = [...new Set(allDays.map((d) => d.monthName))];
+    const monthLabels = seasonMonths.map((m) => {
+      const day = allDays.find((d) => d.monthName === m);
+      return day ? new Intl.DateTimeFormat(toBcp47(locale), { month: 'long' }).format(day.date).toUpperCase() : m;
+    });
 
     const nextExpiry = cal.expiry instanceof Date ? cal.expiry : new Date(cal.expiry);
 
@@ -1012,8 +1026,8 @@ export default function Dashboard({ onNavigate = () => {} }) {
             'bg-kronos-accent text-kronos-bg' :
             'text-kronos-dim hover:text-kronos-text bg-kronos-panel/40 hover:bg-kronos-panel/70'}`
             }>
-            
-              {m}
+
+              {monthLabels[idx]}
             </button>
           )}
         </div>
@@ -1140,8 +1154,8 @@ export default function Dashboard({ onNavigate = () => {} }) {
                   <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-bold text-kronos-accent uppercase">{t('ui.dashboard.marie_sanctuary')}</p>
-                    <Tooltip content={s.penanceDesc || s.penance} position="top">
-                      <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    <Tooltip content={s.penanceDesc || descendiaPenance(s, t)} position="top">
+                      <p className="text-[9px] text-kronos-dim uppercase truncate">{descendiaPenance(s, t)}</p>
                     </Tooltip>
                   </div>
                 </div>);
@@ -1153,8 +1167,8 @@ export default function Dashboard({ onNavigate = () => {} }) {
                   <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-bold text-kronos-accent uppercase">{t('ui.dashboard.lyon_sanctuary')}</p>
-                    <Tooltip content={s.penanceDesc || s.penance} position="top">
-                      <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    <Tooltip content={s.penanceDesc || descendiaPenance(s, t)} position="top">
+                      <p className="text-[9px] text-kronos-dim uppercase truncate">{descendiaPenance(s, t)}</p>
                     </Tooltip>
                   </div>
                 </div>);
@@ -1166,8 +1180,8 @@ export default function Dashboard({ onNavigate = () => {} }) {
                   <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-bold text-kronos-accent uppercase">{t('ui.dashboard.roathe_oblivion')}</p>
-                    <Tooltip content={s.penanceDesc || s.penance} position="top">
-                      <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    <Tooltip content={s.penanceDesc || descendiaPenance(s, t)} position="top">
+                      <p className="text-[9px] text-kronos-dim uppercase truncate">{descendiaPenance(s, t)}</p>
                     </Tooltip>
                   </div>
                 </div>);
@@ -1178,13 +1192,13 @@ export default function Dashboard({ onNavigate = () => {} }) {
               <div key={s.index} className="p-1.5 rounded bg-kronos-panel/30 flex items-center gap-1.5">
                 <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
                 <div className="flex-1 min-w-0 p-1 rounded bg-kronos-panel/40">
-                  <Tooltip content={s.missionTypeDesc || s.missionType} position="top">
-                    <p className="text-[10px] font-bold text-kronos-text uppercase">{s.missionType}</p>
+                  <Tooltip content={s.missionTypeDesc || descendiaType(s, t)} position="top">
+                    <p className="text-[10px] font-bold text-kronos-text uppercase">{descendiaType(s, t)}</p>
                   </Tooltip>
                 </div>
                 <div className="flex-1 min-w-0 p-1 rounded bg-kronos-panel/20">
-                  <Tooltip content={s.penanceDesc || s.penance} position="top">
-                    <p className="text-[10px] text-kronos-dim uppercase">{s.penance}</p>
+                  <Tooltip content={s.penanceDesc || descendiaPenance(s, t)} position="top">
+                    <p className="text-[10px] text-kronos-dim uppercase">{descendiaPenance(s, t)}</p>
                   </Tooltip>
                 </div>
               </div>);
@@ -1229,11 +1243,11 @@ export default function Dashboard({ onNavigate = () => {} }) {
                     {set.stages.map((s) =>
                   <div key={s.index} className={`p-2 rounded flex justify-between items-center gap-2 ${s.isCheckpoint ? 'bg-kronos-accent/10 border border-kronos-accent/20' : 'bg-black/20'}`}>
                         <div className="min-w-0">
-                          <Tooltip content={s.missionTypeDesc || s.missionType} position="top">
-                            <p className="text-[10px] font-bold text-kronos-text uppercase truncate">{s.missionType}{s.isBoss ? t('dashboard.roathe_suffix') : ''}</p>
+                          <Tooltip content={s.missionTypeDesc || descendiaType(s, t)} position="top">
+                            <p className="text-[10px] font-bold text-kronos-text uppercase truncate">{descendiaType(s, t)}{s.isBoss ? t('dashboard.roathe_suffix') : ''}</p>
                           </Tooltip>
-                          <Tooltip content={s.penanceDesc || s.penance} position="bottom">
-                            <p className="text-[9px] text-kronos-dim truncate uppercase">{s.penance}</p>
+                          <Tooltip content={s.penanceDesc || descendiaPenance(s, t)} position="bottom">
+                            <p className="text-[9px] text-kronos-dim truncate uppercase">{descendiaPenance(s, t)}</p>
                           </Tooltip>
                         </div>
                         <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded flex-shrink-0 ${s.isCheckpoint ? 'text-kronos-accent bg-kronos-accent/20' : 'text-kronos-dim bg-kronos-panel/40'}`}>

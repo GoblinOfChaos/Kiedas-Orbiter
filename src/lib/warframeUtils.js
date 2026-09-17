@@ -391,11 +391,13 @@ export function resolveBountyTitle(path, dict) {
   }
   if (res && !res.startsWith('/Lotus/')) return clean(res)
 
-  // Deimos / Entrati
-  const m = leaf.match(/^Deimos(.+)Bounty$/)
+  // Deimos / Entrati (endless variants insert "Endless" before the type,
+  // e.g. DeimosEndlessExcavateBounty -> DeimosBountyEndlessExcavName)
+  const m = leaf.match(/^Deimos(Endless)?(.+)Bounty$/)
   if (m) {
-    const type = DEIMOS_BOUNTY_ABBR[m[1]] ?? m[1]
-    key = `/Lotus/Language/InfestedMicroplanet/DeimosBounty${type}Name`
+    const endlessPrefix = m[1] || ''
+    const type = DEIMOS_BOUNTY_ABBR[m[2]] ?? m[2]
+    key = `/Lotus/Language/InfestedMicroplanet/DeimosBounty${endlessPrefix}${type}Name`
     res = dict[key] || dict['/' + key]
     if (res && !res.startsWith('/Lotus/')) return clean(res)
   }

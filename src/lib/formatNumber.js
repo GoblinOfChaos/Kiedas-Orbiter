@@ -10,7 +10,7 @@ const LOCALE_TO_BCP47 = {
   zh: 'zh-Hans',
 }
 
-function toBcp47(locale) {
+export function toBcp47(locale) {
   return LOCALE_TO_BCP47[locale] || locale || 'en'
 }
 

@@ -342,7 +342,7 @@ export default function Foundry() {
   }, [items, search, ownershipFilter, readyOnly, masteryFilter])
   const selected = filteredItems.find((item) => item.unique_name === selectedName) || null
   const ownedCount = items.filter((item) => hasFoundryOwnership(item, item.recipe)).length
-  const categoriesWithLabels = useMemo(() => CATEGORIES.map((c) => ({ ...c, label: t(c.labelKey) })), [t])
+  const categoriesWithLabels = CATEGORIES.map((c) => ({ ...c, label: t(c.labelKey) }))
   const pendingItems = useMemo(() => {
     const q = search.trim().toLowerCase()
     return (inventoryData?.foundry || [])

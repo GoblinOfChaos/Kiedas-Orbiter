@@ -46,6 +46,10 @@ export function UiProvider({ children }) {
     return () => { cancelled = true; unsub() }
   }, [])
 
+  // Depends on state.ui (not []) so t's own identity changes whenever locale
+  // data actually loads/switches - callers that memoize on [t] (useMemo/
+  // useCallback deps) get a real invalidation signal instead of silently
+  // freezing on whatever t() returned before the locale finished loading.
   const t = useCallback((key, params) => {
     if (!key) return ''
     let v = stateRef.current.ui[key]
@@ -56,7 +60,7 @@ export function UiProvider({ children }) {
       }
     }
     return v
-  }, [])
+  }, [state.ui])
 
   return (
     <UiContext.Provider value={{ t, ...state }}>

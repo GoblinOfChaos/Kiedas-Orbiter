@@ -430,14 +430,13 @@ export default function Dashboard({ onNavigate = () => {} }) {
   { id: 'temporal', label: t('dashboard.archimedea_temporal') }];
 
 
-  const bountyTabs = useMemo(() => [
+  const bountyTabs = [
   { id: 'holdfasts', label: t('dashboard.holdfasts'), icon: iconSrc('MiniMapZariman') },
   { id: 'cavia', label: t('ui.dashboard.cavia'), icon: iconSrc('MiniMapCaviaHubSyndicate') },
   { id: 'hex', label: t('ui.dashboard.hex'), icon: iconSrc('MiniMapMarkersJobBoard') },
   { id: 'cetus', label: t('ui.dashboard.cetus'), icon: iconSrc('MiniMapEidolonCetusElder') },
   { id: 'deimos', label: t('ui.dashboard.deimos'), icon: iconSrc('MiniMapDeimosGrandmother') },
-  { id: 'vallis', label: t('dashboard.vallis_short'), icon: iconSrc('MiniMapHubFortuna') }],
-  [iconsPath, t]);
+  { id: 'vallis', label: t('dashboard.vallis_short'), icon: iconSrc('MiniMapHubFortuna') }];
 
   const renderBounties = () => {
     let items;

@@ -151,7 +151,13 @@ const SET_FILE_OVERRIDES = {
   '/Lotus/Upgrades/Mods/Sets/Nira/NiraSetMod': 'NirasSet.png',
   '/Lotus/Upgrades/Mods/Sets/Boreal/BorealSetMod': 'BorealsSet.png',
   '/Lotus/Upgrades/Mods/Sets/Amar/AmarSetMod': 'AmarsSet.png',
-  '/Lotus/Upgrades/Mods/Sets/Amar/AmarsSetMod': 'AmarsSet.png'
+  '/Lotus/Upgrades/Mods/Sets/Amar/AmarsSetMod': 'AmarsSet.png',
+  '/Lotus/Upgrades/Mods/Sets/Ashen/AshenSetMod': 'CarnisSet.png',
+  '/Lotus/Upgrades/Mods/Sets/Boneblade/BonebladeSetMod': 'JugulusSet.png',
+  '/Lotus/Upgrades/Mods/Sets/Femur/FemurSetMod': 'SaxumSet.png',
+  '/Lotus/Upgrades/Mods/Sets/Hawk/HawkSetMod': 'AeroSet.png',
+  '/Lotus/Upgrades/Mods/Sets/Raptor/RaptorSetMod': 'MotusSet.png',
+  '/Lotus/Upgrades/Mods/Sets/Spider/SpiderSetMod': 'ProtonSet.png'
 };
 
 const SET_RARITY_FILTERS = {

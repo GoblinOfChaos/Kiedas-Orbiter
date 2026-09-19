@@ -28,8 +28,19 @@ src-tauri/data/export/*
 src-tauri/data/user/*
 !src-tauri/data/user/placeholder
 
-# Mod images are extracted from Warframe cache at runtime (140+ MB)
-src-tauri/data/assets/card-images/
+# Mod images are extracted from Warframe cache at runtime (140+ MB). Keep the
+# two Preview-bundled Nightwave card artworks under version control.
+src-tauri/data/assets/card-images/*
+!src-tauri/data/assets/card-images/Lotus/
+src-tauri/data/assets/card-images/Lotus/*
+!src-tauri/data/assets/card-images/Lotus/Interface/
+src-tauri/data/assets/card-images/Lotus/Interface/*
+!src-tauri/data/assets/card-images/Lotus/Interface/Cards/
+src-tauri/data/assets/card-images/Lotus/Interface/Cards/*
+!src-tauri/data/assets/card-images/Lotus/Interface/Cards/Images/
+src-tauri/data/assets/card-images/Lotus/Interface/Cards/Images/*
+!src-tauri/data/assets/card-images/Lotus/Interface/Cards/Images/PrototypeShockCoils.png
+!src-tauri/data/assets/card-images/Lotus/Interface/Cards/Images/OverpressuredRounds.png
 
 src-tauri/data/bin/*
 !src-tauri/data/bin/*.png

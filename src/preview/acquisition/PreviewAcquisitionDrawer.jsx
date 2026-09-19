@@ -8,7 +8,7 @@ import {
   formatCredits,
   formatDuration,
 } from '../../components/AcquisitionDrawer';
-import { getItemDrops } from '../../lib/acquisitionData';
+import { getItemDrops, resolveBlueprintOrigin } from '../../lib/acquisitionData';
 import ItemImage from '../../components/ItemImage';
 import BugReporterModal from '../../components/BugReporterModal';
 import { useUi } from '../../contexts/UiContext';
@@ -85,6 +85,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
   const featured = sources[0] || null;
   const alternatives = sources.slice(1);
   const featuredSplit = featured ? splitUnconfirmed(getSourceLabel(featured, t)) : null;
+  const blueprintOrigin = recipe ? resolveBlueprintOrigin(displayName, recipe) : null;
 
   return (
     <>
@@ -216,6 +217,18 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
               </div>
               {recipe.ingredients?.length > 0 &&
                 <div className="preview-acq-ingredients">
+                  {blueprintOrigin &&
+                    <div className="preview-acq-ingredient">
+                      <div className="preview-acq-ingredient-row">
+                        <span>1x {t('acquisition_drawer.blueprint_label')}</span>
+                      </div>
+                      <div className="preview-acq-ingredient-sources">
+                        <div className="preview-acq-ingredient-source-row">
+                          <span>{blueprintOrigin}</span>
+                        </div>
+                      </div>
+                    </div>
+                  }
                   {recipe.ingredients.map((ingredient, i) => {
                     const drops = getItemDrops(ingredient.itemType);
                     return (

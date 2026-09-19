@@ -19,7 +19,10 @@ export function fetchCodexDetail(uniqueName) {
     drops: drops || [],
     components: recipe?.components || [],
     buildPrice: recipe?.buildCost || 0,
-    buildTime: recipe?.buildTime || 0
+    buildTime: recipe?.buildTime || 0,
+    blueprintDrops: recipe?.blueprintDrops || [],
+    blueprintCost: recipe?.blueprintCost ?? null,
+    rushCost: recipe?.skipBuildTimePrice ?? null,
   });
 }
 
@@ -28,9 +31,11 @@ export function codexDetailToAcquisition(detail) {
   return {
     sources: detail.drops || [],
     recipe: detail.components ? {
-      blueprintCost: null,
+      blueprintDrops: detail.blueprintDrops || [],
+      blueprintCost: detail.blueprintCost,
       buildCost: detail.buildPrice,
       buildTime: detail.buildTime,
+      rushCost: detail.rushCost,
       ingredients: detail.components
     } : null
   };

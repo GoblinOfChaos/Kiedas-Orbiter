@@ -18,6 +18,7 @@ pub struct RivenInput {
 #[derive(Debug, Clone, serde::Serialize)]
 pub struct RivenFullEstimate {
     pub price: f32,
+    pub weapon_url_name: String,
     pub grade: String,
     pub cdf_percentile: f32,
     pub expected_value: f32,
@@ -319,6 +320,7 @@ pub fn estimate_full(input: &RivenInput) -> Option<RivenFullEstimate> {
 
     Some(RivenFullEstimate {
         price,
+        weapon_url_name: url_name.to_string(),
         grade,
         cdf_percentile,
         expected_value,

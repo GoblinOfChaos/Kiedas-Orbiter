@@ -353,7 +353,7 @@ export default function Rivens() {
         }
       </div>
     </PageLayout>
-    {openRiven && <RivenGradeDrawer riven={openRiven} statGrade={statGrades.get(openRiven)} onClose={close} />}
+    {openRiven && <RivenGradeDrawer riven={openRiven} statGrade={statGrades.get(openRiven)} estimate={pricingCache[rivenKeys.get(openRiven)]} onClose={close} />}
     </>
     </PreviewRivensLayout>);
 

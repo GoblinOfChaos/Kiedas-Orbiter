@@ -20,9 +20,12 @@ const STATUS_LABEL_KEY = {
 /** Bottom drawer showing the stat-combo breakdown behind a riven's grade
  * badge - same shell/interaction as AcquisitionDrawer, ported content from
  * wfinfo-ng's riven_grader_overlay.py per-stat assessment card. */
-export default function RivenGradeDrawer({ riven, statGrade, onClose }) {
+export default function RivenGradeDrawer({ riven, statGrade, estimate, onClose }) {
   const { t } = useUi();
   if (!riven || !statGrade) return null;
+  const marketUrl = estimate?.weapon_url_name
+    ? `https://warframe.market/auctions/search?type=riven&weapon_url_name=${encodeURIComponent(estimate.weapon_url_name)}`
+    : null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-kronos-bg border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.4)]">
@@ -62,6 +65,16 @@ export default function RivenGradeDrawer({ riven, statGrade, onClose }) {
             {statGrade.safeNegatives.length > 0 && ` · ${t('riven_grade_drawer.safe_negatives')}${statGrade.safeNegatives.join(', ')}`}
           </p>
         </>
+        }
+        {marketUrl &&
+          <a
+            href={marketUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex mt-3 px-3 py-1.5 rounded-lg bg-kronos-accent/10 hover:bg-kronos-accent/20 border border-kronos-accent/30 text-xs font-medium text-kronos-accent transition"
+          >
+            View on Warframe Market
+          </a>
         }
       </div>
     </div>

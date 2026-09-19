@@ -74,7 +74,13 @@ async function fetchWfmItems() {
     }
   }
   wfmItemMap = new Map(entries);
-  localStorage.setItem(WFM_ITEMS_KEY, JSON.stringify({ entries, timestamp: Date.now() }));
+  // Persistence is optional: a full browser quota must not discard the
+  // successfully fetched in-memory catalog for this session.
+  try {
+    localStorage.setItem(WFM_ITEMS_KEY, JSON.stringify({ entries, timestamp: Date.now() }));
+  } catch (error) {
+    console.warn('Failed to persist WFM item catalog:', error);
+  }
   return wfmItemMap;
 }
 

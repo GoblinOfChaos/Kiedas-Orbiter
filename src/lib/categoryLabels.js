@@ -12,6 +12,14 @@ export const CATEGORY_DISPLAY_LABELS = {
   companions: 'Companion', companion_weapons: 'Sentinel Weapon',
   sentinels: 'Sentinel', moas: 'MOA', hounds: 'Hound', beasts: 'Beast', robotics: 'Robotic',
   kdrives: 'K-Drive', consumables: 'Gear', landing_craft: 'Landing Craft', appearance: 'Appearance',
+  // Inventory-only buckets (inventoryParser.js) missing from the original
+  // map - any item with one of these categories fell through to raw
+  // sentence-cased text (e.g. "Resources") in every locale, not just
+  // untranslated ones. Confirmed against every literal `category: '...'`
+  // value inventoryParser.js actually assigns.
+  Arcanes: 'Arcane', components: 'Component', intrinsics: 'Intrinsic',
+  peely_pix: 'Peely Pix', prime_parts: 'Prime Part', relics: 'Relic',
+  resources: 'Resource', rivens: 'Riven Mod', songItems: 'Song',
 }
 
 const CATEGORY_I18N_KEYS = {
@@ -21,6 +29,9 @@ const CATEGORY_I18N_KEYS = {
   companions: 'category.companions', companion_weapons: 'category.companion_weapons',
   sentinels: 'category.sentinels', moas: 'category.moas', hounds: 'category.hounds', beasts: 'category.beasts', robotics: 'category.robotics',
   kdrives: 'category.kdrives', consumables: 'category.consumables', landing_craft: 'category.landing_craft', appearance: 'category.appearance',
+  Arcanes: 'category.arcanes', components: 'category.components', intrinsics: 'category.intrinsics',
+  peely_pix: 'category.peely_pix', prime_parts: 'category.prime_parts', relics: 'category.relics',
+  resources: 'category.resources', rivens: 'category.rivens', songItems: 'category.song_items',
 }
 
 export function categoryDisplayLabel(category, t) {

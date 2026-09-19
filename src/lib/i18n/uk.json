@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "Радість",
     "dashboard.cycle_anger": "Гнів",
     "dashboard.cycle_envy": "Заздрість",
-    "dashboard.cycle_reset": "Скидання"
+    "dashboard.cycle_reset": "Скидання",
+    "category.arcanes": "Аркана",
+    "category.components": "Компонент",
+    "category.intrinsics": "Вроджена здатність",
+    "category.peely_pix": "Peely Pix",
+    "category.prime_parts": "Деталь Прайм",
+    "category.relics": "Релікт",
+    "category.resources": "Ресурс",
+    "category.rivens": "Мод Рівен",
+    "category.song_items": "Пісня",
+    "acquisition_drawer.sources_count_one": "{count} джерело"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

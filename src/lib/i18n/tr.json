@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "Neşe",
     "dashboard.cycle_anger": "Öfke",
     "dashboard.cycle_envy": "Kıskançlık",
-    "dashboard.cycle_reset": "Sıfırlama"
+    "dashboard.cycle_reset": "Sıfırlama",
+    "category.arcanes": "Arcane",
+    "category.components": "Bileşen",
+    "category.intrinsics": "İçkin Yetenek",
+    "category.peely_pix": "Peely Pix",
+    "category.prime_parts": "Prime Parçası",
+    "category.relics": "Kalıntı",
+    "category.resources": "Kaynak",
+    "category.rivens": "Riven Mod",
+    "category.song_items": "Şarkı",
+    "acquisition_drawer.sources_count_one": "{count} kaynak"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

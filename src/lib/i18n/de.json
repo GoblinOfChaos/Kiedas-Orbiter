@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "Freude",
     "dashboard.cycle_anger": "Zorn",
     "dashboard.cycle_envy": "Neid",
-    "dashboard.cycle_reset": "Reset"
+    "dashboard.cycle_reset": "Reset",
+    "category.arcanes": "Arkane",
+    "category.components": "Komponente",
+    "category.intrinsics": "Angeborene Fähigkeit",
+    "category.peely_pix": "Peely Pix",
+    "category.prime_parts": "Prime-Teil",
+    "category.relics": "Relikt",
+    "category.resources": "Ressource",
+    "category.rivens": "Riven-Mod",
+    "category.song_items": "Lied",
+    "acquisition_drawer.sources_count_one": "{count} Quelle"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

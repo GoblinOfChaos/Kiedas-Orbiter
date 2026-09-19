@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "Radość",
     "dashboard.cycle_anger": "Gniew",
     "dashboard.cycle_envy": "Zazdrość",
-    "dashboard.cycle_reset": "Reset"
+    "dashboard.cycle_reset": "Reset",
+    "category.arcanes": "Arkan",
+    "category.components": "Komponent",
+    "category.intrinsics": "Zdolność wrodzona",
+    "category.peely_pix": "Peely Pix",
+    "category.prime_parts": "Część Prime",
+    "category.relics": "Relikwia",
+    "category.resources": "Zasób",
+    "category.rivens": "Mod Riven",
+    "category.song_items": "Piosenka",
+    "acquisition_drawer.sources_count_one": "{count} źródło"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

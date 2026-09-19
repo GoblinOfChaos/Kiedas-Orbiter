@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "기쁨",
     "dashboard.cycle_anger": "분노",
     "dashboard.cycle_envy": "질투",
-    "dashboard.cycle_reset": "리셋"
+    "dashboard.cycle_reset": "리셋",
+    "category.arcanes": "아르카나",
+    "category.components": "부품",
+    "category.intrinsics": "특성",
+    "category.peely_pix": "필리 픽스",
+    "category.prime_parts": "프라임 파츠",
+    "category.relics": "유물",
+    "category.resources": "자원",
+    "category.rivens": "리븐 모드",
+    "category.song_items": "노래",
+    "acquisition_drawer.sources_count_one": "{count}개의 출처"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

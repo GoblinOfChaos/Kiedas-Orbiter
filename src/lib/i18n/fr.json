@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "Joie",
     "dashboard.cycle_anger": "Colère",
     "dashboard.cycle_envy": "Envie",
-    "dashboard.cycle_reset": "Réinitialisation"
+    "dashboard.cycle_reset": "Réinitialisation",
+    "category.arcanes": "Arcane",
+    "category.components": "Composant",
+    "category.intrinsics": "Intrinsèque",
+    "category.peely_pix": "Peely Pix",
+    "category.prime_parts": "Pièce Prime",
+    "category.relics": "Relique",
+    "category.resources": "Ressource",
+    "category.rivens": "Mod Riven",
+    "category.song_items": "Chanson",
+    "acquisition_drawer.sources_count_one": "{count} source"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

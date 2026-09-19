@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "Joy",
     "dashboard.cycle_anger": "Anger",
     "dashboard.cycle_envy": "Envy",
-    "dashboard.cycle_reset": "Reset"
+    "dashboard.cycle_reset": "Reset",
+    "category.arcanes": "Arcane",
+    "category.components": "Component",
+    "category.intrinsics": "Intrinsic",
+    "category.peely_pix": "Peely Pix",
+    "category.prime_parts": "Prime Part",
+    "category.relics": "Relic",
+    "category.resources": "Resource",
+    "category.rivens": "Riven Mod",
+    "category.song_items": "Song",
+    "acquisition_drawer.sources_count_one": "{count} source"
   },
   "nav.market": "Market"
 }

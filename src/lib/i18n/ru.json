@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "Радость",
     "dashboard.cycle_anger": "Гнев",
     "dashboard.cycle_envy": "Зависть",
-    "dashboard.cycle_reset": "Сброс"
+    "dashboard.cycle_reset": "Сброс",
+    "category.arcanes": "Аркана",
+    "category.components": "Компонент",
+    "category.intrinsics": "Врождённый навык",
+    "category.peely_pix": "Peely Pix",
+    "category.prime_parts": "Деталь Прайм",
+    "category.relics": "Реликвия",
+    "category.resources": "Ресурс",
+    "category.rivens": "Мод Ривен",
+    "category.song_items": "Песня",
+    "acquisition_drawer.sources_count_one": "{count} источник"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

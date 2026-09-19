@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "Gioia",
     "dashboard.cycle_anger": "Rabbia",
     "dashboard.cycle_envy": "Invidia",
-    "dashboard.cycle_reset": "Ripristino"
+    "dashboard.cycle_reset": "Ripristino",
+    "category.arcanes": "Arcano",
+    "category.components": "Componente",
+    "category.intrinsics": "Intrinseco",
+    "category.peely_pix": "Peely Pix",
+    "category.prime_parts": "Pezzo Prime",
+    "category.relics": "Reliquia",
+    "category.resources": "Risorsa",
+    "category.rivens": "Mod Riven",
+    "category.song_items": "Canzone",
+    "acquisition_drawer.sources_count_one": "{count} fonte"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

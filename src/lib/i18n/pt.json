@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "Alegria",
     "dashboard.cycle_anger": "Raiva",
     "dashboard.cycle_envy": "Inveja",
-    "dashboard.cycle_reset": "Reinício"
+    "dashboard.cycle_reset": "Reinício",
+    "category.arcanes": "Arcano",
+    "category.components": "Componente",
+    "category.intrinsics": "Intrínseco",
+    "category.peely_pix": "Peely Pix",
+    "category.prime_parts": "Peça Prime",
+    "category.relics": "Relíquia",
+    "category.resources": "Recurso",
+    "category.rivens": "Mod Riven",
+    "category.song_items": "Música",
+    "acquisition_drawer.sources_count_one": "{count} fonte"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

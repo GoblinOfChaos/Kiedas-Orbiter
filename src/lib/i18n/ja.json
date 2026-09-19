@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "喜び",
     "dashboard.cycle_anger": "怒り",
     "dashboard.cycle_envy": "妬み",
-    "dashboard.cycle_reset": "リセット"
+    "dashboard.cycle_reset": "リセット",
+    "category.arcanes": "アルケイン",
+    "category.components": "コンポーネント",
+    "category.intrinsics": "イントリンシック",
+    "category.peely_pix": "ピーリーピックス",
+    "category.prime_parts": "Primeパーツ",
+    "category.relics": "レリック",
+    "category.resources": "リソース",
+    "category.rivens": "リヴェンMOD",
+    "category.song_items": "曲",
+    "acquisition_drawer.sources_count_one": "{count}件の入手先"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

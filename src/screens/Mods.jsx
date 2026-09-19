@@ -147,6 +147,20 @@ export default function Mods() {
   }, [mods, searchQuery, selectedCategoryKey, ownershipFilter, maxRankOnly, hideConclave, sortCriteria, sortDirection]);
 
   const visible = filtered.slice(0, visibleCount);
+
+  // Keep loading more mods in the background instead of leaving it entirely
+  // up to the "Load More" button - matches Inventory.jsx's pagination
+  // (same reasoning: the acquisition drawer can sit over that button,
+  // and auto-loading means the list eventually finishes on its own). A
+  // manual click still works too, for anyone who doesn't want to wait.
+  useEffect(() => {
+    if (visibleCount >= filtered.length) return;
+    const timer = setTimeout(() => {
+      setVisibleCount((prev) => Math.min(prev + 60, filtered.length));
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [visibleCount, filtered.length]);
+
   const uniqueMods = new Set(filtered.map((m) => m.name)).size;
   const dupCount = filtered.filter((m) => m.quantity > 1).length;
 
@@ -157,7 +171,9 @@ export default function Mods() {
     return {
       uniqueName: mod.unique_name,
       displayName: mod.name,
-      image: cardImagesPath && mod.icon ? convertFileSrc(`${cardImagesPath}${mod.icon.startsWith('/') ? mod.icon : '/' + mod.icon}`) : mod.image,
+      image: mod.icon?.startsWith('http') ? mod.icon
+        : cardImagesPath && mod.icon ? convertFileSrc(`${cardImagesPath}${mod.icon.startsWith('/') ? mod.icon : '/' + mod.icon}`)
+        : mod.image,
       category: mod.rarity || 'Mod',
       owned: mod.owned,
       info: getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex),
@@ -395,8 +411,10 @@ export default function Mods() {
             <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center bg-kronos-panel/30 rounded overflow-hidden">
               {mod.image && (
                 <ItemImage
-                  src={cardImagesPath && mod.icon ? convertFileSrc(`${cardImagesPath}${mod.icon.startsWith('/') ? mod.icon : '/' + mod.icon}`) : mod.image}
-                  resolveFallbackSrc={cardImagesPath && mod.icon ? () => mod.image : undefined}
+                  src={mod.icon?.startsWith('http') ? mod.icon
+                    : cardImagesPath && mod.icon ? convertFileSrc(`${cardImagesPath}${mod.icon.startsWith('/') ? mod.icon : '/' + mod.icon}`)
+                    : mod.image}
+                  resolveFallbackSrc={cardImagesPath && mod.icon && !mod.icon.startsWith('http') ? () => mod.image : undefined}
                   alt=""
                   className="max-w-full max-h-full object-contain"
                   placeholderClassName="w-full h-full text-[5px]" />

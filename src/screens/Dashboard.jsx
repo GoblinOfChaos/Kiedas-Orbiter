@@ -784,7 +784,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
                 className={`bg-kronos-panel/40 p-2.5 rounded border border-white/5 hover:border-kronos-accent/20 transition-all flex flex-col justify-between ${isDone ? 'opacity-50' : ''}`}
               >
                 <div>
-                  <div className="flex items-start justify-between gap-1.5 mb-2">
+                  <div className="flex items-start justify-between gap-1.5 mb-2 flex-wrap">
                     <div className="flex items-center gap-1 flex-wrap min-w-0">
                       <span className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded whitespace-nowrap ${cat === 'Elite Weekly' ? 'bg-yellow-500/20 text-yellow-400' : cat === 'Weekly' ? 'bg-blue-500/20 text-blue-400' : 'bg-green-500/20 text-green-400'}`}>
                         {cat === 'Elite Weekly' ? t('dashboard.category_elite_weekly') : cat === 'Weekly' ? t('dashboard.category_weekly') : t('dashboard.category_daily')}

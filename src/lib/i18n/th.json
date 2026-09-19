@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "ความสุข",
     "dashboard.cycle_anger": "ความโกรธ",
     "dashboard.cycle_envy": "ความอิจฉา",
-    "dashboard.cycle_reset": "รีเซ็ต"
+    "dashboard.cycle_reset": "รีเซ็ต",
+    "category.arcanes": "อาร์เคน",
+    "category.components": "ส่วนประกอบ",
+    "category.intrinsics": "ทักษะโดยกำเนิด",
+    "category.peely_pix": "Peely Pix",
+    "category.prime_parts": "ชิ้นส่วนไพรม์",
+    "category.relics": "เรลิค",
+    "category.resources": "ทรัพยากร",
+    "category.rivens": "ริเวนม็อด",
+    "category.song_items": "เพลง",
+    "acquisition_drawer.sources_count_one": "{count} แหล่งที่มา"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

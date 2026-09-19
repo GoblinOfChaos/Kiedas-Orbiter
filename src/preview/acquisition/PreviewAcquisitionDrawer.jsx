@@ -134,7 +134,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
             <>
               <div className="preview-acq-section-head">
                 <h3>{t('acquisition_drawer.where_to_start')}</h3>
-                <span className="preview-acq-muted">{t('acquisition_drawer.sources_count', { count: sources.length })}</span>
+                <span className="preview-acq-muted">{t(sources.length === 1 ? 'acquisition_drawer.sources_count_one' : 'acquisition_drawer.sources_count', { count: sources.length })}</span>
               </div>
 
               {featured ?

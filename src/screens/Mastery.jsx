@@ -17,7 +17,7 @@
  * - "Incomplete" list of items that still need to be mastered.
  * - Dynamic rank icons loaded via Tauri's `get_mastery_icons_path()`.
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { PageLayout, Card, MonitorState } from '../components/UI';
 import { Trophy, X, Check, Circle } from 'lucide-react';
@@ -91,6 +91,122 @@ export default function Mastery() {
     invoke('get_ui_path').then(setUiPath).catch(() => {});
   }, []);
 
+  // Recomputes a dedup/reduce over the full inventory for ~19 categories -
+  // expensive enough that leaving it as a plain const (recomputed on every
+  // render, including trivial UI state changes like closing the detail
+  // modal) caused a noticeable freeze before the UI responded. Memoized so
+  // it only reruns when the underlying inventory data actually changes.
+  const itemCompletion = useMemo(() => {
+    if (!inventoryData) return [];
+
+    const getStats = (cat) => {
+      let items = [];
+      if (cat === 'archgun') {
+        items = (inventoryData.archweapons ?? []).filter((i) => i.weapon_type === 'archgun');
+      } else if (cat === 'archmelee') {
+        items = (inventoryData.archweapons ?? []).filter((i) => i.weapon_type === 'archmelee');
+      } else if (cat === 'kitguns') {
+        // Display-only breakdown - the mastery-relevant total lives on
+        // 'secondary' below (DE tracks Kitguns as Secondary weapons in the
+        // game's own mastery count, confirmed against the user's real profile:
+        // Secondary mastered matched exactly once Kitguns were folded in).
+        items = inventoryData.kitgunChambers ?? [];
+      } else if (cat === 'zaws') {
+        // Display-only breakdown - see 'melee' below. Folding Zaws into Melee
+        // reproduced the user's real in-game Melee total exactly (185/234).
+        items = inventoryData.zawStrikes ?? [];
+      } else if (cat === 'secondary') {
+        items = [...(inventoryData.secondary ?? []), ...(inventoryData.kitgunChambers ?? [])];
+      } else if (cat === 'melee') {
+        items = [...(inventoryData.melee ?? []), ...(inventoryData.zawStrikes ?? [])];
+      } else if (cat === 'moas') {
+        items = inventoryData.moaHeads ?? [];
+      } else if (cat === 'hounds') {
+        items = inventoryData.houndHeads ?? [];
+      } else if (cat === 'companion_weapons') {
+        items = inventoryData.companion_weapons ?? [];
+      } else if (cat === 'plexus') {
+        items = inventoryData.plexus ?? [];
+      } else if (cat === 'companions') {
+        // Kavats/Kubrows/Predasites/Vulpaphylas only - the game tracks this as
+        // its own mastery bucket separate from Sentinels/MOAs/Hounds/Plexus
+        // ("Robotics" below), confirmed against the user's real profile.
+        items = inventoryData.beasts ?? [];
+      } else if (cat === 'robotics') {
+        // Display-only aggregate matching DE's own combined Sentinels/MOA/Hound/
+        // Sentinel-Weapon mastery bucket - excluded from totalXP below since
+        // 'sentinels', 'companion_weapons', 'moas' and 'hounds' each already
+        // contribute their XP individually above.
+        items = [
+        ...(inventoryData.sentinels ?? []),
+        ...(inventoryData.moaHeads ?? []),
+        ...(inventoryData.houndHeads ?? []),
+        ...(inventoryData.companion_weapons ?? [])];
+
+      } else if (cat === 'vehicles') {
+        // Display-only aggregate - excluded from totalXP below since archwings/
+        // necramechs/kdrives/plexus each already contribute their XP
+        // individually. Matches DE's own Vehicles mastery bucket (confirmed
+        // against the user's real profile: Plexus is the "+1" item missing from
+        // the app's previous archwing+kdrive-only total).
+        items = [
+        ...(inventoryData.archwings ?? []),
+        ...(inventoryData.necramechs ?? []),
+        ...(inventoryData.kdrives ?? []),
+        ...(inventoryData.plexus ?? [])];
+
+      } else {
+        items = inventoryData[cat] ?? [];
+      }
+      // Deduplicate - mastery is only counted once per item type
+      const uniqueItems = Object.values(
+        items.reduce((acc, item) => {
+          // Use sanitized name to collapse duplicates (e.g. Grimoire)
+          // Modular items already have the mastery part as their unique_name
+          const isModular = ['kitguns', 'zaws', 'amps', 'moas', 'hounds', 'beasts', 'kdrives'].includes(cat);
+          const key = isModular ? item.unique_name : (item.name || "").trim().toLowerCase();
+
+          if (!acc[key] || (item.mastery_xp || 0) > (acc[key].mastery_xp || 0)) {
+            acc[key] = item;
+          }
+          return acc;
+        }, {})
+      );
+      const mastered = uniqueItems.filter((i) => i.mastered).length;
+      const total = uniqueItems.length;
+      const earnedXP = uniqueItems.reduce((s, i) => s + (i.mastery_xp || 0), 0);
+      return { mastered, total, earnedXP, items: uniqueItems, catKey: cat };
+    };
+
+    return [
+    { label: t('mastery.cat_warframe'), ...getStats('warframes') },
+    { label: t('mastery.cat_primary'), ...getStats('primary') },
+    { label: t('mastery.cat_secondary'), ...getStats('secondary') },
+    { label: t('mastery.cat_melee'), ...getStats('melee') },
+    // Kitgun/Zaw XP is already counted via the merged Secondary/Melee rows
+    // above - these are display-only breakdowns of that same total.
+    { label: t('mastery.cat_kitgun'), ...getStats('kitguns'), isSummary: true },
+    { label: t('mastery.cat_zaw'), ...getStats('zaws'), isSummary: true },
+    { label: t('mastery.cat_amp'), ...getStats('amps') },
+    { label: t('mastery.cat_sentinel'), ...getStats('sentinels') },
+    { label: t('mastery.cat_sentinel_weapon'), ...getStats('companion_weapons') },
+    { label: t('mastery.cat_moa'), ...getStats('moas') },
+    { label: t('mastery.cat_hound'), ...getStats('hounds') },
+    // Combined Sentinels/MOA/Hound/Sentinel-Weapon total DE tracks as a single
+    // "Robotics" mastery bucket - display-only, XP already counted above.
+    { label: t('mastery.cat_robotics'), ...getStats('robotics'), isSummary: true },
+    { label: t('mastery.cat_companions'), ...getStats('companions') },
+    { label: t('mastery.cat_archwing'), ...getStats('archwings') },
+    { label: t('mastery.cat_archgun'), ...getStats('archgun') },
+    { label: t('mastery.cat_archmelee'), ...getStats('archmelee') },
+    { label: t('mastery.cat_necramech'), ...getStats('necramechs') },
+    { label: t('mastery.cat_kdrive'), ...getStats('kdrives') },
+    { label: t('mastery.cat_plexus'), ...getStats('plexus') },
+    // Combined Archwing/Necramech/K-Drive/Plexus total DE tracks as a single
+    // "Vehicles" mastery bucket - display-only, XP already counted above.
+    { label: t('mastery.cat_vehicles'), ...getStats('vehicles'), isSummary: true }];
+  }, [inventoryData, t]);
+
   if (isInventoryLoading || inventoryData === undefined) {
     return (
       <PageLayout titleKey="screen.mastery">
@@ -109,114 +225,6 @@ export default function Mastery() {
 
 
   const { account, intrinsics, starchart } = inventoryData;
-
-  const getStats = (cat) => {
-    let items = [];
-    if (cat === 'archgun') {
-      items = (inventoryData.archweapons ?? []).filter((i) => i.weapon_type === 'archgun');
-    } else if (cat === 'archmelee') {
-      items = (inventoryData.archweapons ?? []).filter((i) => i.weapon_type === 'archmelee');
-    } else if (cat === 'kitguns') {
-      // Display-only breakdown - the mastery-relevant total lives on
-      // 'secondary' below (DE tracks Kitguns as Secondary weapons in the
-      // game's own mastery count, confirmed against the user's real profile:
-      // Secondary mastered matched exactly once Kitguns were folded in).
-      items = inventoryData.kitgunChambers ?? [];
-    } else if (cat === 'zaws') {
-      // Display-only breakdown - see 'melee' below. Folding Zaws into Melee
-      // reproduced the user's real in-game Melee total exactly (185/234).
-      items = inventoryData.zawStrikes ?? [];
-    } else if (cat === 'secondary') {
-      items = [...(inventoryData.secondary ?? []), ...(inventoryData.kitgunChambers ?? [])];
-    } else if (cat === 'melee') {
-      items = [...(inventoryData.melee ?? []), ...(inventoryData.zawStrikes ?? [])];
-    } else if (cat === 'moas') {
-      items = inventoryData.moaHeads ?? [];
-    } else if (cat === 'hounds') {
-      items = inventoryData.houndHeads ?? [];
-    } else if (cat === 'companion_weapons') {
-      items = inventoryData.companion_weapons ?? [];
-    } else if (cat === 'plexus') {
-      items = inventoryData.plexus ?? [];
-    } else if (cat === 'companions') {
-      // Kavats/Kubrows/Predasites/Vulpaphylas only - the game tracks this as
-      // its own mastery bucket separate from Sentinels/MOAs/Hounds/Plexus
-      // ("Robotics" below), confirmed against the user's real profile.
-      items = inventoryData.beasts ?? [];
-    } else if (cat === 'robotics') {
-      // Display-only aggregate matching DE's own combined Sentinels/MOA/Hound/
-      // Sentinel-Weapon mastery bucket - excluded from totalXP below since
-      // 'sentinels', 'companion_weapons', 'moas' and 'hounds' each already
-      // contribute their XP individually above.
-      items = [
-      ...(inventoryData.sentinels ?? []),
-      ...(inventoryData.moaHeads ?? []),
-      ...(inventoryData.houndHeads ?? []),
-      ...(inventoryData.companion_weapons ?? [])];
-
-    } else if (cat === 'vehicles') {
-      // Display-only aggregate - excluded from totalXP below since archwings/
-      // necramechs/kdrives/plexus each already contribute their XP
-      // individually. Matches DE's own Vehicles mastery bucket (confirmed
-      // against the user's real profile: Plexus is the "+1" item missing from
-      // the app's previous archwing+kdrive-only total).
-      items = [
-      ...(inventoryData.archwings ?? []),
-      ...(inventoryData.necramechs ?? []),
-      ...(inventoryData.kdrives ?? []),
-      ...(inventoryData.plexus ?? [])];
-
-    } else {
-      items = inventoryData[cat] ?? [];
-    }
-    // Deduplicate - mastery is only counted once per item type
-    const uniqueItems = Object.values(
-      items.reduce((acc, item) => {
-        // Use sanitized name to collapse duplicates (e.g. Grimoire)
-        // Modular items already have the mastery part as their unique_name
-        const isModular = ['kitguns', 'zaws', 'amps', 'moas', 'hounds', 'beasts', 'kdrives'].includes(cat);
-        const key = isModular ? item.unique_name : (item.name || "").trim().toLowerCase();
-
-        if (!acc[key] || (item.mastery_xp || 0) > (acc[key].mastery_xp || 0)) {
-          acc[key] = item;
-        }
-        return acc;
-      }, {})
-    );
-    const mastered = uniqueItems.filter((i) => i.mastered).length;
-    const total = uniqueItems.length;
-    const earnedXP = uniqueItems.reduce((s, i) => s + (i.mastery_xp || 0), 0);
-    return { mastered, total, earnedXP, items: uniqueItems, catKey: cat };
-  };
-
-  const itemCompletion = [
-  { label: t('mastery.cat_warframe'), ...getStats('warframes') },
-  { label: t('mastery.cat_primary'), ...getStats('primary') },
-  { label: t('mastery.cat_secondary'), ...getStats('secondary') },
-  { label: t('mastery.cat_melee'), ...getStats('melee') },
-  // Kitgun/Zaw XP is already counted via the merged Secondary/Melee rows
-  // above - these are display-only breakdowns of that same total.
-  { label: t('mastery.cat_kitgun'), ...getStats('kitguns'), isSummary: true },
-  { label: t('mastery.cat_zaw'), ...getStats('zaws'), isSummary: true },
-  { label: t('mastery.cat_amp'), ...getStats('amps') },
-  { label: t('mastery.cat_sentinel'), ...getStats('sentinels') },
-  { label: t('mastery.cat_sentinel_weapon'), ...getStats('companion_weapons') },
-  { label: t('mastery.cat_moa'), ...getStats('moas') },
-  { label: t('mastery.cat_hound'), ...getStats('hounds') },
-  // Combined Sentinels/MOA/Hound/Sentinel-Weapon total DE tracks as a single
-  // "Robotics" mastery bucket - display-only, XP already counted above.
-  { label: t('mastery.cat_robotics'), ...getStats('robotics'), isSummary: true },
-  { label: t('mastery.cat_companions'), ...getStats('companions') },
-  { label: t('mastery.cat_archwing'), ...getStats('archwings') },
-  { label: t('mastery.cat_archgun'), ...getStats('archgun') },
-  { label: t('mastery.cat_archmelee'), ...getStats('archmelee') },
-  { label: t('mastery.cat_necramech'), ...getStats('necramechs') },
-  { label: t('mastery.cat_kdrive'), ...getStats('kdrives') },
-  { label: t('mastery.cat_plexus'), ...getStats('plexus') },
-  // Combined Archwing/Necramech/K-Drive/Plexus total DE tracks as a single
-  // "Vehicles" mastery bucket - display-only, XP already counted above.
-  { label: t('mastery.cat_vehicles'), ...getStats('vehicles'), isSummary: true }];
-
 
   const rjIntrinsics = (intrinsics ?? []).filter((i) => i.name.startsWith('Railjack'));
   const drifterIntrinsics = (intrinsics ?? []).filter((i) => i.name.startsWith('Drifter'));

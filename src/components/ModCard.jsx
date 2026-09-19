@@ -129,12 +129,20 @@ const DT_COLORS = {
 function getSetFileName(modSetPath, modName) {
   if (!modSetPath) return null;
   if (SET_FILE_OVERRIDES[modSetPath]) return SET_FILE_OVERRIDES[modSetPath];
+  // Prefer the internal DE path segment (locale-independent) over the mod's
+  // translated display name - `modName`'s "first word" broke under any
+  // non-English locale, either picking up trailing punctuation (a localized
+  // name like "Aero: Rüstungssatz" produced firstWord "Aero:", 404ing
+  // against the real "AeroSet.png") or a completely different word in that
+  // language entirely. `modSetPath` is always present at the one real call
+  // site, so `modName` now only matters for the case it's genuinely absent.
+  const dirName = modSetPath.split('/').slice(-2, -1)[0];
+  if (dirName) return `${dirName}Set.png`;
   if (modName) {
-    const firstWord = modName.split(/\s+/)[0];
+    const firstWord = modName.split(/\s+/)[0].replace(/[^\p{L}\p{N}]+$/u, '');
     return `${firstWord}Set.png`;
   }
-  const dirName = modSetPath.split('/').slice(-2, -1)[0];
-  return `${dirName}Set.png`;
+  return null;
 }
 
 const SET_FILE_OVERRIDES = {
@@ -326,8 +334,14 @@ const ModCard = memo(function ModCard({ mod, framesPath, iconsPath, cardImagesPa
   const iconPath = mod.icon || deriveIcon(mod.image);
   const cdnFallback = typeof mod.image === 'string' && (mod.image.startsWith('asset-cache://') || mod.image.startsWith('http'))
     ? mod.image
+    : iconPath?.startsWith('http') ? iconPath
     : (iconPath ? `asset-cache://browse.wf${iconPath.startsWith('/') ? iconPath : '/' + iconPath}` : null);
-  const cardImageSrc = iconPath && cardImagesPath && mf !== 'Tektolyst' ?
+  // iconPath is sometimes already a full external URL (some mods have no
+  // local card image and the data source falls back to a wiki CDN URL as
+  // `mod.icon` itself) - blindly prepending cardImagesPath to that produced
+  // an invalid combined path (e.g. ".../card-images/https://wiki.warframe...")
+  // that always 404s. Treat it the same way cdnFallback already does above.
+  const cardImageSrc = iconPath && cardImagesPath && mf !== 'Tektolyst' && !iconPath.startsWith('http') ?
     convertFileSrc(`${cardImagesPath}${iconPath.startsWith('/') ? iconPath : '/' + iconPath}`) :
     null;
   const [localImageFailed, setLocalImageFailed] = useState(false);

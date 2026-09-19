@@ -1495,7 +1495,17 @@
     "dashboard.cycle_joy": "喜悦",
     "dashboard.cycle_anger": "愤怒",
     "dashboard.cycle_envy": "嫉妒",
-    "dashboard.cycle_reset": "重置"
+    "dashboard.cycle_reset": "重置",
+    "category.arcanes": "奥术",
+    "category.components": "组件",
+    "category.intrinsics": "内在能力",
+    "category.peely_pix": "Peely Pix",
+    "category.prime_parts": "Prime 部件",
+    "category.relics": "遗物",
+    "category.resources": "资源",
+    "category.rivens": "裂罅MOD",
+    "category.song_items": "歌曲",
+    "acquisition_drawer.sources_count_one": "{count} 个来源"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

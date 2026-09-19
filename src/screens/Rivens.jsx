@@ -288,7 +288,15 @@ export default function Rivens() {
 
       <div className="flex items-center gap-3" data-preview-rivens-types-row={IS_PREVIEW ? '' : undefined}>
         <Tabs tabs={TYPE_TABS.map((t) => {
-        const iconMap = { rifle: 'Primary', pistol: 'Secondary' };
+        // Keyed by stable tab id, not the translated label - the label
+        // only coincidentally matched these filenames in English, and
+        // broke (blank/broken-image icon) for every id below when the
+        // game locale changed the label text (same bug class as
+        // Inventory.jsx's category icon map).
+        const iconMap = {
+          all: 'All', rifle: 'Primary', pistol: 'Secondary', melee: 'Melee',
+          shotgun: 'Shotgun', sniper: 'Sniper', kitgun: 'Kitgun', zaw: 'Zaw', archgun: 'Archgun',
+        };
         const iconName = iconMap[t.id] || t.label;
         return { ...t, icon: iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null };
       })} activeTab={activeType} onChange={setActiveType} className={IS_PREVIEW ? "flex-1 preview-rivens-types" : "flex-1"} />

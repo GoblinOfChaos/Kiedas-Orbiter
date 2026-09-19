@@ -8,10 +8,12 @@ import {
   formatCredits,
   formatDuration,
 } from '../../components/AcquisitionDrawer';
-import { getItemDrops, resolveBlueprintOrigin } from '../../lib/acquisitionData';
+import { resolveBlueprintOrigin } from '../../lib/acquisitionData';
+import { getDropSourcesWithFallback } from '../../lib/dropsParser';
 import ItemImage from '../../components/ItemImage';
 import BugReporterModal from '../../components/BugReporterModal';
 import { useUi } from '../../contexts/UiContext';
+import { useMonitoring } from '../../contexts/MonitoringContext';
 import './preview-acquisition.css';
 
 /**
@@ -22,6 +24,7 @@ import './preview-acquisition.css';
  */
 export default function PreviewAcquisitionDrawer({ item, onClose }) {
   const { t } = useUi();
+  const { dropIndex } = useMonitoring();
   const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, codexLoading } = useAcquisitionDrawerData(item);
   const [showReportModal, setShowReportModal] = useState(false);
   const [altsExpanded, setAltsExpanded] = useState(false);
@@ -230,7 +233,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
                     </div>
                   }
                   {recipe.ingredients.map((ingredient, i) => {
-                    const drops = getItemDrops(ingredient.itemType);
+                    const drops = getDropSourcesWithFallback(ingredient.itemType, dropIndex, ingredient.name);
                     return (
                       <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="preview-acq-ingredient">
                         <div className="preview-acq-ingredient-row">

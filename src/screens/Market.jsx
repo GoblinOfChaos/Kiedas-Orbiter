@@ -195,7 +195,6 @@ export default function Market({ onNavigate }) {
 
   // Order Actions
   const handleDeleteOrder = async (orderId) => {
-    if (IS_PREVIEW) return;
     setActionLoading(prev => ({ ...prev, [orderId]: "deleting" }));
     try {
       await invoke("delete_market_order", { token, orderId });
@@ -210,7 +209,6 @@ export default function Market({ onNavigate }) {
   };
 
   const handleCloseOrder = async (orderId, quantity = 1) => {
-    if (IS_PREVIEW) return;
     setActionLoading(prev => ({ ...prev, [orderId]: "closing" }));
     try {
       await invoke("close_market_order", { token, orderId, quantity });
@@ -225,7 +223,6 @@ export default function Market({ onNavigate }) {
   };
 
   const handleToggleVisibility = async (order) => {
-    if (IS_PREVIEW) return;
     const newVis = !order.visible;
     setActionLoading(prev => ({ ...prev, [order.id]: "toggling" }));
     try {
@@ -245,7 +242,6 @@ export default function Market({ onNavigate }) {
   };
 
   const handleSavePrice = async (orderId) => {
-    if (IS_PREVIEW) return;
     if (!editPrice || editPrice < 1) return;
     setActionLoading(prev => ({ ...prev, [orderId]: "updating" }));
     try {
@@ -492,7 +488,6 @@ export default function Market({ onNavigate }) {
   // saleableStock, so item.wfmItem.id is already a verified catalog match -
   // there is no re-resolution or name-based re-matching here on purpose.
   const handleSellStockItem = async (item) => {
-    if (IS_PREVIEW) return;
     if (!token) {
       alert(t("market.alert_configure_jwt"));
       return;
@@ -575,13 +570,6 @@ export default function Market({ onNavigate }) {
           </a>
         </div>
       </div>
-
-      {IS_PREVIEW && (
-        <div role="status" data-preview-market-readonly className="mx-6 mt-4 px-4 py-3 rounded-xl bg-sky-950/40 border border-sky-400/25 text-xs text-sky-200 flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 shrink-0" />
-          <span>Preview mode: market data is read-only. Listing, editing, visibility, sold, and delete actions are disabled.</span>
-        </div>
-      )}
 
       {/* No Token Warning */}
       {!token && (
@@ -846,14 +834,12 @@ export default function Market({ onNavigate }) {
                               </div>
                             ) : (
                               <div
-                                onClick={IS_PREVIEW ? undefined : () => {
+                                onClick={() => {
                                   setEditingOrder(order.id);
                                   setEditPrice(order.platinum);
                                 }}
-                                className={`${IS_PREVIEW ? "cursor-not-allowed opacity-60" : "cursor-pointer"} group flex items-center gap-1.5 font-bold text-kronos-accent hover:text-[#7dd3fc]`}
-                                title={IS_PREVIEW ? "Market changes are disabled in Preview" : "Click to edit price"}
-                                aria-disabled={IS_PREVIEW ? "true" : undefined}
-                                data-preview-market-mutation={IS_PREVIEW ? "edit-price" : undefined}
+                                className="cursor-pointer group flex items-center gap-1.5 font-bold text-kronos-accent hover:text-[#7dd3fc]"
+                                title="Click to edit price"
                               >
                                 <span>{order.platinum}p</span>
                                 <span className="text-[10px] opacity-0 group-hover:opacity-100 text-kronos-dim">✎</span>
@@ -865,12 +851,11 @@ export default function Market({ onNavigate }) {
                           <td className="py-3 px-4">
                             <button
                               onClick={() => handleToggleVisibility(order)}
-                              disabled={IS_PREVIEW || isToggling}
+                              disabled={isToggling}
                               className={`flex items-center gap-1 text-[11px] font-medium transition ${
                                 order.visible ? "text-emerald-400 hover:text-emerald-300" : "text-slate-500 hover:text-slate-400"
                               }`}
-                              title={IS_PREVIEW ? "Market changes are disabled in Preview" : order.visible ? "Visible to buyers (Click to hide)" : "Hidden (Click to make visible)"}
-                              data-preview-market-mutation={IS_PREVIEW ? "visibility" : undefined}
+                              title={order.visible ? "Visible to buyers (Click to hide)" : "Hidden (Click to make visible)"}
                             >
                               {order.visible ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
                               <span>{order.visible ? t("market.visible") : t("market.hidden")}</span>
@@ -883,20 +868,18 @@ export default function Market({ onNavigate }) {
                               {order.type === "sell" && (
                                 <button
                                   onClick={() => handleCloseOrder(order.id, 1)}
-                                  disabled={IS_PREVIEW || isClosing}
+                                  disabled={isClosing}
                                   className="px-2.5 py-1 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-[11px] font-medium transition disabled:opacity-50"
-                                  title={IS_PREVIEW ? "Market changes are disabled in Preview" : "Mark 1 sold"}
-                                  data-preview-market-mutation={IS_PREVIEW ? "sold" : undefined}
+                                  title="Mark 1 sold"
                                 >
                                   {isClosing ? "..." : t("market.sold")}
                                 </button>
                               )}
                               <button
                                 onClick={() => handleDeleteOrder(order.id)}
-                                disabled={IS_PREVIEW || isDeleting}
+                                disabled={isDeleting}
                                 className="p-1.5 rounded bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-xs transition disabled:opacity-50"
-                                title={IS_PREVIEW ? "Market changes are disabled in Preview" : "Delete listing"}
-                                data-preview-market-mutation={IS_PREVIEW ? "delete" : undefined}
+                                title="Delete listing"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </button>
@@ -1150,19 +1133,16 @@ export default function Market({ onNavigate }) {
                             value={currentPrice}
                             placeholder={item.platPrice == null ? "?" : undefined}
                             onChange={(e) => setSellPriceInput(prev => ({ ...prev, [item.unique_name]: e.target.value }))}
-                            disabled={IS_PREVIEW}
                             className="w-14 px-1.5 py-0.5 bg-kronos-panel/60 border border-white/5 focus:border-kronos-accent rounded text-white text-xs font-bold text-center"
-                            title={IS_PREVIEW ? "Market changes are disabled in Preview" : "Edit listing price"}
-                            data-preview-market-mutation={IS_PREVIEW ? "listing-price" : undefined}
+                            title="Edit listing price"
                           />
                           <span className="text-xs text-kronos-accent font-bold">p</span>
                         </div>
 
                         <button
                           onClick={() => handleSellStockItem(item)}
-                          disabled={IS_PREVIEW || isListing || isListed || !canSell}
-                          title={IS_PREVIEW ? "Market changes are disabled in Preview" : !canSell ? "Enter a price to enable selling" : undefined}
-                          data-preview-market-mutation={IS_PREVIEW ? "sell" : undefined}
+                          disabled={isListing || isListed || !canSell}
+                          title={!canSell ? "Enter a price to enable selling" : undefined}
                           className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-sm ${
                             isListed
                               ? "bg-emerald-500 text-black cursor-default"

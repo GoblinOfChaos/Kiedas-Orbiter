@@ -22,12 +22,6 @@ export default function PreviewSettingsLayout({ enabled, sections, children }) {
 
   return (
     <div className="preview-settings-shell min-w-0" data-preview-settings-shell="">
-      <div
-        role="status"
-        className="mb-3 rounded-xl border border-kronos-accent/25 bg-kronos-accent/10 px-4 py-3 text-xs text-kronos-dim"
-      >
-        {t('settings.preview_disabled_notice')}
-      </div>
       <nav
         aria-label={t('settings.sections_nav_label')}
         className="preview-settings-rail custom-scrollbar sticky top-0 z-20 mb-4 flex max-w-full gap-2 overflow-x-auto rounded-xl border border-white/5 bg-kronos-bg/95 p-2 backdrop-blur"

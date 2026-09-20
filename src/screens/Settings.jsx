@@ -1280,18 +1280,13 @@ export default function SettingsScreen() {
                   <p className="text-[10px] font-black uppercase tracking-widest text-kronos-dim">{t('settings.version')}
                     {version}
                   </p>
-                  {updateState.status !== 'disabled' &&
                   <Toggle
                     checked={updateOnStartup}
                     onChange={handleSetUpdateOnStartup}
                     label={t('settings.check_on_startup')} />
-                  }
                   
                 </div>
 
-                {updateState.status === 'disabled' &&
-                <p role="status" className="text-xs text-kronos-dim">Application updates are disabled in Preview.</p>
-                }
                 {updateState.status === 'idle' &&
                 <p className="text-xs text-kronos-dim">{t('settings.check_for_update')}</p>
                 }
@@ -1338,8 +1333,8 @@ export default function SettingsScreen() {
                 <div className="flex flex-wrap gap-2 pt-2">
                   <button
                     onClick={checkForUpdates}
-                    disabled={updateState.status === 'disabled' || updateState.status === 'checking' || updateState.status === 'installing'}
-                    className={`py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${updateState.status === 'disabled' || updateState.status === 'checking' || updateState.status === 'installing' ?
+                    disabled={updateState.status === 'checking' || updateState.status === 'installing'}
+                    className={`py-2 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all border ${updateState.status === 'checking' || updateState.status === 'installing' ?
                     'bg-kronos-panel/20 border-white/5 text-kronos-dim cursor-not-allowed' :
                     'bg-kronos-accent/20 border-kronos-accent/40 text-kronos-accent hover:bg-kronos-accent/30'}`
                     }>

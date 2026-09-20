@@ -334,11 +334,6 @@ function AppContent() {
       label: syncLabel,
       detail: statusText || `${t('last_update')} ${formatLastUpdate(lastUpdate)}`,
     },
-    liveIntegrations: {
-      state: 'disabled',
-      label: t('preview.status.live_disabled'),
-      detail: t('preview.status.live_disabled_detail'),
-    },
     profile: {
       state: 'preview',
       label: t('preview.status.preview'),

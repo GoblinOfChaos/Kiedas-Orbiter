@@ -3,5 +3,7 @@ packages:
 allowBuilds:
   es5-ext: true
   esbuild: true
+minimumReleaseAgeExclude:
+  - '@wfcd/items@1.1275.90'
 overrides:
   js-yaml: ^4.3.1

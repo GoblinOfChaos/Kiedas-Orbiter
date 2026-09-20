@@ -36,8 +36,8 @@ importers:
         specifier: ^4.0.11
         version: 4.0.11(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@wfcd/items':
-        specifier: ^1.1275.87
-        version: 1.1275.87(warframe-worldstate-data@2.25.0)
+        specifier: ^1.1275.90
+        version: 1.1275.90(warframe-worldstate-data@2.25.0)
       comlink:
         specifier: ^4.4.2
         version: 4.4.2
@@ -1365,8 +1365,8 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
-  '@wfcd/items@1.1275.87':
-    resolution: {integrity: sha512-xEeIlqOoHMlIxTL2lLQ4pR0zxIodSuibl7Uh456N82VR4KwBYiPyWwx45sOPB6cOLpKiHCZ8m4mayllOAaQAZg==}
+  '@wfcd/items@1.1275.90':
+    resolution: {integrity: sha512-vw3xgKAlMzSh+X0rei9kYKglh0TMYsAtEbCfoziv7EwEMTgU/sEfXdvWPG/61qvejr4wwozdEcR04RmcM5FstQ==}
     peerDependencies:
       warframe-worldstate-data: ^3.0.0
 
@@ -4153,7 +4153,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@wfcd/items@1.1275.87(warframe-worldstate-data@2.25.0)':
+  '@wfcd/items@1.1275.90(warframe-worldstate-data@2.25.0)':
     dependencies:
       warframe-worldstate-data: 2.25.0
 

@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
-# Full AppImage rebuild sequence. Run this FROM INSIDE the dev-fedora
-# distrobox (it needs the webkit2gtk/compiler toolchain installed there).
+# Full AppImage rebuild sequence for the PREVIEW build.
+# Run this FROM INSIDE the dev-fedora distrobox:
 #
 #   distrobox enter dev-fedora
-#   bash /var/home/jedwards/kiedas-orbiter/scripts/rebuild-appimage.sh
+#   bash /var/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center/scripts/rebuild-appimage.sh
 #
 # pnpm tauri build's own internal linuxdeploy call reliably fails at the
 # very end (a known upstream Tauri/linuxdeploy bug) - this script picks up
 # where it leaves off and finishes packaging manually.
 set -euo pipefail
 
-REPO="/var/home/jedwards/kiedas-orbiter"
+REPO="/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center"
 BUNDLE_DIR="$REPO/src-tauri/target/release/bundle/appimage"
 LINUXDEPLOY="/var/home/jedwards/.cache/tauri/linuxdeploy-x86_64.AppImage"
 
@@ -20,11 +20,6 @@ export APPIMAGE_EXTRACT_AND_RUN=1
 export NO_STRIP=1
 export ARCH=x86_64
 
-# Keep a live Warframe/Proton session responsive while building. Distrobox
-# shares the host's CPU, memory, and disk with the game, so an unrestricted
-# optimized Rust build plus AppImage packaging can starve the game's input
-# and render threads. Four pinned cores, low CPU priority, and idle I/O
-# priority keep the build moving without taking the machine away from play.
 BUILD_CPUS="0-3"
 export CARGO_BUILD_JOBS=4
 export RAYON_NUM_THREADS=4
@@ -33,68 +28,43 @@ run_low_impact() {
   nice -n 10 ionice -c 3 taskset -c "$BUILD_CPUS" "$@"
 }
 
-echo "==> Running Full Pre-Build Audit (AST Scope, 3rd-Party Ban & All 19 Screens)"
-npm run audit
-
-echo "==> Building (the bundler's own linuxdeploy step will likely fail at the end - that's expected)"
-run_low_impact pnpm tauri build --bundles appimage || true
+echo "==> Building preview (the bundler's own linuxdeploy step will likely fail at the end - that's expected)"
+run_low_impact pnpm run preview:build || true
 
 echo "==> Cleaning stale AppDir and finishing packaging manually"
-rm -rf "$BUNDLE_DIR/Kieda's Orbiter.AppDir"
+rm -rf "$BUNDLE_DIR/Kieda's Orbiter Preview.AppDir"
 cd "$BUNDLE_DIR"
 
-# Don't depend on tauri-bundler's transient appimage_deb staging output -
-# it's only present when a previous run happened to build that target too,
-# and isn't reliably regenerated. Write the desktop file directly instead.
-DESKTOP_FILE="$BUNDLE_DIR/kiedas-orbiter.desktop"
+DESKTOP_FILE="$BUNDLE_DIR/kiedas-orbiter-preview.desktop"
 cat > "$DESKTOP_FILE" <<EOF
 [Desktop Entry]
 Type=Application
-Name=Kieda's Orbiter
-Comment=Warframe companion app
-Exec=kiedas-orbiter
-Icon=kiedas-orbiter
+Name=Kieda's Orbiter Preview
+Comment=Warframe companion app (preview)
+Exec=kiedas-orbiter-preview
+Icon=kiedas-orbiter-preview
 Categories=Utility;
 Terminal=false
 EOF
 
-# linuxdeploy creates a fresh AppDir from the executable, so it does not
-# retain Tauri's prepared resource tree. Tauri resolves BaseDirectory::Resource
-# in an AppImage as $APPDIR/usr/lib/<productName> (from tauri.conf.json's
-# "productName": "Kieda's Orbiter" - NOT the lowercase-hyphenated crate name);
-# copy the staged resources there before linuxdeploy emits the final AppImage.
-# Confirmed 2026-09-03 via a genuinely fresh/isolated profile launch: the
-# real runtime error named the exact bundled path it was looking for -
-# "usr/lib/Kieda's Orbiter/data/bin/Warframe-Exporter-CLI" - and this
-# script was instead populating "usr/lib/kiedas-orbiter/...", so a clean
-# install found none of its bundled Riven roll data, weapon vocabulary, or
-# exporter fallback until separately downloaded/copied data happened to
-# mask the gap.
-RESOURCE_DIR="$BUNDLE_DIR/Kieda's Orbiter.AppDir/usr/lib/Kieda's Orbiter"
+# Tauri resolves BaseDirectory::Resource in an AppImage as
+# $APPDIR/usr/lib/<productName> where productName = "Kieda's Orbiter Preview"
+RESOURCE_DIR="$BUNDLE_DIR/Kieda's Orbiter Preview.AppDir/usr/lib/Kieda's Orbiter Preview"
 mkdir -p "$RESOURCE_DIR"
 cp -a "$REPO/src-tauri/target/release/data" "$RESOURCE_DIR/"
 test -f "$RESOURCE_DIR/data/assets/data/wiki-baro-acquisition.json"
 
 run_low_impact "$LINUXDEPLOY" \
-  --appdir "Kieda's Orbiter.AppDir" \
-  --executable "$REPO/src-tauri/target/release/kiedas-orbiter" \
+  --appdir "Kieda's Orbiter Preview.AppDir" \
+  --executable "$REPO/src-tauri/target/release/kiedas-orbiter-preview" \
   --desktop-file "$DESKTOP_FILE" \
   --icon-file "$REPO/src-tauri/icons/icon.png" \
-  --icon-filename "kiedas-orbiter" \
+  --icon-filename "kiedas-orbiter-preview" \
   --output appimage \
   --plugin gtk
 
-test -f "Kieda's Orbiter.AppDir/usr/lib/Kieda's Orbiter/data/assets/data/wiki-baro-acquisition.json"
+echo "==> Copying result to ~/AppImages"
+cp --remove-destination "Kieda's_Orbiter_Preview-x86_64.AppImage" "$HOME/AppImages/kiedas_orbiter_preview.appimage"
+chmod +x "$HOME/AppImages/kiedas_orbiter_preview.appimage"
 
-echo "==> Copying result to both shortcut paths"
-# Plain cp fails with ETXTBSY if the previous build is still running (the
-# kernel locks the inode of an executing binary). --remove-destination
-# unlinks the old directory entry and writes a fresh inode instead of
-# overwriting in place, which the OS allows even while the old inode is
-# still open by the running process.
-cp --remove-destination "Kieda's_Orbiter-x86_64.AppImage" "Kieda's Orbiter_0.7.0_amd64.AppImage"
-chmod +x "Kieda's Orbiter_0.7.0_amd64.AppImage"
-cp --remove-destination "Kieda's_Orbiter-x86_64.AppImage" "$HOME/AppImages/kiedas_orbiter.appimage"
-chmod +x "$HOME/AppImages/kiedas_orbiter.appimage"
-
-echo "==> Done. Exit the distrobox and launch via your normal shortcut (never from inside the container)."
+echo "==> Done. Exit the distrobox and launch via your normal shortcut."

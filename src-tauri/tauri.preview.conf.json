@@ -144,7 +144,11 @@
     "security": {
       "assetProtocol": {
         "enable": true,
-        "scope": ["**", "**/*", "/**"]
+        "scope": [
+          "**",
+          "**/*",
+          "/**"
+        ]
       },
       "capabilities": [
         {
@@ -203,7 +207,7 @@
     "updater": null
   },
   "bundle": {
-    "active": false,
+    "active": true,
     "icon": [
       "icons/preview/32x32.png",
       "icons/preview/128x128.png",
@@ -211,6 +215,9 @@
       "icons/preview/icon.icns",
       "icons/preview/icon.ico",
       "icons/preview/icon.png"
+    ],
+    "targets": [
+      "appimage"
     ]
   }
 }

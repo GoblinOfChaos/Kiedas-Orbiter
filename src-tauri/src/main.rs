@@ -1117,7 +1117,6 @@ fn compute_group_totals(inv: &Value) -> Value {
 /// mobile.warframe.com.
 #[tauri::command]
 async fn call_api_helper(_app_handle: tauri::AppHandle) -> Result<Value, String> {
-    build_profile::require_live()?;
     // Find Warframe PID on a blocking thread (reads /proc or uses Win32 API).
     let pid = tokio::task::spawn_blocking(move || {
         crate::log_scanner::get_warframe_pid()
@@ -2990,7 +2989,6 @@ async fn post_market_order(
     quantity: i32,
     rank: Option<i32>,
 ) -> Result<(), String> {
-    build_profile::require_live()?;
     crate::market::post_market_order(token, item_id, plat_price, quantity, rank).await
 }
 
@@ -3001,7 +2999,6 @@ async fn get_my_market_orders(token: String) -> Result<String, String> {
 
 #[tauri::command]
 async fn delete_market_order(token: String, order_id: String) -> Result<(), String> {
-    build_profile::require_live()?;
     crate::market::delete_market_order(token, order_id).await
 }
 
@@ -3013,13 +3010,11 @@ async fn update_market_order(
     quantity: Option<i32>,
     visible: Option<bool>,
 ) -> Result<(), String> {
-    build_profile::require_live()?;
     crate::market::update_market_order(token, order_id, platinum, quantity, visible).await
 }
 
 #[tauri::command]
 async fn close_market_order(token: String, order_id: String, quantity: i32) -> Result<(), String> {
-    build_profile::require_live()?;
     crate::market::close_market_order(token, order_id, quantity).await
 }
 

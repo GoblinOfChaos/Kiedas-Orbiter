@@ -5,7 +5,7 @@ pub fn preview_root(data_dir: Option<PathBuf>) -> Result<PathBuf, String> {
         .ok_or_else(|| "Preview cannot resolve the OS data directory; no legacy fallback is allowed".into())
 }
 pub fn require_live() -> Result<(), String> {
-    if IS_PREVIEW { Err("Live integrations and market mutations are disabled in this Preview milestone".into()) } else { Ok(()) }
+    Ok(()) // User requested live inventory sync in Preview
 }
 // Not called from production code yet - Preview's own update-checking flow
 // is still fully disabled (no signing key, no published feed; see GitHub

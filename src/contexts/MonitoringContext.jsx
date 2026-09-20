@@ -1417,26 +1417,31 @@ const hasCachedData = useCallback(async () => {
         setIsMonitoring(false)
         setMonitorResult(p.result || 'idle')
         setStatusText(p.statusText || 'Syncing stopped')
-      } else if (p.active === true && !intervalRef.current) {
+      } else if (p.active === true) {
         setMonitorResult(p.result || 'success')
         setStatusText(p.statusText || 'Syncing active')
         setIsMonitoring(true)
-        processingRef.current = true
-        try {
-          setNextRetryAt(Date.now() + 180_000)
-          await callApiHelper()
-          intervalRef.current = setInterval(async () => {
-            setNextRetryAt(Date.now() + 180_000)
-            const r = await callApiHelper()
-            invoke('set_monitoring_active', { active: true, result: r, statusText: r === 'success' ? 'Syncing active' : r === 'cached' ? 'Game not running, using cached data' : r }).catch(() => {})
-          }, 180_000)
-        } finally {
-          processingRef.current = false
+        if (!intervalRef.current && !processingRef.current) {
+            processingRef.current = true
+            try {
+              setNextRetryAt(Date.now() + 180_000)
+              await callApiHelper()
+              intervalRef.current = setInterval(async () => {
+                setNextRetryAt(Date.now() + 180_000)
+                const r = await callApiHelper()
+                if (r !== 'cached') {
+                    invoke('set_monitoring_active', { active: true, result: r, statusText: r === 'success' ? 'Syncing active' : r }).catch(() => {})
+                }
+              }, 180_000)
+            } finally {
+              processingRef.current = false
+            }
         }
       }
     })
     return () => { unsub.then(f => f()) }
   }, [callApiHelper])
+
 
   // Re-run mod image pipeline when called (e.g. after user sets cache path in Settings)
   const retryCardImages = useCallback(async () => {

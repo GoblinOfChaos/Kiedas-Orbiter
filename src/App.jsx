@@ -125,12 +125,12 @@ function SetupScreen() {
 
       const savedHotkeys = getSetting('hotkeys', []);
       const valid = savedHotkeys.filter((hk) => hk.shortcut && hk.action);
-      if (!IS_PREVIEW && valid.length > 0) {
+      if (valid.length > 0) {
         invoke('set_hotkeys', { hotkeys: valid }).
         catch((err) => console.error('Failed to register startup hotkeys:', err));
       }
 
-      if (!IS_PREVIEW && getSetting('fissure_overlay_enabled')) {
+      if (getSetting('fissure_overlay_enabled')) {
         invoke('start_log_scanner').catch(console.error);
       }
       setReady(true);
@@ -234,13 +234,12 @@ function AppContent() {
   const { lastUpdate, monitorResult, isMonitoring, statusText, criticalLoadError } = useMonitoring();
   const { updateState, installLatestUpdate } = useUpdate();
   const [updateBannerDismissed, setUpdateBannerDismissed] = useState(false);
-  const [scannerStatus, setScannerStatus] = useState(IS_PREVIEW ? 'disabled' : 'idle'); // 'idle' | 'waiting' | 'active'
+  const [scannerStatus, setScannerStatus] = useState('idle'); // 'idle' | 'waiting' | 'active'
 
   const { uiIcon } = useUIIcons(NAV_ICON_NAMES);
   const { t } = useUi();
 
   useEffect(() => {
-    if (IS_PREVIEW) return undefined;
     // Poll scanner status every 2s so sidebar dot stays in sync
     const checkScanner = () => {
       invoke('get_scanner_status').then(setScannerStatus).catch(() => setScannerStatus('idle'));
@@ -252,7 +251,6 @@ function AppContent() {
 
   // Show toast when scanner latches onto Warframe (single notification, main window only)
   useEffect(() => {
-    if (IS_PREVIEW) return undefined;
     const unsub = listen('scanner-hooked', () => {
       invoke('show_notification', {
         title: t('app.scanner_title'),

@@ -2366,7 +2366,6 @@ async fn show_relic_overlay(
     rewards: Value,
     persistent: Option<bool>,
 ) -> Result<(), String> {
-    build_profile::require_live()?;
     // Play sound
     let sound = state.notif_sound.lock().unwrap().clone();
     let app = app_handle.clone();
@@ -2419,7 +2418,6 @@ fn hide_overlay_window(
 /// so KWin places it above fullscreen games.
 #[tauri::command]
 fn toggle_sidebar(app_handle: tauri::AppHandle) -> Result<(), String> {
-    build_profile::require_live()?;
     if overlay_utils::SIDEBAR_TOGGLING.swap(true, Ordering::SeqCst) {
         eprintln!("[SIDEBAR-TOGGLE] SKIPPED (already toggling)");
         return Ok(());
@@ -2690,7 +2688,6 @@ fn show_overlay_window(
     app_handle: tauri::AppHandle,
     label: String,
 ) -> Result<(), String> {
-    build_profile::require_live()?;
     overlay_utils::show_window_internal(&app_handle, &label)
 }
 
@@ -2726,7 +2723,6 @@ fn set_ignore_cursor_events(
 
 #[tauri::command]
 async fn play_notification_sound(app_handle: tauri::AppHandle, sound: String) -> Result<(), String> {
-    build_profile::require_live()?;
     if sound == "none" {
         return Ok(());
     }
@@ -2827,7 +2823,6 @@ async fn show_notification(
     silent: Option<bool>,
     no_focus: Option<bool>,
 ) -> Result<(), String> {
-    build_profile::require_live()?;
     let pos       = position.unwrap_or_else(|| "top-right".to_string());
     let img       = image.unwrap_or_default();
     let persist   = persistent.unwrap_or(false);
@@ -3030,7 +3025,6 @@ async fn close_market_order(token: String, order_id: String, quantity: i32) -> R
 
 #[tauri::command]
 async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppState>) -> Result<(), String> {
-    build_profile::require_live()?;
     if state.log_scanner.lock().unwrap().is_some() {
         return Ok(());
     }
@@ -3155,7 +3149,6 @@ struct HotkeyDef {
 
 #[tauri::command]
 async fn set_hotkeys(app: AppHandle, hotkeys: Vec<HotkeyDef>) -> Result<(), String> {
-    build_profile::require_live()?;
     // Fallback: register individually via plugin
     use tauri_plugin_global_shortcut::GlobalShortcutExt;
     let _ = app.global_shortcut().unregister_all();
@@ -3169,7 +3162,6 @@ async fn set_hotkeys(app: AppHandle, hotkeys: Vec<HotkeyDef>) -> Result<(), Stri
 }
 
 async fn register_one_via_plugin(app: &AppHandle, shortcut: &str, action: &str) -> Result<(), String> {
-    build_profile::require_live()?;
     use tauri_plugin_global_shortcut::{GlobalShortcutExt, ShortcutState};
     let shortcut_owned = shortcut.to_string();
     let action_owned = action.to_string();
@@ -3294,7 +3286,6 @@ async fn set_setting(app_handle: tauri::AppHandle, key: String, value: Value) ->
 /// Set the shared monitoring active flag and notify all windows.
 #[tauri::command]
 fn set_monitoring_active(app_handle: tauri::AppHandle, active: bool, result: Option<String>, status_text: Option<String>) -> Result<(), String> {
-    if active { build_profile::require_live()?; }
     let state = app_handle.state::<AppState>();
     state.monitoring_active.store(active, Ordering::SeqCst);
     app_handle.emit("monitoring-active-changed", serde_json::json!({

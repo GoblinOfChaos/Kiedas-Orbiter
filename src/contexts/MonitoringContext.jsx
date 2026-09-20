@@ -17,8 +17,6 @@ import { loadSettings, getSetting, setSetting } from '../lib/settings'
 import { useUi } from './UiContext'
 
 
-import { IS_PREVIEW } from '../lib/buildProfile'
-
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
 const ORACLE_API = 'https://api.warframe.com/cdn/worldState.php'
 // Removed rogue third-party wrapper NIGHTWAVE_LIVE_API
@@ -153,7 +151,7 @@ export function MonitoringProvider({ children }) {
   const [criticalLoadError, setCriticalLoadError] = useState(null)
   const [isMonitoring, setIsMonitoring] = useState(false)
   const [monitorResult, setMonitorResult] = useState('idle') // 'idle' | 'success' | 'error'
-  const [autoStart, setAutoStartState] = useState(!IS_PREVIEW && localStorage.getItem('autoStartMonitoring') === 'true')
+  const [autoStart, setAutoStartState] = useState(localStorage.getItem('autoStartMonitoring') === 'true')
   const autoStartRef = useRef(autoStart)
 
   const setAutoStart = useCallback((val) => {
@@ -850,7 +848,7 @@ export function MonitoringProvider({ children }) {
       // once regardless of which screen is active. Settings are already
       // loaded by this point (awaited above), so getSetting is safe to read.
       if (getSetting('fissure_overlay_enabled')) {
-        if (!IS_PREVIEW) invoke('start_log_scanner').catch(() => {})
+        invoke('start_log_scanner').catch(() => {})
       }
     })()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps

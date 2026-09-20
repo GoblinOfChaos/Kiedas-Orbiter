@@ -190,7 +190,7 @@ function BackToTopButton({ scrollRef }) {
 
 }
 
-export function PageLayout({ title, titleKey, subtitle, children, extra, headerPanel }) {
+export function PageLayout({ title, titleKey, subtitle, children, extra, headerPanel, contentRef }) {
   const { t } = useUi();
   const scrollRef = useRef(null);
   // Default expanded - matches every screen's existing behavior exactly
@@ -230,7 +230,10 @@ export function PageLayout({ title, titleKey, subtitle, children, extra, headerP
       </div>
 
       {/* Scrollable Content Area */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 pb-8 pt-0 min-h-0 flex flex-col custom-scrollbar">
+      <div ref={(node) => {
+        scrollRef.current = node;
+        if (contentRef) contentRef.current = node;
+      }} className="flex-1 overflow-y-auto px-8 pb-8 pt-0 min-h-0 flex flex-col custom-scrollbar">
         {headerPanel && !panelCollapsed &&
         <div className="sticky top-0 z-30 py-4 bg-kronos-bg -mx-8 px-8 border-b border-white/5 mb-6 flex-shrink-0">
             {headerPanel}

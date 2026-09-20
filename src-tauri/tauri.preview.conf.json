@@ -191,7 +191,9 @@
                 }
               ]
             },
-            "shell:allow-open"
+            "shell:allow-open",
+            "global-shortcut:default",
+            "notification:default"
           ]
         }
       ]

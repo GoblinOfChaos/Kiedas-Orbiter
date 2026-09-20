@@ -1,7 +1,7 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { Search, ArrowUpDown, Filter, Layers, LayoutGrid, List } from 'lucide-react';
-import { PageLayout, Input, Button, Tabs, MonitorState } from '../components/UI';
+import { PageLayout, Input, Tabs, MonitorState } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import ModCard from '../components/ModCard';
@@ -16,6 +16,10 @@ import PreviewModsLayout from '../components/PreviewModsLayout';
 
 const CARD_WIDTH = 200;
 const COL_GAP = 50;
+const CARD_HEIGHT = CARD_WIDTH / (290 / 409);
+const GRID_ROW_STRIDE = CARD_HEIGHT + COL_GAP;
+const LIST_ROW_STRIDE = 58;
+const WINDOW_OVERSCAN_ROWS = 3;
 
 export default function Mods() {
   const { t } = useUi()
@@ -72,8 +76,10 @@ export default function Mods() {
   const [ownershipFilter, setOwnershipFilter] = useState('all');
   const [maxRankOnly, setMaxRankOnly] = useState(false);
   const [hideConclave, setHideConclave] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(60);
   const [viewMode, setViewMode] = useState('grid'); // Preview-only
+  const pageScrollRef = useRef(null);
+  const [virtualRoot, setVirtualRoot] = useState(null);
+  const [windowMetrics, setWindowMetrics] = useState({ scrollTop: 0, viewportHeight: 0, columns: 1 });
   const mods = useMemo(() => (inventoryData?.mods_catalog ?? inventoryData?.mods ?? [])
     // Peely Pix/Archimedea stickers have their own tab. They are represented
     // alongside mods in the parser for inventory compatibility, but must not
@@ -89,10 +95,6 @@ export default function Mods() {
   useEffect(() => {
     invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});
   }, []);
-
-  useEffect(() => {
-    setVisibleCount(60);
-  }, [searchQuery, selectedCategoryKey, ownershipFilter, maxRankOnly, hideConclave]);
 
   const filtered = useMemo(() => {
     let items = mods;
@@ -146,27 +148,55 @@ export default function Mods() {
     return sorted;
   }, [mods, searchQuery, selectedCategoryKey, ownershipFilter, maxRankOnly, hideConclave, sortCriteria, sortDirection]);
 
-  const visible = filtered.slice(0, visibleCount);
-
-  // Keep loading more mods in the background instead of leaving it entirely
-  // up to the "Load More" button - matches Inventory.jsx's pagination
-  // (same reasoning: the acquisition drawer can sit over that button,
-  // and auto-loading means the list eventually finishes on its own). A
-  // manual click still works too, for anyone who doesn't want to wait.
+  // The page scroll area is shared with the header controls, so measure the
+  // virtual content's position inside that owner rather than adding a nested
+  // scrolling region. Cards and Preview list rows have fixed geometry, which
+  // makes a native row window sufficient without a virtualizer dependency.
   useEffect(() => {
-    if (visibleCount >= filtered.length) return;
-    const timer = setTimeout(() => {
-      setVisibleCount((prev) => Math.min(prev + 60, filtered.length));
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [visibleCount, filtered.length]);
+    const container = pageScrollRef.current;
+    if (!container || !virtualRoot) return;
+
+    const measure = () => {
+      const rootRect = virtualRoot.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      const columns = IS_PREVIEW && viewMode === 'list'
+        ? 1
+        : Math.max(1, Math.floor((virtualRoot.clientWidth + COL_GAP) / (CARD_WIDTH + COL_GAP)));
+      const scrollTop = Math.max(0, containerRect.top - rootRect.top);
+      setWindowMetrics((previous) => {
+        const next = { scrollTop, viewportHeight: container.clientHeight, columns };
+        return previous.scrollTop === next.scrollTop && previous.viewportHeight === next.viewportHeight && previous.columns === next.columns ? previous : next;
+      });
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(container);
+    observer.observe(virtualRoot);
+    container.addEventListener('scroll', measure, { passive: true });
+    return () => {
+      observer.disconnect();
+      container.removeEventListener('scroll', measure);
+    };
+  }, [virtualRoot, viewMode]);
+
+  useEffect(() => {
+    pageScrollRef.current?.scrollTo({ top: 0 });
+  }, [searchQuery, selectedCategoryKey, ownershipFilter, maxRankOnly, hideConclave, sortCriteria, sortDirection, viewMode]);
+
+  const isListView = IS_PREVIEW && viewMode === 'list';
+  const rowStride = isListView ? LIST_ROW_STRIDE : GRID_ROW_STRIDE;
+  const rowCount = Math.ceil(filtered.length / windowMetrics.columns);
+  const firstRow = Math.max(0, Math.floor(windowMetrics.scrollTop / rowStride) - WINDOW_OVERSCAN_ROWS);
+  const lastRow = Math.min(rowCount, Math.ceil((windowMetrics.scrollTop + windowMetrics.viewportHeight) / rowStride) + WINDOW_OVERSCAN_ROWS);
+  const windowedMods = filtered.slice(firstRow * windowMetrics.columns, lastRow * windowMetrics.columns);
 
   const uniqueMods = new Set(filtered.map((m) => m.name)).size;
   const dupCount = filtered.filter((m) => m.quantity > 1).length;
 
   const openItem = useMemo(() => {
     if (!openKey) return null;
-    const mod = visible.find((m) => m.unique_name === openKey);
+    const mod = filtered.find((m) => m.unique_name === openKey);
     if (!mod) return null;
     return {
       uniqueName: mod.unique_name,
@@ -178,7 +208,7 @@ export default function Mods() {
       owned: mod.owned,
       info: getAcquisitionInfo(mod.unique_name, mod.name, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex),
     };
-  }, [openKey, visible, cardImagesPath, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportComponentIndex]);
+  }, [openKey, filtered, cardImagesPath, dropIndex, acquisitionOverrides, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exportComponentIndex]);
 
   const handleSortChange = (id) => {
     if (id === sortCriteria) {
@@ -364,7 +394,7 @@ export default function Mods() {
       <div className="flex items-center justify-center py-20">
           <div className="w-8 h-8 border-2 border-kronos-accent/20 border-t-kronos-accent rounded-full animate-spin" />
         </div> :
-      visible.length === 0 ?
+      filtered.length === 0 ?
       <div className="text-center py-20 text-kronos-dim italic">{t('mods.no_match')}</div> :
 
       <>
@@ -386,22 +416,23 @@ export default function Mods() {
               <span className="text-[10px] font-black uppercase text-kronos-accent">{t('ui.inventory.fetching_prices')}</span>
             </div>
         }
-          <div
-          className={IS_PREVIEW && viewMode === 'list' ? 'flex flex-col gap-1.5 pb-4' : 'grid pb-4'}
-          data-preview-mods-grid={IS_PREVIEW ? '' : undefined}
-          style={IS_PREVIEW && viewMode === 'list' ? undefined : {
-            gridTemplateColumns: `repeat(auto-fill, ${CARD_WIDTH}px)`,
-            gap: `${COL_GAP}px`,
-            justifyContent: 'center'
-          }}>
+          <div ref={setVirtualRoot} className="relative pb-4" data-preview-mods-grid={IS_PREVIEW ? '' : undefined} style={{ height: `${rowCount * rowStride}px` }}>
+            <div
+              className={isListView ? 'absolute inset-x-0 flex flex-col gap-1.5' : 'absolute inset-x-0 grid'}
+              style={isListView ? { top: `${firstRow * rowStride}px` } : {
+                top: `${firstRow * rowStride}px`,
+                gridTemplateColumns: `repeat(${windowMetrics.columns}, ${CARD_WIDTH}px)`,
+                gap: `${COL_GAP}px`,
+                justifyContent: 'center'
+              }}>
 
-          {visible.map((mod, i) => (
-          IS_PREVIEW && viewMode === 'list' ?
+          {windowedMods.map((mod, i) => (
+          isListView ?
           // Dense list row: same underlying mod, a single-line alternative to
           // ModCard for aligning name/polarity/rank/owned/value across many
           // mods at once for comparison.
           <div
-            key={`${mod.unique_name}_${mod.rank}_${i}`}
+            key={`${mod.unique_name}_${mod.rank}_${firstRow * windowMetrics.columns + i}`}
             className={`relative flex items-center gap-3 px-3 py-2 rounded-xl border border-white/5 bg-black/20 cursor-pointer transition-all hover:bg-white/5 ${mod.owned ? '' : 'grayscale opacity-60'}`}
             onClick={() => toggle(mod.unique_name)}
             onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(mod.unique_name); } }}
@@ -429,7 +460,7 @@ export default function Mods() {
             </div>
           </div> :
           <div
-            key={`${mod.unique_name}_${mod.rank}_${i}`}
+            key={`${mod.unique_name}_${mod.rank}_${firstRow * windowMetrics.columns + i}`}
             className={`relative cursor-pointer ${mod.owned ? '' : 'grayscale opacity-60'}`}
             onClick={() => toggle(mod.unique_name)}
             onKeyDown={IS_PREVIEW ? (event) => {
@@ -453,14 +484,8 @@ export default function Mods() {
               pricesLoading={loadingPrices} />
           </div>
             ))}
-          </div>
-          {visibleCount < filtered.length &&
-        <div className="flex justify-center py-8">
-              <Button onClick={() => setVisibleCount((prev) => prev + 60)} className="text-[10px] font-black uppercase tracking-widest">
-                {t('mods.load_more', { remaining: filtered.length - visibleCount })}
-              </Button>
             </div>
-        }
+          </div>
         </>
       }
     </>
@@ -469,7 +494,8 @@ export default function Mods() {
   const pageLayoutProps = {
     titleKey: 'screen.mods',
     subtitle: `${filtered.length} ${t('mods.stat_total')} · ${uniqueMods} ${t('mods.stat_unique')} · ${dupCount} ${t('mods.stat_duplicate')}`,
-    headerPanel: renderHeaderPanel()
+    headerPanel: renderHeaderPanel(),
+    contentRef: pageScrollRef
   };
 
   return (

@@ -19,7 +19,7 @@ import BugReporterModal from '../components/BugReporterModal';
 import { Bug } from 'lucide-react';
 import { Compass, BookOpen } from 'lucide-react';
 import { IS_PREVIEW } from '../lib/buildProfile';
-import PreviewSettingsLayout, { PreviewSettingsDisabled } from '../components/PreviewSettingsLayout';
+import PreviewSettingsLayout from '../components/PreviewSettingsLayout';
 
 function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
   const { t } = useUi();
@@ -138,7 +138,6 @@ export default function SettingsScreen() {
   }, []);
 
   const handleUpdateHotkeys = async (newHotkeys) => {
-    if (IS_PREVIEW) return;
     setHotkeys(newHotkeys);
     await setSetting('hotkeys', newHotkeys);
 
@@ -365,14 +364,13 @@ export default function SettingsScreen() {
     await invoke('set_notification_sound', { sound }).catch(console.error);
 
     // Preview sound via Rust (one-time manual play)
-    if (!IS_PREVIEW && sound !== 'none') {
+    if (sound !== 'none') {
       await invoke('play_notification_sound', { sound }).catch(console.error);
     }
   };
 
   // Fissure Overlay handlers
   const handleSetFissureEnabled = async (val) => {
-    if (IS_PREVIEW) return;
     setFissureOverlayEnabled(val);
     await setSetting('fissure_overlay_enabled', val);
     if (val) {
@@ -412,7 +410,6 @@ export default function SettingsScreen() {
   };
 
     const handleUseEELogChange = async (val) => {
-    if (IS_PREVIEW) return;
     setUseEELog(val);
     await setSetting('use_ee_log', val);
     try {
@@ -424,7 +421,6 @@ export default function SettingsScreen() {
   };
 
   const handleEeLogPathChange = async (val) => {
-    if (IS_PREVIEW) return;
     setEeLogPath(val);
     await setSetting('ee_log_path', val);
     if (useEELog) {
@@ -495,7 +491,7 @@ export default function SettingsScreen() {
         text: t('settings.acquisition_coverage_done', { count: audit.totalMissing, path: absolutePath }),
         error: false,
       });
-      if (!IS_PREVIEW) invoke('show_notification', {
+      invoke('show_notification', {
         title: t('settings.acquisition_coverage_button'),
         message: t('settings.acquisition_coverage_done', { count: audit.totalMissing, path: absolutePath }),
         position: 'bottom-right',
@@ -507,7 +503,6 @@ export default function SettingsScreen() {
   };
 
   const handleTestNotification = (position, delay = 0) => {
-    if (IS_PREVIEW) return;
     setTimeout(() => {
       // Every real notification path (MonitoringContext.jsx) pairs
       // play_notification_sound with show_notification - this test button
@@ -524,7 +519,6 @@ export default function SettingsScreen() {
   };
 
   const handleTestRelicReward = async () => {
-    if (IS_PREVIEW) return;
     const mockRelics = [
     { era: 'Lith', tier: 'T1', refinement: 'Intact', unique_name: 'Lith S9 Relic' },
     { era: 'Lith', tier: 'T1', refinement: 'Exceptional', unique_name: 'Lith B6 Relic' },
@@ -773,7 +767,6 @@ export default function SettingsScreen() {
           {/* Test buttons */}
           <div className="mb-5 pt-4 border-t border-white/5">
             <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">{t('settings.test_buttons')}</p>
-            <PreviewSettingsDisabled enabled={IS_PREVIEW} reason="Notification and overlay tests are disabled in Preview">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2" data-preview-settings-grid={IS_PREVIEW ? 'notification-tests' : undefined}>
               <button
                 onClick={() => handleTestNotification(notifPosition)}
@@ -794,7 +787,6 @@ export default function SettingsScreen() {
 
               </button>
             </div>
-            </PreviewSettingsDisabled>
           </div>
 
           {/* Inventory Sync + Log Scanner */}
@@ -834,9 +826,7 @@ export default function SettingsScreen() {
                     </button>
                   </div>
                   <div className="flex items-center gap-2">
-                    <PreviewSettingsDisabled enabled={IS_PREVIEW} reason="Periodic inventory monitoring is disabled in Preview">
                     <Toggle checked={isMonitoring} onChange={async (val) => {
-                      if (IS_PREVIEW) return;
                       setAutoStart(val);
                       if (val) {
                         await startMonitoring();
@@ -844,7 +834,6 @@ export default function SettingsScreen() {
                         stopMonitoring();
                       }
                     }} />
-                    </PreviewSettingsDisabled>
                   </div>
                 </div>
               </div>
@@ -871,9 +860,7 @@ export default function SettingsScreen() {
                       t('settings.scanner_offline')}
                     </span>
                   </div>
-                  <PreviewSettingsDisabled enabled={IS_PREVIEW} reason="The log scanner is disabled in Preview">
                     <Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />
-                  </PreviewSettingsDisabled>
                 </div>
               </div>
             </div>
@@ -1154,7 +1141,6 @@ export default function SettingsScreen() {
             </div>
           </div>
 
-          <PreviewSettingsDisabled enabled={IS_PREVIEW} reason="Global hotkey registration is disabled in Preview">
           <div className="space-y-3">
             {hotkeys.map((hk, idx) =>
             <div key={idx} className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-kronos-panel/20 rounded-xl border border-white/5" data-preview-settings-row={IS_PREVIEW ? 'hotkey' : undefined}>
@@ -1215,12 +1201,10 @@ export default function SettingsScreen() {
           <p className="text-[9px] text-zinc-600 mt-4 italic uppercase tracking-wider px-1">{t('settings.shortcut_note')}
 
           </p>
-          </PreviewSettingsDisabled>
         </Card>
 
                 {/* Safe Mode Tracking */}
         <Card glow className="p-5 mb-6" id={IS_PREVIEW ? 'preview-settings-safe-mode' : undefined} data-preview-settings-section={IS_PREVIEW ? 'safe-mode' : undefined}>
-          <PreviewSettingsDisabled enabled={IS_PREVIEW} reason="Safe-mode scanner tracking is disabled in Preview">
           <div className="flex items-start gap-4 mb-6">
             <div className="p-3 rounded-xl bg-kronos-accent/10 border border-kronos-accent/20">
               <FolderOpen className="text-kronos-accent" size={24} />
@@ -1250,7 +1234,6 @@ export default function SettingsScreen() {
               />
             </div>
           </div>
-          </PreviewSettingsDisabled>
         </Card>
 
         {/* Warframe Market Integration */}

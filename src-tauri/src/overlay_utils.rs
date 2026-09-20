@@ -17,7 +17,6 @@ static CACHED_OVERLAY_WINDOWS: LazyLock<Mutex<HashMap<String, WebviewWindow>>> =
     LazyLock::new(|| Mutex::new(HashMap::new()));
 
 fn get_or_create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<WebviewWindow, String> {
-    crate::build_profile::require_live()?;
     // Check cache first — bypasses Tauri's corrupted registry.
     {
         let cache = CACHED_OVERLAY_WINDOWS.lock().unwrap();
@@ -498,7 +497,6 @@ fn create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<tauri::W
 // ── Public API ────────────────────────────────────────────────────────────────
 
 pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), String> {
-    crate::build_profile::require_live()?;
     // Sidebar has its own X11-heavy show path (override-redirect, ungrab, focus).
     if label == "overlay-sidebar" {
         let settings = crate::load_settings_sync();
@@ -713,7 +711,6 @@ pub fn show_sidebar_internal(
     side: &str,
     entry_width: u32,
 ) -> Result<(), String> {
-    crate::build_profile::require_live()?;
     let window = get_or_create_overlay_window(app_handle, "overlay-sidebar")?;
 
     let was_visible = window.is_visible().unwrap_or(false);

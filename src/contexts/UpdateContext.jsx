@@ -3,11 +3,12 @@ import { Update, check } from '@tauri-apps/plugin-updater'
 import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { getSetting } from '../lib/settings'
+import { IS_PREVIEW } from '../lib/buildProfile'
 
 const UpdateContext = createContext()
 
 export function UpdateProvider({ children }) {
-  const [updateState, setUpdateState] = useState({ status: 'idle', manifest: null, error: null })
+  const [updateState, setUpdateState] = useState({ status: IS_PREVIEW ? 'disabled' : 'idle', manifest: null, error: null })
   const checkedRef = useRef(false)
   const latestUpdateRef = useRef(null)
   const installingRef = useRef(false)
@@ -18,6 +19,7 @@ export function UpdateProvider({ children }) {
   }, [])
 
   const runInstall = useCallback(async () => {
+    if (IS_PREVIEW) return
     // Guards against a rapid double-click firing two concurrent installs -
     // setUpdateState's 'installing' status alone isn't enough since a second
     // click can land before the resulting re-render disables the button.
@@ -53,6 +55,7 @@ export function UpdateProvider({ children }) {
   }, [platformInfo])
 
   const checkForUpdates = useCallback(async () => {
+    if (IS_PREVIEW) return
     setUpdateState({ status: 'checking', manifest: null, error: null })
     try {
       const result = await check()

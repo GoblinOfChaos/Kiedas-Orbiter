@@ -1,4 +1,4 @@
-import { Database, ShieldCheck } from 'lucide-react';
+import { Database } from 'lucide-react';
 import { useUi } from '../../contexts/UiContext';
 
 const TONES = {
@@ -16,10 +16,6 @@ export default function PreviewStatusSummary({ status }) {
       <div className={`preview-global-status__item preview-global-status__item--${syncTone}`} title={status.inventorySync.detail}>
         <Database aria-hidden="true" />
         <span>{status.inventorySync.label}</span>
-      </div>
-      <div className="preview-global-status__item preview-global-status__item--preview" title={status.liveIntegrations.detail}>
-        <ShieldCheck aria-hidden="true" />
-        <span>{status.liveIntegrations.label}</span>
       </div>
     </div>
   );

@@ -29,6 +29,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from drain3 import TemplateMiner
+from drain3.masking import RegexMaskingInstruction
 from drain3.template_miner_config import TemplateMinerConfig
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -48,12 +49,21 @@ GUARD_KEYWORDS = [
 
 
 def build_template_miner() -> TemplateMiner:
-    # No masking config file needed for this corpus - Drain3's default
-    # tokenizer + similarity threshold is sufficient for short English
-    # sentences like these (not multi-line stack-trace-style logs).
+    # Drain3's default tokenizer/similarity settings are fine for these short
+    # sentences, but masking_instructions is empty by default - without it,
+    # "for 35 Platinum" and "for 45 Platinum" never merge into one template
+    # with a <*> slot, they just stay two separate, less-useful templates
+    # (confirmed: an earlier run of this script with no masking config
+    # produced fixed-price "templates" with zero <*> tokens at all). Mask
+    # numbers (with $ / commas / decimals) BEFORE clustering, matching the
+    # issue's own prior analysis ("after normalizing quoted names and
+    # numbers") so genuinely-parameterized entries actually collapse.
     config = TemplateMinerConfig()
     config.drain_sim_th = 0.5
     config.drain_depth = 4
+    config.masking_instructions = [
+        RegexMaskingInstruction(r"\$?\d[\d,]*(?:\.\d+)?", "*"),
+    ]
     return TemplateMiner(config=config)
 
 

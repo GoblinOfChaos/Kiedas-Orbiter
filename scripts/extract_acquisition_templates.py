@@ -59,7 +59,7 @@ def build_template_miner() -> TemplateMiner:
     # issue's own prior analysis ("after normalizing quoted names and
     # numbers") so genuinely-parameterized entries actually collapse.
     config = TemplateMinerConfig()
-    config.drain_sim_th = 0.5
+    config.drain_sim_th = 0.7
     config.drain_depth = 4
     config.masking_instructions = [
         RegexMaskingInstruction(r"\$?\d[\d,]*(?:\.\d+)?", "*"),
@@ -88,36 +88,71 @@ def main():
 
     miner = build_template_miner()
 
-    # cluster_id -> {"pattern": str, "keys": [{"section", "key", "params": [...]}]}
-    clusters: dict[int, dict] = {}
+    # Pass 1: feed every entry to Drain3 just to build the clustering tree.
+    # Drain3 refines a cluster's template as more matching lines arrive, so
+    # the template_mined seen on an entry's FIRST pass through add_log_message
+    # is not necessarily its cluster's final, fully-generalized form (confirmed:
+    # extracting params against each entry's own per-call template produced
+    # inconsistent param counts for entries in the same final cluster - some
+    # keys got 2 params, others 4, for byte-identical raw text). Only
+    # (section, key, text, cluster_id) is kept from this pass.
     entry_count = 0
-
+    pending: list[tuple[str, str, str, int]] = []
     for section_name, entries in sections.items():
         for key, text in entries.items():
             if not isinstance(text, str) or not text.strip():
                 continue
             entry_count += 1
             result = miner.add_log_message(text)
-            cluster_id = result["cluster_id"]
-            template = result["template_mined"]
+            pending.append((section_name, key, text, result["cluster_id"]))
 
-            params = miner.extract_parameters(template, text, exact_matching=True)
-            param_values = [p.value for p in params] if params else []
+    # Pass 2: now that every cluster has seen all its members, look up each
+    # cluster's FINAL template and re-extract params against that - guarantees
+    # every key under a given templateId has a param count matching that
+    # template's actual, final <*> slot count.
+    final_template_by_cluster = {c.cluster_id: c.get_template() for c in miner.drain.clusters}
 
-            if cluster_id not in clusters:
-                clusters[cluster_id] = {
-                    "pattern": template,
-                    "guardHints": guard_hint_for(template),
-                    "keys": [],
-                }
-            clusters[cluster_id]["keys"].append(
-                {"section": section_name, "key": key, "params": param_values}
-            )
+    clusters: dict[int, dict] = {}
+    for section_name, key, text, cluster_id in pending:
+        template = final_template_by_cluster[cluster_id]
+        params = miner.extract_parameters(template, text, exact_matching=True)
+        param_values = [p.value for p in params] if params else []
+
+        if cluster_id not in clusters:
+            clusters[cluster_id] = {
+                "pattern": template,
+                "guardHints": guard_hint_for(template),
+                "keys": [],
+            }
+        clusters[cluster_id]["keys"].append(
+            # `text` (the exact raw override string) is stored alongside
+            # params rather than relying on reconstructing it from
+            # pattern+params at runtime - Drain3 can leave a stray literal
+            # fragment in `pattern` when a cluster's varying token didn't
+            # get fully wildcarded (confirmed: one TennoGen designer-name
+            # cluster kept "led" as fixed text even though other members
+            # of the same cluster have completely different names), so
+            # reconstruction doesn't reliably round-trip. Storing the
+            # source text directly makes the runtime lookup exact.
+            {"section": section_name, "key": key, "params": param_values, "text": text}
+        )
 
     # Sort templates by coverage (entry count) descending - matches the
     # issue's own "top-N templates cover most entries" framing, so Phase 2
     # can just take clusters[:N] to translate the highest-value set first.
     sorted_clusters = sorted(clusters.values(), key=lambda c: len(c["keys"]), reverse=True)
+
+    # Guard against the exact bug fixed above (mismatched param counts within
+    # one template) ever shipping silently again: every key under a template
+    # must have the same param count as that template has <*> slots.
+    for c in sorted_clusters:
+        expected = c["pattern"].count("<*>")
+        for k in c["keys"]:
+            if len(k["params"]) != expected:
+                raise AssertionError(
+                    f"param count mismatch in template {c['pattern']!r}: "
+                    f"expected {expected}, got {len(k['params'])} for key {k['key']!r} (text: {k['text']!r})"
+                )
 
     registry = {
         "_meta": {

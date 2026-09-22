@@ -14659,6 +14659,33 @@ export function loadAcquisitionData() {
   return loadPromise;
 }
 
+// warframe-items-acquisition.json represents every acquisition path as a
+// `drops` entry with a `chance`, including guaranteed standing/reputation
+// vendor purchases (Syndicates, Cetus/Fortuna/Deimos/Duviri hub vendors,
+// Conclave, etc.), which get `chance: 1` (100%) since the purchase is
+// always available - not because it's a real drop. That's indistinguishable
+// from a genuine 100%-guaranteed boss/container reward at the data-shape
+// level, so it silently outranks acquisition_overrides.json's real vendor
+// text (confirmed live: "Abating Link" showed a "New Loka, Flawless - 100%"
+// pseudo-drop-table instead of the actual Standing-cost purchase text).
+// This list is the exact, manually-verified set of vendor/Syndicate/hub
+// names observed in that file's `location` field for this pattern - it
+// intentionally does NOT include boss/enemy/container names (Alad V,
+// Jackal, Orokin Storage Container, etc.), which really are guaranteed
+// on-kill/on-open rewards and should keep showing as 100%.
+const FAKE_DROP_VENDOR_NAMES = new Set([
+  'Arbiters of Hexis', 'Cephalon Simaris', 'Cephalon Suda', 'Conclave', 'Entrati',
+  "Kahl's Garrison", 'NecraLoid', 'New Loka', 'Operational Supply', 'Ostron',
+  'Red Veil', 'Solaris United', 'Steel Meridian', 'The Holdfasts',
+  'The Perrin Sequence', 'The Quills', 'Ventkids', 'Vox Solaris',
+]);
+
+function isFakeVendorPurchaseDrop(d) {
+  if (d?.chance !== 1) return false;
+  const vendorName = (d.location || '').split(',')[0].split('(')[0].trim();
+  return FAKE_DROP_VENDOR_NAMES.has(vendorName);
+}
+
 export function getItemDrops(uniqueName) {
   const candidates = [
     itemIndex?.get(uniqueName),
@@ -14666,10 +14693,16 @@ export function getItemDrops(uniqueName) {
     componentIndex?.get(uniqueName),
     componentIndex?.get(canonicalPath(uniqueName)),
   ];
-  const item = candidates.find((candidate) => Array.isArray(candidate?.drops) && candidate.drops.length > 0);
-  if (!item || !Array.isArray(item.drops) || item.drops.length === 0) return null;
+  const item = candidates.find((candidate) => {
+    if (!Array.isArray(candidate?.drops) || candidate.drops.length === 0) return false;
+    return candidate.drops.some((d) => !isFakeVendorPurchaseDrop(d));
+  });
+  if (!item) return null;
 
-  return [...item.drops]
+  const realDrops = item.drops.filter((d) => !isFakeVendorPurchaseDrop(d));
+  if (realDrops.length === 0) return null;
+
+  return [...realDrops]
     .sort((a, b) => (b.chance ?? 0) - (a.chance ?? 0))
     .map((d) => ({
       type: 'drop',

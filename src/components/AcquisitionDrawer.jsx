@@ -4,6 +4,7 @@ import { invoke } from '@tauri-apps/api/core';
 import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from '../lib/codexSupplement';
 import { getItemDrops } from '../lib/acquisitionData';
 import { getDropSourcesWithFallback } from '../lib/dropsParser';
+import { localizeOverrideText } from '../lib/acquisitionTemplates';
 import { MAPPING_TYPES } from '../lib/warframeUtils';
 import BugReporterModal from './BugReporterModal';
 import { useUi } from '../contexts/UiContext';
@@ -61,13 +62,17 @@ export function splitUnconfirmed(text) {
   return { text, unconfirmed: false };
 }
 
-export function getSourceLabel(source, t = (k) => k) {
+export function getSourceLabel(source, t = (k) => k, i18nData = null) {
   if (!source) return t('acquisition_drawer.unknown_source');
 
   const rotation = source.rotation ? ` Rot ${source.rotation}` : '';
   switch (source.type) {
     case 'override':
-      return source.text || t('acquisition_drawer.known_source');
+      // localizeOverrideText is a no-op fallback to the raw English text
+      // whenever there's no matching template or no translation for the
+      // active locale (see GitHub #111 Phase 3) - it never runs upstream of
+      // acquisitionInfo.js's guard-regex chain, only at final display time.
+      return source.text ? localizeOverrideText(source.text, i18nData) : t('acquisition_drawer.known_source');
     case 'non-drop':
       return source.text || t('acquisition_drawer.not_drop_table');
     case 'wiki':
@@ -208,7 +213,7 @@ export function useAcquisitionDrawerData(item) {
 }
 
 export default function AcquisitionDrawer({ item, onClose }) {
-  const { t } = useUi();
+  const { t, i18nData } = useUi();
   const { dropIndex } = useMonitoring();
   const [showReportModal, setShowReportModal] = useState(false);
   const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, codexLoading } = useAcquisitionDrawerData(item);
@@ -237,7 +242,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
         {sources.length > 0 ?
           <div className={sourcesGridClassName}>
             {sources.map((s, i) => {
-              const { text, unconfirmed } = splitUnconfirmed(getSourceLabel(s, t));
+              const { text, unconfirmed } = splitUnconfirmed(getSourceLabel(s, t, i18nData));
               return (
                 <div key={i} className="flex items-start justify-between gap-2 px-3 py-2 rounded bg-black/30 border border-white/5">
                   <div className="min-w-0">
@@ -270,7 +275,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
             </button>
           </div>
         }
-        {sources.some((s) => splitUnconfirmed(getSourceLabel(s, t)).unconfirmed) &&
+        {sources.some((s) => splitUnconfirmed(getSourceLabel(s, t, i18nData)).unconfirmed) &&
           <p className="mt-2 text-[13px] text-amber-400/90 italic">
             {t('acquisition_drawer.unconfirmed_price_note')}
           </p>

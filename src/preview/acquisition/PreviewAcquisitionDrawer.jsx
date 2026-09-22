@@ -23,7 +23,7 @@ import './preview-acquisition.css';
  * this never re-derives acquisition facts of its own.
  */
 export default function PreviewAcquisitionDrawer({ item, onClose }) {
-  const { t } = useUi();
+  const { t, i18nData } = useUi();
   const { dropIndex } = useMonitoring();
   const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, codexLoading } = useAcquisitionDrawerData(item);
   const [showReportModal, setShowReportModal] = useState(false);
@@ -87,7 +87,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
 
   const featured = sources[0] || null;
   const alternatives = sources.slice(1);
-  const featuredSplit = featured ? splitUnconfirmed(getSourceLabel(featured, t)) : null;
+  const featuredSplit = featured ? splitUnconfirmed(getSourceLabel(featured, t, i18nData)) : null;
   const blueprintOrigin = recipe ? resolveBlueprintOrigin(displayName, recipe) : null;
 
   return (
@@ -185,7 +185,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
               {altsExpanded &&
                 <div className="preview-acq-alt-rows">
                   {alternatives.map((s, i) => {
-                    const { text, unconfirmed } = splitUnconfirmed(getSourceLabel(s, t));
+                    const { text, unconfirmed } = splitUnconfirmed(getSourceLabel(s, t, i18nData));
                     return (
                       <div key={i} className="preview-acq-alt-row">
                         <div className="preview-acq-alt-row-text">
@@ -205,7 +205,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
             </div>
           }
 
-          {sources.some((s) => splitUnconfirmed(getSourceLabel(s, t)).unconfirmed) &&
+          {sources.some((s) => splitUnconfirmed(getSourceLabel(s, t, i18nData)).unconfirmed) &&
             <p className="preview-acq-unconfirmed-note">{t('acquisition_drawer.unconfirmed_price_note')}</p>
           }
 

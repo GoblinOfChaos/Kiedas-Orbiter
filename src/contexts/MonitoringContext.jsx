@@ -4,6 +4,7 @@ import * as Comlink from 'comlink'
 import DataProcessingWorker from '../lib/dataProcessing.worker.js?worker'
 import { loadLocale } from '../lib/i18n'
 import { loadAcquisitionData } from '../lib/acquisitionData'
+import { loadAcquisitionTemplates } from '../lib/acquisitionTemplates'
 import { buildRecipeResultIndex, buildExaltedWeaponIndex, buildMarketIndex, buildAlwaysAvailableIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex, buildWikiBlueprintIndex, buildWikiResearchIndex, buildWikiResourceIndex, buildWikiPageAcquisitionIndex, buildWikiAcquisitionStatusIndex, buildRelicStateIndex, buildExportVendorIndex, buildGlyphSupplementIndex, buildExportComponentIndex } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, getPartObtainedStatus, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
@@ -640,6 +641,9 @@ export function MonitoringProvider({ children }) {
       // came back empty. Fire it here once, in parallel, so it's ready by
       // the time any drawer opens.
       loadAcquisitionData().catch((err) => console.error('loadAcquisitionData failed', err))
+      // GitHub #111 Phase 3: same lazy-load-once pattern, feeds
+      // getSourceLabel's override-text localization (see acquisitionTemplates.js).
+      loadAcquisitionTemplates().catch((err) => console.error('loadAcquisitionTemplates failed', err))
       const [updatesRes, exportsRes, mediaRes, pricerRes, spiRes, arbRes, descRes] = await Promise.allSettled([
         invoke('check_exports', { locale: localeRef.current, force: false }),
         invoke('load_all_exports', { locale: localeRef.current }),

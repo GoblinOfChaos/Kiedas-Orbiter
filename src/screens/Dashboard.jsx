@@ -1,6 +1,7 @@
 import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewDashboardView from '../preview/dashboard/PreviewDashboardView';
 import { createDashboardViewModel } from '../preview/view-models/dashboardViewModel';
+import { loadFarmingTargets } from '../lib/farmingTargets/store';
 /**
  * Dashboard.jsx
  *
@@ -192,7 +193,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
   const [showBaroModal, setShowBaroModal] = useState(false);
   const [showWishlistModal, setShowWishlistModal] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [targetNotice, setTargetNotice] = useState(false);
+  const [farmingTargetCount, setFarmingTargetCount] = useState(0);
   const [iconsPath, setIconsPath] = useState('');
   const [framesPath, setFramesPath] = useState('');
   const [calendarDate, setCalendarDate] = useState(new Date(1999, 11, 1)); // Default to Dec 1999
@@ -229,6 +230,13 @@ export default function Dashboard({ onNavigate = () => {} }) {
 
   useEffect(() => {invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});}, []);
   useEffect(() => {invoke('get_mod_frames_path').then((p) => setFramesPath(p)).catch(() => {});}, []);
+  useEffect(() => {
+    let cancelled = false;
+    loadFarmingTargets().then((store) => {
+      if (!cancelled) setFarmingTargetCount(store.targets.length);
+    });
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('dashboard_hidden_cards', JSON.stringify(hiddenCards));
@@ -1604,13 +1612,12 @@ export default function Dashboard({ onNavigate = () => {} }) {
   if (loading && !worldstate) {
     if (IS_PREVIEW) {
       return <PreviewDashboardView
-        model={createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate, t })}
+        model={createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate, t, farmingTargetCount })}
         loading
         onRefresh={handleRefresh}
         onNavigate={onNavigate}
         onCustomize={() => setShowSettings(true)}
-        onAddFarmingTarget={() => setTargetNotice(true)}
-        targetNotice={targetNotice}
+        onAddFarmingTarget={() => onNavigate('farming-targets')}
         t={t}
       />;
     }
@@ -2119,11 +2126,10 @@ export default function Dashboard({ onNavigate = () => {} }) {
   if (IS_PREVIEW) {
     return <>
       <PreviewDashboardView
-        model={createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate, t })}
+        model={createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate, t, farmingTargetCount })}
         cards={cards}
         actions={dashboardActions}
-        targetNotice={targetNotice}
-        onAddFarmingTarget={() => setTargetNotice(true)}
+        onAddFarmingTarget={() => onNavigate('farming-targets')}
         onNavigate={onNavigate}
         onCustomize={() => setShowSettings(true)}
         onRefresh={handleRefresh}

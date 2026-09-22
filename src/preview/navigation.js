@@ -1,4 +1,4 @@
-import { BarChart3 } from 'lucide-react';
+import { BarChart3, Target } from 'lucide-react';
 
 export const PREVIEW_NAV_GROUPS = [
   { id: 'today', label: 'Today' },
@@ -19,6 +19,10 @@ export const NAV_ITEMS = [
   { id: 'rivens', groupId: 'trading', groupOrder: 2, stableOrder: 7, icon: 'IconRiven.png', label: 'Rivens' },
   { id: 'relics', groupId: 'planning', groupOrder: 2, stableOrder: 8, icon: 'IconRelic.png', label: 'Relics' },
   { id: 'relic-planner', groupId: 'planning', groupOrder: 3, stableOrder: 9, icon: 'VoidSymbol.png', label: 'Relic Planner' },
+  // Preview-only feature (Stage 4C) with no Stable equivalent, so
+  // deliberately no `stableOrder` - STABLE_NAV_ITEMS's render path in
+  // App.jsx is dead code under IS_PREVIEW anyway.
+  { id: 'farming-targets', groupId: 'planning', groupOrder: 5, lucide: Target, label: 'Farming Targets' },
   { id: 'collectibles', groupId: 'collection', groupOrder: 5, stableOrder: 10, icon: 'GrimoireMarker.png', label: 'Collectibles' },
   { id: 'cosmetics', groupId: 'collection', groupOrder: 4, stableOrder: 11, icon: 'Appearance.png', label: 'Cosmetics, Decor, Emotes' },
   { id: 'adversaries', groupId: 'journal-tools', groupOrder: 2, stableOrder: 12, icon: 'Adversaries.png', label: 'Adversaries' },

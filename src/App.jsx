@@ -60,6 +60,7 @@ const About = lazy(() => import('./screens/About'));
 const Rivens = lazy(() => import('./screens/Rivens'));
 const Relics = lazy(() => import('./screens/Relics'));
 const RelicPlanner = lazy(() => import('./screens/RelicPlanner'));
+const FarmingTargets = lazy(() => import('./screens/FarmingTargets'));
 const Mods = lazy(() => import('./screens/Mods'));
 const Collectibles = lazy(() => import('./screens/Collectibles'));
 const Cosmetics = lazy(() => import('./screens/Cosmetics'));
@@ -301,6 +302,7 @@ function AppContent() {
     rivens: <Rivens />,
     relics: <Relics />,
     'relic-planner': <RelicPlanner />,
+    'farming-targets': <FarmingTargets />,
     mods: <Mods />,
     mastery: <Mastery />,
     history: <History />,

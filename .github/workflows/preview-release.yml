@@ -1,0 +1,164 @@
+name: Preview Release
+
+on:
+  push:
+    tags:
+      - 'preview-v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Preview release tag to create or update (for example, preview-v1.3.4)
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: ubuntu-24.04
+            bundles: appimage
+          - platform: windows-latest
+            bundles: msi,nsis
+          - platform: macos-latest
+            bundles: dmg
+    runs-on: ${{ matrix.platform }}
+    env:
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+
+    steps:
+      - name: Checkout repository (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: Install dependencies (Ubuntu)
+        if: matrix.platform == 'ubuntu-24.04'
+        run: |
+          sudo apt-get update || sudo apt-get update
+          sudo apt-get install -y --fix-missing \
+            pkg-config \
+            build-essential \
+            libgtk-3-dev \
+            libwebkit2gtk-4.1-dev \
+            libjavascriptcoregtk-4.1-dev \
+            librsvg2-dev \
+            patchelf \
+            clang \
+            lld \
+            libasound2-dev \
+            libssl-dev \
+            libdbus-1-dev \
+            libpango1.0-dev \
+            libcairo2-dev \
+            libarchive-dev \
+            libicu-dev \
+            libcap-dev \
+            libayatana-appindicator3-dev \
+            squashfs-tools \
+            fuse
+
+      - name: Prepare Tauri binaries directory
+        shell: bash
+        run: mkdir -p src-tauri/data/bin
+
+      - name: Download Warframe-Exporter-CLI (Windows)
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          curl -L "https://github.com/Puxtril/Warframe-Exporter/releases/download/v2.14/Warframe-Exporter-CLI_Windows.exe" \
+            -o src-tauri/data/bin/Warframe-Exporter-CLI.exe
+
+      - name: Download Warframe-Exporter-CLI (Linux)
+        if: matrix.platform == 'ubuntu-24.04'
+        shell: bash
+        run: |
+          curl -L "https://github.com/Puxtril/Warframe-Exporter/releases/download/v2.14/Warframe-Exporter-CLI_Linux.AppImage" \
+            -o /tmp/Warframe-Exporter-CLI.AppImage
+          chmod +x /tmp/Warframe-Exporter-CLI.AppImage
+          /tmp/Warframe-Exporter-CLI.AppImage --appimage-extract > /dev/null 2>&1
+          BIN=$(find squashfs-root -type f -executable 2>/dev/null | head -1)
+          if [ -n "$BIN" ]; then
+            cp "$BIN" src-tauri/data/bin/Warframe-Exporter-CLI
+            chmod +x src-tauri/data/bin/Warframe-Exporter-CLI
+          else
+            cp /tmp/Warframe-Exporter-CLI.AppImage src-tauri/data/bin/Warframe-Exporter-CLI
+            chmod +x src-tauri/data/bin/Warframe-Exporter-CLI
+          fi
+          rm -rf squashfs-root /tmp/Warframe-Exporter-CLI.AppImage
+
+      - name: Install frontend dependencies
+        run: pnpm install
+
+      - name: Build and release Preview app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUST_BACKTRACE: full
+        with:
+          tagName: ${{ env.RELEASE_TAG }}
+          releaseName: "Kieda's Orbiter Preview ${{ env.RELEASE_TAG }}"
+          releaseBody: See the attached assets for the Preview binaries.
+          releaseDraft: true
+          prerelease: true
+          uploadPlainBinary: false
+          args: --features preview --config src-tauri/tauri.preview.conf.json --bundles ${{ matrix.bundles }}
+
+      # Keep Preview AppImages compatible with the same Tauri/Linux runtime
+      # behavior already handled by the stable release workflow.
+      - name: Patch Preview AppImage resource path and Wayland preload
+        if: matrix.platform == 'ubuntu-24.04'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          APPIMAGE_DIR="src-tauri/target/release/bundle/appimage"
+          APPIMAGE_FILE=$(find "$GITHUB_WORKSPACE/$APPIMAGE_DIR" -maxdepth 1 -name '*.AppImage' -type f | head -1)
+          [ -n "$APPIMAGE_FILE" ] || { echo "No AppImage found"; exit 1; }
+
+          curl -fsSL "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage" -o /tmp/appimagetool
+          chmod +x /tmp/appimagetool
+
+          PATCH_DIR=$(mktemp -d)
+          cd "$PATCH_DIR"
+          "$APPIMAGE_FILE" --appimage-extract > /dev/null 2>&1
+
+          WRONG_RESOURCE_DIR=$(find squashfs-root/usr/lib -maxdepth 1 -mindepth 1 -type d ! -name kiedas-orbiter | head -1)
+          if [ -n "$WRONG_RESOURCE_DIR" ] && [ ! -d squashfs-root/usr/lib/kiedas-orbiter ]; then
+            mv "$WRONG_RESOURCE_DIR" squashfs-root/usr/lib/kiedas-orbiter
+          fi
+          test -f squashfs-root/usr/lib/kiedas-orbiter/data/assets/data/wiki-baro-acquisition.json || { echo "Resource relocation failed"; exit 1; }
+
+          # Work around Tauri AppImage EGL_BAD_PARAMETER on rolling-release
+          # distros; see https://github.com/tauri-apps/tauri/pull/12491.
+          cat > /tmp/preload-snippet.sh << 'EOF'
+          for libpath in /usr/lib/x86_64-linux-gnu/libwayland-client.so.0 /usr/lib64/libwayland-client.so.0 /usr/lib/libwayland-client.so.0 /lib64/libwayland-client.so.0; do
+            [ -f "$libpath" ] && export LD_PRELOAD="$libpath" && break
+          done
+          EOF
+          sed -i '2r /tmp/preload-snippet.sh' squashfs-root/AppRun
+
+          PATCHED="/tmp/$(basename "$APPIMAGE_FILE")"
+          ARCH=x86_64 /tmp/appimagetool --comp zstd squashfs-root "$PATCHED"
+          chmod +x "$PATCHED"
+          cp "$PATCHED" "$APPIMAGE_FILE"
+          gh release upload "$RELEASE_TAG" "$APPIMAGE_FILE" --clobber

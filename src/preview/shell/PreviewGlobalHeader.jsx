@@ -23,7 +23,6 @@ export default function PreviewGlobalHeader({ activeRouteId, onNavigate, status,
     <header className="preview-global-header">
       <PreviewRouteSearch activeRouteId={activeRouteId} onNavigate={onNavigate} t={t} uiIcon={uiIcon} />
       <PreviewStatusSummary status={status} />
-      <span className="preview-global-header__profile">{status.profile.label}<small>{status.profile.detail}</small></span>
       <div ref={menuRef} className="preview-global-header__more">
         <button type="button" aria-label={t('preview.shell.more_actions')} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
           {open ? <X aria-hidden="true" /> : <MoreVertical aria-hidden="true" />}

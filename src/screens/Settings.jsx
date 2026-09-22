@@ -108,6 +108,11 @@ export default function SettingsScreen() {
   const [coverageAuditStatus, setCoverageAuditStatus] = useState(null); // { text, error } | null
   const [showBugModal, setShowBugModal] = useState(false);
   const [tick, setTick] = useState(0);
+  const handleReloadUi = () => {
+    if (window.confirm(t('settings.reload_ui_confirm'))) {
+      window.location.reload();
+    }
+  };
   useEffect(() => {
     if (!isMonitoring) return;
     const iv = setInterval(() => setTick((t) => t + 1), 1000);
@@ -1048,6 +1053,13 @@ export default function SettingsScreen() {
               >
                 <Bug size={16} />
                 {t('settings.report_issue_button')}
+              </button>
+              <button
+                onClick={handleReloadUi}
+                className="py-2.5 px-4 rounded-xl border border-kronos-accent/30 bg-kronos-accent/15 text-kronos-accent text-xs font-black uppercase tracking-wider hover:bg-kronos-accent/25 transition-all flex items-center justify-center gap-2 flex-shrink-0"
+              >
+                <RefreshCw size={16} />
+                {t('settings.reload_ui_button')}
               </button>
               <button
                 onClick={handleExportAcquisitionCoverageReport}

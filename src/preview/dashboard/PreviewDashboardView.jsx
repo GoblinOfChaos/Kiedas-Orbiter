@@ -29,7 +29,6 @@ export default function PreviewDashboardView({
   cards = {},
   actions,
   loading = false,
-  targetNotice = false,
   onAddFarmingTarget,
   onNavigate,
   onCustomize,
@@ -64,7 +63,7 @@ export default function PreviewDashboardView({
           <div className="preview-dashboard__layout">
             <div className="preview-dashboard__main">
               <div className="preview-dashboard__summary" aria-label={t('preview.dashboard.summary_aria')}>
-                <SummaryCard icon={Target} value={model.targets.count} label={t('preview.dashboard.tracked_targets')} detail={t('preview.dashboard.targets_not_ready')} />
+                <SummaryCard icon={Target} value={model.targets.count} label={t('preview.dashboard.tracked_targets')} detail={model.targets.count ? undefined : t('preview.dashboard.targets_not_ready')} />
                 <SummaryCard icon={Anvil} value={model.foundry.known ? model.foundry.count : '—'} label={t('preview.dashboard.ready_to_claim')} detail={!model.foundry.known ? t('preview.dashboard.inventory_unavailable') : undefined} />
                 <SummaryCard icon={Sparkles} value={model.session.count} label={t('preview.dashboard.new_activity')} />
               </div>
@@ -73,10 +72,9 @@ export default function PreviewDashboardView({
                 <header><h2>{t('preview.dashboard.continue_plans')}</h2></header>
                 <div className="preview-dashboard__target-empty">
                   <Target aria-hidden="true" />
-                  <strong>{t('preview.dashboard.no_targets')}</strong>
-                  <p>{t('preview.dashboard.no_targets_detail')}</p>
-                  <PreviewButton variant="primary" onClick={onAddFarmingTarget}>{t('preview.dashboard.add_target')}</PreviewButton>
-                  {targetNotice && <p className="preview-dashboard__target-notice" role="status">{t('preview.dashboard.no_targets_detail')}</p>}
+                  <strong>{model.targets.count ? t('preview.dashboard.targets_active', { count: model.targets.count }) : t('preview.dashboard.no_targets')}</strong>
+                  <p>{model.targets.count ? t('preview.dashboard.targets_active_detail') : t('preview.dashboard.no_targets_detail')}</p>
+                  <PreviewButton variant="primary" onClick={onAddFarmingTarget}>{model.targets.count ? t('preview.dashboard.view_targets') : t('preview.dashboard.add_target')}</PreviewButton>
                 </div>
               </PreviewPanel>
 
